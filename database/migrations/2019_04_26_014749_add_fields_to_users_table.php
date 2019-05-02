@@ -16,7 +16,7 @@ class AddFieldsToUsersTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             //'facebook', 'phone', 'address', 'avatar', 'coins', 'bod', 'gender', 'status'
             $table->string('facebook', 255)->nullable();
-            $table->string('phone', 15)->unique();
+            $table->string('phone', 15)->nullable();
             $table->string('address', 255)->nullable();
             $table->string('avatar', 255)->nullable();
             $table->integer('coins')->default(0);
