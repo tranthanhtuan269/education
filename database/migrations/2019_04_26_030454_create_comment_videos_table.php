@@ -13,6 +13,7 @@ class CreateCommentsTable extends Migration
      */
     public function up()
     {
+        //'content', 'video_id', 'parent_id', 'state'
         Schema::create('comment_videos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('content', 255);

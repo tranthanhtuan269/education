@@ -13,6 +13,7 @@ class CreateNotesTable extends Migration
      */
     public function up()
     {
+        //'content', 'video_id', 'user_id', 'time_tick'
         Schema::create('notes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('content', 255);

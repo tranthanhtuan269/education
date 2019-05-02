@@ -13,10 +13,11 @@ class CreateOrdersTable extends Migration
      */
     public function up()
     {
+        //'payment_id', 'user_id', 'status'
         Schema::create('orders', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('order_id');
-            $table->integer('user_role_id');
+            $table->integer('payment_id');
+            $table->integer('user_id');
             $table->integer('status')->default(0);
             $table->timestamps();
         });

@@ -13,6 +13,7 @@ class CreateCommentsTable extends Migration
      */
     public function up()
     {
+        //'content', 'lecturer_id', 'parent_id', 'state'
         Schema::create('comment_lecturers', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('content', 255);
