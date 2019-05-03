@@ -1,5 +1,6 @@
 html,body, h1, h2, h3, h4, h5, h6, form, input, select, ul, textarea, p { margin: 0px; padding: 0; }
 ul { list-style: inside; }
+button {box-shadow: none !important; outline: none !important;}
 li { margin: 0px; padding: 0px; list-style: none; }
 .learning-video{
     margin: 0;
@@ -8,14 +9,18 @@ li { margin: 0px; padding: 0px; list-style: none; }
 #my-video{
     width: 100vw;
     height: 100vh;
-    transition: 0.5s;
-
+    transition: 0.2s;
+    float: right;
 }
+#my-video.sidebarActive{
+    width: 65vw;
+}
+
 .vjs-control-bar{
     display: inline-block;
     height: 6em !important;
-    padding-top: 2.5em !important;
-    padding-bottom: 0.5em !important;
+    padding-top: 2em !important;
+    padding-bottom: 1em !important;
 
     /* background: linear-gradient(to top, rgba(20,23,28,0.9) 0, rgba(20,23,28,0.738) 19%, rgba(20,23,28,0.541) 34%, rgba(20,23,28,0.382) 47%, rgba(20,23,28,0.278) 56.5%, rgba(20,23,28,0.194) 65%, rgba(20,23,28,0.126) 73%, rgba(20,23,28,0.075) 80.2%, rgba(20,23,28,0.042) 86.1%, rgba(20,23,28,0.021) 91%, rgba(20,23,28,0.008) 95.2%, rgba(20,23,28,0.002) 98.2%, rgba(20,23,28,0) 100%) !important; */
     background: rgba(173, 173, 173, 0.562) !important;
@@ -30,6 +35,19 @@ li { margin: 0px; padding: 0px; list-style: none; }
     width: auto !important;
     height: 0.5em !important;
 }
+.video-js .vjs-progress-control .vjs-progress-holder{
+    height: 5px;
+}
+.video-js .vjs-progress-control .vjs-load-progress{
+    height: 5px;
+}
+.video-js .vjs-progress-control .vjs-play-progress{
+    background-color: #007BE5;
+}
+.video-js .vjs-play-progress:before {
+    font-size: 1em !important;
+}
+
 /* .vjs-fullscreen-control{
     margin-left: auto !important;
 } */
@@ -38,7 +56,7 @@ li { margin: 0px; padding: 0px; list-style: none; }
 
 }
 .learning-top{
-    z-index: 2;
+    z-index: 3;
     position: absolute;
     padding-top: 0.5em;
     padding-bottom: 0.5em;
@@ -54,11 +72,7 @@ li { margin: 0px; padding: 0px; list-style: none; }
 }
 
 .vjs-big-play-button{
-    border:none !important;
-    /* border-radius: 50% !important; */
-    /* width: 3em !important; */
-    /* height: 3em !important; */
-    /* text-align: center; */
+    display: none !important;
 }
 .lecture-title {
     margin-left: 5em;
@@ -68,6 +82,7 @@ li { margin: 0px; padding: 0px; list-style: none; }
 }
 .lecture-title p {
     margin-left: 15px;
+    margin-top: 2px;
 }
 .lecture-title i {
     margin-top: 0.3em;
@@ -76,27 +91,36 @@ li { margin: 0px; padding: 0px; list-style: none; }
     float: right;
     margin-right: 5em;
     display: inline-flex;
-    font-size: 20px;
+    font-size: 17px;
+}
+.lecture-subtitle p{
+    margin-top: 2px;
 }
 
 .learning-lecture-list{
-    position: absolute;
-    display: none;
-    left: 0;
+    z-index: 4;
+    position: fixed;
+    left: -35vw;
     top: 0;
-    width: 0;
+    width: 35vw;
     height: 100vh;
-    background: #133A54;
-    transition: 0.5s;
+    background: rgba(19, 58, 84, 0.445);
+    transition: 0.2s;
+}
+.learning-lecture-list.active{
+    left: 0;
 }
 .learning-lecture-list-searchbar{
     position: relative;
     background-color: rgb(15, 44, 63);
     height: 3em;
 }
-.learning-lecture-list-searchbar .btn {
+.learning-lecture-list-searchbar #btnCloseSidebar {
     color: white;
     font-size: 22px;
+}
+.learning-lecture-list-searchbar #btnCloseSidebar:hover {
+    color: #dd0202;
 }
 .learning-lecture-list-searchbar .input-group{
     width: 100%;
@@ -109,5 +133,124 @@ li { margin: 0px; padding: 0px; list-style: none; }
 .learning-lecture-list-searchbar .input-group span{
     background-color:#44B900 !important;
     color: white !important;
+}
+
+.learning-desc-panel{
+    position: absolute;
+    z-index: 2;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.363);
+}
+.learning-desc-panel-body{
+    padding-top: 20vh;
+    padding-left: 20vw;
+    padding-right: 20vw;
+    width: 100vw;
+    height: 100vh;
+    color: white;
+    transition: 0.2s;
+}
+.learning-desc-panel-body.sidebarActive{
+    padding-left: 40vw;
+    padding-right: 5vw;
     
+}
+
+.ln-desc-content{
+    text-align:justify;
+}
+.ln-desc-btn-play button{
+    color: #ffffff;
+    font-weight: bold;
+    padding: 0.1em 2em 0.1em;
+    background: #F48E02 !important;
+    border-color: #F48E02;
+}
+
+.ln-desc-achv .lecture-progress {
+    border-bottom-left-radius: 7px;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.cup-progress .progress {
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px;
+}
+.ln-desc-achv .ln-progress-bar {
+    display: inline-flex;
+}
+.cup-progress{
+    position: relative;
+}
+.cup-progress i{
+    position: absolute;
+    font-size: 25px;
+    bottom: 30px;
+    right: 1.5vw;
+    color: white;
+    
+}
+.ln-progress-bar{
+    position: relative;
+}
+
+#btnRewind{
+    font-size: large;
+}
+#btnSpeed{
+    font-size: small;
+    padding-left: 1em;
+    padding-right: 1em;
+    margin: 4px 5px 2px;
+    color: #000000 !important;
+    background-color: #ffffff !important;
+    border-color: #ffffff !important;
+}
+#btnForward{
+    font-size: large;
+}
+.group-btn-control-time{
+    margin-top: 3px;
+}
+.group-player-time{
+    color: #ffffff !important;
+    font-weight: bold !important;
+}
+
+
+.vjs-paused:before{
+    
+    font-size: large !important;
+}
+.vjs-playing:before{
+    
+    font-size: large !important;
+}
+.vjs-play-control{
+    font-size: small !important;
+}
+.vjs-mute-control{
+    font-size: small !important;
+}
+.vjs-fullscreen-control{
+    font-size: small !important;
+}
+.vjs-remaining-time{
+    display: none !important;
+}
+.vjs-volume-control{
+    margin-top: 4px !important;
+    margin-right: 10px !important;
+}
+.vjs-volume-level{
+    height: 3px !important;
+}
+
+.learning-lecture-list-body{
+    margin: 0.5em;
 }
