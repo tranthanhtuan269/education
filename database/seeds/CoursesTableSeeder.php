@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 use App\Course;
+use App\Unit;
+use App\Video;
 
 class CoursesTableSeeder extends Seeder
 {
@@ -15,21 +17,40 @@ class CoursesTableSeeder extends Seeder
     	//'name', 'category_id', 'price', 'real_price', 'from_sale', 'to_sale', 'duration', 'downloadable_count', 'video_count', 'student_count', 'star_count', 'vote_count', 'sale_count', 'view_count', 'description', 'will_learn', 'requirement', 'level', 'apptox_time', 'featured', 'featured_index', 'promotion', 'promotion_index', 'five_stars', 'four_stars', 'three_stars', 'two_stars', 'one_stars', 'status'
 
     	$courseArr = [
-    		['Laravel cơ bản', 2, 'Giới thiệu về Laravel, các thành phần cơ bản và cấu trúc MVC của Laravle, một số bài thực hành cơ bản với Laravel'], 
-    		['Laravel cho designer', 2, 'Giới thiệu về Laravel, cách sử dụng Laravel cho các bài toán thực tế, viết ứng dụng quản lý ảnh '], 
-    		['Sử lý gửi email tự động trong Laravel', 2, 'Đặt vấn đề với một bài toán cơ bản, cách giải quyết, chia vấn đề lớn thành nhiều vấn đề cơ bản và cách xử lý vấn đề gửi email tự động trong Laravel'], 
-
-    		['YII cơ bản', 2, 'Giới thiệu về YII, các thành phần cơ bản và cấu trúc MVC của Laravle, một số bài thực hành cơ bản với YII'], 
-    		['YII cho designer', 2, 'Giới thiệu về YII, cách sử dụng YII cho các bài toán thực tế, viết ứng dụng quản lý ảnh '], 
-    		['Sử lý gửi email tự động trong YII', 2, 'Đặt vấn đề với một bài toán cơ bản, cách giải quyết, chia vấn đề lớn thành nhiều vấn đề cơ bản và cách xử lý vấn đề gửi email tự động trong YII'], 
-
-    		['Symfony cơ bản', 2, 'Giới thiệu về Symfony, các thành phần cơ bản và cấu trúc MVC của Laravle, một số bài thực hành cơ bản với Symfony'], 
-    		['Symfony cho designer', 2, 'Giới thiệu về Symfony, cách sử dụng Symfony cho các bài toán thực tế, viết ứng dụng quản lý ảnh '], 
-    		['Sử lý gửi email tự động trong Symfony', 2, 'Đặt vấn đề với một bài toán cơ bản, cách giải quyết, chia vấn đề lớn thành nhiều vấn đề cơ bản và cách xử lý vấn đề gửi email tự động trong Symfony'],
-
-    		['CakePHP cơ bản', 2, 'Giới thiệu về CakePHP, các thành phần cơ bản và cấu trúc MVC của Laravle, một số bài thực hành cơ bản với CakePHP'], 
-    		['CakePHP cho designer', 2, 'Giới thiệu về CakePHP, cách sử dụng CakePHP cho các bài toán thực tế, viết ứng dụng quản lý ảnh '], 
-    		['Sử lý gửi email tự động trong CakePHP', 2, 'Đặt vấn đề với một bài toán cơ bản, cách giải quyết, chia vấn đề lớn thành nhiều vấn đề cơ bản và cách xử lý vấn đề gửi email tự động trong CakePHP'], 
+    		[
+    			'Laravel cơ bản', 2, 'Giới thiệu về Laravel, các thành phần cơ bản và cấu trúc MVC của Laravle, một số bài thực hành cơ bản với Laravel',
+    			[
+    				[
+						'Giới thiệu về Laravel',
+						[
+							['Lịch sử các phiên bản', 'videos/video.mp4', 360, 1],
+							['Những tính năng vượt trội của Laravel', 'videos/video.mp4', 360, 1]
+						]
+					],[
+						'Getting Started',
+						[
+							['Installation ', 'videos/video.mp4', 360, 2],
+							['Configuration', 'videos/video.mp4', 360, 2],
+							['Directory Structure', 'videos/video.mp4', 360, 2]
+						]
+					],[
+						'Architecture Concepts',
+						[
+							['Request Lifecycel', 'videos/video.mp4', 360, 3],
+							['Service Container', 'videos/video.mp4', 360, 3]
+						]
+					],[
+						'The Basics',
+						[
+							['Routing', 'videos/video.mp4', 360, 4],
+							['Middleware', 'videos/video.mp4', 360, 4],
+							['Controller', 'videos/video.mp4', 360, 4],
+							['Views', 'videos/video.mp4', 360, 4]
+						]
+					]
+				],
+				1
+    		]
     	];
 
     	foreach($courseArr as $course){
@@ -43,7 +64,7 @@ class CoursesTableSeeder extends Seeder
 	        $courses->name = $course[0];
 	        $courses->category_id = $course[1];
 	        $courses->price = 500000;
-	        $courses->price = 800000;
+	        $courses->real_price = 800000;
 	        $courses->duration = 516;
 	        $courses->downloadable_count = 3;
 	        $courses->video_count = 36;
@@ -68,6 +89,24 @@ class CoursesTableSeeder extends Seeder
 	        $courses->one_stars = $rand_one;
 	        $courses->status = 1;
 	        $courses->save();
+
+	        foreach($course[3] as $unit){
+	        	$unitObj = new Unit;
+	        	$unitObj->name = $unit[0];
+	        	$unitObj->course_id = $courses->id;
+	        	$unitObj->video_count = count($unit[1]);
+	        	$unitObj->save();
+
+	        	foreach($unit[1] as $video){
+	        		$videoObj = new Video();
+	        		$videoObj->name = $video[0];
+	        		$videoObj->url_video = $video[1];
+	        		$videoObj->duration = $video[2];
+	        		$videoObj->unit_id = $unitObj->id;
+	        		$videoObj->state = 1;
+	        		$videoObj->save();
+	        	}
+	        }
 	    }
     }
 }
