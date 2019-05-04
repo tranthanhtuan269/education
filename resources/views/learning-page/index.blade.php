@@ -35,7 +35,7 @@
         <div class="learning-top">
             <div class="lecture-title">
                 <i class="fas fa-list-ul"></i>
-                <p>Lac nhau co phai muon doi</p>
+                <p>Lecture list</p>
             </div>
             <div class="lecture-subtitle">
                 <p>Go to Dashboard</p>
