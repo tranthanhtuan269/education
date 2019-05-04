@@ -36,12 +36,12 @@ $( document ).ready(function() {
         if(!$(".learning-lecture-list").hasClass('active')){
             
             $(".learning-lecture-list").addClass('active')
-            $("#my-video").addClass('sidebarActivee')
+            $("#my-video").addClass('sidebarActive')
             $(".learning-desc-panel-body").addClass('sidebarActive')
         }else{
 
             $(".learning-lecture-list").removeClass('active')
-            $("#my-video").removeClass('sidebarActivee')
+            $("#my-video").removeClass('sidebarActive')
             $(".learning-desc-panel-body").removeClass('sidebarActive')
         }
     }

@@ -2,6 +2,9 @@ html,body, h1, h2, h3, h4, h5, h6, form, input, select, ul, textarea, p { margin
 ul { list-style: inside; }
 button {box-shadow: none !important; outline: none !important;}
 li { margin: 0px; padding: 0px; list-style: none; }
+body{
+    font-family: 'Open Sans', sans-serif !important;
+}
 .learning-video{
     margin: 0;
     padding: 0;
@@ -17,6 +20,7 @@ li { margin: 0px; padding: 0px; list-style: none; }
 }
 
 .vjs-control-bar{
+    z-index: 3;
     display: inline-block;
     height: 6em !important;
     padding-top: 2em !important;
@@ -58,14 +62,15 @@ li { margin: 0px; padding: 0px; list-style: none; }
 .learning-top{
     z-index: 3;
     position: absolute;
-    padding-top: 0.5em;
-    padding-bottom: 0.5em;
+    padding-top: 0.5vw;
+    padding-bottom: 0.5vw;
     top: 0;
     right: 0;
     left: 0;
-    height: 3em;
+    height: 3vw;
     color: rgb(255, 255, 255);
     transition: visibility 0.1s, opacity 0.1s;
+    background: rgba(173, 173, 173, 0.562);
     
 
     background: rgba(173, 173, 173, 0.562);
@@ -77,24 +82,22 @@ li { margin: 0px; padding: 0px; list-style: none; }
 .lecture-title {
     margin-left: 5em;
     display: inline-flex;
-    font-size: 17px;
+    font-size: 1.5vw;
     cursor: pointer;
 }
 .lecture-title p {
-    margin-left: 15px;
-    margin-top: 2px;
+    margin-left: 1vw;
 }
 .lecture-title i {
-    margin-top: 0.3em;
+    margin-top: 0.5vw;
 }
 .lecture-subtitle{
     float: right;
     margin-right: 5em;
     display: inline-flex;
-    font-size: 17px;
 }
 .lecture-subtitle p{
-    margin-top: 2px;
+    font-size: 1.5vw;
 }
 
 .learning-lecture-list{
@@ -113,25 +116,29 @@ li { margin: 0px; padding: 0px; list-style: none; }
 .learning-lecture-list-searchbar{
     position: relative;
     background-color: rgb(15, 44, 63);
-    height: 3em;
+    height: 6vh;
+    display: flex;
 }
 .learning-lecture-list-searchbar #btnCloseSidebar {
     color: white;
     font-size: 22px;
+    background-color: transparent;
+    margin-left: 0.2vw;
 }
 .learning-lecture-list-searchbar #btnCloseSidebar:hover {
     color: #dd0202;
 }
 .learning-lecture-list-searchbar .input-group{
-    width: 100%;
+    width: 88%;
     padding-left: 0.5em;
-    padding-top: 5px;
+    padding-top: 3px;
 }
 .learning-lecture-list-searchbar .input-group input {
     border-radius: 0;
 }
 .learning-lecture-list-searchbar .input-group span{
     background-color:#44B900 !important;
+    border-radius: 0;
     color: white !important;
 }
 
@@ -157,9 +164,20 @@ li { margin: 0px; padding: 0px; list-style: none; }
     
 }
 
-.ln-desc-content{
+.ln-desc-title p{
+    font-size: 1.75vw;
+}
+.ln-desc-subtitle p{
+    font-size: 1.5vw;
+}
+.ln-desc-content p{
+    font-size: 1.25vw;
     text-align:justify;
 }
+.ln-desc-achv p{
+    font-size: 1.25vw;
+}
+
 .ln-desc-btn-play button{
     color: #ffffff;
     font-weight: bold;
@@ -186,17 +204,22 @@ li { margin: 0px; padding: 0px; list-style: none; }
 }
 .cup-progress{
     position: relative;
+    text-align: center;
 }
 .cup-progress i{
     position: absolute;
-    font-size: 25px;
-    bottom: 30px;
-    right: 1.5vw;
+    font-size: 1.5vw;
+    bottom: 25px;
+    left: 31%;
     color: white;
     
 }
 .ln-progress-bar{
     position: relative;
+}
+.ln-progress-bar .progress{
+    margin-bottom: 0;
+    height: 0.5vw;
 }
 
 #btnRewind{
@@ -253,4 +276,77 @@ li { margin: 0px; padding: 0px; list-style: none; }
 
 .learning-lecture-list-body{
     margin: 0.5em;
+    height: 92vh;
+    color: #ffffff;
+    background: transparent;
+    overflow-y: auto;
+
 }
+.ln-lect-list-header{
+    background-color: #0E2C3F;
+}
+.ln-lect-list-header-row-1{
+    padding-top: 1rem;
+    height: 2em;
+}
+
+.ln-lect-list-header-row-2{
+    padding: 5px 2rem 10px;
+}
+.ln-lect-list-sect-number{
+    float: left;
+    margin-left: 2rem;
+}
+.ln-lect-list-sect-counter{
+    float: right;
+    margin-right: 2rem;
+}
+.ln-lect-list-sect-title{
+    margin-bottom: 0;
+    font-weight: bold;
+}
+.ln-lect-list-body{
+    font-size: 15px;
+    background-color: #0E2C3F;    
+    border-top: 1px solid rgb(8, 27, 39);
+    padding: 5px 1rem 5px;
+    text-align: justify;
+}
+.ln-lect-list-body a{
+    text-decoration: none !important;
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 5px;
+}
+.ln-lect-list-lect-title-icon{
+    order: 1;
+}
+.ln-lect-list-lect-title{
+    order: 2;
+    flex: 1;
+    min-width: 1px;
+}
+.ln-lect-list-body a button{
+    color: #ffffff;
+    background: none;
+    border: none;
+    font-size: 20px;
+    position: relative;
+    bottom: 4.5px;
+}
+.ln-lect-list-body a button:hover{
+    border: none !important;
+    background: none !important;
+    color: #ffffff !important;
+}
+.ln-btn-complete{
+    order: 3;
+}
+.ln-lect-list-item{
+    margin-bottom: 20px;
+    margin-right: 0.6em;
+    -webkit-box-shadow: 2px 4px 6px 1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 2px 4px 6px 1px rgba(0,0,0,0.75);
+    box-shadow: 2px 4px 6px 1px rgba(0,0,0,0.75);
+}
+
