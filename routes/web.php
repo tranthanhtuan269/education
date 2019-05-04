@@ -17,6 +17,7 @@ Route::get('/', function () {
 
 // Auth::routes();
 
+
 // FRONTEND
 Route::get('/home','HomeController@home');
 Route::get('/member-card','HomeController@memberCard');
