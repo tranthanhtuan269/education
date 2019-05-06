@@ -1,32 +1,12 @@
 <?php
-
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Frontends;
 
 use Illuminate\Http\Request;
-
-class HomeController extends Controller
-{
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //$this->middleware('auth');
-    }
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function index()
-    {
-        //return view('home');
-    }
+use Illuminate\Support\MessageBag;
+use App\Http\Requests;
 
 
+class HomeController extends Controller{
     public function home(){
         return view('frontends.home');
     }
@@ -49,4 +29,5 @@ class HomeController extends Controller
     public function courseDetail() {
         return view('frontends.course-detail');
     }
+
 }
