@@ -843,3 +843,200 @@ footer .item-2 .copyright{
 .detail-teacher .frame_2 .info-others ul li img{
     padding-right: 5px;
 }
+
+/*detail-course*/
+.detail-course{
+    margin-bottom: 80px;
+}
+.detail-course .frame .avatar{
+   display: flex;
+   align-items:center;
+}
+.detail-course .frame .info{
+    color: #fff;
+}
+.detail-course .frame .info .name{
+    font-weight: 600;
+    font-size: 19px;
+}
+.detail-course .background{
+    position: absolute;
+}
+.detail-course .item{
+    margin-top: 90px;
+/*    position: relative;
+    top: 90px;*/
+}
+.detail-course .frame .avatar{
+    padding-left: 50px;
+}
+.detail-course .frame .avatar .info{
+    color: #fff;
+}
+.detail-course .frame .network{
+    padding-top: 25px;
+}
+.detail-course .frame .network .btn{
+    padding: 0 15px;
+    margin:0 5px;
+}
+.detail-course .frame .network .btn span{
+    position: relative;
+    top: -2px;
+}
+.detail-course .frame .network img{
+    position: relative;
+    top: 3px;
+}
+.detail-course .frame_2 .box{
+    padding: 0 20px 20px 0;
+}
+.detail-course .frame_2 .box span.sale{
+    color: #FF8F00;
+    font-size: 19px;
+    padding-right: 10px;
+
+}
+.detail-course .frame_2 .box .btn-toh{
+    width: 250px;
+}
+.detail-course .frame_2 .box .btn-toh:hover{
+    background: #FF8F00;
+    border: 1px solid #FF8F00;
+}
+.detail-course .frame_2 .box span.special{
+    position: relative;
+    top: -8px;
+    padding-left: 3px;
+}
+.detail-course .frame_2 .box span.price,.detail-course .frame_2 .box span.price-off{
+    font-size: 19px;
+}
+.detail-course .frame_2 .box span.price{
+    text-decoration: line-through;
+}
+.detail-course .frame_2 .box span.interval{
+    color: red;
+    display: block;
+    font-size: 12px;
+}
+.detail-course .frame_2{
+    background: #fff;
+    padding: 30px;
+    box-shadow: inset 0 0 5px #ccc;
+    margin-top: 25px;
+}
+.detail-course .frame_2 iframe{
+    height: 280px;
+}
+.detail-course .frame_2 .desc{
+    height: 220px;
+    overflow: auto;
+
+}
+.detail-course .menu {
+    text-align: center;
+}
+.detail-course .menu ul {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    /* For IE, the outcast */
+    zoom:1;
+    *display: inline;
+}
+.detail-course .menu {
+    margin: 30px 0;
+}
+.detail-course .menu ul li{
+    background: #ccc;
+    float: left;
+    margin: 0 20px;
+    border-radius: 10px;
+    padding:  5px 15px;
+}
+.detail-course .menu ul li.active{
+    background: linear-gradient(to right, #645f99 , #20CADD);
+    color: #fff;
+    border: none;
+    color: #fff;
+}
+.detail-course .info h3{
+    padding-bottom: 15px;
+}
+.detail-course .info .knowledge{
+    padding: 30px 0;
+}
+.detail-course .info .knowledge li {
+    float: left;
+    width: 50%;
+    padding-bottom: 20px;
+}
+.detail-course .info .knowledge li img{
+    float: left;
+    padding-right: 10px;
+}
+
+.detail-course .info .skill ul li{
+    float: left;
+    background: #ccc;
+    margin: 0 20px;
+    padding: 5px 25px;
+    border-radius: 20px;
+}
+
+.detail-course .info ul.others{
+    border:1px solid #ccc;
+    background: #F5F5F5;
+}
+
+.detail-course .info ul.others li img{
+    float: left;
+    padding-right: 10px;
+}
+.detail-course .info ul.others li span.txt-large{
+    font-size: 16px;
+}
+.detail-course .info ul.others{
+    padding: 25px 20px;
+}
+.detail-course .info ul.others li span.txt-small{
+    display: block;
+    font-size: 12px;
+}
+.detail-course .info ul.others li{
+    padding-bottom: 30px;
+}
+.detail-course .info ul.others li:last-child{
+    padding-bottom: 0;
+}
+
+
+.u-video-list-course .panel { border-radius: 0; border: 0; box-shadow: none; }
+.u-video-list-course .col {display: inline-block; width: 100%; border-bottom: 1px solid #eaeaea ;padding: 5px 0 8px 0; }
+.u-docu { margin: 5px; padding: 5px; background: #ccc; color: #fff; display: inline-block; width: 98%;  }
+.u-docu a { display: block;     border-bottom: 1px solid #eaeaea; color: #fff; }
+.u-docu a:last-child { border: 0; }
+.u-video-list-course a { line-height: 25px; }
+.col .title { float: left; }
+.col .time { float: right; }
+.u-video-list-course .panel-heading { padding: 10px 5px; }
+
+.u-des-course strong { font-weight: bold; font-style: italic; }
+.u-combo-buy h3, .u-cm-hv h3, .u-rate-hv h3, .u-course-teacher h3, .u-list-course h2, .u-des-course h2 { font-size: 16px; font-weight: bold; margin-bottom: 10px;  margin-top: 0; border-bottom: 1px solid #ddd; padding-bottom: 10px;}
+.u-learn-what h3, .u-des-course h2, .u-list-course h2, .u-course-plus h3, .u-course-teacher h3, .u-combo-buy h3, .u-rate-hv h3, .u-cm-hv h3  { font-size: 16px; font-weight: bold; padding: 15px}
+.tag .label { font-weight: normal; }
+.u-des-course p { margin-bottom: 10px; line-height: 25px; }
+.u-des-course ul li { list-style: disc; margin: 0 0 10px 40px; }
+.u-list-course .title, .u-list-course .link, .u-list-course .time { font-size: 13px; }
+.u-list-course .title i { color: #999; }
+.u-learn-what ul li { width: 50%; float: left; line-height: 50px; }
+.u-learn-what .title {     color: #333;    padding: 0 22px;    margin: 0 0 15px 0;     background: url(../img/learning-bg.png) no-repeat scroll 0px 4px transparent; }
+.u-learn-what .title i { color: #37bb03; font-size: 16px; }
+.u-list-course .panel-title { font-size: 14px; font-weight: bold; }
+.btn-preview {     padding: 5px ;    background-color: #7cbdff;    color: #fff !important;    border-radius: 5px; }
+.u-list-course .col {       border-bottom: 1px solid #e1e1e1;    padding: 15px 0; }
+.u-list-course .panel-body { padding: 0; }
+.u-course-plus ul { position: relative; }
+.u-plus-icon { position: absolute;  top: 120px; left: 200px; }
+.u-plus-icon i { font-size: 60px; color: #545454; opacity: 0.8; }
