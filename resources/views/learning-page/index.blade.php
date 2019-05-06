@@ -118,23 +118,23 @@
                         <ul>
                             <li>
                                 <a>
-                                    <button class="ln-lect-list-lect-title-icon btn btn-default"><span><i class="fas fa-play-circle"></i></span></button>
+                                    <button class="ln-lect-list-lect-title-icon"><span><i class="fas fa-play-circle"></i></span></button>
                                     <span class="ln-lect-list-lect-title">1. Intro, Notes & Section 2 Asset </span>
-                                    <button class="ln-btn-complete btn btn-default pull-right "><i class="fas fa-circle"></i></button>
+                                    <button class="ln-btn-complete "><i class="fas fa-circle"></i></button>
                                 </a>
                             </li>
                             <li>
                                 <a>
-                                    <button class="ln-lect-list-lect-title-icon btn btn-default"><span><i class="fas fa-play-circle"></i></span></button>
+                                    <button class="ln-lect-list-lect-title-icon"><span><i class="fas fa-play-circle"></i></span></button>
                                     <span class="ln-lect-list-lect-title">1. Intro, Notes & Section 2 Asset Ronaldo Khedira Alibaba Antonio Valencia </span>
-                                    <button class="ln-btn-complete btn btn-default pull-right "><i class="fas fa-circle"></i></button>
+                                    <button class="ln-btn-complete "><i class="fas fa-circle"></i></button>
                                 </a>
                             </li>
                             <li>
                                 <a>
-                                    <button class="ln-lect-list-lect-title-icon btn btn-default"><span><i class="fas fa-play-circle"></i></span></button>
+                                    <button class="ln-lect-list-lect-title-icon"><span><i class="fas fa-play-circle"></i></span></button>
                                     <span class="ln-lect-list-lect-title">1. Intro, Notes & Section 2 Asset </span>
-                                    <button class="ln-btn-complete btn btn-default pull-right "><i class="fas fa-circle"></i></button>
+                                    <button class="ln-btn-complete "><i class="fas fa-circle"></i></button>
                                 </a>
                             </li>
                         </ul>
@@ -154,23 +154,23 @@
                         <ul>
                             <li>
                                 <a>
-                                    <button class="ln-lect-list-lect-title-icon btn btn-default"><span><i class="fas fa-play-circle"></i></span></button>
+                                    <button class="ln-lect-list-lect-title-icon"><span><i class="fas fa-play-circle"></i></span></button>
                                     <span class="ln-lect-list-lect-title">1. Intro, Notes & Section 2 Asset </span>
-                                    <button class="ln-btn-complete btn btn-default pull-right "><i class="fas fa-circle"></i></button>
+                                    <button class="ln-btn-complete"><i class="fas fa-circle"></i></button>
                                 </a>
                             </li>
                             <li>
                                 <a>
-                                    <button class="ln-lect-list-lect-title-icon btn btn-default"><span><i class="fas fa-play-circle"></i></span></button>
+                                    <button class="ln-lect-list-lect-title-icon"><span><i class="fas fa-play-circle"></i></span></button>
                                     <span class="ln-lect-list-lect-title">1. Intro, Notes & Section 2 Asset Ronaldo Khedira Alibaba Antonio Valencia </span>
-                                    <button class="ln-btn-complete btn btn-default pull-right "><i class="fas fa-circle"></i></button>
+                                    <button class="ln-btn-complete"><i class="fas fa-circle"></i></button>
                                 </a>
                             </li>
                             <li>
                                 <a>
-                                    <button class="ln-lect-list-lect-title-icon btn btn-default"><span><i class="fas fa-play-circle"></i></span></button>
+                                    <button class="ln-lect-list-lect-title-icon"><span><i class="fas fa-play-circle"></i></span></button>
                                     <span class="ln-lect-list-lect-title">1. Intro, Notes & Section 2 Asset </span>
-                                    <button class="ln-btn-complete btn btn-default pull-right "><i class="fas fa-circle"></i></button>
+                                    <button class="ln-btn-complete"><i class="fas fa-circle"></i></button>
                                 </a>
                             </li>
                         </ul>
@@ -190,23 +190,23 @@
                         <ul>
                             <li>
                                 <a>
-                                    <button class="ln-lect-list-lect-title-icon btn btn-default"><span><i class="fas fa-play-circle"></i></span></button>
+                                    <button class="ln-lect-list-lect-title-icon"><span><i class="fas fa-play-circle"></i></span></button>
                                     <span class="ln-lect-list-lect-title">1. Intro, Notes & Section 2 Asset </span>
-                                    <button class="ln-btn-complete btn btn-default pull-right "><i class="fas fa-circle"></i></button>
+                                    <button class="ln-btn-complete"><i class="fas fa-circle"></i></button>
                                 </a>
                             </li>
                             <li>
                                 <a>
-                                    <button class="ln-lect-list-lect-title-icon btn btn-default"><span><i class="fas fa-play-circle"></i></span></button>
+                                    <button class="ln-lect-list-lect-title-icon"><span><i class="fas fa-play-circle"></i></span></button>
                                     <span class="ln-lect-list-lect-title">1. Intro, Notes & Section 2 Asset Ronaldo Khedira Alibaba Antonio Valencia </span>
-                                    <button class="ln-btn-complete btn btn-default pull-right "><i class="fas fa-circle"></i></button>
+                                    <button class="ln-btn-complete"><i class="fas fa-circle"></i></button>
                                 </a>
                             </li>
                             <li>
                                 <a>
-                                    <button class="ln-lect-list-lect-title-icon btn btn-default"><span><i class="fas fa-play-circle"></i></span></button>
+                                    <button class="ln-lect-list-lect-title-icon"><span><i class="fas fa-play-circle"></i></span></button>
                                     <span class="ln-lect-list-lect-title">1. Intro, Notes & Section 2 Asset </span>
-                                    <button class="ln-btn-complete btn btn-default pull-right "><i class="fas fa-circle"></i></button>
+                                    <button class="ln-btn-complete"><i class="fas fa-circle"></i></button>
                                 </a>
                             </li>
                         </ul>

@@ -3,9 +3,14 @@ $( document ).ready(function() {
     $(".lecture-title").click(function(){
         toggleLectureList()
     })
-    $("#btnCloseSidebar").click(()=>{
+    $("#btnCloseSidebar").click(function(){
         toggleLectureList()
 
+    })
+    $(".ln-btn-complete ").click(function(){
+        alert(1)
+        $(".ln-btn-complete .fas").removeClass("fa-cirle")
+        $(".ln-btn-complete .fas").addClass("fa-check-cirle")
     })
 
 

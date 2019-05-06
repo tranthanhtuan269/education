@@ -325,6 +325,7 @@ body{
     order: 2;
     flex: 1;
     min-width: 1px;
+    color: #ffffff;
 }
 .ln-lect-list-body a button{
     color: #ffffff;
@@ -332,7 +333,6 @@ body{
     border: none;
     font-size: 20px;
     position: relative;
-    bottom: 4.5px;
 }
 .ln-lect-list-body a button:hover{
     border: none !important;
