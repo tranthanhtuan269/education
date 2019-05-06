@@ -18,6 +18,7 @@ class CreateVideosTable extends Migration
             $table->string('name', 255);
             $table->string('url_video', 255);
             $table->integer('duration');
+            $table->longText('description', 2000)->nullable();
             $table->integer('unit_id');
             $table->integer('state')->default(0);
             $table->timestamps();

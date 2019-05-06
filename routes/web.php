@@ -15,8 +15,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+// Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
 
+// FRONTEND
+Route::get('/home','HomeController@home');
+Route::get('/member-card','HomeController@memberCard');
+Route::get('/course-category','HomeController@courseCategory');
+Route::get('/detail-teacher','HomeController@detailTeacher');
 Route::get('/learning-page/{courseId}/lecture/{lectureId}', 'LectureController@show');
