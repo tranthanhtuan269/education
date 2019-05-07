@@ -1165,17 +1165,10 @@ footer .item-2 .copyright{
     color: #29C2F3;
     font-size: 13px;
 }
-.detail-course .reviews .box{
-/*    border-bottom: 1px solid #ccc;*/
-/*    padding: 25px 0;*/
-}
 .detail-course .reviews .box hr{
     margin: 25px 0;
     border-top: 1px solid #ccc;
 }
-/*.detail-course .reviews h3{
-    padding-bottom: 0;
-}*/
 .detail-course .reviews .box .btn-action button{
     padding: 2px 25px;
 }
