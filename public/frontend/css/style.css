@@ -680,6 +680,64 @@ ul.unica-acc-zone li.special:hover a{
     border-radius: 5px;
     color: #fff;
 }
+/*Related Courses*/
+.relate-course{
+    margin: 30px 0px;
+    border: 1px solid gray;
+}
+.relate-course .relate-title{
+    font-size: 30px;
+    font-weight: 900;
+    padding: 20px 0px;
+    text-align: center;
+}
+.relate-course .list-course{
+    padding: 10px 10px;
+
+}
+.relate-course .list-course img{
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+}
+.relate-course .list-course .title{
+    font-size: 16px;
+    font-weight: 600;
+    padding: 5px 0px;
+}
+.relate-course .list-course .teacher{
+    padding-bottom: 5px;
+}
+.relate-course .list-course .one-course{
+    padding-bottom: 20px;
+}
+.relate-course .btn-see-all{
+    padding-top: 20px;
+    margin-bottom: 40px;
+    border-radius: 10px;
+    padding: 10px 25px;
+    font-weight: 600;
+}
+/*Question & Answer*/
+.question .title{
+    text-align: center;
+    padding: 40px 0px;
+    font-weight: 900;
+}
+.question .text-box{
+    padding-bottom: 40px;
+}
+.question .text-box .btn-submit{
+    text-align: center;
+    padding: 20px 0px;
+}
+.question .text-box .btn-submit .submit-question{
+    padding: 10px 40px;
+    color: #fff;
+    background-color: #FF8F00;
+    border: none;
+    border-radius: 10px;
+}
 /*End Courses Learning*/
 
 /*Begin Footer*/

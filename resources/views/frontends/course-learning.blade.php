@@ -83,6 +83,45 @@
 					</div>
 				</div>
 			</div>
+			<div class="relate-course">
+				<p class="relate-title">Related Courses</p>
+				<div class="list-course">
+					@for($i=1;$i<=5;$i++)
+					<div class="one-course">
+						<div class="row">
+							<div class="col-xs-6">
+								<img src="{{ asset('frontend/images/student-profile-course.png')}}" alt="Courses" title="Courses">
+							</div>
+							<div class="col-xs-6">
+								<div class="title">Creativity Bootcamp</div>
+								<div class="teacher">with Tran Duong</div>
+								<span class="time">1h 39m</span>
+								<span class="pull-right level">Intermediate</span>
+							</div>
+						</div>
+					</div>
+					@endfor
+				</div>
+				<div class="text-center">
+					<button type="button" class="btn btn-see-all">SEE ALL</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="container">
+	<div class="question">
+		<h2 class="title">Questions & Answers</h2>
+		<div class="text-box">
+			<form>
+				<div class="form-group">
+					<textarea class="form-control" rows="6" placeholder="Type here" required></textarea>
+					{{-- <input type="text" class="form-control" id="name" placeholder="Type here"> --}}
+				</div>
+				<div class="btn-submit">
+					<input class="submit-question" type="submit" value="SUBMIT A QUESTION" />
+				</div>
+			</form>
 		</div>
 	</div>
 </div>
