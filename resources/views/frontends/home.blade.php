@@ -166,7 +166,7 @@
                                             </div>
                                             <div class="time-view"> 
                                                 <span class="time">
-                                                <i class="far fa-clock"></i> 2h
+                                                <i class="fas fa-stopwatch"></i> 2h
                                                 </span>
                                                 <span class="view pull-right">
                                                 <i class="fa fa-eye" aria-hidden="true"></i> {!! number_format(3600, 0, ',' , '.') !!} views
@@ -174,10 +174,10 @@
                                             </div>
                                             <div class="price-course">
                                                 <span class="price">
-                                                {!! number_format(800000, 0, ',' , '.') !!} đ
+                                                {!! number_format(800000, 0, ',' , '.') !!}đ
                                                 </span>
                                                 <span class="sale pull-right">
-                                                {!! number_format(600000, 0, ',' , '.') !!} đ
+                                                {!! number_format(600000, 0, ',' , '.') !!}đ
                                                 </span>
                                             </div>
                                         </div>
@@ -186,7 +186,7 @@
                             </div>
                             @endfor
                             <div class="col-sm-12 text-center">
-                                <button type="button" class="btn btn-default btn-lg">SEE ALL</button>
+                                <button type="button" class="btn btn-default btn-seeall">SEE ALL</button>
                             </div>
                         </div>
                     </div>
