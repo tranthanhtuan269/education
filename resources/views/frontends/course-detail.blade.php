@@ -596,6 +596,9 @@
                             </button>
                         </div>
                     </div>
+                    <div class="col-sm-12">
+                        <hr>
+                    </div>
                 </div>
                 <div class="box clearfix">
                     <div class="col-sm-3">
