@@ -756,7 +756,7 @@ footer .item-2 .copyright{
 
 .slick-course .item .cat{
     position: absolute;
-    top: 60px;
+    top: 35px;
     width: 100%;
     color: #fff;
 }
@@ -766,6 +766,13 @@ footer .item-2 .copyright{
     padding-bottom: 6px;
 }
 
+.item-slider{
+    cursor: pointer;
+}
+
+.cat-item-slider{
+    margin-top: 25px;
+}
 
 .demo-aaaa
 {
