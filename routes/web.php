@@ -23,3 +23,5 @@ Route::get('/home','HomeController@home');
 Route::get('/member-card','HomeController@memberCard');
 Route::get('/course-category','HomeController@courseCategory');
 Route::get('/detail-teacher','HomeController@detailTeacher');
+Route::get('/student-profile','HomeController@studentProfile');
+Route::get('/course-learning','HomeController@courseLearning');

@@ -25,20 +25,22 @@ class HomeController extends Controller
     {
         //return view('home');
     }
-
-
     public function home(){
         return view('frontends.home');
     }
     public function memberCard(){
         return view('frontends.member-card');
     }
-
     public function courseCategory(){
         return view('frontends.course-category');
     }
-
     public function detailTeacher(){
         return view('frontends.detail-teacher');
+    }
+    public function studentProfile(){
+        return view('frontends.student-profile');
+    }
+    public function courseLearning(){
+        return view('frontends.course-learning');
     }
 }
