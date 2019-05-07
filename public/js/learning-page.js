@@ -1,5 +1,4 @@
 $( document ).ready(function() {
-    initializePlayerControlBar()
     $(".lecture-title").click(function(){
         toggleLectureList()
     })
@@ -7,14 +6,19 @@ $( document ).ready(function() {
         toggleLectureList()
 
     })
-    $(".ln-btn-complete ").click(function(){
-        alert(1)
-        $(".ln-btn-complete .fas").removeClass("fa-cirle")
-        $(".ln-btn-complete .fas").addClass("fa-check-cirle")
+
+
+    $(".ln-btn-complete").click(function(){
+        tickCompleteLecture()
     })
+    
 
-
-    var player = videojs('my-video');
+    
+    var player = videojs('my-video', {controls:true, preload: 'auto',controlBar: {
+        volumePanel: {inline: false}
+    },})
+    initializePlayerControlBar()
+    
     $(".vjs-play-control").bind("click", function(){
             if($(".vjs-play-control").hasClass("vjs-paused")){
                 $(".learning-desc-panel").fadeOut()       
@@ -72,7 +76,34 @@ $( document ).ready(function() {
         $(".group-btn-control-time").after(groupPlayerTimeDiv)
         $(".group-player-time").append(currentTimeSpan)
         $(".player-current-time").after(endTimeSpan)
+
+        //Three utility buttons in the middle
+        var groupBtnUtilities = "<div class='group-btn-utilities'></div>"
+        var btnNote = "<div class='btn' id='btnNote'><i class='fas fa-sticky-note'></i>&nbsp;&nbsp;Note</div>"
+        var btnDiscuss = "<div class='btn' id='btnDiscuss'><i class='fas fa-comments'></i>&nbsp;&nbsp;Discussion</div>"
+        var btnFile = "<div class='btn' id='btnFile'><i class='fas fa-file-alt'></i>&nbsp;&nbsp;Files</div>"
+
+        $(".group-player-time").after(groupBtnUtilities)
+        $(".group-btn-utilities").append(btnNote)
+        $("#btnNote").after(btnDiscuss)
+        $("#btnDiscuss").after(btnFile)
+
+
+        var btnContinue = "<div class='btn' id='btnContinue'>Continue&nbsp;&nbsp<i class='fas fa-step-forward'></i></div>"
+        $(".vjs-volume-panel").before(btnContinue)
+
         
+    }
+
+    function tickCompleteLecture(){
+        // if($('.ln-btn-complete i').hasClass("fa-circle")){
+        //     $(".ln-btn-complete i").remove()
+        //     $(".ln-btn-complete").append("<i class='fas fa-check-circle'></i>")
+        // }else if($('.ln-btn-complete i').hasClass("fa-check-circle")){
+        //     $(".ln-btn-complete i").remove()
+        //     $(".ln-btn-complete").append("<i class='fas fa-circle'></i>")
+        // }
+        alert("This Function is still in development!!")
     }
     
 });
