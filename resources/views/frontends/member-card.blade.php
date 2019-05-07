@@ -17,10 +17,10 @@
     <div class="offer-member-card">
         <h2>We are offer</h2>
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-6 box-offer-l">
                 <div class="img">
-                    <img class="img-bg" src="{{ asset('frontend/images/member-card-50.png')}}" alt="$50 Courdemy" title="$50 - Courdemy online courses">
-                    <div class="box">
+                    <img class="img-bg" src="{{ asset('frontend/images/member-card-50.png')}}" alt="$10 Courdemy" title="$50 - Courdemy online courses">
+                    <div class="box-l">
                         <div class="offer-dollar">
                             <p class="dollar">$50</p>
                             <div class="courdemy">
@@ -60,10 +60,10 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-6 box-offer-r">
                 <div class="img">
                     <img class="img-bg" src="{{ asset('frontend/images/member-card-25.png')}}" alt="$25 Courdemy" title="$25 - Courdemy online courses">
-                    <div class="box">
+                    <div class="box-r">
                         <div class="offer-dollar">
                             <p class="dollar">$25</p>
                             <div class="courdemy">
@@ -106,10 +106,10 @@
         </div>
         <div class="space"></div>
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-6 box-offer-l">
                 <div class="img">
                     <img class="img-bg" src="{{ asset('frontend/images/member-card-10.png')}}" alt="$10 Courdemy" title="$10 - Courdemy online courses">
-                    <div class="box">
+                    <div class="box-l">
                         <div class="offer-dollar">
                             <p class="dollar">$10</p>
                             <div class="courdemy">
@@ -149,10 +149,10 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-6 box-offer-r">
                 <div class="img">
                     <img class="img-bg" src="{{ asset('frontend/images/member-card-5.png')}}" alt="$5 Courdemy" title="$5 - Courdemy online courses">
-                    <div class="box">
+                    <div class="box-r">
                         <div class="offer-dollar">
                             <p class="dollar">$5</p>
                             <div class="courdemy">
@@ -219,7 +219,7 @@
         <div class="row">
             <div class="col-sm-6">
                 <form>
-                    <div class="form-row">
+                    <div class="row">
                         <div class="form-group col-sm-6">
                             <select name="card" id="select-card" class="form-control">
                                 <option value="0">Select Your Card</option>
@@ -255,7 +255,7 @@
                     <div class="form-group">
                         <input type="text" class="form-control" id="email" placeholder="Email">
                     </div>
-                    <div class="form-row">
+                    <div class="row">
                         <div class="form-group col-sm-6">
                             <select name="card" id="select-card" class="form-control">
                                 <option value="0">Select Your Card</option>
