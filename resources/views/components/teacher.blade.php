@@ -7,7 +7,7 @@
         <p class="des-teacher text-center">{!! $expert !!}</p>
         <div class="star-teacher text-center">
             <span class="star-rate">
-                @for($i = 1; $i < $rate; $i++)
+                <!-- @for($i = 1; $i < $rate; $i++)
                 <i class="fa fa-star co-or" aria-hidden="true"></i>
                 @endfor
                 @if(!is_integer($rate))
@@ -15,8 +15,15 @@
                 @endif
                 @for($i = 1; $i < 5 - $rate; $i++)
                 <i class="far fa-star"></i>
+                @endfor -->
+                <!-- <?php //$rate = 3.5; ?> -->
+                @for($i = 1; $i <= 5; $i++)
+                    @if(!is_integer($rate) && ($rate +0.5 == $i))
+                        <i class="fas fa-star-half-alt"></i>
+                    @else
+                        <i class="fa fa-star co-or" aria-hidden="true"></i>
+                    @endif
                 @endfor
-
                 <!-- <i class="fa fa-star co-or" aria-hidden="true"></i>
                 <i class="fa fa-star co-or" aria-hidden="true"></i>
                 <i class="fa fa-star co-or" aria-hidden="true"></i>
