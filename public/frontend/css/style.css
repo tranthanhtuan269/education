@@ -1104,9 +1104,7 @@ footer .item-2 .copyright{
     float: left;
     padding: 5px 25px;
 }
-.detail-course .lessons .u-list-course .top{
-    padding-bottom: 20px;
-}
+
 .detail-course .lessons .u-learn-what h3, .u-des-course h2, .u-list-course h2, .u-course-plus h3, .u-course-teacher h3, .u-combo-buy h3, .u-rate-hv h3, .u-cm-hv h3  { font-size: 16px; font-weight: bold; padding: 15px}
 .detail-course .lessons .tag .label { font-weight: normal; }
 .detail-course .lessons .u-des-course p { margin-bottom: 10px; line-height: 25px; }
