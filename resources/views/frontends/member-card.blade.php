@@ -1,6 +1,6 @@
 @extends('frontends.layouts.app')
 @section('content')
-<div class="banner-member-card">
+<div class="member-card-banner">
     <div class="container">
         <div class="row">
             <div class="col-xs-12 bann">
@@ -14,7 +14,7 @@
     </div>
 </div>
 <div class="container">
-    <div class="offer-member-card">
+    <div class="member-card-offer">
         <h2>We are offer</h2>
         <div class="row">
             <div class="col-sm-6 box-offer-l">
@@ -195,7 +195,7 @@
         </div>
     </div>
 </div>
-<div class="how-to-purchase">
+<div class="member-card-purchase-way">
     <div class="container">
         <div class="row">
             <div class="col-sm-7 col-xs-12">
