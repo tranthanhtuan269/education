@@ -7,31 +7,17 @@
         <p class="des-teacher text-center">{!! $expert !!}</p>
         <div class="star-teacher text-center">
             <span class="star-rate">
-                <!-- @for($i = 1; $i < $rate; $i++)
+                @for($i = 1; $i < $rate; $i++)
                 <i class="fa fa-star co-or" aria-hidden="true"></i>
                 @endfor
+
                 @if(!is_integer($rate))
                 <i class="fas fa-star-half-alt"></i>
                 @endif
+
                 @for($i = 1; $i < 5 - $rate; $i++)
                 <i class="far fa-star"></i>
-                @endfor -->
-                <!-- <?php //$rate = 5 ; ?> -->
-                @for($i = 1; $i <= 5; $i++)
-                    @if(!is_integer($rate) && ($rate +0.5 == $i))
-                        <i class="fas fa-star-half-alt"></i>
-                    @else
-                        @if($i <= $rate)
-                            <i class="fa fa-star co-or" aria-hidden="true"></i>
-                        @else
-                            <i class="far fa-star"></i>
-                        @endif
-                    @endif
                 @endfor
-                <!-- <i class="fa fa-star co-or" aria-hidden="true"></i>
-                <i class="fa fa-star co-or" aria-hidden="true"></i>
-                <i class="fa fa-star co-or" aria-hidden="true"></i>
-                <i class="fas fa-star-half-alt"></i> -->
             </span>
             <span class="n-rate">{{ $rate }} (<span>{!! number_format($rating_number, 0, ',' , '.') !!} ratings</span>)</span>
         </div>

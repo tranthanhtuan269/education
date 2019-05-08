@@ -11,7 +11,7 @@
                         'image' => 'https://www.w3schools.com/howto/img_avatar.png',
                         'name' => 'Bảo Minh',
                         'expert' => 'PHP, Jquery, VueJs',
-                        'rate' => 4.5,
+                        'rate' => 4.6,
                         'rating_number' => 11900,
                         'course_number' => 36,
                         'student_number' => 3600
