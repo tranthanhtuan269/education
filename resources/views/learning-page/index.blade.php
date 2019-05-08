@@ -74,6 +74,43 @@
                     <button class="btn btn-warning" id="lnDescBtnPlay"><i class="fas fa-play-circle"></i> Continue</button>
                 </div>
             </div>
+
+            <div class="ln-desc-bottom">
+                <div class="ln-desc-btm-center">
+                    <div class="ln-desc-btm-group-track">
+                        <button class="btn" id="lnDescBtnPrevious"><i class="fas fa-step-backward"></i></button>
+                        <button class="btn" id="lnDescBtnNext"><i class="fas fa-step-forward"></i></button>
+                    </div>
+                    <div class="ln-desc-group-btn-utilities">
+                        <div class="btn ln-btn-server">
+                            <i class="fas fa-server"></i>
+                            <span>&nbsp;Server Video</span>
+                        </div>
+                        <div class="btn ln-btn-note">
+                            <i class="fas fa-sticky-note"></i>
+                            <span>&nbsp;Note</span>
+                        </div>
+                        <div class="btn ln-btn-discuss">
+                            <i class="fas fa-comments"></i>
+                            <span>&nbsp;Discussion</span>
+                        </div>
+                        <div class="btn ln-btn-file">
+                            <i class="fas fa-file-alt"></i>
+                            <span>&nbsp;Files</span>
+                        </div>
+                    </div>
+                    <div class="ln-desc-group-btn-utilities-2">
+                        <div class="btn ln-btn-note">
+                            <i class="fas fa-toggle-on"></i>
+                            <span>&nbsp;Autoplay</span>
+                        </div>
+                        <div class="btn ln-btn-discuss">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <span>&nbsp;Report</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         {{-- VIDEO PLAYER --}}
@@ -85,11 +122,11 @@
                 <source src='http://45.56.82.249:1935/vod/_definst_/killthislove360.mp4/playlist.m3u8' type='application/x-mpegURL' label="360p">
 
                     
-                    <p class='vjs-no-js'>
-                        To view this video please enable JavaScript, and consider upgrading to a web browser that
-                        <a href='https://videojs.com/html5-video-support/' target='_blank'>supports HTML5 video</a>
-                    </p>
-                </video>
+                <p class='vjs-no-js'>
+                    To view this video please enable JavaScript, and consider upgrading to a web browser that
+                    <a href='https://videojs.com/html5-video-support/' target='_blank'>supports HTML5 video</a>
+                </p>
+            </video>
         </div>
         
         {{-- LEFT SIDEBAR aka LECTURE LIST --}}
@@ -215,6 +252,11 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        {{-- DISCUSSION PANEL --}}
+        <div class="learning-discussion">
+            
         </div>
         
         {{-- BIG PLAY BUTTON --}}

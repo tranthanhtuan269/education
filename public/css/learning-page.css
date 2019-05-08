@@ -22,7 +22,7 @@ body{
 .vjs-control-bar{
     z-index: 3;
     display: inline-block;
-    height: 10vh !important;
+    height: 60px !important;
     padding-top: 2em !important;
     padding-bottom: 1em !important;
 
@@ -460,4 +460,44 @@ body{
 .vjs-quality-selector .vjs-menu .vjs-menu-content {
     /* bottom: 4.5em !important; */
     left: 0.5em !important;
+}
+
+.ln-desc-bottom{
+    position: fixed;
+    background : rgba(187, 187, 187, 0.342);
+    height: 50px;
+    width: 100vw;
+    bottom: 0;
+}
+.ln-desc-btm-center{
+    display: flex;
+    justify-content: space-around;
+    position: relative;
+    top: 20%;
+}
+.ln-desc-btm-center .btn{
+    color: #ffffff;
+    background: none;
+}
+.ln-desc-btm-center .btn:hover{
+    color: #ffffff;
+    text-shadow: 0em 0em 1em white;
+}
+.ln-desc-btm-center .btn:focus{
+    color: #ffffff;
+    text-decoration: none;
+    outline: none;
+}
+.learning-discussion{
+    z-index: 4;
+    position: fixed;
+    left: -35vw;
+    top: 0;
+    width: 35vw;
+    height: 100vh;
+    background: #f2f3f6;
+    transition: 0.2s;
+}
+.learning-discussion.active{
+    left: 0;
 }
