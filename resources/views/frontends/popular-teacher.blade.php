@@ -5,27 +5,18 @@
                 <h2>Popular Teacher</h2>
             </div>
             @for($i = 0; $i < 4; $i++)
-            <div class="col-sm-3">
-                <div class="info">
-                    <div class="avatar text-center">
-                        <img class="" src="https://www.w3schools.com/howto/img_avatar.png" >
-                    </div>
-                    <h3 class="name-teacher text-center text-center">Bảo Minh</h3>
-                    <p class="des-teacher text-center">PHP, Jquery, VueJs</p>
-                    <div class="star-teacher text-center">
-                        <span class="star-rate">
-                        <i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i>                </span>
-                        <span class="n-rate">4.5 (<span>11.990 ratings</span>)</span>
-                    </div>
-                    <div class="clearfix"> 
-                        <span class="number-course"><i class="fas fa-book"></i> 22 Course</span>
-                        <span class="pull-right">
-                        <i class="fas fa-user-graduate"></i> 
-                        111.190 Students
-                        </span>
-                    </div>
-                </div>
-            </div>
+                @include(
+                    'components.teacher', 
+                    [
+                        'image' => 'https://www.w3schools.com/howto/img_avatar.png',
+                        'name' => 'Bảo Minh',
+                        'expert' => 'PHP, Jquery, VueJs',
+                        'rate' => 4.5,
+                        'rating_number' => 11900,
+                        'course_number' => 36,
+                        'student_number' => 3600
+                    ]
+                )
             @endfor
         </div>
     </div>

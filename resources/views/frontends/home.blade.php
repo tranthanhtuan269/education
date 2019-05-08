@@ -124,7 +124,7 @@
                         <div class="row">
                             @for($i = 0; $i < 8; $i++)
                                 @include(
-                                    'components.courses', 
+                                    'components.course', 
                                     [
                                         'image' => 'https://static.unica.vn/upload/images/2019/04/giao-tiep-tieng-han-cho-nguoi-moi-bat-dau_m_1555561894.jpg',
                                         'title' => 'Giao tiếp tiếng Hàn dành cho người mới bắt đầu',
@@ -145,7 +145,7 @@
                     <div id="menu1" class="tab-pane fade">
                         @for($i = 0; $i < 8; $i++)
                             @include(
-                                'components.courses', 
+                                'components.course', 
                                 [
                                     'image' => 'https://static.unica.vn/upload/images/2019/04/giao-tiep-tieng-han-cho-nguoi-moi-bat-dau_m_1555561894.jpg',
                                     'title' => 'Giao tiếp tiếng Hàn dành cho người mới bắt đầu',
@@ -162,7 +162,7 @@
                     <div id="menu2" class="tab-pane fade">
                         @for($i = 0; $i < 8; $i++)
                             @include(
-                                'components.courses', 
+                                'components.course', 
                                 [
                                     'image' => 'https://static.unica.vn/upload/images/2019/04/giao-tiep-tieng-han-cho-nguoi-moi-bat-dau_m_1555561894.jpg',
                                     'title' => 'Giao tiếp tiếng Hàn dành cho người mới bắt đầu',
