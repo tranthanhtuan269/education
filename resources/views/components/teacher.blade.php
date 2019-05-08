@@ -6,20 +6,13 @@
         <h3 class="name-teacher text-center text-center">{!! $name !!}</h3>
         <p class="des-teacher text-center">{!! $expert !!}</p>
         <div class="star-teacher text-center">
-            <span class="star-rate">
-                @for($i = 1; $i < $rate; $i++)
-                <i class="fa fa-star co-or" aria-hidden="true"></i>
-                @endfor
-
-                @if(!is_integer($rate))
-                <i class="fas fa-star-half-alt"></i>
-                @endif
-
-                @for($i = 1; $i < 5 - $rate; $i++)
-                <i class="far fa-star"></i>
-                @endfor
-            </span>
-            <span class="n-rate">{{ $rate }} (<span>{!! number_format($rating_number, 0, ',' , '.') !!} ratings</span>)</span>
+            @include(
+                'components.vote', 
+                [
+                    'rate' => 2,
+                    'rating_number' => 3600
+                ]
+            )
         </div>
         <div class="clearfix">
             <span class="number-course"><i class="fas fa-book"></i> {!! number_format($course_number, 0, ',' , '.') !!} Course</span>
