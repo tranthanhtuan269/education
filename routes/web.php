@@ -78,6 +78,5 @@ Route::get('/course-category','Frontends\HomeController@courseCategory');
 Route::get('/detail-teacher','Frontends\HomeController@detailTeacher');
 Route::get('/learning-page/{courseId}/lecture/{lectureId}', 'LectureController@show');
 
-
 Route::get('/course-learning','Frontends\HomeController@courseLearning');
 Route::get('/course-detail','Frontends\HomeController@courseDetail');
