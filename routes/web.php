@@ -72,10 +72,10 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 // FRONTEND
-Route::get('/home','HomeController@home');
-Route::get('/member-card','HomeController@memberCard');
-Route::get('/course-category','HomeController@courseCategory');
-Route::get('/detail-teacher','HomeController@detailTeacher');
+Route::get('/home','Frontends\HomeController@home');
+Route::get('/member-card','Frontends\HomeController@memberCard');
+Route::get('/course-category','Frontends\HomeController@courseCategory');
+Route::get('/detail-teacher','Frontends\HomeController@detailTeacher');
 Route::get('/learning-page/{courseId}/lecture/{lectureId}', 'LectureController@show');
 
 
