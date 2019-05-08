@@ -790,6 +790,7 @@ footer .item-2 .copyright{
 
 .cat-item-slider{
     margin-top: 25px;
+    color: #fff;
 }
 
 .demo-aaaa
@@ -830,14 +831,19 @@ footer .item-2 .copyright{
     height: 150px;
     border-radius: 50%;
     float: left;
-
+    border: 4px solid #FFF;
+    box-shadow: 2px 2px 10px #aaa; 
 }
 .detail-teacher .frame .avatar .info{
     padding-left: 15px;
 }
 .detail-teacher .frame .avatar .info .name{
-    font-weight: 600;
-    font-size: 19px;
+    font-weight: 550;
+    font-size: 30px;
+}
+.detail-teacher .frame .avatar .info .expret{
+    font-size: 18px;
+    font-weight: 550;
 }
 .detail-teacher .background{
     position: absolute;
@@ -856,8 +862,9 @@ footer .item-2 .copyright{
     padding-top: 50px;
 }
 .detail-teacher .frame .network .btn{
-    padding: 0 15px;
-    margin:0 5px;
+    padding: 5px 22px;
+    margin: 0 5px;
+    border-radius: 6px;
 }
 .detail-teacher .frame .network .btn span{
     position: relative;
