@@ -1,5 +1,5 @@
 <span class="star-rate">
-    @for($i = 1; $i < $rate; $i++)
+    @for($i = 1; $i <= $rate; $i++)
     <i class="fa fa-star co-or" aria-hidden="true"></i>
     @endfor
 
@@ -7,7 +7,7 @@
     <i class="fas fa-star-half-alt"></i>
     @endif
 
-    @for($i = 1; $i < 5 - $rate; $i++)
+    @for($i = 1; $i <= 5 - $rate; $i++)
     <i class="far fa-star"></i>
     @endfor
 </span>

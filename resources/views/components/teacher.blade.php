@@ -10,7 +10,7 @@
                 'components.vote', 
                 [
                     'rate' => 2,
-                    'rating_number' => 3600
+                    'rating_number' => 3500
                 ]
             )
         </div>
