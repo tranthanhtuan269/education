@@ -72,6 +72,7 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 // FRONTEND
+
 Route::get('/home','Frontends\HomeController@home');
 Route::get('/member-card','Frontends\HomeController@memberCard');
 Route::get('/course-category','Frontends\HomeController@courseCategory');
@@ -79,3 +80,5 @@ Route::get('/detail-teacher','Frontends\HomeController@detailTeacher');
 
 Route::get('/course-learning','Frontends\HomeController@courseLearning');
 Route::get('/course-detail','Frontends\HomeController@courseDetail');
+Route::get('/student-profile','Frontends\HomeController@studentProfile');
+

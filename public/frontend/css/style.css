@@ -111,7 +111,7 @@ a:hover { text-decoration: none; }
 .unica-search-boxtop input.unica-form { border-radius: 25px; background: #EDEDED; border:none; }
 .unica-active-course { background: #00B7F1; border: 1px solid #00B7F1; padding: 9px 36px 9px 10px; border-radius: 3px; display: inline-block; color: #fff; margin-top: 13px;
     background: url('../images/icon_student.png') no-repeat 90.5% center  #00B7F1;
- }
+}
 /*.unica-active-course:hover { background: #f26c4f; color: #fff; border:1px solid #ccc; }*/
 .unica-active-course i {margin-right: 5px;}
 .unica-cart { color: #999; margin-left: 15px; position: relative; top: 7px;}
@@ -463,6 +463,305 @@ ul.unica-acc-zone li.special:hover a{
 }
 /*End Member Card*/
 
+/*Begin Student Profile*/
+/*Banner*/
+.banner-student-profile{
+    background: url(../images/member-card-banner.png) no-repeat;
+    background-size: 100% 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 0px;
+}
+.banner-student-profile .ava{
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.banner-student-profile .ava img{
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    border: 4px solid #fff;
+}
+.banner-student-profile .ava button{
+    background: #FF8F00;
+    border-radius: 20px;
+    border: none;
+    display: inline-block;
+    padding: 5px 15px;
+    color: #fff;
+    position: absolute;
+    bottom: 0;
+    left: auto;
+}
+.banner-student-profile .brief-des{
+    color: #fff;
+    text-align: center;
+}
+.banner-student-profile .brief-des .name{
+    font-size: 26px;
+    padding: 10px 0px;
+}
+
+/*Profile*/
+.profile{
+    padding: 40px 0px;
+    text-align: center;
+}
+.profile p{
+    font-size: 26px;
+    padding: 20px 0px;
+}
+.profile .btn-save{
+    text-align: center;
+    padding: 10px 100px;
+    background-color: #FF8F00;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    margin: 20px 0px;
+}
+
+/*Favourite Courses*/
+.top-course .tab-content .img-course{
+    position: relative;
+}
+.top-course .tab-content .img-course .heart-icon{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #fff;
+    border: 1px solid #444;
+    padding: 5px 2px 2px 2px;
+    border-radius: 5px;
+    color: red;
+}
+
+/*Purchased Courses*/
+.top-course .tab-content .img-course .setting-icon{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #fff;
+    border: 1px solid #444;
+    padding: 5px 2px 2px 2px;
+    border-radius: 5px;
+}
+.top-course .tab-content .info .progress {
+  background-color: #aaa;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border-radius: 10px;
+  height: 20px;
+}
+/*Billing Infomation*/
+.bill-info{
+    padding-bottom: 80px;
+}
+.bill-info .title-bill-info{
+    padding: 40px 0px;
+}
+.bill-info .balance{
+    padding: 40px 0px;
+}
+.bill-info .balance p{
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+}
+.bill-info .balance .amount{
+    color: #44B900;
+    font-size: 32px;
+}
+.bill-info .balance .btn-confirm{
+    text-align: center;
+    padding: 7px 0px;
+    background-color: #FF8F00;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+}
+.bill-info .payment-method .payment-card img{
+    width: 100%;
+    height: auto;
+    padding: 5px 5px;
+    border: 5px solid #FFF;
+}
+.bill-info .payment-method .payment-card{
+    padding: 20px 10px;
+}
+.bill-info .payment-method .payment-card img:hover{
+    border-color:  #44B900;
+    border-radius: 20px;
+}
+/*End Student Profile*/
+
+/*Begin Courses Learning*/
+/*Banner*/
+.banner-course-learning{
+    background: url(../images/member-card-banner.png) no-repeat;
+    background-size: 100% 100%;
+    color: #fff;
+    padding: 40px 40px;
+}
+.banner-course-learning iframe{
+    width: 100%;
+    height: 40%;
+}
+.banner-course-learning .left-intro{
+    padding: 10px 0px 0px 30px;
+}
+.banner-course-learning .meta-des{
+    font-size: 20px;
+    margin: 10px 0px;
+}
+.banner-course-learning .vote{
+    padding: 15px 0px;
+}
+.banner-course-learning .vote .continue{
+    float: left;
+    margin: 0px 20px 20px 0px;
+}
+.banner-course-learning .vote .rating{
+    /*padding-top: 30px;*/
+    float: left;
+}
+.banner-course-learning .vote span{
+    padding-right: 10px;
+}
+.banner-course-learning .vote span i{
+    padding-right: 3px;
+}
+.banner-course-learning .vote a{
+    padding: 10px 15px;
+    background: #FF8F00;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    font-weight: 700;
+}
+.banner-course-learning .vote .icon-star{
+    color: #FF8F00;
+}
+.banner-course-learning .number-unit{
+    padding: 20px 0px;
+}
+.banner-course-learning .cup-icon{
+    text-align: center;
+}
+.banner-course-learning .border-element{
+    border:none;
+    border-radius: 20px;
+}
+/*Right Content*/
+.right-content{
+    margin: 30px 0px;
+    border: 1px solid gray;
+    text-align: center;
+}
+.right-content .teacher-info{
+    padding: 10px 10px;
+}
+.right-content .teacher-info .instructor{
+    font-size: 30px;
+    font-weight: 900;
+    padding: 20px 0px;
+}
+.right-content .teacher-info img{
+    border: none;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+}
+.right-content .teacher-info .name{
+    padding: 30px 0px 0px 0px;
+    font-size: 20px;
+    font-weight: bold;
+}
+.right-content .teacher-info .office{
+    padding: 0px 0px 20px 0px;
+}
+.right-content .teacher-info .icon-star{
+    padding-right: 3px;
+    color: #FF8F00;
+}
+.right-content .teacher-info .total-course,.right-content .teacher-info .total-student{
+    text-align: left;
+    padding-bottom: 10px;
+}
+.right-content .teacher-info .total-student{
+    line-height: 32px;
+}
+.right-content .teacher-info .total-student .inbox{
+    background: #FF8F00;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+}
+/*Related Courses*/
+.relate-course{
+    margin: 30px 0px;
+    border: 1px solid gray;
+}
+.relate-course .relate-title{
+    font-size: 30px;
+    font-weight: 900;
+    padding: 20px 0px;
+    text-align: center;
+}
+.relate-course .list-course{
+    padding: 10px 10px;
+
+}
+.relate-course .list-course img{
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+}
+.relate-course .list-course .title{
+    font-size: 16px;
+    font-weight: 600;
+    padding: 5px 0px;
+}
+.relate-course .list-course .teacher{
+    padding-bottom: 5px;
+}
+.relate-course .list-course .one-course{
+    padding-bottom: 20px;
+}
+.relate-course .btn-see-all{
+    padding-top: 20px;
+    margin-bottom: 40px;
+    border-radius: 10px;
+    padding: 10px 25px;
+    font-weight: 600;
+}
+/*Question & Answer*/
+.question .title{
+    text-align: center;
+    padding: 40px 0px;
+    font-weight: 900;
+}
+.question .text-box{
+    padding-bottom: 40px;
+}
+.question .text-box .btn-submit{
+    text-align: center;
+    padding: 20px 0px;
+}
+.question .text-box .btn-submit .submit-question{
+    padding: 10px 40px;
+    color: #fff;
+    background-color: #FF8F00;
+    border: none;
+    border-radius: 10px;
+}
+/*End Courses Learning*/
+
 /*Begin Footer*/
 footer{
     font-weight: 500;
@@ -641,7 +940,7 @@ footer .item-2 .copyright{
 }
 /* Slider */
 .slick-dots{
-/*    display: none !important;*/
+    /*    display: none !important;*/
 }
 
 .slick-slider
@@ -726,8 +1025,8 @@ footer .item-2 .copyright{
     display: none;
     float: left;
 /*
-    height: 100%;*/
-    min-height: 1px;
+height: 100%;*/
+min-height: 1px;
 }
 [dir='rtl'] .slick-slide
 {
@@ -821,8 +1120,8 @@ footer .item-2 .copyright{
     margin-bottom: 80px;
 }
 .detail-teacher .frame .avatar{
-   display: flex;
-   align-items:center;
+ display: flex;
+ align-items:center;
 }
 .detail-teacher .frame .avatar img{
     vertical-align: middle;
