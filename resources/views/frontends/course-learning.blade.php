@@ -125,6 +125,44 @@
 		</div>
 	</div>
 </div>
+<div class="container">
+	<div class="course-recommend">
+		<h2>Student also bought</h2>
+		<div class="row">
+			@for($i=1;$i<=4;$i++)
+			<div class="col-sm-3">
+				<div class="info">
+					<a href="#" class="course-box-slider pop">
+						<div class="img-course">
+							<img class="img-responsive" src="{{ asset('frontend/images/student-profile-course.png')}}" alt="Hoc Chup Anh">
+						</div>
+						<div class="content-course">
+							<h3 class="title-course">Hoc chup anh...</h3>
+							<div class="clearfix"> 
+								<span class="name-teacher">Tran Ba</span>
+								<span class="pull-right">
+									<span class="star-rate">
+										<i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i>
+									</span>
+									<span class="n-rate">(<span>183</span>)</span>
+								</span>
+							</div>
+							<div class="time-view">
+								<span class="time"><i class="fa fa-clock-o" aria-hidden="true"></i> 2h</span>
+								<span class="view pull-right"><i class="fa fa-eye" aria-hidden="true"></i> 800 views</span>
+							</div>
+							<div class="price-course">
+								<span class="price">800.000</span>
+								<span class="sale pull-right">600.000</span>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+			@endfor
+		</div>
+	</div>
+</div>
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog" role="document">
