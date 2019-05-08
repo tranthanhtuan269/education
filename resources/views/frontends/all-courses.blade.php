@@ -34,6 +34,15 @@
                             @endfor
                             <div class="col-sm-12 text-center">
                                 <button type="button" class="btn">Pagging</button>
+                                <!-- <nav>
+                                    <ul class="pagination">
+                                        <li><a href="#"><img src="{{ asset('frontend/images/pagination_previous.png') }}"></a></li>
+                                        <li class="active"><a class="page-link" href="#">1</a></li>
+                                        <li><a class="page-link" href="#">2</a></li>
+                                        <li><a class="page-link" href="#">3</a></li>
+                                        <li><a href="#"><img src="{{ asset('frontend/images/pagination_next.png') }}"></a></li>
+                                    </ul>
+                                </nav> -->
                             </div>
                         </div>
                     </div>

@@ -26,7 +26,7 @@
 					<div class="frame_2">
 						<div class="row">
 							<div class="col-sm-6">
-								<div class="desc">
+								<div class="desc scrollbar">
 									<p>Chuyên gia <strong>Yoga Nguyễn Hiếu </strong>đã có hơn 12 năm nghiên cứu và giảng dạy Yoga tại các trung tâm và đã huấn luyện cho hàng nghìn học viên khắp Việt Nam và thế giới.</p>
 
 									<p>Chị là Đại sứ Yoga Việt Nam do Trung tâm Unesco Phát triển Văn hóa và Thể thao phong tặng.&nbsp;</p>

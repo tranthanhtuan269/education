@@ -25,6 +25,21 @@
         <meta name="author" content="Edu"/>
     </head>
     <body>
+        <div class="notifications alert alert-danger fade in alert-dismissible">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="text-center">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">
+                                <img src="{{ asset('frontend/images/tab_alert_close.png') }}" alt="" />    
+                            </a>
+                            <strong>Danger!</strong> This alert box indicates a dangerous or potentially negative action.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <header>
             <div class="sm-mobile-menu hidden-lg hidden-md hidden-sm">
                 <div class="sm-navi-btn offcanvas-toggle js-offcanvas-has-events" data-toggle="offcanvas" data-target="#js-bootstrap-offcanvas"><i class="fa fa-bars" aria-hidden="true"></i></div>
