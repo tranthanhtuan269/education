@@ -16,12 +16,16 @@
                 @for($i = 1; $i < 5 - $rate; $i++)
                 <i class="far fa-star"></i>
                 @endfor -->
-                <!-- <?php //$rate = 3.5; ?> -->
+                <!-- <?php //$rate = 5 ; ?> -->
                 @for($i = 1; $i <= 5; $i++)
                     @if(!is_integer($rate) && ($rate +0.5 == $i))
                         <i class="fas fa-star-half-alt"></i>
                     @else
-                        <i class="fa fa-star co-or" aria-hidden="true"></i>
+                        @if($i <= $rate)
+                            <i class="fa fa-star co-or" aria-hidden="true"></i>
+                        @else
+                            <i class="far fa-star"></i>
+                        @endif
                     @endif
                 @endfor
                 <!-- <i class="fa fa-star co-or" aria-hidden="true"></i>
