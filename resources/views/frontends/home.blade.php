@@ -143,10 +143,38 @@
                         </div>
                     </div>
                     <div id="menu1" class="tab-pane fade">
-                        2
+                        @for($i = 0; $i < 8; $i++)
+                            @include(
+                                'components.courses', 
+                                [
+                                    'image' => 'https://static.unica.vn/upload/images/2019/04/giao-tiep-tieng-han-cho-nguoi-moi-bat-dau_m_1555561894.jpg',
+                                    'title' => 'Giao tiếp tiếng Hàn dành cho người mới bắt đầu',
+                                    'author' => 'Bảo Minh',
+                                    'rating_number' => 3500,
+                                    'time' => 2,
+                                    'view_number' => 3600,
+                                    'price' => 800000,
+                                    'sale' => 600000,
+                                ]
+                            )
+                        @endfor
                     </div>
                     <div id="menu2" class="tab-pane fade">
-                        3
+                        @for($i = 0; $i < 8; $i++)
+                            @include(
+                                'components.courses', 
+                                [
+                                    'image' => 'https://static.unica.vn/upload/images/2019/04/giao-tiep-tieng-han-cho-nguoi-moi-bat-dau_m_1555561894.jpg',
+                                    'title' => 'Giao tiếp tiếng Hàn dành cho người mới bắt đầu',
+                                    'author' => 'Bảo Minh',
+                                    'rating_number' => 3500,
+                                    'time' => 2,
+                                    'view_number' => 3600,
+                                    'price' => 800000,
+                                    'sale' => 600000,
+                                ]
+                            )
+                        @endfor
                     </div>
                 </div>
             </div>

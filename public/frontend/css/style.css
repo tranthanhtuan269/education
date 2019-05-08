@@ -548,7 +548,7 @@ footer .item-2 .copyright{
     background-color: #ccc;
 }
 
-.top-course #best-seller a{
+.top-course a{
     display: inline-block;
     color: #333;
     background: #ffffff;
@@ -556,37 +556,37 @@ footer .item-2 .copyright{
 
 }
 
-.top-course #best-seller .info {
+.top-course .info {
     padding-bottom: 30px;
     margin: 0 5px 0 8px;
 }
-.top-course #best-seller .info .content-course{
+.top-course .info .content-course{
     border: 1px solid #cccccca6;
     border-radius: 0 0 10px 10px;
     padding:15px;
 
 }
 
-.top-course #best-seller .info .content-course h3.title-course{
+.top-course .info .content-course h3.title-course{
     font-size: 16px;
     margin: 0 0 10px 0;
     font-weight: 600;
     line-height: 26px;
     min-height: 52px;
 }
-.top-course #best-seller .info .img-course img{
+.top-course .info .img-course img{
     border-radius: 10px 10px 0 0 ;
 }
-.top-course #best-seller .info .content-course .time-view{
+.top-course .info .content-course .time-view{
     padding: 10px 0;
 }
-.top-course #best-seller .info .content-course .price-course .price {
+.top-course .info .content-course .price-course .price {
     font-size: 17.5px;
     text-decoration: line-through;
     position: relative;
     top: 4px;
 }
-.top-course #best-seller .info .content-course .price-course .sale {
+.top-course .info .content-course .price-course .sale {
     font-size: 20px;
     color: #FF8F00;
 }
