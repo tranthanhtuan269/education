@@ -133,7 +133,7 @@
                                                 <span class="name-teacher">Bảo Minh</span>
                                                 <span class="pull-right">
                                                 <span class="star-rate">
-                                                <i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star percent percent_6" aria-hidden="true"></i>                </span>
+                                                <i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i>                </span>
                                                 <span class="n-rate">(<span>{!! number_format(3500, 0, ',' , '.') !!}</span>)</span>
                                                 </span>
                                             </div>
