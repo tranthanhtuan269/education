@@ -16,12 +16,10 @@
 						</div>
 						<div class="network pull-right">
 							<button type="button" class="btn btn-default btn-xs">
-								<img src="{{ asset('frontend/images/ic_share.png') }}" alt="" />
-								<span>Share</span>
+								<i class="fas fa-share-alt"></i> Share
 							</button>
 							<button type="button" class="btn btn-default btn-xs">
-								<img src="{{ asset('frontend/images/ic_facebook.png') }}" alt="" />
-								<span>Facebook</span>
+								<i class="fab fa-facebook-square"></i> Facebook
 							</button>
 						</div>
 					</div>
