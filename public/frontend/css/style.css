@@ -985,9 +985,6 @@ footer .item-2 .copyright{
 }
 
 /*detail-course*/
-.detail-course{
-    margin-bottom: 80px;
-}
 .detail-course h3{
     padding-bottom: 25px;
 }
@@ -1314,7 +1311,7 @@ footer .item-2 .copyright{
 }
 
 .detail-course .related-course{
-    padding: 50px 0;
+    padding: 20px 0;
 }
 
 .detail-course .icon{
