@@ -1,6 +1,6 @@
 <div class="container">
     <div class="course-learning-question" id="box_question">
-        <h2 class="title">Questions & Answers</h2>
+        <h3 class="title">Questions & Answers</h3>
         <div class="text-box">
             <form>
                 <div class="form-group">
@@ -15,6 +15,7 @@
     </div>
     <div class="course-learning-review">
         <div class="reviews">
+                <h3>Reviews</h3>
                 <div class="box clearfix">
                     <div class="col-sm-3">
                         <img class="avatar" src="https://www.w3schools.com/howto/img_avatar.png" alt="" />
