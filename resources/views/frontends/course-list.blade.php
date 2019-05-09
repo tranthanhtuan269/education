@@ -70,12 +70,12 @@
 @include('frontends.all-courses')
 @include('frontends.popular-teacher')
 @include('frontends.info-others')
-<script type="text/javascript">
+{{-- <script type="text/javascript">
 	$('.course-list-slider').slick({
 		autoplay: true,
 		arrows: false,
 		dots: true,
 		fade: true
 	});
-</script>
+</script> --}}
 @endsection
