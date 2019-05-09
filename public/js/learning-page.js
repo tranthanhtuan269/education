@@ -13,16 +13,28 @@ $(document).ready(function () {
     toggleBigPlayButton()
     clickToPlay()
 
-    var duong = player.duration()
-    console.log(duong)
+    
     videojs('my-video').ready(function () {
-        // $(".player-end-time").html(player.duration())
         this.on('timeupdate', function () {
-          console.log(this.currentTime());
+            // console.log(this.currentTime());
+            $(".player-current-time").html(convertSecondToTimeFormat(this.currentTime()) + ' / ')
+            $(".player-end-time").html(convertSecondToTimeFormat(this.duration()))
         })
     });
 
-
+    
+    // $(".ln-disc-post-wrapper>div:first-child").click(function () {
+        
+    //     if(!$(".ln-disc-post-right p").hasClass("active")){
+    //         $(".ln-disc-post-right p").addClass("active")
+    //         // $(".ln-disc-comment-wrapper").addClass("active")
+    //         // $(".ln-disc-comment-input").addClass("active")
+    //     }else{
+    //         // $(".ln-disc-comment-wrapper").removeClass("active")
+    //         $(".ln-disc-post-right p").removeClass("active")
+    //         // $(".ln-disc-comment-input").removeClass("active")
+    //     }
+    // })
 
 
     $(".lecture-title").click(function () {
@@ -43,9 +55,23 @@ $(document).ready(function () {
     $(".ln-btn-discuss").click(function () {
         toggleDiscussion()
     })
+    $("#btnCloseDiscussion").click(function (){
+        toggleDiscussion()
+    })
 
 
-
+    function convertSecondToTimeFormat(time) {
+        var hr = ~~(time / 3600);
+        var min = ~~((time % 3600) / 60);
+        var sec = time % 60;
+        var sec_min = "";
+        if (hr > 0) {
+           sec_min += "" + hrs + ":" + (min < 10 ? "0" : "");
+        }
+        sec_min += "" + min + ":" + (sec < 10 ? "0" : "");
+        sec_min += "" + Math.floor(sec);
+        return sec_min;
+    }
     
     function seekTime(secs) {
         var seekingTime   = player.currentTime() + secs
@@ -98,21 +124,42 @@ $(document).ready(function () {
         if (!$(".learning-lecture-list").hasClass('active')) {
 
             $(".learning-lecture-list").addClass('active')
-            $("#my-video").addClass('sidebarActive')
-            $(".learning-desc-panel-body").addClass('sidebarActive')
-            $(".vjs-custom-big-play-button").addClass('active')
-            $("#btnNote span").hide()
-            $("#btnDiscuss span").hide()
-            $("#btnFile span").hide()
+            $(".learning-discussion").removeClass("active")
+            
+            $("#my-video").removeClass('rightbarActive')
+            $("#my-video").addClass('leftbarActive')
+
+            $(".learning-desc-panel-body").removeClass('rightbarActive')
+            $(".learning-desc-panel-body").addClass('leftbarActive')
+
+            $(".ln-desc-bottom").removeClass("rightbarActive")
+            $(".ln-desc-bottom").addClass("leftbarActive")
+
+            $(".vjs-custom-big-play-button").removeClass('rightbarActive')
+            $(".vjs-custom-big-play-button").addClass('leftbarActive')
+
+            $(".ln-btn-note span").hide()
+            $(".ln-btn-discuss span").hide()
+            $(".ln-btn-file span").hide()
+            $(".ln-btn-autoplay span").hide()
+            $(".ln-btn-report span").hide()
         } else {
 
             $(".learning-lecture-list").removeClass('active')
-            $("#my-video").removeClass('sidebarActive')
-            $(".learning-desc-panel-body").removeClass('sidebarActive')
-            $(".vjs-custom-big-play-button").removeClass('active')
-            $("#btnNote span").show()
-            $("#btnDiscuss span").show()
-            $("#btnFile span").show()
+            $("#my-video").removeClass('leftbarActive')
+            
+            $(".learning-desc-panel-body").removeClass('leftbarActive')
+            $(".ln-desc-bottom").removeClass("leftbarActive")
+
+
+            $(".vjs-custom-big-play-button").removeClass('leftbarActive')
+
+            $(".ln-btn-note span").show()
+            $(".ln-btn-discuss span").show()
+            $(".ln-btn-file span").show()
+            $(".ln-btn-autoplay span").show()
+            $(".ln-btn-report span").show()
+
 
         }
     }
@@ -121,19 +168,40 @@ $(document).ready(function () {
         if(!$(".learning-discussion").hasClass('active')){
 
             $(".learning-discussion").addClass("active")
-            $("#my-video").addClass('sidebarActive')
+            $(".learning-lecture-list").removeClass('active')
+
+            $("#my-video").removeClass('leftbarActive')
+            $("#my-video").addClass('rightbarActive')
+
+            $(".learning-desc-panel-body").removeClass('leftbarActive')
+            $(".learning-desc-panel-body").addClass('rightbarActive')
+
+            $(".ln-desc-bottom").removeClass("leftbarActive")
+            $(".ln-desc-bottom").addClass("rightbarActive")
+            
+            $(".vjs-custom-big-play-button").removeClass('leftbarActive')
+            $(".vjs-custom-big-play-button").addClass('rightbarActive')
 
             $(".ln-btn-note span").hide()
             $(".ln-btn-discuss span").hide()
             $(".ln-btn-file span").hide()
+            $(".ln-btn-autoplay span").hide()
+            $(".ln-btn-report span").hide()
         } else {
 
             $(".learning-discussion").removeClass("active")
-            $("#my-video").removeClass('sidebarActive')
+            $("#my-video").removeClass('rightbarActive')
+
+            $(".learning-desc-panel-body").removeClass('rightbarActive')
+            $(".ln-desc-bottom").removeClass("rightbarActive")
+
+            $(".vjs-custom-big-play-button").removeClass('rightbarActive')
 
             $(".ln-btn-note span").show()
             $(".ln-btn-discuss span").show()
             $(".ln-btn-file span").show()
+            $(".ln-btn-autoplay span").show()
+            $(".ln-btn-report span").show()
         }
     }
 
@@ -151,8 +219,8 @@ $(document).ready(function () {
 
         //Displaying Time
         var groupPlayerTimeDiv = "<div class='group-player-time btn'></div>"
-        var currentTimeSpan = "<span class='player-current-time'>00:00 /</span>"
-        var endTimeSpan = "<span class='player-end-time'> 17:09</span>"
+        var currentTimeSpan = "<span class='player-current-time'>00:00 / </span>"
+        var endTimeSpan = "<span class='player-end-time'> 00:00</span>"
 
         $("#btnForward").after(groupPlayerTimeDiv)
         $(".group-player-time").append(currentTimeSpan)
