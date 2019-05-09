@@ -615,10 +615,10 @@ ul.unica-acc-zone li.special:hover a{
 .course-learning-banner .vote .star-rate{ font-size: 19px;}
 .course-learning-banner .number-unit{padding:20px 0}
 .course-learning-banner .cup-icon{text-align:center}
-.course-learning-banner .border-element{border:none;border-radius:20px}
+.course-learning-banner .border-element{border:none;margin-right:30px}
 /*Left Content*/
 /*.course-learning-content{padding:40px 0}*/
-.course-learning-content .left-content{margin-bottom:30px}
+.course-learning-content .left-content{margin-bottom:30px;margin-right: 30px}
 .course-learning-content .left-content .desc{padding-bottom:40px}
 .course-learning-content .course-document{padding:40px 0}
 .course-learning-content .all-doc{border:1px solid gray;border-bottom:none}
@@ -628,7 +628,7 @@ ul.unica-acc-zone li.special:hover a{
 /*Sidebar*/
 .course-learning-content .sidebar{margin:30px 0;border:1px solid gray;text-align:center}
 .course-learning-content .sidebar .teacher-info{padding:10px}
-.course-learning-content .sidebar .teacher-info .instructor{font-size:30px;font-weight:900;padding:20px 0}
+.course-learning-content .sidebar .teacher-info .instructor{font-size:28px;font-weight:900;padding:20px 0}
 .course-learning-content .sidebar .teacher-info img{border:none;border-radius:50%;width:120px;height:120px}
 .course-learning-content .sidebar .teacher-info .name{padding:30px 0 0;font-size:20px;font-weight:700}
 .course-learning-content .sidebar .teacher-info .office{padding:0 0 20px}
@@ -638,7 +638,7 @@ ul.unica-acc-zone li.special:hover a{
 .course-learning-content .sidebar .teacher-info .total-student .inbox{background:#FF8F00;border:none;border-radius:5px;color:#fff}
 /*Related Courses*/
 .course-learning-content .relate-course{margin:30px 0;border:1px solid gray}
-.course-learning-content .relate-course .relate-title{font-size:30px;font-weight:900;padding:20px 0;text-align:center}
+.course-learning-content .relate-course .relate-title{font-size:28px;font-weight:900;padding:20px 0;text-align:center}
 .course-learning-content .relate-course .list-course{padding:10px}
 .course-learning-content .relate-course .list-course img{width:100%;border:none;border-radius:10px}
 .course-learning-content .relate-course .list-course .title{font-size:16px;font-weight:600;padding:5px 0}
@@ -651,6 +651,34 @@ ul.unica-acc-zone li.special:hover a{
 .course-learning-question .text-box .btn-submit{text-align:center;padding:20px 0}
 .course-learning-question .text-box .btn-submit .submit-question{padding:10px 40px;color:#fff;background-color:#FF8F00;border:none;border-radius:10px}
 /*End Courses Learning*/
+
+/*Begin Courses List*/ 
+.course-list-top{width:100%;background-size:100%;padding-bottom:100px}
+.course-list-top .banner{width:1366px;position:absolute;z-index:-1;right:0}
+.course-list-top .box-container-top{padding-top:80px}
+.course-list-top .title-bar{padding:30px 0}
+.course-list-top .title-bar .title-page{color:#fff;font-weight:900;padding-left:30px}
+.course-list-top .title-bar .course-number{font-size:24px;color:#fff}
+.course-list-top .title-bar .btn-share{padding-left:30px;padding-right:30px;margin-left:20px}
+.course-list-top .title-bar .btn-remove{margin-left:20px}
+.course-list-top .title-bar .btn-remove .fa-heart{color:red}
+.course-list-top .top-course{
+    background:#fff;
+    padding: 20px;
+    margin: 0 10px 20px 10px;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+}
+.course-list-top .top-course img{width:100%}
+.course-list-top .top-course .course-info{padding:20px 80px 0 40px}
+.course-list-top .top-course .course-info .post-title{padding-bottom:20px}
+.course-list-top .top-course .course-info .last-update{padding-bottom:20px}
+.course-list-top .top-course .course-info .instructor{font-size:17px;padding-bottom:20px}
+.course-list-top .top-course .course-info .time-view{padding-bottom:40px}
+.course-list-top .top-course .course-info .view,.course-list-top .top-course .course-info .unit{padding-left:50px}
+.course-list-top .top-course .course-info .btn-explore{padding:10px 20px;background:#FF8F00;color:#fff;font-weight:800}
+.course-list-top .top-course .course-info .imaginary{font-size:20px}
+.course-list-top .top-course .course-info .real{color:#FF8F00;font-size:24px;padding-left:40px}
+/*End Courses List*/
 
 /*Begin Footer*/
 footer{font-weight:500;background:url(../images/bg-footer.png) no-repeat;background-size:100% 100%}
@@ -955,8 +983,8 @@ min-height: 1px;
     margin-bottom: 80px;
 }
 .detail-teacher .frame .avatar{
-   display: flex;
-   align-items:center;
+ display: flex;
+ align-items:center;
 }
 .detail-teacher .frame .avatar img{
     vertical-align: middle;
@@ -1059,8 +1087,8 @@ min-height: 1px;
     border-radius: 20px;
 }
 .detail-course .frame .avatar{
- display: flex;
- align-items:center;
+   display: flex;
+   align-items:center;
 }
 .detail-course .frame .info{
     color: #fff;
@@ -1292,7 +1320,7 @@ top: 90px;*/
 
 }
 
-    }*/
+}*/
     /* .detail-course .info .knowledge{
         padding: 30px 0 10px 0;
     }
@@ -1381,7 +1409,7 @@ top: 90px;*/
       height: 110px;
       border-radius: 50%;
 
-  }*/
+      }*/
 
 /*.detail-course .instructors .detail-info{
     font-size: 13px;
@@ -1480,26 +1508,3 @@ top: 90px;*/
 
 
 /*Trinhnk*/
-/*Begin Courses List*/ 
-.course-list-top{background-size:100%;padding-bottom:100px}
-.course-list-top .banner{width:1366px;position:absolute;z-index:-1;right:0}
-.course-list-top .box-container-top{padding-top:80px !important }
-.course-list-top .title-bar{padding:30px 0}
-.course-list-top .title-bar .title-page{color:#fff;font-weight:900;padding-left:30px}
-.course-list-top .title-bar .course-number{font-size:24px;color:#fff}
-.course-list-top .title-bar .btn-share{padding-left:30px;padding-right:30px;margin-left:20px}
-.course-list-top .title-bar .btn-remove{margin-left:20px}
-.course-list-top .title-bar .btn-remove .fa-heart{color:red}
-.course-list-top .top-course{background:#fff;-webkit-box-shadow:0 1px 5px 0 rgba(0,0,0,0.75);-moz-box-shadow:0 1px 5px 0 rgba(0,0,0,0.75);box-shadow:0 1px 5px 0 rgba(0,0,0,0.75);padding:20px}
-.course-list-top .top-course img{width:100%}
-.course-list-top .top-course .course-info{padding:20px 80px 0 40px}
-.course-list-top .top-course .course-info .post-title{padding-bottom:20px}
-.course-list-top .top-course .course-info .last-update{padding-bottom:20px}
-.course-list-top .top-course .course-info .instructor{font-size:17px;padding-bottom:20px}
-.course-list-top .top-course .course-info .time-view{padding-bottom:40px}
-.course-list-top .top-course .course-info .view,.course-list-top .top-course .course-info .unit{padding-left:50px}
-.course-list-top .top-course .course-info .btn-explore{padding:10px 20px;background:#FF8F00;color:#fff;font-weight:800}
-.course-list-top .top-course .course-info .imaginary{font-size:20px}
-.course-list-top .top-course .course-info .real{color:#FF8F00;font-size:24px;padding-left:40px}
-/*End Courses List*/
-

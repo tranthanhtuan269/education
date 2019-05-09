@@ -31,7 +31,7 @@
                     <p id="txt-format">Member Card</p>
                     <p class="des-member-card">Learning can happen anywhere with our apps on your computer, mobile device, and TV, featuring enhanced navigation and faster streaming for anytime learning.</p>
                     <div class="btn-register">
-                        <a href="#" title="Register Member">Register Now</a>
+                        <a href="member-card" title="Register Member">Register Now</a>
                     </div>
                 </div>
             </div>
