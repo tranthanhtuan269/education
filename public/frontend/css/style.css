@@ -930,10 +930,12 @@ footer .item-2 .copyright{
 .detail-teacher .frame .network{
     padding-top: 50px;
 }
-.detail-teacher .frame .network .btn{
+.detail-teacher .frame .network .btn,
+.detail-course .frame .network .btn{
     padding: 5px 22px;
     margin: 0 5px;
     border-radius: 6px;
+    font-size: 14px;
 }
 .detail-teacher .frame .network .btn span{
     position: relative;
@@ -983,9 +985,6 @@ footer .item-2 .copyright{
 }
 
 /*detail-course*/
-.detail-course{
-    margin-bottom: 80px;
-}
 .detail-course h3{
     padding-bottom: 25px;
 }
@@ -993,7 +992,7 @@ footer .item-2 .copyright{
     float: left;
     background: #ccc;
     margin: 0 20px;
-    padding: 5px 25px;
+    padding: 5px 40px;
     border-radius: 20px;
 }
 .detail-course .frame .avatar{
@@ -1005,7 +1004,8 @@ footer .item-2 .copyright{
 }
 .detail-course .frame .info .name{
     font-weight: 600;
-    font-size: 19px;
+    font-size: 26px;
+    margin: 5px 0;
 }
 .detail-course .background{
     position: absolute;
@@ -1021,32 +1021,18 @@ footer .item-2 .copyright{
 .detail-course .frame .avatar .info{
     color: #fff;
 }
-.detail-course .frame .network{
-    padding-top: 25px;
-}
-.detail-course .frame .network .btn{
-    padding: 0 15px;
-    margin:0 5px;
-}
-.detail-course .frame .network .btn span{
-    position: relative;
-    top: -2px;
-}
-.detail-course .frame .network img{
-    position: relative;
-    top: 3px;
-}
 .detail-course .frame_2 .box{
     padding: 0 20px 20px 0;
 }
 .detail-course .frame_2 .box span.sale{
     color: #FF8F00;
-    font-size: 19px;
+    font-size: 25px;
     padding-right: 10px;
 
 }
 .detail-course .frame_2 .box .btn-toh{
     width: 250px;
+    height: 50px;
 }
 .detail-course .frame_2 .box .btn-toh:hover{
     background: #FF8F00;
@@ -1058,10 +1044,12 @@ footer .item-2 .copyright{
     padding-left: 3px;
 }
 .detail-course .frame_2 .box span.price,.detail-course .frame_2 .box span.price-off{
-    font-size: 19px;
+    font-size: 25px;
+    color: #999;
 }
 .detail-course .frame_2 .box span.price{
     text-decoration: line-through;
+    color: #999;
 }
 .detail-course .frame_2 .box span.interval{
     color: red;
@@ -1070,12 +1058,12 @@ footer .item-2 .copyright{
 }
 .detail-course .frame_2{
     background: #fff;
-    padding: 30px;
+    padding: 30px 30px 10px;
     box-shadow: inset 0 0 5px #ccc;
-    margin-top: -25px;
+    margin-top: 25px;
 }
 .detail-course .frame_2 iframe{
-    height: 250px;
+    height: 295px;
 }
 .detail-course .frame_2 .desc{
     height: 220px;
@@ -1101,19 +1089,17 @@ footer .item-2 .copyright{
     float: left;
     margin: 0 20px;
     border-radius: 10px;
-    padding:  5px 15px;
+    padding: 10px 40px;
+    font-weight: 600;
 }
 .detail-course .menu ul li a{
     color: #333;
 }
 .detail-course .menu ul li.active{
-    background: linear-gradient(to right, #645f99 , #20CADD);
+    background: linear-gradient(to left, #606cfd , #20CADD);
     color: #fff;
     border: none;
     color: #fff;
-}
-.detail-course .info{
-    margin-bottom: 50px;
 }
 .detail-course .info h3{
     padding-bottom: 15px;
@@ -1145,21 +1131,17 @@ footer .item-2 .copyright{
     font-size: 16px;
 }
 .detail-course .info ul.others{
-    padding: 30px 20px;
+    padding: 50px 20px;
 }
 .detail-course .info ul.others li span.txt-small{
     display: block;
     font-size: 12px;
 }
 .detail-course .info ul.others li{
-    padding-bottom: 30px;
+    padding-bottom: 35px;
 }
 .detail-course .info ul.others li:last-child{
     padding-bottom: 0;
-}
-
-.detail-course .lessons{
-    padding-bottom: 50px;
 }
 .detail-course .lessons .u-video-list-course .panel { border-radius: 0; border: 0; box-shadow: none; }
 .detail-course .lessons .u-video-list-course .col {display: inline-block; width: 100%; border-bottom: 1px solid #eaeaea ;padding: 5px 0 8px 0; }
@@ -1175,13 +1157,14 @@ footer .item-2 .copyright{
 .detail-course .lessons .u-combo-buy h3, .u-cm-hv h3, .u-rate-hv h3, .u-course-teacher h3, .u-des-course h2 { font-size: 16px; font-weight: bold; margin-bottom: 10px;  margin-top: 0; border-bottom: 1px solid #ddd; padding-bottom: 10px;}
 .detail-course .lessons .u-list-course h3,.detail-course .lessons .u-list-course ul{
     display: inline-block;
+    line-height: 25px;
 }
 .detail-course .lessons .u-list-course ul li{
     float: left;
     padding: 5px 25px;
 }
 
-.detail-course .lessons .u-learn-what h3, .u-des-course h2, .u-list-course h2, .u-course-plus h3, .u-course-teacher h3, .u-combo-buy h3, .u-rate-hv h3, .u-cm-hv h3  { font-size: 16px; font-weight: bold; padding: 15px}
+.detail-course .lessons .u-learn-what h3, .u-des-course h2, .u-course-plus h3, .u-course-teacher h3, .u-combo-buy h3, .u-rate-hv h3, .u-cm-hv h3  { font-size: 16px; font-weight: bold; padding: 15px}
 .detail-course .lessons .tag .label { font-weight: normal; }
 .detail-course .lessons .u-des-course p { margin-bottom: 10px; line-height: 25px; }
 .detail-course .lessons .u-des-course ul li { list-style: disc; margin: 0 0 10px 40px; }
@@ -1224,10 +1207,13 @@ footer .item-2 .copyright{
     padding-bottom: 20px;
 }
 .detail-course .instructors img.avatar {
-  vertical-align: middle;
-  width: 110px;
-  height: 110px;
-  border-radius: 50%;
+    vertical-align: middle;
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    float: left;
+    border: 4px solid #FFF;
+    box-shadow: 2px 2px 10px #aaa;
 
 }
 /*.detail-course .instructors .detail-info{
@@ -1267,7 +1253,7 @@ footer .item-2 .copyright{
 }
 
 .detail-course .feedback .student-rating .number{
-    font-size: 32px;
+    font-size: 40px;
     color: #FF8F00;
     font-weight: 600;
     padding: 5px 0;
@@ -1325,6 +1311,47 @@ footer .item-2 .copyright{
 }
 
 .detail-course .related-course{
-    padding: 50px 0;
+    padding: 20px 0;
 }
 
+.detail-course .icon{
+    width: 19px;
+    position: relative;
+    top: -6px;
+}
+
+/* .detail-course .info{
+    font-size: 20px;
+} */
+.detail-course h2{
+    font-weight: 600;
+    margin: 0 0 15px;
+}
+
+.detail-course .desc p{
+    font-size: 15px;
+}
+
+.detail-course .knowledge li{
+    font-size: 15px;
+}
+
+.detail-course .lessons{
+    margin: 50px 0;
+}
+
+.detail-course .panel-heading{
+    padding: 15px;
+}
+
+.detail-course .tags span{
+    line-height: 34px;
+}
+
+.detail-course .instructor-item{
+    margin-top: 15px;
+}
+
+.detail-course .rating-process{
+    margin-top: 15px;
+}
