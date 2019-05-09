@@ -49,11 +49,13 @@
 											<span class="special">11.112 Students</span>
 										</li>
 										<li>
-											
-											    <span class="star-rate">
-											    <i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i>                </span>
-											    <span class="n-rate">4.5 (<span>11.990 ratings</span>)</span>
-											
+											@include(
+												'components.vote', 
+												[
+													'rate' => 2,
+													'rating_number' => 3500
+												]
+											)
 										</li>
 									</ul>
 								</div>

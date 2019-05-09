@@ -53,9 +53,14 @@
                                         <span class="special">11.112 Students</span>                                        
                                     </div>
                                     <div class="pull-right">
-                                        <span class="star-rate">
-                                        <i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i>                </span>
-                                        <span class="n-rate">4.5 (<span>11.990 ratings</span>)</span>
+                                        @include(
+                                            'components.vote', 
+                                            [
+                                                'rate' => 2,
+                                                'rating_number' => 3500,
+                                                'rating_txt' => true
+                                            ]
+                                        )
                                     </div>
                                 </div>
                                 <div class="box clearfix">
@@ -392,11 +397,13 @@
                 <div class="col-sm-6">
                     <div class="row">
                         <div class="col-sm-3">
-                            <img class="avatar" src="https://www.w3schools.com/howto/img_avatar.png" alt="" />
+                            <a href="{{ route('detail-teacher') }}">
+                                <img class="avatar" src="https://www.w3schools.com/howto/img_avatar.png" alt="" />
+                            </a>
                         </div>
                         <div class="col-sm-9">
                             <div class="detail-info">
-                                <p class="name">Bảo Minh</p>
+                                <p class="name"><a href="{{ route('detail-teacher') }}" class="link">Bảo Minh</a></p>
                                 <p class="expret">PHP, Jquery, Agular Js, Vue Js, NodeJs</p>
                                 <div class="frame clearfix">
                                     <div class="pull-left">
@@ -404,9 +411,13 @@
                                         <span class="special">22 Courses</span>
                                     </div>
                                     <div class="pull-right">
-                                        <span class="star-rate">
-                                        <i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i>                </span>
-                                        <span class="n-rate">4.5 (<span>11.990 ratings</span>)</span>
+                                        @include(
+                                            'components.vote', 
+                                            [
+                                                'rate' => 2,
+                                                'rating_number' => 3500
+                                            ]
+                                        )
                                     </div>
                                 </div>
                                 <div class="">
@@ -432,9 +443,13 @@
                                         <span class="special">22 Courses</span>
                                     </div>
                                     <div class="pull-right">
-                                        <span class="star-rate">
-                                        <i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i>                </span>
-                                        <span class="n-rate">4.5 (<span>11.990 ratings</span>)</span>
+                                        @include(
+                                            'components.vote', 
+                                            [
+                                                'rate' => 2,
+                                                'rating_number' => 3500
+                                            ]
+                                        )
                                     </div>
                                 </div>
                                 <div class="">
@@ -455,108 +470,36 @@
                     <h3>Students Feedback</h3>
                     <p class="number">5</p>
                     <p class="star">
-                        <span class="star-rate">
-                        <i class="fa fa-star co-or" aria-hidden="true"></i>
-                        <i class="fa fa-star co-or" aria-hidden="true"></i>
-                        <i class="fa fa-star co-or" aria-hidden="true"></i>
-                        <i class="fa fa-star co-or" aria-hidden="true"></i>
-                        <i class="fa fa-star co-or" aria-hidden="true"></i>                
-                        </span>
+                        @include(
+                            'components.vote', 
+                            [
+                                'rate' => 2,
+                            ]
+                        )
                     </p>
                     <p>Course Rating</p>
                 </div>
                 <div class="col-sm-8">
                     <div class="row">
-                        <div class="item-progress">
-                            <div class="col-sm-9">
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
-                                        aria-valuemin="0" aria-valuemax="100" style="width:40%"></div>
+                        @for ($i = 0; $i < 5; $i++)
+                            <div class="item-progress">
+                                <div class="col-sm-9">
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
+                                            aria-valuemin="0" aria-valuemax="100" style="width:40%"></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    @include(
+                                        'components.vote', 
+                                        [
+                                            'rate' => 2,
+                                        ]
+                                    )
+                                    <span class="percent-rating">80%</span>
                                 </div>
                             </div>
-                            <div class="col-sm-3">
-                                <span class="star-rate">
-                                <i class="fa fa-star co-or" aria-hidden="true"></i>
-                                <i class="fa fa-star co-or" aria-hidden="true"></i>
-                                <i class="fa fa-star co-or" aria-hidden="true"></i>
-                                <i class="fa fa-star co-or" aria-hidden="true"></i>
-                                <i class="fa fa-star co-or" aria-hidden="true"></i>                
-                                </span>
-                                <span class="percent-rating">80%</span>
-                            </div>
-                        </div>
-                        <div class="item-progress">
-                            <div class="col-sm-9">
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
-                                        aria-valuemin="0" aria-valuemax="100" style="width:40%"></div>
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <span class="star-rate">
-                                <i class="fa fa-star co-or" aria-hidden="true"></i>
-                                <i class="fa fa-star co-or" aria-hidden="true"></i>
-                                <i class="fa fa-star co-or" aria-hidden="true"></i>
-                                <i class="fa fa-star co-or" aria-hidden="true"></i>
-                                <i class="fa fa-star co-or" aria-hidden="true"></i>                
-                                </span>
-                                <span class="percent-rating">80%</span>
-                            </div>
-                        </div>
-                        <div class="item-progress">
-                            <div class="col-sm-9">
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
-                                        aria-valuemin="0" aria-valuemax="100" style="width:40%"></div>
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <span class="star-rate">
-                                <i class="fa fa-star co-or" aria-hidden="true"></i>
-                                <i class="fa fa-star co-or" aria-hidden="true"></i>
-                                <i class="fa fa-star co-or" aria-hidden="true"></i>
-                                <i class="fa fa-star co-or" aria-hidden="true"></i>
-                                <i class="fa fa-star co-or" aria-hidden="true"></i>                
-                                </span>
-                                <span class="percent-rating">80%</span>
-                            </div>
-                        </div>
-                        <div class="item-progress">
-                            <div class="col-sm-9">
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
-                                        aria-valuemin="0" aria-valuemax="100" style="width:40%"></div>
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <span class="star-rate">
-                                <i class="fa fa-star co-or" aria-hidden="true"></i>
-                                <i class="fa fa-star co-or" aria-hidden="true"></i>
-                                <i class="fa fa-star co-or" aria-hidden="true"></i>
-                                <i class="fa fa-star co-or" aria-hidden="true"></i>
-                                <i class="fa fa-star co-or" aria-hidden="true"></i>                
-                                </span>
-                                <span class="percent-rating">80%</span>
-                            </div>
-                        </div>
-                        <div class="item-progress">
-                            <div class="col-sm-9">
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
-                                        aria-valuemin="0" aria-valuemax="100" style="width:40%"></div>
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <span class="star-rate">
-                                <i class="fa fa-star co-or" aria-hidden="true"></i>
-                                <i class="fa fa-star co-or" aria-hidden="true"></i>
-                                <i class="fa fa-star co-or" aria-hidden="true"></i>
-                                <i class="fa fa-star co-or" aria-hidden="true"></i>
-                                <i class="fa fa-star co-or" aria-hidden="true"></i>                
-                                </span>
-                                <span class="percent-rating">80%</span>
-                            </div>
-                        </div>
+                        @endfor
                     </div>
                 </div>
             </div>
@@ -571,13 +514,12 @@
                         </div>
                     </div>
                     <div class="col-sm-9">
-                        <span class="star-rate">
-                        <i class="fa fa-star co-or" aria-hidden="true"></i>
-                        <i class="fa fa-star co-or" aria-hidden="true"></i>
-                        <i class="fa fa-star co-or" aria-hidden="true"></i>
-                        <i class="fa fa-star co-or" aria-hidden="true"></i>
-                        <i class="fa fa-star co-or" aria-hidden="true"></i>                
-                        </span>
+                        @include(
+                            'components.vote', 
+                            [
+                                'rate' => 2,
+                            ]
+                        )
                         <p class="comment">
                             Khóa học em học được rất tốt rất dễ hiểu và em sẽ học lâu dài ở đây ạ. Khóa học em học được rất tốt rất dễ hiểu và em sẽ học lâu dài ở đây ạ
                         </p>
@@ -609,13 +551,12 @@
                         </div>
                     </div>
                     <div class="col-sm-9">
-                        <span class="star-rate">
-                        <i class="fa fa-star co-or" aria-hidden="true"></i>
-                        <i class="fa fa-star co-or" aria-hidden="true"></i>
-                        <i class="fa fa-star co-or" aria-hidden="true"></i>
-                        <i class="fa fa-star co-or" aria-hidden="true"></i>
-                        <i class="fa fa-star co-or" aria-hidden="true"></i>                
-                        </span>
+                        @include(
+                            'components.vote', 
+                            [
+                                'rate' => 2,
+                            ]
+                        )
                         <p class="comment">
                             Khóa học em học được rất tốt rất dễ hiểu và em sẽ học lâu dài ở đây ạ. Khóa học em học được rất tốt rất dễ hiểu và em sẽ học lâu dài ở đây ạ
                         </p>

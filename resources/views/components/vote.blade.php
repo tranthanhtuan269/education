@@ -11,4 +11,6 @@
     <i class="far fa-star"></i>
     @endfor
 </span>
-<span class="n-rate">{{ $rate }} (<span>{!! number_format($rating_number, 0, ',' , '.') !!} ratings</span>)</span>
+@if(isset($rating_number) && isset($rate))
+    <span class="n-rate">{{ $rate }} (<span>{!! number_format($rating_number, 0, ',' , '.') !!}@if(isset($rating_txt)) ratings @endif</span>)</span>
+@endif

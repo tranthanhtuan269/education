@@ -1,9 +1,11 @@
 <div class="col-sm-3">
     <div class="info">
-        <div class="avatar text-center">
-            <img class="" src="{{ $image }}">
-        </div>
-        <h3 class="name-teacher text-center text-center">{!! $name !!}</h3>
+        <a href="{{ route('detail-teacher') }}">
+            <div class="avatar text-center">
+                <img class="" src="{{ $image }}">
+            </div>
+            <h3 class="name-teacher text-center text-center">{!! $name !!}</h3>
+        </a>
         <p class="des-teacher text-center">{!! $expert !!}</p>
         <div class="star-teacher text-center">
             @include(

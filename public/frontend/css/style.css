@@ -1217,6 +1217,9 @@ footer .item-2 .copyright{
     background: #F5F5F5;
     padding: 50px 0;
 }
+.detail-course .instructors a.link{
+    color: #333;
+}
 .detail-course .instructors h3{
     padding-bottom: 20px;
 }

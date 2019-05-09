@@ -86,13 +86,13 @@
      
                     <div data-u="slides" style="cursor:default;position:relative;top:0px;left:0px;width:980px;height:120px;overflow:hidden;">
                         @for($i = 0; $i < 10; $i++)
-                        <div class="item item-slider text-center">
+                        <a href="{{ route('course-category') }}" class="item item-slider text-center">
                             <img data-u="image" src="{{ asset('frontend/images/slide_design.png') }}" alt=""/>
                             <div class="cat cat-item-slider">
                                 <h2>GYM {{ $i + 1 }}</h2>
                                 <p>Comming soon</p>
                             </div>
-                        </div>
+                        </a>
                         @endfor
                     </div>
 
