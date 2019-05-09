@@ -1,9 +1,16 @@
 <div class="col-sm-3">
     <div class="box-course">
         <a href="{{ route('course-detail') }}" class="course-box-slider pop">
-            <div class="img-course"><img class="img-responsive"
-                    src="{{ $image }}"
-                    alt="{{ $title }}"></div>
+            <div class="img-course">
+                <img class="img-responsive" src="{{ $image }}" alt="{{ $title }}">
+                @if (isset($heart))
+                <i class="fa fa-heart fa-lg heart-icon" aria-hidden="true"></i>    
+                @endif
+
+                @if (isset($setup))  
+                <i class="fa fa-cog fa-lg setting-icon" aria-hidden="true"></i>
+                @endif
+            </div>
             <div class="content-course">
                 <h3 class="title-course">{{ $title }}</h3>
                 <div class="clearfix">
@@ -25,6 +32,11 @@
                     <span class="view pull-right">
                         <i class="fa fa-eye" aria-hidden="true"></i> {!! number_format($view_number, 0, ',' , '.') !!} views
                     </span>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                        60%
+                    </div>
                 </div>
                 <div class="price-course">
                     <span class="price">

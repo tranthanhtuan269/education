@@ -189,7 +189,7 @@ nav .pagination li a img{
     display: none
 }
 
-.detail-course h3, .course-learning-content h3,.course-recommend h3{
+.detail-course h3, .course-learning-content h3,.course-recommend h3,.course-learning-review h3{
     padding-bottom: 25px;
 }
 .percent{ color: #999; position: relative;}
@@ -1296,7 +1296,6 @@ top: 90px;*/
 
 }
 
-    }*/
     /* .detail-course .info .knowledge{
         padding: 30px 0 10px 0;
     }
@@ -1387,13 +1386,15 @@ top: 90px;*/
 
   }*/
 
-/*.detail-course .instructors .detail-info{
-    font-size: 13px;
-    }*/
 
+    .detail-course .instructors .detail-info{
+        padding-right: 40px;
+    }
+    .detail-course .instructors .detail-info a{
+        color: #333;
+    }
     .detail-course .instructors .detail-info .frame{
         padding-bottom: 6px;
-        padding-right: 20px;
     }
 
     .detail-course .instructors .detail-info span.special{

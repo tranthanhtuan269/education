@@ -181,41 +181,50 @@
                     <h3>About the instructors</h3>
                 </div>
                 <div class="col-sm-6">
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <img class="avatar" src="https://www.w3schools.com/howto/img_avatar.png" alt="" />
-                        </div>
-                        <div class="col-sm-9">
-                            <div class="detail-info">
-                                <p class="name">Bảo Minh</p>
-                                <p class="expret">PHP, Jquery, Agular Js, Vue Js, NodeJs</p>
-                                <div class="frame clearfix">
-                                    <div class="pull-left">
-                                        <img src="{{ asset('frontend/images/ic_course.png') }}" alt="" /> 
-                                        <span class="special">22 Courses</span>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <a href="{{ route('detail-teacher') }}">
+                                    <img class="avatar" src="https://www.w3schools.com/howto/img_avatar.png" alt="" />
+                                </a>
+                            </div>
+                            <div class="col-sm-9">
+                                <div class="detail-info">
+                                    <p class="name"><a href="{{ route('detail-teacher') }}">Bảo Minh</a></p>
+                                    <p class="expret">PHP, Jquery, Agular Js, Vue Js, NodeJs</p>
+                                    <div class="frame clearfix">
+                                        <div class="pull-left">
+                                            <img src="{{ asset('frontend/images/ic_course.png') }}" alt="" /> 
+                                            <span class="special">22 Courses</span>
+                                        </div>
+                                        <div class="pull-right">
+                                            @include(
+                                                'components.vote', 
+                                                [
+                                                    'rate' => 2,
+                                                    'rating_number' => 100,
+                                                    'rating_txt' => true,
+                                                ]
+                                            )
+                                        </div>
                                     </div>
-                                    <div class="pull-right">
-                                        <span class="star-rate">
-                                        <i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i>                </span>
-                                        <span class="n-rate">4.5 (<span>11.990 ratings</span>)</span>
+                                    <div class="">
+                                        <img src="{{ asset('frontend/images/icon_student.png') }}" alt="" /> 
+                                        <span class="special">11.112 Students</span>
                                     </div>
-                                </div>
-                                <div class="">
-                                    <img src="{{ asset('frontend/images/icon_student.png') }}" alt="" /> 
-                                    <span class="special">11.112 Students</span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 <div class="col-sm-6">
                     <div class="row">
                         <div class="col-sm-3">
-                            <img class="avatar" src="https://www.w3schools.com/howto/img_avatar.png" alt="" />
+                            <a href="{{ route('detail-teacher') }}">
+                                <img class="avatar" src="https://www.w3schools.com/howto/img_avatar.png" alt="" />
+                            </a>
                         </div>
                         <div class="col-sm-9">
                             <div class="detail-info">
-                                <p class="name">Bảo Minh</p>
+                                <p class="name"><a href="{{ route('detail-teacher') }}">Bảo Minh</a></p>
                                 <p class="expret">PHP, Jquery, Agular Js, Vue Js, NodeJs</p>
                                 <div class="frame clearfix">
                                     <div class="pull-left">
@@ -223,9 +232,14 @@
                                         <span class="special">22 Courses</span>
                                     </div>
                                     <div class="pull-right">
-                                        <span class="star-rate">
-                                        <i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i>                </span>
-                                        <span class="n-rate">4.5 (<span>11.990 ratings</span>)</span>
+                                        @include(
+                                            'components.vote', 
+                                            [
+                                                'rate' => 2,
+                                                'rating_number' => 100,
+                                                'rating_txt' => true,
+                                            ]
+                                        )
                                     </div>
                                 </div>
                                 <div class="">
