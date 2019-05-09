@@ -71,7 +71,7 @@ Route::group(['middleware' => 'auth'], function () {
 // FRONTEND
 
 Route::get('/home', 'Frontends\HomeController@home')->name('home');
-Route::get('/member-card', 'Frontends\HomeController@memberCard');
+Route::get('/member-card', 'Frontends\HomeController@memberCard')->name('member-card');
 Route::get('/course-category', 'Frontends\HomeController@courseCategory')->name('course-category');
 Route::get('/detail-teacher', 'Frontends\HomeController@detailTeacher')->name('detail-teacher');
 

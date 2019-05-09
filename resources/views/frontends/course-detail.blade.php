@@ -253,7 +253,56 @@
             </div>
         </div>
     </div>
-    @include('components.question-answer')>
+    <div class="container">
+        <div class="course-learning-review">
+            <div class="feedback clearfix">
+                <div class="col-sm-4 student-rating">
+                    <h3>Students Feedback</h3>
+                    <p class="number">5</p>
+                    <p class="star">
+                        @include(
+                            'components.vote', 
+                            [
+                                'rate' => 2,
+                            ]
+                        )
+                    </p>
+                    <p>Course Rating</p>
+                </div>
+                <div class="col-sm-8">
+                    <div class="row">
+                        @for ($i = 0; $i <5; $i++)
+                        <div class="item-progress">
+                            <div class="col-sm-9">
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
+                                        aria-valuemin="0" aria-valuemax="100" style="width:40%"></div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                @include(
+                                    'components.vote', 
+                                    [
+                                        'rate' => 2,
+                                    ]
+                                )
+                                <span class="percent-rating">80%</span>
+                            </div>
+                        </div>
+                        @endfor
+                    </div>
+                </div>
+            </div>
+            <div class="reviews">
+                <h3>Reviews</h3>
+                @include('components.question-answer')
+            </div>
+            <div class="col-sm-12 btn-seen-all">
+                <button type="button" class="btn">Seen all student feedback</button>
+            </div>
+            
+        </div>
+    </div>
     <div class="related-course">
         <div class="container">
             @include('frontends.related-course')
