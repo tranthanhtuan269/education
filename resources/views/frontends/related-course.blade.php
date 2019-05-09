@@ -9,7 +9,7 @@
             <div class="tab-content">
                 <div id="best-seller" class="tab-pane fade in active">
                     <div class="row">
-                        @for($i = 0; $i < 8; $i++)
+                        @for($i = 0; $i < 4; $i++)
                             @include(
                                 'components.course', 
                                 [
