@@ -602,7 +602,19 @@ ul.unica-acc-zone li.special:hover a{
 /*Begin Courses Learning*/
 /*Banner*/
 .course-learning-banner{background:url(../images/member-card-banner.png) no-repeat;background-size:100% 100%;color:#fff;padding:40px 0}
-.course-learning-banner iframe{width:100%;height:40%}
+.course-learning-banner .intro-video{
+    width: 100%;
+    padding-top: 56%;
+    position: relative;
+}
+.course-learning-banner .intro-video iframe{
+position: absolute;
+top: 0;
+right: 0;
+bottom: 0;
+left: 0;
+height: 100%;
+}
 .course-learning-banner .left-intro{padding:10px 0 0 30px}
 .course-learning-banner .meta-des{font-size:20px;margin:10px 0}
 .course-learning-banner .vote{padding:15px 0}
