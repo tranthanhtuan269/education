@@ -78,3 +78,7 @@ Route::get('/detail-teacher', 'Frontends\HomeController@detailTeacher')->name('d
 Route::get('/course-learning', 'Frontends\HomeController@courseLearning');
 Route::get('/course-detail', 'Frontends\HomeController@courseDetail')->name('course-detail');
 Route::get('/student-profile','Frontends\HomeController@studentProfile');
+
+
+Route::get('/course-list','Frontends\HomeController@courseList');
+
