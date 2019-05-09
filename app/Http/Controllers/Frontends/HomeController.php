@@ -34,7 +34,7 @@ class HomeController extends Controller{
         return view('frontends.student-profile');
     }
 
-    public function courseList(){
-        return view('frontends.course-list');
+    public function courseList2(){
+        return view('frontends.course-list-2');
     }
 }
