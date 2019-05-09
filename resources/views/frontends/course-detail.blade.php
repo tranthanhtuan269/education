@@ -9,50 +9,62 @@
                     <div class="frame clearfix">
                         <div class="pull-left">
                             <div class="info">
-                                <p class="name">Bảo Minh</p>
-                                <p class="expret">PHP, Jquery, Agular Js, Vue Js, NodeJs</p>
+                                <p class="name">Linux Troubleshooting Course with Practical Examples</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="frame clearfix">
+                        <div class="pull-left">
+                            <div class="info">
+                                <p class="expret">Linux Troubleshooting and Administration</p>
                             </div>
                         </div>
                         <div class="network pull-right">
-                            <button type="button" class="btn btn-default btn-xs">
-                            <img src="{{ asset('frontend/images/ic_share.png') }}" alt="" />
-                            <span>Share</span>
-                            </button>
-                            <button type="button" class="btn btn-default btn-xs">
-                            <img src="{{ asset('frontend/images/ic_facebook.png') }}" alt="" />
-                            <span>Facebook</span>
-                            </button>
-                        </div>
+							<button type="button" class="btn btn-default btn-xs">
+								<i class="fas fa-share-alt"></i> Share
+							</button>
+							<button type="button" class="btn btn-default btn-xs">
+								<i class="fab fa-facebook-square"></i> Facebook
+							</button>
+						</div>
                     </div>
                     <div class="frame_2">
                         <div class="row">
                             <div class="col-sm-6">
-                                <div class="box clearfix">
-                                    <div class="pull-left">
+                                <div class="row box clearfix">
+                                    <div class="col-sm-6 pull-left">
                                         <span class="sale">15,99 $</span>
                                         <span class="price">15,00 $</span>
                                         <span class="interval">3 days left off the price!</span>
                                     </div>
-                                    <div class="pull-right">
-                                        <span class="price-off">95% off</span>
+                                    <div class="col-sm-6">
+                                        <span class="price-off pull-right">95% off</span>
                                     </div>
                                 </div>
-                                <div class="box clearfix">
-                                    <div class="pull-left">
-                                        <img src="{{ asset('frontend/images/ic_duration.png') }}" alt="" />  <span class="special">22 Courses</span>
+                                <div class="row box clearfix">
+                                    <div class="col-sm-6 pull-left">
+                                        <img src="{{ asset('frontend/images/ic_duration.png') }}" class="icon" alt="" />  <span class="special">13 hours on-demand video</span>
                                     </div>
-                                    <div class="pull-right">
-                                        <img src="{{ asset('frontend/images/ic_download.png') }}" alt="" />  <span class="special">22 Courses</span>
+                                    <div class="col-sm-6 pull-right">
+                                        <img src="{{ asset('frontend/images/ic_download.png') }}" class="icon" alt="" />  <span class="special">3 downloadable resources</span>
                                     </div>
                                 </div>
-                                <div class="box clearfix">
-                                    <div class="pull-left">
-                                        <img src="{{ asset('frontend/images/ic_course.png') }}" alt="" /> 
+                                <div class="row box clearfix">
+                                    <div class="col-sm-6 pull-left">
+                                        <img src="{{ asset('frontend/images/ic_lifetime.png') }}" class="icon" alt="" />  <span class="special">Full lifetime access</span>
+                                    </div>
+                                    <div class="col-sm-6 pull-right">
+                                        <img src="{{ asset('frontend/images/ic_mtuli_device.png') }}" class="icon" alt="" />  <span class="special">Access on Mobile & TV</span>
+                                    </div>
+                                </div>
+                                <div class="row box clearfix">
+                                    <div class="col-sm-6 pull-left">
+                                        <img src="{{ asset('frontend/images/ic_course.png') }}" class="icon" alt="" /> 
                                         <span class="special">22 Courses</span>
-                                        &nbsp &nbsp<img src="{{ asset('frontend/images/icon_student.png') }}" alt="" /> 
+                                        &nbsp &nbsp<img src="{{ asset('frontend/images/icon_student.png') }}" class="icon" alt="" /> 
                                         <span class="special">11.112 Students</span>                                        
                                     </div>
-                                    <div class="pull-right">
+                                    <div class="col-sm-6 pull-right">
                                         @include(
                                             'components.vote', 
                                             [
@@ -73,7 +85,7 @@
                                 </div>
                                 <div class="box clearfix">
                                     <div class="pull-left">
-                                        30 Day Money
+                                        30-Days Money-back Guarantee
                                     </div>
                                     <div class="pull-right">
                                         <a href="#">Have a coupon?</a>
