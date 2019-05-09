@@ -71,21 +71,19 @@
 						<div class="all-doc">
 							@for($i=1;$i<=5;$i++)
 							<div class="lesson-doc">
-								<div class="container-fluid">
-									<div class="row">
-										<div class="col-md-8">
-											<div class="document-name">
-												<i class="fa fa-download" aria-hidden="true"></i>
-												&nbsp;
-												<span>CSS Document.pdf</span>
-											</div>
+								<div class="row">
+									<div class="col-md-8">
+										<div class="document-name">
+											<i class="fa fa-download" aria-hidden="true"></i>
+											&nbsp;
+											<span>CSS Document.pdf</span>
 										</div>
-										<div class="col-md-2">
-											<button class="btn btn-download-doc">Download</button>
-										</div>
-										<div class="col-md-2">
-											<div class="file-size">15 MB</div>
-										</div>
+									</div>
+									<div class="col-md-2">
+										<button class="btn btn-download-doc">Download</button>
+									</div>
+									<div class="col-md-2">
+										<div class="file-size">15 MB</div>
 									</div>
 								</div>
 							</div>
@@ -94,6 +92,7 @@
 					</div>
 				</div>
 			</div>
+	   
 			<div class="col-sm-4">
 				<div class="sidebar">
 					<div class="teacher-info">
