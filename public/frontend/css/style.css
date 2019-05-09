@@ -85,6 +85,9 @@ a:hover { text-decoration: none; }
 #config-slider{
     top: -80px !important;
 }
+.detail-course .related-course,.detail-course .instructors,.detail-course .feedback,.course-recommend{
+    padding: 50px 0;
+}
 
 .notifications.alert-danger {
     background: linear-gradient(to right, #F4A111, #fe7202);
@@ -123,20 +126,55 @@ nav .pagination li a img{
     width: 16px
 }
 
+.box-course a{
+    display: inline-block;
+    color: #333;
+    background: #ffffff;
+    border-radius: 10px;
 
-/* background of the scrollbar except button or resizer */
+}
+
+.box-course {
+    padding-bottom: 30px;
+    margin: 0 5px 0 8px;
+}
+.box-course .content-course{
+    border: 1px solid #cccccca6;
+    border-radius: 0 0 10px 10px;
+    padding:15px;
+
+}
+
+.box-course .content-course h3.title-course{
+    font-size: 16px;
+    margin: 0 0 10px 0;
+    font-weight: 600;
+    line-height: 26px;
+    min-height: 52px;
+}
+.box-course .img-course img{
+    border-radius: 10px 10px 0 0 ;
+}
+.box-course .content-course .time-view{
+    padding: 6px 0;
+}
+.box-course .content-course .price-course .price {
+    font-size: 17.5px;
+    text-decoration: line-through;
+    position: relative;
+    top: 4px;
+}
+.box-course .content-course .price-course .sale {
+    font-size: 20px;
+    color: #FF8F00;
+}
 
 .scrollbar::-webkit-scrollbar-track {
     background-color: #fff
 }
-
 .scrollbar::-webkit-scrollbar-track:hover {
     background-color: #f4f4f4
 }
-
-
-/* scrollbar itself */
-
 .scrollbar::-webkit-scrollbar-thumb {
     background-color: #babac0;
     border-radius: 16px;
@@ -147,19 +185,13 @@ nav .pagination li a img{
     background-color: #a0a0a5;
     border: 4px solid #f4f4f4
 }
-
-
-/* set button(top and bottom of the scrollbar) */
-
 .scrollbar::-webkit-scrollbar-button {
     display: none
 }
 
-.detail-course h3, .course-learning-content h3{
+.detail-course h3, .course-learning-content h3,.course-recommend h3{
     padding-bottom: 25px;
 }
-
-
 .percent{ color: #999; position: relative;}
 .percent:BEFORE{ color: #999;}
 .percent:AFTER{ content: "\f005"; font-family: "FontAwesome"; position: absolute; top: 0; left: 0; z-index: 2; color: #FF8F00; overflow: hidden;}
@@ -566,7 +598,7 @@ ul.unica-acc-zone li.special:hover a{
 
 /*Begin Courses Learning*/
 /*Banner*/
-.course-learning-banner{background:url(../images/member-card-banner.png) no-repeat;background-size:100% 100%;color:#fff;padding:40px}
+.course-learning-banner{background:url(../images/member-card-banner.png) no-repeat;background-size:100% 100%;color:#fff;padding:40px 0}
 .course-learning-banner iframe{width:100%;height:40%}
 .course-learning-banner .left-intro{padding:10px 0 0 30px}
 .course-learning-banner .meta-des{font-size:20px;margin:10px 0}
@@ -576,7 +608,8 @@ ul.unica-acc-zone li.special:hover a{
 .course-learning-banner .vote span{padding-right:10px}
 .course-learning-banner .vote span i{padding-right:3px}
 .course-learning-banner .vote a{padding:10px 15px;background:#FF8F00;border:none;border-radius:10px;color:#fff;font-weight:700}
-.course-learning-banner .vote .icon-star{color:#FF8F00}
+.course-learning-banner .vote .icon-star{color:#FF8F00;}
+.course-learning-banner .vote .star-rate{ font-size: 19px;}
 .course-learning-banner .number-unit{padding:20px 0}
 .course-learning-banner .cup-icon{text-align:center}
 .course-learning-banner .border-element{border:none;border-radius:20px}
@@ -675,49 +708,6 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
     background-color: #ccc;
 }
 
-.top-course a{
-    display: inline-block;
-    color: #333;
-    background: #ffffff;
-    border-radius: 10px;
-
-}
-
-.top-course .info {
-    padding-bottom: 30px;
-    margin: 0 5px 0 8px;
-}
-.top-course .info .content-course{
-    border: 1px solid #cccccca6;
-    border-radius: 0 0 10px 10px;
-    padding:15px;
-
-}
-
-.top-course .info .content-course h3.title-course{
-    font-size: 16px;
-    margin: 0 0 10px 0;
-    font-weight: 600;
-    line-height: 26px;
-    min-height: 52px;
-}
-.top-course .info .img-course img{
-    border-radius: 10px 10px 0 0 ;
-}
-.top-course .info .content-course .time-view{
-    padding: 6px 0;
-}
-.top-course .info .content-course .price-course .price {
-    font-size: 17.5px;
-    text-decoration: line-through;
-    position: relative;
-    top: 4px;
-}
-.top-course .info .content-course .price-course .sale {
-    font-size: 20px;
-    color: #FF8F00;
-}
-
 .top-course .btn-seeall{
     padding: 8px 30px;
     border-radius: 8px;
@@ -773,7 +763,7 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
 
 .slick-slider
 {
-    position: relative;
+    /* position: relative; */
 
     display: block;
     box-sizing: border-box;
@@ -935,14 +925,34 @@ min-height: 1px;
 .background-page .slider .item{
     padding-bottom: 10px;
 }
-.background-page .highlight p{
+.background-page .highlight .title p{
     text-transform: uppercase;
     font-size: 24px;
     color: #fff;
 }
 .background-page .highlight{
+    position: relative;
+    bottom: 120px;
+}
+.background-page .highlight .title{
+    margin-bottom: 20px;
+    font-size: 25px;
+}
+.background-page .highlight .thumbnail-img  h4{
+    font-size: 22px;
+    padding-bottom: 5px;
+    text-transform: uppercase;
+}
+.background-page .highlight .thumbnail-img {
+    display: block;
+    position: relative;
+    color: #fff;
+}
+.background-page .highlight .thumbnail-img .explore {
     position: absolute;
-    top: 25%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 /*detail-teacher*/
 .detail-teacher{
@@ -1271,7 +1281,6 @@ top: 90px;*/
 }
 .detail-course .instructors{
     background: #F5F5F5;
-    padding: 50px 0;
 }
 .detail-course .instructors a.link{
     color: #333;
@@ -1403,9 +1412,7 @@ top: 90px;*/
         float: left;
         padding-right: 10px;
     }
-    .detail-course .feedback{
-        padding: 50px 0;
-    }
+
     .detail-course .feedback .percent-rating{
         padding-left: 10px;
     }
@@ -1472,9 +1479,5 @@ top: 90px;*/
     .btn-seen-all button{
         text-transform: uppercase;
         margin-top: 20px;
-    }
-
-    .detail-course .related-course{
-        padding: 50px 0;
     }
 
