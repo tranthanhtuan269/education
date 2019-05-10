@@ -1,7 +1,7 @@
 @extends('frontends.layouts.app')
 @section('content')
 <div class="course-list-top">
-	<img class="banner" src="{{ asset('frontend/images/banner_profile_teacher.png') }}" alt="Banner Course List">	
+	<img class="" src="{{ asset('frontend/images/banner_profile_teacher.png') }}" width="100%" >
 	<div class='container'>
 		<div class="box-container-top">
 			<div class="title-bar">
@@ -25,7 +25,7 @@
 				</div>
 			</div>
 			<div class="slider">
-				@for ($i = 0; $i < 1; $i++)
+				@for ($i = 0; $i < 3; $i++)
 				<div class="top-course">
 					<div class="row">
 						<div class="col-sm-5"><img src="{{ asset('frontend/images/learning-python.png') }}" alt="Learning Python" title="Learning Python"></div>
@@ -35,8 +35,7 @@
 								<div class="clearfix last-update">
 									<div class="pull-left">Last Update: May 2019</div>
 									<div class="pull-right">
-										<i class="fa fa-heart fa-lg" aria-hidden="true"></i>
-										<span>4.6(100 Ratings)</span>
+										@include('components.vote', ['rate' => 4.6,'rating_number' => 100,])
 									</div>
 								</div>
 								<p class="instructor">Creating A Mobile App Product from Scratch | By Merai S.Syed</p>
@@ -63,18 +62,25 @@
 					</div>
 				</div>
 				@endfor
+				{{-- <div class="top-course">
+					Slide2
+				</div>
+				<div class="top-course">
+					Slide3
+				</div> --}}
 			</div>
 		</div>
 	</div>
 </div>
 <script type="text/javascript">
 	$('.slider').slick({
-		autoplay: true,
-		arrows: false,
-		dots: true,
-		fade: true
-	});
+	    autoplay: true,
+	    arrows: false,
+	    dots: true,
+	    fade: true
+    });
 </script>
+
 @include('frontends.all-courses')
 @include('frontends.popular-teacher')
 @include('frontends.info-others')

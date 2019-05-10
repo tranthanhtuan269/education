@@ -655,10 +655,10 @@ ul.unica-acc-zone li.special:hover a{
 /*End Courses Learning*/
 
 /*Begin Courses List*/ 
-.course-list-top{width:100%;background-size:100%;padding-bottom:100px}
-.course-list-top .banner{width:1366px;position:absolute;z-index:-1;right:0}
-.course-list-top .box-container-top{padding-top:80px}
-.course-list-top .title-bar{padding:30px 0}
+/*.course-list-top{background-color:#F5F5F5}*/
+.course-list-top .banner{width:100%;position:absolute;z-index:-1;right:0}
+.course-list-top .box-container-top{position: relative;bottom: 120px}
+.course-list-top .title-bar{padding:30px 10px;}
 .course-list-top .title-bar .title-page{color:#fff;font-weight:900;padding-left:30px}
 .course-list-top .title-bar .course-number{font-size:24px;color:#fff}
 .course-list-top .title-bar .btn-share{padding-left:30px;padding-right:30px;margin-left:20px}
@@ -675,7 +675,7 @@ ul.unica-acc-zone li.special:hover a{
 .course-list-top .top-course .course-info .btn-explore{padding:10px 20px;background:#FF8F00;color:#fff;font-weight:800}
 .course-list-top .top-course .course-info .imaginary{font-size:20px}
 .course-list-top .top-course .course-info .real{color:#FF8F00;font-size:24px;padding-left:40px}
-/*End Courses List*/
+/*End Courses List
 
 /*Begin Footer*/
 footer{font-weight:500;background:url(../images/bg-footer.png) no-repeat;background-size:100% 100%}
