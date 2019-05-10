@@ -4,14 +4,10 @@
             <div class="col-sm-10 col-sm-offset-1">
                 <div class="row">
                     <div class="col-sm-6">
-                        <div class="row">
-                            <div class="col-xs-8 col-xs-offset-2">
-                                <div class="ads-teacher">
-                                    <p>Become</p>
-                                    <h2>Courdemy's Teacher</h2>
-                                    <a href="#" title="Register Teacher">Register Now</a>
-                                </div>
-                            </div>
+                        <div class="ads-teacher">
+                            <p>Become</p>
+                            <h2>Courdemy's Teacher</h2>
+                            <a href="#" title="Register Teacher">Register Now</a>
                         </div>
                     </div>
                     <div class="col-sm-6 hidden-xs">
@@ -31,7 +27,7 @@
                     <p id="txt-format">Member Card</p>
                     <p class="des-member-card">Learning can happen anywhere with our apps on your computer, mobile device, and TV, featuring enhanced navigation and faster streaming for anytime learning.</p>
                     <div class="btn-register">
-                        <a href="member-card" title="Register Member">Register Now</a>
+                        <a href="{{ route('member-card') }}" title="Register Member">Register Now</a>
                     </div>
                 </div>
             </div>

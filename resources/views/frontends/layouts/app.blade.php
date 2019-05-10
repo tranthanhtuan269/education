@@ -23,6 +23,7 @@
         <meta name="keywords" content="@yield('keywords', '')"/>
         <meta name="copyright" content="Edu">
         <meta name="author" content="Edu"/>
+        {{-- <meta http-equiv="refresh" content="2"> --}}
     </head>
     <body>
         <div class="notifications alert alert-danger fade in alert-dismissible">
@@ -259,7 +260,7 @@
             </div>
             <div class="unica-home-menutop hidden-xs">
                 <div class="container">
-                    <div class="row col-width-lg">
+                    <div class="row">
                         <div class="col-lg-3 col-md-3 col-sm-4 cate-md">
                             <a class="unica-logo" href="{{ route('home') }}"><img class="img-responsive" src="{{ asset('frontend/images/tab_logo.png') }}" alt="Unica - Học từ chuyên gia" width="138" height="33" /></a>
                             <div class="unica-menu-cate">

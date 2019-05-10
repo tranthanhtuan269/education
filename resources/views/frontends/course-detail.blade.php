@@ -9,53 +9,70 @@
                     <div class="frame clearfix">
                         <div class="pull-left">
                             <div class="info">
-                                <p class="name">Bảo Minh</p>
-                                <p class="expret">PHP, Jquery, Agular Js, Vue Js, NodeJs</p>
+                                <p class="name">Linux Troubleshooting Course with Practical Examples</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="frame clearfix">
+                        <div class="pull-left">
+                            <div class="info">
+                                <p class="expret">Linux Troubleshooting and Administration</p>
                             </div>
                         </div>
                         <div class="network pull-right">
-                            <button type="button" class="btn btn-default btn-xs">
-                            <img src="{{ asset('frontend/images/ic_share.png') }}" alt="" />
-                            <span>Share</span>
-                            </button>
-                            <button type="button" class="btn btn-default btn-xs">
-                            <img src="{{ asset('frontend/images/ic_facebook.png') }}" alt="" />
-                            <span>Facebook</span>
-                            </button>
-                        </div>
+							<button type="button" class="btn btn-default btn-xs">
+								<i class="fas fa-share-alt"></i> Share
+							</button>
+							<button type="button" class="btn btn-default btn-xs">
+								<i class="fab fa-facebook-square"></i> Facebook
+							</button>
+						</div>
                     </div>
                     <div class="frame_2">
                         <div class="row">
                             <div class="col-sm-6">
-                                <div class="box clearfix">
-                                    <div class="pull-left">
+                                <div class="row box clearfix">
+                                    <div class="col-sm-6 pull-left">
                                         <span class="sale">15,99 $</span>
                                         <span class="price">15,00 $</span>
                                         <span class="interval">3 days left off the price!</span>
                                     </div>
-                                    <div class="pull-right">
-                                        <span class="price-off">95% off</span>
+                                    <div class="col-sm-6">
+                                        <span class="price-off pull-right">95% off</span>
                                     </div>
                                 </div>
-                                <div class="box clearfix">
-                                    <div class="pull-left">
-                                        <img src="{{ asset('frontend/images/ic_duration.png') }}" alt="" />  <span class="special">22 Courses</span>
+                                <div class="row box clearfix">
+                                    <div class="col-sm-6 pull-left">
+                                        <img src="{{ asset('frontend/images/ic_duration.png') }}" class="icon" alt="" />  <span class="special">13 hours on-demand video</span>
                                     </div>
-                                    <div class="pull-right">
-                                        <img src="{{ asset('frontend/images/ic_download.png') }}" alt="" />  <span class="special">22 Courses</span>
+                                    <div class="col-sm-6 pull-right">
+                                        <img src="{{ asset('frontend/images/ic_download.png') }}" class="icon" alt="" />  <span class="special">3 downloadable resources</span>
                                     </div>
                                 </div>
-                                <div class="box clearfix">
-                                    <div class="pull-left">
-                                        <img src="{{ asset('frontend/images/ic_course.png') }}" alt="" /> 
+                                <div class="row box clearfix">
+                                    <div class="col-sm-6 pull-left">
+                                        <img src="{{ asset('frontend/images/ic_lifetime.png') }}" class="icon" alt="" />  <span class="special">Full lifetime access</span>
+                                    </div>
+                                    <div class="col-sm-6 pull-right">
+                                        <img src="{{ asset('frontend/images/ic_mtuli_device.png') }}" class="icon" alt="" />  <span class="special">Access on Mobile & TV</span>
+                                    </div>
+                                </div>
+                                <div class="row box clearfix">
+                                    <div class="col-sm-6 pull-left">
+                                        <img src="{{ asset('frontend/images/ic_course.png') }}" class="icon" alt="" /> 
                                         <span class="special">22 Courses</span>
-                                        &nbsp &nbsp<img src="{{ asset('frontend/images/icon_student.png') }}" alt="" /> 
+                                        &nbsp &nbsp<img src="{{ asset('frontend/images/icon_student.png') }}" class="icon" alt="" /> 
                                         <span class="special">11.112 Students</span>                                        
                                     </div>
-                                    <div class="pull-right">
-                                        <span class="star-rate">
-                                        <i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i>                </span>
-                                        <span class="n-rate">4.5 (<span>11.990 ratings</span>)</span>
+                                    <div class="col-sm-6 pull-right">
+                                        @include(
+                                            'components.vote', 
+                                            [
+                                                'rate' => 2,
+                                                'rating_number' => 3500,
+                                                'rating_txt' => true
+                                            ]
+                                        )
                                     </div>
                                 </div>
                                 <div class="box clearfix">
@@ -68,7 +85,7 @@
                                 </div>
                                 <div class="box clearfix">
                                     <div class="pull-left">
-                                        30 Day Money
+                                        30-Days Money-back Guarantee
                                     </div>
                                     <div class="pull-right">
                                         <a href="#">Have a coupon?</a>
@@ -96,11 +113,11 @@
             <div class="info clearfix">
                 <div class="col-sm-8">
                     <div class="desc">
-                        <h3>Descriptions</h3>
+                        <h2>Descriptions</h2>
                         <p>Bạn muốn làm việc tại công ty Hàn Quốc với mức THU NHẬP KHỦNG? Hay bạn đang làm việc tại một công ty Hàn Quốc và muốn có cơ thêm CƠ HỘI THĂNG TIẾN trong công việc cũng như có thể trò chuyện, GIAO TIẾP cùng người Hàn Quốc trong công ty?</p>
                     </div>
                     <div class="knowledge clearfix">
-                        <h3>What you'll learn</h3>
+                        <h2>What you'll learn</h2>
                         <ul>
                             <li>
                                 <img src="{{ asset('frontend/images/ic_check.png') }}" alt="" /> Bạn đang học tiếng Hàn, nhưng ngại giao tiếp với người Hàn Quốc
@@ -117,12 +134,12 @@
                         </ul>
                     </div>
                     <div class="skill">
-                        <h3>Skills you'll again</h3>
+                        <h2>Skills you'll again</h2>
                         <ul>
                             <li>PHP</li>
                             <li>C#</li>
                             <li>Java</li>
-                            <li>Jquey</li>
+                            <li>Jquery</li>
                         </ul>
                     </div>
                 </div>
@@ -178,58 +195,72 @@
         <div class="container">
             <div class="row" id="box_instructors">
                 <div class="col-sm-12">
-                    <h3>About the instructors</h3>
+                    <h2>About the instructors</h2>
                 </div>
                 <div class="col-sm-6">
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <img class="avatar" src="https://www.w3schools.com/howto/img_avatar.png" alt="" />
-                        </div>
-                        <div class="col-sm-9">
-                            <div class="detail-info">
-                                <p class="name">Bảo Minh</p>
-                                <p class="expret">PHP, Jquery, Agular Js, Vue Js, NodeJs</p>
-                                <div class="frame clearfix">
-                                    <div class="pull-left">
-                                        <img src="{{ asset('frontend/images/ic_course.png') }}" alt="" /> 
-                                        <span class="special">22 Courses</span>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <a href="{{ route('detail-teacher') }}">
+                                    <img class="avatar" src="https://www.w3schools.com/howto/img_avatar.png" alt="" />
+                                </a>
+                            </div>
+                            <div class="col-sm-9">
+                                <div class="detail-info">
+                                    <p class="name"><a href="{{ route('detail-teacher') }}">Bảo Minh</a></p>
+                                    <p class="expret">PHP, Jquery, Agular Js, Vue Js, NodeJs</p>
+                                    <div class="frame clearfix">
+                                        <div class="pull-left">
+                                            <img src="{{ asset('frontend/images/ic_course.png') }}" alt="" /> 
+                                            <span class="special">22 Courses</span>
+                                        </div>
+                                        <div class="pull-right">
+                                            @include(
+                                                'components.vote', 
+                                                [
+                                                    'rate' => 2,
+                                                    'rating_number' => 100,
+                                                    'rating_txt' => true,
+                                                ]
+                                            )
+                                        </div>
                                     </div>
-                                    <div class="pull-right">
-                                        <span class="star-rate">
-                                        <i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i>                </span>
-                                        <span class="n-rate">4.5 (<span>11.990 ratings</span>)</span>
+                                    <div class="">
+                                        <img src="{{ asset('frontend/images/icon_student.png') }}" alt="" /> 
+                                        <span class="special">11.112 Students</span>
                                     </div>
-                                </div>
-                                <div class="">
-                                    <img src="{{ asset('frontend/images/icon_student.png') }}" alt="" /> 
-                                    <span class="special">11.112 Students</span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 <div class="col-sm-6">
                     <div class="row">
                         <div class="col-sm-3">
-                            <img class="avatar" src="https://www.w3schools.com/howto/img_avatar.png" alt="" />
+                            <a href="{{ route('detail-teacher') }}">
+                                <img class="avatar" src="https://www.w3schools.com/howto/img_avatar.png" alt="" />
+                            </a>
                         </div>
                         <div class="col-sm-9">
                             <div class="detail-info">
-                                <p class="name">Bảo Minh</p>
+                                <p class="name"><a href="{{ route('detail-teacher') }}">Bảo Minh</a></p>
                                 <p class="expret">PHP, Jquery, Agular Js, Vue Js, NodeJs</p>
                                 <div class="frame clearfix">
                                     <div class="pull-left">
-                                        <img src="{{ asset('frontend/images/ic_course.png') }}" alt="" /> 
+                                        <img src="{{ asset('frontend/images/ic_course.png') }}" class="icon" alt="" /> 
                                         <span class="special">22 Courses</span>
                                     </div>
                                     <div class="pull-right">
-                                        <span class="star-rate">
-                                        <i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i>                </span>
-                                        <span class="n-rate">4.5 (<span>11.990 ratings</span>)</span>
+                                        @include(
+                                            'components.vote', 
+                                            [
+                                                'rate' => 2,
+                                                'rating_number' => 100,
+                                                'rating_txt' => true,
+                                            ]
+                                        )
                                     </div>
                                 </div>
                                 <div class="">
-                                    <img src="{{ asset('frontend/images/icon_student.png') }}" alt="" /> 
+                                    <img src="{{ asset('frontend/images/icon_student.png') }}" class="icon" alt="" /> 
                                     <span class="special">11.112 Students</span>
                                 </div>
                             </div>
@@ -239,7 +270,56 @@
             </div>
         </div>
     </div>
-    @include('components.question-answer')>
+    <div class="container">
+        <div class="course-learning-review">
+            <div class="feedback clearfix">
+                <div class="col-sm-4 student-rating">
+                    <h2>Students Feedback</h2>
+                    <p class="number">5</p>
+                    <p class="star">
+                        @include(
+                            'components.vote', 
+                            [
+                                'rate' => 2,
+                            ]
+                        )
+                    </p>
+                    <p>Course Rating</p>
+                </div>
+                <div class="col-sm-8 rating-process">
+                    <div class="row">
+                        @for ($i = 0; $i <5; $i++)
+                        <div class="item-progress">
+                            <div class="col-sm-9">
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
+                                        aria-valuemin="0" aria-valuemax="100" style="width:40%"></div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                @include(
+                                    'components.vote', 
+                                    [
+                                        'rate' => 2,
+                                    ]
+                                )
+                                <span class="percent-rating">80%</span>
+                            </div>
+                        </div>
+                        @endfor
+                    </div>
+                </div>
+            </div>
+            <div class="reviews">
+                <h3>Reviews</h3>
+                @include('components.question-answer')
+            </div>
+            <div class="col-sm-12 btn-seen-all">
+                <button type="button" class="btn">Seen all student feedback</button>
+            </div>
+            
+        </div>
+    </div>
     <div class="related-course">
         <div class="container">
             @include('frontends.related-course')
