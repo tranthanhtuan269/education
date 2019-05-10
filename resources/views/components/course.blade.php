@@ -1,19 +1,21 @@
 <div class="col-sm-3">
     <div class="info">
-        <a href="{{ route('course-detail') }}" class="course-box-slider pop">
+        <a href="{{ url('/') }}/course/{{ $id }}" title="{{ $title }}" class="course-box-slider pop">
             <div class="img-course"><img class="img-responsive"
                     src="{{ $image }}"
                     alt="{{ $title }}"></div>
             <div class="content-course">
                 <h3 class="title-course">{{ $title }}</h3>
                 <div class="clearfix">
-                    <span class="name-teacher">{{ $author }}</span>
+                    <span class="name-teacher">
+                        {{ $author }}
+                    </span>
                     <span class="pull-right">
                         @include(
                             'components.vote', 
                             [
-                                'rate' => 2,
-                                'rating_number' => 3500,
+                                'rate' => intval($star_count) / intval($vote_count),
+                                'rating_number' => $vote_count,
                             ]
                         )
                     </span>

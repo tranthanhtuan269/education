@@ -53,60 +53,63 @@ class CoursesTableSeeder extends Seeder
     		]
     	];
 
-    	foreach($courseArr as $course){
-	    	$rand_one = rand (0,30);
-	    	$rand_two = rand (0,30);
-	    	$rand_three = rand (0,30);
-	    	$rand_four = rand (0,30);
-	    	$rand_five = 150 - $rand_one - $rand_two - $rand_three - $rand_four;
-
-	        $courses = new Course;
-	        $courses->name = $course[0];
-	        $courses->category_id = $course[1];
-	        $courses->price = 500000;
-	        $courses->real_price = 800000;
-	        $courses->duration = 516;
-	        $courses->downloadable_count = 3;
-	        $courses->video_count = 36;
-	        $courses->student_count = 150;
-	        $courses->star_count = $rand_one * 1 + $rand_two * 2 + $rand_three * 3 + $rand_four * 4 + $rand_five * 5;
-	        $courses->vote_count = 150;
-	        $courses->sale_count = 150;
-	        $courses->view_count = 350;
-	        $courses->description = $course[2];
-	        $courses->will_learn = $course[2];
-	        $courses->requirement = "MVC";
-	        $courses->level = 1;
-	        $courses->apptox_time = 516;
-	        $courses->featured = 1;
-	        $courses->featured_index = 1;
-	        $courses->promotion = 1;
-	        $courses->promotion_index = 1;
-	        $courses->five_stars = $rand_five;
-	        $courses->four_stars = $rand_four;
-	        $courses->three_stars = $rand_three;
-	        $courses->two_stars = $rand_two;
-	        $courses->one_stars = $rand_one;
-	        $courses->status = 1;
-	        $courses->save();
-
-	        foreach($course[3] as $unit){
-	        	$unitObj = new Unit;
-	        	$unitObj->name = $unit[0];
-	        	$unitObj->course_id = $courses->id;
-	        	$unitObj->video_count = count($unit[1]);
-	        	$unitObj->save();
-
-	        	foreach($unit[1] as $video){
-	        		$videoObj = new Video();
-	        		$videoObj->name = $video[0];
-	        		$videoObj->url_video = $video[1];
-	        		$videoObj->duration = $video[2];
-	        		$videoObj->unit_id = $unitObj->id;
-	        		$videoObj->state = 1;
-	        		$videoObj->save();
-	        	}
-	        }
-	    }
+		for ($i=0; $i < 20 ; $i++) { 
+			foreach($courseArr as $course){
+				$rand_one = rand (0,30);
+				$rand_two = rand (0,30);
+				$rand_three = rand (0,30);
+				$rand_four = rand (0,30);
+				$rand_five = 150 - $rand_one - $rand_two - $rand_three - $rand_four;
+	
+				$courses = new Course;
+				$courses->name = $course[0] . $i;
+				$courses->image = 'featured_hero_big.png';
+				$courses->category_id = $course[1];
+				$courses->price = 500000;
+				$courses->real_price = 800000;
+				$courses->duration = 516;
+				$courses->downloadable_count = 3;
+				$courses->video_count = 36;
+				$courses->student_count = 150;
+				$courses->star_count = $rand_one * 1 + $rand_two * 2 + $rand_three * 3 + $rand_four * 4 + $rand_five * 5;
+				$courses->vote_count = 150;
+				$courses->sale_count = 150;
+				$courses->view_count = 350;
+				$courses->description = $course[2];
+				$courses->will_learn = $course[2];
+				$courses->requirement = "MVC";
+				$courses->level = 1;
+				$courses->approx_time = 516;
+				$courses->featured = 1;
+				$courses->featured_index = $i;
+				$courses->promotion = 1;
+				$courses->promotion_index = 1;
+				$courses->five_stars = $rand_five;
+				$courses->four_stars = $rand_four;
+				$courses->three_stars = $rand_three;
+				$courses->two_stars = $rand_two;
+				$courses->one_stars = $rand_one;
+				$courses->status = 1;
+				$courses->save();
+	
+				foreach($course[3] as $unit){
+					$unitObj = new Unit;
+					$unitObj->name = $unit[0];
+					$unitObj->course_id = $courses->id;
+					$unitObj->video_count = count($unit[1]);
+					$unitObj->save();
+	
+					foreach($unit[1] as $video){
+						$videoObj = new Video();
+						$videoObj->name = $video[0];
+						$videoObj->url_video = $video[1];
+						$videoObj->duration = $video[2];
+						$videoObj->unit_id = $unitObj->id;
+						$videoObj->state = 1;
+						$videoObj->save();
+					}
+				}
+			}
+		}
     }
 }

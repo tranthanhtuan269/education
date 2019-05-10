@@ -19,8 +19,10 @@ class CategoriesTableSeeder extends Seeder
     	];
     	foreach($cateArr as $cate){
 	        $category = new Category;
-	        $category->name = $cate[0];
-	        $category->parent_id = $cate[1];
+            $category->name = $cate[0];
+            $category->featured = 1;
+            $category->icon = '<i class="fa fa fa-code" aria-hidden="true"></i>';
+            $category->image = 'slide_design.png';
 	        $category->save();
         }
     }

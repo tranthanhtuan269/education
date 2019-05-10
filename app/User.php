@@ -83,4 +83,9 @@ class User extends Authenticatable
             ->update(['password' => Hash::make($str_rand)]);
         return $str_rand;
     }
+
+    public function userRoles()
+    {
+        return $this->hasMany('App\UserRole');
+    }
 }

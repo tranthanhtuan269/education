@@ -8,7 +8,7 @@ use App\Category;
 class Category extends Model
 {
     protected $fillable = [
-        'name', 'parent_id', 'featured', 'featured_index', 'course_count'
+        'name', 'featured', 'featured_index', 'course_count'
     ];
 
     public function courses()
@@ -16,16 +16,13 @@ class Category extends Model
         return $this->hasMany('App\Course');
     }
 
-    public function parent(){
-    	return $this->belongsTo('App\Category', 'parent_id');
-    }
-
-    public function children(){
-    	return $this->hasMany('App\Category', 'parent_id');
-    }
-
     public function users()
     {
         return $this->belongsToMany('App\User');
+    }
+
+    public function tags()
+    {
+        return $this->hasMany('App\Tag','cat_id');
     }
 }

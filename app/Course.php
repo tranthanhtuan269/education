@@ -27,7 +27,7 @@ class Course extends Model
         'will_learn',
         'requirement',
         'level',
-        'apptox_time',
+        'approx_time',
 
         'featured',
         'featured_index',
@@ -54,5 +54,18 @@ class Course extends Model
     public function tags()
     {
         return $this->belongsToMany('App\Tag');
+    }
+
+    public function userRoles()
+    {
+        return $this->belongsToMany('App\UserRole', 'user_courses');
+    }
+
+    public function Lecturers(){
+        if($this->userRoles){
+            return $this->userRoles()->where('role_id', 2)->get();
+        }else{
+            return [];
+        }
     }
 }

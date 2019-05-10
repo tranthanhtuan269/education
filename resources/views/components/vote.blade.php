@@ -12,5 +12,5 @@
     @endfor
 </span>
 @if(isset($rating_number) && isset($rate))
-    <span class="n-rate">{{ $rate }} (<span>{!! number_format($rating_number, 0, ',' , '.') !!}@if(isset($rating_txt)) ratings @endif</span>)</span>
+    <span class="n-rate">{!! number_format($rate, 1, ',' , '.') !!}(<span>{!! number_format($rating_number, 0, ',' , '.') !!}@if(isset($rating_txt)) ratings @endif</span>)</span>
 @endif
