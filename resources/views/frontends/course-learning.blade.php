@@ -185,29 +185,29 @@
 </div>
 
 <div class="container">
-		<div class="course-learning-question" id="box_question">
-			<h3 class="title">Questions & Answers</h3>
-			<div class="text-box">
-				<form>
-					<div class="form-group">
-						<textarea class="form-control" rows="6" placeholder="Type here" required></textarea>
-						{{-- <input type="text" class="form-control" id="name" placeholder="Type here"> --}}
-					</div>
-					<div class="btn-submit">
-						<input class="submit-question" type="submit" value="SUBMIT A QUESTION" />
-					</div>
-				</form>
-			</div>
-		</div>
-		<div class="course-learning-review">
-			<div class="reviews">
-				@include('components.question-answer')
-			</div>
-			<div class="col-sm-12 btn-seen-all">
-				<button type="button" class="btn">Seen all student feedback</button>
-			</div>
+	<div class="course-learning-question" id="box_question">
+		<h3 class="title">Questions & Answers</h3>
+		<div class="text-box">
+			<form>
+				<div class="form-group">
+					<textarea class="form-control" rows="6" placeholder="Type here" required></textarea>
+					{{-- <input type="text" class="form-control" id="name" placeholder="Type here"> --}}
+				</div>
+				<div class="btn-submit">
+					<input class="submit-question" type="submit" value="SUBMIT A QUESTION" />
+				</div>
+			</form>
 		</div>
 	</div>
+	<div class="course-learning-review">
+		<div class="reviews">
+			@include('components.question-answer')
+		</div>
+		<div class="col-sm-12 btn-seen-all">
+			<button type="button" class="btn">Seen all student feedback</button>
+		</div>
+	</div>
+</div>
 
 <div class="container">
 	<div class="course-recommend">
