@@ -3,37 +3,67 @@
 <div class="background-page">
 	<img class="" src="{{ asset('frontend/images/banner_profile_teacher.png') }}" width="100%" >
 	<div class='container'>
-		<div class="row highlight">
-			<div class="col-sm-12">
-				<p>Expolde topics & skills</p>	
-			</div>
-		</div>
-		<div class="slider">
-			
-			<div class="row">
-				<div class="col-sm-4"><img class="" src="{{ asset('frontend/images/featured_hero_big.png') }}" ></div>
-				<div class="col-sm-8">
-					<div class="row">
-						<div class="col-sm-6 item"><img class="" src="{{ asset('frontend/images/featured_hero_3.png') }}"></div>
-						<div class="col-sm-6 item"><img class="" src="{{ asset('frontend/images/featured_hero_1.png') }}" ></div>
-						<div class="col-sm-6"><img class="" src="{{ asset('frontend/images/featured_hero_3.png') }}"></div>
-						<div class="col-sm-6"><img class="" src="{{ asset('frontend/images/featured_hero_1.png') }}" ></div>
-					</div>
+		<div class="highlight">
+			<div class="row title">
+				<div class="col-sm-12">
+					<p>Explore topics & skills</p>	
 				</div>
 			</div>
-	
-			<div class="row">
-				<div class="col-sm-4"><img class="" src="{{ asset('frontend/images/featured_hero_big.png') }}" ></div>
-				<div class="col-sm-8">
-					<div class="row">
-						<div class="col-sm-6 item"><img class="" src="{{ asset('frontend/images/featured_hero_3.png') }}"></div>
-						<div class="col-sm-6 item"><img class="" src="{{ asset('frontend/images/featured_hero_1.png') }}" ></div>
-						<div class="col-sm-6"><img class="" src="{{ asset('frontend/images/featured_hero_3.png') }}"></div>
-						<div class="col-sm-6"><img class="" src="{{ asset('frontend/images/featured_hero_1.png') }}" ></div>
+			<div class="slider">
+				@for ($i = 0; $i < 3; $i++)
+				<div class="row">
+						<div class="col-sm-4">
+							<a class="thumbnail-img" href="#">
+								<img class="" src="{{ asset('frontend/images/banner_cat_sale.png') }}" height="335">
+								<div class="explore">
+									<h4> Developer {{ $i }}</h4>
+									<p> PHP, Jquey, NodeJs</p>
+								</div>
+							</a>
+						</div>
+						<div class="col-sm-8">
+							<div class="row">
+								<div class="col-sm-6 item">
+									<a class="thumbnail-img" href="#">
+										<img class="" src="{{ asset('frontend/images/banner_cat_health.png') }}" >
+										<div class="explore">
+											<h4> Developer </h4>
+											<p> PHP, Jquey, NodeJs</p>
+										</div>
+									</a>
+								</div>
+								<div class="col-sm-6 item">
+									<a class="thumbnail-img" href="#">
+											<img class="" src="{{ asset('frontend/images/banner_cat_technology.png') }}" >
+											<div class="explore">
+												<h4> Developer </h4>
+												<p> PHP, Jquey, NodeJs</p>
+											</div>
+									</a>
+								</div>
+								<div class="col-sm-6">
+										<a class="thumbnail-img" href="#">
+											<img class="" src="{{ asset('frontend/images/banner_cat_lifestyle.png') }}" >
+											<div class="explore">
+												<h4> Developer </h4>
+												<p> PHP, Jquey, NodeJs</p>
+											</div>
+										</a>
+									</div>
+								<div class="col-sm-6">
+									<a class="thumbnail-img" href="#">
+											<img class="" src="{{ asset('frontend/images/banner_cat_language.png') }}" >
+											<div class="explore">
+												<h4> Developer </h4>
+												<p> PHP, Jquey, NodeJs</p>
+											</div>
+									</a>
+								</div>
+							</div>
+						</div>
 					</div>
-				</div>
+				@endfor
 			</div>
-			
 		</div>
 	</div>
 </div>
@@ -48,6 +78,7 @@
 
 @include('frontends.feature-courses')
 @include('frontends.all-courses')
+@include('frontends.popular-teacher')
 @include('frontends.info-others')
 
 @endsection

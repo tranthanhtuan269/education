@@ -16,19 +16,17 @@
 						</div>
 						<div class="network pull-right">
 							<button type="button" class="btn btn-default btn-xs">
-								<img src="{{ asset('frontend/images/ic_share.png') }}" alt="" />
-								<span>Share</span>
+								<i class="fas fa-share-alt"></i> Share
 							</button>
 							<button type="button" class="btn btn-default btn-xs">
-								<img src="{{ asset('frontend/images/ic_facebook.png') }}" alt="" />
-								<span>Facebook</span>
+								<i class="fab fa-facebook-square"></i> Facebook
 							</button>
 						</div>
 					</div>
 					<div class="frame_2">
 						<div class="row">
 							<div class="col-sm-6">
-								<div class="desc">
+								<div class="desc scrollbar">
 									<p>Chuyên gia <strong>Yoga Nguyễn Hiếu </strong>đã có hơn 12 năm nghiên cứu và giảng dạy Yoga tại các trung tâm và đã huấn luyện cho hàng nghìn học viên khắp Việt Nam và thế giới.</p>
 
 									<p>Chị là Đại sứ Yoga Việt Nam do Trung tâm Unesco Phát triển Văn hóa và Thể thao phong tặng.&nbsp;</p>
@@ -51,11 +49,13 @@
 											<span class="special">11.112 Students</span>
 										</li>
 										<li>
-											
-											    <span class="star-rate">
-											    <i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i>                </span>
-											    <span class="n-rate">4.5 (<span>11.990 ratings</span>)</span>
-											
+											@include(
+												'components.vote', 
+												[
+													'rate' => 2,
+													'rating_number' => 3500
+												]
+											)
 										</li>
 									</ul>
 								</div>

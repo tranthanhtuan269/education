@@ -2,64 +2,46 @@
 @section('content')
 <div class="banner">
     <img class="pd-mb-banner hidden-xs" src="https://cms.unica.vn/upload/images/65055147_30-4-1-5-chao-mung-dai-le-hoc-ngay-keo-tre-chi-249k-khoa_thumb.png" width="100%" alt="30/4 -1/5: Chào mừng đại lễ - Học ngay kẻo trễ [Chỉ 249k/khóa]">
-    <div class="container">
+    <!-- <div class="container">
         <div class="col-md-12">
             <div class="slick-course">
-                <div class="item text-center"  style="margin:0 8px;width: 330px" class="slick-slide">
+                @for($i = 0; $i < 10; $i++)
+                <div class="item text-center" style="margin:0 8px;width: 220px" class="slick-slide">
                     <img src="{{ asset('frontend/images/slide_design.png') }}" alt=""/>
                     <div class="cat">
-                        <h2>GYM</h2>
+                        <h2>GYM {{ $i + 1 }}</h2>
                         <p>Comming soon</p>
                     </div>
                 </div>
-                <div class="item text-center"  style="margin:0 8px;width: 330px" class="slick-slide">
-                    <img src="{{ asset('frontend/images/slide_design.png') }}" alt=""/>
-                    <div class="cat">
-                        <h2>GYM</h2>
-                        <p>Comming soon</p>
-                    </div>
-                </div>
-                <div class="item text-center"  style="margin:0 8px;width: 330px" class="slick-slide">
-                    <img src="{{ asset('frontend/images/slide_design.png') }}" alt=""/>
-                    <div class="cat">
-                        <h2>GYM</h2>
-                        <p>Comming soon</p>
-                    </div>
-                </div>
-                <div class="item text-center"  style="margin:0 8px;width: 330px" class="slick-slide">
-                    <img src="{{ asset('frontend/images/slide_design.png') }}" alt=""/>
-                    <div class="cat">
-                        <h2>GYM</h2>
-                        <p>Comming soon</p>
-                    </div>
-                </div>
+                @endfor
             </div>
         </div>
-    </div>
-    <script type="text/javascript">
+    </div> -->
+    <!-- <script type="text/javascript">
         $(document).ready(function(){
           $('.slick-course').slick({
             dots: false,
             infinite: true,
-            speed: 1000,
+            speed: 1500,
             slidesToShow: 1,
-            centerMode: true,
+            centerMode: false,
             variableWidth: true,
             centerPadding: '0px',
             prevArrow: false,
             nextArrow: false
           });
         });
-    </script>
+    </script> -->
 
 
-<!--                 <script type="text/javascript">
+                <script type="text/javascript">
                     config_slider_init = function() {
                         var config_options = {
                           $Loop:0,
-                          $FillMode:0,
+                          $FillMode:5,
                           $SlideWidth: 200,
                           $SlideSpacing:20,
+                          $MinDragOffsetToSlide:0,
                           $SlideDuration:1600,
                           $ArrowKeyNavigation:0,
                           $ArrowNavigatorOptions: {
@@ -103,29 +85,20 @@
                 <div id="config-slider" style="position:relative;margin:0 auto;top:0px;left:0px;width:980px;height:120px;overflow:hidden;visibility:hidden;">
      
                     <div data-u="slides" style="cursor:default;position:relative;top:0px;left:0px;width:980px;height:120px;overflow:hidden;">
-                        <div>
+                        @for($i = 0; $i < 10; $i++)
+                        <a href="{{ route('course-category') }}" class="item item-slider text-center">
                             <img data-u="image" src="{{ asset('frontend/images/slide_design.png') }}" alt=""/>
-                        </div>
-                        <div>
-                            <img data-u="image" src="{{ asset('frontend/images/slide_design.png') }}" alt=""/>
-                        </div>
-                        <div>
-                            <img data-u="image" src="{{ asset('frontend/images/slide_design.png') }}" alt=""/>
-                        </div>
-                        <div>
-                            <img data-u="image" src="{{ asset('frontend/images/slide_design.png') }}" alt=""/>
-                        </div>
-                        <div>
-                            <img data-u="image" src="{{ asset('frontend/images/slide_design.png') }}" alt=""/>
-                        </div>
-                        <div>
-                            <img data-u="image" src="{{ asset('frontend/images/slide_design.png') }}" alt=""/>
-                        </div>
+                            <div class="cat cat-item-slider">
+                                <h2>GYM {{ $i + 1 }}</h2>
+                                <p>Comming soon</p>
+                            </div>
+                        </a>
+                        @endfor
                     </div>
 
 
                 </div>
-                <script type="text/javascript">config_slider_init();</script> -->
+                <script type="text/javascript">config_slider_init();</script>
 </div>
 
 @include('frontends.feature-courses')
@@ -149,288 +122,59 @@
                 <div class="tab-content">
                     <div id="best-seller" class="tab-pane fade in active">
                         <div class="row">
-                            <div class="col-sm-3">
-                                <div class="info">
-                                    <a href="https://unica.vn/giao-tiep-tieng-han-de-nhu-nhai-keo" class="course-box-slider pop">
-                                        <div class="img-course"><img class="img-responsive" src="https://static.unica.vn/upload/images/2019/04/giao-tiep-tieng-han-cho-nguoi-moi-bat-dau_m_1555561894.jpg" alt="Giao tiếp tiếng Hàn dành cho người mới bắt đầu"></div>
-                                        <div class="content-course">
-                                            <h3 class="title-course">Giangười mới ...</h3>
-                                            <div class="clearfix"> 
-                                                <span class="name-teacher">Bảo Minh</span>
-                                                <span class="pull-right">
-                                                <span class="star-rate">
-                                                <i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star percent percent_6" aria-hidden="true"></i>                </span>
-                                                <span class="n-rate">(<span>183</span>)</span>
-                                                </span>
-                                            </div>
-                                            <div class="time-view"> 
-                                                <span class="time">
-                                                <i class="fa fa-clock-o" aria-hidden="true"></i> 2h
-                                                </span>
-                                                <span class="view pull-right">
-                                                <i class="fa fa-eye" aria-hidden="true"></i> 800 views
-                                                </span>
-                                            </div>
-                                            <div class="price-course">
-                                                <span class="price">
-                                                800000
-                                                </span>
-                                                <span class="sale pull-right">
-                                                600000
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="info">
-                                    <a href="https://unica.vn/giao-tiep-tieng-han-de-nhu-nhai-keo" class="course-box-slider pop">
-                                        <div class="img-course"><img class="img-responsive" src="https://static.unica.vn/upload/images/2019/04/giao-tiep-tieng-han-cho-nguoi-moi-bat-dau_m_1555561894.jpg" alt="Giao tiếp tiếng Hàn dành cho người mới bắt đầu"></div>
-                                        <div class="content-course">
-                                            <h3 class="title-course">Giao tiếp tiếng Hàn dành cho người mới ...</h3>
-                                            <div class="clearfix"> 
-                                                <span class="name-teacher">Bảo Minh</span>
-                                                <span class="pull-right">
-                                                <span class="star-rate">
-                                                <i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i>                </span>
-                                                <span class="n-rate">(<span>183</span>)</span>
-                                                </span>
-                                            </div>
-                                            <div class="time-view"> 
-                                                <span class="time">
-                                                <i class="fa fa-clock-o" aria-hidden="true"></i> 2h
-                                                </span>
-                                                <span class="view pull-right">
-                                                <i class="fa fa-eye" aria-hidden="true"></i> 800 views
-                                                </span>
-                                            </div>
-                                            <div class="price-course">
-                                                <span class="price">
-                                                800000
-                                                </span>
-                                                <span class="sale pull-right">
-                                                600000
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="info">
-                                    <a href="https://unica.vn/giao-tiep-tieng-han-de-nhu-nhai-keo" class="course-box-slider pop">
-                                        <div class="img-course"><img class="img-responsive" src="https://static.unica.vn/upload/images/2019/04/giao-tiep-tieng-han-cho-nguoi-moi-bat-dau_m_1555561894.jpg" alt="Giao tiếp tiếng Hàn dành cho người mới bắt đầu"></div>
-                                        <div class="content-course">
-                                            <h3 class="title-course">Giao tiếp tiếng Hàn dành cho người mới ...</h3>
-                                            <div class="clearfix"> 
-                                                <span class="name-teacher">Bảo Minh</span>
-                                                <span class="pull-right">
-                                                <span class="star-rate">
-                                                <i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i>                </span>
-                                                <span class="n-rate">(<span>183</span>)</span>
-                                                </span>
-                                            </div>
-                                            <div class="time-view"> 
-                                                <span class="time">
-                                                <i class="fa fa-clock-o" aria-hidden="true"></i> 2h
-                                                </span>
-                                                <span class="view pull-right">
-                                                <i class="fa fa-eye" aria-hidden="true"></i> 800 views
-                                                </span>
-                                            </div>
-                                            <div class="price-course">
-                                                <span class="price">
-                                                800000
-                                                </span>
-                                                <span class="sale pull-right">
-                                                600000
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="info">
-                                    <a href="https://unica.vn/giao-tiep-tieng-han-de-nhu-nhai-keo" class="course-box-slider pop">
-                                        <div class="img-course"><img class="img-responsive" src="https://static.unica.vn/upload/images/2019/04/giao-tiep-tieng-han-cho-nguoi-moi-bat-dau_m_1555561894.jpg" alt="Giao tiếp tiếng Hàn dành cho người mới bắt đầu"></div>
-                                        <div class="content-course">
-                                            <h3 class="title-course">Giao tiếp tiếng Hàn dành cho người mới ...</h3>
-                                            <div class="clearfix"> 
-                                                <span class="name-teacher">Bảo Minh</span>
-                                                <span class="pull-right">
-                                                <span class="star-rate">
-                                                <i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i>                </span>
-                                                <span class="n-rate">(<span>183</span>)</span>
-                                                </span>
-                                            </div>
-                                            <div class="time-view"> 
-                                                <span class="time">
-                                                <i class="fa fa-clock-o" aria-hidden="true"></i> 2h
-                                                </span>
-                                                <span class="view pull-right">
-                                                <i class="fa fa-eye" aria-hidden="true"></i> 800 views
-                                                </span>
-                                            </div>
-                                            <div class="price-course">
-                                                <span class="price">
-                                                800000
-                                                </span>
-                                                <span class="sale pull-right">
-                                                600000
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="info">
-                                    <a href="https://unica.vn/giao-tiep-tieng-han-de-nhu-nhai-keo" class="course-box-slider pop">
-                                        <div class="img-course"><img class="img-responsive" src="https://static.unica.vn/upload/images/2019/04/giao-tiep-tieng-han-cho-nguoi-moi-bat-dau_m_1555561894.jpg" alt="Giao tiếp tiếng Hàn dành cho người mới bắt đầu"></div>
-                                        <div class="content-course">
-                                            <h3 class="title-course">Giao tiếp tiếng Hàn dành cho người mới ...</h3>
-                                            <div class="clearfix"> 
-                                                <span class="name-teacher">Bảo Minh</span>
-                                                <span class="pull-right">
-                                                <span class="star-rate">
-                                                <i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i>                </span>
-                                                <span class="n-rate">(<span>183</span>)</span>
-                                                </span>
-                                            </div>
-                                            <div class="time-view"> 
-                                                <span class="time">
-                                                <i class="fa fa-clock-o" aria-hidden="true"></i> 2h
-                                                </span>
-                                                <span class="view pull-right">
-                                                <i class="fa fa-eye" aria-hidden="true"></i> 800 views
-                                                </span>
-                                            </div>
-                                            <div class="price-course">
-                                                <span class="price">
-                                                800000
-                                                </span>
-                                                <span class="sale pull-right">
-                                                600000
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="info">
-                                    <a href="https://unica.vn/giao-tiep-tieng-han-de-nhu-nhai-keo" class="course-box-slider pop">
-                                        <div class="img-course"><img class="img-responsive" src="https://static.unica.vn/upload/images/2019/04/giao-tiep-tieng-han-cho-nguoi-moi-bat-dau_m_1555561894.jpg" alt="Giao tiếp tiếng Hàn dành cho người mới bắt đầu"></div>
-                                        <div class="content-course">
-                                            <h3 class="title-course">Giao tiếp tiếng Hàn dành cho người mới ...</h3>
-                                            <div class="clearfix"> 
-                                                <span class="name-teacher">Bảo Minh</span>
-                                                <span class="pull-right">
-                                                <span class="star-rate">
-                                                <i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i>                </span>
-                                                <span class="n-rate">(<span>183</span>)</span>
-                                                </span>
-                                            </div>
-                                            <div class="time-view"> 
-                                                <span class="time">
-                                                <i class="fa fa-clock-o" aria-hidden="true"></i> 2h
-                                                </span>
-                                                <span class="view pull-right">
-                                                <i class="fa fa-eye" aria-hidden="true"></i> 800 views
-                                                </span>
-                                            </div>
-                                            <div class="price-course">
-                                                <span class="price">
-                                                800000
-                                                </span>
-                                                <span class="sale pull-right">
-                                                600000
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="info">
-                                    <a href="https://unica.vn/giao-tiep-tieng-han-de-nhu-nhai-keo" class="course-box-slider pop">
-                                        <div class="img-course"><img class="img-responsive" src="https://static.unica.vn/upload/images/2019/04/giao-tiep-tieng-han-cho-nguoi-moi-bat-dau_m_1555561894.jpg" alt="Giao tiếp tiếng Hàn dành cho người mới bắt đầu"></div>
-                                        <div class="content-course">
-                                            <h3 class="title-course">Giao tiếp tiếng Hàn dành cho người mới ...</h3>
-                                            <div class="clearfix"> 
-                                                <span class="name-teacher">Bảo Minh</span>
-                                                <span class="pull-right">
-                                                <span class="star-rate">
-                                                <i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i>                </span>
-                                                <span class="n-rate">(<span>183</span>)</span>
-                                                </span>
-                                            </div>
-                                            <div class="time-view"> 
-                                                <span class="time">
-                                                <i class="fa fa-clock-o" aria-hidden="true"></i> 2h
-                                                </span>
-                                                <span class="view pull-right">
-                                                <i class="fa fa-eye" aria-hidden="true"></i> 800 views
-                                                </span>
-                                            </div>
-                                            <div class="price-course">
-                                                <span class="price">
-                                                800000
-                                                </span>
-                                                <span class="sale pull-right">
-                                                600000
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="info">
-                                    <a href="https://unica.vn/giao-tiep-tieng-han-de-nhu-nhai-keo" class="course-box-slider pop">
-                                        <div class="img-course"><img class="img-responsive" src="https://static.unica.vn/upload/images/2019/04/giao-tiep-tieng-han-cho-nguoi-moi-bat-dau_m_1555561894.jpg" alt="Giao tiếp tiếng Hàn dành cho người mới bắt đầu"></div>
-                                        <div class="content-course">
-                                            <h3 class="title-course">Giao tiếp tiếng Hàn dành cho người mới ...</h3>
-                                            <div class="clearfix"> 
-                                                <span class="name-teacher">Bảo Minh</span>
-                                                <span class="pull-right">
-                                                <span class="star-rate">
-                                                <i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i><i class="fa fa-star co-or" aria-hidden="true"></i>                </span>
-                                                <span class="n-rate">(<span>183</span>)</span>
-                                                </span>
-                                            </div>
-                                            <div class="time-view"> 
-                                                <span class="time">
-                                                <i class="fa fa-clock-o" aria-hidden="true"></i> 2h
-                                                </span>
-                                                <span class="view pull-right">
-                                                <i class="fa fa-eye" aria-hidden="true"></i> 800 views
-                                                </span>
-                                            </div>
-                                            <div class="price-course">
-                                                <span class="price">
-                                                800000
-                                                </span>
-                                                <span class="sale pull-right">
-                                                600000
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
+                            @for($i = 0; $i < 8; $i++)
+                                @include(
+                                    'components.course', 
+                                    [
+                                        'image' => 'https://static.unica.vn/upload/images/2019/04/giao-tiep-tieng-han-cho-nguoi-moi-bat-dau_m_1555561894.jpg',
+                                        'title' => 'Giao tiếp tiếng Hàn dành cho người mới bắt đầu',
+                                        'author' => 'Bảo Minh',
+                                        'rating_number' => 3500,
+                                        'time' => 2,
+                                        'view_number' => 3600,
+                                        'price' => 800000,
+                                        'sale' => 600000,
+                                    ]
+                                )
+                            @endfor
                             <div class="col-sm-12 text-center">
-                                <button type="button" class="btn">SEE ALL</button>
+                                <button type="button" class="btn btn-default btn-seeall">SEE ALL</button>
                             </div>
                         </div>
                     </div>
                     <div id="menu1" class="tab-pane fade">
-                        2
+                        @for($i = 0; $i < 8; $i++)
+                            @include(
+                                'components.course', 
+                                [
+                                    'image' => 'https://static.unica.vn/upload/images/2019/04/giao-tiep-tieng-han-cho-nguoi-moi-bat-dau_m_1555561894.jpg',
+                                    'title' => 'Giao tiếp tiếng Hàn dành cho người mới bắt đầu',
+                                    'author' => 'Bảo Minh',
+                                    'rating_number' => 3500,
+                                    'time' => 2,
+                                    'view_number' => 3600,
+                                    'price' => 800000,
+                                    'sale' => 600000,
+                                ]
+                            )
+                        @endfor
                     </div>
                     <div id="menu2" class="tab-pane fade">
-                        3
+                        @for($i = 0; $i < 8; $i++)
+                            @include(
+                                'components.course', 
+                                [
+                                    'image' => 'https://static.unica.vn/upload/images/2019/04/giao-tiep-tieng-han-cho-nguoi-moi-bat-dau_m_1555561894.jpg',
+                                    'title' => 'Giao tiếp tiếng Hàn dành cho người mới bắt đầu',
+                                    'author' => 'Bảo Minh',
+                                    'rating_number' => 3500,
+                                    'time' => 2,
+                                    'view_number' => 3600,
+                                    'price' => 800000,
+                                    'sale' => 600000,
+                                ]
+                            )
+                        @endfor
                     </div>
                 </div>
             </div>
