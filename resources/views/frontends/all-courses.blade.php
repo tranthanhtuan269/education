@@ -30,7 +30,7 @@
                                         'price' => 800000,
                                         'sale' => 600000,
                                     ]
-                                );
+                                )
                             @endfor
                             <div class="col-sm-12 text-center">
                                 <button type="button" class="btn">Pagging</button>
@@ -60,7 +60,7 @@
                                     'price' => 800000,
                                     'sale' => 600000,
                                 ]
-                            );
+                            )
                         @endfor
                         <div class="col-sm-12 text-center">
                             <button type="button" class="btn">Pagging</button>

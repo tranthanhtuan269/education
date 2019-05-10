@@ -175,216 +175,7 @@
             </div>
             <div class="lessons clearfix">
                 <div class="col-sm-8">
-                    <div class="u-list-course" id="u-list-course">
-                        <div class="top clearfix">
-                            <h2 class="pull-left">Courses Lessions</h2>
-                            <ul class="pull-right">
-                                <li>Expand all</li>
-                                <li>80 lectures</li>
-                                <li>15:58:20</li>
-                            </ul>
-                        </div>
-                        <div class="content">
-                            <div class="panel-group" id="accordion">
-                                <div class="panel panel-default">
-                                    <!-- phần -->
-                                    <div class="panel-heading">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <h4 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse1" class="collapsed" aria-expanded="true"><i class="fa fa-minus-square" aria-hidden="true"></i> Phần 1: Phát âm, bảng chữ cái</a>
-                                                </h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- bài -->
-                                    <div id="collapse1" class="panel-collapse collapse in" aria-expanded="true">
-                                        <div class="panel-body">
-                                            <div class="col">
-                                                <div class="container-fluid">
-                                                    <div class="row">
-                                                        <div class="col-xs-5 col-md-8">
-                                                            <div class="title">
-                                                                <a>
-                                                                <i class="fa fa-play-circle" aria-hidden="true"></i>
-                                                                Bài 1: Nguyên âm </a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xs-4 col-md-2">
-                                                            <div class="link">
-                                                                &nbsp;
-                                                                <a class="btn-preview" href="javascript:void(0)" onclick="preview_freetrial(24337);">Free Trial</a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xs-3 col-md-2">
-                                                            <div class="time">00:05:19</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="container-fluid">
-                                                    <div class="row">
-                                                        <div class="col-xs-5 col-md-8">
-                                                            <div class="title">
-                                                                <a>
-                                                                <i class="fa fa-play-circle" aria-hidden="true"></i>
-                                                                Bài 2: Phụ âm</a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xs-4 col-md-2">
-                                                            <div class="link">
-                                                                &nbsp;
-                                                                <a class="btn-preview" href="javascript:void(0)" onclick="preview_freetrial(24338);">Free Trial</a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xs-3 col-md-2">
-                                                            <div class="time">00:05:47</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="container-fluid">
-                                                    <div class="row">
-                                                        <div class="col-xs-5 col-md-8">
-                                                            <div class="title">
-                                                                <a>
-                                                                <i class="fa fa-play-circle" aria-hidden="true"></i>
-                                                                Bài 3: Phân biệt phát âm phụ âm nhẹ, phụ âm đôi và phụ âm bật hơi</a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xs-4 col-md-2">
-                                                            <div class="link">
-                                                                &nbsp;
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xs-3 col-md-2">
-                                                            <div class="time">00:03:04</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="container-fluid">
-                                                    <div class="row">
-                                                        <div class="col-xs-5 col-md-8">
-                                                            <div class="title">
-                                                                <a>
-                                                                <i class="fa fa-play-circle" aria-hidden="true"></i>
-                                                                Bài 4: Cách phát âm patchim (Phụ âm cuối)</a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xs-4 col-md-2">
-                                                            <div class="link">
-                                                                &nbsp;
-                                                                <a class="btn-preview" href="javascript:void(0)" onclick="preview_freetrial(24340);">Free Trial</a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xs-3 col-md-2">
-                                                            <div class="time">00:04:14</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="container-fluid">
-                                                    <div class="row">
-                                                        <div class="col-xs-5 col-md-8">
-                                                            <div class="title">
-                                                                <a>
-                                                                <i class="fa fa-play-circle" aria-hidden="true"></i>
-                                                                Bài 5: Ghép chữ và đánh vần như tiếng Việt </a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xs-4 col-md-2">
-                                                            <div class="link">
-                                                                &nbsp;
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xs-3 col-md-2">
-                                                            <div class="time">00:01:43</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="container-fluid">
-                                                    <div class="row">
-                                                        <div class="col-xs-5 col-md-8">
-                                                            <div class="title">
-                                                                <a>
-                                                                <i class="fa fa-play-circle" aria-hidden="true"></i>
-                                                                Bài 6: Cách nối âm và thứ tự câu trong tiếng Hàn</a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xs-4 col-md-2">
-                                                            <div class="link">
-                                                                &nbsp;
-                                                                <a class="btn-preview" href="javascript:void(0)" onclick="preview_freetrial(24342);">Free Trial</a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xs-3 col-md-2">
-                                                            <div class="time">00:01:44</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="panel panel-default">
-                                    <!-- phần -->
-                                    <div class="panel-heading">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <h4 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse2" class="collapsed" aria-expanded="true"><i class="fa fa-minus-square" aria-hidden="true"></i> Phần 2: Giới thiệu bản thân</a>
-                                                </h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- bài -->
-                                    <div id="collapse2" class="panel-collapse collapse" aria-expanded="true">
-                                        <div class="panel-body">
-                                            <div class="col">
-                                                <div class="container-fluid">
-                                                    <div class="row">
-                                                        <div class="col-xs-5 col-md-8">
-                                                            <div class="title">
-                                                                <a>
-                                                                <i class="fa fa-play-circle" aria-hidden="true"></i>
-                                                                Bài 9: Quốc gia, nghề nghiệp</a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xs-4 col-md-2">
-                                                            <div class="link">
-                                                                &nbsp;
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xs-3 col-md-2">
-                                                            <div class="time">00:04:46</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tags">
-                            <div class="pull-left">
-                                <span>Tags:</span>
-                                <ul class="pull-right">
-                                    <li>PHP</li>
-                                    <li>C#</li>
-                                    <li>Java</li>
-                                    <li>Jquey</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                        @include('components.course-lession-list')
                 </div>
                 <div class="col-sm-4">
                     <div class="requirement" id="box_requirements">
@@ -406,7 +197,42 @@
                 <div class="col-sm-12">
                     <h2>About the instructors</h2>
                 </div>
-                <div class="col-sm-6 instructor-item">
+                <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <a href="{{ route('detail-teacher') }}">
+                                    <img class="avatar" src="https://www.w3schools.com/howto/img_avatar.png" alt="" />
+                                </a>
+                            </div>
+                            <div class="col-sm-9">
+                                <div class="detail-info">
+                                    <p class="name"><a href="{{ route('detail-teacher') }}">Bảo Minh</a></p>
+                                    <p class="expret">PHP, Jquery, Agular Js, Vue Js, NodeJs</p>
+                                    <div class="frame clearfix">
+                                        <div class="pull-left">
+                                            <img src="{{ asset('frontend/images/ic_course.png') }}" alt="" /> 
+                                            <span class="special">22 Courses</span>
+                                        </div>
+                                        <div class="pull-right">
+                                            @include(
+                                                'components.vote', 
+                                                [
+                                                    'rate' => 2,
+                                                    'rating_number' => 100,
+                                                    'rating_txt' => true,
+                                                ]
+                                            )
+                                        </div>
+                                    </div>
+                                    <div class="">
+                                        <img src="{{ asset('frontend/images/icon_student.png') }}" alt="" /> 
+                                        <span class="special">11.112 Students</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <div class="col-sm-6">
                     <div class="row">
                         <div class="col-sm-3">
                             <a href="{{ route('detail-teacher') }}">
@@ -415,7 +241,7 @@
                         </div>
                         <div class="col-sm-9">
                             <div class="detail-info">
-                                <p class="name"><a href="{{ route('detail-teacher') }}" class="link">Bảo Minh</a></p>
+                                <p class="name"><a href="{{ route('detail-teacher') }}">Bảo Minh</a></p>
                                 <p class="expret">PHP, Jquery, Agular Js, Vue Js, NodeJs</p>
                                 <div class="frame clearfix">
                                     <div class="pull-left">
@@ -427,39 +253,8 @@
                                             'components.vote', 
                                             [
                                                 'rate' => 2,
-                                                'rating_number' => 3500
-                                            ]
-                                        )
-                                    </div>
-                                </div>
-                                <div class="">
-                                    <img src="{{ asset('frontend/images/icon_student.png') }}" class="icon" alt="" /> 
-                                    <span class="special">11.112 Students</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 instructor-item">
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <img class="avatar" src="https://www.w3schools.com/howto/img_avatar.png" alt="" />
-                        </div>
-                        <div class="col-sm-9">
-                            <div class="detail-info">
-                                <p class="name">Bảo Minh</p>
-                                <p class="expret">PHP, Jquery, Agular Js, Vue Js, NodeJs</p>
-                                <div class="frame clearfix">
-                                    <div class="pull-left">
-                                        <img src="{{ asset('frontend/images/ic_course.png') }}" class="icon" alt="" /> 
-                                        <span class="special">22 Courses</span>
-                                    </div>
-                                    <div class="pull-right">
-                                        @include(
-                                            'components.vote', 
-                                            [
-                                                'rate' => 2,
-                                                'rating_number' => 3500
+                                                'rating_number' => 100,
+                                                'rating_txt' => true,
                                             ]
                                         )
                                     </div>
@@ -476,7 +271,7 @@
         </div>
     </div>
     <div class="container">
-        <div class="row" id="box_reviews">
+        <div class="course-learning-review">
             <div class="feedback clearfix">
                 <div class="col-sm-4 student-rating">
                     <h2>Students Feedback</h2>
@@ -493,157 +288,36 @@
                 </div>
                 <div class="col-sm-8 rating-process">
                     <div class="row">
-                        @for ($i = 0; $i < 5; $i++)
-                            <div class="item-progress">
-                                <div class="col-sm-9">
-                                    <div class="progress">
-                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
-                                            aria-valuemin="0" aria-valuemax="100" style="width:40%"></div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-3">
-                                    @include(
-                                        'components.vote', 
-                                        [
-                                            'rate' => 2,
-                                        ]
-                                    )
-                                    <span class="percent-rating">80%</span>
+                        @for ($i = 0; $i <5; $i++)
+                        <div class="item-progress">
+                            <div class="col-sm-9">
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
+                                        aria-valuemin="0" aria-valuemax="100" style="width:40%"></div>
                                 </div>
                             </div>
+                            <div class="col-sm-3">
+                                @include(
+                                    'components.vote', 
+                                    [
+                                        'rate' => 2,
+                                    ]
+                                )
+                                <span class="percent-rating">80%</span>
+                            </div>
+                        </div>
                         @endfor
                     </div>
                 </div>
             </div>
             <div class="reviews">
-                <h2>Reviews</h2>
-                <div class="box clearfix">
-                    <div class="col-sm-3">
-                        <img class="avatar" src="https://www.w3schools.com/howto/img_avatar.png" alt="" />
-                        <div class="info-account">
-                            <p class="interval">1 week ago</p>
-                            <p class="name">Bảo Minh</p>
-                        </div>
-                    </div>
-                    <div class="col-sm-9">
-                        @include(
-                            'components.vote', 
-                            [
-                                'rate' => 2,
-                            ]
-                        )
-                        <p class="comment">
-                            Khóa học em học được rất tốt rất dễ hiểu và em sẽ học lâu dài ở đây ạ. Khóa học em học được rất tốt rất dễ hiểu và em sẽ học lâu dài ở đây ạ
-                        </p>
-                        <div class="btn-action">
-                            <button type="button" class="btn btn-default">
-                            <i class="fas fa-comment"></i>
-                            <span>Share</span>
-                            </button>
-                            <button type="button" class="btn btn-default">
-                            <i class="fas fa-thumbs-up"></i>
-                            <span>Reply</span>
-                            </button>
-                            <button type="button" class="btn btn-default">
-                            <i class="fas fa-thumbs-down"></i>
-                            <span>Dislike</span>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="col-sm-12">
-                        <hr>
-                    </div>
-                </div>
-                <div class="box clearfix">
-                    <div class="col-sm-3">
-                        <img class="avatar" src="https://www.w3schools.com/howto/img_avatar.png" alt="" />
-                        <div class="info-account">
-                            <p class="interval">1 week ago</p>
-                            <p class="name">Bảo Minh</p>
-                        </div>
-                    </div>
-                    <div class="col-sm-9">
-                        @include(
-                            'components.vote', 
-                            [
-                                'rate' => 2,
-                            ]
-                        )
-                        <p class="comment">
-                            Khóa học em học được rất tốt rất dễ hiểu và em sẽ học lâu dài ở đây ạ. Khóa học em học được rất tốt rất dễ hiểu và em sẽ học lâu dài ở đây ạ
-                        </p>
-                        <div class="btn-action">
-                            <button type="button" class="btn btn-default">
-                            <i class="fas fa-comment"></i>
-                            <span>Share</span>
-                            </button>
-                            <button type="button" class="btn btn-default">
-                            <i class="fas fa-thumbs-up"></i>
-                            <span>Reply</span>
-                            </button>
-                            <button type="button" class="btn btn-default">
-                            <i class="fas fa-thumbs-down"></i>
-                            <span>Dislike</span>
-                            </button>
-                        </div>
-                        <div class="comment-reply">
-                            <div>
-                                <img class="avatar" src="https://www.w3schools.com/howto/img_avatar.png" alt="" />
-                                <div class="info-account">
-                                    <p class="interval">1 week ago</p>
-                                    <p class="name">Bảo Minh</p>
-                                </div>
-                            </div>
-                            <p class="comment">
-                                Khóa học em học được rất tốt rất dễ hiểu và em sẽ học lâu dài ở đây ạ. Khóa học em học được rất tốt rất dễ hiểu và em sẽ học lâu dài ở đây ạ
-                            </p>
-                            <div class="btn-action">
-                                <button type="button" class="btn btn-default">
-                                <i class="fas fa-comment"></i>
-                                <span>Share</span>
-                                </button>
-                                <button type="button" class="btn btn-default">
-                                <i class="fas fa-thumbs-up"></i>
-                                <span>Reply</span>
-                                </button>
-                                <button type="button" class="btn btn-default">
-                                <i class="fas fa-thumbs-down"></i>
-                                <span>Dislike</span>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="comment-reply">
-                            <div>
-                                <img class="avatar" src="https://www.w3schools.com/howto/img_avatar.png" alt="" />
-                                <div class="info-account">
-                                    <p class="interval">1 week ago</p>
-                                    <p class="name">Bảo Minh</p>
-                                </div>
-                            </div>
-                            <p class="comment">
-                                Khóa học em học được rất tốt rất dễ hiểu và em sẽ học lâu dài ở đây ạ. Khóa học em học được rất tốt rất dễ hiểu và em sẽ học lâu dài ở đây ạ
-                            </p>
-                            <div class="btn-action">
-                                <button type="button" class="btn btn-default">
-                                <i class="fas fa-comment"></i>
-                                <span>Share</span>
-                                </button>
-                                <button type="button" class="btn btn-default">
-                                <i class="fas fa-thumbs-up"></i>
-                                <span>Reply</span>
-                                </button>
-                                <button type="button" class="btn btn-default">
-                                <i class="fas fa-thumbs-down"></i>
-                                <span>Dislike</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <h3>Reviews</h3>
+                @include('components.question-answer')
             </div>
             <div class="col-sm-12 btn-seen-all">
                 <button type="button" class="btn">Seen all student feedback</button>
             </div>
+            
         </div>
     </div>
     <div class="related-course">

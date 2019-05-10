@@ -71,9 +71,11 @@ Route::group(['middleware' => 'auth'], function () {
 // FRONTEND
 Route::get('/', 'Frontends\HomeController@home')->name('home');
 Route::get('/home', 'Frontends\HomeController@home')->name('home');
-Route::get('/member-card', 'Frontends\HomeController@memberCard');
+Route::get('/member-card', 'Frontends\HomeController@memberCard')->name('member-card');
 Route::get('/course-category', 'Frontends\HomeController@courseCategory')->name('course-category');
 Route::get('/detail-teacher', 'Frontends\HomeController@detailTeacher')->name('detail-teacher');
 
 Route::get('/course-learning', 'Frontends\HomeController@courseLearning');
 Route::get('/course-detail', 'Frontends\HomeController@courseDetail')->name('course-detail');
+Route::get('/course-list','Frontends\HomeController@courseList');
+Route::get('/student-profile','Frontends\HomeController@studentProfile');
