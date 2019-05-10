@@ -71,11 +71,13 @@ Route::group(['middleware' => 'auth'], function () {
 	});
 });
 
-// FRONTEND
-Route::get('/home','Frontends\HomeController@home');
-Route::get('/member-card','Frontends\HomeController@memberCard');
-Route::get('/course-category','Frontends\HomeController@courseCategory');
-Route::get('/detail-teacher','Frontends\HomeController@detailTeacher');
+// Auth::routes();
 
-Route::get('/course-learning','Frontends\HomeController@courseLearning');
-Route::get('/course-detail','Frontends\HomeController@courseDetail');
+
+// FRONTEND
+Route::get('/home','HomeController@home');
+Route::get('/member-card','HomeController@memberCard');
+Route::get('/course-category','HomeController@courseCategory');
+Route::get('/detail-teacher','HomeController@detailTeacher');
+Route::get('/student-profile','HomeController@studentProfile');
+Route::get('/course-learning','HomeController@courseLearning');
