@@ -22,21 +22,6 @@ $(document).ready(function () {
         })
     });
 
-    
-    // $(".ln-disc-post-wrapper>div:first-child").click(function () {
-        
-    //     if(!$(".ln-disc-post-right p").hasClass("active")){
-    //         $(".ln-disc-post-right p").addClass("active")
-    //         // $(".ln-disc-comment-wrapper").addClass("active")
-    //         // $(".ln-disc-comment-input").addClass("active")
-    //     }else{
-    //         // $(".ln-disc-comment-wrapper").removeClass("active")
-    //         $(".ln-disc-post-right p").removeClass("active")
-    //         // $(".ln-disc-comment-input").removeClass("active")
-    //     }
-    // })
-
-
     $(".lecture-title").click(function () {
         toggleLectureList()
     })
