@@ -13,7 +13,7 @@ $(document).ready(function () {
     toggleBigPlayButton()
     clickToPlay()
 
-    
+
     videojs('my-video').ready(function () {
         this.on('timeupdate', function () {
             // console.log(this.currentTime());
@@ -57,6 +57,18 @@ $(document).ready(function () {
     })
     $("#btnCloseDiscussion").click(function (){
         toggleDiscussion()
+    })
+    $(".ln-btn-file").click(function (){
+        toggleFiles()
+    })
+    $("#btnCloseFiles").click(function (){
+        toggleFiles()
+    })
+    $(".ln-btn-note").click(function (){
+        toggleNotes()
+    })
+    $("#btnCloseNotes").click(function (){
+        toggleNotes()
     })
 
 
@@ -124,7 +136,9 @@ $(document).ready(function () {
         if (!$(".learning-lecture-list").hasClass('active')) {
 
             $(".learning-lecture-list").addClass('active')
+            $(".learning-notes").removeClass("active")
             $(".learning-discussion").removeClass("active")
+            $(".learning-files").removeClass("active")            
             
             $("#my-video").removeClass('rightbarActive')
             $("#my-video").addClass('leftbarActive')
@@ -166,44 +180,80 @@ $(document).ready(function () {
 
     function toggleDiscussion(){
         if(!$(".learning-discussion").hasClass('active')){
+            activeRightBar()
 
             $(".learning-discussion").addClass("active")
+            $(".learning-notes").removeClass("active")
+            $(".learning-files").removeClass("active")
             $(".learning-lecture-list").removeClass('active')
-
-            $("#my-video").removeClass('leftbarActive')
-            $("#my-video").addClass('rightbarActive')
-
-            $(".learning-desc-panel-body").removeClass('leftbarActive')
-            $(".learning-desc-panel-body").addClass('rightbarActive')
-
-            $(".ln-desc-bottom").removeClass("leftbarActive")
-            $(".ln-desc-bottom").addClass("rightbarActive")
-            
-            $(".vjs-custom-big-play-button").removeClass('leftbarActive')
-            $(".vjs-custom-big-play-button").addClass('rightbarActive')
-
-            $(".ln-btn-note span").hide()
-            $(".ln-btn-discuss span").hide()
-            $(".ln-btn-file span").hide()
-            $(".ln-btn-autoplay span").hide()
-            $(".ln-btn-report span").hide()
         } else {
-
+            unActiveRightBar()
             $(".learning-discussion").removeClass("active")
-            $("#my-video").removeClass('rightbarActive')
-
-            $(".learning-desc-panel-body").removeClass('rightbarActive')
-            $(".ln-desc-bottom").removeClass("rightbarActive")
-
-            $(".vjs-custom-big-play-button").removeClass('rightbarActive')
-
-            $(".ln-btn-note span").show()
-            $(".ln-btn-discuss span").show()
-            $(".ln-btn-file span").show()
-            $(".ln-btn-autoplay span").show()
-            $(".ln-btn-report span").show()
+            
         }
     }
+    
+    function toggleFiles() {
+        if(!$(".learning-files").hasClass('active')){
+            activeRightBar()
+            $(".learning-files").addClass("active")
+            $(".learning-notes").removeClass("active")
+            $(".learning-discussion").removeClass("active")            
+            $(".learning-lecture-list").removeClass('active')
+        } else {
+            unActiveRightBar()
+            $(".learning-files").removeClass("active")
+            
+        }
+    }
+
+    function toggleNotes() {
+        if(!$(".learning-notes").hasClass('active')){
+            activeRightBar()
+            $(".learning-notes").addClass("active")
+            $(".learning-files").removeClass("active")
+            $(".learning-discussion").removeClass("active")            
+            $(".learning-lecture-list").removeClass('active')
+        } else {
+            unActiveRightBar()
+            $(".learning-notes").removeClass("active")
+            
+        }
+    }
+
+    function activeRightBar(){
+        $("#my-video").removeClass('leftbarActive')
+        $("#my-video").addClass('rightbarActive')
+
+        $(".learning-desc-panel-body").removeClass('leftbarActive')
+        $(".learning-desc-panel-body").addClass('rightbarActive')
+
+        $(".ln-desc-bottom").removeClass("leftbarActive")
+        $(".ln-desc-bottom").addClass("rightbarActive")
+        
+        $(".vjs-custom-big-play-button").removeClass('leftbarActive')
+        $(".vjs-custom-big-play-button").addClass('rightbarActive')
+
+        $(".ln-btn-note span").hide()
+        $(".ln-btn-discuss span").hide()
+        $(".ln-btn-file span").hide()
+        $(".ln-btn-autoplay span").hide()
+        $(".ln-btn-report span").hide()
+    }
+    function unActiveRightBar(){
+        $("#my-video").removeClass('rightbarActive')
+        $(".learning-desc-panel-body").removeClass('rightbarActive')
+        $(".ln-desc-bottom").removeClass("rightbarActive")
+
+        $(".vjs-custom-big-play-button").removeClass('rightbarActive')
+
+        $(".ln-btn-note span").show()
+        $(".ln-btn-discuss span").show()
+        $(".ln-btn-file span").show()
+        $(".ln-btn-autoplay span").show()
+        $(".ln-btn-report span").show()
+    }
+    
 
     function initializePlayerControlBar() {
         //Time Controller Buttons

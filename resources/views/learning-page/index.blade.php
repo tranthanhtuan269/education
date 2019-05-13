@@ -134,7 +134,7 @@
             </video>
         </div>
         
-        {{-- LEFT SIDEBAR aka LECTURE LIST --}}
+        {{-- LECTURE LIST aka LEFT SIDEBAR --}}
         <div class="learning-lecture-list">
             <div class="learning-lecture-list-searchbar">
                 <div class="input-group">
@@ -267,13 +267,15 @@
                 <p></p>
             </div>
             <div class="ln-disc-body">
-                <div class="ln-disc-searchbar">
+                <div class="ln-disc-input-bar">
                     <div class="input-group">
-                        <textarea name="content" id="editor"></textarea>
-                        <button class="btn">Ask a question or share your opinions</button>
+                        <textarea name="content" id="discussionEditor"></textarea>
+                        <div class="btn-submit">
+                            <button class="btn">Ask a question or share your opinions</button>
+                        </div>
                         <script>
                                 ClassicEditor
-                                    .create( document.querySelector( '#editor' ),{
+                                    .create( document.querySelector( '#discussionEditor' ),{
                                         toolbar: ['bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ],
                                     } )
                                     .catch( error => {
@@ -349,6 +351,98 @@
             </div>
         </div>
         
+        {{-- SUPPORT FILES --}}
+        <div class="learning-files">
+            <div class="ln-files-header">
+                <div id="btnCloseFiles"><i class="fas fa-times-circle"></i></div>
+                <p>Files</p>
+                <p></p>
+            </div>
+            <div class="ln-files-body">
+                <div class="ln-files-list">
+                    <div class="ln-files-wrapper">
+                        <div>
+                            <a href="">
+                                <p>
+                                    <i class="fas fa-file-archive"></i>&nbsp;
+                                    A google drive link
+                                </p>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ln-files-wrapper">
+                        <div>
+                            
+                            <a href="">
+                                <p>
+                                    <i class="fas fa-file-archive"></i>&nbsp;
+                                    A dropbox link
+                                </p>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ln-files-wrapper">
+                        <div>
+                            <a href="">
+                                
+                                <p>
+                                    <i class="fas fa-file-archive"></i>&nbsp;
+                                    A one drive link
+                                </p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+        </div>
+
+        {{-- NOTE --}}
+        <div class="learning-notes">
+            <div class="ln-notes-header">
+                <div id="btnCloseNotes"><i class="fas fa-times-circle"></i></div>
+                <p>Notes</p>
+                <p></p>
+            </div>
+            <div class="ln-notes-body">
+                <div class="ln-notes-input-bar">
+                    <div class="input-group">
+                        <textarea name="content" id="notesEditor"></textarea>
+                        <div class="btn-submit">
+                            <button class="btn">Save</button>
+                            <button class="btn"> 0:51</button>
+                        </div>
+                        <script>
+                                ClassicEditor
+                                    .create( document.querySelector( '#notesEditor' ),{
+                                        toolbar: ['bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ],
+                                    } )
+                                    .catch( error => {
+                                        console.error( error );
+                                    } );                                
+                        </script>
+                    </div>
+                </div>
+
+                <div class="ln-notes-list">
+                    @for ($i = 0; $i < 5; $i++)
+                    <div class="ln-notes-wrapper">
+                        <div>
+                            <p>Having played competitively since 2005, Lindberg, going by the pseudonym of "f0rest", has widely gained a reputation within the electronic sports scene as one of the best-performing Counter-Strike players in the world.
+                            </p>
+                            <div>
+                                <span><strong>0:51</strong></span>
+                                <span><i>20/11/2019, 20:15</i></span>
+                            </div>
+                        </div>
+                    </div>
+                    @endfor
+                </div>
+            </div>
+
+        </div>
+
         {{-- BIG PLAY BUTTON --}}
         <div class="vjs-custom-big-play-button">
             <div class="btn">
