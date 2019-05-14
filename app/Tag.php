@@ -10,10 +10,10 @@ class Tag extends Model
         'name', 'status', 'cat_id'
     ];
 
-    public function courses()
-    {
-        return $this->belongsToMany('App\Course');
-    }
+    // public function courses()
+    // {
+    //     return $this->belongsToMany('App\Course');
+    // }
 
     public function category(){
     	return $this->belongsTo('App\Category', 'cat_id');

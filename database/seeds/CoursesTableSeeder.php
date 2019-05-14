@@ -4,7 +4,7 @@ use Illuminate\Database\Seeder;
 use App\Course;
 use App\Unit;
 use App\Video;
-
+use Illuminate\Support\Str;
 class CoursesTableSeeder extends Seeder
 {
     /**
@@ -63,11 +63,13 @@ class CoursesTableSeeder extends Seeder
 	
 				$courses = new Course;
 				$courses->name = $course[0] . $i;
+				$courses->short_description = 'Linux Troubleshooting and Administration';
+				$courses->slug = Str::slug($courses->name, '-');
 				$courses->image = 'featured_hero_big.png';
 				$courses->category_id = $course[1];
 				$courses->price = 500000;
 				$courses->real_price = 800000;
-				$courses->duration = 516;
+				$courses->duration = '12:00:00';
 				$courses->downloadable_count = 3;
 				$courses->video_count = 36;
 				$courses->student_count = 150;
@@ -76,8 +78,8 @@ class CoursesTableSeeder extends Seeder
 				$courses->sale_count = 150;
 				$courses->view_count = 350;
 				$courses->description = $course[2];
-				$courses->will_learn = $course[2];
-				$courses->requirement = "MVC";
+				$courses->will_learn = '{"0":"Bạn đang học tiếng Hàn, nhưng ngại giao tiếp với người Hàn Quốc","1":"Bạn đang học tiếng Hàn, nhưng ngại giao tiếp với người Hàn Quốc","2":"Bạn đang học tiếng Hàn, nhưng ngại giao tiếp với người Hàn Quốc","3":"Bạn đang học tiếng Hàn, nhưng ngại giao tiếp với người Hàn Quốc"}';
+				$courses->requirement = '{"0":"Là người thành lập trang Fanpage dạy tiếng Hàn miễn phí","1":"Là người thành lập trang Fanpage dạy tiếng Hàn miễn phí","2":"Là người thành lập trang Fanpage dạy tiếng Hàn miễn phí","3":"Là người thành lập trang Fanpage dạy tiếng Hàn miễn phí"}';
 				$courses->level = 1;
 				$courses->approx_time = 516;
 				$courses->featured = 1;

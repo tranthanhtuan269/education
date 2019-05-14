@@ -1,6 +1,6 @@
 <div class="col-sm-3">
     <div class="info">
-        <a href="{{ url('/') }}/course/{{ $id }}" title="{{ $title }}" class="course-box-slider pop">
+        <a href="{{ url('/') }}/course/{{ $slug }}" title="{{ $title }}" class="course-box-slider pop">
             <div class="img-course"><img class="img-responsive"
                     src="{{ $image }}"
                     alt="{{ $title }}"></div>

@@ -9,24 +9,29 @@
             <div class="tab-content">
                 <div id="best-seller" class="tab-pane fade in active">
                     <div class="row">
-                        @for($i = 0; $i < 8; $i++)
+                        @foreach ($related_course as $related)
+                            <?php
+                                $lecturers = count($related->Lecturers()) > 1 ? 'Nhiều tác giả' : count($related->Lecturers()) > 0 ? $related->Lecturers()[0]->user->name : "Courdemy";
+                            ?>
                             @include(
                                 'components.course', 
                                 [
-                                    'image' => 'https://static.unica.vn/upload/images/2019/04/giao-tiep-tieng-han-cho-nguoi-moi-bat-dau_m_1555561894.jpg',
-                                    'title' => 'Giao tiếp tiếng Hàn dành cho người mới bắt đầu',
-                                    'author' => 'Bảo Minh',
-                                    'rating_number' => 3500,
-                                    'time' => 2,
-                                    'view_number' => 3600,
-                                    'price' => 800000,
-                                    'sale' => 600000,
+                                    'slug' => $related->slug,
+                                    'image' => url('/frontend/images/'.$related->image),
+                                    'title' => $related->name,
+                                    'author' => $lecturers,
+                                    'star_count' => $related->star_count,
+                                    'vote_count' => $related->vote_count,
+                                    'time' => $related->approx_time,
+                                    'view_number' => $related->view_count,
+                                    'price' => $related->real_price,
+                                    'sale' => $related->price,
                                 ]
                             )
-                        @endfor
-                        <div class="col-sm-12 btn-seen-all">
+                        @endforeach
+                        {{-- <div class="col-sm-12 btn-seen-all">
                             <button type="button" class="btn">See all</button>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>

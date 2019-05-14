@@ -4,20 +4,21 @@
             <div class="col-xs-12 title-module-home">
                 <h2>Popular Teacher</h2>
             </div>
-            @for($i = 0; $i < 4; $i++)
+            @foreach ($popular_teacher as $teacher)
                 @include(
                     'components.teacher', 
                     [
-                        'image' => 'https://www.w3schools.com/howto/img_avatar.png',
-                        'name' => 'Bảo Minh',
-                        'expert' => 'PHP, Jquery, VueJs',
-                        'rate' => 4.6,
-                        'rating_number' => 11900,
-                        'course_number' => 36,
-                        'student_number' => 3600
+                        'id' => $teacher->userRole->user->id,
+                        'image' => url($teacher->userRole->user->avatar),
+                        'name' => $teacher->userRole->user->name,
+                        'expert' => $teacher->expert,
+                        'rate' => $teacher->rating_score,
+                        'rating_number' => $teacher->vote_count,
+                        'course_number' => $teacher->course_count,
+                        'student_number' => $teacher->student_count
                     ]
                 )
-            @endfor
+            @endforeach
         </div>
     </div>
     <div class="feature-website">

@@ -267,14 +267,14 @@
                                 <i class="fa fa-th" aria-hidden="true"></i> Categories
                                 <nav id="mysidebarmenu" class="amazonmenu">
                                     <ul>
-                                        @foreach($category as $cat)
+                                        @foreach($category_fixed as $cat)
                                             <li>
-                                                <a title="{!! $cat->name !!}" href="{{ url('/') }}/category/{{ $cat->id }}">{!! $cat->icon !!} {!! $cat->name !!}</a>
+                                                <a title="{!! $cat->name !!}" href="{{ url('/') }}/category/{{ $cat->slug }}">{!! $cat->icon !!} {!! $cat->name !!}</a>
                                                 <ul class="issub">
-                                                    <li><a href="{{ url('/') }}/category/{{ $cat->id }}">Tất cả {!! $cat->name !!}</a></li>
+                                                    <li><a href="{{ url('/') }}/category/{{ $cat->slug }}">Tất cả {!! $cat->name !!}</a></li>
                                                     @if(count($cat->tags) > 0)
                                                         @foreach($cat->tags as $tag)
-                                                            <li><a href="{{ url('/') }}/tags/{{ $tag->id }}">{!! $tag->name !!}</a></li>
+                                                            <li><a href="{{ url('/') }}/tags/{{ $tag->slug }}">{!! $tag->name !!}</a></li>
                                                         @endforeach
                                                     @endif
                                                 </ul>

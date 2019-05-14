@@ -9,6 +9,7 @@ class Course extends Model
     //
     protected $fillable = [
         'name', 
+        'slug',
         'category_id',
         'price',
         'real_price',

@@ -86,7 +86,7 @@
      
                     <div data-u="slides" style="cursor:default;position:relative;top:0px;left:0px;width:980px;height:120px;overflow:hidden;">
                         @foreach ($feature_category as $feature)
-                        <a href="{{ url('/') }}/category/{{ $feature->id }}" title="{{ $feature->name }}" class="item item-slider text-center">
+                        <a href="{{ url('/') }}/category/{{ $feature->slug }}" title="{{ $feature->name }}" class="item item-slider text-center">
                             <img data-u="image" src="{{ url('/frontend/images/'.$feature->image) }}" alt="{{ $feature->name }}"/>
                             <div class="cat cat-item-slider">
                                 <h2>{{ $feature->name }}</h2>
@@ -129,7 +129,7 @@
                                 @include(
                                     'components.course', 
                                     [
-                                        'id' => $best_seller->id,
+                                        'slug' => $best_seller->slug,
                                         'image' => url('/frontend/images/'.$best_seller->image),
                                         'title' => $best_seller->name,
                                         'author' => $lecturers,
@@ -155,7 +155,7 @@
                             @include(
                                 'components.course', 
                                 [
-                                    'id' => $new->id,
+                                    'slug' => $new->slug,
                                     'image' => url('/frontend/images/'.$new->image),
                                     'title' => $new->name,
                                     'author' => $lecturers,
@@ -177,7 +177,7 @@
                             @include(
                                 'components.course', 
                                 [
-                                    'id' => $feature->id,
+                                    'slug' => $feature->slug,
                                     'image' => url('/frontend/images/'.$feature->image),
                                     'title' => $feature->name,
                                     'author' => $lecturers,
