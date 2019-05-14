@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontends;
 use Illuminate\Http\Request;
 use App\Course;
 use App\Unit;
+use App\Video;
 
 class VideoPlayerController extends Controller
 {
@@ -45,13 +46,22 @@ class VideoPlayerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($courseId, $lectureId)
+    public function show($courseId, $videoId)
     {
         //
-        $courses = Course::all();
-        $units = Unit::all();
+        $main_video = Video::where('id', $videoId)->first();
+        $units = Unit::where('course_id', $courseId)->get();
+        $course = Course::find($courseId);
+        $unit_list = [];
+        foreach ($units as $unit) {
+            $singleVideo = Video::where('unit_id', $unit->id)->get();
+            array_push($unit_list, $singleVideo);
+        }
         return view('frontends.learning-page.index', [
-            'courses'=> $courses
+            'course' => $course,
+            'units'=> $units,
+            'unit_list' => $unit_list,
+            'main_video'=>$main_video,
         ]);
     }
 

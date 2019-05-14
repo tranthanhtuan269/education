@@ -15,6 +15,7 @@ class CreateUnitsTable extends Migration
     {
         Schema::create('units', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('index');
             $table->string('name', 255);
             $table->integer('course_id');
             $table->integer('video_count')->default(0);

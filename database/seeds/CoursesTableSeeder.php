@@ -23,106 +23,51 @@ class CoursesTableSeeder extends Seeder
     				[
 						'Giới thiệu về Laravel',
 						[
-							['Lịch sử các phiên bản', "{
-								'1080' => 'http://45.56.82.249:1935/vod/_definst_/killthislove1080.mp4/playlist.m3u8',
-								'720' => 'http://45.56.82.249:1935/vod/_definst_/killthislove720.mp4/playlist.m3u8',
-								'480' => 'http://45.56.82.249:1935/vod/_definst_/killthislove480.mp4/playlist.m3u8',
-								'360' => 'http://45.56.82.249:1935/vod/_definst_/killthislove360.mp4/playlist.m3u8',
-							}", 360, 1,
+							['Lịch sử các phiên bản', "{'1080' => 'http://45.56.82.249:1935/vod/_definst_/killthislove1080.mp4/playlist.m3u8','720' => 'http://45.56.82.249:1935/vod/_definst_/killthislove720.mp4/playlist.m3u8','480' => 'http://45.56.82.249:1935/vod/_definst_/killthislove480.mp4/playlist.m3u8','360' => 'http://45.56.82.249:1935/vod/_definst_/killthislove360.mp4/playlist.m3u8',}", 360, 1,
 							"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
 							],
-							['Những tính năng vượt trội của Laravel', "{
-								'1080' => 'http://45.56.82.249:1935/vod/_definst_/killthislove1080.mp4/playlist.m3u8',
-								'720' => 'http://45.56.82.249:1935/vod/_definst_/killthislove720.mp4/playlist.m3u8',
-								'480' => 'http://45.56.82.249:1935/vod/_definst_/killthislove480.mp4/playlist.m3u8',
-								'360' => 'http://45.56.82.249:1935/vod/_definst_/killthislove360.mp4/playlist.m3u8',
-							}", 360, 1,
+							['Những tính năng vượt trội của Laravel',  "{'1080' => 'http://45.56.82.249:1935/vod/_definst_/killthislove1080.mp4/playlist.m3u8','720' => 'http://45.56.82.249:1935/vod/_definst_/killthislove720.mp4/playlist.m3u8','480' => 'http://45.56.82.249:1935/vod/_definst_/killthislove480.mp4/playlist.m3u8','360' => 'http://45.56.82.249:1935/vod/_definst_/killthislove360.mp4/playlist.m3u8',}", 360, 1,
 							"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
 							]
 						]
 					],[
 						'Getting Started',
 						[
-							['Installation ', "{
-								'1080' => 'http://45.56.82.249:1935/vod/_definst_/killthislove1080.mp4/playlist.m3u8',
-								'720' => 'http://45.56.82.249:1935/vod/_definst_/killthislove720.mp4/playlist.m3u8',
-								'480' => 'http://45.56.82.249:1935/vod/_definst_/killthislove480.mp4/playlist.m3u8',
-								'360' => 'http://45.56.82.249:1935/vod/_definst_/killthislove360.mp4/playlist.m3u8',
-							}", 360, 2,
+							['Installation ',  "{'1080' => 'http://45.56.82.249:1935/vod/_definst_/killthislove1080.mp4/playlist.m3u8','720' => 'http://45.56.82.249:1935/vod/_definst_/killthislove720.mp4/playlist.m3u8','480' => 'http://45.56.82.249:1935/vod/_definst_/killthislove480.mp4/playlist.m3u8','360' => 'http://45.56.82.249:1935/vod/_definst_/killthislove360.mp4/playlist.m3u8',}", 360, 2,
 							"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
 							],
-							['Configuration', "{
-								'1080' => 'http://45.56.82.249:1935/vod/_definst_/killthislove1080.mp4/playlist.m3u8',
-								'720' => 'http://45.56.82.249:1935/vod/_definst_/killthislove720.mp4/playlist.m3u8',
-								'480' => 'http://45.56.82.249:1935/vod/_definst_/killthislove480.mp4/playlist.m3u8',
-								'360' => 'http://45.56.82.249:1935/vod/_definst_/killthislove360.mp4/playlist.m3u8',
-							}", 360, 2,
+							['Configuration', "{'1080' => 'http://45.56.82.249:1935/vod/_definst_/killthislove1080.mp4/playlist.m3u8','720' => 'http://45.56.82.249:1935/vod/_definst_/killthislove720.mp4/playlist.m3u8','480' => 'http://45.56.82.249:1935/vod/_definst_/killthislove480.mp4/playlist.m3u8','360' => 'http://45.56.82.249:1935/vod/_definst_/killthislove360.mp4/playlist.m3u8',}", 360, 2,
 							"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
 							],
-							['Directory Structure', "{
-								'1080' => 'http://45.56.82.249:1935/vod/_definst_/killthislove1080.mp4/playlist.m3u8',
-								'720' => 'http://45.56.82.249:1935/vod/_definst_/killthislove720.mp4/playlist.m3u8',
-								'480' => 'http://45.56.82.249:1935/vod/_definst_/killthislove480.mp4/playlist.m3u8',
-								'360' => 'http://45.56.82.249:1935/vod/_definst_/killthislove360.mp4/playlist.m3u8',
-							}", 360, 2,
+							['Directory Structure', "{'1080' => 'http://45.56.82.249:1935/vod/_definst_/killthislove1080.mp4/playlist.m3u8','720' => 'http://45.56.82.249:1935/vod/_definst_/killthislove720.mp4/playlist.m3u8','480' => 'http://45.56.82.249:1935/vod/_definst_/killthislove480.mp4/playlist.m3u8','360' => 'http://45.56.82.249:1935/vod/_definst_/killthislove360.mp4/playlist.m3u8',}", 360, 2,
 							"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
 							]
 						]
 					],[
 						'Architecture Concepts',
 						[
-							['Request Lifecycel', "{
-								'1080' => 'http://45.56.82.249:1935/vod/_definst_/killthislove1080.mp4/playlist.m3u8',
-								'720' => 'http://45.56.82.249:1935/vod/_definst_/killthislove720.mp4/playlist.m3u8',
-								'480' => 'http://45.56.82.249:1935/vod/_definst_/killthislove480.mp4/playlist.m3u8',
-								'360' => 'http://45.56.82.249:1935/vod/_definst_/killthislove360.mp4/playlist.m3u8',
-							}", 360, 3,
+							['Request Lifecycel', "{'1080' => 'http://45.56.82.249:1935/vod/_definst_/killthislove1080.mp4/playlist.m3u8','720' => 'http://45.56.82.249:1935/vod/_definst_/killthislove720.mp4/playlist.m3u8','480' => 'http://45.56.82.249:1935/vod/_definst_/killthislove480.mp4/playlist.m3u8','360' => 'http://45.56.82.249:1935/vod/_definst_/killthislove360.mp4/playlist.m3u8',}", 360, 3,
 							"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
 							],
-							['Service Container', "{
-								'1080' => 'http://45.56.82.249:1935/vod/_definst_/killthislove1080.mp4/playlist.m3u8',
-								'720' => 'http://45.56.82.249:1935/vod/_definst_/killthislove720.mp4/playlist.m3u8',
-								'480' => 'http://45.56.82.249:1935/vod/_definst_/killthislove480.mp4/playlist.m3u8',
-								'360' => 'http://45.56.82.249:1935/vod/_definst_/killthislove360.mp4/playlist.m3u8',
-							}", 360, 3,
+							['Service Container',  "{'1080' => 'http://45.56.82.249:1935/vod/_definst_/killthislove1080.mp4/playlist.m3u8','720' => 'http://45.56.82.249:1935/vod/_definst_/killthislove720.mp4/playlist.m3u8','480' => 'http://45.56.82.249:1935/vod/_definst_/killthislove480.mp4/playlist.m3u8','360' => 'http://45.56.82.249:1935/vod/_definst_/killthislove360.mp4/playlist.m3u8',}", 360, 3,
 							"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
 							]
 						]
 					],[
 						'The Basics',
 						[
-							['Routing', "{
-								'1080' => 'http://45.56.82.249:1935/vod/_definst_/killthislove1080.mp4/playlist.m3u8',
-								'720' => 'http://45.56.82.249:1935/vod/_definst_/killthislove720.mp4/playlist.m3u8',
-								'480' => 'http://45.56.82.249:1935/vod/_definst_/killthislove480.mp4/playlist.m3u8',
-								'360' => 'http://45.56.82.249:1935/vod/_definst_/killthislove360.mp4/playlist.m3u8',
-							}", 360, 4,
+							['Routing',  "{'1080' => 'http://45.56.82.249:1935/vod/_definst_/killthislove1080.mp4/playlist.m3u8','720' => 'http://45.56.82.249:1935/vod/_definst_/killthislove720.mp4/playlist.m3u8','480' => 'http://45.56.82.249:1935/vod/_definst_/killthislove480.mp4/playlist.m3u8','360' => 'http://45.56.82.249:1935/vod/_definst_/killthislove360.mp4/playlist.m3u8',}", 360, 4,
 							"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
 							],
 
-							['Middleware', "{
-								'1080' => 'http://45.56.82.249:1935/vod/_definst_/killthislove1080.mp4/playlist.m3u8',
-								'720' => 'http://45.56.82.249:1935/vod/_definst_/killthislove720.mp4/playlist.m3u8',
-								'480' => 'http://45.56.82.249:1935/vod/_definst_/killthislove480.mp4/playlist.m3u8',
-								'360' => 'http://45.56.82.249:1935/vod/_definst_/killthislove360.mp4/playlist.m3u8',
-							}", 360, 4,
+							['Middleware',  "{'1080' => 'http://45.56.82.249:1935/vod/_definst_/killthislove1080.mp4/playlist.m3u8','720' => 'http://45.56.82.249:1935/vod/_definst_/killthislove720.mp4/playlist.m3u8','480' => 'http://45.56.82.249:1935/vod/_definst_/killthislove480.mp4/playlist.m3u8','360' => 'http://45.56.82.249:1935/vod/_definst_/killthislove360.mp4/playlist.m3u8',}", 360, 4,
 							"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
 							],
 
-							['Controller', "{
-								'1080' => 'http://45.56.82.249:1935/vod/_definst_/killthislove1080.mp4/playlist.m3u8',
-								'720' => 'http://45.56.82.249:1935/vod/_definst_/killthislove720.mp4/playlist.m3u8',
-								'480' => 'http://45.56.82.249:1935/vod/_definst_/killthislove480.mp4/playlist.m3u8',
-								'360' => 'http://45.56.82.249:1935/vod/_definst_/killthislove360.mp4/playlist.m3u8',
-							}", 360, 4,
+							['Controller',  "{'1080' => 'http://45.56.82.249:1935/vod/_definst_/killthislove1080.mp4/playlist.m3u8','720' => 'http://45.56.82.249:1935/vod/_definst_/killthislove720.mp4/playlist.m3u8','480' => 'http://45.56.82.249:1935/vod/_definst_/killthislove480.mp4/playlist.m3u8','360' => 'http://45.56.82.249:1935/vod/_definst_/killthislove360.mp4/playlist.m3u8',}", 360, 4,
 							"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
 							],
-							['Views', "{
-								'1080' => 'http://45.56.82.249:1935/vod/_definst_/killthislove1080.mp4/playlist.m3u8',
-								'720' => 'http://45.56.82.249:1935/vod/_definst_/killthislove720.mp4/playlist.m3u8',
-								'480' => 'http://45.56.82.249:1935/vod/_definst_/killthislove480.mp4/playlist.m3u8',
-								'360' => 'http://45.56.82.249:1935/vod/_definst_/killthislove360.mp4/playlist.m3u8',
-							}", 360, 4,
+							['Views',  "{'1080' => 'http://45.56.82.249:1935/vod/_definst_/killthislove1080.mp4/playlist.m3u8','720' => 'http://45.56.82.249:1935/vod/_definst_/killthislove720.mp4/playlist.m3u8','480' => 'http://45.56.82.249:1935/vod/_definst_/killthislove480.mp4/playlist.m3u8','360' => 'http://45.56.82.249:1935/vod/_definst_/killthislove360.mp4/playlist.m3u8',}", 360, 4,
 							"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
 							]
 						]
@@ -172,23 +117,30 @@ class CoursesTableSeeder extends Seeder
 				$courses->one_stars = $rand_one;
 				$courses->status = 1;
 				$courses->save();
-	
-				foreach($course[3] as $unit){
+
+
+				$videoIndex = 1;
+				foreach($course[3] as $key => $unit){
 					$unitObj = new Unit;
 					$unitObj->name = $unit[0];
+					$unitObj->index = $key+1;
 					$unitObj->course_id = $courses->id;
 					$unitObj->video_count = count($unit[1]);
 					$unitObj->save();
 	
 					foreach($unit[1] as $video){
+
 						$videoObj = new Video();
 						$videoObj->name = $video[0];
+						$videoObj->index = $videoIndex;
 						$videoObj->url_video = $video[1];
 						$videoObj->duration = $video[2];
 						$videoObj->description = $video[4];
 						$videoObj->unit_id = $unitObj->id;
 						$videoObj->state = 1;
 						$videoObj->save();
+
+						$videoIndex = $videoIndex + 1;
 					}
 				}
 			}

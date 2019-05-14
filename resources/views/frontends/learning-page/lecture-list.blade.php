@@ -11,44 +11,34 @@
     </div>
     
     <div class="learning-lecture-list-body">
-        @for ($i = 0; $i < 5; $i++)
+        @foreach ($units as $key => $unit)
+            
         <div class="ln-lect-list-item">
-        <div class="ln-lect-list-header" data-toggle="collapse" data-target="#sectionBody{{$i}}">
+        <div class="ln-lect-list-header" data-toggle="collapse" data-target="#sectionBody{{$key+1}}">
                 <div class="ln-lect-list-header-row-1">
-                    <p class="ln-lect-list-sect-number">Section 1</p>
-                    <p class="ln-lect-list-sect-counter">0/18</p>
+                <p class="ln-lect-list-sect-number">Section {{$key + 1}}</p>
+                <p class="ln-lect-list-sect-counter">0/{{$unit->video_count}}</p>
                 </div>
                 <div class="ln-lect-list-header-row-2">
-                    <h4 class="ln-lect-list-sect-title">Thanh Tuan xau trai</h4>
+                    <h4 class="ln-lect-list-sect-title">{{$unit->name}}</h4>
                 </div>
             </div>
-        <div id="sectionBody{{$i}}" class="ln-lect-list-body collapse">
+            <div id="sectionBody{{$key+1}}" class="ln-lect-list-body collapse">
                 <ul>
+                    @foreach($unit->videos as $video)
                     <li>
-                        <a>
+                    <a href="/learning-page/{{$unit->course_id}}/lecture/{{$video->id}}">
                             <button class="ln-lect-list-lect-title-icon"><span><i class="fas fa-play-circle"></i></span></button>
-                            <span class="ln-lect-list-lect-title">1. Intro, Notes & Section 2 Asset </span>
+                            <span class="ln-lect-list-lect-title">{{$video->index}}.  {{ $video->name }}</span>
                             <button class="ln-btn-complete "><i class="fas fa-circle"></i></button>
                         </a>
-                    </li>
-                    <li>
-                        <a>
-                            <button class="ln-lect-list-lect-title-icon"><span><i class="fas fa-play-circle"></i></span></button>
-                            <span class="ln-lect-list-lect-title">1. Intro, Notes & Section 2 Asset Ronaldo Khedira Alibaba Antonio Valencia </span>
-                            <button class="ln-btn-complete "><i class="fas fa-circle"></i></button>
-                        </a>
-                    </li>
-                    <li>
-                        <a>
-                            <button class="ln-lect-list-lect-title-icon"><span><i class="fas fa-play-circle"></i></span></button>
-                            <span class="ln-lect-list-lect-title">1. Intro, Notes & Section 2 Asset </span>
-                            <button class="ln-btn-complete "><i class="fas fa-circle"></i></button>
-                        </a>
-                    </li>
+                    </li> 
+                    @endforeach
                 </ul>
             </div>
         </div>
+
+        @endforeach
             
-        @endfor
     </div>
 </div>
