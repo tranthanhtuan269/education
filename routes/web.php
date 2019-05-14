@@ -77,8 +77,12 @@ Route::get('/detail-teacher', 'Frontends\HomeController@detailTeacher')->name('d
 
 Route::get('/course-learning', 'Frontends\HomeController@courseLearning');
 Route::get('/course-detail', 'Frontends\HomeController@courseDetail')->name('course-detail');
+
 Route::get('/course-list','Frontends\HomeController@courseList');
 Route::get('/student-profile','Frontends\HomeController@studentProfile');
 
 Route::get('/learning-page/{courseId}/lecture/{lectureId}', 'LectureController@show');
 
+Route::get('category/{cat}', ['as'  => 'category', 'uses' =>'Frontends\HomeController@showCategory']);
+Route::get('course/{course}', ['as'  => 'course', 'uses' =>'Frontends\HomeController@showCourse']);
+Route::get('teacher/{teacher}', ['as'  => 'teacher', 'uses' =>'Frontends\HomeController@showTeacher']);

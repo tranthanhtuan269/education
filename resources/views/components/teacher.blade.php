@@ -1,6 +1,6 @@
 <div class="col-sm-3">
     <div class="info">
-        <a href="{{ route('detail-teacher') }}">
+        <a href="{{ url('/') }}/teacher/{{ $id }}" title="{{ $name }}" class="course-box-slider pop">
             <div class="avatar text-center">
                 <img class="" src="{{ $image }}">
             </div>
@@ -11,8 +11,8 @@
             @include(
                 'components.vote', 
                 [
-                    'rate' => 2,
-                    'rating_number' => 3500
+                    'rate' => $rate,
+                    'rating_number' => $rating_number
                 ]
             )
         </div>

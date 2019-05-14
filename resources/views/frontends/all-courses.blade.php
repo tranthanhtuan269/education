@@ -17,21 +17,26 @@
                 <div class="tab-content">
                     <div id="best-seller" class="tab-pane fade in active">
                         <div class="row">
-                            @for($i = 0; $i < 8; $i++)
+                            @foreach ($best_seller_course as $best_seller)
+                                <?php
+                                    $lecturers = count($best_seller->Lecturers()) > 1 ? 'Nhiều tác giả' : count($best_seller->Lecturers()) > 0 ? $best_seller->Lecturers()[0]->user->name : "Courdemy";
+                                ?>
                                 @include(
                                     'components.course', 
                                     [
-                                        'image' => 'https://static.unica.vn/upload/images/2019/04/giao-tiep-tieng-han-cho-nguoi-moi-bat-dau_m_1555561894.jpg',
-                                        'title' => 'Giao tiếp tiếng Hàn dành cho người mới bắt đầu',
-                                        'author' => 'Bảo Minh',
-                                        'rating_number' => 3500,
-                                        'time' => 2,
-                                        'view_number' => 3600,
-                                        'price' => 800000,
-                                        'sale' => 600000,
+                                        'slug' => $best_seller->slug,
+                                        'image' => url('/frontend/images/'.$best_seller->image),
+                                        'title' => $best_seller->name,
+                                        'author' => $lecturers,
+                                        'star_count' => $best_seller->star_count,
+                                        'vote_count' => $best_seller->vote_count,
+                                        'time' => $best_seller->approx_time,
+                                        'view_number' => $best_seller->view_count,
+                                        'price' => $best_seller->real_price,
+                                        'sale' => $best_seller->price,
                                     ]
                                 )
-                            @endfor
+                            @endforeach
                             <div class="col-sm-12 text-center">
                                 <button type="button" class="btn">Pagging</button>
                                 <!-- <nav>
@@ -47,41 +52,51 @@
                         </div>
                     </div>
                     <div id="menu1" class="tab-pane fade">
-                        @for($i = 0; $i < 8; $i++)
+                        @foreach ($new_course as $new)
+                            <?php
+                                $lecturers = count($new->Lecturers()) > 1 ? 'Nhiều tác giả' : count($new->Lecturers()) > 0 ? $new->Lecturers()[0]->user->name : "Courdemy";
+                            ?>
                             @include(
                                 'components.course', 
                                 [
-                                    'image' => 'https://static.unica.vn/upload/images/2019/04/giao-tiep-tieng-han-cho-nguoi-moi-bat-dau_m_1555561894.jpg',
-                                    'title' => 'Giao tiếp tiếng Hàn dành cho người mới bắt đầu',
-                                    'author' => 'Bảo Minh',
-                                    'rating_number' => 3500,
-                                    'time' => 2,
-                                    'view_number' => 3600,
-                                    'price' => 800000,
-                                    'sale' => 600000,
+                                    'slug' => $new->slug,
+                                    'image' => url('/frontend/images/'.$new->image),
+                                    'title' => $new->name,
+                                    'author' => $lecturers,
+                                    'star_count' => $new->star_count,
+                                    'vote_count' => $new->vote_count,
+                                    'time' => $new->approx_time,
+                                    'view_number' => $new->view_count,
+                                    'price' => $new->real_price,
+                                    'sale' => $new->price,
                                 ]
                             )
-                        @endfor
+                        @endforeach
                         <div class="col-sm-12 text-center">
                             <button type="button" class="btn">Pagging</button>
                         </div>
                     </div>
                     <div id="menu2" class="tab-pane fade">
-                        @for($i = 0; $i < 8; $i++)
+                        @foreach ($feature_course as $feature)
+                            <?php
+                                $lecturers = count($feature->Lecturers()) > 1 ? 'Nhiều tác giả' : count($feature->Lecturers()) > 0 ? $feature->Lecturers()[0]->user->name : "Courdemy";
+                            ?>
                             @include(
                                 'components.course', 
                                 [
-                                    'image' => 'https://static.unica.vn/upload/images/2019/04/giao-tiep-tieng-han-cho-nguoi-moi-bat-dau_m_1555561894.jpg',
-                                    'title' => 'Giao tiếp tiếng Hàn dành cho người mới bắt đầu',
-                                    'author' => 'Bảo Minh',
-                                    'rating_number' => 3500,
-                                    'time' => 2,
-                                    'view_number' => 3600,
-                                    'price' => 800000,
-                                    'sale' => 600000
+                                    'slug' => $feature->slug,
+                                    'image' => url('/frontend/images/'.$feature->image),
+                                    'title' => $feature->name,
+                                    'author' => $lecturers,
+                                    'star_count' => $feature->star_count,
+                                    'vote_count' => $feature->vote_count,
+                                    'time' => $feature->approx_time,
+                                    'view_number' => $feature->view_count,
+                                    'price' => $feature->real_price,
+                                    'sale' => $feature->price,
                                 ]
                             )
-                        @endfor
+                        @endforeach
                         <div class="col-sm-12 text-center">
                             <button type="button" class="btn">Pagging</button>
                         </div>

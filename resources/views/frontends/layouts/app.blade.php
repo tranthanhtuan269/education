@@ -267,17 +267,19 @@
                                 <i class="fa fa-th" aria-hidden="true"></i> Categories
                                 <nav id="mysidebarmenu" class="amazonmenu">
                                     <ul>
-                                        @for ($i=1 ; $i < 14 ; $i++)
+                                        @foreach($category_fixed as $cat)
                                             <li>
-                                                <a title="Các khóa học công nghệ thông tin Online từ cơ bản đến chuyên sâu" href="{{ route('course-category') }}"><i class="fa fa fa-code" aria-hidden="true"></i> Công nghệ thông tin</a>
-                                                <ul class="issub" style="z-index: 1002; display: none;">
-                                                    <li><a href="{{ route('course-category') }}">Tất cả Công nghệ thông tin</a></li>
-                                                    <li><a href="{{ route('course-category') }}">Cơ sở dữ liệu</a></li>
-                                                    <li><a href="{{ route('course-category') }}">Lập trình</a></li>
-                                                    <li><a href="{{ route('course-category') }}">Lập trình web</a></li>
+                                                <a title="{!! $cat->name !!}" href="{{ url('/') }}/category/{{ $cat->slug }}">{!! $cat->icon !!} {!! $cat->name !!}</a>
+                                                <ul class="issub">
+                                                    <li><a href="{{ url('/') }}/category/{{ $cat->slug }}">Tất cả {!! $cat->name !!}</a></li>
+                                                    @if(count($cat->tags) > 0)
+                                                        @foreach($cat->tags as $tag)
+                                                            <li><a href="{{ url('/') }}/tags/{{ $tag->slug }}">{!! $tag->name !!}</a></li>
+                                                        @endforeach
+                                                    @endif
                                                 </ul>
                                             </li>
-                                        @endfor
+                                        @endforeach
                                     </ul>
                                 </nav>
                             </div>
@@ -289,22 +291,27 @@
                             </form>
                         </div>
                         <div class="col-lg-5 col-md-5 col-sm-5 cate-sm">
+                            @if (Auth::check())
                             <a href="/kichhoat" class="unica-active-course">
                                 <p class="hidden-md hidden-xs hidden-sm">Start Learning</p>
                             </a>
+                            @endif
                    
-                                <ul class="unica-acc-zone">
-                                    <li><a href="/gio-hang" class="unica-cart">
-                                        <img src="{{ asset('frontend/images/tab_cart.png') }}" alt="" style="width: 21px;" />
-                                        <span class="unica-sl-cart"><b>0</b></span>
-                                    </a></li>
-                                    <li><a href="/gio-hang" class="unica-cart">
-                                        <img src="{{ asset('frontend/images/tab_notifications.png') }}" alt="" style="width: 21px;" />
-                                        <span class="unica-sl-cart"><b>0</b></span>
-                                    </a></li>
-                                    <li class="special"><a class="unica-log-acc" href="/login">Login</a></li>
-                                    <li class="special"><a class="unica-reg-acc" href="/register">Sign Up</a></li>
-                                </ul>
+                            <ul class="unica-acc-zone">
+                                @if (Auth::check())
+                                <li><a href="/gio-hang" class="unica-cart">
+                                    <img src="{{ asset('frontend/images/tab_cart.png') }}" alt="" style="width: 21px;" />
+                                    <span class="unica-sl-cart"><b>0</b></span>
+                                </a></li>
+                                <li><a href="/gio-hang" class="unica-cart">
+                                    <img src="{{ asset('frontend/images/tab_notifications.png') }}" alt="" style="width: 21px;" />
+                                    <span class="unica-sl-cart"><b>0</b></span>
+                                </a></li>
+                                @else
+                                <li class="special"><a class="unica-log-acc" href="/login">Login</a></li>
+                                <li class="special"><a class="unica-reg-acc" href="/register">Sign Up</a></li>
+                                @endif
+                            </ul>
                     
                         </div>
                     </div>

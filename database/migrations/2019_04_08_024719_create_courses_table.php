@@ -17,12 +17,15 @@ class CreateCoursesTable extends Migration
         Schema::create('courses', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name', 255);
+            $table->string('short_description', 255);
+            $table->string('slug', 500);
+            $table->string('image', 255);
             $table->integer('category_id');
             $table->integer('price')->default(0);
             $table->integer('real_price')->default(0);
             $table->date('from_sale')->nullable();
             $table->date('to_sale')->nullable();
-            $table->integer('duration')->nullable();
+            $table->time('duration')->nullable();
 
             $table->integer('downloadable_count')->default(0);
             $table->integer('video_count')->default(0);
@@ -36,7 +39,7 @@ class CreateCoursesTable extends Migration
             $table->longText('will_learn', 2000)->nullable();
             $table->longText('requirement', 2000)->nullable();
             $table->integer('level')->nullable();
-            $table->integer('apptox_time')->nullable();
+            $table->integer('approx_time')->nullable();
 
             $table->integer('featured')->default(0);
             $table->integer('featured_index')->default(0);

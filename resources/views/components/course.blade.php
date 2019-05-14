@@ -1,26 +1,31 @@
 <div class="col-sm-3">
-    <div class="box-course">
-        <a href="{{ route('course-detail') }}" class="course-box-slider pop">
+    <div class="info">
+        <a href="{{ url('/') }}/course/{{ $slug }}" title="{{ $title }}" class="course-box-slider pop">
             <div class="img-course">
-                <img class="img-responsive" src="{{ $image }}" alt="{{ $title }}">
+            	<img class="img-responsive"
+                    src="{{ $image }}"
+                    alt="{{ $title }}">
                 @if (isset($heart))
                 <i class="fa fa-heart fa-lg heart-icon" aria-hidden="true"></i>    
                 @endif
 
                 @if (isset($setup))  
                 <i class="fa fa-cog fa-lg setting-icon" aria-hidden="true"></i>
-                @endif
-            </div>
+                @endif                    
+             </div>
+                    
             <div class="content-course">
                 <h3 class="title-course">{{ $title }}</h3>
                 <div class="clearfix">
-                    <span class="name-teacher">{{ $author }}</span>
+                    <span class="name-teacher">
+                        {{ $author }}
+                    </span>
                     <span class="pull-right">
                         @include(
                             'components.vote', 
                             [
-                                'rate' => 2,
-                                'rating_number' => 3500,
+                                'rate' => intval($star_count) / intval($vote_count),
+                                'rating_number' => $vote_count,
                             ]
                         )
                     </span>
