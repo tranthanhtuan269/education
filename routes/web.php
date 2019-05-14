@@ -76,7 +76,9 @@ Route::get('/home','Frontends\HomeController@home');
 Route::get('/member-card','Frontends\HomeController@memberCard');
 Route::get('/course-category','Frontends\HomeController@courseCategory');
 Route::get('/detail-teacher','Frontends\HomeController@detailTeacher');
-Route::get('/learning-page/{courseId}/lecture/{lectureId}', 'LectureController@show');
 
 Route::get('/course-learning','Frontends\HomeController@courseLearning');
 Route::get('/course-detail','Frontends\HomeController@courseDetail');
+
+// duong frontend
+Route::get('/learning-page/{courseId}/lecture/{lectureId}', 'Frontends\VideoPlayerController@show');
