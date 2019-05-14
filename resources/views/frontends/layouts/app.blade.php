@@ -269,7 +269,7 @@
                                     <ul>
                                         @foreach($category_fixed as $cat)
                                             <li>
-                                                <a title="{!! $cat->name !!}" href="{{ url('/') }}/category/{{ $cat->slug }}">{!! $cat->icon !!} {!! $cat->name !!}</a>
+                                                <a title="{!! $cat->name !!}" href="{{ url('/') }}/category/{{ $cat->slug }}"><i class="fas {!! $cat->icon !!}"></i> {!! $cat->name !!}</a>
                                                 <ul class="issub">
                                                     <li><a href="{{ url('/') }}/category/{{ $cat->slug }}">Tất cả {!! $cat->name !!}</a></li>
                                                     @if(count($cat->tags) > 0)

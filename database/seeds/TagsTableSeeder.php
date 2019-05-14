@@ -12,7 +12,8 @@ class TagsTableSeeder extends Seeder
     public function run()
     {
     	$tags = [
-    		['Laravel', 1], ['YII', 1], ['Symfony', 1], ['CakePHP', 1],
+    		['Photoshop cơ bản', 1], ['Photoshop nâng cao', 1],
+    		['Laravel', 2], ['YII', 2], ['Symfony', 2], ['CakePHP', 2],
     	];
     	foreach($tags as $t){
 	        $tag = new Tag;
