@@ -65,12 +65,23 @@ class UsersTableSeeder extends Seeder
 
 			        $teacher = new Teacher;
 			        $teacher->user_role_id = $userRole2->id;
-			        $teacher->cv = "";
-			        $teacher->rating_count = rand (150, 750);
-			        $teacher->vote_count = 150;
+					$teacher->cv = "<p>Chuyên gia <strong>Yoga Nguyễn Hiếu </strong>đã có hơn 12 năm nghiên cứu và giảng dạy Yoga tại các trung tâm và đã huấn luyện cho hàng nghìn học viên khắp Việt Nam và thế giới.</p>
+
+					<p>Chị là Đại sứ Yoga Việt Nam do Trung tâm Unesco Phát triển Văn hóa và Thể thao phong tặng.&nbsp;</p>
+
+					<p>Chị đã thiết kế rất nhiều chương trình Yoga trực tuyến, sở hữu kênh &nbsp;đào tạo Yoga online lớn nhất Việt Nam.</p>
+
+					<p>Hiện tại, Nguyễn Hiếu đang&nbsp;là tổng giám đốc công ty Zenlife Yoga Việt Nam và là huấn luyện viên trưởng cho chương trình đào tạo giáo viên Yoga.</p>
+
+					<p>Hiện nay, dù đã gần 40&nbsp;tuổi và có 2 con lớn, <strong>Chuyên gia Yoga Nguyễn Hiếu </strong>vẫn sở hữu một cơ thể cân đối trẻ trung, khỏe mạnh và dẻo dai như ở tuổi đôi mươi, với vòng eo 60 cm là niềm ao ước của mọi phụ nữ ở độ tuổi này.</p>";
+					$teacher->expert = "PHP, JS, Java";
+					$rating_count = rand (150, 750);
+					$teacher->rating_count =  $rating_count;
+					$teacher->vote_count = 150;
+					$teacher->rating_score = $rating_count / 150;
 			        $teacher->student_count = 150;
 			        $teacher->course_count = 15;
-			        $teacher->video_intro = "videos/video_intro.mp4";
+			        $teacher->video_intro = "https://www.youtube.com/embed/tgbNymZ7vqY?controls=0";
 			        $teacher->save();
 			    }
 			}

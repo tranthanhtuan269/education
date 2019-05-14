@@ -17,10 +17,12 @@ class CreateCategoriesTable extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name', 255);
-            $table->integer('parent_id');
+            $table->string('slug', 500);
             $table->integer('featured')->default(0);
             $table->integer('featured_index')->default(1000);
             $table->integer('course_count')->default(0);
+            $table->string('icon');
+            $table->string('image', 255);
             $table->timestamps();
         });
     }
