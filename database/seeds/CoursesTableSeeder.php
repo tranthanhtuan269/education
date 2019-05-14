@@ -23,29 +23,84 @@ class CoursesTableSeeder extends Seeder
     				[
 						'Giới thiệu về Laravel',
 						[
-							['Lịch sử các phiên bản', 'videos/video.mp4', 360, 1],
-							['Những tính năng vượt trội của Laravel', 'videos/video.mp4', 360, 1]
+							['Lịch sử các phiên bản', "{
+								'1080' => 'http://45.56.82.249:1935/vod/_definst_/killthislove1080.mp4/playlist.m3u8',
+								'720' => 'http://45.56.82.249:1935/vod/_definst_/killthislove720.mp4/playlist.m3u8',
+								'480' => 'http://45.56.82.249:1935/vod/_definst_/killthislove480.mp4/playlist.m3u8',
+								'360' => 'http://45.56.82.249:1935/vod/_definst_/killthislove360.mp4/playlist.m3u8',
+							}", 360, 1],
+							['Những tính năng vượt trội của Laravel', "{
+								'1080' => 'http://45.56.82.249:1935/vod/_definst_/killthislove1080.mp4/playlist.m3u8',
+								'720' => 'http://45.56.82.249:1935/vod/_definst_/killthislove720.mp4/playlist.m3u8',
+								'480' => 'http://45.56.82.249:1935/vod/_definst_/killthislove480.mp4/playlist.m3u8',
+								'360' => 'http://45.56.82.249:1935/vod/_definst_/killthislove360.mp4/playlist.m3u8',
+							}", 360, 1]
 						]
 					],[
 						'Getting Started',
 						[
-							['Installation ', 'videos/video.mp4', 360, 2],
-							['Configuration', 'videos/video.mp4', 360, 2],
-							['Directory Structure', 'videos/video.mp4', 360, 2]
+							['Installation ', "{
+								'1080' => 'http://45.56.82.249:1935/vod/_definst_/killthislove1080.mp4/playlist.m3u8',
+								'720' => 'http://45.56.82.249:1935/vod/_definst_/killthislove720.mp4/playlist.m3u8',
+								'480' => 'http://45.56.82.249:1935/vod/_definst_/killthislove480.mp4/playlist.m3u8',
+								'360' => 'http://45.56.82.249:1935/vod/_definst_/killthislove360.mp4/playlist.m3u8',
+							}", 360, 2],
+							['Configuration', "{
+								'1080' => 'http://45.56.82.249:1935/vod/_definst_/killthislove1080.mp4/playlist.m3u8',
+								'720' => 'http://45.56.82.249:1935/vod/_definst_/killthislove720.mp4/playlist.m3u8',
+								'480' => 'http://45.56.82.249:1935/vod/_definst_/killthislove480.mp4/playlist.m3u8',
+								'360' => 'http://45.56.82.249:1935/vod/_definst_/killthislove360.mp4/playlist.m3u8',
+							}", 360, 2],
+							['Directory Structure', "{
+								'1080' => 'http://45.56.82.249:1935/vod/_definst_/killthislove1080.mp4/playlist.m3u8',
+								'720' => 'http://45.56.82.249:1935/vod/_definst_/killthislove720.mp4/playlist.m3u8',
+								'480' => 'http://45.56.82.249:1935/vod/_definst_/killthislove480.mp4/playlist.m3u8',
+								'360' => 'http://45.56.82.249:1935/vod/_definst_/killthislove360.mp4/playlist.m3u8',
+							}", 360, 2]
 						]
 					],[
 						'Architecture Concepts',
 						[
-							['Request Lifecycel', 'videos/video.mp4', 360, 3],
-							['Service Container', 'videos/video.mp4', 360, 3]
+							['Request Lifecycel', "{
+								'1080' => 'http://45.56.82.249:1935/vod/_definst_/killthislove1080.mp4/playlist.m3u8',
+								'720' => 'http://45.56.82.249:1935/vod/_definst_/killthislove720.mp4/playlist.m3u8',
+								'480' => 'http://45.56.82.249:1935/vod/_definst_/killthislove480.mp4/playlist.m3u8',
+								'360' => 'http://45.56.82.249:1935/vod/_definst_/killthislove360.mp4/playlist.m3u8',
+							}", 360, 3],
+							['Service Container', "{
+								'1080' => 'http://45.56.82.249:1935/vod/_definst_/killthislove1080.mp4/playlist.m3u8',
+								'720' => 'http://45.56.82.249:1935/vod/_definst_/killthislove720.mp4/playlist.m3u8',
+								'480' => 'http://45.56.82.249:1935/vod/_definst_/killthislove480.mp4/playlist.m3u8',
+								'360' => 'http://45.56.82.249:1935/vod/_definst_/killthislove360.mp4/playlist.m3u8',
+							}", 360, 3]
 						]
 					],[
 						'The Basics',
 						[
-							['Routing', 'videos/video.mp4', 360, 4],
-							['Middleware', 'videos/video.mp4', 360, 4],
-							['Controller', 'videos/video.mp4', 360, 4],
-							['Views', 'videos/video.mp4', 360, 4]
+							['Routing', "{
+								'1080' => 'http://45.56.82.249:1935/vod/_definst_/killthislove1080.mp4/playlist.m3u8',
+								'720' => 'http://45.56.82.249:1935/vod/_definst_/killthislove720.mp4/playlist.m3u8',
+								'480' => 'http://45.56.82.249:1935/vod/_definst_/killthislove480.mp4/playlist.m3u8',
+								'360' => 'http://45.56.82.249:1935/vod/_definst_/killthislove360.mp4/playlist.m3u8',
+							}", 360, 4],
+							['Middleware', "{
+								'1080' => 'http://45.56.82.249:1935/vod/_definst_/killthislove1080.mp4/playlist.m3u8',
+								'720' => 'http://45.56.82.249:1935/vod/_definst_/killthislove720.mp4/playlist.m3u8',
+								'480' => 'http://45.56.82.249:1935/vod/_definst_/killthislove480.mp4/playlist.m3u8',
+								'360' => 'http://45.56.82.249:1935/vod/_definst_/killthislove360.mp4/playlist.m3u8',
+							}", 360, 4],
+							['Controller', "{
+								'1080' => 'http://45.56.82.249:1935/vod/_definst_/killthislove1080.mp4/playlist.m3u8',
+								'720' => 'http://45.56.82.249:1935/vod/_definst_/killthislove720.mp4/playlist.m3u8',
+								'480' => 'http://45.56.82.249:1935/vod/_definst_/killthislove480.mp4/playlist.m3u8',
+								'360' => 'http://45.56.82.249:1935/vod/_definst_/killthislove360.mp4/playlist.m3u8',
+							}", 360, 4],
+							['Views', "{
+								'1080' => 'http://45.56.82.249:1935/vod/_definst_/killthislove1080.mp4/playlist.m3u8',
+								'720' => 'http://45.56.82.249:1935/vod/_definst_/killthislove720.mp4/playlist.m3u8',
+								'480' => 'http://45.56.82.249:1935/vod/_definst_/killthislove480.mp4/playlist.m3u8',
+								'360' => 'http://45.56.82.249:1935/vod/_definst_/killthislove360.mp4/playlist.m3u8',
+							}", 360, 4]
 						]
 					]
 				],
