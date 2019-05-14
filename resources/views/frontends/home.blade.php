@@ -86,11 +86,10 @@
      
                     <div data-u="slides" style="cursor:default;position:relative;top:0px;left:0px;width:980px;height:120px;overflow:hidden;">
                         @foreach ($feature_category as $feature)
-                        <a href="{{ url('/') }}/category/{{ $feature->slug }}" title="{{ $feature->name }}" class="item item-slider text-center">
-                            <img data-u="image" src="{{ url('/frontend/images/'.$feature->image) }}" alt="{{ $feature->name }}"/>
+                        <a href="{{ url('/') }}/category/{{ $feature->slug }}" title="{{ $feature->name }}" class="item item-slider text-center" style="background-image: url('{{ url('/frontend/images/'.$feature->image) }}'); background-repeat: no-repeat; background-position: right top; background-attachment: fixed;">
                             <div class="cat cat-item-slider">
                                 <h2>{{ $feature->name }}</h2>
-                                <p>Over {{ $feature->course_count }} courses</p>
+                                <p>Over {{ $feature->courses_count }} courses</p>
                             </div>
                         </a>     
                         @endforeach

@@ -20,8 +20,7 @@ class CreateCategoriesTable extends Migration
             $table->string('slug', 500);
             $table->integer('featured')->default(0);
             $table->integer('featured_index')->default(1000);
-            $table->integer('course_count')->default(0);
-            $table->string('icon');
+            $table->string('icon', 255);
             $table->string('image', 255);
             $table->timestamps();
         });

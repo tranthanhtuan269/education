@@ -13,17 +13,25 @@ class CategoriesTableSeeder extends Seeder
     public function run()
     {
     	$cateArr = [
-    		['PHP', 0], ['Laravel', 1], ['YII', 1], ['Symfony', 1], ['CakePHP', 1],
-            ['.Net', 0], ['MVC3', 6], ['MVC4', 6], ['MVC5', 6],
-    		['Javascript', 0], ['Nodejs', 10], ['AngularJS', 10], ['VueJS', 10],
-    	];
+            ['Design', 0, 'fa-palette', 'banner_cat_design.png'], 
+            ['Technology', 0, 'fa-wrench', 'banner_cat_technology.png'], 
+            ['Health', 0, 'fa-book-medical', 'banner_cat_health.png'],
+            ['Kid', 0, 'fa-baby', 'banner_cat_kid.png'], 
+            ['Language', 0, 'fa-language', 'banner_cat_language.png'],
+            ['LifeStyle', 0, 'fa-tshirt', 'banner_cat_lifestyle.png'], 
+            ['Marketing', 0, 'fa-store', 'banner_cat_marketing.png'],
+            ['Marriage', 0, 'fa-home', 'banner_cat_marriage.png'],
+            ['Personal', 0, 'fa-users', 'banner_cat_personal.png'],
+            ['Photography', 0, 'fa-camera-retro', 'banner_cat_photography.png']
+        ];
+        
     	foreach($cateArr as $cate){
 	        $category = new Category;
             $category->name = $cate[0];
             $category->slug = Str::slug($cate[0], '-');
             $category->featured = 1;
-            $category->icon = '<i class="fa fa fa-code" aria-hidden="true"></i>';
-            $category->image = 'slide_design.png';
+            $category->icon = $cate[2];
+            $category->image = $cate[3];
 	        $category->save();
         }
     }
