@@ -29,9 +29,8 @@ class HomeController extends Controller
         // dd($feature_course);
         $best_seller_course = Course::orderBy('sale_count', 'asc')->limit(8)->get();
         $new_course = Course::orderBy('sale_count', 'asc')->limit(8)->get();
-        $popular_teacher = Teacher::get();
-        // $data = Page::where('slug',$cat)->first();
-        return view('frontends.course-category', compact('category', 'feature_category', 'feature_course', 'best_seller_course', 'new_course'));
+        $popular_teacher = Teacher::getTeacherBestVote();
+        return view('frontends.course-category', compact('category', 'feature_category', 'feature_course', 'best_seller_course', 'new_course', 'popular_teacher'));
     }
 
     public function showCourse($course)
