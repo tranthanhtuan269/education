@@ -10,59 +10,37 @@
 				</div>
 			</div>
 			<div class="slider">
-				@for ($i = 0; $i < 3; $i++)
-				<div class="row">
-						<div class="col-sm-4">
-							<a class="thumbnail-img" href="#">
-								<img class="" src="{{ asset('frontend/images/banner_cat_sale.png') }}" height="335">
-								<div class="explore">
-									<h4> Developer {{ $i }}</h4>
-									<p> PHP, Jquey, NodeJs</p>
-								</div>
-							</a>
-						</div>
-						<div class="col-sm-8">
-							<div class="row">
-								<div class="col-sm-6 item">
-									<a class="thumbnail-img" href="#">
-										<img class="" src="{{ asset('frontend/images/banner_cat_health.png') }}" >
-										<div class="explore">
-											<h4> Developer </h4>
-											<p> PHP, Jquey, NodeJs</p>
-										</div>
-									</a>
-								</div>
-								<div class="col-sm-6 item">
-									<a class="thumbnail-img" href="#">
-											<img class="" src="{{ asset('frontend/images/banner_cat_technology.png') }}" >
-											<div class="explore">
-												<h4> Developer </h4>
-												<p> PHP, Jquey, NodeJs</p>
-											</div>
-									</a>
-								</div>
-								<div class="col-sm-6">
-										<a class="thumbnail-img" href="#">
-											<img class="" src="{{ asset('frontend/images/banner_cat_lifestyle.png') }}" >
-											<div class="explore">
-												<h4> Developer </h4>
-												<p> PHP, Jquey, NodeJs</p>
-											</div>
-										</a>
+				@foreach ($feature_category as $key => $feature)
+					@if ($key % 5 == 0)
+						<div class="row">
+							<div class="col-sm-4">
+								<a href="{{ url('/') }}/category/{{ $feature->slug }}" title="{{ $feature->name }}" class="thumbnail-img">
+									<img class="" src="{{ url('/frontend/images/'.$feature->image) }}" alt="{{ $feature->name }}" height="335">
+									<div class="explore">
+										<h4>{{ $feature->name }}</h4>
+										<p>Over {{ $feature->course_count }} courses</p>
 									</div>
-								<div class="col-sm-6">
-									<a class="thumbnail-img" href="#">
-											<img class="" src="{{ asset('frontend/images/banner_cat_language.png') }}" >
-											<div class="explore">
-												<h4> Developer </h4>
-												<p> PHP, Jquey, NodeJs</p>
-											</div>
-									</a>
-								</div>
+								</a>
 							</div>
-						</div>
-					</div>
-				@endfor
+							<div class="col-sm-8">
+								<div class="row">
+						@else
+							<div class="col-sm-6 item">
+								<a href="{{ url('/') }}/category/{{ $feature->slug }}" title="{{ $feature->name }}" class="thumbnail-img">
+									<img class="" src="{{ url('/frontend/images/'.$feature->image) }}" alt="{{ $feature->name }}" height="163">
+									<div class="explore">
+										<h4>{{ $feature->name }}</h4>
+										<p>Over {{ $feature->course_count }} courses</p>
+									</div>
+								</a>
+							</div>
+							@if (($key + 1) % 5 == 0)
+										</div>
+									</div>
+								</div>
+							@endif
+					@endif
+				@endforeach
 			</div>
 		</div>
 	</div>

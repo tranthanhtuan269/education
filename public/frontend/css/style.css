@@ -55,7 +55,8 @@ nav .pagination li a img{width:35px;position:relative;top:-6px}
 .box-course .content-course h3.title-course{font-size:16px;margin:0 0 10px;font-weight:600;line-height:26px;min-height:52px}
 .box-course .img-course img{border-radius:10px 10px 0 0}
 .box-course .content-course .time-view{padding:6px 0}
-.box-course .content-course .price-course .price{font-size:17.5px;text-decoration:line-through;position:relative;top:4px}
+.box-course .content-course .price-course .price{font-size:17.5px;position:relative;top:4px}
+.box-course .content-course .price-course .price.line-through{text-decoration:line-through}
 .box-course .content-course .price-course .sale{font-size:20px;color:#FF8F00}
 
 .lessons .u-list-course h3,.lessons .u-list-course ul{display:inline-block}

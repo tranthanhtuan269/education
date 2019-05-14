@@ -26,6 +26,8 @@
                                     'view_number' => $related->view_count,
                                     'price' => $related->real_price,
                                     'sale' => $related->price,
+                                    'from_sale' => $related->from_sale,
+                                    'to_sale' => $related->to_sale,
                                 ]
                             )
                         @endforeach

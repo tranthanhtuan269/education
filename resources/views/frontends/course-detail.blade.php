@@ -10,23 +10,18 @@
                         <div class="pull-left">
                             <div class="info">
                                 <p class="name">{{ $info_course->name }}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="frame clearfix">
-                        <div class="pull-left">
-                            <div class="info">
                                 <p class="expret">{{ $info_course->short_description }}</p>
                             </div>
                         </div>
                         <div class="network pull-right">
                             <a class="btn btn-default btn-xs" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(url()->current()); ?>" target="_blank">
-								<i class="fas fa-share-alt"></i> Share
-							</a>
-							{{-- <button type="button" class="btn btn-default btn-xs">
-								<i class="fab fa-facebook-square"></i> Facebook
-							</button> --}}
-						</div>
+                                <i class="fas fa-share-alt"></i> Share
+                            </a>
+                            {{-- <button type="button" class="btn btn-default btn-xs">
+                                <img src="http://edu.local/frontend/images/ic_facebook.png" alt="">
+                                <span>Facebook</span>
+                            </button> --}}
+                        </div>
                     </div>
                     <div class="frame_2">
                         <div class="row">
@@ -131,7 +126,7 @@
             <div class="info clearfix">
                 <div class="col-sm-8">
                     <div class="desc">
-                        <h2>Descriptions</h2>
+                        <h3>Descriptions</h3>
                         <p>
                             {!! $info_course->description !!}
                         </p>
@@ -139,7 +134,7 @@
                     <?php $will_learn = json_decode($info_course->will_learn); ?>
                     @if ($will_learn != '')
                     <div class="knowledge clearfix">
-                        <h2>What you'll learn</h2>
+                        <h3>What you'll learn</h3>
                         <ul>
                                 @foreach ($will_learn as $will)                            
                                 <li>
@@ -152,7 +147,7 @@
 
                     @if (count($info_course->tags) > 0)
                     <div class="skill">
-                        <h2>Skills you'll again</h2>
+                        <h3>Skills you'll again</h3>
                         <ul>
                             @foreach ($info_course->tags as $tag)
                             <li>{{ $tag->name }}</li>
@@ -217,7 +212,7 @@
         <div class="container">
             <div class="row" id="box_instructors">
                 <div class="col-sm-12">
-                    <h2>About the instructors</h2>
+                    <h3>About the instructors</h3>
                 </div>
                 <div class="col-sm-6">
                         <div class="row">
@@ -296,7 +291,7 @@
         <div class="course-learning-review">
             <div class="feedback clearfix">
                 <div class="col-sm-4 student-rating">
-                    <h2>Students Feedback</h2>
+                    <h3>Students Feedback</h3>
                     <p class="number">5</p>
                     <p class="star">
                         @include(

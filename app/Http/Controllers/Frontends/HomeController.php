@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Frontends;
 use App\Category;
 use App\Course;
 use App\Teacher;
+use App\Unit;
+use App\Video;
 
 class HomeController extends Controller
 {
@@ -23,10 +25,9 @@ class HomeController extends Controller
     public function showCategory($cat)
     {
         $id_cat = Category::where('slug', $cat)->value('id');
-        $feature_category = Category::where('featured', 1)->orderBy('featured_index', 'asc')->limit(10)->get();
+        $feature_category = Category::where('featured', 1)->orderBy('featured_index', 'asc')->limit(5)->get();
         // feature_course = trendding_course
         $feature_course = Course::where('category_id', $id_cat)->where('featured', 1)->orderBy('featured_index', 'asc')->limit(8)->get();
-        // dd($feature_course);
         $best_seller_course = Course::orderBy('sale_count', 'asc')->limit(8)->get();
         $new_course = Course::orderBy('sale_count', 'asc')->limit(8)->get();
         $popular_teacher = Teacher::getTeacherBestVote();
@@ -38,7 +39,10 @@ class HomeController extends Controller
         $course = Course::where('slug', $course)->first();
         $related_course = Course::where('category_id', $course->category_id)->limit(4)->get();
         $info_course = Course::find($course->id);
-        return view('frontends.course-detail', compact('related_course', 'info_course'));
+
+        // echo '<pre>';
+        // print_r($info_course->units);die;
+        return view('frontends.course-detail', compact('related_course', 'info_course', 'unit'));
     }
 
     public function showTeacher($id_teacher)
