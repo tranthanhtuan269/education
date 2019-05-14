@@ -69,4 +69,15 @@ class Course extends Model
             return [];
         }
     }
+
+    public function units()
+    {
+    	return $this->hasMany('App\Unit');
+    }
+    
+    public function videos()
+    {
+    	return $this->belongsToMany('App\Video');
+    }
+    
 }

@@ -10,23 +10,18 @@
                         <div class="pull-left">
                             <div class="info">
                                 <p class="name">{{ $info_course->name }}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="frame clearfix">
-                        <div class="pull-left">
-                            <div class="info">
                                 <p class="expret">{{ $info_course->short_description }}</p>
                             </div>
                         </div>
                         <div class="network pull-right">
                             <a class="btn btn-default btn-xs" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(url()->current()); ?>" target="_blank">
-								<i class="fas fa-share-alt"></i> Share
-							</a>
-							{{-- <button type="button" class="btn btn-default btn-xs">
-								<i class="fab fa-facebook-square"></i> Facebook
-							</button> --}}
-						</div>
+                                <i class="fas fa-share-alt"></i> Share
+                            </a>
+                            {{-- <button type="button" class="btn btn-default btn-xs">
+                                <img src="http://edu.local/frontend/images/ic_facebook.png" alt="">
+                                <span>Facebook</span>
+                            </button> --}}
+                        </div>
                     </div>
                     <div class="frame_2">
                         <div class="row">
@@ -131,7 +126,7 @@
             <div class="info clearfix">
                 <div class="col-sm-8">
                     <div class="desc">
-                        <h2>Descriptions</h2>
+                        <h3>Descriptions</h3>
                         <p>
                             {!! $info_course->description !!}
                         </p>
@@ -139,7 +134,7 @@
                     <?php $will_learn = json_decode($info_course->will_learn); ?>
                     @if ($will_learn != '')
                     <div class="knowledge clearfix">
-                        <h2>What you'll learn</h2>
+                        <h3>What you'll learn</h3>
                         <ul>
                                 @foreach ($will_learn as $will)                            
                                 <li>
@@ -152,7 +147,7 @@
 
                     @if (count($info_course->tags) > 0)
                     <div class="skill">
-                        <h2>Skills you'll again</h2>
+                        <h3>Skills you'll again</h3>
                         <ul>
                             @foreach ($info_course->tags as $tag)
                             <li>{{ $tag->name }}</li>
@@ -217,30 +212,68 @@
         <div class="container">
             <div class="row" id="box_instructors">
                 <div class="col-sm-12">
-                    <h2>About the instructors</h2>
+                    <h3>About the instructors</h3>
                 </div>
+                @if (count($info_course->Lecturers()) == 1)                    
                 <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <a href="{{ route('detail-teacher') }}">
+                                <img class="avatar" src="https://www.w3schools.com/howto/img_avatar.png" alt="" />
+                            </a>
+                        </div>
+                        <div class="col-sm-9">
+                            <div class="detail-info">
+                                <p class="name"><a href="{{ route('detail-teacher') }}">Bảo Minh</a></p>
+                                <p class="expret">PHP, Jquery, Agular Js, Vue Js, NodeJs</p>
+                                <div class="frame clearfix">
+                                    <div class="pull-left">
+                                        <img src="{{ asset('frontend/images/ic_course.png') }}" alt="" /> 
+                                        <span class="special">22 Courses</span>
+                                    </div>
+                                    <div class="pull-right">
+                                        @include(
+                                            'components.vote', 
+                                            [
+                                                'rate' => 2,
+                                                'rating_number' => 100,
+                                                'rating_txt' => true,
+                                            ]
+                                        )
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <img src="{{ asset('frontend/images/icon_student.png') }}" alt="" /> 
+                                    <span class="special">11.112 Students</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @else
+                    @foreach ($info_course->Lecturers() as $lecturer)
+                    <div class="col-sm-6">
                         <div class="row">
                             <div class="col-sm-3">
                                 <a href="{{ route('detail-teacher') }}">
-                                    <img class="avatar" src="https://www.w3schools.com/howto/img_avatar.png" alt="" />
+                                    <img class="avatar" alt="{{ $lecturer->user->name }}" src="{{ asset('frontend/images/'.$lecturer->user->avatar) }}">
                                 </a>
                             </div>
                             <div class="col-sm-9">
                                 <div class="detail-info">
-                                    <p class="name"><a href="{{ route('detail-teacher') }}">Bảo Minh</a></p>
-                                    <p class="expret">PHP, Jquery, Agular Js, Vue Js, NodeJs</p>
+                                    <p class="name"><a href="{{ route('detail-teacher') }}">{{ $lecturer->user->name }}</a></p>
+                                    <p class="expret">{{ $lecturer->teacher->expert }}</p>
                                     <div class="frame clearfix">
                                         <div class="pull-left">
                                             <img src="{{ asset('frontend/images/ic_course.png') }}" alt="" /> 
-                                            <span class="special">22 Courses</span>
+                                            <span class="special">{{ $lecturer->teacher->course_count }} Courses</span>
                                         </div>
                                         <div class="pull-right">
                                             @include(
                                                 'components.vote', 
                                                 [
-                                                    'rate' => 2,
-                                                    'rating_number' => 100,
+                                                    'rate' => $lecturer->teacher->rating_score,
+                                                    'rating_number' => $lecturer->teacher->vote_count,
                                                     'rating_txt' => true,
                                                 ]
                                             )
@@ -248,13 +281,15 @@
                                     </div>
                                     <div class="">
                                         <img src="{{ asset('frontend/images/icon_student.png') }}" alt="" /> 
-                                        <span class="special">11.112 Students</span>
+                                        <span class="special">{{ $lecturer->teacher->student_count }} Students</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                <div class="col-sm-6">
+                    @endforeach
+                @endif
+                {{-- <div class="col-sm-6">
                     <div class="row">
                         <div class="col-sm-3">
                             <a href="{{ route('detail-teacher') }}">
@@ -288,7 +323,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
@@ -296,13 +331,15 @@
         <div class="course-learning-review">
             <div class="feedback clearfix">
                 <div class="col-sm-4 student-rating">
-                    <h2>Students Feedback</h2>
-                    <p class="number">5</p>
+                    <h3>Students Feedback</h3>
+                    <p class="number">
+                            {{ number_format(intval($info_course->star_count) / intval($info_course->vote_count), 1, ',' , '.') }}
+                    </p>
                     <p class="star">
                         @include(
                             'components.vote', 
                             [
-                                'rate' => 2,
+                                'rate' => intval($info_course->star_count) / intval($info_course->vote_count),
                             ]
                         )
                     </p>
@@ -310,22 +347,37 @@
                 </div>
                 <div class="col-sm-8 rating-process">
                     <div class="row">
-                        @for ($i = 0; $i <5; $i++)
+                        @for ($i = 5; $i <10; $i++)
+                        <?php
+                            if ($i == 5) {
+                                $count_star = $info_course->five_stars;
+                            } elseif ($i == 6) {
+                                $count_star = $info_course->four_stars;
+                            } elseif ($i == 7) {
+                                $count_star = $info_course->three_stars;
+                            } elseif ($i == 8) {
+                                $count_star = $info_course->two_stars;
+                            } else{
+                                $count_star = $info_course->one_stars;
+                            }
+                            
+                            $percent_vote = number_format(($count_star / $info_course->vote_count)*100, 0, ',' , '.');
+                        ?>
                         <div class="item-progress">
                             <div class="col-sm-9">
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
-                                        aria-valuemin="0" aria-valuemax="100" style="width:40%"></div>
+                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ $percent_vote }}"
+                                        aria-valuemin="0" aria-valuemax="100" style="width:{{ $percent_vote }}%"></div>
                                 </div>
                             </div>
                             <div class="col-sm-3">
                                 @include(
                                     'components.vote', 
                                     [
-                                        'rate' => 2,
+                                        'rate' => 10 - $i,
                                     ]
                                 )
-                                <span class="percent-rating">80%</span>
+                                <span class="percent-rating">{{ $percent_vote }}%</span>
                             </div>
                         </div>
                         @endfor

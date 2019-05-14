@@ -45,13 +45,32 @@
                     </div>
                 </div>
                 @endif
+
+                <?php
+                    $check_time_sale = false;
+                    if ($from_sale != '' && $to_sale != '') {
+                        $start_sale = strtotime($from_sale.' 00:00:00');
+                        $end_sale = strtotime($to_sale.' 23:59:59');
+                        $date_to = new DateTime($to_sale);
+                        $date_from = new DateTime(date('Y-m-d'));
+                        if (time() >= $start_sale && time() <= $end_sale) {
+                            $check_time_sale = true;
+                        }
+                    }
+                ?>
                 <div class="price-course">
-                    <span class="price">
+                    @if ($check_time_sale == true)                                        
+                    <span class="price line-through">
                         {!! number_format($price, 0, ',' , '.') !!}đ
                     </span>
                     <span class="sale pull-right">
                         {!! number_format($sale, 0, ',' , '.') !!}đ
                     </span>
+                    @else
+                    <span class="price">
+                        {!! number_format($price, 0, ',' , '.') !!}đ
+                    </span>
+                    @endif
                 </div>
             </div>
         </a>
