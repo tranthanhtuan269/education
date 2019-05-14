@@ -391,7 +391,7 @@
                             <li><a href="#" title="cookie policy">Cookie Policy</a></li>
                             <li><a href="#" title="job post">Job Post</a></li>
                         </ul>
-                        <span class="pull-right copyright">Copyright C 2019 by courdemy.com. All rights servered!</span>
+                        <span class="pull-right copyright">Copyright &copy; 2019 by courdemy.com. All rights servered!</span>
                     </div>
                 </div>
             </div>
