@@ -219,13 +219,13 @@
                 <div class="col-sm-6">
                     <div class="row">
                         <div class="col-sm-3">
-                            <a href="{{ route('detail-teacher') }}">
+                            <a href="{{ url('/') }}/teacher/{{ $lecturer->user->id }}" title="{{ $lecturer->user->name }}" >
                                 <img class="avatar" alt="{{ $lecturer->user->name }}" src="{{ asset('frontend/images/'.$lecturer->user->avatar) }}">
                             </a>
                         </div>
                         <div class="col-sm-9">
                             <div class="detail-info">
-                                <p class="name"><a href="{{ route('detail-teacher') }}">{{ $lecturer->user->name }}</a></p>
+                                <p class="name"><a href="{{ url('/') }}/teacher/{{ $lecturer->user->id }}" title="{{ $lecturer->user->name }}" >{{ $lecturer->user->name }}</a></p>
                                 <p class="expret">{{ $lecturer->teacher->expert }}</p>
                                 <div class="frame clearfix">
                                     <div class="pull-left">
@@ -297,7 +297,7 @@
                 <div class="col-sm-4 student-rating">
                     <h3>Students Feedback</h3>
                     <p class="number">
-                            {{ number_format(intval($info_course->star_count) / intval($info_course->vote_count), 1, ',' , '.') }}
+                        {{ number_format(intval($info_course->star_count) / intval($info_course->vote_count), 1, ',' , '.') }}
                     </p>
                     <p class="star">
                         @include(
