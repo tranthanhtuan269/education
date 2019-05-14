@@ -34,6 +34,8 @@
                                         'view_number' => $best_seller->view_count,
                                         'price' => $best_seller->real_price,
                                         'sale' => $best_seller->price,
+                                        'from_sale' => $best_seller->from_sale,
+                                        'to_sale' => $best_seller->to_sale,
                                     ]
                                 )
                             @endforeach
@@ -69,6 +71,8 @@
                                     'view_number' => $new->view_count,
                                     'price' => $new->real_price,
                                     'sale' => $new->price,
+                                    'from_sale' => $new->from_sale,
+                                    'to_sale' => $new->to_sale,
                                 ]
                             )
                         @endforeach
@@ -94,6 +98,8 @@
                                     'view_number' => $feature->view_count,
                                     'price' => $feature->real_price,
                                     'sale' => $feature->price,
+                                    'from_sale' => $feature->from_sale,
+                                    'to_sale' => $feature->to_sale,
                                 ]
                             )
                         @endforeach
