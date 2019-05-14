@@ -1,5 +1,5 @@
 <div class="col-sm-3">
-    <div class="info">
+    <div class="box-course">
         <a href="{{ url('/') }}/teacher/{{ $id }}" title="{{ $name }}" class="course-box-slider pop">
             <div class="avatar text-center">
                 <img class="" src="{{ $image }}">
