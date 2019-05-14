@@ -208,35 +208,36 @@
             </div>
         </div>
     </div>
+    @if (count($info_course->Lecturers()) >= 1)
     <div class="instructors">
         <div class="container">
             <div class="row" id="box_instructors">
                 <div class="col-sm-12">
                     <h3>About the instructors</h3>
                 </div>
-                @if (count($info_course->Lecturers()) == 1)                    
+                @foreach ($info_course->Lecturers() as $lecturer)
                 <div class="col-sm-6">
                     <div class="row">
                         <div class="col-sm-3">
                             <a href="{{ route('detail-teacher') }}">
-                                <img class="avatar" src="https://www.w3schools.com/howto/img_avatar.png" alt="" />
+                                <img class="avatar" alt="{{ $lecturer->user->name }}" src="{{ asset('frontend/images/'.$lecturer->user->avatar) }}">
                             </a>
                         </div>
                         <div class="col-sm-9">
                             <div class="detail-info">
-                                <p class="name"><a href="{{ route('detail-teacher') }}">Bảo Minh</a></p>
-                                <p class="expret">PHP, Jquery, Agular Js, Vue Js, NodeJs</p>
+                                <p class="name"><a href="{{ route('detail-teacher') }}">{{ $lecturer->user->name }}</a></p>
+                                <p class="expret">{{ $lecturer->teacher->expert }}</p>
                                 <div class="frame clearfix">
                                     <div class="pull-left">
                                         <img src="{{ asset('frontend/images/ic_course.png') }}" alt="" /> 
-                                        <span class="special">22 Courses</span>
+                                        <span class="special">{{ $lecturer->teacher->course_count }} Courses</span>
                                     </div>
                                     <div class="pull-right">
                                         @include(
                                             'components.vote', 
                                             [
-                                                'rate' => 2,
-                                                'rating_number' => 100,
+                                                'rate' => $lecturer->teacher->rating_score,
+                                                'rating_number' => $lecturer->teacher->vote_count,
                                                 'rating_txt' => true,
                                             ]
                                         )
@@ -244,51 +245,13 @@
                                 </div>
                                 <div class="">
                                     <img src="{{ asset('frontend/images/icon_student.png') }}" alt="" /> 
-                                    <span class="special">11.112 Students</span>
+                                    <span class="special">{{ $lecturer->teacher->student_count }} Students</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                @else
-                    @foreach ($info_course->Lecturers() as $lecturer)
-                    <div class="col-sm-6">
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <a href="{{ route('detail-teacher') }}">
-                                    <img class="avatar" alt="{{ $lecturer->user->name }}" src="{{ asset('frontend/images/'.$lecturer->user->avatar) }}">
-                                </a>
-                            </div>
-                            <div class="col-sm-9">
-                                <div class="detail-info">
-                                    <p class="name"><a href="{{ route('detail-teacher') }}">{{ $lecturer->user->name }}</a></p>
-                                    <p class="expret">{{ $lecturer->teacher->expert }}</p>
-                                    <div class="frame clearfix">
-                                        <div class="pull-left">
-                                            <img src="{{ asset('frontend/images/ic_course.png') }}" alt="" /> 
-                                            <span class="special">{{ $lecturer->teacher->course_count }} Courses</span>
-                                        </div>
-                                        <div class="pull-right">
-                                            @include(
-                                                'components.vote', 
-                                                [
-                                                    'rate' => $lecturer->teacher->rating_score,
-                                                    'rating_number' => $lecturer->teacher->vote_count,
-                                                    'rating_txt' => true,
-                                                ]
-                                            )
-                                        </div>
-                                    </div>
-                                    <div class="">
-                                        <img src="{{ asset('frontend/images/icon_student.png') }}" alt="" /> 
-                                        <span class="special">{{ $lecturer->teacher->student_count }} Students</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    @endforeach
-                @endif
+                @endforeach
                 {{-- <div class="col-sm-6">
                     <div class="row">
                         <div class="col-sm-3">
@@ -327,6 +290,7 @@
             </div>
         </div>
     </div>
+    @endif
     <div class="container">
         <div class="course-learning-review">
             <div class="feedback clearfix">
