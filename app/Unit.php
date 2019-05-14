@@ -17,6 +17,6 @@ class Unit extends Model
 
     public function videos()
     {
-        return $this->hasMany('App\Videos');
+        return $this->hasMany('App\Video');
     }
 }

@@ -1,3 +1,6 @@
+@php
+    // dd($course);
+@endphp
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
@@ -42,22 +45,22 @@
         </div>
 
         {{-- DESCRIPTION PANEL --}}
-        @include('learning-page.description')
+        @include('frontends.learning-page.description')
         
         {{-- VIDEO PLAYER --}}
-        @include('learning-page.player')
+        @include('frontends.learning-page.player')
         
         {{-- LECTURE LIST aka LEFT SIDEBAR --}}
-        @include('learning-page.lecture-list')
+        @include('frontends.learning-page.lecture-list')
 
         {{-- DISCUSSION PANEL --}}
-        @include('learning-page.discuss')
+        @include('frontends.learning-page.discuss')
         
         {{-- SUPPORT FILES --}}
-        @include('learning-page.files')
+        @include('frontends.learning-page.files')
 
         {{-- NOTE --}}
-        @include('learning-page.notes')
+        @include('frontends.learning-page.notes')
 
 
         {{-- BIG PLAY BUTTON --}}
@@ -76,9 +79,6 @@
                     $('#' + $(this).attr('data-parent')).removeClass('active');
                     return false;
                 })
-
-
-                
             })
         </script>
 

@@ -1,16 +1,20 @@
+@php
+    
+    // dd($main_video->unit);
+@endphp
 <div class="learning-desc-panel ">
     <div class="learning-desc-panel-body align-items-center">
         <div class="ln-desc-title">
-            <p>Unreal Engine C++ Development</p>
+            <p>{{$main_video->name}}</p>
         </div>
         <div class="ln-desc-subtitle">
-            <p>Section 2, Lecture 17</p>
+            <p>Section {{$main_video->unit->index}}, Lecture {{$main_video->index}}</p>
         </div>
         <div class="ln-desc-content">
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+        <p>{{$main_video->description}}</p>
         </div>
         <div class="ln-desc-achv">
-            <p>79 of 284 items completed</p>
+            <p>10 of {{$course->video_count}} items completed</p>
             <div class="ln-progress-bar">
                 <div class="progress lecture-progress" style="width: 30vw">
                     <div class="progress-bar progress-bar-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
