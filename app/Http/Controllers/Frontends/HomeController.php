@@ -10,6 +10,17 @@ use App\Video;
 class HomeController extends Controller
 {
 
+    public function test(){
+        $permissions = \App\Permission::get();
+        foreach($permissions as $permission){
+            echo '$per = new Permission; <br/>';
+            echo '$per->name = "'.$permission->name .'"; <br/>';
+            echo '$per->route = "' .$permission->route .'"; <br/>';
+            echo '$per->group = ' .$permission->group .'; <br/>';
+	        echo '$per->save(); <br/> <br/>';
+        }
+    }
+
     public function home()
     {
         $feature_category = Category::where('featured', 1)->orderBy('featured_index', 'asc')->limit(10)->get();

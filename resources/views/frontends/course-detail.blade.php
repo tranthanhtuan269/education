@@ -350,6 +350,71 @@
             </div>
             <div class="reviews">
                 <h3>Reviews</h3>
+                <script src="https://cdn.ckeditor.com/ckeditor5/12.0.0/classic/ckeditor.js"></script>
+                <textarea name="content" id="editor">Comment...</textarea>
+                <div class="btn-submit">
+                    <input class="submit-question" type="submit" value="SUBMIT A QUESTION" id="create-comment-new"/>
+                </div>
+                <script>
+                    ClassicEditor
+                        .create( document.querySelector( '#editor' ) )
+                        .then( editor => {
+                                console.log( editor );
+                        } )
+                        .catch( error => {
+                                console.error( error );
+                    } );
+
+                    $('#create-comment-new').click(function(){
+                        alert(1)
+                        url = baseURL + '/admincp/categories';
+                        var data    = {
+                            _method           : "POST",
+                            name : $('input[name=name]').val(),
+                            description : $('textarea[name=description]').val(),
+                            parent_id : $('select[name=parent_id]').val(),
+                            image : $('input[name=image]').val(),
+                            keywords : $('input[name=keywords]').val(),
+                            seo_title : $('input[name=seo_title]').val(),
+                            seo_description : $('textarea[name=seo_description]').val(),
+                        };
+
+                        $.ajax({
+                            type: "POST",
+                            url: url,
+                            data: data,
+                            dataType: 'json',
+                            beforeSend: function() {
+                                $('.alert-errors').html('');
+                            },
+                            complete: function(data) {
+                                if(data.responseJSON.status == 200){
+                                    $().toastmessage('showSuccessToast', data.responseJSON.Message);
+                                    setTimeout(function(){ window.location.href = baseURL + "/admincp/categories"; }, 1000);
+                                }else{
+                                    if(data.status == 422){
+                                        $().toastmessage('showErrorToast', 'Errors');
+                                        var tmp = 0;
+                                        $.each(data.responseJSON.errors, function( index, value ) {
+                                        $('.alert-' + index).html(value);
+                                        if (tmp == 0) {
+                                            $('.alert-' + index).attr("tabindex",-1).focus();
+                                        }
+                                        tmp++;
+                                        });
+                                    }else{
+                                        if(data.status == 401){
+                                        window.location.replace(baseURL);
+                                        }else{
+                                        $().toastmessage('showErrorToast', errorConnect);
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                    });
+                </script>
+
                 @include('components.question-answer')
             </div>
             <div class="col-sm-12 btn-seen-all">

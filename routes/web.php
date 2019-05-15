@@ -86,3 +86,9 @@ Route::get('/learning-page/{courseId}/lecture/{lectureId}', 'LectureController@s
 Route::get('category/{cat}', ['as'  => 'category', 'uses' =>'Frontends\HomeController@showCategory']);
 Route::get('course/{course}', ['as'  => 'course', 'uses' =>'Frontends\HomeController@showCourse']);
 Route::get('teacher/{teacher}', ['as'  => 'teacher', 'uses' =>'Frontends\HomeController@showTeacher']);
+
+
+// Đăng nhập mới đánh giá khóa học dc
+Route::post('reviews/info', 'Backends\UserController@infoRoleUser');
+Route::post('reviews/create', 'CommentController@create');
+Route::get('test', 'Frontends\HomeController@test');
