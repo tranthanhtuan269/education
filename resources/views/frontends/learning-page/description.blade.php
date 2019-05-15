@@ -1,7 +1,3 @@
-@php
-    
-    // dd($main_video->unit);
-@endphp
 <div class="learning-desc-panel ">
     <div class="learning-desc-panel-body align-items-center">
         <div class="ln-desc-title">

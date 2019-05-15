@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class CommentLecturer extends Model
 {
     protected $fillable = [
-        'content', 'lecturer_id', 'parent_id', 'state'
+        'content', 'user_id', 'lecturer_id', 'parent_id', 'state'
     ];
 
     public function lecturer(){

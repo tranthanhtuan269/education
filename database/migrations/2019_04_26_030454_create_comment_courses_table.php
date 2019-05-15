@@ -20,6 +20,7 @@ class CreateCommentCoursesTable extends Migration
             $table->integer('course_id');
             $table->integer('parent_id');
             $table->integer('state')->default(0);
+            $table->integer('user_id');
             $table->timestamps();
         });
     }

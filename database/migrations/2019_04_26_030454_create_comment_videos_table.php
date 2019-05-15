@@ -17,6 +17,7 @@ class CreateCommentVideosTable extends Migration
         Schema::create('comment_videos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('content', 255);
+            $table->integer('user_id');
             $table->integer('video_id');
             $table->integer('parent_id');
             $table->integer('state')->default(0);

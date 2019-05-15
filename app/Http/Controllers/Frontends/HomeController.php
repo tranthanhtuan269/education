@@ -11,7 +11,7 @@ class HomeController extends Controller
 {
 
     public function home()
-    {
+    {   
         $feature_category = Category::where('featured', 1)->orderBy('featured_index', 'asc')->limit(10)->get();
         // feature_course = trendding_course
         $feature_course = Course::where('featured', 1)->orderBy('featured_index', 'asc')->limit(8)->get();

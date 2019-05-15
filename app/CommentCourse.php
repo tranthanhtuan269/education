@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class CommentCourse extends Model
 {
     protected $fillable = [
-        'content', 'course_id', 'parent_id', 'state'
+        'content', 'user_id', 'course_id', 'parent_id', 'state'
     ];
 
     public function course(){

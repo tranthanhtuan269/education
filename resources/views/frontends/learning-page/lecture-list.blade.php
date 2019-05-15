@@ -27,11 +27,11 @@
                 <ul>
                     @foreach($unit->videos as $video)
                     <li>
-                    <a href="/learning-page/{{$unit->course_id}}/lecture/{{$video->id}}">
-                            <button class="ln-lect-list-lect-title-icon"><span><i class="fas fa-play-circle"></i></span></button>
+                        <a href="/learning-page/{{$unit->course_id}}/lecture/{{$video->id}}">
+                            <span class="ln-lect-list-lect-title-icon"><span><i class="fas fa-play-circle"></i></span></span>
                             <span class="ln-lect-list-lect-title">{{$video->index}}.  {{ $video->name }}</span>
-                            <button class="ln-btn-complete "><i class="fas fa-circle"></i></button>
                         </a>
+                        <button class="ln-btn-complete "><i class="fas fa-circle"></i></button>
                     </li> 
                     @endforeach
                 </ul>
@@ -39,6 +39,8 @@
         </div>
 
         @endforeach
-            
+        <script>
+        
+        </script>
     </div>
 </div>
