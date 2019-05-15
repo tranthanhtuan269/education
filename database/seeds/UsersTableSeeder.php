@@ -17,7 +17,7 @@ class UsersTableSeeder extends Seeder
     	$user = new User;
         $user->name = "Tran Thanh Tuan";
         $user->email = "tran.thanh.tuan269@gmail.com";
-        $user->password = bcrypt('secret');
+        $user->password = bcrypt('secret12');
         $user->remember_token = str_random(10);
         $user->facebook = "https://www.facebook.com/canhchimcodon26988";
         $user->phone = "0973619398";
@@ -39,7 +39,7 @@ class UsersTableSeeder extends Seeder
 			        $user = new User;
 			        $user->name = $ho[$i] ." ".$lot[$j] ." ".$ten[$k];
 			        $user->email = $ho[$i] .".".$lot[$j] .".".$ten[$k]. "@gmail.com";
-			        $user->password = bcrypt('secret');
+			        $user->password = bcrypt('secret12');
 			        $user->remember_token = str_random(10);
 			        $user->facebook = "https://www.facebook.com/canhchimcodon26988";
 			        $user->phone = "0973619".$i.$j.$k;
