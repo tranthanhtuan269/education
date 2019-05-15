@@ -3,9 +3,11 @@
 @section('content')
 
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.16/datatables.min.css"/>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.16/datatables.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.16/api/fnReloadAjax.js"></script>
+<!-- Include the plugin's CSS and JS: -->
+<script type="text/javascript" src="{{ url('/') }}/backend/js/bootstrap-multiselect.js"></script>
+<link rel="stylesheet" href="{{ url('/') }}/backend/css/bootstrap-multiselect.css" type="text/css"/>
 
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -98,7 +100,12 @@
             <div class="form-group row">
                 <label for="userEmail_upd" class="col-sm-4 col-form-label">Vai trò <span class="text-danger">*</span></label>
                 <div class="col-sm-8">
-                    {{ Form::select('role_id', $roles, null, ['class' => 'form-control', 'id' => 'role_id']) }}
+                    <select id="role-list-ins-edit" multiple="multiple">
+                        @foreach ($roles as $role)
+                            <option value="{{ $role->id }}">{{ $role->name }}</option>
+                        @endforeach
+                    </select>
+                    <div class="alert-errors d-none" role="alert" id="role_idErrorIns"></div>
                 </div>
             </div>
           </div>
@@ -153,15 +160,18 @@
                 <label for="passConfirm" class="col-sm-4 col-form-label">Nhập lại mật khẩu <span class="text-danger">*</span></label>
                 <div class="col-sm-8">
                     <input type="password" class="form-control" id="confirmpassword_Ins" name="confirmpassword" value="{{ Request::old('confirmpassword') }}">
-                    <div class="alert-errors d-none" role="alert" id="confirmpasswordErrorIns">
-                        
-                    </div>
+                    <div class="alert-errors d-none" role="alert" id="confirmpasswordErrorIns"></div>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="userEmail_upd" class="col-sm-4 col-form-label">Vai trò <span class="text-danger">*</span></label>
                 <div class="col-sm-8">
-                    {{ Form::select('role_id', $roles, null, ['class' => 'form-control', 'id' => 'role_id_Ins']) }}
+                    <select id="role-list-ins" multiple="multiple">
+                        @foreach ($roles as $role)
+                            <option value="{{ $role->id }}">{{ $role->name }}</option>
+                        @endforeach
+                    </select>
+                    <div class="alert-errors d-none" role="alert" id="role_idErrorIns"></div>
                 </div>
             </div>
           </div>
@@ -184,6 +194,60 @@
     var errorConnect        = "Please check your internet connection and try again.";
 
     $(document).ready(function(){
+        function getRoleList($id){
+            var id      = $id;
+            $.ajax({
+                url: baseURL+"/admincp/roles/getRoleByID/" + id,
+                method: "GET",
+                dataType:'html',
+                success: function (response) {
+                    $("#role-list-ins-edit").html(response);
+                    $('#role-list-ins-edit').multiselect({
+                        includeSelectAllOption: true,
+                        includeSelectAllIfMoreThan: 0,
+                        numberDisplayed: 2,
+                        enableClickableOptGroups: true
+                    });
+                 
+                    $.ajax({
+                        url: baseURL+"/admincp/users/getInfoByID/" + id,
+                        method: "GET",
+                        dataType:'json',
+                        success: function (response) {
+                            var html_data = '';
+                            if(response.status == 200){
+                                $("#userPassword_upd").val(response.user.password);
+                                $("#passConfirm_upd").val(response.user.password);
+                            }else{
+                                $().toastmessage('showErrorToast', response.Message);
+                            }
+                        },
+                        error: function (data) {
+                            if(data.status == 401){
+                            window.location.replace(baseURL);
+                            }else{
+                            $().toastmessage('showErrorToast', errorConnect);
+                            }
+                        }
+                    });
+                },
+                error: function (data) {
+                    if(data.status == 401){
+                      window.location.replace(baseURL);
+                    }else{
+                      $().toastmessage('showErrorToast', errorConnect);
+                    }
+                }
+            });
+        }
+        
+        $('#role-list-ins').multiselect({
+            includeSelectAllOption: true,
+            includeSelectAllIfMoreThan: 0,
+            numberDisplayed: 2,
+            enableClickableOptGroups: true
+        });
+
 
         window.onbeforeunload = function() {
             if($('#edit_user_modal').hasClass('show') && ( 
@@ -200,34 +264,9 @@
 
         $('#edit_user_modal').on('shown.bs.modal', function () {
             var id      = $('#userID_upd').val();
-            $.ajax({
-                url: baseURL+"/admincp/users/getInfoByID/" + id,
-                method: "GET",
-                dataType:'json',
-                success: function (response) {
-                    var html_data = '';
-                    if(response.status == 200){
-                        if(response.user.role_id == null){
-                            $("#role_id").val(2);
-                            $("#userPassword_upd").val(response.user.password);
-                            $("#passConfirm_upd").val(response.user.password);
-                        }else{
-                            $("#role_id").val(response.user.role_id);
-                            $("#userPassword_upd").val(response.user.password);
-                            $("#passConfirm_upd").val(response.user.password);
-                        }
-                    }else{
-                        $().toastmessage('showErrorToast', response.Message);
-                    }
-                },
-                error: function (data) {
-                    if(data.status == 401){
-                      window.location.replace(baseURL);
-                    }else{
-                     $().toastmessage('showErrorToast', errorConnect);
-                    }
-                }
-            });
+             getRoleList(id);
+ 
+
         })
 
         var dataObject = [
@@ -465,7 +504,7 @@
                 email               : $('#userEmail_upd').val(),
                 password            : $('#userPassword_upd').val(),
                 confirmpassword     : $('#passConfirm_upd').val(),
-                role_id             : $('#role_id').val(),
+                role_id             : $('#role-list-ins-edit').val(),
                 _method             : "PUT"
             };
             $.ajaxSetup({
@@ -583,7 +622,7 @@
                 name             : $('#userName_Ins').val(),
                 email            : $('#email_Ins').val(),
                 password         : $('#password_Ins').val(),
-                role_id          : $('#role_id_Ins').val(),
+                role_id          : $('#role-list-ins').val(),
                 confirmpassword  : $('#confirmpassword_Ins').val(),
             };
 

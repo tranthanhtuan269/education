@@ -2,7 +2,7 @@
     <div class="top clearfix">
         <h3 class="pull-left">Courses Lessions</h3>
         <ul class="pull-right">
-            <li>Expand all</li>
+            {{-- <li>Expand all</li> --}}
             <li>{{ $info_course->video_count }} lectures</li>
             <li>{{ $info_course->duration }}</li>
         </ul>
@@ -16,8 +16,8 @@
                     <div class="row">
                         <div class="col-md-12">
                             <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $key_unit }}" class="collapsed" aria-expanded="true"><i class="fa fa-minus-square" aria-hidden="true"></i> Phần {{ $key_unit + 1 }}: {{ $value_unit->name }}</a>
-                                </h4>
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $key_unit }}" class="accordion-toggle @if ($key_unit != 0) collapsed in @endif" aria-expanded="true"> Phần {{ $key_unit + 1 }}: {{ $value_unit->name }}</a>
+                            </h4>
                         </div>
                     </div>
                 </div>
@@ -56,7 +56,8 @@
             @endforeach
         </div>
     </div>
-    <div class="tags">
+
+    {{-- <div class="tags">
         <div class="pull-left">
             Tags</span>
             <ul class="pull-right">
@@ -66,5 +67,17 @@
                 <li>Jquey</li>
             </ul>
         </div>
+    </div> --}}
+    @if (count($info_course->tags) > 0)
+    <div class="tags">
+        <div class="pull-left">
+            <span>Tags</span>
+            <ul class="pull-right">
+                @foreach ($info_course->tags as $tag)
+                <li>{{ $tag->name }}</li>
+                @endforeach
+            </ul>
+        </div>
     </div>
+    @endif
 </div>

@@ -56,6 +56,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('roles/suggest', 'Backends\RoleController@suggestSearch');
         Route::get('roles/getDataAjax', 'Backends\RoleController@getDataAjax');
         Route::get('roles/getInfoByID/{id}', 'Backends\RoleController@getInfoByID');
+        Route::get('roles/getRoleByID/{id}', 'Backends\RoleController@getRoleByID');
         Route::delete('roles/delMulti', 'Backends\RoleController@delMulti');
         Route::resource('roles', 'Backends\RoleController');
         // Route::get('posts/getDataAjax', 'PostController@getDataAjax');
@@ -87,4 +88,8 @@ Route::get('category/{cat}', ['as'  => 'category', 'uses' =>'Frontends\HomeContr
 Route::get('course/{course}', ['as'  => 'course', 'uses' =>'Frontends\HomeController@showCourse']);
 Route::get('teacher/{teacher}', ['as'  => 'teacher', 'uses' =>'Frontends\HomeController@showTeacher']);
 
-Route::resource('comments', 'Frontends\CommentController');
+
+// Đăng nhập mới đánh giá khóa học dc
+Route::post('reviews/info', 'Backends\UserController@infoRoleUser');
+Route::post('reviews/create', 'CommentController@create');
+Route::get('test', 'Frontends\HomeController@test');
