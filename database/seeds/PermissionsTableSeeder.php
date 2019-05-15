@@ -13,6 +13,18 @@ class PermissionsTableSeeder extends Seeder
     public function run()
     {
         $per = new Permission; 
+        $per->name = "Super Admin"; 
+        $per->route = "admin"; 
+        $per->group = 52; 
+        $per->save(); 
+
+        $per = new Permission; 
+        $per->name = "Full permission"; 
+        $per->route = "super-admin"; 
+        $per->group = 1; 
+        $per->save(); 
+
+        $per = new Permission; 
         $per->name = "Xem danh sách vai trò"; 
         $per->route = "users.list_roles"; 
         $per->group = 52; 
