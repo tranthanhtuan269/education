@@ -1,3 +1,4 @@
+
 <div class="learning-discussion">
     <div class="ln-disc-header">
         <div id="btnCloseDiscussion"><i class="fas fa-times-circle"></i></div>
@@ -27,24 +28,25 @@
             </div>
         </div>
         <div class="ln-disc-post-list">
-            @for ($i = 1; $i < 5; $i++)
+            @foreach ($comments_video as $comment_video)
+
             <div class="ln-disc-post-wrapper">
-                <div data-toggle="collapse" data-target="#discWrapper{{$i}}">
+                <div data-toggle="collapse" data-target="#discWrapper{{$comment_video->id}}">
                     <div class="ln-disc-post-left">
                         <img src="/sktt1_logo.png" width="60px" alt="">
                     </div>
                     <div class="ln-disc-post-right">
                         <div class="ln-disc-post-username">
-                            <p>SKT T1 - Student</p>
-                            <span><em>03/02/2019, 18:15</em></span>
+                            <p>{{$comment_video->user->userRoles}} - Student</p>
+                        <span><em>{{$comment_video->created_at}}</em></span>
                         </div>
                     <div class="ln-disc-post-short-content">
-                            <p id="discComment{{$i}}">Lee Sang-hyeok, được biết đến với nghệ danh Faker, sinh ngày 7 tháng 5 năm 1996 tại Seoul, là thành viên của đội tuyển thể thao điện tử SK Telecom T1 với game Liên Minh Huyền Thoại. Sang-Hyeok được giới chơi Liên Minh Huyền Thoại coi là một trong những người chơi Liên Minh Huyền Thoại hay nhất hiện nay.</p>
+                            <p id="discComment{{$comment_video->id}}">Lee Sang-hyeok, được biết đến với nghệ danh Faker, sinh ngày 7 tháng 5 năm 1996 tại Seoul, là thành viên của đội tuyển thể thao điện tử SK Telecom T1 với game Liên Minh Huyền Thoại. Sang-Hyeok được giới chơi Liên Minh Huyền Thoại coi là một trong những người chơi Liên Minh Huyền Thoại hay nhất hiện nay.</p>
                         </div>
                     </div>
                 </div>
                 
-                <div id="discWrapper{{$i}}" data-parent="discComment{{$i}}" class="ln-disc-comment-wrapper collapse">
+                <div id="discWrapper{{$comment_video->id}}" data-parent="{{$comment_video->id}}" class="ln-disc-comment-wrapper collapse">
                     <div class="ln-disc-comment">
                         <div class="ln-disc-comment-left">
                             <img src="/pvb_logo.jpg" width="40px" alt="">
@@ -86,9 +88,10 @@
                         </span>
                     </div>
                 </div>
-            </div>
+            </div>         
+
+            @endforeach
                 
-            @endfor
         </div>
     </div>
 </div>
@@ -108,7 +111,6 @@
             videoId: {{ $main_video->id }},
             content: myEditor.getData(),
             type : "discussionComment",
-            "_token": "{{ csrf_token() }}"
             
         },
         dataType: "json"

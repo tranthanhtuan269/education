@@ -17,10 +17,10 @@ class CreateCommentLecturersTable extends Migration
         Schema::create('comment_lecturers', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('content', 255);
+            $table->integer('user_id');
             $table->integer('lecture_id');
             $table->integer('parent_id');
             $table->integer('state')->default(0);
-            $table->integer('user_id');
             $table->timestamps();
         });
     }
