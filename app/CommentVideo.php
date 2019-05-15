@@ -7,9 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class CommentVideo extends Model
 {
     protected $fillable = [
-        'content', 'user_id', 'video_id', 'parent_id', 'state'
+        'content', 'user_role_id', 'video_id', 'parent_id', 'state'
     ];
-
+    
+    public function user(){
+        return $this->belongsTo('App\User');
+    }
     public function video(){
     	return $this->belongsTo('App\Video');
     }

@@ -10,6 +10,10 @@ class CommentLecturer extends Model
         'content', 'user_id', 'lecturer_id', 'parent_id', 'state'
     ];
 
+    public function user(){
+        return $this->belongsTo('App\User');
+    }
+    
     public function lecturer(){
     	return $this->belongsTo('App\User', 'lecturer_id');
     }

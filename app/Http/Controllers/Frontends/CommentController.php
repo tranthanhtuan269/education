@@ -10,6 +10,7 @@ class CommentController extends Controller
    public function store(Request $request){
       // dd($request);
       $commentVideo = new CommentVideo;
+      $commentVideo->user_id = \Auth::id();
       $commentVideo->video_id = $request->videoId;
       $commentVideo->content = $request->content;
       $commentVideo->parent_id = 0;

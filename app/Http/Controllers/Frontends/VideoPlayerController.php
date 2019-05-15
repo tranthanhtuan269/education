@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Course;
 use App\Unit;
 use App\Video;
+use App\CommentVideo;
+use App\Auth;
 
 class VideoPlayerController extends Controller
 {
@@ -48,9 +50,24 @@ class VideoPlayerController extends Controller
      */
     public function show($courseId, $videoId)
     {
-        //
+        dd(Auth()->user()->userRoles);
+        $user_role_id = Auth()->user()->id();
+
         $main_video = Video::where('id', $videoId)->first();
         $units = Unit::where('course_id', $courseId)->get();
+
+        $comments_video = CommentVideo::where(
+            function($q) use ($user_role_id){
+                $q->where('state', 1)
+                ->orWhere(function($q2) use ($user_role_id){
+                    $q2->where('user_role_id', $user_role_id);
+                });
+           }
+        )
+        ->where('video_id', $videoId)->get();
+    //    dd($results);
+
+
         $course = Course::find($courseId);
         $unit_list = [];
         foreach ($units as $unit) {
@@ -58,10 +75,11 @@ class VideoPlayerController extends Controller
             array_push($unit_list, $singleVideo);
         }
         return view('frontends.learning-page.index', [
-            'course' => $course,
-            'units'=> $units,
-            'unit_list' => $unit_list,
-            'main_video'=>$main_video,
+            'course'         => $course,
+            'units'          => $units,
+            'unit_list'      => $unit_list,
+            'comments_video' => $comments_video,
+            'main_video'     => $main_video,
         ]);
     }
 
