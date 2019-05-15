@@ -7,7 +7,10 @@ use App\Course;
 use App\Unit;
 use App\Video;
 use App\CommentVideo;
-use App\Auth;
+use App\UserCourse;
+use App\UserRole;
+use App\Helper\Helper;
+use Auth;
 
 class VideoPlayerController extends Controller
 {
@@ -49,9 +52,19 @@ class VideoPlayerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($courseId, $videoId)
-    {
-        dd(Auth()->user()->userRoles);
-        $user_role_id = Auth()->user()->id();
+    {   
+        $demanding_user_role_item = Helper::getUserRoleOfCourse($courseId);
+        if($demanding_user_role_item == null) abort(403, 'Unauthorized action.');
+        
+        //1: Student, 2: Teacher
+        if($demanding_user_role_item->status == 1){
+            $demanding_user_role = "Student";
+        }else if($demanding_user_role_item->status == 2){
+            $demanding_user_role = "Teacher";
+        }
+
+        $user_role_id = $demanding_user_role_item->user_role_id;
+
 
         $main_video = Video::where('id', $videoId)->first();
         $units = Unit::where('course_id', $courseId)->get();
@@ -65,7 +78,6 @@ class VideoPlayerController extends Controller
            }
         )
         ->where('video_id', $videoId)->get();
-    //    dd($results);
 
 
         $course = Course::find($courseId);

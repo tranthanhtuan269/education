@@ -14,4 +14,5 @@ class UserCourse extends Model
     // {
     //     return $this->hasMany('App\Course','course_id');
     // }
+
 }

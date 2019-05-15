@@ -71,11 +71,12 @@
         <script>
             $(document).ready(function () {
                 $('.ln-disc-comment-wrapper').on('shown.bs.collapse', function () {
-                    $('#' + $(this).attr('data-parent')).addClass('active');
+                    $("#discComment" + $(this).attr('data-parent') + " p").addClass('active');
                     return false;
                 })
                 $('.ln-disc-comment-wrapper').on('hidden.bs.collapse', function () {
-                    $('#' + $(this).attr('data-parent')).removeClass('active');
+                    
+                    $("#discComment" + $(this).attr('data-parent') + " p").removeClass('active');
                     return false;
                 })
 
