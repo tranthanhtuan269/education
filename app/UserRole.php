@@ -15,9 +15,13 @@ class UserRole extends Model
         return $this->belongsTo('App\User');
     }
 
+    // public function teacher()
+    // {
+    // 	return $this->hasMany('App\Teacher');
+    // }
+
     public function teacher()
     {
-    	return $this->hasMany('App\Teacher');
+    	return $this->hasOne('App\Teacher');
     }
-    
 }

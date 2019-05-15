@@ -208,48 +208,51 @@
             </div>
         </div>
     </div>
+    @if (count($info_course->Lecturers()) >= 1)
     <div class="instructors">
         <div class="container">
             <div class="row" id="box_instructors">
                 <div class="col-sm-12">
                     <h3>About the instructors</h3>
                 </div>
+                @foreach ($info_course->Lecturers() as $lecturer)
                 <div class="col-sm-6">
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <a href="{{ route('detail-teacher') }}">
-                                    <img class="avatar" src="https://www.w3schools.com/howto/img_avatar.png" alt="" />
-                                </a>
-                            </div>
-                            <div class="col-sm-9">
-                                <div class="detail-info">
-                                    <p class="name"><a href="{{ route('detail-teacher') }}">Bảo Minh</a></p>
-                                    <p class="expret">PHP, Jquery, Agular Js, Vue Js, NodeJs</p>
-                                    <div class="frame clearfix">
-                                        <div class="pull-left">
-                                            <img src="{{ asset('frontend/images/ic_course.png') }}" alt="" /> 
-                                            <span class="special">22 Courses</span>
-                                        </div>
-                                        <div class="pull-right">
-                                            @include(
-                                                'components.vote', 
-                                                [
-                                                    'rate' => 2,
-                                                    'rating_number' => 100,
-                                                    'rating_txt' => true,
-                                                ]
-                                            )
-                                        </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <a href="{{ url('/') }}/teacher/{{ $lecturer->user->id }}" title="{{ $lecturer->user->name }}" >
+                                <img class="avatar" alt="{{ $lecturer->user->name }}" src="{{ asset('frontend/images/'.$lecturer->user->avatar) }}">
+                            </a>
+                        </div>
+                        <div class="col-sm-9">
+                            <div class="detail-info">
+                                <p class="name"><a href="{{ url('/') }}/teacher/{{ $lecturer->user->id }}" title="{{ $lecturer->user->name }}" >{{ $lecturer->user->name }}</a></p>
+                                <p class="expret">{{ $lecturer->teacher->expert }}</p>
+                                <div class="frame clearfix">
+                                    <div class="pull-left">
+                                        <img src="{{ asset('frontend/images/ic_course.png') }}" alt="" /> 
+                                        <span class="special">{{ $lecturer->teacher->course_count }} Courses</span>
                                     </div>
-                                    <div class="">
-                                        <img src="{{ asset('frontend/images/icon_student.png') }}" alt="" /> 
-                                        <span class="special">11.112 Students</span>
+                                    <div class="pull-right">
+                                        @include(
+                                            'components.vote', 
+                                            [
+                                                'rate' => $lecturer->teacher->rating_score,
+                                                'rating_number' => $lecturer->teacher->vote_count,
+                                                'rating_txt' => true,
+                                            ]
+                                        )
                                     </div>
+                                </div>
+                                <div class="">
+                                    <img src="{{ asset('frontend/images/icon_student.png') }}" alt="" /> 
+                                    <span class="special">{{ $lecturer->teacher->student_count }} Students</span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                <div class="col-sm-6">
+                </div>
+                @endforeach
+                {{-- <div class="col-sm-6">
                     <div class="row">
                         <div class="col-sm-3">
                             <a href="{{ route('detail-teacher') }}">
@@ -283,21 +286,24 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
+    @endif
     <div class="container">
         <div class="course-learning-review">
             <div class="feedback clearfix">
                 <div class="col-sm-4 student-rating">
                     <h3>Students Feedback</h3>
-                    <p class="number">5</p>
+                    <p class="number">
+                        {{ number_format(intval($info_course->star_count) / intval($info_course->vote_count), 1, ',' , '.') }}
+                    </p>
                     <p class="star">
                         @include(
                             'components.vote', 
                             [
-                                'rate' => 2,
+                                'rate' => intval($info_course->star_count) / intval($info_course->vote_count),
                             ]
                         )
                     </p>
@@ -305,22 +311,37 @@
                 </div>
                 <div class="col-sm-8 rating-process">
                     <div class="row">
-                        @for ($i = 0; $i <5; $i++)
+                        @for ($i = 5; $i <10; $i++)
+                        <?php
+                            if ($i == 5) {
+                                $count_star = $info_course->five_stars;
+                            } elseif ($i == 6) {
+                                $count_star = $info_course->four_stars;
+                            } elseif ($i == 7) {
+                                $count_star = $info_course->three_stars;
+                            } elseif ($i == 8) {
+                                $count_star = $info_course->two_stars;
+                            } else{
+                                $count_star = $info_course->one_stars;
+                            }
+                            
+                            $percent_vote = number_format(($count_star / $info_course->vote_count)*100, 0, ',' , '.');
+                        ?>
                         <div class="item-progress">
                             <div class="col-sm-9">
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
-                                        aria-valuemin="0" aria-valuemax="100" style="width:40%"></div>
+                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ $percent_vote }}"
+                                        aria-valuemin="0" aria-valuemax="100" style="width:{{ $percent_vote }}%"></div>
                                 </div>
                             </div>
                             <div class="col-sm-3">
                                 @include(
                                     'components.vote', 
                                     [
-                                        'rate' => 2,
+                                        'rate' => 10 - $i,
                                     ]
                                 )
-                                <span class="percent-rating">80%</span>
+                                <span class="percent-rating">{{ $percent_vote }}%</span>
                             </div>
                         </div>
                         @endfor
@@ -329,6 +350,71 @@
             </div>
             <div class="reviews">
                 <h3>Reviews</h3>
+                <script src="https://cdn.ckeditor.com/ckeditor5/12.0.0/classic/ckeditor.js"></script>
+                <textarea name="content" id="editor">Comment...</textarea>
+                <div class="btn-submit">
+                    <input class="submit-question" type="submit" value="SUBMIT A QUESTION" id="create-comment-new"/>
+                </div>
+                <script>
+                    ClassicEditor
+                        .create( document.querySelector( '#editor' ) )
+                        .then( editor => {
+                                console.log( editor );
+                        } )
+                        .catch( error => {
+                                console.error( error );
+                    } );
+
+                    $('#create-comment-new').click(function(){
+                        alert(1)
+                        url = baseURL + '/admincp/categories';
+                        var data    = {
+                            _method           : "POST",
+                            name : $('input[name=name]').val(),
+                            description : $('textarea[name=description]').val(),
+                            parent_id : $('select[name=parent_id]').val(),
+                            image : $('input[name=image]').val(),
+                            keywords : $('input[name=keywords]').val(),
+                            seo_title : $('input[name=seo_title]').val(),
+                            seo_description : $('textarea[name=seo_description]').val(),
+                        };
+
+                        $.ajax({
+                            type: "POST",
+                            url: url,
+                            data: data,
+                            dataType: 'json',
+                            beforeSend: function() {
+                                $('.alert-errors').html('');
+                            },
+                            complete: function(data) {
+                                if(data.responseJSON.status == 200){
+                                    $().toastmessage('showSuccessToast', data.responseJSON.Message);
+                                    setTimeout(function(){ window.location.href = baseURL + "/admincp/categories"; }, 1000);
+                                }else{
+                                    if(data.status == 422){
+                                        $().toastmessage('showErrorToast', 'Errors');
+                                        var tmp = 0;
+                                        $.each(data.responseJSON.errors, function( index, value ) {
+                                        $('.alert-' + index).html(value);
+                                        if (tmp == 0) {
+                                            $('.alert-' + index).attr("tabindex",-1).focus();
+                                        }
+                                        tmp++;
+                                        });
+                                    }else{
+                                        if(data.status == 401){
+                                        window.location.replace(baseURL);
+                                        }else{
+                                        $().toastmessage('showErrorToast', errorConnect);
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                    });
+                </script>
+
                 @include('components.question-answer')
             </div>
             <div class="col-sm-12 btn-seen-all">
