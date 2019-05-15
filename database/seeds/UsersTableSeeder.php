@@ -14,20 +14,20 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-    	$user = new User;
-        $user->name = "Tran Thanh Tuan";
-        $user->email = "tran.thanh.tuan269@gmail.com";
-        $user->password = bcrypt('secret12');
-        $user->remember_token = str_random(10);
-        $user->facebook = "https://www.facebook.com/canhchimcodon26988";
-        $user->phone = "0973619398";
-        $user->address = "So 65 - to 7 - Dong Anh - Ha Noi";
-        $user->avatar = "images/avatar.jpg";
-        $user->coins = 350;
-        $user->dob = date("Y-m-d H:i:s");
-        $user->gender = 1;
-        $user->status = 1;
-        $user->save();
+    	// $user = new User;
+        // $user->name = "Tran Thanh Tuan";
+        // $user->email = "tran.thanh.tuan269@gmail.com";
+        // $user->password = bcrypt('secret12');
+        // $user->remember_token = str_random(10);
+        // $user->facebook = "https://www.facebook.com/canhchimcodon26988";
+        // $user->phone = "0973619398";
+        // $user->address = "So 65 - to 7 - Dong Anh - Ha Noi";
+        // $user->avatar = "images/avatar.jpg";
+        // $user->coins = 350;
+        // $user->dob = date("Y-m-d H:i:s");
+        // $user->gender = 1;
+        // $user->status = 1;
+        // $user->save();
         // add role
 
     	$ho = ["Tran", "Le", "Nguyen", "Pham", "Dang"];
