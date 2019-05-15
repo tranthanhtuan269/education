@@ -14,13 +14,14 @@ class ClearanceMiddleware extends Controller{
         $user_id = Auth::user()->id;
         $roles_id = UserRole::where('user_id', $user_id)->pluck('role_id');
         $roles =   Role::whereIn('id', $roles_id)->get();
+        // echo '<pre>';
+        // print_r($roles);die;
         $str_privileges = '';
 
         foreach ($roles as $key => $value) {
             $str_privileges .= $value->permission;
             $str_privileges .= (count($roles) > 0 && $key < (count($roles) - 1)) ? "," : "";
         }
-
         $list_roles = explode(',', $str_privileges);
         $list_roles = array_unique($list_roles);
         $this->list_roles = Permission::whereIn('id', $list_roles)->pluck('route')->toArray();
