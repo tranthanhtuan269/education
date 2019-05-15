@@ -158,6 +158,7 @@
 
                         echo $html;
                     ?>
+                    </select>
                 </div>
             </div>
           </div>
