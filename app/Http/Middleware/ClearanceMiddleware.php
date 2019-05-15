@@ -5,24 +5,25 @@ use App\Http\Controllers\Backends\Controller;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 use App\Role;
+use App\UserRole;
 use App\Permission;
 
 class ClearanceMiddleware extends Controller{
 
     public function handle($request, Closure $next) {  
-        
-        $user   = Auth::user();
-        $role_id = $user->role_id;
-        $data =  Role::where('id', $role_id)->first();
-        $arr = explode(',', $data->permission);  
-        $data = Permission::find($arr);
-        $list_roles = [];
+        $user_id = Auth::user()->id;
+        $roles_id = UserRole::where('user_id', $user_id)->pluck('role_id');
+        $roles =   Role::whereIn('id', $roles_id)->get();
+        $str_privileges = '';
 
-        foreach ($data as $key => $value) {
-            $list_roles[] = trim($value->route);
+        foreach ($roles as $key => $value) {
+            $str_privileges .= $value->permission;
+            $str_privileges .= (count($roles) > 0 && $key < (count($roles) - 1)) ? "," : "";
         }
 
-        $this->list_roles = $list_roles;
+        $list_roles = explode(',', $str_privileges);
+        $list_roles = array_unique($list_roles);
+        $this->list_roles = Permission::whereIn('id', $list_roles)->pluck('route')->toArray();
         \View::share('list_roles', $this->list_roles);
 
         // Super Admin thì muốn làm đéo gì thì làm

@@ -56,6 +56,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('roles/suggest', 'Backends\RoleController@suggestSearch');
         Route::get('roles/getDataAjax', 'Backends\RoleController@getDataAjax');
         Route::get('roles/getInfoByID/{id}', 'Backends\RoleController@getInfoByID');
+        Route::get('roles/getRoleByID/{id}', 'Backends\RoleController@getRoleByID');
         Route::delete('roles/delMulti', 'Backends\RoleController@delMulti');
         Route::resource('roles', 'Backends\RoleController');
         // Route::get('posts/getDataAjax', 'PostController@getDataAjax');
