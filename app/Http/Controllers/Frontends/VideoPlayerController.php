@@ -77,8 +77,21 @@ class VideoPlayerController extends Controller
                 });
            }
         )
-        ->where('video_id', $videoId)->get();
+        ->where('video_id', $videoId)
+        ->where('parent_id', 0)
+        ->get();
 
+        $sub_comments_video = CommentVideo::where(
+            function($q) use ($user_role_id){
+                $q->where('state', 1)
+                ->orWhere(function($q2) use ($user_role_id){
+                    $q2->where('user_role_id', $user_role_id);
+                });
+           }
+        )
+        ->where('video_id', $videoId)
+        ->where('parent_id', "!=", 0)
+        ->get();
 
         $course = Course::find($courseId);
         $unit_list = [];
@@ -91,6 +104,7 @@ class VideoPlayerController extends Controller
             'units'          => $units,
             'unit_list'      => $unit_list,
             'comments_video' => $comments_video,
+            'sub_comments_video' => $sub_comments_video,
             'main_video'     => $main_video,
         ]);
     }

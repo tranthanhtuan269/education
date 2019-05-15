@@ -93,3 +93,5 @@ Route::get('teacher/{teacher}', ['as'  => 'teacher', 'uses' =>'Frontends\HomeCon
 Route::post('reviews/info', 'Backends\UserController@infoRoleUser');
 Route::post('reviews/create', 'CommentController@create');
 Route::get('test', 'Frontends\HomeController@test');
+
+Route::resource('comments', 'Frontends\CommentController');
