@@ -575,6 +575,7 @@ body{
 }
 .ln-disc-post-right{
     padding-left: 10px;
+    width: 100%;
     max-width: 86%;
 }
 .ln-disc-post-left img{
@@ -585,14 +586,24 @@ body{
 .ln-disc-post-username{
     display: flex;
     justify-content: space-between;
+    max-width: 100%;
 }
 .ln-disc-post-username p{
     font-weight: bold;
     padding-top: 3px;
 }
+.ln-disc-post-username span{
+    position: relative;
+    top: 3px;
+}
+.ln-disc-post-short-content{
+    width: 100%;
+    max-width: 100%;
+}
 .ln-disc-post-short-content p {
     display: block;
     overflow: hidden;
+    margin-bottom: 0;
     text-overflow: ellipsis;
     white-space: nowrap;
     /* margin-bottom: 0px; */

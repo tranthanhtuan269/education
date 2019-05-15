@@ -10,8 +10,8 @@ class CommentVideo extends Model
         'content', 'user_role_id', 'video_id', 'parent_id', 'state'
     ];
     
-    public function user(){
-        return $this->belongsTo('App\User');
+    public function userRole(){
+        return $this->belongsTo('App\UserRole');
     }
     public function video(){
     	return $this->belongsTo('App\Video');

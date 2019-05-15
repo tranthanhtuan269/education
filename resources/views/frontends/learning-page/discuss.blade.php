@@ -37,15 +37,23 @@
                     </div>
                     <div class="ln-disc-post-right">
                         <div class="ln-disc-post-username">
-                            <p>{{$comment_video->user->userRoles}} - Student</p>
+                            @php
+                                $comment_user_role_id = $comment_video->userRole->role_id;
+                            @endphp
+                        <p>{{$comment_video->userRole->user->name}} - 
+                        @php
+                            echo $comment_user_role_id == 1 ? "Student" : ($comment_user_role_id == 2 ? "Teacher" : "Affliate");
+                        @endphp 
+                        </p>
                         <span><em>{{$comment_video->created_at}}</em></span>
                         </div>
-                    <div class="ln-disc-post-short-content">
-                            <p id="discComment{{$comment_video->id}}">Lee Sang-hyeok, được biết đến với nghệ danh Faker, sinh ngày 7 tháng 5 năm 1996 tại Seoul, là thành viên của đội tuyển thể thao điện tử SK Telecom T1 với game Liên Minh Huyền Thoại. Sang-Hyeok được giới chơi Liên Minh Huyền Thoại coi là một trong những người chơi Liên Minh Huyền Thoại hay nhất hiện nay.</p>
+                        <div class="ln-disc-post-short-content" id="discComment{{$comment_video->id}}">
+                            {!!$comment_video->content!!}
                         </div>
                     </div>
                 </div>
                 
+                {{-- Sub-comments --}}
                 <div id="discWrapper{{$comment_video->id}}" data-parent="{{$comment_video->id}}" class="ln-disc-comment-wrapper collapse">
                     <div class="ln-disc-comment">
                         <div class="ln-disc-comment-left">
@@ -116,8 +124,38 @@
         dataType: "json"
         });
         
-        request.done(function( msg ) {
-        $( "#log" ).html( msg );
+        request.done(function( response ) {
+            if(response.status == 200){
+                var html = '';
+                html += '<div class="ln-disc-post-wrapper">';
+                    html += '<div data-toggle="collapse" data-target="#discWrapper'+($('.ln-disc-post-wrapper').length + 1) +'">';
+                        html += '<div class="ln-disc-post-left">';
+                            html += '<img src="/'+response.commentVideo.data.avatar+'" width="60px" alt="">';
+                        html += '</div>';
+                        html += '<div class="ln-disc-post-right">';
+                            html += '<div class="ln-disc-post-username">';
+                            html += '<p>'+response.commentVideo.data.username+' - ';
+                            html += response.commentVideo.data.userType;
+                            html += '</p>';
+                            html += '<span><em>'+response.commentVideo.data.created_at+'</em></span>';
+                            html += '</div>';
+                            html += '<div class="ln-disc-post-short-content" id="discComment'+($('.ln-disc-post-wrapper').length + 1) +'">';
+                                html += '<p>'+response.commentVideo.data.content+'</p>';
+                            html += '</div>';
+                        html += '</div>';
+                    html += '</div>';
+                    
+                    html += '<div id="discWrapper'+($('.ln-disc-post-wrapper').length + 1) +'" data-parent="'+($('.ln-disc-post-wrapper').length + 1) +'" class="ln-disc-comment-wrapper collapse">';
+                        html += '<div class="ln-disc-comment-input input-group">';
+                            html += '<input type="text" class="form-control" placeholder="Comment...">';
+                            html += '<span class="input-group-btn">';
+                                html += '<button class="btn btn-default" type="button">Go</button>';
+                            html += '</span>';
+                        html += '</div>';
+                    html += '</div>';
+                html += '</div>';
+                $('.ln-disc-post-list').prepend(html);
+            }
         });
         
         request.fail(function( jqXHR, textStatus ) {
