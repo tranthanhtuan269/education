@@ -13,21 +13,21 @@
 				@foreach ($feature_category as $key => $feature)
 					@if ($key % 5 == 0)
 						<div class="row">
-							<div class="col-sm-4">
+							<div class="col-sm-5">
 								<a href="{{ url('/') }}/category/{{ $feature->slug }}" title="{{ $feature->name }}" class="thumbnail-img">
-									<img class="" src="{{ url('/frontend/images/'.$feature->image) }}" alt="{{ $feature->name }}" height="335">
+									<img class="" src="{{ url('/frontend/images/'.$feature->image) }}" alt="{{ $feature->name }}" height="290">
 									<div class="explore">
-										<h4>{{ $feature->name }}</h4>
-										<p>Over {{ $feature->course_count }} courses</p>
+										<h4 class="big-course">{{ $feature->name }}</h4>
+										<p class="big-course">Over {{ $feature->course_count }} courses</p>
 									</div>
 								</a>
 							</div>
-							<div class="col-sm-8">
+							<div class="col-sm-7">
 								<div class="row">
 						@else
 							<div class="col-sm-6 item">
 								<a href="{{ url('/') }}/category/{{ $feature->slug }}" title="{{ $feature->name }}" class="thumbnail-img">
-									<img class="" src="{{ url('/frontend/images/'.$feature->image) }}" alt="{{ $feature->name }}" height="163">
+									<img class="" src="{{ url('/frontend/images/'.$feature->image) }}" alt="{{ $feature->name }}" >
 									<div class="explore">
 										<h4>{{ $feature->name }}</h4>
 										<p>Over {{ $feature->course_count }} courses</p>

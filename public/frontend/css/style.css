@@ -103,12 +103,12 @@ ul.unica-acc-zone li.special:hover a{color:#fff}
 .hassub i{width:30px;text-align:center}
 .amazonmenu ul{list-style:none;margin:0;padding:0;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box;font-size:14px}
 .amazonmenu ul li{position:static}
-.amazonmenu > ul{background:#fff;border:1px solid #eee;width:250px;height:520px;position:relative;box-shadow:1px 1px 1px #ccc;z-index:99}
+.amazonmenu > ul{background:#fff;border:1px solid #eee;width:250px;position:relative;box-shadow:1px 1px 1px #ccc;z-index:99}
 .amazonmenu > ul li a{color:#242424;display:block;overflow:auto;padding:10px 0;position:relative;text-decoration:none;text-indent:10px}
 .amazonmenu > ul li.hassub > a::after{border:5px solid transparent;border-left-color:gray;content:'';height:0;position:absolute;right:5px;top:35%;width:0}
 .amazonmenu > ul li.hassub.selected > a::after{border-left-color:#f58829}
 .amazonmenu ul li a:hover,.amazonmenu ul li.hassub.selected > a{background:#f7f8fa;color:#0975b4}
-.amazonmenu ul li > div,.amazonmenu ul li > ul{background:#f7f8fa;border:1px solid #eee;box-shadow:1px 1px 1px #ccc;display:none;font-weight:400;width:305px;height:520px;left:100%;padding:0 10px;position:absolute;top:-1px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;z-index:999}
+.amazonmenu ul li > div,.amazonmenu ul li > ul{background:#f7f8fa;border:1px solid #eee;box-shadow:1px 1px 1px #ccc;display:none;font-weight:400;width:305px;left:100%;padding:0 10px;position:absolute;top:-1px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;z-index:999}
 .unica-active-course p{display:inline;padding-right:6px}
 .feature-website{padding:20px 0}
 .feature-website .course-feature{text-align:center;margin:40px 0 30px;font-size:20px}
@@ -285,7 +285,7 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
 .slick-course .item .cat{position:absolute;top:35px;width:100%;color:#fff}
 .slick-course .item .cat h2{font-weight:600;padding-bottom:6px}
 .item-slider{cursor:pointer}
-.cat-item-slider{margin-top:25px;color:#fff}
+.cat-item-slider{margin-top:33px;color:#fff}
 .demo-aaaa{position:relative;display:block;bottom:80px}
 .background-page .slider img{width:100%}
 .background-page .slider .item{padding-bottom:10px}
@@ -421,3 +421,5 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
 .reviews .box .comment-reply{border:1px solid #ccc;background:#E7E7E7;padding:20px;margin:20px 0}
 .btn-seen-all{text-align:center}
 .btn-seen-all button{text-transform:uppercase;margin-top:20px}
+.background-page .highlight .thumbnail-img h4.big-course{ font-size: 44px; }
+.background-page .highlight .thumbnail-img p.big-course{ font-size: 20px; }

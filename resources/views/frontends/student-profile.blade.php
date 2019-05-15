@@ -52,8 +52,7 @@
 		</form>
 	</div>
 </div>
-@include('frontends.favourite-course')
-@include('frontends.purchase-course')
+
 <div class="container">
 	<div class="bill-info">
 		<div class="row">
