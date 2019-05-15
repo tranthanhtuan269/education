@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Permission;
-
+use App\Role;
 class PermissionsTableSeeder extends Seeder
 {
     /**
@@ -114,5 +114,10 @@ class PermissionsTableSeeder extends Seeder
         $per->group = 0; 
         $per->save(); 
 
+
+        $role = new Role; 
+        $role->name = "Super Admin"; 
+        $role->permission = 2; 
+        $role->save(); 
     }
 }
