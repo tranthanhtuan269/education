@@ -327,7 +327,7 @@ body{
     padding: 5px 1rem 5px;
     text-align: justify;
 }
-.ln-lect-list-body a{
+.ln-lect-list-body li{
     text-decoration: none !important;
     display: flex;
     justify-content: space-between;
@@ -346,17 +346,17 @@ body{
     min-width: 1px;
     color: #686F7A;
 }
-.ln-lect-list-body a button{
+.ln-lect-list-body li button{
     color: rgb(200, 201, 202);
     background: none;
     border: none;
     font-size: 20px;
     position: relative;
 }
-.ln-lect-list-body a button:hover{
-    border: none !important;
-    background: none !important;
-    color: #ffffff !important;
+.ln-lect-list-body li button:hover{
+    border: unset !important;
+    background: unset !important;
+    /* color: rgb(200, 201, 202) !important; */
 }
 .ln-btn-complete{
     order: 3;

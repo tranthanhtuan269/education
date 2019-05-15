@@ -20,6 +20,7 @@ class CreateCommentLecturersTable extends Migration
             $table->integer('lecture_id');
             $table->integer('parent_id');
             $table->integer('state')->default(0);
+            $table->integer('user_id');
             $table->timestamps();
         });
     }

@@ -12,10 +12,14 @@
                     <button class="btn">Ask a question or share your opinions</button>
                 </div>
                 <script>
+                    var myEditor;
                         ClassicEditor
                             .create( document.querySelector( '#discussionEditor' ),{
                                 toolbar: ['bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ],
                             } )
+                            .then(editor =>{
+                                myEditor = editor
+                            })
                             .catch( error => {
                                 console.error( error );
                             } );                                
@@ -88,3 +92,34 @@
         </div>
     </div>
 </div>
+
+<script >
+    $(".ln-disc-input-bar .btn-submit").click(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        var request = $.ajax({
+        url: "{{ url('comments') }}",
+        method: "POST",
+        data: {
+            videoId: {{ $main_video->id }},
+            content: myEditor.getData(),
+            type : "discussionComment",
+            "_token": "{{ csrf_token() }}"
+            
+        },
+        dataType: "json"
+        });
+        
+        request.done(function( msg ) {
+        $( "#log" ).html( msg );
+        });
+        
+        request.fail(function( jqXHR, textStatus ) {
+        alert( "Request failed: " + textStatus );
+        });        
+    })
+</script>

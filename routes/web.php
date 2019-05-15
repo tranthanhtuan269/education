@@ -15,7 +15,7 @@
 //     return view('welcome');
 // });
 
-// // Auth::routes();
+Auth::routes();
 
 // // FRONTEND
 // Route::get('/home','HomeController@home');
@@ -86,3 +86,5 @@ Route::get('/learning-page/{courseId}/lecture/{videoId}', 'Frontends\VideoPlayer
 Route::get('category/{cat}', ['as'  => 'category', 'uses' =>'Frontends\HomeController@showCategory']);
 Route::get('course/{course}', ['as'  => 'course', 'uses' =>'Frontends\HomeController@showCourse']);
 Route::get('teacher/{teacher}', ['as'  => 'teacher', 'uses' =>'Frontends\HomeController@showTeacher']);
+
+Route::resource('comments', 'Frontends\CommentController');

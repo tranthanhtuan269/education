@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Unit extends Model
 {
     protected $fillable = [
-        'name', 'course', 'video_count'
+        'name', 'index', 'course', 'video_count'
     ];
 
     public function course()

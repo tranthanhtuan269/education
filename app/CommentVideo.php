@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class CommentVideo extends Model
 {
     protected $fillable = [
-        'content', 'video_id', 'parent_id', 'state'
+        'content', 'user_id', 'video_id', 'parent_id', 'state'
     ];
 
     public function video(){
