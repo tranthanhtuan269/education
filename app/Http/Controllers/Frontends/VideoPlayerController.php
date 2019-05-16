@@ -62,9 +62,9 @@ class VideoPlayerController extends Controller
         }else if($demanding_user_role_item->status == 2){
             $demanding_user_role = "Teacher";
         }
+        // dd($demanding_user_role_item);
 
         $user_role_id = $demanding_user_role_item->user_role_id;
-
 
         $main_video = Video::where('id', $videoId)->first();
         $units = Unit::where('course_id', $courseId)->get();
@@ -77,6 +77,10 @@ class VideoPlayerController extends Controller
                 });
            }
         )
+        // $comments_video = CommentVideo::where('state', 1)
+        // ->orWhere(function ($q) use ($user_role_id){
+        //     $q->where('user_role_id', $user_role_id);
+        // })
         ->where('video_id', $videoId)
         ->where('parent_id', 0)
         ->get();

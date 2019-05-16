@@ -1,4 +1,6 @@
-
+@php
+    // dd($comments_video);
+@endphp
 <div class="learning-discussion">
     <div class="ln-disc-header">
         <div id="btnCloseDiscussion"><i class="fas fa-times-circle"></i></div>
