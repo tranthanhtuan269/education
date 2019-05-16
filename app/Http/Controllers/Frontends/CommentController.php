@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Frontends;
 
 use Illuminate\Http\Request;
 use App\Video;
+use App\Course;
 use App\CommentVideo;
+use App\CommentCourse;
 use App\Transformers\CommentTransformer;
 use App\Helper\Helper;
 
@@ -25,19 +27,25 @@ class CommentController extends Controller
          $commentVideo->save();
          return \Response::json(array('status' => '200', 'message' => 'Cập nhật thông tin thành công!', 'commentVideo' => fractal($commentVideo, new CommentTransformer())->toArray()));
       }
-      return \Response::json(array('status' => '404', 'message' => 'Course Id không tồn tại!'));
+      return \Response::json(array('status' => '404', 'message' => 'Khóa học không tồn tại!'));
    }
 
    public function storeCommentCourse(Request $request){
-      $commentCourse = new CommentCourse;
-      $commentCourse->content = $request->content;
-      $commentCourse->user_id = \Auth::id();
-      $commentCourse->course_id = $request->course_id;
-      $commentCourse->parent_id = 0;
-      $commentCourse->state = 0;
-      $commentCourse->save();
+      $course_id = Course::find($request->course_id);
+      if($course_id){
+         $commentCourse = new CommentCourse;
+         $commentCourse->content = $request->content;
+         $commentCourse->user_role_id = Helper::getUserRoleOfCourse($request->course_id)->user_role_id;
+         $commentCourse->course_id = $request->course_id;
+         if(isset($request->parentId)){
+            $commentCourse->parent_id = $request->parentId;
+         }
+         $commentCourse->state = 0;
+         $commentCourse->save();
 
-      return \Response::json(array('status' => '200', 'message' => 'Cập nhật thông tin thành công!', 'commentVideo' => fractal($commentVideo, new CommentTransformer())->toArray()));
+         return \Response::json(array('status' => '200', 'message' => 'Cập nhật thông tin thành công!', 'commentCourse' => fractal($commentVideo, new CommentTransformer())->toArray()));
+      }
+      return \Response::json(array('status' => '404', 'message' => 'Khóa học không tồn tại!'));
    }
    
    public function createVideoComment($userId, $videoId){

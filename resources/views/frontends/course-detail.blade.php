@@ -351,12 +351,54 @@
                             type: "POST",
                             url: baseURL + '/reviews/store',
                             data: {
-                                couse_id: {{ $info_course->id }},
+                                course_id: {{ $info_course->id }},
                                 content : myEditor.getData()
                             },
                             dataType: 'json',
                             beforeSend: function() {
-                                $('.alert-errors').html('');
+                                var html = "";
+                                html += '<div class="box clearfix">';
+                                    html += '<div class="col-sm-3">';
+                                        html += '<img class="avatar" src="https://www.w3schools.com/howto/img_avatar.png" alt="">';
+                                        html += '<div class="info-account">';
+                                            html += '<p class="interval">1 week ago</p>';
+                                            html += '<p class="name">Bảo Minh</p>';
+                                        html += '</div>';
+                                    html += '</div>';
+                                    html += '<div class="col-sm-9">';
+                                        html += '<span class="star-rate">';
+                                        html += '<i class="fa fa-star co-or" aria-hidden="true"></i>';
+                                        html += '<i class="fa fa-star co-or" aria-hidden="true"></i>';
+                                    
+                                    
+                                        html += '<i class="far fa-star"></i>';
+                                        html += '<i class="far fa-star"></i>';
+                                        html += '<i class="far fa-star"></i>';
+                                    html += '</span>';
+
+                                        html += '<p class="comment">';
+                                            html += 'Khóa học em học được lâu dài ở đây ạ. Khóa học em học được rất ';
+                                        html += '</p>';
+                                        html += '<div class="btn-action">';
+                                            html += '<button type="button" class="btn btn-default">';
+                                                html += '<i class="fas fa-comment"></i>';
+                                                html += '<span>Share</span>';
+                                            html += '</button>';
+                                            html += '<button type="button" class="btn btn-default">';
+                                                html += '<i class="fas fa-thumbs-up"></i>';
+                                                html += '<span>Reply</span>';
+                                            html += '</button>';
+                                            html += '<button type="button" class="btn btn-default">';
+                                                html += '<i class="fas fa-thumbs-down"></i>';
+                                                html += '<span>Dislike</span>';
+                                            html += '</button>';
+                                        html += '</div>';
+                                    html += '</div>';
+                                    html += '<div class="col-sm-12">';
+                                        html += '<hr>';
+                                    html += '</div>';
+                                html += '</div>';
+                                $('#review-box').prepend(html);
                             },
                             complete: function(data) {
                                 if(data.status == 200){
@@ -367,7 +409,9 @@
                     });
                 </script>
 
-                @include('components.question-answer')
+                <div id="review-box">
+                    @include('components.question-answer')
+                </div>
             </div>
             <div class="col-sm-12 btn-seen-all">
                 <button type="button" class="btn">Seen all student feedback</button>
