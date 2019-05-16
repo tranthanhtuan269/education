@@ -10,15 +10,15 @@
 				</div>
 			</div>
 			<div class="slider">
-				@foreach ($feature_category as $key => $feature)
+				@foreach ($tags as $key => $tag)
 					@if ($key % 5 == 0)
 						<div class="row">
 							<div class="col-sm-5">
-								<a href="{{ url('/') }}/category/{{ $feature->slug }}" title="{{ $feature->name }}" class="thumbnail-img">
-									<img class="" src="{{ url('/frontend/images/'.$feature->image) }}" alt="{{ $feature->name }}" height="290">
+								<a href="{{ url('/') }}/category/{{ $tag->slug }}" title="{{ $tag->name }}" class="thumbnail-img">
+									<img class="" src="{{ url('/frontend/'.$tag->image) }}" alt="{{ $tag->name }}" height="290">
 									<div class="explore">
-										<h4 class="big-course">{{ $feature->name }}</h4>
-										<p class="big-course">Over {{ $feature->course_count }} courses</p>
+										<h4 class="big-course">{{ $tag->name }}</h4>
+										<p class="big-course">Over {{ $tag->course_count }} courses</p>
 									</div>
 								</a>
 							</div>
@@ -26,11 +26,11 @@
 								<div class="row">
 						@else
 							<div class="col-sm-6 item">
-								<a href="{{ url('/') }}/category/{{ $feature->slug }}" title="{{ $feature->name }}" class="thumbnail-img">
-									<img class="" src="{{ url('/frontend/images/'.$feature->image) }}" alt="{{ $feature->name }}" >
+								<a href="{{ url('/') }}/category/{{ $tag->slug }}" title="{{ $tag->name }}" class="thumbnail-img">
+									<img class="" src="{{ url('/frontend/'.$tag->image) }}" alt="{{ $tag->name }}" >
 									<div class="explore">
-										<h4>{{ $feature->name }}</h4>
-										<p>Over {{ $feature->course_count }} courses</p>
+										<h4>{{ $tag->name }}</h4>
+										<p>Over {{ $tag->course_count }} courses</p>
 									</div>
 								</a>
 							</div>

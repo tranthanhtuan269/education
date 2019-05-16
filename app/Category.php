@@ -23,6 +23,6 @@ class Category extends Model
 
     public function tags()
     {
-        return $this->hasMany('App\Tag','cat_id');
+        return $this->hasMany('App\Tag','category_id');
     }
 }

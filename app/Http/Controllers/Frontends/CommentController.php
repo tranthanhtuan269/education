@@ -9,17 +9,18 @@ use App\Transformers\CommentTransformer;
 class CommentController extends Controller
 {  
    public function store(Request $request){
-      // dd($request);
-      $commentVideo = new CommentVideo;
-      $commentVideo->user_role_id = \Auth::id();
-      $commentVideo->video_id = $request->videoId;
-      $commentVideo->content = $request->content;
-      $commentVideo->parent_id = 0;
-      
-      $commentVideo->save();
+      dd($request);
+      $commentCourse = new CommentCourse;
+      $commentCourse->content = $request->content;
+      $commentCourse->user_id = \Auth::id();
+      $commentCourse->course_id = $request->course_id;
+      $commentCourse->parent_id = 0;
+      $commentCourse->state = 0;
+      $commentCourse->save();
 
       return \Response::json(array('status' => '200', 'message' => 'Cập nhật thông tin thành công!', 'commentVideo' => fractal($commentVideo, new CommentTransformer())->toArray()));
    }
+   
    public function createVideoComment($userId, $videoId){
         
    }
