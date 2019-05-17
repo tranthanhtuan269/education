@@ -18,6 +18,7 @@
         <script type="text/javascript" src="{{ asset('frontend/js/jquery-3.2.1.min.js') }}"></script>
         <script src="{{ asset('frontend/js/slick.min.js') }}"></script>
         <script src="{{ asset('frontend/js/jssor.slider.min.js') }}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
         <title>@yield('title', 'Edu')</title>
         <meta name="description" content="@yield('description', '')"/>
         <meta name="keywords" content="@yield('keywords', '')"/>
@@ -308,8 +309,107 @@
                                     <span class="unica-sl-cart"><b>0</b></span>
                                 </a></li>
                                 @else
-                                <li class="special"><a class="unica-log-acc" href="/login">Login</a></li>
+                                <li class="special"><a class="unica-log-acc"  href="#" data-toggle="modal" data-target="#myModalLogin">Login</a></li>
                                 <li class="special"><a class="unica-reg-acc" href="/register">Sign Up</a></li>
+
+                                <div id="myModalLogin" class="modal fade" >
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">				
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">Login</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="/examples/actions/confirmation.php" method="post">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" placeholder="Username" name="name">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="password" class="form-control" placeholder="Password" name="pass">					
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="checkbox" name="remember"> Keep my logged in on this computer
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input class="btn btn-primary btn-block btn-lg" value="Login" onclick="loginAjax()">
+                                                    </div>
+                                                </form>				
+                                            </div>
+                                            <div class="modal-footer">
+                                                <a href="#">Forgot Password?</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <script>
+                                    function loginAjax(){
+                                        var email = $('#myModalLogin input[name=name]').val();
+                                        var password = $('#myModalLogin input[name=pass]').val();
+                                        var remember = $('#myModalLogin input[name=remember]').prop('checked');
+                                        var data = {
+                                            email:email,
+                                            password: password,
+                                            remember: remember,
+                                        };
+                                        $.ajaxSetup(
+                                        {
+                                            headers:
+                                            {
+                                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                            }
+                                        });
+                                        // console.log(data);
+                                        $.ajax({
+                                            method: "POST",
+                                            url: '{{ url("loginAjax") }}',
+                                            data: data,
+                                            dataType: 'json',
+                                            // beforeSend: function() {
+                                            //     $("#pre_ajax_loading").show();
+                                            // },
+                                            // complete: function() {
+                                            //     $("#pre_ajax_loading").hide();
+                                            // },
+                                            success: function (response) {
+                                                if(response.Response=='Error'){
+                                                    var check = response.Message;
+                                    
+                                                        var errors = '';
+                                                        $.each( response.Message, function( key, value) {
+                                                            errors += '<div class="alert-danger">'+value+'</div>';
+                                                        });
+                                                        swal({
+                                                            html: errors,
+                                                        })
+
+
+                                                }else{alert(1);
+                                                    window.location = window.location.href;
+                                                }
+                                            },
+                                            error: function (error) {
+                                           
+                                                var obj_errors = error.responseJSON.errors;
+                                                // console.log(obj_errors)
+                                                var txt_errors = '';
+                                                for (k of Object.keys(obj_errors)) {
+                                                    txt_errors += obj_errors[k][0] + '</br>';
+                                                }
+                                                //swal({ html:true, title:'<i>TITLE</i>', text:txt_errors});
+                                                swal({
+  html: 'Less is more.<br>',
+})
+                                            }
+                                        });
+
+                                        return false;
+                                    } 
+                                </script>
+
+
+
+
                                 @endif
                             </ul>
                     

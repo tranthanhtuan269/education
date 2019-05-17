@@ -40,8 +40,8 @@ class HomeController extends Controller
         $feature_category = Category::where('featured', 1)->orderBy('featured_index', 'asc')->limit(5)->get();
         // feature_course = trendding_course
         $feature_course = Course::where('category_id', $id_cat)->where('featured', 1)->orderBy('featured_index', 'asc')->limit(8)->get();
-        $best_seller_course = Course::orderBy('sale_count', 'asc')->limit(8)->get();
-        $new_course = Course::orderBy('sale_count', 'asc')->limit(8)->get();
+        $best_seller_course = Course::where('category_id', $id_cat)->orderBy('sale_count', 'asc')->limit(8)->get();
+        $new_course = Course::where('category_id', $id_cat)->orderBy('sale_count', 'asc')->limit(8)->get();
         $popular_teacher = Teacher::getTeacherBestVote();
         return view('frontends.course-category', compact('category', 'feature_category', 'feature_course', 'best_seller_course', 'new_course', 'popular_teacher'));
     }
@@ -51,7 +51,10 @@ class HomeController extends Controller
         $course = Course::where('slug', $course)->first();
         $related_course = Course::where('category_id', $course->category_id)->limit(4)->get();
         $info_course = Course::find($course->id);
-
+        // foreach ($info_course->userRoles as $key => $value) {
+        //    echo  $value->pivot->course_id;die;
+        // }
+        // dd($info_course->commentCourse[0]->commentLike);
         // echo '<pre>';
         // print_r($info_course->units);die;
         return view('frontends.course-detail', compact('related_course', 'info_course', 'unit'));

@@ -10,9 +10,9 @@ class UserCourse extends Model
         'user_role_id', 'course_id', 'status'
     ];
 
-    // public function course()
-    // {
-    //     return $this->hasMany('App\Course','course_id');
-    // }
+    public function course()
+    {
+        return $this->hasMany('App\Course','course_id');
+    }
 
 }

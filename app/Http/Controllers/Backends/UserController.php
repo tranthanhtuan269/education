@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Backends;
 
-use App\Http\Requests\StoreUserRequest;
-use App\Http\Requests\UpdateInfoRequest;
-use App\Http\Requests\UpdateUserRequest;
+use App\Http\Controllers\Backends\Requests\StoreUserRequest;
+use App\Http\Controllers\Backends\Requests\UpdateInfoRequest;
+use App\Http\Controllers\Backends\Requests\UpdateUserRequest;
 use App\Role;
 use App\User;
 use App\UserRole;

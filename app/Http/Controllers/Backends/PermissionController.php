@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Permission;
 use Validator,Cache;
-use App\Http\Requests\StorePermissionRequest;
-use App\Http\Requests\UpdatePermissionRequest;
+use App\Http\Controllers\Backends\Requests\StorePermissionRequest;
+use App\Http\Controllers\Backends\Requests\UpdatePermissionRequest;
 
 class PermissionController extends Controller
 {

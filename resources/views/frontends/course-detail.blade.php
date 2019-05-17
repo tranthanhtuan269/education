@@ -311,6 +311,7 @@
                 </div>
                 <div class="col-sm-8 rating-process">
                     <div class="row">
+                        <?php $tmp_percent_vote = 0; ?>
                         @for ($i = 5; $i <10; $i++)
                         <?php
                             if ($i == 5) {
@@ -321,11 +322,16 @@
                                 $count_star = $info_course->three_stars;
                             } elseif ($i == 8) {
                                 $count_star = $info_course->two_stars;
-                            } else{
+                            } elseif ($i == 9){
                                 $count_star = $info_course->one_stars;
                             }
-                            
-                            $percent_vote = number_format(($count_star / $info_course->vote_count)*100, 0, ',' , '.');
+
+                            if ($i == 9) {
+                                $percent_vote = 100 - $tmp_percent_vote;
+                            } else {
+                                $percent_vote = number_format(($count_star / $info_course->vote_count)*100, 0, ',' , '.');
+                                $tmp_percent_vote += $percent_vote;
+                            }
                         ?>
                         <div class="item-progress">
                             <div class="col-sm-9">
@@ -350,63 +356,82 @@
             </div>
             <div class="reviews">
                 <h3>Reviews</h3>
+                <?php
+                    $check_comment = false;
+                    if (Auth::check()) {
+                        foreach ($info_course->userRoles as $value) {
+                            if ($value->pivot->course_id == $info_course->id && $value->pivot->user_role_id == Auth::user()->id) {
+                                $check_comment = true;
+                                break;
+                            }
+                        }
+                    }
+
+                ?>
+
+                @if ($check_comment == true)
                 <script src="https://cdn.ckeditor.com/ckeditor5/12.0.0/classic/ckeditor.js"></script>
-                <textarea name="content" id="editor">Comment...</textarea>
+                <textarea name="content" id="editor-comment" placeholder="Comment..."></textarea>
                 <div class="btn-submit">
                     <input class="submit-question" type="submit" value="SUBMIT A QUESTION" id="create-comment-new"/>
                 </div>
                 <script>
                     ClassicEditor
-                        .create( document.querySelector( '#editor' ) )
+                        .create( document.querySelector( '#editor-comment' ) )
                         .then( editor => {
-                                console.log( editor );
+                            content = editor;
                         } )
                         .catch( error => {
                                 console.error( error );
                     } );
 
+                    var errorConnect = "Please check your internet connection and try again.";
                     $('#create-comment-new').click(function(){
-                        alert(1)
-                        url = baseURL + '/admincp/categories';
                         var data    = {
                             _method           : "POST",
-                            name : $('input[name=name]').val(),
-                            description : $('textarea[name=description]').val(),
-                            parent_id : $('select[name=parent_id]').val(),
-                            image : $('input[name=image]').val(),
-                            keywords : $('input[name=keywords]').val(),
-                            seo_title : $('input[name=seo_title]').val(),
-                            seo_description : $('textarea[name=seo_description]').val(),
+                            content : content.getData(),
+                            course_id : {{ $info_course->id }},
+                            parent_id : 0,
+                            state : 0,
                         };
+
+                        $.ajaxSetup({
+                            headers: {
+                            'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
 
                         $.ajax({
                             type: "POST",
-                            url: url,
+                            url: '{{ url("/comment/comment-course") }}',
                             data: data,
                             dataType: 'json',
                             beforeSend: function() {
                                 $('.alert-errors').html('');
                             },
                             complete: function(data) {
-                                if(data.responseJSON.status == 200){
-                                    $().toastmessage('showSuccessToast', data.responseJSON.Message);
-                                    setTimeout(function(){ window.location.href = baseURL + "/admincp/categories"; }, 1000);
-                                }else{
-                                    if(data.status == 422){
+                                if (data.responseJSON.status == 200) {
+                                    // alert('ok');
+                                    $().toastmessage('showSuccessToast', data.responseJSON.message);
+                                    setTimeout(function() {
+                                        window.location.href = '{{ url()->current() }}';
+                                    }, 1000);
+                                } else {
+                                    if (data.status == 422) {
                                         $().toastmessage('showErrorToast', 'Errors');
                                         var tmp = 0;
-                                        $.each(data.responseJSON.errors, function( index, value ) {
-                                        $('.alert-' + index).html(value);
-                                        if (tmp == 0) {
-                                            $('.alert-' + index).attr("tabindex",-1).focus();
-                                        }
-                                        tmp++;
+                                        $.each(data.responseJSON.errors, function(index, value) {
+                                            $('.alert-' + index).html(value);
+                                            if (tmp == 0) {
+                                                $('.alert-' + index).attr("tabindex", -1).focus();
+                                            }
+                                            tmp++;
                                         });
-                                    }else{
-                                        if(data.status == 401){
-                                        window.location.replace(baseURL);
-                                        }else{
-                                        $().toastmessage('showErrorToast', errorConnect);
+                                    } else {
+                                        if (data.status == 401) {
+                                            window.location.replace(baseURL);
+                                        } else {
+                                            $().toastmessage('showErrorToast', errorConnect);
                                         }
                                     }
                                 }
@@ -414,8 +439,9 @@
                         });
                     });
                 </script>
-
                 @include('components.question-answer')
+                @endif
+
             </div>
             <div class="col-sm-12 btn-seen-all">
                 <button type="button" class="btn">Seen all student feedback</button>
@@ -430,6 +456,7 @@
     </div>
 </div>
 <script type="text/javascript">
+    
     $(document).ready(function() {  
         $('.go-box').click(function() {
             var box = $(this).attr('data-box');
@@ -440,11 +467,10 @@
                     scrollTop: top_scroll - 100
                 }, 'slow');
             }
-            // $('.box_header .menu-main.mobile').addClass('hidden-xs hidden-sm');
-            // $('.go-box').removeClass('active');
-            // $(this).addClass('active');
-    
         });
+
+
+
     });
 </script>
 @endsection
