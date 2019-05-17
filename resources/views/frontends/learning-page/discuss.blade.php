@@ -1,6 +1,3 @@
-@php
-    // dd($comments_video);
-@endphp
 <div class="learning-discussion">
     <div class="ln-disc-header">
         <div id="btnCloseDiscussion"><i class="fas fa-times-circle"></i></div>
@@ -15,14 +12,14 @@
                     <button class="btn">Ask a question or share your opinions</button>
                 </div>
                 <script>
-                    var myEditor;
+                    var discussEditor;
                         ClassicEditor
                             .create( document.querySelector( '#discussionEditor' ),{
                                 toolbar: ['bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ],
                             } )
                             .then(editor =>{
-                                myEditor = editor
-                            })
+                                discussEditor = editor
+                            } )
                             .catch( error => {
                                 console.error( error );
                             } );                                
@@ -42,12 +39,13 @@
                             @php
                                 $comment_user_role_id = $comment_video->userRole->role_id;
                             @endphp
-                        <p>{{$comment_video->userRole->user->name}} - 
-                        @php
-                            echo $comment_user_role_id == 1 ? "Student" : ($comment_user_role_id == 2 ? "Teacher" : "Affliate");
-                        @endphp 
-                        </p>
-                        <span><em>{{$comment_video->created_at}}</em></span>
+                            <p>{{$comment_video->userRole->user->name}} - {{ $comment_user_role_id == 1 ? "Student" : ($comment_user_role_id == 2 ? "Teacher" : "Affliate") }}    
+                            </p>
+                        @if ( ($momentNow->diff($comment_video->created_at, 'months')) <= 1  )
+                            <span><i>{{$momentNow->from($comment_video->created_at)}}</i></span>                    
+                        @else
+                            <span><i>{{ $comment_video->created_at->format("d F Y") }}</i></span>                        
+                        @endif
                         </div>
                         <div class="ln-disc-post-short-content" id="discComment{{$comment_video->id}}">
                             {!!$comment_video->content!!}
@@ -70,10 +68,15 @@
                                         @endphp
                                     <p>{{$sub_comment_video->userRole->user->name}} - 
                                     @php
+                                        // 1: Student, 2:Teacher
                                         echo $sub_comment_user_role_id == 1 ? "Student" : ($sub_comment_user_role_id == 2 ? "Teacher" : "Affliate");
                                     @endphp 
                                     </p>
-                                    <span><em>{{$sub_comment_video->created_at}}</em></span>
+                                    @if ( ($momentNow->diff($sub_comment_video->created_at, 'months')) <= 1  )
+                                        <span><i>{{$momentNow->from($sub_comment_video->created_at)}}</i></span>                    
+                                    @else
+                                        <span><i>{{ $sub_comment_video->created_at->format("d F Y") }}</i></span>                        
+                                    @endif
                                 </div>
                                 <div class="ln-disc-comment-content">
                                     {!!$sub_comment_video->content!!}
@@ -102,68 +105,89 @@
 </div>
 
 <script >
-    $(".ln-disc-input-bar .btn-submit button").click(function () {
+    
+    $(document).on("click", ".ln-disc-input-bar .btn-submit button", function () {
         addComment()
     })
-    $(".ln-disc-comment-input button").click(function () {
+    $(document).on("click", ".ln-disc-comment-input button" ,function () {
         var parentId = $(this).attr("data-child")
-        alert(1)
         addSubComment(parentId)
     })
-    
+
+
     function addComment(){
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        var request = $.ajax({
-        url: "{{ url('comments') }}",
-        method: "POST",
-        data: {
-            videoId: {{ $main_video->id }},
-            content: myEditor.getData(),
-            type : "discussionComment",
-        },
-        dataType: "json"
-        });
-        
-        request.done(function( response ) {
-            if(response.status == 200){
-                var html = '';
-                html += '<div class="ln-disc-post-wrapper">';
-                    html += '<div data-toggle="collapse" data-target="#discWrapper'+($('.ln-disc-post-wrapper').length + 1) +'">';
-                        html += '<div class="ln-disc-post-left">';
-                            html += '<img src="/'+response.commentVideo.data.avatar+'" width="60px" alt="">';
-                        html += '</div>';
-                        html += '<div class="ln-disc-post-right">';
-                            html += '<div class="ln-disc-post-username">';
-                            html += '<p>'+response.commentVideo.data.username+' - ';
-                            html += response.commentVideo.data.userType;
-                            html += '</p>';
-                            html += '<span><em>'+response.commentVideo.data.created_at+'</em></span>';
+        if( discussEditor.getData() == ""){
+            Swal.fire({
+                type: "warning",
+                text:"Content cannot be empty!"
+            })         
+            // Swal.fire('Any fool can use a computer')
+    
+        }else{
+            var request = $.ajax({
+            url: "{{ url('comments') }}",
+            method: "POST",
+            data: {
+                videoId: {{ $main_video->id }},
+                content: discussEditor.getData(),
+                type : "discussionComment",
+            },
+            dataType: "json"
+            });
+
+            request.done(function( response ) {
+                if(response.status == 200){
+                    var id = response.commentVideo.data.id
+                    var avatar = response.commentVideo.data.avatar
+                    var username = response.commentVideo.data.username
+                    var userType = response.commentVideo.data.userType
+                    var createdAt = response.commentVideo.data.created_at
+                    var content = response.commentVideo.data.content
+
+                    var html = '';
+                    html += '<div class="ln-disc-post-wrapper">';
+                        html += '<div data-toggle="collapse" data-target="#discWrapper'+ id +'">';
+                            html += '<div class="ln-disc-post-left">';
+                                html += '<img src="/'+ avatar +'" width="60px" alt="">';
                             html += '</div>';
-                            html += '<div class="ln-disc-post-short-content" id="discComment'+($('.ln-disc-post-wrapper').length + 1) +'">';
-                                html += '<p>'+response.commentVideo.data.content+'</p>';
+                            html += '<div class="ln-disc-post-right">';
+                                html += '<div class="ln-disc-post-username">';
+                                html += '<p>'+ username +' - ';
+                                html += userType;
+                                html += '</p>';
+                                html += '<span><em>Just now</em></span>';
+                                html += '</div>';
+                                html += '<div class="ln-disc-post-short-content" id="discComment'+ id +'">';
+                                    html += '<p>'+ content +'</p>';
+                                html += '</div>';
+                            html += '</div>';
+                        html += '</div>';
+                        
+                        html += '<div id="discWrapper'+ id +'" data-parent="'+ id +'" class="ln-disc-comment-wrapper collapse">';
+                            html += '<div class="ln-disc-comment-input input-group" id="#discSubCommentInput'+ id +'" data-parent="'+id+'">';
+                                html += '<input id="input-'+ id +'" data-child="'+ id +'" type="text" class="form-control" placeholder="Comment...">';
+                                html += '<span class="input-group-btn">';
+                                    html += '<button data-child="'+ id +'" class="btn btn-default" type="button">Go</button>';
+                                html += '</span>';
                             html += '</div>';
                         html += '</div>';
                     html += '</div>';
                     
-                    html += '<div id="discWrapper'+($('.ln-disc-post-wrapper').length + 1) +'" data-parent="'+($('.ln-disc-post-wrapper').length + 1) +'" class="ln-disc-comment-wrapper collapse">';
-                        html += '<div class="ln-disc-comment-input input-group">';
-                            html += '<input type="text" class="form-control" placeholder="Comment...">';
-                            html += '<span class="input-group-btn">';
-                                html += '<button class="btn btn-default" type="button">Go</button>';
-                            html += '</span>';
-                        html += '</div>';
-                    html += '</div>';
-                html += '</div>';
-                $('.ln-disc-post-list').prepend(html);
-            }
-        });
+
+                    $('.ln-disc-post-list').prepend(html);
+                    discussEditor.setData("")
+                }
+            });
+        }
+        
         
         request.fail(function( jqXHR, textStatus ) {
-            alert( "Request failed: " + textStatus );
+            return false;
         });        
     }
 
@@ -173,47 +197,60 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        var request = $.ajax({
-            url: "{{ url('comments') }}",
-            method: "POST",
-            data: {
-                videoId: {{ $main_video->id }},
-                content: $("#discSubCommentInput"+parentId+" input").val(),
-                type : "discussionComment",
-                parentId : parentId,
-            },
-            dataType: "json",
-        })
-        
-        request.done(function( response ) {
-            if(response.status == 200){
-                console.log(response);
-                
-                var html = '';
-                html += '<div class="ln-disc-comment">';
-                    html += '<div class="ln-disc-comment-left">';
-                        html += '<img src="/'+response.commentVideo.data.avatar +'" width="40px" alt="">';
+        if($('input[data-child="'+parentId+'"]').val() == ""){
+            Swal.fire({
+                text:"Content cannot be empty!"
+            })
+        }else{
+            var request = $.ajax({
+                url: "{{ url('comments') }}",
+                method: "POST",
+                data: {
+                    videoId: {{ $main_video->id }},
+                    content: $('input[data-child="'+parentId+'"]').val(),
+                    type : "discussionComment",
+                    parentId : parentId,
+                },
+                dataType: "json",
+            })
+            
+            request.done(function( response ) {
+                if(response.status == 200){
+                    console.log(response);
+                    
+                    var avatar = response.commentVideo.data.avatar
+                    var username = response.commentVideo.data.username
+                    var userType = response.commentVideo.data.userType
+                    var createdAt = response.commentVideo.data.created_at
+                    var content = response.commentVideo.data.content
+
+                    var html = '';
+                    html += '<div class="ln-disc-comment">';
+                        html += '<div class="ln-disc-comment-left">';
+                            html += '<img src="/'+ avatar +'" width="40px" alt="">';
+                        html += '</div>';
+                        html += '<div class="ln-disc-comment-right">';
+                            html += '<div class="ln-disc-comment-username">';
+                                html += '<p>'+ username +' - '+ userType +'</p>';
+                                html += '<span><em>Just now</em></span>';
+                            html += '</div>';
+                            html += '<div class="ln-disc-comment-content">';
+                                html += '<p>'+ content +'</p>';
+                            html += '</div>';
+                            html += '<div class="ln-disc-reply">';
+                                html += '<a><strong>Reply</strong></a>';
+                            html += '</div>';
+                        html += '</div>';
                     html += '</div>';
-                    html += '<div class="ln-disc-comment-right">';
-                        html += '<div class="ln-disc-comment-username">';
-                            html += '<p>'+response.commentVideo.data.username +' - '+response.commentVideo.data.userType +'</p>';
-                            html += '<span><em>'+response.commentVideo.data.created_at +'</em></span>';
-                        html += '</div>';
-                        html += '<div class="ln-disc-comment-content">';
-                            html += '<p>'+response.commentVideo.data.content +'</p>';
-                        html += '</div>';
-                        html += '<div class="ln-disc-reply">';
-                            html += '<a><strong>Reply</strong></a>';
-                        html += '</div>';
-                    html += '</div>';
-                html += '</div>';
-                // $("input[data-child="+response.commentVideo.data.parentId+"]").before(html)
-                $('#discSubCommentInput'+response.commentVideo.data.parentId).before(html);
-            }
-        });
-        
-        request.fail(function( jqXHR, textStatus ) {
-            alert( "Request failed: " + textStatus );
-        });    
+                    // $("input[data-child="+response.commentVideo.data.parentId+"]").before(html)
+                    $('.ln-disc-comment-input[data-parent="'+parentId+'"]').before(html);
+                    $('input[data-child="'+parentId+'"]').val("")
+                }
+            });
+            
+            request.fail(function( jqXHR, textStatus ) {
+                return false;
+            });
+        }
     }
 </script>

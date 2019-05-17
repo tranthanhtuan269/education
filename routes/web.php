@@ -95,3 +95,5 @@ Route::post('reviews/create', 'CommentController@create');
 Route::get('test', 'Frontends\HomeController@test');
 
 Route::resource('comments', 'Frontends\CommentController');
+Route::resource('notes', 'Frontends\NoteController');
+Route::get('logout', 'Frontends\HomeController@logout');

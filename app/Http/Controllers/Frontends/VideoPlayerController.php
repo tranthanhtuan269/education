@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Course;
 use App\Unit;
 use App\Video;
+use App\Note;
 use App\CommentVideo;
 use App\UserCourse;
 use App\UserRole;
@@ -53,21 +54,15 @@ class VideoPlayerController extends Controller
      */
     public function show($courseId, $videoId)
     {   
-        $demanding_user_role_item = Helper::getUserRoleOfCourse($courseId);
-        if($demanding_user_role_item == null) abort(403, 'Unauthorized action.');
-        
-        //1: Student, 2: Teacher
-        if($demanding_user_role_item->status == 1){
-            $demanding_user_role = "Student";
-        }else if($demanding_user_role_item->status == 2){
-            $demanding_user_role = "Teacher";
-        }
-        // dd($demanding_user_role_item);
-
-        $user_role_id = $demanding_user_role_item->user_role_id;
-
+        $course = Course::find($courseId);
         $main_video = Video::where('id', $videoId)->first();
         $units = Unit::where('course_id', $courseId)->get();
+        $notes = Note::where('video_id', $videoId)->where('user_id', Auth::id())->orderBy('created_at', 'desc')->get();
+        $demanding_user_course_item = Helper::getUserRoleOfCourse($courseId);
+        
+        if($demanding_user_course_item == null) abort(403, 'Unauthorized action.');
+
+        $user_role_id = $demanding_user_course_item->user_role_id;
 
         $comments_video = CommentVideo::where(
             function($q) use ($user_role_id){
@@ -77,12 +72,9 @@ class VideoPlayerController extends Controller
                 });
            }
         )
-        // $comments_video = CommentVideo::where('state', 1)
-        // ->orWhere(function ($q) use ($user_role_id){
-        //     $q->where('user_role_id', $user_role_id);
-        // })
         ->where('video_id', $videoId)
         ->where('parent_id', 0)
+        ->orderBy('created_at', 'desc')
         ->get();
 
         $sub_comments_video = CommentVideo::where(
@@ -95,21 +87,35 @@ class VideoPlayerController extends Controller
         )
         ->where('video_id', $videoId)
         ->where('parent_id', "!=", 0)
+        ->orderBy('created_at', 'asc')
         ->get();
 
-        $course = Course::find($courseId);
-        $unit_list = [];
+        // $main_video_id = $main_video->unit->course->id; 
+        $video_id_list = [];
         foreach ($units as $unit) {
-            $singleVideo = Video::where('unit_id', $unit->id)->get();
-            array_push($unit_list, $singleVideo);
+            foreach ($unit->videos as $key => $video) {
+                array_push($video_id_list, $video->id);
+            }
         }
+        
+        $main_video_id_key = null;
+        foreach ($video_id_list as $key => $value) {
+            if($value == $videoId){
+                $main_video_id_key = $key;
+            }
+        }
+
+
         return view('frontends.learning-page.index', [
-            'course'         => $course,
-            'units'          => $units,
-            'unit_list'      => $unit_list,
-            'comments_video' => $comments_video,
+            'course'             => $course,
+            'units'              => $units,
+            'notes'              => $notes,
+            'video_id_list'      => $video_id_list,
+            'comments_video'     => $comments_video,
             'sub_comments_video' => $sub_comments_video,
-            'main_video'     => $main_video,
+            'main_video'         => $main_video,
+            // 'main_video_id'      => $main_video_id,
+            'main_video_id_key'  => $main_video_id_key,
         ]);
     }
 
@@ -145,5 +151,7 @@ class VideoPlayerController extends Controller
     public function destroy($id)
     {
         //
+
+        
     }
 }

@@ -10,6 +10,9 @@ use App\Helper\Helper;
 
 class CommentController extends Controller
 {  
+   public function index(){
+      
+   }
    public function store(Request $request){
       
       $video = Video::find($request->videoId);

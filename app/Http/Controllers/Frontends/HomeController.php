@@ -107,4 +107,8 @@ class HomeController extends Controller
     public function courseList(){
         return view('frontends.course-list');
     }
+
+    public function logout(){
+        \Auth::logout();
+    }
 }

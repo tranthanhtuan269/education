@@ -5,6 +5,9 @@ li { margin: 0px; padding: 0px; list-style: none; }
 body{
     font-family: 'Open Sans', sans-serif !important;
 }
+.swal2-popup{
+    font-size: 1.5rem !important;
+}
 .learning-video{
     margin: 0;
     padding: 0;
@@ -324,14 +327,18 @@ body{
     font-size: 15px;
     background-color: #ffffff;    
     border-top: 1px solid #F2F3F7;
-    padding: 5px 1rem 5px;
+    padding: 5px 0 5px;
     text-align: justify;
 }
 .ln-lect-list-body li{
     text-decoration: none !important;
     display: flex;
     justify-content: space-between;
-    padding: 15px 5px;
+    padding: 15px 2rem;
+}
+.ln-lect-list-body li:hover{
+    cursor: pointer;
+    background: #f2f3f5;
 }
 .ln-lect-list-body li .active{
     background-color: lightblue;
@@ -441,6 +448,7 @@ body{
 .vjs-custom-big-play-button.rightbarActive{
     width: calc(100vw - 500px);
     left: 0;
+    /* display: block !important; */
 }
 
 .video-js .vjs-control:focus{

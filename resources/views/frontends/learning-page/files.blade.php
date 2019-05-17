@@ -10,7 +10,7 @@
                 <div>
                     <a href="">
                         <p>
-                            <i class="fas fa-file-archive"></i>&nbsp;
+                            <i class="fas fa-link"></i>&nbsp;
                             A google drive link
                         </p>
                     </a>
@@ -21,7 +21,7 @@
                     
                     <a href="">
                         <p>
-                            <i class="fas fa-file-archive"></i>&nbsp;
+                            <i class="fas fa-link"></i>&nbsp;
                             A dropbox link
                         </p>
                     </a>
@@ -32,7 +32,7 @@
                     <a href="">
                         
                         <p>
-                            <i class="fas fa-file-archive"></i>&nbsp;
+                            <i class="fas fa-link"></i>&nbsp;
                             An one drive link
                         </p>
                     </a>
