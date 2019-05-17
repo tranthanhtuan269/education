@@ -61,6 +61,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'clearance' => \App\Http\Middleware\ClearanceMiddleware::class,
+        'clearance-frontend' => \App\Http\Middleware\ClearanceFrontendMiddleware::class,
     ];
 
     /**

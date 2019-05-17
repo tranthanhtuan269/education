@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c27571d185f06cbbbfde8cb656eb8211",
+    "content-hash": "cd779e73e2a6804ab14e3044c1cea11a",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -461,16 +461,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.8.15",
+            "version": "v5.8.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "8a34004aed6ff0aa4072360e3e5bd875edebc223"
+                "reference": "33c04dd2a431adeeb49926a4f2b20590cc033ca2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/8a34004aed6ff0aa4072360e3e5bd875edebc223",
-                "reference": "8a34004aed6ff0aa4072360e3e5bd875edebc223",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/33c04dd2a431adeeb49926a4f2b20590cc033ca2",
+                "reference": "33c04dd2a431adeeb49926a4f2b20590cc033ca2",
                 "shasum": ""
             },
             "require": {
@@ -604,7 +604,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2019-04-30T14:05:03+00:00"
+            "time": "2019-05-14T16:02:41+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -822,70 +822,6 @@
             "time": "2019-03-30T13:22:34+00:00"
         },
         {
-            "name": "league/fractal",
-            "version": "0.18.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/thephpleague/fractal.git",
-                "reference": "4e553dae1a9402adbe11c81430a64675dc97b4fc"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/fractal/zipball/4e553dae1a9402adbe11c81430a64675dc97b4fc",
-                "reference": "4e553dae1a9402adbe11c81430a64675dc97b4fc",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4"
-            },
-            "require-dev": {
-                "doctrine/orm": "^2.5",
-                "illuminate/contracts": "~5.0",
-                "mockery/mockery": "~0.9",
-                "pagerfanta/pagerfanta": "~1.0.0",
-                "phpunit/phpunit": "^4.8.35 || ^7.5",
-                "squizlabs/php_codesniffer": "~1.5",
-                "zendframework/zend-paginator": "~2.3"
-            },
-            "suggest": {
-                "illuminate/pagination": "The Illuminate Pagination component.",
-                "pagerfanta/pagerfanta": "Pagerfanta Paginator",
-                "zendframework/zend-paginator": "Zend Framework Paginator"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "0.13-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "League\\Fractal\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Phil Sturgeon",
-                    "email": "me@philsturgeon.uk",
-                    "homepage": "http://philsturgeon.uk/",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Handle the output of complex data structures ready for API output.",
-            "homepage": "http://fractal.thephpleague.com/",
-            "keywords": [
-                "api",
-                "json",
-                "league",
-                "rest"
-            ],
-            "time": "2019-05-10T02:16:43+00:00"
-        },
-        {
             "name": "monolog/monolog",
             "version": "1.24.0",
             "source": {
@@ -965,16 +901,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.17.1",
+            "version": "2.18.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "96acbc0c03782e8115156dd4dd8b736267155066"
+                "reference": "8322b7bd1805be31867c13bf3cdaab948a0dd406"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/96acbc0c03782e8115156dd4dd8b736267155066",
-                "reference": "96acbc0c03782e8115156dd4dd8b736267155066",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/8322b7bd1805be31867c13bf3cdaab948a0dd406",
+                "reference": "8322b7bd1805be31867c13bf3cdaab948a0dd406",
                 "shasum": ""
             },
             "require": {
@@ -1021,7 +957,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2019-04-27T18:04:27+00:00"
+            "time": "2019-05-16T18:44:35+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -1531,126 +1467,6 @@
             "time": "2018-07-19T23:38:55+00:00"
         },
         {
-            "name": "spatie/fractalistic",
-            "version": "2.8.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/spatie/fractalistic.git",
-                "reference": "9d29952f4552d6fc117e1f44f89d8dfdd36c393d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/spatie/fractalistic/zipball/9d29952f4552d6fc117e1f44f89d8dfdd36c393d",
-                "reference": "9d29952f4552d6fc117e1f44f89d8dfdd36c393d",
-                "shasum": ""
-            },
-            "require": {
-                "league/fractal": "^0.18.0",
-                "php": "^7.0"
-            },
-            "require-dev": {
-                "illuminate/pagination": "~5.3.0|~5.4.0",
-                "phpunit/phpunit": "^5.7.21"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Spatie\\Fractalistic\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Freek Van der Herten",
-                    "email": "freek@spatie.be",
-                    "homepage": "https://spatie.be",
-                    "role": "Developer"
-                }
-            ],
-            "description": "A developer friendly wrapper around Fractal",
-            "homepage": "https://github.com/spatie/fractalistic",
-            "keywords": [
-                "api",
-                "fractal",
-                "fractalistic",
-                "spatie",
-                "transform"
-            ],
-            "time": "2019-05-13T07:08:06+00:00"
-        },
-        {
-            "name": "spatie/laravel-fractal",
-            "version": "5.5.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/spatie/laravel-fractal.git",
-                "reference": "d5061c2463379aeda7c83cb3960981b519eb9e3c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-fractal/zipball/d5061c2463379aeda7c83cb3960981b519eb9e3c",
-                "reference": "d5061c2463379aeda7c83cb3960981b519eb9e3c",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/contracts": "~5.7.0|~5.8.0",
-                "illuminate/support": "~5.7.0|~5.8.0",
-                "php": "^7.2",
-                "spatie/fractalistic": "^2.5"
-            },
-            "require-dev": {
-                "dms/phpunit-arraysubset-asserts": "^0.1.0",
-                "orchestra/testbench": "~3.7.0|~3.8.0",
-                "phpunit/phpunit": "^8.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Spatie\\Fractal\\FractalServiceProvider"
-                    ],
-                    "aliases": {
-                        "Fractal": "Spatie\\Fractal\\FractalFacade"
-                    }
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Spatie\\Fractal\\": "src"
-                },
-                "files": [
-                    "src/helpers.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Freek Van der Herten",
-                    "email": "freek@spatie.be",
-                    "homepage": "https://spatie.be",
-                    "role": "Developer"
-                }
-            ],
-            "description": "An easy to use Fractal integration for Laravel applications",
-            "homepage": "https://github.com/spatie/laravel-fractal",
-            "keywords": [
-                "api",
-                "fractal",
-                "laravel",
-                "laravel-fractal",
-                "lumen",
-                "spatie",
-                "transform"
-            ],
-            "time": "2019-03-13T14:18:31+00:00"
-        },
-        {
             "name": "swiftmailer/swiftmailer",
             "version": "v6.2.1",
             "source": {
@@ -1786,16 +1602,16 @@
         },
         {
             "name": "symfony/contracts",
-            "version": "v1.0.2",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/contracts.git",
-                "reference": "1aa7ab2429c3d594dd70689604b5cf7421254cdf"
+                "reference": "d3636025e8253c6144358ec0a62773cae588395b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/contracts/zipball/1aa7ab2429c3d594dd70689604b5cf7421254cdf",
-                "reference": "1aa7ab2429c3d594dd70689604b5cf7421254cdf",
+                "url": "https://api.github.com/repos/symfony/contracts/zipball/d3636025e8253c6144358ec0a62773cae588395b",
+                "reference": "d3636025e8253c6144358ec0a62773cae588395b",
                 "shasum": ""
             },
             "require": {
@@ -1803,19 +1619,22 @@
             },
             "require-dev": {
                 "psr/cache": "^1.0",
-                "psr/container": "^1.0"
+                "psr/container": "^1.0",
+                "symfony/polyfill-intl-idn": "^1.10"
             },
             "suggest": {
                 "psr/cache": "When using the Cache contracts",
                 "psr/container": "When using the Service contracts",
                 "symfony/cache-contracts-implementation": "",
+                "symfony/event-dispatcher-implementation": "",
+                "symfony/http-client-contracts-implementation": "",
                 "symfony/service-contracts-implementation": "",
                 "symfony/translation-contracts-implementation": ""
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0-dev"
+                    "dev-master": "1.1-dev"
                 }
             },
             "autoload": {
@@ -1850,7 +1669,7 @@
                 "interoperability",
                 "standards"
             ],
-            "time": "2018-12-05T08:06:11+00:00"
+            "time": "2019-04-27T14:29:50+00:00"
         },
         {
             "name": "symfony/css-selector",
@@ -2887,16 +2706,16 @@
         },
         {
             "name": "yajra/laravel-datatables-oracle",
-            "version": "v9.1.1",
+            "version": "v9.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yajra/laravel-datatables.git",
-                "reference": "1fc2ca80b867441a6717b15684f78a3670427c94"
+                "reference": "177b4360031ba1e7c040622b12cfd563d33274c6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yajra/laravel-datatables/zipball/1fc2ca80b867441a6717b15684f78a3670427c94",
-                "reference": "1fc2ca80b867441a6717b15684f78a3670427c94",
+                "url": "https://api.github.com/repos/yajra/laravel-datatables/zipball/177b4360031ba1e7c040622b12cfd563d33274c6",
+                "reference": "177b4360031ba1e7c040622b12cfd563d33274c6",
                 "shasum": ""
             },
             "require": {
@@ -2954,7 +2773,7 @@
                 "jquery",
                 "laravel"
             ],
-            "time": "2019-04-26T08:38:28+00:00"
+            "time": "2019-05-09T02:07:53+00:00"
         }
     ],
     "packages-dev": [
@@ -3982,16 +3801,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "7.5.9",
+            "version": "7.5.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "134669cf0eeac3f79bc7f0c793efbc158bffc160"
+                "reference": "64cb33f5b520da490a7b13149d39b43cf3c890c6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/134669cf0eeac3f79bc7f0c793efbc158bffc160",
-                "reference": "134669cf0eeac3f79bc7f0c793efbc158bffc160",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/64cb33f5b520da490a7b13149d39b43cf3c890c6",
+                "reference": "64cb33f5b520da490a7b13149d39b43cf3c890c6",
                 "shasum": ""
             },
             "require": {
@@ -4062,7 +3881,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2019-04-19T15:50:46+00:00"
+            "time": "2019-05-14T04:53:02+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",

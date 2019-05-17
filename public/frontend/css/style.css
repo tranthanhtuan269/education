@@ -3,7 +3,18 @@ iframe{width:100%}
 .clearfix::after{content:"";display:block;clear:both;height:0;visibility:hidden;overflow:hidden}
 body,h1,h2,h3,h4,h5,h6,form,input,select,ul,textarea{margin:0;padding:0}
 article,aside,details,figcaption,figure,footer,header,hgroup,menu,section{display:block}
-body{font-family:'Poppins',sans-serif;font-size:14px}
+body{font-family:'Poppins',sans-serif;font-size:14px; padding-right: 0 !important;}
+.modal {
+    overflow-y: auto;
+}
+
+.modal-open {
+    overflow: auto;
+}
+.modal-open[style] {
+    padding-right: 0px !important;
+}
+
 ol,ul{list-style:none}
 blockquote,q{quotes:none}
 blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}
@@ -76,6 +87,24 @@ nav .pagination li a img{width:35px;position:relative;top:-6px}
 .lessons .u-list-course .panel-body{padding:0}
 .col-width-lg{margin:0 auto}
 .unica-home-menutop{border-bottom:1px solid #e1e1e1;-webkit-box-shadow:0 1px 3px 0 rgba(0,0,0,0.75);-moz-box-shadow:0 1px 3px 0 rgba(0,0,0,0.75);box-shadow:0 1px 3px 0 rgba(0,0,0,0.75)}
+.unica-home-menutop .db-item { margin-top: 13px; display: inline-block;width: 100%; }
+.unica-home-menutop  .db-item .unica-active-course { margin-top: 0; }
+.unica-home-menutop  .db-item li { display: inline; float: left; margin-right: 20px; }
+.unica-home-menutop  .db-item li:last-child { float: right; margin-right: 0px; padding-top: 5px;}
+.unica-home-menutop  .db-item .dropdown-menu li:last-child {  padding-top: 0;}
+.unica-home-menutop  .db-item li.btn-group.open > a { box-shadow: unset; }
+.dropdown-menu li { display: inline-block; width: 100% }
+.unica-home-menutop  .db-item-learn { padding: 10px; border-radius: 3px; background: #03A9F4; color: #fff; display: block;  }
+.unica-home-menutop  .db-item-learn:hover { opacity: .8 }
+.unica-home-menutop  .db-item-circle { display: inline-block; }
+.unica-home-menutop  .db-item-circle img { max-height: 30px; max-width: 30px; border-radius: 25px; float: left; min-height: 30px; margin-top: -3px; }
+
+.unica-home-menutop  .db-item-circle i { font-size: 24px; color: #0097e3; display: block; float: left;  }
+.unica-home-menutop  .db-item .caret {     display: block;    float: right;    margin-top: 12px; margin-left: 7px; color: #777 }
+.unica-home-menutop  .db-drop {right: 0; left: auto; top: 40px;}
+.unica-home-menutop  .db-drop li > a { padding: 10px 20px; }
+.unica-home-menutop  .db-drop i { width: 30px; text-align: center; }
+
 .unica-logo{padding:13px 0 15px;float:left}
 .unica-menu-cate{display:inline-block;margin:25px 0 0 16px;cursor:pointer;position:relative;color:#555}
 .unica-menu-cate i{font-size:18px;margin-right:5px;vertical-align:middle}
@@ -85,13 +114,13 @@ nav .pagination li a img{width:35px;position:relative;top:-6px}
 .unica-search-boxtop input.unica-form{border-radius:25px;background:#EDEDED;border:none}
 .unica-active-course{background:#00B7F1;border:1px solid #00B7F1;padding:9px 36px 9px 10px;border-radius:3px;display:inline-block;color:#fff;margin-top:13px;background:url(../images/icon_student.png) no-repeat 90.5% center #00B7F1}
 .unica-active-course i{margin-right:5px}
-.unica-cart{color:#999;margin-left:15px;position:relative;top:7px}
+.unica-cart{color:#999;margin-left:15px;position:relative;top:10px}
 .unica-cart i{font-size:24px}
 .unica-sl-cart{color:#FF8F00;font-size:11px;border-radius:25px;border:1px solid #333;position:absolute;top:-13px;left:14px;padding:1px 5px;background:#fff}
 .unica-acc-zone{float:right;margin-top:13px}
 .unica-acc-zone li{display:inline-table;margin:0 5px}
 ul.unica-acc-zone li a{color:#555}
-ul.unica-acc-zone li.special{border:1px solid #555;padding:9px 10px;border-radius:25px;display:inline-block;color:#555;width:80px;text-align:center}
+ul.unica-acc-zone li.special{cursor: pointer; border:1px solid #555;padding:9px 10px;border-radius:25px;display:inline-block;color:#555;width:80px;text-align:center}
 ul.unica-acc-zone li.special:hover{border:none;background:#FF8F00}
 ul.unica-acc-zone li.special:hover a{color:#fff}
 .amazonmenu{visibility:hidden;opacity:0;position:absolute;padding-top:18px}
@@ -423,3 +452,5 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
 .btn-seen-all button{text-transform:uppercase;margin-top:20px}
 .background-page .highlight .thumbnail-img h4.big-course{ font-size: 44px; }
 .background-page .highlight .thumbnail-img p.big-course{ font-size: 20px; }
+
+

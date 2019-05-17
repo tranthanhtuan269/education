@@ -2,7 +2,7 @@
 namespace App\Http\Controllers\Frontends\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 
-class LoginUserRequest extends FormRequest
+class RegisterUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +22,10 @@ class LoginUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'email'             => 'required|regex_email:"/^[_a-zA-Z0-9-]{2,}+(\.[_a-zA-Z0-9-]{2,}+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,3})$/"',
+            'name'              => 'required|min:3|max:50',
+            'email'             => 'required|unique:users,email|regex_email:"/^[_a-zA-Z0-9-]{2,}+(\.[_a-zA-Z0-9-]{2,}+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,3})$/"',
             'password'          => 'required|min:8|max:100',
+            'confirmpassword'   => 'required|same:password',
         ];
     }
 
@@ -31,6 +33,8 @@ class LoginUserRequest extends FormRequest
     {
         return [
             'email.regex_email'         => 'The email must be a valid email address.',
+            'confirmpassword.required'  => 'The confirm field is required.',
+            'confirmpassword.same'      => 'The confirm password and password must match.',
         ];
     }
 }

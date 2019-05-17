@@ -10,14 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
  */
-
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-Auth::routes();
-
-// // FRONTEND
+// FRONTEND
 // Route::get('/home','HomeController@home');
 // Route::get('/member-card','HomeController@memberCard');
 // Route::get('/course-category','HomeController@courseCategory');
@@ -70,7 +63,8 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 // FRONTEND
-Route::post('/loginAjax', 'Frontends\LoginController@loginAjax');
+Route::post('/loginAjax', 'Frontends\UserController@loginAjax');
+Route::post('/registerAjax', 'Frontends\UserController@registerAjax');
 Route::get('/', 'Frontends\HomeController@home')->name('home');
 Route::get('/home', 'Frontends\HomeController@home')->name('home');
 Route::get('/member-card', 'Frontends\HomeController@memberCard')->name('member-card');
@@ -97,4 +91,5 @@ Route::get('test', 'Frontends\HomeController@test');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::post('comment/comment-course', 'Frontends\CommentController@commentCourse');
+    Route::get('user/logout', 'Frontends\UserController@logout');
 });

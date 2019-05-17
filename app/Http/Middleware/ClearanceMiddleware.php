@@ -7,10 +7,12 @@ use Illuminate\Support\Facades\Auth;
 use App\Role;
 use App\UserRole;
 use App\Permission;
+use App\UserCourse;
 
 class ClearanceMiddleware extends Controller{
 
-    public function handle($request, Closure $next) {  
+    public function handle($request, Closure $next) { 
+
         $user_id = Auth::user()->id;
         $roles_id = UserRole::where('user_id', $user_id)->pluck('role_id');
         $roles =   Role::whereIn('id', $roles_id)->get();
@@ -28,6 +30,10 @@ class ClearanceMiddleware extends Controller{
         \View::share('list_roles', $this->list_roles);
 
         // Super Admin thì muốn làm đéo gì thì làm
+        if (in_array('super-admin', $this->list_roles)) {
+            return $next($request);
+        }
+
         if (in_array('super-admin', $this->list_roles)) {
             return $next($request);
         }
