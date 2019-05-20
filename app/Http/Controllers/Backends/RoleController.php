@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Backends;
 
-use App\Http\Requests\StoreRoleRequest;
-use App\Http\Requests\UpdateRoleRequest;
+use App\Http\Controllers\Backends\Requests\StoreRoleRequest;
+use App\Http\Controllers\Backends\Requests\UpdateRoleRequest;
 use App\Permission;
 use App\Role;
 use App\User;

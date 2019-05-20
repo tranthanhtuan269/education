@@ -3,9 +3,8 @@ namespace App\Http\Controllers\Backends;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\MessageBag;
-use App\Http\Requests;
-use App\Http\Requests\SaveMenuRequest;
-use App\Http\Requests\UpdateSiteConfigRequest;
+use App\Http\Controllers\Backends\Requests\SaveMenuRequest;
+use App\Http\Controllers\Backends\Requests\UpdateSiteConfigRequest;
 use App\Helper;
 use App\SiteConfig;
 use App\Page;

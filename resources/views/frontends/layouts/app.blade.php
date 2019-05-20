@@ -18,6 +18,7 @@
         <script type="text/javascript" src="{{ asset('frontend/js/jquery-3.2.1.min.js') }}"></script>
         <script src="{{ asset('frontend/js/slick.min.js') }}"></script>
         <script src="{{ asset('frontend/js/jssor.slider.min.js') }}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
         <title>@yield('title', 'Edu')</title>
         <meta name="description" content="@yield('description', '')"/>
         <meta name="keywords" content="@yield('keywords', '')"/>
@@ -66,7 +67,7 @@
                         </div>
                         <ul class="nav navbar-nav sm-customize-menu">
                             <li><a href="/"><i class="fa fa-home" aria-hidden="true"></i> Trang chủ</a></li>
-                            <li><a href="/kichhoat"> Start Learning <i class="fa fa-key" aria-hidden="true"></i></a></li>
+                            <li><a href="#"> Start Learning <i class="fa fa-key" aria-hidden="true"></i></a></li>
                             <li>
                                 <a title="Các khóa học công nghệ thông tin Online từ cơ bản đến chuyên sâu" href="/course/cong-nghe-thong-tin"><i class="fa fa-angle-code" aria-hidden="true"></i> Công nghệ thông tin</a>
                                 <ul class="issub" style="z-index: 1002; display: none;">
@@ -284,35 +285,427 @@
                                 </nav>
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-4 col-sm-4 cate-sm">
+                        <div class="col-lg-5 col-md-5 col-sm-5 cate-sm">
                             <form class="unica-search-boxtop navbar-form form-inline" method="GET" action="/search">
                                 <input name="key" type="text" class="form-control unica-form" placeholder="Search for anything">
                                 <button type="submit" class="btn unica-btn-search"><i class="fa fa-search" aria-hidden="true"></i></button>
                             </form>
                         </div>
-                        <div class="col-lg-5 col-md-5 col-sm-5 cate-sm">
-                            @if (Auth::check())
-                            <a href="/kichhoat" class="unica-active-course">
-                                <p class="hidden-md hidden-xs hidden-sm">Start Learning</p>
-                            </a>
-                            @endif
-                   
-                            <ul class="unica-acc-zone">
-                                @if (Auth::check())
-                                <li><a href="/gio-hang" class="unica-cart">
-                                    <img src="{{ asset('frontend/images/tab_cart.png') }}" alt="" style="width: 21px;" />
-                                    <span class="unica-sl-cart"><b>0</b></span>
-                                </a></li>
-                                <li><a href="/gio-hang" class="unica-cart">
-                                    <img src="{{ asset('frontend/images/tab_notifications.png') }}" alt="" style="width: 21px;" />
-                                    <span class="unica-sl-cart"><b>0</b></span>
-                                </a></li>
+                        <div class="col-lg-4 col-md-4 col-sm-4 cate-sm">
+                            <?php //echo $check_course_of_the_user;die; ?>
+                            <div class="pull-right">
+                                @if(Auth::check())
+                                <ul class="db-item">
+                                    {{-- BaTV - kiểm tra xem user có học khóa học nào không --}}
+                                    @if ($check_course_of_the_user >= 1) 
+                                    <li><a href="{{ route('coming-soon') }}" class="unica-active-course"><p class="hidden-md hidden-xs hidden-sm">Start Learning</p></a></li>
+                                    @endif
+                                    <li class="mgtOp">
+                                        <a href="/gio-hang" class="unica-cart">
+                                        <img src="{{ asset('frontend/images/tab_cart.png') }}" alt="" style="width: 21px;" />
+                                        <span class="unica-sl-cart"><b>0</b></span>
+                                    </a>
+                                    </li class="mgtOp">
+                                    <li>
+                                        <a href="/gio-hang" class="unica-cart">
+                                            <img src="{{ asset('frontend/images/tab_notifications.png') }}" alt="" style="width: 21px;" />
+                                            <span class="unica-sl-cart"><b>0</b></span>
+                                        </a>
+                                    </li>
+                                    <li class="btn-group mgtOp">
+                                        <a class="db-item-circle dropdown-toggle" data-toggle="dropdown" href="#"><img class="img-responsive" src="{{ asset('frontend/images/avatar.jpg') }}" alt="avatar"><span class="caret"></span></a>
+                                        <ul class="dropdown-menu db-drop">
+                                            <li><a href="/dashboard/user/course"><i class="fa fa-list-alt" aria-hidden="true"></i> Vào học</a></li>
+                                            <li><a href="/dashboard/affiliate/getlink"><i class="fa fa-share-alt" aria-hidden="true"></i> Affiliate</a></li>
+                                            <li><a href="/kichhoat"><i class="fa fa-key" aria-hidden="true"></i> Kích hoạt khóa học</a></li>
+                                            <li><a href="/dashboard/user/profile"><i class="fa fa-user" aria-hidden="true"></i> Cập nhật hồ sơ </a></li>
+                                            <li><a href="/napthe"><i class="fa fa-credit-card" aria-hidden="true"></i> Nạp thẻ </a></li>
+                                            <li>
+                                            </li>
+                                            <li class="divider"></li>
+                                            <li><a href="{{ url('user/logout') }}" class="btnDangxuat"><i class="fa fa-sign-out" aria-hidden="true"></i> Đăng xuất</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
                                 @else
-                                <li class="special"><a class="unica-log-acc" href="/login">Login</a></li>
-                                <li class="special"><a class="unica-reg-acc" href="/register">Sign Up</a></li>
-                                @endif
-                            </ul>
-                    
+                                <ul class="unica-acc-zone">
+                                    <li class="special" data-toggle="modal" data-target="#myModalLogin" data-dismiss="modal"><a class="unica-log-acc" href="#" >Login</a></li>
+                                    <li class="special" data-toggle="modal" data-target="#myModalRegister" data-dismiss="modal"><a class="unica-reg-acc" href="#">Sign Up</a></li>
+                                    <div id="myModalLogin" class="modal fade" role="dialog" >
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">				
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Login</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="/examples/actions/confirmation.php" method="post">
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control" placeholder="Email" name="email">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="password" class="form-control" placeholder="Password" name="pass">					
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="checkbox" name="remember"> Keep my logged in on this computer
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="button" class="btn btn-primary btn-block btn-lg" value="Login" onclick="loginAjax()">
+                                                        </div>
+                                                    </form>				
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <a href="#" data-toggle="modal" data-target="#myModalRegister" data-dismiss="modal">Need an account</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="myModalRegister" class="modal fade" role="dialog" >
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">				
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Register</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="/examples/actions/confirmation.php" method="post">
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control" placeholder="Username" name="name">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control" placeholder="Email" name="email">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="password" class="form-control" placeholder="Password" name="pass">					
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="password" class="form-control" placeholder="ConfirmPassword" name="confirmpass">					
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="button" class="btn btn-primary btn-block btn-lg" value="Create Account" onclick="registerAjax()">
+                                                        </div>
+                                                    </form>				
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <script>
+                                        
+                                        function loginAjax(){
+                                            var email = $('#myModalLogin input[name=email]').val();
+                                            email = email.trim();
+                                            var password = $('#myModalLogin input[name=pass]').val();
+                                            var remember = $('#myModalLogin input[name=remember]').prop('checked');
+                                            var data = {
+                                                email:email,
+                                                password: password,
+                                                remember: remember,
+                                            };
+                                            $.ajaxSetup(
+                                            {
+                                                headers:
+                                                {
+                                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                                }
+                                            });
+                                            // console.log(data);
+                                            $.ajax({
+                                                method: "POST",
+                                                url: '{{ url("loginAjax") }}',
+                                                data: data,
+                                                dataType: 'json',
+                                                // beforeSend: function() {
+                                                //     $("#pre_ajax_loading").show();
+                                                // },
+                                                // complete: function() {
+                                                //     $("#pre_ajax_loading").hide();
+                                                // },
+                                                success: function (response) {
+                                                    if(response.status == 200){
+                                                        location.reload();
+                                                    }else{
+                                                        Swal.fire({
+                                                            type: 'error',
+                                                            html: response.error,
+                                                        })
+                                                    }
+                                                },
+                                                error: function (error) {
+                                               
+                                                    var obj_errors = error.responseJSON.errors;
+                                                    // console.log(obj_errors)
+                                                    var txt_errors = '';
+                                                    for (k of Object.keys(obj_errors)) {
+                                                        txt_errors += obj_errors[k][0] + '</br>';
+                                                    }
+                                                    Swal.fire({
+                                                        type: 'error',
+                                                        html: txt_errors,
+                                                    })
+                                                }
+                                            });
+    
+                                            return false;
+                                        } 
+    
+                                        function registerAjax(){
+                                            var name = $('#myModalRegister input[name=name]').val();
+                                            name = name.trim();
+                                            var email = $('#myModalRegister input[name=email]').val();
+                                            email = email.trim();
+                                            var password = $('#myModalRegister input[name=pass]').val();
+                                            var confirmpassword = $('#myModalRegister input[name=confirmpass]').val();
+                                            var data = {
+                                                name : name,
+                                                email:email,
+                                                password: password,
+                                                confirmpassword: confirmpassword,
+                                            };
+                                            $.ajaxSetup(
+                                            {
+                                                headers:
+                                                {
+                                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                                }
+                                            });
+                                            // console.log(data);
+                                            $.ajax({
+                                                method: "POST",
+                                                url: '{{ url("registerAjax") }}',
+                                                data: data,
+                                                dataType: 'json',
+                                                // beforeSend: function() {
+                                                //     $("#pre_ajax_loading").show();
+                                                // },
+                                                // complete: function() {
+                                                //     $("#pre_ajax_loading").hide();
+                                                // },
+                                                success: function (response) {
+                                                    if(response.status == 200){
+                                                        Swal.fire({
+                                                            type: 'success',
+                                                            html: response.success,
+    
+                                                        }).then((result) => {
+                                                            if (result.value) {
+                                                                location.reload();
+                                                            }
+                                                        });
+                                                    }else{
+                                                        Swal.fire({
+                                                            type: 'error',
+                                                            html: 'Error',
+                                                        })
+                                                    }
+                                                },
+                                                error: function (error) {
+                                               
+                                                    var obj_errors = error.responseJSON.errors;
+                                                    // console.log(obj_errors)
+                                                    var txt_errors = '';
+                                                    for (k of Object.keys(obj_errors)) {
+                                                        txt_errors += obj_errors[k][0] + '</br>';
+                                                    }
+                                                    Swal.fire({
+                                                        type: 'error',
+                                                        html: txt_errors,
+                                                    })
+                                                }
+                                            });
+    
+                                            return false;
+                                        } 
+                                    </script>
+                                </ul>
+                            </div>
+
+                            <div id="myModalLogin" class="modal fade" role="dialog" >
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">				
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">Login</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="/examples/actions/confirmation.php" method="post">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="Email" name="email">
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="password" class="form-control" placeholder="Password" name="pass">					
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="checkbox" name="remember"> Keep my logged in on this computer
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="button" class="btn btn-primary btn-block btn-lg" value="Login" onclick="loginAjax()">
+                                                </div>
+                                            </form>				
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a href="#" data-toggle="modal" data-target="#myModalRegister" data-dismiss="modal">Need an account</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="myModalRegister" class="modal fade" role="dialog" >
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">				
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">Register</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="/examples/actions/confirmation.php" method="post">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="Username" name="name">
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="Email" name="email">
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="password" class="form-control" placeholder="Password" name="pass">					
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="password" class="form-control" placeholder="ConfirmPassword" name="confirmpass">					
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="button" class="btn btn-primary btn-block btn-lg" value="Create Account" onclick="registerAjax()">
+                                                </div>
+                                            </form>				
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <script>
+                                function loginAjax(){
+                                    var email = $('#myModalLogin input[name=email]').val();
+                                    email = email.trim();
+                                    var password = $('#myModalLogin input[name=pass]').val();
+                                    var remember = $('#myModalLogin input[name=remember]').prop('checked');
+                                    var data = {
+                                        email:email,
+                                        password: password,
+                                        remember: remember,
+                                    };
+                                    $.ajaxSetup(
+                                    {
+                                        headers:
+                                        {
+                                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                        }
+                                    });
+                                    // console.log(data);
+                                    $.ajax({
+                                        method: "POST",
+                                        url: '{{ url("loginAjax") }}',
+                                        data: data,
+                                        dataType: 'json',
+                                        // beforeSend: function() {
+                                        //     $("#pre_ajax_loading").show();
+                                        // },
+                                        // complete: function() {
+                                        //     $("#pre_ajax_loading").hide();
+                                        // },
+                                        success: function (response) {
+                                            if(response.status == 200){
+                                                location.reload();
+                                            }else{
+                                                Swal.fire({
+                                                    type: 'error',
+                                                    html: response.error,
+                                                })
+                                            }
+                                        },
+                                        error: function (error) {
+                                        
+                                            var obj_errors = error.responseJSON.errors;
+                                            // console.log(obj_errors)
+                                            var txt_errors = '';
+                                            for (k of Object.keys(obj_errors)) {
+                                                txt_errors += obj_errors[k][0] + '</br>';
+                                            }
+                                            Swal.fire({
+                                                type: 'error',
+                                                html: txt_errors,
+                                            })
+                                        }
+                                    });
+
+                                    return false;
+                                } 
+
+                                function registerAjax(){
+                                    var name = $('#myModalRegister input[name=name]').val();
+                                    name = name.trim();
+                                    var email = $('#myModalRegister input[name=email]').val();
+                                    email = email.trim();
+                                    var password = $('#myModalRegister input[name=pass]').val();
+                                    var confirmpassword = $('#myModalRegister input[name=confirmpass]').val();
+                                    var data = {
+                                        name : name,
+                                        email:email,
+                                        password: password,
+                                        confirmpassword: confirmpassword,
+                                    };
+                                    $.ajaxSetup(
+                                    {
+                                        headers:
+                                        {
+                                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                        }
+                                    });
+                                    // console.log(data);
+                                    $.ajax({
+                                        method: "POST",
+                                        url: '{{ url("registerAjax") }}',
+                                        data: data,
+                                        dataType: 'json',
+                                        // beforeSend: function() {
+                                        //     $("#pre_ajax_loading").show();
+                                        // },
+                                        // complete: function() {
+                                        //     $("#pre_ajax_loading").hide();
+                                        // },
+                                        success: function (response) {
+                                            if(response.status == 200){
+                                                Swal.fire({
+                                                    type: 'success',
+                                                    html: response.success,
+
+                                                }).then((result) => {
+                                                    if (result.value) {
+                                                        location.reload();
+                                                    }
+                                                });
+                                            }else{
+                                                Swal.fire({
+                                                    type: 'error',
+                                                    html: 'Error',
+                                                })
+                                            }
+                                        },
+                                        error: function (error) {
+                                        
+                                            var obj_errors = error.responseJSON.errors;
+                                            // console.log(obj_errors)
+                                            var txt_errors = '';
+                                            for (k of Object.keys(obj_errors)) {
+                                                txt_errors += obj_errors[k][0] + '</br>';
+                                            }
+                                            Swal.fire({
+                                                type: 'error',
+                                                html: txt_errors,
+                                            })
+                                        }
+                                    });
+
+                                    return false;
+                                } 
+                            </script>
+
+                            @endif
+                        
                         </div>
                     </div>
                 </div>

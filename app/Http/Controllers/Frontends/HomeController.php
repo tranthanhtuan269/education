@@ -24,6 +24,10 @@ class HomeController extends Controller
         }
     }
 
+    public function comingSoon(){
+        return view('frontends.coming-soon');
+    }
+
     public function home()
     {
         $feature_category = Category::withCount('courses')->where('featured', 1)->orderBy('featured_index', 'asc')->limit(10)->get();
@@ -43,8 +47,8 @@ class HomeController extends Controller
         if($cat_id){
             $tags = Tag::where('category_id', $cat_id)->get();
             $feature_course = Course::where('category_id', $cat_id)->where('featured', 1)->orderBy('featured_index', 'asc')->limit(8)->get();
-            $best_seller_course = Course::orderBy('sale_count', 'asc')->limit(8)->get();
-            $new_course = Course::orderBy('sale_count', 'asc')->limit(8)->get();
+            $best_seller_course = Course::where('category_id', $id_cat)->orderBy('sale_count', 'asc')->limit(8)->get();
+            $new_course = Course::where('category_id', $id_cat)->orderBy('sale_count', 'asc')->limit(8)->get();
             $popular_teacher = Teacher::getTeacherBestVote();
             return view('frontends.category', compact('category', 'feature_course', 'best_seller_course', 'new_course', 'popular_teacher', 'tags'));
         }

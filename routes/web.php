@@ -70,6 +70,8 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 // FRONTEND
+Route::post('/loginAjax', 'Frontends\UserController@loginAjax');
+Route::post('/registerAjax', 'Frontends\UserController@registerAjax');
 Route::get('/', 'Frontends\HomeController@home')->name('home');
 Route::get('/home', 'Frontends\HomeController@home')->name('home');
 Route::get('/member-card', 'Frontends\HomeController@memberCard')->name('member-card');
@@ -97,3 +99,11 @@ Route::post('comments/store', 'Frontends\CommentController@storeCommentVideo');
 Route::post('comments/vote', 'Frontends\CommentController@storeCommentVote');
 Route::post('comments/reply', 'Frontends\CommentController@storeReply');
 Route::get('logout', 'Frontends\HomeController@logout');
+Route::get('test', 'Frontends\HomeController@test');
+Route::get('coming-soon', 'Frontends\HomeController@comingSoon')->name('coming-soon');
+
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::post('comment/comment-course', 'Frontends\CommentController@commentCourse');
+    Route::get('user/logout', 'Frontends\UserController@logout');
+});

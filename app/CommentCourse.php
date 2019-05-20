@@ -18,7 +18,9 @@ class CommentCourse extends Model
     public function course(){
     	return $this->belongsTo('App\Course');
     }
-
+    public function commentLike(){
+    	return $this->hasOne('App\CommentLike','comment_id');
+    }
     public function parent(){
     	return $this->belongsTo('App\CommentCourse', 'parent_id');
     }

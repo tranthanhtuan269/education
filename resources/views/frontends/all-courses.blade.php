@@ -1,3 +1,4 @@
+@if (count($best_seller_course) > 0 || count($new_course) > 0 ||  count($feature_course) > 0)
 <div class="container">
     <div class="top-course">
         <div class="row">
@@ -112,3 +113,4 @@
         </div>
     </div>
 </div>
+@endif

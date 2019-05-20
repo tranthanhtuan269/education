@@ -284,6 +284,7 @@
                 </div>
                 <div class="col-sm-8 rating-process">
                     <div class="row">
+                        <?php $tmp_percent_vote = 0; ?>
                         @for ($i = 5; $i <10; $i++)
                         <?php
                             if ($i == 5) {
@@ -491,6 +492,7 @@
     </div>
 </div>
 <script type="text/javascript">
+    
     $(document).ready(function() {  
         $('.go-box').click(function() {
             var box = $(this).attr('data-box');
