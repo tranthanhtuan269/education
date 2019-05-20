@@ -1,11 +1,42 @@
 // localStorage.setItem('autoplay', true)
-// var isAutoplay = localStorage.getItem('autoplay')
+// localStorage.removeItem('autoplay')
+var isAutoplay = localStorage.getItem('autoplay')
+console.log(isAutoplay)
 $(document).ready(function () {
+    
     // Set up the player
+    if(isAutoplay != null){
+        var isPlayerAutoplay = isAutoplay
+        if(isPlayerAutoplay == false){
+            $(".ln-btn-autoplay").prepend("<i class='fas fa-toggle-off'></i>")
+        }else{
+            $(".ln-btn-autoplay").prepend("<i class='fas fa-toggle-on'></i>")
+        }
+    }else{
+        var isPlayerAutoplay = false
+        $(".ln-btn-autoplay").prepend("<i class='fas fa-toggle-off'></i>")
+    }
+
+    $(".ln-btn-autoplay").click(function () {
+        if(localStorage.getItem('autoplay') == "true"){
+            localStorage.setItem('autoplay', false)
+            $(".fa-toggle-on").remove()
+            $(".ln-btn-autoplay").prepend("<i class='fas fa-toggle-off'></i>")
+        }else if(localStorage.getItem('autoplay') == "false"){
+            localStorage.setItem('autoplay', true)
+            $(".fa-toggle-off").remove()
+            $(".ln-btn-autoplay").prepend("<i class='fas fa-toggle-on'></i>")
+        }else{
+            localStorage.setItem('autoplay', true)   
+            $(".fa-toggle-off").remove()
+            $(".ln-btn-autoplay").prepend("<i class='fas fa-toggle-on'></i>")
+        }
+    })
+    
     var options = {
         controls: true,
         preload: 'auto',
-        // autoplay : isAutoplay,
+        autoplay : isPlayerAutoplay,
         controlBar: {
             volumePanel: { inline: false }
         },
@@ -34,6 +65,23 @@ $(document).ready(function () {
             $(".player-end-time").html(convertSecondToTimeFormat(this.duration()))
         })
     });
+
+    $("#btnAutoplay").click(function () {
+        if(localStorage.getItem('autoplay') == "true"){
+            localStorage.setItem('autoplay', false)
+            $("#btnAutoplay").removeClass("fa-toggle-on")
+            $("#btnAutoplay").addClass("fa-toggle-off")
+            // alert(1)
+        }else if(localStorage.getItem('autoplay') == "false"){
+            localStorage.setItem('autoplay', true)
+            $("#btnAutoplay").removeClass("fa-toggle-off")
+            $("#btnAutoplay").addClass("fa-toggle-on")
+        }else{
+            localStorage.setItem('autoplay', true)   
+            $("#btnAutoplay").removeClass("fa-toggle-off")
+            $("#btnAutoplay").addClass("fa-toggle-on")
+        }
+    })
 
     $(".lecture-title").click(function () {
         toggleLectureList()
@@ -298,13 +346,9 @@ $(document).ready(function () {
         $(".vjs-quality-selector .vjs-icon-placeholder").remove()
         $(".vjs-quality-selector .vjs-menu-button").append(qualitySelectorIcon)
 
-
         //Button Subtitile
-        var btnSubtitle = "<div class='vjs-subtitle-control btn vjs-control vjs-button'><button class='btn'><i class='fas fa-closed-captioning' id='btnSubtitle'></i></button></div>"
-        $(".vjs-quality-selector").after(btnSubtitle)
-
-
-
+        var btnAutoplay = "<div class='vjs-subtitle-control btn vjs-control vjs-button'><button class='btn'><i class='fas fa-toggle-on' id='btnAutoplay'></i></button></div>"
+        $(".vjs-quality-selector").after(btnAutoplay)
     }
 
     function tickCompleteLecture(e) {

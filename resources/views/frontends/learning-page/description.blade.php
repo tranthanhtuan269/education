@@ -64,7 +64,6 @@
             </div>
             <div class="ln-desc-group-btn-utilities-2">
                 <div class="btn ln-btn-autoplay">
-                    <i class="fas fa-toggle-on"></i>
                     <span>&nbsp;Autoplay</span>
                 </div>
                 <div class="btn ln-btn-report">
