@@ -24,7 +24,7 @@
         <meta name="keywords" content="@yield('keywords', '')"/>
         <meta name="copyright" content="Edu">
         <meta name="author" content="Edu"/>
-        <base href="{{ url('/') }}" target="_blank">
+        <base href="{{ url('/') }}">
     </head>
     <body>
         <div class="notifications alert alert-danger fade in alert-dismissible">
