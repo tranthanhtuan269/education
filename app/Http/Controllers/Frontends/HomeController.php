@@ -131,6 +131,7 @@ class HomeController extends Controller
     public function studentProfile(){
         return view('frontends.student-profile');
     }
+    
     public function courseList(){
         return view('frontends.course-list');
     }

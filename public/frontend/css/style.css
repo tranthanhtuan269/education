@@ -1,3 +1,4 @@
+*:focus{outline: none}
 html,body,div,span,applet,object,iframe,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;vertical-align:baseline}
 iframe{width:100%}
 .clearfix::after{content:"";display:block;clear:both;height:0;visibility:hidden;overflow:hidden}
@@ -145,27 +146,29 @@ ul.unica-acc-zone li.special:hover a{color:#fff}
 .feature-website h3{font-weight:700;padding:15px 0 10px}
 .feature-website .symbol-format{min-height:85px;position:relative}
 .feature-website .symbol-format img{max-height:100%;max-width:100%;width:auto;height:auto;position:absolute;top:0;bottom:0;left:0;right:0;margin:auto}
-.become-teacher{background:url(../images/bg-teacher.png) no-repeat;background-size:100% 90%;background-position:right bottom}
-.become-teacher .ads-teacher{padding:40px 0 20px;text-align:center}
-.become-teacher .ads-teacher p{text-transform:uppercase;font-size:36px;color:#fff;font-weight:600}
-.become-teacher .ads-teacher h2{text-transform:uppercase;font-size:42px;color:#FFC700;font-weight:600;padding:10px 0}
-.become-teacher .ads-teacher a{background:#fff;color:#52937A;border:none;border-radius:10px;padding:15px 25px;display:inline-block;text-transform:uppercase;font-weight:600}
+.become-teacher{background:url(../images/bg-teacher.png) no-repeat;background-size:100% 90%;background-position:right bottom;margin:40px 0}
+.become-teacher .ads-teacher{padding-top:50px;text-align:center}
+.become-teacher .ads-teacher p{font-size:30px;color:#fff;font-weight:600}
+.become-teacher .ads-teacher h2{font-size:36px;color:#FFC700;font-weight:600;padding:15px 0 25px 0}
+.become-teacher .ads-teacher a{background:#fff;color:#52937A;border:none;border-radius:10px;padding:10px 30px;display:inline-block;font-weight:800;font-size: 16px}
+.become-teacher img{height:300px}
 .member-card{padding:30px 0}
 .member-card .courdemy-member{padding-bottom:40px}
+/*.member-card .courdemy-member a{font-size: 20px;font-weight: 800}*/
 .member-card #coursdemy,.member-card #txt-format{font-size:40px;font-weight:800}
 .member-card #txt-format{color:#00B7F1}
 .member-card .des-member-card{padding:30px 0;font-size:16px}
-.member-card a{background:#00B7F1;color:#fff;border:none;border-radius:10px;padding:20px 40px;display:inline-block;text-transform:uppercase;font-weight:600}
+.member-card a{background:#00B7F1;color:#fff;border:none;border-radius:10px;padding:15px 40px;display:inline-block;text-transform:uppercase;font-weight:800;font-size: 20px}
 .member-card img{width:100%}
-.partner{padding:30px 0}
+.partner{padding:40px 0;background-color: #f5f5f5}
 .partner h2{text-align:center;padding:0 0 40px;font-size:40px;font-weight:800}
 .partner p{text-align:center;font-size:20px}
-.partner .partner-img{padding:80px 0}
-.partner .partner-img li img{width:20%;float:left;padding:0 20px}
+.partner .partner-img{padding:35px 0}
+.partner .partner-img li img{height:80px;width:auto;float:left;padding:0 30px}
 .member-card-banner{background:url(../images/member-card-banner.png) no-repeat;background-size:100% 100%}
 .member-card-banner .bann{display:flex;align-items:center;padding:80px 0}
 .member-card-banner .tit{padding-left:40px}
-.member-card-banner p{color:#fff;font-size:32px;font-weight:700}
+.member-card-banner p{color:#fff;font-size:32px;font-weight:900}
 .member-card-offer{padding:30px 0}
 .member-card-offer h2{font-size:30px;font-weight:900;padding:40px 0}
 .member-card-offer .space{margin:40px 0}
@@ -176,8 +179,8 @@ ul.unica-acc-zone li.special:hover a{color:#fff}
 .member-card-offer .img .box-l{padding-right:40px}
 .member-card-offer .img .box-r{padding-left:40px}
 .member-card-offer .img .offer-dollar{text-align:center}
-.member-card-offer .img .offer-dollar .dollar{font-size:96px;color:#fff;font-weight:700}
-.member-card-offer .img .offer-dollar .courdemy{display:flex;align-items:center;background-color:#000;opacity:.5;border-radius:60px;padding:20px 60px}
+.member-card-offer .img .offer-dollar .dollar{font-size:96px;color:#fff;font-weight:900;text-shadow: 3px 3px 10px #555555}
+.member-card-offer .img .offer-dollar .courdemy{display:flex;align-items:center;background-color: rgba(0, 0, 0, 0.3);border-radius:60px;padding:20px 60px}
 .member-card-offer .img .offer-dollar .courdemy p{font-size:30px;color:#fff;padding-left:20px}
 .member-card-offer .info .dollar{font-size:28px;font-weight:700;text-align:center;padding:20px 0}
 .member-card-offer .info{padding:20px 0}
@@ -185,17 +188,19 @@ ul.unica-acc-zone li.special:hover a{color:#fff}
 .member-card-offer .info button{border:none;border-radius:10px;width:100%;height:50px;margin:40px 0;color:#fff;font-size:16px;font-weight:700}
 .member-card-offer .info .buy-now{background-color:#FF8F00}
 .member-card-offer .info .add-to{background-color:#44B900}
+.member-card-offer .info a button{box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)}
 .member-card-offer .info .valid,.member-card-offer .info .number-course{display:flex;justify-content:center;align-items:center}
 .member-card-purchase-way{background:url(../images/bg-teacher.png) no-repeat;background-size:100% 85%;background-position:bottom}
-.member-card-purchase-way .textx{padding-top:80px;text-transform:uppercase;font-weight:700;text-align:center}
-.member-card-purchase-way .textx .how-to{font-size:30px;color:#fff;padding:20px 0}
-.member-card-purchase-way .textx .courdemy{font-size:56px;color:#FFC700;padding-bottom:10px}
-.member-card-purchase-way .textx .show-me{border:none;border-radius:10px;background-color:#fff;color:#52937A;font-size:20px;text-transform:uppercase;padding:10px 30px}
-.member-card-purchase-way img{left:0}
+.member-card-purchase-way .textx{padding:80px 0 40px 0;text-transform:uppercase;font-weight:900;text-align:center}
+.member-card-purchase-way .textx .how-to{font-size:36px;color:#fff;padding:10px 0}
+.member-card-purchase-way .textx .courdemy{font-size:42px;color:#FFC700;padding-bottom:10px}
+.member-card-purchase-way .textx .show-me{border:none;border-radius:10px;background-color:#fff;color:#52937A;font-size:16px;text-transform:uppercase;padding:15px 50px}
+.member-card-purchase-way img{width: 400px;left:0;bottom: 0}
 .member-card-info{padding:50px 0}
-.member-card-info h2{padding:30px 0;font-size:42px;font-weight:700}
-.member-card-info .btn-save{text-align:center;padding:15px 100px;background-color:#FF8F00;border:none;border-radius:10px;color:#fff}
-.member-card-info img{width:100%;padding:30px 0}
+.member-card-info h2{padding:30px 0;font-size:42px;font-weight:900}
+.member-card-info .btn-save{text-align:center;font-weight:900;padding:10px 120px;background-color:#ff882b;border:none;border-radius:10px;color:#fff;box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)}
+.member-card-info img{width:80%;padding:60px 0;float: right}
+.member-card-info .padding-form{padding-bottom: 15px}
 .banner-student-profile{background:url(../images/member-card-banner.png) no-repeat;background-size:100% 100%;display:flex;justify-content:center;align-items:center;padding:40px 0}
 .banner-student-profile .ava{position:relative;width:100%;max-width:400px;display:flex;justify-content:center;align-items:center}
 .banner-student-profile .ava img{border-radius:50%;width:150px;height:150px;border:4px solid #fff}
@@ -203,7 +208,7 @@ ul.unica-acc-zone li.special:hover a{color:#fff}
 .banner-student-profile .brief-des{color:#fff;text-align:center}
 .banner-student-profile .brief-des .name{font-size:26px;padding:10px 0}
 .profile{padding:40px 0;text-align:center}
-.profile p{font-size:26px;padding:20px 0}
+.profile p{font-size:26px;right: 0}
 .profile .btn-save{text-align:center;padding:10px 100px;background-color:#FF8F00;border:none;border-radius:10px;color:#fff;margin:20px 0}
 .top-course .tab-content .img-course{position:relative}
 .top-course .tab-content .img-course .heart-icon{position:absolute;top:10px;right:10px;background-color:#fff;border:1px solid #444;padding:5px 2px 2px;border-radius:5px;color:red}
@@ -219,7 +224,8 @@ ul.unica-acc-zone li.special:hover a{color:#fff}
 .bill-info .payment-method .payment-card{padding:20px 10px}
 .bill-info .payment-method .payment-card img:hover{border-color:#44B900;border-radius:20px}
 .course-learning-banner{background:url(../images/member-card-banner.png) no-repeat;background-size:100% 100%;color:#fff;padding:40px 0}
-.course-learning-banner iframe{width:100%;height:40%}
+.course-learning-banner .intro-video{width: 100%;padding-top: 56%;position: relative}
+.course-learning-banner .intro-video iframe{position: absolute;top: 0;right: 0;bottom: 0;left: 0;height: 100%}
 .course-learning-banner .left-intro{padding:10px 0 0 30px}
 .course-learning-banner .meta-des{font-size:20px;margin:10px 0}
 .course-learning-banner .vote{padding:15px 0}
@@ -230,9 +236,10 @@ ul.unica-acc-zone li.special:hover a{color:#fff}
 .course-learning-banner .vote a{padding:10px 15px;background:#FF8F00;border:none;border-radius:10px;color:#fff;font-weight:700}
 .course-learning-banner .vote .icon-star{color:#FF8F00}
 .course-learning-banner .vote .star-rate{font-size:19px}
-.course-learning-banner .number-unit{padding:20px 0}
-.course-learning-banner .cup-icon{text-align:center}
-.course-learning-banner .border-element{border:none;border-radius:20px}
+.course-learning-banner .number-unit{padding:10px 0}
+.course-learning-banner .cup-icon{text-align:center;margin-right: 30px}
+.course-learning-banner .border-element-l{border:none;border-top-right-radius: 0;border-bottom-right-radius: 0;background: rgba(255,255,255,0.3);}
+.course-learning-banner .border-element-r{border:none;border-top-left-radius: 0;border-bottom-left-radius: 0;margin-right:30px;background: rgba(255,255,255,0.3);}
 .course-learning-content .left-content{margin-bottom:30px}
 .course-learning-content .left-content .desc{padding-bottom:40px}
 .course-learning-content .course-document{padding:40px 0}
@@ -240,17 +247,17 @@ ul.unica-acc-zone li.special:hover a{color:#fff}
 .course-learning-content .lesson-doc{border-bottom:1px solid gray;padding:10px 0 10px 20px}
 .course-learning-content .document-name,.course-learning-content .file-size{line-height:30px}
 .course-learning-content .btn-download-doc{background-color:#44B900;color:#fff}
-.course-learning-content .sidebar{margin:30px 0;border:1px solid gray;text-align:center}
-.course-learning-content .sidebar .teacher-info{padding:10px}
+.course-learning-content .sidebar{margin:30px 0;text-align:center}
+.course-learning-content .sidebar .teacher-info{padding:10px;background-color: #F5F5F5;border:1px solid #989898}
 .course-learning-content .sidebar .teacher-info .instructor{font-size:30px;font-weight:900;padding:20px 0}
 .course-learning-content .sidebar .teacher-info img{border:none;border-radius:50%;width:120px;height:120px}
 .course-learning-content .sidebar .teacher-info .name{padding:30px 0 0;font-size:20px;font-weight:700}
 .course-learning-content .sidebar .teacher-info .office{padding:0 0 20px}
-.course-learning-content .sidebar .teacher-info .icon-star{padding-right:3px;color:#FF8F00}
+/*.course-learning-content .sidebar .teacher-info .icon-star{padding-right:3px;color:#FF8F00}*/
 .course-learning-content .sidebar .teacher-info .total-course,.course-learning-content .sidebar .teacher-info .total-student{text-align:left;padding-bottom:10px}
 .course-learning-content .sidebar .teacher-info .total-student{line-height:32px}
 .course-learning-content .sidebar .teacher-info .total-student .inbox{background:#FF8F00;border:none;border-radius:5px;color:#fff}
-.course-learning-content .relate-course{margin:30px 0;border:1px solid gray}
+.course-learning-content .relate-course{margin:30px 0;background-color: #F5F5F5;border:1px solid #989898}
 .course-learning-content .relate-course .relate-title{font-size:30px;font-weight:900;padding:20px 0;text-align:center}
 .course-learning-content .relate-course .list-course{padding:10px}
 .course-learning-content .relate-course .list-course img{width:100%;border:none;border-radius:10px}
@@ -262,6 +269,32 @@ ul.unica-acc-zone li.special:hover a{color:#fff}
 .course-learning-question .text-box{padding-bottom:40px}
 .course-learning-question .text-box .btn-submit{text-align:center;padding:20px 0}
 .course-learning-question .text-box .btn-submit .submit-question{padding:10px 40px;color:#fff;background-color:#FF8F00;border:none;border-radius:10px}
+/*End Courses Learning*/
+
+/*Begin Courses List*/ 
+/*.course-list-top{background-color:#F5F5F5}*/
+.course-list-top .banner{width:100%;position:absolute;z-index:-1;right:0}
+.course-list-top .box-container-top{position: relative;bottom: 120px}
+.course-list-top .title-bar{padding:30px 10px;}
+.course-list-top .title-bar .title-page{color:#fff;font-weight:900;padding-left:30px}
+.course-list-top .title-bar .course-number{font-size:24px;color:#fff}
+.course-list-top .title-bar .btn-share{padding-left:30px;padding-right:30px;margin-left:20px}
+.course-list-top .title-bar .btn-remove{margin-left:20px}
+.course-list-top .title-bar .btn-remove .fa-heart{color:red}
+.course-list-top .top-course{background:#fff;padding: 20px;margin: 0 10px 20px 10px;box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)}
+.course-list-top .top-course img{width:100%}
+.course-list-top .top-course .course-info{padding:20px 80px 0 40px}
+.course-list-top .top-course .course-info .post-title{padding-bottom:20px}
+.course-list-top .top-course .course-info .last-update{padding-bottom:20px}
+.course-list-top .top-course .course-info .instructor{font-size:17px;padding-bottom:20px}
+.course-list-top .top-course .course-info .time-view{padding-bottom:40px}
+.course-list-top .top-course .course-info .view,.course-list-top .top-course .course-info .unit{padding-left:50px}
+.course-list-top .top-course .course-info .btn-explore{padding:10px 20px;background:#FF8F00;color:#fff;font-weight:800}
+.course-list-top .top-course .course-info .imaginary{font-size:20px}
+.course-list-top .top-course .course-info .real{color:#FF8F00;font-size:24px;padding-left:40px}
+/*End Courses List
+
+/*Begin Footer*/
 footer{font-weight:500;background:url(../images/bg-footer.png) no-repeat;background-size:100% 100%}
 footer .img-logo{padding:30px 0}
 footer .img-fanpage{padding:20px 0}
@@ -463,13 +496,6 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
 .btn-action{
     margin-bottom: 10px;
 }
-
-.partner ul{overflow:hidden;text-align:center;margin: 40px 0 60px 0;}
-.partner ul .client-icon{display:inline-block;margin:0 20px;}
-.partner ul .client-icon img{
-    height: 60px; width: auto;
-}
-
 
 /*-List-Course-*/
 .box-search{
