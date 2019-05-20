@@ -14,4 +14,8 @@ class Video extends Model
     {
         return $this->belongsTo('App\Unit');
     }
+
+    public function documents(){
+        return $this->hasMany('App\Document');
+    }
 }

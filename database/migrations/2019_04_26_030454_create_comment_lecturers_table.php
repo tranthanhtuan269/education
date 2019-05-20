@@ -32,6 +32,6 @@ class CreateCommentLecturersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('comments');
+        Schema::dropIfExists('comment_lecturers');
     }
 }
