@@ -106,3 +106,4 @@ Route::get('coming-soon', 'Frontends\HomeController@comingSoon')->name('coming-s
 Route::group(['middleware' => 'auth'], function () {
     Route::post('comment/comment-course', 'Frontends\CommentController@commentCourse');
     Route::get('user/logout', 'Frontends\UserController@logout');
+});
