@@ -287,7 +287,7 @@
                         </div>
                         <div class="col-lg-5 col-md-5 col-sm-5 cate-sm">
                             <form class="unica-search-boxtop navbar-form form-inline" method="GET" action="/search">
-                                <input name="key" type="text" class="form-control unica-form" placeholder="Search for anything">
+                                <input name="keyword" type="text" class="form-control unica-form" placeholder="Search for anything" value="{{ Request::get('keyword') }}">
                                 <button type="submit" class="btn unica-btn-search"><i class="fa fa-search" aria-hidden="true"></i></button>
                             </form>
                         </div>

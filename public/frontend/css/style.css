@@ -313,7 +313,7 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
 .slick-course .item{position:relative}
 .slick-course .item .cat{position:absolute;top:35px;width:100%;color:#fff}
 .slick-course .item .cat h2{font-weight:600;padding-bottom:6px}
-.item-slider{cursor:pointer}
+.item-slider{cursor:pointer;}
 .cat-item-slider{margin-top:33px;color:#fff}
 .demo-aaaa{position:relative;display:block;bottom:80px}
 .background-page .slider img{width:100%}
@@ -468,4 +468,29 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
 .partner ul .client-icon{display:inline-block;margin:0 20px;}
 .partner ul .client-icon img{
     height: 60px; width: auto;
+}
+
+
+/*-List-Course-*/
+.box-search{
+    padding: 30px 0;
+}
+/* .box-search .u-order { border-bottom: 1px solid #d7d7d7; margin-bottom: 13px; }
+.box-search .u-cate-list { border: 1px solid #d7d7d7; padding: 9px 12px; margin-bottom: 20px; }
+.box-search .u-cate-list i { width: 30px; font-size: 18px; text-align: center; color: #FF8F00; vertical-align: middle; }
+.box-search .u-cate-list h3 { font-size: 16px; font-weight: bold; border-bottom: 1px solid #d7d7d7; margin-bottom: 10px; padding-bottom: 5px;  }
+.box-search .u-cate-list ul li { line-height: 35px; }
+.box-search .u-cate-list a { color: #262626;  }
+.box-search .u-cate-list a:hover { color: #FF8F00; } */
+.box-search .u-hot-cate {  border: 1px solid #d7d7d7; padding: 9px 12px;  }
+.box-search .u-hot-cate h3 { font-size: 16px; font-weight: bold; border-bottom: 1px solid #d7d7d7; margin-bottom: 10px; padding-bottom: 5px;  }
+.box-search .u-hot-cate ul li { display: inline-block; line-height: 30px; margin: 9px 1px; }
+.box-search .u-hot-cate span { font-size: 13px; font-weight: normal; }
+.box-search .u-list-leftbar { padding-right: 0; width: 22% }
+
+.box-search  h2 {
+    line-height: 32px;
+    font-weight: 600;
+    font-size: 20px;
+    margin: 0 5px 10px 5px;
 }

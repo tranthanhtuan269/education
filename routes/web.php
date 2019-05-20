@@ -103,6 +103,7 @@ Route::get('logout', 'Frontends\HomeController@logout');
 Route::get('test', 'Frontends\HomeController@test');
 Route::get('coming-soon', 'Frontends\HomeController@comingSoon')->name('coming-soon');
 
+Route::get('search', 'Frontends\HomeController@search');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::post('comment/comment-course', 'Frontends\CommentController@commentCourse');

@@ -9,6 +9,7 @@ use App\Video;
 use App\Unit;
 use App\Tag;
 use Auth;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -39,6 +40,16 @@ class HomeController extends Controller
         $popular_teacher = Teacher::getTeacherBestVote();
 
         return view('frontends.home', compact('feature_category', 'feature_course', 'best_seller_course', 'new_course', 'popular_teacher'));
+    }
+
+    public function search(Request $request){
+        $keyword = $request->get('keyword');
+        $results = [];
+        if ($keyword != '') {
+            $keyword = trim($request->get('keyword'));
+            $results = Course::where('name', 'LIKE', "%$keyword%")->paginate(8);
+        }
+        return view('frontends.search', compact('results'));
     }
 
     public function showCategory($cat)
