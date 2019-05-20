@@ -8,7 +8,7 @@ use App\UserRole;
 use App\Permission;
 use App\UserCourse;
 
-class ClearanceFrontEndMiddleware
+class ClearanceFrontendMiddleware
 {
     /**
      * Handle an incoming request.
