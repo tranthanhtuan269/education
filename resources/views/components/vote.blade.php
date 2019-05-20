@@ -10,6 +10,7 @@
     }
 ?>
 <span class="star-rate">
+    <!-- <i class="fa fa-star co-or" aria-hidden="true"></i> -->
     @for($i = 1; $i <= $rate; $i++)
     <i class="fa fa-star co-or" aria-hidden="true"></i>
     @endfor

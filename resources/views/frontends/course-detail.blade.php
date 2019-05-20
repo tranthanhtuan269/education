@@ -330,7 +330,7 @@
                 <h3>Reviews:
                     @if(Auth::check())
                         @if(\App\Helper\Helper::getUserRoleOfCourse($info_course->id))
-                            <span class="reviews-star" data-star="{{ isset($ratingCourse) ? $ratingCourse->score : 0 }}">
+                            <span class="reviews-star" data-star="{{ isset($ratingCourse) ? $ratingCourse->score : 1 }}">
                                 @if($ratingCourse)
                                 @include(
                                     'components.vote', 
@@ -339,7 +339,7 @@
                                     ]
                                 )
                                 @else
-                                <i id="star-1" class="far fa-star review-star" data-id="1"></i>
+                                <i id="star-1" class="fa fa-star yellow-color" data-id="1"></i>
                                 <i id="star-2" class="far fa-star review-star" data-id="2"></i>
                                 <i id="star-3" class="far fa-star review-star" data-id="3"></i>
                                 <i id="star-4" class="far fa-star review-star" data-id="4"></i>
