@@ -119,14 +119,15 @@ ul.unica-acc-zone li.special:hover a{color:#fff}
 .become-teacher .ads-teacher{padding-top:50px;text-align:center}
 .become-teacher .ads-teacher p{font-size:36px;color:#fff;font-weight:600}
 .become-teacher .ads-teacher h2{font-size:42px;color:#FFC700;font-weight:600;padding:10px 0}
-.become-teacher .ads-teacher a{background:#fff;color:#52937A;border:none;border-radius:10px;padding:15px 25px;display:inline-block;font-weight:600}
+.become-teacher .ads-teacher a{background:#fff;color:#52937A;border:none;border-radius:10px;padding:15px 40px;display:inline-block;font-weight:800;font-size: 20px}
 .become-teacher img{height:300px}
 .member-card{padding:30px 0}
 .member-card .courdemy-member{padding-bottom:40px}
+/*.member-card .courdemy-member a{font-size: 20px;font-weight: 800}*/
 .member-card #coursdemy,.member-card #txt-format{font-size:40px;font-weight:800}
 .member-card #txt-format{color:#00B7F1}
 .member-card .des-member-card{padding:30px 0;font-size:16px}
-.member-card a{background:#00B7F1;color:#fff;border:none;border-radius:10px;padding:20px 40px;display:inline-block;text-transform:uppercase;font-weight:600}
+.member-card a{background:#00B7F1;color:#fff;border:none;border-radius:10px;padding:15px 40px;display:inline-block;text-transform:uppercase;font-weight:800;font-size: 20px}
 .member-card img{width:100%}
 .partner{padding:30px 0}
 .partner h2{text-align:center;padding:0 0 40px;font-size:40px;font-weight:800}
