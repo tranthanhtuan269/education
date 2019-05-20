@@ -353,6 +353,9 @@ body{
     min-width: 1px;
     color: #686F7A;
 }
+.ln-lect-list-lect-title:hover{
+    text-decoration: none;
+}
 .ln-lect-list-body li button{
     color: rgb(200, 201, 202);
     background: none;

@@ -1,8 +1,11 @@
+// localStorage.setItem('autoplay', true)
+// var isAutoplay = localStorage.getItem('autoplay')
 $(document).ready(function () {
     // Set up the player
     var options = {
         controls: true,
         preload: 'auto',
+        // autoplay : isAutoplay,
         controlBar: {
             volumePanel: { inline: false }
         },
@@ -316,7 +319,7 @@ $(document).ready(function () {
         alert("This Function is still in development!!")
     }
 
-    $(".duong").click(function () {
+    $(".video-list-item").click(function () {
         var video_id = $(this).attr("data-parent")
         
         window.location.replace("http://courdemy.local/learning-page/"+ course_id +"/lecture/"+ video_id) 
