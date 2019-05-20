@@ -1,21 +1,20 @@
-@foreach ($info_course->commentCourse as $key => $comment)
 <div class="box clearfix">
     <div class="col-sm-3">
-        <img class="avatar" src="{{ url('frontend/'.$comment->user->avatar) }}" alt="" />
+        <img class="avatar" src="" alt="" />
         <div class="info-account">
-            <p class="interval">{{ $comment->created_at }}</p>
-            <p class="name">{{ $comment->user->name }}</p>
+            <p class="interval"></p>
+            <p class="name">PHP</p>
         </div>
     </div>
     <div class="col-sm-9">
         @include(
             'components.vote', 
             [
-                'rate' => intval($info_course->star_count) / intval($info_course->vote_count),
+                'rate' => 2,
             ]
         )
         <div class="comment">
-            {!! $comment->content !!}
+            AAAAAA
         </div>
         <div class="btn-action">
             <button type="button" class="btn btn-default">
@@ -132,7 +131,7 @@
         <hr>
     </div>
 </div>
-@endforeach
+
 {{-- <div class="box clearfix">
     <div class="col-sm-3">
         <img class="avatar" src="https://www.w3schools.com/howto/img_avatar.png" alt="" />
