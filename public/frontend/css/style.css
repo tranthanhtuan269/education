@@ -463,3 +463,9 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
 .btn-action{
     margin-bottom: 10px;
 }
+
+.partner ul{overflow:hidden;text-align:center;margin: 40px 0 60px 0;}
+.partner ul .client-icon{display:inline-block;margin:0 20px;}
+.partner ul .client-icon img{
+    height: 60px; width: auto;
+}

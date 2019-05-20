@@ -44,14 +44,42 @@
                 <p>We offer flexible, cost-effective group memberships for your business, school, or government organization. Contact us to learn more.</p>
             </div>
         </div>
-        <div class="partner-img">
+
+
+        <ul class="col-xs-12">
+            <li class="client-icon">
+                <picture><img data-appear-top-offset="500" src="{{ asset('frontend/images/partner_1.png') }}"></picture>
+            </li>
+            <li class="client-icon">
+                <picture><img data-appear-top-offset="500" src="{{ asset('frontend/images/partner_2.png') }}"></picture>
+            </li>
+            <li class="client-icon">
+                <picture><img data-appear-top-offset="500" src="{{ asset('frontend/images/partner_3.png') }}"></picture>
+            </li>
+            <li class="client-icon">
+                <picture><img data-appear-top-offset="500" src="{{ asset('frontend/images/partner_4.png') }}"></picture>
+            </li>
+            <li class="client-icon">
+                <picture><img data-appear-top-offset="500" src="{{ asset('frontend/images/partner_5.png') }}"></picture>
+            </li>
+        </ul>
+
+
+
+
+
+
+
+
+
+        {{-- <div class="partner-img">
             <ul>
-                <li><img src="{{ asset('frontend/images/collage_3.png') }}"></li>
-                <li><img src="{{ asset('frontend/images/collage_3.png') }}"></li>
-                <li><img src="{{ asset('frontend/images/collage_3.png') }}"></li>
-                <li><img src="{{ asset('frontend/images/collage_3.png') }}"></li>
-                <li><img src="{{ asset('frontend/images/collage_3.png') }}"></li>
+                <li><img src="{{ asset('frontend/images/partner_3.png') }}"></li>
+                <li><img src="{{ asset('frontend/images/partner_3.png') }}"></li>
+                <li><img src="{{ asset('frontend/images/partner_3.png') }}"></li>
+                <li><img src="{{ asset('frontend/images/partner_3.png') }}"></li>
+                <li><img src="{{ asset('frontend/images/partner_3.png') }}"></li>
             </ul>
-        </div>
+        </div> --}}
     </div>
 </div>
