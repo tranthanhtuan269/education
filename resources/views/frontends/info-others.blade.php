@@ -44,7 +44,9 @@
             </div>
         </div>
     </div>
-    <div class="partner">
+</div>
+<div class="partner">
+    <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <h2>Need to Train Your Team?</h2>
@@ -53,11 +55,11 @@
         </div>
         <div class="partner-img">
             <ul>
+                <li><img src="{{ asset('frontend/images/collage_5.png') }}"></li>
+                <li><img src="{{ asset('frontend/images/collage_4.png') }}"></li>
                 <li><img src="{{ asset('frontend/images/collage_3.png') }}"></li>
-                <li><img src="{{ asset('frontend/images/collage_3.png') }}"></li>
-                <li><img src="{{ asset('frontend/images/collage_3.png') }}"></li>
-                <li><img src="{{ asset('frontend/images/collage_3.png') }}"></li>
-                <li><img src="{{ asset('frontend/images/collage_3.png') }}"></li>
+                <li><img src="{{ asset('frontend/images/collage_2.png') }}"></li>
+                <li><img src="{{ asset('frontend/images/collage_1.png') }}"></li>
             </ul>
         </div>
     </div>
