@@ -72,7 +72,7 @@
             })             
         }else{
             var request = $.ajax({
-                url: "{{ url('notes') }}",
+                url: "{{ url('notes/store') }}",
                 method: "POST",
                 data: {
                     videoId: {{ $main_video->id }},

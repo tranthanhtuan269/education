@@ -629,6 +629,9 @@ body{
 
 .ln-disc-comment-wrapper{
     transition: 0.5s !important;
+    border-top: 1px solid #f2f3f7;
+    margin-top: 0.5em;
+    padding-top: 0.5em;
 }
 .ln-disc-comment-wrapper.active{
     display: block !important;
@@ -656,6 +659,7 @@ body{
 }
 .ln-disc-comment-input{
     max-width: 455px;
+    margin-top: 1em;
 }
 .ln-disc-comment-input.active{
     display: flex !important;

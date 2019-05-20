@@ -130,7 +130,7 @@
     
         }else{
             var request = $.ajax({
-            url: "{{ url('comments') }}",
+            url: "{{ url('comments/store') }}",
             method: "POST",
             data: {
                 videoId: {{ $main_video->id }},
@@ -203,7 +203,7 @@
             })
         }else{
             var request = $.ajax({
-                url: "{{ url('comments') }}",
+                url: "{{ url('comments/store') }}",
                 method: "POST",
                 data: {
                     videoId: {{ $main_video->id }},
