@@ -23,7 +23,7 @@
         <meta name="keywords" content="@yield('keywords', '')"/>
         <meta name="copyright" content="Edu">
         <meta name="author" content="Edu"/>
-        {{-- <meta http-equiv="refresh" content="2"> --}}
+        <base href="{{ url('/') }}" target="_blank">
     </head>
     <body>
         <div class="notifications alert alert-danger fade in alert-dismissible">

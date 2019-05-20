@@ -4,8 +4,9 @@ namespace App\Transformers;
 
 use League\Fractal\TransformerAbstract;
 use App\CommentVideo;
+use Auth;
 
-class CommentTransformer extends TransformerAbstract
+class CommentVideoTransformer extends TransformerAbstract
 {
     /**
      * A Fractal transformer.
@@ -16,9 +17,10 @@ class CommentTransformer extends TransformerAbstract
     {
         return [
             'id' => $commentVideo->id,
-            'username' => \Auth::user()->name,
-            'avatar' => \Auth::user()->avatar,
-            'userType' => $commentVideo->userRole->role_id == 1 ? "Student" : $commentVideo->userRole->role_id == 2 ? "Teacher" : "",
+            'parentId' => $commentVideo->parent_id,
+            'username' => Auth::user()->name,
+            'avatar' => Auth::user()->avatar,
+            'userType' => $commentVideo->userRole->role_id == 1 ? "Student" : ($commentVideo->userRole->role_id == 2 ? "Teacher" : ""),
             'content' => $commentVideo->content,
             'created_at' => $commentVideo->created_at->format('Y-m-d H:i:s')
         ];

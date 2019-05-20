@@ -74,6 +74,11 @@ class Course extends Model
     {
     	return $this->hasMany('App\Unit');
     }
+
+    public function comments()
+    {
+        return $this->hasMany('App\CommentCourse')->orderBy('created_at', 'desc');
+    }
     
     public function videos()
     {

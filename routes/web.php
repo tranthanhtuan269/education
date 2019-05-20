@@ -91,5 +91,9 @@ Route::get('teacher/{teacher}', ['as'  => 'teacher', 'uses' =>'Frontends\HomeCon
 
 // Đăng nhập mới đánh giá khóa học dc
 Route::post('reviews/info', 'Backends\UserController@infoRoleUser');
-Route::post('reviews/create', 'CommentController@create');
-Route::get('test', 'Frontends\HomeController@test');
+
+Route::post('reviews/store', 'Frontends\CommentController@storeCommentCourse');
+Route::post('comments/store', 'Frontends\CommentController@storeCommentVideo');
+Route::post('comments/vote', 'Frontends\CommentController@storeCommentVote');
+Route::post('comments/reply', 'Frontends\CommentController@storeReply');
+Route::get('logout', 'Frontends\HomeController@logout');

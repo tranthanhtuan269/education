@@ -19,7 +19,7 @@ class CreateCommentVideosTable extends Migration
             $table->string('content', 255);
             $table->integer('user_role_id');
             $table->integer('video_id');
-            $table->integer('parent_id');
+            $table->integer('parent_id')->default(0);
             $table->integer('state')->default(0);
             $table->timestamps();
         });

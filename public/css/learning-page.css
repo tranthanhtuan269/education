@@ -634,6 +634,7 @@ body{
 }
 .ln-disc-comment-right{
     margin-left: 10px;
+    width: 100%;
 }
 .ln-disc-comment-username{
     display: flex;

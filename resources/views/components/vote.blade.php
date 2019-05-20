@@ -1,4 +1,16 @@
+
+<?php
+    $rate_temp = $rate - (int) $rate;
+    if(0 <= $rate_temp && $rate_temp < 0.25){
+        $rate = (int)$rate;
+    }else if(0.25 < $rate_temp && $rate_temp < 0.75){
+        $rate = (int)$rate + 0.5;
+    }else{
+        $rate = (int)$rate + 1;
+    }
+?>
 <span class="star-rate">
+    <!-- <i class="fa fa-star co-or" aria-hidden="true"></i> -->
     @for($i = 1; $i <= $rate; $i++)
     <i class="fa fa-star co-or" aria-hidden="true"></i>
     @endfor

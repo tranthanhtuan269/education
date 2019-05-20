@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Tag extends Model
 {
     protected $fillable = [
-        'name', 'status', 'cat_id'
+        'name', 'status', 'image', 'category_id'
     ];
 
     // public function courses()
@@ -16,6 +16,6 @@ class Tag extends Model
     // }
 
     public function category(){
-    	return $this->belongsTo('App\Category', 'cat_id');
+    	return $this->belongsTo('App\Category');
     }
 }
