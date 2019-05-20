@@ -21,6 +21,10 @@ class HomeController extends Controller
         }
     }
 
+    public function comingSoon(){
+        return view('frontends.coming-soon');
+    }
+
     public function home()
     {
         $feature_category = Category::withCount('courses')->where('featured', 1)->orderBy('featured_index', 'asc')->limit(10)->get();

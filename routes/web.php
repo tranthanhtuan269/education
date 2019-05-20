@@ -87,6 +87,7 @@ Route::get('teacher/{teacher}', ['as'  => 'teacher', 'uses' =>'Frontends\HomeCon
 // Đăng nhập mới đánh giá khóa học dc
 Route::post('reviews/info', 'Backends\UserController@infoRoleUser');
 Route::get('test', 'Frontends\HomeController@test');
+Route::get('coming-soon', 'Frontends\HomeController@comingSoon')->name('coming-soon');
 
 
 Route::group(['middleware' => 'auth'], function () {
