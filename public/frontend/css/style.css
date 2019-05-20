@@ -468,4 +468,5 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
 .partner ul .client-icon{display:inline-block;margin:0 20px;}
 .partner ul .client-icon img{
     height: 60px; width: auto;
+    vertical-align: middle;
 }
