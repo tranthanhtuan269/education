@@ -1,5 +1,13 @@
 @extends('frontends.layouts.app')
 @section('content')
+<?php
+    $percent_temp = 100;
+    if($info_course->vote_count == 0) {
+        $info_course->vote_count = 1;
+        $percent_temp = 0;
+    }
+
+?>
 <div class="detail-course">
     <img class="background" src="{{ asset('frontend/images/banner_profile_teacher.png') }}" width="100%" >
     <div class="container">
@@ -276,7 +284,6 @@
                 </div>
                 <div class="col-sm-8 rating-process">
                     <div class="row">
-                        <?php $percent_temp = 100; ?>
                         @for ($i = 5; $i <10; $i++)
                         <?php
                             if ($i == 5) {
@@ -320,25 +327,75 @@
                 </div>
             </div>
             <div class="reviews">
-                <h3>Reviews</h3>
-                <script src="https://cdn.ckeditor.com/ckeditor5/12.0.0/classic/ckeditor.js"></script>
-                <textarea name="content" id="editor" placeholder="Type the content here!"></textarea>
+                <h3>Reviews:
+                    @if(Auth::check())
+                        @if(\App\Helper\Helper::getUserRoleOfCourse($info_course->id))
+                            <span class="reviews-star" data-star="{{ isset($ratingCourse) ? $ratingCourse->score : 0 }}">
+                                @if($ratingCourse)
+                                @include(
+                                    'components.vote', 
+                                    [
+                                        'rate' => $ratingCourse->score,
+                                    ]
+                                )
+                                @else
+                                <i id="star-1" class="far fa-star review-star" data-id="1"></i>
+                                <i id="star-2" class="far fa-star review-star" data-id="2"></i>
+                                <i id="star-3" class="far fa-star review-star" data-id="3"></i>
+                                <i id="star-4" class="far fa-star review-star" data-id="4"></i>
+                                <i id="star-5" class="far fa-star review-star" data-id="5"></i>
+                                @endif
+                            </span>
+                        @endif
+                    @endif
+                </h3>
+                @if(Auth::check())
+                @if(\App\Helper\Helper::getUserRoleOfCourse($info_course->id))
+                <textarea name="content" id="editor" class="form-control" placeholder="Type the content here!"></textarea>
                 <div class="btn-submit text-center mt-10 mb-20">
-                    <input class="btn btn-primary submit-question" type="submit" value="SUBMIT A QUESTION" id="create-comment-new"/>
+                    <input class="btn btn-primary submit-question" type="submit" value="SUBMIT A REVIEW" id="create-comment-new"/>
                 </div>
                 <script>
                     var baseURL = $('base').attr('href');
 
-                    var myEditor;
-                    ClassicEditor
-                        .create( document.querySelector( '#editor' ) )
-                        .then( editor => {
-                                console.log( editor );
-                                myEditor = editor;
-                        } )
-                        .catch( error => {
-                                console.error( error );
-                    } );
+                    function hideStar(){
+                        for(var j = 1; j <= 5; j++){
+                            $('#star-' + j).removeClass('fa').addClass('far');
+                        }
+                    }
+
+                    function showStar(i){
+                        for(var j = 1; j <= i; j++){
+                            $('#star-' + j).addClass('fa').removeClass('far');
+                        }
+                    }
+
+                    $('.review-star').mouseenter(function(){
+                        switch($(this).attr('data-id')){
+                            case "1":
+                                hideStar();showStar(1);
+                                break;
+                            case "2":
+                                hideStar();showStar(2);
+                                break;
+                            case "3":
+                                hideStar();showStar(3);
+                                break;
+                            case "4":
+                                hideStar();showStar(4);
+                                break;
+                            case "5":
+                                hideStar();showStar(5);
+                                break;
+                        }
+                    }).mouseleave(function(){
+                        hideStar();
+                    }).click(function(){
+                        showStar($(this).attr('data-id'))
+                        $('.review-star').off( "mouseenter")
+                        $('.review-star').off( "mouseleave")
+                        $('.reviews-star').attr('data-star', $(this).attr('data-id'))
+                    });
 
                     $.ajaxSetup({
                         headers: {
@@ -346,75 +403,83 @@
                         }
                     });
 
-                    $('#create-comment-new').click(function(){
-                        $.ajax({
-                            type: "POST",
+                    $('#create-comment-new').on('click', function (e) {
+                        var request = $.ajax({
                             url: baseURL + '/reviews/store',
+                            method: "POST",
                             data: {
                                 course_id: {{ $info_course->id }},
-                                content : myEditor.getData()
+                                content : $('#editor').val(),
+                                score: $('.reviews-star').attr('data-star')
                             },
-                            dataType: 'json',
-                            beforeSend: function() {
+                            dataType: "json"
+                        });
+
+                        request.done(function( data ) {
+                            if(data.status == 200){
                                 var html = "";
+                                var htmlRate = $('.reviews-star').html();
                                 html += '<div class="box clearfix">';
                                     html += '<div class="col-sm-3">';
-                                        html += '<img class="avatar" src="https://www.w3schools.com/howto/img_avatar.png" alt="">';
+                                        html += '<img class="avatar" src="'+baseURL + '/' + data.commentCourse.data.avatar +'" alt="">';
                                         html += '<div class="info-account">';
-                                            html += '<p class="interval">1 week ago</p>';
-                                            html += '<p class="name">Bảo Minh</p>';
+                                            html += '<p class="interval">' + data.commentCourse.data.created_at +'</p>';
+                                            html += '<p class="name">' + data.commentCourse.data.username +'</p>';
                                         html += '</div>';
                                     html += '</div>';
                                     html += '<div class="col-sm-9">';
-                                        html += '<span class="star-rate">';
-                                        html += '<i class="fa fa-star co-or" aria-hidden="true"></i>';
-                                        html += '<i class="fa fa-star co-or" aria-hidden="true"></i>';
-                                    
-                                    
-                                        html += '<i class="far fa-star"></i>';
-                                        html += '<i class="far fa-star"></i>';
-                                        html += '<i class="far fa-star"></i>';
-                                    html += '</span>';
+                                        html += htmlRate;
 
                                         html += '<p class="comment">';
-                                            html += 'Khóa học em học được lâu dài ở đây ạ. Khóa học em học được rất ';
+                                            html += data.commentCourse.data.content;
                                         html += '</p>';
                                         html += '<div class="btn-action">';
-                                            html += '<button type="button" class="btn btn-default">';
+                                            html += '<button type="button" class="btn btn-default btn-reply" data-comment-id="'+data.commentCourse.data.id+'">';
                                                 html += '<i class="fas fa-comment"></i>';
-                                                html += '<span>Share</span>';
-                                            html += '</button>';
-                                            html += '<button type="button" class="btn btn-default">';
-                                                html += '<i class="fas fa-thumbs-up"></i>';
                                                 html += '<span>Reply</span>';
                                             html += '</button>';
-                                            html += '<button type="button" class="btn btn-default">';
+                                            html += '<button type="button" class="btn btn-default btn-like" data-comment-id="'+data.commentCourse.data.id+'">';
+                                                html += '<i class="fas fa-thumbs-up"></i>';
+                                                html += '<span>Like</span>';
+                                            html += '</button>';
+                                            html += '<button type="button" class="btn btn-default btn-dislike" data-comment-id="'+data.commentCourse.data.id+'">';
                                                 html += '<i class="fas fa-thumbs-down"></i>';
                                                 html += '<span>Dislike</span>';
                                             html += '</button>';
                                         html += '</div>';
+                                        html += '<div id="reply-textbox-'+data.commentCourse.data.id+'" class="reply-textbox hide">';
+                                            html += '<textarea name="reply-'+data.commentCourse.data.id+'" id="reply-'+data.commentCourse.data.id+'" class="form-control" placeholder="Type the content here!"></textarea>';
+                                            html += '<div class="btn-submit text-center mt-10 mb-20">';
+                                                html += '<input class="btn btn-primary create-reply-btn" type="submit" value="SUBMIT A REPLY" id="create-reply-'+data.commentCourse.data.id+'" data-id="'+data.commentCourse.data.id+'"/>';
+                                            html += '</div>';
+                                        html += '</div>';
+                                        html += '<div class="reply-hold-'+data.commentCourse.data.id+'"></div>';
                                     html += '</div>';
                                     html += '<div class="col-sm-12">';
                                         html += '<hr>';
                                     html += '</div>';
                                 html += '</div>';
                                 $('#review-box').prepend(html);
-                            },
-                            complete: function(data) {
-                                if(data.status == 200){
-
-                                }
+                                
+                                addEventToButton();
                             }
+                        });
+
+                        request.fail(function( jqXHR, textStatus ) {
+                            alert( "Request failed: " + textStatus );
                         });
                     });
                 </script>
-
+                @endif
+                @endif
                 <div id="review-box">
-                    @include('components.question-answer')
+                    @foreach($info_course->comments as $comment)
+                        @include('components.question-answer', ['comment' => $comment])
+                    @endforeach
                 </div>
             </div>
             <div class="col-sm-12 btn-seen-all">
-                <button type="button" class="btn">Seen all student feedback</button>
+                <button type="button" class="btn">See more</button>
             </div>
             
         </div>
@@ -435,12 +500,99 @@
                 $('html,body').animate({
                     scrollTop: top_scroll - 100
                 }, 'slow');
-            }
-            // $('.box_header .menu-main.mobile').addClass('hidden-xs hidden-sm');
-            // $('.go-box').removeClass('active');
-            // $(this).addClass('active');
-    
+            }    
         });
+        
+        addEventToButton();
     });
+
+    function vote(comment_id, type){
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        var request = $.ajax({
+            url: baseURL + '/comments/vote',
+            method: "POST",
+            data: {
+                comment_id: comment_id,
+                type: type
+            },
+            dataType: "json"
+        });
+    }
+
+    function addEventToButton(){
+        $('.btn-default.btn-reply').off('click');
+        $('.btn-default.btn-like').off('click');
+        $('.btn-default.btn-dislike').off('click');
+        $('.create-reply-btn').off('click');
+
+        $('.btn-default.btn-reply').on('click', function (e) {
+            // console.log($(this).attr('data-comment-id'));
+            // $('.reply-hold').addClass('hide');
+            $('.reply-hold-' + $(this).attr('data-comment-id')).removeClass('hide');
+
+            $('.reply-textbox').addClass('hide');
+            $('#reply-textbox-' + $(this).attr('data-comment-id')).removeClass('hide');
+        });
+
+        $('.btn-default.btn-like').on('click', function (e) {
+            vote($(this).attr('data-comment-id'), 'up');
+            $(this).removeClass('btn-default').addClass('btn-primary');
+            $(this).parent().find('.btn-dislike').addClass('btn-default').removeClass('btn-primary');
+        });
+
+        $('.btn-default.btn-dislike').on('click', function (e) {
+            vote($(this).attr('data-comment-id'), 'down');
+            $(this).removeClass('btn-default').addClass('btn-primary');
+            $(this).parent().find('.btn-like').addClass('btn-default').removeClass('btn-primary');
+        });
+
+        $('.create-reply-btn').on('click', function (e) {
+            var comment_id = $(this).attr('data-id');
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            var request = $.ajax({
+                url: baseURL + '/comments/reply',
+                method: "POST",
+                data: {
+                    parent_id: comment_id,
+                    content : $("#reply-" + comment_id).val()
+                },
+                dataType: "json"
+            });
+
+            request.done(function( data ) {
+                if(data.status == 200){
+                    var html = "";
+                    html += '<div class="comment-reply">';
+                        html += '<div>';
+                            html += '<img class="avatar" src="'+baseURL + '/' + data.commentCourse.data.avatar +'" alt="" />';
+                            html += '<div class="info-account">';
+                                html += '<p class="interval">' + data.commentCourse.data.created_at +'</p>';
+                                html += '<p class="name">' + data.commentCourse.data.username +'</p>';
+                            html += '</div>';
+                        html += '</div>';
+                        html += '<div class="comment">';
+                            html += data.commentCourse.data.content;
+                        html += '</div>';
+                    html += '</div>';
+
+                    $('.reply-hold-' + comment_id).prepend(html);
+                }
+            });
+
+            request.fail(function( jqXHR, textStatus ) {
+                alert( "Request failed: " + textStatus );
+            });
+        });
+    }
 </script>
 @endsection

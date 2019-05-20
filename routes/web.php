@@ -94,3 +94,6 @@ Route::post('reviews/info', 'Backends\UserController@infoRoleUser');
 
 Route::post('reviews/store', 'Frontends\CommentController@storeCommentCourse');
 Route::post('comments/store', 'Frontends\CommentController@storeCommentVideo');
+Route::post('comments/vote', 'Frontends\CommentController@storeCommentVote');
+Route::post('comments/reply', 'Frontends\CommentController@storeReply');
+Route::get('logout', 'Frontends\HomeController@logout');

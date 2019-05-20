@@ -79,12 +79,6 @@ class CoursesTableSeeder extends Seeder
 
 		for ($i=0; $i < 20 ; $i++) { 
 			foreach($courseArr as $course){
-				$rand_one = rand (0,30);
-				$rand_two = rand (0,30);
-				$rand_three = rand (0,30);
-				$rand_four = rand (0,30);
-				$rand_five = 150 - $rand_one - $rand_two - $rand_three - $rand_four;
-	
 				$courses = new Course;
 				$courses->name = $course[0] . $i;
 				$courses->short_description = 'Linux Troubleshooting and Administration';
@@ -97,10 +91,10 @@ class CoursesTableSeeder extends Seeder
 				$courses->downloadable_count = 3;
 				$courses->video_count = 36;
 				$courses->student_count = 150;
-				$courses->star_count = $rand_one * 1 + $rand_two * 2 + $rand_three * 3 + $rand_four * 4 + $rand_five * 5;
-				$courses->vote_count = 150;
-				$courses->sale_count = 150;
-				$courses->view_count = 350;
+				$courses->star_count = 0;
+				$courses->vote_count = 0;
+				$courses->sale_count = 0;
+				$courses->view_count = 0;
 				$courses->description = $course[2];
 				$courses->will_learn = '{"0":"Bạn đang học tiếng Hàn, nhưng ngại giao tiếp với người Hàn Quốc","1":"Bạn đang học tiếng Hàn, nhưng ngại giao tiếp với người Hàn Quốc","2":"Bạn đang học tiếng Hàn, nhưng ngại giao tiếp với người Hàn Quốc","3":"Bạn đang học tiếng Hàn, nhưng ngại giao tiếp với người Hàn Quốc"}';
 				$courses->requirement = '{"0":"Là người thành lập trang Fanpage dạy tiếng Hàn miễn phí","1":"Là người thành lập trang Fanpage dạy tiếng Hàn miễn phí","2":"Là người thành lập trang Fanpage dạy tiếng Hàn miễn phí","3":"Là người thành lập trang Fanpage dạy tiếng Hàn miễn phí"}';
@@ -110,11 +104,11 @@ class CoursesTableSeeder extends Seeder
 				$courses->featured_index = $i;
 				$courses->promotion = 1;
 				$courses->promotion_index = 1;
-				$courses->five_stars = $rand_five;
-				$courses->four_stars = $rand_four;
-				$courses->three_stars = $rand_three;
-				$courses->two_stars = $rand_two;
-				$courses->one_stars = $rand_one;
+				$courses->five_stars = 0;
+				$courses->four_stars = 0;
+				$courses->three_stars = 0;
+				$courses->two_stars = 0;
+				$courses->one_stars = 0;
 				$courses->status = 1;
 				$courses->save();
 

@@ -417,7 +417,7 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
 .reviews .info-account .interval{color:#29C2F3;font-size:13px}
 .reviews .box hr{margin:25px 0;border-top:1px solid #ccc}
 .reviews .box .btn-action button{padding:2px 25px}
-.reviews .box .comment{padding:15px 0}
+.reviews .box .comment{padding:8px 0}
 .reviews .box .comment-reply{border:1px solid #ccc;background:#E7E7E7;padding:20px;margin:20px 0}
 .btn-seen-all{text-align:center}
 .btn-seen-all button{text-transform:uppercase;margin-top:20px}
@@ -427,3 +427,8 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
 .mt-10{ margin-top: 10px; }
 .mb-20{ margin-bottom: 20px; }
 .my-10{ margin: 10px 0; }
+.review-star{ color: #FF8F00; cursor: pointer;}
+
+.btn-action{
+    margin-bottom: 10px;
+}

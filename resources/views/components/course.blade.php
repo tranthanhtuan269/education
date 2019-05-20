@@ -1,3 +1,6 @@
+<?php
+    if($vote_count == 0) $vote_count = 1;
+?>
 <div class="col-sm-3">
     <div class="box-course">
         <a href="{{ url('/') }}/course/{{ $slug }}" title="{{ $title }}" class="course-box-slider pop">
