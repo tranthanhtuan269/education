@@ -33,12 +33,16 @@
     <div class="ln-desc-bottom">
         <div class="ln-desc-btm-center">
             <div class="ln-desc-btm-group-track">
-                <a href="2">
+                @if (($main_video_id_key) > 0)
+                <a href="{{$video_id_list[$main_video_id_key-1]}}">
                     <button class="btn" id="lnDescBtnPrevious"><i class="fas fa-step-backward"></i></button>
                 </a>
-                <a href="3">
+                @endif
+                @if (($main_video_id_key) < (count($video_id_list) - 1) )
+                <a href="{{$video_id_list[$main_video_id_key + 1]}}">
                     <button class="btn" id="lnDescBtnNext"><i class="fas fa-step-forward"></i></button>
                 </a>
+                @endif
             </div>
             <div class="ln-desc-group-btn-utilities">
                 <div class="btn ln-btn-server">

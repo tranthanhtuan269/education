@@ -1,5 +1,5 @@
-@php
-    // dd($course);
+@php 
+$momentNow = new MomentPHP\MomentPHP();
 @endphp
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -16,19 +16,25 @@
 
         <!-- Scripts -->
         <script src="https://cdn.ckeditor.com/ckeditor5/12.1.0/classic/ckeditor.js"></script>
-        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>
+        {{-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script> --}}
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
         <script type="text/javascript" src="{{ asset('js/learning-page.js') }}"></script>
-
+        {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script> --}}
+        {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.all.js"></script> --}}
+        {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.css"> --}}
+        {{-- <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script> --}}
+        {{-- <link rel="stylesheet" href="sweetalert2.min.css"> --}}
         
-
+        
+        
         <!-- Styles -->
         <link rel="stylesheet" href="{{asset('/css/learning-page.css')}}">
         <link href="https://vjs.zencdn.net/7.5.4/video-js.css" rel="stylesheet">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
+        
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
     </head>
     <body>
 
@@ -69,6 +75,12 @@
             </div>
         </div>
         <script>
+            var course_id = {{$course->id}}
+            var main_video_id = {{$main_video->id}}
+            var video_id_list = {{json_encode($video_id_list)}}
+            
+            var main_video_id_key = {{$main_video_id_key}}
+
             $(document).ready(function () {
                 $('.ln-disc-comment-wrapper').on('shown.bs.collapse', function () {
                     $("#discComment" + $(this).attr('data-parent') + " p").addClass('active');
@@ -80,13 +92,24 @@
                     return false;
                 })
 
+                var video_id_index = null
+                video_id_list.forEach(video_id => {
+                    if(video_id == main_video_id){
+                        video_id_index = video_id_list.indexOf(video_id)
+                        return 
+                    }
+                });
+
+                
+                $('#btnContinue').click(function () {
+                    window.location.replace("http://courdemy.local/learning-page/"+course_id+"/lecture/"+video_id_list[video_id_index + 1]+"")
+                })
                 
             })
+            
         </script>
-
         <script src='https://vjs.zencdn.net/7.5.4/video.js'></script>
         <script src="https://unpkg.com/silvermine-videojs-quality-selector/dist/js/silvermine-videojs-quality-selector.min.js"></script>           
         <script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-hls/5.15.0/videojs-contrib-hls.js"></script>
     </body>
 </html>
-        

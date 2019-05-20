@@ -33,5 +33,6 @@ class AppServiceProvider extends ServiceProvider
             }
             return preg_match($parameters[0], $value);
         });
+
     }
 }

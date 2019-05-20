@@ -1,8 +1,11 @@
+// localStorage.setItem('autoplay', true)
+// var isAutoplay = localStorage.getItem('autoplay')
 $(document).ready(function () {
     // Set up the player
     var options = {
         controls: true,
         preload: 'auto',
+        // autoplay : isAutoplay,
         controlBar: {
             volumePanel: { inline: false }
         },
@@ -12,7 +15,17 @@ $(document).ready(function () {
     initializePlayerControlBar()
     toggleBigPlayButton()
     clickToPlay()
-
+    
+    function checkIfVideoIsPlaying(){
+        console.log(player.paused());
+        if(player.paused()){
+            $(".vjs-custom-big-play-button").css("display", "block !important")
+        }else{
+            $(".vjs-custom-big-play-button").css("display", "none !important")
+        }
+        
+    }
+    
 
     videojs('my-video').ready(function () {
         this.on('timeupdate', function () {
@@ -28,7 +41,8 @@ $(document).ready(function () {
     $("#btnCloseSidebar").click(function () {
         toggleLectureList()
     })
-    $(".ln-btn-complete").click(function () {
+    $(".ln-btn-complete").click(function (event) {
+        event.stopPropagation();
         tickCompleteLecture()
     })
     $("#btnForward").click(function () {
@@ -55,20 +69,10 @@ $(document).ready(function () {
     $("#btnCloseNotes").click(function (){
         toggleNotes()
     })
+    
 
 
-    function convertSecondToTimeFormat(time) {
-        var hr = ~~(time / 3600);
-        var min = ~~((time % 3600) / 60);
-        var sec = time % 60;
-        var sec_min = "";
-        if (hr > 0) {
-           sec_min += "" + hrs + ":" + (min < 10 ? "0" : "");
-        }
-        sec_min += "" + min + ":" + (sec < 10 ? "0" : "");
-        sec_min += "" + Math.floor(sec);
-        return sec_min;
-    }
+    
     
     function seekTime(secs) {
         var seekingTime   = player.currentTime() + secs
@@ -194,6 +198,7 @@ $(document).ready(function () {
 
     function toggleNotes() {
         if(!$(".learning-notes").hasClass('active')){
+            player.pause()
             activeRightBar()
             $(".learning-notes").addClass("active")
             $(".learning-files").removeClass("active")
@@ -218,25 +223,34 @@ $(document).ready(function () {
         
         $(".vjs-custom-big-play-button").removeClass('leftbarActive')
         $(".vjs-custom-big-play-button").addClass('rightbarActive')
+        // $(".vjs-custom-big-play-button").fadeIn()
 
-        $(".ln-btn-note span").hide()
-        $(".ln-btn-discuss span").hide()
-        $(".ln-btn-file span").hide()
-        $(".ln-btn-autoplay span").hide()
-        $(".ln-btn-report span").hide()
+        $(".ln-btn-note span").fadeOut()
+        $(".ln-btn-discuss span").fadeOut()
+        $(".ln-btn-file span").fadeOut()
+        $(".ln-btn-autoplay span").fadeOut()
+        $(".ln-btn-report span").fadeOut()
+        $("#btnContinue span").fadeOut()
+
+        checkIfVideoIsPlaying()
     }
     function unActiveRightBar(){
+
         $("#my-video").removeClass('rightbarActive')
         $(".learning-desc-panel-body").removeClass('rightbarActive')
         $(".ln-desc-bottom").removeClass("rightbarActive")
 
         $(".vjs-custom-big-play-button").removeClass('rightbarActive')
 
-        $(".ln-btn-note span").show()
-        $(".ln-btn-discuss span").show()
-        $(".ln-btn-file span").show()
-        $(".ln-btn-autoplay span").show()
-        $(".ln-btn-report span").show()
+        $(".ln-btn-note span").fadeIn()
+        $(".ln-btn-discuss span").fadeIn()
+        $(".ln-btn-file span").fadeIn()
+        $(".ln-btn-autoplay span").fadeIn()
+        $(".ln-btn-report span").fadeIn()
+        $("#btnContinue span").fadeIn()
+
+        checkIfVideoIsPlaying()
+
     }
     
 
@@ -273,7 +287,7 @@ $(document).ready(function () {
         $("#btnDiscuss").after(btnFile)
 
         //Button Continue
-        var btnContinue = "<div class='btn' id='btnContinue'>Continue&nbsp;&nbsp<i class='fas fa-step-forward'></i></div>"
+        var btnContinue = "<div class='btn' id='btnContinue'><span>Continue&nbsp;&nbsp</span><i class='fas fa-step-forward'></i></div>"
         $(".vjs-volume-panel").before(btnContinue)
 
         //Video Quality Selector
@@ -293,7 +307,7 @@ $(document).ready(function () {
 
     }
 
-    function tickCompleteLecture() {
+    function tickCompleteLecture(e) {
         // if($('.ln-btn-complete i').hasClass("fa-circle")){
         //     $(".ln-btn-complete i").remove()
         //     $(".ln-btn-complete").append("<i class='fas fa-check-circle'></i>")
@@ -301,6 +315,27 @@ $(document).ready(function () {
         //     $(".ln-btn-complete i").remove()
         //     $(".ln-btn-complete").append("<i class='fas fa-circle'></i>")
         // }
+        
         alert("This Function is still in development!!")
     }
+
+    $(".video-list-item").click(function () {
+        var video_id = $(this).attr("data-parent")
+        
+        window.location.replace("http://courdemy.local/learning-page/"+ course_id +"/lecture/"+ video_id) 
+    })
+
 });
+
+function convertSecondToTimeFormat(time) {
+    var hr = ~~(time / 3600);
+    var min = ~~((time % 3600) / 60);
+    var sec = time % 60;
+    var sec_min = "";
+    if (hr > 0) {
+       sec_min += "" + hr + ":" + (min < 10 ? "0" : "");
+    }
+    sec_min += "" + min + ":" + (sec < 10 ? "0" : "");
+    sec_min += "" + Math.floor(sec);
+    return sec_min;
+}
