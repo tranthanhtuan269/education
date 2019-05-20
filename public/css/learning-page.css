@@ -401,7 +401,7 @@ body{
 .vjs-control-bar #btnContinue{
     font-family: "Open Sans";
 }
-.vjs-control-bar #btnContinue i, .vjs-control-bar #btnSubtitle i{
+.vjs-control-bar #btnContinue i, .vjs-control-bar #btnAutoplay i{
     font-size: medium;
 }
 .vjs-control-bar #btnContinue:hover{
@@ -410,7 +410,7 @@ body{
 .vjs-control-bar #qualitySelectorIcon{
     font-size: large;
 }
-.vjs-control-bar #btnSubtitle{
+.vjs-control-bar #btnAutoplay{
     font-size: large;
 }
 .vjs-subtitle-control{
