@@ -520,3 +520,7 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
     font-size: 20px;
     margin: 0 5px 10px 5px;
 }
+
+div[data-u="slides"] div div{
+    border-radius: 18px;
+}

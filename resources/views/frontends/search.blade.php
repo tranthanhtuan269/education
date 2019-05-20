@@ -24,7 +24,7 @@
                     @if (count($results) > 0)
                     <div class="row">
                         <div class="col-xs-12">
-                            <h2>{{ count($results) }} results found</h2>
+                            <h2>{{ $results->total() }} results found</h2>
                         </div>
                         @foreach ($results as $result)
                         <?php

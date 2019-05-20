@@ -9,7 +9,7 @@
                                 <div class="ads-teacher">
                                     <p>BECOME</p>
                                     <h2>COURDEMY'S <br> TEACHER</h2>
-                                    <a href="#" title="Register Teacher">REGISTER NOW</a>
+                                    <a href="{{ url('coming-soon') }}" title="Register Teacher">REGISTER NOW</a>
                                 </div>
                             </div>
                         </div>

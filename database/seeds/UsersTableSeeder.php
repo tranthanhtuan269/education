@@ -54,7 +54,7 @@ class UsersTableSeeder extends Seeder
 			        $user->facebook = "https://www.facebook.com/canhchimcodon26988";
 			        $user->phone = "0973619".$i.$j.$k;
 			        $user->address = "So 65 - to 7 - Dong Anh - Ha Noi";
-			        $user->avatar = "images/avatar.jpg";
+			        $user->avatar = "images/avatar_teacher_".$k.".jpg";
 			        $user->coins = 350;
 			        $user->dob = date("Y-m-d H:i:s");
 			        $user->gender = 1;
