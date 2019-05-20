@@ -8,12 +8,11 @@
 			</div>
 			<div class="col-sm-7">
 				<div class="left-intro">
-					<h2>Unread Engine C++ Developer: Learn C++ and Make Video Games</h2>
-					<p class="meta-des">Linux Troubleshooting and Administration</p>
+					<h2>{{ $info_course->name }}</h2>
+					<p class="meta-des">{{ $info_course->short_description }}</p>
 					<div class="vote">
 						<div class="continue"><a href="#" title="Continue">Continue to Lecture 20</a></div>
 						<div class="rating">
-							{{-- <span>@for($i=1;$i<=5;$i++)<i class="fa fa-star fa-lg icon-star" aria-hidden="true"></i>@endfor</span> --}}
 							@include(
 								'components.vote', 
 								[
@@ -61,10 +60,10 @@
 				<div class="left-content">
 					<div class="desc">
 						<h3>Descriptions</h3>
-						<p>Bạn muốn làm việc tại công ty Hàn Quốc với mức THU NHẬP KHỦNG? Hay bạn đang làm việc tại một công ty Hàn Quốc và muốn có cơ thêm CƠ HỘI THĂNG TIẾN trong công việc cũng như có thể trò chuyện, GIAO TIẾP cùng người Hàn Quốc trong công ty?</p>
+						<p>{!! $info_course->description !!}</p>
 					</div>
 					<div class="lessons clearfix" id="box_course_content">
-						@include('components.course-lession-list')
+						@include('components.course-lession-list', ['info_course' => $info_course])
 					</div>
 					<div class="course-document" id="box_document">
 						<h3>Document</h3>
@@ -189,14 +188,16 @@
 		</div>
 		<div class="course-learning-review">
 			<div class="reviews">
+				@if(false)
 				@include('components.question-answer')
+				@endif
 			</div>
 			<div class="col-sm-12 btn-seen-all">
 				<button type="button" class="btn">Seen all student feedback</button>
 			</div>
 		</div>
 	</div>
-
+@if(false)
 <div class="container">
 	<div class="course-recommend">
 		<div class="row">
@@ -221,6 +222,7 @@
 		</div>
 	</div>
 </div>
+@endif
 <!-- Modal -->
 <script type="text/javascript">
     $(document).ready(function() {  
