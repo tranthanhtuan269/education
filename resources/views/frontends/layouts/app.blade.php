@@ -263,7 +263,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-3 col-md-3 col-sm-4 cate-md">
-                            <a class="unica-logo" href="{{ route('home') }}"><img class="img-responsive" src="{{ asset('frontend/images/tab_logo.png') }}" alt="Unica - Học từ chuyên gia" width="138" height="33" /></a>
+                            <a class="unica-logo" href="{{ url('/') }}"><img class="img-responsive" src="{{ asset('frontend/images/tab_logo.png') }}" alt="Unica - Học từ chuyên gia" width="138" height="33" /></a>
                             <div class="unica-menu-cate">
                                 <i class="fa fa-th" aria-hidden="true"></i> Categories
                                 <nav id="mysidebarmenu" class="amazonmenu">
