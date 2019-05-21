@@ -120,4 +120,16 @@ class CommentController extends Controller
       }
       return \Response::json(array('status' => '404', 'message' => 'Khóa học không tồn tại!'));
    }
+
+   public function seeMore(Request $request){
+      if($request->course_id != null && $request->take != null && $request->skip != null){
+         $course = Course::find($request->course_id);
+         if($course){
+            $commentCourses = $course->takeComment($request->skip, $request->take);
+            return view('components.question-answer-list', ['comments' => $commentCourses]);
+         }
+         return '';
+      }
+      return '';
+   }
 }

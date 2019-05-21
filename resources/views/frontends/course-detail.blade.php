@@ -327,6 +327,7 @@
                     </div>
                 </div>
             </div>
+            @if(count($info_course->comments) > 0 && Auth::check())
             <div class="reviews">
                 <h3>Reviews:
                     @if(Auth::check())
@@ -480,11 +481,11 @@
                 </div>
             </div>
             @if(count($info_course->comments) > 0)
-            <div class="col-sm-12 btn-see-more">
-                <button type="button" class="btn" data-skip="3" data-take="3">See more</button>
+            <div class="col-sm-12 btn-see-more" data-skip="3" data-take="3">
+                <button type="button" class="btn">See more</button>
             </div>
             @endif
-            
+            @endif
         </div>
     </div>
     <div class="related-course">
@@ -497,8 +498,8 @@
     
     $(document).ready(function() {  
         $('.btn-see-more').click(function(){
-            $current_skip = $(this).attr('data-skip');
-            $current_take = $(this).attr('data-take');
+            var current_skip = $(this).attr('data-skip');
+            var current_take = $(this).attr('data-take');
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -506,38 +507,18 @@
             });
 
             var request = $.ajax({
-                url: baseURL + '/comments/see-more',
+                url: baseURL + '/comments/see-more?course_id=' + {{ $info_course->id }} + '&skip=' + current_skip + '&take=' + current_take,
                 method: "GET",
-                data: {
-                    course_id: {{ $info_course->id }},
-                    skip : $current_skip,
-                    take : $current_take
-                },
-                dataType: "json"
+                dataType: "html"
             });
 
             request.done(function( data ) {
-                if(data.status == 200){
-                    var html = "";
-                    html += '<div class="comment-reply">';
-                        html += '<div>';
-                            html += '<img class="avatar" src="'+baseURL + '/' + data.commentCourse.data.avatar +'" alt="" />';
-                            html += '<div class="info-account">';
-                                html += '<p class="interval">' + data.commentCourse.data.created_at +'</p>';
-                                html += '<p class="name">' + data.commentCourse.data.username +'</p>';
-                            html += '</div>';
-                        html += '</div>';
-                        html += '<div class="comment">';
-                            html += data.commentCourse.data.content;
-                        html += '</div>';
-                    html += '</div>';
-
-                    $('.reply-hold-' + comment_id).prepend(html);
+                if(data == ''){
+                    $('.btn-see-more').hide();    
                 }
-            });
-
-            request.fail(function( jqXHR, textStatus ) {
-                alert( "Request failed: " + textStatus );
+                $('.btn-see-more').attr('data-skip', current_skip + current_take);
+                $('#review-box').append(data);
+                addEventToButton();
             });
         });
 

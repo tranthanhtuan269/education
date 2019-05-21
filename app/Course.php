@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Helper\Helper;
+use Auth;
 
 class Course extends Model
 {
@@ -77,7 +79,16 @@ class Course extends Model
 
     public function comments()
     {
-        return $this->hasMany('App\CommentCourse')->orderBy('created_at', 'desc');
+        if(Auth::check()){
+            $sefl = $this;
+            return $this->hasMany('App\CommentCourse')->where(
+                function($q) use ($sefl){
+                   $q->where('state', 1)
+                     ->orWhere('user_role_id', Helper::getUserRoleOfCourse($sefl->id)->user_role_id);
+               })->orderBy('created_at', 'desc');
+        }else{
+            return $this->hasMany('App\CommentCourse')->where('state', 1);
+        }
     }
 
     public function takeComment($from, $take){

@@ -23,6 +23,7 @@ class CommentCourseTransformer extends TransformerAbstract
             'avatar' => Auth::user()->avatar,
             'userType' => $commentCourse->userRole->role_id == 1 ? "Student" : ($commentCourse->userRole->role_id == 2 ? "Teacher" : ""),
             'content' => $commentCourse->content,
+            'children' => $commentCourse->children,
             'created_at' => $commentCourse->created_at->format('Y-m-d H:i:s')
         ];
     }
