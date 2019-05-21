@@ -474,8 +474,19 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
 }
 
 /*-List-Course-*/
-.box-search{
+.box-search,.box-list-course-by-type{
     padding: 30px 0;
+}
+.box-search  h2 {
+    line-height: 32px;
+    font-weight: 600;
+    font-size: 20px;
+    margin: 0 5px 20px 5px;
+}
+.box-list-course-by-type h1{
+    font-weight: 600;
+    font-size: 28px;
+    margin: 0 5px 20px 5px;   
 }
 /* .box-search .u-order { border-bottom: 1px solid #d7d7d7; margin-bottom: 13px; }
 .box-search .u-cate-list { border: 1px solid #d7d7d7; padding: 9px 12px; margin-bottom: 20px; }
@@ -484,18 +495,13 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
 .box-search .u-cate-list ul li { line-height: 35px; }
 .box-search .u-cate-list a { color: #262626;  }
 .box-search .u-cate-list a:hover { color: #FF8F00; } */
-.box-search .u-hot-cate {  border: 1px solid #d7d7d7; padding: 9px 12px;  }
+/* .box-search .u-hot-cate {  border: 1px solid #d7d7d7; padding: 9px 12px;  }
 .box-search .u-hot-cate h3 { font-size: 16px; font-weight: bold; border-bottom: 1px solid #d7d7d7; margin-bottom: 10px; padding-bottom: 5px;  }
 .box-search .u-hot-cate ul li { display: inline-block; line-height: 30px; margin: 9px 1px; }
 .box-search .u-hot-cate span { font-size: 13px; font-weight: normal; }
-.box-search .u-list-leftbar { padding-right: 0; width: 22% }
+.box-search .u-list-leftbar { padding-right: 0; width: 22% } */
 
-.box-search  h2 {
-    line-height: 32px;
-    font-weight: 600;
-    font-size: 20px;
-    margin: 0 5px 10px 5px;
-}
+
 
 div[data-u="slides"] div div{
     border-radius: 18px;

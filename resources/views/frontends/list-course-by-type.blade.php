@@ -1,7 +1,7 @@
 @extends('frontends.layouts.app')
 @section('content')
 
-<div class="box-search">
+<div class="box-list-course-by-type">
   <div class="container">
       <div class="row">
           <div class="col-xs-12">
@@ -10,7 +10,7 @@
                     @if (count($list_course) > 0)
                     <div class="row">
                         <div class="col-xs-12">
-                            <h2>{{ $title }}</h2>
+                            <h1>{{ $title }}</h1>
                         </div>
                         @foreach ($list_course as $course)
                         <?php
@@ -39,11 +39,7 @@
                       </div>
                     </div>
                     @else
-                    <div class="error_search">
-                        <div class="search_style">
-                            <h2>No list_course</h2>
-                        </div>
-                    </div>
+                    <h1>No list_course</h1>
                     @endif
                       <!--error_search-->
 

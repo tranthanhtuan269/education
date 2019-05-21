@@ -42,7 +42,7 @@
                             @endforeach
                             <div class="col-sm-12 text-center">
                                 {{-- <a href="#" class="btn">Pagging</a> --}}
-                                <!-- <nav>
+                                 <nav>
                                     <ul class="pagination">
                                         <li><a href="#"><img src="{{ asset('frontend/images/pagination_previous.png') }}"></a></li>
                                         <li class="active"><a class="page-link" href="#">1</a></li>
@@ -50,7 +50,7 @@
                                         <li><a class="page-link" href="#">3</a></li>
                                         <li><a href="#"><img src="{{ asset('frontend/images/pagination_next.png') }}"></a></li>
                                     </ul>
-                                </nav> -->
+                                </nav> 
                             </div>
                         </div>
                     </div>

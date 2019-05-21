@@ -33,7 +33,7 @@ class HomeController extends Controller
      
         $type = trim($request->get('type'));
         if ($type == 'best-seller') {
-           $list_course = Course::orderBy('sale_count', 'asc')->paginate(16); 
+           $list_course = Course::orderBy('sale_count', 'asc')->paginate(8); 
            $title = 'Best seller';
         } elseif($type == 'new') {
             $list_course = Course::orderBy('id', 'desc')->paginate(16);
