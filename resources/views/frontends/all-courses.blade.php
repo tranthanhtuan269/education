@@ -41,16 +41,7 @@
                                 )
                             @endforeach
                             <div class="col-sm-12 text-center">
-                                {{-- <a href="#" class="btn">Pagging</a> --}}
-                                 <nav>
-                                    <ul class="pagination">
-                                        <li><a href="#"><img src="{{ asset('frontend/images/pagination_previous.png') }}"></a></li>
-                                        <li class="active"><a class="page-link" href="#">1</a></li>
-                                        <li><a class="page-link" href="#">2</a></li>
-                                        <li><a class="page-link" href="#">3</a></li>
-                                        <li><a href="#"><img src="{{ asset('frontend/images/pagination_next.png') }}"></a></li>
-                                    </ul>
-                                </nav> 
+                                <a href="{{ url('list-course?type=best-seller') }}" class="btn btn-default btn-seeall">SEE ALL</a>
                             </div>
                         </div>
                     </div>
@@ -78,7 +69,7 @@
                             )
                         @endforeach
                         <div class="col-sm-12 text-center">
-                            <button type="button" class="btn">Pagging</button>
+                            <a href="{{ url('list-course?type=new') }}" class="btn btn-default btn-seeall">SEE ALL</a>
                         </div>
                     </div>
                     <div id="menu2" class="tab-pane fade">
@@ -105,7 +96,7 @@
                             )
                         @endforeach
                         <div class="col-sm-12 text-center">
-                            <button type="button" class="btn">Pagging</button>
+                            <a href="{{ url('list-course?type=trendding') }}" class="btn btn-default btn-seeall">SEE ALL</a>
                         </div>
                     </div>
                 </div>

@@ -25,10 +25,9 @@
                             <a class="btn btn-default btn-xs" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(url()->current()); ?>" target="_blank">
                                 <i class="fas fa-share-alt"></i> Share
                             </a>
-                            {{-- <button type="button" class="btn btn-default btn-xs">
-                                <img src="http://edu.local/frontend/images/ic_facebook.png" alt="">
-                                <span>Facebook</span>
-                            </button> --}}
+                            <a class="btn btn-default btn-xs" href="https://www.facebook.com/canhchimcodon26988" target="_blank">
+                                <i class="fab fa-facebook-square"></i> Facebook
+                            </a>
                         </div>
                     </div>
                     <div class="frame_2">

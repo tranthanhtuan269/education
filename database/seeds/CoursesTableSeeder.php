@@ -18,7 +18,7 @@ class CoursesTableSeeder extends Seeder
 
     	$courseArr = [
     		[
-    			'Laravel cơ bản', 2, 'Giới thiệu về Laravel, các thành phần cơ bản và cấu trúc MVC của Laravle, một số bài thực hành cơ bản với Laravel',
+    			'Khóa học Laravel từ cơ bản đến nâng cao', 2, 'Giới thiệu về Laravel, các thành phần cơ bản và cấu trúc MVC của Laravle, một số bài thực hành cơ bản với Laravel',
     			[
     				[
 						'Giới thiệu về Laravel',
