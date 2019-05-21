@@ -66,7 +66,7 @@
                 <div class="btn ln-btn-autoplay">
                     <span>&nbsp;Autoplay</span>
                 </div>
-                <div class="btn ln-btn-report">
+                <div class="btn ln-btn-report" data-toggle="modal" data-target="#playerReportModal">
                     <i class="fas fa-exclamation-circle"></i>
                     <span>&nbsp;Report</span>
                 </div>

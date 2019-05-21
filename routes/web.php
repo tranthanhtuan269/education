@@ -99,6 +99,7 @@ Route::post('comments/store', 'Frontends\CommentController@storeCommentVideo');
 Route::post('comments/vote', 'Frontends\CommentController@storeCommentVote');
 Route::post('comments/reply', 'Frontends\CommentController@storeReply');
 Route::post('notes/store', 'Frontends\NoteController@store');
+Route::post('reports/store', 'Frontends\ReportController@store');
 Route::get('logout', 'Frontends\HomeController@logout');
 Route::get('test', 'Frontends\HomeController@test');
 Route::get('coming-soon', 'Frontends\HomeController@comingSoon')->name('coming-soon');

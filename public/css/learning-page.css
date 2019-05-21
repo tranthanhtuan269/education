@@ -97,7 +97,12 @@ body{
     margin-right: 5em;
     display: inline-flex;
 }
+.lecture-subtitle a:hover{
+    text-decoration: none;
+}
 .lecture-subtitle p{
+    text-decoration: none;
+    color: #ffffff;
     font-size: 1.5vw;
 }
 
@@ -302,6 +307,7 @@ body{
 }
 .ln-lect-list-header{
     background-color: #ffffff;
+    cursor: pointer;
 }
 .ln-lect-list-header-row-1{
     padding-top: 1rem;
@@ -331,10 +337,12 @@ body{
     text-align: justify;
 }
 .ln-lect-list-body li{
-    text-decoration: none !important;
     display: flex;
     justify-content: space-between;
     padding: 15px 2rem;
+}
+.ln-lect-list-body li a:hover{
+    text-decoration: none;
 }
 .ln-lect-list-body li:hover{
     cursor: pointer;
@@ -745,4 +753,28 @@ body{
 .ln-files-wrapper p{
     margin-bottom: 0;
     text-align: justify;
+}
+
+#playerReportModal .modal-header{
+    background-color: #007BE5 !important;
+    color: white !important;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+#playerReportModal .modal-header button {
+    color: white;
+    opacity: 1 !important;
+    text-shadow: none !important;
+    font-size: x-large;
+}
+#playerReportModal .modal-header button:hover {
+    color: red;
+    opacity: 1 !important;
+    text-shadow: none !important;
+}
+#playerReportModal .modal-header .modal-title{
+    font-weight: bold;
+}
+#playerReportModal .modal-footer button{
+    background-color: #007BE5 !important;
 }
