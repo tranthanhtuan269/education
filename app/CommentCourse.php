@@ -18,6 +18,7 @@ class CommentCourse extends Model
     public function course(){
     	return $this->belongsTo('App\Course');
     }
+
     public function commentLike(){
     	return $this->hasOne('App\CommentLike','comment_id');
     }
@@ -41,7 +42,6 @@ class CommentCourse extends Model
         }
         return 0;
     }
-
 
     public function unlikeCheckUser(){
         if(Auth::check()){

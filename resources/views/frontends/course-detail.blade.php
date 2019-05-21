@@ -474,14 +474,16 @@
                 @endif
                 @endif
                 <div id="review-box">
-                    @foreach($info_course->comments as $comment)
+                    @foreach($info_course->takeComment(0, 3) as $comment)
                         @include('components.question-answer', ['comment' => $comment])
                     @endforeach
                 </div>
             </div>
-            <div class="col-sm-12 btn-seen-all">
-                <button type="button" class="btn">See more</button>
+            @if(count($info_course->comments) > 0)
+            <div class="col-sm-12 btn-see-more">
+                <button type="button" class="btn" data-skip="3" data-take="3">See more</button>
             </div>
+            @endif
             
         </div>
     </div>
@@ -494,6 +496,51 @@
 <script type="text/javascript">
     
     $(document).ready(function() {  
+        $('.btn-see-more').click(function(){
+            $current_skip = $(this).attr('data-skip');
+            $current_take = $(this).attr('data-take');
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            var request = $.ajax({
+                url: baseURL + '/comments/see-more',
+                method: "GET",
+                data: {
+                    course_id: {{ $info_course->id }},
+                    skip : $current_skip,
+                    take : $current_take
+                },
+                dataType: "json"
+            });
+
+            request.done(function( data ) {
+                if(data.status == 200){
+                    var html = "";
+                    html += '<div class="comment-reply">';
+                        html += '<div>';
+                            html += '<img class="avatar" src="'+baseURL + '/' + data.commentCourse.data.avatar +'" alt="" />';
+                            html += '<div class="info-account">';
+                                html += '<p class="interval">' + data.commentCourse.data.created_at +'</p>';
+                                html += '<p class="name">' + data.commentCourse.data.username +'</p>';
+                            html += '</div>';
+                        html += '</div>';
+                        html += '<div class="comment">';
+                            html += data.commentCourse.data.content;
+                        html += '</div>';
+                    html += '</div>';
+
+                    $('.reply-hold-' + comment_id).prepend(html);
+                }
+            });
+
+            request.fail(function( jqXHR, textStatus ) {
+                alert( "Request failed: " + textStatus );
+            });
+        });
+
         $('.go-box').click(function() {
             var box = $(this).attr('data-box');
             if($('#' + box).length) {

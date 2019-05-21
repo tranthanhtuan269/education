@@ -79,6 +79,10 @@ class Course extends Model
     {
         return $this->hasMany('App\CommentCourse')->orderBy('created_at', 'desc');
     }
+
+    public function takeComment($from, $take){
+        return $this->comments()->skip($from)->take($take)->get();
+    }
     
     public function videos()
     {
