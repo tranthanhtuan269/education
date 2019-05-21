@@ -11,7 +11,7 @@
 					<h2>{{ $info_course->name }}</h2>
 					<p class="meta-des">{{ $info_course->short_description }}</p>
 					<div class="vote">
-						<div class="continue"><a href="#" title="Continue">Continue to Lecture 20</a></div>
+					<div class="continue"><a href="/learning-page/{{$info_course->id}}/lecture/" title="Continue">Continue to Lecture 20</a></div>
 						<div class="rating">
 							@include(
 								'components.vote', 

@@ -14,5 +14,9 @@ class UserCourse extends Model
     {
         return $this->hasMany('App\Course','course_id');
     }
+    
+    public function userRoles(){
+        return $this->hasMany('App\UserRole', 'user_role_id');
+    }
 
 }
