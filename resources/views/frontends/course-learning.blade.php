@@ -63,7 +63,7 @@
 						<p>{!! $info_course->description !!}</p>
 					</div>
 					<div class="lessons clearfix" id="box_course_content">
-						@include('components.course-lession-list', ['info_course' => $info_course])
+						@include('components.course-lesson-list', ['info_course' => $info_course])
 					</div>
 					<div class="course-document" id="box_document">
 						<h3>Document</h3>

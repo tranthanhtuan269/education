@@ -197,7 +197,7 @@
             </div>
             <div class="lessons clearfix">
                 <div class="col-sm-8">
-                        @include('components.course-lession-list')
+                        @include('components.course-lesson-list')
                 </div>
                 <?php $requirements = json_decode($info_course->requirement); ?>
                 @if ($requirements != '')                    
