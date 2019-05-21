@@ -132,9 +132,11 @@
 									</div>
 								</div>
 								<div class="col-xs-7">
-									<div class="btn inbox" data-toggle="modal" data-target="#myModal">
-										<i class="fa fa-envelope-o fa-lg" aria-hidden="true"></i>
-										<span>Inbox</span>
+									<div class="btn inbox">
+										<a href="mailto:teacher@example.com?Subject=Hello" target="_top">
+											<i class="fas fa-envelope fa-lg"></i>
+											<span>Inbox</span>
+										</a>
 									</div>
 								</div>
 							</div>
@@ -170,22 +172,24 @@
 		</div>
 	</div>
 </div>
+<div class="course-learning-question" id="box_question">
+	<div class="container">
+		<h3 class="title">Questions & Answers</h3>
+		<div class="text-box">
+			<form>
+				<div class="form-group">
+				<textarea class="form-control" rows="10" placeholder="Type here"></textarea>
+					{{-- <input type="text" class="form-control" id="name" placeholder="Type here"> --}}
+				</div>
+				<div class="btn-submit">
+					<input class="submit-question" type="submit" value="SUBMIT A QUESTION" />
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
 
 <div class="container">
-		<div class="course-learning-question" id="box_question">
-			<h3 class="title">Questions & Answers</h3>
-			<div class="text-box">
-				<form>
-					<div class="form-group">
-						<textarea class="form-control" rows="6" placeholder="Type here" required></textarea>
-						{{-- <input type="text" class="form-control" id="name" placeholder="Type here"> --}}
-					</div>
-					<div class="btn-submit">
-						<input class="submit-question" type="submit" value="SUBMIT A QUESTION" />
-					</div>
-				</form>
-			</div>
-		</div>
 		<div class="course-learning-review">
 			<div class="reviews">
 				@if(false)
@@ -241,7 +245,7 @@
         });
     });
 </script>
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+{{-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -257,5 +261,5 @@
 			</div>
 		</div>
 	</div>
-</div>
+</div> --}}
 @endsection

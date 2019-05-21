@@ -86,7 +86,7 @@
      
                     <div data-u="slides" style="cursor:default;position:relative;top:0px;left:0px;width:980px;height:120px;overflow:hidden;">
                         @foreach ($feature_category as $feature)
-                        <a href="{{ url('/') }}/category/{{ $feature->slug }}" title="{{ $feature->name }}" class="item item-slider text-center" style="background-image: url('{{ url('/frontend/images/'.$feature->image) }}'); background-repeat: no-repeat; background-position: right top; background-attachment: fixed;">
+                        <a href="{{ url('/') }}/category/{{ $feature->slug }}" title="{{ $feature->name }}" class="item item-slider text-center" style="background-image: url('{{ url('/frontend/images/'.$feature->image) }}'); background-repeat: no-repeat; background-position: right top; background-attachment: fixed;border-radius:100px">
                             <div class="cat cat-item-slider">
                                 <h2>{{ $feature->name }}</h2>
                                 <p>Over {{ $feature->courses_count }} courses</p>
@@ -100,108 +100,8 @@
                 <script type="text/javascript">config_slider_init();</script>
 </div>
 
-@include('frontends.feature-courses')
-
-<div class="container">
-    <div class="top-course">
-        <div class="row">
-            <div class="col-xs-12 clearfix title-module-home">
-                <div class="pull-left">
-                    <h2>All Courses</h2>
-                </div>
-                <div class="pull-right">
-                    <ul class="nav nav-tabs">
-                        <li class="active"><a data-toggle="tab" href="#best-seller">Bestseller</a></li>
-                        <li><a data-toggle="tab" href="#menu1">New</a></li>
-                        <li><a data-toggle="tab" href="#menu2">Trendding</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-sm-12">
-                <div class="tab-content">
-                    <div id="best-seller" class="tab-pane fade in active">
-                        <div class="row">     
-                            @foreach ($best_seller_course as $best_seller)
-                                <?php
-                                    $lecturers = count($best_seller->Lecturers()) > 1 ? 'Nhiều tác giả' : count($best_seller->Lecturers()) > 0 ? $best_seller->Lecturers()[0]->user->name : "Courdemy";
-                                ?>
-                                @include(
-                                    'components.course', 
-                                    [
-                                        'slug' => $best_seller->slug,
-                                        'image' => url('/frontend/images/'.$best_seller->image),
-                                        'title' => $best_seller->name,
-                                        'author' => $lecturers,
-                                        'star_count' => $best_seller->star_count,
-                                        'vote_count' => $best_seller->vote_count,
-                                        'time' => $best_seller->approx_time,
-                                        'view_number' => $best_seller->view_count,
-                                        'price' => $best_seller->real_price,
-                                        'sale' => $best_seller->price,
-                                        'from_sale' => $best_seller->from_sale,
-                                        'to_sale' => $best_seller->to_sale,
-                                    ]
-                                )
-                            @endforeach
-                            <div class="col-sm-12 text-center">
-                                <button type="button" class="btn btn-default btn-seeall">SEE ALL</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="menu1" class="tab-pane fade">
-                        @foreach ($new_course as $new)
-                            <?php
-                                $lecturers = count($new->Lecturers()) > 1 ? 'Nhiều tác giả' : count($new->Lecturers()) > 0 ? $new->Lecturers()[0]->user->name : "Courdemy";
-                            ?>
-                            @include(
-                                'components.course', 
-                                [
-                                    'slug' => $new->slug,
-                                    'image' => url('/frontend/images/'.$new->image),
-                                    'title' => $new->name,
-                                    'author' => $lecturers,
-                                    'star_count' => $new->star_count,
-                                    'vote_count' => $new->vote_count,
-                                    'time' => $new->approx_time,
-                                    'view_number' => $new->view_count,
-                                    'price' => $new->real_price,
-                                    'sale' => $new->price,
-                                    'from_sale' => $new->from_sale,
-                                    'to_sale' => $new->to_sale,
-                                ]
-                            )
-                        @endforeach
-                    </div>
-                    <div id="menu2" class="tab-pane fade">
-                        @foreach ($feature_course as $feature)
-                            <?php
-                                $lecturers = count($feature->Lecturers()) > 1 ? 'Nhiều tác giả' : count($feature->Lecturers()) > 0 ? $feature->Lecturers()[0]->user->name : "Courdemy";
-                            ?>
-                            @include(
-                                'components.course', 
-                                [
-                                    'slug' => $feature->slug,
-                                    'image' => url('/frontend/images/'.$feature->image),
-                                    'title' => $feature->name,
-                                    'author' => $lecturers,
-                                    'star_count' => $feature->star_count,
-                                    'vote_count' => $feature->vote_count,
-                                    'time' => $feature->approx_time,
-                                    'view_number' => $feature->view_count,
-                                    'price' => $feature->real_price,
-                                    'sale' => $feature->price,
-                                    'from_sale' => $feature->from_sale,
-                                    'to_sale' => $feature->to_sale,
-                                ]
-                            )
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@include('frontends.popular-teacher')
-@include('frontends.info-others')
-
+    @include('frontends.feature-courses')
+    @include('frontends.all-courses')
+    @include('frontends.popular-teacher')
+    @include('frontends.info-others')
 @endsection

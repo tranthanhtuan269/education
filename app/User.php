@@ -89,4 +89,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\UserRole');
     }
+
+    public function userRolesTeacher()
+    {
+        return $this->hasMany('App\UserRole')->where('role_id',2)->get();
+    }
 }

@@ -215,11 +215,11 @@
 </div>
 <div class="container">
     <div class="member-card-info">
-        <h2>Courdemy's <span style="color: #00B7F1;">Member Card</span></h2>
+        <h2>Courdemy's <span style="color: #00baed;">Member Card</span></h2>
         <div class="row">
             <div class="col-sm-6">
                 <form>
-                    <div class="row">
+                    <div class="row padding-form">
                         <div class="form-group col-sm-6">
                             <select name="card" id="select-card" class="form-control">
                                 <option value="0">Select Your Card</option>
@@ -246,16 +246,16 @@
                         </div>
 
                     </div>
-                    <div class="form-group">
+                    <div class="form-group padding-form">
                         <input type="text" class="form-control" id="name" placeholder="Your Name">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group padding-form">
                         <input type="number" class="form-control" id="phone" placeholder="Phone Number">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group padding-form">
                         <input type="text" class="form-control" id="email" placeholder="Email">
                     </div>
-                    <div class="row">
+                    <div class="row padding-form">
                         <div class="form-group col-sm-6">
                             <select name="card" id="select-card" class="form-control">
                                 <option value="0">Select Your Card</option>
@@ -282,7 +282,7 @@
                         </div>
 
                     </div>
-                    <div class="form-group">
+                    <div class="form-group padding-form">
                         <input type="text" class="form-control" id="address" placeholder="Address">
                     </div>
                     <button type="submit" class="btn-save">SAVE</button>

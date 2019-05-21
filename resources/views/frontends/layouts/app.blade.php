@@ -287,7 +287,7 @@
                         </div>
                         <div class="col-lg-5 col-md-5 col-sm-5 cate-sm">
                             <form class="unica-search-boxtop navbar-form form-inline" method="GET" action="/search">
-                                <input name="key" type="text" class="form-control unica-form" placeholder="Search for anything">
+                                <input name="keyword" type="text" class="form-control unica-form" placeholder="Search for anything" value="{{ Request::get('keyword') }}">
                                 <button type="submit" class="btn unica-btn-search"><i class="fa fa-search" aria-hidden="true"></i></button>
                             </form>
                         </div>
@@ -313,13 +313,14 @@
                                         </a>
                                     </li>
                                     <li class="btn-group mgtOp">
-                                        <a class="db-item-circle dropdown-toggle" data-toggle="dropdown" href="#"><img class="img-responsive" src="{{ asset('frontend/images/avatar.jpg') }}" alt="avatar"><span class="caret"></span></a>
+
+                                        <a class="db-item-circle dropdown-toggle" data-toggle="dropdown" href="#"><img class="img-responsive" src="{{ asset('frontend/'.(Auth::user()->avatar != '' ? Auth::user()->avatar : 'images/avatar.jpg')) }}" alt="avatar"><span class="caret"></span></a>
                                         <ul class="dropdown-menu db-drop">
-                                            <li><a href="/dashboard/user/course"><i class="fa fa-list-alt" aria-hidden="true"></i> Vào học</a></li>
-                                            <li><a href="/dashboard/affiliate/getlink"><i class="fa fa-share-alt" aria-hidden="true"></i> Affiliate</a></li>
-                                            <li><a href="/kichhoat"><i class="fa fa-key" aria-hidden="true"></i> Kích hoạt khóa học</a></li>
-                                            <li><a href="/dashboard/user/profile"><i class="fa fa-user" aria-hidden="true"></i> Cập nhật hồ sơ </a></li>
-                                            <li><a href="/napthe"><i class="fa fa-credit-card" aria-hidden="true"></i> Nạp thẻ </a></li>
+                                            <li><a href="{{ route('coming-soon') }}"><i class="fa fa-list-alt" aria-hidden="true"></i> Vào học</a></li>
+                                            <li><a href="{{ route('coming-soon') }}"><i class="fa fa-share-alt" aria-hidden="true"></i> Affiliate</a></li>
+                                            <li><a href="{{ route('coming-soon') }}"><i class="fa fa-key" aria-hidden="true"></i> Kích hoạt khóa học</a></li>
+                                            <li><a href="{{ route('coming-soon') }}"><i class="fa fa-user" aria-hidden="true"></i> Cập nhật hồ sơ </a></li>
+                                            <li><a href="{{ route('coming-soon') }}"><i class="fa fa-credit-card" aria-hidden="true"></i> Nạp thẻ </a></li>
                                             <li>
                                             </li>
                                             <li class="divider"></li>

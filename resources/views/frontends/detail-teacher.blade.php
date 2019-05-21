@@ -8,7 +8,7 @@
 				<div class="item">
 					<div class="frame clearfix">
 						<div class="avatar pull-left">
-							<img src="{{ url($info_teacher->userRole->user->avatar) }}" alt="" />
+							<img src="{{ url('frontend/'.$info_teacher->userRole->user->avatar) }}" alt="" />
 							<div class="info">
 								<p class="name">{{ $info_teacher->userRole->user->name }}</p>
 								<p class="expret">{{ $info_teacher->expert }}</p>

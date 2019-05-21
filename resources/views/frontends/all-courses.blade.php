@@ -40,18 +40,11 @@
                                     ]
                                 )
                             @endforeach
-                            <div class="col-sm-12 text-center">
-                                <button type="button" class="btn">Pagging</button>
-                                <!-- <nav>
-                                    <ul class="pagination">
-                                        <li><a href="#"><img src="{{ asset('frontend/images/pagination_previous.png') }}"></a></li>
-                                        <li class="active"><a class="page-link" href="#">1</a></li>
-                                        <li><a class="page-link" href="#">2</a></li>
-                                        <li><a class="page-link" href="#">3</a></li>
-                                        <li><a href="#"><img src="{{ asset('frontend/images/pagination_next.png') }}"></a></li>
-                                    </ul>
-                                </nav> -->
-                            </div>
+                            @if (Request::is('/')) 
+                                <div class="col-sm-12 text-center">
+                                    <a href="{{ url('list-course?type=best-seller') }}" class="btn btn-default btn-seeall">SEE ALL</a>
+                                </div>
+                            @endif
                         </div>
                     </div>
                     <div id="menu1" class="tab-pane fade">
@@ -77,9 +70,11 @@
                                 ]
                             )
                         @endforeach
+                        @if (Request::is('/'))
                         <div class="col-sm-12 text-center">
-                            <button type="button" class="btn">Pagging</button>
+                            <a href="{{ url('list-course?type=new') }}" class="btn btn-default btn-seeall">SEE ALL</a>
                         </div>
+                        @endif
                     </div>
                     <div id="menu2" class="tab-pane fade">
                         @foreach ($feature_course as $feature)
@@ -104,9 +99,11 @@
                                 ]
                             )
                         @endforeach
+                        @if (Request::is('/'))
                         <div class="col-sm-12 text-center">
-                            <button type="button" class="btn">Pagging</button>
+                            <a href="{{ url('list-course?type=trendding') }}" class="btn btn-default btn-seeall">SEE ALL</a>
                         </div>
+                        @endif
                     </div>
                 </div>
             </div>

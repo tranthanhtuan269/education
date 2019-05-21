@@ -90,7 +90,7 @@ Route::get('category/{cat}', ['as'  => 'category', 'uses' =>'Frontends\HomeContr
 Route::get('course/{course}', ['as'  => 'course', 'uses' =>'Frontends\HomeController@showCourse']);
 Route::get('learning/{course}', ['as'  => 'course', 'uses' =>'Frontends\HomeController@courseLearning']);
 Route::get('teacher/{teacher}', ['as'  => 'teacher', 'uses' =>'Frontends\HomeController@showTeacher']);
-
+Route::get('list-course', ['uses' =>'Frontends\HomeController@listCourse']);
 
 // Đăng nhập mới đánh giá khóa học dc
 Route::post('reviews/info', 'Backends\UserController@infoRoleUser');
@@ -101,6 +101,7 @@ Route::get('test', 'Frontends\HomeController@test');
 Route::get('coming-soon', 'Frontends\HomeController@comingSoon')->name('coming-soon');
 Route::get('comments/see-more', 'Frontends\CommentController@seeMore')->name('see-more');
 
+Route::get('search', 'Frontends\HomeController@search');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::post('comment/comment-course', 'Frontends\CommentController@commentCourse');

@@ -18,7 +18,7 @@ class CoursesTableSeeder extends Seeder
 
     	$courseArr = [
     		[
-    			'Laravel cơ bản', 2, 'Giới thiệu về Laravel, các thành phần cơ bản và cấu trúc MVC của Laravle, một số bài thực hành cơ bản với Laravel',
+    			'Khóa học Laravel từ cơ bản đến nâng cao', 2, 'Giới thiệu về Laravel, các thành phần cơ bản và cấu trúc MVC của Laravle, một số bài thực hành cơ bản với Laravel',
     			[
     				[
 						'Giới thiệu về Laravel',
@@ -77,13 +77,13 @@ class CoursesTableSeeder extends Seeder
     		]
     	];
 
-		for ($i=0; $i < 20 ; $i++) { 
+		for ($i=1; $i <= 12 ; $i++) { 
 			foreach($courseArr as $course){
 				$courses = new Course;
-				$courses->name = $course[0] . $i;
+				$courses->name = $course[0] .' '. $i;
 				$courses->short_description = 'Linux Troubleshooting and Administration';
 				$courses->slug = Str::slug($courses->name, '-');
-				$courses->image = 'featured_hero_big.png';
+				$courses->image = 'course_'.$i.'.jpg';
 				$courses->category_id = $course[1];
 				$courses->price = 500000;
 				$courses->real_price = 800000;
