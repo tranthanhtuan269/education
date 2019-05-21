@@ -8,6 +8,7 @@ use App\Course;
 use App\Video;
 use App\Unit;
 use App\Tag;
+use App\User;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -33,7 +34,7 @@ class HomeController extends Controller
      
         $type = trim($request->get('type'));
         if ($type == 'best-seller') {
-           $list_course = Course::orderBy('sale_count', 'asc')->paginate(8); 
+           $list_course = Course::orderBy('sale_count', 'desc')->paginate(16); 
            $title = 'Best seller';
         } elseif($type == 'new') {
             $list_course = Course::orderBy('id', 'desc')->paginate(16);
@@ -51,7 +52,7 @@ class HomeController extends Controller
         $feature_category = Category::withCount('courses')->where('featured', 1)->orderBy('featured_index', 'asc')->limit(10)->get();
         // trending = feature courses
         $feature_course = Course::where('featured', 1)->orderBy('featured_index', 'asc')->limit(8)->get();
-        $best_seller_course = Course::orderBy('sale_count', 'asc')->limit(8)->get();
+        $best_seller_course = Course::orderBy('sale_count', 'desc')->limit(8)->get();
         $new_course = Course::orderBy('id', 'desc')->limit(8)->get();
         $popular_teacher = Teacher::getTeacherBestVote();
 
@@ -74,7 +75,7 @@ class HomeController extends Controller
         if($cat_id){
             $tags = Tag::where('category_id', $cat_id)->get();
             $feature_course = Course::where('category_id', $cat_id)->where('featured', 1)->orderBy('featured_index', 'asc')->limit(8)->get();
-            $best_seller_course = Course::where('category_id', $cat_id)->orderBy('sale_count', 'asc')->limit(8)->get();
+            $best_seller_course = Course::where('category_id', $cat_id)->orderBy('sale_count', 'desc')->limit(8)->get();
             $new_course = Course::where('category_id', $cat_id)->orderBy('id', 'desc')->limit(8)->get();
             $popular_teacher = Teacher::getTeacherBestVote();
             return view('frontends.category', compact('category', 'feature_course', 'best_seller_course', 'new_course', 'popular_teacher', 'tags'));
@@ -105,10 +106,11 @@ class HomeController extends Controller
 
     public function showTeacher($id_teacher)
     {
+        $user = User::find($id_teacher);
         $info_teacher = Teacher::find($id_teacher);
-        $feature_course = Course::where('featured', 1)->orderBy('featured_index', 'asc')->limit(8)->get();
-        $best_seller_course = Course::orderBy('sale_count', 'asc')->limit(8)->get();
-        $new_course = Course::orderBy('id', 'desc')->limit(8)->get();
+        $feature_course = $user->userRolesTeacher()[0]->userCoursesByFeature();
+        $best_seller_course = $user->userRolesTeacher()[0]->userCoursesByTrendding();
+        $new_course = $user->userRolesTeacher()[0]->userCoursesByNew();
         return view('frontends.detail-teacher', compact('info_teacher', 'feature_category', 'feature_course', 'best_seller_course', 'new_course'));
     }
 
@@ -122,8 +124,8 @@ class HomeController extends Controller
         $category = Category::get();
         $feature_category = Category::where('featured', 1)->orderBy('featured_index', 'asc')->limit(10)->get();
         $feature_course = Course::where('featured', 1)->orderBy('featured_index', 'asc')->limit(8)->get();
-        $best_seller_course = Course::orderBy('sale_count', 'asc')->limit(8)->get();
-        $new_course = Course::orderBy('id', 'asc')->limit(8)->get();
+        $best_seller_course = Course::orderBy('sale_count', 'desc')->limit(8)->get();
+        $new_course = Course::orderBy('id', 'desc')->limit(8)->get();
         $popular_teacher = Teacher::get();
 
         return view('frontends.course-category', compact('category', 'feature_category', 'feature_course', 'best_seller_course', 'new_course'));

@@ -40,9 +40,11 @@
                                     ]
                                 )
                             @endforeach
-                            <div class="col-sm-12 text-center">
-                                <a href="{{ url('list-course?type=best-seller') }}" class="btn btn-default btn-seeall">SEE ALL</a>
-                            </div>
+                            @if (Request::is('/')) 
+                                <div class="col-sm-12 text-center">
+                                    <a href="{{ url('list-course?type=best-seller') }}" class="btn btn-default btn-seeall">SEE ALL</a>
+                                </div>
+                            @endif
                         </div>
                     </div>
                     <div id="menu1" class="tab-pane fade">
@@ -68,9 +70,11 @@
                                 ]
                             )
                         @endforeach
+                        @if (Request::is('/'))
                         <div class="col-sm-12 text-center">
                             <a href="{{ url('list-course?type=new') }}" class="btn btn-default btn-seeall">SEE ALL</a>
                         </div>
+                        @endif
                     </div>
                     <div id="menu2" class="tab-pane fade">
                         @foreach ($feature_course as $feature)
@@ -95,9 +99,11 @@
                                 ]
                             )
                         @endforeach
+                        @if (Request::is('/'))
                         <div class="col-sm-12 text-center">
                             <a href="{{ url('list-course?type=trendding') }}" class="btn btn-default btn-seeall">SEE ALL</a>
                         </div>
+                        @endif
                     </div>
                 </div>
             </div>
