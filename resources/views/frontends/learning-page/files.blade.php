@@ -6,38 +6,18 @@
     </div>
     <div class="ln-files-body">
         <div class="ln-files-list">
-            <div class="ln-files-wrapper">
-                <div>
-                    <a href="">
-                        <p>
-                            <i class="fas fa-link"></i>&nbsp;
-                            A google drive link
-                        </p>
-                    </a>
+            @foreach ($files as $file)
+                <div class="ln-files-wrapper">
+                    <div>
+                    <a href="{{$file->url_document}}">
+                            <p>
+                                <i class="fas fa-link"></i>&nbsp;
+                                {{$file->title}}
+                            </p>
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <div class="ln-files-wrapper">
-                <div>
-                    
-                    <a href="">
-                        <p>
-                            <i class="fas fa-link"></i>&nbsp;
-                            A dropbox link
-                        </p>
-                    </a>
-                </div>
-            </div>
-            <div class="ln-files-wrapper">
-                <div>
-                    <a href="">
-                        
-                        <p>
-                            <i class="fas fa-link"></i>&nbsp;
-                            An one drive link
-                        </p>
-                    </a>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </div>

@@ -95,6 +95,7 @@ Route::get('teacher/{teacher}', ['as'  => 'teacher', 'uses' =>'Frontends\HomeCon
 // Đăng nhập mới đánh giá khóa học dc
 Route::post('reviews/info', 'Backends\UserController@infoRoleUser');
 
+
 Route::get('logout', 'Frontends\HomeController@logout');
 Route::get('test', 'Frontends\HomeController@test');
 Route::get('coming-soon', 'Frontends\HomeController@comingSoon')->name('coming-soon');
@@ -108,5 +109,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('comments/vote', 'Frontends\CommentController@storeCommentVote');
     Route::post('comments/reply', 'Frontends\CommentController@storeReply');
     Route::post('notes/store', 'Frontends\NoteController@store');
+    Route::post('reports/store', 'Frontends\ReportController@store');
     Route::get('user/logout', 'Frontends\UserController@logout');
 });

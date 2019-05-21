@@ -45,7 +45,9 @@ $momentNow = new MomentPHP\MomentPHP();
                 <p>Lecture list</p>
             </div>
             <div class="lecture-subtitle">
-                <p>Go to Dashboard</p>
+                <a href="#">
+                    <p>Go to Dashboard</p>
+                </a>
             </div>
         </div>
 
@@ -67,6 +69,8 @@ $momentNow = new MomentPHP\MomentPHP();
         {{-- NOTE --}}
         @include('frontends.learning-page.notes')
 
+        {{-- REPORT MODAL --}}
+        @include('frontends.learning-page.report')
 
         {{-- BIG PLAY BUTTON --}}
         <div class="vjs-custom-big-play-button">
@@ -76,7 +80,7 @@ $momentNow = new MomentPHP\MomentPHP();
         </div>
         <script>
             var course_id = {{$course->id}}
-            var main_video_id = {{$main_video->id}}
+            // var main_video_id = {{$main_video->id}}
             var video_id_list = {{json_encode($video_id_list)}}
             
             var main_video_id_key = {{$main_video_id_key}}
@@ -86,25 +90,22 @@ $momentNow = new MomentPHP\MomentPHP();
                     $("#discComment" + $(this).attr('data-parent') + " p").addClass('active');
                     return false;
                 })
-                $('.ln-disc-comment-wrapper').on('hidden.bs.collapse', function () {
-                    
+                $('.ln-disc-comment-wrapper').on('hidden.bs.collapse', function () {                    
                     $("#discComment" + $(this).attr('data-parent') + " p").removeClass('active');
                     return false;
                 })
 
                 var video_id_index = null
                 video_id_list.forEach(video_id => {
-                    if(video_id == main_video_id){
+                    if(video_id == {{$main_video->id}}){
                         video_id_index = video_id_list.indexOf(video_id)
                         return 
                     }
                 });
 
-                
                 $('#btnContinue').click(function () {
                     window.location.replace("http://courdemy.local/learning-page/"+course_id+"/lecture/"+video_id_list[video_id_index + 1]+"")
                 })
-                
             })
             
         </script>

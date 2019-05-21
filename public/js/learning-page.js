@@ -1,19 +1,17 @@
-// localStorage.setItem('autoplay', true)
-// localStorage.removeItem('autoplay')
 var isAutoplay = localStorage.getItem('autoplay')
-console.log(isAutoplay)
 $(document).ready(function () {
     
     // Set up the player
-    if(isAutoplay != null){
-        var isPlayerAutoplay = isAutoplay
-        if(isPlayerAutoplay == false){
-            $(".ln-btn-autoplay").prepend("<i class='fas fa-toggle-off'></i>")
-        }else{
-            $(".ln-btn-autoplay").prepend("<i class='fas fa-toggle-on'></i>")
-        }
-    }else{
-        var isPlayerAutoplay = false
+    var isPlayerAutoplay = false
+    if(isAutoplay == null){
+        $(".ln-btn-autoplay").prepend("<i class='fas fa-toggle-off'></i>")
+    }else if(isAutoplay == "true"){
+        isPlayerAutoplay = true
+        $(".ln-btn-autoplay").prepend("<i class='fas fa-toggle-on'></i>")
+        $(".learning-desc-panel").hide()
+        
+    }else if(isAutoplay == "false"){
+        isPlayerAutoplay = false
         $(".ln-btn-autoplay").prepend("<i class='fas fa-toggle-off'></i>")
     }
 
@@ -117,7 +115,10 @@ $(document).ready(function () {
     $("#btnCloseNotes").click(function (){
         toggleNotes()
     })
-    
+    $(".video-list-item").click(function () {
+        var video_id = $(this).attr("data-parent")
+        window.location.replace("http://courdemy.local/learning-page/"+ course_id +"/lecture/"+ video_id) 
+    })
 
 
     
@@ -363,11 +364,7 @@ $(document).ready(function () {
         alert("This Function is still in development!!")
     }
 
-    $(".video-list-item").click(function () {
-        var video_id = $(this).attr("data-parent")
-        
-        window.location.replace("http://courdemy.local/learning-page/"+ course_id +"/lecture/"+ video_id) 
-    })
+    
 
 });
 

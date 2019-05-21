@@ -7,6 +7,7 @@ use App\Course;
 use App\Unit;
 use App\Video;
 use App\Note;
+use App\Document;
 use App\CommentVideo;
 use App\UserCourse;
 use App\UserRole;
@@ -58,6 +59,7 @@ class VideoPlayerController extends Controller
         $main_video = Video::where('id', $videoId)->first();
         $units = Unit::where('course_id', $courseId)->get();
         $notes = Note::where('video_id', $videoId)->where('user_id', Auth::id())->orderBy('created_at', 'desc')->get();
+        $files = Document::where('video_id', $videoId)->orderBy('created_at', 'desc')->get();
         $demanding_user_course_item = Helper::getUserRoleOfCourse($courseId);
         
         if($demanding_user_course_item == null) abort(403, 'Unauthorized action.');
@@ -110,11 +112,11 @@ class VideoPlayerController extends Controller
             'course'             => $course,
             'units'              => $units,
             'notes'              => $notes,
+            'files'              => $files,
             'video_id_list'      => $video_id_list,
             'comments_video'     => $comments_video,
             'sub_comments_video' => $sub_comments_video,
             'main_video'         => $main_video,
-            // 'main_video_id'      => $main_video_id,
             'main_video_id_key'  => $main_video_id_key,
         ]);
     }
