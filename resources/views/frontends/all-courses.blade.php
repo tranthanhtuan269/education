@@ -41,7 +41,7 @@
                                 )
                             @endforeach
                             <div class="col-sm-12 text-center">
-                                <button type="button" class="btn">Pagging</button>
+                                {{-- <a href="#" class="btn">Pagging</a> --}}
                                 <!-- <nav>
                                     <ul class="pagination">
                                         <li><a href="#"><img src="{{ asset('frontend/images/pagination_previous.png') }}"></a></li>

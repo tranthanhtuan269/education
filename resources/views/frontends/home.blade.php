@@ -144,7 +144,7 @@
                                 )
                             @endforeach
                             <div class="col-sm-12 text-center">
-                                <button type="button" class="btn btn-default btn-seeall">SEE ALL</button>
+                                <a href="{{ url('list-course?type=best-seller') }}" class="btn btn-default btn-seeall">SEE ALL</a>
                             </div>
                         </div>
                     </div>
@@ -171,6 +171,9 @@
                                 ]
                             )
                         @endforeach
+                        <div class="col-sm-12 text-center">
+                            <a href="{{ url('list-course?type=new') }}" class="btn btn-default btn-seeall">SEE ALL</a>
+                        </div>
                     </div>
                     <div id="menu2" class="tab-pane fade">
                         @foreach ($feature_course as $feature)
@@ -195,6 +198,9 @@
                                 ]
                             )
                         @endforeach
+                        <div class="col-sm-12 text-center">
+                            <a href="{{ url('list-course?type=trendding') }}" class="btn btn-default btn-seeall">SEE ALL</a>
+                        </div>
                     </div>
                 </div>
             </div>
