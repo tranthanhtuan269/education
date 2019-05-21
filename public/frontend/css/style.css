@@ -326,7 +326,7 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
 .cat-item-slider{margin-top:33px;color:#fff}
 .demo-aaaa{position:relative;display:block;bottom:80px}
 .background-page .slider img{width:100%}
-.background-page .slider .item{padding-bottom:10px}
+.background-page .slider .item{padding-bottom:10px; height: 149px;}
 .background-page .highlight .title p{text-transform:uppercase;font-size:24px;color:#fff}
 .background-page .highlight{position:relative;bottom:120px}
 .background-page .highlight .title{margin-bottom:20px;font-size:25px}

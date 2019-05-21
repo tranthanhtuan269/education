@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Category;
+use App\Tag;
 
 class CategoriesTableSeeder extends Seeder
 {
@@ -24,7 +25,15 @@ class CategoriesTableSeeder extends Seeder
             ['Personal', 0, 'fa-users', 'banner_cat_personal.png'],
             ['Photography', 0, 'fa-camera-retro', 'banner_cat_photography.png']
         ];
-        
+
+        $tags = [
+    		['Photoshop', 1, 'images/banner_cat_language.png'], ['Mysql', 1, 'images/banner_cat_marriage.png'],
+            ['Laravel', 2, 'images/banner_cat_lifestyle.png'], ['YII', 2, 'images/banner_cat_language.png'], ['Symfony', 2, 'images/banner_cat_personal.png'],
+    		['Zend', 1, 'images/banner_cat_marketing.png'], ['Python', 1, 'images/banner_cat_marketing.png'],
+    		['Cake', 2, 'images/banner_cat_language.png'], ['Jquery', 2, 'images/banner_cat_language.png'], ['Angular', 2, 'images/banner_cat_personal.png'],
+    	];
+
+
     	foreach($cateArr as $cate){
 	        $category = new Category;
             $category->name = $cate[0];
@@ -32,7 +41,16 @@ class CategoriesTableSeeder extends Seeder
             $category->featured = 1;
             $category->icon = $cate[2];
             $category->image = $cate[3];
-	        $category->save();
+            $category->save();
+            
+            foreach($tags as $t){
+                $tag = new Tag;
+                $tag->name = $t[0];
+                $tag->image = $t[2];
+                $tag->category_id = $category->id;
+                $tag->status = 1;
+                $tag->save();
+            }
         }
     }
 }

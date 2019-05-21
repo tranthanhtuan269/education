@@ -9,6 +9,7 @@
 					<p>Explore topics & skills</p>	
 				</div>
 			</div>
+			@if (count($tags) > 0)
 			<div class="slider">
 				@foreach ($tags as $key => $tag)
 					@if ($key % 5 == 0)
@@ -24,7 +25,7 @@
 							</div>
 							<div class="col-sm-7">
 								<div class="row">
-						@else
+					@else
 							<div class="col-sm-6 item">
 								<a href="{{ url('/') }}/category/{{ $tag->slug }}" title="{{ $tag->name }}" class="thumbnail-img">
 									<img class="" src="{{ url('/frontend/'.$tag->image) }}" alt="{{ $tag->name }}" >
@@ -42,17 +43,19 @@
 					@endif
 				@endforeach
 			</div>
+			<script type="text/javascript">
+				$('.slider').slick({
+					autoplay: true,
+					arrows: false,
+					dots: true,
+					fade: true
+				});
+			</script>
+			@endif
 		</div>
 	</div>
 </div>
-<script type="text/javascript">
-	$('.slider').slick({
-	    autoplay: true,
-	    arrows: false,
-	    dots: true,
-	    fade: true
-    });
-</script>
+
 
 @include('frontends.feature-courses')
 @include('frontends.all-courses')
