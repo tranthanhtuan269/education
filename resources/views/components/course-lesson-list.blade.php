@@ -1,6 +1,6 @@
 <div class="u-list-course" id="u-list-course">
     <div class="top clearfix">
-        <h3 class="pull-left">Courses Lessions</h3>
+        <h3 class="pull-left">Courses Lessons</h3>
         <ul class="pull-right">
             {{-- <li>Expand all</li> --}}
             <li>{{ $info_course->video_count }} lectures</li>
@@ -31,17 +31,17 @@
                                     <div class="col-xs-5 col-md-8">
                                         <div class="title">
                                             <a>
-                                                <i class="fa fa-play-circle" aria-hidden="true"></i> Bài {{ $key_video + 1 }}: {{ $value_video->name }} 
+                                                <i class="fa fa-play-circle" aria-hidden="true"></i> Bài {{ $value_video->index }}: {{ $value_video->name }} 
                                             </a>
                                         </div>
                                     </div>
                                     <div class="col-xs-4 col-md-2">
-                                        @if ($value_video->state == 1)
+                                        {{-- @if ($value_video->state == 1)
                                         <div class="link">
                                             &nbsp;
                                             <a class="btn-preview" href="javascript:void(0)" onclick="preview_freetrial(24337);">Free Trial</a>
                                         </div>
-                                        @endif
+                                        @endif --}}
                                     </div>
                                     <div class="col-xs-3 col-md-2">
                                         <div class="time">{{ $value_video->duration }}</div>
