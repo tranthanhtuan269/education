@@ -88,6 +88,7 @@ Route::get('/learning-page/{courseId}/lecture/{videoId}', 'Frontends\VideoPlayer
 
 Route::get('category/{cat}', ['as'  => 'category', 'uses' =>'Frontends\HomeController@showCategory']);
 Route::get('course/{course}', ['as'  => 'course', 'uses' =>'Frontends\HomeController@showCourse']);
+Route::get('learning/{course}', ['as'  => 'course', 'uses' =>'Frontends\HomeController@courseLearning']);
 Route::get('teacher/{teacher}', ['as'  => 'teacher', 'uses' =>'Frontends\HomeController@showTeacher']);
 Route::get('list-course', ['uses' =>'Frontends\HomeController@listCourse']);
 

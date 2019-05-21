@@ -134,9 +134,25 @@ class HomeController extends Controller
         return view('frontends.detail-teacher');
     }
 
-    public function courseLearning()
+    public function courseLearning($course)
     {
-        return view('frontends.course-learning');
+        $course = Course::where('slug', $course)->first();
+        if(\Auth::check()){
+            if($course){
+                $ratingCourse = RatingCourse::where('course_id', $course->id)->where('user_id', \Auth::id())->first();
+                $related_course = Course::where('category_id', $course->category_id)->limit(4)->get();
+                $info_course = Course::find($course->id);
+                return view('frontends.course-learning', compact('related_course', 'info_course', 'unit', 'ratingCourse'));
+            }
+        }else{
+            if($course){
+                $related_course = Course::where('category_id', $course->category_id)->limit(4)->get();
+                $info_course = Course::find($course->id);
+                return view('frontends.course-learning', compact('related_course', 'info_course', 'unit'));
+            }
+        }
+        return abort(404);
+        
     }
 
     public function courseDetail()

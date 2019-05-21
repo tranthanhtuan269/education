@@ -1,4 +1,4 @@
-*:focus{outline: none}
+*:focus{outline:none !important;} /*Trinhnk*/
 html,body,div,span,applet,object,iframe,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;vertical-align:baseline}
 iframe{width:100%}
 .clearfix::after{content:"";display:block;clear:both;height:0;visibility:hidden;overflow:hidden}
@@ -224,8 +224,7 @@ ul.unica-acc-zone li.special:hover a{color:#fff}
 .bill-info .payment-method .payment-card{padding:20px 10px}
 .bill-info .payment-method .payment-card img:hover{border-color:#44B900;border-radius:20px}
 .course-learning-banner{background:url(../images/member-card-banner.png) no-repeat;background-size:100% 100%;color:#fff;padding:40px 0}
-.course-learning-banner .intro-video{width: 100%;padding-top: 56%;position: relative}
-.course-learning-banner .intro-video iframe{position: absolute;top: 0;right: 0;bottom: 0;left: 0;height: 100%}
+.course-learning-banner iframe{width:100%;height:40%}
 .course-learning-banner .left-intro{padding:10px 0 0 30px}
 .course-learning-banner .meta-des{font-size:20px;margin:10px 0}
 .course-learning-banner .vote{padding:15px 0}
@@ -236,65 +235,42 @@ ul.unica-acc-zone li.special:hover a{color:#fff}
 .course-learning-banner .vote a{padding:10px 15px;background:#FF8F00;border:none;border-radius:10px;color:#fff;font-weight:700}
 .course-learning-banner .vote .icon-star{color:#FF8F00}
 .course-learning-banner .vote .star-rate{font-size:19px}
-.course-learning-banner .number-unit{padding:10px 0}
-.course-learning-banner .cup-icon{text-align:center;margin-right: 30px}
-.course-learning-banner .border-element-l{border:none;border-top-right-radius: 0;border-bottom-right-radius: 0;background: rgba(255,255,255,0.3);}
-.course-learning-banner .border-element-r{border:none;border-top-left-radius: 0;border-bottom-left-radius: 0;margin-right:30px;background: rgba(255,255,255,0.3);}
-.course-learning-content .left-content{margin-bottom:30px}
+.course-learning-banner .number-unit{padding:20px 0}
+.course-learning-banner .cup-icon{text-align:center}
+.course-learning-banner .border-element{border:none;border-radius:20px}
+.course-learning-content .left-content{margin-bottom:30px;margin-right: 25px}
 .course-learning-content .left-content .desc{padding-bottom:40px}
 .course-learning-content .course-document{padding:40px 0}
-.course-learning-content .all-doc{border:1px solid gray;border-bottom:none}
-.course-learning-content .lesson-doc{border-bottom:1px solid gray;padding:10px 0 10px 20px}
+.course-learning-content .all-doc{border:1px solid #e1e1e1;border-radius: 5px}
+.course-learning-content .lesson-doc{border-bottom:1px solid #e1e1e1;padding:10px 0 10px 20px}
 .course-learning-content .document-name,.course-learning-content .file-size{line-height:30px}
 .course-learning-content .btn-download-doc{background-color:#44B900;color:#fff}
-.course-learning-content .sidebar{margin:30px 0;text-align:center}
-.course-learning-content .sidebar .teacher-info{padding:10px;background-color: #F5F5F5;border:1px solid #989898}
+.course-learning-content .sidebar{margin:30px 0;border:1px solid #e1e1e1;text-align:center;background-color: #f5f5f5;border-radius: 5px}
+.course-learning-content .sidebar .teacher-info{padding:10px}
 .course-learning-content .sidebar .teacher-info .instructor{font-size:30px;font-weight:900;padding:20px 0}
 .course-learning-content .sidebar .teacher-info img{border:none;border-radius:50%;width:120px;height:120px}
 .course-learning-content .sidebar .teacher-info .name{padding:30px 0 0;font-size:20px;font-weight:700}
 .course-learning-content .sidebar .teacher-info .office{padding:0 0 20px}
-/*.course-learning-content .sidebar .teacher-info .icon-star{padding-right:3px;color:#FF8F00}*/
+.course-learning-content .sidebar .teacher-info .icon-star{padding-right:3px;color:#FF8F00}
 .course-learning-content .sidebar .teacher-info .total-course,.course-learning-content .sidebar .teacher-info .total-student{text-align:left;padding-bottom:10px}
 .course-learning-content .sidebar .teacher-info .total-student{line-height:32px}
 .course-learning-content .sidebar .teacher-info .total-student .inbox{background:#FF8F00;border:none;border-radius:5px;color:#fff}
-.course-learning-content .relate-course{margin:30px 0;background-color: #F5F5F5;border:1px solid #989898}
+.course-learning-content .sidebar .teacher-info .total-student .inbox a{color: #fff}
+.course-learning-content .relate-course{margin:30px 0 80px 0;border:1px solid #e1e1e1;background-color: #f5f5f5;border-radius: 5px}
 .course-learning-content .relate-course .relate-title{font-size:30px;font-weight:900;padding:20px 0;text-align:center}
-.course-learning-content .relate-course .list-course{padding:10px}
+.course-learning-content .relate-course .list-course{padding:20px}
 .course-learning-content .relate-course .list-course img{width:100%;border:none;border-radius:10px}
-.course-learning-content .relate-course .list-course .title{font-size:16px;font-weight:600;padding:5px 0}
-.course-learning-content .relate-course .list-course .teacher{padding-bottom:5px}
+.course-learning-content .relate-course .list-course .title{font-weight:600;padding:5px 0}
+.course-learning-content .relate-course .list-course .teacher{padding-bottom:5px;font-size: 12px}
+.course-learning-content .relate-course .list-course .time{font-size: 12px}
+.course-learning-content .relate-course .list-course .level{font-size: 12px}
 .course-learning-content .relate-course .list-course .one-course{padding-bottom:20px}
 .course-learning-content .relate-course .btn-see-all{margin-bottom:40px;border-radius:10px;padding:10px 25px;font-weight:600}
+.course-learning-question{background-color: #f5f5f5}
 .course-learning-question .title{text-align:center;padding:40px 0;font-weight:900}
 .course-learning-question .text-box{padding-bottom:40px}
 .course-learning-question .text-box .btn-submit{text-align:center;padding:20px 0}
-.course-learning-question .text-box .btn-submit .submit-question{padding:10px 40px;color:#fff;background-color:#FF8F00;border:none;border-radius:10px}
-/*End Courses Learning*/
-
-/*Begin Courses List*/ 
-/*.course-list-top{background-color:#F5F5F5}*/
-.course-list-top .banner{width:100%;position:absolute;z-index:-1;right:0}
-.course-list-top .box-container-top{position: relative;bottom: 120px}
-.course-list-top .title-bar{padding:30px 10px;}
-.course-list-top .title-bar .title-page{color:#fff;font-weight:900;padding-left:30px}
-.course-list-top .title-bar .course-number{font-size:24px;color:#fff}
-.course-list-top .title-bar .btn-share{padding-left:30px;padding-right:30px;margin-left:20px}
-.course-list-top .title-bar .btn-remove{margin-left:20px}
-.course-list-top .title-bar .btn-remove .fa-heart{color:red}
-.course-list-top .top-course{background:#fff;padding: 20px;margin: 0 10px 20px 10px;box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)}
-.course-list-top .top-course img{width:100%}
-.course-list-top .top-course .course-info{padding:20px 80px 0 40px}
-.course-list-top .top-course .course-info .post-title{padding-bottom:20px}
-.course-list-top .top-course .course-info .last-update{padding-bottom:20px}
-.course-list-top .top-course .course-info .instructor{font-size:17px;padding-bottom:20px}
-.course-list-top .top-course .course-info .time-view{padding-bottom:40px}
-.course-list-top .top-course .course-info .view,.course-list-top .top-course .course-info .unit{padding-left:50px}
-.course-list-top .top-course .course-info .btn-explore{padding:10px 20px;background:#FF8F00;color:#fff;font-weight:800}
-.course-list-top .top-course .course-info .imaginary{font-size:20px}
-.course-list-top .top-course .course-info .real{color:#FF8F00;font-size:24px;padding-left:40px}
-/*End Courses List
-
-/*Begin Footer*/
+.course-learning-question .text-box .btn-submit .submit-question{padding:12px 80px;color:#fff;background-color:#FF8F00;border:none;border-radius:10px;font-weight: 900;box-shadow: 1px 1px 10px #e1e1e1}
 footer{font-weight:500;background:url(../images/bg-footer.png) no-repeat;background-size:100% 100%}
 footer .img-logo{padding:30px 0}
 footer .img-fanpage{padding:20px 0}
