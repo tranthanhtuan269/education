@@ -1,4 +1,11 @@
 @extends('frontends.layouts.app')
+@php
+	$user_course_instance_video = json_decode($user_course_instance->videos);
+	$video_count = count($user_course_instance_video->videos);
+	$video_done_array = $user_course_instance_video->videos;
+	$video_done_count = array_count_values($video_done_array)[1];
+	$video_done_percent = (int)(($video_done_count/$video_count)*100);
+@endphp
 @section('content')
 <div class="course-learning-banner">
 	<div class="container">
@@ -11,7 +18,7 @@
 					<h2>{{ $info_course->name }}</h2>
 					<p class="meta-des">{{ $info_course->short_description }}</p>
 					<div class="vote">
-					<div class="continue"><a href="/learning-page/{{$info_course->id}}/lecture/" title="Continue">Continue to Lecture 20</a></div>
+					<div class="continue"><a href="/learning-page/{{$info_course->id}}/lecture/{{$user_course_instance_video->learning_id}}" title="Continue">Continue to Lecture {{$user_course_instance_video->learning}}</a></div>
 						<div class="rating">
 							@include(
 								'components.vote', 
@@ -25,17 +32,34 @@
 					<div class="row">
 						<div class="col-xs-9">
 							<div class="number-unit">
-								<p>20 of 100 items complate</p>
+								
+								<p>{{$video_done_count}} of {{$video_count}} items complate</p>
 							</div>
 						</div>
-						<div class="col-xs-3">
+						{{-- <div class="col-xs-3">
 							<div class="cup-icon">
 								<i class="fa fa-trophy fa-3x" aria-hidden="true"></i>
 							</div>
-						</div>
+						</div> --}}
 					</div>
-					<div class="progress border-element">
-						<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%;">
+					<div class="course-progress-bar">
+						<div class="progress border-element" style="width:82%">
+							<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{$video_done_percent}}" aria-valuemin="0" aria-valuemax="100" style="width: {{$video_done_percent}}%;">
+							</div>
+						</div>
+						&nbsp;
+						<div class="cup-progress" style="width:17%">
+							@if ($video_done_percent == 100)
+								<div class="progress" >
+									<div class="progress-bar progress-bar-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+								</div>
+								<i class="fa fa-trophy fa-2x" style="color: goldenrod"></i>	
+							@else
+								<div class="progress" >
+									<div class="progress-bar bg-success" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+								</div>
+								<i class="fa fa-trophy fa-2x"></i>
+							@endif
 						</div>
 					</div>
 				</div>
@@ -43,21 +67,28 @@
 		</div>
 	</div>
 </div>
+
+{{-- SECOND BODY CONTAINER --}}
 <div class="container">
+
 	<div class="course-learning-content">
+			{{-- NAV BAR aka MENU BAR --}}
 		<div class="menu clearfix">
 			<div class="col-sm-12">
 				<ul>
 					<li class="active">Overview</li>
 					<li><a href="javascript:;" class="go-box" data-box="box_course_content">Courses Content</a></li>
 					<li><a href="javascript:;" class="go-box" data-box="box_document">Documents</a> </li>
-					<li><a href="javascript:;" class="go-box" data-box="box_question">Q & A</a></li>
+					{{-- <li><a href="javascript:;" class="go-box" data-box="box_question">Q & A</a></li> --}}
 				</ul>
 			</div>
 		</div>
+			{{-- DESCRIPTIONS & DOCUMENT --}}
 		<div class="row">
 			<div class="col-sm-8">
 				<div class="left-content">
+					
+					{{-- Descriptions --}}
 					<div class="desc">
 						<h3>Descriptions</h3>
 						<p>{!! $info_course->description !!}</p>
@@ -65,39 +96,51 @@
 					<div class="lessons clearfix" id="box_course_content">
 						@include('components.course-lesson-list', ['info_course' => $info_course])
 					</div>
+
+					{{-- Documents --}}
 					<div class="course-document" id="box_document">
-						<h3>Document</h3>
+						<h3>Documents</h3>
 						<div class="all-doc">
-							@for($i=1;$i<=5;$i++)
-							<div class="lesson-doc">
-								<div class="row">
-									<div class="col-md-8">
-										<div class="document-name">
-											<i class="fa fa-download" aria-hidden="true"></i>
-											&nbsp;
-											<span>CSS Document.pdf</span>
-										</div>
-									</div>
-									<div class="col-md-2">
-										<button class="btn btn-download-doc">Download</button>
-									</div>
-									<div class="col-md-2">
-										<div class="file-size">15 MB</div>
-									</div>
-								</div>
-							</div>
-							@endfor
+							@foreach ($info_course->units as $unit)
+								@foreach ($unit->videos as $key_video => $video)
+									@foreach ($video->documents as $document)
+									
+										<div class="lesson-doc">
+											<div class="row">
+												<div class="col-md-8">
+													<div class="document-name">
+														<i class="fa fa-download" aria-hidden="true"></i>
+														&nbsp;
+													<span>Lecture {{$document->video->id}}: &nbsp; {{$document->title}}</span>
+													</div>
+												</div>
+												<div class="col-md-2">
+													<a href="{{$document->url_document}}">
+														<button class="btn btn-download-doc">Download</button>
+													</a>
+												</div>
+												<div class="col-md-2">
+													<div class="file-size">{{$document->size}} MB</div>
+												</div>
+											</div>
+										</div>							
+										
+									@endforeach
+								@endforeach
+							@endforeach
 						</div>
 					</div>
 				</div>
 			</div>
-	   
+			
+				{{-- RIGHT-BAR --}}
 			<div class="col-sm-4">
+				{{-- Teacher Info --}}
 				<div class="sidebar">
 					<div class="teacher-info">
 						<p class="instructor">Instructor</p>
 						<img class="avatar" src="{{asset('frontend/images/student-profile-ava.png')}}" alt="Avatar">
-						<p class="name">Tran Thanh Tuan</p>
+						<p class="name">{{$info_course->Lecturers()}}</p>
 						<p class="office"><span>Staff Systems Engineer</span>/<span>Manager</span>/<span>Instructor</span></p>
 						<div class="total-course">
 							<div class="row">
@@ -143,6 +186,8 @@
 						</div>
 					</div>
 				</div>
+
+				{{-- Related Course --}}
 				<div class="relate-course">
 					<p class="relate-title">Related Courses</p>
 					<div class="list-course">
@@ -168,10 +213,14 @@
 						<button type="button" class="btn btn-see-all">SEE ALL</button>
 					</div>
 				</div>
+
 			</div>
 		</div>
 	</div>
 </div>
+
+{{-- QUESTION ANSWER BOX --}}
+@if (false)
 <div class="course-learning-question" id="box_question">
 	<div class="container">
 		<h3 class="title">Questions & Answers</h3>
@@ -188,7 +237,11 @@
 		</div>
 	</div>
 </div>
+	
+@endif
 
+
+@if (false)
 <div class="container">
 		<div class="course-learning-review">
 			<div class="reviews">
@@ -197,10 +250,12 @@
 				@endif
 			</div>
 			<div class="col-sm-12 btn-seen-all">
-				<button type="button" class="btn">Seen all student feedback</button>
+				<button type="button" class="btn">See all student feedback</button>
 			</div>
 		</div>
 	</div>
+	
+@endif
 @if(false)
 <div class="container">
 	<div class="course-recommend">
