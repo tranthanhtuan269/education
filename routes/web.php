@@ -84,7 +84,6 @@ Route::get('/course-detail', 'Frontends\HomeController@courseDetail')->name('cou
 Route::get('/course-list','Frontends\HomeController@courseList');
 Route::get('/student-profile','Frontends\HomeController@studentProfile');
 
-Route::get('/learning-page/{courseId}/lecture/{videoId}', 'Frontends\VideoPlayerController@show');
 
 Route::get('category/{cat}', ['as'  => 'category', 'uses' =>'Frontends\HomeController@showCategory']);
 Route::get('course/{course}', ['as'  => 'course', 'uses' =>'Frontends\HomeController@showCourse']);
@@ -104,12 +103,14 @@ Route::get('comments/see-more', 'Frontends\CommentController@seeMore')->name('se
 Route::get('search', 'Frontends\HomeController@search');
 
 Route::group(['middleware' => 'auth'], function () {
+    Route::get('/learning-page/{courseId}/lecture/{videoId}', 'Frontends\VideoPlayerController@show')->name('videoplayer.show');
+
     Route::post('comment/comment-course', 'Frontends\CommentController@commentCourse');
     Route::post('reviews/store', 'Frontends\CommentController@storeCommentCourse');
-    Route::post('comments/store', 'Frontends\CommentController@storeCommentVideo');
+    Route::post('comments/store', 'Frontends\CommentController@storeCommentVideo')->name('commentsVideo.store');
     Route::post('comments/vote', 'Frontends\CommentController@storeCommentVote');
     Route::post('comments/reply', 'Frontends\CommentController@storeReply');
-    Route::post('notes/store', 'Frontends\NoteController@store');
-    Route::post('reports/store', 'Frontends\ReportController@store');
-    Route::get('user/logout', 'Frontends\UserController@logout');
+    Route::post('notes/store', 'Frontends\NoteController@store')->name('notesVideo.store');
+    Route::post('reports/store', 'Frontends\ReportController@store')->name('reportsVideo.store');
+    Route::get('user/logout', 'Frontends\UserController@logout')->name('logout');
 });

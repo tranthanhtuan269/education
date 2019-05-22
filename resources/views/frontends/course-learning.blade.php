@@ -1,8 +1,8 @@
 @extends('frontends.layouts.app')
 @php
-	$user_course_instance_video = json_decode($user_course_instance->videos);
-	$video_count = count($user_course_instance_video->videos);
-	$video_done_array = $user_course_instance_video->videos;
+	$user_role_course_instance_video = json_decode($user_role_course_instance->videos);
+	$video_count = count($user_role_course_instance_video->videos);
+	$video_done_array = $user_role_course_instance_video->videos;
 	$video_done_count = array_count_values($video_done_array)[1];
 	$video_done_percent = (int)(($video_done_count/$video_count)*100);
 @endphp
@@ -18,7 +18,7 @@
 					<h2>{{ $info_course->name }}</h2>
 					<p class="meta-des">{{ $info_course->short_description }}</p>
 					<div class="vote">
-					<div class="continue"><a href="/learning-page/{{$info_course->id}}/lecture/{{$user_course_instance_video->learning_id}}" title="Continue">Continue to Lecture {{$user_course_instance_video->learning}}</a></div>
+					<div class="continue"><a href="/learning-page/{{$info_course->id}}/lecture/{{$user_role_course_instance_video->learning_id}}" title="Continue">Continue to Lecture {{$user_role_course_instance_video->learning}}</a></div>
 						<div class="rating">
 							@include(
 								'components.vote', 
@@ -77,7 +77,7 @@
 			<div class="col-sm-12">
 				<ul>
 					<li class="active">Overview</li>
-					<li><a href="javascript:;" class="go-box" data-box="box_course_content">Courses Content</a></li>
+					<li><a href="javascript:;" class="go-box" data-box="box_course_content">Course Content</a></li>
 					<li><a href="javascript:;" class="go-box" data-box="box_document">Documents</a> </li>
 					{{-- <li><a href="javascript:;" class="go-box" data-box="box_question">Q & A</a></li> --}}
 				</ul>
@@ -88,9 +88,9 @@
 			<div class="col-sm-8">
 				<div class="left-content">
 					
-					{{-- Descriptions --}}
+					{{-- Description --}}
 					<div class="desc">
-						<h3>Descriptions</h3>
+						<h3>Description</h3>
 						<p>{!! $info_course->description !!}</p>
 					</div>
 					<div class="lessons clearfix" id="box_course_content">
@@ -140,7 +140,7 @@
 					<div class="teacher-info">
 						<p class="instructor">Instructor</p>
 						<img class="avatar" src="{{asset('frontend/images/student-profile-ava.png')}}" alt="Avatar">
-						<p class="name">{{$info_course->Lecturers()}}</p>
+						<p class="name">Trần Thanh Tuấn</p>
 						<p class="office"><span>Staff Systems Engineer</span>/<span>Manager</span>/<span>Instructor</span></p>
 						<div class="total-course">
 							<div class="row">

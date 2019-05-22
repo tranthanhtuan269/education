@@ -16,7 +16,7 @@ class CreateUserCoursesTable extends Migration
         Schema::create('user_courses', function (Blueprint $table) {
             $table->integer('user_role_id');
             $table->integer('course_id');
-            $table->string('videos', 500)->nullable();
+            $table->json('videos', 500)->nullable();
             $table->integer('status')->default(1);
             $table->timestamps();
         });

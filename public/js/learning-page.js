@@ -88,8 +88,8 @@ $(document).ready(function () {
         toggleLectureList()
     })
     $(".ln-btn-complete").click(function (event) {
-        event.stopPropagation();
-        tickCompleteLecture()
+        event.stopPropagation()
+        // tickCompleteLecture()
     })
     $("#btnForward").click(function () {
         seekTime(5)

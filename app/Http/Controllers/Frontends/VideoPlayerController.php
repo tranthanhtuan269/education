@@ -60,11 +60,11 @@ class VideoPlayerController extends Controller
         $units = Unit::where('course_id', $courseId)->get();
         $notes = Note::where('video_id', $videoId)->where('user_id', Auth::id())->orderBy('created_at', 'desc')->get();
         $files = Document::where('video_id', $videoId)->orderBy('created_at', 'desc')->get();
-        $demanding_user_course_item = Helper::getUserRoleOfCourse($courseId);
+        $user_role_course_instance = Helper::getUserRoleOfCourse($courseId);
         
-        if($demanding_user_course_item == null) abort(403, 'Unauthorized action.');
+        if($user_role_course_instance == null) abort(403, 'Unauthorized action.');
 
-        $user_role_id = $demanding_user_course_item->user_role_id;
+        $user_role_id = $user_role_course_instance->user_role_id;
 
         $comments_video = CommentVideo::where(
             function($q) use ($user_role_id){
@@ -118,6 +118,7 @@ class VideoPlayerController extends Controller
             'sub_comments_video' => $sub_comments_video,
             'main_video'         => $main_video,
             'main_video_id_key'  => $main_video_id_key,
+            'user_role_course_instance' => $user_role_course_instance,
         ]);
     }
 

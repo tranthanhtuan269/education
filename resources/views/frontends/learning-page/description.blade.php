@@ -10,18 +10,27 @@
         <p>{{$main_video->description}}</p>
         </div>
         <div class="ln-desc-achv">
-            <p>10 of {{$course->video_count}} items completed</p>
+            <p>{{$video_done_count}} of {{$video_count}} items completed</p>
             <div class="ln-progress-bar">
                 <div class="progress lecture-progress" style="width: 30vw">
-                    <div class="progress-bar progress-bar-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar progress-bar-success" role="progressbar" style="width: {{$video_done_percent}}%" aria-valuenow="{{$video_done_percent}}" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
                 &nbsp;
-                <div class="cup-progress">
-                    <div class="progress" style="width: 5vw">
-                        <div class="progress-bar bg-success" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                @if ($video_done_percent == 100)
+                    <div class="cup-progress">
+                        <div class="progress" style="width: 5vw">
+                            <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <i class="fas fa-trophy" style="color: goldenrod"></i>
                     </div>
-                    <i class="fas fa-trophy"></i>
-                </div>
+                @else
+                    <div class="cup-progress">
+                        <div class="progress" style="width: 5vw">
+                            <div class="progress-bar bg-success" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                @endif
             </div>
         </div>
         <br>

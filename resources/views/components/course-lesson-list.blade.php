@@ -1,6 +1,6 @@
 <div class="u-list-course" id="u-list-course">
     <div class="top clearfix">
-        <h3 class="pull-left">Courses Lessons</h3>
+        <h3 class="pull-left">Course Content</h3>
         <ul class="pull-right">
             {{-- <li>Expand all</li> --}}
             <li>{{ $info_course->video_count }} lectures</li>
@@ -16,7 +16,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $key_unit }}" class="accordion-toggle @if ($key_unit != 0) collapsed in @endif" aria-expanded="true"> Phần {{ $key_unit + 1 }}: {{ $value_unit->name }}</a>
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $key_unit }}" class="accordion-toggle @if ($key_unit != 0) collapsed in @endif" aria-expanded="true"><span>Section {{ $key_unit + 1 }}:&nbsp; {{ $value_unit->name }}</span></a>
                             </h4>
                         </div>
                     </div>
@@ -30,8 +30,9 @@
                                 <div class="row">
                                     <div class="col-xs-5 col-md-8">
                                         <div class="title">
-                                            <a>
-                                                <i class="fa fa-play-circle" aria-hidden="true"></i> Bài {{ $value_video->index }}: {{ $value_video->name }} 
+                                            <a href="/learning-page/{{$info_course->id}}/lecture/{{$value_video->id}}">
+                                                <i class="fa fa-play-circle" aria-hidden="true"></i>
+                                                <span>Lecture {{ $value_video->index }}: &nbsp;{{ $value_video->name }}</span> 
                                             </a>
                                         </div>
                                     </div>
@@ -44,7 +45,7 @@
                                         @endif --}}
                                     </div>
                                     <div class="col-xs-3 col-md-2">
-                                        <div class="time">{{ $value_video->duration }}</div>
+                                        <div class="time">{{ App\Helper::convertSecondToTimeFormat($value_video->duration) }}</div>
                                     </div>
                                 </div>
                             </div>
