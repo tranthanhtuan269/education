@@ -8,7 +8,7 @@ $momentNow = new MomentPHP\MomentPHP();
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
 
-        <title>Learning Page</title>
+        <title>{{$course->name}} | Courdemy</title>
 
         <!-- Fonts -->
         {{-- <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet"> --}}
