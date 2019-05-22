@@ -298,7 +298,7 @@
                                 <ul class="db-item">
                                     {{-- BaTV - kiểm tra xem user có học khóa học nào không --}}
                                     @if ($check_course_of_the_user >= 1) 
-                                    <li><a href="{{ route('coming-soon') }}" class="unica-active-course"><p class="hidden-md hidden-xs hidden-sm">Start Learning</p></a></li>
+                                    <li><a href="{{ url('user/course') }}" class="unica-active-course"><p class="hidden-md hidden-xs hidden-sm">Start Learning</p></a></li>
                                     @endif
                                     <li class="mgtOp">
                                         <a href="/gio-hang" class="unica-cart">

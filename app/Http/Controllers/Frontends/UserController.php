@@ -7,6 +7,7 @@ use App\Http\Controllers\Frontends\Requests\RegisterUserRequest;
 use App\User;
 use App\UserRole;
 use Auth;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -42,10 +43,25 @@ class UserController extends Controller
 
         $user_role = new UserRole();
         $user_role->user_id = $user->id;
-        $user_role->role_id = 1; // 1: Mặc định là học sinh
+        $user_role->role_id = 3; //: Mặc định là học sinh
         $user_role->save();
 
         Auth::login($user, true);
         return response()->json(['success' => 'Your account has been created!', 'status' => 200]);
+    }
+
+    public function course(Request $request)
+    {
+        $keyword = trim($request->get('keyword'));
+        $id = Auth::user()->id;
+        $user = User::find($id);
+        $lifelong_course = $user->userRolesStudent()[0]->userLifelongCourse($keyword);
+        // dd($lifelong_course);
+        return view('frontends.users.course', compact('lifelong_course'));
+    }
+
+    public function profile()
+    {
+        return view('frontends.users.profile', compact('results'));
     }
 }

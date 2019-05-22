@@ -111,5 +111,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('comments/reply', 'Frontends\CommentController@storeReply');
     Route::post('notes/store', 'Frontends\NoteController@store');
     Route::post('reports/store', 'Frontends\ReportController@store');
-    Route::get('user/logout', 'Frontends\UserController@logout');
+
+    Route::group(['prefix' => 'user'],function () {
+        Route::get('logout', 'Frontends\UserController@logout');
+        Route::get('course', 'Frontends\UserController@course'); 
+        Route::get('profile', 'Frontends\UserController@profile'); 
+    });
 });
