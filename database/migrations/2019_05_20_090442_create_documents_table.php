@@ -18,6 +18,7 @@ class CreateDocumentsTable extends Migration
             $table->string('title', 255);
             $table->integer('video_id');
             $table->text('url_document');
+            $table->bigInteger('size');
             $table->timestamps();
         });
     }

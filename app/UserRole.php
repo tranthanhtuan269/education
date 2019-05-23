@@ -39,4 +39,9 @@ class UserRole extends Model
     {
         return $this->belongsToMany('App\Course', 'user_courses')->orderBy('id', 'desc')->get();
     }
+
+    public function courses()
+    {
+        return $this->belongsToMany('App\Course', 'user_courses');
+    }
 }

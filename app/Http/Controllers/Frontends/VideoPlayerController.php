@@ -60,11 +60,11 @@ class VideoPlayerController extends Controller
         $units = Unit::where('course_id', $courseId)->get();
         $notes = Note::where('video_id', $videoId)->where('user_id', Auth::id())->orderBy('created_at', 'desc')->get();
         $files = Document::where('video_id', $videoId)->orderBy('created_at', 'desc')->get();
-        $demanding_user_course_item = Helper::getUserRoleOfCourse($courseId);
+        $user_role_course_instance = Helper::getUserRoleOfCourse($courseId);
         
-        if($demanding_user_course_item == null) abort(403, 'Unauthorized action.');
+        if($user_role_course_instance == null) abort(403, 'Unauthorized action.');
 
-        $user_role_id = $demanding_user_course_item->user_role_id;
+        $user_role_id = $user_role_course_instance->user_role_id;
 
         $comments_video = CommentVideo::where(
             function($q) use ($user_role_id){
@@ -107,7 +107,6 @@ class VideoPlayerController extends Controller
             }
         }
 
-
         return view('frontends.learning-page.index', [
             'course'             => $course,
             'units'              => $units,
@@ -118,6 +117,7 @@ class VideoPlayerController extends Controller
             'sub_comments_video' => $sub_comments_video,
             'main_video'         => $main_video,
             'main_video_id_key'  => $main_video_id_key,
+            'user_role_course_instance' => $user_role_course_instance,
         ]);
     }
 
@@ -142,6 +142,31 @@ class VideoPlayerController extends Controller
     public function update(Request $request, $id)
     {
         //
+    }
+
+    public function updateWatched(Request $request ){
+        $video = Video::find($request->video_id);
+        if($video){
+            $course = $video->unit->course;
+            $user_course = Helper::getUserRoleOfCourse($course->id);
+            if($user_course){
+                $videos = $user_course->videos;
+                $videoObj = \json_decode($videos);
+                $videoList = $videoObj->videos;
+                $videoList[($video->index)-1] = 1;
+                
+                $videoObj->videos = $videoList;
+                $videoObj->learning = $video->index;
+                $videoObj->learning_id = $video->id;
+
+                $videoData = \json_encode($videoObj);
+                $user_course->videos = $videoData;
+                $user_course->save();
+                return \Response::json(array('status' => '200', 'message' => 'Cập nhật thông tin thành công!'));
+            }
+        }
+
+        return \Response::json(array('status' => '404', 'message' => 'Video không tồn tại!'));
     }
 
     /**

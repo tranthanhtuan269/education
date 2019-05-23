@@ -66,7 +66,7 @@ class Course extends Model
 
     public function Lecturers(){
         if($this->userRoles){
-            return $this->userRoles()->where('role_id', 2)->get();
+            return $this->userRoles()->where('role_id',2)->get();
         }else{
             return [];
         }

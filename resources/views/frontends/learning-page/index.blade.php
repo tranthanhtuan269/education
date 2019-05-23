@@ -1,5 +1,15 @@
 @php 
-$momentNow = new MomentPHP\MomentPHP();
+    $momentNow = new MomentPHP\MomentPHP();
+    $user_role_course_instance_video = json_decode($user_role_course_instance->videos);
+    $video_count = count($user_role_course_instance_video->videos);
+    $video_done_array = $user_role_course_instance_video->videos;
+    if(count(array_count_values($video_done_array)) < 2){
+        $video_done_count = 0;
+    }else{
+        $video_done_count = array_count_values($video_done_array)[1];
+    }
+    $video_done_percent = (int)(($video_done_count/$video_count)*100);
+    $video_url = \App\Helper::createSecurityTokenForVideoLink(\Auth::id(), $main_video->id);
 @endphp
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -8,7 +18,7 @@ $momentNow = new MomentPHP\MomentPHP();
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
 
-        <title>Learning Page</title>
+        <title>{{$course->name}} | Courdemy</title>
 
         <!-- Fonts -->
         {{-- <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet"> --}}
@@ -35,6 +45,7 @@ $momentNow = new MomentPHP\MomentPHP();
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         
+        <base href="{{ url('/') }}">
     </head>
     <body>
 
@@ -45,7 +56,7 @@ $momentNow = new MomentPHP\MomentPHP();
                 <p>Lecture list</p>
             </div>
             <div class="lecture-subtitle">
-                <a href="#">
+                <a href="{{ url("/learning/{$course->slug}") }}">
                     <p>Go to Dashboard</p>
                 </a>
             </div>
@@ -82,6 +93,8 @@ $momentNow = new MomentPHP\MomentPHP();
             var course_id = {{$course->id}}
             // var main_video_id = {{$main_video->id}}
             var video_id_list = {{json_encode($video_id_list)}}
+
+            var main_video_id = {{$main_video->id}}
             
             var main_video_id_key = {{$main_video_id_key}}
 
@@ -111,6 +124,6 @@ $momentNow = new MomentPHP\MomentPHP();
         </script>
         <script src='https://vjs.zencdn.net/7.5.4/video.js'></script>
         <script src="https://unpkg.com/silvermine-videojs-quality-selector/dist/js/silvermine-videojs-quality-selector.min.js"></script>           
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-hls/5.15.0/videojs-contrib-hls.js"></script>
+        {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-hls/5.15.0/videojs-contrib-hls.js"></script> --}}
     </body>
 </html>

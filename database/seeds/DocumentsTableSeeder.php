@@ -19,6 +19,7 @@ class DocumentsTableSeeder extends Seeder
             $document->title = "Làm giàu ko khó " . ($key + 1);
             $document->video_id = $video->id;
             $document->url_document = 'https://mshare.io/file/sDosXWr';
+            $document->size = rand(10,100);
             $document->save();
         }
     }

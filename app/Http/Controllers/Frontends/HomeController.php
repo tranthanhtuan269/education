@@ -7,9 +7,11 @@ use App\Teacher;
 use App\Course;
 use App\Video;
 use App\Unit;
+use App\Document;
 use App\Tag;
 use App\User;
 use Auth;
+use App\Helper\Helper;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -144,7 +146,9 @@ class HomeController extends Controller
                 $ratingCourse = RatingCourse::where('course_id', $course->id)->where('user_id', \Auth::id())->first();
                 $related_course = Course::where('category_id', $course->category_id)->limit(4)->get();
                 $info_course = Course::find($course->id);
-                return view('frontends.course-learning', compact('related_course', 'info_course', 'unit', 'ratingCourse'));
+                $user_role_course_instance = Helper::getUserRoleOfCourse($course->id);
+
+                return view('frontends.course-learning', compact('related_course', 'info_course', 'unit', 'ratingCourse', 'user_role_course_instance'));
             }
         }else{
             if($course){

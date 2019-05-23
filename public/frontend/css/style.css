@@ -237,14 +237,19 @@ ul.unica-acc-zone li.special:hover a{color:#fff}
 .course-learning-banner .vote .star-rate{font-size:19px}
 .course-learning-banner .number-unit{padding:20px 0}
 .course-learning-banner .cup-icon{text-align:center}
-.course-learning-banner .border-element{border:none;border-radius:20px}
+.course-learning-banner .border-element{border:none;border-top-right-radius:0;border-bottom-right-radius:0;}
+.course-progress-bar{display: flex; justify-content: space-between;}
+.course-progress-bar .progress{ height: 15px;}
+.course-progress-bar .cup-progress{position: relative;}
+.course-progress-bar .cup-progress .progress{border-top-left-radius:0; border-bottom-left-radius: 0;}
+.course-progress-bar .cup-progress i {position: absolute; left: 33%; top: -125%;}
 .course-learning-content .left-content{margin-bottom:30px;margin-right: 25px}
 .course-learning-content .left-content .desc{padding-bottom:40px}
 .course-learning-content .course-document{padding:40px 0}
 .course-learning-content .all-doc{border:1px solid #e1e1e1;border-radius: 5px}
 .course-learning-content .lesson-doc{border-bottom:1px solid #e1e1e1;padding:10px 0 10px 20px}
 .course-learning-content .document-name,.course-learning-content .file-size{line-height:30px}
-.course-learning-content .btn-download-doc{background-color:#44B900;color:#fff}
+.course-learning-content .btn-download-doc{background-color:#44B900;color:#fff;}
 .course-learning-content .sidebar{margin:30px 0;border:1px solid #e1e1e1;text-align:center;background-color: #f5f5f5;border-radius: 5px}
 .course-learning-content .sidebar .teacher-info{padding:10px}
 .course-learning-content .sidebar .teacher-info .instructor{font-size:30px;font-weight:900;padding:20px 0}
@@ -505,3 +510,4 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
 div[data-u="slides"] div div{
     border-radius: 18px;
 }
+

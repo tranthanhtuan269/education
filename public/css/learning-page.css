@@ -215,6 +215,9 @@ body{
     position: relative;
     text-align: center;
 }
+.cup-progress .progress-bar{
+    background-color: #5cb85c;
+}
 .cup-progress i{
     position: absolute;
     font-size: 1.5vw;
@@ -337,8 +340,6 @@ body{
     text-align: justify;
 }
 .ln-lect-list-body li{
-    display: flex;
-    justify-content: space-between;
     padding: 15px 2rem;
 }
 .ln-lect-list-body li a:hover{
@@ -351,24 +352,39 @@ body{
 .ln-lect-list-body li .active{
     background-color: lightblue;
 }
+.video-list-item a {
+    display: flex;
+    justify-content: space-between;
+}
 .ln-lect-list-lect-title-icon{
     order: 1;
     color: #676E7A !important;
+    position: relative;
+    top: 0.2em;
 }
 .ln-lect-list-lect-title{
     order: 2;
     flex: 1;
     min-width: 1px;
     color: #686F7A;
+    position: relative;
+    left: 0.2em;
+    max-width: 330px;
+    margin-right: 1.5em;
 }
-.ln-lect-list-lect-title:hover{
+.ln-lect-list-lect-title:hover, .ln-lect-list-lect-duration:hover {
     text-decoration: none;
+}
+.ln-lect-list-lect-duration{
+    color: #686E7A; 
+    order: 3;
 }
 .ln-lect-list-body li button{
     color: rgb(200, 201, 202);
     background: none;
     border: none;
     font-size: 20px;
+    padding-right: 0;
     position: relative;
 }
 .ln-lect-list-body li button:hover{
@@ -377,7 +393,7 @@ body{
     /* color: rgb(200, 201, 202) !important; */
 }
 .ln-btn-complete{
-    order: 3;
+    order: 4;
 }
 .ln-lect-list-item{
     margin-bottom: 20px;
