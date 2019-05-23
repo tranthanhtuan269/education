@@ -107,7 +107,6 @@ class VideoPlayerController extends Controller
             }
         }
 
-
         return view('frontends.learning-page.index', [
             'course'             => $course,
             'units'              => $units,

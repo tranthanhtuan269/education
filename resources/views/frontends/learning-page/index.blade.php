@@ -6,6 +6,9 @@
     // dd($video_done_array);
     $video_done_count = array_count_values($video_done_array)[1];
     $video_done_percent = (int)(($video_done_count/$video_count)*100);
+    // dd(strtotime(date('d-m-Y H:i')));
+    $url = \App\Helper::createSecurityTokenForVideoLink(\Auth::id(), $main_video->id);
+    // dd($url);
 @endphp
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
