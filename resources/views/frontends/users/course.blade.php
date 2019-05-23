@@ -77,35 +77,7 @@
                 </div>
             </div>
         </div>
-        {{-- <div class="col-lg-3 col-md-3 col-sm-3 pdl-0 pd-r-md-0 col-xs-12-pd">
-            <div class="u-group-box-user-list">
-                <h4><i class="fa fa-bookmark"></i> Thông tin membership</h4>
-                <hr>
-                <p class="text-center"><b>Bạn chưa sở hữu thẻ membership</b></p>
-                <center><a href="https://unica.vn/membership" class="btn btn-success">Đăng ký ngay</a></center>
-            </div>
-        </div> --}}
     </div>
-    <script>
-        function reActive(id) {
-            $.ajax({
-                type: 'POST',
-                url: '/membership/courseactive',
-                data: {
-                    id: id
-                },
-                success: function(course) {
-                    console.log(course);
-                    if (course.success) {
-                        location.reload();
-                    } else {
-                        $('#showModalErrors').modal('show')
-                        $('#noti_error').html(course.message);
-                    }
-                }
-            });
-        }
-    </script>
 </div>
 
 @endsection

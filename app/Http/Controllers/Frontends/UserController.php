@@ -62,6 +62,6 @@ class UserController extends Controller
 
     public function profile()
     {
-        return view('frontends.users.profile', compact('results'));
+        return view('frontends.users.profile');
     }
 }

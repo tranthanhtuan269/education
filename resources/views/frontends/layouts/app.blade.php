@@ -16,6 +16,7 @@
         <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}" />
         <link rel="stylesheet" href="{{ asset('frontend/css/responsive.css') }}" />
         <script type="text/javascript" src="{{ asset('frontend/js/jquery-3.2.1.min.js') }}"></script>
+        <script src="{{ asset('frontend/js/bootstrap.min.js') }}"></script>
         <script src="{{ asset('frontend/js/slick.min.js') }}"></script>
         <script src="{{ asset('frontend/js/jssor.slider.min.js') }}"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
@@ -717,7 +718,6 @@
     <div class="hidden-md hidden-sm hidden-lg" style="margin-top: 45px;"></div>
 
     <!-- End Google Tag Manager (noscript) -->
-    <script src="{{ asset('frontend/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('frontend/js/bootstrap.offcanvas.js') }}"></script>
     <script src="{{ asset('frontend/js/sidenav.min.js') }}"></script>
     <script src="{{ asset('frontend/js/amazonmenu.js') }}"></script>

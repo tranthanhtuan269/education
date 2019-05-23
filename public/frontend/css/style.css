@@ -607,3 +607,25 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
 .box-search-course .box-input {
     width: 82%
 }
+
+#imgPrime img{
+    max-width: 100%;
+}
+
+
+#userActions{
+	display: table-cell;
+	height: 150px;
+	width: 200px;
+	vertical-align: middle;
+	text-align: center;
+	color: #37474F;
+	background-color: red;
+	border: solid 2px #333333;
+	border-radius: 10px;
+}
+#userActions input{
+	width: 150px;
+	margin: auto;
+}
+#imgPrime{ display: none; }

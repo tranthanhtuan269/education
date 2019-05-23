@@ -114,7 +114,13 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::group(['prefix' => 'user'],function () {
         Route::get('logout', 'Frontends\UserController@logout');
-        Route::get('course', 'Frontends\UserController@course'); 
-        Route::get('profile', 'Frontends\UserController@profile'); 
+
+        Route::group(['prefix' => 'student'],function () {
+            Route::get('course', 'Frontends\UserController@course'); 
+            Route::get('profile', 'Frontends\UserController@profile'); 
+        });
     });
+
+    Route::post('upload-image', 'Frontends\HomeController@uploadImage');
+    Route::post('upload-image-demo', 'Frontends\HomeController@uploadImageDemo');
 });
