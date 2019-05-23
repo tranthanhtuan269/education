@@ -11,7 +11,7 @@
 <div class="container">
     <div class="row">
         <div class="col-xs-12">
-            <div class="tabbable-panel">
+            <div class="box-user tabbable-panel">
                 <div class="tabbable-line">
                     <ul class="nav nav-tabs">
                         <li class="active">
@@ -22,10 +22,10 @@
                         <div class="tab-pane active" id="buyed">
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <form id="w0" action="/user/course" method="get">
+                                    <form id="w0" action="/user/student/course" method="get">
                                         <div class="form-inline box-search-course">
                                             <div class="form-group box-input">
-                                                <input type="text" class="form-control" name="keyword" placeholder="Search course..." value="{{ Request::get('keyword') }}">
+                                                <input type="text" class="form-control" name="u-keyword" placeholder="Search course..." value="{{ Request::get('u-keyword') }}">
                                             </div>
                                             <div class="form-group">
                                                 <button type="submit" class="btn btn-success">Search</button>
@@ -64,7 +64,13 @@
                                     </div>
                                 @else
                                     <div class="col-xs-12">
-                                        <p>No results</p>
+                                        <p class="result-search-u-keyword">
+                                            @if (Request::get('u-keyword'))
+                                                No results
+                                            @else
+                                                Has not purchased the course on Courdemy
+                                            @endif
+                                        </p>
                                     </div>
                                 @endif
                             </div>

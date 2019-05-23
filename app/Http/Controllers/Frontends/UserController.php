@@ -52,7 +52,7 @@ class UserController extends Controller
 
     public function course(Request $request)
     {
-        $keyword = trim($request->get('keyword'));
+        $keyword = trim($request->get('u-keyword'));
         $id = Auth::user()->id;
         $user = User::find($id);
         $lifelong_course = $user->userRolesStudent()[0]->userLifelongCourse($keyword);

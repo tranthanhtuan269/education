@@ -12,7 +12,7 @@
 <div class="container">
     <div class="row">
         <div class="col-xs-12">
-            <div class="box-profile">
+            <div class="box-user tabbable-panel">
                 <div class="tabbable-line">
                     <ul class="nav nav-tabs">
                         <li class="active">
