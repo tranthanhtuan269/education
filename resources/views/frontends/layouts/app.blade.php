@@ -299,7 +299,7 @@
                                 <ul class="db-item">
                                     {{-- BaTV - kiểm tra xem user có học khóa học nào không --}}
                                     @if ($check_course_of_the_user >= 1) 
-                                    <li><a href="{{ url('user/course') }}" class="unica-active-course"><p class="hidden-md hidden-xs hidden-sm">Start Learning</p></a></li>
+                                    <li><a href="{{ url('user/student/course') }}" class="unica-active-course"><p class="hidden-md hidden-xs hidden-sm">Start Learning</p></a></li>
                                     @endif
                                     <li class="mgtOp">
                                         <a href="/gio-hang" class="unica-cart">
@@ -317,15 +317,15 @@
 
                                         <a class="db-item-circle dropdown-toggle" data-toggle="dropdown" href="#"><img class="img-responsive" src="{{ asset('frontend/'.(Auth::user()->avatar != '' ? Auth::user()->avatar : 'images/avatar.jpg')) }}" alt="avatar"><span class="caret"></span></a>
                                         <ul class="dropdown-menu db-drop">
-                                            <li><a href="{{ route('coming-soon') }}"><i class="fa fa-list-alt" aria-hidden="true"></i> Vào học</a></li>
+                                            <li><a href="{{ url('user/student/course') }}"><i class="fa fa-list-alt" aria-hidden="true"></i> Start Learning</a></li>
                                             <li><a href="{{ route('coming-soon') }}"><i class="fa fa-share-alt" aria-hidden="true"></i> Affiliate</a></li>
-                                            <li><a href="{{ route('coming-soon') }}"><i class="fa fa-key" aria-hidden="true"></i> Kích hoạt khóa học</a></li>
-                                            <li><a href="{{ route('coming-soon') }}"><i class="fa fa-user" aria-hidden="true"></i> Cập nhật hồ sơ </a></li>
-                                            <li><a href="{{ route('coming-soon') }}"><i class="fa fa-credit-card" aria-hidden="true"></i> Nạp thẻ </a></li>
+                                            <li><a href="{{ route('coming-soon') }}"><i class="fa fa-key" aria-hidden="true"></i> Activate course</a></li>
+                                            <li><a href="{{ url('user/student/profile') }}"><i class="fa fa-user" aria-hidden="true"></i> Profile </a></li>
+                                            <li><a href="{{ route('coming-soon') }}"><i class="fa fa-credit-card" aria-hidden="true"></i>  Recharge </a></li>
                                             <li>
                                             </li>
                                             <li class="divider"></li>
-                                            <li><a href="{{ url('user/logout') }}" class="btnDangxuat"><i class="fa fa-sign-out" aria-hidden="true"></i> Đăng xuất</a></li>
+                                            <li><a href="{{ url('user/logout') }}" class="btnDangxuat"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
                                         </ul>
                                     </li>
                                 </ul>

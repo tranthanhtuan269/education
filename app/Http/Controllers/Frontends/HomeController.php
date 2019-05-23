@@ -3,7 +3,6 @@ namespace App\Http\Controllers\Frontends;
 
 use Illuminate\Http\Request;
 use Auth;
-use App\Http\Controllers\Frontends\Requests\UpdateProfileUserRequest;
 use App\Category;
 use App\Course;
 use App\RatingCourse;
@@ -27,42 +26,6 @@ class HomeController extends Controller
         //     echo '$per->group = ' .$permission->group .'; <br/>';
         //     echo '$per->save(); <br/> <br/>';
         // }
-    }
-
-    public function updateProfile(UpdateProfileUserRequest $request)
-    {
-        $file_name = 'avatar.jpg';
-        if ($request->link_base64 != '') {
-            // Xóa avatar cũ nếu có
-            if (file_exists(public_path('frontend/'.Auth::user()->avatar))) {
-                unlink(public_path('frontend/'.Auth::user()->avatar));
-            }
-
-            $img_file = $request->link_base64;
-            list($type, $img_file) = explode(';', $img_file);
-            list(, $img_file) = explode(',', $img_file);
-            $img_file = base64_decode($img_file);
-            $file_name = time() . '.png';
-            file_put_contents(public_path('/frontend/images/') . $file_name, $img_file);
-        }
-
-        $user = User::find(Auth::user()->id);
-        $user->name = $request->name;
-        $user->phone = $request->phone;
-        if (isset($request->birthday )) {
-            $user->birthday = Helper::formatDate('d/m/Y', $request->birthday, 'Y-m-d');
-        } else {
-            $user->birthday = null;
-        }
-        $user->gender = $request->gender;
-        $user->address = $request->address;
-        $user->avatar = 'images/' . $file_name;
-        $user->save();
-        return response()->json(['success' => 'Change profile success!', 'status' => 200]);
-    }
-    public function uploadImage(Request $request)
-    {
-        echo 1;
     }
 
     public function comingSoon()

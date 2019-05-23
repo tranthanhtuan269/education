@@ -41,7 +41,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label><i title="Email chưa xác thực" class="fa fa-envelope color-red"></i> Email </label>
+                                                <label> Email </label>
                                                 <div class="form-group field-muser-email required">
                                                     <input type="email" id="muser-email" class="form-control" name="email" value="{{ Auth::user()->email }}" disabled>
 
@@ -100,10 +100,9 @@
         </div>
     </div>
 </div>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<script src="https://learncodeweb.com/demo/web-development/drag-drop-images-with-bootstrap-4-and-reorder-using-php-jquery-and-ajax/dropzone/dropzone.js"></script>
+<script src="{{ asset('frontend/js/dropzone.js') }}"></script>
 <script>
+    Dropzone.autoDiscover = false;
     $(document).ready(function(){
         $('.reorder').on('click',function(){
             $("ul.nav").sortable({ tolerance: 'pointer' });
@@ -114,82 +113,85 @@
             $('.img-link').css("cursor","move");
         });
             
-
-        //Dropzone script
-        Dropzone.autoDiscover = false;
         var link_base64;
         var myDropzone = new Dropzone("div#myDrop", 
         { 
-                paramName: "files", // The name that will be used to transfer the file
-                addRemoveLinks: true,
-                uploadMultiple: false,
-                autoProcessQueue: true,
-                parallelUploads: 50,
-                maxFilesize: 5, // MB
-                acceptedFiles: ".png, .jpeg, .jpg, .gif",
-                url: "{{ url('upload-image') }}",
-                headers: {
-                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
-                },
-                success: function(file, response){
-                    // alert(response);
-                },
-                accept: function(file, done) {
-                    // alert(2)
-                    done();
-                },
-                error: function(file, msg){
-                    // alert(msg);
-                },
-                sending: function(file, xhr, formData) {
-                    // $.each($('form').serializeArray(), function(key,value) {
-                    //     formData.append(this.name, this.value);
-                    // });
-                    // data_request = formData;
-                    // alert(data);
-                    // console.log(formData);
+            paramName: "files", // The name that will be used to transfer the file
+            addRemoveLinks: true,
+            uploadMultiple: false,
+            autoProcessQueue: true,
+            parallelUploads: 50,
+            maxFilesize: 5, // MB
+            acceptedFiles: ".png, .jpeg, .jpg, .gif",
+            url: "{{ url('upload-image') }}",
+            headers: {
+                'X-CSRF-TOKEN': "{{ csrf_token() }}"
+            },
 
-                },
-                init: function() {
-                    var thisDropzone = this;
-                    var mockFile = { name: '', size: 12345, type: 'image/jpeg' };
-                    thisDropzone.emit("addedfile", mockFile);
-                    thisDropzone.emit("success", mockFile);
-                    thisDropzone.emit("thumbnail", mockFile, "{{ url('frontend/'.((Auth::user()->avatar != '') ? Auth::user()->avatar : 'images/avatar.jpg') ) }}")
-                    // this.on("maxfilesexceeded", function(file){
-                    // this.removeFile(file);
-                    //     alert("No more files please!");
-                    // });
+            success: function(file, response){
+                // alert(response);
+            },
+            accept: function(file, done) {
+                // alert(2)
+                done();
+            },
+            error: function(file, message, xhr){
+                if (xhr == null) this.removeFile(file);
+                $('.dz-image-preview').show(500);
+                Swal.fire({
+                    type: 'error',
+                    html: message,
+                })
+            },
+            sending: function(file, xhr, formData) {
+                // $.each($('form').serializeArray(), function(key,value) {
+                //     formData.append(this.name, this.value);
+                // });
+                // data_request = formData;
+                // alert(data);
+                // console.log(formData);
 
-                    this.on('addedfile', function(file) {
-                        $('.dz-image-preview').hide(500);
-                        $('.dz-progress').hide();
-                        if (this.files.length > 1) {
-                            this.removeFile(this.files[0]);
-                        }
+            },
+            init: function() {
+                var thisDropzone = this;
+                var mockFile = { name: '', size: 12345, type: 'image/jpeg' };
+                thisDropzone.emit("addedfile", mockFile);
+                thisDropzone.emit("success", mockFile);
+                thisDropzone.emit("thumbnail", mockFile, "{{ url('frontend/'.((Auth::user()->avatar != '') ? Auth::user()->avatar : 'images/avatar.jpg') ) }}")
+                // this.on("maxfilesexceeded", function(file){
+                // this.removeFile(file);
+                //     alert("No more files please!");
+                // });
 
-                    });
-                },
-                // error: function (file, response){
-                //     alert(1);
-                //     if ($.type(response) === "string")
-                //         var message = response; //dropzone sends it's own error messages in string
-                //     else
-                //         var message = response.message;
-                //     file.previewElement.classList.add("dz-error");
-                //     _ref = file.previewElement.querySelectorAll("[data-dz-errormessage]");
-                //     _results = [];
-                //     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-                //         node = _ref[_i];
-                //         _results.push(node.textContent = message);
-                //     }
-                //     return _results;
-                // },
+                this.on('addedfile', function(file) {
+                    $('.dz-image-preview').hide(500);
+                    $('.dz-progress').hide();
+                    if (this.files.length > 1) {
+                        this.removeFile(this.files[0]);
+                    }
 
-                // reset: function () {
-                //     console.log("resetFiles");
-                //     this.removeAllFiles(true);
-                // }
+                });
+            },
+            // error: function (file, response){
+            //     alert(1);
+            //     if ($.type(response) === "string")
+            //         var message = response; //dropzone sends it's own error messages in string
+            //     else
+            //         var message = response.message;
+            //     file.previewElement.classList.add("dz-error");
+            //     _ref = file.previewElement.querySelectorAll("[data-dz-errormessage]");
+            //     _results = [];
+            //     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            //         node = _ref[_i];
+            //         _results.push(node.textContent = message);
+            //     }
+            //     return _results;
+            // },
+
+            // reset: function () {
+            //     console.log("resetFiles");
+            //     this.removeAllFiles(true);
+            // }
         });
 
         $("#save-profile").click(function(){

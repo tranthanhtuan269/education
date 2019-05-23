@@ -784,7 +784,7 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
   -webkit-border-radius: 3px;
   border-radius: 3px;
   background: #fff;
-  padding: 23px;
+  padding: 0 20px 20px 20px;
   border:2px dashed #ccc;
   
   transition:all ease-in-out 0.3s;
@@ -795,7 +795,7 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
 	.box-user .dropzone:hover{
 		background:#f1f1f1;	
 	}
-.box-user .dropzone .dz-default.dz-message {
+/* .box-user .dropzone .dz-default.dz-message {
   opacity: 1;
   -ms-filter: none;
   filter: none;
@@ -808,7 +808,6 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
   background-repeat: no-repeat;
   background-position: 0 0;
   position: absolute;
-  /*width: 428px; backup*/
   width:350px;
   height: 123px;
   margin-left: -133px;
@@ -819,11 +818,15 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
 
 .box-user .dropzone .dz-default.dz-message {
   background-image: url("../images/myspritemap.png") !important;
-}
+} */
 
 
 .box-user .dropzone .dz-default.dz-message span {
-  display: none;
+  display: block !important;
+  position: relative;
+  top: 100px;
+  text-align: center;
+  font-style: italic;
 }
 .box-user .dropzone.dz-square .dz-default.dz-message {
   background-position: 0 -123px;
@@ -839,7 +842,7 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
 }
 .box-user .dropzone.dz-started .dz-message {
   display: block;
-  opacity: 0;
+  /* opacity: 0; */
   filter: alpha(opacity=0);
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
 }
