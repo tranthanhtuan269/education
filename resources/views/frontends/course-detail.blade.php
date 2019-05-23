@@ -326,9 +326,8 @@
                     </div>
                 </div>
             </div>
-            @if(count($info_course->comments) > 0 && Auth::check())
             <div class="reviews">
-                <h3>Reviews:
+                <h3>Reviews
                     @if(Auth::check())
                         @if(\App\Helper\Helper::getUserRoleOfCourse($info_course->id))
                             <span class="reviews-star" data-star="{{ isset($ratingCourse) ? $ratingCourse->score : 1 }}">
@@ -483,7 +482,6 @@
             <div class="col-sm-12 btn-see-more" data-skip="3" data-take="3">
                 <button type="button" class="btn">See more</button>
             </div>
-            @endif
             @endif
         </div>
     </div>
