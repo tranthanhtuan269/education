@@ -29,13 +29,13 @@ class HomeController extends Controller
         // }
     }
 
-    public function uploadImage(UpdateProfileUserRequest $request)
+    public function updateProfile(UpdateProfileUserRequest $request)
     {
         $file_name = 'avatar.jpg';
         if ($request->link_base64 != '') {
             // Xóa avatar cũ nếu có
-            if (file_exists(public_path(Auth::user()->avatar))) {
-                unlink(public_path(Auth::user()->avatar));
+            if (file_exists(public_path('frontend/'.Auth::user()->avatar))) {
+                unlink(public_path('frontend/'.Auth::user()->avatar));
             }
 
             $img_file = $request->link_base64;
@@ -45,29 +45,22 @@ class HomeController extends Controller
             $file_name = time() . '.png';
             file_put_contents(public_path('/frontend/images/') . $file_name, $img_file);
         }
-       
-        // $requestData = $request->all();
-        // $requestData['birthday'] = Helper::formatDate('d/m/Y', $request->birthday, 'Y-m-d');
-        // $requestData['avatar'] = 'images/' . $file_name;
-        // $requestData['email'] = 'demo@gmail.com';
-        // // echo '<pre>';
-        // // print_r($requestData);die;
-        // $user = User::create($requestData);
-        // echo Helper::formatDate('d/m/Y', $request->birthday, 'Y-m-d');die;
-        $user = new User();
+
+        $user = User::find(Auth::user()->id);
         $user->name = $request->name;
         $user->phone = $request->phone;
-        $user->email = Auth::user()->email;
-        $user->password = Auth::user()->password;
-        $user->birthday = date('Y-m-d');
+        if (isset($request->birthday )) {
+            $user->birthday = Helper::formatDate('d/m/Y', $request->birthday, 'Y-m-d');
+        } else {
+            $user->birthday = null;
+        }
         $user->gender = $request->gender;
         $user->address = $request->address;
         $user->avatar = 'images/' . $file_name;
         $user->save();
-
         return response()->json(['success' => 'Change profile success!', 'status' => 200]);
     }
-    public function uploadImageDemo(Request $request)
+    public function uploadImage(Request $request)
     {
         echo 1;
     }

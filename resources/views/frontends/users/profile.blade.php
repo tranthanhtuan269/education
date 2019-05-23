@@ -12,7 +12,7 @@
 <div class="container">
     <div class="row">
         <div class="col-xs-12">
-            <div class="tabbable-panel">
+            <div class="box-profile">
                 <div class="tabbable-line">
                     <ul class="nav nav-tabs">
                         <li class="active">
@@ -24,25 +24,13 @@
                                 <div class="row">
                                     <form id="w0" action="/dashboard/user/profile" method="post" enctype="multipart/form-data">
                                         <div class="col-md-6 col-sm-6">
-                                            <div class="form-group" style="margin-bottom: 47px;">
-                                                <label style="margin-bottom: 10px;">Choose Image</label>
-                                                <br>
-                                                <link rel="stylesheet" href="https://learncodeweb.com/demo/web-development/drag-drop-images-with-bootstrap-4-and-reorder-using-php-jquery-and-ajax/dropzone/dropzone.css" type="text/css">
+                                            <div class="form-group">
+                                                <label>Choose Image</label>
                                                 <div class="dropzone dz-clickable" id="myDrop">
                                                     <div class="dz-default dz-message" data-dz-message="">
                                                         <span>Drop files here to upload</span>
                                                     </div>
                                                 </div>
-                                                {{-- <p style="margin-top:10px;">(Ảnh vuông và &lt;500KB)</p> --}}
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Address</label>
-                                                <div class="form-group field-muser-address">
-                                                    <textarea class="form-control" rows="5" cols="50" name="address">{{ Auth::user()->name }}</textarea>
-                                                </div>
-                                            </div>
-                                            <div class="form-group" style="padding-top: 19px;">
-                                                <button class="btn btn-success" id="save-profile" type="button"><i class="fa fa-save"></i> Save</button>
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-sm-6">
@@ -69,19 +57,38 @@
                                             <div class="form-group">
                                                 <label>Birthday</label>
                                                 <div class="form-group field-selector_id">
-                                                    <input type="text" class="form-control" name="birthday" value="{{ Auth::user()->birthday }}" placeholder="vd : 01/01/1990">
-
+                                                    <input type="text" class="form-control"  id="datepicker" name="birthday"  pattern="\d{1,2}/\d{1,2}/\d{4}" value="{{ (Auth::user()->birthday != '') ? Helper::formatDate('Y-m-d', Auth::user()->birthday, 'd/m/Y') : '' }}" autocomplete="off">
+                                                    <script>
+                                                      $(function() {
+                                                        $( "#datepicker" ).datepicker({
+                                                                changeMonth: true,
+                                                                changeYear: true,
+                                                                yearRange: "1950:2020",
+                                                                dateFormat: 'dd/mm/yy',
+                                                                maxDate: new Date(),
+                                                            }	
+                                                        );
+                                                      });
+                                                    </script>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label>Gender</label>
                                                 <div class="form-group field-muser-gender required">
                                                     <select class="form-control" name="gender">
-                                                        <option value="0">Female</option>
-                                                        <option value="1" selected="">Male</option>
+                                                        <option value="1" @if(Auth::user()->gender == 1) selected @endif>Female</option>
+                                                        <option value="2" @if(Auth::user()->gender == 2) selected @endif>Male</option>
                                                     </select>
-
                                                 </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Address</label>
+                                                <div class="form-group field-muser-address">
+                                                    <textarea class="form-control" rows="4" cols="50" name="address">{{ Auth::user()->address }}</textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-group text-center" style="padding-top: 5px;">
+                                                <button class="btn btn-success" id="save-profile" type="button"><i class="fa fa-save"></i> Save</button>
                                             </div>
                                         </div>
                                     </form>
@@ -120,7 +127,7 @@
                 parallelUploads: 50,
                 maxFilesize: 5, // MB
                 acceptedFiles: ".png, .jpeg, .jpg, .gif",
-                url: "{{ url('upload-image-demo') }}",
+                url: "{{ url('upload-image') }}",
                 headers: {
                     'X-CSRF-TOKEN': "{{ csrf_token() }}"
                 },
@@ -144,13 +151,24 @@
 
                 },
                 init: function() {
+                    var thisDropzone = this;
+                    var mockFile = { name: '', size: 12345, type: 'image/jpeg' };
+                    thisDropzone.emit("addedfile", mockFile);
+                    thisDropzone.emit("success", mockFile);
+                    thisDropzone.emit("thumbnail", mockFile, "{{ url('frontend/'.((Auth::user()->avatar != '') ? Auth::user()->avatar : 'images/avatar.jpg') ) }}")
+                    // this.on("maxfilesexceeded", function(file){
+                    // this.removeFile(file);
+                    //     alert("No more files please!");
+                    // });
+
                     this.on('addedfile', function(file) {
+                        $('.dz-image-preview').hide(500);
+                        $('.dz-progress').hide();
                         if (this.files.length > 1) {
                             this.removeFile(this.files[0]);
                         }
 
                     });
-
                 },
                 // error: function (file, response){
                 //     alert(1);
@@ -182,19 +200,30 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+            var birthday = $('input[name=birthday]').val().trim();
+            if (birthday != '') {
+                var data = {
+                        link_base64:link_base64,
+                        name: $('input[name=name]').val().trim(),
+                        phone: $('input[name=phone]').val().trim(),
+                        birthday: $('input[name=birthday]').val().trim(),
+                        gender: $('select[name=gender]').val(),
+                        address: $('textarea[name=address]').val().trim(),
+                    };
+            } else {
+                var data = {
+                        link_base64:link_base64,
+                        name: $('input[name=name]').val().trim(),
+                        phone: $('input[name=phone]').val().trim(),
+                        gender: $('select[name=gender]').val(),
+                        address: $('textarea[name=address]').val().trim(),
+                    };
+            }
 
-            var data = {
-                    link_base64:link_base64,
-                    name: $('input[name=name]').val().trim(),
-                    phone: $('input[name=phone]').val().trim(),
-                    birthday: $('input[name=birthday]').val().trim(),
-                    gender: $('select[name=gender]').val(),
-                    address: $('textarea[name=address]').val().trim(),
-                };
 
             $.ajax({
                 method: "POST",
-                url: "{{ url('upload-image') }}",
+                url: "{{ url('user/student/profile') }}",
                 data: data,
                 dataType: 'json',
                 // beforeSend: function() {
@@ -265,4 +294,6 @@
             
     });
 </script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 @endsection

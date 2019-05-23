@@ -118,9 +118,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::group(['prefix' => 'student'],function () {
             Route::get('course', 'Frontends\UserController@course'); 
             Route::get('profile', 'Frontends\UserController@profile'); 
+            Route::post('profile', 'Frontends\HomeController@updateProfile');
         });
     });
 
     Route::post('upload-image', 'Frontends\HomeController@uploadImage');
-    Route::post('upload-image-demo', 'Frontends\HomeController@uploadImageDemo');
 });

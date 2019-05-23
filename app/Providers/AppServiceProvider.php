@@ -47,7 +47,7 @@ class AppServiceProvider extends ServiceProvider
         Validator::extend('validate_birthday', function($attribute, $value, $parameters, $validator) {
             $data = $validator->getData();
             $birthday = $data['birthday'];
-            $birthday = (string)$birthday;
+            $birthday = Helper::formatDate('d/m/Y', $birthday, 'Y-m-d');
             $dateCurrent = date('Y-m-d');
             return (Helper::handlingTime($birthday) <= Helper::handlingTime($dateCurrent) ) ? TRUE : FALSE ;
         });
