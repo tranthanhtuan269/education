@@ -14,6 +14,7 @@ class CreateUserCoursesTable extends Migration
     public function up()
     {
         Schema::create('user_courses', function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('user_role_id');
             $table->integer('course_id');
             $table->json('videos', 500)->nullable();

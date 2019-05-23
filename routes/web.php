@@ -112,5 +112,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('comments/reply', 'Frontends\CommentController@storeReply');
     Route::post('notes/store', 'Frontends\NoteController@store')->name('notesVideo.store');
     Route::post('reports/store', 'Frontends\ReportController@store')->name('reportsVideo.store');
+    Route::post('user-course/update-watched', 'Frontends\VideoPlayerController@updateWatched');
     Route::get('user/logout', 'Frontends\UserController@logout')->name('logout');
 });

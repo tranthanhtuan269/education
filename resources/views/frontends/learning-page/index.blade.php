@@ -3,12 +3,13 @@
     $user_role_course_instance_video = json_decode($user_role_course_instance->videos);
     $video_count = count($user_role_course_instance_video->videos);
     $video_done_array = $user_role_course_instance_video->videos;
-    // dd($video_done_array);
-    $video_done_count = array_count_values($video_done_array)[1];
+    if(count(array_count_values($video_done_array)) < 2){
+        $video_done_count = 0;
+    }else{
+        $video_done_count = array_count_values($video_done_array)[1];
+    }
     $video_done_percent = (int)(($video_done_count/$video_count)*100);
-    // dd(strtotime(date('d-m-Y H:i')));
-    $url = \App\Helper::createSecurityTokenForVideoLink(\Auth::id(), $main_video->id);
-    // dd($url);
+    $video_url = \App\Helper::createSecurityTokenForVideoLink(\Auth::id(), $main_video->id);
 @endphp
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -44,6 +45,7 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         
+        <base href="{{ url('/') }}">
     </head>
     <body>
 
@@ -91,6 +93,8 @@
             var course_id = {{$course->id}}
             // var main_video_id = {{$main_video->id}}
             var video_id_list = {{json_encode($video_id_list)}}
+
+            var main_video_id = {{$main_video->id}}
             
             var main_video_id_key = {{$main_video_id_key}}
 

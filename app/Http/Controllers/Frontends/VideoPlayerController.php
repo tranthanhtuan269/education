@@ -144,6 +144,31 @@ class VideoPlayerController extends Controller
         //
     }
 
+    public function updateWatched(Request $request ){
+        $video = Video::find($request->video_id);
+        if($video){
+            $course = $video->unit->course;
+            $user_course = Helper::getUserRoleOfCourse($course->id);
+            if($user_course){
+                $videos = $user_course->videos;
+                $videoObj = \json_decode($videos);
+                $videoList = $videoObj->videos;
+                $videoList[($video->index)-1] = 1;
+                
+                $videoObj->videos = $videoList;
+                $videoObj->learning = $video->index;
+                $videoObj->learning_id = $video->id;
+
+                $videoData = \json_encode($videoObj);
+                $user_course->videos = $videoData;
+                $user_course->save();
+                return \Response::json(array('status' => '200', 'message' => 'Cập nhật thông tin thành công!'));
+            }
+        }
+
+        return \Response::json(array('status' => '404', 'message' => 'Video không tồn tại!'));
+    }
+
     /**
      * Remove the specified resource from storage.
      *

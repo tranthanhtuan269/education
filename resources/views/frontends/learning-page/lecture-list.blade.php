@@ -28,8 +28,8 @@
                         @endphp    
                         @endif
                     @endforeach
-                    {{$video_done_in_one_section}}
-                    /{{$unit->video_count}}
+                    <span id="videoDoneOneSect{{$key+1}}">{{$video_done_in_one_section}}</span>
+                    / {{$unit->video_count}}
                 </p>
                 </div>
                 <div class="ln-lect-list-header-row-2">
@@ -45,7 +45,7 @@
                                 <span class="ln-lect-list-lect-title">{{$video->index}}.  {{ $video->name }}</span>
                                 <span class="ln-lect-list-lect-duration">{{ App\Helper::convertSecondToTimeFormat($video->duration) }}</span>
                                 @if ($video_done_array[$video->index-1] == 1)
-                                <span class="ln-btn-complete">
+                                <span class="ln-btn-complete" id="lnBtnComplete{{$video->id}}" data-child="{{$key+1}}">
                                     <button >
                                         <span class="fa-stack">
                                             <i class="fas fa-circle fa-stack-2x" style="color: #44b900;"></i>
@@ -54,8 +54,8 @@
                                     </button>
                                 </span>
                                 @elseif($video_done_array[$video->index-1] == 0)
-                                <span class="ln-btn-complete">
-                                    <button class="ln-btn-complete ">
+                                <span class="ln-btn-complete" id="lnBtnNotComplete{{$video->id}}" data-child="{{$key+1}}">
+                                    <button class="ln-btn-complete " >
                                         <span class="fa-stack">
                                             <i class="fas fa-circle fa-stack-2x" style="color: rgb(200, 201, 202);"></i>
                                             <i class="fas fa-check fa-stack-1x" style="color: rgb(200, 201, 202)"></i>                         

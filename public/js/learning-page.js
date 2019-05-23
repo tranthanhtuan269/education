@@ -1,4 +1,5 @@
 var isAutoplay = localStorage.getItem('autoplay')
+var baseURL = $('base').attr('href');
 $(document).ready(function () {
     
     // Set up the player
@@ -141,6 +142,40 @@ $(document).ready(function () {
         $("#lnDescBtnPlay").click(function () {
             player.play()
             $(".learning-desc-panel").fadeOut()
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+             var request = $.ajax({
+                method: 'POST',
+                url: "/user-course/update-watched",
+                data: {
+                    'video_id' : main_video_id
+                },
+                dataType: "json",
+            });
+
+            request.done(function (response){
+                if(response.status){
+                    if($("#lnBtnNotComplete"+main_video_id+ " button").length == 1){
+                        $("#lnBtnNotComplete"+main_video_id+ " button").remove()
+                        var html = ""
+                            html += '<button >';
+                                html += '<span class="fa-stack">';
+                                    html += '<i class="fas fa-circle fa-stack-2x" style="color: #44b900;"></i>';
+                                    html += '<i class="fas fa-check fa-stack-1x" style="color: #ffffff;"></i>';
+                                html += '</span>';
+                            html += '</button>';
+                        $("#lnBtnNotComplete"+main_video_id).prepend(html)
+
+                        var key = $("#lnBtnNotComplete"+main_video_id).attr("data-child")
+                        var videoDoneOneSect =  parseInt($("#videoDoneOneSect"+key).html(), 10)
+                        $("#videoDoneOneSect"+key).text(videoDoneOneSect+1)
+                    }
+                }
+            })
         })
 
         //big play button
