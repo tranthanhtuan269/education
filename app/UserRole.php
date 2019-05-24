@@ -43,5 +43,12 @@ class UserRole extends Model
     public function courses()
     {
         return $this->belongsToMany('App\Course', 'user_courses');
+
+    public function userLifelongCourse($keyword)
+    {
+        if ($keyword != '') {
+            return $this->belongsToMany('App\Course', 'user_courses')->where('name', 'LIKE', "%$keyword%")->paginate(4);
+        }
+        return $this->belongsToMany('App\Course', 'user_courses')->paginate(4);
     }
 }

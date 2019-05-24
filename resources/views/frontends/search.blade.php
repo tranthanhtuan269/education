@@ -47,7 +47,7 @@
                                 'to_sale' => $result->to_sale,
                             ]
                         )
-                      @endforeach
+                        @endforeach
                       <div class="col-xs-12 text-center">
                           <div class="u-number-page">{{ $results->appends(Request::all())->links() }}</div>
                       </div>

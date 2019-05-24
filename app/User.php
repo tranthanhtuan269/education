@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'facebook', 'phone', 'address', 'avatar', 'coins', 'bod', 'gender', 'status'
+        'name', 'email', 'password', 'facebook', 'phone', 'birthday', 'address', 'avatar', 'coins', 'bod', 'gender', 'status'
     ];
 
     /**
@@ -93,5 +93,10 @@ class User extends Authenticatable
     public function userRolesTeacher()
     {
         return $this->hasMany('App\UserRole')->where('role_id',2)->get();
+    }
+
+    public function userRolesStudent()
+    {
+        return $this->hasMany('App\UserRole')->where('role_id',3)->get();
     }
 }

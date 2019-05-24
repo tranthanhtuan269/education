@@ -110,8 +110,21 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('comments/store', 'Frontends\CommentController@storeCommentVideo')->name('commentsVideo.store');
     Route::post('comments/vote', 'Frontends\CommentController@storeCommentVote');
     Route::post('comments/reply', 'Frontends\CommentController@storeReply');
+
     Route::post('notes/store', 'Frontends\NoteController@store')->name('notesVideo.store');
     Route::post('reports/store', 'Frontends\ReportController@store')->name('reportsVideo.store');
     Route::post('user-course/update-watched', 'Frontends\VideoPlayerController@updateWatched');
     Route::get('user/logout', 'Frontends\UserController@logout')->name('logout');
+    
+    Route::group(['prefix' => 'user'],function () {
+        Route::get('logout', 'Frontends\UserController@logout');
+
+        Route::group(['prefix' => 'student'],function () {
+            Route::get('course', 'Frontends\UserController@course'); 
+            Route::get('profile', 'Frontends\UserController@profile'); 
+            Route::post('profile', 'Frontends\UserController@updateProfile');
+        });
+    });
+
+    Route::post('upload-image', 'Frontends\UserController@uploadImage');
 });

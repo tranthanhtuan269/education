@@ -29,6 +29,7 @@ class UsersTableSeeder extends Seeder
         $user->status = 1;
 		$user->save();
 		
+		// add role Admin
 		$userRole = new UserRole;
 		$userRole->user_id = $user->id;
 		$userRole->role_id = 1;
@@ -38,6 +39,12 @@ class UsersTableSeeder extends Seeder
 		$userRole2 = new UserRole;
 		$userRole2->user_id = $user->id;
 		$userRole2->role_id = 2;
+		$userRole2->save();
+
+		// add role student
+		$userRole2 = new UserRole;
+		$userRole2->user_id = $user->id;
+		$userRole2->role_id = 3;
 		$userRole2->save();
 
     	$ho = ["Tran", "Le", "Nguyen", "Pham", "Dang"];
@@ -64,7 +71,7 @@ class UsersTableSeeder extends Seeder
 			        // add role student
 			        $userRole = new UserRole;
 			        $userRole->user_id = $user->id;
-			        $userRole->role_id = 1;
+			        $userRole->role_id = 3;
 			        $userRole->save();
 
 			        // add role teacher

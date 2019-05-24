@@ -75,6 +75,11 @@
                     </span>
                     @endif
                 </div>
+                @if (isset($btn_start_learning))  
+                <div class="text-center">
+                    <a href="{{ url('coming-soon') }}" class="btn btn-primary btn-sm btn-start-learning">Start Learning</a>
+                </div>
+                @endif
             </div>
         </a>
     </div>
