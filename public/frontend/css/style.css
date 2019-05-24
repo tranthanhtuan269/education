@@ -868,6 +868,7 @@ div[data-u="slides"] div div{
   filter: alpha(opacity=10);
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=10)";
 }
+
 .box-user .dropzone .dz-preview.dz-success .dz-success-mark,
 .box-user .dropzone-previews .dz-preview.dz-success .dz-success-mark {
   opacity: 1;

@@ -21,7 +21,6 @@ class UserController extends Controller
 
         if (Auth::attempt(['email' => $email, 'password' => $password], $request->get('remember'))) {
             auth()->logoutOtherDevices($request->password);
-            Auth::login($user, true);
             return response()->json(['message' => 'Your account has been created!', 'status' => 200]);
         } else {
             return response()->json(['message' => 'The email or password is incorrect', 'status' => 404]);
