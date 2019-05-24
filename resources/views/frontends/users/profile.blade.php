@@ -18,6 +18,35 @@
                         <li class="active">
                             <a href="#buyed" class="buyed" data-toggle="tab"><i class="fa fa-user"></i>&nbsp;&nbsp;Profile</a>
                         </li>
+                        <li data-toggle="modal" data-target="#myModalChangePass" data-dismiss="modal" class="pull-right">
+                            <button type="button" class="btn btn-warning">Change password</button>
+                        </li>
+                        <div id="myModalChangePass" class="modal fade" role="dialog" >
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">				
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Change password</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="/examples/actions/confirmation.php" method="post">
+                                            <div class="form-group">
+                                                <input type="password" class="form-control" placeholder="Password old" name="pass">					
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="password" class="form-control" placeholder="Password new" name="pass">					
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="password" class="form-control" placeholder="Retype new password" name="confirmpass">					
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="button" class="btn btn-primary btn-block btn-lg" value="Confirm" onclick="changePassAjax()">
+                                            </div>
+                                        </form>				
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="buyed">
@@ -293,7 +322,63 @@
         myDropzone.on('thumbnail', function(file, dataUri) {
             link_base64 = dataUri;
         });
-            
+
+        function changePassAjax(){
+            var email = $('#myModalLogin input[name=email]').val();
+            email = email.trim();
+            var password = $('#myModalLogin input[name=pass]').val();
+            var remember = $('#myModalLogin input[name=remember]').prop('checked');
+            var data = {
+                email:email,
+                password: password,
+                remember: remember,
+            };
+            $.ajaxSetup(
+            {
+                headers:
+                {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            // console.log(data);
+            $.ajax({
+                method: "POST",
+                url: '{{ url("loginAjax") }}',
+                data: data,
+                dataType: 'json',
+                // beforeSend: function() {
+                //     $("#pre_ajax_loading").show();
+                // },
+                // complete: function() {
+                //     $("#pre_ajax_loading").hide();
+                // },
+                success: function (response) {
+                    if(response.status == 200){
+                        location.reload();
+                    }else{
+                        Swal.fire({
+                            type: 'error',
+                            html: response.error,
+                        })
+                    }
+                },
+                error: function (error) {
+                
+                    var obj_errors = error.responseJSON.errors;
+                    // console.log(obj_errors)
+                    var txt_errors = '';
+                    for (k of Object.keys(obj_errors)) {
+                        txt_errors += obj_errors[k][0] + '</br>';
+                    }
+                    Swal.fire({
+                        type: 'error',
+                        html: txt_errors,
+                    })
+                }
+            });
+
+            return false;
+        }
     });
 </script>
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.css">
