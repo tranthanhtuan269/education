@@ -110,6 +110,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('comments/store', 'Frontends\CommentController@storeCommentVideo')->name('commentsVideo.store');
     Route::post('comments/vote', 'Frontends\CommentController@storeCommentVote');
     Route::post('comments/reply', 'Frontends\CommentController@storeReply');
+    Route::put('stars/update', 'Frontends\CommentController@updateStar');
     Route::post('notes/store', 'Frontends\NoteController@store')->name('notesVideo.store');
     Route::post('reports/store', 'Frontends\ReportController@store')->name('reportsVideo.store');
     Route::post('user-course/update-watched', 'Frontends\VideoPlayerController@updateWatched');

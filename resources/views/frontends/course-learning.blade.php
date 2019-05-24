@@ -20,13 +20,27 @@
 					<div class="vote">
 					<div class="continue"><a href="/learning-page/{{$info_course->id}}/lecture/{{$user_role_course_instance_video->learning_id}}" title="Continue">Continue to Lecture {{$user_role_course_instance_video->learning}}</a></div>
 						<div class="rating">
-							@include(
-								'components.vote', 
-								[
-									'rate' => 2,
-								]
-							)
-							<span data-toggle="modal" data-target="#myModal">Edit your rating</span>
+							@if(Auth::check())
+								@if(\App\Helper\Helper::getUserRoleOfCourse($info_course->id))
+									<span class="" data-star="{{ isset($ratingCourse) ? $ratingCourse->score : 1 }}">
+										@if($ratingCourse)
+										@include(
+											'components.vote', 
+											[
+												'rate' => $ratingCourse->score,
+											]
+										)
+										@else
+										<i id="star-1" class="far fa-star yellow-color" data-id="1"></i>
+										<i id="star-2" class="far fa-star review-star" data-id="2"></i>
+										<i id="star-3" class="far fa-star review-star" data-id="3"></i>
+										<i id="star-4" class="far fa-star review-star" data-id="4"></i>
+										<i id="star-5" class="far fa-star review-star" data-id="5"></i>
+										@endif
+									</span>
+								@endif
+							@endif
+							<span data-toggle="modal" data-target="#editRatingModal" style="cursor: pointer">Edit your rating</span>
 						</div>
 					</div>
 					<div class="row">
@@ -63,6 +77,35 @@
 						</div>
 					</div>
 				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{{-- EDIT RATING MODAL --}}
+<div class="modal" id="editRatingModal" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-sm" style="margin-top: 10%">
+		<div class="modal-content">
+			<div class="modal-header text-center">
+				<span>EDIT YOUR RATING</span>
+			</div>
+			<div class="modal-body text-center">
+				<h3>
+					@if(Auth::check())
+						@if(\App\Helper\Helper::getUserRoleOfCourse($info_course->id))
+							<span class="reviews-star" data-star="{{ isset($ratingCourse) ? $ratingCourse->score : 1 }}">
+								<i id="star-1" class="far fa-star yellow-color" data-id="1"></i>
+								<i id="star-2" class="far fa-star review-star" data-id="2"></i>
+								<i id="star-3" class="far fa-star review-star" data-id="3"></i>
+								<i id="star-4" class="far fa-star review-star" data-id="4"></i>
+								<i id="star-5" class="far fa-star review-star" data-id="5"></i>
+							</span>
+						@endif
+					@endif
+				</h3>
+			</div>
+			<div class="modal-footer" style="text-align:center !important;">
+				<button class="btn btn-primary" id="btnEditRating">SAVE</button>
 			</div>
 		</div>
 	</div>
@@ -283,6 +326,78 @@
 </div>
 @endif
 <!-- Modal -->
+<script>
+    var baseURL = $('base').attr('href');
+
+	function hideStar(){
+		for(var j = 1; j <= 5; j++){
+			$('#editRatingModal #star-' + j).removeClass('fa').addClass('far');
+		}
+	}
+
+	function showStar(i){
+		for(var j = 1; j <= i; j++){
+			$('#editRatingModal #star-' + j).addClass('fa').removeClass('far');
+		}
+	}
+
+	$('#editRatingModal .review-star').mouseenter(function(){
+		switch($(this).attr('data-id')){
+			case "1":
+				hideStar();showStar(1);
+				break;
+			case "2":
+				hideStar();showStar(2);
+				break;
+			case "3":
+				hideStar();showStar(3);
+				break;
+			case "4":
+				hideStar();showStar(4);
+				break;
+			case "5":
+				hideStar();showStar(5);
+				break;
+		}
+	}).mouseleave(function(){
+		hideStar();
+	}).click(function(){
+		showStar($(this).attr('data-id'))
+		$('#editRatingModal .review-star').off( "mouseenter")
+		$('#editRatingModal .review-star').off( "mouseleave")
+		$('#editRatingModal .reviews-star').attr('data-star', $(this).attr('data-id'))
+	});
+
+	$.ajaxSetup({
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		}
+	});
+	$("#editRatingModal #btnEditRating").click(function (){
+		var request = $.ajax({
+			url: baseURL + '/stars/update',
+			method: "PUT",
+			data: {
+				course_id: {{ $info_course->id }},
+				score: $('.reviews-star').attr('data-star')
+			},
+			dataType: "json"
+		})
+		request.done(function (response){
+			if(response.status == 200){
+				Swal.fire({
+					type: "success",
+				}).then(function(result){
+					if(result.value){
+						$("#editRatingModal").modal('hide')
+					}
+				})
+			}
+		})
+	})
+
+</script>
+
 <script type="text/javascript">
     $(document).ready(function() {  
         $('.go-box').click(function() {
