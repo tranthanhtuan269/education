@@ -44,6 +44,8 @@ class UserRole extends Model
     {
         return $this->belongsToMany('App\Course', 'user_courses');
 
+    }
+    
     public function userLifelongCourse($keyword)
     {
         if ($keyword != '') {
