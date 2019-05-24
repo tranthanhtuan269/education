@@ -69,34 +69,43 @@ class UserController extends Controller
 
     public function updateProfile(UpdateProfileUserRequest $request)
     {
-        $user = User::find(Auth::user()->id);
-        $user->name = $request->name;
-        $user->phone = $request->phone;
-        $user->gender  = $request->gender;
-        $user->address = $request->address;
-        if (isset($request->birthday)) {
-            $user->birthday = Helper::formatDate('d/m/Y', $request->birthday, 'Y-m-d');
-        } else {
-            $user->birthday = null;
-        }
+        if(Auth::check()){
+            $user = Auth::user();
+            $user->name = $request->name;
+            $user->phone = $request->phone;
+            $user->gender  = $request->gender;
+            $user->address = $request->address;
 
-        if ($request->link_base64 != '') {
-            // Xóa avatar cũ nếu có
-            if (file_exists(public_path('frontend/' . Auth::user()->avatar))) {
-                unlink(public_path('frontend/' . Auth::user()->avatar));
+            if (isset($request->birthday)) {
+                $user->birthday = Helper::formatDate('d/m/Y', $request->birthday, 'Y-m-d');
+            } else {
+                $user->birthday = null;
             }
 
-            $img_file = $request->link_base64;
-            list($type, $img_file) = explode(';', $img_file);
-            list(, $img_file) = explode(',', $img_file);
-            $img_file = base64_decode($img_file);
-            $file_name = time() . '.png';
-            file_put_contents(public_path('/frontend/images/') . $file_name, $img_file);
-            $user->avatar = 'images/' . $file_name;
+            if ($request->link_base64 != '') {
+                $img_file = $request->link_base64;
+                list($type, $img_file) = explode(';', $img_file);
+                list(, $img_file) = explode(',', $img_file);
+                $img_file = base64_decode($img_file);
+                $file_name = time() . '.png';
+                file_put_contents(public_path('/frontend/images/') . $file_name, $img_file);
+                $user->avatar = 'images/' . $file_name;
+
+                
+                // Xóa avatar cũ nếu có
+                if(Auth::user()->avatar && strlen(Auth::user()->avatar) > 0){
+                    if (file_exists(public_path('frontend/' . Auth::user()->avatar))) {
+                        unlink(public_path('frontend/' . Auth::user()->avatar));
+                    }
+                }
+            }
+
+            $user->save();
+
+            return \Response::json(['success' => 'Change profile success!', 'status' => 200]);
         }
 
-        $user->save();
-        return response()->json(['success' => 'Change profile success!', 'status' => 200]);
+        return \Response::json(['success' => 'Change profile unsuccess!', 'status' => 404]);
     }
 
     public function uploadImage(Request $request)
