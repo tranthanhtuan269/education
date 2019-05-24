@@ -1,18 +1,15 @@
 <?php
 namespace App\Http\Controllers\Frontends;
 
-use Illuminate\Http\Request;
-use Auth;
 use App\Category;
 use App\Course;
-use App\Video;
-use App\Unit;
-use App\Document;
+use App\Helper\Helper;
 use App\RatingCourse;
 use App\Tag;
 use App\Teacher;
 use App\User;
-use App\Helper\Helper;
+use Auth;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {

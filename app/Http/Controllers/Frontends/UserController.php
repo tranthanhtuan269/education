@@ -46,7 +46,7 @@ class UserController extends Controller
 
         $user_role = new UserRole();
         $user_role->user_id = $user->id;
-        $user_role->role_id = 3; //: Mặc định là học sinh
+        $user_role->role_id = \Config::get('app.student'); 
         $user_role->save();
 
         Auth::login($user, true);
