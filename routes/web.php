@@ -117,6 +117,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('user/logout', 'Frontends\UserController@logout')->name('logout');
     
     Route::group(['prefix' => 'user'],function () {
+        Route::put('change-pass-ajax', 'Frontends\UserController@changePassAjax');
         Route::get('logout', 'Frontends\UserController@logout');
 
         Route::group(['prefix' => 'student'],function () {
@@ -124,6 +125,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('profile', 'Frontends\UserController@profile'); 
             Route::post('profile', 'Frontends\UserController@updateProfile');
         });
+        
     });
 
     Route::post('upload-image', 'Frontends\UserController@uploadImage');

@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use Validator;
 use App\Helper\Helper;
+use Auth;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -50,6 +51,13 @@ class AppServiceProvider extends ServiceProvider
             $birthday = Helper::formatDate('d/m/Y', $birthday, 'Y-m-d');
             $dateCurrent = date('Y-m-d');
             return (Helper::handlingTime($birthday) <= Helper::handlingTime($dateCurrent) ) ? TRUE : FALSE ;
+        });
+
+        // Validate check password old when change password
+        Validator::extend('check_pass', function($attribute, $value, $parameters, $validator) {
+            $data = $validator->getData();
+            $password_old = $data['password_old'];
+            return (\Hash::check($password_old, Auth::user()->password)) ? TRUE : FALSE ;
         });
 
     }

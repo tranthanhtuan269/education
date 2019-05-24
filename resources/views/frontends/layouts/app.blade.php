@@ -264,7 +264,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-3 col-md-3 col-sm-4 cate-md">
-                            <a class="unica-logo" href="{{ url('/') }}"><img class="img-responsive" src="{{ asset('frontend/images/tab_logo.png') }}" alt="Unica - Học từ chuyên gia" width="138" height="33" /></a>
+                            <a class="unica-logo" href="{{ url('/') }}"><img class="img-responsive" src="{{ asset('frontend/images/tab_logo.png') }}" alt="" width="138" height="33" /></a>
                             <div class="unica-menu-cate">
                                 <i class="fa fa-th" aria-hidden="true"></i> Categories
                                 <nav id="mysidebarmenu" class="amazonmenu">
@@ -486,7 +486,7 @@
                                                     if(response.status == 200){
                                                         Swal.fire({
                                                             type: 'success',
-                                                            html: response.success,
+                                                            html: response.message,
     
                                                         }).then((result) => {
                                                             if (result.value) {
@@ -496,7 +496,7 @@
                                                     }else{
                                                         Swal.fire({
                                                             type: 'error',
-                                                            html: 'Error',
+                                                            html: response.message,
                                                         })
                                                     }
                                                 },
@@ -615,7 +615,7 @@
                                             }else{
                                                 Swal.fire({
                                                     type: 'error',
-                                                    html: response.error,
+                                                    html: response.message,
                                                 })
                                             }
                                         },
@@ -673,7 +673,7 @@
                                             if(response.status == 200){
                                                 Swal.fire({
                                                     type: 'success',
-                                                    html: response.success,
+                                                    html: response.message,
 
                                                 }).then((result) => {
                                                     if (result.value) {
@@ -729,7 +729,12 @@
                 menuid: 'mysidebarmenu'
             })
         })
-
+        
+        @if (Request::is('home'))
+            $(window).on('load',function(){
+                $('#myModalLogin').modal('show');
+            });
+        @endif
     </script>
 
     @yield('content')
