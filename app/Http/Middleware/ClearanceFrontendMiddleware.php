@@ -40,8 +40,8 @@ class ClearanceFrontendMiddleware
             \View::share('list_roles', $this->list_roles);
 
             // BaTV - kiểm tra xem user có học khóa học nào không
-            $check_course_of_the_user = UserCourse::where('user_role_id', $user_id)->count();
-            \View::share('check_course_of_the_user', $check_course_of_the_user);
+            // $check_course_of_the_user = UserCourse::where('user_role_id', $user_id)->count();
+            // \View::share('check_course_of_the_user', $check_course_of_the_user);
         } else {
 
         }

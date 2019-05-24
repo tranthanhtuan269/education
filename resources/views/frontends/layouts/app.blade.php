@@ -298,9 +298,9 @@
                                 @if(Auth::check())
                                 <ul class="db-item">
                                     {{-- BaTV - kiểm tra xem user có học khóa học nào không --}}
-                                    @if ($check_course_of_the_user >= 1) 
+                                    {{-- @if ($check_course_of_the_user >= 1)  --}}
                                     <li><a href="{{ url('user/student/course') }}" class="unica-active-course"><p class="hidden-md hidden-xs hidden-sm">Start Learning</p></a></li>
-                                    @endif
+                                    {{-- @endif --}}
                                     <li class="mgtOp">
                                         <a href="/gio-hang" class="unica-cart">
                                         <img src="{{ asset('frontend/images/tab_cart.png') }}" alt="" style="width: 21px;" />
@@ -580,6 +580,14 @@
                                 </div>
                             </div>
                             <script>
+                                $('#myModalLogin input[name=email],#myModalLogin input[name=pass],#myModalLogin input[name=remember]').keypress(function(event){
+                                    var keycode = (event.keyCode ? event.keyCode : event.which);
+                                    if(keycode == '13'){
+                                        loginAjax();
+                                        return false;
+                                    }
+                                });
+
                                 function loginAjax(){
                                     var email = $('#myModalLogin input[name=email]').val();
                                     email = email.trim();
