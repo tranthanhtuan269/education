@@ -84,6 +84,13 @@ class UserController extends Controller
             }
 
             if ($request->link_base64 != '') {
+                // Xóa avatar cũ nếu có
+                if (Auth::user()->avatar && strlen(Auth::user()->avatar) > 0) {
+                    if (file_exists(public_path('frontend/' . Auth::user()->avatar))) {
+                        unlink(public_path('frontend/' . Auth::user()->avatar));
+                    }
+                }
+
                 $img_file = $request->link_base64;
                 list($type, $img_file) = explode(';', $img_file);
                 list(, $img_file) = explode(',', $img_file);
@@ -91,13 +98,6 @@ class UserController extends Controller
                 $file_name = time() . '.png';
                 file_put_contents(public_path('/frontend/images/') . $file_name, $img_file);
                 $user->avatar = 'images/' . $file_name;
-
-                // Xóa avatar cũ nếu có
-                if (Auth::user()->avatar && strlen(Auth::user()->avatar) > 0) {
-                    if (file_exists(public_path('frontend/' . Auth::user()->avatar))) {
-                        unlink(public_path('frontend/' . Auth::user()->avatar));
-                    }
-                }
             }
 
             $user->save();
@@ -116,12 +116,15 @@ class UserController extends Controller
     public function changePassAjax(ChangePassUserRequest $request)
     {
         if (Auth::check()) {
+            auth()->logoutOtherDevices($request->password);
+
             $user = Auth::user();
             $user->password = bcrypt($request->password);
             $user->save();
+            Auth::login($user, true);
             return \Response::json(['message' => 'You have changed the password to success!', 'status' => 200]);
         }
 
-        return \Response::json(['message' => 'unsuccess!', 'status' => 404]);
+        return \Response::json(['message' => 'You have changed the password to unsuccess!', 'status' => 404]);
     }
 }

@@ -615,7 +615,7 @@
                                             }else{
                                                 Swal.fire({
                                                     type: 'error',
-                                                    html: response.error,
+                                                    html: response.message,
                                                 })
                                             }
                                         },
@@ -729,7 +729,12 @@
                 menuid: 'mysidebarmenu'
             })
         })
-
+        
+        @if (Request::is('home'))
+            $(window).on('load',function(){
+                $('#myModalLogin').modal('show');
+            });
+        @endif
     </script>
 
     @yield('content')

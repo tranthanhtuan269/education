@@ -269,6 +269,10 @@
                             type: 'success',
                             html: response.message,
 
+                        }).then((result) => {
+                            if (result.value) {
+                                location.reload();
+                            }
                         });
                     }else{
                         Swal.fire({
