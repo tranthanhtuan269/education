@@ -547,9 +547,9 @@ div[data-u="slides"] div div{
 .box-user .tabbable-line > .nav-tabs > li > a > i {
     color: #a6a6a6;
 }
-.box-user .tabbable-line > .nav-tabs > li.open, .box-user .tabbable-line > .nav-tabs > li:hover {
+/* .box-user .tabbable-line > .nav-tabs > li.open, .box-user .tabbable-line > .nav-tabs > li:hover {
     border-bottom: 4px solid #fbcdcf;
-}
+} */
 .box-user .tabbable-line > .nav-tabs > li.open > a, .box-user .tabbable-line > .nav-tabs > li:hover > a {
     border: 0;
     background: none !important;

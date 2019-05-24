@@ -9,6 +9,7 @@ use App\User;
 use App\UserRole;
 use Auth;
 use Illuminate\Http\Request;
+use App\Helper\Helper;
 
 class UserController extends Controller
 {

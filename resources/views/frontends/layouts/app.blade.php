@@ -569,7 +569,7 @@
                                                     <input type="password" class="form-control" placeholder="Password" name="pass">					
                                                 </div>
                                                 <div class="form-group">
-                                                    <input type="password" class="form-control" placeholder="ConfirmPassword" name="confirmpass">					
+                                                    <input type="password" class="form-control" placeholder="Confirm password" name="confirmpass">					
                                                 </div>
                                                 <div class="form-group">
                                                     <input type="button" class="btn btn-primary btn-block btn-lg" value="Create Account" onclick="registerAjax()">
