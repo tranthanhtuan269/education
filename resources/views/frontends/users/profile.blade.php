@@ -31,13 +31,13 @@
                                     <div class="modal-body">
                                         <form action="/examples/actions/confirmation.php" method="post">
                                             <div class="form-group">
-                                                <input type="password" class="form-control" placeholder="Password old" name="pass">					
+                                                <input type="password" class="form-control" placeholder="Password old" name="pass-old">					
                                             </div>
                                             <div class="form-group">
-                                                <input type="password" class="form-control" placeholder="Password new" name="pass">					
+                                                <input type="password" class="form-control" placeholder="Password new" name="pass-new">					
                                             </div>
                                             <div class="form-group">
-                                                <input type="password" class="form-control" placeholder="Retype new password" name="confirmpass">					
+                                                <input type="password" class="form-control" placeholder="Retype new password" name="confirm-pass">					
                                             </div>
                                             <div class="form-group">
                                                 <input type="button" class="btn btn-primary btn-block btn-lg" value="Confirm" onclick="changePassAjax()">
@@ -267,7 +267,7 @@
                     if(response.status == 200){
                         Swal.fire({
                             type: 'success',
-                            html: response.success,
+                            html: response.message,
 
                         });
                     }else{
@@ -323,63 +323,68 @@
             link_base64 = dataUri;
         });
 
-        function changePassAjax(){
-            var email = $('#myModalLogin input[name=email]').val();
-            email = email.trim();
-            var password = $('#myModalLogin input[name=pass]').val();
-            var remember = $('#myModalLogin input[name=remember]').prop('checked');
-            var data = {
-                email:email,
-                password: password,
-                remember: remember,
-            };
-            $.ajaxSetup(
+    });
+    function changePassAjax(){
+        var data = {
+            password_old        : $('#myModalChangePass input[name=pass-old]').val(),
+            password            : $('#myModalChangePass input[name=pass-new]').val(),
+            confirmpassword     : $('#myModalChangePass input[name=confirm-pass]').val(),
+            _method:"put"
+        };
+        $.ajaxSetup(
+        {
+            headers:
             {
-                headers:
-                {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            // console.log(data);
-            $.ajax({
-                method: "POST",
-                url: '{{ url("loginAjax") }}',
-                data: data,
-                dataType: 'json',
-                // beforeSend: function() {
-                //     $("#pre_ajax_loading").show();
-                // },
-                // complete: function() {
-                //     $("#pre_ajax_loading").hide();
-                // },
-                success: function (response) {
-                    if(response.status == 200){
-                        location.reload();
-                    }else{
-                        Swal.fire({
-                            type: 'error',
-                            html: response.error,
-                        })
-                    }
-                },
-                error: function (error) {
-                
-                    var obj_errors = error.responseJSON.errors;
-                    // console.log(obj_errors)
-                    var txt_errors = '';
-                    for (k of Object.keys(obj_errors)) {
-                        txt_errors += obj_errors[k][0] + '</br>';
-                    }
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        // console.log(data);
+        $.ajax({
+            method: "POST",
+            url: '{{ url("user/change-pass-ajax") }}',
+            data: data,
+            dataType: 'json',
+            // beforeSend: function() {
+            //     $("#pre_ajax_loading").show();
+            // },
+            // complete: function() {
+            //     $("#pre_ajax_loading").hide();
+            // },
+            success: function (response) {
+                if(response.status == 200){
+                    Swal.fire({
+                        type: 'success',
+                        html: response.message,
+
+                    }).then((result) => {
+                        if (result.value) {
+                            location.reload();
+                        }
+                    });
+                }else{
                     Swal.fire({
                         type: 'error',
-                        html: txt_errors,
+                        html: response.message,
                     })
                 }
-            });
+            },
+            error: function (error) {
+            
+                var obj_errors = error.responseJSON.errors;
+                // console.log(obj_errors)
+                var txt_errors = '';
+                for (k of Object.keys(obj_errors)) {
+                    txt_errors += obj_errors[k][0] + '</br>';
+                }
+                Swal.fire({
+                    type: 'error',
+                    html: txt_errors,
+                })
+            }
+        });
 
-            return false;
-        }
-    });
+        return false;
+    }
 </script>
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
