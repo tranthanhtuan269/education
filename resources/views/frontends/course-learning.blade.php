@@ -5,6 +5,7 @@
 	$video_done_array = $user_role_course_instance_video->videos;
 	$video_done_count = array_count_values($video_done_array)[1];
 	$video_done_percent = (int)(($video_done_count/$video_count)*100);
+	$lecturers = $info_course->Lecturers();
 @endphp
 @section('content')
 <div class="course-learning-banner">
@@ -180,80 +181,107 @@
 			<div class="col-sm-4">
 				{{-- Teacher Info --}}
 				<div class="sidebar">
-					<div class="teacher-info">
-						<p class="instructor">Instructor</p>
-						<img class="avatar" src="{{asset('frontend/images/student-profile-ava.png')}}" alt="Avatar">
-						<p class="name">Trần Thanh Tuấn</p>
-						<p class="office"><span>Staff Systems Engineer</span>/<span>Manager</span>/<span>Instructor</span></p>
-						<div class="total-course">
-							<div class="row">
-								<div class="col-xs-4">
-									<div class="course-number">
-										<i class="fa fa-book fa-lg" aria-hidden="true"></i>
-										<span>22 Courses</span>
+					@foreach ($lecturers as $lecturer)
+					@php
+						$ltr_name = $lecturer->user->name;
+						$ltr_avatar = $lecturer->user->avatar;
+						$ltr_expert = $lecturer->teacher->expert;
+						$ltr_course_count = $lecturer->teacher->course_count;
+						$ltr_student_count = $lecturer->teacher->student_count;
+						$ltr_rating_count = $lecturer->teacher->rating_count;
+						$ltr_rating_score = $lecturer->teacher->rating_score;
+						$ltr_vote_count = $lecturer->teacher->vote_count;
+					@endphp
+						<div class="teacher-info">
+							<p class="instructor">Instructor</p>
+							<img class="avatar" src="{{asset($ltr_avatar)}}" alt="Avatar">
+							<p class="name">{{$ltr_name}}</p>
+							<p class="office"><span>{{$ltr_expert}}</span></p>
+							<div class="total-course">
+								<div class="row">
+									<div class="col-xs-4">
+										<div class="course-number">
+											<i class="fa fa-book fa-lg" aria-hidden="true"></i>
+											<span>{{$ltr_course_count}} courses</span>
+										</div>
+									</div>
+									<div class="col-xs-8">
+										<div class="rating pull-right">
+											@include(
+												'components.vote', 
+												[
+													'rate' => $ltr_rating_score,
+													'rating_number' => $ltr_vote_count,
+												]
+											)
+											{{-- <span>@for($i=1;$i<=4;$i++)<i class="fa fa-star fa-lg icon-star" aria-hidden="true"></i>@endfor<i class="fa fa-star-half fa-lg icon-star" aria-hidden="true"></i></span>
+											<span>4.6</span>
+											<span>(24 ratings)</span> --}}
+										</div>
 									</div>
 								</div>
-								<div class="col-xs-8">
-									<div class="rating">
-										@include(
-											'components.vote', 
-											[
-												'rate' => 2,
-												'rating_number' => 3500,
-											]
-										)
-										{{-- <span>@for($i=1;$i<=4;$i++)<i class="fa fa-star fa-lg icon-star" aria-hidden="true"></i>@endfor<i class="fa fa-star-half fa-lg icon-star" aria-hidden="true"></i></span>
-										<span>4.6</span>
-										<span>(24 ratings)</span> --}}
+							</div>
+							<div class="total-student">
+								<div class="row">
+									<div class="col-xs-5">
+										<div class="student-number">
+											<i class="fa fa-graduation-cap fa-lg" aria-hidden="true"></i>
+											<span>{{$ltr_student_count}} Student</span>
+										</div>
+									</div>
+									<div class="col-xs-7 pull-right">
+										<div class="btn inbox">
+											<a href="mailto:teacher@example.com?Subject=Hello" target="_top">
+												<i class="fas fa-envelope fa-lg"></i>
+												<span>Inbox</span>
+											</a>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="total-student">
-							<div class="row">
-								<div class="col-xs-5">
-									<div class="student-number">
-										<i class="fa fa-graduation-cap fa-lg" aria-hidden="true"></i>
-										<span>111.000 Student</span>
-									</div>
-								</div>
-								<div class="col-xs-7">
-									<div class="btn inbox">
-										<a href="mailto:teacher@example.com?Subject=Hello" target="_top">
-											<i class="fas fa-envelope fa-lg"></i>
-											<span>Inbox</span>
-										</a>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
+
+					@endforeach
 				</div>
+				<script>
+					$(document).ready(function(){
+						$('.sidebar').slick({
+							autoplay: true,
+							autoplaySpeed: 5000,
+						});
+					});
+				</script>
 
 				{{-- Related Course --}}
 				<div class="relate-course">
 					<p class="relate-title">Related Courses</p>
 					<div class="list-course">
-						@for($i=1;$i<=5;$i++)
-						<div class="one-course">
-							<div class="row">
-								<div class="col-xs-6">
-									<a href="{{ route('course-detail') }}">
-										<img src="{{ asset('frontend/images/student-profile-course.png')}}" alt="Courses" title="Courses">
-									</a>
+						@foreach ($related_courses as $related_course)
+						@php
+							// print_r($related_course);
+						@endphp
+							<div class="one-course">
+								<div class="row">
+									<div class="col-xs-6">
+										<a href="/course/{{$related_course->slug}}">
+											<img src="{{ asset($related_course->image)}}" alt="Courses" title="Courses">
+										</a>
+									</div>
+									<div class="col-xs-6">
+										<div class="title"><a href="/course/{{$related_course->slug}}">{{$related_course->name}}</a></div>
+										<div class="teacher">with {{$info_course->Lecturers()->first()->user->name}}</div>
+										{{-- <div class="teacher">with {{$related_course->Lecturers()->first()->user->name}}</div> --}}
+										<span class="time">{{$related_course->duration}}</span>
+										<span class="pull-right level">{{$related_course->level == 0 ? "Beginner" : "Intermediate"}}</span>
+									</div>
 								</div>
-								<div class="col-xs-6">
-									<div class="title"><a href="{{ route('course-detail') }}">Creativity Bootcamp</a></div>
-									<div class="teacher">with Tran Duong</div>
-									<span class="time">1h 39m</span>
-									<span class="pull-right level">Intermediate</span>
-								</div>
-							</div>
-						</div>
-						@endfor
+							</div>						
+						@endforeach
 					</div>
 					<div class="text-center">
-						<button type="button" class="btn btn-see-all">SEE ALL</button>
+						<a href="/category/{{$info_course->category->slug}}">
+							<button type="button" class="btn btn-see-all">SEE ALL</button>
+						</a>
 					</div>
 				</div>
 

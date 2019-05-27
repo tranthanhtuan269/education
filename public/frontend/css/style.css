@@ -253,13 +253,15 @@ ul.unica-acc-zone li.special:hover a{color:#fff}
 .course-learning-content .sidebar{margin:30px 0;border:1px solid #e1e1e1;text-align:center;background-color: #f5f5f5;border-radius: 5px}
 .course-learning-content .sidebar .teacher-info{padding:10px}
 .course-learning-content .sidebar .teacher-info .instructor{font-size:30px;font-weight:900;padding:20px 0}
-.course-learning-content .sidebar .teacher-info img{border:none;border-radius:50%;width:120px;height:120px}
+.course-learning-content .sidebar .teacher-info img{border:none;border-radius:50%;width:120px;height:120px;margin:0 auto;}
 .course-learning-content .sidebar .teacher-info .name{padding:30px 0 0;font-size:20px;font-weight:700}
 .course-learning-content .sidebar .teacher-info .office{padding:0 0 20px}
 .course-learning-content .sidebar .teacher-info .icon-star{padding-right:3px;color:#FF8F00}
 .course-learning-content .sidebar .teacher-info .total-course,.course-learning-content .sidebar .teacher-info .total-student{text-align:left;padding-bottom:10px}
-.course-learning-content .sidebar .teacher-info .total-student{line-height:32px}
-.course-learning-content .sidebar .teacher-info .total-student .inbox{background:#FF8F00;border:none;border-radius:5px;color:#fff}
+.course-learning-content .sidebar .teacher-info .total-student{line-height:32px; padding-left: 1em; padding-right:1em;}
+.course-learning-content .sidebar .teacher-info .total-course{padding-left: 1em; padding-right:1em;}
+.course-learning-content .sidebar .teacher-info .total-student .row .col-xs-7 {text-align: right}
+.course-learning-content .sidebar .teacher-info .total-student .inbox{background:#FF8F00;border:none;border-radius:5px;color:#fff;}
 .course-learning-content .sidebar .teacher-info .total-student .inbox a{color: #fff}
 .course-learning-content .relate-course{margin:30px 0 80px 0;border:1px solid #e1e1e1;background-color: #f5f5f5;border-radius: 5px}
 .course-learning-content .relate-course .relate-title{font-size:30px;font-weight:900;padding:20px 0;text-align:center}
@@ -270,6 +272,7 @@ ul.unica-acc-zone li.special:hover a{color:#fff}
 .course-learning-content .relate-course .list-course .time{font-size: 12px}
 .course-learning-content .relate-course .list-course .level{font-size: 12px}
 .course-learning-content .relate-course .list-course .one-course{padding-bottom:20px}
+.course-learning-content .relate-course .list-course .one-course .row{display: flex; align-items: center}
 .course-learning-content .relate-course .btn-see-all{margin-bottom:40px;border-radius:10px;padding:10px 25px;font-weight:600}
 .course-learning-question{background-color: #f5f5f5}
 .course-learning-question .title{text-align:center;padding:40px 0;font-weight:900}

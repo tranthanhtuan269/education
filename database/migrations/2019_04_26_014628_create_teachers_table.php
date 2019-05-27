@@ -18,9 +18,9 @@ class CreateTeachersTable extends Migration
             $table->integer('user_role_id')->default(0);
             $table->longText('cv', 2000)->nullable();
             $table->string('expert', 255);
-            $table->integer('rating_count')->default(0);
-            $table->integer('vote_count')->default(0);
-            $table->integer('rating_score')->default(0);
+            $table->integer('rating_count')->default(0);  //Total number of stars
+            $table->integer('vote_count')->default(0);     //Total number of votes
+            $table->integer('rating_score')->default(0);    //Average star for each teacher.
             $table->integer('student_count')->default(0);
             $table->integer('course_count')->default(0);
             $table->string('video_intro', 255)->nullable();

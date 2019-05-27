@@ -144,17 +144,23 @@ class HomeController extends Controller
         if(\Auth::check()){
             if($course){
                 $ratingCourse = RatingCourse::where('course_id', $course->id)->where('user_id', \Auth::id())->first();
-                $related_course = Course::where('category_id', $course->category_id)->limit(4)->get();
+                $related_courses = Course::where('category_id', $course->category_id)->limit(4)->get();
                 $info_course = Course::find($course->id);
                 $user_role_course_instance = Helper::getUserRoleOfCourse($course->id);
 
-                return view('frontends.course-learning', compact('related_course', 'info_course', 'unit', 'ratingCourse', 'user_role_course_instance'));
+                $lecturer_array = $info_course->Lecturers();
+                $lecturers = [];
+                foreach ($lecturer_array as $lecturer_obj) {
+                    // array_push($lecturers, User::find($))
+                }
+
+                return view('frontends.course-learning', compact('related_courses', 'info_course', 'unit', 'ratingCourse', 'user_role_course_instance'));
             }
         }else{
             if($course){
-                $related_course = Course::where('category_id', $course->category_id)->limit(4)->get();
+                $related_courses = Course::where('category_id', $course->category_id)->limit(4)->get();
                 $info_course = Course::find($course->id);
-                return view('frontends.course-learning', compact('related_course', 'info_course', 'unit'));
+                return view('frontends.course-learning', compact('related_courses', 'info_course', 'unit'));
             }
         }
         return abort(404);
