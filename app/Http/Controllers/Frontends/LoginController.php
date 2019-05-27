@@ -20,8 +20,6 @@ class LoginController
 
     }
 
-
-
     public function getLogoutAdmin()
     {
         Auth::logout();

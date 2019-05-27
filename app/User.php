@@ -92,11 +92,11 @@ class User extends Authenticatable
 
     public function userRolesTeacher()
     {
-        return $this->hasMany('App\UserRole')->where('role_id',2)->get();
+        return $this->hasMany('App\UserRole')->where('role_id', \Config::get('app.teacher'))->get();
     }
 
     public function userRolesStudent()
     {
-        return $this->hasMany('App\UserRole')->where('role_id',3)->get();
+        return $this->hasMany('App\UserRole')->where('role_id', \Config::get('app.student'))->get();
     }
 }

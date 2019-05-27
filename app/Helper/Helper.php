@@ -59,4 +59,12 @@ class Helper
         $dt = new DateTime($date);
         return $dt->format('U');
     }
+
+    public static function checkPermissions($permission, $list_roles){
+	    if (in_array($permission, $list_roles) || in_array('super-admin', $list_roles)) {
+	     	return true;
+		}  
+
+		return false;
+	}
 }

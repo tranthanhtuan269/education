@@ -7,14 +7,6 @@ use App\Video;
 use Auth;
 
 class Helper {
-    public static function checkPermissions($permission, $list_roles){
-	    if (in_array($permission, $list_roles) || in_array('super-admin', $list_roles)) {
-	     	return true;
-		}  
-
-		return false;
-	}
-		
 	public static function convertSecondToTimeFormat($time){
 		$hr = (int)($time / 3600);
 		$min = (int)(($time % 3600) / 60);

@@ -18,8 +18,6 @@ class UserController extends Controller
     public function index()
     {
         $roles = Role::get();
-        // echo '<pre>';
-        // print_r($roles);die;
         $users = User::select('id', 'name')->get();
         return view('backends.user.index', ['users' => $users, 'roles' => $roles]);
     }
@@ -172,10 +170,19 @@ class UserController extends Controller
 
     public function getDataAjax()
     {
-
-        $users = User::getDataForDatatable();
-
-        return datatables()->of($users)
+        $users = User::get();
+        return datatables()->collection($users)
+            ->addColumn('role_name', function ($user) {
+                $list_role = '';
+                if (count($user->userRoles) > 0) {
+                    foreach ($user->userRoles as $key => $value) {
+                        if ($value->role->name) {
+                            $list_role .= $value->role->name .',';
+                        }
+                    }
+                }
+                return substr($list_role, 0, -1);
+            })
             ->addColumn('action', function ($user) {
                 return $user->id;
             })
