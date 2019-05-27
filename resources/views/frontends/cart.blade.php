@@ -74,6 +74,41 @@
     </div>
 </div>
 
+<script>
+    var cart_items = JSON.parse(localStorage.getItem('cart'))
+    $(document).ready(function(){
+        cart_items.forEach(element => {
+            html = '';
+            html += '<div class="cart-single-item">'
+                html += '<div class="image">'
+                    html += '<img src="/frontend/images/'+element.image+'" width="130rem" alt="">'
+                html += '</div>'
+                html += '<div class="course-info">'
+                    html += '<div class="course-name">'+element.name+'</div>'
+                    html += '<div class="lecturer-info">By '+element.lecturer+'</div>'
+                html += '</div>'
+                html += '<div class="actions">'
+                    html += '<div class="btn-remove"><i class="far fa-trash-alt"></i></div>'
+                html +='</div>'
+                html += '<div class="single-price">'
+                    html += '<div>'
+                        html += '<div>'
+                            html += '<div class="current-price">'+element.price+' ₫</div>'
+                            html += '<div class="initial-price">'+element.real_price+' ₫</div>'
+                        html += '</div>'
+                        html += '<i class="fas fa-tag"></i>'
+                    html += '</div>'
+                html += '</div>'
+            html += '</div>'
+
+            $(".cart-item-list").prepend(html)
+            
+        });
+    })
+    
+    
+</script>
+
 @include('frontends.feature-courses')
 
 @endsection
