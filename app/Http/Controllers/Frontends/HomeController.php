@@ -178,8 +178,13 @@ class HomeController extends Controller
     {
         return view('frontends.course-list');
     }
+
     public function logout()
     {
         Auth::logout();
+    }
+
+    public function cart(){
+        return view('frontends.cart');
     }
 }

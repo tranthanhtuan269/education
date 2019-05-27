@@ -97,7 +97,7 @@
                                 </div>
                                 <div class="box clearfix">
                                     <div class="pull-left">
-                                        <button type="button" class="btn btn-default btn-toh">Add to cart</button>
+                                        <button type="button" id="add-cart" class="btn btn-default btn-toh">Add to cart</button>
                                     </div>
                                     <div class="pull-right">
                                         <button type="button" class="btn btn-default btn-toh">By Now</button>
@@ -493,7 +493,33 @@
 </div>
 <script type="text/javascript">
     
-    $(document).ready(function() {  
+    $(document).ready(function() { 
+        $('#add-cart').click(function(){
+            
+            var item = {
+                'id' : {!! $info_course->id !!},
+                'image' : '{!! $info_course->image !!}',
+                @if(count($info_course->Lecturers()) > 0)
+                'lecturer' : '{!! $info_course->Lecturers()[0]->user->name !!}',
+                @else
+                'lecturer' : 'Nhiều giảng viên',
+                @endif
+                'name' : '{!! $info_course->name !!}',
+                'price' : {!! $info_course->price !!},
+                'real_price' : {!! $info_course->real_price !!},
+            }
+
+            if (localStorage.getItem("cart") != null) {
+                var list_item = JSON.parse(localStorage.getItem("cart"));
+                addItem(list_item, item);
+                localStorage.setItem("cart", JSON.stringify(list_item));
+            }else{
+                var list_item = [];
+                addItem(list_item, item);
+                localStorage.setItem("cart", JSON.stringify(list_item));
+            }
+        });
+
         $('.btn-see-more').click(function(){
             var current_skip = $(this).attr('data-skip');
             var current_take = $(this).attr('data-take');
@@ -620,6 +646,13 @@
                 alert( "Request failed: " + textStatus );
             });
         });
+    }
+
+    function addItem(arr, obj) {
+        const { length } = arr;
+        const found = arr.some(el => el.id === obj.id);
+        if (!found) arr.push(obj);
+        return arr;
     }
 </script>
 @endsection

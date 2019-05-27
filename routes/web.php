@@ -84,12 +84,13 @@ Route::get('/course-detail', 'Frontends\HomeController@courseDetail')->name('cou
 Route::get('/course-list','Frontends\HomeController@courseList');
 Route::get('/student-profile','Frontends\HomeController@studentProfile');
 
-
 Route::get('category/{cat}', ['as'  => 'category', 'uses' =>'Frontends\HomeController@showCategory']);
 Route::get('course/{course}', ['as'  => 'course', 'uses' =>'Frontends\HomeController@showCourse']);
 Route::get('learning/{course}', ['as'  => 'course', 'uses' =>'Frontends\HomeController@courseLearning']);
 Route::get('teacher/{teacher}', ['as'  => 'teacher', 'uses' =>'Frontends\HomeController@showTeacher']);
 Route::get('list-course', ['uses' =>'Frontends\HomeController@listCourse']);
+
+Route::get('cart', ['uses' =>'Frontends\HomeController@cart']);
 
 // Đăng nhập mới đánh giá khóa học dc
 Route::post('reviews/info', 'Backends\UserController@infoRoleUser');
