@@ -1016,3 +1016,122 @@ div[data-u="slides"] div div{
   color: #666;
 }
 /* .cart-pre-info{display:flex; justify-content: space-between;} */
+.cart-single-item{
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    margin-bottom: 10px;
+    margin-right: 0.6em;
+    margin-left: 1px;
+    margin-top: 1px;
+    /* border: 1px solid rgba(20,23,28,0.1); */
+    -webkit-box-shadow: 0 0 1px 1px rgba(20,23,28,0.1), 0 3px 1px 0 rgba(20,23,28,0.1);
+    -moz-box-shadow: 0 0 1px 1px rgba(20,23,28,0.1), 0 3px 1px 0 rgba(20,23,28,0.1);
+    box-shadow: 0 0 1px 1px rgba(20,23,28,0.1), 0 3px 1px 0 rgba(20,23,28,0.1);
+}
+.cart-single-item .course-name {
+    font-size: 15px;
+    font-weight: bold;
+}
+.cart-single-item .lecturer-info{
+    color: #686F7A;
+    font-size: 13px;
+    font-style: italic;
+}
+.cart-single-item .actions{
+    text-align: right;
+    font-size: 0.80rem;
+    display: grid;
+    margin-right: 0.5rem;
+}
+.cart-single-item .actions .btn-remove{
+    cursor: pointer;
+    color: #737373;
+}
+.cart-single-item .actions .btn-remove i{
+    font-size: 16px;
+    line-height: 1.5;
+}
+.cart-single-item .single-price>div{
+    display: flex;
+    text-align: right;
+}
+.cart-single-item .single-price>div>div{
+    padding-right: 5px;
+    line-height: 1.5;
+    font-size: 16px;
+}
+.cart-single-item .single-price>div>div .current-price{
+    color: #C9302D;
+    font-family: 'Open Sans' sans-serif;
+    font-weight: bold;
+}
+.cart-single-item .single-price>div>div .initial-price{
+    text-decoration: line-through;
+}
+.cart-single-item .single-price>div>i{
+    line-height: 1.5;
+    color: #C9302D;
+}
+.checkout-column .price-group .current-price{
+    font-size: 3em;
+    font-weight: bold;
+}
+.checkout-column .price-group .initial-price{
+    font-size: 1.25em;
+    text-decoration: line-through;
+}
+.checkout-column .price-group .percent-off{
+    font-size: 1.5em;
+}
+.checkout-column .btn-checkout{
+    margin-top: 0.6em;
+}
+.checkout-column .btn-checkout #btnCartCheckout{
+    padding: 1em;
+    width: 100%;
+}
+.checkout-column .coupon-code-input{
+    margin-top: 1em;
+    padding-top: 1em;
+    border-top: 1px solid rgb(204, 204, 204);
+}
+.checkout-column .coupon-code-input .input-group{
+    height: 3rem;
+}
+.checkout-column .coupon-code-input .input-group input{
+    height: 100%;
+}
+.checkout-column .coupon-code-input .input-group #btnCartCouponApply{
+    background: #00B7F1;
+    color: #FFFFFF;
+}
+.cart-page-title{
+    display: flex;
+}
+.cart-pre-info{
+    background-color: #00B7F1;
+    height:7em;
+    display: flex;
+    align-items: center;
+    padding: 1em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    color: #ffffff;
+    background: rgba(179,220,237,1);
+    background: -moz-linear-gradient(left, rgba(179,220,237,1) 0%, rgba(41,184,229,1) 84%, rgba(0,183,241,1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(179,220,237,1)), color-stop(84%, rgba(41,184,229,1)), color-stop(100%, rgba(0,183,241,1)));
+    background: -webkit-linear-gradient(left, rgba(179,220,237,1) 0%, rgba(41,184,229,1) 84%, rgba(0,183,241,1) 100%);
+    background: -o-linear-gradient(left, rgba(179,220,237,1) 0%, rgba(41,184,229,1) 84%, rgba(0,183,241,1) 100%);
+    background: -ms-linear-gradient(left, rgba(179,220,237,1) 0%, rgba(41,184,229,1) 84%, rgba(0,183,241,1) 100%);
+    background: linear-gradient(to right, rgba(179,220,237,1) 0%, rgba(41,184,229,1) 84%, rgba(0,183,241,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b3dced', endColorstr='#00b7f1', GradientType=1 );
+    
+}
+.blue-half-square{
+    display:inline-block;
+    border-top:7em solid #00B7F1;
+    border-right:100px solid transparent;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
