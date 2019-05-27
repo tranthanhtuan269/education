@@ -17,30 +17,6 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::find(2);
-        dd($users->userRoles[0]->getRoles);
-        echo '<pre>';
-        print_r($users->userRoles->getRoles);die;
-        echo $users->userRoles[0]->getRoles->name;die;
-        $users = User::get();
-        foreach ($users as $key => $value) {
-            if($key == 0) {
-                $str = '';
-                for ($i=0; $i < count($value->userRoles); $i++) { 
-                    $str .= $value->userRoles[$i]->getRoles->name;
-                }
-                echo $str.'-----';
-
-            }
-        }
-        dd($str);
-        die;
-       
-        //         $list_roles = '';
-        //         foreach ($user->userRoles as $key => $value) {
-        //             $list_roles += 1;
-        //         }
-        // echo $list_roles;die;
         $roles = Role::get();
         $users = User::select('id', 'name')->get();
         return view('backends.user.index', ['users' => $users, 'roles' => $roles]);
@@ -200,20 +176,12 @@ class UserController extends Controller
                 $list_role = '';
                 if (count($user->userRoles) > 0) {
                     foreach ($user->userRoles as $key => $value) {
-                        if ($value->getRoles->name) {
-                            # code...
-                            $list_role .= 2 .',';
+                        if ($value->role->name) {
+                            $list_role .= $value->role->name .',';
                         }
                     }
                 }
-                // dd($list_role);
-                // die;
-                // dd($user->userRoles[0]->getRoles->name);
-                // $list_role = '';
-                // for ($i=0; $i < count($user->userRoles); $i++) { 
-                //     $list_role .=  $user->userRoles[$i]->getRoles->name;
-                // }
-                return 1;
+                return substr($list_role, 0, -1);
             })
             ->addColumn('action', function ($user) {
                 return $user->id;
