@@ -1014,3 +1014,51 @@ div[data-u="slides"] div div{
   color: #666;
 }
 /* .cart-pre-info{display:flex; justify-content: space-between;} */
+.cart-single-item{
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    margin-bottom: 10px;
+    margin-right: 0.6em;
+    margin-left: 1px;
+    margin-top: 1px;
+    /* border: 1px solid rgba(20,23,28,0.1); */
+    -webkit-box-shadow: 0 0 1px 1px rgba(20,23,28,0.1), 0 3px 1px 0 rgba(20,23,28,0.1);
+    -moz-box-shadow: 0 0 1px 1px rgba(20,23,28,0.1), 0 3px 1px 0 rgba(20,23,28,0.1);
+    box-shadow: 0 0 1px 1px rgba(20,23,28,0.1), 0 3px 1px 0 rgba(20,23,28,0.1);
+}
+.cart-single-item .course-name {
+    font-size: 15px;
+    font-weight: bold;
+}
+.cart-single-item .lecturer-info{
+    color: #686F7A;
+    font-size: 13px;
+    font-style: italic;
+}
+.cart-single-item .actions{
+    text-align: right;
+    font-size: 0.80rem;
+    display: grid;
+    margin-right: 0.5rem;
+}
+.cart-single-item .actions div{
+    cursor: pointer;
+    color: #0097e3;
+}
+.cart-single-item .single-price>div{
+    display: flex;
+    text-align: right;
+}
+.cart-single-item .single-price>div>div{
+    padding-right: 5px;
+    line-height: 1.5;
+}
+.cart-single-item .single-price>div>div .current-price{
+    color: #EC5252;
+    font-family: 'Open Sans' sans-serif;
+    font-weight: bold;
+}
+.cart-single-item .single-price>div>div .initial-price{
+    text-decoration: line-through;
+}
