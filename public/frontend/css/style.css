@@ -15,7 +15,9 @@ body{font-family:'Poppins',sans-serif;font-size:14px; padding-right: 0 !importan
 .modal-open[style] {
     padding-right: 0px !important;
 }
-
+.dataTables_wrapper {
+  padding-bottom: 20px;
+}
 ol,ul{list-style:none}
 blockquote,q{quotes:none}
 blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}

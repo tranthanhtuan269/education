@@ -54,7 +54,7 @@
                 <!-- Header Navbar: style can be found in header.less -->
                 <nav class="navbar navbar-static-top">
                     <!-- Sidebar toggle button-->
-                    <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                    <a href="javascript:void(0)" class="sidebar-toggle" data-toggle="push-menu" role="button">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -63,7 +63,7 @@
                     <div class="navbar-custom-menu">
                         <ul class="nav navbar-nav">
                             <li class="dropdown user user-menu">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
                                 <img src="{{ asset('backend/template/dist/img/user2-160x160.jpg') }}" class="user-image" alt="User Image">
                                 <span class="hidden-xs">{{ Auth::user()->name }}</span>
                                 </a>
@@ -78,7 +78,7 @@
                                     <!-- Menu Footer-->
                                     <li class="user-footer">
                                         <div class="pull-left">
-                                            <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                            <a href="javascript:void(0)" class="btn btn-default btn-flat">Profile</a>
                                         </div>
                                         <div class="pull-right">
                                             <a href="{{ route('logout-admin') }}" class="btn btn-default btn-flat">Sign out</a>
@@ -101,7 +101,7 @@
                         </div>
                         <div class="pull-left info">
                             <p>{{ Auth::user()->name }}</p>
-                            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                            <a href="javascript:void(0)"><i class="fa fa-circle text-success"></i> Online</a>
                         </div>
                     </div>
                     <!-- search form -->
@@ -124,7 +124,7 @@
                         </li>
                  
                         <li class="treeview @if ( Request::is('admincp/users*') || Request::is('admincp/permissions*') || Request::is('admincp/roles*') ) active @endif">
-                            <a href="#">
+                            <a href="javascript:void(0)">
                                 <i class="fa fa-user-md"></i>
                                 <span>Tài khoản</span>
                                 <span class="pull-right-container">
@@ -166,7 +166,7 @@
                 <div class="pull-right hidden-xs">
                     <b>Version</b> 2.4.0
                 </div>
-                <strong>Copyright &copy; 2018 <a href="#">Tran Ba</a>.</strong> All rights
+                <strong>Copyright &copy; 2018 <a href="javascript:void(0)">Tran Ba</a>.</strong> All rights
                 reserved.
             </footer>
 

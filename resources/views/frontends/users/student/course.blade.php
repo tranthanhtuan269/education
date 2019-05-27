@@ -1,9 +1,11 @@
-@extends('frontends.layouts.app') @section('content')
+@extends('frontends.layouts.app') 
+@section('content')
+
 <div class="u-dashboard-top" style="background-image:  url({{ url('frontend/images/bg-db-user.jpg') }});">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                @include('frontends.users.menu')
+                @include('frontends.users.student.menu')
             </div>
         </div>
     </div>

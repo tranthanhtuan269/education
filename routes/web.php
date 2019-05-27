@@ -121,12 +121,22 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('change-pass-ajax', 'Frontends\UserController@changePassAjax');
         Route::get('logout', 'Frontends\UserController@logout');
 
+       
+        Route::get('getDataMailBoxAjax', 'Frontends\UserController@getDataMailBoxAjax');
+
         Route::group(['prefix' => 'student'],function () {
-            Route::get('course', 'Frontends\UserController@course'); 
-            Route::get('profile', 'Frontends\UserController@profile'); 
-            Route::post('profile', 'Frontends\UserController@updateProfile');
+            Route::get('mail-box', 'Frontends\UserController@mailBoxStudent'); 
+            Route::get('course', 'Frontends\UserController@courseStudent'); 
+            Route::get('profile', 'Frontends\UserController@profileStudent'); 
+            Route::post('profile', 'Frontends\UserController@updateProfileStudent');
         });
-        
+
+        Route::group(['prefix' => 'teacher'],function () {
+            Route::get('mail-box', 'Frontends\UserController@mailBoxTeacher'); 
+            Route::get('course', 'Frontends\UserController@courseTeacher'); 
+            Route::get('profile', 'Frontends\UserController@profileTeacher'); 
+            Route::post('profile', 'Frontends\UserController@updateProfileTeacher');
+        });
     });
 
     Route::post('upload-image', 'Frontends\UserController@uploadImage');

@@ -1,10 +1,11 @@
 @extends('frontends.layouts.app') 
 @section('content')
+
 <div class="u-dashboard-top" style="background-image:  url({{ url('frontend/images/bg-db-user.jpg') }});">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                @include('frontends.users.menu')
+                @include('frontends.users.teacher.menu')
             </div>
         </div>
     </div>
@@ -254,7 +255,7 @@
 
             $.ajax({
                 method: "POST",
-                url: "{{ url('user/student/profile') }}",
+                url: "{{ url('user/teacher/profile') }}",
                 data: data,
                 dataType: 'json',
                 // beforeSend: function() {

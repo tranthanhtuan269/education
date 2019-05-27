@@ -27,7 +27,7 @@ class MailLogsTableSeeder extends Seeder
             $arr = [];
             foreach($data as $value) {
                 $user_mail_log = new UserMailLog;
-                $user_mail_log->user_role_id = $value->id;
+                $user_mail_log->user_id = $value->id;
                 $user_mail_log->mail_log_id = $mail_log->id;
                 $user_mail_log->sender_user_id =1;
                 $user_mail_log->save();

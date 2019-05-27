@@ -108,7 +108,7 @@
                                         30-Days Money-back Guarantee
                                     </div>
                                     <div class="pull-right">
-                                        <a href="#">Have a coupon?</a>
+                                        <a href="javascript:void(0)">Have a coupon?</a>
                                     </div>
                                 </div>
                             </div>

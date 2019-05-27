@@ -48,12 +48,12 @@
                     </div>
                     <div class="row">
                         <div class="col-xs-6">
-                            <a href="#">
+                            <a href="javascript:void(0)">
                                 <button class="buy-now">BUY NOW</button>
                             </a>
                         </div>
                         <div class="col-xs-6">
-                            <a href="#">
+                            <a href="javascript:void(0)">
                                 <button class="add-to">ADD TO CART</button>
                             </a>
                         </div>
@@ -91,12 +91,12 @@
                     </div>
                     <div class="row">
                         <div class="col-xs-6">
-                            <a href="#">
+                            <a href="javascript:void(0)">
                                 <button class="buy-now">BUY NOW</button>
                             </a>
                         </div>
                         <div class="col-xs-6">
-                            <a href="#">
+                            <a href="javascript:void(0)">
                                 <button class="add-to">ADD TO CART</button>
                             </a>
                         </div>
@@ -137,12 +137,12 @@
                     </div>
                     <div class="row">
                         <div class="col-xs-6">
-                            <a href="#">
+                            <a href="javascript:void(0)">
                                 <button class="buy-now">BUY NOW</button>
                             </a>
                         </div>
                         <div class="col-xs-6">
-                            <a href="#">
+                            <a href="javascript:void(0)">
                                 <button class="add-to">ADD TO CART</button>
                             </a>
                         </div>
@@ -180,12 +180,12 @@
                     </div>
                     <div class="row">
                         <div class="col-xs-6">
-                            <a href="#">
+                            <a href="javascript:void(0)">
                                 <button class="buy-now">BUY NOW</button>
                             </a>
                         </div>
                         <div class="col-xs-6">
-                            <a href="#">
+                            <a href="javascript:void(0)">
                                 <button class="add-to">ADD TO CART</button>
                             </a>
                         </div>
@@ -202,7 +202,7 @@
                 <div class="textx">
                     <p class="how-to">Learn how to purchase</p>
                     <p class="courdemy">Courdemy's <br> Teacher</p>
-                    <a href="#" title="Button Show Me">
+                    <a href="javascript:void(0)" title="Button Show Me">
                         <button class="show-me">Show me</button>
                     </a>
                 </div>
