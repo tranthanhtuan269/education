@@ -81,14 +81,16 @@ class Course extends Model
     {
         if(Auth::check()){
             $sefl = $this;
-            return $this->hasMany('App\CommentCourse')->where(
-                function($q) use ($sefl){
-                   $q->where('state', 1)
-                     ->orWhere('user_role_id', Helper::getUserRoleOfCourse($sefl->id)->user_role_id);
-               })->orderBy('created_at', 'desc');
-        }else{
-            return $this->hasMany('App\CommentCourse')->where('state', 1);
+            if(Helper::getUserRoleOfCourse($sefl->id) != null){
+                return $this->hasMany('App\CommentCourse')->where(
+                    function($q) use ($sefl){
+                        $q->where('state', 1)
+                            ->orWhere('user_role_id', Helper::getUserRoleOfCourse($sefl->id)->user_role_id);
+                    })->orderBy('created_at', 'desc');
+            }
         }
+        return $this->hasMany('App\CommentCourse')->where('state', 1);
+        
     }
 
     public function takeComment($from, $take){
