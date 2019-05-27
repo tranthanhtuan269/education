@@ -317,15 +317,18 @@
 
                                         <a class="db-item-circle dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)"><img class="img-responsive" src="{{ asset('frontend/'.(Auth::user()->avatar != '' ? Auth::user()->avatar : 'images/avatar.jpg')) }}" alt="avatar"><span class="caret"></span></a>
                                         <ul class="dropdown-menu db-drop">
-                                            <li><a href="{{ url('user/student/course') }}"><i class="fa fa-list-alt" aria-hidden="true"></i> Start Learning</a></li>
-                                            <li><a href="{{ route('coming-soon') }}"><i class="fa fa-share-alt" aria-hidden="true"></i> Affiliate</a></li>
-                                            <li><a href="{{ route('coming-soon') }}"><i class="fa fa-key" aria-hidden="true"></i> Activate course</a></li>
-                                            <li><a href="{{ url('user/student/profile') }}"><i class="fa fa-user" aria-hidden="true"></i> Profile </a></li>
-                                            <li><a href="{{ route('coming-soon') }}"><i class="fa fa-credit-card" aria-hidden="true"></i>  Recharge </a></li>
-                                            <li>
-                                            </li>
+                                            @if ($check_multi_role_user == 2)
+                                                <li><a href="{{ url('user/teacher/course') }}"><i class="fas fa-chalkboard-teacher"></i> Teacher</a></li>
+                                                <li><a href="{{ url('user/student/course') }}"><i class="fas fa-user-graduate"></i> Student</a></li>
+                                            @else
+                                                <li><a href="{{ url('user/student/course') }}"><i class="fa fa-list-alt" aria-hidden="true"></i> Start Learning</a></li>
+                                                <li><a href="{{ route('coming-soon') }}"><i class="fa fa-share-alt" aria-hidden="true"></i> Affiliate</a></li>
+                                                <li><a href="{{ route('coming-soon') }}"><i class="fa fa-key" aria-hidden="true"></i> Activate course</a></li>
+                                                <li><a href="{{ url('user/student/profile') }}"><i class="fa fa-user" aria-hidden="true"></i> Profile </a></li>
+                                                <li><a href="{{ route('coming-soon') }}"><i class="fa fa-credit-card" aria-hidden="true"></i>  Recharge </a></li>
+                                            @endif
                                             <li class="divider"></li>
-                                            <li><a href="{{ url('user/logout') }}" class="btnDangxuat"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
+                                            <li><a href="{{ url('user/logout') }}" class="btnDangxuat"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -729,7 +732,6 @@
     <script src="{{ asset('frontend/js/bootstrap.offcanvas.js') }}"></script>
     <script src="{{ asset('frontend/js/sidenav.min.js') }}"></script>
     <script src="{{ asset('frontend/js/amazonmenu.js') }}"></script>
-    <!-- <script src="{{ asset('frontend/js/myScript.js') }}"></script> -->
     <script>
 
         jQuery(function () {

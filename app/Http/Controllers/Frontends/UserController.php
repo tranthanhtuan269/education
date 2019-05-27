@@ -57,9 +57,7 @@ class UserController extends Controller
     public function courseStudent(Request $request)
     {
         $keyword = trim($request->get('u-keyword'));
-        $id = Auth::user()->id;
-        $user = User::find($id);
-        $lifelong_course = $user->userRolesStudent()[0]->userLifelongCourse($keyword);
+        $lifelong_course = Auth::user()->userRolesStudent()[0]->userLifelongCourse($keyword);
         // dd($lifelong_course);
         return view('frontends.users.student.course', compact('lifelong_course'));
     }
@@ -157,10 +155,7 @@ class UserController extends Controller
     public function courseTeacher(Request $request)
     {
         $keyword = trim($request->get('u-keyword'));
-        $id = Auth::user()->id;
-        $user = User::find($id);
-        $lifelong_course = $user->userRolesTeacher()[0]->userLifelongCourse($keyword);
-        // dd($lifelong_course);
+        $lifelong_course = Auth::user()->userRolesTeacher()[0]->userLifelongCourse($keyword);
         return view('frontends.users.teacher.course', compact('lifelong_course'));
     }
 

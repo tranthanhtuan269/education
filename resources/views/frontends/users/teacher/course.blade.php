@@ -24,7 +24,7 @@
                         <div class="tab-pane active" id="buyed">
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <form id="w0" action="/user/student/course" method="get">
+                                    <form action="" method="get">
                                         <div class="form-inline box-search-course">
                                             <div class="form-group box-input">
                                                 <input type="text" class="form-control" name="u-keyword" placeholder="Search course..." value="{{ Request::get('u-keyword') }}">

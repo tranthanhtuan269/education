@@ -18,6 +18,7 @@ body{font-family:'Poppins',sans-serif;font-size:14px; padding-right: 0 !importan
 .dataTables_wrapper {
   padding-bottom: 20px;
 }
+
 ol,ul{list-style:none}
 blockquote,q{quotes:none}
 blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}
@@ -113,6 +114,12 @@ nav .pagination li a img{width:35px;position:relative;top:-6px}
 .unica-home-menutop  .db-drop {right: 0; left: auto; top: 40px;}
 .unica-home-menutop  .db-drop li > a { padding: 10px 20px; }
 .unica-home-menutop  .db-drop i { width: 30px; text-align: center; }
+.unica-home-menutop .dropdown-menu{
+  padding: 0;
+}
+.unica-home-menutop .dropdown-menu .divider{
+  margin: 0;
+}
 
 .unica-logo{padding:13px 0 15px;float:left}
 .unica-menu-cate{display:inline-block;margin:25px 0 0 16px;cursor:pointer;position:relative;color:#555}
