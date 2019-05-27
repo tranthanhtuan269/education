@@ -90,7 +90,7 @@ Route::get('learning/{course}', ['as'  => 'course', 'uses' =>'Frontends\HomeCont
 Route::get('teacher/{teacher}', ['as'  => 'teacher', 'uses' =>'Frontends\HomeController@showTeacher']);
 Route::get('list-course', ['uses' =>'Frontends\HomeController@listCourse']);
 
-Route::get('cart', ['uses' =>'Frontends\HomeController@cart']);
+Route::get('cart', ['uses' =>'Frontends\HomeController@cart'])->name('cart.show');
 
 // Đăng nhập mới đánh giá khóa học dc
 Route::post('reviews/info', 'Backends\UserController@infoRoleUser');

@@ -244,7 +244,7 @@
                     </div>
                 </nav>
                 <a class="logo-mobile" href="/"><img src="{{ asset('frontend/images/tab_logo.png') }}" alt=""/></a>
-                <a class="cart-mobile" href="/gio-hang">
+                <a class="cart-mobile" href="{{route('cart.show')}}">
                 <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                 <span class="unica-sl-cart" style="top:1px;"><b>0</b></span>
                 </a>
@@ -302,13 +302,13 @@
                                     <li><a href="{{ url('user/student/course') }}" class="unica-active-course"><p class="hidden-md hidden-xs hidden-sm">Start Learning</p></a></li>
                                     {{-- @endif --}}
                                     <li class="mgtOp">
-                                        <a href="/gio-hang" class="unica-cart">
+                                        <a href="{{route('cart.show')}}" class="unica-cart">
                                         <img src="{{ asset('frontend/images/tab_cart.png') }}" alt="" style="width: 21px;" />
                                         <span class="unica-sl-cart"><b>0</b></span>
                                     </a>
                                     </li class="mgtOp">
                                     <li>
-                                        <a href="/gio-hang" class="unica-cart">
+                                        <a href="{{route('cart.show')}}" class="unica-cart">
                                             <img src="{{ asset('frontend/images/tab_notifications.png') }}" alt="" style="width: 21px;" />
                                             <span class="unica-sl-cart"><b>0</b></span>
                                         </a>

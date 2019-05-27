@@ -180,69 +180,71 @@
 				{{-- RIGHT-BAR --}}
 			<div class="col-sm-4">
 				{{-- Teacher Info --}}
-				<div class="sidebar">
-					@foreach ($lecturers as $lecturer)
-					@php
-						$ltr_name = $lecturer->user->name;
-						$ltr_avatar = $lecturer->user->avatar;
-						$ltr_expert = $lecturer->teacher->expert;
-						$ltr_course_count = $lecturer->teacher->course_count;
-						$ltr_student_count = $lecturer->teacher->student_count;
-						$ltr_rating_count = $lecturer->teacher->rating_count;
-						$ltr_rating_score = $lecturer->teacher->rating_score;
-						$ltr_vote_count = $lecturer->teacher->vote_count;
-					@endphp
-						<div class="teacher-info">
-							<p class="instructor">Instructor</p>
-							<img class="avatar" src="{{asset($ltr_avatar)}}" alt="Avatar">
-							<p class="name">{{$ltr_name}}</p>
-							<p class="office"><span>{{$ltr_expert}}</span></p>
-							<div class="total-course">
-								<div class="row">
-									<div class="col-xs-4">
-										<div class="course-number">
-											<i class="fa fa-book fa-lg" aria-hidden="true"></i>
-											<span>{{$ltr_course_count}} courses</span>
+				@if (count($lecturers) > 0)
+					<div class="sidebar">
+						@foreach ($lecturers as $lecturer)
+						@php
+							$ltr_name = $lecturer->user->name;
+							$ltr_avatar = $lecturer->user->avatar;
+							$ltr_expert = $lecturer->teacher->expert;
+							$ltr_course_count = $lecturer->teacher->course_count;
+							$ltr_student_count = $lecturer->teacher->student_count;
+							$ltr_rating_count = $lecturer->teacher->rating_count;
+							$ltr_rating_score = $lecturer->teacher->rating_score;
+							$ltr_vote_count = $lecturer->teacher->vote_count;
+						@endphp
+							<div class="teacher-info">
+								<p class="instructor">Instructor</p>
+								<img class="avatar" src="{{asset($ltr_avatar)}}" alt="Avatar">
+								<p class="name">{{$ltr_name}}</p>
+								<p class="office"><span>{{$ltr_expert}}</span></p>
+								<div class="total-course">
+									<div class="row">
+										<div class="col-xs-4">
+											<div class="course-number">
+												<i class="fa fa-book fa-lg" aria-hidden="true"></i>
+												<span>{{$ltr_course_count}} courses</span>
+											</div>
+										</div>
+										<div class="col-xs-8">
+											<div class="rating pull-right">
+												@include(
+													'components.vote', 
+													[
+														'rate' => $ltr_rating_score,
+														'rating_number' => $ltr_vote_count,
+													]
+												)
+												{{-- <span>@for($i=1;$i<=4;$i++)<i class="fa fa-star fa-lg icon-star" aria-hidden="true"></i>@endfor<i class="fa fa-star-half fa-lg icon-star" aria-hidden="true"></i></span>
+												<span>4.6</span>
+												<span>(24 ratings)</span> --}}
+											</div>
 										</div>
 									</div>
-									<div class="col-xs-8">
-										<div class="rating pull-right">
-											@include(
-												'components.vote', 
-												[
-													'rate' => $ltr_rating_score,
-													'rating_number' => $ltr_vote_count,
-												]
-											)
-											{{-- <span>@for($i=1;$i<=4;$i++)<i class="fa fa-star fa-lg icon-star" aria-hidden="true"></i>@endfor<i class="fa fa-star-half fa-lg icon-star" aria-hidden="true"></i></span>
-											<span>4.6</span>
-											<span>(24 ratings)</span> --}}
+								</div>
+								<div class="total-student">
+									<div class="row">
+										<div class="col-xs-5">
+											<div class="student-number">
+												<i class="fa fa-graduation-cap fa-lg" aria-hidden="true"></i>
+												<span>{{$ltr_student_count}} Student</span>
+											</div>
+										</div>
+										<div class="col-xs-7 pull-right">
+											<div class="btn inbox">
+												<a href="mailto:teacher@example.com?Subject=Hello" target="_top">
+													<i class="fas fa-envelope fa-lg"></i>
+													<span>Inbox</span>
+												</a>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-							<div class="total-student">
-								<div class="row">
-									<div class="col-xs-5">
-										<div class="student-number">
-											<i class="fa fa-graduation-cap fa-lg" aria-hidden="true"></i>
-											<span>{{$ltr_student_count}} Student</span>
-										</div>
-									</div>
-									<div class="col-xs-7 pull-right">
-										<div class="btn inbox">
-											<a href="mailto:teacher@example.com?Subject=Hello" target="_top">
-												<i class="fas fa-envelope fa-lg"></i>
-												<span>Inbox</span>
-											</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
 
-					@endforeach
-				</div>
+						@endforeach
+						</div>
+					@endif
 				<script>
 					$(document).ready(function(){
 						$('.sidebar').slick({
@@ -269,7 +271,7 @@
 									</div>
 									<div class="col-xs-6">
 										<div class="title"><a href="/course/{{$related_course->slug}}">{{$related_course->name}}</a></div>
-										<div class="teacher">with {{$info_course->Lecturers()->first()->user->name}}</div>
+										{{-- <div class="teacher">with {{$info_course->Lecturers()->first()->user->name}}</div> --}}
 										{{-- <div class="teacher">with {{$related_course->Lecturers()->first()->user->name}}</div> --}}
 										<span class="time">{{$related_course->duration}}</span>
 										<span class="pull-right level">{{$related_course->level == 0 ? "Beginner" : "Intermediate"}}</span>
