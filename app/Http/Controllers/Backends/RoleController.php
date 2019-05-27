@@ -21,15 +21,21 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $list_privilegs_id = Role::select('name', 'permission')->where('id', Auth::user()->role_id)->first();
-        $arr_privilegs_id = explode(',', $list_privilegs_id->privileges_id);
+        $user_id = Auth::user()->id;
+        $roles_id = UserRole::where('user_id', $user_id)->pluck('role_id');
+        $roles = Role::whereIn('id', $roles_id)->get();
+        $str_privileges = '';
+        foreach ($roles as $key => $value) {
+            $str_privileges .= $value->permission;
+            $str_privileges .= (count($roles) > 0 && $key < (count($roles) - 1)) ? "," : "";
+        }
+
+        $list_roles = explode(',', $str_privileges);
+        $arr_privilegs_id = array_unique($list_roles);
         $data = Permission::get()->toArray();
-        // echo "<pre>";
-        // print_r($data);
-        // echo "</pre>";die;
 
         $roles = Role::select('id', 'name')->get();
-        return view('backends.role.index', ['roles' => $roles, 'data' => $data, 'list_privilegs' => $arr_privilegs_id, 'name' => $list_privilegs_id->name]);
+        return view('backends.role.index', ['roles' => $roles, 'data' => $data, 'list_privilegs' => $arr_privilegs_id]);
     }
 
     /**
