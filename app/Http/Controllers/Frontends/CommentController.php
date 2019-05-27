@@ -79,8 +79,46 @@ class CommentController extends Controller
             $course->vote_count += 1;
             $course->save();
          }
-
          return \Response::json(array('status' => '200', 'message' => 'Cập nhật thông tin thành công!', 'commentCourse' => fractal($commentCourse, new CommentCourseTransformer())->toArray()));
+      }
+      return \Response::json(array('status' => '404', 'message' => 'Khóa học không tồn tại!'));
+   }
+
+   public function updateStar(Request $request){
+      $course = Course::find($request->course_id);
+      if($course){
+         $currentRating = RatingCourse::where('user_id', Auth::id())->where('course_id', $request->course_id)->first();
+         if(!isset($currentRating)){
+            return \Response::json(array('status' => '401', 'message' => 'Mời quay lại trang khóa học để review!')); 
+         }else{
+            switch($currentRating->score){
+               case 1: $course->one_stars -= 1; break;
+               case 2: $course->two_stars -= 1; break;
+               case 3: $course->three_stars -= 1; break;
+               case 4: $course->four_stars -= 1; break;
+               case 5: $course->five_stars -= 1; break;
+               default: break;
+            }
+
+            switch($request->score){
+               case 1: $course->one_stars += 1; break;
+               case 2: $course->two_stars += 1; break;
+               case 3: $course->three_stars += 1; break;
+               case 4: $course->four_stars += 1; break;
+               case 5: $course->five_stars += 1; break;
+               default: break;
+            }
+            $course->star_count += ($request->score - $currentRating->score);
+
+            $commentCourse = CommentCourse::where('course_id', $request->course_id)->where('user_role_id',Helper::getUserRoleOfCourse($request->course_id)->user_role_id )->first();
+            $commentCourse->score = $request->score;
+            $commentCourse->save();
+
+            $currentRating->score = $request->score;
+            $currentRating->save();
+         }
+         return \Response::json(array('status' => '200', 'message' => 'Cập nhật thông tin thành công!'));
+
       }
       return \Response::json(array('status' => '404', 'message' => 'Khóa học không tồn tại!'));
    }

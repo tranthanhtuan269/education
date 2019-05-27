@@ -5,6 +5,7 @@
 	$video_done_array = $user_role_course_instance_video->videos;
 	$video_done_count = array_count_values($video_done_array)[1];
 	$video_done_percent = (int)(($video_done_count/$video_count)*100);
+	$lecturers = $info_course->Lecturers();
 @endphp
 @section('content')
 <div class="course-learning-banner">
@@ -20,13 +21,27 @@
 					<div class="vote">
 					<div class="continue"><a href="/learning-page/{{$info_course->id}}/lecture/{{$user_role_course_instance_video->learning_id}}" title="Continue">Continue to Lecture {{$user_role_course_instance_video->learning}}</a></div>
 						<div class="rating">
-							@include(
-								'components.vote', 
-								[
-									'rate' => 2,
-								]
-							)
-							<span data-toggle="modal" data-target="#myModal">Edit your rating</span>
+							@if(Auth::check())
+								@if(\App\Helper\Helper::getUserRoleOfCourse($info_course->id))
+									<span class="" data-star="{{ isset($ratingCourse) ? $ratingCourse->score : 1 }}">
+										@if($ratingCourse)
+										@include(
+											'components.vote', 
+											[
+												'rate' => $ratingCourse->score,
+											]
+										)
+										@else
+										<i id="star-1" class="far fa-star yellow-color" data-id="1"></i>
+										<i id="star-2" class="far fa-star review-star" data-id="2"></i>
+										<i id="star-3" class="far fa-star review-star" data-id="3"></i>
+										<i id="star-4" class="far fa-star review-star" data-id="4"></i>
+										<i id="star-5" class="far fa-star review-star" data-id="5"></i>
+										@endif
+									</span>
+								@endif
+							@endif
+							<span data-toggle="modal" data-target="#editRatingModal" style="cursor: pointer">Edit your rating</span>
 						</div>
 					</div>
 					<div class="row">
@@ -63,6 +78,35 @@
 						</div>
 					</div>
 				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{{-- EDIT RATING MODAL --}}
+<div class="modal" id="editRatingModal" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-sm" style="margin-top: 10%">
+		<div class="modal-content">
+			<div class="modal-header text-center">
+				<span>EDIT YOUR RATING</span>
+			</div>
+			<div class="modal-body text-center">
+				<h3>
+					@if(Auth::check())
+						@if(\App\Helper\Helper::getUserRoleOfCourse($info_course->id))
+							<span class="reviews-star" data-star="{{ isset($ratingCourse) ? $ratingCourse->score : 1 }}">
+								<i id="star-1" class="far fa-star yellow-color" data-id="1"></i>
+								<i id="star-2" class="far fa-star review-star" data-id="2"></i>
+								<i id="star-3" class="far fa-star review-star" data-id="3"></i>
+								<i id="star-4" class="far fa-star review-star" data-id="4"></i>
+								<i id="star-5" class="far fa-star review-star" data-id="5"></i>
+							</span>
+						@endif
+					@endif
+				</h3>
+			</div>
+			<div class="modal-footer" style="text-align:center !important;">
+				<button class="btn btn-primary" id="btnEditRating">SAVE</button>
 			</div>
 		</div>
 	</div>
@@ -137,80 +181,107 @@
 			<div class="col-sm-4">
 				{{-- Teacher Info --}}
 				<div class="sidebar">
-					<div class="teacher-info">
-						<p class="instructor">Instructor</p>
-						<img class="avatar" src="{{asset('frontend/images/student-profile-ava.png')}}" alt="Avatar">
-						<p class="name">Trần Thanh Tuấn</p>
-						<p class="office"><span>Staff Systems Engineer</span>/<span>Manager</span>/<span>Instructor</span></p>
-						<div class="total-course">
-							<div class="row">
-								<div class="col-xs-4">
-									<div class="course-number">
-										<i class="fa fa-book fa-lg" aria-hidden="true"></i>
-										<span>22 Courses</span>
+					@foreach ($lecturers as $lecturer)
+					@php
+						$ltr_name = $lecturer->user->name;
+						$ltr_avatar = $lecturer->user->avatar;
+						$ltr_expert = $lecturer->teacher->expert;
+						$ltr_course_count = $lecturer->teacher->course_count;
+						$ltr_student_count = $lecturer->teacher->student_count;
+						$ltr_rating_count = $lecturer->teacher->rating_count;
+						$ltr_rating_score = $lecturer->teacher->rating_score;
+						$ltr_vote_count = $lecturer->teacher->vote_count;
+					@endphp
+						<div class="teacher-info">
+							<p class="instructor">Instructor</p>
+							<img class="avatar" src="{{asset($ltr_avatar)}}" alt="Avatar">
+							<p class="name">{{$ltr_name}}</p>
+							<p class="office"><span>{{$ltr_expert}}</span></p>
+							<div class="total-course">
+								<div class="row">
+									<div class="col-xs-4">
+										<div class="course-number">
+											<i class="fa fa-book fa-lg" aria-hidden="true"></i>
+											<span>{{$ltr_course_count}} courses</span>
+										</div>
+									</div>
+									<div class="col-xs-8">
+										<div class="rating pull-right">
+											@include(
+												'components.vote', 
+												[
+													'rate' => $ltr_rating_score,
+													'rating_number' => $ltr_vote_count,
+												]
+											)
+											{{-- <span>@for($i=1;$i<=4;$i++)<i class="fa fa-star fa-lg icon-star" aria-hidden="true"></i>@endfor<i class="fa fa-star-half fa-lg icon-star" aria-hidden="true"></i></span>
+											<span>4.6</span>
+											<span>(24 ratings)</span> --}}
+										</div>
 									</div>
 								</div>
-								<div class="col-xs-8">
-									<div class="rating">
-										@include(
-											'components.vote', 
-											[
-												'rate' => 2,
-												'rating_number' => 3500,
-											]
-										)
-										{{-- <span>@for($i=1;$i<=4;$i++)<i class="fa fa-star fa-lg icon-star" aria-hidden="true"></i>@endfor<i class="fa fa-star-half fa-lg icon-star" aria-hidden="true"></i></span>
-										<span>4.6</span>
-										<span>(24 ratings)</span> --}}
+							</div>
+							<div class="total-student">
+								<div class="row">
+									<div class="col-xs-5">
+										<div class="student-number">
+											<i class="fa fa-graduation-cap fa-lg" aria-hidden="true"></i>
+											<span>{{$ltr_student_count}} Student</span>
+										</div>
+									</div>
+									<div class="col-xs-7 pull-right">
+										<div class="btn inbox">
+											<a href="mailto:teacher@example.com?Subject=Hello" target="_top">
+												<i class="fas fa-envelope fa-lg"></i>
+												<span>Inbox</span>
+											</a>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="total-student">
-							<div class="row">
-								<div class="col-xs-5">
-									<div class="student-number">
-										<i class="fa fa-graduation-cap fa-lg" aria-hidden="true"></i>
-										<span>111.000 Student</span>
-									</div>
-								</div>
-								<div class="col-xs-7">
-									<div class="btn inbox">
-										<a href="mailto:teacher@example.com?Subject=Hello" target="_top">
-											<i class="fas fa-envelope fa-lg"></i>
-											<span>Inbox</span>
-										</a>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
+
+					@endforeach
 				</div>
+				<script>
+					$(document).ready(function(){
+						$('.sidebar').slick({
+							autoplay: true,
+							autoplaySpeed: 5000,
+						});
+					});
+				</script>
 
 				{{-- Related Course --}}
 				<div class="relate-course">
 					<p class="relate-title">Related Courses</p>
 					<div class="list-course">
-						@for($i=1;$i<=5;$i++)
-						<div class="one-course">
-							<div class="row">
-								<div class="col-xs-6">
-									<a href="{{ route('course-detail') }}">
-										<img src="{{ asset('frontend/images/student-profile-course.png')}}" alt="Courses" title="Courses">
-									</a>
+						@foreach ($related_courses as $related_course)
+						@php
+							// print_r($related_course);
+						@endphp
+							<div class="one-course">
+								<div class="row">
+									<div class="col-xs-6">
+										<a href="/course/{{$related_course->slug}}">
+											<img src="{{ asset($related_course->image)}}" alt="Courses" title="Courses">
+										</a>
+									</div>
+									<div class="col-xs-6">
+										<div class="title"><a href="/course/{{$related_course->slug}}">{{$related_course->name}}</a></div>
+										<div class="teacher">with {{$info_course->Lecturers()->first()->user->name}}</div>
+										{{-- <div class="teacher">with {{$related_course->Lecturers()->first()->user->name}}</div> --}}
+										<span class="time">{{$related_course->duration}}</span>
+										<span class="pull-right level">{{$related_course->level == 0 ? "Beginner" : "Intermediate"}}</span>
+									</div>
 								</div>
-								<div class="col-xs-6">
-									<div class="title"><a href="{{ route('course-detail') }}">Creativity Bootcamp</a></div>
-									<div class="teacher">with Tran Duong</div>
-									<span class="time">1h 39m</span>
-									<span class="pull-right level">Intermediate</span>
-								</div>
-							</div>
-						</div>
-						@endfor
+							</div>						
+						@endforeach
 					</div>
 					<div class="text-center">
-						<button type="button" class="btn btn-see-all">SEE ALL</button>
+						<a href="/category/{{$info_course->category->slug}}">
+							<button type="button" class="btn btn-see-all">SEE ALL</button>
+						</a>
 					</div>
 				</div>
 
@@ -283,6 +354,78 @@
 </div>
 @endif
 <!-- Modal -->
+<script>
+    var baseURL = $('base').attr('href');
+
+	function hideStar(){
+		for(var j = 1; j <= 5; j++){
+			$('#editRatingModal #star-' + j).removeClass('fa').addClass('far');
+		}
+	}
+
+	function showStar(i){
+		for(var j = 1; j <= i; j++){
+			$('#editRatingModal #star-' + j).addClass('fa').removeClass('far');
+		}
+	}
+
+	$('#editRatingModal .review-star').mouseenter(function(){
+		switch($(this).attr('data-id')){
+			case "1":
+				hideStar();showStar(1);
+				break;
+			case "2":
+				hideStar();showStar(2);
+				break;
+			case "3":
+				hideStar();showStar(3);
+				break;
+			case "4":
+				hideStar();showStar(4);
+				break;
+			case "5":
+				hideStar();showStar(5);
+				break;
+		}
+	}).mouseleave(function(){
+		hideStar();
+	}).click(function(){
+		showStar($(this).attr('data-id'))
+		$('#editRatingModal .review-star').off( "mouseenter")
+		$('#editRatingModal .review-star').off( "mouseleave")
+		$('#editRatingModal .reviews-star').attr('data-star', $(this).attr('data-id'))
+	});
+
+	$.ajaxSetup({
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		}
+	});
+	$("#editRatingModal #btnEditRating").click(function (){
+		var request = $.ajax({
+			url: baseURL + '/stars/update',
+			method: "PUT",
+			data: {
+				course_id: {{ $info_course->id }},
+				score: $('.reviews-star').attr('data-star')
+			},
+			dataType: "json"
+		})
+		request.done(function (response){
+			if(response.status == 200){
+				Swal.fire({
+					type: "success",
+				}).then(function(result){
+					if(result.value){
+						$("#editRatingModal").modal('hide')
+					}
+				})
+			}
+		})
+	})
+
+</script>
+
 <script type="text/javascript">
     $(document).ready(function() {  
         $('.go-box').click(function() {
