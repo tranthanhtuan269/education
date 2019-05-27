@@ -33,7 +33,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="text-center">
-                            <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">
+                            <a href="javascript:void(0)" class="close" data-dismiss="alert" aria-label="close" title="close">
                                 <img src="{{ asset('frontend/images/tab_alert_close.png') }}" alt="" />    
                             </a>
                             <strong>Danger!</strong> This alert box indicates a dangerous or potentially negative action.
@@ -68,7 +68,7 @@
                         </div>
                         <ul class="nav navbar-nav sm-customize-menu">
                             <li><a href="/"><i class="fa fa-home" aria-hidden="true"></i> Trang chủ</a></li>
-                            <li><a href="#"> Start Learning <i class="fa fa-key" aria-hidden="true"></i></a></li>
+                            <li><a href="javascript:void(0)"> Start Learning <i class="fa fa-key" aria-hidden="true"></i></a></li>
                             <li>
                                 <a title="Các khóa học công nghệ thông tin Online từ cơ bản đến chuyên sâu" href="/course/cong-nghe-thong-tin"><i class="fa fa-angle-code" aria-hidden="true"></i> Công nghệ thông tin</a>
                                 <ul class="issub" style="z-index: 1002; display: none;">
@@ -315,7 +315,7 @@
                                     </li>
                                     <li class="btn-group mgtOp">
 
-                                        <a class="db-item-circle dropdown-toggle" data-toggle="dropdown" href="#"><img class="img-responsive" src="{{ asset('frontend/'.(Auth::user()->avatar != '' ? Auth::user()->avatar : 'images/avatar.jpg')) }}" alt="avatar"><span class="caret"></span></a>
+                                        <a class="db-item-circle dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)"><img class="img-responsive" src="{{ asset('frontend/'.(Auth::user()->avatar != '' ? Auth::user()->avatar : 'images/avatar.jpg')) }}" alt="avatar"><span class="caret"></span></a>
                                         <ul class="dropdown-menu db-drop">
                                             <li><a href="{{ url('user/student/course') }}"><i class="fa fa-list-alt" aria-hidden="true"></i> Start Learning</a></li>
                                             <li><a href="{{ route('coming-soon') }}"><i class="fa fa-share-alt" aria-hidden="true"></i> Affiliate</a></li>
@@ -331,8 +331,8 @@
                                 </ul>
                                 @else
                                 <ul class="unica-acc-zone">
-                                    <li class="special" data-toggle="modal" data-target="#myModalLogin" data-dismiss="modal"><a class="unica-log-acc" href="#" >Login</a></li>
-                                    <li class="special" data-toggle="modal" data-target="#myModalRegister" data-dismiss="modal"><a class="unica-reg-acc" href="#">Sign Up</a></li>
+                                    <li class="special" data-toggle="modal" data-target="#myModalLogin" data-dismiss="modal"><a class="unica-log-acc" href="javascript:void(0)" >Login</a></li>
+                                    <li class="special" data-toggle="modal" data-target="#myModalRegister" data-dismiss="modal"><a class="unica-reg-acc" href="javascript:void(0)">Sign Up</a></li>
                                     <div id="myModalLogin" class="modal fade" role="dialog" >
                                         <div class="modal-dialog">
                                             <div class="modal-content">
@@ -357,7 +357,7 @@
                                                     </form>				
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <a href="#" data-toggle="modal" data-target="#myModalRegister" data-dismiss="modal">Need an account</a>
+                                                    <a href="javascript:void(0)" data-toggle="modal" data-target="#myModalRegister" data-dismiss="modal">Need an account</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -545,7 +545,7 @@
                                             </form>				
                                         </div>
                                         <div class="modal-footer">
-                                            <a href="#" data-toggle="modal" data-target="#myModalRegister" data-dismiss="modal">Need an account</a>
+                                            <a href="javascript:void(0)" data-toggle="modal" data-target="#myModalRegister" data-dismiss="modal">Need an account</a>
                                         </div>
                                     </div>
                                 </div>
@@ -738,7 +738,7 @@
             })
         })
         
-        @if (Request::is('home'))
+        @if (Request::is('home') && !Auth::check())
             $(window).on('load',function(){
                 $('#myModalLogin').modal('show');
             });
@@ -762,19 +762,19 @@
                             <div class="col-sm-12">                           
                                 <div class="row">
                                     <div class="col-sm-4 col-xs-6">
-                                        <p><a href="#" title="Business">Business</a></p>
-                                        <p><a href="#" title="Certificates">Certificates</a></p>
-                                        <p><a href="#" title="Beta Testers">Beta Testers</a></p>
+                                        <p><a href="javascript:void(0)" title="Business">Business</a></p>
+                                        <p><a href="javascript:void(0)" title="Certificates">Certificates</a></p>
+                                        <p><a href="javascript:void(0)" title="Beta Testers">Beta Testers</a></p>
                                     </div>
                                     <div class="col-sm-4 col-xs-6">
-                                        <p><a href="#" title="Business">Business</a></p>
-                                        <p><a href="#" title="Certificates">Certificates</a></p>
-                                        <p><a href="#" title="Beta Testers">Beta Testers</a></p>
+                                        <p><a href="javascript:void(0)" title="Business">Business</a></p>
+                                        <p><a href="javascript:void(0)" title="Certificates">Certificates</a></p>
+                                        <p><a href="javascript:void(0)" title="Beta Testers">Beta Testers</a></p>
                                     </div>
                                     <div class="col-sm-4 col-xs-6">
-                                        <p><a href="#" title="Business">Business</a></p>
-                                        <p><a href="#" title="Certificates">Certificates</a></p>
-                                        <p><a href="#" title="Beta Testers">Beta Testers</a></p>
+                                        <p><a href="javascript:void(0)" title="Business">Business</a></p>
+                                        <p><a href="javascript:void(0)" title="Certificates">Certificates</a></p>
+                                        <p><a href="javascript:void(0)" title="Beta Testers">Beta Testers</a></p>
                                     </div>
                                 </div>
                             </div>
@@ -793,10 +793,10 @@
                 <div class="row">
                     <div class="col-md-12">
                         <ul class="pull-left">
-                            <li><a href="#" title="home">Home</a></li>
-                            <li><a href="#" title="private policy">Private Policy</a></li>
-                            <li><a href="#" title="cookie policy">Cookie Policy</a></li>
-                            <li><a href="#" title="job post">Job Post</a></li>
+                            <li><a href="javascript:void(0)" title="home">Home</a></li>
+                            <li><a href="javascript:void(0)" title="private policy">Private Policy</a></li>
+                            <li><a href="javascript:void(0)" title="cookie policy">Cookie Policy</a></li>
+                            <li><a href="javascript:void(0)" title="job post">Job Post</a></li>
                         </ul>
                         <span class="pull-right copyright">Copyright &copy; 2019 by courdemy.com. All rights servered!</span>
                     </div>

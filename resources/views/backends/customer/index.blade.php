@@ -12,8 +12,8 @@
 <section class="content-header">
     <h1 class="text-center font-weight-600">Danh sách khách hàng</h1>
 <!--     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Charts</a></li>
+        <li><a href="javascript:void(0)"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="javascript:void(0)">Charts</a></li>
         <li class="active">Inline Charts</li>
     </ol> -->
      @include('backends.notification')

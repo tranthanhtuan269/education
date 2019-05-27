@@ -14,7 +14,7 @@ class CreateUserMailLogTable extends Migration
     public function up()
     {
         Schema::create('user_mail_log', function (Blueprint $table) {
-            $table->integer('user_role_id');
+            $table->integer('user_id');
             $table->integer('mail_log_id');
             $table->integer('sender_user_id');
             $table->timestamps();

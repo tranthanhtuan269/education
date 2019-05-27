@@ -88,21 +88,21 @@
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="payment-card">
-							<a href="#" title="Internet Banking">
+							<a href="javascript:void(0)" title="Internet Banking">
 								<img src="{{asset('frontend/images/payment-method-1.png')}}" alt="Payment Methods 1">
 							</a>
 						</div>
 					</div>
 					<div class="col-sm-4">
 						<div class="payment-card">
-							<a href="#" title="Visa">
+							<a href="javascript:void(0)" title="Visa">
 								<img src="{{asset('frontend/images/payment-method-2.png')}}" alt="Payment Methods 2">
 							</a>
 						</div>
 					</div>
 					<div class="col-sm-4">
 						<div class="payment-card">
-							<a href="#" title="NganLuongVN">
+							<a href="javascript:void(0)" title="NganLuongVN">
 								<img src="{{asset('frontend/images/payment-method-3.png')}}" alt="Payment Methods 3">
 							</a>
 						</div>
@@ -111,14 +111,14 @@
 				<div class="row">
 					<div class="col-sm-4 col-sm-offset-2">
 						<div class="payment-card">
-							<a href="#" title="Paypal">
+							<a href="javascript:void(0)" title="Paypal">
 								<img src="{{asset('frontend/images/payment-method-4.png')}}" alt="Payment Methods 4">
 							</a>
 						</div>
 					</div>
 					<div class="col-md-4">
 						<div class="payment-card">
-							<a href="#" title="Bank Transfer">
+							<a href="javascript:void(0)" title="Bank Transfer">
 								<img src="{{asset('frontend/images/payment-method-5.png')}}" alt="Payment Methods 5">
 							</a>
 						</div>
