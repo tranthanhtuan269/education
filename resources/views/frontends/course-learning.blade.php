@@ -115,7 +115,7 @@
 													</div>
 												</div>
 												<div class="col-md-2">
-													<a href="{{$document->url_document}}">
+													<a target="_blank" href="{{$document->url_document}}">
 														<button class="btn btn-download-doc">Download</button>
 													</a>
 												</div>
