@@ -35,7 +35,6 @@ class HomeController extends Controller
 
     public function listCourse(Request $request)
     {
-
         $type = trim($request->get('type'));
         if ($type == 'best-seller') {
             $list_course = Course::orderBy('sale_count', 'desc')->paginate(16);
@@ -55,9 +54,9 @@ class HomeController extends Controller
     {
         $feature_category = Category::withCount('courses')->where('featured', 1)->orderBy('featured_index', 'asc')->limit(10)->get();
         // trending = feature courses
-        $feature_course = Course::where('featured', 1)->orderBy('featured_index', 'asc')->limit(8)->get();
-        $best_seller_course = Course::orderBy('sale_count', 'desc')->limit(8)->get();
-        $new_course = Course::orderBy('id', 'desc')->limit(8)->get();
+        $feature_course = Course::getCourseNotLearning()->where('featured', 1)->orderBy('featured_index', 'asc')->limit(8)->get();
+        $best_seller_course = Course::getCourseNotLearning()->orderBy('sale_count', 'desc')->limit(8)->get();
+        $new_course = Course::getCourseNotLearning()->orderBy('id', 'desc')->limit(8)->get();
         $popular_teacher = Teacher::getTeacherBestVote();
 
         return view('frontends.home', compact('feature_category', 'feature_course', 'best_seller_course', 'new_course', 'popular_teacher'));
