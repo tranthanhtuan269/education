@@ -16,10 +16,11 @@
         <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}" />
         <link rel="stylesheet" href="{{ asset('frontend/css/responsive.css') }}" />
         <script type="text/javascript" src="{{ asset('frontend/js/jquery-3.2.1.min.js') }}"></script>
-        <script src="{{ asset('frontend/js/bootstrap.min.js') }}"></script>
-        <script src="{{ asset('frontend/js/slick.min.js') }}"></script>
-        <script src="{{ asset('frontend/js/jssor.slider.min.js') }}"></script>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+        <script type="text/javascript" src="{{ asset('frontend/js/format-currency.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('frontend/js/bootstrap.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('frontend/js/slick.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('frontend/js/jssor.slider.min.js') }}"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
         <title>@yield('title', 'Edu')</title>
         <meta name="description" content="@yield('description', '')"/>
         <meta name="keywords" content="@yield('keywords', '')"/>
