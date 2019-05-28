@@ -30,10 +30,15 @@
                                 <div class="row">
                                     <div class="col-xs-5 col-md-8">
                                         <div class="title">
+                                            @if(App\Helper\Helper::getUserRoleOfCourse($info_course->id))
                                             <a href="/learning-page/{{$info_course->id}}/lecture/{{$value_video->id}}">
                                                 <i class="fa fa-play-circle" aria-hidden="true"></i>
                                                 <span>Lecture {{ $value_video->index }}: &nbsp;{{ $value_video->name }}</span> 
                                             </a>
+                                            @else
+                                                <i class="fa fa-play-circle" aria-hidden="true"></i>
+                                                <span>Lecture {{ $value_video->index }}: &nbsp;{{ $value_video->name }}</span> 
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="col-xs-4 col-md-2">
