@@ -127,6 +127,13 @@
                     var cartSingleItem = $(".cart-single-item[data-parent="+dataChild+"]")
                     cartSingleItem.fadeOut()
                     cart_items.splice(cartSingleItem.attr("data-index"), 1)
+                    totalPrice = 0
+                    totalInitialPrice = 0
+
+                    cart_items.forEach((element)=>{
+                        totalPrice += element.price
+                        totalInitialPrice += element.real_price
+                    })
 
                    
                     $(".checkout-column .current-price span").remove()
@@ -136,41 +143,47 @@
                     $(".checkout-column .percent-off span").remove()
                     $(".checkout-column .percent-off").append("<span>"+Math.floor(100-(totalPrice/totalInitialPrice)*100)+"% off</span>")
 
+                    $(".cart-pre-info .course-amount").html("")
+                    $(".cart-pre-info .course-amount").prepend(cart_items.length)
+
+
                     localStorage.setItem('cart', JSON.stringify(cart_items))
+                    console.log(cart_items)
+                    
                 }
             })
             
         })
 
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        if(cart_items.length < 1){
-            return Swal.fire({
-                type:"warning",
-                text:"You can not checkout an empty shopping cart!"
-            })
-        }else{
-            var course_id_array = []
-            cart_items.forEach((element, index) =>{
-                course_id_array.push(element.id)
-            })
-            var request = $.ajax({
-                url : "",
-                method: "POST",
-                data :{
-                    "course_id_array" : course_id_array,
-                },
-                dataType: "json",                
-            })
+        // $.ajaxSetup({
+        //     headers: {
+        //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //     }
+        // });
+        // if(cart_items.length < 1){
+        //     return Swal.fire({
+        //         type:"warning",
+        //         text:"You can not checkout an empty shopping cart!"
+        //     })
+        // }else{
+        //     var course_id_array = []
+        //     cart_items.forEach((element, index) =>{
+        //         course_id_array.push(element.id)
+        //     })
+        //     var request = $.ajax({
+        //         url : "",
+        //         method: "POST",
+        //         data :{
+        //             "course_id_array" : course_id_array,
+        //         },
+        //         dataType: "json",                
+        //     })
 
-            request.done((response)=>{
-                console.log(response)
+        //     request.done((response)=>{
+        //         console.log(response)
                 
-            })
-        }
+        //     })
+        // }
     })
     
     
