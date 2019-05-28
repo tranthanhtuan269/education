@@ -26,7 +26,7 @@ class UserRole extends Model
 
     public function teacher()
     {
-    	return $this->hasOne('App\Teacher');
+    	return $this->hasOne('App\Teacher', 'id');
     }
 
     public function userCoursesByFeature()

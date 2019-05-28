@@ -394,331 +394,67 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <script>
-                                        
-                                        function loginAjax(){
-                                            var email = $('#myModalLogin input[name=email]').val();
-                                            email = email.trim();
-                                            var password = $('#myModalLogin input[name=pass]').val();
-                                            var remember = $('#myModalLogin input[name=remember]').prop('checked');
-                                            var data = {
-                                                email:email,
-                                                password: password,
-                                                remember: remember,
-                                            };
-                                            $.ajaxSetup(
-                                            {
-                                                headers:
-                                                {
-                                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                                                }
-                                            });
-                                            // console.log(data);
-                                            $.ajax({
-                                                method: "POST",
-                                                url: '{{ url("loginAjax") }}',
-                                                data: data,
-                                                dataType: 'json',
-                                                // beforeSend: function() {
-                                                //     $("#pre_ajax_loading").show();
-                                                // },
-                                                // complete: function() {
-                                                //     $("#pre_ajax_loading").hide();
-                                                // },
-                                                success: function (response) {
-                                                    if(response.status == 200){
-                                                        location.reload();
-                                                    }else{
-                                                        Swal.fire({
-                                                            type: 'error',
-                                                            html: response.error,
-                                                        })
-                                                    }
-                                                },
-                                                error: function (error) {
-                                               
-                                                    var obj_errors = error.responseJSON.errors;
-                                                    // console.log(obj_errors)
-                                                    var txt_errors = '';
-                                                    for (k of Object.keys(obj_errors)) {
-                                                        txt_errors += obj_errors[k][0] + '</br>';
-                                                    }
-                                                    Swal.fire({
-                                                        type: 'error',
-                                                        html: txt_errors,
-                                                    })
-                                                }
-                                            });
-    
-                                            return false;
-                                        } 
-    
-                                        function registerAjax(){
-                                            var name = $('#myModalRegister input[name=name]').val();
-                                            name = name.trim();
-                                            var email = $('#myModalRegister input[name=email]').val();
-                                            email = email.trim();
-                                            var password = $('#myModalRegister input[name=pass]').val();
-                                            var confirmpassword = $('#myModalRegister input[name=confirmpass]').val();
-                                            var data = {
-                                                name : name,
-                                                email:email,
-                                                password: password,
-                                                confirmpassword: confirmpassword,
-                                            };
-                                            $.ajaxSetup(
-                                            {
-                                                headers:
-                                                {
-                                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                                                }
-                                            });
-                                            // console.log(data);
-                                            $.ajax({
-                                                method: "POST",
-                                                url: '{{ url("registerAjax") }}',
-                                                data: data,
-                                                dataType: 'json',
-                                                // beforeSend: function() {
-                                                //     $("#pre_ajax_loading").show();
-                                                // },
-                                                // complete: function() {
-                                                //     $("#pre_ajax_loading").hide();
-                                                // },
-                                                success: function (response) {
-                                                    if(response.status == 200){
-                                                        Swal.fire({
-                                                            type: 'success',
-                                                            html: response.message,
-    
-                                                        }).then((result) => {
-                                                            if (result.value) {
-                                                                location.reload();
-                                                            }
-                                                        });
-                                                    }else{
-                                                        Swal.fire({
-                                                            type: 'error',
-                                                            html: response.message,
-                                                        })
-                                                    }
-                                                },
-                                                error: function (error) {
-                                               
-                                                    var obj_errors = error.responseJSON.errors;
-                                                    // console.log(obj_errors)
-                                                    var txt_errors = '';
-                                                    for (k of Object.keys(obj_errors)) {
-                                                        txt_errors += obj_errors[k][0] + '</br>';
-                                                    }
-                                                    Swal.fire({
-                                                        type: 'error',
-                                                        html: txt_errors,
-                                                    })
-                                                }
-                                            });
-    
-                                            return false;
-                                        } 
-                                    </script>
                                 </ul>
-                            </div>
-
-                            <div id="myModalLogin" class="modal fade" role="dialog" >
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">				
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                            <h4 class="modal-title">Login</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form action="/examples/actions/confirmation.php" method="post">
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control" placeholder="Email" name="email">
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="password" class="form-control" placeholder="Password" name="pass">					
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="checkbox" name="remember"> Keep my logged in on this computer
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="button" class="btn btn-primary btn-block btn-lg" value="Login" onclick="loginAjax()">
-                                                </div>
-                                            </form>				
-                                        </div>
-                                        <div class="modal-footer">
-                                            <a href="javascript:void(0)" data-toggle="modal" data-target="#myModalRegister" data-dismiss="modal">Need an account</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="myModalRegister" class="modal fade" role="dialog" >
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">				
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                            <h4 class="modal-title">Register</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form action="/examples/actions/confirmation.php" method="post">
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control" placeholder="Username" name="name">
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control" placeholder="Email" name="email">
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="password" class="form-control" placeholder="Password" name="pass">					
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="password" class="form-control" placeholder="Confirm password" name="confirmpass">					
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="button" class="btn btn-primary btn-block btn-lg" value="Create Account" onclick="registerAjax()">
-                                                </div>
-                                            </form>				
+                                <div id="myModalLogin" class="modal fade" role="dialog" >
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">				
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">Login</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="/examples/actions/confirmation.php" method="post">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" placeholder="Email" name="email">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="password" class="form-control" placeholder="Password" name="pass">					
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="checkbox" name="remember"> Keep my logged in on this computer
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="button" class="btn btn-primary btn-block btn-lg" value="Login" onclick="loginAjax()">
+                                                    </div>
+                                                </form>				
+                                            </div>
+                                            <div class="modal-footer">
+                                                <a href="javascript:void(0)" data-toggle="modal" data-target="#myModalRegister" data-dismiss="modal">Need an account</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                <div id="myModalRegister" class="modal fade" role="dialog" >
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">				
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">Register</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="/examples/actions/confirmation.php" method="post">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" placeholder="Username" name="name">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" placeholder="Email" name="email">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="password" class="form-control" placeholder="Password" name="pass">					
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="password" class="form-control" placeholder="Confirm password" name="confirmpass">					
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="button" class="btn btn-primary btn-block btn-lg" value="Create Account" onclick="registerAjax()">
+                                                    </div>
+                                                </form>				
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @endif
                             </div>
-                            <script>
-                                $('#myModalLogin input[name=email],#myModalLogin input[name=pass],#myModalLogin input[name=remember]').keypress(function(event){
-                                    var keycode = (event.keyCode ? event.keyCode : event.which);
-                                    if(keycode == '13'){
-                                        loginAjax();
-                                        return false;
-                                    }
-                                });
-
-                                function loginAjax(){
-                                    var email = $('#myModalLogin input[name=email]').val();
-                                    email = email.trim();
-                                    var password = $('#myModalLogin input[name=pass]').val();
-                                    var remember = $('#myModalLogin input[name=remember]').prop('checked');
-                                    var data = {
-                                        email:email,
-                                        password: password,
-                                        remember: remember,
-                                    };
-                                    $.ajaxSetup(
-                                    {
-                                        headers:
-                                        {
-                                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                                        }
-                                    });
-                                    // console.log(data);
-                                    $.ajax({
-                                        method: "POST",
-                                        url: '{{ url("loginAjax") }}',
-                                        data: data,
-                                        dataType: 'json',
-                                        // beforeSend: function() {
-                                        //     $("#pre_ajax_loading").show();
-                                        // },
-                                        // complete: function() {
-                                        //     $("#pre_ajax_loading").hide();
-                                        // },
-                                        success: function (response) {
-                                            if(response.status == 200){
-                                                location.reload();
-                                            }else{
-                                                Swal.fire({
-                                                    type: 'error',
-                                                    html: response.message,
-                                                })
-                                            }
-                                        },
-                                        error: function (error) {
-                                        
-                                            var obj_errors = error.responseJSON.errors;
-                                            // console.log(obj_errors)
-                                            var txt_errors = '';
-                                            for (k of Object.keys(obj_errors)) {
-                                                txt_errors += obj_errors[k][0] + '</br>';
-                                            }
-                                            Swal.fire({
-                                                type: 'error',
-                                                html: txt_errors,
-                                            })
-                                        }
-                                    });
-
-                                    return false;
-                                } 
-
-                                function registerAjax(){
-                                    var name = $('#myModalRegister input[name=name]').val();
-                                    name = name.trim();
-                                    var email = $('#myModalRegister input[name=email]').val();
-                                    email = email.trim();
-                                    var password = $('#myModalRegister input[name=pass]').val();
-                                    var confirmpassword = $('#myModalRegister input[name=confirmpass]').val();
-                                    var data = {
-                                        name : name,
-                                        email:email,
-                                        password: password,
-                                        confirmpassword: confirmpassword,
-                                    };
-                                    $.ajaxSetup(
-                                    {
-                                        headers:
-                                        {
-                                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                                        }
-                                    });
-                                    // console.log(data);
-                                    $.ajax({
-                                        method: "POST",
-                                        url: '{{ url("registerAjax") }}',
-                                        data: data,
-                                        dataType: 'json',
-                                        // beforeSend: function() {
-                                        //     $("#pre_ajax_loading").show();
-                                        // },
-                                        // complete: function() {
-                                        //     $("#pre_ajax_loading").hide();
-                                        // },
-                                        success: function (response) {
-                                            if(response.status == 200){
-                                                Swal.fire({
-                                                    type: 'success',
-                                                    html: response.message,
-
-                                                }).then((result) => {
-                                                    if (result.value) {
-                                                        location.reload();
-                                                    }
-                                                });
-                                            }else{
-                                                Swal.fire({
-                                                    type: 'error',
-                                                    html: 'Error',
-                                                })
-                                            }
-                                        },
-                                        error: function (error) {
-                                        
-                                            var obj_errors = error.responseJSON.errors;
-                                            // console.log(obj_errors)
-                                            var txt_errors = '';
-                                            for (k of Object.keys(obj_errors)) {
-                                                txt_errors += obj_errors[k][0] + '</br>';
-                                            }
-                                            Swal.fire({
-                                                type: 'error',
-                                                html: txt_errors,
-                                            })
-                                        }
-                                    });
-
-                                    return false;
-                                } 
-                            </script>
-
-                            @endif
-                        
                         </div>
                     </div>
                 </div>
@@ -745,8 +481,140 @@
                 $('#myModalLogin').modal('show');
             });
         @endif
-    </script>
+        
+        $('#myModalLogin input[name=email],#myModalLogin input[name=pass],#myModalLogin input[name=remember]').keypress(function(event){
+            var keycode = (event.keyCode ? event.keyCode : event.which);
+            if(keycode == '13'){
+                loginAjax();
+                return false;
+            }
+        });
 
+        function loginAjax(){
+            var email = $('#myModalLogin input[name=email]').val();
+            email = email.trim();
+            var password = $('#myModalLogin input[name=pass]').val();
+            var remember = $('#myModalLogin input[name=remember]').prop('checked');
+            var data = {
+                email:email,
+                password: password,
+                remember: remember,
+            };
+            $.ajaxSetup(
+            {
+                headers:
+                {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            // console.log(data);
+            $.ajax({
+                method: "POST",
+                url: '{{ url("loginAjax") }}',
+                data: data,
+                dataType: 'json',
+                // beforeSend: function() {
+                //     $("#pre_ajax_loading").show();
+                // },
+                // complete: function() {
+                //     $("#pre_ajax_loading").hide();
+                // },
+                success: function (response) {
+                    if(response.status == 200){
+                        location.reload();
+                    }else{
+                        Swal.fire({
+                            type: 'error',
+                            html: response.message,
+                        })
+                    }
+                },
+                error: function (error) {
+                
+                    var obj_errors = error.responseJSON.errors;
+                    // console.log(obj_errors)
+                    var txt_errors = '';
+                    for (k of Object.keys(obj_errors)) {
+                        txt_errors += obj_errors[k][0] + '</br>';
+                    }
+                    Swal.fire({
+                        type: 'error',
+                        html: txt_errors,
+                    })
+                }
+            });
+
+            return false;
+        } 
+
+        function registerAjax(){
+            var name = $('#myModalRegister input[name=name]').val();
+            name = name.trim();
+            var email = $('#myModalRegister input[name=email]').val();
+            email = email.trim();
+            var password = $('#myModalRegister input[name=pass]').val();
+            var confirmpassword = $('#myModalRegister input[name=confirmpass]').val();
+            var data = {
+                name : name,
+                email:email,
+                password: password,
+                confirmpassword: confirmpassword,
+            };
+            $.ajaxSetup(
+            {
+                headers:
+                {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            // console.log(data);
+            $.ajax({
+                method: "POST",
+                url: '{{ url("registerAjax") }}',
+                data: data,
+                dataType: 'json',
+                // beforeSend: function() {
+                //     $("#pre_ajax_loading").show();
+                // },
+                // complete: function() {
+                //     $("#pre_ajax_loading").hide();
+                // },
+                success: function (response) {
+                    if(response.status == 200){
+                        Swal.fire({
+                            type: 'success',
+                            html: response.message,
+
+                        }).then((result) => {
+                            if (result.value) {
+                                location.reload();
+                            }
+                        });
+                    }else{
+                        Swal.fire({
+                            type: 'error',
+                            html: 'Error',
+                        })
+                    }
+                },
+                error: function (error) {
+                
+                    var obj_errors = error.responseJSON.errors;
+                    // console.log(obj_errors)
+                    var txt_errors = '';
+                    for (k of Object.keys(obj_errors)) {
+                        txt_errors += obj_errors[k][0] + '</br>';
+                    }
+                    Swal.fire({
+                        type: 'error',
+                        html: txt_errors,
+                    })
+                }
+            });
+
+            return false;
+        } 
+    </script>
     @yield('content')
 
     {{-- Begin Footer --}}

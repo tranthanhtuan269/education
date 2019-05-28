@@ -52,7 +52,7 @@
                     <div class="tab-content">
                         <div class="tab-pane active" id="buyed">
                                 <div class="row">
-                                    <form id="w0" action="/dashboard/user/profile" method="post" enctype="multipart/form-data">
+                                    <form action="/dashboard/user/profile" method="post" enctype="multipart/form-data">
                                         <div class="col-md-6 col-sm-6">
                                             <div class="form-group">
                                                 <label>Choose Image</label>
@@ -62,31 +62,43 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="form-group">
+                                                <label>Expert</label>
+                                                <div class="form-group">
+                                                    <textarea class="form-control" rows="3" cols="50" name="cv">{{ Auth::user()->address }}</textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>CV</label>
+                                                <div class="form-group">
+                                                    <textarea class="form-control" rows="4" cols="50" name="cv">{{ Auth::user()->address }}</textarea>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="col-md-6 col-sm-6">
                                             <div class="form-group">
                                                 <label>Full name</label>
-                                                <div class="form-group field-muser-fullname required">
+                                                <div class="form-group">
                                                     <input type="text" id="muser-fullname" class="form-control" name="name" value="{{ Auth::user()->name }}">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label> Email </label>
-                                                <div class="form-group field-muser-email required">
+                                                <div class="form-group">
                                                     <input type="email" id="muser-email" class="form-control" name="email" value="{{ Auth::user()->email }}" disabled>
 
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label>Phone</label>
-                                                <div class="form-group field-muser-phone required">
+                                                <div class="form-group">
                                                     <input type="text" id="muser-phone" class="form-control" name="phone" value="{{ Auth::user()->phone }}">
 
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label>Birthday</label>
-                                                <div class="form-group field-selector_id">
+                                                <div class="form-group">
                                                     <input type="text" class="form-control"  id="datepicker" name="birthday"  pattern="\d{1,2}/\d{1,2}/\d{4}" value="{{ (Auth::user()->birthday != '') ? Helper::formatDate('Y-m-d', Auth::user()->birthday, 'd/m/Y') : '' }}" autocomplete="off">
                                                     <script>
                                                       $(function() {
@@ -104,7 +116,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Gender</label>
-                                                <div class="form-group field-muser-gender required">
+                                                <div class="form-group">
                                                     <select class="form-control" name="gender">
                                                         <option value="1" @if(Auth::user()->gender == 1) selected @endif>Female</option>
                                                         <option value="2" @if(Auth::user()->gender == 2) selected @endif>Male</option>
@@ -113,7 +125,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Address</label>
-                                                <div class="form-group field-muser-address">
+                                                <div class="form-group">
                                                     <textarea class="form-control" rows="4" cols="50" name="address">{{ Auth::user()->address }}</textarea>
                                                 </div>
                                             </div>

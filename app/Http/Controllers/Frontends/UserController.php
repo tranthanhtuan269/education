@@ -21,7 +21,7 @@ class UserController extends Controller
         $password = $request->password;
 
         if (Auth::attempt(['email' => $email, 'password' => $password], $request->get('remember'))) {
-            auth()->logoutOtherDevices($request->password);
+            // auth()->logoutOtherDevices($request->password);
             return response()->json(['message' => 'Your account has been created!', 'status' => 200]);
         } else {
             return response()->json(['message' => 'The email or password is incorrect', 'status' => 404]);
@@ -109,6 +109,7 @@ class UserController extends Controller
 
     public function profileTeacher()
     {
+        // dd(Auth::user()->userRolesTeacher()->teacher);
         return view('frontends.users.teacher.profile');
     }
 
@@ -167,7 +168,7 @@ class UserController extends Controller
     public function changePassAjax(ChangePassUserRequest $request)
     {
         if (Auth::check()) {
-            auth()->logoutOtherDevices($request->password);
+            // auth()->logoutOtherDevices($request->password);
 
             $user = Auth::user();
             $user->password = bcrypt($request->password);
