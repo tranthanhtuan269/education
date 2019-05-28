@@ -21,7 +21,7 @@ class UserController extends Controller
         $password = $request->password;
 
         if (Auth::attempt(['email' => $email, 'password' => $password], $request->get('remember'))) {
-            auth()->logoutOtherDevices($request->password);
+            // auth()->logoutOtherDevices($request->password);
             return response()->json(['message' => 'Your account has been created!', 'status' => 200]);
         } else {
             return response()->json(['message' => 'The email or password is incorrect', 'status' => 404]);
@@ -57,9 +57,7 @@ class UserController extends Controller
     public function courseStudent(Request $request)
     {
         $keyword = trim($request->get('u-keyword'));
-        $id = Auth::user()->id;
-        $user = User::find($id);
-        $lifelong_course = $user->userRolesStudent()[0]->userLifelongCourse($keyword);
+        $lifelong_course = Auth::user()->userRolesStudent()[0]->userLifelongCourse($keyword);
         // dd($lifelong_course);
         return view('frontends.users.student.course', compact('lifelong_course'));
     }
@@ -111,6 +109,7 @@ class UserController extends Controller
 
     public function profileTeacher()
     {
+        // dd(Auth::user()->userRolesTeacher()->teacher);
         return view('frontends.users.teacher.profile');
     }
 
@@ -157,10 +156,7 @@ class UserController extends Controller
     public function courseTeacher(Request $request)
     {
         $keyword = trim($request->get('u-keyword'));
-        $id = Auth::user()->id;
-        $user = User::find($id);
-        $lifelong_course = $user->userRolesTeacher()[0]->userLifelongCourse($keyword);
-        // dd($lifelong_course);
+        $lifelong_course = Auth::user()->userRolesTeacher()[0]->userLifelongCourse($keyword);
         return view('frontends.users.teacher.course', compact('lifelong_course'));
     }
 
@@ -172,7 +168,7 @@ class UserController extends Controller
     public function changePassAjax(ChangePassUserRequest $request)
     {
         if (Auth::check()) {
-            auth()->logoutOtherDevices($request->password);
+            // auth()->logoutOtherDevices($request->password);
 
             $user = Auth::user();
             $user->password = bcrypt($request->password);

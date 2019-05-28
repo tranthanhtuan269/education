@@ -19,7 +19,7 @@ class ClearanceFrontendMiddleware
      */
 
     public function handle($request, Closure $next) { 
-        \View::share('check_course_of_the_user', 0);
+        \View::share('check_multi_role_user', 0);
 
         if (Auth::check()) {
             $user_id = Auth::user()->id;
@@ -42,6 +42,10 @@ class ClearanceFrontendMiddleware
             // BaTV - kiểm tra xem user có học khóa học nào không
             // $check_course_of_the_user = UserCourse::where('user_role_id', $user_id)->count();
             // \View::share('check_course_of_the_user', $check_course_of_the_user);
+
+            // BaTV - kiểm tra xem user có phải vừa là sinh viên, vừa là giảng viên hay không
+            $check_multi_role_user = UserRole::where('user_id', Auth::user()->id)->whereIn('role_id',  [\Config::get('app.student'), \Config::get('app.teacher')])->count();
+            \View::share('check_multi_role_user', $check_multi_role_user);
         } else {
 
         }

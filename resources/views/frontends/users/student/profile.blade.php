@@ -30,7 +30,7 @@
                                         <h4 class="modal-title">Change password</h4>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="/examples/actions/confirmation.php" method="post">
+                                        <form action="" method="post">
                                             <div class="form-group">
                                                 <input type="password" class="form-control" placeholder="Password old" name="pass-old">					
                                             </div>
@@ -66,27 +66,27 @@
                                         <div class="col-md-6 col-sm-6">
                                             <div class="form-group">
                                                 <label>Full name</label>
-                                                <div class="form-group field-muser-fullname required">
-                                                    <input type="text" id="muser-fullname" class="form-control" name="name" value="{{ Auth::user()->name }}">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" name="name" value="{{ Auth::user()->name }}">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label> Email </label>
-                                                <div class="form-group field-muser-email required">
-                                                    <input type="email" id="muser-email" class="form-control" name="email" value="{{ Auth::user()->email }}" disabled>
+                                                <div class="form-group">
+                                                    <input type="email" class="form-control" name="email" value="{{ Auth::user()->email }}" disabled>
 
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label>Phone</label>
-                                                <div class="form-group field-muser-phone required">
-                                                    <input type="text" id="muser-phone" class="form-control" name="phone" value="{{ Auth::user()->phone }}">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" name="phone" value="{{ Auth::user()->phone }}">
 
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label>Birthday</label>
-                                                <div class="form-group field-selector_id">
+                                                <div class="form-group">
                                                     <input type="text" class="form-control"  id="datepicker" name="birthday"  pattern="\d{1,2}/\d{1,2}/\d{4}" value="{{ (Auth::user()->birthday != '') ? Helper::formatDate('Y-m-d', Auth::user()->birthday, 'd/m/Y') : '' }}" autocomplete="off">
                                                     <script>
                                                       $(function() {
@@ -104,7 +104,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Gender</label>
-                                                <div class="form-group field-muser-gender required">
+                                                <div class="form-group">
                                                     <select class="form-control" name="gender">
                                                         <option value="1" @if(Auth::user()->gender == 1) selected @endif>Female</option>
                                                         <option value="2" @if(Auth::user()->gender == 2) selected @endif>Male</option>
@@ -113,7 +113,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Address</label>
-                                                <div class="form-group field-muser-address">
+                                                <div class="form-group">
                                                     <textarea class="form-control" rows="4" cols="50" name="address">{{ Auth::user()->address }}</textarea>
                                                 </div>
                                             </div>
