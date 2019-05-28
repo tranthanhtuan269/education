@@ -87,9 +87,9 @@ class CoursesTableSeeder extends Seeder
 				$courses->category_id = $course[1];
 				$courses->price = 500000;
 				$courses->real_price = 800000;
-				$courses->duration = '12:00:00';
+				$courses->duration = '1:06:00';
 				$courses->downloadable_count = 3;
-				$courses->video_count = 36;
+				$courses->video_count = 11;
 				$courses->student_count = 150;
 				$courses->star_count = 0;
 				$courses->vote_count = 0;
