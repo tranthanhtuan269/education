@@ -67,7 +67,7 @@ nav .pagination li a img{width:35px;position:relative;top:-6px}
 .percent.percent_0:AFTER{width:100%}
 .sm-mobile-menu,.unica-home-menutop{top:0;z-index:2000;width:100%;background:#fff}
 
-.box-course a.course-box-slider{.display:inline-block;color:#333;background:#fff;border-radius:10px}
+.box-course a.course-box-slider{display:inline-block;color:#333;background:#fff;border-radius:10px}
 .box-course a.btn-start-learning {
     margin-top: 12px;
 }
@@ -75,6 +75,38 @@ nav .pagination li a img{width:35px;position:relative;top:-6px}
 .box-course .content-course{border:1px solid #cccccca6;border-radius:0 0 10px 10px;padding:15px}
 .box-course .content-course h3.title-course{font-size:16px;margin:0 0 10px;font-weight:600;line-height:26px;min-height:52px}
 .box-course .img-course img{border-radius:10px 10px 0 0}
+.box-course .img-course .img-mask{
+	display: none;
+	position: absolute;
+    align-items: flex-end;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+	height: 100%;
+	/* display: flex; */
+	border-radius:10px 10px 0 0;
+}
+.box-course>a:hover .img-course .img-mask{
+	display: flex;
+	background: linear-gradient(to top, rgba(20,23,28,0.9) 0, rgba(20,23,28,0.738) 19%, rgba(20,23,28,0.541) 34%, rgba(20,23,28,0.382) 47%, rgba(20,23,28,0.278) 56.5%, rgba(20,23,28,0.194) 65%, rgba(20,23,28,0.126) 73%, rgba(20,23,28,0.075) 80.2%, rgba(20,23,28,0) 100%) !important;
+}
+.box-course .img-course .img-mask .btn-add-to-cart button{
+	padding: 2px 10px;
+	border-radius: 5px;
+	margin-bottom: 10px;
+}
+.box-course .img-course .img-mask .btn-add-to-cart button .img {
+	position: relative;
+	top: 4px;
+}
+.box-course .img-course .img-mask .btn-add-to-cart button .text {
+	margin-left: 2px;
+	font-size: 12px;
+    position: relative;
+    bottom: 2;
+}
+
 .box-course .content-course .time-view{padding:6px 0}
 .box-course .content-course .price-course .price{font-size:17.5px;position:relative;top:4px}
 .box-course .content-course .price-course .price.line-through{text-decoration:line-through}

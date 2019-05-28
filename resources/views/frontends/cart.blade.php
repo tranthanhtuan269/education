@@ -6,11 +6,8 @@
         <div class="cart-pre-info">
             <div class="cart-pre-info-left">
                 <div>
-                    <h2> Shopping cart</h2>
+                    <h2><i><span class="course-amount"></span> courses in cart</i></h2>
                 </div>
-                <h4>
-                   <i><span class="course-amount"></span> courses in cart</i> 
-                </h4>
             </div>
         </div>
         <div class="blue-half-square" style=""></div>
@@ -84,11 +81,12 @@
         cart_items.forEach((element, index) => {
             
             html = '';
-            html += '<div class="cart-single-item" data-parent="'+element.id+'" data-index="'+index+'">'
+            html += '<a href="/course/'+element.slug+'"><div class="cart-single-item" data-parent="'+element.id+'" data-index="'+index+'">'
                 html += '<div class="image">'
                     html += '<img src="/frontend/images/'+element.image+'" width="130rem" alt="">'
                 html += '</div>'
                 html += '<div class="course-info">'
+
                     html += '<div class="course-name">'+element.name+'</div>'
                     html += '<div class="lecturer-info">By '+element.lecturer+'</div>'
                 html += '</div>'
@@ -101,10 +99,10 @@
                             html += '<div class="current-price">'+number_format(element.price, 0, '.', '.')+' ₫</div>'
                             html += '<div class="initial-price">'+number_format(element.real_price, 0, '.', '.')+' ₫</div>'
                         html += '</div>'
-                        html += '<i class="fas fa-tag"></i>'
+                        // html += '<i class="fas fa-tag"></i>'
                     html += '</div>'
                 html += '</div>'
-            html += '</div>'
+            html += '</div></a>'
 
             $(".cart-item-list").prepend(html)
 
@@ -116,7 +114,9 @@
         $(".checkout-column .initial-price").append("<span>"+number_format(totalInitialPrice, 0, '.', '.')+" ₫</span>")
         $(".checkout-column .percent-off").append("<span>"+Math.floor(100-(totalPrice/totalInitialPrice)*100)+"% off</span>")
 
-        $('.btn-remove i').on('click', function(){
+        $('.btn-remove i').on('click', function(e){
+            e.stopPropagation()
+            e.preventDefault()
             var dataChild = $(this).attr("data-child")
             Swal.fire({
                 type: "warning",

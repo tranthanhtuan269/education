@@ -104,4 +104,41 @@
     @include('frontends.all-courses')
     @include('frontends.popular-teacher')
     @include('frontends.info-others')
+    <script>
+        $(document).ready( function(){
+            $(".box-course .img-course .img-mask .btn-add-to-cart button").click( function(e){
+                e.stopPropagation()
+                e.preventDefault()
+                console.log($(this));
+                
+                var item = {
+                    'id' : $(this).attr("data-id"),
+                    'image' : $(this).attr("data-image"),
+                    'slug' : $(this).attr("data-slug"),
+                    'lecturer' : $(this).attr("data-lecturer"),
+                    'name' : $(this).attr("data-name"),
+                    'price' : parseInt($(this).attr("data-price")),
+                    'real_price' : parseInt($(this).attr("data-real-price")),
+                }
+                console.log(item);
+                
+                if (localStorage.getItem("cart") != null) {
+                    var list_item = JSON.parse(localStorage.getItem("cart"));
+                    addItem(list_item, item);
+                    localStorage.setItem("cart", JSON.stringify(list_item));
+                }else{
+                    var list_item = [];
+                    addItem(list_item, item);
+                    localStorage.setItem("cart", JSON.stringify(list_item));
+                }
+            })
+        })
+
+        function addItem(arr, obj) {
+            const { length } = arr;
+            const found = arr.some(el => el.id === obj.id);
+            if (!found) arr.push(obj);
+            return arr;
+        }
+    </script>
 @endsection

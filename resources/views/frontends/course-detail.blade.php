@@ -495,10 +495,10 @@
     
     $(document).ready(function() { 
         $('#add-cart').click(function(){
-            
             var item = {
                 'id' : {!! $info_course->id !!},
                 'image' : '{!! $info_course->image !!}',
+                'slug' : '{!! $info_course->slug !!}',                
                 @if(count($info_course->Lecturers()) > 0)
                 'lecturer' : '{!! $info_course->Lecturers()[0]->user->name !!}',
                 @else

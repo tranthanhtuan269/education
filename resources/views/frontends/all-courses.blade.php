@@ -20,13 +20,15 @@
                         <div class="row">
                             @foreach ($best_seller_course as $best_seller)
                                 <?php
-                                    $lecturers = count($best_seller->Lecturers()) > 1 ? 'Nhiều tác giả' : count($best_seller->Lecturers()) > 0 ? $best_seller->Lecturers()[0]->user->name : "Courdemy";
+                                    $lecturers = count($best_seller->Lecturers()) > 1 ? 'Nhiều tác giả' : (count($best_seller->Lecturers()) > 0 ? $best_seller->Lecturers()[0]->user->name : "Courdemy");
                                 ?>
                                 @include(
                                     'components.course', 
-                                    [
+                                    [   
+                                        'id' => $best_seller->id,
                                         'slug' => $best_seller->slug,
                                         'image' => url('/frontend/images/'.$best_seller->image),
+                                        'rawImage' => $best_seller->image,                                 
                                         'title' => $best_seller->name,
                                         'author' => $lecturers,
                                         'star_count' => $best_seller->star_count,
@@ -54,9 +56,11 @@
                             ?>
                             @include(
                                 'components.course', 
-                                [
+                                [   
+                                    'id' => $new->id,
                                     'slug' => $new->slug,
                                     'image' => url('/frontend/images/'.$new->image),
+                                    'rawImage' => $new->image,                                 
                                     'title' => $new->name,
                                     'author' => $lecturers,
                                     'star_count' => $new->star_count,
@@ -84,8 +88,10 @@
                             @include(
                                 'components.course', 
                                 [
+                                    'id' => $feature->id,
                                     'slug' => $feature->slug,
                                     'image' => url('/frontend/images/'.$feature->image),
+                                    'rawImage' => $feature->image,                                 
                                     'title' => $feature->name,
                                     'author' => $lecturers,
                                     'star_count' => $feature->star_count,
