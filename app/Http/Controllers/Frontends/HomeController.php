@@ -112,9 +112,9 @@ class HomeController extends Controller
     {
         $user = User::find($id_teacher);
         $info_teacher = Teacher::find($id_teacher);
-        $feature_course = $user->userRolesTeacher()[0]->userCoursesByFeature();
-        $best_seller_course = $user->userRolesTeacher()[0]->userCoursesByTrendding();
-        $new_course = $user->userRolesTeacher()[0]->userCoursesByNew();
+        $feature_course = $user->userRolesTeacher()->userCoursesByFeature();
+        $best_seller_course = $user->userRolesTeacher()->userCoursesByTrendding();
+        $new_course = $user->userRolesTeacher()->userCoursesByNew();
         return view('frontends.detail-teacher', compact('info_teacher', 'feature_category', 'feature_course', 'best_seller_course', 'new_course'));
     }
 

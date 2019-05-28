@@ -117,6 +117,8 @@
                                                     <textarea class="form-control" rows="4" cols="50" name="address">{{ Auth::user()->address }}</textarea>
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="col-sm-12">
                                             <div class="form-group text-center" style="padding-top: 5px;">
                                                 <button class="btn btn-success" id="save-profile" type="button"><i class="fa fa-save"></i> Save</button>
                                             </div>

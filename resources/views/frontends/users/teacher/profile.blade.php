@@ -63,20 +63,6 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label>Expert</label>
-                                                <div class="form-group">
-                                                    <textarea class="form-control" rows="3" cols="50" name="cv">{{ Auth::user()->address }}</textarea>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>CV</label>
-                                                <div class="form-group">
-                                                    <textarea class="form-control" rows="4" cols="50" name="cv">{{ Auth::user()->address }}</textarea>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6">
-                                            <div class="form-group">
                                                 <label>Full name</label>
                                                 <div class="form-group">
                                                     <input type="text" id="muser-fullname" class="form-control" name="name" value="{{ Auth::user()->name }}">
@@ -101,7 +87,7 @@
                                                 <div class="form-group">
                                                     <input type="text" class="form-control"  id="datepicker" name="birthday"  pattern="\d{1,2}/\d{1,2}/\d{4}" value="{{ (Auth::user()->birthday != '') ? Helper::formatDate('Y-m-d', Auth::user()->birthday, 'd/m/Y') : '' }}" autocomplete="off">
                                                     <script>
-                                                      $(function() {
+                                                        $(function() {
                                                         $( "#datepicker" ).datepicker({
                                                                 changeMonth: true,
                                                                 changeYear: true,
@@ -110,7 +96,7 @@
                                                                 maxDate: new Date(),
                                                             }	
                                                         );
-                                                      });
+                                                        });
                                                     </script>
                                                 </div>
                                             </div>
@@ -129,6 +115,39 @@
                                                     <textarea class="form-control" rows="4" cols="50" name="address">{{ Auth::user()->address }}</textarea>
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6">
+                                            <div class="form-group">
+                                                <label>Expert</label>
+                                                <div class="form-group">
+                                                    <textarea class="form-control" rows="3" cols="50" name="expert">{{ Auth::user()->userRolesTeacher()->teacher->expert }}</textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>CV</label>
+                                                <div class="form-group">
+                                                    <script src="https://cdn.ckeditor.com/ckeditor5/12.1.0/classic/ckeditor.js"></script>
+                                                    <textarea id="editor-cv" class="form-control" rows="4" cols="50" name="cv">{!! Auth::user()->userRolesTeacher()->teacher->cv !!}</textarea>
+                                                    <script>
+                                                        ClassicEditor
+                                                            .create( document.querySelector( '#editor-cv' ) )
+                                                            .then( editor => {
+                                                                cv = editor;
+                                                            } )
+                                                            .catch( error => {
+                                                                console.error( error );
+                                                            } );
+                                                    </script>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Link Video intro</label>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" name="video-intro" value="{{ Auth::user()->userRolesTeacher()->teacher->video_intro }}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
                                             <div class="form-group text-center" style="padding-top: 5px;">
                                                 <button class="btn btn-success" id="save-profile" type="button"><i class="fa fa-save"></i> Save</button>
                                             </div>
@@ -253,6 +272,9 @@
                         birthday: $('input[name=birthday]').val().trim(),
                         gender: $('select[name=gender]').val(),
                         address: $('textarea[name=address]').val().trim(),
+                        expert: $('textarea[name=expert]').val().trim(),
+                        video_intro : $('input[name=video-intro]').val().trim(),
+                        cv : cv.getData(),
                     };
             } else {
                 var data = {
@@ -261,6 +283,9 @@
                         phone: $('input[name=phone]').val().trim(),
                         gender: $('select[name=gender]').val(),
                         address: $('textarea[name=address]').val().trim(),
+                        expert: $('textarea[name=expert]').val().trim(),
+                        video_intro : $('input[name=video-intro]').val().trim(),
+                        cv : cv.getData(),
                     };
             }
 
