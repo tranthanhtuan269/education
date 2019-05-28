@@ -6,6 +6,7 @@ use App\Helper\Helper;
 use App\Http\Controllers\Frontends\Requests\LoginUserRequest;
 use App\Http\Controllers\Frontends\Requests\RegisterUserRequest;
 use App\Http\Controllers\Frontends\Requests\UpdateProfileUserRequest;
+use App\Http\Controllers\Frontends\Requests\UpdateProfileTeacherRequest;
 use App\Http\Controllers\Frontends\Requests\ChangePassUserRequest;
 use App\User;
 use App\UserRole;
@@ -57,7 +58,7 @@ class UserController extends Controller
     public function courseStudent(Request $request)
     {
         $keyword = trim($request->get('u-keyword'));
-        $lifelong_course = Auth::user()->userRolesStudent()[0]->userLifelongCourse($keyword);
+        $lifelong_course = Auth::user()->userRolesStudent()->userLifelongCourse($keyword);
         // dd($lifelong_course);
         return view('frontends.users.student.course', compact('lifelong_course'));
     }
@@ -109,11 +110,10 @@ class UserController extends Controller
 
     public function profileTeacher()
     {
-        // dd(Auth::user()->userRolesTeacher()->teacher);
         return view('frontends.users.teacher.profile');
     }
 
-    public function updateProfileTeacher(UpdateProfileUserRequest $request)
+    public function updateProfileTeacher(UpdateProfileTeacherRequest $request)
     {
         if (Auth::check()) {
             $user = Auth::user();
@@ -147,6 +147,12 @@ class UserController extends Controller
 
             $user->save();
 
+            $teacher = Auth::user()->userRolesTeacher()->teacher;
+            $teacher->expert = $request->expert;
+            $teacher->cv = $request->cv;
+            $teacher->video_intro = $request->video_intro;
+            $teacher->save();
+
             return \Response::json(['message' => 'Change profile success!', 'status' => 200]);
         }
 
@@ -156,7 +162,7 @@ class UserController extends Controller
     public function courseTeacher(Request $request)
     {
         $keyword = trim($request->get('u-keyword'));
-        $lifelong_course = Auth::user()->userRolesTeacher()[0]->userLifelongCourse($keyword);
+        $lifelong_course = Auth::user()->userRolesTeacher()->userLifelongCourse($keyword);
         return view('frontends.users.teacher.course', compact('lifelong_course'));
     }
 
