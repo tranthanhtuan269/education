@@ -11,8 +11,8 @@ use App\Http\Controllers\Frontends\Requests\ChangePassUserRequest;
 use App\User;
 use App\UserRole;
 use App\UserMailLog;
-use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -20,7 +20,6 @@ class UserController extends Controller
     {
         $email = $request->email;
         $password = $request->password;
-
         if (Auth::attempt(['email' => $email, 'password' => $password], $request->get('remember'))) {
             // auth()->logoutOtherDevices($request->password);
             return response()->json(['message' => 'Your account has been created!', 'status' => 200]);
@@ -51,7 +50,7 @@ class UserController extends Controller
         $user_role->role_id = \Config::get('app.student'); 
         $user_role->save();
 
-        Auth::login($user, true);
+        Auth::login($user);
         return response()->json(['message' => 'Your account has been created!', 'status' => 200]);
     }
 
@@ -110,6 +109,7 @@ class UserController extends Controller
 
     public function profileTeacher()
     {
+        // dd(Auth::user()->userRolesTeacher()->teacher);
         return view('frontends.users.teacher.profile');
     }
 
@@ -179,7 +179,7 @@ class UserController extends Controller
             $user = Auth::user();
             $user->password = bcrypt($request->password);
             $user->save();
-            Auth::login($user, true);
+            Auth::login($user);
             return \Response::json(['message' => 'You have changed the password to success!', 'status' => 200]);
         }
 
