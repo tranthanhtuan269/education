@@ -9,7 +9,7 @@
                                 <div class="ads-teacher">
                                     <p>BECOME</p>
                                     <h2>COURDEMY'S <br> TEACHER</h2>
-                                    <a href="{{ url('coming-soon') }}" title="Register Teacher">REGISTER NOW</a>
+                                    <a href="{{ Auth::check() ? url('user/register-teacher') : 'javascript:void(0)' }}" title="Register Teacher" {{ Auth::check() ? '' : ' data-toggle=modal data-target=#myModalLogin data-dismiss=modal id=redirect_register_teacher' }}>REGISTER NOW</a>
                                 </div>
                             </div>
                         </div>
@@ -35,7 +35,7 @@
                     <p id="txt-format">Member Card</p>
                     <p class="des-member-card">Learning can happen anywhere with our apps on your computer, mobile device, and TV, featuring enhanced navigation and faster streaming for anytime learning.</p>
                     <div class="btn-register">
-                        <a href="{{ route('member-card') }}" title="Register Member">Register Now</a>
+                        <a href="{{ url('member-card') }}" title="Register Member">Register Now</a>
                     </div>
                 </div>
             </div>

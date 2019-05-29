@@ -396,64 +396,7 @@
                                         </div>
                                     </div>
                                 </ul>
-                                <div id="myModalLogin" class="modal fade" role="dialog" >
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">				
-                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                <h4 class="modal-title">Login</h4>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form action="/examples/actions/confirmation.php" method="post">
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control" placeholder="Email" name="email">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input type="password" class="form-control" placeholder="Password" name="pass">					
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input type="checkbox" name="remember"> Keep my logged in on this computer
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input type="button" class="btn btn-primary btn-block btn-lg" value="Login" onclick="loginAjax()">
-                                                    </div>
-                                                </form>				
-                                            </div>
-                                            <div class="modal-footer">
-                                                <a href="javascript:void(0)" data-toggle="modal" data-target="#myModalRegister" data-dismiss="modal">Need an account</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="myModalRegister" class="modal fade" role="dialog" >
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">				
-                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                <h4 class="modal-title">Register</h4>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form action="/examples/actions/confirmation.php" method="post">
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control" placeholder="Username" name="name">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control" placeholder="Email" name="email">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input type="password" class="form-control" placeholder="Password" name="pass">					
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input type="password" class="form-control" placeholder="Confirm password" name="confirmpass">					
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input type="button" class="btn btn-primary btn-block btn-lg" value="Create Account" onclick="registerAjax()">
-                                                    </div>
-                                                </form>				
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+
                                 @endif
                             </div>
                         </div>
@@ -469,7 +412,75 @@
     <script src="{{ asset('frontend/js/bootstrap.offcanvas.js') }}"></script>
     <script src="{{ asset('frontend/js/sidenav.min.js') }}"></script>
     <script src="{{ asset('frontend/js/amazonmenu.js') }}"></script>
+
+    @yield('content')
+
+    {{-- Begin Footer --}}
+    <footer>
+        <div class="item-1">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-8 col-xs-12">
+                        <div class="row">
+                            <div class="col-md-7 col-xs-8">
+                                <div class="img-logo">
+                                    <img src="{{ asset('frontend/images/footer_logo.png') }}">    
+                                </div>
+                            </div>
+                            <div class="col-sm-12">                           
+                                <div class="row">
+                                    <div class="col-sm-4 col-xs-6">
+                                        <p><a href="javascript:void(0)" title="Business">Business</a></p>
+                                        <p><a href="javascript:void(0)" title="Certificates">Certificates</a></p>
+                                        <p><a href="javascript:void(0)" title="Beta Testers">Beta Testers</a></p>
+                                    </div>
+                                    <div class="col-sm-4 col-xs-6">
+                                        <p><a href="javascript:void(0)" title="Business">Business</a></p>
+                                        <p><a href="javascript:void(0)" title="Certificates">Certificates</a></p>
+                                        <p><a href="javascript:void(0)" title="Beta Testers">Beta Testers</a></p>
+                                    </div>
+                                    <div class="col-sm-4 col-xs-6">
+                                        <p><a href="javascript:void(0)" title="Business">Business</a></p>
+                                        <p><a href="javascript:void(0)" title="Certificates">Certificates</a></p>
+                                        <p><a href="javascript:void(0)" title="Beta Testers">Beta Testers</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 hidden-xs">
+                        <div class="img-fanpage">
+                            <img src="{{ asset('frontend/images/fanpage.png') }}" alt="fanpage" id="img-fanpage" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="item-2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <ul class="pull-left">
+                            <li><a href="javascript:void(0)" title="home">Home</a></li>
+                            <li><a href="javascript:void(0)" title="private policy">Private Policy</a></li>
+                            <li><a href="javascript:void(0)" title="cookie policy">Cookie Policy</a></li>
+                            <li><a href="javascript:void(0)" title="job post">Job Post</a></li>
+                        </ul>
+                        <span class="pull-right copyright">Copyright &copy; 2019 by courdemy.com. All rights servered!</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
     <script>
+        $(window).scroll(function(event){
+            if ($(this).scrollTop() > 0){
+                $('.unica-home-menutop').addClass('fixed');
+            } else {
+                $('.unica-home-menutop').removeClass('fixed');
+            }
+        });
 
         jQuery(function () {
             amazonmenu.init({
@@ -516,7 +527,12 @@
                 $('#myModalLogin').modal('show');
             });
         @endif
-        
+
+        $("#redirect_register_teacher").click(function(){
+            localStorage.setItem('redirect_register_teacher', 1);  
+            // alert(localStorage.getItem('redirect_register_teacher'));
+        });
+
         $('#myModalLogin input[name=email],#myModalLogin input[name=pass],#myModalLogin input[name=remember]').keypress(function(event){
             var keycode = (event.keyCode ? event.keyCode : event.which);
             if(keycode == '13'){
@@ -622,7 +638,13 @@
 
                         }).then((result) => {
                             if (result.value) {
-                                location.reload();
+                                var check_redirect_register_teacher = localStorage.getItem('redirect_register_teacher');
+                                if (check_redirect_register_teacher == 1) {
+                                    localStorage.setItem('redirect_register_teacher', false); 
+                                    window.location.href = "{{ url('user/register-teacher') }}";
+                                } else {
+                                    location.reload();
+                                }
                             }
                         });
                     }else{
@@ -632,8 +654,7 @@
                         })
                     }
                 },
-                error: function (error) {
-                
+                error: function (error) {             
                     var obj_errors = error.responseJSON.errors;
                     // console.log(obj_errors)
                     var txt_errors = '';
@@ -657,64 +678,5 @@
             return arr;
         }
     </script>
-    @yield('content')
-
-    {{-- Begin Footer --}}
-    <footer>
-        <div class="item-1">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-8 col-xs-12">
-                        <div class="row">
-                            <div class="col-md-7 col-xs-8">
-                                <div class="img-logo">
-                                    <img src="{{ asset('frontend/images/footer_logo.png') }}">    
-                                </div>
-                            </div>
-                            <div class="col-sm-12">                           
-                                <div class="row">
-                                    <div class="col-sm-4 col-xs-6">
-                                        <p><a href="javascript:void(0)" title="Business">Business</a></p>
-                                        <p><a href="javascript:void(0)" title="Certificates">Certificates</a></p>
-                                        <p><a href="javascript:void(0)" title="Beta Testers">Beta Testers</a></p>
-                                    </div>
-                                    <div class="col-sm-4 col-xs-6">
-                                        <p><a href="javascript:void(0)" title="Business">Business</a></p>
-                                        <p><a href="javascript:void(0)" title="Certificates">Certificates</a></p>
-                                        <p><a href="javascript:void(0)" title="Beta Testers">Beta Testers</a></p>
-                                    </div>
-                                    <div class="col-sm-4 col-xs-6">
-                                        <p><a href="javascript:void(0)" title="Business">Business</a></p>
-                                        <p><a href="javascript:void(0)" title="Certificates">Certificates</a></p>
-                                        <p><a href="javascript:void(0)" title="Beta Testers">Beta Testers</a></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4 hidden-xs">
-                        <div class="img-fanpage">
-                            <img src="{{ asset('frontend/images/fanpage.png') }}" alt="fanpage" id="img-fanpage" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="item-2">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <ul class="pull-left">
-                            <li><a href="javascript:void(0)" title="home">Home</a></li>
-                            <li><a href="javascript:void(0)" title="private policy">Private Policy</a></li>
-                            <li><a href="javascript:void(0)" title="cookie policy">Cookie Policy</a></li>
-                            <li><a href="javascript:void(0)" title="job post">Job Post</a></li>
-                        </ul>
-                        <span class="pull-right copyright">Copyright &copy; 2019 by courdemy.com. All rights servered!</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
 </body>
 </html>

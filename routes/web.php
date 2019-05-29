@@ -139,7 +139,11 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('profile', 'Frontends\UserController@profileTeacher'); 
             Route::post('profile', 'Frontends\UserController@updateProfileTeacher');
         });
+
+        Route::get('register-teacher', 'Frontends\UserController@registerTeacher'); 
+        Route::post('register-teacher', 'Frontends\UserController@insertRegisterTeacher'); 
     });
 
     Route::post('upload-image', 'Frontends\UserController@uploadImage');
 });
+

@@ -3,14 +3,15 @@
 namespace App\Http\Controllers\Frontends;
 
 use App\Helper\Helper;
+use App\Http\Controllers\Frontends\Requests\ChangePassUserRequest;
 use App\Http\Controllers\Frontends\Requests\LoginUserRequest;
 use App\Http\Controllers\Frontends\Requests\RegisterUserRequest;
-use App\Http\Controllers\Frontends\Requests\UpdateProfileUserRequest;
 use App\Http\Controllers\Frontends\Requests\UpdateProfileTeacherRequest;
-use App\Http\Controllers\Frontends\Requests\ChangePassUserRequest;
+use App\Http\Controllers\Frontends\Requests\UpdateProfileUserRequest;
+use App\Http\Controllers\Frontends\Requests\InsertTeacherRequest;
 use App\User;
+use App\Teacher;
 use App\UserRole;
-use App\UserMailLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -47,7 +48,7 @@ class UserController extends Controller
 
         $user_role = new UserRole();
         $user_role->user_id = $user->id;
-        $user_role->role_id = \Config::get('app.student'); 
+        $user_role->role_id = \Config::get('app.student');
         $user_role->save();
 
         Auth::login($user);
@@ -157,6 +158,63 @@ class UserController extends Controller
         }
 
         return \Response::json(['message' => 'Change profile unsuccess!', 'status' => 404]);
+    }
+
+    public function registerTeacher()
+    {
+        return view('frontends.users.teacher.register');
+    }
+    
+    public function insertRegisterTeacher(InsertTeacherRequest $request)
+    {
+        if (Auth::check()) {
+            $user = Auth::user();
+            $user->name = $request->name;
+            $user->phone = $request->phone;
+            $user->gender = $request->gender;
+            $user->address = $request->address;
+
+            if (isset($request->birthday)) {
+                $user->birthday = Helper::formatDate('d/m/Y', $request->birthday, 'Y-m-d');
+            } else {
+                $user->birthday = null;
+            }
+
+            if ($request->link_base64 != '') {
+                // Xóa avatar cũ nếu có
+                if (Auth::user()->avatar && strlen(Auth::user()->avatar) > 0) {
+                    if (file_exists(public_path('frontend/' . Auth::user()->avatar))) {
+                        unlink(public_path('frontend/' . Auth::user()->avatar));
+                    }
+                }
+
+                $img_file = $request->link_base64;
+                list($type, $img_file) = explode(';', $img_file);
+                list(, $img_file) = explode(',', $img_file);
+                $img_file = base64_decode($img_file);
+                $file_name = time() . '.png';
+                file_put_contents(public_path('/frontend/images/') . $file_name, $img_file);
+                $user->avatar = 'images/' . $file_name;
+            }
+
+            $user->save();
+
+            $user_role = new UserRole;
+            $user_role->user_id =  $user->id;
+            $user_role->role_id = \Config::get('app.teacher');
+            $user_role->save();
+
+            $teacher = new Teacher;
+            $teacher->user_role_id =  $user_role->id;
+            $teacher->expert = $request->expert;
+            $teacher->cv = $request->cv;
+            $teacher->video_intro = $request->video_intro;
+            $teacher->save();
+
+            return \Response::json(['message' => 'Register teacher success!', 'status' => 200]);
+        }
+
+        return \Response::json(['message' => 'Register teacher unsuccess!', 'status' => 404]);
     }
 
     public function courseTeacher(Request $request)

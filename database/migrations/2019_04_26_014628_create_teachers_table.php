@@ -24,6 +24,7 @@ class CreateTeachersTable extends Migration
             $table->integer('student_count')->default(0);
             $table->integer('course_count')->default(0);
             $table->string('video_intro', 255)->nullable();
+            $table->tinyInteger('status')->default(0);
             $table->timestamps();
         });
     }
