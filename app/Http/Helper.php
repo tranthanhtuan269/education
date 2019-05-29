@@ -21,7 +21,7 @@ class Helper {
 		return $sec_min;
 	}
 
-	public static function createSecurityTokenForVideoLink($user_id, $video_id){
+	public static function createSecurityTokenForVideoLink($user_id, $video_id, $video_url){
 		$wowza_serverip = "http://45.56.82.249"; // your ip/host 
         $courdemysecure = 'courdemysecure'; 
 		$courdemysecurestarttime = 0;
@@ -31,7 +31,7 @@ class Helper {
 		$courdemysecureCustomHash = hash('sha256', $user_id*$video_id, true);
 		$courdemysecureCustomHash = strtr(base64_encode($courdemysecureCustomHash), '+/', '-_'); 
 		
-		$content_path = "vod/_definst_/killthislove1080.mp4";
+		$content_path = $video_url;
 		$secret = "zz725f4728cca67282";
 
 
