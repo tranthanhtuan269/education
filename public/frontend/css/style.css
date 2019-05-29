@@ -195,7 +195,7 @@ ul.unica-acc-zone li.special:hover a{color:#fff}
 .amazonmenu > ul li.hassub.selected > a::after{border-left-color:#f58829}
 .amazonmenu ul li a:hover,.amazonmenu ul li.hassub.selected > a{background:#f7f8fa;color:#0975b4}
 .amazonmenu ul li > div,.amazonmenu ul li > ul{background:#f7f8fa;border:1px solid #eee;box-shadow:1px 1px 1px #ccc;display:none;font-weight:400;width:305px;left:100%;padding:0 10px;position:absolute;top:-1px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;z-index:999}
-.unica-active-course p{display:inline;padding-right:6px}
+.unica-active-course p{display:inline;padding-right:6px;color:#fff;}
 .feature-website{padding:20px 0}
 .feature-website .course-feature{text-align:center;margin:40px 0 30px;font-size:20px}
 .feature-website .course-feature p{font-size:15px}

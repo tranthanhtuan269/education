@@ -296,26 +296,27 @@
                         <div class="col-lg-4 col-md-4 col-sm-4 cate-sm">
                             <?php //echo $check_course_of_the_user;die; ?>
                             <div class="pull-right">
-                                @if(Auth::check())
-                                <ul class="db-item">
-                                    {{-- BaTV - kiểm tra xem user có học khóa học nào không --}}
-                                    {{-- @if ($check_course_of_the_user >= 1)  --}}
+                                <ul class="unica-acc-zone db-item">
+                                    @if(Auth::check())
                                     <li><a href="{{ url('user/student/course') }}" class="unica-active-course"><p class="hidden-md hidden-xs hidden-sm">Start Learning</p></a></li>
-                                    {{-- @endif --}}
+                                    </li>
+                                    @endif
                                     <li class="mgtOp">
                                         <a href="{{route('cart.show')}}" class="unica-cart">
-                                        <img src="{{ asset('frontend/images/tab_cart.png') }}" alt="" style="width: 21px;" />
-                                        <span class="unica-sl-cart"><b class="number-in-cart">0</b></span>
-                                    </a>
-                                    </li class="mgtOp">
+
+                                            <img src="{{ asset('frontend/images/tab_cart.png') }}" alt="" style="width: 21px;" />
+                                            <span class="unica-sl-cart"><b class="number-in-cart">0</b></span>
+                                        </a>
                                     <li>
+
+                                    @if(Auth::check())
+                                    <li class="mgtOp">
                                         <a href="{{route('cart.show')}}" class="unica-cart">
                                             <img src="{{ asset('frontend/images/tab_notifications.png') }}" alt="" style="width: 21px;" />
                                             <span class="unica-sl-notify"><b>0</b></span>
                                         </a>
                                     </li>
                                     <li class="btn-group mgtOp">
-
                                         <a class="db-item-circle dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)"><img class="img-responsive" src="{{ asset('frontend/'.(Auth::user()->avatar != '' ? Auth::user()->avatar : 'images/avatar.jpg')) }}" alt="avatar"><span class="caret"></span></a>
                                         <ul class="dropdown-menu db-drop">
                                             @if ($check_multi_role_user == 2)
@@ -332,9 +333,7 @@
                                             <li><a href="{{ url('user/logout') }}" class="btnDangxuat"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
                                         </ul>
                                     </li>
-                                </ul>
-                                @else
-                                <ul class="unica-acc-zone">
+                                    @else
                                     <li class="special" data-toggle="modal" data-target="#myModalLogin" data-dismiss="modal"><a class="unica-log-acc" href="javascript:void(0)" >Login</a></li>
                                     <li class="special" data-toggle="modal" data-target="#myModalRegister" data-dismiss="modal"><a class="unica-reg-acc" href="javascript:void(0)">Sign Up</a></li>
                                     <div id="myModalLogin" class="modal fade" role="dialog" >
@@ -385,7 +384,7 @@
                                                             <input type="password" class="form-control" placeholder="Password" name="pass">					
                                                         </div>
                                                         <div class="form-group">
-                                                            <input type="password" class="form-control" placeholder="ConfirmPassword" name="confirmpass">					
+                                                            <input type="password" class="form-control" placeholder="Confirm Password" name="confirmpass">					
                                                         </div>
                                                         <div class="form-group">
                                                             <input type="button" class="btn btn-primary btn-block btn-lg" value="Create Account" onclick="registerAjax()">
@@ -395,9 +394,9 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @endif
                                 </ul>
 
-                                @endif
                             </div>
                         </div>
                     </div>
@@ -678,5 +677,6 @@
             return arr;
         }
     </script>
+    <script src="{{ asset('frontend/js/function.js') }}"></script>
 </body>
 </html>
