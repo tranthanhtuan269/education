@@ -36,16 +36,16 @@ class UsersTableSeeder extends Seeder
 		$userRole->save();
 
 		// add role teacher
-		$userRole2 = new UserRole;
-		$userRole2->user_id = $user->id;
-		$userRole2->role_id = 2;
-		$userRole2->save();
+		// $userRole2 = new UserRole;
+		// $userRole2->user_id = $user->id;
+		// $userRole2->role_id = 2;
+		// $userRole2->save();
 
-		// add role student
-		$userRole2 = new UserRole;
-		$userRole2->user_id = $user->id;
-		$userRole2->role_id = 3;
-		$userRole2->save();
+		// // add role student
+		// $userRole2 = new UserRole;
+		// $userRole2->user_id = $user->id;
+		// $userRole2->role_id = 3;
+		// $userRole2->save();
 
     	$ho = ["Tran", "Le", "Nguyen", "Pham", "Dang"];
     	$lot = ["", "Thi", "Thanh", "Tuyet", "Ngoc"];

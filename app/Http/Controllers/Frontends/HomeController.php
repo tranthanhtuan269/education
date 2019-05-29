@@ -58,7 +58,7 @@ class HomeController extends Controller
         $best_seller_course = Course::getCourseNotLearning()->orderBy('sale_count', 'desc')->limit(8)->get();
         $new_course = Course::getCourseNotLearning()->orderBy('id', 'desc')->limit(8)->get();
         $popular_teacher = Teacher::getTeacherBestVote();
-
+        //dd($popular_teacher->userRole);
         return view('frontends.home', compact('feature_category', 'feature_course', 'best_seller_course', 'new_course', 'popular_teacher'));
     }
 
@@ -111,7 +111,7 @@ class HomeController extends Controller
     public function showTeacher($id_teacher)
     {
         $user = User::find($id_teacher);
-        $info_teacher = Teacher::find($id_teacher);
+        $info_teacher = $user->userRolesTeacher()->teacher;
         $feature_course = $user->userRolesTeacher()->userCoursesByFeature();
         $best_seller_course = $user->userRolesTeacher()->userCoursesByTrendding();
         $new_course = $user->userRolesTeacher()->userCoursesByNew();

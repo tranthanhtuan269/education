@@ -120,14 +120,16 @@
                                             <div class="form-group">
                                                 <label>Expert</label>
                                                 <div class="form-group">
-                                                    <textarea class="form-control" rows="3" cols="50" name="expert">{{ Auth::user()->userRolesTeacher()->teacher->expert }}</textarea>
+                                                    <textarea class="form-control" rows="3" cols="50" name="expert">@if(Auth::user()->userRolesTeacher()->teacher){{ Auth::user()->userRolesTeacher()->teacher->expert }}@endif
+                                                    </textarea>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label>CV</label>
                                                 <div class="form-group">
                                                     <script src="https://cdn.ckeditor.com/ckeditor5/12.1.0/classic/ckeditor.js"></script>
-                                                    <textarea id="editor-cv" class="form-control" rows="4" cols="50" name="cv">{!! Auth::user()->userRolesTeacher()->teacher->cv !!}</textarea>
+                                                    <textarea id="editor-cv" class="form-control" rows="4" cols="50" name="cv">@if (Auth::user()->userRolesTeacher()->teacher) {!! Auth::user()->userRolesTeacher()->teacher->cv !!} @endif
+                                                    </textarea>
                                                     <script>
                                                         ClassicEditor
                                                             .create( document.querySelector( '#editor-cv' ) )
@@ -143,7 +145,7 @@
                                             <div class="form-group">
                                                 <label>Link Video intro</label>
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control" name="video-intro" value="{{ Auth::user()->userRolesTeacher()->teacher->video_intro }}">
+                                                    <input type="text" class="form-control" name="video-intro" value=" @if (Auth::user()->userRolesTeacher()->teacher) {{ Auth::user()->userRolesTeacher()->teacher->video_intro }} @endif ">
                                                 </div>
                                             </div>
                                         </div>

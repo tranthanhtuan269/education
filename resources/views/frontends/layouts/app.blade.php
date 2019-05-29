@@ -323,10 +323,10 @@
                                                 <li><a href="{{ url('user/student/course') }}"><i class="fas fa-user-graduate"></i> Student</a></li>
                                             @else
                                                 <li><a href="{{ url('user/student/course') }}"><i class="fa fa-list-alt" aria-hidden="true"></i> Start Learning</a></li>
-                                                <li><a href="{{ route('coming-soon') }}"><i class="fa fa-share-alt" aria-hidden="true"></i> Affiliate</a></li>
-                                                <li><a href="{{ route('coming-soon') }}"><i class="fa fa-key" aria-hidden="true"></i> Activate course</a></li>
+                                                {{-- <li><a href="{{ route('coming-soon') }}"><i class="fa fa-share-alt" aria-hidden="true"></i> Affiliate</a></li> --}}
+                                                {{-- <li><a href="{{ route('coming-soon') }}"><i class="fa fa-key" aria-hidden="true"></i> Activate course</a></li> --}}
                                                 <li><a href="{{ url('user/student/profile') }}"><i class="fa fa-user" aria-hidden="true"></i> Profile </a></li>
-                                                <li><a href="{{ route('coming-soon') }}"><i class="fa fa-credit-card" aria-hidden="true"></i>  Recharge </a></li>
+                                                <li><a href="{{ url('member-card') }}"><i class="fa fa-credit-card" aria-hidden="true"></i>  Recharge </a></li>
                                             @endif
                                             <li class="divider"></li>
                                             <li><a href="{{ url('user/logout') }}" class="btnDangxuat"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
