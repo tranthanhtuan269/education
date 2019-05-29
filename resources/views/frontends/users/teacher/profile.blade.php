@@ -258,6 +258,15 @@
         });
 
         $("#save-profile").click(function(){
+			// Validate Birthday
+			if (!validationDate( $('#datepicker').val() )) {
+                Swal.fire({
+                    type: 'error',
+                    html: 'Field birthday is invalid!',
+                })
+				return false;
+			}
+
             $.ajaxSetup(
             {
                 headers:

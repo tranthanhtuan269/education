@@ -169,49 +169,54 @@ class UserController extends Controller
     {
         if (Auth::check()) {
             $user = Auth::user();
-            $user->name = $request->name;
-            $user->phone = $request->phone;
-            $user->gender = $request->gender;
-            $user->address = $request->address;
-
-            if (isset($request->birthday)) {
-                $user->birthday = Helper::formatDate('d/m/Y', $request->birthday, 'Y-m-d');
-            } else {
-                $user->birthday = null;
-            }
-
-            if ($request->link_base64 != '') {
-                // Xóa avatar cũ nếu có
-                if (Auth::user()->avatar && strlen(Auth::user()->avatar) > 0) {
-                    if (file_exists(public_path('frontend/' . Auth::user()->avatar))) {
-                        unlink(public_path('frontend/' . Auth::user()->avatar));
-                    }
+            $check_isset_teacher = UserRole::where('user_id', $user->id)->where('role_id', \Config::get('teacher'))->count();
+            if ($check_isset_teacher >= 1) {
+                $user->name = $request->name;
+                $user->phone = $request->phone;
+                $user->gender = $request->gender;
+                $user->address = $request->address;
+    
+                if (isset($request->birthday)) {
+                    $user->birthday = Helper::formatDate('d/m/Y', $request->birthday, 'Y-m-d');
+                } else {
+                    $user->birthday = null;
                 }
-
-                $img_file = $request->link_base64;
-                list($type, $img_file) = explode(';', $img_file);
-                list(, $img_file) = explode(',', $img_file);
-                $img_file = base64_decode($img_file);
-                $file_name = time() . '.png';
-                file_put_contents(public_path('/frontend/images/') . $file_name, $img_file);
-                $user->avatar = 'images/' . $file_name;
+    
+                if ($request->link_base64 != '') {
+                    // Xóa avatar cũ nếu có
+                    if (Auth::user()->avatar && strlen(Auth::user()->avatar) > 0) {
+                        if (file_exists(public_path('frontend/' . Auth::user()->avatar))) {
+                            unlink(public_path('frontend/' . Auth::user()->avatar));
+                        }
+                    }
+    
+                    $img_file = $request->link_base64;
+                    list($type, $img_file) = explode(';', $img_file);
+                    list(, $img_file) = explode(',', $img_file);
+                    $img_file = base64_decode($img_file);
+                    $file_name = time() . '.png';
+                    file_put_contents(public_path('/frontend/images/') . $file_name, $img_file);
+                    $user->avatar = 'images/' . $file_name;
+                }
+    
+                $user->save();
+    
+                $user_role = new UserRole;
+                $user_role->user_id =  $user->id;
+                $user_role->role_id = \Config::get('app.teacher');
+                $user_role->save();
+    
+                $teacher = new Teacher;
+                $teacher->user_role_id =  $user_role->id;
+                $teacher->expert = $request->expert;
+                $teacher->cv = $request->cv;
+                $teacher->video_intro = $request->video_intro;
+                $teacher->save();
+    
+                return \Response::json(['message' => 'Register teacher success!', 'status' => 200]);
             }
 
-            $user->save();
-
-            $user_role = new UserRole;
-            $user_role->user_id =  $user->id;
-            $user_role->role_id = \Config::get('app.teacher');
-            $user_role->save();
-
-            $teacher = new Teacher;
-            $teacher->user_role_id =  $user_role->id;
-            $teacher->expert = $request->expert;
-            $teacher->cv = $request->cv;
-            $teacher->video_intro = $request->video_intro;
-            $teacher->save();
-
-            return \Response::json(['message' => 'Register teacher success!', 'status' => 200]);
+            return \Response::json(['message' => 'You are registered as a teacher!', 'status' => 404]);
         }
 
         return \Response::json(['message' => 'Register teacher unsuccess!', 'status' => 404]);
