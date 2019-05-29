@@ -112,6 +112,7 @@
 
         $(".checkout-column .current-price").append("<span>"+number_format(totalPrice, 0, '.', '.')+" ₫</span>")
         $(".checkout-column .initial-price").append("<span>"+number_format(totalInitialPrice, 0, '.', '.')+" ₫</span>")
+        
         $(".checkout-column .percent-off").append("<span>"+Math.floor(100-(totalPrice/totalInitialPrice)*100)+"% off</span>")
 
         $('.btn-remove i').on('click', function(e){
@@ -141,14 +142,18 @@
                     $(".checkout-column .initial-price span").remove()
                     $(".checkout-column .initial-price").append("<span>"+number_format(totalInitialPrice, 0, '.', '.')+" ₫</span>")
                     $(".checkout-column .percent-off span").remove()
-                    $(".checkout-column .percent-off").append("<span>"+Math.floor(100-(totalPrice/totalInitialPrice)*100)+"% off</span>")
-
+                    if(cart_items.length == 0){
+                        $(".checkout-column .percent-off").append("<span>0% off</span>")
+                    }else{
+                        $(".checkout-column .percent-off").append("<span>"+Math.floor(100-(totalPrice/totalInitialPrice)*100)+"% off</span>")
+                    }
                     $(".cart-pre-info .course-amount").html("")
                     $(".cart-pre-info .course-amount").prepend(cart_items.length)
 
 
                     localStorage.setItem('cart', JSON.stringify(cart_items))
                     console.log(cart_items)
+                    $('.number-in-cart').text(cart_items.length);
                     
                 }
             })
