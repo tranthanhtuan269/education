@@ -45,8 +45,10 @@
                                     @include(
                                         'components.course', 
                                         [
+                                            'id' => $course->id,
                                             'slug' => $course->slug,
                                             'image' => url('/frontend/images/'.$course->image),
+                                            'rawImage' => $course->image,
                                             'title' => $course->name,
                                             'author' => $lecturers,
                                             'star_count' => $course->star_count,

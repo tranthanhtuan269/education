@@ -23,7 +23,7 @@ class UserCourseTableSeeder extends Seeder
         
         
         for ($j = 0; $j < 12 ; $j++) { 
-            $randomValue = mt_rand(1,21);
+            $randomValue = mt_rand(3,21);
             $even = $randomValue & ~1;
             $odd = $randomValue | 1;
 
