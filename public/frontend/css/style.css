@@ -65,8 +65,10 @@ nav .pagination li a img{width:35px;position:relative;top:-6px}
 .percent.percent_8:AFTER{width:80%}
 .percent.percent_9:AFTER{width:90%}
 .percent.percent_0:AFTER{width:100%}
-.sm-mobile-menu,.unica-home-menutop{top:0;z-index:2000;width:100%;background:#fff}
-
+.sm-mobile-menu,.unica-home-menutop{top:0;z-index:2000;width:100%;background:#fff;}
+.unica-home-menutop.fixed{
+  position : fixed;
+}
 .box-course a.course-box-slider{.display:inline-block;color:#333;background:#fff;border-radius:10px}
 .box-course a.btn-start-learning {
     margin-top: 12px;

@@ -468,8 +468,76 @@
     <script src="{{ asset('frontend/js/bootstrap.offcanvas.js') }}"></script>
     <script src="{{ asset('frontend/js/sidenav.min.js') }}"></script>
     <script src="{{ asset('frontend/js/amazonmenu.js') }}"></script>
-    <script>
 
+    @yield('content')
+
+    {{-- Begin Footer --}}
+    <footer>
+        <div class="item-1">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-8 col-xs-12">
+                        <div class="row">
+                            <div class="col-md-7 col-xs-8">
+                                <div class="img-logo">
+                                    <img src="{{ asset('frontend/images/footer_logo.png') }}">    
+                                </div>
+                            </div>
+                            <div class="col-sm-12">                           
+                                <div class="row">
+                                    <div class="col-sm-4 col-xs-6">
+                                        <p><a href="javascript:void(0)" title="Business">Business</a></p>
+                                        <p><a href="javascript:void(0)" title="Certificates">Certificates</a></p>
+                                        <p><a href="javascript:void(0)" title="Beta Testers">Beta Testers</a></p>
+                                    </div>
+                                    <div class="col-sm-4 col-xs-6">
+                                        <p><a href="javascript:void(0)" title="Business">Business</a></p>
+                                        <p><a href="javascript:void(0)" title="Certificates">Certificates</a></p>
+                                        <p><a href="javascript:void(0)" title="Beta Testers">Beta Testers</a></p>
+                                    </div>
+                                    <div class="col-sm-4 col-xs-6">
+                                        <p><a href="javascript:void(0)" title="Business">Business</a></p>
+                                        <p><a href="javascript:void(0)" title="Certificates">Certificates</a></p>
+                                        <p><a href="javascript:void(0)" title="Beta Testers">Beta Testers</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 hidden-xs">
+                        <div class="img-fanpage">
+                            <img src="{{ asset('frontend/images/fanpage.png') }}" alt="fanpage" id="img-fanpage" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="item-2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <ul class="pull-left">
+                            <li><a href="javascript:void(0)" title="home">Home</a></li>
+                            <li><a href="javascript:void(0)" title="private policy">Private Policy</a></li>
+                            <li><a href="javascript:void(0)" title="cookie policy">Cookie Policy</a></li>
+                            <li><a href="javascript:void(0)" title="job post">Job Post</a></li>
+                        </ul>
+                        <span class="pull-right copyright">Copyright &copy; 2019 by courdemy.com. All rights servered!</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script>
+        $(window).scroll(function(event){
+            if ($(this).scrollTop() > 0){
+                $('.unica-home-menutop').addClass('fixed');
+            } else {
+                $('.unica-home-menutop').removeClass('fixed');
+            }
+
+        });
+        
         jQuery(function () {
             amazonmenu.init({
                 menuid: 'mysidebarmenu'
@@ -615,64 +683,5 @@
             return false;
         } 
     </script>
-    @yield('content')
-
-    {{-- Begin Footer --}}
-    <footer>
-        <div class="item-1">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-8 col-xs-12">
-                        <div class="row">
-                            <div class="col-md-7 col-xs-8">
-                                <div class="img-logo">
-                                    <img src="{{ asset('frontend/images/footer_logo.png') }}">    
-                                </div>
-                            </div>
-                            <div class="col-sm-12">                           
-                                <div class="row">
-                                    <div class="col-sm-4 col-xs-6">
-                                        <p><a href="javascript:void(0)" title="Business">Business</a></p>
-                                        <p><a href="javascript:void(0)" title="Certificates">Certificates</a></p>
-                                        <p><a href="javascript:void(0)" title="Beta Testers">Beta Testers</a></p>
-                                    </div>
-                                    <div class="col-sm-4 col-xs-6">
-                                        <p><a href="javascript:void(0)" title="Business">Business</a></p>
-                                        <p><a href="javascript:void(0)" title="Certificates">Certificates</a></p>
-                                        <p><a href="javascript:void(0)" title="Beta Testers">Beta Testers</a></p>
-                                    </div>
-                                    <div class="col-sm-4 col-xs-6">
-                                        <p><a href="javascript:void(0)" title="Business">Business</a></p>
-                                        <p><a href="javascript:void(0)" title="Certificates">Certificates</a></p>
-                                        <p><a href="javascript:void(0)" title="Beta Testers">Beta Testers</a></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4 hidden-xs">
-                        <div class="img-fanpage">
-                            <img src="{{ asset('frontend/images/fanpage.png') }}" alt="fanpage" id="img-fanpage" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="item-2">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <ul class="pull-left">
-                            <li><a href="javascript:void(0)" title="home">Home</a></li>
-                            <li><a href="javascript:void(0)" title="private policy">Private Policy</a></li>
-                            <li><a href="javascript:void(0)" title="cookie policy">Cookie Policy</a></li>
-                            <li><a href="javascript:void(0)" title="job post">Job Post</a></li>
-                        </ul>
-                        <span class="pull-right copyright">Copyright &copy; 2019 by courdemy.com. All rights servered!</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
 </body>
 </html>

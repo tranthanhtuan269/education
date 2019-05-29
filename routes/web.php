@@ -141,3 +141,6 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::post('upload-image', 'Frontends\UserController@uploadImage');
 });
+
+Route::get('register-teacher', 'Frontends\UserController@registerTeacher'); 
+Route::post('register-teacher', 'Frontends\UserController@insertRegisterTeacher'); 

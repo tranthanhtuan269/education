@@ -125,7 +125,7 @@
                         <li class="active"> About </li>
                         <li><a href="javascript:;" class="go-box" data-box="box_requirements">Requirements</a></li>
                         <li><a href="javascript:;" class="go-box" data-box="box_reviews">Reviews</a> </li>
-                        <li><a href="javascript:;" class="go-box" data-box="box_instructors">Instructors</a></li>
+                        @if (count($info_course->Lecturers()) >= 1) <li><a href="javascript:;" class="go-box" data-box="box_instructors">Instructors</a></li> @endif
                         <li><a href="javascript:;" class="go-box" data-box="box_related_course">Related Courses </a></li>
                     </ul>
                 </div>
@@ -326,7 +326,7 @@
                     </div>
                 </div>
             </div>
-            <div class="reviews">
+            <div class="reviews"  id="box_reviews">
                 <h3>Reviews
                     @if(Auth::check())
                         @if(\App\Helper\Helper::getUserRoleOfCourse($info_course->id))
