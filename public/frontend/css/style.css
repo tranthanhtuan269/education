@@ -107,7 +107,7 @@ nav .pagination li a img{width:35px;position:relative;top:-6px}
 .unica-home-menutop{border-bottom:1px solid #e1e1e1;-webkit-box-shadow:0 1px 3px 0 rgba(0,0,0,0.75);-moz-box-shadow:0 1px 3px 0 rgba(0,0,0,0.75);box-shadow:0 1px 3px 0 rgba(0,0,0,0.75)}
 .unica-home-menutop .db-item { margin-top: 13px; display: inline-block;width: 100%; }
 .unica-home-menutop  .db-item .unica-active-course { margin-top: 0; }
-.unica-home-menutop  .db-item li { display: inline; float: left; margin-right: 20px; }
+.unica-home-menutop  .db-item li { display: inline; float: left; margin: 0 20px 0 0; }
 .unica-home-menutop  .db-item li:last-child { float: right; margin-right: 0px; padding-top: 5px;}
 .unica-home-menutop  .db-item .dropdown-menu li:last-child {  padding-top: 0;}
 .unica-home-menutop  .db-item li.btn-group.open > a { box-shadow: unset; }

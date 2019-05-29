@@ -169,8 +169,8 @@ class UserController extends Controller
     {
         if (Auth::check()) {
             $user = Auth::user();
-            $check_isset_teacher = UserRole::where('user_id', $user->id)->where('role_id', \Config::get('teacher'))->count();
-            if ($check_isset_teacher >= 1) {
+            $check_isset_teacher = UserRole::where('user_id', $user->id)->where('role_id', \Config::get('app.teacher'))->count();
+            if ($check_isset_teacher == 0) {
                 $user->name = $request->name;
                 $user->phone = $request->phone;
                 $user->gender = $request->gender;
