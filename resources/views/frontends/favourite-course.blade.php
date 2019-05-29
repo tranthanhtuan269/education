@@ -14,6 +14,7 @@
                                 @include(
                                     'components.course', 
                                     [
+                                        'id'    => 1,
                                         'image' => 'https://static.unica.vn/upload/images/2019/04/giao-tiep-tieng-han-cho-nguoi-moi-bat-dau_m_1555561894.jpg',
                                         'title' => 'Giao tiếp tiếng Hàn dành cho người mới bắt đầu',
                                         'author' => 'Bảo Minh',

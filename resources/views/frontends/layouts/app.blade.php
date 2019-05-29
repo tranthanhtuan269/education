@@ -247,7 +247,7 @@
                 <a class="logo-mobile" href="/"><img src="{{ asset('frontend/images/tab_logo.png') }}" alt=""/></a>
                 <a class="cart-mobile" href="{{route('cart.show')}}">
                 <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                <span class="unica-sl-cart" style="top:1px;"><b>0</b></span>
+                <span class="unica-sl-cart" style="top:1px;"><b class="number-in-cart">0</b></span>
                 </a>
                 <div class="login-mobile">
                     <span class="ava-img" data-toggle="collapse" data-target="#userPanel">
@@ -305,13 +305,13 @@
                                     <li class="mgtOp">
                                         <a href="{{route('cart.show')}}" class="unica-cart">
                                         <img src="{{ asset('frontend/images/tab_cart.png') }}" alt="" style="width: 21px;" />
-                                        <span class="unica-sl-cart"><b>0</b></span>
+                                        <span class="unica-sl-cart"><b class="number-in-cart">0</b></span>
                                     </a>
                                     </li class="mgtOp">
                                     <li>
                                         <a href="{{route('cart.show')}}" class="unica-cart">
                                             <img src="{{ asset('frontend/images/tab_notifications.png') }}" alt="" style="width: 21px;" />
-                                            <span class="unica-sl-cart"><b>0</b></span>
+                                            <span class="unica-sl-notify"><b>0</b></span>
                                         </a>
                                     </li>
                                     <li class="btn-group mgtOp">
@@ -475,6 +475,36 @@
             amazonmenu.init({
                 menuid: 'mysidebarmenu'
             })
+
+            $(".box-course .img-course .img-mask .btn-add-to-cart button").click( function(e){
+                e.stopPropagation()
+                e.preventDefault()
+                console.log($(this));
+                
+                var item = {
+                    'id' : $(this).attr("data-id"),
+                    'image' : $(this).attr("data-image"),
+                    'slug' : $(this).attr("data-slug"),
+                    'lecturer' : $(this).attr("data-lecturer"),
+                    'name' : $(this).attr("data-name"),
+                    'price' : parseInt($(this).attr("data-price")),
+                    'real_price' : parseInt($(this).attr("data-real-price")),
+                }
+                
+                if (localStorage.getItem("cart") != null) {
+                    var list_item = JSON.parse(localStorage.getItem("cart"));
+                    addItem(list_item, item);
+                    localStorage.setItem("cart", JSON.stringify(list_item));
+                }else{
+                    var list_item = [];
+                    addItem(list_item, item);
+                    localStorage.setItem("cart", JSON.stringify(list_item));
+                }
+
+                var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
+                // alert(number_items_in_cart.length)
+                $('.number-in-cart').text(number_items_in_cart.length);
+            })
         })
         
         @if (Request::is('home') && !Auth::check())
@@ -614,7 +644,14 @@
             });
 
             return false;
-        } 
+        }
+
+        function addItem(arr, obj) {
+            const { length } = arr;
+            const found = arr.some(el => el.id === obj.id);
+            if (!found) arr.push(obj);
+            return arr;
+        }
     </script>
     @yield('content')
 
