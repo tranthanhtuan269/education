@@ -103,14 +103,13 @@ class Course extends Model
     }
     
     public static function getCourseNotLearning(){
+
         if(Auth::check()){
             $list_user_roles = Auth::user()->userRoles;
-            return Course::doesntHave('userRoles')->orWhere(function($query) use ($list_user_roles){
-                $query->whereHas('userRoles', function ($query) use ($list_user_roles) {
-                    foreach($list_user_roles as $role){
-                        $query->where('user_role_id', '!=', $role->id);
-                    }
-                });
+            return Course::whereHas('userRoles', function ($query) use ($list_user_roles) {
+                foreach($list_user_roles as $role){
+                    $query->where('user_role_id', '!=', $role->id);
+                }
             });
         }
         return Course::whereRaw('1 = 1');

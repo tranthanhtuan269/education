@@ -234,15 +234,25 @@
 
                 request.done((response)=>{
                     console.log(response)
-                    if(response.status == 200){
+                    if(response.status == 201){
+                        // remove cart in localstorage
+                        cart_items = [];
+                        localStorage.setItem('cart', JSON.stringify(cart_items))
+                        
                         return Swal.fire({
                             type:"success",
-                            text:"The coupon exists!"
-                        })
+                            text:"Order has been created!"
+                        }).then((result) => {
+                            if (result.value) {
+                                location.reload();
+                            }
+                        });
+
+                        
                     }else{
                         return Swal.fire({
                             type:"warning",
-                            text:"The coupon doesn't exist!"
+                            text:"Order has not been created!"
                         })
                     }
                 })

@@ -206,6 +206,8 @@ class HomeController extends Controller
                 $order->payment_id = 1; // 1 = ck
                 $order->user_id = $user_role_id->id;
                 $order->status = 1; // 1 = ok, 2 = pending, 0 = cancel
+                $order->total_price = 0;
+                $order->coupon = '';
                 $order->save();
 
                 $total_price = 0;
