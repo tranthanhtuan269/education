@@ -47,20 +47,21 @@ class UsersTableSeeder extends Seeder
 		// $userRole2->role_id = 3;
 		// $userRole2->save();
 
-    	$ho = ["Tran", "Le", "Nguyen", "Pham", "Dang"];
-    	$lot = ["", "Thi", "Thanh", "Tuyet", "Ngoc"];
-    	$ten = ["Ha", "Suong", "Mai", "Anh", "Tu"]; 
+    	$ho = ["Rogers", "Banner", "Stark", "Parker", "Strange"];
+    	// $lot = ["Oliver", "Alex", "David", "John", "James"];
+		$ten = ["Peter", "Steve", "Tony", "Bruce", "Stephen"];
+		$experts = ["Football, Guitar, Computer", "Lifestyle, Yoga, Thinking", "Laravel, VueJs, Jquery", "ASP.NET, AngularJs, Flutter"];
     	for($i = 0; $i < 5; $i++){
-	    	for($j = 0; $j < 5; $j++){
+	    	// for($j = 0; $j < 5; $j++){
 		    	for($k = 0; $k < 5; $k++){
 			        $user = new User;
-			        $user->name = $ho[$i] ." ".$lot[$j] ." ".$ten[$k];
-			        $user->email = $ho[$i] .".".$lot[$j] .".".$ten[$k]. "@gmail.com";
+			        $user->name = $ten[$i] ." ".$ho[$k];
+			        $user->email = $ten[$i] .".".$ho[$k]. "@gmail.com";
 			        $user->password = bcrypt('secret12');
 			        $user->remember_token = str_random(10);
-			        $user->facebook = "https://www.facebook.com/canhchimcodon26988";
-			        $user->phone = "0973619".$i.$j.$k;
-			        $user->address = "So 65 - to 7 - Dong Anh - Ha Noi";
+			        $user->facebook = "https://www.facebook.com/avengers/";
+			        $user->phone = "0973619".$i.rand(1,9).$k;
+			        $user->address = "Number 2 -Times Square - New York";
 			        $user->avatar = "images/avatar_teacher_".$k.".jpg";
 			        $user->coins = 350;
 			        $user->dob = date("Y-m-d H:i:s");
@@ -91,17 +92,17 @@ class UsersTableSeeder extends Seeder
 					<p>Hiện tại, Nguyễn Hiếu đang&nbsp;là tổng giám đốc công ty Zenlife Yoga Việt Nam và là huấn luyện viên trưởng cho chương trình đào tạo giáo viên Yoga.</p>
 
 					<p>Hiện nay, dù đã gần 40&nbsp;tuổi và có 2 con lớn, <strong>Chuyên gia Yoga Nguyễn Hiếu </strong>vẫn sở hữu một cơ thể cân đối trẻ trung, khỏe mạnh và dẻo dai như ở tuổi đôi mươi, với vòng eo 60 cm là niềm ao ước của mọi phụ nữ ở độ tuổi này.</p>";
-					$teacher->expert = "PHP, JS, Java";
+					$teacher->expert = $experts[rand(0, 3)];
 					$rating_count = rand (150, 750);
 					$teacher->rating_count =  $rating_count;
 					$teacher->vote_count = 150;
 					$teacher->rating_score = $rating_count / 150;
-			        $teacher->student_count = 150;
-			        $teacher->course_count = 15;
+			        $teacher->student_count = rand(12,20)*1023;
+			        $teacher->course_count = rand(6,12);
 			        $teacher->video_intro = "https://www.youtube.com/embed/tgbNymZ7vqY?controls=0";
 			        $teacher->save();
 			    }
-			}
+			// }
         }
     }
 }

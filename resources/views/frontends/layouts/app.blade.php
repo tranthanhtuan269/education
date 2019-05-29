@@ -268,13 +268,15 @@
                             <a class="unica-logo" href="{{ url('/') }}"><img class="img-responsive" src="{{ asset('frontend/images/tab_logo.png') }}" alt="" width="138" height="33" /></a>
                             <div class="unica-menu-cate">
                                 <i class="fa fa-th" aria-hidden="true"></i> Categories
+
+                                {{-- CATEGORY BAR --}}
                                 <nav id="mysidebarmenu" class="amazonmenu">
                                     <ul>
                                         @foreach($category_fixed as $cat)
                                             <li>
                                                 <a title="{!! $cat->name !!}" href="{{ url('/') }}/category/{{ $cat->slug }}"><i class="fas {!! $cat->icon !!}"></i> {!! $cat->name !!}</a>
                                                 <ul class="issub">
-                                                    <li><a href="{{ url('/') }}/category/{{ $cat->slug }}">Tất cả {!! $cat->name !!}</a></li>
+                                                    <li><a href="{{ url('/') }}/category/{{ $cat->slug }}"><strong>All {!! $cat->name !!}</strong></a></li>
                                                     @if(count($cat->tags) > 0)
                                                         @foreach($cat->tags as $tag)
                                                             <li><a href="{{ url('/') }}/tags/{{ $tag->slug }}">{!! $tag->name !!}</a></li>
@@ -285,6 +287,11 @@
                                         @endforeach
                                     </ul>
                                 </nav>
+
+                                <script>
+                                    var catPanelHeight = $("#mysidebarmenu").height()
+                                    $("#mysidebarmenu .issub").css("min-height", catPanelHeight-1)
+                                </script>
                             </div>
                         </div>
                         <div class="col-lg-5 col-md-5 col-sm-5 cate-sm">
