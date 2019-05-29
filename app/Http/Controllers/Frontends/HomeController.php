@@ -13,21 +13,6 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-
-    public function test()
-    {
-        // echo Helper::formatDate('d/m/Y', '20/10/2000', 'Y-m-d');die;
-        // echo public_path(Auth::user()->avatar);die;
-        // $permissions = \App\Permission::get();
-        // foreach($permissions as $permission){
-        //     echo '$per = new Permission; <br/>';
-        //     echo '$per->name = "'.$permission->name .'"; <br/>';
-        //     echo '$per->route = "' .$permission->route .'"; <br/>';
-        //     echo '$per->group = ' .$permission->group .'; <br/>';
-        //     echo '$per->save(); <br/> <br/>';
-        // }
-    }
-
     public function comingSoon()
     {
         return view('frontends.coming-soon');
@@ -111,11 +96,14 @@ class HomeController extends Controller
     public function showTeacher($id_teacher)
     {
         $user = User::find($id_teacher);
-        $info_teacher = $user->userRolesTeacher()->teacher;
-        $feature_course = $user->userRolesTeacher()->userCoursesByFeature();
-        $best_seller_course = $user->userRolesTeacher()->userCoursesByTrendding();
-        $new_course = $user->userRolesTeacher()->userCoursesByNew();
-        return view('frontends.detail-teacher', compact('info_teacher', 'feature_category', 'feature_course', 'best_seller_course', 'new_course'));
+        if($user){
+            $info_teacher = $user->userRolesTeacher()->teacher;
+            $feature_course = $user->userRolesTeacher()->userCoursesByFeature();
+            $best_seller_course = $user->userRolesTeacher()->userCoursesByTrendding();
+            $new_course = $user->userRolesTeacher()->userCoursesByNew();
+            return view('frontends.detail-teacher', compact('info_teacher', 'feature_category', 'feature_course', 'best_seller_course', 'new_course'));
+        }
+        return abort(404);
     }
 
     public function memberCard()

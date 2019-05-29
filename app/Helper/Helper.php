@@ -15,20 +15,24 @@ class Helper
 
     public static function getUserRoleOfCourse($course_id)
     {
-        $user_id = Auth::user()->id;
-        $user_role_list = Auth::user()->userRoles;
+        if(Auth::check()){
+            $user_id = Auth::user()->id;
+            $user_role_list = Auth::user()->userRoles;
 
-        $demanding_user_course = null;
+            $demanding_user_course = null;
 
-        foreach ($user_role_list as $key => $user_role) {
-            $user_course_item = UserCourse::where('course_id', $course_id)
-                ->where('user_role_id', $user_role->id)
-                ->first();
+            foreach ($user_role_list as $key => $user_role) {
+                $user_course_item = UserCourse::where('course_id', $course_id)
+                    ->where('user_role_id', $user_role->id)
+                    ->first();
 
-            if (!empty($user_course_item)) {
-                $demanding_user_course = $user_course_item;
-                break;
+                if (!empty($user_course_item)) {
+                    $demanding_user_course = $user_course_item;
+                    break;
+                }
             }
+        }else{
+            $demanding_user_course = null;
         }
 
         return $demanding_user_course;
