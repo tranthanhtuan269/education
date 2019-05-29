@@ -18,6 +18,8 @@ class CreateOrdersTable extends Migration
             $table->bigIncrements('id');
             $table->integer('payment_id');
             $table->integer('user_id');
+            $table->integer('total_price');
+            $table->string('coupon');
             $table->integer('status')->default(0);
             $table->timestamps();
         });

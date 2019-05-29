@@ -56,7 +56,11 @@
                             
                         </div>
                         <div class="btn-checkout">
-                            <button id="btnCartCheckOut" class="btn btn-danger">Checkout</button>
+                            @if(Auth::check())
+                            <button id="btnCartCheckOut" class="btn btn-danger btnCartCheckout">Checkout</button>
+                            @else
+                            <button class="btn btn-danger btnCartCheckout" data-toggle=modal data-target=#myModalLogin data-dismiss=modal >Checkout</button>
+                            @endif
                         </div>
                     </div>
                     <div class="coupon-code-input">
@@ -177,7 +181,7 @@
                     url : "/check-coupon",
                     method: "GET",
                     data :{
-                        "coupon" : coupon,
+                        "coupon" : coupon
                     },
                     dataType: "json",                
                 })
@@ -203,6 +207,9 @@
         $('#btnCartCheckOut').on('click', function(e){
             e.stopPropagation()
             e.preventDefault()
+
+            var coupon = $('#input-coupon').val()
+
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -220,6 +227,7 @@
                     method: "POST",
                     data :{
                         "items" : cart_items,
+                        "coupon" : coupon
                     },
                     dataType: "json",                
                 })

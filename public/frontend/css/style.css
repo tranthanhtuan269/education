@@ -1135,10 +1135,11 @@ div[data-u="slides"] div div{
 .checkout-column .btn-checkout{
     margin-top: 0.6em;
 }
-.checkout-column .btn-checkout #btnCartCheckout{
+.checkout-column .btn-checkout .btnCartCheckout{
     padding: 1em;
     width: 100%;
 }
+
 .checkout-column .coupon-code-input{
     margin-top: 1em;
     padding-top: 1em;
