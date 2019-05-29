@@ -18,9 +18,11 @@
                         ?>
                         @include(
                             'components.course', 
-                            [
+                            [   
+                                'id'    => $course->id,
                                 'slug' => $course->slug,
                                 'image' => url('/frontend/images/'.$course->image),
+                                'rawImage' => $course->image,
                                 'title' => $course->name,
                                 'author' => $lecturers,
                                 'star_count' => $course->star_count,
@@ -49,5 +51,10 @@
       </div>
   </div>
 </div>
+<style>
+.box-course .img-course{
+    position: relative;
+}
+</style>
 
 @endsection
