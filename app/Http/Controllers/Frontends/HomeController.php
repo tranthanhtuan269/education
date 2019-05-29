@@ -68,7 +68,7 @@ class HomeController extends Controller
         $results = [];
         if ($keyword != '') {
             $keyword = trim($request->get('keyword'));
-            $results = Course::where('name', 'LIKE', "%$keyword%")->paginate(8);
+            $results = Course::getCourseNotLearning()->where('name', 'LIKE', "%$keyword%")->paginate(8);
         }
         return view('frontends.search', compact('results'));
     }
@@ -78,9 +78,9 @@ class HomeController extends Controller
         $cat_id = Category::where('slug', $cat)->value('id');
         if ($cat_id) {
             $tags = Tag::where('category_id', $cat_id)->get();
-            $feature_course = Course::where('category_id', $cat_id)->where('featured', 1)->orderBy('featured_index', 'asc')->limit(8)->get();
-            $best_seller_course = Course::where('category_id', $cat_id)->orderBy('sale_count', 'desc')->limit(8)->get();
-            $new_course = Course::where('category_id', $cat_id)->orderBy('id', 'desc')->limit(8)->get();
+            $feature_course = Course::getCourseNotLearning()->where('category_id', $cat_id)->where('featured', 1)->orderBy('featured_index', 'asc')->limit(8)->get();
+            $best_seller_course = Course::getCourseNotLearning()->where('category_id', $cat_id)->orderBy('sale_count', 'desc')->limit(8)->get();
+            $new_course = Course::getCourseNotLearning()->where('category_id', $cat_id)->orderBy('id', 'desc')->limit(8)->get();
             $popular_teacher = Teacher::getTeacherBestVote();
             return view('frontends.category', compact('category', 'feature_course', 'best_seller_course', 'new_course', 'popular_teacher', 'tags'));
         }
@@ -93,14 +93,14 @@ class HomeController extends Controller
         if (\Auth::check()) {
             if ($course) {
                 $ratingCourse = RatingCourse::where('course_id', $course->id)->where('user_id', \Auth::id())->first();
-                $related_course = Course::where('category_id', $course->category_id)->limit(4)->get();
+                $related_course = Course::getCourseNotLearning()->where('category_id', $course->category_id)->limit(4)->get();
                 $info_course = Course::find($course->id);
                 // dd($info_course->comments[0]->likeCheckUser());
                 return view('frontends.course-detail', compact('related_course', 'info_course', 'unit', 'ratingCourse'));
             }
         } else {
             if ($course) {
-                $related_course = Course::where('category_id', $course->category_id)->limit(4)->get();
+                $related_course = Course::getCourseNotLearning()->where('category_id', $course->category_id)->limit(4)->get();
                 $info_course = Course::find($course->id);
                 return view('frontends.course-detail', compact('related_course', 'info_course', 'unit'));
             }
@@ -127,9 +127,9 @@ class HomeController extends Controller
     {
         $category = Category::get();
         $feature_category = Category::where('featured', 1)->orderBy('featured_index', 'asc')->limit(10)->get();
-        $feature_course = Course::where('featured', 1)->orderBy('featured_index', 'asc')->limit(8)->get();
-        $best_seller_course = Course::orderBy('sale_count', 'desc')->limit(8)->get();
-        $new_course = Course::orderBy('id', 'desc')->limit(8)->get();
+        $feature_course = Course::getCourseNotLearning()->where('featured', 1)->orderBy('featured_index', 'asc')->limit(8)->get();
+        $best_seller_course = Course::getCourseNotLearning()->orderBy('sale_count', 'desc')->limit(8)->get();
+        $new_course = Course::getCourseNotLearning()->orderBy('id', 'desc')->limit(8)->get();
         $popular_teacher = Teacher::get();
 
         return view('frontends.course-category', compact('category', 'feature_category', 'feature_course', 'best_seller_course', 'new_course'));
@@ -146,7 +146,7 @@ class HomeController extends Controller
         if (\Auth::check()) {
             if ($course) {
                 $ratingCourse = RatingCourse::where('course_id', $course->id)->where('user_id', \Auth::id())->first();
-                $related_courses = Course::where('category_id', $course->category_id)->limit(4)->get();
+                $related_courses = Course::getCourseNotLearning()->where('category_id', $course->category_id)->limit(4)->get();
                 $info_course = Course::find($course->id);
                 $user_role_course_instance = Helper::getUserRoleOfCourse($course->id);
 
@@ -160,7 +160,7 @@ class HomeController extends Controller
             }
         }else{
             if($course){
-                $related_courses = Course::where('category_id', $course->category_id)->limit(4)->get();
+                $related_courses = Course::getCourseNotLearning()->where('category_id', $course->category_id)->limit(4)->get();
                 $info_course = Course::find($course->id);
                 return view('frontends.course-learning', compact('related_courses', 'info_course', 'unit'));
             }
