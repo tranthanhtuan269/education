@@ -266,7 +266,7 @@
 								<div class="row">
 									<div class="col-xs-6">
 										<a href="/course/{{$related_course->slug}}">
-											<img src="{{ asset($related_course->image)}}" alt="Courses" title="Courses">
+											<img src="{{ asset("frontend/images/".$related_course->image)}}" alt="Courses" title="Courses">
 										</a>
 									</div>
 									<div class="col-xs-6">

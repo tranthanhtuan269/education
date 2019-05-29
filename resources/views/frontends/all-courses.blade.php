@@ -20,6 +20,7 @@
                         <div class="row">
                             @foreach ($best_seller_course as $best_seller)
                                 <?php
+                                    $random_name = ['Steve Rogers', 'Natasha Romanoff', 'Tony Stark', 'Peter Quill', "Bruce Banner", "Stephen Strange"];
                                     $lecturers = count($best_seller->Lecturers()) > 1 ? 'Nhiều tác giả' : (count($best_seller->Lecturers()) > 0 ? $best_seller->Lecturers()[0]->user->name : "Courdemy");
                                 ?>
                                 @include(

@@ -220,11 +220,15 @@
                     <h3>About the instructors</h3>
                 </div>
                 @foreach ($info_course->Lecturers() as $lecturer)
+                @php
+                    // dd($lecturer);
+                    
+                @endphp
                 <div class="col-sm-6">
                     <div class="row">
                         <div class="col-sm-3">
                             <a href="{{ url('/') }}/teacher/{{ $lecturer->user->id }}" title="{{ $lecturer->user->name }}" >
-                                <img class="avatar" alt="{{ $lecturer->user->name }}" src="{{ asset('frontend/images/'.$lecturer->user->avatar) }}">
+                                <img class="avatar" alt="{{ $lecturer->user->name }}" src="{{ asset('frontend/'.$lecturer->user->avatar) }}">
                             </a>
                         </div>
                         <div class="col-sm-9">
@@ -234,14 +238,14 @@
                                 <div class="frame clearfix">
                                     <div class="pull-left">
                                         <img src="{{ asset('frontend/images/ic_course.png') }}" alt="" /> 
-                                        <span class="special">{{ $lecturer->course_count }} Courses</span>
+                                        <span class="special">{{ $lecturer->teacher->course_count }} Courses</span>
                                     </div>
                                     <div class="pull-right">
                                         @include(
                                             'components.vote', 
                                             [
-                                                'rate' => $lecturer->rating_score,
-                                                'rating_number' => $lecturer->vote_count,
+                                                'rate' => $lecturer->teacher->rating_score,
+                                                'rating_number' => $lecturer->teacher->vote_count,
                                                 'rating_txt' => true,
                                             ]
                                         )
@@ -249,7 +253,7 @@
                                 </div>
                                 <div class="">
                                     <img src="{{ asset('frontend/images/icon_student.png') }}" alt="" /> 
-                                    <span class="special">{{ $lecturer->student_count }} Students</span>
+                                    <span class="special">{{ $lecturer->teacher->student_count }} Students</span>
                                 </div>
                             </div>
                         </div>

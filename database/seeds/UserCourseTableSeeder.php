@@ -20,5 +20,19 @@ class UserCourseTableSeeder extends Seeder
             $user_course->status = 1;
             $user_course->save();
         }
+        
+        
+        for ($j = 0; $j < 12 ; $j++) { 
+            $randomValue = mt_rand(1,21);
+            $even = $randomValue & ~1;
+            $odd = $randomValue | 1;
+
+            $user_course = new UserCourse;
+            $user_course->user_role_id = $odd;
+            $user_course->course_id = $j;
+            $user_course->videos = '{ "learning": 10, "learning_id": 10, "videos":[ 1, 1, 0, 1, 0, 0, 1, 1, 0, 1, 1 ]}';
+            $user_course->status = 2;
+            $user_course->save();
+        }
     }
 }

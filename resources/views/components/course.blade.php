@@ -31,11 +31,12 @@
                     
             <div class="content-course">
                 <h3 class="title-course">{{ $title }}</h3>
-                <div class="clearfix">
-                    <span class="name-teacher">
+                <div class="clearfix" style="line-height:1.7">
+                    <span class="name-teacher pull-left">
                         {{ $author }}
                     </span>
-                    <span class="pull-right">
+                    <br>
+                    <span class="pull-left">
                         @include(
                             'components.vote', 
                             [
@@ -66,8 +67,8 @@
                     if ($from_sale != '' && $to_sale != '') {
                         $start_sale = strtotime($from_sale.' 00:00:00');
                         $end_sale = strtotime($to_sale.' 23:59:59');
-                        $date_to = new DateTime($to_sale);
-                        $date_from = new DateTime(date('Y-m-d'));
+                        // $date_to = new DateTime($to_sale);
+                        // $date_from = new DateTime(date('Y-m-d'));
                         if (time() >= $start_sale && time() <= $end_sale) {
                             $check_time_sale = true;
                         }
