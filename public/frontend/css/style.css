@@ -1183,3 +1183,11 @@ div[data-u="slides"] div div{
     margin-top: 1em;
     margin-bottom: 1em;
 }
+
+.checkout-column .coupon-code-input .input-group #btnCartCouponApply{
+  cursor: pointer;
+}
+
+.checkout-column .coupon-code-input .input-group #btnCartCouponApply:hover{
+  background-color: #00789e;
+}

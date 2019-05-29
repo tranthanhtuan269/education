@@ -91,6 +91,8 @@ Route::get('teacher/{teacher}', ['as'  => 'teacher', 'uses' =>'Frontends\HomeCon
 Route::get('list-course', ['uses' =>'Frontends\HomeController@listCourse']);
 
 Route::get('cart', ['uses' =>'Frontends\HomeController@cart'])->name('cart.show');
+Route::get('check-coupon', ['uses' =>'Frontends\HomeController@checkCoupon'])->name('coupon.check');
+Route::post('checkout', ['uses' =>'Frontends\HomeController@checkout'])->name('cart.checkout');
 
 // Đăng nhập mới đánh giá khóa học dc
 Route::post('reviews/info', 'Backends\UserController@infoRoleUser');

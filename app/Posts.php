@@ -5,10 +5,10 @@ use App\Menu;
 use DB;
 use Illuminate\Database\Eloquent\Model;
 
-class Posts extends Model{
-    
+class Posts extends Model
+{    
+    public $timestamps=false;
     protected $table = "posts";
-    public $timestamp=false;
     // public function posts()
     // {
     //     return $this->hasMany('App\Posts','author_id');

@@ -61,7 +61,7 @@
                     </div>
                     <div class="coupon-code-input">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Apply coupon code" aria-describedby="btnCartCouponApply">
+                            <input type="text" id="input-coupon" class="form-control" placeholder="Apply coupon code" aria-describedby="btnCartCouponApply">
                             <span class="input-group-addon" id="btnCartCouponApply">APPLY</span>
                         </div>
                     </div>
@@ -135,7 +135,6 @@
                         totalPrice += element.price
                         totalInitialPrice += element.real_price
                     })
-
                    
                     $(".checkout-column .current-price span").remove()
                     $(".checkout-column .current-price").append("<span>"+number_format(totalPrice, 0, '.', '.')+" ₫</span>")
@@ -149,46 +148,98 @@
                     }
                     $(".cart-pre-info .course-amount").html("")
                     $(".cart-pre-info .course-amount").prepend(cart_items.length)
-
+                    $('.number-in-cart').text(cart_items.length);
 
                     localStorage.setItem('cart', JSON.stringify(cart_items))
-                    console.log(cart_items)
-                    $('.number-in-cart').text(cart_items.length);
                     
                 }
             })
             
         })
 
-        // $.ajaxSetup({
-        //     headers: {
-        //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        //     }
-        // });
-        // if(cart_items.length < 1){
-        //     return Swal.fire({
-        //         type:"warning",
-        //         text:"You can not checkout an empty shopping cart!"
-        //     })
-        // }else{
-        //     var course_id_array = []
-        //     cart_items.forEach((element, index) =>{
-        //         course_id_array.push(element.id)
-        //     })
-        //     var request = $.ajax({
-        //         url : "",
-        //         method: "POST",
-        //         data :{
-        //             "course_id_array" : course_id_array,
-        //         },
-        //         dataType: "json",                
-        //     })
+        $('#btnCartCouponApply').on('click', function(e){
+            e.stopPropagation()
+            e.preventDefault()
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
 
-        //     request.done((response)=>{
-        //         console.log(response)
-                
-        //     })
-        // }
+            var coupon = $('#input-coupon').val();
+            if(coupon.length < 1){
+                return Swal.fire({
+                    type:"warning",
+                    text:"Coupon can't be empty!"
+                })
+            }else{
+                var request = $.ajax({
+                    url : "/check-coupon",
+                    method: "GET",
+                    data :{
+                        "coupon" : coupon,
+                    },
+                    dataType: "json",                
+                })
+
+                request.done((response)=>{
+                    console.log(response)
+                    if(response.status == 200){
+                        return Swal.fire({
+                            type:"success",
+                            text:"The coupon exists!"
+                        })
+                    }else{
+                        return Swal.fire({
+                            type:"warning",
+                            text:"The coupon doesn't exist!"
+                        })
+                    }
+                })
+            }
+        });
+
+
+        $('#btnCartCheckOut').on('click', function(e){
+            e.stopPropagation()
+            e.preventDefault()
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            if(cart_items.length < 1){
+                return Swal.fire({
+                    type:"warning",
+                    text:"Cart can't be empty!"
+                })
+            }else{
+                var request = $.ajax({
+                    url : "/checkout",
+                    method: "POST",
+                    data :{
+                        "items" : cart_items,
+                    },
+                    dataType: "json",                
+                })
+
+                request.done((response)=>{
+                    console.log(response)
+                    if(response.status == 200){
+                        return Swal.fire({
+                            type:"success",
+                            text:"The coupon exists!"
+                        })
+                    }else{
+                        return Swal.fire({
+                            type:"warning",
+                            text:"The coupon doesn't exist!"
+                        })
+                    }
+                })
+            }
+        });
     })
     
     

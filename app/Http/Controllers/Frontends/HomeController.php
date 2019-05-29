@@ -1,15 +1,16 @@
 <?php
 namespace App\Http\Controllers\Frontends;
 
-use App\Category;
-use App\Course;
+use Illuminate\Http\Request;
 use App\Helper\Helper;
 use App\RatingCourse;
-use App\Tag;
+use App\Category;
 use App\Teacher;
+use App\Course;
+use App\Coupon;
 use App\User;
+use App\Tag;
 use Auth;
-use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -179,5 +180,41 @@ class HomeController extends Controller
 
     public function cart(){
         return view('frontends.cart');
+    }
+
+    public function checkCoupon(Request $request){
+        $coupon = Coupon::where('name', $request->coupon)->first();
+        if($coupon){
+            return \Response::json(array('status' => '200', 'coupon' => $coupon));
+        }
+        return \Response::json(array('status' => '404', 'message' => 'Coupon không tồn tại!'));
+    }
+
+    public function checkout(Request $request){
+        if(Auth::check()){
+            $user_role_id = Auth::user()->userRolesStudent();
+            $items = $request->items;
+            if($items){
+                $order = new Order;
+                $order->payment_type = 1; // 1 = ck
+                $order->user_id = $user_role_id->id;
+                $order->status = 1; // 1 = ok, 2 = pending, 0 = cancel
+                $order->save();
+
+                foreach($items as $item){
+                    if($item['id']){
+                        $course = Course::find($item['id']);
+                        if($course){
+                            $course->userRoles()->attach($user_role_id->id);
+                            $order->courses()->attach($item['id']);
+                        }
+                    }
+                }
+                return \Response::json(array('status' => '201', 'message' => 'Order has been created'));
+            }
+            return \Response::json(array('status' => '204', 'message' => 'Order has not been created'));
+        }else{
+            return \Response::json(array('status' => '401', 'message' => 'Unauthorized'));
+        }
     }
 }
