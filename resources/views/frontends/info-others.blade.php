@@ -9,7 +9,7 @@
                                 <div class="ads-teacher">
                                     <p>BECOME</p>
                                     <h2>COURDEMY'S <br> TEACHER</h2>
-                                    <a href="{{ url('/register-teacher') }}" title="Register Teacher">REGISTER NOW</a>
+                                    <a href="{{ Auth::check() ? url('user/register-teacher') : 'javascript:void(0)' }}" title="Register Teacher" {{ Auth::check() ? '' : ' data-toggle=modal data-target=#myModalLogin data-dismiss=modal id=redirect_register_teacher' }}>REGISTER NOW</a>
                                 </div>
                             </div>
                         </div>

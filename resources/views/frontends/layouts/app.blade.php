@@ -395,64 +395,7 @@
                                         </div>
                                     </div>
                                 </ul>
-                                <div id="myModalLogin" class="modal fade" role="dialog" >
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">				
-                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                <h4 class="modal-title">Login</h4>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form action="/examples/actions/confirmation.php" method="post">
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control" placeholder="Email" name="email">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input type="password" class="form-control" placeholder="Password" name="pass">					
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input type="checkbox" name="remember"> Keep my logged in on this computer
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input type="button" class="btn btn-primary btn-block btn-lg" value="Login" onclick="loginAjax()">
-                                                    </div>
-                                                </form>				
-                                            </div>
-                                            <div class="modal-footer">
-                                                <a href="javascript:void(0)" data-toggle="modal" data-target="#myModalRegister" data-dismiss="modal">Need an account</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="myModalRegister" class="modal fade" role="dialog" >
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">				
-                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                <h4 class="modal-title">Register</h4>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form action="/examples/actions/confirmation.php" method="post">
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control" placeholder="Username" name="name">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control" placeholder="Email" name="email">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input type="password" class="form-control" placeholder="Password" name="pass">					
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input type="password" class="form-control" placeholder="Confirm password" name="confirmpass">					
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input type="button" class="btn btn-primary btn-block btn-lg" value="Create Account" onclick="registerAjax()">
-                                                    </div>
-                                                </form>				
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+
                                 @endif
                             </div>
                         </div>
@@ -528,6 +471,7 @@
             </div>
         </div>
     </footer>
+
     <script>
         $(window).scroll(function(event){
             if ($(this).scrollTop() > 0){
@@ -535,9 +479,8 @@
             } else {
                 $('.unica-home-menutop').removeClass('fixed');
             }
-
         });
-        
+
         jQuery(function () {
             amazonmenu.init({
                 menuid: 'mysidebarmenu'
@@ -549,7 +492,12 @@
                 $('#myModalLogin').modal('show');
             });
         @endif
-        
+
+        $("#redirect_register_teacher").click(function(){
+            localStorage.setItem('redirect_register_teacher', 1);  
+            // alert(localStorage.getItem('redirect_register_teacher'));
+        });
+
         $('#myModalLogin input[name=email],#myModalLogin input[name=pass],#myModalLogin input[name=remember]').keypress(function(event){
             var keycode = (event.keyCode ? event.keyCode : event.which);
             if(keycode == '13'){
@@ -655,7 +603,13 @@
 
                         }).then((result) => {
                             if (result.value) {
-                                location.reload();
+                                var check_redirect_register_teacher = localStorage.getItem('redirect_register_teacher');
+                                if (check_redirect_register_teacher == 1) {
+                                    localStorage.setItem('redirect_register_teacher', false); 
+                                    window.location.href = "{{ url('user/register-teacher') }}";
+                                } else {
+                                    location.reload();
+                                }
                             }
                         });
                     }else{
@@ -665,8 +619,7 @@
                         })
                     }
                 },
-                error: function (error) {
-                
+                error: function (error) {             
                     var obj_errors = error.responseJSON.errors;
                     // console.log(obj_errors)
                     var txt_errors = '';

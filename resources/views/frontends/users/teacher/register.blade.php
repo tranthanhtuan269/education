@@ -26,6 +26,14 @@
                                     <form action="" method="post" enctype="multipart/form-data">
                                         <div class="col-md-6 col-sm-6">
                                             <div class="form-group">
+                                                <label>Choose Image</label>
+                                                <div class="dropzone dz-clickable" id="myDrop">
+                                                    <div class="dz-default dz-message" data-dz-message="">
+                                                        <span>Drop files here to upload</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
                                                 <label>Full name</label>
                                                 <div class="form-group">
                                                     <input type="text" class="form-control" name="name" value="{{ Auth::check() ? Auth::user()->name : '' }}">
@@ -48,7 +56,7 @@
                                             <div class="form-group">
                                                 <label>Birthday</label>
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control"  id="datepicker" name="birthday"  pattern="\d{1,2}/\d{1,2}/\d{4}" value="{{ (Auth::user()->birthday != '') ? Helper::formatDate('Y-m-d', Auth::user()->birthday, 'd/m/Y') : '' }}" autocomplete="off">
+                                                    <input type="text" class="form-control"  id="datepicker" name="birthday"  pattern="\d{1,2}/\d{1,2}/\d{4}" value="{{ Auth::check() ?  (Auth::user()->birthday != '') ? Helper::formatDate('Y-m-d', Auth::user()->birthday, 'd/m/Y') : '' :'' }}" autocomplete="off">
                                                     <script>
                                                         $(function() {
                                                         $( "#datepicker" ).datepicker({
@@ -67,15 +75,15 @@
                                                 <label>Gender</label>
                                                 <div class="form-group">
                                                     <select class="form-control" name="gender">
-                                                        <option value="1" @if(Auth::user()->gender == 1) selected @endif>Female</option>
-                                                        <option value="2" @if(Auth::user()->gender == 2) selected @endif>Male</option>
+                                                        <option value="1" @if( Auth::check() && Auth::user()->gender == 1) selected @endif>Female</option>
+                                                        <option value="2" @if( Auth::check() && Auth::user()->gender == 2) selected @endif>Male</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label>Address</label>
                                                 <div class="form-group">
-                                                    <textarea class="form-control" rows="4" cols="50" name="address">{{ Auth::user()->address }}</textarea>
+                                                    <textarea class="form-control" rows="4" cols="50" name="address">{{ Auth::check() ? Auth::user()->address : '' }}</textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -255,7 +263,7 @@
 
             $.ajax({
                 method: "POST",
-                url: "{{ url('register-teacher') }}",
+                url: "{{ url('user/register-teacher') }}",
                 data: data,
                 dataType: 'json',
                 // beforeSend: function() {
@@ -272,7 +280,7 @@
 
                         }).then((result) => {
                             if (result.value) {
-                                location.reload();
+                                window.location.href = "/";
                             }
                         });
                     }else{
