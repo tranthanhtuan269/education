@@ -169,8 +169,8 @@ class UserController extends Controller
     {
         if (Auth::check()) {
             $user = Auth::user();
-            $check_isset_teacher = UserRole::where('user_id', $user->id)->where('role_id', \Config::get('teacher'))->count();
-            if ($check_isset_teacher >= 1) {
+            $check_isset_teacher = UserRole::where('user_id', $user->id)->where('role_id', \Config::get('app.teacher'))->count();
+            if ($check_isset_teacher == 0) {
                 $user->name = $request->name;
                 $user->phone = $request->phone;
                 $user->gender = $request->gender;
@@ -280,4 +280,31 @@ class UserController extends Controller
             })
             ->removeColumn('id')->make(true);
     }
+
+    public function orderLogs(Request $request)
+    {
+        // dd(Auth::user()->userRolesStudent()->order);
+        $order_logs = Auth::user()->userRolesStudent()->order;
+        // dd($lifelong_course);
+        return view('frontends.users.student.order-logs');
+    }
+
+    public function getDataOrderAjax()
+    {
+        $order_logs = Auth::user()->userRolesStudent()->order;
+
+        return datatables()->collection($order_logs)
+            ->addColumn('code', function ($order) {
+                return '#Order_' . $order->id;
+            })
+            ->make(true);
+    }
+
+    public function detailOrder($id)
+    {
+        $detail_order = Auth::user()->userRolesStudent()->orderDetail($id);
+        dd($detail_order);
+        return $detail_order;
+    }
+
 }
