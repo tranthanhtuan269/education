@@ -75,7 +75,7 @@
         </div>
     </div> --}}
     @if (count($info_course->tags) > 0)
-    <div class="tags">
+    {{-- <div class="tags">
         <div class="pull-left">
             <span>Tags</span>
             <ul class="pull-right">
@@ -84,6 +84,6 @@
                 @endforeach
             </ul>
         </div>
-    </div>
+    </div> --}}
     @endif
 </div>

@@ -153,8 +153,15 @@
                     <div class="skill">
                         <h3>Skills you'll again</h3>
                         <ul>
-                            @foreach ($info_course->tags as $tag)
-                            <li>{{ $tag->name }}</li>
+                            @foreach ($info_course->tags as $key => $tag)
+                            <?php
+                            if($key == 3){
+                                break;
+                            } 
+                            ?>
+                            <a href="/tags/{{$tag->slug}}">
+                                <li style="color: #000000;">{{ $tag->name }}</li>
+                            </a>
                             @endforeach
                         </ul>
                     </div>

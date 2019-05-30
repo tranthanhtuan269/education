@@ -140,7 +140,7 @@ class TagsTableSeeder extends Seeder
     	foreach($tags as $t){
 	        $tag = new Tag;
             $tag->name = $t[0];
-            $tag->slug = Str::slug($t[0], '-');;
+            // $tag->slug = Str::slug($t[0], '-');;
             $tag->image = $banners[rand(0,9)];
             $tag->category_id = $t[1];
             $tag->status = 1;

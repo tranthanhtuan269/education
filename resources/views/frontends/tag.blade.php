@@ -1,18 +1,19 @@
 @extends('frontends.layouts.app')
 @section('content')
-
+@php
+    // dd($tag->courses);
+@endphp
 <div class="box-search">
   <div class="container">
       <div class="row">
           <div class="col-lg-3 col-md-3 col-sm-4 u-list-leftbar hidden-xs">
               <section>
                   <div class="u-cate-list">
-                      <p style="font-size: 16px;font-weight: bold;border-bottom: 1px solid #d7d7d7;margin-bottom: 10px;padding-bottom: 5px;">Tag</p>
-                      <ul>
-                          <li>
-                              {{-- <a title="{!! $tag->name !!}" href="{{ url('/') }}/tags/{{ $tag->slug }}"><i class="fas {!! $tag->icon !!}"></i> {!! $tag->name !!}</a> --}}
-                          </li>
-                      </ul>
+                    <p style="font-size: 16px;font-weight: bold;border-bottom: 1px solid #d7d7d7;margin-bottom: 10px;padding-bottom: 5px;">
+                        Tag : <a title="{!! $tag->name !!}" href="{{ url('/') }}/tags/{{ $tag->slug }}"><i class="fas {!! $tag->icon !!}"></i> {!! $tag->name !!}</a>
+                    </p>
+                       
+                      
                   </div>
               </section>
           </div>
@@ -22,7 +23,7 @@
                     @if (count($tag->courses) > 0)
                     <div class="row">
                         <div class="col-xs-12">
-                            <h2>{{ $tag->courses->total() }} results found</h2>
+                            <h2>{{ count($tag->courses) }} results found</h2>
                         </div>
                         @foreach ($tag->courses as $result)
                         <?php
@@ -48,8 +49,9 @@
                             ]
                         )
                         @endforeach
+                        <style>.img-course {position: relative;}</style>
                       <div class="col-xs-12 text-center">
-                          <div class="u-number-page">{{ $tag->courses->appends(Request::all())->links() }}</div>
+                          <div class="u-number-page">{{ $tag->courses()->paginate(15)->links() }}</div>
                       </div>
                     </div>
                     @else

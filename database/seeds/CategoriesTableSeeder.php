@@ -44,7 +44,7 @@ class CategoriesTableSeeder extends Seeder
     	foreach($cateArr as $cate){
 	        $category = new Category;
             $category->name = $cate[0];
-            $category->slug = Str::slug($cate[0], '-');
+            // $category->slug = Str::slug($cate[0], '-');
             $category->featured = 1;
             $category->icon = $cate[2];
             $category->image = $cate[3];
