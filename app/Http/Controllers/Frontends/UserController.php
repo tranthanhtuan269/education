@@ -280,4 +280,31 @@ class UserController extends Controller
             })
             ->removeColumn('id')->make(true);
     }
+
+    public function orderLogs(Request $request)
+    {
+        // dd(Auth::user()->userRolesStudent()->order);
+        $order_logs = Auth::user()->userRolesStudent()->order;
+        // dd($lifelong_course);
+        return view('frontends.users.student.order-logs');
+    }
+
+    public function getDataOrderAjax()
+    {
+        $order_logs = Auth::user()->userRolesStudent()->order;
+
+        return datatables()->collection($order_logs)
+            ->addColumn('code', function ($order) {
+                return '#Order_' . $order->id;
+            })
+            ->make(true);
+    }
+
+    public function detailOrder($id)
+    {
+        $detail_order = Auth::user()->userRolesStudent()->orderDetail($id);
+        dd($detail_order);
+        return $detail_order;
+    }
+
 }

@@ -19,10 +19,15 @@ class UserRole extends Model
     {
     	return $this->belongsTo('App\Role','role_id');
     }
-    // public function teacher()
-    // {
-    // 	return $this->hasMany('App\Teacher');
-    // }
+
+    public function order()
+    {
+    	return $this->hasMany('App\Order', 'user_id');
+    }
+
+    public function orderDetail($id) {
+    	return $this->order()->where('id', $id)->get();
+    }
 
     public function teacher()
     {
@@ -57,4 +62,5 @@ class UserRole extends Model
         }
         return $this->belongsToMany('App\Course', 'user_courses')->paginate(4);
     }
+    
 }

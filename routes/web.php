@@ -125,12 +125,14 @@ Route::group(['middleware' => 'auth'], function () {
 
        
         Route::get('getDataMailBoxAjax', 'Frontends\UserController@getDataMailBoxAjax');
-
+        Route::get('getDataOrderAjax', 'Frontends\UserController@getDataOrderAjax');
         Route::group(['prefix' => 'student'],function () {
             Route::get('mail-box', 'Frontends\UserController@mailBoxStudent'); 
             Route::get('course', 'Frontends\UserController@courseStudent'); 
             Route::get('profile', 'Frontends\UserController@profileStudent'); 
             Route::post('profile', 'Frontends\UserController@updateProfileStudent');
+            Route::get('order/{id}','Frontends\UserController@detailOrder')->where('id','[0-9]+');
+            Route::get('order-logs', 'Frontends\UserController@orderLogs');
         });
 
         Route::group(['prefix' => 'teacher'],function () {
