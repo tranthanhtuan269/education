@@ -46,6 +46,7 @@
                     @foreach($unit->videos as $video)
                         <li class="video-list-item" id="listItem{{$video->id}}" data-parent="{{$video->id}}">
                             <a href="{{ route('videoplayer.show', ['courseId' => $unit->course_id, 'videoId' => $video->id]) }}">
+                            <a href="learning-page/{{$unit->course_id}}/lecture/{{$video->id}}">
                                 <span class="ln-lect-list-lect-title-icon"><span><i class="fas fa-play-circle"></i></span></span>
                                 <span class="ln-lect-list-lect-title">{{$video->index}}.  {{ $video->name }}</span>
                                 <span class="ln-lect-list-lect-duration">{{ App\Helper::convertSecondToTimeFormat($video->duration) }}</span>
