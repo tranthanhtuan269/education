@@ -118,7 +118,22 @@
                 });
 
                 $('#btnContinue').click(function () {
-                    window.location.replace("http://courdemy.local/learning-page/"+course_id+"/lecture/"+video_id_list[video_id_index + 1]+"")
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    var request = $.ajax({
+                        method: 'POST',
+                        url: "/user-course/update-watched",
+                        data: {
+                            'video_id' : video_id_list[video_id_index + 1]
+                        },
+                        dataType: "json",
+                    });
+                    request.done(function(){
+                        window.location.replace("http://courdemy.local/learning-page/"+course_id+"/lecture/"+video_id_list[video_id_index + 1]+"")
+                    })
                 })
             })
             
