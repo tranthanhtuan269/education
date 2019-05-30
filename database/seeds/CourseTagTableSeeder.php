@@ -12,8 +12,8 @@ class CourseTagTableSeeder extends Seeder
     public function run()
     {
         for ($i = 1 ; $i < 100 ; $i++ ) {
-            for ($j=1; $j <= 12; $j++) { 
-                $course = \App\Course::find($j);
+            for ($j=1; $j <= 8; $j++) { 
+                $course = \App\Course::find(rand(1,12));
                 $course->tags()->attach($i);
             } 
         }
