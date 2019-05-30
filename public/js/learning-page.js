@@ -139,7 +139,7 @@ $(document).ready(function () {
             dataType: "json",
         });
         request.done(function(){
-            window.location.replace("http://courdemy.local/learning-page/"+ course_id +"/lecture/"+ video_id) 
+            window.location.replace("/learning-page/"+ course_id +"/lecture/"+ video_id) 
         })
     })
 

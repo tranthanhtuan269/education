@@ -104,7 +104,7 @@
                     $("#discComment" + $(this).attr('data-parent') + " p").addClass('active');
                     return false;
                 })
-                $('.ln-disc-comment-wrapper').on('hidden.bs.collapse', function () {                    
+                $('.ln-dilearningsc-comment-wrapper').on('hidden.bs.collapse', function () {                    
                     $("#discComment" + $(this).attr('data-parent') + " p").removeClass('active');
                     return false;
                 })
@@ -132,7 +132,7 @@
                         dataType: "json",
                     });
                     request.done(function(){
-                        window.location.replace("http://courdemy.local/learning-page/"+course_id+"/lecture/"+video_id_list[video_id_index + 1]+"")
+                        window.location.replace("/learning-page/"+course_id+"/lecture/"+video_id_list[video_id_index + 1]+"")
                     })
                 })
             })
