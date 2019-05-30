@@ -85,6 +85,7 @@ Route::get('/course-list','Frontends\HomeController@courseList');
 Route::get('/student-profile','Frontends\HomeController@studentProfile');
 
 Route::get('category/{cat}', ['as'  => 'category', 'uses' =>'Frontends\HomeController@showCategory']);
+Route::get('tags/{tag}', ['as'  => 'tags', 'uses' =>'Frontends\HomeController@showTag']);
 Route::get('course/{course}', ['as'  => 'course', 'uses' =>'Frontends\HomeController@showCourse']);
 Route::get('learning/{course}', ['as'  => 'course', 'uses' =>'Frontends\HomeController@courseLearning']);
 Route::get('teacher/{teacher}', ['as'  => 'teacher', 'uses' =>'Frontends\HomeController@showTeacher']);

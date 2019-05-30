@@ -4,29 +4,27 @@
 <div class="box-search">
   <div class="container">
       <div class="row">
-          {{-- <div class="col-lg-3 col-md-3 col-sm-4 u-list-leftbar hidden-xs">
+          <div class="col-lg-3 col-md-3 col-sm-4 u-list-leftbar hidden-xs">
               <section>
                   <div class="u-cate-list">
-                      <p style="font-size: 16px;font-weight: bold;border-bottom: 1px solid #d7d7d7;margin-bottom: 10px;padding-bottom: 5px;">Categories</p>
+                      <p style="font-size: 16px;font-weight: bold;border-bottom: 1px solid #d7d7d7;margin-bottom: 10px;padding-bottom: 5px;">Tag</p>
                       <ul>
-                        @foreach($category_fixed as $cat)
                           <li>
-                              <a title="{!! $cat->name !!}" href="{{ url('/') }}/category/{{ $cat->slug }}"><i class="fas {!! $cat->icon !!}"></i> {!! $cat->name !!}</a>
+                              {{-- <a title="{!! $tag->name !!}" href="{{ url('/') }}/tags/{{ $tag->slug }}"><i class="fas {!! $tag->icon !!}"></i> {!! $tag->name !!}</a> --}}
                           </li>
-                        @endforeach
                       </ul>
                   </div>
               </section>
-          </div> --}}
+          </div>
           <div class="col-xs-12">
               <div class="u-all-course">
                   <section>
-                    @if (count($results) > 0)
+                    @if (count($tag->courses) > 0)
                     <div class="row">
                         <div class="col-xs-12">
-                            <h2>{{ $results->total() }} results found</h2>
+                            <h2>{{ $tag->courses->total() }} results found</h2>
                         </div>
-                        @foreach ($results as $result)
+                        @foreach ($tag->courses as $result)
                         <?php
                             $lecturers = count($result->Lecturers()) > 1 ? 'Nhiều tác giả' : count($result->Lecturers()) > 0 ? $result->Lecturers()[0]->user->name : "Courdemy";
                         ?>
@@ -51,7 +49,7 @@
                         )
                         @endforeach
                       <div class="col-xs-12 text-center">
-                          <div class="u-number-page">{{ $results->appends(Request::all())->links() }}</div>
+                          <div class="u-number-page">{{ $tag->courses->appends(Request::all())->links() }}</div>
                       </div>
                     </div>
                     @else

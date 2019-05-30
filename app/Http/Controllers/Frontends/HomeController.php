@@ -74,6 +74,15 @@ class HomeController extends Controller
         return abort(404);
     }
 
+    public function showTag($tag)
+    {
+        $tag = Tag::where('slug', $tag)->first();
+        if ($tag) {
+            return view('frontends.tag', compact('tag'));
+        }
+        return abort(404);
+    }
+
     public function showCourse($course)
     {
         $course = Course::where('slug', $course)->first();
