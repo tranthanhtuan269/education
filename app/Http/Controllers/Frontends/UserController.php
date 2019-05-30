@@ -284,9 +284,8 @@ class UserController extends Controller
 
     public function orderLogs(Request $request)
     {
-        // dd(Auth::user()->userRolesStudent()->order);
-        $order_logs = Auth::user()->userRolesStudent()->order;
-        // dd($lifelong_course);
+        // $order_logs = Auth::user()->userRolesStudent()->order[0]->payment;
+        // dd($order_logs);
         return view('frontends.users.student.order-logs');
     }
 
@@ -298,13 +297,19 @@ class UserController extends Controller
             ->addColumn('code', function ($order) {
                 return '#Order_' . $order->id;
             })
+            ->addColumn('payment', function ($order) {
+                return  $order->payment->name;
+            })
+            ->addColumn('course', function ($order) {
+                return  $order->courses;
+            })
             ->make(true);
     }
 
     public function detailOrder($id)
     {
-        $detail_order = Auth::user()->userRolesStudent()->orderDetail($id);
-        dd($detail_order);
+        $detail_order = Auth::user()->userRolesStudent()->orderDetail($id)->courses;
+        // dd($detail_order);
         return $detail_order;
     }
 

@@ -30,6 +30,7 @@
                                         <tr>
                                             <th scope="col">Code</th>
                                             <th scope="col">Total price</th>
+                                            <th scope="col">Total price hide</th>
                                             <th scope="col">Status</th>
                                             <th scope="col">Created at</th>
                                         </tr>
@@ -43,7 +44,18 @@
             </div>
         </div>
     </div>
-
+    <div id="show-detail-order" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title" style="color: #00B7F1">Detail order</h4>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                </div>
+            </div>
+        </div>
     <script type="text/javascript">
         var dataTable           = null;
         $(document).ready(function(){
@@ -51,25 +63,24 @@
                 { 
                     data: "code",
                     render: function(data, type, row){
-                        return '<a href="javascript:void(0)" data-id="'+row.id+'" class="detail-order" title="Detail" data-value="'+ row.code +'">' + row.code + '</a>';
+                        return '<a href="javascript:void(0)" class="detail-order"  title="Detail" data-id="'+row.id+'" data-course="'+row.course+'" data-coupon="'+row.coupon+'"  data-payment="'+row.payment+'"  data-status="'+row.status+'" data-total-price-real="'+ row.total_price +'" data-create="'+ row.created_at +'">' + row.code + '</a>';
                     },
                 },
                 { 
                     data: "total_price",
+                    render: function(data, type, row){
+                        return numberFormat(row.total_price, 0, '.', '.') + ' đ';
+                    },
                     // class: "hide"
+                },
+                { 
+                    data: "total_price",
+                    class: "hide"
                 },
                 { 
                     data: "status",
                     render: function(data, type, row){
-                        var status = '';
-                        if (row.status == 0) {
-                            status = '<span class="btn btn-sm text-center btn-warning">Unapproved</span>';
-                        } else if(row.status == 1) {
-                            status = '<span class="btn btn-sm text-center btn-success" >Approved</span>';
-                        } else if(row.status == 2) {
-                            status = '<span class="btn btn-sm text-center btn-danger" >Cancelled</span>';
-                        }
-                        return status;
+                        return statusOrder(row.status);
                     },
                 },
                 { 
@@ -85,7 +96,7 @@
                             columns: dataObject,
                             // bLengthChange: false,
                             // pageLength: 10,
-                            order: [[2, "desc" ]],
+                            order: [[4, "desc" ]],
                             colReorder: {
                                 fixedColumnsRight: 1,
                                 fixedColumnsLeft: 1
@@ -117,75 +128,60 @@
                         });
 
             $('body').on('click', '.detail-order', function() {
-                $.ajaxSetup(
-                {
-                    headers:
-                    {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-                var id      = $(this).attr('data-id');
-                $.ajax({
-                    url: '{{ url("user/student/order") }}' + '/' + id,
-                    method: "GET",
-                    dataType:'json',
-                    success: function (response) {
-                    	console.log(response);
-                        $('#show-detail .modal-title').html('Chi tiết đơn hàng + id');
-                        var html_data = '<table class="table"><thead><tr><th scope="col">Thông tin chung</th><th scope="col">Thông tin thanh toán</th></tr></thead><tbody>';
-    
-                        html_data += '<tr>';
-                        html_data += '<td style="width:38%;">';
-                            html_data += '<table><tbody><tr><td>Họ và tên: </td><td>' + response.infoCustomer.username + '</td></tr><tr><td>Ngày tạo: </td><td>' + response.infoCustomer.order_created_at + '</td></tr><tr><td>Trạng thái: </td><td class="status_order"><span class="btn btn-sm" style="background-color:' + response.infoCustomer.color + '">' + response.infoCustomer.order_status_name + '</span></td></tr></tbody></table>';
-                        html_data += '<td style="width:62%;">';
-                            html_data += '<table><tbody>';
-                            html_data += '<tr><td style="width:45%;">Địa chỉ: </td><td>';
-                            html_data += response.infoCustomer.address + (response.infoCustomer.district_name == null ? '' : ', ' + response.infoCustomer.district_name) + (response.infoCustomer.city_name == null ? '' : ', ' + response.infoCustomer.city_name) + '</td></tr>';
-                            html_data += '<tr><td style="width:45%;">Email: </td><td>' + response.infoCustomer.email + '</td></tr>';
-                            html_data += '<tr><td style="width:45%;">Số điện thoại: </td><td>' + response.infoCustomer.phone + '</td></tr>';
-                            html_data += '<tr><td style="width:45%;">Phương thức thanh toán: </td><td>'+ response.infoCustomer.method_payment +'</td></tr>';
-                            html_data += '</tbody></table>';
-                        html_data += '</td>';
-                        html_data += '</tr>';
-    
-                        html_data += '</tbody></table>';
-    
-                        html_data += '<table class="table table-bordered"><thead><tr><th scope="col">Tên sản phẩm</th><th scope="col">Số lượng</th><th scope="col">Giá</th></tr></thead><tbody>';
-                        var totalValue = 0;
-                        for(var i = 0; i < response.productList.length; i++){
-                           html_data += '<tr>';
-                           html_data += '<td>';
-                           html_data += response.productList[i].name;
-                           html_data += '</td>';
-                           html_data += '<td>';
-                           html_data += response.productList[i].pieces;
-                           html_data += '</td>';
-                           html_data += '<td>';
-    
-                           html_data += response.productList[i].sale > 0 ? numberFormat(response.productList[i].sale, 0, '.', '.') : numberFormat(response.productList[i].price, 0, '.', '.');
-    
-                           html_data += '</td>';
-                           html_data += '</tr>';
-    
-                           totalValue += response.productList[i].sale > 0 ? response.productList[i].pieces * response.productList[i].sale : response.productList[i].pieces * response.productList[i].price;
-                        }
-                        html_data += '<tr><td></td><td><b>Tổng cộng</b></td><td style="color:red; font-size:18px;">'+ numberFormat(totalValue, 0, '.', '.') +'</td></tr>';
-                        html_data += '</tbody></table>';
-                        
-                    	$('#show-detail .modal-body').html(html_data);
-                    	$('#show-detail').modal('toggle');
-                    },
-                    error: function (data) {
-                        if(data.status == 401){
-                          window.location.replace(baseURL);
-                        }else{
-                         $().toastmessage('showErrorToast', errorConnect);
-                        }
-                    }
-                });
-                // $('#myModalDetailOrder h4.modal-title').html( $(this).text() ); 
-                // $('#myModalDetailOrder .modal-body').html( $(this).attr("data-value") ); 
-                $('#myModalDetailOrder').modal('show'); 
+                var id               = $(this).attr('data-id');
+                var created_at       = $(this).attr('data-create');
+                var status           = $(this).attr('data-status');
+                var payment          = $(this).attr('data-payment');
+                var total_price_real = $(this).attr('data-total-price-real');
+                var coupon           = $(this).attr('data-coupon');
+                var courses          = $(this).attr('data-course');
+                var courses          = JSON.parse(courses);
+
+                $('#show-detail-order .modal-title').html('Detail order #DH_' + id)
+                var html_data = '<table class="table"><thead><tr><th scope="col">General</th><th scope="col">Info payment</th></tr></thead><tbody>';
+
+                html_data += '<tr>';
+                html_data += '<td style="width:38%;">';
+                    html_data += '<table><tbody><tr><td style="width:45%;">Full name: </td><td>{{ Auth::user()->name }}</td></tr><tr><td style="width:45%;">Created at:</td><td>' + created_at + '</td></tr><tr><td>Status: </td><td style="width:45%;">' + statusOrder(status) + '</td></tr></tbody></table>';
+                html_data += '<td style="width:62%;">';
+                    html_data += '<table><tbody>';
+                    html_data += '<tr><td style="width:45%;">Address: </td><td>{{ Auth::user()->address }}</td></tr>'
+                    html_data += '<tr><td style="width:45%;">Email: </td><td>{{ Auth::user()->email }}</td></tr>';
+                    html_data += '<tr><td style="width:45%;">Phone: </td><td>{{ Auth::user()->phone }}</td></tr>';
+                    html_data += '<tr><td style="width:45%;">Payment: </td><td>' + payment + '</td></tr>';
+                    html_data += '</tbody></table>';
+                html_data += '</td>';
+                html_data += '</tr>';
+
+                html_data += '</tbody></table>';
+
+                html_data += '<table class="table table-bordered"><thead><tr><th scope="col">Course</th><th scope="col">Quantity</th><th scope="col">Price</th></tr></thead><tbody>';
+                var totalValue = 0;
+                for(var i = 0; i < courses.length; i++){
+                    html_data += '<tr>';
+                    html_data += '<td>';
+                    html_data += courses[i].name;
+                    html_data += '</td>';
+                    html_data += '<td>';
+                    html_data += 1;
+                    html_data += '</td>';
+                    html_data += '<td>';
+
+                    html_data += courses[i].sale > 0 ? numberFormat(courses[i].sale, 0, '.', '.') : numberFormat(courses[i].price, 0, '.', '.') + ' đ';
+
+                    html_data += '</td>';
+                    html_data += '</tr>';
+
+                    totalValue += courses[i].sale > 0 ? 1 * courses[i].sale : 1 * courses[i].price;
+                }
+                html_data += '<tr><td></td><td><b>Total</b></td><td style="color:red; font-size:18px;">'+ numberFormat(totalValue, 0, '.', '.') +' đ</td></tr>';
+                if (coupon != '') {
+                    html_data += '<tr><td></td><td><b>Total real (Coupon: ' + coupon + ')</b></td><td style="color:red; font-size:18px;">'+ numberFormat(total_price_real, 0, '.', '.') +' đ</td></tr>';
+                }
+                html_data += '</tbody></table>';
+                
+                $('#show-detail-order .modal-body').html(html_data);
+                $('#show-detail-order').modal('toggle');
             });
     
         });

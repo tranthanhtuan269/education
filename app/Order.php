@@ -10,6 +10,11 @@ class Order extends Model
         'payment_id', 'user_id', 'total_price', 'coupon', 'status'
     ];
 
+    protected $casts = [
+        'created_at'  => 'date:d-m-Y H:i:s',
+    ];
+
+
     public function payment(){
     	return $this->belongsTo('App\Payment');
     }

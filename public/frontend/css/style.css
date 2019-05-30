@@ -1200,3 +1200,8 @@ div[data-u="slides"] div div{
 .checkout-column .coupon-code-input .input-group #btnCartCouponApply:hover{
   background-color: #00789e;
 }
+
+#show-detail-order .table td, #show-detail-order .table th {
+  padding: 5px;
+  border-top: none;
+}

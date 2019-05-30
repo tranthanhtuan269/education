@@ -26,7 +26,7 @@ class UserRole extends Model
     }
 
     public function orderDetail($id) {
-    	return $this->order()->where('id', $id)->get();
+    	return $this->order()->where('id', $id)->first();
     }
 
     public function teacher()
