@@ -117,8 +117,11 @@
         $(".checkout-column .current-price").append("<span>"+number_format(totalPrice, 0, '.', '.')+" ₫</span>")
         $(".checkout-column .initial-price").append("<span>"+number_format(totalInitialPrice, 0, '.', '.')+" ₫</span>")
         
-        $(".checkout-column .percent-off").append("<span>"+Math.floor(100-(totalPrice/totalInitialPrice)*100)+"% off</span>")
-
+        if(totalInitialPrice == 0){
+            $(".checkout-column .percent-off").append("<span>0% off</span>")
+        }else{
+            $(".checkout-column .percent-off").append("<span>"+Math.floor(100-(totalPrice/totalInitialPrice)*100)+"% off</span>")
+        }
         $('.btn-remove i').on('click', function(e){
             e.stopPropagation()
             e.preventDefault()
