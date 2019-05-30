@@ -17,7 +17,7 @@
                 <div class="tabbable-line">
                     <ul class="nav nav-tabs">
                         <li class="active">
-                            <a href="#buyed" class="buyed" data-toggle="tab"><i class="fa fa-play-circle"></i>&nbsp;&nbsp;Lifelong Course</a>
+                            <a href="#buyed" class="buyed" data-toggle="tab"><i class="fa fa-play-circle"></i>&nbsp;&nbsp;Courses</a>
                         </li>
                     </ul>
                     <div class="tab-content">

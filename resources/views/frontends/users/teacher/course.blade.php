@@ -17,7 +17,7 @@
                 <div class="tabbable-line">
                     <ul class="nav nav-tabs">
                         <li class="active">
-                            <a href="#buyed" class="buyed" data-toggle="tab"><i class="fa fa-play-circle"></i>&nbsp;&nbsp;Lifelong Course</a>
+                            <a href="#buyed" class="buyed" data-toggle="tab"><i class="fa fa-play-circle"></i>&nbsp;&nbsp;Courses</a>
                         </li>
                     </ul>
                     <div class="tab-content">
@@ -43,9 +43,11 @@
                                         $lecturers = count($course->Lecturers()) > 1 ? 'Nhiều tác giả' : count($course->Lecturers()) > 0 ? $course->Lecturers()[0]->user->name : "Courdemy";
                                     ?>
                                     @include(
-                                        'components.course', 
-                                        [
+                                        'components.teaching-course', 
+                                        [   
+                                            'id'    => $course->id,
                                             'slug' => $course->slug,
+                                            'rawImage' => $course->image,
                                             'image' => url('/frontend/images/'.$course->image),
                                             'title' => $course->name,
                                             'author' => $lecturers,
