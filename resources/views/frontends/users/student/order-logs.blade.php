@@ -20,7 +20,7 @@
                     <div class="tabbable-line">
                         <ul class="nav nav-tabs">
                             <li class="active">
-                                <a href="#buyed" class="buyed" data-toggle="tab"><i class="fas fa-envelope"></i>&nbsp;&nbsp;Mailbox</a>
+                                <a href="#buyed" class="buyed" data-toggle="tab"><i class="fas fa-history"></i>&nbsp;&nbsp;Order history</a>
                             </li>
                         </ul>
                         <div class="tab-content">
@@ -65,6 +65,7 @@
                     render: function(data, type, row){
                         return '<a href="javascript:void(0)" class="detail-order"  title="Detail" data-id="'+row.id+'" data-course="'+row.course+'" data-coupon="'+row.coupon+'"  data-payment="'+row.payment+'"  data-status="'+row.status+'" data-total-price-real="'+ row.total_price +'" data-create="'+ row.created_at +'">' + row.code + '</a>';
                     },
+                    orderable: false,
                 },
                 { 
                     data: "total_price",
