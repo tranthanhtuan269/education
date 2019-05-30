@@ -308,7 +308,7 @@
                                     <li><a href="{{ url('user/student/course') }}" class="unica-active-course"><p class="hidden-md hidden-xs hidden-sm">Start Learning</p></a></li>
                                     </li>
                                     @endif
-                                    <li class="mgtOp">
+                                    <li>
                                         <a href="{{route('cart.show')}}" class="unica-cart">
 
                                             <img src="{{ asset('frontend/images/tab_cart.png') }}" alt="" style="width: 21px;" />
@@ -317,13 +317,13 @@
                                     <li>
 
                                     @if(Auth::check())
-                                    <li class="mgtOp">
+                                    <li>
                                         <a href="{{route('cart.show')}}" class="unica-cart">
                                             <img src="{{ asset('frontend/images/tab_notifications.png') }}" alt="" style="width: 21px;" />
                                             <span class="unica-sl-notify"><b>0</b></span>
                                         </a>
                                     </li>
-                                    <li class="btn-group mgtOp">
+                                    <li class="btn-group">
                                         <a class="db-item-circle dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)"><img class="img-responsive" src="{{ asset('frontend/'.(Auth::user()->avatar != '' ? Auth::user()->avatar : 'images/avatar.jpg')) }}" alt="avatar"><span class="caret"></span></a>
                                         <ul class="dropdown-menu db-drop">
                                             @if ($check_multi_role_user == 2)
