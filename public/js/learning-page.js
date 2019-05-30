@@ -65,6 +65,13 @@ $(document).ready(function () {
         })
     });
 
+    $(".learning-lecture-list-searchbar #btnSearchSidebar").click(function () {
+        Swal.fire({
+            type: "warning",
+            text: "Sorry! The development of this feature is still ongoing!"
+        })
+    })
+
     $("#btnAutoplay").click(function () {
         if(localStorage.getItem('autoplay') == "true"){
             localStorage.setItem('autoplay', false)
@@ -118,7 +125,22 @@ $(document).ready(function () {
     })
     $(".video-list-item").click(function () {
         var video_id = $(this).attr("data-parent")
-        window.location.replace("http://courdemy.local/learning-page/"+ course_id +"/lecture/"+ video_id) 
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        var request = $.ajax({
+            method: 'POST',
+            url: "/user-course/update-watched",
+            data: {
+                'video_id' : video_id
+            },
+            dataType: "json",
+        });
+        request.done(function(){
+            window.location.replace("http://courdemy.local/learning-page/"+ course_id +"/lecture/"+ video_id) 
+        })
     })
 
 
@@ -142,40 +164,6 @@ $(document).ready(function () {
         $("#lnDescBtnPlay").click(function () {
             player.play()
             $(".learning-desc-panel").fadeOut()
-
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-             var request = $.ajax({
-                method: 'POST',
-                url: "/user-course/update-watched",
-                data: {
-                    'video_id' : main_video_id
-                },
-                dataType: "json",
-            });
-
-            request.done(function (response){
-                if(response.status){
-                    if($("#lnBtnNotComplete"+main_video_id+ " button").length == 1){
-                        $("#lnBtnNotComplete"+main_video_id+ " button").remove()
-                        var html = ""
-                            html += '<button >';
-                                html += '<span class="fa-stack">';
-                                    html += '<i class="fas fa-circle fa-stack-2x" style="color: #44b900;"></i>';
-                                    html += '<i class="fas fa-check fa-stack-1x" style="color: #ffffff;"></i>';
-                                html += '</span>';
-                            html += '</button>';
-                        $("#lnBtnNotComplete"+main_video_id).prepend(html)
-
-                        var key = $("#lnBtnNotComplete"+main_video_id).attr("data-child")
-                        var videoDoneOneSect =  parseInt($("#videoDoneOneSect"+key).html(), 10)
-                        $("#videoDoneOneSect"+key).text(videoDoneOneSect+1)
-                    }
-                }
-            })
         })
 
         //big play button
@@ -382,9 +370,14 @@ $(document).ready(function () {
         $(".vjs-quality-selector .vjs-icon-placeholder").remove()
         $(".vjs-quality-selector .vjs-menu-button").append(qualitySelectorIcon)
 
-        //Button Subtitile
-        var btnAutoplay = "<div class='vjs-subtitle-control btn vjs-control vjs-button'><button class='btn'><i class='fas fa-toggle-on' id='btnAutoplay'></i></button></div>"
-        $(".vjs-quality-selector").after(btnAutoplay)
+        //Button Autoplay
+        if(localStorage.getItem('autoplay') == "true"){
+            var btnAutoplay = "<div class='vjs-subtitle-control btn vjs-control vjs-button'><button class='btn'><i class='fas fa-toggle-on' id='btnAutoplay'></i></button></div>"
+            $(".vjs-quality-selector").after(btnAutoplay)
+        }else{
+            var btnAutoplay = "<div class='vjs-subtitle-control btn vjs-control vjs-button'><button class='btn'><i class='fas fa-toggle-off' id='btnAutoplay'></i></button></div>"
+            $(".vjs-quality-selector").after(btnAutoplay)            
+        }
     }
 
     function tickCompleteLecture(e) {

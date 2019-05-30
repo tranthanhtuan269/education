@@ -43,9 +43,9 @@
                                         $lecturers = count($course->Lecturers()) > 1 ? 'Nhiều tác giả' : count($course->Lecturers()) > 0 ? $course->Lecturers()[0]->user->name : "Courdemy";
                                     ?>
                                     @include(
-                                        'components.course', 
+                                        'components.purchased-course', 
                                         [
-                                            'id' => $course->id,
+                                            'courseId' => $course->id,
                                             'slug' => $course->slug,
                                             'image' => url('/frontend/images/'.$course->image),
                                             'rawImage' => $course->image,

@@ -224,7 +224,23 @@ class HomeController extends Controller
                     if($item['id']){
                         $course = Course::find($item['id']);
                         if($course){
-                            $course->userRoles()->attach($user_role_id->id);
+                            $video_count = $course->video_count;
+                            $first_video_index = 1;
+                            $first_video_id = $course->units[0]->videos[0]->id;
+                            $user_course_videos = [];
+                            for ($i=0; $i < $video_count; $i++) { 
+                                array_push($user_course_videos, 0) ;
+                            }
+                            $videoJson = new VideoJson;
+                            $videoJson->videos = $user_course_videos;
+                            $videoJson->learning = 1;
+                            $videoJson->learning_id = $first_video_id;
+
+                            $videoJson = json_encode($videoJson);
+
+                            
+
+                            $course->userRoles()->attach($user_role_id->id, ['videos' => $videoJson]);
                             $order->courses()->attach($item['id']);
                             $total_price+= $course->price;
                         }
@@ -245,4 +261,8 @@ class HomeController extends Controller
             return \Response::json(array('status' => '401', 'message' => 'Unauthorized'));
         }
     }
+}
+
+class VideoJson{
+    public $videos, $learning, $learning_id;
 }
