@@ -1,5 +1,5 @@
 <div class="learning-video">
-    <video id='my-video' class='video-js vjs-big-play-centered' src="">
+    <video id='my-video' class='video-js vjs-big-play-centered' src=""> 
         @foreach ($video_urls as $key => $url)
             @php
                 $generated_url = \App\Helper::createSecurityTokenForVideoLink(\Auth::id(), $main_video->id, $url);                

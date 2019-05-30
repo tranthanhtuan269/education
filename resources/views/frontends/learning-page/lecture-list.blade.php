@@ -1,9 +1,13 @@
+@php
+    // dd(($video_done_array));
+@endphp
 <div class="learning-lecture-list">
+    
     <div class="learning-lecture-list-searchbar">
         <div class="input-group">
             <input type="text" class="form-control" placeholder="Search for lectures">
             
-            <span class="input-group-addon" ><i class="fas fa-search"></i></span>
+            <span class="input-group-addon" id="btnSearchSidebar" ><i class="fas fa-search"></i></span>
             
         </div>
         <button class="btn" id="btnCloseSidebar"><i class="fas fa-times-circle"></i></button>
@@ -22,11 +26,12 @@
                         $video_done_in_one_section = 0;
                     @endphp
                     @foreach ($unit->videos as $video)
-                        @if ($video_done_array[$video->index-1] == 1)
+                        @if ($video_done_array[($video->index)-1] == 1)
                         @php
                             $video_done_in_one_section += 1;                            
                         @endphp    
                         @endif
+                       
                     @endforeach
                     <span id="videoDoneOneSect{{$key+1}}">{{$video_done_in_one_section}}</span>
                     / {{$unit->video_count}}

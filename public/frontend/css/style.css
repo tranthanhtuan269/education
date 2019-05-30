@@ -39,7 +39,7 @@ div[data-u="slides"] div div{
 }
 .star-rate{color:#FF8F00}
 .item-progress .progress{border-radius:20px;height:15px;margin-bottom:15px}
-.box-course .progress{margin-bottom:10px}
+.box-course .progress{margin-bottom:1em; margin-top: 1em;}
 .progress{border-radius:20px}
 .progress-bar-success{background-color:#44B900}
 #config-slider{top:-80px!important}
@@ -76,9 +76,9 @@ nav .pagination li a img{width:35px;position:relative;top:-6px}
 }
 
 .box-course a.course-box-slider{display:inline-block;color:#333;background:#fff;border-radius:10px}
-.box-course a.btn-start-learning {
+/* .box-course a.btn-start-learning {
     margin-top: 12px;
-}
+} */
 .box-course{padding-bottom:30px;margin:0 5px 0 8px}
 .box-course .content-course{border:1px solid #cccccca6;border-radius:0 0 10px 10px;padding:15px}
 .box-course .content-course h3.title-course{font-size:16px;margin:0 0 10px;font-weight:600;line-height:26px;min-height:52px}
@@ -142,7 +142,7 @@ nav .pagination li a img{width:35px;position:relative;top:-6px}
 .unica-home-menutop  .db-item li { display: inline; float: left; margin-right: 20px; }
 .unica-home-menutop  .db-item li:last-child { float: right; margin-right: 0px; padding-top: 5px;}
 .unica-home-menutop  .db-item .dropdown-menu li:last-child {  padding-top: 0;}
-.unica-home-menutop  .db-item li.btn-group.open > a { box-shadow: unset; }
+.unica-home-menutop  .db-item li.btn-group.open > a { box-shadow: unset;}
 .dropdown-menu li { display: inline-block; width: 100% }
 .unica-home-menutop  .db-item-learn { padding: 10px; border-radius: 3px; background: #03A9F4; color: #fff; display: block;  }
 .unica-home-menutop  .db-item-learn:hover { opacity: .8 }

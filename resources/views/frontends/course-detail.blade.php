@@ -165,29 +165,29 @@
                         <li>
                             <img src="{{ asset('frontend/images/features_online.png') }}" alt="" /> 
                             <span class="txt-large">100 Online</span>
-                            <span class="txt-small">Content comming soon...</span>
+                            {{-- <span class="txt-small">Content comming soon...</span> --}}
                         </li>
                         <li>
                             <img src="{{ asset('frontend/images/features_deadline.png') }}" alt="" /> 
                             <span class="txt-large">Flexible deadlines</span>
-                            <span class="txt-small">Content comming soon...</span>
+                            {{-- <span class="txt-small">Content comming soon...</span> --}}
                         </li>
                         <li>
                             <img src="{{ asset('frontend/images/features_level.png') }}" alt="" /> 
                             <span class="txt-large">Benginner Level</span>
-                            <span class="txt-small">Content comming soon...</span>
+                            {{-- <span class="txt-small">Content comming soon...</span> --}}
                         </li>
                         @if ($info_course->approx_time != '')
                         <li>
                             <img src="{{ asset('frontend/images/features_hour.png') }}" alt="" /> 
                             <span class="txt-large">Approx {{ $info_course->approx_time }} hours to complete</span>
-                            <span class="txt-small">Content comming soon...</span>
+                            {{-- <span class="txt-small">Content comming soon...</span> --}}
                         </li>
                         @endif
                         <li>
                             <img src="{{ asset('frontend/images/features_subtitle.png') }}" alt="" /> 
                             <span class="txt-large">English</span>
-                            <span class="txt-small">Content comming soon...</span>
+                            {{-- <span class="txt-small">Content comming soon...</span> --}}
                         </li>
                     </ul>
                 </div>
