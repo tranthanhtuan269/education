@@ -16,9 +16,9 @@
             <div class="box-user tabbable-panel">
                 <div class="tabbable-line">
                     <ul class="nav nav-tabs">
-                        <li class="active">
+                        {{-- <li class="active">
                             <a href="#buyed" class="buyed" data-toggle="tab"><i class="fa fa-user"></i>&nbsp;&nbsp;Profile</a>
-                        </li>
+                        </li> --}}
                         <li data-toggle="modal" data-target="#myModalChangePass" data-dismiss="modal" class="pull-right">
                             <button type="button" class="btn btn-warning">Change password</button>
                         </li>
@@ -56,11 +56,7 @@
                                         <div class="col-md-6 col-sm-6">
                                             <div class="form-group">
                                                 <label>Choose Image</label>
-                                                <div class="dropzone dz-clickable" id="myDrop">
-                                                    <div class="dz-default dz-message" data-dz-message="">
-                                                        <span>Drop files here to upload</span>
-                                                    </div>
-                                                </div>
+                                                <div class="dropzone dz-clickable" id="myDrop"></div>
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-sm-6">
@@ -136,6 +132,10 @@
 <script>
     Dropzone.autoDiscover = false;
     $(document).ready(function(){
+        $('body').on('click','.dz-image-preview',function(){
+            $("#myDrop").trigger("click");
+        });
+
         $('.reorder').on('click',function(){
             $("ul.nav").sortable({ tolerance: 'pointer' });
             $('.reorder').html('Save Reordering');
@@ -154,6 +154,8 @@
             autoProcessQueue: true,
             parallelUploads: 50,
             maxFilesize: 5, // MB
+            thumbnailWidth:"200",
+            thumbnailHeight:"200",
             acceptedFiles: ".png, .jpeg, .jpg, .gif",
             url: "{{ url('upload-image') }}",
             headers: {
@@ -225,6 +227,8 @@
             //     this.removeAllFiles(true);
             // }
         });
+
+
 
         $("#save-profile").click(function(){
 			// Validate Birthday

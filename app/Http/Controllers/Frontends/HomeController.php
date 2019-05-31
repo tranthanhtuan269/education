@@ -1,17 +1,18 @@
 <?php
 namespace App\Http\Controllers\Frontends;
 
-use Illuminate\Http\Request;
-use App\Helper\Helper;
-use App\RatingCourse;
 use App\Category;
-use App\Teacher;
-use App\Course;
 use App\Coupon;
+use App\Course;
+use App\Helper\Helper;
 use App\Order;
-use App\User;
+use App\RatingCourse;
+use App\RatingTeacher;
 use App\Tag;
+use App\Teacher;
+use App\User;
 use Auth;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -107,12 +108,13 @@ class HomeController extends Controller
     public function showTeacher($id_teacher)
     {
         $user = User::find($id_teacher);
-        if($user){
+        if ($user) {
+            $ratingTeacher = RatingTeacher::where('teacher_id', $user->userRolesTeacher()->id)->where('user_id', \Auth::id())->first();
             $info_teacher = $user->userRolesTeacher()->teacher;
             $feature_course = $user->userRolesTeacher()->userCoursesByFeature();
             $best_seller_course = $user->userRolesTeacher()->userCoursesByTrendding();
             $new_course = $user->userRolesTeacher()->userCoursesByNew();
-            return view('frontends.detail-teacher', compact('info_teacher', 'feature_category', 'feature_course', 'best_seller_course', 'new_course'));
+            return view('frontends.detail-teacher', compact('info_teacher', 'feature_category', 'feature_course', 'best_seller_course', 'new_course', 'ratingTeacher'));
         }
         return abort(404);
     }
@@ -157,8 +159,8 @@ class HomeController extends Controller
 
                 return view('frontends.course-learning', compact('related_courses', 'info_course', 'unit', 'ratingCourse', 'user_role_course_instance'));
             }
-        }else{
-            if($course){
+        } else {
+            if ($course) {
                 $related_courses = Course::getCourseNotLearning()->where('category_id', $course->category_id)->limit(4)->get();
                 $info_course = Course::find($course->id);
                 return view('frontends.course-learning', compact('related_courses', 'info_course', 'unit'));
@@ -188,26 +190,29 @@ class HomeController extends Controller
         Auth::logout();
     }
 
-    public function cart(){
+    public function cart()
+    {
         return view('frontends.cart');
     }
 
-    public function checkCoupon(Request $request){
+    public function checkCoupon(Request $request)
+    {
         $coupon = Coupon::where('name', $request->coupon)->first();
-        if($coupon){
+        if ($coupon) {
             return \Response::json(array('status' => '200', 'coupon' => $coupon));
         }
         return \Response::json(array('status' => '404', 'message' => 'Coupon không tồn tại!'));
     }
 
-    public function checkout(Request $request){
-        if(Auth::check()){
+    public function checkout(Request $request)
+    {
+        if (Auth::check()) {
             $user_role_id = Auth::user()->userRolesStudent();
             $items = $request->items;
-            if($items){
+            if ($items) {
                 // check coupon
                 $coupon = null;
-                if($request->coupon){
+                if ($request->coupon) {
                     $coupon = Coupon::where('name', $request->coupon)->first();
                 }
 
@@ -220,16 +225,16 @@ class HomeController extends Controller
                 $order->save();
 
                 $total_price = 0;
-                foreach($items as $item){
-                    if($item['id']){
+                foreach ($items as $item) {
+                    if ($item['id']) {
                         $course = Course::find($item['id']);
-                        if($course){
+                        if ($course) {
                             $video_count = $course->video_count;
                             $first_video_index = 1;
                             $first_video_id = $course->units[0]->videos[0]->id;
                             $user_course_videos = [];
-                            for ($i=0; $i < $video_count; $i++) { 
-                                array_push($user_course_videos, 0) ;
+                            for ($i = 0; $i < $video_count; $i++) {
+                                array_push($user_course_videos, 0);
                             }
                             $videoJson = new VideoJson;
                             $videoJson->videos = $user_course_videos;
@@ -238,18 +243,16 @@ class HomeController extends Controller
 
                             $videoJson = json_encode($videoJson);
 
-                            
-
                             $course->userRoles()->attach($user_role_id->id, ['videos' => $videoJson]);
                             $order->courses()->attach($item['id']);
-                            $total_price+= $course->price;
+                            $total_price += $course->price;
                         }
                     }
                 }
-                if($coupon){
+                if ($coupon) {
                     $order->total_price = $total_price * (100 - $coupon->value) / 100;
                     $order->coupon = $coupon->name;
-                }else{
+                } else {
                     $order->total_price = $total_price;
                     $order->coupon = '';
                 }
@@ -257,12 +260,13 @@ class HomeController extends Controller
                 return \Response::json(array('status' => '201', 'message' => 'Order has been created'));
             }
             return \Response::json(array('status' => '204', 'message' => 'Order has not been created'));
-        }else{
+        } else {
             return \Response::json(array('status' => '401', 'message' => 'Unauthorized'));
         }
     }
 }
 
-class VideoJson{
+class VideoJson
+{
     public $videos, $learning, $learning_id;
 }

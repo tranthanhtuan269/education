@@ -21,6 +21,138 @@
 							<a  class="btn btn-default btn-xs" href="{{ url($info_teacher->userRole->user->facebook) }}" target="_blank">
 								<i class="fab fa-facebook-square"></i> Facebook
 							</a>
+
+
+							@if(Auth::check())
+								@if(Helper::getUserRoleOfTeacher($info_teacher->userRole->user->id) )
+									<div class="rating big">
+										<span class="reviews-star" data-star="{{ isset($ratingTeacher) ? $ratingTeacher->score : 1 }}">
+											@if($ratingTeacher)
+											@include(
+												'components.vote', 
+												[
+													'rate' => $ratingTeacher->score,
+												]
+											)
+											<span data-toggle="modal" data-target="#editRatingModal" class="edit-rating">Edit your rating</span>
+											{{-- EDIT RATING MODAL --}}
+											<div class="modal" id="editRatingModal" tabindex="-1" role="dialog">
+												<div class="modal-dialog modal-sm" style="margin-top: 10%">
+													<div class="modal-content">
+														<div class="modal-header text-center">
+															<span>EDIT YOUR RATING</span>
+														</div>
+														<div class="modal-body text-center">
+															<h3>
+																<span class="reviews-star" data-star="{{ isset($ratingTeacher) ? $ratingTeacher->score : 1 }}">
+																	<i id="star-1" class="far fa-star review-star" data-id="1"></i>
+																	<i id="star-2" class="far fa-star review-star" data-id="2"></i>
+																	<i id="star-3" class="far fa-star review-star" data-id="3"></i>
+																	<i id="star-4" class="far fa-star review-star" data-id="4"></i>
+																	<i id="star-5" class="far fa-star review-star" data-id="5"></i>
+																</span>
+															</h3>
+														</div>
+														<div class="modal-footer" style="text-align:center !important;">
+															<button class="btn btn-primary" id="btnEditRating">SAVE</button>
+														</div>
+													</div>
+												</div>
+											</div>
+											<script>
+												var url_vote_star = '{{ url("stars-teacher/update") }}';
+												var method = 'PUT';
+											</script>
+											@else
+											<i id="star-1" class="far fa-star review-star" data-id="1"></i>
+											<i id="star-2" class="far fa-star review-star" data-id="2"></i>
+											<i id="star-3" class="far fa-star review-star" data-id="3"></i>
+											<i id="star-4" class="far fa-star review-star" data-id="4"></i>
+											<i id="star-5" class="far fa-star review-star" data-id="5"></i>
+											<script>
+												var url_vote_star = '{{ url("stars-teacher/insert") }}';
+												var method = 'POST';
+											</script>
+											@endif
+										</span>
+									</div>
+									<script>
+										function hideStar(){
+											for(var j = 1; j <= 5; j++){
+												$('#star-' + j).removeClass('fa').addClass('far');
+											}
+										}
+					
+										function showStar(i){
+											for(var j = 1; j <= i; j++){
+												$('#star-' + j).addClass('fa').removeClass('far');
+											}
+										}
+					
+										$('.review-star').mouseenter(function(){
+											switch($(this).attr('data-id')){
+												case "1":
+													hideStar();showStar(1);
+													break;
+												case "2":
+													hideStar();showStar(2);
+													break;
+												case "3":
+													hideStar();showStar(3);
+													break;
+												case "4":
+													hideStar();showStar(4);
+													break;
+												case "5":
+													hideStar();showStar(5);
+													break;
+											}
+										}).mouseleave(function(){
+											hideStar();
+										}).click(function(){
+											showStar($(this).attr('data-id'))
+											$('.review-star').off( "mouseenter")
+											$('.review-star').off( "mouseleave")
+											$('.reviews-star').attr('data-star', $(this).attr('data-id'))
+
+											$.ajaxSetup({
+												headers: {
+													'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+												}
+											});
+
+											var request = $.ajax({
+												url: url_vote_star,
+												method: method,
+												data: {
+													teacher_id: {{ $info_teacher->user_role_id }},
+													score: $('.reviews-star').attr('data-star')
+												},
+												dataType: "json"
+											})
+											request.done(function (response){
+												if(response.status == 200){
+													Swal.fire({
+														type: "success",
+														html: response.message,
+													}).then(function(result){
+														if(result.value){
+															location.reload();
+														}
+													})
+												}
+											})
+										});
+				
+									</script>
+								@endif
+							@endif
+
+
+
+
+
+
 						</div>
 					</div>
 					<div class="frame_2">

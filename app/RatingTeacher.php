@@ -4,14 +4,16 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class RatingLecture extends Model
+class RatingTeacher extends Model
 {
+    protected $table = 'teacher_ratings';
+
     protected $fillable = [
-        'lecture_id', 'user_id', 'score_id'
+        'teacher_id', 'user_id', 'score_id'
     ];
 
     public function lecture(){
-    	return $this->belongsTo('App\User', 'lecture_id');
+    	return $this->belongsTo('App\User', 'teacher_id');
     }
 
     public function user(){

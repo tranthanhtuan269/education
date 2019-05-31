@@ -3,8 +3,10 @@
 	$user_role_course_instance_video = json_decode($user_role_course_instance->videos);
 	$video_count = count($user_role_course_instance_video->videos);
 	$video_done_array = $user_role_course_instance_video->videos;
-	$video_done_count = array_count_values($video_done_array)[1];
-	$video_done_percent = (int)(($video_done_count/$video_count)*100);
+	// $video_done_count = array_count_values($video_done_array)[1];
+	// $video_done_percent = (int)(($video_done_count/$video_count)*100);
+	$video_done_count = 2;
+	$video_done_percent = 2;
 	$lecturers = $info_course->Lecturers();
 @endphp
 @section('content')
@@ -20,7 +22,7 @@
 					<p class="meta-des">{{ $info_course->short_description }}</p>
 					<div class="vote">
 					<div class="continue"><a href="/learning-page/{{$info_course->id}}/lecture/{{$user_role_course_instance_video->learning_id}}" title="Continue">Continue to Lecture {{$user_role_course_instance_video->learning}}</a></div>
-						<div class="rating">
+						<div class="rating big">
 							@if(Auth::check())
 								@if(\App\Helper\Helper::getUserRoleOfCourse($info_course->id))
 									<span class="" data-star="{{ isset($ratingCourse) ? $ratingCourse->score : 1 }}">
@@ -41,7 +43,7 @@
 									</span>
 								@endif
 							@endif
-							<span data-toggle="modal" data-target="#editRatingModal" style="cursor: pointer">Edit your rating</span>
+							<span data-toggle="modal" data-target="#editRatingModal" class="edit-rating">Edit your rating</span>
 						</div>
 					</div>
 					<div class="row">

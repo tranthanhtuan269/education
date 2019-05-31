@@ -297,7 +297,7 @@
                         <div class="col-lg-5 col-md-5 col-sm-5 cate-sm">
                             <form class="unica-search-boxtop navbar-form form-inline" method="GET" action="/search">
                                 <input name="keyword" type="text" class="form-control unica-form" placeholder="Search for anything" value="{{ Request::get('keyword') }}">
-                                <button type="submit" class="btn unica-btn-search"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                <button type="submit" class="unica-btn-search"><i class="fa fa-search" aria-hidden="true"></i></button>
                             </form>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 cate-sm">
@@ -465,14 +465,14 @@
         <div class="item-2">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-12">
-                        <ul class="pull-left">
+                    <div class="col-md-12 text-center">
+                        {{-- <ul class="pull-left">
                             <li><a href="javascript:void(0)" title="home">Home</a></li>
                             <li><a href="javascript:void(0)" title="private policy">Private Policy</a></li>
                             <li><a href="javascript:void(0)" title="cookie policy">Cookie Policy</a></li>
                             <li><a href="javascript:void(0)" title="job post">Job Post</a></li>
-                        </ul>
-                        <span class="pull-right copyright">Copyright &copy; 2019 by courdemy.com. All rights servered!</span>
+                        </ul> --}}
+                        <p class="copyright">Copyright &copy; 2019 by courdemy.com. All rights servered!</p>
                     </div>
                 </div>
             </div>
