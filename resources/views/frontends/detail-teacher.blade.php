@@ -147,12 +147,6 @@
 									</script>
 								@endif
 							@endif
-
-
-
-
-
-
 						</div>
 					</div>
 					<div class="frame_2">
