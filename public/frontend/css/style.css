@@ -23,6 +23,9 @@ body{font-family:'Poppins',sans-serif;font-size:14px; padding-right: 0 !importan
 .rating.big span.star-rate{
   font-size: 19px;
 }
+.rating.big{
+  display: inline-block;
+}
 .rating.big  span.star-rate{padding-right:10px}
 .rating.big .edit-rating{
   color: #fff;
@@ -417,7 +420,7 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
 .detail-teacher .item{position:relative;top:30px}
 .detail-teacher .frame .avatar{padding-left:50px}
 .detail-teacher .frame .avatar .info{color:#fff}
-.detail-teacher .frame .network{padding-top:45px}
+.detail-teacher .frame .network{padding-top:50px}
 .detail-teacher .frame .network .btn span{position:relative;top:-2px}
 .detail-teacher .frame .network img{position:relative;top:3px}
 .detail-teacher .frame{position:relative;top:30px}

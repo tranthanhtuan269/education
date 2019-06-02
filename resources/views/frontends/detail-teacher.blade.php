@@ -59,20 +59,14 @@
 													</div>
 												</div>
 											</div>
-											<script>
-												var url_vote_star = '{{ url("stars-teacher/update") }}';
-												var method = 'PUT';
-											</script>
 											@else
-											<i id="star-1" class="far fa-star review-star" data-id="1"></i>
-											<i id="star-2" class="far fa-star review-star" data-id="2"></i>
-											<i id="star-3" class="far fa-star review-star" data-id="3"></i>
-											<i id="star-4" class="far fa-star review-star" data-id="4"></i>
-											<i id="star-5" class="far fa-star review-star" data-id="5"></i>
-											<script>
-												var url_vote_star = '{{ url("stars-teacher/insert") }}';
-												var method = 'POST';
-											</script>
+											<span class="star-rate edit">
+												<i id="star-1" class="far fa-star review-star" data-id="1"></i>
+												<i id="star-2" class="far fa-star review-star" data-id="2"></i>
+												<i id="star-3" class="far fa-star review-star" data-id="3"></i>
+												<i id="star-4" class="far fa-star review-star" data-id="4"></i>
+												<i id="star-5" class="far fa-star review-star" data-id="5"></i>
+											</span>
 											@endif
 										</span>
 									</div>
@@ -114,16 +108,46 @@
 											$('.review-star').off( "mouseenter")
 											$('.review-star').off( "mouseleave")
 											$('.reviews-star').attr('data-star', $(this).attr('data-id'))
+											if ($('.star-rate.edit').length > 0) {
+												$.ajaxSetup({
+													headers: {
+														'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+													}
+												});
+	
+												var request = $.ajax({
+													url: '{{ url("stars-teacher/insert") }}',
+													method: 'POST',
+													data: {
+														teacher_id: {{ $info_teacher->user_role_id }},
+														score: $('.reviews-star').attr('data-star')
+													},
+													dataType: "json"
+												})
+												request.done(function (response){
+													if(response.status == 200){
+														Swal.fire({
+															type: "success",
+															html: response.message,
+														}).then(function(result){
+															if(result.value){
+																location.reload();
+															}
+														})
+													}
+												})
+											}
+										});
 
-											$.ajaxSetup({
-												headers: {
-													'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-												}
-											});
-
+										$.ajaxSetup({
+											headers: {
+												'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+											}
+										});
+										$("#btnEditRating").click(function (){
 											var request = $.ajax({
-												url: url_vote_star,
-												method: method,
+												url: '{{ url("stars-teacher/update") }}',
+												method: "PUT",
 												data: {
 													teacher_id: {{ $info_teacher->user_role_id }},
 													score: $('.reviews-star').attr('data-star')
@@ -142,8 +166,7 @@
 													})
 												}
 											})
-										});
-				
+										})
 									</script>
 								@endif
 							@endif

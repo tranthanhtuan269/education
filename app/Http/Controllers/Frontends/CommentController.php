@@ -6,6 +6,7 @@ use App\CommentCourse;
 use App\CommentLike;
 use App\CommentVideo;
 use App\Course;
+use App\Teacher;
 use App\Helper\Helper;
 use App\RatingCourse;
 use App\RatingTeacher;
@@ -201,15 +202,23 @@ class CommentController extends Controller
         $ratingTeacher->score = $request->score;
         $ratingTeacher->save();
 
+        $teacher = Teacher::where('user_role_id', $request->teacher_id)->first();
+        $teacher->rating_score += $request->score;
+        $teacher->vote_count += 1;
+        $teacher->save();
         return \Response::json(array('status' => '200', 'message' => 'Review success!'));
     }
 
     public function updateStarTeacher(Request $request)
     {
         $ratingTeacher = RatingTeacher::where('teacher_id', $request->teacher_id)->where('user_id', Auth::id())->first();
+        $rating_score = $request->score - $ratingTeacher->score;
         $ratingTeacher->score = $request->score;
         $ratingTeacher->save();
-
+        
+        $teacher = Teacher::where('user_role_id', $request->teacher_id)->first();
+        $teacher->rating_score += $rating_score;
+        $teacher->save();
         return \Response::json(array('status' => '200', 'message' => 'Review updated success!'));
 
     }
