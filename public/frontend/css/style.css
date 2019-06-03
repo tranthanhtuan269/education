@@ -53,6 +53,9 @@ div[data-u="slides"] div div{
 .progress{border-radius:20px}
 .progress-bar-success{background-color:#44B900}
 #config-slider{top:-80px!important}
+#config-slider h2{
+  font-size: 22px;
+}
 .detail-course .related-course,.detail-course .instructors,.detail-course .feedback,.course-recommend{padding:50px 0}
 .notifications.alert-danger{background:linear-gradient(to right,#F4A111,#fe7202);margin-bottom:0;color:#fff;border:0;border-radius:0}
 .notifications.alert-danger img{width:20px}

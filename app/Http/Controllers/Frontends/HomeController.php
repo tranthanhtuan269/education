@@ -40,7 +40,7 @@ class HomeController extends Controller
 
     public function home()
     {
-        $feature_category = Category::withCount('courses')->where('featured', 1)->orderBy('featured_index', 'asc')->limit(10)->get();
+        $feature_category = Category::withCount('courses')->where('parent_id', '>', 0)->where('featured', 1)->orderBy('featured_index', 'asc')->limit(10)->get();
         // trending = feature courses
         $feature_course = Course::getCourseNotLearning()->where('featured', 1)->orderBy('featured_index', 'asc')->limit(8)->get();
         $best_seller_course = Course::getCourseNotLearning()->orderBy('sale_count', 'desc')->limit(8)->get();

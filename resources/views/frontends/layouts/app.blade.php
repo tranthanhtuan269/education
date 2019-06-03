@@ -274,12 +274,12 @@
                                     <ul>
                                         @foreach($category_fixed as $cat)
                                             <li>
-                                                <a title="{!! $cat->name !!}" href="{{ url('/') }}/category/{{ $cat->slug }}"><i class="fas {!! $cat->icon !!}"></i> {!! $cat->name !!}</a>
+                                                <a title="{!! $cat->name !!}" href="javascript:void(0)"><i class="fas {!! $cat->icon !!}"></i> {!! $cat->name !!}</a>
                                                 <ul class="issub">
-                                                    <li><a href="{{ url('/') }}/category/{{ $cat->slug }}"><strong>All {!! $cat->name !!}</strong></a></li>
-                                                    @if(count($cat->tags) > 0)
-                                                        @foreach($cat->tags as $tag)
-                                                            <li><a href="{{ url('/') }}/tags/{{ $tag->slug }}">{!! $tag->name !!}</a></li>
+                                                    {{-- <li><a href="{{ url('/') }}/category/{{ $cat->slug }}"><strong>All {!! $cat->name !!}</strong></a></li> --}}
+                                                    @if(count($cat->children) > 0)
+                                                        @foreach($cat->children as $children)
+                                                            <li><a href="{{ url('/') }}/category/{{ $children->slug }}">{!! $children->name !!}</a></li>
                                                         @endforeach
                                                     @endif
                                                 </ul>

@@ -18,6 +18,7 @@ class CreateCategoriesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name', 255);
             $table->string('slug', 500);
+            $table->integer('parent_id');
             $table->integer('featured')->default(0);
             $table->integer('featured_index')->default(1000);
             $table->string('icon', 255);
