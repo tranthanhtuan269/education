@@ -210,6 +210,21 @@ class HomeController extends Controller
             $user_role_id = Auth::user()->userRolesStudent();
             $items = $request->items;
             if ($items) {
+                // check coins
+                $total_price = 0;
+                foreach ($items as $item) {
+                    if ($item['id']) {
+                        $course = Course::find($item['id']);
+                        if ($course) {
+                            $total_price += $course->price;
+                        }
+                    }
+                }
+
+                if($total_price > Auth::user()->coins){
+                    return \Response::json(array('status' => '204', 'message' => 'Your balance is not enough'));
+                }
+
                 // check coupon
                 $coupon = null;
                 if ($request->coupon) {
@@ -224,7 +239,6 @@ class HomeController extends Controller
                 $order->coupon = '';
                 $order->save();
 
-                $total_price = 0;
                 foreach ($items as $item) {
                     if ($item['id']) {
                         $course = Course::find($item['id']);
@@ -245,7 +259,6 @@ class HomeController extends Controller
 
                             $course->userRoles()->attach($user_role_id->id, ['videos' => $videoJson]);
                             $order->courses()->attach($item['id']);
-                            $total_price += $course->price;
                         }
                     }
                 }

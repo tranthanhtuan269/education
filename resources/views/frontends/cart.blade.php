@@ -250,8 +250,15 @@
                                 location.reload();
                             }
                         });
-
-                        
+                    }else if(response.status == 204){
+                        return Swal.fire({
+                            type:"warning",
+                            text:"Your balance is not enough!"
+                        }).then((result) => {
+                            if (result.value) {
+                                window.location.href = "/member-card";
+                            }
+                        });
                     }else{
                         return Swal.fire({
                             type:"warning",
