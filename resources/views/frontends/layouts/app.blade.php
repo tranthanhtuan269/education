@@ -421,6 +421,8 @@
 
     @yield('content')
 
+    <div id="button" style="display:none;"><i class="fas fa-angle-double-up"></i></div>
+
     {{-- Begin Footer --}}
     <footer>
         <div class="item-1">
@@ -492,6 +494,21 @@
             amazonmenu.init({
                 menuid: 'mysidebarmenu'
             })
+
+            var btn = $('#button');
+
+            $(window).scroll(function() {
+                if ($(window).scrollTop() > 300) {
+                    btn.show();
+                } else {
+                    btn.hide();
+                }
+            });
+
+            btn.on('click', function(e) {
+                e.preventDefault();
+                $('html, body').animate({scrollTop:0}, '300');
+            });
 
             $('.unica-btn-search').click(function(){
                 if($("input[name=keyword]").val().trim().length > 0){

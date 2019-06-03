@@ -16,10 +16,10 @@
 						</div>
 						<div class="network pull-right">
 							<a class="btn btn-default btn-xs" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(url()->current()); ?>" target="_blank">
-								<i class="fas fa-share-alt"></i> Share
+								<i class="fas fa-share-alt"></i> Share Fb
 							</a>
 							<a  class="btn btn-default btn-xs" href="{{ url($info_teacher->userRole->user->facebook) }}" target="_blank">
-								<i class="fab fa-facebook-square"></i> Facebook
+								<i class="fab fa-facebook-square"></i> Fb Teacher
 							</a>
 
 
