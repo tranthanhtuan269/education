@@ -193,7 +193,7 @@
 											@include(
 												'components.vote', 
 												[
-													'rate' => $info_teacher->rating_score,
+													'rate' => intval($info_teacher->rating_count) / intval($info_teacher->vote_count),
                         							'rating_number' => $info_teacher->vote_count,
 												]
 											)

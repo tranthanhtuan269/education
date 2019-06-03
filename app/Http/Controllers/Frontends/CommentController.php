@@ -212,14 +212,13 @@ class CommentController extends Controller
     public function updateStarTeacher(Request $request)
     {
         $ratingTeacher = RatingTeacher::where('teacher_id', $request->teacher_id)->where('user_id', Auth::id())->first();
-        $rating_score = $request->score - $ratingTeacher->score;
+        $rating_count = $request->score - $ratingTeacher->score;
         $ratingTeacher->score = $request->score;
         $ratingTeacher->save();
         
         $teacher = Teacher::where('user_role_id', $request->teacher_id)->first();
-        $teacher->rating_score += $rating_score;
+        $teacher->rating_count += $rating_count;
         $teacher->save();
         return \Response::json(array('status' => '200', 'message' => 'Review updated success!'));
-
     }
 }
