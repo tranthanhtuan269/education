@@ -115,6 +115,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('comments/vote', 'Frontends\CommentController@storeCommentVote');
     Route::post('comments/reply', 'Frontends\CommentController@storeReply');
     Route::put('stars/update', 'Frontends\CommentController@updateStar');
+    Route::post('stars-teacher/insert', 'Frontends\CommentController@insertStarTeacher');
+    Route::put('stars-teacher/update', 'Frontends\CommentController@updateStarTeacher');
     Route::post('notes/store', 'Frontends\NoteController@store')->name('notesVideo.store');
     Route::post('reports/store', 'Frontends\ReportController@store')->name('reportsVideo.store');
     Route::post('user-course/update-watched', 'Frontends\VideoPlayerController@updateWatched');
