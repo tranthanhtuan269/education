@@ -150,7 +150,7 @@ nav .pagination li a img{width:35px;position:relative;top:-6px}
 .lessons .u-list-course .col{border-bottom:1px solid #e1e1e1;padding:15px 0}
 .lessons .u-list-course .panel-body{padding:0}
 .col-width-lg{margin:0 auto}
-.unica-home-menutop{border-bottom:1px solid #e1e1e1;-webkit-box-shadow:0 1px 3px 0 rgba(0,0,0,0.75);-moz-box-shadow:0 1px 3px 0 rgba(0,0,0,0.75);box-shadow:0 1px 3px 0 rgba(0,0,0,0.75)}
+.unica-home-menutop{-webkit-box-shadow:0 1px 1px 0 #e1e1e1;-moz-box-shadow:0 1px 1px 0 #e1e1e1;box-shadow:0 1px 1px 0 #e1e1e1}
 .unica-home-menutop .db-item { margin-top: 13px; display: inline-block;width: 100%; }
 .unica-home-menutop  .db-item .unica-active-course { margin-top: 0; }
 .unica-home-menutop  .db-item li { display: inline; float: left; margin: 0 20px 0 0; }
