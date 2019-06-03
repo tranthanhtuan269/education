@@ -203,8 +203,9 @@ class CommentController extends Controller
         $ratingTeacher->save();
 
         $teacher = Teacher::where('user_role_id', $request->teacher_id)->first();
-        $teacher->rating_score += $request->score;
+        $teacher->rating_count += $request->score;
         $teacher->vote_count += 1;
+        $teacher->rating_score = number_format($teacher->rating_count/$teacher->vote_count, 1, '.' , '.');
         $teacher->save();
         return \Response::json(array('status' => '200', 'message' => 'Review success!'));
     }
@@ -218,6 +219,8 @@ class CommentController extends Controller
         
         $teacher = Teacher::where('user_role_id', $request->teacher_id)->first();
         $teacher->rating_count += $rating_count;
+        // echo $teacher->rating_count.'--'.$teacher->vote_count;die;
+        $teacher->rating_score = number_format($teacher->rating_count/$teacher->vote_count, 1, '.' , '.');
         $teacher->save();
         return \Response::json(array('status' => '200', 'message' => 'Review updated success!'));
     }
