@@ -41,24 +41,27 @@ class CategoriesTableSeeder extends Seeder
     	// ];
 
 
-    	foreach($cateArr as $cate){
+    	foreach($cateArr as $key_cate => $cate){
 	        $category = new Category;
             $category->name = $cate[0];
-            // $category->slug = Str::slug($cate[0], '-');
+            $category->parent_id = 0;
             $category->featured = 1;
             $category->icon = $cate[2];
             $category->image = $cate[3];
             $category->save();
             
-            // foreach($tags as $t){
-            //     $tag = new Tag;
-            //     $tag->name = $t[0];
-            //     $tag->slug = Str::slug($t[0], '-');;
-            //     $tag->image = $t[2];
-            //     $tag->category_id = $category->id;
-            //     $tag->status = 1;
-            //     $tag->save();
-            // }
+            foreach($cateArr as $key => $value){
+                $category_child = new Category;
+                $category_child->name = $value[0]. '_' .$key_cate.' '.$key;
+                $category_child->parent_id = $category->id;
+                $category_child->featured = 1;
+                $category_child->icon = $value[2];
+                $category_child->image = $value[3];
+                $category_child->save();
+            }
         }
+
+
+
     }
 }

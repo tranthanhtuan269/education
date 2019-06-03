@@ -25,7 +25,7 @@ class Category extends Model
     }
 
     protected $fillable = [
-        'name', 'featured', 'featured_index', 'course_count','slug'
+        'name', 'parent_id', 'featured', 'featured_index', 'course_count','slug'
     ];
 
     public function courses()
@@ -42,4 +42,10 @@ class Category extends Model
     {
         return $this->hasMany('App\Tag','category_id');
     }
+
+    public function children()
+    {
+        return $this->hasMany('App\Category', 'parent_id');
+    }
+
 }

@@ -80,12 +80,11 @@ class Helper
 
             $demanding_user_course = null;
             $list_course_by_teacher = UserCourse::where('user_role_id', $teacher_id)->pluck('course_id')->toArray();
-            // dd($list_course_by_teacher);
             foreach ($user_role_list as $key => $user_role) {
                 $user_course_item = UserCourse::whereIn('course_id', $list_course_by_teacher)
                     ->where('user_role_id', $user_role->id)
                     ->first();
-
+                    // dd($user_course_item);
                 if (!empty($user_course_item)) {
                     $demanding_user_course = $user_course_item;
                     break;
