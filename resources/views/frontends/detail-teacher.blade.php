@@ -24,7 +24,7 @@
 
 
 							@if(Auth::check())
-								@if(Helper::getUserRoleOfTeacher($info_teacher->userRole->user->id) )
+								@if(Helper::getUserRoleOfTeacher($info_teacher->user_role_id) )
 									<div class="rating big">
 										<span class="reviews-star" data-star="{{ isset($ratingTeacher) ? $ratingTeacher->score : 1 }}">
 											@if($ratingTeacher)
