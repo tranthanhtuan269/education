@@ -297,7 +297,7 @@
                         <div class="col-lg-5 col-md-5 col-sm-5 cate-sm">
                             <form class="unica-search-boxtop navbar-form form-inline" method="GET" action="/search">
                                 <input name="keyword" type="text" class="form-control unica-form" placeholder="Search for anything" value="{{ Request::get('keyword') }}">
-                                <button type="submit" class="unica-btn-search"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                <span type="submit" class="unica-btn-search"><i class="fa fa-search" aria-hidden="true"></i></span>
                             </form>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 cate-sm">
@@ -491,6 +491,22 @@
         jQuery(function () {
             amazonmenu.init({
                 menuid: 'mysidebarmenu'
+            })
+
+            $('.unica-btn-search').click(function(){
+                if($("input[name=keyword]").val().trim().length > 0){
+                    $('.unica-search-boxtop').submit()
+                }else{
+                    Swal.fire({
+                            type: 'warning',
+                            html: 'Search field is empty',
+                        })
+                        .then((result) => {
+                            if (result.value) {
+                                $("input[name=keyword]").focus();
+                            }
+                        });
+                }
             })
 
             $(".box-course .img-course .img-mask .btn-add-to-cart button").click( function(e){
