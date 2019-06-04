@@ -44,38 +44,38 @@
             <div class="ln-desc-btm-group-track">
                 @if (($main_video_id_key) > 0)
                 <a href="{{$video_id_list[$main_video_id_key-1]}}">
-                    <button class="btn" id="lnDescBtnPrevious"><i class="fas fa-step-backward"></i></button>
+                    <button class="btn" id="lnDescBtnPrevious" data-toggle='tooltip' data-placement='top' title='Previous Lecture'><i class="fas fa-step-backward"></i></button>
                 </a>
                 @endif
                 @if (($main_video_id_key) < (count($video_id_list) - 1) )
                 <a href="{{$video_id_list[$main_video_id_key + 1]}}">
-                    <button class="btn" id="lnDescBtnNext"><i class="fas fa-step-forward"></i></button>
+                    <button class="btn" id="lnDescBtnNext" data-toggle='tooltip' data-placement='top' title='Next Lecture'><i class="fas fa-step-forward"></i></button>
                 </a>
                 @endif
             </div>
             <div class="ln-desc-group-btn-utilities">
-                <div class="btn ln-btn-server">
+                <div class="btn ln-btn-server" data-toggle='tooltip' data-placement='top' title='Servers'>
                     <i class="fas fa-server"></i>
                     <span>&nbsp;Server Video</span>
                 </div>
-                <div class="btn ln-btn-note">
+                <div class="btn ln-btn-note" data-toggle='tooltip' data-placement='top' title='Note'>
                     <i class="fas fa-sticky-note"></i>
                     <span>&nbsp;Note</span>
                 </div>
-                <div class="btn ln-btn-discuss">
+                <div class="btn ln-btn-discuss" data-toggle='tooltip' data-placement='top' title='Discussion'>
                     <i class="fas fa-comments"></i>
                     <span>&nbsp;Discussion</span>
                 </div>
-                <div class="btn ln-btn-file">
+                <div class="btn ln-btn-file" data-toggle='tooltip' data-placement='top' title='Files'>
                     <i class="fas fa-file-alt"></i>
                     <span>&nbsp;Files</span>
                 </div>
             </div>
-            <div class="ln-desc-group-btn-utilities-2">
+            <div class="ln-desc-group-btn-utilities-2" data-toggle='tooltip' data-placement='top' title='Autoplay'>
                 <div class="btn ln-btn-autoplay">
                     <span>&nbsp;Autoplay</span>
                 </div>
-                <div class="btn ln-btn-report" data-toggle="modal" data-target="#playerReportModal">
+                <div class="btn ln-btn-report" data-toggle="modal" data-target="#playerReportModal" data-toggle='tooltip' data-placement='top' title='Report'>
                     <i class="fas fa-exclamation-circle"></i>
                     <span>&nbsp;Report</span>
                 </div>

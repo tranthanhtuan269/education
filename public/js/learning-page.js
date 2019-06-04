@@ -346,9 +346,9 @@ $(document).ready(function () {
 
     function initializePlayerControlBar() {
         //Time Controller Buttons
-        var btnRewind = "<div class='btn' id='btnRewind'><i class='fas fa-undo-alt'></i></div>"
+        var btnRewind = "<div class='btn' id='btnRewind' data-toggle='tooltip' data-placement='top' title='Rewind 5s'><i class='fas fa-undo-alt'></i></div>"
         var btnSpeed = $(".vjs-playback-rate.vjs-control")
-        var btnForward = "<div class='btn' id='btnForward'><i class='fas fa-redo-alt'></i></div>"
+        var btnForward = "<div class='btn' id='btnForward' data-toggle='tooltip' data-placement='top' title='Forward 5s'><i class='fas fa-redo-alt'></i></div>"
 
         $(".vjs-play-control").after(btnRewind)
         $("#btnRewind").after(btnSpeed)
@@ -367,9 +367,9 @@ $(document).ready(function () {
 
         //Three utility buttons in the middle
         var groupBtnUtilities = "<div class='group-btn-utilities'></div>"
-        var btnNote = "<div class='btn ln-btn-note' id='btnNote'><i class='fas fa-sticky-note'></i><span>&nbsp;&nbsp;Note</span></div>"
-        var btnDiscuss = "<div class='btn ln-btn-discuss' id='btnDiscuss'><i class='fas fa-comments'></i><span>&nbsp;&nbsp;Discussion</span></div>"
-        var btnFile = "<div class='btn ln-btn-file' id='btnFile'><i class='fas fa-file-alt'></i><span>&nbsp;&nbsp;Files</span></div>"
+        var btnNote = "<div class='btn ln-btn-note' id='btnNote' data-toggle='tooltip' data-placement='top' title='Note'><i class='fas fa-sticky-note'></i><span>&nbsp;&nbsp;Note</span></div>"
+        var btnDiscuss = "<div class='btn ln-btn-discuss' id='btnDiscuss' data-toggle='tooltip' data-placement='top' title='Discussion'><i class='fas fa-comments'></i><span>&nbsp;&nbsp;Discussion</span></div>"
+        var btnFile = "<div class='btn ln-btn-file' id='btnFile' data-toggle='tooltip' data-placement='top' title='Files'><i class='fas fa-file-alt'></i><span>&nbsp;&nbsp;Files</span></div>"
 
         $(".group-player-time").after(groupBtnUtilities)
         $(".group-btn-utilities").append(btnNote)
@@ -377,7 +377,7 @@ $(document).ready(function () {
         $("#btnDiscuss").after(btnFile)
 
         //Button Continue
-        var btnContinue = "<div class='btn' id='btnContinue'><span>Continue&nbsp;&nbsp</span><i class='fas fa-step-forward'></i></div>"
+        var btnContinue = "<div class='btn' id='btnContinue' data-toggle='tooltip' data-placement='top' title='Next'><span>Next&nbsp;&nbsp</span><i class='fas fa-step-forward'></i></div>"
         $(".vjs-volume-panel").before(btnContinue)
 
         //Video Quality Selector
@@ -390,7 +390,7 @@ $(document).ready(function () {
 
         //Button Autoplay
         if(localStorage.getItem('autoplay') == "true"){
-            var btnAutoplay = "<div class='vjs-subtitle-control btn vjs-control vjs-button'><button class='btn'><i class='fas fa-toggle-on' id='btnAutoplay'></i></button></div>"
+            var btnAutoplay = "<div class='vjs-subtitle-control btn vjs-control vjs-button' data-toggle='tooltip' data-placement='top' title='Autoplay Switch'><button class='btn'><i class='fas fa-toggle-on' id='btnAutoplay'></i></button></div>"
             $(".vjs-quality-selector").after(btnAutoplay)
         }else{
             var btnAutoplay = "<div class='vjs-subtitle-control btn vjs-control vjs-button'><button class='btn'><i class='fas fa-toggle-off' id='btnAutoplay'></i></button></div>"

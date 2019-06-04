@@ -221,9 +221,9 @@ class HomeController extends Controller
                     }
                 }
 
-                if($total_price > Auth::user()->coins){
-                    return \Response::json(array('status' => '204', 'message' => 'Your balance is not enough'));
-                }
+                // if($total_price > Auth::user()->coins){
+                //     return \Response::json(array('status' => '204', 'message' => 'Your balance is not enough'));
+                // }
 
                 // check coupon
                 $coupon = null;
