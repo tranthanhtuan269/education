@@ -162,10 +162,10 @@ $(document).ready(function () {
     })
 
     $(".lecture-title").click(function () {
-        toggleLectureList()
+        // toggleLectureList()
     })
     $("#btnCloseSidebar").click(function () {
-        toggleLectureList()
+        // toggleLectureList()
     })
     $(".ln-btn-complete").click(function (event) {
         event.stopPropagation()
@@ -354,16 +354,17 @@ $(document).ready(function () {
     }
 
     function activeRightBar(){
-        $("#my-video").removeClass('leftbarActive')
+        $(".learning-lecture-list").removeClass('active')
+        // $("#my-video").removeClass('leftbarActive')
         $("#my-video").addClass('rightbarActive')
 
-        $(".learning-desc-panel-body").removeClass('leftbarActive')
+        // $(".learning-desc-panel-body").removeClass('leftbarActive')
         $(".learning-desc-panel-body").addClass('rightbarActive')
 
-        $(".ln-desc-bottom").removeClass("leftbarActive")
+        // $(".ln-desc-bottom").removeClass("leftbarActive")
         $(".ln-desc-bottom").addClass("rightbarActive")
         
-        $(".vjs-custom-big-play-button").removeClass('leftbarActive')
+        // $(".vjs-custom-big-play-button").removeClass('leftbarActive')
         $(".vjs-custom-big-play-button").addClass('rightbarActive')
         // $(".vjs-custom-big-play-button").fadeIn()
 
@@ -390,6 +391,8 @@ $(document).ready(function () {
         $(".ln-btn-autoplay span").fadeIn()
         $(".ln-btn-report span").fadeIn()
         $("#btnContinue span").fadeIn()
+
+        $(".learning-lecture-list").addClass('active')
 
         checkIfVideoIsPlaying()
 

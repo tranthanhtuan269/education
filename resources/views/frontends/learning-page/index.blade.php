@@ -58,10 +58,10 @@
 
         {{-- TOP BAR --}}
         <div class="learning-top">
-            <div class="lecture-title">
+            {{-- <div class="lecture-title">
                 <i class="fas fa-list-ul"></i>
-                <p>Lecture list</p>
-            </div>
+                <p>{{$main_video->name}}</p>
+            </div> --}}
             <div class="lecture-subtitle">
                 <a href="{{ url("/learning/{$course->slug}") }}">
                     <p>Go to Dashboard</p>

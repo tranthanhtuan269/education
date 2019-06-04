@@ -1,5 +1,5 @@
 <div class="learning-desc-panel ">
-    <div class="learning-desc-panel-body align-items-center">
+    <div class="learning-desc-panel-body align-items-center leftbarActive">
         <div class="ln-desc-title">
             <p>{{$main_video->name}}</p>
         </div>
@@ -39,7 +39,7 @@
         </div>
     </div>
 
-    <div class="ln-desc-bottom">
+    <div class="ln-desc-bottom leftBarActive" >
         <div class="ln-desc-btm-center">
             <div class="ln-desc-btm-group-track">
                 @if (($main_video_id_key) > 0)

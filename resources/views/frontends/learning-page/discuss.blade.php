@@ -32,7 +32,7 @@
             <div class="ln-disc-post-wrapper">
                 <div data-toggle="collapse" data-target="#discWrapper{{$comment_video->id}}">
                     <div class="ln-disc-post-left">
-                        <img src="/{{$comment_video->userRole->user->avatar}}" width="60px" alt="">
+                        <img src="frontend/{{$comment_video->userRole->user->avatar}}" width="60px" alt="">
                     </div>
                     <div class="ln-disc-post-right">
                         <div class="ln-disc-post-username">
@@ -59,7 +59,7 @@
                         @if ($sub_comment_video->parent_id == $comment_video->id)
                         <div class="ln-disc-comment">
                             <div class="ln-disc-comment-left">
-                            <img src="/{{$sub_comment_video->userRole->user->avatar}}" width="40px" alt="">
+                            <img src="frontend/{{$sub_comment_video->userRole->user->avatar}}" alt="">
                             </div>
                             <div class="ln-disc-comment-right">
                                 <div class="ln-disc-comment-username">
@@ -81,9 +81,9 @@
                                 <div class="ln-disc-comment-content">
                                     {!!$sub_comment_video->content!!}
                                 </div>
-                                <div class="ln-disc-reply">
+                                {{-- <div class="ln-disc-reply">
                                     <a><strong>Reply</strong></a>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>                            
                         @endif
@@ -237,9 +237,9 @@
                             html += '<div class="ln-disc-comment-content">';
                                 html += '<p>'+ content +'</p>';
                             html += '</div>';
-                            html += '<div class="ln-disc-reply">';
-                                html += '<a><strong>Reply</strong></a>';
-                            html += '</div>';
+                            // html += '<div class="ln-disc-reply">';
+                            //     html += '<a><strong>Reply</strong></a>';
+                            // html += '</div>';
                         html += '</div>';
                     html += '</div>';
                     // $("input[data-child="+response.commentVideo.data.parentId+"]").before(html)
