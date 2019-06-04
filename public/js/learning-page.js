@@ -42,27 +42,81 @@ $(document).ready(function () {
         playbackRates: [0.5, 1, 1.5, 2]
     }
     var player = videojs('my-video', options)
-    var source = []
-    for(var key in videoSource){
-        if(key == 720){
-            source.push({
-                src: videoSource[key],
-                type: 'application/x-mpegURL',
-                label: key,
-                selected: true,
-            })    
-        }else{
-            source.push({
-                src: videoSource[key],
-                type: 'application/x-mpegURL',
-                label: key
-            })
-        }
-    }
-    player.src(source)
+    
+    prePlay(360);
     initializePlayerControlBar()
     toggleBigPlayButton()
     clickToPlay()
+
+    var imageAddr = "https://3.bp.blogspot.com/-p4_qEVLk2dk/V5ZOdoiObWI/AAAAAAAAB74/8F9sCzKkNSY/chien-binh-sieu-am-thanh.jpg"; 
+    // var imageAddr = "http://www.kenrockwell.com/contax/images/g2/examples/31120037-5mb.jpg";
+    var downloadSize = 40128; //bytes
+    
+	function InitiateSpeedDetection() {
+        window.setTimeout(MeasureConnectionSpeed, 1);
+	};    
+
+	if (window.addEventListener) {
+	    window.addEventListener('load', InitiateSpeedDetection, false);
+	} else if (window.attachEvent) {
+	    window.attachEvent('onload', InitiateSpeedDetection);
+    }
+    
+    function prePlay(autoSelected){
+        var source = []
+
+        for(var key in videoSource){
+            if(key == autoSelected){
+                source.push({
+                    src: videoSource[key],
+                    type: 'application/x-mpegURL',
+                    label: key,
+                    selected: true,
+                })    
+            }else{
+                source.push({
+                    src: videoSource[key],
+                    type: 'application/x-mpegURL',
+                    label: key
+                })
+            }
+        }
+        player.src(source)
+    }
+
+	function MeasureConnectionSpeed() {
+	    var startTime, endTime;
+	    var download = new Image();
+	    download.onload = function () {
+	        endTime = (new Date()).getTime();
+	        showResults();
+	    }
+	    
+	    download.onerror = function (err, msg) {
+	        // ShowProgressMessage("Invalid image, or error downloading");
+	    }
+	    
+	    startTime = (new Date()).getTime();
+	    var cacheBuster = "?nnn=" + startTime;
+	    download.src = imageAddr + cacheBuster;
+	    
+	    function showResults() {
+	        var duration = (endTime - startTime) / 1000;
+	        var bitsLoaded = downloadSize * 8;
+	        var speedBps = (bitsLoaded / duration).toFixed(2);
+	        var speedKbps = (speedBps / 1024).toFixed(2);
+            var speedMbps = (speedKbps / 1024).toFixed(2);
+            if(speedMbps < 2){
+                prePlay(360)
+            }else if(speedMbps < 3){
+                prePlay(480)
+            }else if(speedMbps < 4){
+                prePlay(720)
+            }else{
+                prePlay(1080)
+            }
+	    }
+	}
     
     function checkIfVideoIsPlaying(){
         console.log(player.paused());
@@ -252,8 +306,6 @@ $(document).ready(function () {
             $(".ln-btn-file span").show()
             $(".ln-btn-autoplay span").show()
             $(".ln-btn-report span").show()
-
-
         }
     }
 
