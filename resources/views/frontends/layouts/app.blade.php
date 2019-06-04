@@ -318,7 +318,7 @@
 
                                     @if(Auth::check())
                                     <li>
-                                        <a href="{{route('cart.show')}}" class="unica-cart">
+                                        <a href="/user/student/mail-box" class="unica-cart unica-mail">
                                             <img src="{{ asset('frontend/images/tab_notifications.png') }}" alt="" style="width: 21px;" />
                                             <span class="unica-sl-notify"><b>0</b></span>
                                         </a>
@@ -499,9 +499,9 @@
 
             $(window).scroll(function() {
                 if ($(window).scrollTop() > 300) {
-                    btn.show();
+                    btn.fadeIn();
                 } else {
-                    btn.hide();
+                    btn.fadeOut();
                 }
             });
 

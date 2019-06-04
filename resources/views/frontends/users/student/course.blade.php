@@ -14,12 +14,12 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="box-user tabbable-panel">
-                <div class="tabbable-line">
-                    <ul class="nav nav-tabs">
+                {{-- <div class="tabbable-line"> --}}
+                    {{-- <ul class="nav nav-tabs">
                         <li class="active">
                             <a href="#buyed" class="buyed" data-toggle="tab"><i class="fa fa-play-circle"></i>&nbsp;&nbsp;Courses</a>
                         </li>
-                    </ul>
+                    </ul> --}}
                     <div class="tab-content">
                         <div class="tab-pane active" id="buyed">
                             <div class="row">
@@ -63,6 +63,11 @@
                                         ]
                                     )
                                     @endforeach
+                                    <style>
+                                    .box-course{
+                                        margin: unset;
+                                    }
+                                    </style>
                                     <div class="col-xs-12 text-center">
                                         <div class="u-number-page">{{ $lifelong_course->appends(Request::all())->links() }}</div>
                                     </div>
@@ -85,7 +90,7 @@
                         </div> --}}
                     </div>
                 </div>
-            </div>
+            {{-- </div> --}}
         </div>
     </div>
 </div>

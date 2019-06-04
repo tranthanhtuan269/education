@@ -10,7 +10,13 @@
         $video_done_count = array_count_values($video_done_array)[1];
     }
     $video_done_percent = (int)(($video_done_count/$video_count)*100);
-    $video_urls = json_decode($main_video->url_video);
+    $video_urls = json_decode($main_video->url_video, true);
+    // $urls = [];
+    foreach ($video_urls as $key => $video_url) {
+        $video_urls[$key] = \App\Helper::createSecurityTokenForVideoLink(\Auth::id(), $main_video->id, $video_url);
+    }    
+    $video_urls = json_encode($video_urls);
+    // dd($video_urls);
 @endphp
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -98,6 +104,9 @@
             var main_video_id = {{$main_video->id}}
             
             var main_video_id_key = {{$main_video_id_key}}
+
+            var videoSource = {!!$video_urls!!}
+
 
             $(document).ready(function () {
                 $('.ln-disc-comment-wrapper').on('shown.bs.collapse', function () {

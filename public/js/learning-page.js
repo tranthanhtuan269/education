@@ -39,9 +39,27 @@ $(document).ready(function () {
         controlBar: {
             volumePanel: { inline: false }
         },
-        playbackRates: [0.5, 1, 2]
+        playbackRates: [0.5, 1, 1.5, 2]
     }
     var player = videojs('my-video', options)
+    var source = []
+    for(var key in videoSource){
+        if(key == 720){
+            source.push({
+                src: videoSource[key],
+                type: 'application/x-mpegURL',
+                label: key,
+                selected: true,
+            })    
+        }else{
+            source.push({
+                src: videoSource[key],
+                type: 'application/x-mpegURL',
+                label: key
+            })
+        }
+    }
+    player.src(source)
     initializePlayerControlBar()
     toggleBigPlayButton()
     clickToPlay()
