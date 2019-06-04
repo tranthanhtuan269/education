@@ -19,11 +19,11 @@ body{
     float: right;
 }
 #my-video.leftbarActive{
-    width: calc(100vw - 500px);
+    width: calc(100vw - 350px);
     float: right;
 }
 #my-video.rightbarActive{
-    width: calc(100vw - 500px);
+    width: calc(100vw - 350px);
     /* width: calc(100vw - 500px); */
     float: left;
 }
@@ -109,9 +109,9 @@ body{
 .learning-lecture-list{
     z-index: 4;
     position: fixed;
-    left: -500px;
+    left: -350px;
     top: 0;
-    width: 500px;
+    width: 350px;
     height: 100vh;
     background: #f2f3f6;
     transition: 0.2s;
@@ -135,8 +135,8 @@ body{
     color: #dd0202;
 }
 .learning-lecture-list-searchbar .input-group{
-    width: 88%;
-    /* padding-left: 0.5em; */
+    width: 100%;
+    padding-right: 0.5em;
     padding-top: 3px;
 }
 .learning-lecture-list-searchbar .input-group input {
@@ -165,12 +165,12 @@ body{
     /* transition: 0.2s; */
 }
 .learning-desc-panel-body.leftbarActive{
-    padding-left: 40vw;
+    padding-left: 450px;
     padding-right: 5vw;
 }
 .learning-desc-panel-body.rightbarActive{
     padding-left: 5vw;
-    padding-right: 40vw;
+    padding-right: 450px;
 }
 
 .ln-desc-title p{
@@ -333,14 +333,15 @@ body{
     /* font-weight: bold; */
 }
 .ln-lect-list-body{
-    font-size: 15px;
+    font-size: 12px;
     background-color: #ffffff;    
     border-top: 1px solid #F2F3F7;
     padding: 5px 0 5px;
-    text-align: justify;
+    /* text-align: justify; */
 }
 .ln-lect-list-body li{
-    padding: 15px 2rem;
+    /* padding: 15px 2rem; */
+    padding: 0.5rem 1rem;
 }
 .ln-lect-list-body li a:hover{
     text-decoration: none;
@@ -360,7 +361,10 @@ body{
     order: 1;
     color: #676E7A !important;
     position: relative;
-    top: 0.2em;
+    top: 0.25em;
+}
+.fa-stack{
+    font-size: 0.4em;
 }
 .ln-lect-list-lect-title{
     order: 2;
@@ -469,11 +473,11 @@ body{
     left: 5px;
 }
 .vjs-custom-big-play-button.leftbarActive{
-    width: calc(100vw - 500px);
+    width: calc(100vw - 350px);
     right: 0;
 }
 .vjs-custom-big-play-button.rightbarActive{
-    width: calc(100vw - 500px);
+    width: calc(100vw - 350px);
     left: 0;
     /* display: block !important; */
 }
@@ -518,11 +522,11 @@ body{
     bottom: 0;
 }
 .ln-desc-bottom.leftbarActive{
-    width: calc(100vw - 500px);
+    width: calc(100vw - 350px);
     right: 0;
 }
 .ln-desc-bottom.rightbarActive{
-    width: calc(100vw - 500px);
+    width: calc(100vw - 350px);
     left: 0;
 }
 
@@ -549,9 +553,9 @@ body{
 .learning-discussion{
     z-index: 4;
     position: fixed;
-    right: -500px;
+    right: -350px;
     top: 0;
-    width: 500px;
+    width: 350px;
     height: 100vh;
     background: #f2f3f6;
     transition: 0.2s;
@@ -612,11 +616,12 @@ body{
     padding-left: 10px;
     width: 100%;
     max-width: 86%;
+    font-size: 12px;
 }
 .ln-disc-post-left img{
     border-radius: 50%;
-    width: 60px;
-    height: 60px;
+    width: 40px;
+    height: 40px;
 }
 .ln-disc-post-username{
     display: flex;
@@ -626,6 +631,7 @@ body{
 .ln-disc-post-username p{
     font-weight: bold;
     padding-top: 3px;
+    margin-bottom: 0;
 }
 .ln-disc-post-username span{
     position: relative;
@@ -667,8 +673,8 @@ body{
 }
 .ln-disc-comment-left img{
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
 }
 .ln-disc-comment-right{
     margin-left: 10px;
@@ -680,6 +686,11 @@ body{
 }
 .ln-disc-comment-username p{
     font-weight: bold;
+    margin-bottom: 0;
+    font-size: 11.5px;
+}
+.ln-disc-comment-content{
+    font-size: 11.5px
 }
 .ln-disc-comment-input{
     max-width: 455px;
@@ -720,9 +731,9 @@ body{
 .learning-files{
     z-index: 4;
     position: fixed;
-    right: -500px;
+    right: -350px;
     top: 0;
-    width: 500px;
+    width: 350px;
     height: 100vh;
     background: #f2f3f6;
     transition: 0.2s;
@@ -733,9 +744,9 @@ body{
 .learning-notes{
     z-index: 4;
     position: fixed;
-    right: -500px;
+    right: -350px;
     top: 0;
-    width: 500px;
+    width: 350px;
     height: 100vh;
     background: #f2f3f6;
     transition: 0.2s;

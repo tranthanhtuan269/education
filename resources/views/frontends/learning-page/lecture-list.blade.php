@@ -1,7 +1,7 @@
 @php
     // dd(($video_done_array));
 @endphp
-<div class="learning-lecture-list">
+<div class="learning-lecture-list active">
     
     <div class="learning-lecture-list-searchbar">
         <div class="input-group">
@@ -10,7 +10,7 @@
             <span class="input-group-addon" id="btnSearchSidebar" ><i class="fas fa-search"></i></span>
             
         </div>
-        <button class="btn" id="btnCloseSidebar"><i class="fas fa-times-circle"></i></button>
+        {{-- <button class="btn" id="btnCloseSidebar"><i class="fas fa-times-circle"></i></button> --}}
         
     </div>
     
@@ -38,7 +38,7 @@
                 </p>
                 </div>
                 <div class="ln-lect-list-header-row-2">
-                    <h4 class="ln-lect-list-sect-title">{{$unit->name}}</h4>
+                    <h5 class="ln-lect-list-sect-title">{{$unit->name}}</h5>
                 </div>
             </div>
             <div id="sectionBody{{ $key+1 }}" class="ln-lect-list-body collapse">
@@ -96,8 +96,5 @@
 #listItem{{$main_video->id}}>a span, #listItem{{$main_video->id}}>div span{
     color: #ffffff !important;
     font-weight: bold;
-}
-.fa-stack{
-    font-size: 0.5em;
 }
 </style>
