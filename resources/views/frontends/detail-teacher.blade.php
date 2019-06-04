@@ -213,5 +213,33 @@
 </div>
 
 @include('frontends.all-courses')
-@include('frontends.info-others')
+<div class="become-teacher">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col-xs-8 col-xs-offset-4">
+                                <div class="ads-teacher">
+                                    <p>BECOME</p>
+                                    <h2>COURDEMY'S <br> TEACHER</h2>
+                                    <a href="{{ Auth::check() ? url('user/register-teacher') : 'javascript:void(0)' }}" title="Register Teacher" {{ Auth::check() ? '' : ' data-toggle=modal data-target=#myModalLogin data-dismiss=modal id=redirect_register_teacher' }}>REGISTER NOW</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 hidden-xs">
+                        <div class="row">
+                            <div class="col-xs-8 col-xs-offset-1">
+                                <img src="{{ asset('frontend/images/courdemy-teacher.png') }}" alt="Teacher" />  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- @include('frontends.info-others') --}}
 @endsection

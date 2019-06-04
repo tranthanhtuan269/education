@@ -109,7 +109,7 @@ nav .pagination li a img{width:35px;position:relative;top:-6px}
 	/* display: flex; */
 	border-radius:10px 10px 0 0;
 }
-.box-course>a:hover .img-course .img-mask{
+.box-course>a .img-course:hover .img-mask{
 	display: flex;
 	background: linear-gradient(to top, rgba(20,23,28,0.9) 0, rgba(20,23,28,0.738) 19%, rgba(20,23,28,0.541) 34%, rgba(20,23,28,0.382) 47%, rgba(20,23,28,0.278) 56.5%, rgba(20,23,28,0.194) 65%, rgba(20,23,28,0.126) 73%, rgba(20,23,28,0.075) 80.2%, rgba(20,23,28,0) 100%) !important;
 }
@@ -185,9 +185,9 @@ nav .pagination li a img{width:35px;position:relative;top:-6px}
 .unica-active-course{background:#00B7F1;border:1px solid #00B7F1;padding:9px 36px 9px 10px;border-radius:3px;display:inline-block;color:#fff;margin-top:13px;background:url(../images/icon_student.png) no-repeat 90.5% center #00B7F1}
 .unica-active-course i{margin-right:5px}
 .unica-cart{color:#999;margin-left:15px;position:relative;top:10px}
+.unica-mail{top: 16px;}
 .unica-cart i{font-size:24px}
-.unica-sl-cart{color:#FF8F00;font-size:11px;border-radius:25px;border:1px solid #333;position:absolute;top:-13px;left:14px;padding:1px 5px;background:#fff}
-.unica-sl-notify{color:#FF8F00;font-size:11px;border-radius:25px;border:1px solid #333;position:absolute;top:-13px;left:14px;padding:1px 5px;background:#fff}
+.unica-sl-cart, .unica-sl-notify{color:#FFFFFF;font-size:11px;border-radius:25px;position:absolute;top:-17px;left:14px;padding:3px 7px;background:#FF8F00}
 .unica-acc-zone{float:right;margin-top:13px}
 .unica-acc-zone li{display:inline-table;margin:0 5px}
 ul.unica-acc-zone li a{color:#555}
@@ -571,7 +571,8 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
 /* USER */
 .u-dashboard-main { background: #f2f3f5; margin-bottom:  10px; }
 .u-dashboard-top  { padding: 50px 0 0 0;  background-repeat: no-repeat; background-size: cover; width: 100%; height: auto;  background-position: center;}
-.u-dashboard-top p { font-size: 24px; font-weight: bold; color: #fff; margin-bottom: 30px; display: inline-block; }
+.u-dashboard-top p { font-size: 24px; font-weight: bold; color: #fff; display: inline-block; }
+#displayBalance {font-size: 18px; margin-bottom: 30px;}
 .u-dashboard-top ul li { display: inline; margin-right: 10px;  position: relative; }
 .u-dashboard-top ul li a { padding: 8px; }
 .u-dashboard-top a { color: #fff; }
@@ -1255,4 +1256,38 @@ div[data-u="slides"] div div{
   font-size: 2em;
   line-height: 50px;
   color: #fff;
+}
+
+.interactive-bar{
+  box-shadow: 0 -10px 15px rgba(0,0,0,.1);
+  border-top: 1px solid #ddd;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #FFFFFF;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  z-index: 10;
+  display: none;
+}
+.interactive-bar .info{
+  margin-bottom: 0;
+  padding-left: 5vw;
+}
+.interactive-bar .info .title{
+  font-size: large;
+}
+.interactive-bar .info .lecture{
+  font-size: medium;
+}
+.interactive-bar .buttons{
+  display: flex;
+  margin-top: 0.5em;
+}
+.interactive-bar .buttons button{
+  background: transparent;
+  border: 1px solid;
+}
+.interactive-bar .buttons button:last-child{
+  margin-left: 1em;
 }

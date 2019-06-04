@@ -6,7 +6,6 @@
         $info_course->vote_count = 1;
         $percent_temp = 0;
     }
-
 ?>
 <div class="detail-course">
     <img class="background" src="{{ asset('frontend/images/banner_profile_teacher.png') }}" width="100%" >
@@ -100,7 +99,7 @@
                                         <button type="button" id="add-cart" class="btn btn-default btn-toh">Add to cart</button>
                                     </div>
                                     <div class="pull-right">
-                                        <button type="button" class="btn btn-default btn-toh">By Now</button>
+                                        <button type="button" id="buy-now" class="btn btn-default btn-toh">Buy Now</button>
                                     </div>
                                 </div>
                                 <div class="box clearfix">
@@ -120,6 +119,7 @@
                 <div class="col-sm-12">
                     <ul>
                         <li class="active"> About </li>
+                        <li><a href="javascript:;" class="go-box" data-box="box_content">Content</a></li>                        
                         <li><a href="javascript:;" class="go-box" data-box="box_requirements">Requirements</a></li>
                         <li><a href="javascript:;" class="go-box" data-box="box_reviews">Reviews</a> </li>
                         @if (count($info_course->Lecturers()) >= 1) <li><a href="javascript:;" class="go-box" data-box="box_instructors">Instructors</a></li> @endif
@@ -200,7 +200,7 @@
                 </div>
             </div>
             <div class="lessons clearfix">
-                <div class="col-sm-8">
+                <div class="col-sm-8" id="box_content">
                         @include('components.course-lesson-list')
                 </div>
                 <?php $requirements = json_decode($info_course->requirement); ?>
@@ -227,10 +227,6 @@
                     <h3>About the instructors</h3>
                 </div>
                 @foreach ($info_course->Lecturers() as $lecturer)
-                @php
-                    // dd($lecturer);
-                    
-                @endphp
                 <div class="col-sm-6">
                     <div class="row">
                         <div class="col-sm-3">
@@ -498,10 +494,51 @@
             @include('frontends.related-course')
         </div>
     </div>
+
+    <div class="interactive-bar">
+        <div class="row">
+            <div class="info col-xs-12 col-md-8">
+                <div class="title">
+                    <strong><p>{{ $info_course->name }}</p></strong>
+                </div>
+                <div class="lecturer">
+                    @foreach ($info_course->Lecturers() as $lecturer)
+                    <p>{{$lecturer->user->name}}</p>              
+                    @endforeach
+                </div>
+            </div>
+            <div class="buttons col-xs-12 col-md-4">
+                <button class="btn">Add to cart</button>
+                <button class="btn">Buy now</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(window).scroll(function() {
+            var barHeight = $(".interactive-bar").outerHeight()
+                if ($(window).scrollTop() > 300) {
+                    $("footer .item-2").css("margin-bottom", barHeight)
+                    $("#button").css("bottom", "-26")
+                    console.log(barHeight);
+                    
+                    $(".interactive-bar").fadeIn();
+                } else {
+                    $(".interactive-bar").fadeOut();
+                    $("footer .item-2").css("margin-bottom", "0 !important")
+                }
+        });
+    </script>
 </div>
 <script type="text/javascript">
     
     $(document).ready(function() { 
+        $(".interactive-bar .buttons button:first-child").click(function(){
+            $("#add-cart").click()
+        })
+        $("#buy-now").click(function(){
+            $("#add-cart").click()
+            window.location.replace("/cart")
+        })
         $('#add-cart').click(function(){
             var item = {
                 'id' : {!! $info_course->id !!},
@@ -565,6 +602,8 @@
         });
         
         addEventToButton();
+
+        
     });
 
     function vote(comment_id, type){
