@@ -7,6 +7,8 @@ use App\Http\Controllers\Backends\Requests\UpdateInfoRequest;
 use App\Http\Controllers\Backends\Requests\UpdateUserRequest;
 use App\Role;
 use App\User;
+use App\Email;
+use App\MailLog;
 use App\UserRole;
 use Auth;
 use Illuminate\Http\Request;
@@ -192,6 +194,20 @@ class UserController extends Controller
             ->removeColumn('id')->make(true);
     }
 
+
+    public function getEmailAjax()
+    {
+        $emails = MailLog::get();
+        return datatables()->collection($emails)
+            ->addColumn('action', function ($mail) {
+                return $mail->id;
+            })
+            ->addColumn('rows', function ($mail) {
+                return $mail->id;
+            })
+            ->removeColumn('id')->make(true);
+    }
+
     public function getInfoByID($id)
     {
         $user = User::find($id);
@@ -247,5 +263,13 @@ class UserController extends Controller
         $result = Role::where('id', $request->role_id)->value('name');
         $res = array('Response' => "Success", "Message" => "Successfully", 'result' => $result);
         echo json_encode($res);
+    }
+
+    public function email(){
+        $emails = MailLog::get();
+        // dd($emails);
+        $roles = Role::get();
+        $users = User::select('id', 'name')->get();
+        return view('backends.user.email', ['users' => $users, 'roles' => $roles]);
     }
 }

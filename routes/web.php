@@ -39,8 +39,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/', 'Backends\HomeController@getAdminCp');
 
         Route::get('users/suggest', 'Backends\UserController@suggestSearch');
+        Route::get('emails/getEmailAjax', 'Backends\UserController@getEmailAjax');
         Route::get('users/getDataAjax', 'Backends\UserController@getDataAjax');
         Route::get('users/getInfoByID/{id}', 'Backends\UserController@getInfoByID');
+        Route::get('users/email', 'Backends\UserController@email');
         Route::put('users/updateSefl', 'Backends\UserController@updateSefl')->name('user.updateSefl');
         Route::post('users/info', 'Backends\UserController@infoRoleUser');
         Route::delete('users/delMultiUser', ['as' => 'delMultiUser', 'uses' => 'Backends\UserController@delMultiUser']);
