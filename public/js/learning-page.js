@@ -119,13 +119,7 @@ $(document).ready(function () {
 	}
     
     function checkIfVideoIsPlaying(){
-        console.log(player.paused());
-        if(player.paused()){
-            $(".vjs-custom-big-play-button").css("display", "block !important")
-        }else{
-            $(".vjs-custom-big-play-button").css("display", "none !important")
-        }
-        
+        console.log(player.paused());        
     }
     
 
@@ -136,13 +130,6 @@ $(document).ready(function () {
             $(".player-end-time").html(convertSecondToTimeFormat(this.duration()))
         })
     });
-
-    $(".learning-lecture-list-searchbar #btnSearchSidebar").click(function () {
-        Swal.fire({
-            type: "warning",
-            text: "Sorry! The development of this feature is still ongoing!"
-        })
-    })
 
     $("#btnAutoplay").click(function () {
         if(localStorage.getItem('autoplay') == "true"){

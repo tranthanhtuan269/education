@@ -12,6 +12,7 @@ use App\CommentVideo;
 use App\UserCourse;
 use App\UserRole;
 use App\Helper\Helper;
+use App\Transformers\VideoPlayerLectureListTransformer;
 use Auth;
 
 class VideoPlayerController extends Controller
@@ -74,11 +75,11 @@ class VideoPlayerController extends Controller
                 });
            }
         )
+        
         ->where('video_id', $videoId)
         ->where('parent_id', 0)
         ->orderBy('created_at', 'desc')
         ->get();
-
         $sub_comments_video = CommentVideo::where(
             function($q) use ($user_role_id){
                 $q->where('state', 1)
@@ -167,6 +168,25 @@ class VideoPlayerController extends Controller
         }
 
         return \Response::json(array('status' => '404', 'message' => 'Video không tồn tại!'));
+    }
+
+    public function searchLectureList(Request $request){
+        $courseId = $request->courseId;
+        if($request->content){
+            $units =  Unit::where('course_id', $courseId)->get();
+            $video_list = [];
+            $unit_id_list = [];
+            foreach ($units as $key => $unit) {
+                array_push($unit_id_list, $unit->id);
+                $videos = Video::where('unit_id',$unit->id)->where("name", "LIKE", "%$request->content%")->get();
+                foreach($videos as $video){
+                    array_push($video_list, $video);
+                }
+            }
+            return \Response::json(array('status' => '200', 'message' => 'Success', 'videoList' =>  fractal($video_list, new VideoPlayerLectureListTransformer())->toArray()  ));   
+        }else{
+            return \Response::json(array('status' => '404', 'message' => 'Nothing'));            
+        }
     }
 
     /**

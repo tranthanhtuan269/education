@@ -311,7 +311,7 @@
                                     <li>
                                         <a href="{{route('cart.show')}}" class="unica-cart">
 
-                                            <img src="{{ asset('frontend/images/tab_cart.png') }}" alt="" style="width: 21px;" />
+                                            <img src="{{ asset('frontend/images/tab_cart.png') }}" alt="" style="width: 27px;" />
                                             <span class="unica-sl-cart"><b class="number-in-cart">0</b></span>
                                         </a>
                                     <li>

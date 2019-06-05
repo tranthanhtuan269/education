@@ -5,7 +5,7 @@
     
     <div class="learning-lecture-list-searchbar">
         <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search for lectures">
+            <input type="text" class="form-control" id="sidebarInput" placeholder="Search for lectures">
             
             <span class="input-group-addon" id="btnSearchSidebar" ><i class="fas fa-search"></i></span>
             
@@ -16,6 +16,9 @@
     
     <div class="learning-lecture-list-body">
         @foreach ($units as $key => $unit)
+        @php
+        $string = "Expanding the VueJs Application";
+        @endphp
             
         <div class="ln-lect-list-item">
         <div class="ln-lect-list-header" data-toggle="collapse" data-target="#sectionBody{{$key+1}}">
@@ -87,6 +90,97 @@
     </div>
 </div>
 <script>
+    $(document).ready( function (){
+        var initialLectureList = $(".ln-lect-list-item").get()
+        $("#btnSearchSidebar").click(function (){
+            // alert()
+            var courseId = {{$course->id}}
+            var request = $.ajax({
+                method: "GET",
+                url: "/learning-page/search-lecture-list",
+                data: {
+                    courseId : courseId,
+                    content : $(".learning-lecture-list-searchbar input").val().trim(),
+                    type: String,
+                }
+                
+            })
+            request.done( function (response){
+                if(response.videoList){
+                    $(".learning-lecture-list-body").empty()
+                    response.videoList.data.forEach( function(element, index) {
+                        
+                        var html = ''
+                        html += '<div class="ln-list-found">'
+                            html += '<ul>'
+                                html += '<li>'
+                                    html += '<a href="/learning-page/'+courseId+'/lecture/'+element.id+'">'
+                                        html += '<span class="ln-found-title-icon"><span><i class="fas fa-play-circle"></i></span></span>'
+                                        html += '<span class="ln-found-title">'+element.index+'. '+element.name+'</span>'
+                                        html += '<span class="ln-found-duration">'+element.duration+'</span>'
+                                    html += '</a>'
+                                    html += '<div>'
+                                        html += '<span class="ln-found-sect-number">Section '+element.unitIndex+': </span>'
+                                        html += '<span class="ln-found-sect-name">'+element.unitName+'</span>'
+                                    html += '</div>'
+                                html += '</li>'
+                            html += '</ul>            '
+                        html += '</div>'
+                        $(".learning-lecture-list-body").append(html)
+                    });                    
+                }
+            })
+        })
+        
+        $(".learning-lecture-list-searchbar input").keyup(function(){
+
+            var courseId = {{$course->id}}
+            var request = $.ajax({
+                method: "GET",
+                url: "/learning-page/search-lecture-list",
+                data: {
+                    courseId : courseId,
+                    content : $(".learning-lecture-list-searchbar input").val().trim(),
+                    type: String,
+                }
+                
+            })
+            request.done( function (response){
+                if($(".learning-lecture-list-searchbar input").val().trim() != ""){
+                    if(response.videoList){
+                        $(".learning-lecture-list-body").empty()
+                        response.videoList.data.forEach( function(element, index) {
+                            
+                            var html = ''
+                            html += '<div class="ln-list-found">'
+                                html += '<ul>'
+                                    html += '<li>'
+                                        html += '<a href="/learning-page/'+courseId+'/lecture/'+element.id+'">'
+                                            html += '<span class="ln-found-title-icon"><span><i class="fas fa-play-circle"></i></span></span>'
+                                            html += '<span class="ln-found-title">'+element.index+'. '+element.name+'</span>'
+                                            html += '<span class="ln-found-duration">'+element.duration+'</span>'
+                                        html += '</a>'
+                                        html += '<div>'
+                                            html += '<span class="ln-found-sect-number">Section '+element.unitIndex+': </span>'
+                                            html += '<span class="ln-found-sect-name">'+element.unitName+'</span>'
+                                        html += '</div>'
+                                    html += '</li>'
+                                html += '</ul>            '
+                            html += '</div>'
+                            $(".learning-lecture-list-body").append(html)
+                        });                    
+                    }
+                }else{
+                    $(".learning-lecture-list-body").empty()
+                    initialLectureList.forEach( function (element, index){
+                        $(".learning-lecture-list-body").append(element)
+                    })
+                }
+                
+            })
+        })
+        
+    })
 </script>
 
 <style>

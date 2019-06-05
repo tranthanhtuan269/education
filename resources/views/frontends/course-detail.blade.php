@@ -535,6 +535,10 @@
         $(".interactive-bar .buttons button:first-child").click(function(){
             $("#add-cart").click()
         })
+        $(".interactive-bar .buttons button:last-child").click(function(){
+            $("#add-cart").click()
+            window.location.replace("/cart")
+        })
         $("#buy-now").click(function(){
             $("#add-cart").click()
             window.location.replace("/cart")
@@ -563,6 +567,10 @@
                 addItem(list_item, item);
                 localStorage.setItem("cart", JSON.stringify(list_item));
             }
+
+            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
+                // alert(number_items_in_cart.length)
+            $('.number-in-cart').text(number_items_in_cart.length);
         });
 
         $('.btn-see-more').click(function(){

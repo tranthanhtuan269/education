@@ -81,7 +81,7 @@
     var totalInitialPrice = 0
     
     $(document).ready(function(){
-        $(".cart-pre-info .course-amount").prepend(cart_items.length)
+        $(".cart-pre-info .course-amount").append(cart_items.length)
         cart_items.forEach((element, index) => {
             
             html = '';
@@ -108,7 +108,7 @@
                 html += '</div>'
             html += '</div></a>'
 
-            $(".cart-item-list").prepend(html)
+            $(".cart-item-list").append(html)
 
             totalPrice += element.price
             totalInitialPrice += element.real_price
@@ -133,8 +133,14 @@
             }).then( (result) =>{
                 if(result.value){
                     var cartSingleItem = $(".cart-single-item[data-parent="+dataChild+"]")
-                    cartSingleItem.fadeOut()
+                    cartSingleItem.fadeOut("normal", function () {
+                        // your other code
+                        $(this).trigger('myFadeOutEvent');
+                        cartSingleItem.parent().remove();
+                    });    
+                    $.each($('.cart-single-item'), function(index, value){ $(value).attr('data-index', index)})
                     cart_items.splice(cartSingleItem.attr("data-index"), 1)
+                    
                     totalPrice = 0
                     totalInitialPrice = 0
 

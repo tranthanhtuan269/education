@@ -805,3 +805,46 @@ body{
 #playerReportModal .modal-footer button{
     background-color: #007BE5 !important;
 }
+.ln-list-found li {
+    background: #ffffff;
+    padding: 0.5rem 1rem;
+    margin-bottom: 20px;
+    margin-right: 0.6em;
+    margin-left: 1px;
+    margin-top: 1px;
+    -webkit-box-shadow: 0 0 1px 1px rgba(20,23,28,0.1), 0 3px 1px 0 rgba(20,23,28,0.1);
+    -moz-box-shadow: 0 0 1px 1px rgba(20,23,28,0.1), 0 3px 1px 0 rgba(20,23,28,0.1);
+    box-shadow: 0 0 1px 1px rgba(20,23,28,0.1), 0 3px 1px 0 rgba(20,23,28,0.1);
+}
+.ln-list-found a {
+    display: flex;
+    justify-content: space-between;
+    text-decoration: none;
+    color: #000000;
+}
+.ln-list-found li:hover {
+    cursor: pointer;
+    color: #000000;
+    background: #f2f3f5;
+}
+.ln-list-found a:hover {
+    text-decoration: none;
+    color: #000000;    
+}
+.ln-list-found .ln-found-title-icon{
+    order: 1;
+    position: relative;
+    top: 0.2em;
+}
+.ln-list-found .ln-found-title{
+    order: 2;
+    flex: 1;
+    margin-left: 0.3em;
+}
+.ln-list-found .ln-found-duration{
+    order: 3;
+}
+.ln-list-found div{
+    font-size: 11px;
+    color: #686F7A;
+}

@@ -91,7 +91,7 @@
         @include('frontends.learning-page.report')
 
         {{-- BIG PLAY BUTTON --}}
-        <div class="vjs-custom-big-play-button">
+        <div class="vjs-custom-big-play-button leftbarActive">
             <div class="btn">
                 <i class="fas fa-play"></i>
             </div>
