@@ -131,4 +131,17 @@ class Course extends Model
         }
         return Course::whereRaw('1 = 1');
     }
+    
+    public function checkCourseNotLearning(){
+
+        if(Auth::check()){
+            $list_user_roles = Auth::user()->userRoles;
+            return Course::whereHas('userRoles', function ($query) use ($list_user_roles) {
+                foreach($list_user_roles as $role){
+                    $query->where('user_role_id', '=', $role->id);
+                }
+            })->count();
+        }
+        return false;
+    }
 }

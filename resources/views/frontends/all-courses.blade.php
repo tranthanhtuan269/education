@@ -40,6 +40,7 @@
                                         'sale' => $best_seller->price,
                                         'from_sale' => $best_seller->from_sale,
                                         'to_sale' => $best_seller->to_sale,
+                                        'bought' => $best_seller->checkCourseNotLearning(),
                                     ]
                                 )
                             @endforeach
