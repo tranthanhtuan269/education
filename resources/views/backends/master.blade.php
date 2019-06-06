@@ -33,6 +33,7 @@
         <script src="{{ asset('backend/template/bower_components/jquery/dist/jquery.min.js') }}"></script>
         <script src="{{ asset('backend/js/jquery.easing.min.js') }}"></script>
         <script src="{{ asset('backend/js/priority.js') }}"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
         <script type="text/javascript">
             $.ajaxSetup({
               headers: {
@@ -158,7 +159,7 @@
                 <!-- /.sidebar -->
             </aside>
             <!-- Content Wrapper. Contains page content -->
-            <div class="content-wrapper">
+            <div class="content-wrapper" style="padding-bottom: 1px;">
                 @yield('content')
             </div>
             <!-- /.content-wrapper -->

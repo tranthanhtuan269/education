@@ -1,7 +1,6 @@
 @extends('backends.master')
 
 @section('content')
-
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.16/datatables.min.css"/>
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.16/datatables.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.16/api/fnReloadAjax.js"></script>
@@ -13,13 +12,22 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 <section class="content-header">
-    <h1 class="text-center font-weight-600">Danh sách email</h1>
+    
 </section>
 <section class="content">
+    <h1 class="text-center font-weight-600">Danh sách email</h1>
+    <div class="text-center" style="margin-top: 0.5em">
+        {{-- <a href="javascript:;" class="go-box" data-box="box_content">
+            <button class="btn btn-primary">Create Email</button>
+        </a> --}}
+        <a href="javascript:;" data-toggle="modal" data-target="#createEmailModal">
+            <button class="btn btn-primary">Create Email</button>
+        </a>            
+    </div>
     <div class="row">
         <div class="col-md-12">
             <div class="table-responsive">
-                <table class="table table-bordered" id="user-table">
+                <table class="table table-bordered" id="email-table">
                     <thead class="thead-custom">
                         <tr>
                             <th class="id-field" width="1%">
@@ -44,6 +52,11 @@
             </div>
         </div>
     </div>
+
+
+
+
+
     <div id="edit_user_modal" class="modal fade" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -110,64 +123,109 @@
         </div>
       </div>
     </div>
-
-    <div id="add_email_modal" class="modal fade" role="dialog">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title font-weight-600">Soạn email</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" id="createEmail">Lưu lại</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
-          </div>
-        </div>
-      </div>
-    </div>
 </section>
 <section>
-    <div class="content">
-    @if (Helper::checkPermissions('users.email', $list_roles)) 
-        <div class="form-group row">
-            <label  class="col-sm-2 col-form-label">Subject <span class="text-danger">*</span></label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="subject_Ins" name="subject"  value="{{ Request::old('subject') }}">
-                <div class="alert-errors d-none" role="alert" id="subjectIns">
+
+    <div class="modal fade" id="createEmailModal" tabindex="-1">
+        <div class="modal-content" >
+            <div class="modal-header">
+                <h3>Create Email</h3>
+            </div>
+            @if (Helper::checkPermissions('users.email', $list_roles)) 
+            <div class="modal-body">
+                    <div class="form-group row">
+                        <label  class="col-sm-1 col-form-label">Subject <span class="text-danger">*</span></label>
+                        <div class="col-sm-11">
+                            <input type="text" class="form-control" id="subject_Ins" name="subject"  value="{{ Request::old('subject') }}">
+                            <div class="alert-errors d-none" role="alert" id="subjectIns">
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label  class="col-sm-1 col-form-label">Content <span class="text-danger">*</span></label>
+                        <div class="col-sm-11">
+                            <textarea id="content_Ins" class="form-control" name="content">{{ Request::old('content') }}</textarea>
+                            <div class="alert-errors d-none" role="alert" id="contentIns">
+                                
+                            </div>
+                            <script src="https://cdn.ckeditor.com/ckeditor5/12.1.0/classic/ckeditor.js"></script>
+                            <script>
+                                var content_Ins;
+                                ClassicEditor
+                                    .create( document.querySelector( '#content_Ins' ) )
+                                    .then(editor =>{
+                                            content_Ins = editor
+                                        })
+                                    .catch( error => {
+                                        console.error( error );
+                                    } );
+                            </script>
+                        </div>
+                    </div>
                     
                 </div>
+                <div class="modal-footer">
+                    <div class="form-group row">
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm-11">
+                            <button type="button" class="btn btn-primary" id="createEmail">Lưu lại</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="form-group row">
-            <label  class="col-sm-2 col-form-label">Content <span class="text-danger">*</span></label>
-            <div class="col-sm-10">
-                <textarea id="content_Ins" class="form-control" name="content">{{ Request::old('content') }}</textarea>
-                <div class="alert-errors d-none" role="alert" id="contentIns">
+            @endif
+    </div>
+    <div class="modal fade" id="editEmailModal" tabindex="-1">
+        <div class="modal-content" >
+            <div class="modal-header">
+                <h3>Edit Email</h3>
+            </div>
+            @if (Helper::checkPermissions('users.email', $list_roles)) 
+            <div class="modal-body">
+                    <div class="form-group row">
+                        <label  class="col-sm-1 col-form-label">Subject <span class="text-danger">*</span></label>
+                        <div class="col-sm-11">
+                            <input type="text" class="form-control" id="edit_subject_Ins" name="subject"  value="{{ Request::old('subject') }}">
+                            <div class="alert-errors d-none" role="alert" id="edit_subjectIns">
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label  class="col-sm-1 col-form-label">Content <span class="text-danger">*</span></label>
+                        <div class="col-sm-11">
+                            <textarea id="edit_content_Ins" class="form-control" name="content">{{ Request::old('content') }}</textarea>
+                            <div class="alert-errors d-none" role="alert" id="edit_contentIns">
+                                
+                            </div>
+                            <script>
+                                var edit_content_Ins;
+                                ClassicEditor
+                                    .create( document.querySelector( '#edit_content_Ins' ) )
+                                    .then(editor =>{
+                                            edit_content_Ins = editor
+                                        })
+                                    .catch( error => {
+                                        console.error( error );
+                                    } );
+                            </script>
+                        </div>
+                    </div>
                     
                 </div>
-                <script src="https://cdn.ckeditor.com/ckeditor5/12.1.0/classic/ckeditor.js"></script>
-                <script>
-                    ClassicEditor
-                        .create( document.querySelector( '#content_Ins' ) )
-                        .catch( error => {
-                            console.error( error );
-                        } );
-                </script>
+                <div class="modal-footer">
+                    <div class="form-group row">
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm-11">
+                            <button type="button" class="btn btn-primary" id="editEmail">Lưu lại</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="form-group row">
-            <div class="col-sm-2"></div>
-            <div class="col-sm-10">
-                <button type="button" class="btn btn-primary" id="createEmail">Lưu lại</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
-            </div>
-        </div>
-    @endif
+            @endif
     </div>
 </section>
 
@@ -181,59 +239,6 @@
     var errorConnect        = "Please check your internet connection and try again.";
 
     $(document).ready(function(){
-        function getRoleList($id){
-            var id      = $id;
-            $.ajax({
-                url: baseURL+"/admincp/roles/getRoleByID/" + id,
-                method: "GET",
-                dataType:'html',
-                success: function (response) {
-                    $("#role-list-ins-edit").html(response);
-                    $('#role-list-ins-edit').multiselect({
-                        includeSelectAllOption: true,
-                        includeSelectAllIfMoreThan: 0,
-                        numberDisplayed: 2,
-                        enableClickableOptGroups: true
-                    });
-                 
-                    $.ajax({
-                        url: baseURL+"/admincp/users/getInfoByID/" + id,
-                        method: "GET",
-                        dataType:'json',
-                        success: function (response) {
-                            var html_data = '';
-                            if(response.status == 200){
-                                $("#userPassword_upd").val(response.user.password);
-                                $("#passConfirm_upd").val(response.user.password);
-                            }else{
-                                $().toastmessage('showErrorToast', response.Message);
-                            }
-                        },
-                        error: function (data) {
-                            if(data.status == 401){
-                            window.location.replace(baseURL);
-                            }else{
-                            $().toastmessage('showErrorToast', errorConnect);
-                            }
-                        }
-                    });
-                },
-                error: function (data) {
-                    if(data.status == 401){
-                      window.location.replace(baseURL);
-                    }else{
-                      $().toastmessage('showErrorToast', errorConnect);
-                    }
-                }
-            });
-        }
-        
-        $('#role-list-ins').multiselect({
-            includeSelectAllOption: true,
-            includeSelectAllIfMoreThan: 0,
-            numberDisplayed: 2,
-            enableClickableOptGroups: true
-        });
 
 
         window.onbeforeunload = function() {
@@ -250,10 +255,7 @@
 
 
         $('#edit_user_modal').on('shown.bs.modal', function () {
-            var id      = $('#userID_upd').val();
-             getRoleList(id);
- 
-
+            // var id      = $('#userID_upd').val();
         })
 
         var dataObject = [
@@ -283,7 +285,7 @@
                     var html = '';
                     
                     @if (Helper::checkPermissions('users.edit', $list_roles)) 
-                        html += '<a class="btn-edit mr-2 edit-user" data-id="'+data+'" data-name="'+row.name+'" data-email="'+row.email+'" title="Sửa"> <i class="fa fa-edit"></i></a>';
+                        html += '<a class="btn-edit mr-2 edit-user" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Sửa"> <i class="fa fa-edit"></i></a>';
                     @endif
 
                     @if (Helper::checkPermissions('users.delete', $list_roles)) 
@@ -296,7 +298,7 @@
             },
         ];
 
-        dataTable = $('#user-table').DataTable( {
+        dataTable = $('#email-table').DataTable( {
                         serverSide: false,
                         aaSorting: [],
                         stateSave: false,
@@ -332,15 +334,7 @@
                         }
                     });
 
-        $('#user-table').css('width', '100%');
-
-        // $('#user-table').on( 'page.dt', function () {
-        //     $('html,body').animate({
-        //         scrollTop: $("#user-table").offset().top},
-        //         'slow');
-        // } );
-
-        // dataTable.search("").draw();
+        $('#email-table').css('width', '100%');
 
         //select all checkboxes
         $("#select-all-btn").change(function(){  
@@ -405,23 +399,20 @@
         }
 
         function addEventListener(){
-            $('.edit-user').off('click');
+            $('.edit-user').off('click')
             $('.edit-user').click(function(){
-                var id              = $(this).attr('data-id');
-                curr_user_name            = $(this).attr('data-name');
-                curr_user_email           = $(this).attr('data-email');
+                var id       = $(this).attr('data-id')
+                var curr_title   = $(this).attr('data-title')
+                var curr_content = $(this).attr('data-content')
 
-                $('#edit_user_modal').modal('show');
-
-                $('#userID_upd').val(id);
-                $('#userName_upd').val(curr_user_name);
-                $('#userEmail_upd').val(curr_user_email);
-                // $('#userPassword_upd').val("not_change");
-                // $('#passConfirm_upd').val("not_change");
+                $('#editEmailModal').modal('show');
+                $('#editEmail').attr("data-id", id)
+                $("#edit_subject_Ins").val(curr_title)
+                edit_content_Ins.setData(curr_content)
                 $(".alert-errors").addClass("d-none");
-            });
+            })
 
-            $('.btn-delete').off('click');
+            $('.btn-delete').off('click')
             $('.btn-delete').click(function(){
                 var _self   = $(this);
                 var id      = $(this).attr('data-id');
@@ -470,70 +461,11 @@
         }
 
         function checkEmptyTable(){
-            if ($('#user-table').DataTable().data().count() <= 1 && current_page > 0) {
+            if ($('#email-table').DataTable().data().count() <= 1 && current_page > 0) {
                 current_page = current_page - 1;
             }
             return current_page;
         }
-
-        $('#saveUser').click(function(){
-            var id = $('#userID_upd').val();
-            var name = $('#userName_upd').val();
-            var data    = {
-                name                : name,
-                email               : $('#userEmail_upd').val(),
-                password            : $('#userPassword_upd').val(),
-                confirmpassword     : $('#passConfirm_upd').val(),
-                role_id             : $('#role-list-ins-edit').val(),
-                _method             : "PUT"
-            };
-            $.ajaxSetup({
-                headers: {
-                  'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            $.ajax({
-                url: baseURL+"/admincp/users/" + id,
-                data: data,
-                method: "POST",
-                dataType:'json',
-                beforeSend: function(r, a){
-                    $('.alert-errors').addClass('d-none');
-                    current_page = dataTable.page.info().page;
-                },
-                success: function (data) {
-                    var html_data = '';
-                    if(data.status == 200){
-                        if(id == {{ Auth::user()->id }}){
-                            $('#user-name-txt').html(name);
-                        }
-                        $('#edit_user_modal').modal('hide');
-                        dataTable.page(current_page).draw(false);
-                        $().toastmessage('showSuccessToast', data.Message);
-                    }else{
-                        $.each(data.responseJSON.errors, function( index, value ) {
-                            $('#' + index + 'ErrorUpd').html(value);
-                            $('#' + index + 'ErrorUpd').removeClass('d-none');
-                        });
-                    }
-                },
-                error: function (data) {
-                    if(data.status == 422){
-                        $.each(data.responseJSON.errors, function( index, value ) {
-                            $('#' + index + 'ErrorUpd').html(value);
-                            $('#' + index + 'ErrorUpd').removeClass('d-none');
-                        });
-                    }else{
-                        if(data.status == 401){
-                          window.location.replace(baseURL);
-                        }else{
-                         $().toastmessage('showErrorToast', errorConnect);
-                        }
-                    }
-                }
-            });
-        });
 
         $('#apply-all-btn').click(function (){
             $.ajsrConfirm({
@@ -597,51 +529,6 @@
 
         });
 
-        $('#createUser').click(function(){
-            var data    = {
-                name             : $('#userName_Ins').val(),
-                email            : $('#email_Ins').val(),
-                password         : $('#password_Ins').val(),
-                role_id          : $('#role-list-ins').val(),
-                confirmpassword  : $('#confirmpassword_Ins').val(),
-            };
-
-            $.ajaxSetup({
-                headers: {
-                  'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            
-            $.ajax({
-                url: baseURL+"/admincp/users",
-                data: data,
-                method: "POST",
-                dataType:'json',
-                beforeSend: function(r, a){
-                    $('.alert-errors').addClass('d-none');
-                },
-                success: function (response) {
-                    var html_data = '';
-                    if(response.status == 200){
-                        clearFormCreate();
-                        $('#add_user_modal').modal('toggle');
-                        $().toastmessage('showSuccessToast', response.Message);
-                        dataTable.ajax.reload(); 
-                    } else {
-                        $().toastmessage('showErrorsToast', response.Message);
-                    }
-                },
-                error: function (data) {
-                    if(data.status == 422){
-                        $.each(data.responseJSON.errors, function( index, value ) {
-                            $('#'+index+'ErrorIns').html(value);
-                            $('#'+index+'ErrorIns').removeClass('d-none');
-                        });
-                    }
-                }
-            });
-        });
-
         function clearFormCreate(){
             $('#userName_Ins').val('')
             $('#email_Ins').val('')
@@ -650,30 +537,77 @@
             $('select[name=role_id]').val(1)
             $('.alert-errors').addClass("d-none")
         }
-        
-        // $('#search_txt').keyup(function() {
-        //     if($('#search_txt').val().length <= 0){
-        //         dataTable.search("").draw();
-        //         old_search = '';
-        //         $('.delete_text').hide();
-        //     }else{
-        //         $('.delete_text').show();
-        //     }
-        // });
 
-        // $('.delete_text').click(function(){
-        //   $('#search_txt').val('');
-        //   if($('#search_txt').val().trim() != old_search){
-        //     old_search = '';
-        //     dataTable.search("").draw();
-        //   }
-        //   $(this).hide();
-        // });
-
-        $('#add_user_modal').on('hidden.bs.modal', function () {
-            clearFormCreate();
+        $("#createEmail").click(function () {
+            $.ajaxSetup({
+                headers: {
+                  'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            var subject = $("#subject_Ins").val()
+            var content = content_Ins.getData()
+            if(subject.trim() == ""){
+                Swal.fire({
+                    type: "warning",
+                    text: "Please add subject for the email!"
+                })
+                return
+            }
+            if(content_Ins == null){
+                Swal.fire({
+                    type: "warning",
+                    text: "Content cannot be empty!"
+                })
+                return
+            }
+            var request = $.ajax({
+                method: "POST",
+                url: "store-email",
+                data:{
+                    title : subject,
+                    content : content,
+                },
+                dataType:'json'
+            })
+            request.done( function (response) {
+                $("#subject_Ins").val("")
+                content_Ins.setData("")
+                Swal.fire({
+                    text: response.message
+                })
+                if(response.status == 200){
+                    $("#createEmailModal").modal("hide")
+                }
+            })
         })
         
+        $("#editEmail").click(function () {
+            var id = $(this).attr("data-id")
+            var title = $("#edit_subject_Ins").val()
+            var content = edit_content_Ins.getData()
+
+            var request = $.ajax({
+                method : "PUT",
+                url : "edit-email",
+                data : {
+                    id : id,
+                    title: title,
+                    content: content
+                },
+                dataType: "json"
+            })
+            request.done( function (response) {
+                $("#edit_subject_Ins").val("")
+                edit_content_Ins.setData("")
+                Swal.fire({
+                    text: response.message
+                })
+                if(response.status == 200){
+                    $("#editEmailModal").modal("hide")
+                }
+            })
+        })
+
     });
 </script>
 

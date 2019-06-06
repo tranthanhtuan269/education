@@ -43,6 +43,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('users/getDataAjax', 'Backends\UserController@getDataAjax');
         Route::get('users/getInfoByID/{id}', 'Backends\UserController@getInfoByID');
         Route::get('users/email', 'Backends\UserController@email');
+        Route::post('users/store-email', 'Backends\UserController@storeEmail');
+        Route::put('users/edit-email', 'Backends\UserController@editEmail');
         Route::put('users/updateSefl', 'Backends\UserController@updateSefl')->name('user.updateSefl');
         Route::post('users/info', 'Backends\UserController@infoRoleUser');
         Route::delete('users/delMultiUser', ['as' => 'delMultiUser', 'uses' => 'Backends\UserController@delMultiUser']);

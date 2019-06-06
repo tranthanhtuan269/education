@@ -272,4 +272,40 @@ class UserController extends Controller
         $users = User::select('id', 'name')->get();
         return view('backends.user.email', ['users' => $users, 'roles' => $roles]);
     }
+
+    public function storeEmail(Request $request){
+        if($request->content){
+            $email = new MailLog;
+            $email->title = $request->title;
+            $email->content = $request->content;
+            $email->create_user_id = Auth::id();
+            $email->update_user_id = Auth::id();
+            $email->save();
+
+            return \Response::json(array('status' => '200', 'message' => 'Email is successfully stored!'));
+        
+        }else{
+            return \Response::json(array('status'=> '404', 'message'=> 'Content cannot be null!'));
+        }
+    }
+
+    public function editEmail(Request $request){
+        $email = MailLog::find($request->id);
+        if($email){
+            if($request->content){
+                $email->title = $request->title;
+                $email->content = $request->content;
+                $email->update_user_id = Auth::id();
+
+                $email->save();
+                
+                return \Response::json(array('status' => '200', 'message' => 'Email is successfully updated!'));
+                
+            }else{
+                return \Response::json(array('status' => '404', 'message' => 'Content cannot be null'));
+            }
+        }else{
+            return \Response::json(array('status' => '404', 'message' => 'Cannot find the email'));
+        }
+    }
 }
