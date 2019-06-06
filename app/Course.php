@@ -142,6 +142,8 @@ class Course extends Model
                 }
             })->count();
         }
-        return false;
+        //0 means user bought this course 
+        return 0;
+
     }
 }

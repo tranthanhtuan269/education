@@ -47,6 +47,8 @@
                                 'sale' => $result->price,
                                 'from_sale' => $result->from_sale,
                                 'to_sale' => $result->to_sale,
+                                'bought' => $result->checkCourseNotLearning(),
+
                             ]
                         )
                         @endforeach

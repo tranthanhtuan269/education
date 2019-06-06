@@ -14,7 +14,8 @@
 
                 @if (isset($setup))  
                 <i class="fa fa-cog fa-lg setting-icon" aria-hidden="true"></i>
-                @endif     
+                @endif
+                @if ($bought == 0)
                 <div class="img-mask">
                     <div class="btn-add-to-cart">
                         <button class="btn btn-success" data-id="{{ $id }}" data-image="{{ $rawImage }}" data-lecturer="{{ $author }}" data-name="{{ $title }}" data-price="{{ $sale }}" data-real-price="{{ $price }}" data-slug="{{ $slug }}">
@@ -25,8 +26,9 @@
                                 Add to cart
                             </span>
                         </button>
-                    </div>
+                    </div>                        
                 </div>               
+                @endif
              </div>
                     
             <div class="content-course">

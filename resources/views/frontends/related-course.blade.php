@@ -30,6 +30,7 @@
                                     'sale' => $related->price,
                                     'from_sale' => $related->from_sale,
                                     'to_sale' => $related->to_sale,
+                                    'bought' => $related->checkCourseNotLearning(),
                                 ]
                             )
                         @endforeach

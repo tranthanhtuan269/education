@@ -73,6 +73,8 @@
                                     'sale' => $new->price,
                                     'from_sale' => $new->from_sale,
                                     'to_sale' => $new->to_sale,
+                                    'bought' => $new->checkCourseNotLearning(),
+
                                 ]
                             )
                         @endforeach
@@ -104,6 +106,8 @@
                                     'sale' => $feature->price,
                                     'from_sale' => $feature->from_sale,
                                     'to_sale' => $feature->to_sale,
+                                    'bought' => $feature->checkCourseNotLearning(),
+                            
                                 ]
                             )
                         @endforeach

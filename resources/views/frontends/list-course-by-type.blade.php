@@ -33,6 +33,8 @@
                                 'sale' => $course->price,
                                 'from_sale' => $course->from_sale,
                                 'to_sale' => $course->to_sale,
+                                'bought' => $course->checkCourseNotLearning(),
+                                
                             ]
                         )
                       @endforeach
