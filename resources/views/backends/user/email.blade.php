@@ -20,9 +20,9 @@
         {{-- <a href="javascript:;" class="go-box" data-box="box_content">
             <button class="btn btn-primary">Create Email</button>
         </a> --}}
-        <a href="javascript:;" data-toggle="modal" data-target="#createEmailModal">
+        <a data-toggle="modal" data-target="#createEmailModal">
             <button class="btn btn-primary">Create Email</button>
-        </a>            
+        </a>          
     </div>
     <div class="row">
         <div class="col-md-12">
@@ -585,6 +585,12 @@
             var id = $(this).attr("data-id")
             var title = $("#edit_subject_Ins").val()
             var content = edit_content_Ins.getData()
+
+            $.ajaxSetup({
+                headers: {
+                  'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
+                }
+            });
 
             var request = $.ajax({
                 method : "PUT",

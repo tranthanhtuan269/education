@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backends;
 use App\Http\Controllers\Backends\Requests\StoreUserRequest;
 use App\Http\Controllers\Backends\Requests\UpdateInfoRequest;
 use App\Http\Controllers\Backends\Requests\UpdateUserRequest;
+use Response;
 use App\Role;
 use App\User;
 use App\Email;
@@ -14,6 +15,9 @@ use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
+use App\Mail\DiscountNot;
+use App\Order;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -21,7 +25,8 @@ class UserController extends Controller
     {
         $roles = Role::get();
         $users = User::select('id', 'name')->get();
-        return view('backends.user.index', ['users' => $users, 'roles' => $roles]);
+        $emailTemplates = MailLog::select('id', 'title')->get();
+        return view('backends.user.index', ['users' => $users, 'roles' => $roles, 'emailTemplates' => $emailTemplates]);
     }
 
     /**
@@ -269,8 +274,8 @@ class UserController extends Controller
         $emails = MailLog::get();
         // dd($emails);
         $roles = Role::get();
-        $users = User::select('id', 'name')->get();
-        return view('backends.user.email', ['users' => $users, 'roles' => $roles]);
+        $users = User::select('id', 'name', 'email')->get();
+        return view('backends.user.email', ['users' => $users, 'roles' => $roles, 'emails' => $emails]);
     }
 
     public function storeEmail(Request $request){
@@ -307,5 +312,24 @@ class UserController extends Controller
         }else{
             return \Response::json(array('status' => '404', 'message' => 'Cannot find the email'));
         }
+    }
+
+    public function sendEmail(Request $request){
+        
+        $user = User::find($request->user_id);
+        $mail_log = MailLog::find($request->template_id);
+        // dd($order);
+        Mail::to($user)->send(new DiscountNot($user, $mail_log));
+
+        if(Mail::failures()){
+            return Response::json([
+                'status'  => '404',
+                'message' => 'There was a problem!'
+            ]);
+        }
+        return Response::json([
+            'status'  => '200',
+            'message' => "Email is sent successfully!"
+        ]);
     }
 }

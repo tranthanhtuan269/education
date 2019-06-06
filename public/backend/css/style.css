@@ -434,3 +434,6 @@ ul.alert li{
 #createEmailModal .modal-content, #editEmailModal .modal-content{
     margin: 3em;
 }
+.swal2-popup{
+    font-size: 1.25em !important;
+}

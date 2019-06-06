@@ -28,6 +28,21 @@ class UsersTableSeeder extends Seeder
         $user->gender = 1;
         $user->status = 1;
 		$user->save();
+
+		$user2 = new User;
+        $user2->name = "Nguyễn Tùng Dương";
+        $user2->email = "tungduong284@gmail.com";
+        $user2->password = bcrypt('secret12');
+        $user2->remember_token = str_random(10);
+        $user2->facebook = "https://www.facebook.com/nguyenminhhtrang";
+        $user2->phone = "0973619398";
+        $user2->address = "So 65 - to 7 - Dong Anh - Ha Noi";
+        $user2->avatar = "images/avatar.jpg";
+        $user2->coins = 500;
+        $user2->dob = date("Y-m-d H:i:s");
+        $user2->gender = 1;
+        $user2->status = 1;
+		$user2->save();
 		
 		// add role Admin
 		$userRole = new UserRole;

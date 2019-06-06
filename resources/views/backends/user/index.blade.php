@@ -1,7 +1,6 @@
 @extends('backends.master')
 
 @section('content')
-
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.16/datatables.min.css"/>
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.16/datatables.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.16/api/fnReloadAjax.js"></script>
@@ -182,6 +181,49 @@
         </div>
       </div>
     </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="sendEmailModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    Send Email
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-2">
+                            Recipient :
+                        </div>
+                        <div class="col-md-10">
+                            <span id="recipientName"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            Email :
+                        </div>
+                        <div class="col-md-10">
+                            <span id="recipientEmail"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            Email type :
+                        </div>
+                        <div class="col-md-10">
+                            <select class="form-control" name="emailType" id="selectedTemplate">
+                                @foreach ($emailTemplates as $emailTemplate)
+                                <option value="{{$emailTemplate->id}}">{{$emailTemplate->title}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" data-userId id="sendEmail">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 
 <script type="text/javascript">
@@ -301,7 +343,10 @@
                 class: "action-field",
                 render: function(data, type, row){
                     var html = '';
-                    
+                    @if (Helper::checkPermissions('users.edit', $list_roles)) 
+                        html += '<a class="btn-send-email" data-toggle="modal" data-target="#sendEmailModal" data-id="'+data+'" data-name="'+row.name+'" data-email="'+row.email+'" title="Gửi"><i class="fa fa-envelope-square" aria-hidden="true"></i></a>';
+                    @endif
+
                     @if (Helper::checkPermissions('users.edit', $list_roles)) 
                         html += '<a class="btn-edit mr-2 edit-user" data-id="'+data+'" data-name="'+row.name+'" data-email="'+row.email+'" title="Sửa"> <i class="fa fa-edit"></i></a>';
                     @endif
@@ -309,6 +354,8 @@
                     @if (Helper::checkPermissions('users.delete', $list_roles)) 
                         html += '<a class="btn-delete" data-id="'+data+'" title="Xóa"><i class="fa fa-trash" aria-hidden="true"></i></a>';
                     @endif
+
+                    
 
                     return html;
                 },
@@ -487,6 +534,48 @@
                     nineCorners: false,
                 });
             });
+
+            $('.btn-send-email').off('click');
+            $('.btn-send-email').click( function () {
+                var userId = $(this).attr("data-id")
+                var userName = $(this).attr("data-name")
+                var userEmail = $(this).attr("data-email")
+
+                $("#sendEmail").attr("data-userId", userId)
+                $("#recipientName").html(userName)
+                $("#recipientEmail").html(userEmail)
+            })
+
+            $('#sendEmail').off('click')
+            $('#sendEmail').click( function () {
+                var userId = $(this).attr('data-userid')
+                var templateId = $("#selectedTemplate").val()
+                
+                $.ajaxSetup({
+                    headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                var request = $.ajax({
+                    method: "GET",
+                    url: 'users/send-email',
+                    data:{
+                        user_id : userId,
+                        template_id : templateId
+                    }
+                })
+                
+                request.done(function (response) {
+                    Swal.fire({
+                        text: response.message
+                    })
+                    if(response.status == "200"){
+                        $("#sendEmailModal").modal("hide")
+                    }
+                })
+            })
+
         }
 
         function checkEmptyTable(){

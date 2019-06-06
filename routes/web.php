@@ -45,6 +45,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('users/email', 'Backends\UserController@email');
         Route::post('users/store-email', 'Backends\UserController@storeEmail');
         Route::put('users/edit-email', 'Backends\UserController@editEmail');
+        Route::get('users/send-email', 'Backends\UserController@sendEmail');
         Route::put('users/updateSefl', 'Backends\UserController@updateSefl')->name('user.updateSefl');
         Route::post('users/info', 'Backends\UserController@infoRoleUser');
         Route::delete('users/delMultiUser', ['as' => 'delMultiUser', 'uses' => 'Backends\UserController@delMultiUser']);
