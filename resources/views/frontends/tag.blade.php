@@ -1,8 +1,11 @@
 @extends('frontends.layouts.app')
 @section('content')
-@php
-    // dd($tag->courses);
-@endphp
+<?php
+    $list_bought = [];
+    if(Auth::check()){
+        $list_bought = \json_decode(Auth::user()->bought);
+    }
+?>
 <div class="box-search">
   <div class="container">
       <div class="row">
@@ -32,7 +35,8 @@
                         @include(
                             'components.course', 
                             [
-                                'course' => $result
+                                'course' => $result,
+                                'list_course' => $list_bought
                                 // 'id' => $result->id,
                                 // 'slug' => $result->slug,
                                 // 'rawImage' => $result->image,

@@ -1,6 +1,11 @@
 @extends('frontends.layouts.app')
 @section('content')
-
+<?php
+    $list_bought = [];
+    if(Auth::check()){
+        $list_bought = \json_decode(Auth::user()->bought);
+    }
+?>
 <div class="box-list-course-by-type">
   <div class="container">
       <div class="row">
@@ -19,7 +24,8 @@
                         @include(
                             'components.course', 
                             [   
-                                'course' => $course
+                                'course' => $course,
+                                'list_course' => $list_bought
                                 // 'id'    => $course->id,
                                 // 'slug' => $course->slug,
                                 // 'image' => url('/frontend/images/'.$course->image),

@@ -1,3 +1,9 @@
+<?php
+    $list_bought = [];
+    if(Auth::check()){
+        $list_bought = \json_decode(Auth::user()->bought);
+    }
+?>
 <div class="top-course">
     <div class="row" id="box_related_course">
         <div class="col-xs-12 clearfix title-module-home">
@@ -16,7 +22,8 @@
                             @include(
                                 'components.course', 
                                 [
-                                    'course' => $related
+                                    'course' => $related,
+                                    'list_course' => $list_bought
                                     // 'id' => $related->id,
                                     // 'slug' => $related->slug,
                                     // 'image' => url('/frontend/images/'.$related->image),

@@ -207,7 +207,8 @@ class HomeController extends Controller
     public function checkout(Request $request)
     {
         if (Auth::check()) {
-            $user_role_id = Auth::user()->userRolesStudent();
+            $current_user = Auth::user();
+            $user_role_id = $current_user->userRolesStudent();
             $items = $request->items;
             if ($items) {
                 // check coins
@@ -239,10 +240,16 @@ class HomeController extends Controller
                 $order->coupon = '';
                 $order->save();
 
+                $bought = [];
+                if(strlen($current_user->bought) > 0){
+                    $bought = \json_decode($current_user->bought);
+                }
+
                 foreach ($items as $item) {
                     if ($item['id']) {
                         $course = Course::find($item['id']);
                         if ($course) {
+                            $bought[] = $item['id'];
                             $video_count = $course->video_count;
                             $first_video_index = 1;
                             $first_video_id = $course->units[0]->videos[0]->id;
@@ -270,6 +277,8 @@ class HomeController extends Controller
                     $order->coupon = '';
                 }
                 $order->save();
+                $current_user->bought = \json_encode($bought);
+                $current_user->save();
                 return \Response::json(array('status' => '201', 'message' => 'Order has been created'));
             }
             return \Response::json(array('status' => '204', 'message' => 'Order has not been created'));

@@ -17,7 +17,7 @@
                 @if (isset($setup))  
                 <i class="fa fa-cog fa-lg setting-icon" aria-hidden="true"></i>
                 @endif
-                @if ($course->checkCourseNotLearning() == 0)
+                @if (!in_array($course->id, $list_bought))
                 <div class="img-mask">
                     <div class="btn-add-to-cart">
                         <button class="btn btn-success" data-id="{{ $course->id }}" data-image="{{ $course->image }}" data-lecturer="{{ $lecturers }}" data-name="{{ $course->name }}" data-price="{{ $course->price }}" data-real-price="{{ $course->real_price }}" data-slug="{{ $course->slug }}">

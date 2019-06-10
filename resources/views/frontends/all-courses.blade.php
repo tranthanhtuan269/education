@@ -1,4 +1,10 @@
 @if (count($best_seller_course) > 0 || count($new_course) > 0 ||  count($feature_course) > 0)
+<?php
+    $list_bought = [];
+    if(Auth::check()){
+        $list_bought = \json_decode(Auth::user()->bought);
+    }
+?>
 <div class="container">
     <div class="top-course">
         <div class="row">
@@ -22,7 +28,8 @@
                                 @include(
                                     'components.course', 
                                     [   
-                                        'course' => $best_seller
+                                        'course' => $best_seller,
+                                        'list_course' => $list_bought
                                         // 'id' => $best_seller->id,
                                         // 'slug' => $best_seller->slug,
                                         // 'image' => url('/frontend/images/'.$best_seller->image),
@@ -56,7 +63,8 @@
                             @include(
                                 'components.course', 
                                 [   
-                                    'course' => $new
+                                    'course' => $new,
+                                    'list_course' => $list_bought
                                     // 'id' => $new->id,
                                     // 'slug' => $new->slug,
                                     // 'image' => url('/frontend/images/'.$new->image),
@@ -90,7 +98,8 @@
                             @include(
                                 'components.course', 
                                 [
-                                    'course' => $feature
+                                    'course' => $feature,
+                                    'list_course' => $list_bought
                                     // 'id' => $feature->id,
                                     // 'slug' => $feature->slug,
                                     // 'image' => url('/frontend/images/'.$feature->image),
