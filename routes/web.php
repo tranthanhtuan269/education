@@ -42,10 +42,15 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('emails/getEmailAjax', 'Backends\UserController@getEmailAjax');
         Route::get('users/getDataAjax', 'Backends\UserController@getDataAjax');
         Route::get('users/getInfoByID/{id}', 'Backends\UserController@getInfoByID');
+
         Route::get('users/email', 'Backends\UserController@email');
-        Route::post('users/store-email', 'Backends\UserController@storeEmail');
-        Route::put('users/edit-email', 'Backends\UserController@editEmail');
-        Route::get('users/send-email', 'Backends\UserController@sendEmail');
+        Route::post('users/store-email', 'Backends\EmailController@store');
+        Route::put('users/edit-email', 'Backends\EmailController@edit');
+        Route::get('users/delete-email', 'Backends\EmailController@destroy');
+        Route::get('users/send-email', 'Backends\EmailController@sendEmail');
+        Route::get('users/send-multiple-emails', 'Backends\EmailController@sendMultiple');
+        Route::get('users/delete-multiple-emails', 'Backends\EmailController@destroyMultiple');
+        
         Route::put('users/updateSefl', 'Backends\UserController@updateSefl')->name('user.updateSefl');
         Route::post('users/info', 'Backends\UserController@infoRoleUser');
         Route::delete('users/delMultiUser', ['as' => 'delMultiUser', 'uses' => 'Backends\UserController@delMultiUser']);

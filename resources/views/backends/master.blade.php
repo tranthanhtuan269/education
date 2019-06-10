@@ -138,6 +138,11 @@
                                         <a href="{{ url('/') }}/admincp/users"><i class="fa fa-minus"></i> Danh sách</a>
                                     </li>
                                 @endif
+                                @if (Helper::checkPermissions('users.list', $list_roles)) 
+                                    <li class="@if ( Request::is('admincp/users/email*') ) active @endif">
+                                        <a href="{{ url('/') }}/admincp/users/email"><i class="fa fa-minus"></i> Emails</a>
+                                    </li>
+                                @endif
  
                                 @if (Helper::checkPermissions('users.list_permissions', $list_roles)) 
                                     <li class="@if ( Request::is('admincp/permissions*') ) active @endif">

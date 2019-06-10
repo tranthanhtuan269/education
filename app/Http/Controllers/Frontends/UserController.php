@@ -267,17 +267,17 @@ class UserController extends Controller
     public function getDataMailBoxAjax()
     {
         $user = Auth::user();
-        // dd($users->mail_log[0]->detail_mail_log);
+        // dd($users->mail_log[0]->detail_email);
 
-        return datatables()->collection($user->mail_log)
+        return datatables()->collection($user->email)
             ->addColumn('sender', function ($user) {
                 return User::find($user->sender_user_id)->name;
             })
             ->addColumn('title', function ($user) {
-                return $user->detail_mail_log->title;
+                return $user->detail_email->title;
             })
             ->addColumn('content', function ($user) {
-                return $user->detail_mail_log->content;
+                return $user->detail_email->content;
             })
             ->removeColumn('id')->make(true);
     }

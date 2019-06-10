@@ -19,7 +19,7 @@
         </div>
     @endif
 </section>
-<section class="content">
+<section class="content page">
     <div class="row">
         <div class="col-md-12">
             <div class="table-responsive">
@@ -44,6 +44,7 @@
                     <p class="action-selected-rows">
                         <span >Hành động trên các hàng đã chọn:</span>
                         <span class="btn btn-info ml-2" id="apply-all-btn">Xóa</span>
+                        <span class="btn btn-info ml-5" data-toggle="modal" data-target="#sendMultipleEmailModal">Send Emails</span>
                     </p>  
                 @endif
             </div>
@@ -186,7 +187,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    Send Email
+                    <h4>Send Email</h4>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -223,6 +224,34 @@
                 </div>
             </div>
         </div>
+    </div>
+    
+    <div id="sendMultipleEmailModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Send emails for multiple users</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-2">
+                            Email type :
+                        </div>
+                        <div class="col-md-10">
+                            <select class="form-control" name="emailType" id="mulSelectedTemplate">
+                                @foreach ($emailTemplates as $emailTemplate)
+                                <option value="{{$emailTemplate->id}}">{{$emailTemplate->title}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" id="sendMultipleEmail">Send</button>                    
+                </div>
+            </div>
+        </div>
+
     </div>
 </section>
 
@@ -575,6 +604,38 @@
                     }
                 })
             })
+            $("#sendMultipleEmail").off('click')
+            $("#sendMultipleEmail").click( function (){
+                var user_id_list = []
+                var templateId = $("#mulSelectedTemplate").val()
+                $.each($('.check-user'), function (key, value){
+                    if($(this).prop('checked') == true) {
+                        user_id_list.push($(this).attr("data-column"))
+                    }
+                });
+                if(user_id_list.length > 0){
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    $.ajax({
+                        method: 'GET',
+                        url: baseURL+"/admincp/users/send-multiple-emails",
+                        data: {
+                            user_id_list : user_id_list,
+                            template_id : templateId
+                        },
+                        dataType : 'json',
+                        success : function (response) {
+
+                        },
+                        error : function (response) {
+
+                        }
+                    })
+                }
+            })
 
         }
 
@@ -657,48 +718,40 @@
                     });
 
                     if ($id_list.length > 0) {
-                        var $id_list = '';
-                        $.each($('.check-user'), function (key, value){
-                            if($(this).prop('checked') == true) {
-                                $id_list += $(this).attr("data-column") + ',';
+                        var data = {
+                            id_list:$id_list,
+                            _method:'delete'
+                        };
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
                             }
                         });
-
-                        if($id_list.length > 0){
-                            var data = {
-                                id_list:$id_list,
-                                _method:'delete'
-                            };
-                            $.ajaxSetup({
-                                headers: {
-                                  'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
+                        $.ajax({
+                            type: "POST",
+                            url: "{{ url('/') }}/admincp/users/delMultiUser",
+                            data: data,
+                            success: function (response) {
+                                var obj = $.parseJSON(response);
+                                if(obj.status == 200){
+                                    $.each($('.check-user'), function (key, value){
+                                        if($(this).prop('checked') == true) {
+                                            $(this).parent().parent().hide("slow");
+                                        }
+                                    });
+                                    dataTable.ajax.reload(); 
+                                    $().toastmessage('showSuccessToast', obj.Message);
                                 }
-                            });
-                            $.ajax({
-                                type: "POST",
-                                url: "{{ url('/') }}/admincp/users/delMultiUser",
-                                data: data,
-                                success: function (response) {
-                                    var obj = $.parseJSON(response);
-                                    if(obj.status == 200){
-                                        $.each($('.check-user'), function (key, value){
-                                            if($(this).prop('checked') == true) {
-                                                $(this).parent().parent().hide("slow");
-                                            }
-                                        });
-                                        dataTable.ajax.reload(); 
-                                        $().toastmessage('showSuccessToast', obj.Message);
-                                    }
-                                },
-                                error: function (data) {
-                                    if(data.status == 401){
-                                      window.location.replace(baseURL);
-                                    }else{
-                                     $().toastmessage('showErrorToast', errorConnect);
-                                    }
+                            },
+                            error: function (data) {
+                                if(data.status == 401){
+                                    window.location.replace(baseURL);
+                                }else{
+                                    $().toastmessage('showErrorToast', errorConnect);
                                 }
-                            });
-                        }
+                            }
+                        });
+                        
                     }
                 },
                 nineCorners: false,
