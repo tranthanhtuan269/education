@@ -406,7 +406,7 @@ ul.unica-acc-zone li.special:hover a{color:#fff}
 .modal-dialog .modal-footer .link-to-sign-up{
   text-align: center;
 }
-.modal-dialog .terms-and-policy{
+.modal-dialog .terms-and-policy,.change-password-notice{
   font-size: 12px;
   margin-bottom: 20px;
 }
