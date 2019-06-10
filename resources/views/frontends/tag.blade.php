@@ -32,21 +32,22 @@
                         @include(
                             'components.course', 
                             [
-                                'id' => $result->id,
-                                'slug' => $result->slug,
-                                'rawImage' => $result->image,
-                                'image' => url('/frontend/images/'.$result->image),
-                                'title' => $result->name,
-                                'author' => $lecturers,
-                                'star_count' => $result->star_count,
-                                'vote_count' => $result->vote_count,
-                                'time' => $result->approx_time,
-                                'view_number' => $result->view_count,
-                                'price' => $result->real_price,
-                                'sale' => $result->price,
-                                'from_sale' => $result->from_sale,
-                                'to_sale' => $result->to_sale,
-                                'bought' => $result->checkCourseNotLearning(),
+                                'course' => $result
+                                // 'id' => $result->id,
+                                // 'slug' => $result->slug,
+                                // 'rawImage' => $result->image,
+                                // 'image' => url('/frontend/images/'.$result->image),
+                                // 'title' => $result->name,
+                                // 'author' => $lecturers,
+                                // 'star_count' => $result->star_count,
+                                // 'vote_count' => $result->vote_count,
+                                // 'time' => $result->approx_time,
+                                // 'view_number' => $result->view_count,
+                                // 'price' => $result->real_price,
+                                // 'sale' => $result->price,
+                                // 'from_sale' => $result->from_sale,
+                                // 'to_sale' => $result->to_sale,
+                                // 'bought' => $result->checkCourseNotLearning(),
 
                             ]
                         )
