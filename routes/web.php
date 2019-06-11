@@ -33,6 +33,13 @@ Route::get('login-admin', function () {
 });
 Route::get('/logout-admin', 'Backends\LoginController@getLogoutAdmin')->name('logout-admin');
 
+Route::get('mailable', function () {
+    $user = App\User::find(1);
+    $email = App\Email::find(1);
+
+    return new App\Mail\DiscountNot($user, $email);
+});
+
 // BACKEND
 Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'admincp'], function () {
@@ -42,10 +49,15 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('emails/getEmailAjax', 'Backends\UserController@getEmailAjax');
         Route::get('users/getDataAjax', 'Backends\UserController@getDataAjax');
         Route::get('users/getInfoByID/{id}', 'Backends\UserController@getInfoByID');
+
         Route::get('users/email', 'Backends\UserController@email');
-        Route::post('users/store-email', 'Backends\UserController@storeEmail');
-        Route::put('users/edit-email', 'Backends\UserController@editEmail');
-        Route::get('users/send-email', 'Backends\UserController@sendEmail');
+        Route::post('users/store-email', 'Backends\EmailController@store');
+        Route::put('users/edit-email', 'Backends\EmailController@edit');
+        Route::get('users/delete-email', 'Backends\EmailController@destroy');
+        Route::get('users/send-email', 'Backends\EmailController@sendEmail');
+        Route::get('users/send-multiple-emails', 'Backends\EmailController@sendMultiple');
+        Route::get('users/delete-multiple-emails', 'Backends\EmailController@destroyMultiple');
+        
         Route::put('users/updateSefl', 'Backends\UserController@updateSefl')->name('user.updateSefl');
         Route::post('users/info', 'Backends\UserController@infoRoleUser');
         Route::delete('users/delMultiUser', ['as' => 'delMultiUser', 'uses' => 'Backends\UserController@delMultiUser']);
@@ -134,7 +146,9 @@ Route::group(['middleware' => 'auth'], function () {
 
        
         Route::get('getDataMailBoxAjax', 'Frontends\UserController@getDataMailBoxAjax');
+        Route::get('getDataMailBoxNavAjax', 'Frontends\UserController@getDataMailBoxNavAjax');
         Route::get('getDataOrderAjax', 'Frontends\UserController@getDataOrderAjax');
+        Route::get('getSingleEmailContentAjax', 'Frontends\UserController@getSingleEmailContentAjax');
         Route::group(['prefix' => 'student'],function () {
             Route::get('mail-box', 'Frontends\UserController@mailBoxStudent'); 
             Route::get('course', 'Frontends\UserController@courseStudent'); 

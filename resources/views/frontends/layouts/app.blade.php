@@ -318,10 +318,17 @@
 
                                     @if(Auth::check())
                                     <li>
-                                        <a href="/user/student/mail-box" class="unica-cart unica-mail">
-                                            <img src="{{ asset('frontend/images/tab_notifications.png') }}" alt="" style="width: 21px;" />
-                                            <span class="unica-sl-notify"><b>0</b></span>
-                                        </a>
+                                        <div class="dropdown" id="btnMailBoxNav">
+                                            <a class="unica-cart unica-mail" href="/user/student/mail-box">
+                                                <img src="{{ asset('frontend/images/tab_notifications.png') }}" alt="" style="width: 21px;" />
+                                                <span class="unica-sl-notify"><b></b></span>
+                                            </a>
+                                            <ul class="dropdown-menu hidden" id="mailBoxNavDropdown" style="top:3em;">
+                                                <li class="row">
+                                                    <div class="col-xs-12 w-100">Lorem ipsum dolor sit amet conser ve</div>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </li>
                                     <li class="btn-group">
                                         <a class="db-item-circle dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)"><img class="img-responsive" src="{{ asset('frontend/'.(Auth::user()->avatar != '' ? Auth::user()->avatar : 'images/avatar.jpg')) }}" alt="avatar"><span class="caret"></span></a>
@@ -490,6 +497,39 @@
             }
         });
 
+        $(document).ready( function () {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                method: 'GET',
+                url: 'user/getDataMailBoxNavAjax',
+                success: function (response) {
+                    $("#mailBoxNavDropdown").empty()
+                    
+                    var unreadEmails = response.unread_emails
+                    unreadEmails.forEach( email => {
+                        var html = ''
+                        html += '<li class="row">'
+                            html += '<div class="col-xs-12 w-100">'+email.title+'</div>'
+                        html += '</li>'
+                        
+                        $("#mailBoxNavDropdown").append(html)                            
+                    });
+                    
+                    $(".unica-sl-notify b").text(response.unread_emails.length)
+
+                },
+                error: function (response) {
+
+                }
+            })
+            // $("#btnMailBoxNav").on('show.bs.dropdown', function () {
+            // })
+        })
+
         jQuery(function () {
             amazonmenu.init({
                 menuid: 'mysidebarmenu'
@@ -529,7 +569,7 @@
             $(".box-course .img-course .img-mask .btn-add-to-cart button").click( function(e){
                 e.stopPropagation()
                 e.preventDefault()
-                console.log($(this));
+                // console.log($(this));
                 
                 var item = {
                     'id' : $(this).attr("data-id"),

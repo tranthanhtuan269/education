@@ -12,8 +12,12 @@ use App\Http\Controllers\Frontends\Requests\InsertTeacherRequest;
 use App\User;
 use App\Teacher;
 use App\UserRole;
+use App\Email;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Mail\CustomMail;
+use App\UserEmail;
+
 
 class UserController extends Controller
 {
@@ -267,19 +271,74 @@ class UserController extends Controller
     public function getDataMailBoxAjax()
     {
         $user = Auth::user();
-        // dd($users->mail_log[0]->detail_mail_log);
+        $emails = $user->user_emails;
+        // dd($emails);
 
-        return datatables()->collection($user->mail_log)
-            ->addColumn('sender', function ($user) {
-                return User::find($user->sender_user_id)->name;
+        return datatables()->collection($emails)
+            ->addColumn('sender', function ($email) {
+                $sender_user_id = $email->sender_user_id;
+                $sender = User::find($sender_user_id);
+                return $sender->name;
             })
-            ->addColumn('title', function ($user) {
-                return $user->detail_mail_log->title;
+            ->addColumn('title', function ($email) {
+                $wanted_email = Email::find($email->email_id);
+                return $wanted_email->title;
             })
-            ->addColumn('content', function ($user) {
-                return $user->detail_mail_log->content;
+            ->addColumn('content', function ($email) {
+                $wanted_email = Email::find($email->email_id);
+                return $wanted_email->content;
             })
-            ->removeColumn('id')->make(true);
+            ->addColumn('user_email_id', function ($email) {
+                return $email->id;
+            })
+            ->setRowAttr([
+                'style' => function ($email) {
+                    if($email->viewed == 0){
+                        return 'background-color: #F2F3F6; font-weight: 600;';
+                    }else if($email->viewed == 1){
+                        return '';
+                    }
+                }
+            ])
+            // ->removeColumn('id')
+            ->make(true);
+    }
+
+    public function getSingleEmailContentAjax(Request $request){
+        $user = Auth::user();
+        
+        if(isset($user) && isset($request->user_email_id)){
+            $email_id = $request->email_id;
+            $user_email_instance = UserEmail::find($request->user_email_id);
+            $email_template = Email::find($user_email_instance->email_id);
+            $email_html = ( new CustomMail($user, $email_template) )->render();
+
+            $user_email_instance->viewed = 1;
+            $user_email_instance->save();
+
+            return response()->json([
+                'email_html' => $email_html
+            ]);
+        }
+
+        return response()->json([
+            'status' => '404',
+            'message'=> 'There was a problem!'
+        ]);
+    }
+
+    public function getDataMailBoxNavAjax(){
+        $user = Auth::user();
+        $unread_user_emails = $user->user_emails->where('viewed', 0);
+        $unread_emails = Email::whereIn('id', $unread_user_emails->pluck('email_id'))->get();
+        
+        
+        return response()->json([
+            'status' => '200',
+            'message' => 'Success',
+            'unread_emails' => $unread_emails,
+        ]);
+
     }
 
     public function orderLogs(Request $request)
