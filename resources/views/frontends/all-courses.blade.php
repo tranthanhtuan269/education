@@ -1,7 +1,7 @@
 @if (count($best_seller_course) > 0 || count($new_course) > 0 ||  count($feature_course) > 0)
 <?php
     $list_bought = [];
-    if(Auth::check()){
+    if(Auth::check() && strlen(Auth::user()->bought) > 0){
         $list_bought = \json_decode(Auth::user()->bought);
     }
 ?>
