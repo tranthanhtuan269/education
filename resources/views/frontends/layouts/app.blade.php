@@ -305,8 +305,12 @@
                             <div class="pull-right">
                                 <ul class="unica-acc-zone db-item">
                                     @if(Auth::check())
-                                    <li><a href="{{ url('user/student/course') }}" class="unica-active-course"><p class="hidden-md hidden-xs hidden-sm">Start Learning</p></a></li>
-                                    </li>
+                                        @if ( !(count(Auth::user()->userRoles) == 1 && (Auth::user()->userRoles->first()->role_id) == 1) )
+                                        <li><a href="{{ url('user/student/course') }}" class="unica-active-course"><p class="hidden-md hidden-xs hidden-sm">Start Learning</p></a></li>
+                                        @else
+                                        <li><a href="{{ url('admincp') }}" class="unica-admin"><p class="hidden-md hidden-xs hidden-sm">Admin Page</p></a></li>
+                                        @endif
+                                    {{-- </li> --}}
                                     @endif
                                     <li>
                                         <a href="{{route('cart.show')}}" class="unica-cart">
@@ -331,17 +335,21 @@
                                         </div>
                                     </li>
                                     <li class="btn-group">
-                                        <a class="db-item-circle dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)"><img class="img-responsive" src="{{ asset('frontend/'.(Auth::user()->avatar != '' ? Auth::user()->avatar : 'images/avatar.jpg')) }}" alt="avatar"><span class="caret"></span></a>
+                                        <a class="db-item-circle dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)"><img class="img-responsive" src="{{ asset('frontend/'.(Auth::user()->avatar != '' ? Auth::user()->avatar : 'images/avatar.jpg')) }}" alt="avatar"><span class="caret"></span></a>                                    
                                         <ul class="dropdown-menu db-drop">
-                                            @if ($check_multi_role_user == 2)
-                                                <li><a href="{{ url('user/teacher/course') }}"><i class="fas fa-chalkboard-teacher"></i> Teacher</a></li>
-                                                <li><a href="{{ url('user/student/course') }}"><i class="fas fa-user-graduate"></i> Student</a></li>
+                                            @if ( !(count(Auth::user()->userRoles) == 1 && (Auth::user()->userRoles->first()->role_id) == 1) )
+                                                @if ($check_multi_role_user == 2)
+                                                    <li><a href="{{ url('user/teacher/course') }}"><i class="fas fa-chalkboard-teacher"></i> Teacher</a></li>
+                                                    <li><a href="{{ url('user/student/course') }}"><i class="fas fa-user-graduate"></i> Student</a></li>
+                                                @else                                                
+                                                    <li><a href="{{ url('user/student/course') }}"><i class="fa fa-list-alt" aria-hidden="true"></i> Start Learning</a></li>
+                                                    {{-- <li><a href="{{ route('coming-soon') }}"><i class="fa fa-share-alt" aria-hidden="true"></i> Affiliate</a></li> --}}
+                                                    {{-- <li><a href="{{ route('coming-soon') }}"><i class="fa fa-key" aria-hidden="true"></i> Activate course</a></li> --}}
+                                                    <li><a href="{{ url('user/student/profile') }}"><i class="fa fa-user" aria-hidden="true"></i> Profile </a></li>
+                                                    <li><a href="{{ url('member-card') }}"><i class="fa fa-credit-card" aria-hidden="true"></i>  Recharge </a></li>
+                                                @endif
                                             @else
-                                                <li><a href="{{ url('user/student/course') }}"><i class="fa fa-list-alt" aria-hidden="true"></i> Start Learning</a></li>
-                                                {{-- <li><a href="{{ route('coming-soon') }}"><i class="fa fa-share-alt" aria-hidden="true"></i> Affiliate</a></li> --}}
-                                                {{-- <li><a href="{{ route('coming-soon') }}"><i class="fa fa-key" aria-hidden="true"></i> Activate course</a></li> --}}
-                                                <li><a href="{{ url('user/student/profile') }}"><i class="fa fa-user" aria-hidden="true"></i> Profile </a></li>
-                                                <li><a href="{{ url('member-card') }}"><i class="fa fa-credit-card" aria-hidden="true"></i>  Recharge </a></li>
+                                                {{-- <li><a href="{{ url('admincp') }}"><i class="fas fa-user-shield"></i> Admin Page</a></li>           --}}
                                             @endif
                                             <li class="divider"></li>
                                             <li><a href="{{ url('user/logout') }}" class="btnDangxuat"><i class="fas fa-sign-out-alt"></i> Logout</a></li>

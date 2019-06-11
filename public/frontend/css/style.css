@@ -184,6 +184,9 @@ nav .pagination li a img{width:35px;position:relative;top:-6px}
 .unica-search-boxtop input.unica-form{border-radius:25px;background:#EDEDED;border:none}
 .unica-active-course{background:#00B7F1;border:1px solid #00B7F1;padding:9px 36px 9px 10px;border-radius:3px;display:inline-block;color:#fff;margin-top:13px;background:url(../images/icon_student.png) no-repeat 90.5% center #00B7F1}
 .unica-active-course i{margin-right:5px}
+
+.unica-admin{background:#00B7F1;border:1px solid #00B7F1;padding:9px 10px 9px 10px;border-radius:3px;display:inline-block;color:#fff !important;}
+
 .unica-cart{color:#999;margin-left:15px;position:relative;top:10px}
 .unica-mail{top: 16px;}
 .unica-cart i{font-size:24px}
