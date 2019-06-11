@@ -267,7 +267,7 @@
     .col-filter { padding-left: 0; padding-right: 5px;}
     .filter .form-control { float: left;    width: 48%;    margin-right: 5px;    margin-bottom: 5px; }
     .u-detail-block-title { width: 100%; }
-    .u-detail-block-title h3 { font-size: 24px; margin-top: 0; float: left; }
+    .u-detail-block-title h3min-width: 87px;    width: 87px; { font-size: 24px; margin-top: 0; float: left; }
     .u-detail-tea a { display: inline-block; }
     .show-xs .block-buy { top:  unset; margin-top: 5px; padding: 10px 5px 5px 5px; }
     .show-xs .block-ulti a { margin: 10px 0; }
@@ -583,3 +583,187 @@
 }
 
 /*
+
+/* Responsive TRINHNK */
+
+/* Member Card */
+@media (min-width: 1200px){
+	.container {
+	    /* max-width: 1020px; */
+    }
+    .member-card-offer .box-offer-l{padding-right:40px}
+    .member-card-offer .box-offer-r{padding-left:40px}
+    .member-card-offer .img .box-l .offer-dollar{margin-right: 40px}
+    .member-card-offer .img .box-r .offer-dollar{margin-left: 40px}
+}
+
+@media all and (min-width: 1100px) and (max-width: 1200px) {
+    .member-card-offer .box-offer-l{padding-right:40px}
+    .member-card-offer .box-offer-r{padding-left:40px}
+    .popular-teacher .info .number-course,.popular-teacher .info .number-student{
+        font-size: 12px;
+    }
+    #config-slider{
+        width: 940px !important;
+    }
+}
+
+@media all and (max-width: 1099px) and (min-width: 993px){
+    /* .member-card-offer h2{padding: 10px 0 20px} */
+    .member-card-offer .img .offer-dollar .dollar{font-size: 70px}
+    .member-card-offer .img .offer-dollar .courdemy{padding: 10px 40px}
+    .member-card-offer .img .offer-dollar .courdemy p{font-size: 23px}
+    .member-card-offer .img .offer-dollar .courdemy img{width: 40px;height: auto;}
+    .member-card-offer .info .dollar{font-size: 20px;padding: 10px 0}
+    .member-card-offer .box-offer-l{padding-right:20px}
+    .member-card-offer .box-offer-r{padding-left:20px}
+    .popular-teacher .info .number-course,.popular-teacher .info .number-student{
+        font-size: 12px;
+    }
+    #config-slider{
+        width: 940px !important;
+    }
+}
+
+@media all and (max-width: 992px) and (min-width: 769px) {
+    .member-card-offer .img .offer-dollar .dollar{font-size: 70px}
+	.member-card-offer .img .offer-dollar .courdemy{padding: 7px 30px}
+    .member-card-offer .img .offer-dollar .courdemy p{font-size: 20px}
+    .member-card-offer .img .offer-dollar .courdemy img{width: 30px;height: auto;}
+    .member-card-offer .info .dollar{font-size: 16px;padding: 5px 0}
+    .member-card-offer .info p{font-size: 12px}
+    #config-slider{
+        width: 720px !important;
+    }
+}
+
+@media all and (max-width: 768px) { 
+    .member-card-offer .img .offer-dollar .dollar{font-size: 70px}
+	.member-card-offer .img .offer-dollar .courdemy{padding: 7px 30px}
+    .member-card-offer .img .offer-dollar .courdemy p{font-size: 20px}
+    .member-card-offer .img .offer-dollar .courdemy img{width: 30px;height: auto;}
+    .member-card-offer .info .dollar{font-size: 16px;padding: 5px 0}
+    .member-card-offer .info p{font-size: 12px}
+    .member-card-banner p{font-size: 26px}
+    .partner h2,.member-card #coursdemy,.member-card #txt-format{
+        font-size: 30px;
+    }
+    .partner p{
+        font-size: 15px;
+    }
+    .member-card .member-card-img{
+        padding-top: 50px;
+    }
+    .member-card a{
+        padding: 10px 30px;
+        font-size: 16px;
+    }
+    #config-slider{
+        width: 720px !important;
+    }
+}	
+
+@media all and (max-width: 767px) {
+	.member-card-info .padding-form{
+        padding-bottom: 0;
+    }
+    .box-course{
+        padding-bottom: 15px;
+    }
+    .box-course a.course-box-slider{
+        background: #f5f5f5;
+    }
+    .box-course a:hover{
+        -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+        -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+        transition: all .5s;
+    }
+    .box-course .img-course{
+        top: 10px;
+        left: 10px;
+    }
+    .box-course .content-course{
+        padding: 5px;
+        border: none;
+    }
+    .box-course .content-course h3.title-course {
+        font-size: 15px;
+        margin: 0;
+        font-weight: 600;
+        line-height: 1.5;
+        min-height: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .box-course .content-course .name-teacher {
+        font-size: 12px;
+        margin: 0;
+    }
+    .box-course .content-course .time-view{
+        display: none;
+    }
+    .box-course .content-course .star-rate{
+        float: left;
+    }
+    .box-course .content-course .price-course .price{
+        font-size: 14.5px;
+    }
+    .box-course .content-course .price-course .sale{
+        font-size: 18px;
+    }
+    .become-teacher{
+        background-size: auto 100%;
+        margin: 20px 0;
+    }
+    .become-teacher .ads-teacher{
+        padding-top: 30px;
+        padding-bottom: 20px;
+    }
+    .top-course .title-module-home{
+        padding-bottom: 20px;
+    }
+    .top-course .nav.nav-tabs{
+        font-size: 12px;
+    }
+    .partner h2,.member-card #coursdemy,.member-card #txt-format{
+        font-size: 30px;
+    }
+    .partner p{
+        font-size: 15px;
+    }
+    .member-card .courdemy-member{
+        text-align: center;
+    }
+    .member-card a{
+        padding: 10px 30px;
+        font-size: 16px;
+    }
+    .member-card .member-card-img{
+        padding-top: 20px;
+    }
+    .box-course .img-course .img-mask{
+        display: none !important;
+    }
+    .feature-course a img{
+        height: 187px;
+    }
+    .popular-teacher .course-box-slider{
+        border-bottom: none;
+    }
+}
+
+@media (max-width: 480px) { 
+	
+}
+
+@media all and (max-width: 380px) {
+	.top-course .nav.nav-tabs li a,.top-course .nav.nav-tabs li.active a{
+        padding: 10px 10px;
+    }
+    .img-course{
+        min-width: 50px;
+        width: 70px;
+    }
+}

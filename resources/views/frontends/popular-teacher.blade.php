@@ -1,7 +1,7 @@
 <div class="container">
     <div class="popular-teacher">
         <div class="row">
-            <div class="col-xs-12 title-module-home">
+            <div class="col-sm-12 title-module-home">
                 <h2>Popular Teacher</h2>
             </div>
             @foreach ($popular_teacher as $teacher)

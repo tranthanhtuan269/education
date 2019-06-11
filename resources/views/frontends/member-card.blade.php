@@ -10,6 +10,7 @@
                     <p>MEMBER CARDS</p>
                 </div>
             </div>
+            
         </div>
     </div>
 </div>
@@ -198,7 +199,7 @@
 <div class="member-card-purchase-way">
     <div class="container">
         <div class="row">
-            <div class="col-sm-7 col-xs-12">
+            <div class="col-md-7 col-sm-12">
                 <div class="textx">
                     <p class="how-to">Learn how to purchase</p>
                     <p class="courdemy">Courdemy's <br> Teacher</p>
@@ -207,7 +208,7 @@
                     </a>
                 </div>
             </div>
-            <div class="col-sm-5 hidden-xs">
+            <div class="col-md-5 hidden-sm hidden-xs">
                 <img src="{{ asset('frontend/images/member-card-how-to-purchase.png')}}" alt="How To Purchase" title="How To Purchase">
             </div>
         </div>
@@ -217,7 +218,7 @@
     <div class="member-card-info">
         <h2>Courdemy's <span style="color: #00baed;">Member Card</span></h2>
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-6 col-xs-12">
                 <form>
                     <div class="row padding-form">
                         <div class="form-group col-sm-6">
@@ -288,7 +289,7 @@
                     <button type="submit" class="btn-save">SAVE</button>
                 </form> 
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-6 hidden-xs">
                 <img src="{{ asset('frontend/images/img_membercard.png') }}" alt="Member Card">
             </div>
         </div>

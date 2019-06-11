@@ -2,7 +2,7 @@
 <div class="container">
     <div class="top-course">
         <div class="row">
-            <div class="col-xs-12 clearfix title-module-home">
+            <div class="col-sm-12 clearfix title-module-home">
                 <div class="pull-left">
                     <h2>All Courses</h2>
                 </div>
