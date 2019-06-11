@@ -190,7 +190,7 @@
                     <h4>Send Email</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="row">
+                    <div class="row my-4">
                         <div class="col-md-2">
                             Recipient :
                         </div>
@@ -198,7 +198,7 @@
                             <span id="recipientName"></span>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row my-4">
                         <div class="col-md-2">
                             Email :
                         </div>
@@ -206,7 +206,7 @@
                             <span id="recipientEmail"></span>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row my-4">
                         <div class="col-md-2">
                             Email type :
                         </div>

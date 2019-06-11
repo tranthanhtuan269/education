@@ -8,7 +8,7 @@ use App\User;
 use Auth;
 use Response;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\DiscountNot;
+use App\Mail\CustomMail;
 
 
 class EmailController extends Controller
@@ -149,11 +149,8 @@ class EmailController extends Controller
         
         $user = User::find($request->user_id);
         $email = Email::find($request->template_id);
-        
-        Mail::send('backends.emails.discount-not', ['userName' => $user->name, 'mailContent' => $email->content], function ($message){
-            $message->to('tungduong@gmail.com');
-            $message->subject('asdasd');
-        });
+        $email_template = new CustomMail($user, $email);
+        Mail::to($user)->send($email_template);
 
         if(Mail::failures()){
             return Response::json([
@@ -181,7 +178,7 @@ class EmailController extends Controller
         }
         $user_list = User::whereIn('id', $user_id_list)->get();
         // foreach ($user_list as $key => $user) {
-            Mail::to($user_list)->send(new DiscountNot($user_list, $email));
+            Mail::to($user_list)->send(new CustomMail($user_list, $email));
             Mail::send('backends.emails.discount-not', ['userName' => $user->name, 'mailContent' => $email->content], function ($message){
                 $message->to('tungduong@gmail.com');
                 $message->subject('asdasd');

@@ -33,6 +33,13 @@ Route::get('login-admin', function () {
 });
 Route::get('/logout-admin', 'Backends\LoginController@getLogoutAdmin')->name('logout-admin');
 
+Route::get('mailable', function () {
+    $user = App\User::find(1);
+    $email = App\Email::find(1);
+
+    return new App\Mail\DiscountNot($user, $email);
+});
+
 // BACKEND
 Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'admincp'], function () {
@@ -139,7 +146,9 @@ Route::group(['middleware' => 'auth'], function () {
 
        
         Route::get('getDataMailBoxAjax', 'Frontends\UserController@getDataMailBoxAjax');
+        Route::get('getDataMailBoxNavAjax', 'Frontends\UserController@getDataMailBoxNavAjax');
         Route::get('getDataOrderAjax', 'Frontends\UserController@getDataOrderAjax');
+        Route::get('getSingleEmailContentAjax', 'Frontends\UserController@getSingleEmailContentAjax');
         Route::group(['prefix' => 'student'],function () {
             Route::get('mail-box', 'Frontends\UserController@mailBoxStudent'); 
             Route::get('course', 'Frontends\UserController@courseStudent'); 

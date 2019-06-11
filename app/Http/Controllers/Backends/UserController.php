@@ -14,7 +14,7 @@ use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
-use App\Mail\DiscountNot;
+use App\Mail\CustomMail;
 use App\Order;
 use Illuminate\Support\Facades\Mail;
 

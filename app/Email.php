@@ -14,4 +14,9 @@ class Email extends Model
         'create_user_id',
         'update_user_id'
     ];
+
+    public function users()
+    {
+        return $this->belongsToMany('App\User', 'user_email', 'email_id', 'user_id');
+    }
 }

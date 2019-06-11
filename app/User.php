@@ -100,9 +100,14 @@ class User extends Authenticatable
         return $this->hasMany('App\UserRole')->where('role_id', \Config::get('app.student'))->first();
     }
 
-    public function emails()
+    public function user_emails()
     {
     	return $this->hasMany('App\UserEmail', 'user_id');
+    }
+
+    public function emails()
+    {
+    	return $this->belongsToMany('App\Email', 'user_email', 'user_id', 'email_id');
     }
 
 

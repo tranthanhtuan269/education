@@ -14,10 +14,11 @@ class CreateUserEmailTable extends Migration
     public function up()
     {
         Schema::create('user_email', function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('user_id');
             $table->integer('email_id');
             $table->integer('sender_user_id');
-            $table->boolean('view');
+            $table->boolean('viewed')->default(false);
             $table->timestamps();
         });
     }

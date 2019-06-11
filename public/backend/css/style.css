@@ -437,3 +437,6 @@ ul.alert li{
 .swal2-popup{
     font-size: 1.25em !important;
 }
+.btn-send-email{
+    cursor: pointer !important;
+}
