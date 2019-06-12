@@ -1398,7 +1398,7 @@ div[data-u="slides"] div div{
   background-size: cover;
   margin: 10px;
   height: 150px;
-  border-radius: 5px;
+  border-radius: 10px;
 }
 .slider-div a{
   color: #ffffff;
