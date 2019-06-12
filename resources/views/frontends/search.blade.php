@@ -36,7 +36,7 @@
                             $lecturers = count($result->Lecturers()) > 1 ? 'Nhiều tác giả' : count($result->Lecturers()) > 0 ? $result->Lecturers()[0]->user->name : "Courdemy";
                         ?>
                         @include(
-                            'components.course', 
+                            'components.course-search', 
                             [
                                 'course' => $result,
                                 'list_course' => $list_bought

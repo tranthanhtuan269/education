@@ -553,7 +553,7 @@
                 $('.unica-home-menutop').removeClass('fixed');
             }
         });
-
+        @if(Auth::check())
         $(document).ready( function () {
             $.ajaxSetup({
                 headers: {
@@ -586,6 +586,7 @@
             // $("#btnMailBoxNav").on('show.bs.dropdown', function () {
             // })
         })
+        @endif
 
         jQuery(function () {
             amazonmenu.init({

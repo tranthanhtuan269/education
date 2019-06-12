@@ -1378,3 +1378,16 @@ div[data-u="slides"] div div{
 #btnMailBoxNav .dropdown-menu li{
   padding: 0.5em;
 }
+
+.box-course.course-search .title-course{
+  text-align: center
+}
+.box-course.course-search .content-course div.clearfix{
+  text-align: center
+}
+.box-course.course-search .content-course .name-category{
+  background-color: lightgray;
+  border-radius: 5px;
+  margin: 5px 0;
+  padding: 5px 0px;
+}
