@@ -42,8 +42,6 @@
         .slider-div a{
             color: #ffffff;
             text-decoration: none;
-            position: relative;
-            top: 25%;
         }
         .category-slider{
             position: relative;
@@ -57,6 +55,7 @@
             width: 100%;
             display: flex;
             justify-content: center;
+            align-items: center;
         }
         .banner {
             width: 100%;
@@ -80,7 +79,6 @@
                     speed: 500,
                     slidesToShow: 4,
                     slidesToScroll: 4,
-                    
                     });
                 })
             </script>

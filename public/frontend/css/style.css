@@ -4,7 +4,7 @@ iframe{width:100%}
 .clearfix::after{content:"";display:block;clear:both;height:0;visibility:hidden;overflow:hidden}
 body,h1,h2,h3,h4,h5,h6,form,input,select,ul,textarea{margin:0;padding:0}
 article,aside,details,figcaption,figure,footer,header,hgroup,menu,section{display:block}
-body{font-family:'Poppins',sans-serif;font-size:14px; padding-right: 0 !important;}
+body{font-family:'Open Sans',sans-serif;font-size:14px; padding-right: 0 !important;}
 .modal {
     overflow-y: auto;
     z-index: 2001!important;
