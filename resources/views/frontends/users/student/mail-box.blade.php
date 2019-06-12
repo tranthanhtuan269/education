@@ -138,6 +138,10 @@
                     success: function (response) {
                         $('#myModalContentMailBox .modal-body').html(response.email_html); 
                         $('#myModalContentMailBox').modal('show');
+                        if(self.parent().parent().attr('style').length > 0){
+                            var note_number = parseInt($('.unica-sl-notify b').text())
+                            $('.unica-sl-notify b').text(note_number-1)
+                        }
                         self.parent().parent().attr('style','')
                     },
                     error: function (response) {
