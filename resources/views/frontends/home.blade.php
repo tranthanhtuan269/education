@@ -1,6 +1,6 @@
 @extends('frontends.layouts.app')
 @section('content')
-<div class="banner">
+<div class="banner hidden-xs">
     
     {{-- <img class="pd-mb-banner hidden-xs" src="{{ asset('frontend/images/banner_home.png') }}" width="100%" alt="Banner home"> --}}
     {{-- <div class="slick-slider">
@@ -41,6 +41,36 @@
                 speed: 500,
                 slidesToShow: 4,
                 slidesToScroll: 4,
+                responsive:[
+                    {
+                        breakpoint: 1200,
+                        settings:{
+                            slidesToShow: 4,
+                            slidesToScroll: 4,
+                        }
+                    },
+                    {
+                        breakpoint: 992,
+                        settings:{
+                            slidesToShow: 3,
+                            slidesToScroll: 3,
+                        }
+                    },
+                    {
+                        breakpoint: 768,
+                        settings:{
+                            slidesToShow: 2,
+                            slidesToScroll: 2,
+                        }
+                    },
+                    {
+                        breakpoint: 576,
+                        settings:{
+                            slidesToShow: 1,
+                            slidesToScroll: 1,
+                        }
+                    },
+                ]
                 });
             })
         </script>
