@@ -1,7 +1,7 @@
 @extends('frontends.layouts.app')
 @section('content')
 <div class="banner">
-    <p>s</p>
+    
     {{-- <img class="pd-mb-banner hidden-xs" src="{{ asset('frontend/images/banner_home.png') }}" width="100%" alt="Banner home"> --}}
     {{-- <div class="slick-slider">
         @foreach ($feature_category as $feature)
@@ -31,58 +31,19 @@
     {{-- </div> --}}
 </div>
         <style>
-        .slider-div{
-            color: #ffffff;
-            background-repeat: no-repeat;
-            background-position: center center;
-            background-size: cover;
-            margin: 10px;
-            height: 150px;
-            border-radius: 5px;
-        }
-        .slider-div a{
-            color: #ffffff;
-            text-decoration: none;
-        }
-        .category-slider{
-            position: relative;
-            top: 70%;
-        }
-        .link-parent{
-            position: relative;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .banner {
-            width: 100%;
-            height: 30vw;
-            background-image: url('/frontend/images/banner_home.png');
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: cover;
-            margin-bottom: 10em;
-
-        }
-        .slick-prev:before, .slick-next:before{
-            font-size: 30px !important;
-        }
+        
         </style>
         <script>
-                $(document).ready(function(){
-                    $('.category-slider').slick({
-                    arrows: true,
-                    infinite: true,
-                    speed: 500,
-                    slidesToShow: 4,
-                    slidesToScroll: 4,
-                    });
-                })
-            </script>
+            $(document).ready(function(){
+                $('.category-slider').slick({
+                arrows: true,
+                infinite: true,
+                speed: 500,
+                slidesToShow: 4,
+                slidesToScroll: 4,
+                });
+            })
+        </script>
 
     @include('frontends.feature-courses')
     @include('frontends.all-courses')
