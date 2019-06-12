@@ -1,6 +1,7 @@
 @extends('frontends.layouts.app')
 @section('content')
 <div class="banner">
+    <p>s</p>
     {{-- <img class="pd-mb-banner hidden-xs" src="{{ asset('frontend/images/banner_home.png') }}" width="100%" alt="Banner home"> --}}
     {{-- <div class="slick-slider">
         @foreach ($feature_category as $feature)

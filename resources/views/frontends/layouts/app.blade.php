@@ -306,9 +306,13 @@
                         <div class="pull-right">
                             <ul class="unica-acc-zone db-item">
                                 @if(Auth::check())
-                                <li><a href="{{ url('user/student/course') }}" class="unica-active-course"><p class="hidden-md hidden-xs hidden-sm">Start Learning</p></a></li>
-                            </li>
-                            @endif
+                                    @if ( !(count(Auth::user()->userRoles) == 1 && (Auth::user()->userRoles->first()->role_id) == 1) )
+                                        <li><a href="{{ url('user/student/course') }}" class="unica-active-course"><p class="hidden-md hidden-xs hidden-sm">Start Learning</p></a></li>
+                                    @else
+                                        <li><a href="{{ url('admincp') }}" class="unica-admin"><p class="hidden-md hidden-xs hidden-sm">Admin Page</p></a></li>
+                                    @endif
+                                {{-- </li> --}}
+                                @endif
                             <li>
                                 <a href="{{route('cart.show')}}" class="unica-cart">
 

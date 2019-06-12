@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backends;
 use Illuminate\Http\Request;
 use App\Email;
 use App\User;
+use App\UserEmail;
 use Auth;
 use Response;
 use Illuminate\Support\Facades\Mail;
@@ -151,6 +152,12 @@ class EmailController extends Controller
         $email = Email::find($request->template_id);
         $email_template = new CustomMail($user, $email);
         Mail::to($user)->send($email_template);
+
+        $user_email  = new UserEmail;
+        $user_email->user_id = $request->user_id;
+        $user_email->email_id = $request->template_id;
+        $user_email->sender_user_id = Auth::id();
+        $user_email->save();
 
         if(Mail::failures()){
             return Response::json([
