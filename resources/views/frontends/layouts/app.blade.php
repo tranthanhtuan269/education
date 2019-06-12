@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/bootstrap.offcanvas.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/sidenav.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/slick.css') }}">
+
     <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}" />
     <link rel="stylesheet" href="{{ asset('frontend/css/responsive.css') }}" />
     <script type="text/javascript" src="{{ asset('frontend/js/jquery-3.2.1.min.js') }}"></script>
