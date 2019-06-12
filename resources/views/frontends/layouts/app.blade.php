@@ -498,30 +498,24 @@
             <div class="container">
                 <div class="row">
                     <div class="col-sm-8 col-xs-12">
+                        <div class="img-logo">
+                            <img src="{{ asset('frontend/images/footer_logo.png') }}">    
+                        </div>
                         <div class="row">
-                            <div class="col-md-7 col-xs-8">
-                                <div class="img-logo">
-                                    <img src="{{ asset('frontend/images/footer_logo.png') }}">    
-                                </div>
+                            <div class="col-xs-4">
+                                <p><a href="javascript:void(0)" title="Business">Business</a></p>
+                                <p><a href="javascript:void(0)" title="Certificates">Certificates</a></p>
+                                <p><a href="javascript:void(0)" title="Beta Testers">Beta Testers</a></p>
                             </div>
-                            <div class="col-sm-12">                           
-                                <div class="row">
-                                    <div class="col-sm-4 col-xs-6">
-                                        <p><a href="javascript:void(0)" title="Business">Business</a></p>
-                                        <p><a href="javascript:void(0)" title="Certificates">Certificates</a></p>
-                                        <p><a href="javascript:void(0)" title="Beta Testers">Beta Testers</a></p>
-                                    </div>
-                                    <div class="col-sm-4 col-xs-6">
-                                        <p><a href="javascript:void(0)" title="Business">Business</a></p>
-                                        <p><a href="javascript:void(0)" title="Certificates">Certificates</a></p>
-                                        <p><a href="javascript:void(0)" title="Beta Testers">Beta Testers</a></p>
-                                    </div>
-                                    <div class="col-sm-4 col-xs-6">
-                                        <p><a href="javascript:void(0)" title="Business">Business</a></p>
-                                        <p><a href="javascript:void(0)" title="Certificates">Certificates</a></p>
-                                        <p><a href="javascript:void(0)" title="Beta Testers">Beta Testers</a></p>
-                                    </div>
-                                </div>
+                            <div class="col-xs-4">
+                                <p><a href="javascript:void(0)" title="Business">Business</a></p>
+                                <p><a href="javascript:void(0)" title="Certificates">Certificates</a></p>
+                                <p><a href="javascript:void(0)" title="Beta Testers">Beta Testers</a></p>
+                            </div>
+                            <div class="col-xs-4">
+                                <p><a href="javascript:void(0)" title="Business">Business</a></p>
+                                <p><a href="javascript:void(0)" title="Certificates">Certificates</a></p>
+                                <p><a href="javascript:void(0)" title="Beta Testers">Beta Testers</a></p>
                             </div>
                         </div>
                     </div>

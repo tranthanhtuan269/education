@@ -4,14 +4,10 @@
             <div class="col-sm-10 col-sm-offset-1">
                 <div class="row">
                     <div class="col-sm-6">
-                        <div class="row">
-                            <div class="col-xs-8 col-xs-offset-4">
-                                <div class="ads-teacher">
-                                    <p>BECOME</p>
-                                    <h2>COURDEMY'S <br> TEACHER</h2>
-                                    <a href="{{ Auth::check() ? url('user/register-teacher') : 'javascript:void(0)' }}" title="Register Teacher" {{ Auth::check() ? '' : ' data-toggle=modal data-target=#myModalLogin data-dismiss=modal id=redirect_register_teacher' }}>REGISTER NOW</a>
-                                </div>
-                            </div>
+                        <div class="ads-teacher">
+                            <p>BECOME</p>
+                            <h2>COURDEMY'S <br> TEACHER</h2>
+                            <a href="{{ Auth::check() ? url('user/register-teacher') : 'javascript:void(0)' }}" title="Register Teacher" {{ Auth::check() ? '' : ' data-toggle=modal data-target=#myModalLogin data-dismiss=modal id=redirect_register_teacher' }}>REGISTER NOW</a>
                         </div>
                     </div>
                     <div class="col-sm-6 hidden-xs">
@@ -40,7 +36,9 @@
                 </div>
             </div>
             <div class="col-sm-6">
-                <img src="{{ asset('frontend/images/img_membercard.png') }}" alt="Register Now" />
+                <div class="member-card-img">
+                    <img src="{{ asset('frontend/images/img_membercard.png') }}" alt="Register Now" />
+                </div>
             </div>
         </div>
     </div>
@@ -55,11 +53,11 @@
         </div>
         <div class="partner-img clearfix">
             <ul>
-                <li><img src="{{ asset('frontend/images/partner_5.png') }}"></li>
-                <li><img src="{{ asset('frontend/images/partner_4.png') }}"></li>
-                <li><img src="{{ asset('frontend/images/partner_3.png') }}"></li>
-                <li><img src="{{ asset('frontend/images/partner_2.png') }}"></li>
-                <li><img src="{{ asset('frontend/images/partner_1.png') }}"></li>
+                <li><div><img src="{{ asset('frontend/images/partner_5.png') }}"></div></li>
+                <li><div><img src="{{ asset('frontend/images/partner_4.png') }}"></div></li>
+                <li><div><img src="{{ asset('frontend/images/partner_3.png') }}"></div></li>
+                <li><div><img src="{{ asset('frontend/images/partner_2.png') }}"></div></li>
+                <li><div><img src="{{ asset('frontend/images/partner_1.png') }}"></div></li>
             </ul>
         </div>
     </div>
