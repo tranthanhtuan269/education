@@ -9,6 +9,7 @@ use Response;
 use App\Role;
 use App\User;
 use App\Email;
+use App\Teacher;
 use App\UserRole;
 use Auth;
 use Illuminate\Http\Request;
@@ -277,5 +278,67 @@ class UserController extends Controller
         return view('backends.user.email', ['users' => $users, 'roles' => $roles, 'emails' => $emails]);
     }
 
-    
+    public function getTeacher(){
+        return view('backends.user.teacher');
+    }
+
+    public function getTeacherAjax()
+    {
+        $users = Teacher::get();
+        return datatables()->collection($users)
+            ->addColumn('name', function ($user) {
+                return $user->userRole->user->name;
+            })
+            ->addColumn('action', function ($user) {
+                return $user->id;
+            })
+            ->addColumn('rows', function ($user) {
+                return $user->id;
+            })
+            ->removeColumn('id')->make(true);
+    }
+
+    public function accept(Request $request)
+    {
+        if($request->teacherId){
+            $teacher = Teacher::find($request->teacherId);
+            if($teacher){
+                $teacher->status = 1;
+                $teacher->save();
+                $res = array('status' => "200", "Message" => "Cập nhật thông tin thành công");
+                echo json_encode($res);die;
+            }
+        }
+        $res = array('status' => "401", "Message" => 'Người dùng không tồn tại.');
+        echo json_encode($res);die;
+    }
+
+    public function deleteTeacher(Request $request)
+    {
+        if($request->teacherId){
+            $teacher = Teacher::find($request->teacherId);
+            if($teacher){
+                $teacher->delete();
+                $res = array('status' => "200", "Message" => "Xóa thành công");
+                echo json_encode($res);die;
+            }
+        }
+        $res = array('status' => "401", "Message" => 'Người dùng không tồn tại.');
+        echo json_encode($res);die;
+    }
+
+    public function deleteMultiTeacher(Request $request)
+    {
+        if (isset($request) && $request->input('id_list')) {
+            $id_list = $request->input('id_list');
+            $id_list = rtrim($id_list, ',');
+
+            if (User::delMultiUser($id_list)) {
+                $res = array('status' => 200, "Message" => "Đã xóa lựa chọn thành công");
+            } else {
+                $res = array('status' => "204", "Message" => "Có lỗi trong quá trình xủ lý !");
+            }
+            echo json_encode($res);
+        }
+    }
 }

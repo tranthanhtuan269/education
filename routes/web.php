@@ -45,6 +45,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'admincp'], function () {
         Route::get('/', 'Backends\HomeController@getAdminCp');
 
+        Route::get('teachers', 'Backends\UserController@getTeacher');
+        Route::get('teachers/getTeacherAjax', 'Backends\UserController@getTeacherAjax');
+        Route::put('teachers/accept', 'Backends\UserController@accept');
+        Route::delete('teachers/delete', 'Backends\UserController@deleteTeacher');
+        Route::delete('teachers/delete-multiple-teacher', 'Backends\UserController@deleteMultiTeacher');
+
         Route::get('users/suggest', 'Backends\UserController@suggestSearch');
         Route::get('emails/getEmailAjax', 'Backends\UserController@getEmailAjax');
         Route::get('users/getDataAjax', 'Backends\UserController@getDataAjax');
