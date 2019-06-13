@@ -628,10 +628,17 @@
                         },
                         dataType : 'json',
                         success : function (response) {
-
+                            Swal.fire({
+                                text: response.message
+                            })
+                            if(response.status == "200"){
+                                $("#sendEmailModal").modal("hide")
+                            }
                         },
                         error : function (response) {
-
+                            Swal.fire({
+                                text: response.message
+                            })
                         }
                     })
                 }

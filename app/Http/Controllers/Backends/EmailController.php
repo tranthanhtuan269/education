@@ -151,7 +151,7 @@ class EmailController extends Controller
         $user = User::find($request->user_id);
         $email = Email::find($request->template_id);
         $email_template = new CustomMail($user, $email);
-        Mail::to($user)->send($email_template);
+        Mail::to($user)->queue($email_template);
 
         $user_email  = new UserEmail;
         $user_email->user_id = $request->user_id;
@@ -184,12 +184,14 @@ class EmailController extends Controller
             }
         }
         $user_list = User::whereIn('id', $user_id_list)->get();
-        // foreach ($user_list as $key => $user) {
-            Mail::to($user_list)->send(new CustomMail($user_list, $email));
-            Mail::send('backends.emails.discount-not', ['userName' => $user->name, 'mailContent' => $email->content], function ($message){
-                $message->to('tungduong@gmail.com');
-                $message->subject('asdasd');
-            });
+        
+        foreach ($user_list as $key => $user) {
+            Mail::to($user_list)->queue(new CustomMail($user, $email));
+            
+            // Mail::send('backends.emails.discount-not', ['userName' => $user->name, 'mailContent' => $email->content], function ($message){
+            //     $message->to('tungduong@gmail.com');
+            //     $message->subject('asdasd');
+            // });
 
             // Mail::send()
 
@@ -200,7 +202,7 @@ class EmailController extends Controller
                 ]);
             }
 
-        // }
+        }
 
         return Response::json([
             'status'  => '200',
