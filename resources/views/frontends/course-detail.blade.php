@@ -61,29 +61,42 @@
                                     @endif
                                 </div>
                                 <div class="row box clearfix">
-                                    <div class="col-sm-6 pull-left">
-                                        <img src="{{ asset('frontend/images/ic_duration.png') }}" class="icon" alt="" />  <span class="special">{{ $info_course->approx_time }} hours on-demand video</span>
+                                    <div class="col-xs-6 col-mobile">
+                                        <span class="box-img"><img src="{{ asset('frontend/images/ic_duration.png') }}" class="icon" alt="" /></span>
+                                        <span class="special">{{ $info_course->approx_time }} hours on-demand video</span>
                                     </div>
-                                    <div class="col-sm-6 pull-right">
-                                        <img src="{{ asset('frontend/images/ic_download.png') }}" class="icon" alt="" />  <span class="special">{{ $info_course->downloadable_count	 }} downloadable resources</span>
-                                    </div>
-                                </div>
-                                <div class="row box clearfix">
-                                    <div class="col-sm-6 pull-left">
-                                        <img src="{{ asset('frontend/images/ic_lifetime.png') }}" class="icon" alt="" />  <span class="special">Full lifetime access</span>
-                                    </div>
-                                    <div class="col-sm-6 pull-right">
-                                        <img src="{{ asset('frontend/images/ic_mtuli_device.png') }}" class="icon" alt="" />  <span class="special">Access on Mobile & TV</span>
+                                    <div class="col-xs-6 col-mobile">
+                                        <span class="box-img"><img src="{{ asset('frontend/images/ic_download.png') }}" class="icon" alt="" /></span>
+                                        <span class="special">{{ $info_course->downloadable_count	 }} downloadable resources</span>
+                                        
                                     </div>
                                 </div>
                                 <div class="row box clearfix">
-                                    <div class="col-sm-6 pull-left">
-                                        <img src="{{ asset('frontend/images/ic_course.png') }}" class="icon" alt="" /> 
-                                        <span class="special">{{ number_format($info_course->video_count, 0, ',' , '.') }} videos</span>
-                                        &nbsp &nbsp<img src="{{ asset('frontend/images/icon_student.png') }}" class="icon" alt="" /> 
-                                        <span class="special">{{ number_format($info_course->student_count, 0, ',' , '.') }} Students</span>                                        
+                                    <div class="col-xs-6 col-mobile">
+                                        <span class="box-img"><img src="{{ asset('frontend/images/ic_lifetime.png') }}" class="icon" alt="" /></span>
+                                        <span class="special">Full lifetime access</span>
+                                        
                                     </div>
-                                    <div class="col-sm-6 pull-right">
+                                    <div class="col-xs-6 col-mobile">
+                                        <span class="box-img"><img src="{{ asset('frontend/images/ic_mtuli_device.png') }}" class="icon" alt="" /></span>
+                                        <span class="special">Access on Mobile & TV</span>
+                                        
+                                    </div>
+                                </div>
+                                <div class="row box clearfix">
+                                    <div class="col-xs-6 col-mobile">
+                                        <div class="row">
+                                            <div class="col-xs-6">
+                                                <span class="box-img"><img src="{{ asset('frontend/images/ic_course.png') }}" class="icon" alt="" /></span>
+                                                <span class="special">{{ number_format($info_course->video_count, 0, ',' , '.') }} videos</span>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <span class="box-img"><img src="{{ asset('frontend/images/ic_student.png') }}" class="icon" alt="" /></span>
+                                                <span class="special">{{ number_format($info_course->student_count, 0, ',' , '.') }} Students</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 col-mobile">
                                         @include(
                                             'components.vote', 
                                             [
@@ -95,15 +108,15 @@
                                     </div>
                                 </div>
                                 <div class="box clearfix">
-                                    <div class="pull-left">
-                                        <button type="button" id="add-cart" class="btn btn-default btn-toh">Add to cart</button>
+                                    <div class="btn-add-cart">
+                                        <button type="button" id="add-cart" class="btn btn-primary btn-toh"><b>Add to cart</b></button>
                                     </div>
-                                    <div class="pull-right">
-                                        <button type="button" id="buy-now" class="btn btn-default btn-toh">Buy Now</button>
+                                    <div class="btn-buy-now">
+                                        <button type="button" id="buy-now" class="btn btn-warning btn-toh"><b>Buy Now</b></button>
                                     </div>
                                 </div>
                                 <div class="box clearfix">
-                                    <div class="pull-left">
+                                    <div class="pull-left money-back">
                                         30-Days Money-back Guarantee
                                     </div>
                                 </div>
@@ -150,7 +163,7 @@
                     @endif
 
                     @if (count($info_course->tags) > 0)
-                    <div class="skill">
+                    <div class="skill clearfix">
                         <h3>Skills you'll again</h3>
                         <ul>
                             @foreach ($info_course->tags as $key => $tag)
@@ -170,29 +183,29 @@
                 <div class="col-sm-4">
                     <ul class="others">
                         <li>
-                            <img src="{{ asset('frontend/images/features_online.png') }}" alt="" /> 
+                            <span class="box-img-other"><img src="{{ asset('frontend/images/features_online.png') }}" alt="" /> </span>
                             <span class="txt-large">100 Online</span>
                             {{-- <span class="txt-small">Content comming soon...</span> --}}
                         </li>
                         <li>
-                            <img src="{{ asset('frontend/images/features_deadline.png') }}" alt="" /> 
+                            <span class="box-img-other"><img src="{{ asset('frontend/images/features_deadline.png') }}" alt="" /></span>
                             <span class="txt-large">Flexible deadlines</span>
                             {{-- <span class="txt-small">Content comming soon...</span> --}}
                         </li>
                         <li>
-                            <img src="{{ asset('frontend/images/features_level.png') }}" alt="" /> 
+                            <span class="box-img-other"><img src="{{ asset('frontend/images/features_level.png') }}" alt="" /></span>
                             <span class="txt-large">Benginner Level</span>
                             {{-- <span class="txt-small">Content comming soon...</span> --}}
                         </li>
                         @if ($info_course->approx_time != '')
                         <li>
-                            <img src="{{ asset('frontend/images/features_hour.png') }}" alt="" /> 
+                            <span class="box-img-other"><img src="{{ asset('frontend/images/features_hour.png') }}" alt="" /></span>
                             <span class="txt-large">Approx {{ $info_course->approx_time }} hours to complete</span>
                             {{-- <span class="txt-small">Content comming soon...</span> --}}
                         </li>
                         @endif
                         <li>
-                            <img src="{{ asset('frontend/images/features_subtitle.png') }}" alt="" /> 
+                            <span class="box-img-other"><img src="{{ asset('frontend/images/features_subtitle.png') }}" alt="" /></span>
                             <span class="txt-large">English</span>
                             {{-- <span class="txt-small">Content comming soon...</span> --}}
                         </li>
@@ -227,9 +240,9 @@
                     <h3>About the instructors</h3>
                 </div>
                 @foreach ($info_course->Lecturers() as $lecturer)
-                <div class="col-sm-6">
+                <div class="col-md-8 col-sm-10">
                     <div class="row">
-                        <div class="col-sm-3">
+                        <div class="col-sm-3 avatar-center">
                             <a href="{{ url('/') }}/teacher/{{ $lecturer->user->id }}" title="{{ $lecturer->user->name }}" >
                                 <img class="avatar" alt="{{ $lecturer->user->name }}" src="{{ asset('frontend/'.$lecturer->user->avatar) }}">
                             </a>
@@ -255,7 +268,7 @@
                                     </div>
                                 </div>
                                 <div class="">
-                                    <img src="{{ asset('frontend/images/icon_student.png') }}" alt="" /> 
+                                    <img src="{{ asset('frontend/images/ic_student.png') }}" alt="" /> 
                                     <span class="special">{{ $lecturer->teacher->student_count }} Students</span>
                                 </div>
                             </div>

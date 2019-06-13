@@ -4,8 +4,8 @@
 	<img class="background" src="{{ asset('frontend/images/banner_profile_teacher.png') }}" width="100%" >
 	<div class="container">
 		<div class="row">
-			<div class="col-sm-12">
-				<div class="item">
+			<div class="item clearfix">
+				<div class="col-sm-12">
 					<div class="frame clearfix">
 						<div class="avatar pull-left">
 							<img src="{{ url('frontend/'.$info_teacher->userRole->user->avatar) }}" alt="" />
@@ -179,14 +179,14 @@
 									{!! $info_teacher->cv !!}
 								</div>
 								<!-- <div class="see-more text-center">Show full biography</div> -->
-								<div class="info-others">
+								<div class="info-others clearfix">
 									<ul>
 										<li>
 											<img src="{{ asset('frontend/images/ic_course.png') }}" alt="" /> 
 											<span class="special">{{ $info_teacher->course_count }} Courses</span>
 										</li>
 										<li>
-											<img src="{{ asset('frontend/images/icon_student.png') }}" alt="" /> 
+											<img src="{{ asset('frontend/images/ic_student.png') }}" alt="" /> 
 											<span class="special">{{ $info_teacher->student_count }} Students</span>
 										</li>
 										<li>
@@ -219,14 +219,10 @@
             <div class="col-sm-10 col-sm-offset-1">
                 <div class="row">
                     <div class="col-sm-6">
-                        <div class="row">
-                            <div class="col-xs-8 col-xs-offset-4">
-                                <div class="ads-teacher">
-                                    <p>BECOME</p>
-                                    <h2>COURDEMY'S <br> TEACHER</h2>
-                                    <a href="{{ Auth::check() ? url('user/register-teacher') : 'javascript:void(0)' }}" title="Register Teacher" {{ Auth::check() ? '' : ' data-toggle=modal data-target=#myModalLogin data-dismiss=modal id=redirect_register_teacher' }}>REGISTER NOW</a>
-                                </div>
-                            </div>
+                        <div class="ads-teacher">
+                            <p>BECOME</p>
+                            <h2>COURDEMY'S <br> TEACHER</h2>
+                            <a href="{{ Auth::check() ? url('user/register-teacher') : 'javascript:void(0)' }}" title="Register Teacher" {{ Auth::check() ? '' : ' data-toggle=modal data-target=#myModalLogin data-dismiss=modal id=redirect_register_teacher' }}>REGISTER NOW</a>
                         </div>
                     </div>
                     <div class="col-sm-6 hidden-xs">

@@ -135,7 +135,7 @@
     .cate-md, .cate-sm { padding: 0; }
     .unica-btn-search { right: 19px; padding: 6px 9px; }
     .unica-menu-cate { margin: 25px 0 0 20px; }
-    .unica-reg-acc { padding: 9px 13px; }
+    /* .unica-reg-acc { padding: 9px 13px; } */
     .unica-log-acc {  padding: 9px 6px;  }
     .unica-cart { margin: 0; }
     .unica-form { padding: 6px 4px; }
@@ -216,7 +216,7 @@
     .u-tab a { padding: 5px; font-size: 12px; }
     .course-box-slider { margin-bottom: 10px; width: 280px; min-height: 115px;max-height: 135px;  border-bottom: 1px solid #ccc; border-right: 0; border-top: 0; border-left: 0;  margin: 5px 0; display: inline-block; width: 100%; padding-right: 7px; }
     .star-rate i { font-size: 14px; margin: 0 2px;}
-    .n-rate { font-size: 12px; margin-top: -2px; position: absolute; }
+    /* .n-rate { font-size: 12px; margin-top: 2px; position: absolute; margin-left: 5px } */
     .course-box-slider-2 { margin-bottom: 10px; width: 280px; min-height: 130px;max-height: 130px;  border-bottom: 1px solid #ccc; border-right: 0; border-top: 0; border-left: 0;  margin: 5px 0; }
     .price-a { font-size: 18px;margin-left: 5px; margin-bottom: 4px; }
     .price-b ,.price-c { font-size: 13px; }
@@ -272,10 +272,10 @@
     .show-xs .block-buy { top:  unset; margin-top: 5px; padding: 10px 5px 5px 5px; }
     .show-xs .block-ulti a { margin: 10px 0; }
     .u-list-course { border: 0; padding: 0; }
-    .u-list-course h3 {     margin-bottom: 10px;    padding: 10px 10px 0; }
+    .u-list-course h3 {     margin-bottom: 10px;    padding: 10px 0 0; }
     .u-list-course .container-fluid { padding:0 7px; }
     .u-detail-course .col-xs-12 { padding: 0 5px; }
-    .u-learn-what, .u-des-course, .u-course-plus, .u-course-teacher, .u-rate-hv, .u-cm-hv, .u-combo-buy, .u-list-course { padding: 7px; }
+    .u-learn-what, .u-des-course, .u-course-plus, .u-course-teacher, .u-rate-hv, .u-cm-hv, .u-combo-buy, .u-list-course { padding: 7px 0; }
     .u-plus-icon { top: 105px; left: 117px; }
     .u-plus-course, .uct-left, .urh-left { width: 100%; }
     .u-block-plus, .uct-right, .urh-right { width: 100%; margin: 0; }
@@ -606,6 +606,13 @@
     #config-slider{
         width: 940px !important;
     }
+    .detail-course .item{
+        margin-top:80px;
+    }
+    .detail-course .frame_2 .box .btn-add-cart,.detail-course .frame_2 .box .btn-buy-now{
+        float: none;
+        text-align: center;
+    }
 }
 
 @media all and (max-width: 1099px) and (min-width: 993px){
@@ -623,6 +630,16 @@
     #config-slider{
         width: 940px !important;
     }
+    .detail-course .item{
+        margin-top:70px;
+    }
+    .col-mobile{
+        width: 100%;
+    }
+    .detail-course .frame_2 .box .btn-add-cart,.detail-course .frame_2 .box .btn-buy-now{
+        float: none;
+        text-align: center;
+    }
 }
 
 @media all and (max-width: 992px) and (min-width: 769px) {
@@ -634,6 +651,16 @@
     .member-card-offer .info p{font-size: 12px}
     #config-slider{
         width: 720px !important;
+    }
+    .detail-course .item{
+        margin-top:60px;
+    }
+    .col-mobile{
+        width: 100%;
+    }
+    .detail-course .frame_2 .box .btn-add-cart,.detail-course .frame_2 .box .btn-buy-now{
+        float: none;
+        text-align: center;
     }
 }
 
@@ -660,6 +687,42 @@
     }
     #config-slider{
         width: 720px !important;
+    }
+    .detail-course .item{
+        margin-top:50px;
+    }
+    .col-mobile{
+        width: 100%;
+    }
+    .detail-course .frame_2 .box span.sale{
+        font-size: 18px;
+    }
+    .detail-course .frame_2 .box span.price{
+        font-size: 14px;
+    }
+    .detail-course .frame_2 .box span.price-off{
+        font-size: 14px;
+        border-radius: 5px;
+        padding: 5px 20px;
+        background-color: #f0ad4e;
+        border-color: #eea236;
+        color: #fff;
+        font-weight: bold;
+    }
+    .detail-course .frame_2 .box .btn-add-cart,.detail-course .frame_2 .box .btn-buy-now{
+        float: none;
+        text-align: center;
+    }
+    .detail-course .menu{
+        display: none;
+    }
+    .detail-course .info{
+        margin-top: 20px;
+    }
+    .detail-course .info .knowledge li {
+        float: none;
+        width: 100%;
+        padding-bottom: 25px;
     }
 }	
 
@@ -752,18 +815,91 @@
     .popular-teacher .course-box-slider{
         border-bottom: none;
     }
+    .detail-course .frame_2 .box .btn-add-cart{
+        float: left;
+    }
+    .detail-course .frame_2 .box .btn-buy-now{
+        float: right;
+    }
+    .detail-course .frame_2 .box .money-back{
+        padding-bottom: 20px;
+    }
+    .detail-course .instructors .detail-info .name{
+        text-align: center;
+    }
+    .detail-teacher .frame .network {
+        padding-top: 0px;
+    }
+}
+
+@media all and (max-width: 600px) {
+    .detail-course .frame_2 .box .btn-add-cart,.detail-course .frame_2 .box .btn-buy-now{
+        float: none;
+        text-align: center;
+    }
 }
 
 @media (max-width: 480px) { 
-	
+	.detail-course .item{
+        margin-top:40px;
+    }
+    .detail-course .frame{
+        padding-bottom: 40px;
+    }
+    .detail-course .frame .network{
+        padding-top: 15px;
+    }
+    /* .detail-course .frame_2 .box{
+        padding:0 0;
+    } */
+    .col-mobile{
+        width: 100%;
+        padding-top: 5px;
+    }
+    .detail-course .frame_2{
+        padding: 20px;
+    }
+    .detail-teacher .frame .avatar {
+        padding-left: 10px;
+        padding-top: 20px;
+    }
+    .detail-course .info .knowledge li{
+        padding-bottom: 15px;
+    }
+    .detail-teacher .frame .avatar img{
+        width: 100px;
+        height: 100px;
+    }
+    .detail-teacher .frame .avatar .info .name {
+        font-weight: bold;
+        font-size: 26px;
+    }
+    .detail-teacher .frame .avatar .info .expret{
+        font-size: 14px;
+    }
+    .detail-teacher .frame .network{
+        padding-top: 0;
+    }
+    .detail-teacher .frame_2{
+        padding:20px;
+    }
+    .top-course .nav.nav-tabs li a,.top-course .nav.nav-tabs li.active a{
+        padding: 10px 10px;
+    }
 }
 
 @media all and (max-width: 380px) {
-	.top-course .nav.nav-tabs li a,.top-course .nav.nav-tabs li.active a{
-        padding: 10px 10px;
-    }
     .img-course{
         min-width: 50px;
         width: 70px;
+    }
+    .detail-course .frame_2 .box span.price-off{
+        padding: 5px 10px;
+    }
+    footer .img-logo img{
+        width: 290px;
+    }
+    .detail-teacher .frame .network {
+        padding-top: 10px;
     }
 }
