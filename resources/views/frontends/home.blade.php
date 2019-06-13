@@ -20,7 +20,7 @@
             @foreach ($feature_category as $feature)
                 <div class="slider-div" style='background-image: url("{{ url('/frontend/images/'.$feature->image) }}"'>
                     <div class="link-parent">
-                        <a href="" class="text-center">
+                        <a href="{{ url('/') }}/category/{{ $feature->slug }}" class="text-center">
                             <h3>{{ $feature->name }}</h3>
                             <p>Over {{ $feature->courses_count }} courses</p>
                         </a>
