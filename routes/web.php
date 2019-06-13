@@ -139,7 +139,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('reports/store', 'Frontends\ReportController@store')->name('reportsVideo.store');
     Route::post('user-course/update-watched', 'Frontends\VideoPlayerController@updateWatched');
     Route::get('user/logout', 'Frontends\UserController@logout')->name('logout');
-    
+    Route::get('cart/payment/method-selector', 'Frontends\HomeController@showMethodSelector');
+
     Route::group(['prefix' => 'user'],function () {
         Route::put('change-pass-ajax', 'Frontends\UserController@changePassAjax');
         Route::get('logout', 'Frontends\UserController@logout');

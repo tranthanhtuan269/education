@@ -57,7 +57,9 @@
                         </div>
                         <div class="btn-checkout">
                             @if(Auth::check())
-                            <button id="btnCartCheckOut" class="btn btn-danger btnCartCheckout">Checkout</button>
+                            <a href="/cart/payment/method-selector">
+                                <button id="btnCartCheckOut" class="btn btn-danger btnCartCheckout">Checkout</button>
+                            </a>
                             @else
                             <button class="btn btn-danger btnCartCheckout" data-toggle=modal data-target=#myModalLogin data-dismiss=modal >Checkout</button>
                             @endif
@@ -214,9 +216,12 @@
 
 
         $('#btnCartCheckOut').on('click', function(e){
-            e.stopPropagation()
-            e.preventDefault()
+            // e.stopPropagation()
+            // e.preventDefault()
+            
+        });
 
+        function checkout() {
             var coupon = $('#input-coupon').val()
 
             $.ajaxSetup({
@@ -273,7 +278,7 @@
                     }
                 })
             }
-        });
+        }
     })
     
     

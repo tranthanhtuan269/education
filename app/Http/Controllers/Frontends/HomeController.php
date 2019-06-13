@@ -286,6 +286,12 @@ class HomeController extends Controller
             return \Response::json(array('status' => '401', 'message' => 'Unauthorized'));
         }
     }
+
+    public function showMethodSelector(){
+        $user = Auth::user();
+        $user_balance = $user->coins;
+        return view('frontends.payment-methods', compact('user_balance'));
+    }
 }
 
 class VideoJson
