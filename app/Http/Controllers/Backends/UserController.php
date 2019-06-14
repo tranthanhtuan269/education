@@ -202,7 +202,7 @@ class UserController extends Controller
 
     public function getEmailAjax()
     {
-        $emails = Email::get();
+        $emails = Email::where('status', 1)->get();
         return datatables()->collection($emails)
             ->addColumn('action', function ($mail) {
                 return $mail->id;
@@ -303,14 +303,46 @@ class UserController extends Controller
         if($request->teacherId){
             $teacher = Teacher::find($request->teacherId);
             if($teacher){
-                $teacher->status = 1;
+                $teacher->status = $request->status;
                 $teacher->save();
-                $res = array('status' => "200", "Message" => "Cập nhật thông tin thành công");
+                if($request->status == 1){
+                    $res = array('status' => "200", "Message" => "Duyệt thành công");
+                }else{
+                    $res = array('status' => "200", "Message" => "Hủy thành công");
+                }
                 echo json_encode($res);die;
             }
         }
         $res = array('status' => "401", "Message" => 'Người dùng không tồn tại.');
         echo json_encode($res);die;
+    }
+
+    public function acceptMultiTeacher(Request $request)
+    {
+        if (isset($request) && $request->input('id_list')) {
+            $id_list = $request->input('id_list');
+
+            if (Teacher::acceptMulti($id_list, 1)) {
+                $res = array('status' => 200, "Message" => "Đã duyệt hết");
+            } else {
+                $res = array('status' => "204", "Message" => "Có lỗi trong quá trình xủ lý !");
+            }
+            echo json_encode($res);
+        }
+    }
+
+    public function inacceptMultiTeacher(Request $request)
+    {
+        if (isset($request) && $request->input('id_list')) {
+            $id_list = $request->input('id_list');
+
+            if (Teacher::acceptMulti($id_list, 0)) {
+                $res = array('status' => 200, "Message" => "Đã hủy hết");
+            } else {
+                $res = array('status' => "204", "Message" => "Có lỗi trong quá trình xủ lý !");
+            }
+            echo json_encode($res);
+        }
     }
 
     public function deleteTeacher(Request $request)
@@ -331,10 +363,9 @@ class UserController extends Controller
     {
         if (isset($request) && $request->input('id_list')) {
             $id_list = $request->input('id_list');
-            $id_list = rtrim($id_list, ',');
 
-            if (User::delMultiUser($id_list)) {
-                $res = array('status' => 200, "Message" => "Đã xóa lựa chọn thành công");
+            if (Teacher::delMulti($id_list)) {
+                $res = array('status' => 200, "Message" => "Đã xóa hết");
             } else {
                 $res = array('status' => "204", "Message" => "Có lỗi trong quá trình xủ lý !");
             }

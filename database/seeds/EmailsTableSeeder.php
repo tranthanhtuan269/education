@@ -15,7 +15,7 @@ class EmailsTableSeeder extends Seeder
     {
         $data_demo = ['Thông báo khuyến mãi', '<p>Your team has valuable knowledge buried in outdated docs, emails, chat messages—and tucked away with subject matter experts. Stack Overflow gives your team a private, secure home for their questions and answers.
             With our Private Q&A, reduce siloed knowledge, free up resources, and onboard faster by building your own private community with a centralized source of searchable answers.</p>'];
-        for ($i = 1; $i < 13; $i++) {
+        for ($i = 1; $i < 55; $i++) {
             $email = new Email;
             $email->title = $data_demo[0].' '.$i;
             $email->content = $data_demo[1];

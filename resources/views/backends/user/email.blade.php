@@ -125,7 +125,6 @@
     </div>
 </section>
 <section>
-
     <div class="modal fade" id="createEmailModal" tabindex="-1">
         <div class="modal-content" >
             <div class="modal-header">

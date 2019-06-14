@@ -11,6 +11,7 @@ class Email extends Model
     protected $fillable = [
         'title', 
         'content',
+        'status',
         'create_user_id',
         'update_user_id'
     ];

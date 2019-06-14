@@ -139,7 +139,7 @@ h5.modal-title{
     float: right;
     margin-bottom: 15px;
 }
-.btn-delete{
+.btn-view, .btn-accept, .btn-delete{
     color: #333;
 }
 .form-control-file{
@@ -439,4 +439,19 @@ ul.alert li{
 }
 .btn-send-email{
     cursor: pointer !important;
+}
+.red-row{
+    background-color: #ff4e4e;
+}
+.red-row .video-item a, .red-row{
+    color: white;
+}
+.blue-row{
+    background-color: #28a745;
+}
+.blue-row .video-item a, .blue-row{
+    color: black;
+}
+.btn-accept, .btn-view{
+    cursor: pointer;
 }

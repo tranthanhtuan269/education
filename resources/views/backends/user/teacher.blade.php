@@ -39,13 +39,56 @@
                     <p class="action-selected-rows">
                         <span >Hành động trên các hàng đã chọn:</span>
                         <span class="btn btn-info ml-2" id="deleteAllApplied">Xóa</span>
+                        <span class="btn btn-info ml-2" id="acceptAllApplied">Duyệt</span>
+                        <span class="btn btn-info ml-2" id="inacceptAllApplied">Hủy</span>
                     </p>  
                 @endif
             </div>
         </div>
     </div>
 </section>
-
+<section>
+    <div class="modal fade" id="showCVModal" tabindex="-1">
+        <div class="modal-content" >
+            <div class="modal-header">
+                <h3>CV</h3>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row" id="cv">
+                    
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="form-group row">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-11">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="showVideoIntroModal" tabindex="-1">
+        <div class="modal-content" >
+            <div class="modal-header">
+                <h3>Video Intro</h3>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row text-center">
+                    <iframe id="video-intro" src="" frameborder="0" width="545" height="280" allowscriptaccess="always" allowfullscreen="true"></iframe>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="form-group row">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-11">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 <script type="text/javascript">
     var dataTable           = null;
     var userCheckList       = [];
@@ -56,8 +99,6 @@
     var errorConnect        = "Please check your internet connection and try again.";
 
     $(document).ready(function(){
-
-
         window.onbeforeunload = function() {
             if($('#edit_user_modal').hasClass('show') && ( 
                 $('#userName_upd').val() != curr_user_name ||
@@ -68,8 +109,6 @@
                 return "Bye now!";
             }
         };
-
-
 
         $('#edit_user_modal').on('shown.bs.modal', function () {
             // var id      = $('#userID_upd').val();
@@ -96,7 +135,7 @@
                 data: "video_intro",
                 class: "video-item",
                 render: function(data, type, row){
-                    return '<a href="'+data+'">Video intro</a>';
+                    return '<a class="btn-view mr-2 view-video-intro"><i class="fa fa-video-camera" aria-hidden="true"></i> Video intro</a>';
                 },
                 orderable: false
             },
@@ -107,11 +146,16 @@
                     var html = '';
                     
                     @if (Helper::checkPermissions('users.view', $list_roles)) 
-                        html += '<a class="btn-view mr-2 view-user" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Xem"> <i class="fa fa-eye"></i></a>';
+                        html += '<a class="btn-view mr-2 view-cv" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Xem"> <i class="fa fa-eye"></i></a>';
                     @endif
                     
                     @if (Helper::checkPermissions('users.accept-teacher', $list_roles)) 
-                        html += '<a class="btn-accept mr-2 accept-user" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Duyệt"> <i class="fa fa-check"></i></a>';
+                        if(row['status'] == 1){
+                            html += '<a class="btn-accept mr-2 accept-user" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Duyệt"> <i class="fa fa-times"></i></a>';
+                        }else{
+                            html += '<a class="btn-accept mr-2 accept-user" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Duyệt"> <i class="fa fa-check"></i></a>';
+                        }
+                        
                     @endif
 
                     @if (Helper::checkPermissions('users.delete', $list_roles)) 
@@ -127,11 +171,11 @@
         dataTable = $('#teacher-table').DataTable( {
                         serverSide: false,
                         aaSorting: [],
-                        stateSave: false,
+                        stateSave: true,
                         ajax: "{{ url('/') }}/admincp/teachers/getTeacherAjax",
                         columns: dataObject,
-                        // bLengthChange: false,
-                        // pageLength: 10,
+                        bLengthChange: true,
+                        pageLength: 5,
                         order: [[ 4, "desc" ]],
                         colReorder: {
                             fixedColumnsRight: 1,
@@ -157,6 +201,15 @@
                         fnDrawCallback: function( oSettings ) {
                             addEventListener();
                             checkCheckboxChecked();
+                        },
+                        createdRow: function( row, data, dataIndex){
+                            if(data['status'] == 1){
+                                $(row).addClass('blue-row');
+                            }else{
+                                $(row).addClass('red-row');
+                            }
+                            $(row).attr('data-cv', data['cv']);
+                            $(row).attr('data-video', data['video_intro']);
                         }
                     });
 
@@ -188,11 +241,9 @@
                     userCheckList.push($(this).val());
                 }
             });
-            // console.log(userCheckList);
         }
 
         function checkCheckboxChecked(){
-            // console.log(userCheckList);
             var count_row = 0;
             var listUser = $('.check-user');
             if(listUser.length > 0){
@@ -220,30 +271,42 @@
                     return true;
                 }
             }
-
             return false;
         }
 
-        function addEventListener(){
-            // $('.accept-user').off('click')
-            // $('.accept-user').click(function(){
-            //     var id       = $(this).attr('data-id')
-            //     var curr_title   = $(this).attr('data-title')
-            //     var curr_content = $(this).attr('data-content')
+        $('#showVideoIntroModal').on('hide.bs.modal', function () {
+            $("#video-intro").attr('src', '')
+        })
 
-            //     $('#editEmailModal').modal('show');
-            //     $('#editEmail').attr("data-id", id)
-            //     $("#edit_subject_Ins").val(curr_title)
-            //     edit_content_Ins.setData(curr_content)
-            //     $(".alert-errors").addClass("d-none");
-            // })
+        function addEventListener(){
+            $('.view-cv').off('click')
+            $('.view-cv').click(function(){
+                var curr_cv = $(this).parent().parent().attr('data-cv')
+
+                $('#showCVModal').modal('show');
+                $("#cv").html(curr_cv)
+            })
+
+            $('.view-video-intro').off('click')
+            $('.view-video-intro').click(function(){
+                var curr_video_intro = $(this).parent().parent().attr('data-video')
+
+                $('#showVideoIntroModal').modal('show');
+                $("#video-intro").attr('src', curr_video_intro)
+            })
 
             $('.btn-accept').off('click')
             $('.btn-accept').click(function(){
                 var _self   = $(this);
                 var id      = $(this).attr('data-id');
+                var status  = 0;
+                var message = "Bạn có chắc chắn muốn duyệt?";
+                if(_self.parent().parent().hasClass('blue-row')){
+                    status = 1;
+                    message = "Bạn có chắc chắn muốn hủy?";
+                }
                 $.ajsrConfirm({
-                    message: "Bạn có chắc chắn muốn duyệt ?",
+                    message: message,
                     okButton: "Đồng ý",
                     onConfirm: function() {
                         $.ajaxSetup({
@@ -254,7 +317,8 @@
                         $.ajax({
                             url: baseURL+"/admincp/teachers/accept",
                             data: {
-                                teacherId : id
+                                teacherId : id,
+                                status : 1 - status
                             },
                             method: "PUT",
                             dataType:'json',
@@ -263,6 +327,14 @@
                             },
                             success: function (response) {
                                 if(response.status == 200){
+                                    if(_self.parent().parent().hasClass('red-row')){
+                                        _self.find('i').removeClass('fa-check').addClass('fa-times');
+                                        _self.parent().parent().removeClass('red-row').addClass('blue-row');
+                                    }else{
+                                        _self.find('i').removeClass('fa-times').addClass('fa-check');
+                                        _self.parent().parent().addClass('red-row').removeClass('blue-row');
+                                    }
+
                                     Swal.fire({
                                         type: 'success',
                                         text: response.message
@@ -288,9 +360,10 @@
             });
 
             $('.btn-delete').off('click')
-            $('.btn-delete').click(function(){
+            $('.btn-delete').click(function(e){
                 var _self   = $(this);
                 var id      = $(this).attr('data-id');
+                var row = $(e.currentTarget).closest("tr");
                 $.ajsrConfirm({
                     message: "Bạn có chắc chắn muốn xóa ?",
                     okButton: "Đồng ý",
@@ -312,10 +385,12 @@
                             },
                             success: function (response) {
                                 if(response.status == 200){
-                                  Swal.fire({
-                                      type: 'success',
-                                      text: response.message
-                                  })
+                                    Swal.fire({
+                                        type: 'success',
+                                        text: response.message
+                                    })
+                                    dataTable.row( row ).remove().draw(true);
+                                    dataTable.page( checkEmptyTable() ).draw( false );
                                 }else{
                                   Swal.fire({
                                       type: 'error',
@@ -352,7 +427,6 @@
                                 teacher_id_list.push($(this).attr("data-column"))
                             }
                         });
-                        console.log(teacher_id_list);
                         if(teacher_id_list.length > 0){
                             $.ajaxSetup({
                                 headers: {
@@ -360,18 +434,145 @@
                                 }
                             });
                             $.ajax({
-                                method: "GET",
+                                method: "DELETE",
                                 url: baseURL+"/admincp/teachers/delete-multiple-teacher",
                                 data: {
                                     id_list: teacher_id_list
                                 },
                                 dataType: 'json',
+                                beforeSend: function(r, a){
+                                    current_page = dataTable.page.info().page;
+                                },
                                 success: function (response) {
                                     Swal.fire({
                                         type: 'success',
                                         text: response.message
                                     })
-                                    dataTable.ajax.reload(); 
+                                    // dataTable.ajax.reload();
+                                    $.each($('.check-user'), function (key, value){
+                                        if($(this).prop('checked') == true) {
+                                            dataTable.row( $(this).parent().parent() ).remove().draw(true);
+                                        }
+                                    });
+
+                                    // dataTable.page( checkEmptyTable() ).draw( false );
+                                },
+                                error: function (response) {
+                                    Swal.fire({
+                                        type: 'error',
+                                        text: response.message
+                                    })
+                                }
+                            })
+                        }
+                        
+                    }
+                })
+            })
+
+            $('#acceptAllApplied').off('click')
+            $('#acceptAllApplied').click(function (){
+                Swal.fire({
+                    type: 'warning',
+                    text: 'Bạn có chắc chắn duyệt tất cả?',
+                    showCancelButton: true,
+                })
+                .then(function (result) {
+                    if(result.value){
+                        var teacher_id_list = []
+                        $.each($('.check-user'), function (key, value){
+                            if($(this).prop('checked') == true) {
+                                // id_list += $(this).attr("data-column") + ',';
+                                teacher_id_list.push($(this).attr("data-column"))
+                            }
+                        });
+                        if(teacher_id_list.length > 0){
+                            $.ajaxSetup({
+                                headers: {
+                                    'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
+                                }
+                            });
+                            $.ajax({
+                                method: "PUT",
+                                url: baseURL+"/admincp/teachers/accept-multiple-teacher",
+                                data: {
+                                    id_list: teacher_id_list
+                                },
+                                dataType: 'json',
+                                beforeSend: function(r, a){
+                                    current_page = dataTable.page.info().page;
+                                },
+                                success: function (response) {
+                                    Swal.fire({
+                                        type: 'success',
+                                        text: response.message
+                                    })
+                                    // dataTable.ajax.reload();
+                                    $.each($('.check-user'), function (key, value){
+                                        if($(this).prop('checked') == true) {
+                                            $(this).parent().parent().removeClass('red-row').addClass('blue-row');
+                                            // $(this).parent().parent().addClass('red-row').removeClass('blue-row');
+                                        }
+                                    });
+                                    dataTable.page( checkEmptyTable() ).draw( false );
+                                },
+                                error: function (response) {
+                                    Swal.fire({
+                                        type: 'error',
+                                        text: response.message
+                                    })
+                                }
+                            })
+                        }
+                        
+                    }
+                })
+            })
+
+            $('#inacceptAllApplied').off('click')
+            $('#inacceptAllApplied').click(function (){
+                Swal.fire({
+                    type: 'warning',
+                    text: 'Bạn có chắc chắn hủy tất cả?',
+                    showCancelButton: true,
+                })
+                .then(function (result) {
+                    if(result.value){
+                        var teacher_id_list = []
+                        $.each($('.check-user'), function (key, value){
+                            if($(this).prop('checked') == true) {
+                                // id_list += $(this).attr("data-column") + ',';
+                                teacher_id_list.push($(this).attr("data-column"))
+                            }
+                        });
+                        if(teacher_id_list.length > 0){
+                            $.ajaxSetup({
+                                headers: {
+                                    'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
+                                }
+                            });
+                            $.ajax({
+                                method: "PUT",
+                                url: baseURL+"/admincp/teachers/inaccept-multiple-teacher",
+                                data: {
+                                    id_list: teacher_id_list
+                                },
+                                dataType: 'json',
+                                beforeSend: function(r, a){
+                                    current_page = dataTable.page.info().page;
+                                },
+                                success: function (response) {
+                                    Swal.fire({
+                                        type: 'success',
+                                        text: response.message
+                                    })
+                                    $.each($('.check-user'), function (key, value){
+                                        if($(this).prop('checked') == true) {
+                                            // $(this).parent().parent().removeClass('red-row').addClass('blue-row');
+                                            $(this).parent().parent().addClass('red-row').removeClass('blue-row');
+                                        }
+                                    });
+                                    dataTable.page(checkEmptyTable()).draw( false );
                                 },
                                 error: function (response) {
                                     Swal.fire({
@@ -388,7 +589,7 @@
         }
 
         function checkEmptyTable(){
-            if ($('#teacher-table').DataTable().data().count() <= 1 && current_page > 0) {
+            if ($('#teacher-table tr').length <= 1 && current_page > 0) {
                 current_page = current_page - 1;
             }
             return current_page;

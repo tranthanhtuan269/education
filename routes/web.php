@@ -48,6 +48,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('teachers', 'Backends\UserController@getTeacher');
         Route::get('teachers/getTeacherAjax', 'Backends\UserController@getTeacherAjax');
         Route::put('teachers/accept', 'Backends\UserController@accept');
+        Route::put('teachers/accept-multiple-teacher', 'Backends\UserController@acceptMultiTeacher');
+        Route::put('teachers/inaccept-multiple-teacher', 'Backends\UserController@inacceptMultiTeacher');
         Route::delete('teachers/delete', 'Backends\UserController@deleteTeacher');
         Route::delete('teachers/delete-multiple-teacher', 'Backends\UserController@deleteMultiTeacher');
 
