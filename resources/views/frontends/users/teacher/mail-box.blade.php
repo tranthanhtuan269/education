@@ -18,11 +18,6 @@
             <div class="col-xs-12">
                 <div class="box-user tabbable-panel">
                     <div class="tabbable-line">
-                        <ul class="nav nav-tabs">
-                            <li class="active">
-                                <a href="#buyed" class="buyed" data-toggle="tab"><i class="fas fa-envelope"></i>&nbsp;&nbsp;Mailbox</a>
-                            </li>
-                        </ul>
                         <div class="tab-content">
                             <div class="tab-pane active">
                                 <table class="table table-bordered" id="mailbox-table">

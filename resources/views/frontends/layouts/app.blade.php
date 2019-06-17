@@ -291,7 +291,9 @@
 
                             <script>
                                 var catPanelHeight = $("#mysidebarmenu").height()
-                                $("#mysidebarmenu .issub").css("min-height", catPanelHeight-1)
+                                $("#mysidebarmenu .issub").css("height", catPanelHeight)
+                                $("#mysidebarmenu .issub").css("overflow", "auto")
+
                             </script>
                         </div>
                     </div>

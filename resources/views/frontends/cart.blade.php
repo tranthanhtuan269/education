@@ -15,32 +15,7 @@
     <div class="cart-page-content container">
         
         <div class="row">
-            <div class="cart-item-list col-md-9">
-                {{-- @for ($i = 0; $i < 4; $i++)
-                <div class="cart-single-item">
-                    <div class="image">
-                        <img src="frontend/images/course_6.jpg" width="130rem" alt="">
-                    </div>
-                    <div class="course-info">
-                        <div class="course-name">Learn Canva from an Expert Designer: Let's Create a Brand!</div>
-                        <div class="lecturer-info">By Lindsay Marsh, 14+ Years | Graphic Design:Photoshop, Illustrator, Canva, XD</div>
-                    </div>
-                    <div class="actions">
-                        <div class="btn-remove"><i class="far fa-trash-alt"></i></div>
-                    </div>
-                    <div class="single-price">
-                        <div>
-                            <div>
-                                <div class="current-price">120 000 ₫</div>
-                                <div class="initial-price">199.99 ₫</div>
-                            </div>
-                            <i class="fas fa-tag"></i>
-                        </div>
-                    </div>
-                </div>
-                    
-                @endfor --}}
-                    
+            <div class="cart-item-list col-md-9">             
             </div>
             <div class="checkout-column col-md-3">
                 <div>
@@ -58,7 +33,7 @@
                         <div class="btn-checkout">
                             @if(Auth::check())
                             <a href="/cart/payment/method-selector">
-                                <button id="btnCartCheckOut" class="btn btn-danger btnCartCheckout">Checkout</button>
+                                <button id="btnCartCheckOut"  class="btn btn-danger btnCartCheckout">Checkout</button>
                             </a>
                             @else
                             <button class="btn btn-danger btnCartCheckout" data-toggle=modal data-target=#myModalLogin data-dismiss=modal >Checkout</button>
@@ -124,6 +99,9 @@
         }else{
             $(".checkout-column .percent-off").append("<span>"+Math.floor(100-(totalPrice/totalInitialPrice)*100)+"% off</span>")
         }
+
+
+
         $('.btn-remove i').on('click', function(e){
             e.stopPropagation()
             e.preventDefault()
@@ -215,10 +193,7 @@
         });
 
 
-        $('#btnCartCheckOut').on('click', function(e){
-            // e.stopPropagation()
-            // e.preventDefault()
-            
+        $('#btnCartCheckOut').on('click', function(e){            
         });
 
         function checkout() {

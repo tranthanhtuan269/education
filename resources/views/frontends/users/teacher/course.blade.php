@@ -15,11 +15,6 @@
         <div class="col-xs-12">
             <div class="box-user tabbable-panel">
                 <div class="tabbable-line">
-                    <ul class="nav nav-tabs">
-                        <li class="active">
-                            <a href="#buyed" class="buyed" data-toggle="tab"><i class="fa fa-play-circle"></i>&nbsp;&nbsp;Courses</a>
-                        </li>
-                    </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="buyed">
                             <div class="row">

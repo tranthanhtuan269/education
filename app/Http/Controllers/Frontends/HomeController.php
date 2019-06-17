@@ -287,10 +287,11 @@ class HomeController extends Controller
         }
     }
 
-    public function showMethodSelector(){
+    public function showMethodSelector(Request $request){
         $user = Auth::user();
         $user_balance = $user->coins;
-        return view('frontends.payment-methods', compact('user_balance'));
+        
+        return view('frontends.payment-methods', compact('user_balance'))->render();
     }
 }
 

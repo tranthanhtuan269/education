@@ -1463,3 +1463,10 @@ div[data-u="slides"] div div{
 .slick-next:before {
   content: "\f061";
 }
+.check-out-page .info-box{
+  line-height: 1.5;
+  padding: 1em;
+  -webkit-box-shadow: 0 0 1px 1px rgba(20,23,28,0.1), 0 3px 1px 0 rgba(20,23,28,0.1);
+  -moz-box-shadow: 0 0 1px 1px rgba(20,23,28,0.1), 0 3px 1px 0 rgba(20,23,28,0.1);
+  box-shadow: 0 0 1px 1px rgba(20,23,28,0.1), 0 3px 1px 0 rgba(20,23,28,0.1);
+}

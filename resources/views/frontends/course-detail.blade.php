@@ -475,6 +475,8 @@
                     });
                 </script>
                 @endif
+                @else
+                <h4>Reviews are under verification!</h4>
                 @endif
                 <div id="review-box">
                     @foreach($info_course->takeComment(0, 3) as $comment)
