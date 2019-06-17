@@ -361,7 +361,7 @@
                                     <li class="special" data-toggle="modal" data-target="#myModalLogin" data-dismiss="modal"><a class="unica-log-acc" href="javascript:void(0)" >Login</a></li>
                                     <li class="special" data-toggle="modal" data-target="#myModalRegister" data-dismiss="modal"><a class="unica-reg-acc" href="javascript:void(0)">Sign Up</a></li>
                                     <div id="myModalLogin" class="modal fade" role="dialog" >
-                                        <div class="modal-dialog">
+                                        <div class="modal-dialog modal-login">
                                             <div class="modal-content">
                                                 <div class="modal-header">				
                                                     <button type="button" class="close" data-dismiss="modal">&times;</button>

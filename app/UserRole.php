@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserRole extends Model
 {
+    // userRole = 1 => admin
+    // userRole = 2 => teacher
+    // userRole = 3 => student
+
     protected $fillable = [
         'user_id', 'role_id'
     ];

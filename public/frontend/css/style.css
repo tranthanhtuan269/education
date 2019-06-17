@@ -358,7 +358,7 @@ ul.unica-acc-zone li.special:hover a{color:#fff}
 .course-learning-question .text-box .btn-submit{text-align:center;padding:20px 0}
 .course-learning-question .text-box .btn-submit .submit-question{padding:12px 80px;color:#fff;background-color:#FF8F00;border:none;border-radius:10px;font-weight: 900;box-shadow: 1px 1px 10px #e1e1e1}
 /*Login*/
-.modal-dialog{
+.modal-login{
   width: 380px;
 }
 .modal-content{
