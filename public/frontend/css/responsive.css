@@ -908,6 +908,29 @@
         margin-bottom: 5px;
         border: 1px solid #fff;
     }
+    .background-page .highlight{
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+    .background-page .bg-category{
+        position: absolute;
+        height: 225px;
+        width: auto;
+        right: 0;
+    }
+    .disable-on-mobile{
+        display: none;
+    }
+    .background-page .highlight{
+        bottom: 0;
+    }
+    .background-page .highlight .thumbnail-img h4.big-course{
+        font-size: 30px;
+    }
+    .pt-30px{
+        padding-top: 30px;
+        margin-top: 0px;
+    }
 }
 
 @media all and (max-width: 600px) {

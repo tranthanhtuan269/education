@@ -1,7 +1,7 @@
 @extends('frontends.layouts.app')
 @section('content')
 <div class="background-page">
-	<img class="" src="{{ asset('frontend/images/banner_profile_teacher.png') }}" width="100%" >
+	<img class="bg-category" src="{{ asset('frontend/images/banner_profile_teacher.png') }}">
 	<div class='container'>
 		<div class="highlight">
 			<div class="row title">
@@ -23,7 +23,7 @@
 									</div>
 								</a>
 							</div>
-							<div class="col-sm-7">
+							<div class="col-sm-7 disable-on-mobile">
 								<div class="row">
 					@else
 							<div class="col-sm-6 item">

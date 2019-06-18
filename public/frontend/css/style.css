@@ -503,6 +503,9 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
   border-radius: 10px;
   border: 1px solid #cccccc;
 }
+.background-page .bg-category{
+  width: 100%;
+}
 
 /* .detail-course .frame_2 .box-img .icon{
   display: block;
