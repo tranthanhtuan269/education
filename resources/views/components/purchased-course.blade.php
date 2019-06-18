@@ -14,9 +14,10 @@
     }
     $video_done_percent = (int)(($video_done_count/$video_count)*100);
 ?>
-<div class="col-sm-3">
+<div class="col-md-3 col-sm-6">
     <div class="box-course">
-        <a href="{{ url('/') }}/course/{{ $slug }}" title="{{ $title }}" class="course-box-slider pop">
+        <!-- <a href="{{ url('/') }}/course/{{ $slug }}" title="{{ $title }}" class="course-box-slider pop"> -->
+        <div class="purchase_course">
             <div class="img-course">
             	<img class="img-responsive"
                     src="{{ $image }}"
@@ -58,6 +59,7 @@
                 </div>
                 @endif
             </div>
-        </a>
+        </div>
+        <!-- </a> -->
     </div>
 </div>

@@ -97,7 +97,7 @@
     .box-slider .slick-prev { left: -15px; }
     .box-slider .slick-next { right: -5px; }
     .target-box  { width: auto; }
-    .course-box-slider { margin: 9px; }
+    /* .course-box-slider { margin: 9px; } */
     .course-box-slider-2 { margin: 9px; }
     .social-connect a { margin-right: 5px; }
     .pdR0 { padding: 0; }
@@ -114,7 +114,7 @@
     .title-course-f { margin-left: 6px; }
     .u-list-leftbar { width: 25%; }
     .main-content { width: 75%; }
-    .u-all-course .course-box-slider { margin: 0 20px 0 0; }
+    /* .u-all-course .course-box-slider { margin: 0 20px 0 0; } */
     .u-all-course .course-box-slider-2 { margin: 0 20px 0 0; }
     .u-order { padding-bottom: 10px; }
     .btn-preview  { display: inline-block; padding: 5px 8px; }
@@ -267,7 +267,7 @@
     .col-filter { padding-left: 0; padding-right: 5px;}
     .filter .form-control { float: left;    width: 48%;    margin-right: 5px;    margin-bottom: 5px; }
     .u-detail-block-title { width: 100%; }
-    .u-detail-block-title h3min-width: 87px;    width: 87px; { font-size: 24px; margin-top: 0; float: left; }
+    .u-detail-block-title h3 {min-width: 87px;    width: 87px; font-size: 24px; margin-top: 0; float: left; }
     .u-detail-tea a { display: inline-block; }
     .show-xs .block-buy { top:  unset; margin-top: 5px; padding: 10px 5px 5px 5px; }
     .show-xs .block-ulti a { margin: 10px 0; }
@@ -404,7 +404,7 @@
     .u-dashboard-top ul li a { border-radius: 0; color: #fff;}
     #myNavbar > ul > li.dropdown.open > ul > li > a { border-bottom: 1px solid #6d7584; }
     .u-dashboard-top ul li a:focus { color: #000; }
-    .u-dashboard-top p { float: left; }
+    /* .u-dashboard-top p { float: left; } */
     .u-dashboard-top i { width: 30px; text-align: center; margin-right: 3px; }
     .form-daily { width: auto; }
     .unica-daily-top { height: 200px; background-position-x: center; padding: 50px 0; }
@@ -585,12 +585,22 @@
 /*
 
 /* Responsive TRINHNK */
-
-/* Member Card */
-@media (min-width: 1200px){
-	.container {
-	    /* max-width: 1020px; */
+@media all{
+    .box-course .content-course h3.title-course{
+        white-space: normal;
+        height: 52px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        /* font-size: 14px; */
     }
+    .box-course .name-teacher{
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+@media (min-width: 1200px){
     .member-card-offer .box-offer-l{padding-right:40px}
     .member-card-offer .box-offer-r{padding-left:40px}
     .member-card-offer .img .box-l .offer-dollar{margin-right: 40px}
@@ -612,6 +622,12 @@
     .detail-course .frame_2 .box .btn-add-cart,.detail-course .frame_2 .box .btn-buy-now{
         float: none;
         text-align: center;
+    }
+    .popular-teacher .info .des-teacher{
+        font-size: 14px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
     }
 }
 
@@ -640,6 +656,18 @@
         float: none;
         text-align: center;
     }
+    .box-course .content-course .price-course .price{
+        font-size: 15.5px;
+    }
+    .box-course .content-course .price-course .sale{
+        font-size: 18px;
+    }
+    .popular-teacher .info .des-teacher{
+        font-size: 14px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
 }
 
 @media all and (max-width: 992px) and (min-width: 769px) {
@@ -661,6 +689,15 @@
     .detail-course .frame_2 .box .btn-add-cart,.detail-course .frame_2 .box .btn-buy-now{
         float: none;
         text-align: center;
+    }
+    .box-course .img-course img{
+        width: 100%;
+    }
+    .box-course .img-course img{
+        height: 189.785px;
+    }
+    .box-course .img-course img{
+        width: 100%;
     }
 }
 
@@ -759,6 +796,7 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        height: 26px;
     }
     .box-course .content-course .name-teacher {
         font-size: 12px;
@@ -829,6 +867,46 @@
     }
     .detail-teacher .frame .network {
         padding-top: 0px;
+    }
+    .box-course .purchase_course{
+        margin-bottom: 10px;
+        width: 280px;
+        min-height: 115px;
+        max-height: 135px;
+        border-bottom: 1px solid #e3e3e3;
+        border-right: 0;
+        border-top: 0;
+        border-left: 0;
+        margin: 5px 0;
+        display: inline-block;
+        width: 100%;
+        padding-right: 7px;
+        display: inline-block;
+        color: #333;
+        border-radius: 10px;
+        -webkit-box-shadow: 0px 0px 10px 0px rgba(221,221,221,1);
+        -moz-box-shadow: 0px 0px 10px 0px rgba(221,221,221,1);
+        box-shadow: 0px 0px 10px 0px rgba(221,221,221,1);
+    }
+    .box-course .purchase_course:hover{
+        -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+        -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+        transition: .5s;
+    }
+    .box-course .progress{
+        margin: 5px 0;
+    }
+    #displayBalance{
+        margin-bottom: 15px;
+    }
+    .u-dashboard-top .navbar-header{
+        margin-bottom: 15px;
+    }
+    .u-dashboard-top ul li a{
+        border-radius: 5px;
+        margin-bottom: 5px;
+        border: 1px solid #fff;
     }
 }
 

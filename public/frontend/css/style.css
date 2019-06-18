@@ -496,6 +496,13 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
 .detail-course .instructors .avatar-center{
   text-align: center;
 }
+.box-course .purchase_course{
+  display: inline-block;
+  color: #333;
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid #cccccc;
+}
 
 /* .detail-course .frame_2 .box-img .icon{
   display: block;
@@ -632,9 +639,9 @@ div[data-u="slides"] div div{
   padding: 10px 10px 0px 10px;
   margin: 10px 0px;
 }
-.dz-default.dz-message{
+/* .dz-default.dz-message{ */
   /* display: none; */
-}
+/* } */
 .box-user .dropzone{
     min-height: auto !important;
 }
@@ -1281,7 +1288,7 @@ div[data-u="slides"] div div{
   height: 50px;
   text-align: center;
   border-radius: 4px;
-  margin: 30px;
+  /* margin: 30px; */
   position: fixed;
   bottom: 30px;
   right: 30px;
