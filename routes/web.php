@@ -142,6 +142,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Route::get('cart/payment/checkout-step', 'Frontends\HomeController@showMethodSelector');
     Route::get('cart/payment/method-selector', 'Frontends\HomeController@showMethodSelector');
+    Route::get('cart/payment/getFinalPrice', 'Frontends\HomeController@getFinalPrice');
 
     Route::group(['prefix' => 'user'],function () {
         Route::put('change-pass-ajax', 'Frontends\UserController@changePassAjax');

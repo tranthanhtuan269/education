@@ -293,6 +293,41 @@ class HomeController extends Controller
         
         return view('frontends.payment-methods', compact('user_balance'))->render();
     }
+
+    public function getFinalPrice(Request $request) {
+        $coupon_code = '';
+        if($request->coupon_code){
+            $coupon_code = $request->coupon_code;
+            $coupon = Coupon::where('name', $coupon_code)->first();
+            $coupon_value = $coupon->value;
+        }
+        $items  = $request->items;
+
+        $final_price = 0;
+
+        foreach ($items as $key => $item) {
+            $item_id = $item['id'];
+            $course = Course::find($item_id);
+            if(!isset($course)){
+                return response()->json([
+                    'status' => '404',
+                    'message' => 'Cannot find the course has id = '.$item_id,
+                ]);
+            }
+            $final_price += $course->price;
+        }
+        if(isset($coupon)){
+            $final_price = $final_price - ($final_price * $coupon_value / 100);
+            
+        }
+        return response()->json([
+            'status' => '200',
+            'message' => 'Get final price successfully!',
+            'final_price' => $final_price,
+            'applied_coupon' => $coupon_code,
+        ]);
+        
+    }
 }
 
 class VideoJson

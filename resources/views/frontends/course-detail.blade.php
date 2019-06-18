@@ -551,11 +551,11 @@
                 'image' : '{!! $info_course->image !!}',
                 'slug' : '{!! $info_course->slug !!}',                
                 @if(count($info_course->Lecturers()) > 0)
-                'lecturer' : '{!! $info_course->Lecturers()[0]->user->name !!}',
+                'lecturer' : "{!! $info_course->Lecturers()[0]->user->name !!}",
                 @else
                 'lecturer' : 'Nhiều giảng viên',
                 @endif
-                'name' : '{!! $info_course->name !!}',
+                'name' : "{!! $info_course->name !!}",
                 'price' : {!! $info_course->price !!},
                 'real_price' : {!! $info_course->real_price !!},
             }

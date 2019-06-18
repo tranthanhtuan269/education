@@ -67,29 +67,23 @@
                 @endif
 
                 <?php
-                    $check_time_sale = false;
-                    if ($course->from_sale != '' && $course->to_sale != '') {
-                        $start_sale = strtotime($course->from_sale.' 00:00:00');
-                        $end_sale = strtotime($course->to_sale.' 23:59:59');
-                        // $date_to = new DateTime($to_sale);
-                        // $date_from = new DateTime(date('Y-m-d'));
-                        if (time() >= $start_sale && time() <= $end_sale) {
-                            $check_time_sale = true;
-                        }
-                    }
+                    // $check_time_sale = false;
+                    // if ($course->from_sale != '' && $course->to_sale != '') {
+                    //     $start_sale = strtotime($course->from_sale.' 00:00:00');
+                    //     $end_sale = strtotime($course->to_sale.' 23:59:59');
+                    //     if (time() >= $start_sale && time() <= $end_sale) {
+                    //         $check_time_sale = true;
+                    //     }
+                    // }
                 ?>
                 <div class="price-course">
-                    @if ($check_time_sale == true)                                        
                     <span class="price line-through">
                         {!! number_format($course->real_price, 0, ',' , '.') !!}đ
                     </span>
+                    @if ($course->real_price != $course->price)
                     <span class="sale pull-right">
                         {!! number_format($course->price, 0, ',' , '.') !!}đ
-                    </span>
-                    @else
-                    <span class="price">
-                        {!! number_format($course->real_price, 0, ',' , '.') !!}đ
-                    </span>
+                    </span>                        
                     @endif
                 </div>
                 @if (isset($btn_start_learning))  

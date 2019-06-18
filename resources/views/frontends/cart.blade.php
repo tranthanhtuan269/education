@@ -56,6 +56,7 @@
     var cart_items = JSON.parse(localStorage.getItem('cart'))
     var totalPrice = 0
     var totalInitialPrice = 0
+    var activeCoupon = ''
     
     $(document).ready(function(){
         $(".cart-pre-info .course-amount").append(cart_items.length)
@@ -143,8 +144,7 @@
                     $(".cart-pre-info .course-amount").prepend(cart_items.length)
                     $('.number-in-cart').text(cart_items.length);
 
-                    localStorage.setItem('cart', JSON.stringify(cart_items))
-                    
+                    localStorage.setItem('cart', JSON.stringify(cart_items))                    
                 }
             })
             
@@ -178,11 +178,14 @@
                 request.done((response)=>{
                     console.log(response)
                     if(response.status == 200){
+                        localStorage.setItem('coupon', coupon)
                         return Swal.fire({
                             type:"success",
                             text:"The coupon exists!"
                         })
                     }else{
+                        localStorage.removeItem('coupon')
+                        $('#input-coupon').val('')
                         return Swal.fire({
                             type:"warning",
                             text:"The coupon doesn't exist!"
