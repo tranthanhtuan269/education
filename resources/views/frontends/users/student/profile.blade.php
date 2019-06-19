@@ -358,20 +358,21 @@
         });
 
     });
-function changePassAjax(){
-    var data = {
-        password_old        : $('#myModalChangePass input[name=pass-old]').val(),
-        password            : $('#myModalChangePass input[name=pass-new]').val(),
-        confirmpassword     : $('#myModalChangePass input[name=confirm-pass]').val(),
-        _method:"put"
-    };
-    $.ajaxSetup(
-    {
-        headers:
+    
+    function changePassAjax(){
+        var data = {
+            password_old        : $('#myModalChangePass input[name=pass-old]').val(),
+            password            : $('#myModalChangePass input[name=pass-new]').val(),
+            confirmpassword     : $('#myModalChangePass input[name=confirm-pass]').val(),
+            _method:"put"
+        };
+        $.ajaxSetup(
         {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
+            headers:
+            {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
         // console.log(data);
         $.ajax({
             method: "POST",

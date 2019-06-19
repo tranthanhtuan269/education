@@ -10,13 +10,14 @@ use App\Http\Controllers\Frontends\Requests\UpdateProfileTeacherRequest;
 use App\Http\Controllers\Frontends\Requests\UpdateProfileUserRequest;
 use App\Http\Controllers\Frontends\Requests\InsertTeacherRequest;
 use App\User;
-use App\Teacher;
-use App\UserRole;
 use App\Email;
+use App\Teacher;
+use App\Category;
+use App\UserRole;
+use App\UserEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Mail\CustomMail;
-use App\UserEmail;
 
 
 class UserController extends Controller
@@ -231,7 +232,8 @@ class UserController extends Controller
     {
         $keyword = trim($request->get('u-keyword'));
         $lifelong_course = Auth::user()->userRolesTeacher()->userLifelongCourse($keyword);
-        return view('frontends.users.teacher.course', compact('lifelong_course'));
+        $categories = Category::where('parent_id', 0)->get();
+        return view('frontends.users.teacher.course', compact('lifelong_course', 'categories'));
     }
 
     public function uploadImage(Request $request)

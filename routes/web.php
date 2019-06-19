@@ -173,6 +173,12 @@ Route::group(['middleware' => 'auth'], function () {
             Route::post('profile', 'Frontends\UserController@updateProfileTeacher');
         });
 
+        Route::group(['prefix' => 'courses'],function () {
+            Route::post('store', 'Backends\CourseController@store');
+            Route::put('{id}/update', 'Backends\CourseController@update');
+            Route::delete('delete', 'Backends\CourseController@destroy');
+        });
+
         Route::get('register-teacher', 'Frontends\UserController@registerTeacher'); 
         Route::post('register-teacher', 'Frontends\UserController@insertRegisterTeacher'); 
     });
