@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserMailLogTable extends Migration
+class CreateUserEmailTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateUserMailLogTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_mail_log', function (Blueprint $table) {
+        Schema::create('user_email', function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('user_id');
-            $table->integer('mail_log_id');
+            $table->integer('email_id');
             $table->integer('sender_user_id');
+            $table->boolean('viewed')->default(false);
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ class CreateUserMailLogTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_mail_log');
+        Schema::dropIfExists('user_email');
     }
 }

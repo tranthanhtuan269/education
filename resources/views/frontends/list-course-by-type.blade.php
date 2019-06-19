@@ -1,6 +1,11 @@
 @extends('frontends.layouts.app')
 @section('content')
-
+<?php
+    $list_bought = [];
+    if(Auth::check() && strlen(Auth::user()->bought) > 0){
+        $list_bought = \json_decode(Auth::user()->bought);
+    }
+?>
 <div class="box-list-course-by-type">
   <div class="container">
       <div class="row">
@@ -19,21 +24,23 @@
                         @include(
                             'components.course', 
                             [   
-                                'id'    => $course->id,
-                                'slug' => $course->slug,
-                                'image' => url('/frontend/images/'.$course->image),
-                                'rawImage' => $course->image,
-                                'title' => $course->name,
-                                'author' => $lecturers,
-                                'star_count' => $course->star_count,
-                                'vote_count' => $course->vote_count,
-                                'time' => $course->approx_time,
-                                'view_number' => $course->view_count,
-                                'price' => $course->real_price,
-                                'sale' => $course->price,
-                                'from_sale' => $course->from_sale,
-                                'to_sale' => $course->to_sale,
-                                'bought' => $course->checkCourseNotLearning(),
+                                'course' => $course,
+                                'list_course' => $list_bought
+                                // 'id'    => $course->id,
+                                // 'slug' => $course->slug,
+                                // 'image' => url('/frontend/images/'.$course->image),
+                                // 'rawImage' => $course->image,
+                                // 'title' => $course->name,
+                                // 'author' => $lecturers,
+                                // 'star_count' => $course->star_count,
+                                // 'vote_count' => $course->vote_count,
+                                // 'time' => $course->approx_time,
+                                // 'view_number' => $course->view_count,
+                                // 'price' => $course->real_price,
+                                // 'sale' => $course->price,
+                                // 'from_sale' => $course->from_sale,
+                                // 'to_sale' => $course->to_sale,
+                                // 'bought' => $course->checkCourseNotLearning(),
                                 
                             ]
                         )

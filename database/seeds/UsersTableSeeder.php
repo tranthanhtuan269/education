@@ -13,7 +13,9 @@ class UsersTableSeeder extends Seeder
      * @return void
      */
     public function run()
-    {
+    {	
+		$faker = Faker\Factory::create();
+
     	$user = new User;
         $user->name = "Tran Thanh Tuan";
         $user->email = "tran.thanh.tuan269@gmail.com";
@@ -70,13 +72,13 @@ class UsersTableSeeder extends Seeder
 	    	// for($j = 0; $j < 5; $j++){
 		    	for($k = 0; $k < 5; $k++){
 			        $user = new User;
-			        $user->name = $ten[$i] ." ".$ho[$k];
-			        $user->email = $ten[$i] .".".$ho[$k]. "@gmail.com";
+			        $user->name = $faker->firstName.' '.$faker->lastName;
+			        $user->email = $faker->freeEmail;
 			        $user->password = bcrypt('secret12');
 			        $user->remember_token = str_random(10);
 			        $user->facebook = "https://www.facebook.com/avengers/";
 			        $user->phone = "0973619".$i.rand(1,9).$k;
-			        $user->address = "Number 2 -Times Square - New York";
+			        $user->address = $faker->address;
 			        $user->avatar = "images/avatar_teacher_".$k.".jpg";
 			        $user->coins = 350;
 			        $user->dob = date("Y-m-d H:i:s");
@@ -98,15 +100,7 @@ class UsersTableSeeder extends Seeder
 
 			        $teacher = new Teacher;
 			        $teacher->user_role_id = $userRole2->id;
-					$teacher->cv = "<p>Chuyên gia <strong>Yoga Nguyễn Hiếu </strong>đã có hơn 12 năm nghiên cứu và giảng dạy Yoga tại các trung tâm và đã huấn luyện cho hàng nghìn học viên khắp Việt Nam và thế giới.</p>
-
-					<p>Chị là Đại sứ Yoga Việt Nam do Trung tâm Unesco Phát triển Văn hóa và Thể thao phong tặng.&nbsp;</p>
-
-					<p>Chị đã thiết kế rất nhiều chương trình Yoga trực tuyến, sở hữu kênh &nbsp;đào tạo Yoga online lớn nhất Việt Nam.</p>
-
-					<p>Hiện tại, Nguyễn Hiếu đang&nbsp;là tổng giám đốc công ty Zenlife Yoga Việt Nam và là huấn luyện viên trưởng cho chương trình đào tạo giáo viên Yoga.</p>
-
-					<p>Hiện nay, dù đã gần 40&nbsp;tuổi và có 2 con lớn, <strong>Chuyên gia Yoga Nguyễn Hiếu </strong>vẫn sở hữu một cơ thể cân đối trẻ trung, khỏe mạnh và dẻo dai như ở tuổi đôi mươi, với vòng eo 60 cm là niềm ao ước của mọi phụ nữ ở độ tuổi này.</p>";
+					$teacher->cv = $faker->realText($maxNbChars = 800, $indexSize = 2);
 					$teacher->expert = $experts[rand(0, 3)];
 					$rating_count = rand (150, 750);
 					$teacher->rating_count =  $rating_count;
