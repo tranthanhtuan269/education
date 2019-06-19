@@ -9,7 +9,7 @@
 					<h3>Balance :<span> {{ number_format($user_balance, 0, '.', '.') }} ₫</span></h3>
 				</div>
 				<div class="pull-right">
-					<ul class="nav nav-tabs">
+					<ul class="nav nav-tabs" id="fullpageTab">
 						<li class="active"><a data-toggle="tab" href="#payTab">Pay</a></li>
 						<li><a data-toggle="tab" href="#addFundTab">Add Funds</a></li>
 						<li><a data-toggle="tab" href="#purchaseHistoryTab">Purchase History</a></li>
@@ -115,7 +115,7 @@
 				<div id="payTab" class="col-xs-12 tab-pane payment-method check-out-page fade in active">
 					<div class="col-sm-4 left-column">
 						<div class="cart-info">
-							<p>Your Items (3)</p>
+							<p>Your Items (<span></span>)</p>
 						</div>
 					</div>
 					<div class="col-sm-8">
@@ -126,29 +126,21 @@
 							<a href="/cart">Edit your cart</a>
 						</div>
 						<div class="pay-field">
-							<ul class="nav nav-pills nav-justified">
+							<ul id="payTabTabs" class="nav nav-pills nav-justified">
 								<li role="presentation" class="active"><a data-toggle="tab" href="#payWithBalance">Pay with your balance</a></li>
 								<li role="presentation"><a data-toggle="tab" href="#payByCard">Pay directly by card</a></li>
 							</ul>
 							<div class="tab-content">
 								<div id="payWithBalance" class="tab-pane fade in active">
 									<div class="total">
-										Total price to pay: <span class="price"></span>
+										Total price to pay: <b><span class="price"></span></b>
 									</div>
 									<div class="user-balance">
-										Your balance: <span>{{ number_format($user_balance, 0, '.', '.') }} ₫</span>
+										Your balance: <b><span>{{ number_format($user_balance, 0, '.', '.') }} ₫</span></b>
 									</div>
-									<div class="row payment">
-										<div class="col-sm-5">
-											<button class="btn btn-success btn-lg btn-block">Complete Payment</button>
-										</div>
-										<div class="col-sm-3">
-											<span>By completing your purchase you agree to these </span><a href="/terms-of-service">Terms of Service</a>.
-										</div>
-										<div class="col-sm-4">
-
-										</div>
-									</div>
+									
+									
+									
 								</div>
 								<div id="payByCard" class="tab-pane fade">
 									<div class="row">
@@ -271,6 +263,7 @@
 
 	<script>
 		var cart_items = JSON.parse(localStorage.getItem('cart'))
+		var coupon_code = localStorage.getItem('coupon')
     	var final_price = 0
     	var totalInitialPrice = 0
 		var balance = {{$user_balance}}
@@ -280,24 +273,27 @@
 			getFinalPrice()
 			toggleCardMethodPanel()
 
-			$('#btnPurchase').click( function () {
+			
+
+			$("#payTab .cart-info span").append(cart_items.length)
+			
+
+			$('#btnPurchaseWBalance').click( function () {
 				checkout()
 			})
 			
-			function getFinalPrice() {
-				var coupon_code = localStorage.getItem('coupon')
-				var cart_items = JSON.parse(localStorage.getItem('cart'))
-				console.log(cart_items);
-				
+			function getFinalPrice() {				
 				$.ajaxSetup({
 					headers: {
 						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 					}
 				});
 				if(cart_items.length < 1){
-					return Swal.fire({
+					Swal.fire({
 						type:"warning",
 						text:"Cart can't be empty!"
+					}).then((result) => {
+						window.location.replace('/')
 					})
 				}else{
 					$.ajax({
@@ -308,9 +304,49 @@
 							items : cart_items,
 						},
 						success: function (response) {
-							$("#payTab .final-price .price-text").append(number_format(response.final_price, 0, '.', '.') +" ₫")
-							$('#payWithBalance .price').append(number_format(response.final_price, 0, '.', '.') +" ₫")
-							final_price = response.final_price
+							if(response.status == '200'){
+								$("#payTab .final-price .price-text").append(number_format(response.final_price, 0, '.', '.') +" ₫")
+								$('#payWithBalance .price').append(number_format(response.final_price, 0, '.', '.') +" ₫")
+								final_price = response.final_price
+
+								if(balance < final_price){
+									var html = ''
+									html += '<div class="notice" style="margin-bottom: 0.75em">'
+										html += '<span class="text-danger">Your balance is not enough!</span> Please <a href="#addFundTab">extend your balance</a> or <a href="#payByCard">Pay directly by your card</a>'
+									html += '</div>'
+
+									$("#payWithBalance .user-balance").after(html)
+								}else{
+									var html = ''
+									html += '<div class="row payment">'
+										html += '<div class="col-sm-5">'
+											html += '<button id="btnPurchaseWBalance" class="btn btn-success btn-lg btn-block">Complete Payment</button>'
+										html += '</div>'
+										html += '<div class="col-sm-3 accept-terms">'
+											html += '<span>By completing your purchase you agree to these</span><a href="/terms-of-service">Terms of Service</a>.'
+										html += '</div>'
+										html += '<div class="col-sm-4 text-right">'
+											
+										html += '</div>'
+									html += '</div>'
+
+										
+									$("#payWithBalance .user-balance").after(html)
+								}
+
+								$('#payWithBalance .notice a[href="#addFundTab"]').on('click', function (e) {
+									e.preventDefault()
+									e.stopPropagation()
+									$('#fullpageTab a[href="#addFundTab"]').tab('show')
+								})
+
+								$('#payWithBalance .notice a[href="#payByCard"]').on('click', function (e) {
+									e.preventDefault()
+									e.stopPropagation()
+									$('#payTabTabs a[href="#payByCard"]').tab('show')
+								})
+							}
+							
 						},
 						error: function (response) {
 							
@@ -373,7 +409,7 @@
 						method: "POST",
 						data :{
 							"items" : cart_items,
-							"coupon" : coupon
+							"coupon" : coupon_code
 						},
 						dataType: "json",                
 					})
@@ -389,7 +425,7 @@
 								text:"Order has been created!"
 							}).then((result) => {
 								if (result.value) {
-									location.reload();
+									window.location.href = "/";									
 								}
 							});
 						}else if(response.status == 204){

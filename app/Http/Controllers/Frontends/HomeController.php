@@ -222,9 +222,9 @@ class HomeController extends Controller
                     }
                 }
 
-                // if($total_price > Auth::user()->coins){
-                //     return \Response::json(array('status' => '204', 'message' => 'Your balance is not enough'));
-                // }
+                if($total_price > Auth::user()->coins){
+                    return \Response::json(array('status' => '204', 'message' => 'Your balance is not enough'));
+                }
 
                 // check coupon
                 $coupon = null;
@@ -278,6 +278,7 @@ class HomeController extends Controller
                 }
                 $order->save();
                 $current_user->bought = \json_encode($bought);
+                $current_user->coins = $current_user->coins - $total_price;
                 $current_user->save();
                 return \Response::json(array('status' => '201', 'message' => 'Order has been created'));
             }

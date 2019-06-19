@@ -1543,3 +1543,9 @@ div[data-u="slides"] div div{
   align-items: center;
   display: flex;
 }
+#payWithBalance .payment button{
+  border-radius: 0;
+}
+#payWithBalance .accept-terms{
+  font-size: smaller;
+}
