@@ -179,6 +179,13 @@ Route::group(['middleware' => 'auth'], function () {
             Route::delete('delete', 'Backends\CourseController@destroy');
         });
 
+        Route::group(['prefix' => 'units'],function () {
+            Route::post('store', 'Backends\UnitController@store');
+            Route::put('{id}/update', 'Backends\UnitController@update');
+            Route::put('sort', 'Backends\UnitController@sort');
+            Route::delete('delete', 'Backends\UnitController@destroy');
+        });
+
         Route::get('register-teacher', 'Frontends\UserController@registerTeacher'); 
         Route::post('register-teacher', 'Frontends\UserController@insertRegisterTeacher'); 
     });

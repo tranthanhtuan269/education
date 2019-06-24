@@ -1686,17 +1686,30 @@ div[data-u="slides"] div div{
   padding: 8px;
 }
 
-#sortable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
-#sortable li { margin: 8px; padding: 8px; font-size: 1.2em; height: 1.5em; }
-#sortable li { min-height: 38px; line-height: 1.2em; }
-.ui-state-highlight { min-height: 38px; line-height: 1.2em; }
+#sortable { list-style-type: none; margin: 0; padding: 0; }
+#sortable li { margin: 8px; padding: 8px; font-size: 28px; height: 52px; line-height: 30px; }
+#sortable li *{ font-size: 22px; line-height: 34px; }
+.ui-state-highlight { min-height: 52px; line-height: 40px; }
 .remove-unit{
   cursor: pointer;
   float:right;
   margin: 0 5px;
 }
+
 .edit-unit{
   cursor: pointer;
   float:right;
   margin: 0 5px;
+}
+
+.save-unit{
+  cursor: pointer;
+  float:right;
+  margin: 0 5px;
+}
+
+#sortable li .form-control{
+  width: 94%;
+  float: left;
+  margin-right: 1%;
 }

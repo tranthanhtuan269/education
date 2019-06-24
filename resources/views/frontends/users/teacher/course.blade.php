@@ -355,8 +355,12 @@
         })
     });
 
+    function addUnit(unit_name, course_id){
+        
+    }
+
     function saveUnit(x){
-            alert('aaa')
+        // alert(x)
     }
 </script>
 @endsection
