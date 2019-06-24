@@ -1713,3 +1713,108 @@ div[data-u="slides"] div div{
   float: left;
   margin-right: 1%;
 }
+
+.check-out-page .info-box>div{
+  line-height: 1.5;
+  padding: 1em;
+  -webkit-box-shadow: 0 0 1px 1px rgba(20,23,28,0.1), 0 3px 1px 0 rgba(20,23,28,0.1);
+  -moz-box-shadow: 0 0 1px 1px rgba(20,23,28,0.1), 0 3px 1px 0 rgba(20,23,28,0.1);
+  box-shadow: 0 0 1px 1px rgba(20,23,28,0.1), 0 3px 1px 0 rgba(20,23,28,0.1);
+  margin-bottom: 0.5em;
+}
+
+#payTab .info-box .title {
+  font-size: large;
+}
+#payTab .info-box .price {
+  font-size: large;
+}
+#btnPurchase {
+    margin-bottom: 1em;
+    border-radius: 0;
+}
+
+#payTab .cart-info{
+  padding-bottom: 1em;
+  border-bottom: 2px solid lightgray;
+  font-size: x-large;
+}
+#payTab .item-box {
+  margin-top: 1em;
+}
+#payTab .item-box .image{
+  padding-top: 0.2em;
+  padding-right: 0;
+}
+#payTab .item-box .title {
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#payTab .item-box .author {
+  font-size: smaller;
+}
+#payTab .item-box .price {
+  font-size: larger;
+  font-weight: 500;
+}
+#payTab .final-price .text{
+  font-size: x-large;
+}
+#payTab .final-price .price-text{
+  font-size: xx-large;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+#payTab .pay-field {
+  margin-top: 1em;
+  padding: 1em;
+  border-color: #DEDFE0;
+  background: #f8f8f9;
+  border: 1px solid #DEDFE0;
+  border-radius: 4px;
+  margin-bottom: 15px;
+}
+#payTab .pay-field .nav.nav-pills>li a{
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+#payWithBalance, #payByCard{
+  padding: 1em;
+  background: white;
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+  border: 1px solid #428BCA;
+}
+#payWithBalance .user-balance {
+  margin-top: 0.75em;
+  margin-bottom: 0.75em;
+}
+#payWithBalance .payment{
+  align-items: center;
+  display: flex;
+}
+#payWithBalance .payment button{
+  border-radius: 0;
+}
+#payWithBalance .accept-terms{
+  font-size: smaller;
+}
+.cart-page-empty {
+  line-height: 4;
+  display: none;
+}
+.cart-page-empty.active{
+  display: block;
+}
+.cart-page-empty button {
+  background: #853c6c;
+  color: #FFFFFF;
+
+}
+.cart-page-content {
+  display: none;
+}
+.cart-page-content.active{
+  display:block;
+}

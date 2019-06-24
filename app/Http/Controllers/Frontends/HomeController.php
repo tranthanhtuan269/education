@@ -222,9 +222,9 @@ class HomeController extends Controller
                     }
                 }
 
-                // if($total_price > Auth::user()->coins){
-                //     return \Response::json(array('status' => '204', 'message' => 'Your balance is not enough'));
-                // }
+                if($total_price > Auth::user()->coins){
+                    return \Response::json(array('status' => '204', 'message' => 'Your balance is not enough'));
+                }
 
                 // check coupon
                 $coupon = null;
@@ -278,6 +278,7 @@ class HomeController extends Controller
                 }
                 $order->save();
                 $current_user->bought = \json_encode($bought);
+                $current_user->coins = $current_user->coins - $total_price;
                 $current_user->save();
                 return \Response::json(array('status' => '201', 'message' => 'Order has been created'));
             }
@@ -285,6 +286,48 @@ class HomeController extends Controller
         } else {
             return \Response::json(array('status' => '401', 'message' => 'Unauthorized'));
         }
+    }
+
+    public function showMethodSelector(Request $request){
+        $user = Auth::user();
+        $user_balance = $user->coins;
+        
+        return view('frontends.payment-methods', compact('user_balance'))->render();
+    }
+
+    public function getFinalPrice(Request $request) {
+        $coupon_code = '';
+        if($request->coupon_code){
+            $coupon_code = $request->coupon_code;
+            $coupon = Coupon::where('name', $coupon_code)->first();
+            $coupon_value = $coupon->value;
+        }
+        $items  = $request->items;
+
+        $final_price = 0;
+
+        foreach ($items as $key => $item) {
+            $item_id = $item['id'];
+            $course = Course::find($item_id);
+            if(!isset($course)){
+                return response()->json([
+                    'status' => '404',
+                    'message' => 'Cannot find the course has id = '.$item_id,
+                ]);
+            }
+            $final_price += $course->price;
+        }
+        if(isset($coupon)){
+            $final_price = $final_price - ($final_price * $coupon_value / 100);
+            
+        }
+        return response()->json([
+            'status' => '200',
+            'message' => 'Get final price successfully!',
+            'final_price' => $final_price,
+            'applied_coupon' => $coupon_code,
+        ]);
+        
     }
 }
 
