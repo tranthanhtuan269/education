@@ -271,16 +271,9 @@
 		$(document).ready( function () {
 			showItems()
 			getFinalPrice()
-			toggleCardMethodPanel()
+			toggleCardMethodPanel()		
 
-			
-
-			$("#payTab .cart-info span").append(cart_items.length)
-			
-
-			$('#btnPurchaseWBalance').click( function () {
-				checkout()
-			})
+			$("#payTab .cart-info span").append(cart_items.length)				
 			
 			function getFinalPrice() {				
 				$.ajaxSetup({
@@ -345,11 +338,15 @@
 									e.stopPropagation()
 									$('#payTabTabs a[href="#payByCard"]').tab('show')
 								})
+
+								$('#btnPurchaseWBalance').on('click', function () {
+									checkout()
+								})
 							}
 							
 						},
 						error: function (response) {
-							
+							// window.location.replace("404")
 						}
 					})
 				}
@@ -446,6 +443,8 @@
 					})
 				}
 			}
+
+			
 		})
 	</script>
 </div>

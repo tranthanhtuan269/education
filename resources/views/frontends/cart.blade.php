@@ -50,6 +50,19 @@
             </div>
         </div>
     </div>
+    <div class="cart-page-empty">
+        <div class="container text-center">
+            <img src="http://courdemy.local/frontend/images/tab_cart.png" alt="" style="width: 10vw;">
+            <div>
+                    Your cart is empty. Keep shopping to find a course!
+            </div>
+            <div>
+                <a href="/">
+                    <button class="btn">Keep shopping</button>
+                </a>
+            </div>   
+        </div>
+    </div>
 </div>
 
 <script>
@@ -59,6 +72,12 @@
     var activeCoupon = ''
     
     $(document).ready(function(){
+        if(cart_items.length < 1){
+            $(".cart-page-empty").addClass('active')
+        }else{
+            $(".cart-page-content").addClass('active')
+        }
+        
         $(".cart-pre-info .course-amount").append(cart_items.length)
         cart_items.forEach((element, index) => {
             

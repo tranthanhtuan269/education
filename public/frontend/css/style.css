@@ -1549,3 +1549,21 @@ div[data-u="slides"] div div{
 #payWithBalance .accept-terms{
   font-size: smaller;
 }
+.cart-page-empty {
+  line-height: 4;
+  display: none;
+}
+.cart-page-empty.active{
+  display: block;
+}
+.cart-page-empty button {
+  background: #853c6c;
+  color: #FFFFFF;
+
+}
+.cart-page-content {
+  display: none;
+}
+.cart-page-content.active{
+  display:block;
+}
