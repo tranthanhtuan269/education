@@ -66,7 +66,7 @@
                 { 
                     data: "title",
                     render: function(data, type, row){
-                        return '<a href="javascript:void(0)" class="content-mailbox" title="Detail" data-value="'+ row.content +'">' + row.title + '</a>';
+                        return '<a href="javascript:void(0)" class="content-mailbox" title="Detail" data-useremailid="'+row.user_email_id+'" data-value="'+ row.content +'">' + row.title + '</a>';
                     },
                 },
                 { 
@@ -81,7 +81,7 @@
             dataTable = $('#mailbox-table').DataTable( {
                             serverSide: false,
                             aaSorting: [],
-                            stateSave: false,
+                            stateSave: true,
                             ajax: "{{ url('/') }}/user/getDataMailBoxAjax",
                             columns: dataObject,
                             // bLengthChange: false,
@@ -117,9 +117,41 @@
                             }
                         });
             $('body').on('click', '.content-mailbox', function() {
-                $('#myModalContentMailBox h4.modal-title').html( $(this).text() ); 
-                $('#myModalContentMailBox .modal-body').html( $(this).attr("data-value") ); 
-                $('#myModalContentMailBox').modal('show'); 
+                $('#myModalContentMailBox h4.modal-title').html( $(this).text() );                
+
+                var user_email_id = $(this).attr('data-useremailid')
+                var self = $(this)
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.ajax({
+                    method: 'GET',
+                    url: '/user/getSingleEmailContentAjax',
+                    data: {
+                        user_email_id : user_email_id,
+                    },
+                    dataType: 'json',
+                    success: function (response) {
+                        $('#myModalContentMailBox .modal-body').html(response.email_html); 
+                        $('#myModalContentMailBox').modal('show');
+                        if(self.parent().parent().attr('style').length > 0){
+                            var note_number = parseInt($('.unica-sl-notify b').text())
+                            $('.unica-sl-notify b').text(note_number-1)
+                        }
+                        self.parent().parent().attr('style','')
+                    },
+                    error: function (response) {
+                        Swal.fire({
+                            type: 'error',
+                            text: 'There was a problem while getting email content'
+                        })
+                    }
+                })
+
             });
     
         });
