@@ -61,42 +61,40 @@
                                     @endif
                                 </div>
                                 <div class="row box clearfix">
-                                    <div class="col-xs-6 col-mobile">
+                                    <div class="col-xs-6 full-width-mobile">
                                         <span class="box-img"><img src="{{ asset('frontend/images/ic_duration.png') }}" class="icon" alt="" /></span>
                                         <span class="special">{{ $info_course->approx_time }} hours on-demand video</span>
                                     </div>
-                                    <div class="col-xs-6 col-mobile">
+                                    <div class="col-xs-6 full-width-mobile">
                                         <span class="box-img"><img src="{{ asset('frontend/images/ic_download.png') }}" class="icon" alt="" /></span>
                                         <span class="special">{{ $info_course->downloadable_count	 }} downloadable resources</span>
                                         
                                     </div>
                                 </div>
                                 <div class="row box clearfix">
-                                    <div class="col-xs-6 col-mobile">
+                                    <div class="col-xs-6 full-width-mobile">
                                         <span class="box-img"><img src="{{ asset('frontend/images/ic_lifetime.png') }}" class="icon" alt="" /></span>
+                                        <!-- <i class="fas fa-infinity fa-2x fa-fw"></i> -->
                                         <span class="special">Full lifetime access</span>
-                                        
                                     </div>
-                                    <div class="col-xs-6 col-mobile">
+                                    <div class="col-xs-6 full-width-mobile">
                                         <span class="box-img"><img src="{{ asset('frontend/images/ic_mtuli_device.png') }}" class="icon" alt="" /></span>
                                         <span class="special">Access on Mobile & TV</span>
                                         
                                     </div>
                                 </div>
                                 <div class="row box clearfix">
-                                    <div class="col-xs-6 col-mobile">
-                                        <div class="row">
-                                            <div class="col-xs-6">
-                                                <span class="box-img"><img src="{{ asset('frontend/images/ic_course.png') }}" class="icon" alt="" /></span>
-                                                <span class="special">{{ number_format($info_course->video_count, 0, ',' , '.') }} videos</span>
-                                            </div>
-                                            <div class="col-xs-6">
-                                                <span class="box-img"><img src="{{ asset('frontend/images/ic_student.png') }}" class="icon" alt="" /></span>
-                                                <span class="special">{{ number_format($info_course->student_count, 0, ',' , '.') }} Students</span>
-                                            </div>
-                                        </div>
+                                    <div class="col-xs-6 full-width-mobile">
+                                        <span class="box-img"><img src="{{ asset('frontend/images/ic_course.png') }}" class="icon" alt="" /></span>
+                                        <span class="special">{{ number_format($info_course->video_count, 0, ',' , '.') }} videos</span>
                                     </div>
-                                    <div class="col-xs-6 col-mobile">
+                                    <div class="col-xs-6 full-width-mobile">
+                                        <span class="box-img"><img src="{{ asset('frontend/images/ic_student.png') }}" class="icon" alt="" /></span>
+                                        <span class="special">{{ number_format($info_course->student_count, 0, ',' , '.') }} Students</span>
+                                    </div>
+                                </div>
+                                <div class="row box clearfix">
+                                    <div class="col-xs-12 full-width-mobile">
                                         @include(
                                             'components.vote', 
                                             [
@@ -162,7 +160,7 @@
                         </div>
                     @endif
 
-                    @if (count($info_course->tags) > 0)
+                    <!-- @if (count($info_course->tags) > 0)
                     <div class="skill clearfix">
                         <h3>Skills you'll again</h3>
                         <ul>
@@ -172,13 +170,15 @@
                                 break;
                             } 
                             ?>
+                            <div class="col-sm-4 col-xs-6">
                             <a href="/tags/{{$tag->slug}}">
                                 <li style="color: #000000;">{{ $tag->name }}</li>
                             </a>
+                            </div>
                             @endforeach
                         </ul>
                     </div>
-                    @endif
+                    @endif -->
                 </div>
                 <div class="col-sm-4">
                     <ul class="others">
@@ -212,18 +212,39 @@
                     </ul>
                 </div>
             </div>
+            @if (count($info_course->tags) > 0)
+                <div class="skill clearfix my-30px">
+                    <div class="col-xs-12">
+                        <h3>Skills you'll again</h3>
+                        <ul class="row row-centered">
+                            @foreach ($info_course->tags as $key => $tag)
+                            <?php
+                            if($key == 4){
+                                break;
+                            } 
+                            ?>
+                            <div class="col-md-3 col-sm-4 col-xs-6 full-width-480p col-centered">
+                            <a href="/tags/{{$tag->slug}}">
+                                <li class="css-course-tag" style="color: #000000;">{{ $tag->name }}</li>
+                            </a>
+                            </div>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            @endif
             <div class="lessons clearfix">
                 <div class="col-sm-8" id="box_content">
                         @include('components.course-lesson-list')
                 </div>
                 <?php $requirements = json_decode($info_course->requirement); ?>
-                @if ($requirements != '')                    
+                @if ($requirements != '')
                 <div class="col-sm-4">
                     <div class="requirement" id="box_requirements">
                         <h3>Requirement</h3>
                         <ul>
                             @foreach ($requirements as $requirement)
-                            <li>{!! $requirement !!}</li>    
+                            <li>{!! $requirement !!}</li>
                             @endforeach
                         </ul>
                     </div>

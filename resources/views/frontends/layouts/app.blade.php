@@ -305,7 +305,7 @@
                             <div class="pull-right">
                                 <ul class="unica-acc-zone db-item">
                                     @if(Auth::check())
-                                    <li><a href="{{ url('user/student/course') }}" class="unica-active-course"><p class="hidden-md hidden-xs hidden-sm">Start Learning</p></a></li>
+                                    <li><a href="{{ url('user/student/course') }}" class="unica-active-course responsive-start-learning"><p class="hidden-md hidden-xs hidden-sm">Start Learning</p></a></li>
                                     </li>
                                     @endif
                                     <li>

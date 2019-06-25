@@ -5,7 +5,7 @@
     <div class="box-course">
         <a href="{{ url('/') }}/course/{{ $slug }}" title="{{ $title }}" class="course-box-slider pop">
             <div class="img-course">
-            	<img class="img-responsive"
+            	<img class="img-responsive img-full-width"
                     src="{{ $image }}"
                     alt="{{ $title }}">
                 @if (isset($heart))

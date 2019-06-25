@@ -28,7 +28,7 @@
 					@else
 							<div class="col-sm-6 item">
 								<a href="{{ url('/') }}/tags/{{ $tag->slug }}" title="{{ $tag->name }}" class="thumbnail-img">
-									<img class="" src="{{ url('/frontend/'.$tag->image) }}" alt="{{ $tag->name }}" >
+									<img class="box-full-height" src="{{ url('/frontend/'.$tag->image) }}" alt="{{ $tag->name }}" >
 									<div class="explore">
 										<h4>{{ $tag->name }}</h4>
 										<p>Over {{ $tag->course_count }} courses</p>

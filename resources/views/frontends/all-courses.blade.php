@@ -3,15 +3,19 @@
     <div class="top-course">
         <div class="row">
             <div class="col-sm-12 clearfix title-module-home">
+                <div class="col-sm-4">
                 <div class="pull-left">
                     <h2>All Courses</h2>
                 </div>
+                </div>
+                <div class="col-sm-8">
                 <div class="pull-right">
                     <ul class="nav nav-tabs">
                         <li class="active"><a data-toggle="tab" href="#best-seller">Bestseller</a></li>
                         <li><a data-toggle="tab" href="#menu1">New</a></li>
                         <li><a data-toggle="tab" href="#menu2">Trendding</a></li>
                     </ul>
+                </div>
                 </div>
             </div>
             <div class="col-sm-12">
