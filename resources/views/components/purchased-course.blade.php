@@ -38,15 +38,6 @@
                         {{ $author }}
                     </span>
                     <br>
-                    {{-- <span class="pull-left">
-                        @include(
-                            'components.vote', 
-                            [
-                                'rate' => intval($star_count) / intval($vote_count),
-                                'rating_number' => $vote_count,
-                            ]
-                        )
-                    </span> --}}
                 </div>
                 <div class="progress">
                     <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{$video_done_percent}}" aria-valuemin="0" aria-valuemax="100" style="width: {{$video_done_percent}}%;">

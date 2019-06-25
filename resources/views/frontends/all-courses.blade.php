@@ -16,7 +16,7 @@
                     <ul class="nav nav-tabs">
                         <li class="active"><a data-toggle="tab" href="#best-seller">Bestseller</a></li>
                         <li><a data-toggle="tab" href="#menu1">New</a></li>
-                        <li><a data-toggle="tab" href="#menu2">Trendding</a></li>
+                        <li><a data-toggle="tab" href="#menu2">Trending</a></li>
                     </ul>
                 </div>
             </div>

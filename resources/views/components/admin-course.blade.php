@@ -192,7 +192,10 @@
             <div class="modal-body">
                 <div class="row">
                     <ul id="sortable" class="unit-holder-{{ $course->id }}">
-                        <li class="ui-state-default"><i class="fas fa-sort"></i> <span class="unit-content">Item 1 </span> <i class="fas fa-trash remove-unit" id="remove-unit"></i><i class="fas fa-edit edit-unit" id="edit-unit"></i></li>
+                        <?php //dd($course->units); ?>
+                        @foreach($course->units as $key => $unit)
+                        <li class="ui-state-default" data-unit-id="{{ $unit->id }}" data-unit-key="{{ $key }}"><i class="fas fa-sort"></i> <span class="unit-content">{{ $unit->name }}</span> <i class="fas fa-trash remove-unit" id="remove-unit-{{ $unit->id }}" data-unit-id="{{ $unit->id }}" data-course-id="{{ $course->id }}"></i><i class="fas fa-edit edit-unit" id="edit-unit-{{ $unit->id }}" data-unit-id="{{ $unit->id }}" data-course-id="{{ $course->id }}"></i></li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
@@ -208,30 +211,165 @@
         $( "#listUnit{{ $course->id }} #sortable" ).sortable({
             placeholder: "ui-state-highlight",
             update: function( event, ui ) {
-                saveUnit({{ $course->id }})
+                // check key begin vs after
+                var data = [];
+                $.each($( "#listUnit{{ $course->id }} li" ), function( index, value ) {
+                    if(index != $(value).attr('data-unit-key'))
+                    data.push({
+                        id: $(value).attr('data-unit-id'),
+                        index: index,
+                    });
+                });
+                // end check key 
+                $.ajax({
+                    method: "PUT",
+                    url: "{{ url('/') }}/user/units/sort",
+                    data: {
+                        data: JSON.stringify( data )
+                    },
+                    dataType: 'json',
+                    success: function (response) {
+
+                    },
+                    error: function (error) {
+                        var obj_errors = error.responseJSON.errors;
+                        // console.log(obj_errors)
+                        var txt_errors = '';
+                        for (k of Object.keys(obj_errors)) {
+                            txt_errors += obj_errors[k][0] + '</br>';
+                        }
+                        Swal.fire({
+                            type: 'error',
+                            html: txt_errors,
+                        })
+                    }
+                });
+                addEvent()
             }
         });
         $( "#listUnit{{ $course->id }} #sortable" ).disableSelection();
 
         $("#listUnit{{ $course->id }} #add-unit-btn").click(function(){
-            var html = '<li class="ui-state-default"><i class="fas fa-sort"></i> <span class="unit-content">Item 1 </span> <i class="fas fa-trash remove-unit" id="remove-unit"></i><i class="fas fa-edit edit-unit" id="edit-unit"></i></li>';
-            $("#listUnit{{ $course->id }} #sortable").append(html);
-            $("#listUnit{{ $course->id }} #sortable").sortable('refresh');
-            addEvent();
+            var data = {
+                name: "Item 1",
+                course_id: {{ $course->id }}
+            };
+
+            $.ajax({
+                method: "POST",
+                url: "{{ url('user/units/store') }}",
+                data: data,
+                dataType: 'json',
+                success: function (response) {
+                    if(response.status == 200){
+                        console.log(response.unit.data.id);
+                        var html = '<li class="ui-state-default"><i class="fas fa-sort"></i> <span class="unit-content">Item 1 </span> <i class="fas fa-trash remove-unit" id="remove-unit-'+response.unit.data.id+'" data-unit-id="'+response.unit.data.id+'" data-course-id="{{ $course->id }}"></i><i class="fas fa-edit edit-unit" id="edit-unit-'+response.unit.data.id+'" data-unit-id="'+response.unit.data.id+'" data-course-id="{{ $course->id }}"></i></li>';
+                        $("#listUnit{{ $course->id }} #sortable").append(html);
+                        $("#listUnit{{ $course->id }} #sortable").sortable('refresh');
+                        addEvent();
+                    }
+                },
+                error: function (error) {
+                    var obj_errors = error.responseJSON.errors;
+                    // console.log(obj_errors)
+                    var txt_errors = '';
+                    for (k of Object.keys(obj_errors)) {
+                        txt_errors += obj_errors[k][0] + '</br>';
+                    }
+                    Swal.fire({
+                        type: 'error',
+                        html: txt_errors,
+                    })
+                }
+            });
         })
 
-        addEvent();
+        addEvent()
         function addEvent(){
-            $("#listUnit{{ $course->id }} #edit-unit").off('click');
-            $("#listUnit{{ $course->id }} #remove-unit").off('click');
-            
-            $("#listUnit{{ $course->id }} #edit-unit").click(function(){
-                alert($(this).parent().find('span.unit-content').html());
+            $("#listUnit{{ $course->id }} .edit-unit").off('click')
+            $("#listUnit{{ $course->id }} .remove-unit").off('click')
+            $("#listUnit{{ $course->id }} .save-unit").off('click')
+
+            $("#listUnit{{ $course->id }} .save-unit").click(function(){
+                var content = $('#unit-input').val()
+                var html = '<i class="fas fa-sort"></i> <span class="unit-content">'+content+'</span> <i class="fas fa-trash remove-unit" id="remove-unit" data-id="{{ $course->id }}"></i><i class="fas fa-edit edit-unit" id="edit-unit" data-id="{{ $course->id }}"></i>'
+                var parent = $(this).parent()
+                var name = parent.find('input').val()
+
+                // send data to server
+                var unit_id = $(this).attr('data-unit-id')
+                var data = {
+                    name: name
+                }
+
+                $.ajax({
+                    method: "PUT",
+                    url: "{{ url('/') }}/user/units/"+unit_id+"/update",
+                    data: data,
+                    dataType: 'json',
+                    success: function (response) {
+                        if(response.status == 200){
+                            parent.find('input').remove()
+                            parent.find('i.save-unit').remove()
+                            parent.append(html)
+                        }
+                    },
+                    error: function (error) {
+                        var obj_errors = error.responseJSON.errors;
+                        // console.log(obj_errors)
+                        var txt_errors = '';
+                        for (k of Object.keys(obj_errors)) {
+                            txt_errors += obj_errors[k][0] + '</br>';
+                        }
+                        Swal.fire({
+                            type: 'error',
+                            html: txt_errors,
+                        })
+                    }
+                });
+                // end send data to server
+                addEvent()
             })
 
-            $("#listUnit{{ $course->id }} #remove-unit").click(function(){
-                $(this).parent().remove();
-                $("#listUnit{{ $course->id }} #sortable").sortable('refresh');
+            $("#listUnit{{ $course->id }} .edit-unit").click(function(){
+                var unit_id = $(this).attr('data-unit-id');
+                var content = $(this).parent().find('span.unit-content').html()
+                var html = "<input class='form-control' id='unit-input' value='" + content +"'><i class='fas fa-check save-unit' id='btn-save-unit' data-unit-id='"+unit_id+"'></i>"
+                $(this).parent().html(html);
+                addEvent()
+            })
+
+            $("#listUnit{{ $course->id }} .remove-unit").click(function(){
+                var unit_id = $(this).attr('data-unit-id')
+                var sefl = $(this)
+                var data = {
+                    id: unit_id
+                };
+
+                $.ajax({
+                    method: "DELETE",
+                    url: "{{ url('user/units/delete') }}",
+                    data: data,
+                    dataType: 'json',
+                    success: function (response) {
+                        if(response.status == 200){
+                            sefl.parent().remove()
+                            $("#listUnit{{ $course->id }} #sortable").sortable('refresh')
+                        }
+                    },
+                    error: function (error) {
+                        var obj_errors = error.responseJSON.errors;
+                        // console.log(obj_errors)
+                        var txt_errors = '';
+                        for (k of Object.keys(obj_errors)) {
+                            txt_errors += obj_errors[k][0] + '</br>';
+                        }
+                        Swal.fire({
+                            type: 'error',
+                            html: txt_errors,
+                        })
+                    }
+                });
             })
         }
 

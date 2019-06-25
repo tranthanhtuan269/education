@@ -147,7 +147,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('reports/store', 'Frontends\ReportController@store')->name('reportsVideo.store');
     Route::post('user-course/update-watched', 'Frontends\VideoPlayerController@updateWatched');
     Route::get('user/logout', 'Frontends\UserController@logout')->name('logout');
-    
+
+    // Route::get('cart/payment/checkout-step', 'Frontends\HomeController@showMethodSelector');
+    Route::get('cart/payment/method-selector', 'Frontends\HomeController@showMethodSelector');
+    Route::get('cart/payment/getFinalPrice', 'Frontends\HomeController@getFinalPrice');
+
     Route::group(['prefix' => 'user'],function () {
         Route::put('change-pass-ajax', 'Frontends\UserController@changePassAjax');
         Route::get('logout', 'Frontends\UserController@logout');
@@ -177,6 +181,13 @@ Route::group(['middleware' => 'auth'], function () {
             Route::post('store', 'Backends\CourseController@store');
             Route::put('{id}/update', 'Backends\CourseController@update');
             Route::delete('delete', 'Backends\CourseController@destroy');
+        });
+
+        Route::group(['prefix' => 'units'],function () {
+            Route::post('store', 'Backends\UnitController@store');
+            Route::put('{id}/update', 'Backends\UnitController@update');
+            Route::put('sort', 'Backends\UnitController@sort');
+            Route::delete('delete', 'Backends\UnitController@destroy');
         });
 
         Route::get('register-teacher', 'Frontends\UserController@registerTeacher'); 

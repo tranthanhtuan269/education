@@ -91,7 +91,7 @@ class Course extends Model
 
     public function units()
     {
-    	return $this->hasMany('App\Unit');
+    	return $this->hasMany('App\Unit')->orderBy('index');
     }
 
     public function comments()
