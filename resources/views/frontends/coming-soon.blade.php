@@ -51,7 +51,7 @@ hr {
   <div class="middle">
     <h1>COMING SOON</h1>
     <hr>
-    <p>10 days left</p>
+    <p>35 days left</p>
   </div>
   {{-- <div class="bottomleft">
     <p>Some text</p>

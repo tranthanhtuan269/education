@@ -13,18 +13,14 @@ class DocumentsTableSeeder extends Seeder
      */
     public function run()
     {
-		$faker = Faker\Factory::create();
-
         $videos = Video::get();
         foreach($videos as $key => $video){
-            for ($i=0; $i < 5; $i++) { 
-                $document = new Document;
-                $document->title = $faker->catchPhrase;
-                $document->video_id = $video->id;
-                $document->url_document = 'https://mshare.io/file/sDosXWr';
-                $document->size = rand(10,100);
-                $document->save();
-            }
+            $document = new Document;
+            $document->title = "Làm giàu ko khó " . ($key + 1);
+            $document->video_id = $video->id;
+            $document->url_document = 'https://mshare.io/file/sDosXWr';
+            $document->size = rand(10,100);
+            $document->save();
         }
     }
 }

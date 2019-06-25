@@ -153,40 +153,6 @@
 
                             </ul>
                         </li>
-                 
-                        <li class="treeview @if ( Request::is('admincp/users*') || Request::is('admincp/permissions*') || Request::is('admincp/roles*') ) active @endif">
-                            <a href="javascript:void(0)">
-                                <i class="fa fa-user-md"></i>
-                                <span>Thông báo</span>
-                                <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                @if (Helper::checkPermissions('users.list', $list_roles)) 
-                                    <li class="@if ( Request::is('admincp/users/email*') ) active @endif">
-                                        <a href="{{ url('/') }}/admincp/users/email"><i class="fa fa-minus"></i> Emails</a>
-                                    </li>
-                                @endif
-                            </ul>
-                        </li>
-                 
-                        <li class="treeview @if ( Request::is('admincp/users*') || Request::is('admincp/permissions*') || Request::is('admincp/roles*') ) active @endif">
-                            <a href="javascript:void(0)">
-                                <i class="fa fa-user-md"></i>
-                                <span>Phê duyệt</span>
-                                <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                @if (Helper::checkPermissions('users.list', $list_roles)) 
-                                    <li class="@if ( Request::is('admincp/teachers*') ) active @endif">
-                                        <a href="{{ url('/') }}/admincp/teachers"><i class="fa fa-minus"></i> Yêu cầu làm giảng viên</a>
-                                    </li>
-                                @endif
-                            </ul>
-                        </li>
 
                     </ul>
                 </section>

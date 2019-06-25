@@ -112,7 +112,7 @@ class CoursesTableSeeder extends Seeder
 				$courses->short_description = "Learn one of the most famous front-end framework!";
 				// $courses->slug = Str::slug($courses->name, '-');
 				$courses->image = 'course_'.$i.'.jpg';
-				$courses->category_id = rand(0,209);
+				$courses->category_id = $course[1];
 				$courses->price = rand(2, 5)*100000;
 				$courses->real_price = rand(6,9)*100000;
 				$courses->from_sale = "2019-05-01";

@@ -1,10 +1,4 @@
 @if (count($best_seller_course) > 0 || count($new_course) > 0 ||  count($feature_course) > 0)
-<?php
-    $list_bought = [];
-    if(Auth::check() && strlen(Auth::user()->bought) > 0){
-        $list_bought = \json_decode(Auth::user()->bought);
-    }
-?>
 <div class="container">
     <div class="top-course">
         <div class="row">
@@ -19,7 +13,7 @@
                     <ul class="nav nav-tabs">
                         <li class="active"><a data-toggle="tab" href="#best-seller">Bestseller</a></li>
                         <li><a data-toggle="tab" href="#menu1">New</a></li>
-                        <li><a data-toggle="tab" href="#menu2">Trending</a></li>
+                        <li><a data-toggle="tab" href="#menu2">Trendding</a></li>
                     </ul>
                 </div>
                 </div>
@@ -29,26 +23,28 @@
                     <div id="best-seller" class="tab-pane fade in active">
                         <div class="row">
                             @foreach ($best_seller_course as $best_seller)
+                                <?php
+                                    $random_name = ['Steve Rogers', 'Natasha Romanoff', 'Tony Stark', 'Peter Quill', "Bruce Banner", "Stephen Strange"];
+                                    $lecturers = count($best_seller->Lecturers()) > 1 ? 'Nhiều tác giả' : (count($best_seller->Lecturers()) > 0 ? $best_seller->Lecturers()[0]->user->name : "Courdemy");
+                                ?>
                                 @include(
                                     'components.course', 
                                     [   
-                                        'course' => $best_seller,
-                                        'list_course' => $list_bought
-                                        // 'id' => $best_seller->id,
-                                        // 'slug' => $best_seller->slug,
-                                        // 'image' => url('/frontend/images/'.$best_seller->image),
-                                        // 'rawImage' => $best_seller->image,                                 
-                                        // 'title' => $best_seller->name,
-                                        // 'author' => $lecturers,
-                                        // 'star_count' => $best_seller->star_count,
-                                        // 'vote_count' => $best_seller->vote_count,
-                                        // 'time' => $best_seller->approx_time,
-                                        // 'view_number' => $best_seller->view_count,
-                                        // 'price' => $best_seller->real_price,
-                                        // 'sale' => $best_seller->price,
-                                        // 'from_sale' => $best_seller->from_sale,
-                                        // 'to_sale' => $best_seller->to_sale,
-                                        // 'bought' => $best_seller->checkCourseNotLearning(),
+                                        'id' => $best_seller->id,
+                                        'slug' => $best_seller->slug,
+                                        'image' => url('/frontend/images/'.$best_seller->image),
+                                        'rawImage' => $best_seller->image,                                 
+                                        'title' => $best_seller->name,
+                                        'author' => $lecturers,
+                                        'star_count' => $best_seller->star_count,
+                                        'vote_count' => $best_seller->vote_count,
+                                        'time' => $best_seller->approx_time,
+                                        'view_number' => $best_seller->view_count,
+                                        'price' => $best_seller->real_price,
+                                        'sale' => $best_seller->price,
+                                        'from_sale' => $best_seller->from_sale,
+                                        'to_sale' => $best_seller->to_sale,
+                                        'bought' => $best_seller->checkCourseNotLearning(),
                                     ]
                                 )
                             @endforeach
@@ -67,23 +63,21 @@
                             @include(
                                 'components.course', 
                                 [   
-                                    'course' => $new,
-                                    'list_course' => $list_bought
-                                    // 'id' => $new->id,
-                                    // 'slug' => $new->slug,
-                                    // 'image' => url('/frontend/images/'.$new->image),
-                                    // 'rawImage' => $new->image,                                 
-                                    // 'title' => $new->name,
-                                    // 'author' => $lecturers,
-                                    // 'star_count' => $new->star_count,
-                                    // 'vote_count' => $new->vote_count,
-                                    // 'time' => $new->approx_time,
-                                    // 'view_number' => $new->view_count,
-                                    // 'price' => $new->real_price,
-                                    // 'sale' => $new->price,
-                                    // 'from_sale' => $new->from_sale,
-                                    // 'to_sale' => $new->to_sale,
-                                    // 'bought' => $new->checkCourseNotLearning(),
+                                    'id' => $new->id,
+                                    'slug' => $new->slug,
+                                    'image' => url('/frontend/images/'.$new->image),
+                                    'rawImage' => $new->image,                                 
+                                    'title' => $new->name,
+                                    'author' => $lecturers,
+                                    'star_count' => $new->star_count,
+                                    'vote_count' => $new->vote_count,
+                                    'time' => $new->approx_time,
+                                    'view_number' => $new->view_count,
+                                    'price' => $new->real_price,
+                                    'sale' => $new->price,
+                                    'from_sale' => $new->from_sale,
+                                    'to_sale' => $new->to_sale,
+                                    'bought' => $new->checkCourseNotLearning(),
 
                                 ]
                             )
@@ -102,23 +96,21 @@
                             @include(
                                 'components.course', 
                                 [
-                                    'course' => $feature,
-                                    'list_course' => $list_bought
-                                    // 'id' => $feature->id,
-                                    // 'slug' => $feature->slug,
-                                    // 'image' => url('/frontend/images/'.$feature->image),
-                                    // 'rawImage' => $feature->image,                                 
-                                    // 'title' => $feature->name,
-                                    // 'author' => $lecturers,
-                                    // 'star_count' => $feature->star_count,
-                                    // 'vote_count' => $feature->vote_count,
-                                    // 'time' => $feature->approx_time,
-                                    // 'view_number' => $feature->view_count,
-                                    // 'price' => $feature->real_price,
-                                    // 'sale' => $feature->price,
-                                    // 'from_sale' => $feature->from_sale,
-                                    // 'to_sale' => $feature->to_sale,
-                                    // 'bought' => $feature->checkCourseNotLearning(),
+                                    'id' => $feature->id,
+                                    'slug' => $feature->slug,
+                                    'image' => url('/frontend/images/'.$feature->image),
+                                    'rawImage' => $feature->image,                                 
+                                    'title' => $feature->name,
+                                    'author' => $lecturers,
+                                    'star_count' => $feature->star_count,
+                                    'vote_count' => $feature->vote_count,
+                                    'time' => $feature->approx_time,
+                                    'view_number' => $feature->view_count,
+                                    'price' => $feature->real_price,
+                                    'sale' => $feature->price,
+                                    'from_sale' => $feature->from_sale,
+                                    'to_sale' => $feature->to_sale,
+                                    'bought' => $feature->checkCourseNotLearning(),
                             
                                 ]
                             )
