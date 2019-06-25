@@ -27,31 +27,21 @@
                                 <div class="modal-content">
                                     <div class="modal-header">				
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <div class="modal-title"><b>Change password</b></div>
+                                        <h4 class="modal-title">Change password</h4>
                                     </div>
                                     <div class="modal-body">
-                                        <p class="change-password-notice">Change your password here.</p>
                                         <form action="" method="post">
                                             <div class="form-group">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i class="fas fa-lock fa-fw fa-md"></i></span>
-                                                    <input type="password" class="form-control" placeholder="Current Password" name="pass-old">
-                                                </div>				
+                                                <input type="password" class="form-control" placeholder="Password old" name="pass-old">					
                                             </div>
                                             <div class="form-group">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i class="fas fa-lock fa-fw fa-md"></i></span>
-                                                    <input type="password" class="form-control" placeholder="New Password" name="pass-new">
-                                                </div>				
+                                                <input type="password" class="form-control" placeholder="Password new" name="pass-new">					
                                             </div>
                                             <div class="form-group">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i class="fas fa-lock fa-fw fa-md"></i></span>
-                                                    <input type="password" class="form-control" placeholder="Re-type New Password" name="confirm-pass">
-                                                </div>			
+                                                <input type="password" class="form-control" placeholder="Retype new password" name="confirm-pass">					
                                             </div>
                                             <div class="form-group">
-                                                <input type="button" class="btn btn-danger btn-block btn-lg" value="Change Password" onclick="changePassAjax()">
+                                                <input type="button" class="btn btn-primary btn-block btn-lg" value="Confirm" onclick="changePassAjax()">
                                             </div>
                                         </form>				
                                     </div>
@@ -61,86 +51,82 @@
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="buyed">
-                            <div class="row">
-                                <form id="w0" action="/dashboard/user/profile" method="post" enctype="multipart/form-data">
-                                    <div class="col-md-6 col-sm-6">
-                                        <div class="form-group">
-                                            <label>Choose Image</label>
-                                            <div class="dropzone dz-clickable" id="myDrop">
-                                                <div class="dz-default dz-message" data-dz-message="">
-                                                    <span>Drop files here to upload</span>
+                                <div class="row">
+                                    <form id="w0" action="/dashboard/user/profile" method="post" enctype="multipart/form-data">
+                                        <div class="col-md-6 col-sm-6">
+                                            <div class="form-group">
+                                                <label>Choose Image</label>
+                                                <div class="dropzone dz-clickable" id="myDrop"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6">
+                                            <div class="form-group">
+                                                <label>Full name</label>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" name="name" value="{{ Auth::user()->name }}">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label> Email </label>
+                                                <div class="form-group">
+                                                    <input type="email" class="form-control" name="email" value="{{ Auth::user()->email }}" disabled>
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Phone</label>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" name="phone" value="{{ Auth::user()->phone }}">
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Birthday</label>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control"  id="datepicker" name="birthday"  pattern="\d{1,2}/\d{1,2}/\d{4}" value="{{ (Auth::user()->birthday != '') ? Helper::formatDate('Y-m-d', Auth::user()->birthday, 'd/m/Y') : '' }}" autocomplete="off">
+                                                    <script>
+                                                      $(function() {
+                                                        $( "#datepicker" ).datepicker({
+                                                                changeMonth: true,
+                                                                changeYear: true,
+                                                                yearRange: "1950:2020",
+                                                                dateFormat: 'dd/mm/yy',
+                                                                maxDate: new Date(),
+                                                            }	
+                                                        );
+                                                      });
+                                                    </script>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Gender</label>
+                                                <div class="form-group">
+                                                    <select class="form-control" name="gender">
+                                                        <option value="1" @if(Auth::user()->gender == 1) selected @endif>Female</option>
+                                                        <option value="2" @if(Auth::user()->gender == 2) selected @endif>Male</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Address</label>
+                                                <div class="form-group">
+                                                    <textarea class="form-control" rows="4" cols="50" name="address">{{ Auth::user()->address }}</textarea>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-6 col-sm-6">
-                                        <div class="form-group">
-                                            <label>Full name</label>
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" name="name" value="{{ Auth::user()->name }}">
+                                        <div class="col-sm-12">
+                                            <div class="form-group text-center" style="padding-top: 5px;">
+                                                <button class="btn btn-success" id="save-profile" type="button"><i class="fa fa-save"></i> Save</button>
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label> Email </label>
-                                            <div class="form-group">
-                                                <input type="email" class="form-control" name="email" value="{{ Auth::user()->email }}" disabled>
-
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Phone</label>
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" name="phone" value="{{ Auth::user()->phone }}">
-
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Birthday</label>
-                                            <div class="form-group">
-                                                <input type="text" class="form-control"  id="datepicker" name="birthday"  pattern="\d{1,2}/\d{1,2}/\d{4}" value="{{ (Auth::user()->birthday != '') ? Helper::formatDate('Y-m-d', Auth::user()->birthday, 'd/m/Y') : '' }}" autocomplete="off">
-                                                <script>
-                                                  $(function() {
-                                                    $( "#datepicker" ).datepicker({
-                                                        changeMonth: true,
-                                                        changeYear: true,
-                                                        yearRange: "1950:2020",
-                                                        dateFormat: 'dd/mm/yy',
-                                                        maxDate: new Date(),
-                                                    }	
-                                                    );
-                                                });
-                                            </script>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Gender</label>
-                                        <div class="form-group">
-                                            <select class="form-control" name="gender">
-                                                <option value="1" @if(Auth::user()->gender == 1) selected @endif>Female</option>
-                                                <option value="2" @if(Auth::user()->gender == 2) selected @endif>Male</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Address</label>
-                                        <div class="form-group">
-                                            <textarea class="form-control" rows="4" cols="50" name="address">{{ Auth::user()->address }}</textarea>
-                                        </div>
-                                    </div>
+                                    </form>
                                 </div>
-                                <div class="col-sm-12">
-                                    <div class="form-group text-center" style="padding-top: 5px;">
-                                        <button class="btn btn-success" id="save-profile" type="button"><i class="fa fa-save"></i> Save</button>
-                                    </div>
-                                </div>
-                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 <script src="{{ asset('frontend/js/dropzone.js') }}"></script>
 <script>
@@ -158,7 +144,7 @@
             $('.img-link').attr("href","javascript:;");
             $('.img-link').css("cursor","move");
         });
-
+            
         var link_base64;
         var myDropzone = new Dropzone("div#myDrop", 
         { 
@@ -251,34 +237,34 @@
                     type: 'error',
                     html: 'Field birthday is invalid!',
                 })
-                return false;
+				return false;
             }
             
             $.ajaxSetup(
             {
                 headers:
                 {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
             var birthday = $('input[name=birthday]').val().trim();
             if (birthday != '') {
                 var data = {
-                    link_base64:link_base64,
-                    name: $('input[name=name]').val().trim(),
-                    phone: $('input[name=phone]').val().trim(),
-                    birthday: $('input[name=birthday]').val().trim(),
-                    gender: $('select[name=gender]').val(),
-                    address: $('textarea[name=address]').val().trim(),
-                };
+                        link_base64:link_base64,
+                        name: $('input[name=name]').val().trim(),
+                        phone: $('input[name=phone]').val().trim(),
+                        birthday: $('input[name=birthday]').val().trim(),
+                        gender: $('select[name=gender]').val(),
+                        address: $('textarea[name=address]').val().trim(),
+                    };
             } else {
                 var data = {
-                    link_base64:link_base64,
-                    name: $('input[name=name]').val().trim(),
-                    phone: $('input[name=phone]').val().trim(),
-                    gender: $('select[name=gender]').val(),
-                    address: $('textarea[name=address]').val().trim(),
-                };
+                        link_base64:link_base64,
+                        name: $('input[name=name]').val().trim(),
+                        phone: $('input[name=phone]').val().trim(),
+                        gender: $('select[name=gender]').val(),
+                        address: $('textarea[name=address]').val().trim(),
+                    };
             }
 
 
@@ -327,8 +313,8 @@
 
             return;
         });  
-
-
+                  
+                      
         myDropzone.on("sending", function(file, xhr, formData) {
             var filenames = [];
             
@@ -338,27 +324,26 @@
             
             formData.append('filenames', filenames);
         });
-
+            
         /* Add Files Script*/
         myDropzone.on("success", function(file, message){
             $("#msg").html(message);
             //setTimeout(function(){window.location.href="index.php"},200);
         });
-
+            
         myDropzone.on("error", function (data) {
             $("#msg").html('<div class="alert alert-danger">There is some thing wrong, Please try again!</div>');
         });
-
+            
         myDropzone.on("complete", function(file) {
             //myDropzone.removeFile(file);
         });
-
+            
         myDropzone.on('thumbnail', function(file, dataUri) {
             link_base64 = dataUri;
         });
 
     });
-    
     function changePassAjax(){
         var data = {
             password_old        : $('#myModalChangePass input[name=pass-old]').val(),
@@ -370,7 +355,7 @@
         {
             headers:
             {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
         // console.log(data);
@@ -404,7 +389,7 @@
                 }
             },
             error: function (error) {
-
+            
                 var obj_errors = error.responseJSON.errors;
                 // console.log(obj_errors)
                 var txt_errors = '';

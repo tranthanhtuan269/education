@@ -28,14 +28,4 @@ class Teacher extends Model
     {
         return Teacher::orderBy('student_count', 'DESC')->take(4)->get();
     }
-
-    public static function delMulti($id_list){
-        $checkTeacher = Teacher::whereIn('id', $id_list);
-        return ($checkTeacher->delete() > 0);
-    }
-
-    public static function acceptMulti($id_list, $status){
-        $checkTeacher = Teacher::whereIn('id', $id_list);
-        return ($checkTeacher->update(['status' => $status]) > 0);
-    }
 }

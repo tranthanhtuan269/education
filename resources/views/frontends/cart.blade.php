@@ -15,7 +15,32 @@
     <div class="cart-page-content container">
         
         <div class="row">
-            <div class="cart-item-list col-md-9">             
+            <div class="cart-item-list col-md-9">
+                {{-- @for ($i = 0; $i < 4; $i++)
+                <div class="cart-single-item">
+                    <div class="image">
+                        <img src="frontend/images/course_6.jpg" width="130rem" alt="">
+                    </div>
+                    <div class="course-info">
+                        <div class="course-name">Learn Canva from an Expert Designer: Let's Create a Brand!</div>
+                        <div class="lecturer-info">By Lindsay Marsh, 14+ Years | Graphic Design:Photoshop, Illustrator, Canva, XD</div>
+                    </div>
+                    <div class="actions">
+                        <div class="btn-remove"><i class="far fa-trash-alt"></i></div>
+                    </div>
+                    <div class="single-price">
+                        <div>
+                            <div>
+                                <div class="current-price">120 000 ₫</div>
+                                <div class="initial-price">199.99 ₫</div>
+                            </div>
+                            <i class="fas fa-tag"></i>
+                        </div>
+                    </div>
+                </div>
+                    
+                @endfor --}}
+                    
             </div>
             <div class="checkout-column col-md-3">
                 <div>
@@ -32,9 +57,7 @@
                         </div>
                         <div class="btn-checkout">
                             @if(Auth::check())
-                            <a href="/cart/payment/method-selector">
-                                <button id="btnCartCheckOut"  class="btn btn-danger btnCartCheckout">Checkout</button>
-                            </a>
+                            <button id="btnCartCheckOut" class="btn btn-danger btnCartCheckout">Checkout</button>
                             @else
                             <button class="btn btn-danger btnCartCheckout" data-toggle=modal data-target=#myModalLogin data-dismiss=modal >Checkout</button>
                             @endif
@@ -50,34 +73,14 @@
             </div>
         </div>
     </div>
-    <div class="cart-page-empty">
-        <div class="container text-center">
-            <img src="http://courdemy.local/frontend/images/tab_cart.png" alt="" style="width: 10vw;">
-            <div>
-                    Your cart is empty. Keep shopping to find a course!
-            </div>
-            <div>
-                <a href="/">
-                    <button class="btn">Keep shopping</button>
-                </a>
-            </div>   
-        </div>
-    </div>
 </div>
 
 <script>
     var cart_items = JSON.parse(localStorage.getItem('cart'))
     var totalPrice = 0
     var totalInitialPrice = 0
-    var activeCoupon = ''
     
     $(document).ready(function(){
-        if(cart_items.length < 1){
-            $(".cart-page-empty").addClass('active')
-        }else{
-            $(".cart-page-content").addClass('active')
-        }
-        
         $(".cart-pre-info .course-amount").append(cart_items.length)
         cart_items.forEach((element, index) => {
             
@@ -119,9 +122,6 @@
         }else{
             $(".checkout-column .percent-off").append("<span>"+Math.floor(100-(totalPrice/totalInitialPrice)*100)+"% off</span>")
         }
-
-
-
         $('.btn-remove i').on('click', function(e){
             e.stopPropagation()
             e.preventDefault()
@@ -163,7 +163,8 @@
                     $(".cart-pre-info .course-amount").prepend(cart_items.length)
                     $('.number-in-cart').text(cart_items.length);
 
-                    localStorage.setItem('cart', JSON.stringify(cart_items))                    
+                    localStorage.setItem('cart', JSON.stringify(cart_items))
+                    
                 }
             })
             
@@ -197,14 +198,11 @@
                 request.done((response)=>{
                     console.log(response)
                     if(response.status == 200){
-                        localStorage.setItem('coupon', coupon)
                         return Swal.fire({
                             type:"success",
                             text:"The coupon exists!"
                         })
                     }else{
-                        localStorage.removeItem('coupon')
-                        $('#input-coupon').val('')
                         return Swal.fire({
                             type:"warning",
                             text:"The coupon doesn't exist!"
@@ -215,10 +213,10 @@
         });
 
 
-        $('#btnCartCheckOut').on('click', function(e){            
-        });
+        $('#btnCartCheckOut').on('click', function(e){
+            e.stopPropagation()
+            e.preventDefault()
 
-        function checkout() {
             var coupon = $('#input-coupon').val()
 
             $.ajaxSetup({
@@ -275,7 +273,7 @@
                     }
                 })
             }
-        }
+        });
     })
     
     

@@ -14,7 +14,7 @@
 <section class="content-header">
     
 </section>
-<section class="content page">
+<section class="content">
     <h1 class="text-center font-weight-600">Danh sách email</h1>
     <div class="text-center" style="margin-top: 0.5em">
         {{-- <a href="javascript:;" class="go-box" data-box="box_content">
@@ -46,7 +46,7 @@
                 @if (Helper::checkPermissions('users.email', $list_roles)) 
                     <p class="action-selected-rows">
                         <span >Hành động trên các hàng đã chọn:</span>
-                        <span class="btn btn-info ml-2" id="deleteAllApplied">Xóa</span>
+                        <span class="btn btn-info ml-2" id="apply-all-btn">Xóa</span>
                     </p>  
                 @endif
             </div>
@@ -125,6 +125,7 @@
     </div>
 </section>
 <section>
+
     <div class="modal fade" id="createEmailModal" tabindex="-1">
         <div class="modal-content" >
             <div class="modal-header">
@@ -419,34 +420,30 @@
                     message: "Bạn có chắc chắn muốn xóa ?",
                     okButton: "Đồng ý",
                     onConfirm: function() {
+                        var data    = {
+                            _method             : "DELETE"
+                        };
                         $.ajaxSetup({
                             headers: {
-                              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                              'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
                             }
                         });
                         $.ajax({
-                            url: baseURL+"/admincp/users/delete-email",
-                            data: {
-                                emailId : id
-                            },
-                            method: "GET",
+                            url: baseURL+"/admincp/users/" + id,
+                            data: data,
+                            method: "POST",
                             dataType:'json',
                             beforeSend: function(r, a){
                                 current_page = dataTable.page.info().page;
                             },
                             success: function (response) {
+                                var html_data = '';
                                 if(response.status == 200){
                                   dataTable.page(checkEmptyTable()).draw(false);
-                                  Swal.fire({
-                                      type: 'success',
-                                      text: response.message
-                                  })
+                                  $().toastmessage('showSuccessToast', response.Message);
                                   dataTable.ajax.reload();
                                 }else{
-                                  Swal.fire({
-                                      type: 'error',
-                                      text: response.message
-                                  })
+                                  $().toastmessage('showErrorToast', response.Message);
                                 }
                             },
                             error: function (data) {
@@ -461,56 +458,6 @@
                     nineCorners: false,
                 });
             });
-            
-            $('#deleteAllApplied').off('click')
-            $('#deleteAllApplied').click(function (){
-                Swal.fire({
-                    type: 'warning',
-                    text: 'Are you sure?',
-                    showCancelButton: true,
-                })
-                .then(function (result) {
-                    if(result.value){
-                        var email_id_list = []
-                        $.each($('.check-user'), function (key, value){
-                            if($(this).prop('checked') == true) {
-                                // id_list += $(this).attr("data-column") + ',';
-                                email_id_list.push($(this).attr("data-column"))
-                            }
-                        });
-                        console.log(email_id_list);
-                        if(email_id_list.length > 0){
-                            $.ajaxSetup({
-                                headers: {
-                                    'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
-                                }
-                            });
-                            $.ajax({
-                                method: "GET",
-                                url: baseURL+"/admincp/users/delete-multiple-emails",
-                                data: {
-                                    email_id_list: email_id_list
-                                },
-                                dataType: 'json',
-                                success: function (response) {
-                                    Swal.fire({
-                                        type: 'success',
-                                        text: response.message
-                                    })
-                                    dataTable.ajax.reload(); 
-                                },
-                                error: function (response) {
-                                    Swal.fire({
-                                        type: 'error',
-                                        text: response.message
-                                    })
-                                }
-                            })
-                        }
-                        
-                    }
-                })
-            })
         }
 
         function checkEmptyTable(){
@@ -519,7 +466,68 @@
             }
             return current_page;
         }
-        
+
+        $('#apply-all-btn').click(function (){
+            $.ajsrConfirm({
+                message: "Bạn có chắc chắn muốn xóa ?",
+                okButton: "Đồng ý",
+                onConfirm: function() {
+                    var $id_list = '';
+                    $.each($('.check-user'), function (key, value){
+                        if($(this).prop('checked') == true) {
+                            $id_list += $(this).attr("data-column") + ',';
+                        }
+                    });
+
+                    if ($id_list.length > 0) {
+                        var $id_list = '';
+                        $.each($('.check-user'), function (key, value){
+                            if($(this).prop('checked') == true) {
+                                $id_list += $(this).attr("data-column") + ',';
+                            }
+                        });
+
+                        if($id_list.length > 0){
+                            var data = {
+                                id_list:$id_list,
+                                _method:'delete'
+                            };
+                            $.ajaxSetup({
+                                headers: {
+                                  'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
+                                }
+                            });
+                            $.ajax({
+                                type: "POST",
+                                url: "{{ url('/') }}/admincp/users/delMultiUser",
+                                data: data,
+                                success: function (response) {
+                                    var obj = $.parseJSON(response);
+                                    if(obj.status == 200){
+                                        $.each($('.check-user'), function (key, value){
+                                            if($(this).prop('checked') == true) {
+                                                $(this).parent().parent().hide("slow");
+                                            }
+                                        });
+                                        dataTable.ajax.reload(); 
+                                        $().toastmessage('showSuccessToast', obj.Message);
+                                    }
+                                },
+                                error: function (data) {
+                                    if(data.status == 401){
+                                      window.location.replace(baseURL);
+                                    }else{
+                                     $().toastmessage('showErrorToast', errorConnect);
+                                    }
+                                }
+                            });
+                        }
+                    }
+                },
+                nineCorners: false,
+            });
+
+        });
 
         function clearFormCreate(){
             $('#userName_Ins').val('')
@@ -559,7 +567,7 @@
                     title : subject,
                     content : content,
                 },
-                dataType:'json',
+                dataType:'json'
             })
             request.done( function (response) {
                 $("#subject_Ins").val("")
@@ -569,7 +577,6 @@
                 })
                 if(response.status == 200){
                     $("#createEmailModal").modal("hide")
-                    dataTable.ajax.reload();
                 }
             })
         })
@@ -581,7 +588,7 @@
 
             $.ajaxSetup({
                 headers: {
-                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
                 }
             });
 
@@ -603,7 +610,6 @@
                 })
                 if(response.status == 200){
                     $("#editEmailModal").modal("hide")
-                    dataTable.ajax.reload();
                 }
             })
         })

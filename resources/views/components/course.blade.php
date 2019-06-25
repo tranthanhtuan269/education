@@ -32,28 +32,28 @@
              </div>
                     
             <div class="content-course">
-                <h3 class="title-course">{{ $course->name }}</h3>
+                <h3 class="title-course">{{ $title }}</h3>
                 <div class="clearfix" style="line-height:1.7">
                     <span class="name-teacher pull-left">
-                        {{ $lecturers }}
+                        {{ $author }}
                     </span>
                     <br>
                     <span class="pull-left">
                         @include(
                             'components.vote', 
                             [
-                                'rate' => intval($course->star_count) / intval($course->vote_count),
-                                'rating_number' => $course->vote_count,
+                                'rate' => intval($star_count) / intval($vote_count),
+                                'rating_number' => $vote_count,
                             ]
                         )
                     </span>
                 </div>
                 <div class="time-view">
                     <span class="time">
-                        <i class="fas fa-stopwatch"></i> {{ $course->approx_time }}h
+                        <i class="fas fa-stopwatch"></i> {{ $time }}h
                     </span>
                     <span class="view pull-right">
-                        <i class="fa fa-eye" aria-hidden="true"></i> {!! number_format($course->view_number, 0, ',' , '.') !!} views
+                        <i class="fa fa-eye" aria-hidden="true"></i> {!! number_format($view_number, 0, ',' , '.') !!} views
                     </span>
                 </div>
                 @if (isset($setup))  
@@ -65,23 +65,29 @@
                 @endif
 
                 <?php
-                    // $check_time_sale = false;
-                    // if ($course->from_sale != '' && $course->to_sale != '') {
-                    //     $start_sale = strtotime($course->from_sale.' 00:00:00');
-                    //     $end_sale = strtotime($course->to_sale.' 23:59:59');
-                    //     if (time() >= $start_sale && time() <= $end_sale) {
-                    //         $check_time_sale = true;
-                    //     }
-                    // }
+                    $check_time_sale = false;
+                    if ($from_sale != '' && $to_sale != '') {
+                        $start_sale = strtotime($from_sale.' 00:00:00');
+                        $end_sale = strtotime($to_sale.' 23:59:59');
+                        // $date_to = new DateTime($to_sale);
+                        // $date_from = new DateTime(date('Y-m-d'));
+                        if (time() >= $start_sale && time() <= $end_sale) {
+                            $check_time_sale = true;
+                        }
+                    }
                 ?>
                 <div class="price-course">
+                    @if ($check_time_sale == true)                                        
                     <span class="price line-through">
-                        {!! number_format($course->real_price, 0, ',' , '.') !!}đ
+                        {!! number_format($price, 0, ',' , '.') !!}đ
                     </span>
-                    @if ($course->real_price != $course->price)
                     <span class="sale pull-right">
-                        {!! number_format($course->price, 0, ',' , '.') !!}đ
-                    </span>                        
+                        {!! number_format($sale, 0, ',' , '.') !!}đ
+                    </span>
+                    @else
+                    <span class="price">
+                        {!! number_format($price, 0, ',' , '.') !!}đ
+                    </span>
                     @endif
                 </div>
                 @if (isset($btn_start_learning))  
