@@ -25,13 +25,13 @@ class HomeController extends Controller
     {
         $type = trim($request->get('type'));
         if ($type == 'best-seller') {
-            $list_course = Course::orderBy('sale_count', 'desc')->paginate(16);
+            $list_course = Course::where('status',1)->orderBy('sale_count', 'desc')->paginate(16);
             $title = 'Best seller';
         } elseif ($type == 'new') {
-            $list_course = Course::orderBy('id', 'desc')->paginate(16);
+            $list_course = Course::where('status',1)->orderBy('id', 'desc')->paginate(16);
             $title = 'New';
         } elseif ($type == 'trendding') {
-            $list_course = Course::where('featured', 1)->orderBy('featured_index', 'asc')->paginate(16);
+            $list_course = Course::where('status',1)->where('featured', 1)->orderBy('featured_index', 'asc')->paginate(16);
             $title = 'Trendding';
         }
 
@@ -42,9 +42,9 @@ class HomeController extends Controller
     {
         $feature_category = Category::withCount('courses')->where('parent_id', '>', 0)->where('featured', 1)->orderBy('featured_index', 'asc')->limit(10)->get();
         // trending = feature courses
-        $feature_course = Course::getCourseNotLearning()->where('featured', 1)->orderBy('featured_index', 'asc')->limit(8)->get();
-        $best_seller_course = Course::getCourseNotLearning()->orderBy('sale_count', 'desc')->limit(8)->get();
-        $new_course = Course::getCourseNotLearning()->orderBy('id', 'desc')->limit(8)->get();
+        $feature_course = Course::where('status',1)->where('featured', 1)->orderBy('featured_index', 'asc')->limit(8)->get();
+        $best_seller_course = Course::where('status',1)->orderBy('sale_count', 'desc')->limit(8)->get();
+        $new_course = Course::where('status',1)->orderBy('id', 'desc')->limit(8)->get();
         $popular_teacher = Teacher::getTeacherBestVote();
         //dd($popular_teacher->userRole);
         return view('frontends.home', compact('feature_category', 'feature_course', 'best_seller_course', 'new_course', 'popular_teacher'));
@@ -56,7 +56,7 @@ class HomeController extends Controller
         $results = [];
         if ($keyword != '') {
             $keyword = trim($request->get('keyword'));
-            $results = Course::getCourseNotLearning()->where('name', 'LIKE', "%$keyword%")->paginate(8);
+            $results = Course::where('status',1)->where('name', 'LIKE', "%$keyword%")->paginate(8);
         }
         return view('frontends.search', compact('results'));
     }
@@ -66,9 +66,9 @@ class HomeController extends Controller
         $cat_id = Category::where('slug', $cat)->value('id');
         if ($cat_id) {
             $tags = Tag::where('category_id', $cat_id)->get();
-            $feature_course = Course::getCourseNotLearning()->where('category_id', $cat_id)->where('featured', 1)->orderBy('featured_index', 'asc')->limit(8)->get();
-            $best_seller_course = Course::getCourseNotLearning()->where('category_id', $cat_id)->orderBy('sale_count', 'desc')->limit(8)->get();
-            $new_course = Course::getCourseNotLearning()->where('category_id', $cat_id)->orderBy('id', 'desc')->limit(8)->get();
+            $feature_course = Course::where('status',1)->where('category_id', $cat_id)->where('featured', 1)->orderBy('featured_index', 'asc')->limit(8)->get();
+            $best_seller_course = Course::where('status',1)->where('category_id', $cat_id)->orderBy('sale_count', 'desc')->limit(8)->get();
+            $new_course = Course::where('status',1)->where('category_id', $cat_id)->orderBy('id', 'desc')->limit(8)->get();
             $popular_teacher = Teacher::getTeacherBestVote();
             return view('frontends.category', compact('category', 'feature_course', 'best_seller_course', 'new_course', 'popular_teacher', 'tags'));
         }
@@ -90,14 +90,14 @@ class HomeController extends Controller
         if (\Auth::check()) {
             if ($course) {
                 $ratingCourse = RatingCourse::where('course_id', $course->id)->where('user_id', \Auth::id())->first();
-                $related_course = Course::getCourseNotLearning()->where('category_id', $course->category_id)->limit(4)->get();
+                $related_course = Course::where('category_id', $course->category_id)->limit(4)->get();
                 $info_course = Course::find($course->id);
                 // dd($info_course->comments[0]->likeCheckUser());
                 return view('frontends.course-detail', compact('related_course', 'info_course', 'unit', 'ratingCourse'));
             }
         } else {
             if ($course) {
-                $related_course = Course::getCourseNotLearning()->where('category_id', $course->category_id)->limit(4)->get();
+                $related_course = Course::where('category_id', $course->category_id)->limit(4)->get();
                 $info_course = Course::find($course->id);
                 return view('frontends.course-detail', compact('related_course', 'info_course', 'unit'));
             }
@@ -128,9 +128,9 @@ class HomeController extends Controller
     {
         $category = Category::get();
         $feature_category = Category::where('featured', 1)->orderBy('featured_index', 'asc')->limit(10)->get();
-        $feature_course = Course::getCourseNotLearning()->where('featured', 1)->orderBy('featured_index', 'asc')->limit(8)->get();
-        $best_seller_course = Course::getCourseNotLearning()->orderBy('sale_count', 'desc')->limit(8)->get();
-        $new_course = Course::getCourseNotLearning()->orderBy('id', 'desc')->limit(8)->get();
+        $feature_course = Course::where('status',1)->where('featured', 1)->orderBy('featured_index', 'asc')->limit(8)->get();
+        $best_seller_course = Course::where('status',1)->orderBy('sale_count', 'desc')->limit(8)->get();
+        $new_course = Course::where('status',1)->orderBy('id', 'desc')->limit(8)->get();
         $popular_teacher = Teacher::get();
 
         return view('frontends.course-category', compact('category', 'feature_category', 'feature_course', 'best_seller_course', 'new_course'));
@@ -143,12 +143,12 @@ class HomeController extends Controller
 
     public function courseLearning($course)
     {
-        $course = Course::where('slug', $course)->first();
+        $course = Course::where('status',1)->where('slug', $course)->first();
         if (\Auth::check()) {
             if ($course) {
                 $ratingCourse = RatingCourse::where('course_id', $course->id)->where('user_id', \Auth::id())->first();
-                $related_courses = Course::getCourseNotLearning()->where('category_id', $course->category_id)->limit(4)->get();
-                $info_course = Course::find($course->id);
+                $related_courses = Course::where('status',1)->where('category_id', $course->category_id)->limit(4)->get();
+                $info_course = Course::where('status',1)->find($course->id);
                 $user_role_course_instance = Helper::getUserRoleOfCourse($course->id);
 
                 $lecturer_array = $info_course->Lecturers();
@@ -161,8 +161,8 @@ class HomeController extends Controller
             }
         } else {
             if ($course) {
-                $related_courses = Course::getCourseNotLearning()->where('category_id', $course->category_id)->limit(4)->get();
-                $info_course = Course::find($course->id);
+                $related_courses = Course::where('status',1)->where('category_id', $course->category_id)->limit(4)->get();
+                $info_course = Course::where('status',1)->find($course->id);
                 return view('frontends.course-learning', compact('related_courses', 'info_course', 'unit'));
             }
         }
@@ -207,7 +207,8 @@ class HomeController extends Controller
     public function checkout(Request $request)
     {
         if (Auth::check()) {
-            $user_role_id = Auth::user()->userRolesStudent();
+            $current_user = Auth::user();
+            $user_role_id = $current_user->userRolesStudent();
             $items = $request->items;
             if ($items) {
                 // check coins
@@ -221,9 +222,9 @@ class HomeController extends Controller
                     }
                 }
 
-                // if($total_price > Auth::user()->coins){
-                //     return \Response::json(array('status' => '204', 'message' => 'Your balance is not enough'));
-                // }
+                if($total_price > Auth::user()->coins){
+                    return \Response::json(array('status' => '204', 'message' => 'Your balance is not enough'));
+                }
 
                 // check coupon
                 $coupon = null;
@@ -239,10 +240,16 @@ class HomeController extends Controller
                 $order->coupon = '';
                 $order->save();
 
+                $bought = [];
+                if(strlen($current_user->bought) > 0){
+                    $bought = \json_decode($current_user->bought);
+                }
+
                 foreach ($items as $item) {
                     if ($item['id']) {
                         $course = Course::find($item['id']);
                         if ($course) {
+                            $bought[] = $item['id'];
                             $video_count = $course->video_count;
                             $first_video_index = 1;
                             $first_video_id = $course->units[0]->videos[0]->id;
@@ -270,12 +277,57 @@ class HomeController extends Controller
                     $order->coupon = '';
                 }
                 $order->save();
+                $current_user->bought = \json_encode($bought);
+                $current_user->coins = $current_user->coins - $total_price;
+                $current_user->save();
                 return \Response::json(array('status' => '201', 'message' => 'Order has been created'));
             }
             return \Response::json(array('status' => '204', 'message' => 'Order has not been created'));
         } else {
             return \Response::json(array('status' => '401', 'message' => 'Unauthorized'));
         }
+    }
+
+    public function showMethodSelector(Request $request){
+        $user = Auth::user();
+        $user_balance = $user->coins;
+        
+        return view('frontends.payment-methods', compact('user_balance'))->render();
+    }
+
+    public function getFinalPrice(Request $request) {
+        $coupon_code = '';
+        if($request->coupon_code){
+            $coupon_code = $request->coupon_code;
+            $coupon = Coupon::where('name', $coupon_code)->first();
+            $coupon_value = $coupon->value;
+        }
+        $items  = $request->items;
+
+        $final_price = 0;
+
+        foreach ($items as $key => $item) {
+            $item_id = $item['id'];
+            $course = Course::find($item_id);
+            if(!isset($course)){
+                return response()->json([
+                    'status' => '404',
+                    'message' => 'Cannot find the course has id = '.$item_id,
+                ]);
+            }
+            $final_price += $course->price;
+        }
+        if(isset($coupon)){
+            $final_price = $final_price - ($final_price * $coupon_value / 100);
+            
+        }
+        return response()->json([
+            'status' => '200',
+            'message' => 'Get final price successfully!',
+            'final_price' => $final_price,
+            'applied_coupon' => $coupon_code,
+        ]);
+        
     }
 }
 

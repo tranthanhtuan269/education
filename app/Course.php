@@ -91,7 +91,7 @@ class Course extends Model
 
     public function units()
     {
-    	return $this->hasMany('App\Unit');
+    	return $this->hasMany('App\Unit')->orderBy('index');
     }
 
     public function comments()
@@ -119,28 +119,14 @@ class Course extends Model
     	return $this->belongsToMany('App\Video');
     }
     
-    public static function getCourseNotLearning(){
-
-        if(Auth::check()){
-            $list_user_roles = Auth::user()->userRoles;
-            return Course::whereHas('userRoles', function ($query) use ($list_user_roles) {
-                foreach($list_user_roles as $role){
-                    $query->where('user_role_id', '!=', $role->id);
-                }
-            });
-        }
-        return Course::whereRaw('1 = 1');
-    }
-    
     public function checkCourseNotLearning(){
 
         if(Auth::check()){
-            $list_user_roles = Auth::user()->userRoles;
-            return Course::whereHas('userRoles', function ($query) use ($list_user_roles) {
-                foreach($list_user_roles as $role){
-                    $query->where('user_role_id', '=', $role->id);
-                }
-            })->count();
+            $list_user_roles = Auth::user()->userRoles[0]->id;
+            if($this::has('userRoles', Auth::user()->userRoles[0]->id)->first()){
+                return 1;
+            }
+            return 0;
         }
         //0 means user bought this course 
         return 0;

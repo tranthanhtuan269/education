@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserRole extends Model
 {
+    // userRole = 1 => admin
+    // userRole = 2 => teacher
+    // userRole = 3 => student
+
     protected $fillable = [
         'user_id', 'role_id'
     ];
@@ -58,9 +62,9 @@ class UserRole extends Model
     public function userLifelongCourse($keyword)
     {
         if ($keyword != '') {
-            return $this->belongsToMany('App\Course', 'user_courses')->where('name', 'LIKE', "%$keyword%")->paginate(4);
+            return $this->belongsToMany('App\Course', 'user_courses')->where('name', 'LIKE', "%$keyword%")->where('courses.status', '!=', -1)->paginate(4);
         }
-        return $this->belongsToMany('App\Course', 'user_courses')->paginate(4);
+        return $this->belongsToMany('App\Course', 'user_courses')->where('courses.status', '!=', -1)->paginate(4);
     }
     
 }
