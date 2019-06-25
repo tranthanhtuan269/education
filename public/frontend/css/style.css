@@ -1690,6 +1690,13 @@ div[data-u="slides"] div div{
 #sortable li { margin: 8px; padding: 8px; font-size: 28px; height: 52px; line-height: 30px; }
 #sortable li *{ font-size: 22px; line-height: 34px; }
 .ui-state-highlight { min-height: 52px; line-height: 40px; }
+
+.add-vid-unit{
+  cursor: pointer;
+  float:right;
+  margin: 0 5px;
+}
+
 .remove-unit{
   cursor: pointer;
   float:right;

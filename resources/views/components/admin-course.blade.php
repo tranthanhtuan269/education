@@ -5,7 +5,7 @@
 ?>
 <div class="col-sm-3" id="course-{{ $course->id }}">
     <div class="box-course">
-        <button class="btn btn-primary btn-unit-course" id="btn-unit-{{ $course->id }}"><i class="fas fa-align-justify"></i></button>
+        <button class="btn btn-primary btn-unit-course" id="btn-unit-{{ $course->id }}"><i class="fas fa-bars"></i></button>
         <button class="btn btn-primary btn-edit-course" id="btn-edit-{{ $course->id }}"><i class="fas fa-edit"></i></button>
         <button class="btn btn-danger btn-remove-course" id="btn-remove-{{ $course->id }}"><i class="fas fa-trash"></i></button>
         <div class="img-course">
@@ -194,7 +194,13 @@
                     <ul id="sortable" class="unit-holder-{{ $course->id }}">
                         <?php //dd($course->units); ?>
                         @foreach($course->units as $key => $unit)
-                        <li class="ui-state-default" data-unit-id="{{ $unit->id }}" data-unit-key="{{ $key }}"><i class="fas fa-sort"></i> <span class="unit-content">{{ $unit->name }}</span> <i class="fas fa-trash remove-unit" id="remove-unit-{{ $unit->id }}" data-unit-id="{{ $unit->id }}" data-course-id="{{ $course->id }}"></i><i class="fas fa-edit edit-unit" id="edit-unit-{{ $unit->id }}" data-unit-id="{{ $unit->id }}" data-course-id="{{ $course->id }}"></i></li>
+                        <li class="ui-state-default" data-unit-id="{{ $unit->id }}" data-unit-key="{{ $key }}">
+                            <i class="fas fa-sort"></i> 
+                            <span class="unit-content">{{ $unit->name }}</span> 
+                            <i class="fas fa-trash remove-unit" id="remove-unit-{{ $unit->id }}" data-unit-id="{{ $unit->id }}" data-course-id="{{ $course->id }}"></i>
+                            <i class="fas fa-edit edit-unit" id="edit-unit-{{ $unit->id }}" data-unit-id="{{ $unit->id }}" data-course-id="{{ $course->id }}"></i>
+                            <i class="fas fa-bars add-vid-unit" id="add-vid-unit-{{ $unit->id }}" data-unit-id="{{ $unit->id }}" data-course-id="{{ $course->id }}"></i>
+                        </li>                        
                         @endforeach
                     </ul>
                 </div>
@@ -205,6 +211,34 @@
         </div>
     </div>
 </div>
+@foreach((\App\Course::find(1))->units as $key => $unit)
+<div id="listVideo{{ $unit->id }}" class="modal fade">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                List Video
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <ul>
+                        @foreach ($unit->videos as $key => $video)
+                            <li class="ui-state-default" data-video-id="{{ $video->id }}" data-video-key="{{ $key }}">
+                                <i class="fas fa-sort"></i> 
+                                <span class="video-content">{{ $video->name }}</span>
+                                <i class="fas fa-trash pull-right" id="remove-video-{{ $video->id }}" data-video-id="{{ $video->id }}" data-video-key="{{ $key }}"></i>
+                                <i class="fas fa-edit pull-right" id="edit-video-{{ $video->id }}" data-video-id="{{ $video->id }}" data-video-key="{{ $key }}"></i>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach
 <script>
     Dropzone.autoDiscover = false;
     $(document).ready(function(){
@@ -263,7 +297,7 @@
                 success: function (response) {
                     if(response.status == 200){
                         console.log(response.unit.data.id);
-                        var html = '<li class="ui-state-default"><i class="fas fa-sort"></i> <span class="unit-content">Item 1 </span> <i class="fas fa-trash remove-unit" id="remove-unit-'+response.unit.data.id+'" data-unit-id="'+response.unit.data.id+'" data-course-id="{{ $course->id }}"></i><i class="fas fa-edit edit-unit" id="edit-unit-'+response.unit.data.id+'" data-unit-id="'+response.unit.data.id+'" data-course-id="{{ $course->id }}"></i></li>';
+                        var html = '<li class="ui-state-default"><i class="fas fa-sort"></i> <span class="unit-content">Item 1 </span> <i class="fas fa-trash remove-unit" id="remove-unit-'+response.unit.data.id+'" data-unit-id="'+response.unit.data.id+'" data-course-id="{{ $course->id }}"></i><i class="fas fa-edit edit-unit" id="edit-unit-'+response.unit.data.id+'" data-unit-id="'+response.unit.data.id+'" data-course-id="{{ $course->id }}"></i><i class="fas fa-bars add-vid-unit" id="add-vid-unit-'+response.unit.data.id+'" data-unit-id="'+response.unit.data.id+'" data-course-id="'+response.unit.data.id+'"></i></li>';
                         $("#listUnit{{ $course->id }} #sortable").append(html);
                         $("#listUnit{{ $course->id }} #sortable").sortable('refresh');
                         addEvent();
@@ -370,6 +404,18 @@
                         })
                     }
                 });
+            })
+
+            // $('#listUnit{{ $course->id }} .add-vid-unit').click(function() {
+            //     var unit_id = $(this).attr('data-unit-id')
+            //     $(".box-unit").modal('hide')
+            //     $("#listVideo"+unit_id).modal('show')
+            // })
+
+            $('#listUnit{{ $course->id }} .add-vid-unit').click(function() {
+                var unit_id = $(this).attr('data-unit-id')
+                $(".box-unit").modal('hide')
+                $("#listVideo"+unit_id).modal('show')
             })
         }
 
