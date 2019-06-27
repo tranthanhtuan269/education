@@ -211,8 +211,8 @@
         </div>
     </div>
 </div>
-@foreach((\App\Course::find(1))->units as $key => $unit)
-<div id="listVideo{{ $unit->id }}" class="modal fade">
+@foreach((\App\Course::find(3))->units as $key => $unit)
+<div id="listVideo{{ $unit->id }}" class="modal fade" >
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -220,23 +220,61 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <ul>
-                        @foreach ($unit->videos as $key => $video)
-                            <li class="ui-state-default" data-video-id="{{ $video->id }}" data-video-key="{{ $key }}">
+                    <ul id="videoSortable" class="video-holder-{{ $unit->id }}" data-unit-id = "{{ $unit->id }}">
+                        @foreach ($unit->videos->sortBy('index') as $key => $video)
+                            <li class="ui-state-default"  data-video-id="{{ $video->id }}" data-video-index="{{ $video->index }}">
                                 <i class="fas fa-sort"></i> 
                                 <span class="video-content">{{ $video->name }}</span>
-                                <i class="fas fa-trash pull-right" id="remove-video-{{ $video->id }}" data-video-id="{{ $video->id }}" data-video-key="{{ $key }}"></i>
-                                <i class="fas fa-edit pull-right" id="edit-video-{{ $video->id }}" data-video-id="{{ $video->id }}" data-video-key="{{ $key }}"></i>
+                                <i class="fas fa-trash pull-right" id="remove-video-{{ $video->id }}" data-video-id="{{ $video->id }}" data-video-index="{{ $video->index }}"></i>
+                                <i class="fas fa-edit pull-right" id="edit-video-{{ $video->id }}" data-video-id="{{ $video->id }}" data-video-index="{{ $video->index }}"></i>
                             </li>
                         @endforeach
                     </ul>
                 </div>
             </div>
             <div class="modal-footer">
-
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready( function () {
+            
+            $('#listVideo{{ $unit->id }} #videoSortable').sortable({
+                placeholder: "ui-state-highlight",
+                update: function (event, ui) {
+                    var sorted_list = []
+                    var unit_id = $('#listVideo{{ $unit->id }} #videoSortable').attr('data-unit-id')
+                    $.each($("#listVideo{{ $unit->id }} li"), function (index, value) {
+                        
+                            sorted_list.push({
+                                id: $(value).attr('data-video-id'),
+                                v_index: $(value).attr('data-video-index'),
+                            })
+
+                    })
+
+                    $.ajax({
+                        method: "PUT",
+                        url : "{{ url('/') }}/user/units/sort-video",
+                        data: {
+                            sorted_list : JSON.stringify( sorted_list ),
+                            unit_id : unit_id
+                        },
+                        success: function (response) {
+
+                        },
+                        error: function (response) {
+
+                        }
+                    })
+                    
+                    
+                }
+            })
+        })
+    </script>
 </div>
 @endforeach
 <script>
@@ -253,6 +291,7 @@
                         id: $(value).attr('data-unit-id'),
                         index: index,
                     });
+                    
                 });
                 // end check key 
                 $.ajax({
@@ -281,6 +320,7 @@
                 addEvent()
             }
         });
+
         $( "#listUnit{{ $course->id }} #sortable" ).disableSelection();
 
         $("#listUnit{{ $course->id }} #add-unit-btn").click(function(){

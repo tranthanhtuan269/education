@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateUnitRequest;
 use App\Transformers\UnitTransformer;
 use App\Course;
 use App\Unit;
+use App\Video;
 
 class UnitController extends Controller
 {
@@ -48,6 +49,38 @@ class UnitController extends Controller
             return \Response::json(array('status' => '200', 'message' => 'Sửa Unit thành công!'));
         }
         return \Response::json(array('status' => '404', 'message' => 'Sửa Unit không thành công!'));
+    }
+
+    public function sortVideo(Request $request){
+        if($request->sorted_list){
+            $sorted_list = json_decode($request->sorted_list);
+            $unit = Unit::find($request->unit_id);
+            $unit_videos = $unit->videos->sortBy('index');
+            $unit_videos_index = $unit_videos->pluck('index')->toArray();
+            $min_index = reset($unit_videos_index);
+            $max_index = end($unit_videos_index);
+            // dd($sorted_list[0]->id);
+
+
+            $new_sorting_list = [];
+            $k = 0;
+            for ($i= $min_index; $i <= $max_index ; $i++) { 
+                array_push($new_sorting_list, [$i => $sorted_list[$k]->id]);
+                $k++;
+            }
+
+            foreach ($new_sorting_list as $key => $video_id) {
+                $video = Video::find($video_id)->first();
+                $video->index = $key;
+                $video->save();
+            }
+            
+            return response()->json([
+                'status' => '200',
+                'message' => 'Sửa thứ tự video thành công'
+            ]);
+            // dd($new_sorting_list);
+        }
     }
 
     public function destroy(Request $request){

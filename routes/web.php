@@ -187,6 +187,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::post('store', 'Backends\UnitController@store');
             Route::put('{id}/update', 'Backends\UnitController@update');
             Route::put('sort', 'Backends\UnitController@sort');
+            Route::put('sort-video', 'Backends\UnitController@sortVideo');
             Route::delete('delete', 'Backends\UnitController@destroy');
         });
 
