@@ -8,7 +8,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Order;
 use App\User;
-use App\Email;
+use App\MailLog;
 
 class DiscountNot extends Mailable
 {
@@ -16,16 +16,16 @@ class DiscountNot extends Mailable
     
 
     protected $user;
-    protected $email;
+    protected $mail_log;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(User $user, Email $email )
+    public function __construct(User $user, MailLog $mail_log )
     {
         $this->user = $user;
-        $this->email = $email;
+        $this->mail_log = $mail_log;
     }
 
     /**
@@ -37,11 +37,11 @@ class DiscountNot extends Mailable
     {
         return $this->from('duongconuong@tohsoft.com')
                     ->view('backends.emails.discount-not')
-                    ->subject($this->email->title)
+                    ->subject($this->mail_log->title)
                     ->with([
                         'userName' => $this->user->name,
-                        'mailSubject' => $this->email->title,
-                        'mailContent' => $this->email->content,
+                        'mailSubject' => $this->mail_log->title,
+                        'mailContent' => $this->mail_log->content,
                     ]);
     }
 }

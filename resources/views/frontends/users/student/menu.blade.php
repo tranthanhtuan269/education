@@ -1,7 +1,7 @@
 <div>
     <p>Student : {{ Auth::user()->name }} </p>
     <br>
-    <p id="displayBalance">Balance: {{ number_format(Auth::user()->coins, 0, '.', '.') }} ₫</p>
+    <p id="displayBalance">Balance: {{Auth::user()->coins}} cc</p>
 </div>
 <div class="navbar-header">
     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">

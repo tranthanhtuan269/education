@@ -27,30 +27,6 @@ class CategoriesTableSeeder extends Seeder
             ['Photography', 0, 'fa-camera-retro', 'banner_cat_photography.png']
         ];
 
-        $subCateArr = [
-            ['Productivity', 0, 'fa-palette', 'banner_cat_design.png'], 
-            ['Personal Finance', 0, 'fa-wrench', 'banner_cat_technology.png'], 
-            ['Leadership', 0, 'fa-book-medical', 'banner_cat_health.png'],
-            ['Career Development', 0, 'fa-baby', 'banner_cat_kid.png'], 
-            ['Personal Transformation', 0, 'fa-language', 'banner_cat_language.png'],
-            ['Digital Marketing', 0, 'fa-tshirt', 'banner_cat_lifestyle.png'], 
-            ['Branding', 0, 'fa-store', 'banner_cat_marketing.png'],
-            ['Marketing Fundamentals', 0, 'fa-home', 'banner_cat_marriage.png'],
-            ['Dieting', 0, 'fa-users', 'banner_cat_personal.png'],
-            ['Fitness', 0, 'fa-camera-retro', 'banner_cat_photography.png'],
-            ['General Health', 0, 'fa-camera-retro', 'banner_cat_photography.png'],
-            ['Sport', 0, 'fa-camera-retro', 'banner_cat_photography.png'],
-            ['Yoga', 0, 'fa-camera-retro', 'banner_cat_photography.png'],
-            ['Figma', 0, 'fa-camera-retro', 'banner_cat_photography.png'],
-            ['Andruno', 0, 'fa-camera-retro', 'banner_cat_photography.png'],
-            ['Raspberry Pi', 0, 'fa-camera-retro', 'banner_cat_photography.png'],
-            ['Forex', 0, 'fa-camera-retro', 'banner_cat_photography.png'],
-            ['Excel', 0, 'fa-camera-retro', 'banner_cat_photography.png'],
-            ['Word', 0, 'fa-camera-retro', 'banner_cat_photography.png'],
-            ['Financial Trading', 0, 'fa-camera-retro', 'banner_cat_photography.png']
-
-        ];
-
         // $tags = [
         //     ['Web Development', 1, 'images/banner_cat_language.png'], 
         //     ['Mysql', 1, 'images/banner_cat_marriage.png'],
@@ -74,9 +50,9 @@ class CategoriesTableSeeder extends Seeder
             $category->image = $cate[3];
             $category->save();
             
-            foreach($subCateArr as $key => $value){
+            foreach($cateArr as $key => $value){
                 $category_child = new Category;
-                $category_child->name = $subCateArr[rand(0,19)][0];
+                $category_child->name = $value[0]. '_' .$key_cate.' '.$key;
                 $category_child->parent_id = $category->id;
                 $category_child->featured = 1;
                 $category_child->icon = $value[2];

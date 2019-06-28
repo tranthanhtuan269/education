@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'facebook', 'phone', 'birthday', 'address', 'avatar', 'coins', 'bod', 'gender', 'bought', 'status'
+        'name', 'email', 'password', 'facebook', 'phone', 'birthday', 'address', 'avatar', 'coins', 'bod', 'gender', 'status'
     ];
 
     /**
@@ -100,14 +100,9 @@ class User extends Authenticatable
         return $this->hasMany('App\UserRole')->where('role_id', \Config::get('app.student'))->first();
     }
 
-    public function user_emails()
+    public function mail_log()
     {
-    	return $this->hasMany('App\UserEmail', 'user_id');
-    }
-
-    public function emails()
-    {
-    	return $this->belongsToMany('App\Email', 'user_email', 'user_id', 'email_id');
+    	return $this->hasMany('App\UserMailLog', 'user_id');
     }
 
 
