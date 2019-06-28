@@ -59,8 +59,6 @@ class UnitController extends Controller
             $unit_videos_index = $unit_videos->pluck('index')->toArray();
             $min_index = reset($unit_videos_index);
             $max_index = end($unit_videos_index);
-            // dd($sorted_list[0]->id);
-
 
             $new_sorting_list = [];
             $k = 0;
@@ -79,7 +77,6 @@ class UnitController extends Controller
                 'status' => '200',
                 'message' => 'Sửa thứ tự video thành công'
             ]);
-            // dd($new_sorting_list);
         }
     }
 

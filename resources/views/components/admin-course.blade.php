@@ -211,12 +211,13 @@
         </div>
     </div>
 </div>
-@foreach((\App\Course::find(3))->units as $key => $unit)
+@foreach($course->units as $key => $unit)
 <div id="listVideo{{ $unit->id }}" class="modal fade" >
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                List Video
+                <div class="btn btn-primary pull-right" id="addVideoBtn"><i class="fas fa-plus"></i> Add Video</div>
+                <h4 class="modal-title">List Video</h4>
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -273,6 +274,38 @@
                     
                 }
             })
+
+            $('#listVideo{{ $unit->id }} #addVideoBtn').click(function () {
+                var unit_id = $('#listVideo{{ $unit->id }} #videoSortable').attr('data-unit-id')
+                alert(unit_id)
+                
+                $.ajax({
+                    method: 'POST',
+                    url: "{{ url('user/units/video/store') }}",
+                    data:{
+                        name    : 'My Video',
+                        unit_id : unit_id,
+                    },
+                    dataType: 'json',
+                    success: function (response) {
+                        if(response.status == '200'){
+                            
+                        }
+                    },
+                    error: function (error) {
+                        var obj_errors = error.responseJSON.errors;
+                        var txt_errors = '';
+                        for (k of Object.keys(obj_errors)) {
+                            txt_errors += obj_errors[k][0] + '</br>';
+                        }
+                        Swal.fire({
+                            type: 'error',
+                            html: txt_errors,
+                        })
+                    }
+                })
+
+            })
         })
     </script>
 </div>
@@ -325,7 +358,7 @@
 
         $("#listUnit{{ $course->id }} #add-unit-btn").click(function(){
             var data = {
-                name: "Item 1",
+                name: "My Unit",
                 course_id: {{ $course->id }}
             };
 
