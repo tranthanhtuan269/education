@@ -265,7 +265,7 @@
         <div class="unica-home-menutop hidden-xs">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-4 cate-md">
+                    <div class="col-lg-3 col-md-4 cate-md">
                         <a class="unica-logo" href="{{ url('/') }}"><img class="img-responsive" src="{{ asset('frontend/images/tab_logo.png') }}" alt="" width="138" height="33" /></a>
                         <div class="unica-menu-cate">
                             <i class="fa fa-th" aria-hidden="true"></i> Categories
@@ -297,13 +297,13 @@
                             </script>
                         </div>
                     </div>
-                    <div class="col-lg-5 col-md-5 col-sm-5 cate-sm">
+                    <div class="col-lg-5 col-md-4 cate-sm">
                         <form class="unica-search-boxtop navbar-form form-inline" method="GET" action="/search">
                             <input name="keyword" type="text" class="form-control unica-form" placeholder="Search for anything" value="{{ Request::get('keyword') }}">
                             <button type="submit" class="btn unica-btn-search"><i class="fa fa-search" aria-hidden="true"></i></button>
                         </form>
                     </div>
-                    <div class="col-lg-4 col-md-4 col-sm-4 cate-sm">
+                    <div class="col-lg-4 col-md-4 cate-sm">
                         <?php //echo $check_course_of_the_user;die; ?>
                         <div class="pull-right">
                             <ul class="unica-acc-zone db-item">
