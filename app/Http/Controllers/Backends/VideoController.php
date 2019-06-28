@@ -51,7 +51,7 @@ class VideoController extends Controller
             return response()->json([
                 'status' => '200',
                 'message' => 'New video is created!',
-                'unit' => fractal($unit, new UnitTransformer())->toArray(),
+                'video' => fractal($video, new VideoTransformer())->toArray(),
             ]);
         }
 

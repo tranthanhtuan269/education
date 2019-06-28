@@ -226,8 +226,8 @@
                             <li class="ui-state-default"  data-video-id="{{ $video->id }}" data-video-index="{{ $video->index }}">
                                 <i class="fas fa-sort"></i> 
                                 <span class="video-content">{{ $video->name }}</span>
-                                <i class="fas fa-trash pull-right" id="remove-video-{{ $video->id }}" data-video-id="{{ $video->id }}" data-video-index="{{ $video->index }}"></i>
-                                <i class="fas fa-edit pull-right" id="edit-video-{{ $video->id }}" data-video-id="{{ $video->id }}" data-video-index="{{ $video->index }}"></i>
+                                <i class="fas fa-trash remove-video pull-right" id="remove-video-{{ $video->id }}" data-video-id="{{ $video->id }}" data-video-index="{{ $video->index }}"></i>
+                                <i class="fas fa-edit edit-video pull-right" id="edit-video-{{ $video->id }}" data-video-id="{{ $video->id }}" data-video-index="{{ $video->index }}"></i>
                             </li>
                         @endforeach
                     </ul>
@@ -267,7 +267,15 @@
 
                         },
                         error: function (response) {
-
+                            var obj_errors = error.responseJSON.errors;
+                            var txt_errors = '';
+                            for (k of Object.keys(obj_errors)) {
+                                txt_errors += obj_errors[k][0] + '</br>';
+                            }
+                            Swal.fire({
+                                type: 'error',
+                                html: txt_errors,
+                            })
                         }
                     })
                     
@@ -277,7 +285,6 @@
 
             $('#listVideo{{ $unit->id }} #addVideoBtn').click(function () {
                 var unit_id = $('#listVideo{{ $unit->id }} #videoSortable').attr('data-unit-id')
-                alert(unit_id)
                 
                 $.ajax({
                     method: 'POST',
@@ -289,7 +296,15 @@
                     dataType: 'json',
                     success: function (response) {
                         if(response.status == '200'){
-                            
+                            html = ''
+                            html += '<li class="ui-state-default ui-sortable-handle"  data-video-id="'+response.video.data.id+'" data-video-index="'+response.video.data.index+'">'
+                                html += '<i class="fas fa-sort"></i> '
+                                html += '<span class="video-content">'+response.video.data.name+'</span>'
+                                html += '<i class="fas fa-trash pull-right" id="remove-video-'+response.video.data.id+'" data-video-id="'+response.video.data.id+'" data-video-index="'+response.video.data.index+'"></i>'
+                                html += '<i class="fas fa-edit pull-right" id="edit-video-'+response.video.data.id+'" data-video-id="'+response.video.data.id+'" data-video-index="'+response.video.data.index+'"></i>'
+                            html += '</li>'
+
+                            $('#listVideo{{ $unit->id }} #videoSortable').append(html)
                         }
                     },
                     error: function (error) {
@@ -306,6 +321,15 @@
                 })
 
             })
+
+            $("#listVideo{{ $unit->id }} .edit-video").click(function(){
+                var video_id = $(this).attr('data-unit-id');
+                var content = $(this).parent().find('span.unit-content').html()
+                var html = "<input class='form-control' id='unit-input' value='" + content +"'><i class='fas fa-check save-unit' id='btn-save-unit' data-unit-id='"+unit_id+"'></i>"
+                $(this).parent().html(html);
+                addEvent()
+            })
+
         })
     </script>
 </div>
