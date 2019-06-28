@@ -1,7 +1,7 @@
 
 @if (isset($feature_course[0]))
 <div class="container">
-    <div class="feature-course pt-30px">
+    <div class="feature-course">
         <div class="row">
             <div class="col-xs-12 title-module-home">
                 <h2>Featured Courses</h2>

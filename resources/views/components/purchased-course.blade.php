@@ -14,12 +14,11 @@
     }
     $video_done_percent = (int)(($video_done_count/$video_count)*100);
 ?>
-<div class="col-md-3 col-sm-6">
+<div class="col-sm-3">
     <div class="box-course">
-        <!-- <a href="{{ url('/') }}/course/{{ $slug }}" title="{{ $title }}" class="course-box-slider pop"> -->
-        <div class="purchase_course">
+        <a href="{{ url('/') }}/course/{{ $slug }}" title="{{ $title }}" class="course-box-slider pop">
             <div class="img-course">
-            	<img class="img-responsive img-full-width"
+            	<img class="img-responsive"
                     src="{{ $image }}"
                     alt="{{ $title }}">
                 @if (isset($heart))
@@ -38,15 +37,6 @@
                         {{ $author }}
                     </span>
                     <br>
-                    {{-- <span class="pull-left">
-                        @include(
-                            'components.vote', 
-                            [
-                                'rate' => intval($star_count) / intval($vote_count),
-                                'rating_number' => $vote_count,
-                            ]
-                        )
-                    </span> --}}
                 </div>
                 <div class="progress">
                     <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{$video_done_percent}}" aria-valuemin="0" aria-valuemax="100" style="width: {{$video_done_percent}}%;">
@@ -59,7 +49,6 @@
                 </div>
                 @endif
             </div>
-        </div>
-        <!-- </a> -->
+        </a>
     </div>
 </div>

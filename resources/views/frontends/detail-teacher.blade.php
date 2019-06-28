@@ -4,8 +4,8 @@
 	<img class="background" src="{{ asset('frontend/images/banner_profile_teacher.png') }}" width="100%" >
 	<div class="container">
 		<div class="row">
-			<div class="item clearfix">
-				<div class="col-sm-12">
+			<div class="col-sm-12">
+				<div class="item">
 					<div class="frame clearfix">
 						<div class="avatar pull-left">
 							<img src="{{ url('frontend/'.$info_teacher->userRole->user->avatar) }}" alt="" />
@@ -35,6 +35,7 @@
 												]
 											)
 											<span data-toggle="modal" data-target="#editRatingModal" class="edit-rating">Edit your rating</span>
+											
 											{{-- EDIT RATING MODAL --}}
 											<div class="modal" id="editRatingModal" tabindex="-1" role="dialog">
 												<div class="modal-dialog modal-sm" style="margin-top: 10%">
@@ -122,7 +123,7 @@
 														teacher_id: {{ $info_teacher->user_role_id }},
 														score: $('.reviews-star').attr('data-star')
 													},
-													dataType: "json"
+													dataType: "json",
 												})
 												request.done(function (response){
 													if(response.status == 200){
@@ -179,14 +180,14 @@
 									{!! $info_teacher->cv !!}
 								</div>
 								<!-- <div class="see-more text-center">Show full biography</div> -->
-								<div class="info-others clearfix">
+								<div class="info-others">
 									<ul>
 										<li>
 											<img src="{{ asset('frontend/images/ic_course.png') }}" alt="" /> 
 											<span class="special">{{ $info_teacher->course_count }} Courses</span>
 										</li>
 										<li>
-											<img src="{{ asset('frontend/images/ic_student.png') }}" alt="" /> 
+											<img src="{{ asset('frontend/images/icon_student.png') }}" alt="" /> 
 											<span class="special">{{ $info_teacher->student_count }} Students</span>
 										</li>
 										<li>
@@ -213,29 +214,44 @@
 </div>
 
 @include('frontends.all-courses')
-<div class="become-teacher">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-10 col-sm-offset-1">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="ads-teacher">
-                            <p>BECOME</p>
-                            <h2>COURDEMY'S <br> TEACHER</h2>
-                            <a href="{{ Auth::check() ? url('user/register-teacher') : 'javascript:void(0)' }}" title="Register Teacher" {{ Auth::check() ? '' : ' data-toggle=modal data-target=#myModalLogin data-dismiss=modal id=redirect_register_teacher' }}>REGISTER NOW</a>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 hidden-xs">
-                        <div class="row">
-                            <div class="col-xs-8 col-xs-offset-1">
-                                <img src="{{ asset('frontend/images/courdemy-teacher.png') }}" alt="Teacher" />  
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+@php
+	$userRoles = Auth::user()->userRoles;
+	foreach ($userRoles as $key => $userRole) {
+		$isTeacher = false;
+		if($userRole->role_id == 2){
+			$isTeacher = true;
+		}
+	}
+@endphp
+@if (!$isTeacher)	
+	<div class="become-teacher">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-10 col-sm-offset-1">
+					<div class="row">
+						<div class="col-sm-6">
+							<div class="row">
+								<div class="col-xs-8 col-xs-offset-4">
+									<div class="ads-teacher">
+										<p>BECOME</p>
+										<h2>COURDEMY'S <br> TEACHER</h2>
+										<a href="{{ Auth::check() ? url('user/register-teacher') : 'javascript:void(0)' }}" title="Register Teacher" {{ Auth::check() ? '' : ' data-toggle=modal data-target=#myModalLogin data-dismiss=modal id=redirect_register_teacher' }}>REGISTER NOW</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-6 hidden-xs">
+							<div class="row">
+								<div class="col-xs-8 col-xs-offset-1">
+									<img src="{{ asset('frontend/images/courdemy-teacher.png') }}" alt="Teacher" />  
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+@endif
 {{-- @include('frontends.info-others') --}}
 @endsection
