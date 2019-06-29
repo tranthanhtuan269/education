@@ -41,7 +41,7 @@ class VideoController extends Controller
         $unit = Unit::withCount('videos')->find($request->unit_id);
         if($unit){
             $video = new Video;
-            $video->name    = $request->name;
+            $video->name    = $request->name." ".$unit->videos_count;
             $video->unit_id = $request->unit_id;
             $video->index   = $unit->videos_count;
             $video->url_video = json_encode(['a'=>'b']);
@@ -78,9 +78,9 @@ class VideoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request)
     {
-        //
+        dd($request->all());
     }
 
     /**
@@ -101,8 +101,17 @@ class VideoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $video = Video::find($request->video_id);
+
+        if($video){
+            $video->delete();
+
+            return response()->json([
+                'status' => '200',
+                'message' => 'Delete video successfully!'
+            ]);
+        }
     }
 }

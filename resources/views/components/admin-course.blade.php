@@ -211,13 +211,42 @@
         </div>
     </div>
 </div>
+
 @foreach($course->units as $key => $unit)
-<div id="listVideo{{ $unit->id }}" class="modal fade" >
+    @foreach ($unit->videos->sortBy('index') as $key => $video)
+    <div id="editVideoModal{{$video->id}}" class="modal fade edit-video-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    Edit Lecture: {{$video->name}}
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label class="col-sm-3" for="name">Name:</label>
+                        <input class="col-sm-9 form-control edit-video-name" data-video-id="{{ $video->id }}" type="text" class="form-control" placeholder="{{$video->name}}">
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3" for="name">Description:</label>
+                        <textarea class="col-sm-9 form-control edit-video-description" data-video-id="{{ $video->id }}" rows="5" class="form-control" class="form-control">{{$video->description}}</textarea>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3" for="name">Lecture video:</label>
+                        <input class="col-sm-9 form-control edit-video-file" type="file" data-video-id="{{ $video->id }}" name="lectureVideo" class="col-md-9">
+                    </div>                                         
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary save-edit-video" data-video-id="{{ $video->id }}"">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endforeach
+<div id="listVideo{{ $unit->id }}" class="modal fade list-video" " >
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <div class="btn btn-primary pull-right" id="addVideoBtn"><i class="fas fa-plus"></i> Add Video</div>
-                <h4 class="modal-title">List Video</h4>
+                <div class="btn btn-primary pull-right btn-add-video" data-unit-id="{{ $unit->id }}"" id="addVideoBtn" ><i class="fas fa-plus"></i> Add lecture</div>
+                <h4 class="modal-title">Lecture list</h4>
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -227,8 +256,8 @@
                                 <i class="fas fa-sort"></i> 
                                 <span class="video-content">{{ $video->name }}</span>
                                 <i class="fas fa-trash remove-video pull-right" id="remove-video-{{ $video->id }}" data-video-id="{{ $video->id }}" data-video-index="{{ $video->index }}"></i>
-                                <i class="fas fa-edit edit-video pull-right" id="edit-video-{{ $video->id }}" data-video-id="{{ $video->id }}" data-video-index="{{ $video->index }}"></i>
-                            </li>
+                                <i class="fas fa-edit edit-video pull-right" id="edit-video-{{ $video->id }}" data-target="#editVideoModal{{$video->id}}" data-toggle="modal" data-keyboard="false" data-video-id="{{ $video->id }}" data-video-index="{{ $video->index }}"></i>                                                              
+                            </li>                            
                         @endforeach
                     </ul>
                 </div>
@@ -253,7 +282,6 @@
                                 id: $(value).attr('data-video-id'),
                                 v_index: $(value).attr('data-video-index'),
                             })
-
                     })
 
                     $.ajax({
@@ -264,7 +292,9 @@
                             unit_id : unit_id
                         },
                         success: function (response) {
+                            if(response.status == '200'){
 
+                            }
                         },
                         error: function (response) {
                             var obj_errors = error.responseJSON.errors;
@@ -283,60 +313,26 @@
                 }
             })
 
-            $('#listVideo{{ $unit->id }} #addVideoBtn').click(function () {
-                var unit_id = $('#listVideo{{ $unit->id }} #videoSortable').attr('data-unit-id')
-                
-                $.ajax({
-                    method: 'POST',
-                    url: "{{ url('user/units/video/store') }}",
-                    data:{
-                        name    : 'My Video',
-                        unit_id : unit_id,
-                    },
-                    dataType: 'json',
-                    success: function (response) {
-                        if(response.status == '200'){
-                            html = ''
-                            html += '<li class="ui-state-default ui-sortable-handle"  data-video-id="'+response.video.data.id+'" data-video-index="'+response.video.data.index+'">'
-                                html += '<i class="fas fa-sort"></i> '
-                                html += '<span class="video-content">'+response.video.data.name+'</span>'
-                                html += '<i class="fas fa-trash pull-right" id="remove-video-'+response.video.data.id+'" data-video-id="'+response.video.data.id+'" data-video-index="'+response.video.data.index+'"></i>'
-                                html += '<i class="fas fa-edit pull-right" id="edit-video-'+response.video.data.id+'" data-video-id="'+response.video.data.id+'" data-video-index="'+response.video.data.index+'"></i>'
-                            html += '</li>'
-
-                            $('#listVideo{{ $unit->id }} #videoSortable').append(html)
-                        }
-                    },
-                    error: function (error) {
-                        var obj_errors = error.responseJSON.errors;
-                        var txt_errors = '';
-                        for (k of Object.keys(obj_errors)) {
-                            txt_errors += obj_errors[k][0] + '</br>';
-                        }
-                        Swal.fire({
-                            type: 'error',
-                            html: txt_errors,
-                        })
-                    }
-                })
-
-            })
-
-            $("#listVideo{{ $unit->id }} .edit-video").click(function(){
-                var video_id = $(this).attr('data-unit-id');
-                var content = $(this).parent().find('span.unit-content').html()
-                var html = "<input class='form-control' id='unit-input' value='" + content +"'><i class='fas fa-check save-unit' id='btn-save-unit' data-unit-id='"+unit_id+"'></i>"
-                $(this).parent().html(html);
-                addEvent()
-            })
+            // $("#listVideo{{ $unit->id }} .edit-video").click(function(){
+            //     var video_id = $(this).attr('data-unit-id');
+            //     var content = $(this).parent().find('span.unit-content').html()
+            //     var html = "<input class='form-control' id='unit-input' value='" + content +"'><i class='fas fa-check save-unit' id='btn-save-unit' data-unit-id='"+unit_id+"'></i>"
+            //     $(this).parent().html(html);
+            //     addEvent()
+            // })
 
         })
     </script>
 </div>
 @endforeach
+
+
 <script>
     Dropzone.autoDiscover = false;
     $(document).ready(function(){
+
+        
+
         $( "#listUnit{{ $course->id }} #sortable" ).sortable({
             placeholder: "ui-state-highlight",
             update: function( event, ui ) {
@@ -384,7 +380,7 @@
             var data = {
                 name: "My Unit",
                 course_id: {{ $course->id }}
-            };
+            }
 
             $.ajax({
                 method: "POST",
@@ -412,7 +408,7 @@
                         html: txt_errors,
                     })
                 }
-            });
+            })
         })
 
         addEvent()
@@ -420,6 +416,54 @@
             $("#listUnit{{ $course->id }} .edit-unit").off('click')
             $("#listUnit{{ $course->id }} .remove-unit").off('click')
             $("#listUnit{{ $course->id }} .save-unit").off('click')
+            $('.save-edit-video').off('click')
+            $('#videoSortable .remove-video').off('click')
+
+            
+            $('#videoSortable .remove-video').on('click', function () {
+                var video_id = $(this).attr('data-video-id')
+
+                $.ajax({
+                    method: 'DELETE',
+                    url: "{{ url('/') }}/user/units/video/remove",
+                    data: {
+                        video_id : video_id
+                    },
+                    dataType: 'json',
+                    success: function (response) {
+                        if(response.status == '200'){
+                            $("#videoSortable li[data-video-id="+video_id+"]").remove()
+                        }
+                    },
+                    error: function () {
+
+                    }
+                })
+            })
+
+            
+            $('.save-edit-video').on('click', function () {
+                var video_id = $(this).attr("data-video-id")
+                var video_name = $('.edit-video-modal .edit-video-name[data-video-id='+video_id+']').val()
+                var video_description = $('.edit-video-modal .edit-video-description[data-video-id='+video_id+']').val()
+                // var video_file = ''
+                var video_file = $('.edit-video-modal .edit-video-file[data-video-id='+video_id+']')[0].files[0]
+                
+
+                var videoFormData = new FormData()
+                videoFormData.append('video_id', video_id)
+                videoFormData.append('video_name', video_name)
+                videoFormData.append('video_description', video_description)
+                videoFormData.append('video_file', video_file)
+
+                $.ajax({
+                    method: 'POST',
+                    url: "{{ url('user/units/video/edit') }}",
+                    data: videoFormData,
+                    processData: false,
+                    contentType: false
+                })
+            })
 
             $("#listUnit{{ $course->id }} .save-unit").click(function(){
                 var content = $('#unit-input').val()
@@ -503,16 +547,50 @@
                 });
             })
 
-            // $('#listUnit{{ $course->id }} .add-vid-unit').click(function() {
-            //     var unit_id = $(this).attr('data-unit-id')
-            //     $(".box-unit").modal('hide')
-            //     $("#listVideo"+unit_id).modal('show')
-            // })
 
             $('#listUnit{{ $course->id }} .add-vid-unit').click(function() {
                 var unit_id = $(this).attr('data-unit-id')
                 $(".box-unit").modal('hide')
                 $("#listVideo"+unit_id).modal('show')
+            })
+
+
+            $('.list-video #addVideoBtn').on('click', function () {
+                var unit_id = $(this).attr("data-unit-id")
+
+                $.ajax({
+                    method: 'POST',
+                    url: "{{ url('user/units/video/store') }}",
+                    data:{
+                        name    : 'My Video',
+                        unit_id : unit_id,
+                    },
+                    dataType: 'json',
+                    success: function (response) {
+                        if(response.status == '200'){
+                            html = ''
+                            html += '<li class="ui-state-default ui-sortable-handle"  data-video-id="'+response.video.data.id+'" data-video-index="'+response.video.data.index+'">'
+                                html += '<i class="fas fa-sort"></i> '
+                                html += '<span class="video-content">'+response.video.data.name+'</span>'
+                                html += '<i class="fas fa-trash pull-right" id="remove-video-'+response.video.data.id+'" data-video-id="'+response.video.data.id+'" data-video-index="'+response.video.data.index+'"></i>'
+                                html += '<i class="fas fa-edit pull-right" id="edit-video-'+response.video.data.id+'" data-video-id="'+response.video.data.id+'" data-video-index="'+response.video.data.index+'"></i>'
+                            html += '</li>'
+
+                            $('.list-video .video-holder-'+unit_id+'').append(html)
+                        }
+                    },
+                    error: function (error) {
+                        var obj_errors = error.responseJSON.errors;
+                        var txt_errors = '';
+                        for (k of Object.keys(obj_errors)) {
+                            txt_errors += obj_errors[k][0] + '</br>';
+                        }
+                        Swal.fire({
+                            type: 'error',
+                            html: txt_errors,
+                        })
+                    }
+                })
             })
         }
 
@@ -530,12 +608,12 @@
                 url: "{{ url('user/courses/delete') }}",
                 data: data,
                 dataType: 'json',
-                // beforeSend: function() {
-                //     $("#pre_ajax_loading").show();
-                // },
-                // complete: function() {
-                //     $("#pre_ajax_loading").hide();
-                // },
+                beforeSend: function() {
+                    $("#pre_ajax_loading").show();
+                },
+                complete: function() {
+                    $("#pre_ajax_loading").hide();
+                },
                 success: function (response) {
                     if(response.status == 200){
                         Swal.fire({
@@ -616,7 +694,6 @@
                 // data_request = formData;
                 // alert(data);
                 // console.log(formData);
-
             },
             init: function() {
                 var thisDropzone = this;

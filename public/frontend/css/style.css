@@ -1664,21 +1664,21 @@ div[data-u="slides"] div div{
   position: absolute;
   top: 5px;
   right: 20px;
-  z-index: 200;
+  z-index: 2;
 }
 
 .btn-edit-course{
   position: absolute;
   top: 5px;
   right: 65px;
-  z-index: 200;
+  z-index: 2;
 }
 
 .btn-unit-course{
   position: absolute;
   top: 5px;
   right: 115px;
-  z-index: 200;
+  z-index: 2;
 }
 
 .ui-sortable-handle{
@@ -1690,6 +1690,14 @@ div[data-u="slides"] div div{
 #sortable li { margin: 8px; padding: 8px; font-size: 28px; height: 52px; line-height: 30px; }
 #sortable li *{ font-size: 16px; line-height: 37px; }
 .ui-state-highlight { min-height: 52px; line-height: 40px; }
+
+#videoSortable .edit-video{
+  cursor: pointer;
+  margin-right: 1em;
+}
+#videoSortable .remove-video{
+  cursor: pointer;
+}
 
 .add-vid-unit{
   cursor: pointer;
