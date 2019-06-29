@@ -265,7 +265,7 @@
         <div class="unica-home-menutop hidden-xs">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-3 col-md-4 cate-md">
+                    <div class="col-lg-3 col-sm-4 cate-md">
                         <a class="unica-logo" href="{{ url('/') }}"><img class="img-responsive" src="{{ asset('frontend/images/tab_logo.png') }}" alt="" width="138" height="33" /></a>
                         <div class="unica-menu-cate">
                             <i class="fa fa-th" aria-hidden="true"></i> Categories
@@ -297,19 +297,19 @@
                             </script>
                         </div>
                     </div>
-                    <div class="col-lg-5 col-md-4 cate-sm">
+                    <div class="col-lg-5 col-sm-4 cate-sm">
                         <form class="unica-search-boxtop navbar-form form-inline" method="GET" action="/search">
                             <input name="keyword" type="text" class="form-control unica-form" placeholder="Search for anything" value="{{ Request::get('keyword') }}">
                             <button type="submit" class="btn unica-btn-search"><i class="fa fa-search" aria-hidden="true"></i></button>
                         </form>
                     </div>
-                    <div class="col-lg-4 col-md-4 cate-sm">
+                    <div class="col-lg-4 col-sm-4 cate-sm">
                         <?php //echo $check_course_of_the_user;die; ?>
                         <div class="pull-right">
                             <ul class="unica-acc-zone db-item">
                                 @if(Auth::check())
                                     @if ( !(count(Auth::user()->userRoles) == 1 && (Auth::user()->userRoles->first()->role_id) == 1) )
-                                        <li><a href="{{ url('user/student/course') }}" class="unica-active-course"><p class="hidden-md hidden-xs hidden-sm">Start Learning</p></a></li>
+                                        <li><a href="{{ url('user/student/course') }}" class="unica-active-course responsive-start-learning"><p class="hidden-md hidden-xs hidden-sm">Start Learning</p></a></li>
                                     @else
                                         <li><a href="{{ url('admincp') }}" class="unica-admin"><p class="hidden-md hidden-xs hidden-sm">Admin Page</p></a></li>
                                     @endif
@@ -483,8 +483,8 @@
         </div>
     </header>
     <!-- <div class="hidden-xs" style="margin-top: 63px;"></div> -->
-    <div class="hidden-md hidden-sm hidden-lg" style="margin-top: 45px;"></div>
-
+    <!-- <div class="hidden-md hidden-sm hidden-lg" style="margin-top: 45px;"></div> -->
+    <div class="hidden-md hidden-sm hidden-lg"></div>
     <!-- End Google Tag Manager (noscript) -->
     <script src="{{ asset('frontend/js/bootstrap.offcanvas.js') }}"></script>
     <script src="{{ asset('frontend/js/sidenav.min.js') }}"></script>

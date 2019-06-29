@@ -88,7 +88,7 @@ nav .pagination li a img{width:35px;position:relative;top:-6px}
   position : fixed;
 }
 
-.box-course a.course-box-slider{display:inline-block;color:#333;background:#fff;border-radius:10px}
+.box-course .course-box-slider{display:inline-block;color:#333;background:#fff;border-radius:10px}
 /* .box-course a.btn-start-learning {
     margin-top: 12px;
 } */
@@ -486,6 +486,7 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
 .item-slider{cursor:pointer;}
 .cat-item-slider{margin-top:33px;color:#fff}
 .demo-aaaa{position:relative;display:block;bottom:80px}
+.bg-category{height: 250px; width: 100%}
 .background-page .slider img{width:100%}
 .background-page .slider .item{padding-bottom:10px; height: 149px;}
 .background-page .highlight .title p{text-transform:uppercase;font-size:24px;color:#fff}
@@ -514,15 +515,16 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
 .detail-teacher .frame_2{background:#fff;padding:50px 30px 30px;box-shadow:inset 0 0 5px #ccc}
 .detail-teacher .frame_2 iframe{height:280px}
 .detail-teacher .frame_2 .desc{height:220px;overflow:auto}
-.detail-teacher .frame_2 .info-others{margin-top:25px}
-.detail-teacher .frame_2 .info-others ul li{float:left}
-.detail-teacher .frame_2 .info-others ul li:nth-child(2){padding:0 50px 0 10px}
+.detail-teacher .frame_2 .info-others{margin-top:25px;margin-bottom: 25px}
+.detail-teacher .frame_2 .info-others ul li{float:left;padding-bottom: 5px}
+.detail-teacher .frame_2 .info-others ul li:nth-child(1){padding-right:20px}
+.detail-teacher .frame_2 .info-others ul li:nth-child(2){padding-right:50px}
 .detail-teacher .frame_2 .info-others ul li:nth-child(3){padding-top:4px}
 .detail-teacher .frame_2 .info-others ul li span.special{position:relative;bottom:5px}
 .detail-teacher .frame_2 .info-others ul li img{padding-right:5px}
 .network .btn{padding:5px 22px;margin:0 5px;border-radius:6px}
 .detail-course{margin-bottom:80px}
-.detail-course .frame .network{padding-top:25px}
+/* .detail-course .frame .network{padding-top:25px} */
 .detail-course .frame .network .btn span{position:relative;top:-2px}
 .detail-course .frame .network img{position:relative;top:3px}
 .detail-course .info .skill ul li,.detail-course .lessons .tags ul li,.left-content .lessons .tags ul li{float:left;background:#ccc;margin:0 20px;padding:5px 25px;border-radius:20px}
@@ -530,13 +532,14 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
 .detail-course .frame .info{color:#fff}
 .detail-course .frame .info .name{font-weight:600;font-size:19px}
 .detail-course .background{position:absolute}
-.detail-course .item{margin-top:90px}
+.detail-course .item{margin-top:100px}
 .detail-course .frame .avatar{padding-left:50px}
 .detail-course .frame .avatar .info{color:#fff}
-.detail-course .frame_2 .box{padding:0 20px 20px 0}
+/* .detail-course .frame_2 .box{padding:0 20px 20px 0} */
+/* .detail-course .frame_2 .box{padding-bottom: 10px} */
 .detail-course .frame_2 .box span.sale{color:#FF8F00;font-size:19px;padding-right:10px}
-.detail-course .frame_2 .box .btn-toh{width:250px}
-.detail-course .frame_2 .box .btn-toh:hover{background:#FF8F00;border:1px solid #FF8F00}
+.detail-course .frame_2 .box .btn-toh{width:250px;margin: 5px 0}
+/* .detail-course .frame_2 .box .btn-toh:hover{background:#FF8F00;border:1px solid #FF8F00} */
 .detail-course .frame_2 .box span.special{position:relative;top:-8px;padding-left:3px}
 .detail-course .frame_2 .box span.price,.detail-course .frame_2 .box span.price-off{font-size:19px}
 .detail-course .frame_2 .box span.price{text-decoration:line-through}
@@ -550,11 +553,11 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
 .detail-course .menu ul li,.course-learning-content .menu ul li{font-weight:600;background:#E0E0E0;float:left;margin:0 20px;border-radius:10px;padding:5px 15px}
 .detail-course .menu ul li a,.course-learning-content .menu ul li a{color:#333}
 .detail-course .menu ul li.active,.course-learning-content .menu ul li.active{background:linear-gradient(to right,#645f99,#20CADD);color:#fff;border:none;color:#fff}
-.detail-course .info{margin-bottom:50px}
+/* .detail-course .info{margin-bottom:50px} */
 .detail-course .info h3{padding-bottom:15px}
 .detail-course .info .knowledge{padding:30px 0 10px}
 .detail-course .info .knowledge li{float:left;width:50%;padding-bottom:25px}
-.detail-course .info .knowledge li img{float:left;padding-right:10px}
+.detail-course .info .knowledge li img{float:left;padding-right:10px;width:35px}
 .detail-course .info ul.others{border:1px solid #ccc;background:#F5F5F5}
 .detail-course .info ul.others li img{float:left;padding-right:10px}
 .detail-course .info ul.others li span.txt-large{font-size:16px}
