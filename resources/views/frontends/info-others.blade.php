@@ -35,7 +35,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-6 hidden-xs">
                 <div class="member-card-img">
                     <img src="{{ asset('frontend/images/img_membercard.png') }}" alt="Register Now" />
                 </div>

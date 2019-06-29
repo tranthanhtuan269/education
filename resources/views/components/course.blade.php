@@ -3,7 +3,7 @@
     $random_name = ['Steve Rogers', 'Natasha Romanoff', 'Tony Stark', 'Peter Quill', "Bruce Banner", "Stephen Strange"];
     $lecturers = count($course->Lecturers()) > 1 ? 'Nhiều tác giả' : (count($course->Lecturers()) > 0 ? $course->Lecturers()[0]->user->name : "Courdemy");
 ?>
-<div class="col-lg-3 col-sm-4">
+<div class="col-md-3 col-sm-6">
     <div class="box-course">
         <a href="{{ url('/') }}/course/{{ $course->slug }}" title="{{ $course->name }}" class="course-box-slider pop">
             <div class="img-course">
@@ -18,7 +18,7 @@
                 <i class="fa fa-cog fa-lg setting-icon" aria-hidden="true"></i>
                 @endif
                 @if (!in_array($course->id, $list_bought))
-                <div class="img-mask">
+                <div class="img-mask hidden-sm">
                     <div class="btn-add-to-cart">
                         <button class="btn btn-success" data-id="{{ $course->id }}" data-image="{{ $course->image }}" data-lecturer="{{ $lecturers }}" data-name="{{ $course->name }}" data-price="{{ $course->price }}" data-real-price="{{ $course->real_price }}" data-slug="{{ $course->slug }}">
                             <span class="img">

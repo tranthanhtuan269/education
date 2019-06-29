@@ -8,19 +8,19 @@
     }
 ?>
 <div class="detail-course">
-    <img class="background" src="{{ asset('frontend/images/banner_profile_teacher.png') }}" width="100%" >
+    <img class="background bg-category" src="{{ asset('frontend/images/banner_profile_teacher.png') }}">
     <div class="container">
         <div class="row">
             <div class="item clearfix">
                 <div class="col-sm-12">
-                    <div class="frame clearfix">
+                    <div class="frame clearfix pb-40px">
                         <div class="pull-left">
                             <div class="info">
                                 <p class="name">{{ $info_course->name }}</p>
                                 <p class="expret">{{ $info_course->short_description }}</p>
                             </div>
                         </div>
-                        <div class="network pull-right">
+                        <div class="network pull-right network-reponsive">
                             <a class="btn btn-default btn-xs" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(url()->current()); ?>" target="_blank">
                                 <i class="fas fa-share-alt"></i> Share
                             </a>
@@ -61,29 +61,40 @@
                                     @endif
                                 </div>
                                 <div class="row box clearfix">
-                                    <div class="col-sm-6 pull-left">
-                                        <img src="{{ asset('frontend/images/ic_duration.png') }}" class="icon" alt="" />  <span class="special">{{ $info_course->approx_time }} hours on-demand video</span>
+                                    <div class="col-xs-6 full-width-mobile pb-10px">
+                                        <span class="box-img"><img src="{{ asset('frontend/images/ic_duration.png') }}" class="icon" alt="" /></span>
+                                        <span class="special">{{ $info_course->approx_time }} hours on-demand video</span>
                                     </div>
-                                    <div class="col-sm-6 pull-right">
-                                        <img src="{{ asset('frontend/images/ic_download.png') }}" class="icon" alt="" />  <span class="special">{{ $info_course->downloadable_count	 }} downloadable resources</span>
-                                    </div>
-                                </div>
-                                <div class="row box clearfix">
-                                    <div class="col-sm-6 pull-left">
-                                        <img src="{{ asset('frontend/images/ic_lifetime.png') }}" class="icon" alt="" />  <span class="special">Full lifetime access</span>
-                                    </div>
-                                    <div class="col-sm-6 pull-right">
-                                        <img src="{{ asset('frontend/images/ic_mtuli_device.png') }}" class="icon" alt="" />  <span class="special">Access on Mobile & TV</span>
+                                    <div class="col-xs-6 full-width-mobile pb-10px">
+                                        <span class="box-img"><img src="{{ asset('frontend/images/ic_download.png') }}" class="icon" alt="" /></span>
+                                        <span class="special">{{ $info_course->downloadable_count	 }} downloadable resources</span>
+                                        
                                     </div>
                                 </div>
                                 <div class="row box clearfix">
-                                    <div class="col-sm-6 pull-left">
-                                        <img src="{{ asset('frontend/images/ic_course.png') }}" class="icon" alt="" /> 
+                                    <div class="col-xs-6 full-width-mobile pb-10px">
+                                        <span class="box-img"><img src="{{ asset('frontend/images/ic_lifetime.png') }}" class="icon" alt="" /></span>
+                                        <!-- <i class="fas fa-infinity fa-2x fa-fw"></i> -->
+                                        <span class="special">Full lifetime access</span>
+                                    </div>
+                                    <div class="col-xs-6 full-width-mobile pb-10px">
+                                        <span class="box-img"><img src="{{ asset('frontend/images/ic_mtuli_device.png') }}" class="icon" alt="" /></span>
+                                        <span class="special">Access on Mobile & TV</span>
+                                        
+                                    </div>
+                                </div>
+                                <div class="row box clearfix">
+                                    <div class="col-xs-6 full-width-mobile pb-10px">
+                                        <span class="box-img"><img src="{{ asset('frontend/images/ic_course.png') }}" class="icon" alt="" /></span>
                                         <span class="special">{{ number_format($info_course->video_count, 0, ',' , '.') }} videos</span>
-                                        &nbsp &nbsp<img src="{{ asset('frontend/images/icon_student.png') }}" class="icon" alt="" /> 
-                                        <span class="special">{{ number_format($info_course->student_count, 0, ',' , '.') }} Students</span>                                        
                                     </div>
-                                    <div class="col-sm-6 pull-right">
+                                    <div class="col-xs-6 full-width-mobile pb-10px">
+                                        <span class="box-img"><img src="{{ asset('frontend/images/ic_student.png') }}" class="icon" alt="" /></span>
+                                        <span class="special">{{ number_format($info_course->student_count, 0, ',' , '.') }} Students</span>
+                                    </div>
+                                </div>
+                                <div class="row box clearfix">
+                                    <div class="col-xs-12 full-width-mobile pb-10px">
                                         @include(
                                             'components.vote', 
                                             [
@@ -95,15 +106,15 @@
                                     </div>
                                 </div>
                                 <div class="box clearfix">
-                                    <div class="pull-left">
-                                        <button type="button" id="add-cart" class="btn btn-default btn-toh">Add to cart</button>
+                                    <div class="btn-add-cart">
+                                        <button type="button" id="add-cart" class="btn btn-primary btn-toh"><b>Add to cart</b></button>
                                     </div>
-                                    <div class="pull-right">
-                                        <button type="button" id="buy-now" class="btn btn-default btn-toh">Buy Now</button>
+                                    <div class="btn-buy-now">
+                                        <button type="button" id="buy-now" class="btn btn-warning btn-toh"><b>Buy Now</b></button>
                                     </div>
                                 </div>
                                 <div class="box clearfix">
-                                    <div class="pull-left">
+                                    <div class="pull-left money-back">
                                         30-Days Money-back Guarantee
                                     </div>
                                 </div>
@@ -127,7 +138,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="info clearfix">
+            <div class="info clearfix my-30px">
                 <div class="col-sm-8">
                     <div class="desc">
                         <h3>Descriptions</h3>
@@ -147,24 +158,6 @@
                                 @endforeach
                             </ul>
                         </div>
-                    @endif
-
-                    @if (count($info_course->tags) > 0)
-                    <div class="skill">
-                        <h3>Skills you'll again</h3>
-                        <ul>
-                            @foreach ($info_course->tags as $key => $tag)
-                            <?php
-                            if($key == 3){
-                                break;
-                            } 
-                            ?>
-                            <a href="/tags/{{$tag->slug}}">
-                                <li style="color: #000000;">{{ $tag->name }}</li>
-                            </a>
-                            @endforeach
-                        </ul>
-                    </div>
                     @endif
                 </div>
                 <div class="col-sm-4">
@@ -199,6 +192,27 @@
                     </ul>
                 </div>
             </div>
+            @if (count($info_course->tags) > 0)
+                <div class="skill clearfix my-30px">
+                    <div class="col-xs-12">
+                        <h3>Skills you'll again</h3>
+                        <ul class="row row-centered">
+                            @foreach ($info_course->tags as $key => $tag)
+                            <?php
+                            if($key == 4){
+                                break;
+                            } 
+                            ?>
+                            <div class="col-md-3 col-sm-4 col-xs-6 full-width-480p col-centered">
+                            <a href="/tags/{{$tag->slug}}">
+                                <li class="css-course-tag">{{ $tag->name }}</li>
+                            </a>
+                            </div>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            @endif
             <div class="lessons clearfix">
                 <div class="col-sm-8" id="box_content">
                         @include('components.course-lesson-list')
@@ -227,9 +241,9 @@
                     <h3>About the instructors</h3>
                 </div>
                 @foreach ($info_course->Lecturers() as $lecturer)
-                <div class="col-sm-6">
+                <div class="col-md-8 col-sm-10">
                     <div class="row">
-                        <div class="col-sm-3">
+                        <div class="col-sm-3 avatar-center">
                             <a href="{{ url('/') }}/teacher/{{ $lecturer->user->id }}" title="{{ $lecturer->user->name }}" >
                                 <img class="avatar" alt="{{ $lecturer->user->name }}" src="{{ asset('frontend/'.$lecturer->user->avatar) }}">
                             </a>
@@ -255,7 +269,7 @@
                                     </div>
                                 </div>
                                 <div class="">
-                                    <img src="{{ asset('frontend/images/icon_student.png') }}" alt="" /> 
+                                    <img src="{{ asset('frontend/images/ic_student.png') }}" alt="" /> 
                                     <span class="special">{{ $lecturer->teacher->student_count }} Students</span>
                                 </div>
                             </div>
