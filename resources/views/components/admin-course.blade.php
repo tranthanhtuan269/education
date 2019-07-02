@@ -239,6 +239,7 @@
                 </div>
             </div>
         </div>
+        
     </div>
     @endforeach
 <div id="listVideo{{ $unit->id }}" class="modal fade list-video" " >
@@ -713,7 +714,7 @@
                 var mockFile = { name: '', size: 12345, type: 'image/jpeg' };
                 thisDropzone.emit("addedfile", mockFile);
                 thisDropzone.emit("success", mockFile);
-                thisDropzone.emit("thumbnail", mockFile, "{{ url('frontend/'.((Auth::user()->avatar != '') ? Auth::user()->avatar : 'images/avatar.jpg') ) }}")
+                thisDropzone.emit("thumbnail", mockFile, "{{ url('frontend/images/'.$course->image) }}")
                 // this.on("maxfilesexceeded", function(file){
                 // this.removeFile(file);
                 //     alert("No more files please!");
