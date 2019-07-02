@@ -41,7 +41,7 @@ class VideoController extends Controller
         $unit = Unit::withCount('videos')->find($request->unit_id);
         if($unit){
             $video = new Video;
-            $video->name    = $request->name." ".$unit->videos_count;
+            $video->name    = $request->name;
             $video->unit_id = $request->unit_id;
             $video->index   = $unit->videos_count;
             $video->url_video = json_encode(['a'=>'b']);
@@ -113,5 +113,20 @@ class VideoController extends Controller
                 'message' => 'Delete video successfully!'
             ]);
         }
+    }
+
+    public function sort(Request $request){
+        if($request->data){
+            $list = json_decode($request->data);
+            foreach($list as $obj){
+                $video = Video::find($obj->id);
+                if($video){
+                    $video->index = $obj->index;
+                    $video->save();
+                }
+            }
+            return \Response::json(array('status' => '200', 'message' => 'Sửa Video thành công!'));
+        }
+        return \Response::json(array('status' => '404', 'message' => 'Sửa Video không thành công!'));
     }
 }

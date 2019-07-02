@@ -18,20 +18,8 @@
 
             @if (isset($course->setup))  
             <i class="fa fa-cog fa-lg setting-icon" aria-hidden="true"></i>
-            @endif     
-            {{-- <div class="img-mask">
-                <div class="btn-add-to-cart">
-                    <button class="btn btn-success" data-id="{{ $course->id }}" data-image="{{ $course->rawImage }}" data-lecturer="{{ $course->author }}" data-name="{{ $title }}" data-price="{{ $sale }}" data-real-price="{{ $price }}" data-slug="{{ $slug }}">
-                        <span class="img">
-                            <img src="{{asset("frontend/images/ic_add_to_card.png")}}" width="20px">
-                        </span>
-                        <span class="text">
-                            Add to cart
-                        </span>
-                    </button>
-                </div>
-            </div>                --}}
-            </div>
+            @endif
+        </div>
         <a href="{{ url('/') }}/course/{{ $course->slug }}" title="{{ $course->name }}" class="pop">            
             <div class="content-course">
                 <h3 class="title-course">{{ $course->name }}</h3>
@@ -58,13 +46,6 @@
                         <i class="fa fa-eye" aria-hidden="true"></i> {!! number_format($course->view_number, 0, ',' , '.') !!} views
                     </span>
                 </div>
-                {{-- @if (isset($course->setup))  
-                <div class="progress">
-                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                        60%
-                    </div>
-                </div>
-                @endif --}}
 
                 <?php
                     $check_time_sale = false;
@@ -76,25 +57,6 @@
                         }
                     }
                 ?>
-                {{-- <div class="price-course">
-                    @if ($check_time_sale == true)                                        
-                    <span class="price line-through">
-                        {!! number_format($price, 0, ',' , '.') !!}đ
-                    </span>
-                    <span class="sale pull-right">
-                        {!! number_format($sale, 0, ',' , '.') !!}đ
-                    </span>
-                    @else
-                    <span class="price">
-                        {!! number_format($price, 0, ',' , '.') !!}đ
-                    </span>
-                    @endif
-                </div> --}}
-                {{-- @if (isset($btn_start_learning))  
-                <div class="text-center">
-                    <a href="{{ url('coming-soon') }}" class="btn btn-primary btn-sm btn-start-learning">Start Learning</a>
-                </div>
-                @endif --}}
             </div>
         </a>
     </div>
@@ -212,104 +174,6 @@
     </div>
 </div>
 
-@foreach($course->units as $key => $unit)
-    @foreach ($unit->videos->sortBy('index') as $key => $video)
-    <div id="editVideoModal{{$video->id}}" class="modal fade edit-video-modal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    Edit Lecture: {{$video->name}}
-                </div>
-                <div class="modal-body">
-                    <div class="form-group row">
-                        <label class="col-sm-3" for="name">Name:</label>
-                        <input class="col-sm-9 form-control edit-video-name" data-video-id="{{ $video->id }}" type="text" class="form-control" placeholder="{{$video->name}}">
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-3" for="name">Description:</label>
-                        <textarea class="col-sm-9 form-control edit-video-description" data-video-id="{{ $video->id }}" rows="5" class="form-control" class="form-control">{{$video->description}}</textarea>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-3" for="name">Lecture video:</label>
-                        <input class="col-sm-9 form-control edit-video-file" type="file" data-video-id="{{ $video->id }}" name="lectureVideo" class="col-md-9">
-                    </div>                                         
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-primary save-edit-video" data-video-id="{{ $video->id }}"">Save</button>
-                </div>
-            </div>
-        </div>
-        
-    </div>
-    @endforeach
-@endforeach
-
-<div id="listVideo" class="modal fade list-video">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="btn btn-primary pull-right btn-add-video" id="addVideoBtn" ><i class="fas fa-plus"></i> Add lecture</div>
-                <h4 class="modal-title">Lecture list</h4>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <ul id="videoSortable" class="video-holder" data-unit-id="0">
-                        
-                    </ul>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        $(document).ready( function () {
-            
-            // $('#listVideo #videoSortable').sortable({
-            //     placeholder: "ui-state-highlight",
-            //     update: function (event, ui) {
-            //         var sorted_list = []
-            //         var unit_id = $('#listVideo #videoSortable').attr('data-unit-id')
-            //         $.each($("#listVideo li"), function (index, value) {
-                        
-            //                 sorted_list.push({
-            //                     id: $(value).attr('data-video-id'),
-            //                     v_index: $(value).attr('data-video-index'),
-            //                 })
-            //         })
-
-            //         $.ajax({
-            //             method: "PUT",
-            //             url : "{{ url('/') }}/user/units/sort-video",
-            //             data: {
-            //                 sorted_list : JSON.stringify( sorted_list ),
-            //                 unit_id : unit_id
-            //             },
-            //             success: function (response) {
-            //                 if(response.status == '200'){
-
-            //                 }
-            //             },
-            //             error: function (response) {
-            //                 var obj_errors = error.responseJSON.errors;
-            //                 var txt_errors = '';
-            //                 for (k of Object.keys(obj_errors)) {
-            //                     txt_errors += obj_errors[k][0] + '</br>';
-            //                 }
-            //                 Swal.fire({
-            //                     type: 'error',
-            //                     html: txt_errors,
-            //                 })
-            //             }
-            //         })
-            //     }
-            // })
-        })
-    </script>
-</div>
-
 <script>
     Dropzone.autoDiscover = false;
     $(document).ready(function(){
@@ -396,58 +260,7 @@
             $("#listUnit{{ $course->id }} .edit-unit").off('click')
             $("#listUnit{{ $course->id }} .remove-unit").off('click')
             $("#listUnit{{ $course->id }} .save-unit").off('click')
-            $('.save-edit-video').off('click')
-            $('#videoSortable .remove-video').off('click')
-
-            
-            $('#videoSortable .remove-video').on('click', function () {
-                var video_id = $(this).attr('data-video-id')
-
-                $.ajax({
-                    method: 'DELETE',
-                    url: "{{ url('/') }}/user/units/video/remove",
-                    data: {
-                        video_id : video_id
-                    },
-                    dataType: 'json',
-                    success: function (response) {
-                        if(response.status == '200'){
-                            $("#videoSortable li[data-video-id="+video_id+"]").remove()
-                        }
-                    },
-                    error: function () {
-
-                    }
-                })
-            })
-
-            $('#videoSortable .edit-video').on('click', function () {
-                $('.list-video').modal('hide')
-            })
-
-            
-            $('.save-edit-video').on('click', function () {
-                var video_id = $(this).attr("data-video-id")
-                var video_name = $('.edit-video-modal .edit-video-name[data-video-id='+video_id+']').val()
-                var video_description = $('.edit-video-modal .edit-video-description[data-video-id='+video_id+']').val()
-                // var video_file = ''
-                var video_file = $('.edit-video-modal .edit-video-file[data-video-id='+video_id+']')[0].files[0]
-                
-
-                var videoFormData = new FormData()
-                videoFormData.append('video_id', video_id)
-                videoFormData.append('video_name', video_name)
-                videoFormData.append('video_description', video_description)
-                videoFormData.append('video_file', video_file)
-
-                $.ajax({
-                    method: 'POST',
-                    url: "{{ url('user/units/video/edit') }}",
-                    data: videoFormData,
-                    processData: false,
-                    contentType: false
-                })
-            })
+          
             $("#listUnit{{ $course->id }} .save-unit").click(function(){
                 var content = $('#unit-input').val()
                 // var html = '<i class="fas fa-sort"></i> <span class="unit-content">'+content+'</span> <i class="fas fa-trash remove-unit" id="remove-unit" data-id="{{ $course->id }}"></i><i class="fas fa-edit edit-unit" id="edit-unit" data-id="{{ $course->id }}"></i>'
@@ -540,64 +353,11 @@
                 });
             })
 
-            $('#listUnit{{ $course->id }} .list-vid-unit').off('click')
             $('#listUnit{{ $course->id }} .list-vid-unit').on('click', function () {
                 var unit_id = $(this).attr('data-unit-id')
                 $(".box-unit").modal('hide')
                 $("#listVideo").attr("data-unit-id", unit_id)
                 $("#listVideo").modal('show')
-            })
-
-            $('#listVideo').on('shown.bs.modal', function () {
-                alert($(this).attr('data-unit-id'));
-            })
-
-            $('#listVideo').on('hide.bs.modal', function () {
-                $('#listUnit{{ $course->id }} .list-vid-unit').on('click', function () {
-                    var unit_id = $(this).attr('data-unit-id')
-                    $(".box-unit").modal('hide')
-                    $("#listVideo").attr("data-unit-id", unit_id)
-                    $("#listVideo").modal('show')
-                })
-            })
-
-
-            $('.list-video #addVideoBtn').on('click', function () {
-                var unit_id = $(this).attr("data-unit-id")
-
-                $.ajax({
-                    method: 'POST',
-                    url: "{{ url('user/units/video/store') }}",
-                    data:{
-                        name    : 'My Video',
-                        unit_id : unit_id,
-                    },
-                    dataType: 'json',
-                    success: function (response) {
-                        if(response.status == '200'){
-                            html = ''
-                            html += '<li class="ui-state-default ui-sortable-handle"  data-video-id="'+response.video.data.id+'" data-video-index="'+response.video.data.index+'">'
-                                html += '<i class="fas fa-sort"></i> '
-                                html += '<span class="video-content">'+response.video.data.name+'</span>'
-                                html += '<i class="fas fa-trash pull-right" id="remove-video-'+response.video.data.id+'" data-video-id="'+response.video.data.id+'" data-video-index="'+response.video.data.index+'"></i>'
-                                html += '<i class="fas fa-edit pull-right" id="edit-video-'+response.video.data.id+'" data-video-id="'+response.video.data.id+'" data-video-index="'+response.video.data.index+'"></i>'
-                            html += '</li>'
-
-                            $('.list-video .video-holder-'+unit_id+'').append(html)
-                        }
-                    },
-                    error: function (error) {
-                        var obj_errors = error.responseJSON.errors;
-                        var txt_errors = '';
-                        for (k of Object.keys(obj_errors)) {
-                            txt_errors += obj_errors[k][0] + '</br>';
-                        }
-                        Swal.fire({
-                            type: 'error',
-                            html: txt_errors,
-                        })
-                    }
-                })
             })
         }
 

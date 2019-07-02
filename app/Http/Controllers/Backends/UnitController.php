@@ -12,6 +12,11 @@ use App\Video;
 
 class UnitController extends Controller
 {
+    public function getVideo($id){
+        $videos = Video::where('unit_id', $id)->orderBy('index', 'asc')->get()->toArray();
+        return \Response::json(array('status' => '200', 'message' => 'List Videos!', 'videos' => $videos));
+    }
+
     public function store(StoreUnitRequest $request){
         $course = Course::withCount('units')->find($request->course_id);
         if($course){
@@ -24,6 +29,17 @@ class UnitController extends Controller
             return \Response::json(array('status' => '200', 'message' => 'Tạo Unit thành công!', 'unit' => fractal($unit, new UnitTransformer())->toArray()));
         }
         return \Response::json(array('status' => '404', 'message' => 'Tạo Unit không thành công!'));
+    }
+
+    public function updateVideo(Request $request, $id){
+        $video = Video::find($id);
+        if($video){
+            $video->name = $request->name;
+            $video->description = $request->description;
+            $video->save();
+            return \Response::json(array('status' => '200', 'message' => 'Sửa Video thành công!', 'video' => $video));
+        }
+        return \Response::json(array('status' => '404', 'message' => 'Sửa Video không thành công!'));
     }
 
     public function update(UpdateUnitRequest $request, $id){

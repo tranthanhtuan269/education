@@ -123,7 +123,8 @@ Route::post('checkout', ['uses' =>'Frontends\HomeController@checkout'])->name('c
 // Đăng nhập mới đánh giá khóa học dc
 Route::post('reviews/info', 'Backends\UserController@infoRoleUser');
 
-
+Route::post('/saveFileAjax', 'Frontends\HomeController@saveFileAjax');
+Route::get('duration', 'Frontends\HomeController@duration');
 Route::get('logout', 'Frontends\HomeController@logout');
 Route::get('test', 'Frontends\HomeController@test');
 Route::get('coming-soon', 'Frontends\HomeController@comingSoon')->name('coming-soon');
@@ -184,14 +185,20 @@ Route::group(['middleware' => 'auth'], function () {
         });
 
         Route::group(['prefix' => 'units'],function () {
+            Route::get('{id}/get-video', 'Backends\UnitController@getVideo');
             Route::post('store', 'Backends\UnitController@store');
             Route::put('{id}/update', 'Backends\UnitController@update');
+            Route::put('video/{id}/update', 'Backends\UnitController@updateVideo');
             Route::put('sort', 'Backends\UnitController@sort');
             Route::put('sort-video', 'Backends\UnitController@sortVideo');
             Route::post('video/store', 'Backends\VideoController@store');
             Route::post('video/edit', 'Backends\VideoController@edit');
             Route::delete('video/remove', 'Backends\VideoController@destroy');
             Route::delete('delete', 'Backends\UnitController@destroy');
+        });
+
+        Route::group(['prefix' => 'videos'],function () {
+            Route::put('sort', 'Backends\VideoController@sort');
         });
 
         Route::get('register-teacher', 'Frontends\UserController@registerTeacher'); 

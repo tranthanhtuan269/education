@@ -1836,3 +1836,6 @@ div[data-u="slides"] div div{
 .cart-page-content.active{
   display:block;
 }
+.progress{
+  margin-top: 10px;
+}

@@ -327,7 +327,69 @@ class HomeController extends Controller
             'final_price' => $final_price,
             'applied_coupon' => $coupon_code,
         ]);
-        
+    }
+
+    public function saveFileAjax(Request $request) {
+        if($request->hasFile('file-mp4-upload-off')){
+            if(!isset($_SESSION)){
+                session_start();
+            }
+            $file = $request->file('file-mp4-upload-off');
+            $temp = explode(".",$file->getClientOriginalName());
+            $filenamejoin = '';
+            for($i = 0; $i < count($temp) - 1; $i++){
+                $filenamejoin .= $temp[$i] . '.';
+            }
+
+            $destinationPath = 'uploads/videos/';
+            $filename = time().'_'.csrf_token();
+            $_SESSION[$filename] = rtrim($filenamejoin,".");
+            $fileExt = $temp[count($temp) - 1];
+            $fileExt = strtolower($fileExt);
+            if(file_exists($destinationPath.$filename.'.'.$fileExt)){
+                unlink($destinationPath.$filename.'.'.$fileExt);
+            }
+            $file->move($destinationPath, $filename.'.'.$fileExt);
+            echo $filename;
+        }
+    }
+
+    public function duration(Request $request) {
+        if(!file_exists(public_path("/uploads/videos/").$request->fileName.'.'.$request->input)){
+           if(file_exists(public_path("/uploads/videos/").$request->fileName.'.qt')){
+               $request->input = 'qt';
+           }else if(file_exists(public_path("/uploads/videos/").$request->fileName.'.asf')){
+                $request->input = 'asf';
+           }
+       }
+
+        $command = config('config.path_ffprobe_exe').' -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 -sexagesimal '.public_path("/uploads/videos/").$request->fileName.'.'.$request->input.' 2>&1';
+        // echo $command;die;
+        $input = public_path('/uploads/videos/').$request->fileName.'.'.$request->input;
+
+        // Lấy giá trị bitrate
+        $block_txt = public_path('/uploads/block_'.$request->fileName.'.txt');
+        popen(config('config.path_ffmpeg_exe').' -i '.$input.' 1> '.$block_txt.' 2>&1', "r");
+        $content = file_get_contents($block_txt);
+
+        preg_match("/Audio(.*?):/", $content, $matches);
+        $check_audio = (isset($matches[1])) ? true : false;
+
+        preg_match("/bitrate: (.*?)kb/", $content, $matches);
+        if(isset($matches[1])){
+            $bitrate = (int)$matches[1];
+            if ($request->quanlity > $bitrate) {
+                $request->quanlity = $bitrate;
+            }
+        }
+
+        exec($command, $output, $return);
+        if (!$return) {
+            echo json_encode( array('status' => 200,'duration'=>exec($command, $output, $return), 'bitrate'=> $bitrate, 'check_audio' => $check_audio) );
+        } else {
+            echo json_encode( array('status' => 404) );
+        }
+
     }
 }
 
