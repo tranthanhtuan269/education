@@ -441,6 +441,10 @@
                 })
             })
 
+            $('#videoSortable .edit-video').on('click', function () {
+                $('.list-video').modal('hide')
+            })
+
             
             $('.save-edit-video').on('click', function () {
                 var video_id = $(this).attr("data-video-id")
@@ -464,15 +468,15 @@
                     contentType: false
                 })
             })
-
             $("#listUnit{{ $course->id }} .save-unit").click(function(){
                 var content = $('#unit-input').val()
-                var html = '<i class="fas fa-sort"></i> <span class="unit-content">'+content+'</span> <i class="fas fa-trash remove-unit" id="remove-unit" data-id="{{ $course->id }}"></i><i class="fas fa-edit edit-unit" id="edit-unit" data-id="{{ $course->id }}"></i>'
+                // var html = '<i class="fas fa-sort"></i> <span class="unit-content">'+content+'</span> <i class="fas fa-trash remove-unit" id="remove-unit" data-id="{{ $course->id }}"></i><i class="fas fa-edit edit-unit" id="edit-unit" data-id="{{ $course->id }}"></i>'
                 var parent = $(this).parent()
                 var name = parent.find('input').val()
 
                 // send data to server
                 var unit_id = $(this).attr('data-unit-id')
+                var course_id = $(this).attr('data-course-id')
                 var data = {
                     name: name
                 }
@@ -486,7 +490,16 @@
                         if(response.status == 200){
                             parent.find('input').remove()
                             parent.find('i.save-unit').remove()
+
+                            var html = ""
+                            html += '<i class="fas fa-sort"></i> '
+                            html += '<span class="unit-content">'+content+'</span>'
+                            html += '<i class="fas fa-trash remove-unit" id="remove-unit-'+ unit_id +'" data-unit-id="'+ unit_id +'" data-course-id="'+ course_id +'"></i>'
+                            html += '<i class="fas fa-edit edit-unit" id="edit-unit-'+ unit_id +'" data-unit-id="'+ unit_id +'" data-course-id="'+ course_id +'"></i>'
+                            html += '<i class="fas fa-bars add-vid-unit" id="add-vid-unit-'+ unit_id +'" data-unit-id="'+ unit_id +'" data-course-id="'+ course_id +'"></i>'
+
                             parent.append(html)
+                            addEvent()
                         }
                     },
                     error: function (error) {
