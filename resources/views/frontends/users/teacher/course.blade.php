@@ -160,6 +160,74 @@
         </div>
     </div>
 </div>
+
+<div id="editCourse" class="box-course modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Edit <span id="course-name"></span> Course</h4>
+            </div>
+            <div class="modal-body">
+                <form class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Choose Image</label>
+                            <div class="dropzone dz-clickable" id="myDrop{{ $course->id }}">
+                                <div class="dz-default dz-message" data-dz-message="">
+                                    <span>Drop files here to upload</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="price" class="control-label">Course price:</label>
+                            <input type="text" class="form-control" id="course-price" name="price">
+                        </div>
+                        <div class="form-group">
+                            <label for="level" class="control-label">Level:</label>
+                            <input type="text" class="form-control" id="course-level" name="level">
+                        </div>
+                        <div class="form-group">
+                            <label for="approx_time" class="control-label">Approx Time: (hours)</label>
+                            <input type="text" class="form-control" id="course-approx-time" name="approx-time">
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="name" class="control-label">Course Name:</label>
+                            <input type="text" class="form-control" id="course-name" name="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="short_description" class="control-label">Short Description:</label>
+                            <input type="text" class="form-control" id="short-description" name="short-description">
+                        </div>
+                        <div class="form-group">
+                            <label for="description" class="control-label">Description:</label>
+                            <textarea id="course-description" name="description" class="form-control" rows="5" style="margin: 0px -11.3438px 0px 0px; width: 558px; height: 150px;"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="will-learn" class="control-label">Will Learn:</label>
+                            <input type="text" class="form-control" id="course-will-learn" name="will-learn">
+                        </div>
+                        <div class="form-group">
+                            <label for="requirement" class="control-label">Requirement:</label>
+                            <input type="text" class="form-control" id="course-requirement" name="requirement">
+                        </div>
+                        <div class="form-group">
+                            <label for="category" class="control-label">Category:</label>
+                            <select class="form-control" id="course-category" name="category">
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="save-btn">Update</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     Dropzone.autoDiscover = false;
     $(document).ready(function(){

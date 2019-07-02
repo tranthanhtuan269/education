@@ -199,7 +199,7 @@
                             <span class="unit-content">{{ $unit->name }}</span> 
                             <i class="fas fa-trash remove-unit" id="remove-unit-{{ $unit->id }}" data-unit-id="{{ $unit->id }}" data-course-id="{{ $course->id }}"></i>
                             <i class="fas fa-edit edit-unit" id="edit-unit-{{ $unit->id }}" data-unit-id="{{ $unit->id }}" data-course-id="{{ $course->id }}"></i>
-                            <i class="fas fa-bars add-vid-unit" id="add-vid-unit-{{ $unit->id }}" data-unit-id="{{ $unit->id }}" data-course-id="{{ $course->id }}"></i>
+                            <i class="fas fa-bars list-vid-unit" id="list-vid-unit-{{ $unit->id }}" data-unit-id="{{ $unit->id }}" data-course-id="{{ $course->id }}"></i>
                         </li>                        
                         @endforeach
                     </ul>
@@ -242,24 +242,19 @@
         
     </div>
     @endforeach
-<div id="listVideo{{ $unit->id }}" class="modal fade list-video" " >
+@endforeach
+
+<div id="listVideo" class="modal fade list-video">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <div class="btn btn-primary pull-right btn-add-video" data-unit-id="{{ $unit->id }}"" id="addVideoBtn" ><i class="fas fa-plus"></i> Add lecture</div>
+                <div class="btn btn-primary pull-right btn-add-video" id="addVideoBtn" ><i class="fas fa-plus"></i> Add lecture</div>
                 <h4 class="modal-title">Lecture list</h4>
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <ul id="videoSortable" class="video-holder-{{ $unit->id }}" data-unit-id = "{{ $unit->id }}">
-                        @foreach ($unit->videos->sortBy('index') as $key => $video)
-                            <li class="ui-state-default"  data-video-id="{{ $video->id }}" data-video-index="{{ $video->index }}">
-                                <i class="fas fa-sort"></i> 
-                                <span class="video-content">{{ $video->name }}</span>
-                                <i class="fas fa-trash remove-video pull-right" id="remove-video-{{ $video->id }}" data-video-id="{{ $video->id }}" data-video-index="{{ $video->index }}"></i>
-                                <i class="fas fa-edit edit-video pull-right" id="edit-video-{{ $video->id }}" data-target="#editVideoModal{{$video->id}}" data-toggle="modal" data-keyboard="false" data-video-id="{{ $video->id }}" data-video-index="{{ $video->index }}"></i>                                                              
-                            </li>                            
-                        @endforeach
+                    <ul id="videoSortable" class="video-holder" data-unit-id="0">
+                        
                     </ul>
                 </div>
             </div>
@@ -272,68 +267,52 @@
     <script>
         $(document).ready( function () {
             
-            $('#listVideo{{ $unit->id }} #videoSortable').sortable({
-                placeholder: "ui-state-highlight",
-                update: function (event, ui) {
-                    var sorted_list = []
-                    var unit_id = $('#listVideo{{ $unit->id }} #videoSortable').attr('data-unit-id')
-                    $.each($("#listVideo{{ $unit->id }} li"), function (index, value) {
+            // $('#listVideo #videoSortable').sortable({
+            //     placeholder: "ui-state-highlight",
+            //     update: function (event, ui) {
+            //         var sorted_list = []
+            //         var unit_id = $('#listVideo #videoSortable').attr('data-unit-id')
+            //         $.each($("#listVideo li"), function (index, value) {
                         
-                            sorted_list.push({
-                                id: $(value).attr('data-video-id'),
-                                v_index: $(value).attr('data-video-index'),
-                            })
-                    })
+            //                 sorted_list.push({
+            //                     id: $(value).attr('data-video-id'),
+            //                     v_index: $(value).attr('data-video-index'),
+            //                 })
+            //         })
 
-                    $.ajax({
-                        method: "PUT",
-                        url : "{{ url('/') }}/user/units/sort-video",
-                        data: {
-                            sorted_list : JSON.stringify( sorted_list ),
-                            unit_id : unit_id
-                        },
-                        success: function (response) {
-                            if(response.status == '200'){
+            //         $.ajax({
+            //             method: "PUT",
+            //             url : "{{ url('/') }}/user/units/sort-video",
+            //             data: {
+            //                 sorted_list : JSON.stringify( sorted_list ),
+            //                 unit_id : unit_id
+            //             },
+            //             success: function (response) {
+            //                 if(response.status == '200'){
 
-                            }
-                        },
-                        error: function (response) {
-                            var obj_errors = error.responseJSON.errors;
-                            var txt_errors = '';
-                            for (k of Object.keys(obj_errors)) {
-                                txt_errors += obj_errors[k][0] + '</br>';
-                            }
-                            Swal.fire({
-                                type: 'error',
-                                html: txt_errors,
-                            })
-                        }
-                    })
-                    
-                    
-                }
-            })
-
-            // $("#listVideo{{ $unit->id }} .edit-video").click(function(){
-            //     var video_id = $(this).attr('data-unit-id');
-            //     var content = $(this).parent().find('span.unit-content').html()
-            //     var html = "<input class='form-control' id='unit-input' value='" + content +"'><i class='fas fa-check save-unit' id='btn-save-unit' data-unit-id='"+unit_id+"'></i>"
-            //     $(this).parent().html(html);
-            //     addEvent()
+            //                 }
+            //             },
+            //             error: function (response) {
+            //                 var obj_errors = error.responseJSON.errors;
+            //                 var txt_errors = '';
+            //                 for (k of Object.keys(obj_errors)) {
+            //                     txt_errors += obj_errors[k][0] + '</br>';
+            //                 }
+            //                 Swal.fire({
+            //                     type: 'error',
+            //                     html: txt_errors,
+            //                 })
+            //             }
+            //         })
+            //     }
             // })
-
         })
     </script>
 </div>
-@endforeach
-
 
 <script>
     Dropzone.autoDiscover = false;
     $(document).ready(function(){
-
-        
-
         $( "#listUnit{{ $course->id }} #sortable" ).sortable({
             placeholder: "ui-state-highlight",
             update: function( event, ui ) {
@@ -391,7 +370,7 @@
                 success: function (response) {
                     if(response.status == 200){
                         console.log(response.unit.data.id);
-                        var html = '<li class="ui-state-default"><i class="fas fa-sort"></i> <span class="unit-content">Item 1 </span> <i class="fas fa-trash remove-unit" id="remove-unit-'+response.unit.data.id+'" data-unit-id="'+response.unit.data.id+'" data-course-id="{{ $course->id }}"></i><i class="fas fa-edit edit-unit" id="edit-unit-'+response.unit.data.id+'" data-unit-id="'+response.unit.data.id+'" data-course-id="{{ $course->id }}"></i><i class="fas fa-bars add-vid-unit" id="add-vid-unit-'+response.unit.data.id+'" data-unit-id="'+response.unit.data.id+'" data-course-id="'+response.unit.data.id+'"></i></li>';
+                        var html = '<li class="ui-state-default"><i class="fas fa-sort"></i> <span class="unit-content">Item 1 </span> <i class="fas fa-trash remove-unit" id="remove-unit-'+response.unit.data.id+'" data-unit-id="'+response.unit.data.id+'" data-course-id="{{ $course->id }}"></i><i class="fas fa-edit edit-unit" id="edit-unit-'+response.unit.data.id+'" data-unit-id="'+response.unit.data.id+'" data-course-id="{{ $course->id }}"></i><i class="fas fa-bars list-vid-unit" id="list-vid-unit-'+response.unit.data.id+'" data-unit-id="'+response.unit.data.id+'" data-course-id="'+response.unit.data.id+'"></i></li>';
                         $("#listUnit{{ $course->id }} #sortable").append(html);
                         $("#listUnit{{ $course->id }} #sortable").sortable('refresh');
                         addEvent();
@@ -497,7 +476,7 @@
                             html += '<span class="unit-content">'+content+'</span>'
                             html += '<i class="fas fa-trash remove-unit" id="remove-unit-'+ unit_id +'" data-unit-id="'+ unit_id +'" data-course-id="'+ course_id +'"></i>'
                             html += '<i class="fas fa-edit edit-unit" id="edit-unit-'+ unit_id +'" data-unit-id="'+ unit_id +'" data-course-id="'+ course_id +'"></i>'
-                            html += '<i class="fas fa-bars add-vid-unit" id="add-vid-unit-'+ unit_id +'" data-unit-id="'+ unit_id +'" data-course-id="'+ course_id +'"></i>'
+                            html += '<i class="fas fa-bars list-vid-unit" id="list-vid-unit-'+ unit_id +'" data-unit-id="'+ unit_id +'" data-course-id="'+ course_id +'"></i>'
 
                             parent.append(html)
                             addEvent()
@@ -561,11 +540,25 @@
                 });
             })
 
-
-            $('#listUnit{{ $course->id }} .add-vid-unit').click(function() {
+            $('#listUnit{{ $course->id }} .list-vid-unit').off('click')
+            $('#listUnit{{ $course->id }} .list-vid-unit').on('click', function () {
                 var unit_id = $(this).attr('data-unit-id')
                 $(".box-unit").modal('hide')
-                $("#listVideo"+unit_id).modal('show')
+                $("#listVideo").attr("data-unit-id", unit_id)
+                $("#listVideo").modal('show')
+            })
+
+            $('#listVideo').on('shown.bs.modal', function () {
+                alert($(this).attr('data-unit-id'));
+            })
+
+            $('#listVideo').on('hide.bs.modal', function () {
+                $('#listUnit{{ $course->id }} .list-vid-unit').on('click', function () {
+                    var unit_id = $(this).attr('data-unit-id')
+                    $(".box-unit").modal('hide')
+                    $("#listVideo").attr("data-unit-id", unit_id)
+                    $("#listVideo").modal('show')
+                })
             })
 
 
