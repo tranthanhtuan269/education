@@ -171,7 +171,7 @@
                             </ul>
                         </li>
                  
-                        <li class="treeview @if ( Request::is('admincp/users*') || Request::is('admincp/permissions*') || Request::is('admincp/roles*') ) active @endif">
+                        <li class="treeview @if ( Request::is('admincp/teachers*') || Request::is('admincp/verify-video*')) active @endif">
                             <a href="javascript:void(0)">
                                 <i class="fa fa-user-md"></i>
                                 <span>Phê duyệt</span>
@@ -183,6 +183,9 @@
                                 @if (Helper::checkPermissions('users.list', $list_roles)) 
                                     <li class="@if ( Request::is('admincp/teachers*') ) active @endif">
                                         <a href="{{ url('/') }}/admincp/teachers"><i class="fa fa-minus"></i> Yêu cầu làm giảng viên</a>
+                                    </li>
+                                    <li class="@if ( Request::is('admincp/verify-video*') ) active @endif">
+                                        <a href="{{ url('/') }}/admincp/verify-video"><i class="fa fa-minus"></i> Yêu cầu duyệt bài giảng</a>
                                     </li>
                                 @endif
                             </ul>

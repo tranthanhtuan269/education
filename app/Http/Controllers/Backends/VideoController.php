@@ -130,4 +130,49 @@ class VideoController extends Controller
         }
         return \Response::json(array('status' => '404', 'message' => 'Sửa Video không thành công!'));
     }
+
+    public function verifyVideo(){
+        $myvideo = Video::find(12);
+        return view('backends.videos.verify',[
+            'myvideo' => $myvideo
+        ]);
+    }
+
+    public function getUnverifiedVideoAjax (){
+        $videos = Video::where('state', 0)->get();
+        return datatables()->collection($videos)
+            ->addColumn('name', function ($video) {
+                return $video->name;
+            })
+            ->addColumn('description', function ($video) {
+                return $video->description;
+            })
+            ->addColumn('teacherName', function ($video) {
+                return $video->unit != null ? $video->unit->course->name : "";
+            })
+            ->addColumn('action', function ($video) {
+                return $video->id;
+            })
+            ->addColumn('rows', function ($video) {
+                return $video->id;
+            })
+            ->removeColumn('id')->make(true);
+    }
+
+    public function acceptVideo ( Request $request ){
+        $video = Video::find($request->video_id);
+        if($video){
+            $video->state = 1;
+            $video->save();
+
+            return response()->json([
+                'status' => 200,
+                'message' => 'Video is verified!'
+            ]);
+        }
+        return response()->json([
+            'status' => 404,
+            'message' => 'Video is not found!'
+        ]);
+    }
 }

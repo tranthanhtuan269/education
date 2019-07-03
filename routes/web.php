@@ -89,6 +89,12 @@ Route::group(['middleware' => 'auth'], function () {
         // Route::resource('posts', 'PostController');
         // Route::resource('postcategories', 'PostCategoryController');
 
+        Route::get('verify-video', 'Backends\VideoController@verifyVideo');
+        Route::get('get-unverified-video', 'Backends\VideoController@getUnverifiedVideoAjax');
+        Route::put('verify-video/accept', 'Backends\VideoController@acceptVideo');
+        Route::put('verify-video/accept', 'Backends\VideoController@acceptVideo');
+
+
         Route::get('list', ['as' => 'getUserList', 'uses' => 'Backends\UserController@getUserList']);
 
     });
