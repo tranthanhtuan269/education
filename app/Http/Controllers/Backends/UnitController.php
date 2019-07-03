@@ -43,7 +43,14 @@ class UnitController extends Controller
         if($video){
             $video->name = $request->name;
             $video->description = $request->description;
-            $video->link_video = $request->link_video.'.mp4';
+
+            if ($request->link_video != '') {
+                $link_video = $request->link_video.'.mp4';
+                $video->link_video = $link_video;
+                $command = config('config.path_ffprobe_exe').' -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 '.public_path("/uploads/videos/").$link_video.' 2>&1';
+                $video->duration =  exec($command, $output, $return);
+            }
+
             $video->save();
             return \Response::json(array('status' => '200', 'message' => 'Sửa Video thành công!', 'video' => $video));
         }

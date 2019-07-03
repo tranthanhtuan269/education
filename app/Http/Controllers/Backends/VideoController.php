@@ -43,11 +43,18 @@ class VideoController extends Controller
             $video = new Video;
             $video->name    = $request->name;
             $video->unit_id = $request->unit_id;
+            $video->description = $request->description;
             $video->index   = $unit->videos_count;
             $video->description = $request->description;
             $video->url_video = json_encode(['a'=>'b']);
-            $video->link_video = $request->link_video.'.mp4';
-            $video->duration = 100;
+
+            if ($request->link_video != '') {
+                $link_video = $request->link_video.'.mp4';
+                $video->link_video = $link_video;
+                $command = config('config.path_ffprobe_exe').' -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 '.public_path("/uploads/videos/").$link_video.' 2>&1';
+                $video->duration =  exec($command, $output, $return);
+            }
+            
             $video->save();
 
             return response()->json([
