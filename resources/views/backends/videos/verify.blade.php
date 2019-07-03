@@ -29,9 +29,9 @@
                             <th class="id-field" width="1%">
                                 <input type="checkbox" id="select-all-btn" data-check="false">
                             </th>
-                            <th scope="col">Tên bài giảng</th>
+                            <th scope="col">Tên bài</th>
                             <th scope="col">Mô tả</th>
-                            <th scope="col">Tên giảng viên</th>
+                            <th scope="col">Tên khóa học</th>
                             <th scope="col">Thao tác</th>
                         </tr>
                     </thead>
