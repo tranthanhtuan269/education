@@ -45,6 +45,7 @@ class VideoController extends Controller
             $video->unit_id = $request->unit_id;
             $video->index   = $unit->videos_count;
             $video->url_video = json_encode(['a'=>'b']);
+            $video->link_video = $request->link_video.'.mp4';
             $video->duration = 100;
             $video->save();
 

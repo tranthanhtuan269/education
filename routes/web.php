@@ -185,7 +185,7 @@ Route::group(['middleware' => 'auth'], function () {
         });
 
         Route::group(['prefix' => 'units'],function () {
-            Route::get('{id}/get-video', 'Backends\UnitController@getVideo');
+            Route::get('{id}/get-video', 'Backends\UnitController@getVideos');
             Route::post('store', 'Backends\UnitController@store');
             Route::put('{id}/update', 'Backends\UnitController@update');
             Route::put('video/{id}/update', 'Backends\UnitController@updateVideo');
@@ -198,6 +198,7 @@ Route::group(['middleware' => 'auth'], function () {
         });
 
         Route::group(['prefix' => 'videos'],function () {
+            Route::get('{id}', 'Backends\UnitController@getVideo');
             Route::put('sort', 'Backends\VideoController@sort');
         });
 

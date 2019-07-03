@@ -13,7 +13,14 @@ use App\Video;
 class UnitController extends Controller
 {
     public function getVideo($id){
+        $video = Video::find($id);
+        return \Response::json(array('status' => '200', 'message' => 'List Videos!', 'video' => $video));
+    }
+
+    public function getVideos($id){
         $videos = Video::where('unit_id', $id)->orderBy('index', 'asc')->get()->toArray();
+        // echo '<pre>';
+        // print_r($videos);die;
         return \Response::json(array('status' => '200', 'message' => 'List Videos!', 'videos' => $videos));
     }
 
@@ -36,6 +43,7 @@ class UnitController extends Controller
         if($video){
             $video->name = $request->name;
             $video->description = $request->description;
+            $video->link_video = $request->link_video.'.mp4';
             $video->save();
             return \Response::json(array('status' => '200', 'message' => 'Sửa Video thành công!', 'video' => $video));
         }

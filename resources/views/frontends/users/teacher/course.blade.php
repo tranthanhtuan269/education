@@ -173,7 +173,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label>Choose Image</label>
-                            <div class="dropzone dz-clickable" id="myDrop{{ $course->id }}">
+                            <div class="dropzone dz-clickable" id="myDrop">
                                 <div class="dz-default dz-message" data-dz-message="">
                                     <span>Drop files here to upload</span>
                                 </div>
@@ -267,13 +267,25 @@
                 </div>
                 <div class="form-group row">
                     <input type="hidden" id="fileName" name="fileName" value="">
-                    <label class="col-sm-3" for="name">Lecture video:</label>
-                    <input type="file" name="file-mp4-upload-off" id="file-mp4-upload-off">
+                    <div class="clearfix">
+                        <label class="col-sm-3" for="name">Lecture video:</label>
+                        <div class="btn-upload clearfix">
+                            <span class="file-wrapper">
+                              <input type="file" name="file-mp4-upload-off" id="file-mp4-upload-off">
+                              <span class="button text-uppercase" >Upload file</span>
+                            </span>
+                        </div>
+                    </div>
+
+                    {{-- <input type="file" name="file-mp4-upload-off" id="file-mp4-upload-off"> --}}
                     <div class="progress">
                         <div class="progress-bar" role="progressbar" aria-valuenow="70"aria-valuemin="0" aria-valuemax="100" style="width:0%">
                             <span class="sr-only">0% Complete</span>
                         </div>
                     </div>
+                    <video controls="controls" src="" style="max-width:100%" class="hidden">
+                        Your browser does not support the HTML5 Video element.
+                    </video>
                 </div>                                         
             </div>
             <div class="modal-footer">
@@ -300,16 +312,28 @@
                     <textarea class="col-sm-9 form-control edit-video-description" rows="5" class="form-control" class="form-control"></textarea>
                 </div>
                 <div class="form-group row">
-                    <input type="hidden" id="fileName" name="fileName" value="">
-                    <label class="col-sm-3" for="name">Lecture video:</label>
-                    <input type="file" name="file-mp4-upload-off" id="file-mp4-upload-off">
+                    <input type="hidden"  name="fileName" value="">
+                    <div class="clearfix">
+                        <label class="col-sm-3" for="name">Lecture video:</label>
+                        <div class="btn-upload clearfix">
+                            <span class="file-wrapper">
+                              <input type="file" name="file-mp4-upload-off" id="file-mp4-upload-off-updated">
+                              <span class="button text-uppercase" >Upload file</span>
+                            </span>
+                        </div>
+                    </div>
                     <div class="progress">
                         <div class="progress-bar" role="progressbar" aria-valuenow="70"aria-valuemin="0" aria-valuemax="100" style="width:0%">
                             <span class="sr-only">0% Complete</span>
                         </div>
                     </div>
-                </div>                                         
+                    <video controls="controls" src="" style="max-width:100%">
+                        Your browser does not support the HTML5 Video element.
+                    </video>
+                </div>       
+                        
             </div>
+
             <div class="modal-footer">
                 <button class="btn btn-primary save-edit-video">Save</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -559,11 +583,40 @@
         })
 
         function addEventAndSort(){
+            $(".progress-bar").css("width", "0%");
+            $(".progress-bar").attr("aria-valuemax", "0");
             $(".edit-video").off('click')
             $(".edit-video").click(function(){
                 var video_id = $(this).attr('data-video-id');
                 $('#listVideo').modal('hide')
                 $('#editVideoModal').attr('data-video-id', video_id).modal('toggle')
+
+                $.ajax({
+                method: 'GET',
+                url: "{{ url('/') }}/user/videos/"+video_id,
+                dataType: 'json',
+                success: function (response) {
+                    console.log(response);
+                    if(response.status == '200'){
+                        $('#editVideoModal input.edit-video-name').val(response.video.name);
+                        $('#editVideoModal textarea').val(response.video.description);
+                        $('#editVideoModal video').attr('src', "{{ url('uploads/videos') }}/" + response.video.link_video);
+                        $("#editVideoModal video")[0].load();
+                    }
+                },
+                error: function (error) {
+                    var obj_errors = error.responseJSON.errors;
+                    var txt_errors = '';
+                    for (k of Object.keys(obj_errors)) {
+                        txt_errors += obj_errors[k][0] + '</br>';
+                    }
+                    Swal.fire({
+                        type: 'error',
+                        html: txt_errors,
+                    })
+                }
+            })
+
             });
 
             $('.save-add-video').off('click');
@@ -571,7 +624,8 @@
                 var unit_id = $(this).attr('data-unit-id');
                 var video_name = $('.add-video-name').val()
                 var video_description = $('.add-video-description').val()
-
+                var link_video = $('#addVideoModal input[name=fileName]').val()
+                // alert(link_video);return;
                 $.ajax({
                     method: 'POST',
                     url: "{{ url('user/units/video/store') }}",
@@ -579,6 +633,7 @@
                         name        : video_name,
                         description : video_description,
                         unit_id     : unit_id,
+                        link_video  : link_video,
                     },
                     dataType: 'json',
                     success: function (response) {
@@ -606,6 +661,7 @@
                 var video_id = $('#editVideoModal').attr('data-video-id');
                 var video_name = $('.edit-video-name').val()
                 var video_description = $('.edit-video-description').val()
+                var link_video = $('#editVideoModal input[name=fileName]').val()
 
                 $.ajax({
                     method: 'PUT',
@@ -613,6 +669,7 @@
                     data:{
                         name        : video_name,
                         description : video_description,
+                        link_video  : link_video,
                     },
                     dataType: 'json',
                     success: function (response) {
@@ -699,6 +756,45 @@
                 }
             });
 
+            //// upload video updated
+            $("#editVideoModal #file-mp4-upload-off-updated").change(function(){
+                $.ajaxSetup(
+                    {
+                        headers:
+                        {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                var file = document.getElementById("file-mp4-upload-off-updated").files[0];
+                var extension = document.getElementById("file-mp4-upload-off-updated").files[0].name;
+                extension = extension.split(".");
+                extension_input = extension[extension.length - 1];
+                extension_input = extension_input.toLowerCase();
+                var arrExtension = ["mp4"];
+                if(jQuery.inArray(extension_input, arrExtension) !== -1) {
+                    // $('.btn-upload, .or, .btn-link').hide();
+                    $('.progressBar').show();
+                    var formdata = new FormData();
+                    formdata.append("file-mp4-upload-off", file);
+                    formdata.append("_token", $('meta[name="csrf-token"]').attr('content'));
+                    // formdata.append("data", "{ demo : '{{ time() }}'  }");
+                    var ajax = new XMLHttpRequest();
+                    ajax.upload.addEventListener("progress", progressHandler, false);
+                    ajax.addEventListener("load", completeHandlerEdit, false);
+                    ajax.addEventListener("error", errorHandler, false);
+                    ajax.addEventListener("abort", abortHandler, false);
+                    ajax.open("POST", "{{ url('/') }}/saveFileAjax");
+                    ajax.setRequestHeader("X-CSRF-Token", $('meta[name="csrf-token"]').attr('content'));
+                    ajax.send(formdata);
+                } else {
+                    Swal.fire({
+                        type: 'warning',
+                        html: 'Error format.',
+                    })
+                }
+                $('#file-mp4-upload-off-updated').val('');
+            });
+
             //// upload video
             $("#addVideoModal #file-mp4-upload-off").change(function(){
                 uploadFile();
@@ -717,9 +813,9 @@
                 extension = extension.split(".");
                 extension_input = extension[extension.length - 1];
                 extension_input = extension_input.toLowerCase();
-                var arrExtension = ["mp3", "aac", "ogg", "m4a", "wma", "wav", "mp4", "m4v", "mov", "avi", "flv", "mpg", "wmv","flac"];
+                var arrExtension = ["mp4"];
                 if(jQuery.inArray(extension_input, arrExtension) !== -1) {
-                    $('.btn-upload, .or, .btn-link').hide();
+                    // $('.btn-upload, .or, .btn-link').hide();
                     $('.progressBar').show();
                     var formdata = new FormData();
                     formdata.append("file-mp4-upload-off", file);
@@ -733,6 +829,11 @@
                     ajax.open("POST", "{{ url('/') }}/saveFileAjax");
                     ajax.setRequestHeader("X-CSRF-Token", $('meta[name="csrf-token"]').attr('content'));
                     ajax.send(formdata);
+                } else {
+                    Swal.fire({
+                        type: 'warning',
+                        html: 'Error format.',
+                    })
                 }
                 $('#file-mp4-upload-off').val('');
             }
@@ -743,15 +844,28 @@
                 var type_txt = checkTypeFile(extension_input);
                 waitting_upload_file = true;
 
-                $("#addVideoModal .progress-bar").css("width", Math.round(percent) + "%");
-                $("#addVideoModal .progress-bar").html(Math.round(percent) + "%");
+                $(".progress-bar").css("width", Math.round(percent) + "%");
+                $(".progress-bar").html(Math.round(percent) + "%");
             }
 
             function completeHandler(event) {
                 unsaved = true;
                 textUpload = event.target.responseText;
+                // alert(textUpload)
                 $('#addVideoModal #fileName').val(textUpload);
-                ajaxDuration();
+                $('#addVideoModal video').removeClass('hidden');
+                $('#addVideoModal video').attr('src', "{{ url('uploads/videos') }}/" + textUpload + '.mp4');
+                $("#addVideoModal video")[0].load();
+                // ajaxDuration();
+            }
+
+            function completeHandlerEdit(event) {
+                unsaved = true;
+                textUpload = event.target.responseText;
+                $('#editVideoModal input[name=fileName]').val(textUpload);
+                $('#editVideoModal video').attr('src', "{{ url('uploads/videos') }}/" + textUpload + '.mp4');
+                $("#editVideoModal video")[0].load();
+                // ajaxDuration();
             }
 
             function errorHandler(event) {
@@ -780,65 +894,65 @@
                 } 
             }
 
-            function ajaxDuration() {
-                $.ajax({
-                    // type: "GET",
-                    url: "{{ url('/') }}/duration",
-                    data: {
-                        'fileName': $('#fileName').val(),
-                        'input': extension_input,
-                    },
-                   dataType:'json',
-                    beforeSend: function() {},
-                    complete: function(res) {
-                        check_upload_file = true;
-                        check_duration = true;
-                        $('.convert .btn-convert-special a, .convert .btn-convert-special').css("cursor", "pointer");
-                        status = res.responseJSON.status;
+            // function ajaxDuration() {
+            //     $.ajax({
+            //         // type: "GET",
+            //         url: "{{ url('/') }}/duration",
+            //         data: {
+            //             'fileName': $('#fileName').val(),
+            //             'input': extension_input,
+            //         },
+            //        dataType:'json',
+            //         beforeSend: function() {},
+            //         complete: function(res) {
+            //             check_upload_file = true;
+            //             check_duration = true;
+            //             $('.convert .btn-convert-special a, .convert .btn-convert-special').css("cursor", "pointer");
+            //             status = res.responseJSON.status;
 
-                        if (status == 'error') {
-                            check_duration = false;
-                        } else {
-                            var type = $('.select-output ul.tabs li.active').attr('data-id');
-                            var quanlity = $('#' + type + 'Bitrate span.quanlity').attr('data-value');
+            //             if (status == 'error') {
+            //                 check_duration = false;
+            //             } else {
+            //                 var type = $('.select-output ul.tabs li.active').attr('data-id');
+            //                 var quanlity = $('#' + type + 'Bitrate span.quanlity').attr('data-value');
 
-                            duration = res.responseJSON.duration;
-                            if (duration) {
-                                duration = duration.split(".");
-                                duration = duration[0];
-                                if (duration.length == 7) {
-                                    duration = "0" + duration;
-                                }
+            //                 duration = res.responseJSON.duration;
+            //                 if (duration) {
+            //                     duration = duration.split(".");
+            //                     duration = duration[0];
+            //                     if (duration.length == 7) {
+            //                         duration = "0" + duration;
+            //                     }
 
-                                if ($('.time-to').val() == '00:00:00') {
-                                    $('.time-to').val(duration);
-                                }
+            //                     if ($('.time-to').val() == '00:00:00') {
+            //                         $('.time-to').val(duration);
+            //                     }
                                 
-                                waitting_upload_file = false;
-                            } else {
-                                check_duration = false;
-                            }
+            //                     waitting_upload_file = false;
+            //                 } else {
+            //                     check_duration = false;
+            //                 }
 
 
-                            if (res.responseJSON.check_audio == false){
-                                check_audio = false;
-                            }
-                        }
+            //                 if (res.responseJSON.check_audio == false){
+            //                     check_audio = false;
+            //                 }
+            //             }
 
-                        if (check_duration == false) {
-                            $(".progress-bar").css("width", "0%");
-                            $('.btn-upload, .or, .btn-link').show();
-                            $('.progressBar').hide();
-                            check_upload_file = false;
-                            waitting_upload_file = false;
-                            $('#youtube-link').val('');
-                            return;
-                        }
+            //             if (check_duration == false) {
+            //                 $(".progress-bar").css("width", "0%");
+            //                 $('.btn-upload, .or, .btn-link').show();
+            //                 $('.progressBar').hide();
+            //                 check_upload_file = false;
+            //                 waitting_upload_file = false;
+            //                 $('#youtube-link').val('');
+            //                 return;
+            //             }
 
-                    },
-                    error: function(res) {}
-                });
-            }
+            //         },
+            //         error: function(res) {}
+            //     });
+            // }
         }
     });
 </script>

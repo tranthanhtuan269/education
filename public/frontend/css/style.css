@@ -1838,4 +1838,40 @@ div[data-u="slides"] div div{
 }
 .progress{
   margin-top: 10px;
+  width: 100%;
+}
+
+.btn-upload{
+  width: 20%;
+  float: left;
+}
+.file-wrapper {
+  cursor: pointer;
+  display: inline-block;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  text-align: center;
+}
+.file-wrapper input {
+  cursor: pointer;
+  filter: alpha(opacity=1);
+  -moz-opacity: 0.01;
+  opacity: 0.01;
+  position: absolute;
+  right: 0;
+  top: 0;
+  min-height: 150px;
+}
+.file-wrapper .button {
+  background: #e8624a;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 12px;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  padding: 4px 12px;
+  width: 100%;
+  word-break: break-word;
 }
