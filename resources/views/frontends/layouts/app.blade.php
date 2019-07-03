@@ -30,7 +30,7 @@
     <base href="{{ url('/') }}">
 </head>
 <body>
-    <div class="notifications alert alert-danger fade in alert-dismissible">
+    {{-- <div class="notifications alert alert-danger fade in alert-dismissible">
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
@@ -43,7 +43,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <header>
         <div class="sm-mobile-menu hidden-lg hidden-md hidden-sm">
