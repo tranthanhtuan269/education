@@ -73,20 +73,22 @@
         </div>
     </div>
     <div class="modal fade" id="showVideoIntroModal" tabindex="-1">
-        <div class="modal-content" >
-            <div class="modal-header">
-                <h3>Video Intro</h3>
-            </div>
-            <div class="modal-body">
-                <div class="form-group row text-center">
-                    <iframe id="video-intro" src="" frameborder="0" width="545" height="280" allowscriptaccess="always" allowfullscreen="true"></iframe>
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" >
+                <div class="modal-header">
+                    <h3>Duyệt video</h3>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <div class="form-group row">
-                    <div class="col-sm-1"></div>
-                    <div class="col-sm-11">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                <div class="modal-body">
+                    <div class="form-group row text-center">
+                        <iframe id="video-intro" src="" frameborder="0" width="545" height="280" allowscriptaccess="always" allowfullscreen="true"></iframe>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="form-group row">
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm-11">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -152,22 +154,22 @@
                 class: "action-field",
                 render: function(data, type, row){
                     var html = '';
-                    
-                    @if (Helper::checkPermissions('users.view', $list_roles)) 
-                        html += '<a class="btn-view mr-2 view-video-intro" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Xem"> <i class="fa fa-video-camera"></i></a>';
+                    var dataJSON= JSON.parse(data)
+                    @if (Helper::checkPermissions('users.view', $list_roles))
+                        html += '<a class="btn-view mr-2 view-video-intro" data-id="'+dataJSON.id+'" data-video-link="'+dataJSON.link_video+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Xem"> <i class="fa fa-video-camera"></i></a>';                        
                     @endif
                     
                     @if (Helper::checkPermissions('users.accept-teacher', $list_roles)) 
                         if(row['status'] == 1){
-                            html += '<a class="btn-accept mr-2 accept-user" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Duyệt"> <i class="fa fa-times"></i></a>';
+                            html += '<a class="btn-accept mr-2 accept-user" data-id="'+dataJSON.id+'" data-title="'+dataJSON.title+'" data-content="'+row.content+'" title="Duyệt"> <i class="fa fa-times"></i></a>';
                         }else{
-                            html += '<a class="btn-accept mr-2 accept-user" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Duyệt"> <i class="fa fa-check"></i></a>';
+                            html += '<a class="btn-accept mr-2 accept-user" data-id="'+dataJSON.id+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Duyệt"> <i class="fa fa-check"></i></a>';
                         }
                         
                     @endif
 
                     @if (Helper::checkPermissions('users.delete', $list_roles)) 
-                        html += '<a class="btn-delete" data-id="'+data+'" title="Xóa"><i class="fa fa-trash" aria-hidden="true"></i></a>';
+                        html += '<a class="btn-delete" data-id="'+dataJSON.id+'" title="Xóa"><i class="fa fa-trash" aria-hidden="true"></i></a>';
                     @endif
 
                     return html;
@@ -298,7 +300,9 @@
             $('.view-video-intro').off('click')
             $('.view-video-intro').click(function(){
                 var curr_video_intro = $(this).parent().parent().attr('data-video')
+                var video_link = $(this).attr('data-video-link')
 
+                $('#showVideoIntroModal iframe').attr('src', '/uploads/videos/'+video_link)
                 $('#showVideoIntroModal').modal('show');
                 $("#video-intro").attr('src', curr_video_intro)
             })
@@ -382,9 +386,9 @@
                             }
                         });
                         $.ajax({
-                            url: baseURL+"/admincp/teachers/delete",
+                            url: baseURL+"/admincp/verify-video/delete",
                             data: {
-                                teacherId : id
+                                video_id : id
                             },
                             method: "DELETE",
                             dataType:'json',

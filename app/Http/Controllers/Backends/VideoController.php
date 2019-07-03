@@ -152,7 +152,7 @@ class VideoController extends Controller
                 return $video->unit != null ? $video->unit->course->name : "";
             })
             ->addColumn('action', function ($video) {
-                return $video->id;
+                return $video;
             })
             ->addColumn('rows', function ($video) {
                 return $video->id;

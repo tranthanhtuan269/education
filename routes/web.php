@@ -92,7 +92,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('verify-video', 'Backends\VideoController@verifyVideo');
         Route::get('get-unverified-video', 'Backends\VideoController@getUnverifiedVideoAjax');
         Route::put('verify-video/accept', 'Backends\VideoController@acceptVideo');
-        Route::put('verify-video/accept', 'Backends\VideoController@acceptVideo');
+        Route::delete('verify-video/delete', 'Backends\VideoController@destroy');
 
 
         Route::get('list', ['as' => 'getUserList', 'uses' => 'Backends\UserController@getUserList']);
