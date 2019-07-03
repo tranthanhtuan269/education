@@ -215,11 +215,13 @@
 
 @include('frontends.all-courses')
 @php
-	$userRoles = Auth::user()->userRoles;
-	foreach ($userRoles as $key => $userRole) {
-		$isTeacher = false;
-		if($userRole->role_id == 2){
-			$isTeacher = true;
+	$isTeacher = false;
+	if(Auth::check()){
+		$userRoles = Auth::user()->userRoles;
+		foreach ($userRoles as $key => $userRole) {
+			if($userRole->role_id == 2){
+				$isTeacher = true;
+			}
 		}
 	}
 @endphp
