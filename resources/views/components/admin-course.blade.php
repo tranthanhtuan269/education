@@ -416,6 +416,8 @@
 
         $('#btn-unit-{{ $course->id }}').click(function(){
             $('#listUnit{{ $course->id }}').modal('toggle')
+            $(".box-unit").removeClass('active-modal')
+            $('#listUnit{{ $course->id }}').addClass('active-modal')
         })
 
         $('body').on('click','#editCourse{{ $course->id }} .dz-image-preview',function(){

@@ -244,7 +244,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default close-popup-lecture" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
@@ -266,7 +266,6 @@
                     <textarea class="col-sm-9 form-control add-video-description" rows="5" class="form-control" class="form-control"></textarea>
                 </div>
                 <div class="form-group row">
-                    <input type="hidden" id="fileName" name="fileName" value="">
                     <div class="clearfix">
                         <label class="col-sm-3" for="name">Lecture video:</label>
                         <div class="btn-upload clearfix">
@@ -296,6 +295,9 @@
     </div>
 </div>
 
+<input type="hidden" id="fileName" name="fileName" value="">
+<input type="hidden" id="duration" value="">
+
 <div id="editVideoModal" class="modal fade edit-video-modal">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -312,7 +314,6 @@
                     <textarea class="col-sm-9 form-control edit-video-description" rows="5" class="form-control" class="form-control"></textarea>
                 </div>
                 <div class="form-group row">
-                    <input type="hidden"  name="fileName" value="">
                     <div class="clearfix">
                         <label class="col-sm-3" for="name">Lecture video:</label>
                         <div class="btn-upload clearfix">
@@ -352,6 +353,7 @@
         $('body').on('click','#createCourse .dz-image-preview',function(){
             $("#myDrop0").trigger("click")
         })
+
 
         var link_base64;
         var myDropzone = new Dropzone("div#myDrop0", 
@@ -534,10 +536,17 @@
             return;
         })
 
+        $('#addVideoModal').on('hidden.bs.modal', function () {
+            $('#listVideo').modal('toggle');
+        });
+
+        $('#editVideoModal').on('hidden.bs.modal', function () {
+            $('#listVideo').modal('toggle');
+        });
+
         $('#listVideo').on('shown.bs.modal', function () {
             var unit_id = $(this).attr('data-unit-id');
             $('#addVideoBtn').attr('data-unit-id', unit_id);
-
             $.ajax({
                 method: 'GET',
                 url: "{{ url('/') }}/user/units/"+unit_id+"/get-video",
@@ -574,15 +583,24 @@
 
         $('#listVideo').on('hide.bs.modal', function () {
             $('#videoSortable').html("");
+            var unit_id = $(this).attr('data-unit-id');
         });
+
+        $('.close-popup-lecture').click(function(){
+			$('.active-modal').modal('toggle');
+        })
 
         $('#addVideoBtn').on('click', function () {
             $('#listVideo').modal('toggle')
             $('#addVideoModal').modal('toggle');
             $('.save-add-video').attr('data-unit-id', $(this).attr('data-unit-id'));
+            $('#addVideoModal input.add-video-name').val('');
+            $('#addVideoModal textarea.add-video-description').val('');
+            $('#addVideoModal video').addClass('hidden');
         })
 
         function addEventAndSort(){
+            $(".progress-bar").html('');
             $(".progress-bar").css("width", "0%");
             $(".progress-bar").attr("aria-valuemax", "0");
             $(".edit-video").off('click')
@@ -624,7 +642,7 @@
                 var unit_id = $(this).attr('data-unit-id');
                 var video_name = $('.add-video-name').val()
                 var video_description = $('.add-video-description').val()
-                var link_video = $('#addVideoModal input[name=fileName]').val()
+                var link_video = $('#fileName').val()
                 // alert(link_video);return;
                 $.ajax({
                     method: 'POST',
@@ -639,7 +657,7 @@
                     success: function (response) {
                         if(response.status == '200'){
                             $('#addVideoModal').modal('hide')
-                            $('#listVideo').modal('toggle')
+                            // $('#listVideo').modal('toggle')
                         }
                     },
                     error: function (error) {
@@ -661,7 +679,7 @@
                 var video_id = $('#editVideoModal').attr('data-video-id');
                 var video_name = $('.edit-video-name').val()
                 var video_description = $('.edit-video-description').val()
-                var link_video = $('#editVideoModal input[name=fileName]').val()
+                var link_video = $('#fileName').val()
 
                 $.ajax({
                     method: 'PUT',
@@ -675,7 +693,7 @@
                     success: function (response) {
                         if(response.status == '200'){
                             $('#editVideoModal').modal('hide')
-                            $('#listVideo').modal('toggle')
+                            // $('#listVideo').modal('toggle')
                         }
                     },
                     error: function (error) {
@@ -852,20 +870,18 @@
                 unsaved = true;
                 textUpload = event.target.responseText;
                 // alert(textUpload)
-                $('#addVideoModal #fileName').val(textUpload);
+                $('#fileName').val(textUpload);
                 $('#addVideoModal video').removeClass('hidden');
                 $('#addVideoModal video').attr('src', "{{ url('uploads/videos') }}/" + textUpload + '.mp4');
                 $("#addVideoModal video")[0].load();
-                // ajaxDuration();
             }
 
             function completeHandlerEdit(event) {
                 unsaved = true;
                 textUpload = event.target.responseText;
-                $('#editVideoModal input[name=fileName]').val(textUpload);
+                $('#fileName').val(textUpload);
                 $('#editVideoModal video').attr('src', "{{ url('uploads/videos') }}/" + textUpload + '.mp4');
                 $("#editVideoModal video")[0].load();
-                // ajaxDuration();
             }
 
             function errorHandler(event) {
@@ -894,65 +910,6 @@
                 } 
             }
 
-            // function ajaxDuration() {
-            //     $.ajax({
-            //         // type: "GET",
-            //         url: "{{ url('/') }}/duration",
-            //         data: {
-            //             'fileName': $('#fileName').val(),
-            //             'input': extension_input,
-            //         },
-            //        dataType:'json',
-            //         beforeSend: function() {},
-            //         complete: function(res) {
-            //             check_upload_file = true;
-            //             check_duration = true;
-            //             $('.convert .btn-convert-special a, .convert .btn-convert-special').css("cursor", "pointer");
-            //             status = res.responseJSON.status;
-
-            //             if (status == 'error') {
-            //                 check_duration = false;
-            //             } else {
-            //                 var type = $('.select-output ul.tabs li.active').attr('data-id');
-            //                 var quanlity = $('#' + type + 'Bitrate span.quanlity').attr('data-value');
-
-            //                 duration = res.responseJSON.duration;
-            //                 if (duration) {
-            //                     duration = duration.split(".");
-            //                     duration = duration[0];
-            //                     if (duration.length == 7) {
-            //                         duration = "0" + duration;
-            //                     }
-
-            //                     if ($('.time-to').val() == '00:00:00') {
-            //                         $('.time-to').val(duration);
-            //                     }
-                                
-            //                     waitting_upload_file = false;
-            //                 } else {
-            //                     check_duration = false;
-            //                 }
-
-
-            //                 if (res.responseJSON.check_audio == false){
-            //                     check_audio = false;
-            //                 }
-            //             }
-
-            //             if (check_duration == false) {
-            //                 $(".progress-bar").css("width", "0%");
-            //                 $('.btn-upload, .or, .btn-link').show();
-            //                 $('.progressBar').hide();
-            //                 check_upload_file = false;
-            //                 waitting_upload_file = false;
-            //                 $('#youtube-link').val('');
-            //                 return;
-            //             }
-
-            //         },
-            //         error: function(res) {}
-            //     });
-            // }
         }
     });
 </script>

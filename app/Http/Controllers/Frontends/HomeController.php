@@ -363,29 +363,11 @@ class HomeController extends Controller
            }
        }
 
-        $command = config('config.path_ffprobe_exe').' -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 -sexagesimal '.public_path("/uploads/videos/").$request->fileName.'.'.$request->input.' 2>&1';
-        // echo $command;die;
+        $command = config('config.path_ffprobe_exe').' -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 '.public_path("/uploads/videos/").$request->fileName.'.'.$request->input.' 2>&1';
         $input = public_path('/uploads/videos/').$request->fileName.'.'.$request->input;
-
-        // Lấy giá trị bitrate
-        $block_txt = public_path('/uploads/block_'.$request->fileName.'.txt');
-        popen(config('config.path_ffmpeg_exe').' -i '.$input.' 1> '.$block_txt.' 2>&1', "r");
-        $content = file_get_contents($block_txt);
-
-        preg_match("/Audio(.*?):/", $content, $matches);
-        $check_audio = (isset($matches[1])) ? true : false;
-
-        preg_match("/bitrate: (.*?)kb/", $content, $matches);
-        if(isset($matches[1])){
-            $bitrate = (int)$matches[1];
-            if ($request->quanlity > $bitrate) {
-                $request->quanlity = $bitrate;
-            }
-        }
-
         exec($command, $output, $return);
         if (!$return) {
-            echo json_encode( array('status' => 200,'duration'=>exec($command, $output, $return), 'bitrate'=> $bitrate, 'check_audio' => $check_audio) );
+            echo json_encode( array('status' => 200,'duration'=>exec($command, $output, $return)) );
         } else {
             echo json_encode( array('status' => 404) );
         }
