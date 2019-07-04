@@ -45,6 +45,16 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'admincp'], function () {
         Route::get('/', 'Backends\HomeController@getAdminCp');
 
+        // Duyet khoa hoc
+        Route::get('courses', 'Backends\CourseController@getCourse');
+        Route::get('courses/getCourseAjax', 'Backends\CourseController@getCourseAjax');
+        Route::put('courses/accept', 'Backends\CourseController@accept');
+        Route::put('courses/accept-multiple-course', 'Backends\CourseController@acceptMultiCourse');
+        Route::put('courses/inaccept-multiple-course', 'Backends\CourseController@inacceptMultiCourse');
+        Route::delete('courses/delete', 'Backends\CourseController@deleteCourse');
+        Route::delete('courses/delete-multiple-course', 'Backends\CourseController@deleteMultiCourse');
+        // End Duyet khoa hoc
+
         Route::get('teachers', 'Backends\UserController@getTeacher');
         Route::get('teachers/getTeacherAjax', 'Backends\UserController@getTeacherAjax');
         Route::put('teachers/accept', 'Backends\UserController@accept');
