@@ -302,12 +302,14 @@ class UserController extends Controller
     {
         if($request->teacherId){
             $teacher = Teacher::find($request->teacherId);
+            
             if($teacher){
                 $teacher->status = $request->status;
                 $teacher->save();
                 if($request->status == 1){
                     $res = array('status' => "200", "Message" => "Duyệt thành công");
                 }else{
+                    $teacher->userRole->courses()->update(['courses.status' => 0]);        
                     $res = array('status' => "200", "Message" => "Hủy thành công");
                 }
                 echo json_encode($res);die;
