@@ -183,4 +183,100 @@ class VideoController extends Controller
             'message' => 'Video is not found!'
         ]);
     }
+
+    // Verify Video
+    public function getVideo(){
+        return view('backends.videos.video');
+    }
+
+    public function getVideoAjax()
+    {
+        $videos = Video::get();
+        return datatables()->collection($videos)
+            ->addColumn('course_name', function ($video) {
+                return $video->Unit->course->name;
+            })
+            ->addColumn('action', function ($video) {
+                return $video->id;
+            })
+            ->addColumn('rows', function ($video) {
+                return $video->id;
+            })
+            ->removeColumn('id')->make(true);
+    }
+
+    public function accept(Request $request)
+    {
+        if($request->video_id){
+            $video = Video::find($request->video_id);
+            if($video){
+                $video->state = $request->state;
+                $video->save();
+                if($request->state == 1){
+                    $res = array('status' => "200", "Message" => "Duyệt thành công");
+                }else{
+                    $res = array('status' => "200", "Message" => "Hủy thành công");
+                }
+                echo json_encode($res);die;
+            }
+        }
+        $res = array('status' => "401", "Message" => 'Người dùng không tồn tại.');
+        echo json_encode($res);die;
+    }
+
+    public function acceptMultiVideo(Request $request)
+    {
+        if (isset($request) && $request->input('id_list')) {
+            $id_list = $request->input('id_list');
+
+            if (Video::acceptMulti($id_list, 1)) {
+                $res = array('status' => 200, "Message" => "Đã duyệt hết");
+            } else {
+                $res = array('status' => "204", "Message" => "Có lỗi trong quá trình xủ lý !");
+            }
+            echo json_encode($res);
+        }
+    }
+
+    public function inacceptMultiVideo(Request $request)
+    {
+        if (isset($request) && $request->input('id_list')) {
+            $id_list = $request->input('id_list');
+
+            if (Video::acceptMulti($id_list, 0)) {
+                $res = array('status' => 200, "Message" => "Đã hủy hết");
+            } else {
+                $res = array('status' => "204", "Message" => "Có lỗi trong quá trình xủ lý !");
+            }
+            echo json_encode($res);
+        }
+    }
+
+    public function deleteVideo(Request $request)
+    {
+        if($request->video_id){
+            $video = Video::find($request->video_id);
+            if($video){
+                $video->delete();
+                $res = array('status' => "200", "Message" => "Xóa thành công");
+                echo json_encode($res);die;
+            }
+        }
+        $res = array('status' => "401", "Message" => 'Người dùng không tồn tại.');
+        echo json_encode($res);die;
+    }
+
+    public function deleteMultiVideo(Request $request)
+    {
+        if (isset($request) && $request->input('id_list')) {
+            $id_list = $request->input('id_list');
+
+            if (Video::delMulti($id_list)) {
+                $res = array('status' => 200, "Message" => "Đã xóa hết");
+            } else {
+                $res = array('status' => "204", "Message" => "Có lỗi trong quá trình xủ lý !");
+            }
+            echo json_encode($res);
+        }
+    }
 }

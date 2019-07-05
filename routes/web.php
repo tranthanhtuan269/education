@@ -45,7 +45,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'admincp'], function () {
         Route::get('/', 'Backends\HomeController@getAdminCp');
 
-        // Duyet khoa hoc
+        // Begin Duyet khoa hoc
         Route::get('courses', 'Backends\CourseController@getCourse');
         Route::get('courses/getCourseAjax', 'Backends\CourseController@getCourseAjax');
         Route::put('courses/accept', 'Backends\CourseController@accept');
@@ -54,6 +54,17 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('courses/delete', 'Backends\CourseController@deleteCourse');
         Route::delete('courses/delete-multiple-course', 'Backends\CourseController@deleteMultiCourse');
         // End Duyet khoa hoc
+
+        // Begin Duyet video
+        Route::get('videos', 'Backends\VideoController@getVideo');
+        Route::get('videos/getVideoAjax', 'Backends\VideoController@getVideoAjax');
+        Route::put('videos/accept', 'Backends\VideoController@accept');
+        Route::put('videos/accept-multiple-video', 'Backends\VideoController@acceptMultiVideo');
+        Route::put('videos/inaccept-multiple-video', 'Backends\VideoController@inacceptMultiVideo');
+        Route::delete('videos/delete', 'Backends\VideoController@deleteVideo');
+        Route::delete('videos/delete-multiple-video', 'Backends\VideoController@deleteMultiVideo');
+        // End Duyet Video
+
 
         Route::get('teachers', 'Backends\UserController@getTeacher');
         Route::get('teachers/getTeacherAjax', 'Backends\UserController@getTeacherAjax');

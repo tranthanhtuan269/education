@@ -14,25 +14,22 @@
 <section class="content-header">
     
 </section>
-
-{{-- @php
-    dd($myvideo->unit->course->name);
-@endphp --}}
 <section class="content page">
-    <h1 class="text-center font-weight-600">Danh sách video chưa được duyệt</h1>
+    <h1 class="text-center font-weight-600">Danh sách video</h1>
     <div class="row">
         <div class="col-md-12">
             <div class="table-responsive">
-                <table class="table table-bordered" id="teacher-table">
+                <table class="table table-bordered" id="video-table">
                     <thead class="thead-custom">
                         <tr>
                             <th class="id-field" width="1%">
                                 <input type="checkbox" id="select-all-btn" data-check="false">
                             </th>
-                            <th scope="col">Tên bài</th>
-                            <th scope="col">Mô tả</th>
-                            <th scope="col">Tên khóa học</th>
+                            <th scope="col">Video</th>
+                            <th scope="col">Xem</th>
+                            <th scope="col">Khóa học</th>
                             <th scope="col">Thao tác</th>
+                            <th scope="col">Update</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -52,7 +49,7 @@
     </div>
 </section>
 <section>
-    <div class="modal fade" id="showCVModal" tabindex="-1">
+    <!-- <div class="modal fade" id="showCVModal" tabindex="-1">
         <div class="modal-content" >
             <div class="modal-header">
                 <h3>CV</h3>
@@ -71,24 +68,22 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <div class="modal fade" id="showVideoIntroModal" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content" >
-                <div class="modal-header">
-                    <h3>Duyệt video</h3>
+        <div class="modal-content" >
+            <div class="modal-header">
+                <h3>Xem Video</h3>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row text-center">
+                    <iframe id="video-intro" src="" frameborder="0" width="545" height="280" allowscriptaccess="always" allowfullscreen="true"></iframe>
                 </div>
-                <div class="modal-body">
-                    <div class="form-group row text-center">
-                        <iframe id="video-intro" src="" frameborder="0" width="545" height="280" allowscriptaccess="always" allowfullscreen="true"></iframe>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="form-group row">
-                        <div class="col-sm-1"></div>
-                        <div class="col-sm-11">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                        </div>
+            </div>
+            <div class="modal-footer">
+                <div class="form-group row">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-11">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
                     </div>
                 </div>
             </div>
@@ -125,64 +120,72 @@
                 data: "rows",
                 class: "rows-item",
                 render: function(data, type, row){
-                    return '<input type="checkbox" name="selectCol" class="check-user" value="' + data + '" data-column="' + data + '">';
+                    return '<input type="checkbox" name="selectCol" class="check-video" value="' + data + '" data-column="' + data + '">';
                 },
                 orderable: false
             },
+            // { 
+            //     data: "name",
+            //     class: "video-item",
+            //     render: function(data, type, row){
+            //         return '<a class="btn-view mr-2 view-video-intro"><i class="fa fa-video-camera" aria-hidden="true"></i> Video intro</a>';
+            //     },
+            //     orderable: false
+            // },
             { 
                 data: "name",
                 class: "name-field"
             },
             { 
-                data: "description",
-                class: "description-field"
+                data: "link_video",
+                class: "video-item",
+                render: function(data, type, row){
+                    return '<a class="btn-view mr-2 view-video-intro"><i class="fa fa-video-camera fa-fw" aria-hidden="true"></i></a>';
+                },
+                orderable: false
             },
-            { 
-                data: "teacherName",
-                class: "teacherName-field"
+            {
+                data: "course_name",
+                class: "course_name-field"
             },
-            // { 
-            //     data: "video_intro",
-            //     class: "video-item",
-            //     render: function(data, type, row){
-            //         return '<a class="btn-view mr-2 view-video-intro"><i class="fa fa-video-camera" aria-hidden="true"></i> Video</a>';
-            //     },
-            //     orderable: false
-            // },
             { 
                 data: "action", 
                 class: "action-field",
                 render: function(data, type, row){
                     var html = '';
-                    var dataJSON= JSON.parse(data)
-                    @if (Helper::checkPermissions('users.view', $list_roles))
-                        html += '<a class="btn-view mr-2 view-video-intro" data-id="'+dataJSON.id+'" data-video-link="'+dataJSON.link_video+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Xem"> <i class="fa fa-video-camera"></i></a>';                        
-                    @endif
                     
-                    @if (Helper::checkPermissions('users.accept-teacher', $list_roles)) 
-                        if(row['status'] == 1){
-                            html += '<a class="btn-accept mr-2 accept-user" data-id="'+dataJSON.id+'" data-title="'+dataJSON.title+'" data-content="'+row.content+'" title="Duyệt"> <i class="fa fa-times"></i></a>';
+                    // @if (Helper::checkPermissions('videos.view', $list_roles)) 
+                    //     html += '<a class="btn-view mr-2 view-cv" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Xem"> <i class="fa fa-eye fa-fw"></i></a>';
+                    // @endif
+                    
+                    @if (Helper::checkPermissions('videos.accept-video', $list_roles)) 
+                        if(row['state'] == 1){
+                            html += '<a class="btn-accept mr-2 accept-video" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Duyệt"> <i class="fa fa-times fa-fw"></i></a>';
                         }else{
-                            html += '<a class="btn-accept mr-2 accept-user" data-id="'+dataJSON.id+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Duyệt"> <i class="fa fa-check"></i></a>';
+                            html += '<a class="btn-accept mr-2 accept-video" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Duyệt"> <i class="fa fa-check fa-fw"></i></a>';
                         }
                         
                     @endif
 
-                    @if (Helper::checkPermissions('users.delete', $list_roles)) 
-                        html += '<a class="btn-delete" data-id="'+dataJSON.id+'" title="Xóa"><i class="fa fa-trash" aria-hidden="true"></i></a>';
+                    @if (Helper::checkPermissions('videos.delete', $list_roles)) 
+                        html += '<a class="btn-delete" data-id="'+data+'" title="Xóa"><i class="fa fa-trash fa-fw" aria-hidden="true"></i></a>';
                     @endif
 
                     return html;
                 },
                 orderable: false
             },
+            {
+                data: "updated_at",
+                class: "updated_at-field"
+            },
         ];
 
-        dataTable = $('#teacher-table').DataTable( {
+        dataTable = $('#video-table').DataTable( {
                         serverSide: false,
                         aaSorting: [],
                         stateSave: true,
-                        ajax: "{{ url('/') }}/admincp/get-unverified-video",
+                        ajax: "{{ url('/') }}/admincp/videos/getVideoAjax",
                         columns: dataObject,
                         bLengthChange: true,
                         pageLength: 5,
@@ -213,17 +216,17 @@
                             checkCheckboxChecked();
                         },
                         createdRow: function( row, data, dataIndex){
-                            if(data['status'] == 1){
+                            if(data['state'] == 1){
                                 $(row).addClass('blue-row');
                             }else{
                                 $(row).addClass('red-row');
                             }
-                            $(row).attr('data-cv', data['cv']);
-                            $(row).attr('data-video', data['video_intro']);
+                            // $(row).attr('data-cv', data['cv']);
+                            $(row).attr('data-video', data['url_video']);
                         }
                     });
 
-        $('#teacher-table').css('width', '100%');
+        $('#video-table').css('width', '100%');
 
         //select all checkboxes
         $("#select-all-btn").change(function(){  
@@ -246,7 +249,7 @@
 
         function setCheckboxChecked(){
             userCheckList = [];
-            $.each($('.check-user'), function( index, value ) {
+            $.each($('.check-video'), function( index, value ) {
                 if($(this).prop('checked')){
                     userCheckList.push($(this).val());
                 }
@@ -255,7 +258,7 @@
 
         function checkCheckboxChecked(){
             var count_row = 0;
-            var listUser = $('.check-user');
+            var listUser = $('.check-video');
             if(listUser.length > 0){
                 $.each(listUser, function( index, value ) {
                     if(containsObject($(this).val(), userCheckList)){
@@ -289,20 +292,18 @@
         })
 
         function addEventListener(){
-            $('.view-cv').off('click')
-            $('.view-cv').click(function(){
-                var curr_cv = $(this).parent().parent().attr('data-cv')
+            // $('.view-cv').off('click')
+            // $('.view-cv').click(function(){
+            //     var curr_cv = $(this).parent().parent().attr('data-cv')
 
-                $('#showCVModal').modal('show');
-                $("#cv").html(curr_cv)
-            })
+            //     $('#showCVModal').modal('show');
+            //     $("#cv").html(curr_cv)
+            // })
 
             $('.view-video-intro').off('click')
             $('.view-video-intro').click(function(){
                 var curr_video_intro = $(this).parent().parent().attr('data-video')
-                var video_link = $(this).attr('data-video-link')
 
-                $('#showVideoIntroModal iframe').attr('src', '/uploads/videos/'+video_link)
                 $('#showVideoIntroModal').modal('show');
                 $("#video-intro").attr('src', curr_video_intro)
             })
@@ -311,10 +312,10 @@
             $('.btn-accept').click(function(){
                 var _self   = $(this);
                 var id      = $(this).attr('data-id');
-                var status  = 0;
+                var state  = 0;
                 var message = "Bạn có chắc chắn muốn duyệt?";
                 if(_self.parent().parent().hasClass('blue-row')){
-                    status = 1;
+                    state = 1;
                     message = "Bạn có chắc chắn muốn hủy?";
                 }
                 $.ajsrConfirm({
@@ -327,10 +328,10 @@
                             }
                         });
                         $.ajax({
-                            url: baseURL+"/admincp/verify-video/accept",
+                            url: baseURL+"/admincp/videos/accept",
                             data: {
                                 video_id : id,
-                                state : 1
+                                state : 1 - state
                             },
                             method: "PUT",
                             dataType:'json',
@@ -386,7 +387,7 @@
                             }
                         });
                         $.ajax({
-                            url: baseURL+"/admincp/verify-video/delete",
+                            url: baseURL+"/admincp/videos/delete",
                             data: {
                                 video_id : id
                             },
@@ -432,14 +433,14 @@
                 })
                 .then(function (result) {
                     if(result.value){
-                        var teacher_id_list = []
-                        $.each($('.check-user'), function (key, value){
+                        var video_id_list = []
+                        $.each($('.check-video'), function (key, value){
                             if($(this).prop('checked') == true) {
                                 // id_list += $(this).attr("data-column") + ',';
-                                teacher_id_list.push($(this).attr("data-column"))
+                                video_id_list.push($(this).attr("data-column"))
                             }
                         });
-                        if(teacher_id_list.length > 0){
+                        if(video_id_list.length > 0){
                             $.ajaxSetup({
                                 headers: {
                                     'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
@@ -447,9 +448,9 @@
                             });
                             $.ajax({
                                 method: "DELETE",
-                                url: baseURL+"/admincp/teachers/delete-multiple-teacher",
+                                url: baseURL+"/admincp/videos/delete-multiple-video",
                                 data: {
-                                    id_list: teacher_id_list
+                                    id_list: video_id_list
                                 },
                                 dataType: 'json',
                                 beforeSend: function(r, a){
@@ -461,7 +462,7 @@
                                         text: response.message
                                     })
                                     // dataTable.ajax.reload();
-                                    $.each($('.check-user'), function (key, value){
+                                    $.each($('.check-video'), function (key, value){
                                         if($(this).prop('checked') == true) {
                                             dataTable.row( $(this).parent().parent() ).remove().draw(true);
                                         }
@@ -491,14 +492,14 @@
                 })
                 .then(function (result) {
                     if(result.value){
-                        var teacher_id_list = []
-                        $.each($('.check-user'), function (key, value){
+                        var video_id_list = []
+                        $.each($('.check-video'), function (key, value){
                             if($(this).prop('checked') == true) {
                                 // id_list += $(this).attr("data-column") + ',';
-                                teacher_id_list.push($(this).attr("data-column"))
+                                video_id_list.push($(this).attr("data-column"))
                             }
                         });
-                        if(teacher_id_list.length > 0){
+                        if(video_id_list.length > 0){
                             $.ajaxSetup({
                                 headers: {
                                     'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
@@ -506,9 +507,9 @@
                             });
                             $.ajax({
                                 method: "PUT",
-                                url: baseURL+"/admincp/teachers/accept-multiple-teacher",
+                                url: baseURL+"/admincp/videos/accept-multiple-video",
                                 data: {
-                                    id_list: teacher_id_list
+                                    id_list: video_id_list
                                 },
                                 dataType: 'json',
                                 beforeSend: function(r, a){
@@ -520,7 +521,7 @@
                                         text: response.message
                                     })
                                     // dataTable.ajax.reload();
-                                    $.each($('.check-user'), function (key, value){
+                                    $.each($('.check-video'), function (key, value){
                                         if($(this).prop('checked') == true) {
                                             $(this).parent().parent().removeClass('red-row').addClass('blue-row');
                                             // $(this).parent().parent().addClass('red-row').removeClass('blue-row');
@@ -550,14 +551,14 @@
                 })
                 .then(function (result) {
                     if(result.value){
-                        var teacher_id_list = []
-                        $.each($('.check-user'), function (key, value){
+                        var video_id_list = []
+                        $.each($('.check-video'), function (key, value){
                             if($(this).prop('checked') == true) {
                                 // id_list += $(this).attr("data-column") + ',';
-                                teacher_id_list.push($(this).attr("data-column"))
+                                video_id_list.push($(this).attr("data-column"))
                             }
                         });
-                        if(teacher_id_list.length > 0){
+                        if(video_id_list.length > 0){
                             $.ajaxSetup({
                                 headers: {
                                     'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
@@ -565,9 +566,9 @@
                             });
                             $.ajax({
                                 method: "PUT",
-                                url: baseURL+"/admincp/teachers/inaccept-multiple-teacher",
+                                url: baseURL+"/admincp/videos/inaccept-multiple-video",
                                 data: {
-                                    id_list: teacher_id_list
+                                    id_list: video_id_list
                                 },
                                 dataType: 'json',
                                 beforeSend: function(r, a){
@@ -578,7 +579,7 @@
                                         type: 'success',
                                         text: response.message
                                     })
-                                    $.each($('.check-user'), function (key, value){
+                                    $.each($('.check-video'), function (key, value){
                                         if($(this).prop('checked') == true) {
                                             // $(this).parent().parent().removeClass('red-row').addClass('blue-row');
                                             $(this).parent().parent().addClass('red-row').removeClass('blue-row');
@@ -601,7 +602,7 @@
         }
 
         function checkEmptyTable(){
-            if ($('#teacher-table tr').length <= 1 && current_page > 0) {
+            if ($('#video-table tr').length <= 1 && current_page > 0) {
                 current_page = current_page - 1;
             }
             return current_page;
