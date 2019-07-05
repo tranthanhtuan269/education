@@ -29,8 +29,8 @@
                             <th scope="col">Tóm tắt</th>
                             <th scope="col">Thời lượng</th>
                             <th csope="col">Giá</th>
-                            <th scope="col">Thao tác</th>
                             <th scope="col">Update</th>
+                            <th scope="col">Thao tác</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -142,6 +142,9 @@
                 class: "real_price-field"
             },
             {
+                data: "updated_at"
+            },
+            {
                 data: "action",
                 class: "action-field",
                 render: function(data, type, row){
@@ -168,9 +171,6 @@
                 },
                 orderable: false
             },
-            {
-                data: "updated_at"
-            },
         ];
 
         dataTable = $('#course-table').DataTable( {
@@ -180,8 +180,8 @@
                         ajax: "{{ url('/') }}/admincp/courses/getCourseAjax",
                         columns: dataObject,
                         bLengthChange: true,
-                        pageLength: 5,
-                        order: [[ 4, "desc" ]],
+                        pageLength: 10,
+                        order: [[ 5, "desc" ]],
                         colReorder: {
                             fixedColumnsRight: 1,
                             fixedColumnsLeft: 1

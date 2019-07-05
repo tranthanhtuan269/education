@@ -28,8 +28,8 @@
                             <th scope="col">Video</th>
                             <th scope="col">Xem</th>
                             <th scope="col">Khóa học</th>
-                            <th scope="col">Thao tác</th>
                             <th scope="col">Update</th>
+                            <th scope="col">Thao tác</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -148,6 +148,10 @@
                 data: "course_name",
                 class: "course_name-field"
             },
+            {
+                data: "updated_at",
+                class: "updated_at-field"
+            },
             { 
                 data: "action", 
                 class: "action-field",
@@ -175,10 +179,6 @@
                 },
                 orderable: false
             },
-            {
-                data: "updated_at",
-                class: "updated_at-field"
-            },
         ];
 
         dataTable = $('#video-table').DataTable( {
@@ -188,7 +188,7 @@
                         ajax: "{{ url('/') }}/admincp/videos/getVideoAjax",
                         columns: dataObject,
                         bLengthChange: true,
-                        pageLength: 5,
+                        pageLength: 10,
                         order: [[ 4, "desc" ]],
                         colReorder: {
                             fixedColumnsRight: 1,

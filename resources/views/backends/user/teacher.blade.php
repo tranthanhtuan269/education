@@ -28,6 +28,7 @@
                             <th scope="col">Tên giảng viên</th>
                             <th scope="col">Chuyên môn</th>
                             <th scope="col">Video giới thiệu</th>
+                            <th scope="col">Update</th>
                             <th scope="col">Thao tác</th>
                         </tr>
                     </thead>
@@ -139,6 +140,9 @@
                 },
                 orderable: false
             },
+            {
+                data: "updated_at"
+            },
             { 
                 data: "action", 
                 class: "action-field",
@@ -175,7 +179,7 @@
                         ajax: "{{ url('/') }}/admincp/teachers/getTeacherAjax",
                         columns: dataObject,
                         bLengthChange: true,
-                        pageLength: 5,
+                        pageLength: 10,
                         order: [[ 4, "desc" ]],
                         colReorder: {
                             fixedColumnsRight: 1,
