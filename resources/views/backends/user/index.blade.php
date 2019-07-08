@@ -33,6 +33,7 @@
                             <th scope="col">Email</th>
                             <th scope="col">Vai trò</th>
                             <th scope="col">Ngày tạo</th>
+                            <th scope="col">Status</th>
                             <th scope="col">Thao tác</th>
                         </tr>
                     </thead>
@@ -367,21 +368,39 @@
             { 
                 data: "created_at",
             },
+            {
+                data: "action",
+                class: "action-field",
+                render: function(data, type, row){
+                    var html = '';
+
+                    @if (Helper::checkPermissions('users.block-user', $list_roles)) 
+                        if(row['status'] == 0){
+                            html += '<a class="block-user" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Block">Block</a>';
+                        }else{
+                            html += '<a class="unblock-user" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Unblock">Unblock</a>';
+                        }
+                        
+                    @endif
+                    return html;
+                },
+                orderable: false
+            },
             { 
                 data: "action", 
                 class: "action-field",
                 render: function(data, type, row){
                     var html = '';
                     @if (Helper::checkPermissions('users.edit', $list_roles)) 
-                        html += '<a class="btn-send-email" data-toggle="modal" data-target="#sendEmailModal" data-id="'+data+'" data-name="'+row.name+'" data-email="'+row.email+'" title="Gửi"><i class="fa fa-envelope-square" aria-hidden="true"></i></a>';
+                        html += '<a class="btn-send-email" data-toggle="modal" data-target="#sendEmailModal" data-id="'+data+'" data-name="'+row.name+'" data-email="'+row.email+'" title="Gửi"><i class="fa fa-envelope-square fa-fw" aria-hidden="true"></i></a>';
                     @endif
 
                     @if (Helper::checkPermissions('users.edit', $list_roles)) 
-                        html += '<a class="btn-edit mr-2 edit-user" data-id="'+data+'" data-name="'+row.name+'" data-email="'+row.email+'" title="Sửa"> <i class="fa fa-edit"></i></a>';
+                        html += '<a class="btn-edit mr-2 edit-user" data-id="'+data+'" data-name="'+row.name+'" data-email="'+row.email+'" title="Sửa"> <i class="fa fa-edit fa-fw"></i></a>';
                     @endif
 
                     @if (Helper::checkPermissions('users.delete', $list_roles)) 
-                        html += '<a class="btn-delete" data-id="'+data+'" title="Xóa"><i class="fa fa-trash" aria-hidden="true"></i></a>';
+                        html += '<a class="btn-delete" data-id="'+data+'" title="Xóa"><i class="fa fa-trash fa-fw" aria-hidden="true"></i></a>';
                     @endif
 
                     

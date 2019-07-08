@@ -28,7 +28,7 @@
                             <th scope="col">Tên giảng viên</th>
                             <th scope="col">Chuyên môn</th>
                             <th scope="col">Video giới thiệu</th>
-                            <th scope="col">Update</th>
+                            <th scope="col">Created at</th>
                             <th scope="col">Thao tác</th>
                         </tr>
                     </thead>
@@ -141,7 +141,7 @@
                 orderable: false
             },
             {
-                data: "updated_at"
+                data: "created_at"
             },
             { 
                 data: "action", 
@@ -150,20 +150,20 @@
                     var html = '';
                     
                     @if (Helper::checkPermissions('users.view', $list_roles)) 
-                        html += '<a class="btn-view mr-2 view-cv" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Xem"> <i class="fa fa-eye"></i></a>';
+                        html += '<a class="btn-view mr-2 view-cv" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Xem"> <i class="fa fa-eye fa-fw"></i></a>';
                     @endif
                     
                     @if (Helper::checkPermissions('users.accept-teacher', $list_roles)) 
                         if(row['status'] == 1){
-                            html += '<a class="btn-accept mr-2 accept-user" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Duyệt"> <i class="fa fa-times"></i></a>';
+                            html += '<a class="btn-accept mr-2 accept-user" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Duyệt"> <i class="fa fa-times fa-fw"></i></a>';
                         }else{
-                            html += '<a class="btn-accept mr-2 accept-user" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Duyệt"> <i class="fa fa-check"></i></a>';
+                            html += '<a class="btn-accept mr-2 accept-user" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Duyệt"> <i class="fa fa-check fa-fw"></i></a>';
                         }
                         
                     @endif
 
                     @if (Helper::checkPermissions('users.delete', $list_roles)) 
-                        html += '<a class="btn-delete" data-id="'+data+'" title="Xóa"><i class="fa fa-trash" aria-hidden="true"></i></a>';
+                        html += '<a class="btn-delete" data-id="'+data+'" title="Xóa"><i class="fa fa-trash fa-fw" aria-hidden="true"></i></a>';
                     @endif
 
                     return html;

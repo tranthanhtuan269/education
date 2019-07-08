@@ -65,6 +65,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('videos/delete-multiple-video', 'Backends\VideoController@deleteMultiVideo');
         // End Duyet Video
 
+        // Block Users
+        Route::put('users/block-user', 'Backends\UserController@block-user');
+        // End Block User
 
         Route::get('teachers', 'Backends\UserController@getTeacher');
         Route::get('teachers/getTeacherAjax', 'Backends\UserController@getTeacherAjax');
