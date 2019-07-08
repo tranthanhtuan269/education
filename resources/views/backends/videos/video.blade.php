@@ -70,20 +70,24 @@
         </div>
     </div> -->
     <div class="modal fade" id="showVideoIntroModal" tabindex="-1">
-        <div class="modal-content" >
-            <div class="modal-header">
-                <h3>Xem Video</h3>
-            </div>
-            <div class="modal-body">
-                <div class="form-group row text-center">
-                    <iframe id="video-intro" src="" frameborder="0" width="545" height="280" allowscriptaccess="always" allowfullscreen="true"></iframe>
+        <div class="modal-dialog">
+            <div class="modal-content" >
+                <div class="modal-header">
+                    <h3>Xem Video</h3>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <div class="form-group row">
-                    <div class="col-sm-1"></div>
-                    <div class="col-sm-11">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group col-sm-12 text-center">
+                            <iframe id="video-intro" src="" frameborder="0" width="545" height="280" allowscriptaccess="always" allowfullscreen="true"></iframe>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="form-group row">
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm-11">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -348,6 +352,12 @@
                             },
                             success: function (response) {
                                 if(response.status == 200){
+                                    if(_self.parent().parent().hasClass('blue-row')){
+                                        $(_self).prop('title', 'Duyệt');
+                                    } else {
+                                        $(_self).prop('title', 'Hủy');
+                                    }
+
                                     if(_self.parent().parent().hasClass('red-row')){
                                         _self.find('i').removeClass('fa-check').addClass('fa-times');
                                         _self.parent().parent().removeClass('red-row').addClass('blue-row');
@@ -360,6 +370,7 @@
                                         type: 'success',
                                         text: response.message
                                     })
+
                                 }else{
                                     Swal.fire({
                                         type: 'error',
