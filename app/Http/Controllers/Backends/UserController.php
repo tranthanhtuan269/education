@@ -284,7 +284,7 @@ class UserController extends Controller
 
     public function getTeacherAjax()
     {
-        $users = Teacher::get();
+        $users = Teacher::orderBy('updated_at', 'desc')->get();
         return datatables()->collection($users)
             ->addColumn('name', function ($user) {
                 return $user->userRole->user->name;

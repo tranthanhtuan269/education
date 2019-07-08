@@ -175,8 +175,8 @@
                         ajax: "{{ url('/') }}/admincp/teachers/getTeacherAjax",
                         columns: dataObject,
                         bLengthChange: true,
-                        pageLength: 5,
-                        order: [[ 4, "desc" ]],
+                        pageLength: 10,
+                        // order: [[ 4, "desc" ]],
                         colReorder: {
                             fixedColumnsRight: 1,
                             fixedColumnsLeft: 1
