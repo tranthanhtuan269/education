@@ -132,4 +132,14 @@ class Course extends Model
         return 0;
 
     }
+
+    public static function acceptMulti($id_list, $status){
+        $checkCourse = Course::whereIn('id', $id_list);
+        return ($checkCourse->update(['status' => $status]) > 0);
+    }
+
+    public static function delMulti($id_list){
+        $checkCourse = Course::whereIn('id', $id_list);
+        return ($checkCourse->delete() > 0);
+    }
 }

@@ -15,19 +15,20 @@
     
 </section>
 <section class="content page">
-    <h1 class="text-center font-weight-600">Danh sách giảng viên</h1>
+    <h1 class="text-center font-weight-600">Danh sách khóa học</h1>
     <div class="row">
         <div class="col-md-12">
             <div class="table-responsive">
-                <table class="table table-bordered" id="teacher-table">
+                <table class="table table-bordered" id="course-table">
                     <thead class="thead-custom">
                         <tr>
                             <th class="id-field" width="1%">
                                 <input type="checkbox" id="select-all-btn" data-check="false">
                             </th>
-                            <th scope="col">Tên giảng viên</th>
-                            <th scope="col">Chuyên môn</th>
-                            <th scope="col">Video giới thiệu</th>
+                            <th scope="col">Tên khóa học</th>
+                            <th scope="col">Tóm tắt</th>
+                            <th scope="col">Thời lượng</th>
+                            <th csope="col">Giá</th>
                             <th scope="col">Update</th>
                             <th scope="col">Thao tác</th>
                         </tr>
@@ -49,10 +50,10 @@
     </div>
 </section>
 <section>
-    <div class="modal fade" id="showCVModal" tabindex="-1">
+    <div class="modal fade" id="showDescriptionModal" tabindex="-1">
         <div class="modal-content" >
             <div class="modal-header">
-                <h3>CV</h3>
+                <h3>Description</h3>
             </div>
             <div class="modal-body">
                 <div class="form-group row" id="cv">
@@ -69,7 +70,7 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="showVideoIntroModal" tabindex="-1">
+    <!-- <div class="modal fade" id="showVideoIntroModal" tabindex="-1">
         <div class="modal-content" >
             <div class="modal-header">
                 <h3>Video Intro</h3>
@@ -88,7 +89,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 </section>
 <script type="text/javascript">
     var dataTable           = null;
@@ -120,7 +121,7 @@
                 data: "rows",
                 class: "rows-item",
                 render: function(data, type, row){
-                    return '<input type="checkbox" name="selectCol" class="check-user" value="' + data + '" data-column="' + data + '">';
+                    return '<input type="checkbox" name="selectCol" class="check-course" value="' + data + '" data-column="' + data + '">';
                 },
                 orderable: false
             },
@@ -129,38 +130,41 @@
                 class: "name-field"
             },
             { 
-                data: "expert",
-                class: "expert-field"
+                data: "short_description",
+                class: "short_description-field"
             },
             { 
-                data: "video_intro",
-                class: "video-item",
-                render: function(data, type, row){
-                    return '<a class="btn-view mr-2 view-video-intro"><i class="fa fa-video-camera" aria-hidden="true"></i> Video intro</a>';
-                },
-                orderable: false
+                data: "duration",
+                class: "duration-field"
             },
-            { 
-                data: "action", 
+            {
+                data:"real_price",
+                class: "real_price-field"
+            },
+            {
+                data: "updated_at"
+            },
+            {
+                data: "action",
                 class: "action-field",
                 render: function(data, type, row){
                     var html = '';
                     
-                    @if (Helper::checkPermissions('users.view', $list_roles)) 
-                        html += '<a class="btn-view mr-2 view-cv" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Xem"> <i class="fa fa-eye"></i></a>';
+                    @if (Helper::checkPermissions('courses.view', $list_roles)) 
+                        html += '<a class="btn-view mr-2 view-description" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Xem"> <i class="fa fa-eye fa-fw"></i></a>';
                     @endif
                     
-                    @if (Helper::checkPermissions('users.accept-teacher', $list_roles)) 
+                    @if (Helper::checkPermissions('courses.accept-course', $list_roles)) 
                         if(row['status'] == 1){
-                            html += '<a class="btn-accept mr-2 accept-user" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Duyệt"> <i class="fa fa-times"></i></a>';
+                            html += '<a class="btn-accept mr-2 accept-course" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Duyệt"> <i class="fa fa-times fa-fw"></i></a>';
                         }else{
-                            html += '<a class="btn-accept mr-2 accept-user" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Duyệt"> <i class="fa fa-check"></i></a>';
+                            html += '<a class="btn-accept mr-2 accept-course" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Duyệt"> <i class="fa fa-check fa-fw"></i></a>';
                         }
                         
                     @endif
 
-                    @if (Helper::checkPermissions('users.delete', $list_roles)) 
-                        html += '<a class="btn-delete" data-id="'+data+'" title="Xóa"><i class="fa fa-trash" aria-hidden="true"></i></a>';
+                    @if (Helper::checkPermissions('courses.delete', $list_roles)) 
+                        html += '<a class="btn-delete" data-id="'+data+'" title="Xóa"><i class="fa fa-trash fa-fw" aria-hidden="true"></i></a>';
                     @endif
 
                     return html;
@@ -169,15 +173,15 @@
             },
         ];
 
-        dataTable = $('#teacher-table').DataTable( {
+        dataTable = $('#course-table').DataTable( {
                         serverSide: false,
                         aaSorting: [],
                         stateSave: true,
-                        ajax: "{{ url('/') }}/admincp/teachers/getTeacherAjax",
+                        ajax: "{{ url('/') }}/admincp/courses/getCourseAjax",
                         columns: dataObject,
                         bLengthChange: true,
                         pageLength: 10,
-                        // order: [[ 4, "desc" ]],
+                        order: [[ 5, "desc" ]],
                         colReorder: {
                             fixedColumnsRight: 1,
                             fixedColumnsLeft: 1
@@ -209,12 +213,12 @@
                             }else{
                                 $(row).addClass('red-row');
                             }
-                            $(row).attr('data-cv', data['cv']);
-                            $(row).attr('data-video', data['video_intro']);
+                            $(row).attr('data-description', data['description']);
+                            // $(row).attr('data-video', data['video_intro']);
                         }
                     });
 
-        $('#teacher-table').css('width', '100%');
+        $('#course-table').css('width', '100%');
 
         //select all checkboxes
         $("#select-all-btn").change(function(){  
@@ -237,7 +241,7 @@
 
         function setCheckboxChecked(){
             userCheckList = [];
-            $.each($('.check-user'), function( index, value ) {
+            $.each($('.check-course'), function( index, value ) {
                 if($(this).prop('checked')){
                     userCheckList.push($(this).val());
                 }
@@ -246,7 +250,7 @@
 
         function checkCheckboxChecked(){
             var count_row = 0;
-            var listUser = $('.check-user');
+            var listUser = $('.check-course');
             if(listUser.length > 0){
                 $.each(listUser, function( index, value ) {
                     if(containsObject($(this).val(), userCheckList)){
@@ -275,31 +279,32 @@
             return false;
         }
 
-        $('#showVideoIntroModal').on('hide.bs.modal', function () {
-            $("#video-intro").attr('src', '')
-        })
+        // $('#showVideoIntroModal').on('hide.bs.modal', function () {
+        //     $("#video-intro").attr('src', '')
+        // })
 
         function addEventListener(){
-            $('.view-cv').off('click')
-            $('.view-cv').click(function(){
-                var curr_cv = $(this).parent().parent().attr('data-cv')
+            $('.view-description').off('click')
+            $('.view-description').click(function(){
+                var curr_cv = $(this).parent().parent().attr('data-description')
 
-                $('#showCVModal').modal('show');
+                $('#showDescriptionModal').modal('show');
                 $("#cv").html(curr_cv)
             })
 
-            $('.view-video-intro').off('click')
-            $('.view-video-intro').click(function(){
-                var curr_video_intro = $(this).parent().parent().attr('data-video')
+            // $('.view-video-intro').off('click')
+            // $('.view-video-intro').click(function(){
+            //     var curr_video_intro = $(this).parent().parent().attr('data-video')
 
-                $('#showVideoIntroModal').modal('show');
-                $("#video-intro").attr('src', curr_video_intro)
-            })
+            //     $('#showVideoIntroModal').modal('show');
+            //     $("#video-intro").attr('src', curr_video_intro)
+            // })
 
             $('.btn-accept').off('click')
             $('.btn-accept').click(function(){
                 var _self   = $(this);
                 var id      = $(this).attr('data-id');
+                // alert(id)
                 var status  = 0;
                 var message = "Bạn có chắc chắn muốn duyệt?";
                 if(_self.parent().parent().hasClass('blue-row')){
@@ -316,9 +321,9 @@
                             }
                         });
                         $.ajax({
-                            url: baseURL+"/admincp/teachers/accept",
+                            url: baseURL+"/admincp/courses/accept",
                             data: {
-                                teacherId : id,
+                                course_id : id,
                                 status : 1 - status
                             },
                             method: "PUT",
@@ -375,9 +380,9 @@
                             }
                         });
                         $.ajax({
-                            url: baseURL+"/admincp/teachers/delete",
+                            url: baseURL+"/admincp/courses/delete",
                             data: {
-                                teacherId : id
+                                course_id : id
                             },
                             method: "DELETE",
                             dataType:'json',
@@ -421,14 +426,14 @@
                 })
                 .then(function (result) {
                     if(result.value){
-                        var teacher_id_list = []
-                        $.each($('.check-user'), function (key, value){
+                        var course_id_list = []
+                        $.each($('.check-course'), function (key, value){
                             if($(this).prop('checked') == true) {
                                 // id_list += $(this).attr("data-column") + ',';
-                                teacher_id_list.push($(this).attr("data-column"))
+                                course_id_list.push($(this).attr("data-column"))
                             }
                         });
-                        if(teacher_id_list.length > 0){
+                        if(course_id_list.length > 0){
                             $.ajaxSetup({
                                 headers: {
                                     'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
@@ -436,9 +441,9 @@
                             });
                             $.ajax({
                                 method: "DELETE",
-                                url: baseURL+"/admincp/teachers/delete-multiple-teacher",
+                                url: baseURL+"/admincp/courses/delete-multiple-course",
                                 data: {
-                                    id_list: teacher_id_list
+                                    id_list: course_id_list
                                 },
                                 dataType: 'json',
                                 beforeSend: function(r, a){
@@ -450,7 +455,7 @@
                                         text: response.message
                                     })
                                     // dataTable.ajax.reload();
-                                    $.each($('.check-user'), function (key, value){
+                                    $.each($('.check-course'), function (key, value){
                                         if($(this).prop('checked') == true) {
                                             dataTable.row( $(this).parent().parent() ).remove().draw(true);
                                         }
@@ -480,14 +485,14 @@
                 })
                 .then(function (result) {
                     if(result.value){
-                        var teacher_id_list = []
-                        $.each($('.check-user'), function (key, value){
+                        var course_id_list = []
+                        $.each($('.check-course'), function (key, value){
                             if($(this).prop('checked') == true) {
                                 // id_list += $(this).attr("data-column") + ',';
-                                teacher_id_list.push($(this).attr("data-column"))
+                                course_id_list.push($(this).attr("data-column"))
                             }
                         });
-                        if(teacher_id_list.length > 0){
+                        if(course_id_list.length > 0){
                             $.ajaxSetup({
                                 headers: {
                                     'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
@@ -495,9 +500,9 @@
                             });
                             $.ajax({
                                 method: "PUT",
-                                url: baseURL+"/admincp/teachers/accept-multiple-teacher",
+                                url: baseURL+"/admincp/courses/accept-multiple-course",
                                 data: {
-                                    id_list: teacher_id_list
+                                    id_list: course_id_list
                                 },
                                 dataType: 'json',
                                 beforeSend: function(r, a){
@@ -509,7 +514,7 @@
                                         text: response.message
                                     })
                                     // dataTable.ajax.reload();
-                                    $.each($('.check-user'), function (key, value){
+                                    $.each($('.check-course'), function (key, value){
                                         if($(this).prop('checked') == true) {
                                             $(this).parent().parent().removeClass('red-row').addClass('blue-row');
                                             // $(this).parent().parent().addClass('red-row').removeClass('blue-row');
@@ -539,14 +544,14 @@
                 })
                 .then(function (result) {
                     if(result.value){
-                        var teacher_id_list = []
-                        $.each($('.check-user'), function (key, value){
+                        var course_id_list = []
+                        $.each($('.check-course'), function (key, value){
                             if($(this).prop('checked') == true) {
                                 // id_list += $(this).attr("data-column") + ',';
-                                teacher_id_list.push($(this).attr("data-column"))
+                                course_id_list.push($(this).attr("data-column"))
                             }
                         });
-                        if(teacher_id_list.length > 0){
+                        if(course_id_list.length > 0){
                             $.ajaxSetup({
                                 headers: {
                                     'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
@@ -554,9 +559,9 @@
                             });
                             $.ajax({
                                 method: "PUT",
-                                url: baseURL+"/admincp/teachers/inaccept-multiple-teacher",
+                                url: baseURL+"/admincp/courses/inaccept-multiple-course",
                                 data: {
-                                    id_list: teacher_id_list
+                                    id_list: course_id_list
                                 },
                                 dataType: 'json',
                                 beforeSend: function(r, a){
@@ -567,7 +572,7 @@
                                         type: 'success',
                                         text: response.message
                                     })
-                                    $.each($('.check-user'), function (key, value){
+                                    $.each($('.check-course'), function (key, value){
                                         if($(this).prop('checked') == true) {
                                             // $(this).parent().parent().removeClass('red-row').addClass('blue-row');
                                             $(this).parent().parent().addClass('red-row').removeClass('blue-row');
@@ -590,7 +595,7 @@
         }
 
         function checkEmptyTable(){
-            if ($('#teacher-table tr').length <= 1 && current_page > 0) {
+            if ($('#course-table tr').length <= 1 && current_page > 0) {
                 current_page = current_page - 1;
             }
             return current_page;

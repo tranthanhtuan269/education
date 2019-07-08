@@ -184,8 +184,14 @@
                                     <li class="@if ( Request::is('admincp/teachers*') ) active @endif">
                                         <a href="{{ url('/') }}/admincp/teachers"><i class="fa fa-minus"></i> Yêu cầu làm giảng viên</a>
                                     </li>
-                                    <li class="@if ( Request::is('admincp/verify-video*') ) active @endif">
+                                    <li class="@if ( Request::is('admincp/courses*') ) active @endif">
+                                        <a href="{{ url('/') }}/admincp/courses"><i class="fa fa-minus"></i> Yêu cầu duyệt khóa học</a>
+                                    </li>
+                                    <!-- <li class="@if ( Request::is('admincp/verify-video*') ) active @endif">
                                         <a href="{{ url('/') }}/admincp/verify-video"><i class="fa fa-minus"></i> Yêu cầu duyệt bài giảng</a>
+                                    </li> -->
+                                    <li class="@if ( Request::is('admincp/videos*') ) active @endif">
+                                        <a href="{{ url('/') }}/admincp/videos"><i class="fa fa-minus"></i> Yêu cầu duyệt bài giảng</a>
                                     </li>
                                 @endif
                             </ul>

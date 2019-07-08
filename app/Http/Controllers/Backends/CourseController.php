@@ -122,4 +122,97 @@ class CourseController extends Controller
         return response()->json(array('status'=> '404', 'message' => 'Course not found'));
         
     }
+
+    // Course
+    public function getCourse(){
+        return view('backends.user.course');
+    }
+
+    public function getCourseAjax()
+    {
+        $courses = Course::get();
+        return datatables()->collection($courses)
+            ->addColumn('action', function ($course) {
+                return $course->id;
+            })
+            ->addColumn('rows', function ($course) {
+                return $course->id;
+            })
+            ->removeColumn('id')->make(true);
+    }
+
+    public function accept(Request $request)
+    {   
+        if($request->course_id){
+            $course = Course::find($request->course_id);
+            if($course){
+                $course->status = $request->status;
+                $course->save();
+                if($request->status == 1){
+                    $res = array('status' => "200", "Message" => "Duyệt thành công");
+                }else{
+                    $res = array('status' => "200", "Message" => "Hủy thành công");
+                }
+                echo json_encode($res);die;
+            }
+        }
+        $res = array('status' => "401", "Message" => 'Người dùng không tồn tại.');
+        echo json_encode($res);die;
+    }
+
+    public function acceptMultiCourse(Request $request)
+    {
+        if (isset($request) && $request->input('id_list')) {
+            $id_list = $request->input('id_list');
+
+            if (Course::acceptMulti($id_list, 1)) {
+                $res = array('status' => 200, "Message" => "Đã duyệt hết");
+            } else {
+                $res = array('status' => "204", "Message" => "Có lỗi trong quá trình xủ lý !");
+            }
+            echo json_encode($res);
+        }
+    }
+
+    public function inacceptMultiCourse(Request $request)
+    {
+        if (isset($request) && $request->input('id_list')) {
+            $id_list = $request->input('id_list');
+
+            if (Course::acceptMulti($id_list, 0)) {
+                $res = array('status' => 200, "Message" => "Đã hủy hết");
+            } else {
+                $res = array('status' => "204", "Message" => "Có lỗi trong quá trình xủ lý !");
+            }
+            echo json_encode($res);
+        }
+    }
+
+    public function deleteCourse(Request $request)
+    {
+        if($request->course_id){
+            $course = Course::find($request->course_id);
+            if($course){
+                $course->delete();
+                $res = array('status' => "200", "Message" => "Xóa thành công");
+                echo json_encode($res);die;
+            }
+        }
+        $res = array('status' => "401", "Message" => 'Người dùng không tồn tại.');
+        echo json_encode($res);die;
+    }
+
+    public function deleteMultiCourse(Request $request)
+    {
+        if (isset($request) && $request->input('id_list')) {
+            $id_list = $request->input('id_list');
+
+            if (Course::delMulti($id_list)) {
+                $res = array('status' => 200, "Message" => "Đã xóa hết");
+            } else {
+                $res = array('status' => "204", "Message" => "Có lỗi trong quá trình xủ lý !");
+            }
+            echo json_encode($res);
+        }
+    }
 }
