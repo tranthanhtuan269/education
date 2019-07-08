@@ -22,9 +22,9 @@
                 <table class="table table-bordered" id="video-table">
                     <thead class="thead-custom">
                         <tr>
-                            <th class="id-field" width="1%">
+                            {{-- <th class="id-field" width="1%">
                                 <input type="checkbox" id="select-all-btn" data-check="false">
-                            </th>
+                            </th> --}}
                             <th scope="col">Video</th>
                             <th scope="col">Xem</th>
                             <th scope="col">Khóa học</th>
@@ -36,14 +36,14 @@
                         
                     </tbody>
                 </table>
-                @if (Helper::checkPermissions('users.email', $list_roles)) 
+                {{-- @if (Helper::checkPermissions('users.email', $list_roles)) 
                     <p class="action-selected-rows">
                         <span >Hành động trên các hàng đã chọn:</span>
                         <span class="btn btn-info ml-2" id="deleteAllApplied">Xóa</span>
                         <span class="btn btn-info ml-2" id="acceptAllApplied">Duyệt</span>
                         <span class="btn btn-info ml-2" id="inacceptAllApplied">Hủy</span>
                     </p>  
-                @endif
+                @endif --}}
             </div>
         </div>
     </div>
@@ -116,14 +116,14 @@
         })
 
         var dataObject = [
-            { 
-                data: "rows",
-                class: "rows-item",
-                render: function(data, type, row){
-                    return '<input type="checkbox" name="selectCol" class="check-video" value="' + data + '" data-column="' + data + '">';
-                },
-                orderable: false
-            },
+            // { 
+            //     data: "rows",
+            //     class: "rows-item",
+            //     render: function(data, type, row){
+            //         return '<input type="checkbox" name="selectCol" class="check-video" value="' + data + '" data-column="' + data + '">';
+            //     },
+            //     orderable: false
+            // },
             // { 
             //     data: "name",
             //     class: "video-item",
@@ -164,7 +164,7 @@
                     
                     @if (Helper::checkPermissions('videos.accept-video', $list_roles)) 
                         if(row['state'] == 1){
-                            html += '<a class="btn-accept mr-2 accept-video" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Duyệt"> <i class="fa fa-times fa-fw"></i></a>';
+                            html += '<a class="btn-accept mr-2 accept-video" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Hủy"> <i class="fa fa-times fa-fw"></i></a>';
                         }else{
                             html += '<a class="btn-accept mr-2 accept-video" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Duyệt"> <i class="fa fa-check fa-fw"></i></a>';
                         }
@@ -189,7 +189,7 @@
                         columns: dataObject,
                         bLengthChange: true,
                         pageLength: 10,
-                        order: [[ 4, "desc" ]],
+                        order: [[ 3, "desc" ]],
                         colReorder: {
                             fixedColumnsRight: 1,
                             fixedColumnsLeft: 1
@@ -225,6 +225,14 @@
                             $(row).attr('data-video', data['url_video']);
                         }
                     });
+                    
+        var search = "{{ Request::get('search') }}";
+
+        if ( search != '') {
+            dataTable.search( search ).draw();
+        } else {
+            dataTable.search( "" ).draw();
+        }
 
         $('#video-table').css('width', '100%');
 

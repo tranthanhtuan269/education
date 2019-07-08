@@ -25,13 +25,13 @@ class HomeController extends Controller
     {
         $type = trim($request->get('type'));
         if ($type == 'best-seller') {
-            $list_course = Course::where('status',1)->orderBy('sale_count', 'desc')->paginate(16);
+            $list_course = Course::where('status', 1)->orderBy('sale_count', 'desc')->paginate(16);
             $title = 'Best seller';
         } elseif ($type == 'new') {
-            $list_course = Course::where('status',1)->orderBy('id', 'desc')->paginate(16);
+            $list_course = Course::where('status', 1)->orderBy('id', 'desc')->paginate(16);
             $title = 'New';
         } elseif ($type == 'trendding') {
-            $list_course = Course::where('status',1)->where('featured', 1)->orderBy('featured_index', 'asc')->paginate(16);
+            $list_course = Course::where('status', 1)->where('featured', 1)->orderBy('featured_index', 'asc')->paginate(16);
             $title = 'Trendding';
         }
 
@@ -42,9 +42,9 @@ class HomeController extends Controller
     {
         $feature_category = Category::withCount('courses')->where('parent_id', '>', 0)->where('featured', 1)->orderBy('featured_index', 'asc')->limit(10)->get();
         // trending = feature courses
-        $feature_course = Course::where('status',1)->where('featured', 1)->orderBy('featured_index', 'asc')->limit(8)->get();
-        $best_seller_course = Course::where('status',1)->orderBy('sale_count', 'desc')->limit(8)->get();
-        $new_course = Course::where('status',1)->orderBy('id', 'desc')->limit(8)->get();
+        $feature_course = Course::where('status', 1)->where('featured', 1)->orderBy('featured_index', 'asc')->limit(8)->get();
+        $best_seller_course = Course::where('status', 1)->orderBy('sale_count', 'desc')->limit(8)->get();
+        $new_course = Course::where('status', 1)->orderBy('id', 'desc')->limit(8)->get();
         $popular_teacher = Teacher::getTeacherBestVote();
         //dd($popular_teacher->userRole);
         return view('frontends.home', compact('feature_category', 'feature_course', 'best_seller_course', 'new_course', 'popular_teacher'));
@@ -54,32 +54,36 @@ class HomeController extends Controller
     {
         $keyword = $request->get('keyword');
         $results = [];
+
         if ($keyword != '') {
             $keyword = trim($request->get('keyword'));
             $arr_course_id = User::join('user_roles', 'user_roles.user_id', '=', 'users.id')
-                            ->join('teachers', 'teachers.user_role_id', '=', 'user_roles.id')
-                            ->join('user_courses', 'user_courses.user_role_id', '=', 'user_roles.id')
-                            ->select('user_courses.course_id')
-                            ->where('user_roles.role_id', \Config::get('app.teacher'))
-                            ->where('teachers.status', 1)
-                            ->where('users.name', 'LIKE', "%$keyword%")
-                            ->pluck('course_id');
-            $results = Course::where('status',1)->where('name', 'LIKE', "%$keyword%")->orWhereIn('id', $arr_course_id)->paginate(8);
+                ->join('teachers', 'teachers.user_role_id', '=', 'user_roles.id')
+                ->join('user_courses', 'user_courses.user_role_id', '=', 'user_roles.id')
+                ->select('user_courses.course_id')
+                ->where('user_roles.role_id', \Config::get('app.teacher'))
+                ->where('teachers.status', 1)
+                ->where('users.name', 'LIKE', "%$keyword%")
+                ->pluck('course_id');
+            $results = Course::where('status', 1)->where('name', 'LIKE', "%$keyword%")->orWhereIn('id', $arr_course_id)->paginate(8);
         }
+
         return view('frontends.search', compact('results'));
     }
 
     public function showCategory($cat)
     {
         $cat_id = Category::where('slug', $cat)->value('id');
+
         if ($cat_id) {
             $tags = Tag::where('category_id', $cat_id)->get();
-            $feature_course = Course::where('status',1)->where('category_id', $cat_id)->where('featured', 1)->orderBy('featured_index', 'asc')->limit(8)->get();
-            $best_seller_course = Course::where('status',1)->where('category_id', $cat_id)->orderBy('sale_count', 'desc')->limit(8)->get();
-            $new_course = Course::where('status',1)->where('category_id', $cat_id)->orderBy('id', 'desc')->limit(8)->get();
+            $feature_course = Course::where('status', 1)->where('category_id', $cat_id)->where('featured', 1)->orderBy('featured_index', 'asc')->limit(8)->get();
+            $best_seller_course = Course::where('status', 1)->where('category_id', $cat_id)->orderBy('sale_count', 'desc')->limit(8)->get();
+            $new_course = Course::where('status', 1)->where('category_id', $cat_id)->orderBy('id', 'desc')->limit(8)->get();
             $popular_teacher = Teacher::getTeacherBestVote();
             return view('frontends.category', compact('category', 'feature_course', 'best_seller_course', 'new_course', 'popular_teacher', 'tags'));
         }
+
         return abort(404);
     }
 
@@ -136,9 +140,9 @@ class HomeController extends Controller
     {
         $category = Category::get();
         $feature_category = Category::where('featured', 1)->orderBy('featured_index', 'asc')->limit(10)->get();
-        $feature_course = Course::where('status',1)->where('featured', 1)->orderBy('featured_index', 'asc')->limit(8)->get();
-        $best_seller_course = Course::where('status',1)->orderBy('sale_count', 'desc')->limit(8)->get();
-        $new_course = Course::where('status',1)->orderBy('id', 'desc')->limit(8)->get();
+        $feature_course = Course::where('status', 1)->where('featured', 1)->orderBy('featured_index', 'asc')->limit(8)->get();
+        $best_seller_course = Course::where('status', 1)->orderBy('sale_count', 'desc')->limit(8)->get();
+        $new_course = Course::where('status', 1)->orderBy('id', 'desc')->limit(8)->get();
         $popular_teacher = Teacher::get();
 
         return view('frontends.course-category', compact('category', 'feature_category', 'feature_course', 'best_seller_course', 'new_course'));
@@ -151,12 +155,12 @@ class HomeController extends Controller
 
     public function courseLearning($course)
     {
-        $course = Course::where('status',1)->where('slug', $course)->first();
+        $course = Course::where('status', 1)->where('slug', $course)->first();
         if (\Auth::check()) {
             if ($course) {
                 $ratingCourse = RatingCourse::where('course_id', $course->id)->where('user_id', \Auth::id())->first();
-                $related_courses = Course::where('status',1)->where('category_id', $course->category_id)->limit(4)->get();
-                $info_course = Course::where('status',1)->find($course->id);
+                $related_courses = Course::where('status', 1)->where('category_id', $course->category_id)->limit(4)->get();
+                $info_course = Course::where('status', 1)->find($course->id);
                 $user_role_course_instance = Helper::getUserRoleOfCourse($course->id);
 
                 $lecturer_array = $info_course->Lecturers();
@@ -169,8 +173,8 @@ class HomeController extends Controller
             }
         } else {
             if ($course) {
-                $related_courses = Course::where('status',1)->where('category_id', $course->category_id)->limit(4)->get();
-                $info_course = Course::where('status',1)->find($course->id);
+                $related_courses = Course::where('status', 1)->where('category_id', $course->category_id)->limit(4)->get();
+                $info_course = Course::where('status', 1)->find($course->id);
                 return view('frontends.course-learning', compact('related_courses', 'info_course', 'unit'));
             }
         }
@@ -230,7 +234,7 @@ class HomeController extends Controller
                     }
                 }
 
-                if($total_price > Auth::user()->coins){
+                if ($total_price > Auth::user()->coins) {
                     return \Response::json(array('status' => '204', 'message' => 'Your balance is not enough'));
                 }
 
@@ -249,7 +253,7 @@ class HomeController extends Controller
                 $order->save();
 
                 $bought = [];
-                if(strlen($current_user->bought) > 0){
+                if (strlen($current_user->bought) > 0) {
                     $bought = \json_decode($current_user->bought);
                 }
 
@@ -296,38 +300,40 @@ class HomeController extends Controller
         }
     }
 
-    public function showMethodSelector(Request $request){
+    public function showMethodSelector(Request $request)
+    {
         $user = Auth::user();
         $user_balance = $user->coins;
-        
+
         return view('frontends.payment-methods', compact('user_balance'))->render();
     }
 
-    public function getFinalPrice(Request $request) {
+    public function getFinalPrice(Request $request)
+    {
         $coupon_code = '';
-        if($request->coupon_code){
+        if ($request->coupon_code) {
             $coupon_code = $request->coupon_code;
             $coupon = Coupon::where('name', $coupon_code)->first();
             $coupon_value = $coupon->value;
         }
-        $items  = $request->items;
+        $items = $request->items;
 
         $final_price = 0;
 
         foreach ($items as $key => $item) {
             $item_id = $item['id'];
             $course = Course::find($item_id);
-            if(!isset($course)){
+            if (!isset($course)) {
                 return response()->json([
                     'status' => '404',
-                    'message' => 'Cannot find the course has id = '.$item_id,
+                    'message' => 'Cannot find the course has id = ' . $item_id,
                 ]);
             }
             $final_price += $course->price;
         }
-        if(isset($coupon)){
+        if (isset($coupon)) {
             $final_price = $final_price - ($final_price * $coupon_value / 100);
-            
+
         }
         return response()->json([
             'status' => '200',
@@ -337,47 +343,49 @@ class HomeController extends Controller
         ]);
     }
 
-    public function saveFileAjax(Request $request) {
-        if($request->hasFile('file-mp4-upload-off')){
-            if(!isset($_SESSION)){
+    public function saveFileAjax(Request $request)
+    {
+        if ($request->hasFile('file-mp4-upload-off')) {
+            if (!isset($_SESSION)) {
                 session_start();
             }
             $file = $request->file('file-mp4-upload-off');
-            $temp = explode(".",$file->getClientOriginalName());
+            $temp = explode(".", $file->getClientOriginalName());
             $filenamejoin = '';
-            for($i = 0; $i < count($temp) - 1; $i++){
+            for ($i = 0; $i < count($temp) - 1; $i++) {
                 $filenamejoin .= $temp[$i] . '.';
             }
 
             $destinationPath = 'uploads/videos/';
-            $filename = time().'_'.csrf_token();
-            $_SESSION[$filename] = rtrim($filenamejoin,".");
+            $filename = time() . '_' . csrf_token();
+            $_SESSION[$filename] = rtrim($filenamejoin, ".");
             $fileExt = $temp[count($temp) - 1];
             $fileExt = strtolower($fileExt);
-            if(file_exists($destinationPath.$filename.'.'.$fileExt)){
-                unlink($destinationPath.$filename.'.'.$fileExt);
+            if (file_exists($destinationPath . $filename . '.' . $fileExt)) {
+                unlink($destinationPath . $filename . '.' . $fileExt);
             }
-            $file->move($destinationPath, $filename.'.'.$fileExt);
+            $file->move($destinationPath, $filename . '.' . $fileExt);
             echo $filename;
         }
     }
 
-    public function duration(Request $request) {
-        if(!file_exists(public_path("/uploads/videos/").$request->fileName.'.'.$request->input)){
-           if(file_exists(public_path("/uploads/videos/").$request->fileName.'.qt')){
-               $request->input = 'qt';
-           }else if(file_exists(public_path("/uploads/videos/").$request->fileName.'.asf')){
+    public function duration(Request $request)
+    {
+        if (!file_exists(public_path("/uploads/videos/") . $request->fileName . '.' . $request->input)) {
+            if (file_exists(public_path("/uploads/videos/") . $request->fileName . '.qt')) {
+                $request->input = 'qt';
+            } else if (file_exists(public_path("/uploads/videos/") . $request->fileName . '.asf')) {
                 $request->input = 'asf';
-           }
-       }
+            }
+        }
 
-        $command = config('config.path_ffprobe_exe').' -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 '.public_path("/uploads/videos/").$request->fileName.'.'.$request->input.' 2>&1';
-        $input = public_path('/uploads/videos/').$request->fileName.'.'.$request->input;
+        $command = config('config.path_ffprobe_exe') . ' -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 ' . public_path("/uploads/videos/") . $request->fileName . '.' . $request->input . ' 2>&1';
+        $input = public_path('/uploads/videos/') . $request->fileName . '.' . $request->input;
         exec($command, $output, $return);
         if (!$return) {
-            echo json_encode( array('status' => 200,'duration'=>exec($command, $output, $return)) );
+            echo json_encode(array('status' => 200, 'duration' => exec($command, $output, $return)));
         } else {
-            echo json_encode( array('status' => 404) );
+            echo json_encode(array('status' => 404));
         }
 
     }
