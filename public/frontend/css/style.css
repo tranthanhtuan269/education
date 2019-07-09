@@ -394,17 +394,16 @@ ul.unica-acc-zone li.special:hover a{color:#fff}
 .modal-dialog .modal-body .social-login{
   margin: 15px 0;
 }
-/*.modal-dialog .modal-body .kpx_btn_google .social-login-icon{
-  width: 48px;
-  height: 24px;
-  margin: 16px 0;
-}*/
-.modal-dialog .modal-body .kpx_btn-facebook i{
+.modal-dialog .modal-body .social-login-icon{
+  margin-left: 20px;
+  margin-right: 10px;
+}
+/* .modal-dialog .modal-body .kpx_btn-facebook i{
   padding: 6px 20px;
-}
-.modal-dialog .modal-body .kpx_btn_google i{
+} */
+/* .modal-dialog .modal-body .kpx_btn_google i{
   padding: 6px 14px;
-}
+} */
 .modal-dialog .modal-body .form-group{
   position: relative;
   color: #535353;
@@ -556,7 +555,7 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
 /* .detail-course .info{margin-bottom:50px} */
 .detail-course .info h3{padding-bottom:15px}
 .detail-course .info .knowledge{padding:30px 0 10px}
-.detail-course .info .knowledge li{float:left;width:50%;padding-bottom:25px}
+.detail-course .info .knowledge li{padding-bottom:25px}
 .detail-course .info .knowledge li img{float:left;padding-right:10px;width:35px}
 .detail-course .info ul.others{border:1px solid #ccc;background:#F5F5F5}
 .detail-course .info ul.others li img{float:left;padding-right:10px}
@@ -1562,10 +1561,10 @@ div[data-u="slides"] div div{
   display: flex;
   margin-top: 0.5em;
 }
-.interactive-bar .buttons button{
+/* .interactive-bar .buttons button{
   background: transparent;
   border: 1px solid;
-}
+} */
 .interactive-bar .buttons button:last-child{
   margin-left: 1em;
 }

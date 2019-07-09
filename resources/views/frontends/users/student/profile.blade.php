@@ -20,14 +20,14 @@
                             <a href="#buyed" class="buyed" data-toggle="tab"><i class="fa fa-user"></i>&nbsp;&nbsp;Profile</a>
                         </li> --}}
                         <li data-toggle="modal" data-target="#myModalChangePass" data-dismiss="modal" class="pull-right">
-                            <button type="button" class="btn btn-warning">Change password</button>
+                            <button type="button" class="btn btn-warning">Change Password</button>
                         </li>
                         <div id="myModalChangePass" class="modal fade" role="dialog" >
-                            <div class="modal-dialog">
+                            <div class="modal-dialog modal-login">
                                 <div class="modal-content">
                                     <div class="modal-header">				
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <div class="modal-title"><b>Change password</b></div>
+                                        <div class="modal-title"><b>Change Password</b></div>
                                     </div>
                                     <div class="modal-body">
                                         <p class="change-password-notice">Change your password here.</p>

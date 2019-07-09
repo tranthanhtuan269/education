@@ -373,12 +373,14 @@
                                                     <div class="social-login">
                                                         <a href="#" class="btn btn-lg btn-primary btn-block kpx_btn-facebook" data-toggle="tooltip" data-placement="top" title="Facebook">
                                                             <span class="social-login-icon">
-                                                                <i class="fab fa-facebook-f fa-lg"></i>
+                                                                <i class="fab fa-facebook-f fa-lg fa-fw"></i>
                                                             </span>
                                                             Continue with Facebook
                                                         </a>
                                                         <a href="#" class="btn btn-lg btn-danger btn-block kpx_btn_google" data-toggle="tooltip" data-placement="top" title="Google">
-                                                            <i class="fab fa-google fa-lg"></i>
+                                                            <span class="social-login-icon">
+                                                                <i class="fab fa-google fa-lg fa-fw"></i>
+                                                            </span>
                                                             Continue with Google
                                                         </a>
                                                     </div>
@@ -422,7 +424,7 @@
                                         </div>
                                     </div>
                                     <div id="myModalRegister" class="modal fade" role="dialog" >
-                                        <div class="modal-dialog">
+                                        <div class="modal-dialog modal-login">
                                             <div class="modal-content">
                                                 <div class="modal-header">				
                                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
