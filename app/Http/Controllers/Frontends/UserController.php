@@ -45,7 +45,7 @@ class UserController extends Controller
         } else {    
             if ( \Hash::check($password, $user->password) ) {
                 if ($user->status == 0) {
-                    return response()->json(['message' => 'This account locked.', 'status' => 404]);
+                    return response()->json(['message' => 'This account has been locked.', 'status' => 404]);
                 } else {
                     Auth::login($user, $request->get('remember'));
                     return response()->json(['message' => 'Ok', 'status' => 200]);

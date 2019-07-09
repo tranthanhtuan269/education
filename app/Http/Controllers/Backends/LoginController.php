@@ -57,7 +57,7 @@ class LoginController
             } else {
                 if (\Hash::check($password, $user->password)) {
                     if ($user->status == 0) {
-                        $errors = new MessageBag(['errorlogin' => 'This account locked.']);
+                        $errors = new MessageBag(['errorlogin' => 'This account has been locked.']);
                         return redirect()->back()->withErrors($errors);
                     } else {
                         Auth::login($user, $request->get('remember'));
