@@ -149,9 +149,9 @@ class CourseController extends Controller
                 $course->status = $request->status;
                 $course->save();
                 if($request->status == 1){
-                    $res = array('status' => "200", "Message" => "Duyệt thành công");
+                    $res = array('status' => "200", "message" => "Duyệt thành công");
                 }else{
-                    $res = array('status' => "200", "Message" => "Hủy thành công");
+                    $res = array('status' => "200", "message" => "Hủy thành công");
                 }
                 echo json_encode($res);die;
             }

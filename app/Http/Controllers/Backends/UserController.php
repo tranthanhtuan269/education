@@ -372,4 +372,23 @@ class UserController extends Controller
             echo json_encode($res);
         }
     }
+
+    public function blockUser(Request $request)
+    {   
+        if($request->user_id){
+            $user = User::find($request->user_id);
+            if($user){
+                $user->status = $request->status;
+                $user->save();
+                if($request->status == 1){
+                    $res = array('status' => "200", "message" => "Bỏ chặn người dùng thành công");
+                }else{
+                    $res = array('status' => "200", "message" => "Chặn người dùng thành công");
+                }
+                echo json_encode($res);die;
+            }
+        }
+        $res = array('status' => "401", "Message" => 'Người dùng không tồn tại.');
+        echo json_encode($res);die;
+    }
 }

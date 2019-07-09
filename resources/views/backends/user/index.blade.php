@@ -376,9 +376,10 @@
 
                     @if (Helper::checkPermissions('users.block-user', $list_roles)) 
                         if(row['status'] == 0){
-                            html += '<a class="block-user" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Block">Block</a>';
+                            html += '<a class="btn-block block-user" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Block"><i class="fa fa-times fa-fw"></i></a>';
                         }else{
-                            html += '<a class="unblock-user" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Unblock">Unblock</a>';
+                            
+                            html += '<a class="btn-block not-block-user" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Unblock"><i class="fa fa-check fa-fw"></i></a>';
                         }
                         
                     @endif
@@ -535,6 +536,74 @@
                 // $('#passConfirm_upd').val("not_change");
                 $(".alert-errors").addClass("d-none");
             });
+
+            // Begin Block User
+            $('.btn-block').off('click')
+            $('.btn-block').click(function(){
+                var _self   = $(this);
+                var id      = $(this).attr('data-id');
+                // alert(id)
+                var status  = 0;
+                var message = "Bạn có chắc chắn muốn bỏ chặn người dùng?";
+                if(_self.hasClass('not-block-user')){
+                    status = 1;
+                    message = "Bạn có chắc chắn muốn chặn người dùng?";
+                }
+                $.ajsrConfirm({
+                    message: message,
+                    okButton: "Đồng ý",
+                    onConfirm: function() {
+                        $.ajaxSetup({
+                            headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
+                        $.ajax({
+                            url: baseURL+"/admincp/users/block-user",
+                            data: {
+                                user_id : id,
+                                status : 1 - status
+                            },
+                            method: "PUT",
+                            dataType:'json',
+                            beforeSend: function(r, a){
+                                current_page = dataTable.page.info().page;
+                            },
+                            success: function (response) {
+                                if(response.status == 200){
+                                    dataTable.ajax.reload();
+                                    // if(_self.parent().parent()){
+                                    //     _self.find('i').removeClass('fa-check').addClass('fa-times');
+                                    //     _self.removeClass('not-block-user').addClass('block-user');
+                                    // }else{
+                                    //     _self.find('i').removeClass('fa-times').addClass('fa-check');
+                                    //     _self.addClass('block-user').removeClass('not-block-user');
+                                    // }
+
+                                    Swal.fire({
+                                        type: 'success',
+                                        text: response.message
+                                    })
+                                }else{
+                                    Swal.fire({
+                                        type: 'error',
+                                        text: response.message
+                                    })
+                                }
+                            },
+                            error: function (data) {
+                                if(data.status == 401){
+                                window.location.replace(baseURL);
+                                }else{
+                                $().toastmessage('showErrorToast', errorConnect);
+                                }
+                            }
+                        });
+                    },
+                    nineCorners: false,
+                });
+            });
+            // End Block User
 
             $('.btn-delete').off('click');
             $('.btn-delete').click(function(){
