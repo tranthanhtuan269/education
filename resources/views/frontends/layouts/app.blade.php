@@ -712,7 +712,7 @@
                         location.reload();
                     }else{
                         Swal.fire({
-                            type: 'error',
+                            type: 'warning',
                             html: response.message,
                         })
                     }
@@ -726,7 +726,7 @@
                         txt_errors += obj_errors[k][0] + '</br>';
                     }
                     Swal.fire({
-                        type: 'error',
+                        type: 'warning',
                         html: txt_errors,
                     })
                 }
@@ -786,7 +786,7 @@
                         });
                     }else{
                         Swal.fire({
-                            type: 'error',
+                            type: 'warning',
                             html: 'Error',
                         })
                     }
@@ -799,7 +799,7 @@
                         txt_errors += obj_errors[k][0] + '</br>';
                     }
                     Swal.fire({
-                        type: 'error',
+                        type: 'warning',
                         html: txt_errors,
                     })
                 }

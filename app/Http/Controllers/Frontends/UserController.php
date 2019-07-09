@@ -24,14 +24,37 @@ class UserController extends Controller
 {
     public function loginAjax(LoginUserRequest $request)
     {
-        $email = $request->email;
-        $password = $request->password;
-        if (Auth::attempt(['email' => $email, 'password' => $password], $request->get('remember'))) {
-            // auth()->logoutOtherDevices($request->password);
-            return response()->json(['message' => 'Your account has been created!', 'status' => 200]);
-        } else {
-            return response()->json(['message' => 'The email or password is incorrect', 'status' => 404]);
+        $email = trim($request->email);
+        $password = trim($request->password);
+
+        // if (Auth::attempt(['email' => $email, 'password' => $password, 'status' => 1], $request->get('remember'))) {
+        //     // auth()->logoutOtherDevices($request->password);
+        //     return response()->json(['message' => 'Ok', 'status' => 200]);
+        // } else {
+        //     if (Auth::check() && Auth::user()->status == 0) {
+        //         return response()->json(['message' => 'This account locked', 'status' => 404]);
+        //     }
+
+        //     return response()->json(['message' => 'The email or password is incorrect', 'status' => 404]);
+        // }
+            
+        $user = User::where('email', $email)->first();
+        
+        if( !isset($user) ) {
+            return response()->json(['message' => 'Email is incorrect.', 'status' => 404]);
+        } else {    
+            if ( \Hash::check($password, $user->password) ) {
+                if ($user->status == 0) {
+                    return response()->json(['message' => 'This account locked.', 'status' => 404]);
+                } else {
+                    Auth::login($user, $request->get('remember'));
+                    return response()->json(['message' => 'Ok', 'status' => 200]);
+                }
+            } else { 
+                return response()->json(['message' => 'Password is incorrect.', 'status' => 404]);         
+            }
         }
+        
     }
 
     public function logout()

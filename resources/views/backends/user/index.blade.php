@@ -586,7 +586,7 @@
                                     })
                                 }else{
                                     Swal.fire({
-                                        type: 'error',
+                                        type: 'warning',
                                         text: response.message
                                     })
                                 }

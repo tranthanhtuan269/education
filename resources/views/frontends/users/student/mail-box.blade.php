@@ -146,7 +146,7 @@
                     },
                     error: function (response) {
                         Swal.fire({
-                            type: 'error',
+                            type: 'warning',
                             text: 'There was a problem while getting email content'
                         })
                     }
