@@ -98,7 +98,14 @@ class HomeController extends Controller
 
     public function showCourse($course)
     {
+        
         $course = Course::where('slug', $course)->first();
+
+        if ($course) {
+            $course->view_count = $course->view_count + 1;
+            $course->save();
+        }
+
         if (\Auth::check()) {
             if ($course) {
                 $ratingCourse = RatingCourse::where('course_id', $course->id)->where('user_id', \Auth::id())->first();
