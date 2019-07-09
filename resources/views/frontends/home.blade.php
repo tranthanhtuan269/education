@@ -19,12 +19,14 @@
         <div class="container category-slider">
             @foreach ($feature_category as $feature)
                 <div class="slider-div" style='background-image: url("{{ url('/frontend/images/'.$feature->image) }}"'>
-                    <div class="link-parent">
-                        <a href="{{ url('/') }}/category/{{ $feature->slug }}" class="text-center">
+                    <a href="{{ url('/') }}/category/{{ $feature->slug }}" class="text-center">
+                        <div class="link-parent">
+                        <!-- <a href="{{ url('/') }}/category/{{ $feature->slug }}" class="text-center"> -->
                             <h3>{{ $feature->name }}</h3>
                             <p>Over {{ $feature->courses_count }} courses</p>
-                        </a>
-                    </div>
+                        <!-- </a> -->
+                        </div>
+                    </a>
                 </div>
             @endforeach
         </div>
