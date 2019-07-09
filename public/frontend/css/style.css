@@ -1875,3 +1875,10 @@ div[data-u="slides"] div div{
   width: 100%;
   word-break: break-word;
 }
+
+#btnPurchaseWBalance{
+  border-radius: 0;
+}
+.pay-field .payment .accept-terms{
+  font-size: small;
+}
