@@ -66,7 +66,7 @@ Route::group(['middleware' => 'auth'], function () {
         // End Duyet Video
 
         // Block Users
-        Route::put('users/block-user', 'Backends\UserController@block-user');
+        Route::put('users/block-user', 'Backends\UserController@blockUser');
         // End Block User
 
         Route::get('teachers', 'Backends\UserController@getTeacher');
