@@ -69,6 +69,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('users/block-user', 'Backends\UserController@block-user');
         // End Block User
 
+        // Begin Tang khoa hoc
+        Route::get('gifts', 'Backends\GiftController@getGiveGift');
+        // End Tang khoc hoc
+
         Route::get('teachers', 'Backends\UserController@getTeacher');
         Route::get('teachers/getTeacherAjax', 'Backends\UserController@getTeacherAjax');
         Route::put('teachers/accept', 'Backends\UserController@accept');

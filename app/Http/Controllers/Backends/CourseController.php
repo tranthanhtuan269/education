@@ -239,9 +239,4 @@ class CourseController extends Controller
             echo json_encode($res);
         }
     }
-
-    public function viewCount($id)
-    {
-        
-    }
 }

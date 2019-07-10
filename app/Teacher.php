@@ -26,6 +26,7 @@ class Teacher extends Model
 
     static public function getTeacherBestStudent()
     {
+
         return Teacher::orderBy('student_count', 'DESC')->take(4)->get();
     }
 
