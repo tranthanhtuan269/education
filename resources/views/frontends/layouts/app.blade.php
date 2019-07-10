@@ -654,9 +654,12 @@
                 $('.number-in-cart').text(number_items_in_cart.length);
             })
 
-            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
-            // alert(number_items_in_cart.length)
-            $('.number-in-cart').text(number_items_in_cart.length);
+            if(localStorage.getItem('cart') != null){
+                var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
+                $('.number-in-cart').text(number_items_in_cart.length);
+            }else{
+                $('.number-in-cart').text(0);
+            }
         })
 
         @if (Request::is('home') && !Auth::check())
