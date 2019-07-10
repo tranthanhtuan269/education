@@ -2,6 +2,8 @@
     if($course->vote_count == 0) $course->vote_count = 1;
     $random_name = ['Steve Rogers', 'Natasha Romanoff', 'Tony Stark', 'Peter Quill', "Bruce Banner", "Stephen Strange"];
     $lecturers = count($course->Lecturers()) > 1 ? 'Nhiều tác giả' : (count($course->Lecturers()) > 0 ? $course->Lecturers()[0]->user->name : "Courdemy");
+    $main_lecturer = $course->Lecturers()->first() ? $course->Lecturers()->first()->user->id : 0;
+    // echo($main_lecturer);
 ?>
 <div class="col-md-3 col-sm-6">
     <div class="box-course">
@@ -36,7 +38,7 @@
             <div class="content-course">
                 <h3 class="title-course">{{ $course->name }}</h3>
                 <div class="clearfix" style="line-height:1.7">
-                    <span class="name-teacher pull-left">
+                    <span class="name-teacher pull-left" data-teacher-id="{{$main_lecturer}}" >
                         {{ $lecturers }}
                     </span>
                     <br>
@@ -95,3 +97,15 @@
         </a>
     </div>
 </div>
+
+<script>
+    $('.content-course .name-teacher').on('click', function (e){
+        e.stopPropagation()
+        e.preventDefault()
+        var teacherId = $(this).attr('data-teacher-id')
+
+        // window.location.replace(`/teacher/${teacherId}`)
+        window.location.replace("/teacher/"+teacherId)
+
+    })
+</script>
