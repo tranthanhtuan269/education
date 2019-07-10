@@ -1578,10 +1578,17 @@ div[data-u="slides"] div div{
 }
 
 .box-course.course-search .title-course{
-  text-align: center
+  /* text-align: center */
+  color: #333333;
 }
 .box-course.course-search .content-course div.clearfix{
-  text-align: center
+  text-align: center;
+}
+.box-course.course-search .content-course div.clearfix a{
+  color: #333333;
+}
+.box-course.course-search .content-course div.clearfix a:hover{
+  color: #ff5521 !important;
 }
 .box-course.course-search .content-course .name-category{
   background-color: lightgray;
@@ -1599,7 +1606,7 @@ div[data-u="slides"] div div{
   height: 150px;
   border-radius: 10px;
 }
-.slider-div a{
+.slider-div .link-parent{
   color: #ffffff;
   text-decoration: none;
 }
@@ -1607,7 +1614,7 @@ div[data-u="slides"] div div{
   position: relative;
   top: 70%;
 }
-.link-parent{
+.slider-div a{
   position: relative;
   top: 0;
   left: 0;

@@ -5,6 +5,8 @@
                 <h2>Popular Teacher</h2>
             </div>
             @foreach ($popular_teacher as $teacher)
+            @if($teacher->status)
+            
                 @include(
                     'components.teacher', 
                     [
@@ -18,6 +20,8 @@
                         'student_number' => $teacher->student_count
                     ]
                 )
+            
+            @endif
             @endforeach
         </div>
     </div>

@@ -55,7 +55,7 @@
                         <i class="fas fa-stopwatch"></i> {{ $course->approx_time }}h
                     </span>
                     <span class="view pull-right">
-                        <i class="fa fa-eye" aria-hidden="true"></i> {!! number_format($course->view_number, 0, ',' , '.') !!} views
+                        <i class="fa fa-eye" aria-hidden="true"></i> {!! number_format($course->view_count, 0, ',' , '.') !!} views
                     </span>
                 </div>
                 @if (isset($setup))  

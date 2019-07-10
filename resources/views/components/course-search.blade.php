@@ -3,10 +3,11 @@
     $random_name = ['Steve Rogers', 'Natasha Romanoff', 'Tony Stark', 'Peter Quill', "Bruce Banner", "Stephen Strange"];
     $lecturers = count($course->Lecturers()) > 1 ? 'Nhiều tác giả' : (count($course->Lecturers()) > 0 ? $course->Lecturers()[0]->user->name : "Courdemy");
 ?>
-<div class="col-sm-3">
+<div class="col-md-3 col-sm-6">
     <div class="box-course course-search">
-        <a href="{{ url('/') }}/course/{{ $course->slug }}" title="{{ $course->name }}" class="course-box-slider pop">
-            <div class="img-course">
+        <!-- <a href="{{ url('/') }}/course/{{ $course->slug }}" title="{{ $course->name }}" class="course-box-slider pop"> -->
+        <div class="course-box-slider pop">
+        <div class="img-course">
             	<img class="img-responsive"
                     src="{{ url('/frontend/images').'/'.$course->image }}"
                     alt="{{ $course->name }}">
@@ -34,21 +35,27 @@
              </div>
                     
             <div class="content-course">
-                <h3 class="title-course">{{ $course->name }}</h3>
+                <a href="{{ url('/') }}/course/{{ $course->slug }}" title="{{ $course->name }}">
+                    <h3 class="title-course">{{ $course->name }}</h3>
+                </a>
                 <div class="clearfix" style="line-height:1.7">
                     <div>
                         <span class="name-teacher">
+                        <a href="{{ url('/') }}/teacher/{{ $course->Lecturers()[0]->user->id }}" title="{{ $course->Lecturers()[0]->user->name }}">
                             {{ $lecturers }}
+                        </a>
                         </span>
                     </div>
                     <div class="name-category">
-                        <span>
-                            <i class="fa {{$result->category->icon}}"></i>
+                        <a href="{{ url('/') }}/category/{{ $result->category->slug }}" title="{{ $result->category->name }}">
+                            <span>
+                                <i class="fa {{$result->category->icon}}"></i>
+                            </span>
+                            &nbsp;
+                            <span>
+                                {{$result->category->name}}
                         </span>
-                        &nbsp;
-                        <span>
-                            {{$result->category->name}}
-                        </span>                    
+                        </a>    
                     </div>
                     <span class="">
                         @include(
@@ -65,7 +72,7 @@
                         <i class="fas fa-stopwatch"></i> {{ $course->approx_time }}h
                     </span>
                     <span class="view pull-right">
-                        <i class="fa fa-eye" aria-hidden="true"></i> {!! number_format($course->view_number, 0, ',' , '.') !!} views
+                        <i class="fa fa-eye" aria-hidden="true"></i> {!! number_format($course->view_count, 0, ',' , '.') !!} views
                     </span>
                 </div>
                 @if (isset($setup))  
@@ -97,7 +104,7 @@
                         {!! number_format($course->price, 0, ',' , '.') !!}đ
                     </span>
                     @else
-                    <span class="price">
+                    <span class="price" style="color: #FF8F00">
                         {!! number_format($course->real_price, 0, ',' , '.') !!}đ
                     </span>
                     @endif
@@ -108,6 +115,7 @@
                 </div>
                 @endif
             </div>
-        </a>
+        </div>
+        <!-- </a> -->
     </div>
 </div>

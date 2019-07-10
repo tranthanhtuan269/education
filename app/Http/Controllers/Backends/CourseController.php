@@ -125,6 +125,7 @@ class CourseController extends Controller
 
     // Course
     public function getCourse(){
+        
         return view('backends.user.course');
     }
 
@@ -237,5 +238,10 @@ class CourseController extends Controller
             }
             echo json_encode($res);
         }
+    }
+
+    public function viewCount($id)
+    {
+        
     }
 }
