@@ -103,9 +103,7 @@
         e.stopPropagation()
         e.preventDefault()
         var teacherId = $(this).attr('data-teacher-id')
-
-        // window.location.replace(`/teacher/${teacherId}`)
-        window.location.replace("/teacher/"+teacherId)
+        window.location.href = `/teacher/${teacherId}`
 
     })
 </script>
