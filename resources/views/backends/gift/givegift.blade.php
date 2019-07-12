@@ -115,7 +115,7 @@
     var curr_user_email     = '';
     var current_page        = 0;
     var old_search          = '';
-    var errorConnect        = "Please check your internet connection and try again.";
+    var errorConnect        = "Kiểm tra kết nối Internet và thử lại!";
 
     $(document).ready(function(){
         $("#btn-gift").click(function(){
@@ -140,7 +140,7 @@
             if (student_id.length == 0) {
                 Swal.fire({
                     type: 'warning',
-                    text: 'Chua co hoc vien nao duoc chon!'
+                    text: 'Chưa có học viên nào được chọn!'
                 })
 
                 return;
@@ -149,7 +149,7 @@
             if (course_id.length == 0) {
                 Swal.fire({
                     type: 'warning',
-                    text: 'Chua co khoa hoc nao duoc chon!'
+                    text: 'Chưa có khóa học nào được chọn!'
                 })
 
                 return;
