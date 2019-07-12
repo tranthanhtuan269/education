@@ -359,7 +359,7 @@
                                     })
                                 }else{
                                     Swal.fire({
-                                        type: 'error',
+                                        type: 'warning',
                                         text: response.message
                                     })
                                 }
@@ -411,7 +411,7 @@
                                     dataTable.page( checkEmptyTable() ).draw( false );
                                 }else{
                                   Swal.fire({
-                                      type: 'error',
+                                      type: 'warning',
                                       text: response.message
                                   })
                                 }
@@ -477,7 +477,7 @@
                                 },
                                 error: function (response) {
                                     Swal.fire({
-                                        type: 'error',
+                                        type: 'warning',
                                         text: response.message
                                     })
                                 }
@@ -536,7 +536,7 @@
                                 },
                                 error: function (response) {
                                     Swal.fire({
-                                        type: 'error',
+                                        type: 'warning',
                                         text: response.message
                                     })
                                 }
@@ -594,7 +594,7 @@
                                 },
                                 error: function (response) {
                                     Swal.fire({
-                                        type: 'error',
+                                        type: 'warning',
                                         text: response.message
                                     })
                                 }

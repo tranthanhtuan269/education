@@ -1430,7 +1430,26 @@
     .detail-teacher .frame .network-teacher{
         padding-top: 70px;
     }
-
+    /* .course-btn-add-cart{
+        color: #fff;
+        background-color: rgba(40,96,144,0.9);
+        border-color: rgba(32,77,116,0.9);
+    }
+    .course-btn-add-cart:hover{
+        color: #fff;
+        background-color: #286090;
+        border-color: #204d74;
+    }
+    .course-btn-buy-now{
+        color: #fff;
+        background-color: rgba(236,151,31,0.9);
+        border-color: rgba(213,133,18,0.9);
+    }
+    .course-btn-buy-now:hover{
+        color: #fff;
+        background-color: #ec971f;
+        border-color: #d58512;
+    } */
 }
 
 @media (min-width: 1200px){
@@ -1695,6 +1714,12 @@
     }
     .frame_2-top{
         margin-top: 30px;
+    }
+    #button{
+        margin-right: 0;
+    }
+    .group-btn-buy-course{
+        padding-left: 5vw;
     }
 }	
 

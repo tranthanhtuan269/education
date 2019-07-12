@@ -10,10 +10,10 @@
 				</div>
 				<div class="pull-right">
 					<ul class="nav nav-tabs" id="fullpageTab">
-						<li class="active"><a data-toggle="tab" href="#payTab">Pay</a></li>
-						<li><a data-toggle="tab" href="#addFundTab">Add Funds</a></li>
-						<li><a data-toggle="tab" href="#purchaseHistoryTab">Purchase History</a></li>
-						<li><a data-toggle="tab" href="#redeemCodeTab">Redeem Code</a></li>
+						{{-- <li class="active"><a data-toggle="tab" href="#payTab">Pay</a></li> --}}
+						{{-- <li><a data-toggle="tab" href="#addFundTab">Top up</a></li> --}}
+						{{-- <li><a data-toggle="tab" href="#purchaseHistoryTab">Purchase History</a></li> --}}
+						{{-- <li><a data-toggle="tab" href="#redeemCodeTab">Redeem Code</a></li> --}}
 					</ul>
 				</div>
 			</div>
@@ -125,7 +125,7 @@
 						<div class="">
 							<a href="/cart">Edit your cart</a>
 						</div>
-						<div class="pay-field">
+						{{-- <div class="pay-field">
 							<ul id="payTabTabs" class="nav nav-pills nav-justified">
 								<li role="presentation" class="active"><a data-toggle="tab" href="#payWithBalance">Pay with your balance</a></li>
 								<li role="presentation"><a data-toggle="tab" href="#payByCard">Pay directly by card</a></li>
@@ -181,6 +181,24 @@
 												</a>
 											</div>
 										</div>
+									</div>
+								</div>
+							</div>
+						</div> --}}
+						<div class="pay-field" >
+							<div class="row payment" style="display:flex; align-items: center;">
+								<div class="col-sm-5">
+									<button id="btnPurchaseWBalance" class="btn btn-success btn-lg btn-block">Complete Payment</button>
+								</div>
+								<div class="col-sm-4 accept-terms">
+									<span>By completing your purchase you agree to these</span><a href="/terms-of-service"> Terms of Service</a>.
+								</div>
+								<div class="col-sm-3 text-right" style="display:flex; align-items: center;">
+									<div class="col-sm-5 text-right" style="display:flex; align-items: center; justify-content: flex-end; padding-right:0;">
+										<i class="fas fa-lock" style="font-size: xx-large"></i>
+									</div>
+									<div class="col-sm-7 text-left">
+										Secure connection
 									</div>
 								</div>
 							</div>
@@ -261,6 +279,124 @@
 		</div>
 	</div>
 
+	<div class="modal fade" id="switchPayment">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-body">
+					<div class="pay-field">
+						<ul id="payTabTabs" class="nav nav-pills nav-justified">
+							<li role="presentation" class="active"><a data-toggle="tab" href="#topUpWallet">Top up your account</a></li>
+							{{-- <li role="presentation"><a data-toggle="tab" href="#payByCard">Pay directly by card</a></li> --}}
+						</ul>
+						<div class="tab-content">
+							<div id="topUpWallet" class="tab-pane fade in active">
+								<div class="row" style="margin: 1em 0;">
+									<div class="col-sm-4 text-center" style="">
+										<div>
+											Your Balance:
+										</div>
+										<div>
+											{{ number_format($user_balance, 0, '.', '.') }} ₫
+										</div>
+									</div>
+									<div class="col-sm-8">
+										<div class="input-group top-up-amount">
+											<span class="input-group-addon" id="topUpAmount">Amount</span>
+											<input type="text" class="form-control" aria-describedby="topUpAmount">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-4">
+										<div class="payment-card">
+											<a href="javascript:void(0)" title="Internet Banking">
+												<img src="{{asset('frontend/images/payment-method-1.png')}}" alt="Payment Methods 1" width="100%">
+											</a>
+										</div>
+									</div>
+									<div class="col-sm-4">
+										<div class="payment-card">
+											<a href="javascript:void(0)" title="Visa">
+												<img src="{{asset('frontend/images/payment-method-2.png')}}" alt="Payment Methods 2"  width="100%">
+											</a>
+										</div>
+									</div>
+									<div class="col-sm-4">
+										<div class="payment-card">
+											<a href="javascript:void(0)" title="NganLuongVN">
+												<img src="{{asset('frontend/images/payment-method-3.png')}}" alt="Payment Methods 3" width="100%">
+											</a>
+										</div>
+									</div>
+								</div>
+								<div class="row" style="margin-top: 2em;">
+									<div class="col-sm-4 col-sm-offset-2">
+										<div class="payment-card">
+											<a href="javascript:void(0)" title="Paypal">
+												<img src="{{asset('frontend/images/payment-method-4.png')}}" alt="Payment Methods 4" width="100%">
+											</a>
+										</div>
+									</div>
+									<div class="col-sm-4">
+										<div class="payment-card">
+											<a href="javascript:void(0)" title="Bank Transfer">
+												<img src="{{asset('frontend/images/payment-method-5.png')}}" alt="Payment Methods 5" width="100%">
+											</a>
+										</div>
+									</div>
+								</div>
+								
+								
+								
+							</div>
+							{{-- <div id="payByCard" class="tab-pane fade">
+								<div class="row">
+									<div class="col-sm-4">
+										<div class="payment-card">
+											<a href="javascript:void(0)" title="Internet Banking">
+												<img src="{{asset('frontend/images/payment-method-1.png')}}" alt="Payment Methods 1">
+											</a>
+										</div>
+									</div>
+									<div class="col-sm-4">
+										<div class="payment-card">
+											<a href="javascript:void(0)" title="Visa">
+												<img src="{{asset('frontend/images/payment-method-2.png')}}" alt="Payment Methods 2">
+											</a>
+										</div>
+									</div>
+									<div class="col-sm-4">
+										<div class="payment-card">
+											<a href="javascript:void(0)" title="NganLuongVN">
+												<img src="{{asset('frontend/images/payment-method-3.png')}}" alt="Payment Methods 3">
+											</a>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-4 col-sm-offset-2">
+										<div class="payment-card">
+											<a href="javascript:void(0)" title="Paypal">
+												<img src="{{asset('frontend/images/payment-method-4.png')}}" alt="Payment Methods 4">
+											</a>
+										</div>
+									</div>
+									<div class="col-sm-4">
+										<div class="payment-card">
+											<a href="javascript:void(0)" title="Bank Transfer">
+												<img src="{{asset('frontend/images/payment-method-5.png')}}" alt="Payment Methods 5">
+											</a>
+										</div>
+									</div>
+								</div>
+							</div> --}}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<script>
 		var cart_items = JSON.parse(localStorage.getItem('cart'))
 		var coupon_code = localStorage.getItem('coupon')
@@ -309,6 +445,11 @@
 									html += '</div>'
 
 									$("#payWithBalance .user-balance").after(html)
+
+									// Swal.fire({
+									// 	type: 'warning',
+									// 	text: 'Your Balance is not enough!'
+									// })
 								}else{
 									var html = ''
 									html += '<div class="row payment">'
@@ -426,12 +567,26 @@
 								}
 							});
 						}else if(response.status == 204){
+							var htmlNot = ""
+							htmlNot += '<div class="options">'
+								htmlNot += '<div class="payment-options">'
+									htmlNot += '<button id="openTopUpModal" class="btn btn-warning">Top up your account</button>'
+									htmlNot += '<a href="/member-card" style="margin-left: 1em;">'
+										htmlNot += '<button class="btn btn-danger">Buy member cards</button>'
+									htmlNot += '</a>'
+								htmlNot += '</div>'
+							htmlNot += '</div>'
+
 							return Swal.fire({
-								type:"warning",
-								text:"Your balance is not enough!"
+								type: "warning",
+								text: `Your balance is not enough!`,
+								footer: htmlNot,
+								allowOutsideClick: false,
+								showConfirmButton: false,
 							}).then((result) => {
 								if (result.value) {
-									window.location.href = "/member-card";
+									// window.location.href = "/member-card";
+									$("#switchPayment").modal('show')
 								}
 							});
 						}else{
@@ -444,6 +599,10 @@
 				}
 			}
 
+			$(document).on('click', "#openTopUpModal", function () {
+				Swal.close()
+				$("#switchPayment").modal('show')
+			})
 			
 		})
 	</script>

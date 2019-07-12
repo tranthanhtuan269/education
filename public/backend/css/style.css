@@ -455,3 +455,10 @@ ul.alert li{
 .btn-accept, .btn-view{
     cursor: pointer;
 }
+
+.not-block-user{
+    color: green;
+}
+.block-user{
+    color: red;
+}

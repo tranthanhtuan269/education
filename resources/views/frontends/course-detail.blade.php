@@ -150,9 +150,9 @@
                     @if ($will_learn != '')
                     <div class="knowledge clearfix">
                         <h3>What you'll learn</h3>
-                        <ul>
+                        <ul class="row">
                                 @foreach ($will_learn as $will)                            
-                                <li>
+                                <li class="col-lg-6">
                                     <img src="{{ asset('frontend/images/ic_check.png') }}" alt="" /> {!! $will !!}
                                 </li>
                                 @endforeach
@@ -513,7 +513,7 @@
 
     <div class="interactive-bar">
         <div class="row">
-            <div class="info col-xs-12 col-md-8">
+            <div class="info col-xs-12 col-md-8 col-sm-7">
                 <div class="title">
                     <strong><p>{{ $info_course->name }}</p></strong>
                 </div>
@@ -523,9 +523,11 @@
                     @endforeach
                 </div>
             </div>
-            <div class="buttons col-xs-12 col-md-4">
-                <button class="btn">Add to cart</button>
-                <button class="btn">Buy now</button>
+            <div class="buttons col-xs-12 col-md-4 col-sm-5">
+                <div class="group-btn-buy-course">
+                    <button class="btn btn-primary">Add to cart</button>
+                    <button class="btn btn-warning">Buy now</button>
+                </div>
             </div>
         </div>
     </div>

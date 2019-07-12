@@ -60,12 +60,14 @@ class HomeController extends Controller
             $arr_course_id = User::join('user_roles', 'user_roles.user_id', '=', 'users.id')
                 ->join('teachers', 'teachers.user_role_id', '=', 'user_roles.id')
                 ->join('user_courses', 'user_courses.user_role_id', '=', 'user_roles.id')
+                ->join('courses', 'courses.id', '=', 'user_courses.course_id')
                 ->select('user_courses.course_id')
                 ->where('user_roles.role_id', \Config::get('app.teacher'))
                 ->where('teachers.status', 1)
+                ->where('courses.status', 1)
                 ->where('users.name', 'LIKE', "%$keyword%")
                 ->pluck('course_id');
-            $results = Course::where('status', 1)->where('name', 'LIKE', "%$keyword%")->orWhereIn('id', $arr_course_id)->paginate(8);
+            $results = Course::where('status', 1)->where('name', 'LIKE', "%$keyword%")->orwhereIn('id', $arr_course_id)->paginate(8);
         }
 
         return view('frontends.search', compact('results'));
@@ -128,6 +130,7 @@ class HomeController extends Controller
     {
         $user = User::find($id_teacher);
         if ($user) {
+            $feature_category = Category::where('featured', 1)->orderBy('featured_index', 'asc')->limit(10)->get();
             $ratingTeacher = RatingTeacher::where('teacher_id', $user->userRolesTeacher()->id)->where('user_id', \Auth::id())->first();
             $info_teacher = $user->userRolesTeacher()->teacher;
             $feature_course = $user->userRolesTeacher()->userCoursesByFeature();

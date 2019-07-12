@@ -171,7 +171,7 @@
                 if (xhr == null) this.removeFile(file);
                 $('.dz-image-preview').show(500);
                 Swal.fire({
-                    type: 'error',
+                    type: 'warning',
                     html: message,
                 })
             },
@@ -230,7 +230,7 @@
 			// Validate Birthday
 			if (!validationDate( $('#datepicker').val() )) {
                 Swal.fire({
-                    type: 'error',
+                    type: 'warning',
                     html: 'Field birthday is invalid!',
                 })
 				return false;
@@ -307,7 +307,7 @@
                         txt_errors += obj_errors[k][0] + '</br>';
                     }
                     Swal.fire({
-                        type: 'error',
+                        type: 'warning',
                         html: txt_errors,
                     })
                 }
@@ -385,7 +385,7 @@
                     });
                 }else{
                     Swal.fire({
-                        type: 'error',
+                        type: 'warning',
                         html: response.message,
                     })
                 }
@@ -399,7 +399,7 @@
                     txt_errors += obj_errors[k][0] + '</br>';
                 }
                 Swal.fire({
-                    type: 'error',
+                    type: 'warning',
                     html: txt_errors,
                 })
             }

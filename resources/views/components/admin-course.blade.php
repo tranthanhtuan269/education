@@ -209,7 +209,7 @@
                             txt_errors += obj_errors[k][0] + '</br>';
                         }
                         Swal.fire({
-                            type: 'error',
+                            type: 'warning',
                             html: txt_errors,
                         })
                     }
@@ -248,7 +248,7 @@
                         txt_errors += obj_errors[k][0] + '</br>';
                     }
                     Swal.fire({
-                        type: 'error',
+                        type: 'warning',
                         html: txt_errors,
                     })
                 }
@@ -303,7 +303,7 @@
                             txt_errors += obj_errors[k][0] + '</br>';
                         }
                         Swal.fire({
-                            type: 'error',
+                            type: 'warning',
                             html: txt_errors,
                         })
                     }
@@ -346,7 +346,7 @@
                             txt_errors += obj_errors[k][0] + '</br>';
                         }
                         Swal.fire({
-                            type: 'error',
+                            type: 'warning',
                             html: txt_errors,
                         })
                     }
@@ -394,7 +394,7 @@
                         });
                     }else{
                         Swal.fire({
-                            type: 'error',
+                            type: 'warning',
                             html: 'Error',
                         })
                     }
@@ -407,7 +407,7 @@
                         txt_errors += obj_errors[k][0] + '</br>';
                     }
                     Swal.fire({
-                        type: 'error',
+                        type: 'warning',
                         html: txt_errors,
                     })
                 }
@@ -452,7 +452,7 @@
                 if (xhr == null) this.removeFile(file);
                 $('#editCourse{{ $course->id }} .dz-image-preview').show(500);
                 Swal.fire({
-                    type: 'error',
+                    type: 'warning',
                     html: message,
                 })
             },
@@ -583,7 +583,7 @@
                         });
                     }else{
                         Swal.fire({
-                            type: 'error',
+                            type: 'warning',
                             html: 'Error',
                         })
                     }
@@ -596,7 +596,7 @@
                         txt_errors += obj_errors[k][0] + '</br>';
                     }
                     Swal.fire({
-                        type: 'error',
+                        type: 'warning',
                         html: txt_errors,
                     })
                 }

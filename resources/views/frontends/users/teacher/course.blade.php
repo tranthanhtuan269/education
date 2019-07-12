@@ -383,7 +383,7 @@
                 if (xhr == null) this.removeFile(file);
                 $('#createCourse .dz-image-preview').show(500);
                 Swal.fire({
-                    type: 'error',
+                    type: 'warning',
                     html: message,
                 })
             },
@@ -514,7 +514,7 @@
                         });
                     }else{
                         Swal.fire({
-                            type: 'error',
+                            type: 'warning',
                             html: 'Error',
                         })
                     }
@@ -527,7 +527,7 @@
                         txt_errors += obj_errors[k][0] + '</br>';
                     }
                     Swal.fire({
-                        type: 'error',
+                        type: 'warning',
                         html: txt_errors,
                     })
                 }
@@ -574,7 +574,7 @@
                         txt_errors += obj_errors[k][0] + '</br>';
                     }
                     Swal.fire({
-                        type: 'error',
+                        type: 'warning',
                         html: txt_errors,
                     })
                 }
@@ -629,7 +629,7 @@
                         txt_errors += obj_errors[k][0] + '</br>';
                     }
                     Swal.fire({
-                        type: 'error',
+                        type: 'warning',
                         html: txt_errors,
                     })
                 }
@@ -667,7 +667,7 @@
                             txt_errors += obj_errors[k][0] + '</br>';
                         }
                         Swal.fire({
-                            type: 'error',
+                            type: 'warning',
                             html: txt_errors,
                         })
                     }
@@ -703,7 +703,7 @@
                             txt_errors += obj_errors[k][0] + '</br>';
                         }
                         Swal.fire({
-                            type: 'error',
+                            type: 'warning',
                             html: txt_errors,
                         })
                     }
@@ -765,7 +765,7 @@
                                 txt_errors += obj_errors[k][0] + '</br>';
                             }
                             Swal.fire({
-                                type: 'error',
+                                type: 'warning',
                                 html: txt_errors,
                             })
                         }
