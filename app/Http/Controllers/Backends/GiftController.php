@@ -43,6 +43,7 @@ class GiftController extends Controller
         $arr_gift_course_id = $request->course_id;
         $arr_student_id = $request->student_id;
         $data = [];
+        $data_user_courses = [];
         $created_at = $updated_at = date('Y-m-d H:i:s');
 
         foreach ($arr_student_id as $student) {
@@ -65,18 +66,73 @@ class GiftController extends Controller
                 if (is_array($random_keys)) {
                     for ($i=0; $i < $rand ; $i++) {
                         if ( isset($arr_new_gift_course_id[$random_keys[$i]]) ) {
+                            $course_id = $arr_new_gift_course_id[$random_keys[$i]];
                             $data[] = [
                                 'user_role_id' => $student,
-                                'course_id'    => $arr_new_gift_course_id[$random_keys[$i]],
+                                'course_id'    => $course_id,
                                 'created_at'   => $created_at,
                                 'updated_at'   => $updated_at,
                             ];
+
+                            $course = Course::find($course_id);
+                            if ($course) {
+                                $video_count = $course->video_count;
+                                $first_video_index = 1;
+                                $first_video_id = $course->units[0]->videos[0]->id;
+                                $user_course_videos = [];
+
+                                for ($i = 0; $i < $video_count; $i++) {
+                                    array_push($user_course_videos, 0);
+                                }
+
+                                $videoJson = new VideoJson;
+                                $videoJson->videos = $user_course_videos;
+                                $videoJson->learning = 1;
+                                $videoJson->learning_id = $first_video_id;
+                                $videoJson = json_encode($videoJson);
+                                $data_user_courses[] = [
+                                    'user_role_id' => $student,
+                                    'course_id'    => $course_id,
+                                    'videos'       => $videoJson,
+                                    'created_at'   => $created_at,
+                                    'updated_at'   => $updated_at,
+                                    'status'       => 1,
+                                ];
+                            }                         
                         }
                     }
                 } else {
+                        $course_id = $arr_new_gift_course_id[0];
+                        $course = Course::find($course_id);
+
+                        if ($course) {
+                            $video_count = $course->video_count;
+                            $first_video_index = 1;
+                            $first_video_id = $course->units[0]->videos[0]->id;
+                            $user_course_videos = [];
+
+                            for ($i = 0; $i < $video_count; $i++) {
+                                array_push($user_course_videos, 0);
+                            }
+
+                            $videoJson = new VideoJson;
+                            $videoJson->videos = $user_course_videos;
+                            $videoJson->learning = 1;
+                            $videoJson->learning_id = $first_video_id;
+                            $videoJson = json_encode($videoJson);
+                            $data_user_courses[] = [
+                                'user_role_id' => $student,
+                                'course_id'    => $course_id,
+                                'videos'       => $videoJson,
+                                'created_at'   => $created_at,
+                                'updated_at'   => $updated_at,
+                                'status'       => 1,
+                            ];
+                        }
+
                         $data[] = [
                             'user_role_id' => $student,
-                            'course_id'    => $arr_new_gift_course_id[0],
+                            'course_id'    => $course_id,
                             'created_at'   => $created_at,
                             'updated_at'   => $updated_at,
                         ];
@@ -85,6 +141,12 @@ class GiftController extends Controller
         }
         
         Gift::insert($data);
+        UserCourse::insert($data_user_courses);
         return \Response::json(array('status' => '200', 'message' => 'Has been succeeded!'));
     }
+}
+
+class VideoJson
+{
+    public $videos, $learning, $learning_id;
 }
