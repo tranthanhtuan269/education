@@ -60,7 +60,8 @@ class GiftController extends Controller
                 } else {
                     $rand = rand(1, 3);
                 }
-    
+                // echo '<pre>';
+                // print_r($arr_new_gift_course_id);
                 $random_keys = array_rand($arr_new_gift_course_id, $rand);
 
                 if (is_array($random_keys)) {
@@ -102,7 +103,7 @@ class GiftController extends Controller
                         }
                     }
                 } else {
-                        $course_id = $arr_new_gift_course_id[0];
+                        $course_id = $arr_new_gift_course_id[$random_keys];
                         $course = Course::find($course_id);
 
                         if ($course) {
