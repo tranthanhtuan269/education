@@ -71,6 +71,9 @@ Route::group(['middleware' => 'auth'], function () {
 
         // Begin Tang khoa hoc
         Route::get('gifts', 'Backends\GiftController@getGiveGift');
+        Route::get('gifts/getGiftStudentAjax', 'Backends\GiftController@getGiftStudentAjax');
+        Route::get('gifts/getGiftCourse', 'Backends\GiftController@getGiftCourse');
+        Route::post('gifts/handling-gift-ajax', 'Backends\GiftController@handlingGiftAjax');
         // End Tang khoc hoc
 
         Route::get('teachers', 'Backends\UserController@getTeacher');

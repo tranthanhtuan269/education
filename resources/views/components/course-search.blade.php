@@ -8,9 +8,11 @@
         <!-- <a href="{{ url('/') }}/course/{{ $course->slug }}" title="{{ $course->name }}" class="course-box-slider pop"> -->
         <div class="course-box-slider pop">
         <div class="img-course">
+            <a href="{{ url('/') }}/course/{{ $course->slug }}" title="{{ $course->name }}">
             	<img class="img-responsive"
                     src="{{ url('/frontend/images').'/'.$course->image }}"
                     alt="{{ $course->name }}">
+            </a>
                 @if (isset($heart))
                 <i class="fa fa-heart fa-lg heart-icon" aria-hidden="true"></i>    
                 @endif
