@@ -48,7 +48,7 @@ class GiftController extends Controller
 
         foreach ($arr_student_id as $student) {
             $arr_new_gift_course_id = $arr_gift_course_id;
-            $arr_student_course_id = UserCourse::where('user_role_id', $student)->pluck('course_id');
+            $arr_student_course_id = UserCourse::where('user_role_id', $student)->pluck('course_id')->toArray();
             
             if (count($arr_student_course_id) > 0) {
                 $arr_new_gift_course_id = array_diff( $arr_gift_course_id, $arr_student_course_id );
