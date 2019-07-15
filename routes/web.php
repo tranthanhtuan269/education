@@ -27,6 +27,7 @@ Auth::routes();
 
 // BACKEND
 Route::get('toh-admin', 'Backends\LoginController@getLoginAdmin')->name('toh-admin');
+
 Route::post('/login-admin', 'Backends\LoginController@postLoginAdmin');
 Route::get('login-admin', function () {
     return redirect('/');
@@ -132,6 +133,9 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 // FRONTEND
+// 
+// Route::get('/testmail', 'Backends\GiftController@getTestMail');
+
 Route::post('/loginAjax', 'Frontends\UserController@loginAjax');
 Route::post('/registerAjax', 'Frontends\UserController@registerAjax');
 Route::get('/', 'Frontends\HomeController@home')->name('home');

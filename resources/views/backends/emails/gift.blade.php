@@ -1,0 +1,1 @@
+Ten khoa hoc: {{ $course_name }} - {{ $course_link }}

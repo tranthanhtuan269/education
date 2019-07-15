@@ -8,6 +8,8 @@ use App\Course;
 use App\User;
 use App\Gift;
 use App\UserCourse;
+use App\UserRole;
+use App\Jobs\SendGiftEmail;
 
 class GiftController extends Controller
 {
@@ -67,6 +69,8 @@ class GiftController extends Controller
                 if (is_array($random_keys)) {
                     for ($i=0; $i < $rand ; $i++) {
                         if ( isset($arr_new_gift_course_id[$random_keys[$i]]) ) {
+                            $user_id = UserRole::find($student)->user_id;
+                            echo User::find($user_id)->email;die;
                             $course_id = $arr_new_gift_course_id[$random_keys[$i]];
                             $data[] = [
                                 'user_role_id' => $student,
@@ -99,10 +103,18 @@ class GiftController extends Controller
                                     'updated_at'   => $updated_at,
                                     'status'       => 1,
                                 ];
+
+                                $course_link = url('course/'.$course->slug);
+                                $course_name = $course->name;
+                                $email = User::find($user_id)->email;
+                                //Gui Email
+                                dispatch(new SendGiftEmail($course_link, $course_name, $email));
+
                             }                         
                         }
                     }
                 } else {
+                        $user_id = UserRole::find($student)->user_id;
                         $course_id = $arr_new_gift_course_id[$random_keys];
                         $course = Course::find($course_id);
 
@@ -137,6 +149,12 @@ class GiftController extends Controller
                             'created_at'   => $created_at,
                             'updated_at'   => $updated_at,
                         ];
+
+                        $course_link = url('course/'.$course->slug);
+                        $course_name = $course->name;
+                        $email = User::find($user_id)->email;
+                        //Gui Email
+                        dispatch(new SendGiftEmail($course_link, $course_name, $email));
                 }
             }
         }
@@ -144,6 +162,12 @@ class GiftController extends Controller
         Gift::insert($data);
         UserCourse::insert($data_user_courses);
         return \Response::json(array('status' => '200', 'message' => 'Has been succeeded!'));
+    }
+
+    public function GetTestMail(){
+        // $order = Order::findOrFail($orderId);
+
+        Mail::to('trinhnk@tohsoft.com')->send('Hello World!');
     }
 }
 
