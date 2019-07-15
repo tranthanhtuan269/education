@@ -36,9 +36,9 @@ class SendGiftEmail implements ShouldQueue
     public function handle()
     {
         $content_mail = [
-                            'course_link'      => $this->course_link,
-                            'course_name'      => $this->course_name,
-                        ];
+            'course_link'      => $this->course_link,
+            'course_name'      => $this->course_name,
+        ];
 
         // $email = [$this->email];
         $email = ['trinhnk@tohsoft.com'];
@@ -48,5 +48,7 @@ class SendGiftEmail implements ShouldQueue
             $title = "[TOH-EDU] Qua tang...";
             $message->to($email)->subject($title);
         });
+
+        // Mail::to($email)->send($email);
     }
 }

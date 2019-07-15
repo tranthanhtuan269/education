@@ -133,8 +133,6 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 // FRONTEND
-// 
-// Route::get('/testmail', 'Backends\GiftController@getTestMail');
 
 Route::post('/loginAjax', 'Frontends\UserController@loginAjax');
 Route::post('/registerAjax', 'Frontends\UserController@registerAjax');
