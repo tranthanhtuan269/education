@@ -8,6 +8,7 @@ use App\Course;
 use App\Unit;
 use App\Video;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class VideoController extends Controller
 {
@@ -123,6 +124,18 @@ class VideoController extends Controller
         $video = Video::find($request->video_id);
 
         if ($video) {
+
+            $unit = $video->unit;
+            $unit->video_count -= 1;
+            $unit->save();
+
+            $course = $unit->course;
+            $course->video_count -= 1;
+            $course->save();
+
+            // echo asset('uploads/videos/test.txt');die;
+            // File::delete(asset('uploads/videos/test.txt'));
+            
             $video->delete();
 
             return response()->json([

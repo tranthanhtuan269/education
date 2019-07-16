@@ -50,12 +50,6 @@
         <div class="col-md-6">
             <h3><b>Chọn khóa học miễn phí</b></h3>
             <br>
-            <div class="">
-                <!-- <br><br> -->
-                <!-- <button class="btn btn-primary choose-course">Chọn khóa học</button> -->
-                <!-- <input type="text" placeholder="Nhập số lượng học viên"> -->
-            </div>
-            <br>
             <div>
                 <p><select id="demonstration" name="course[]" style="width: 400px" multiple="multiple">
                     @foreach ($courses as $course)
@@ -343,10 +337,7 @@
         function addEventListener(){
             $('.choose-course').off('click')
             $('.choose-course').click(function(){
-                // var curr_cv = $(this).parent().parent().attr('data-cv')
-
                 $('#chooseGiftCourse').modal('show');
-                // $("#cv").html(curr_cv)
             })
         }
 
@@ -359,10 +350,5 @@
 
     });
 </script>
-
-
-<!-- <script src="http://loudev.com/js/jquery.quicksearch.js" type="text/javascript"></script> -->
-<!-- <script src="http://loudev.com/js/jquery.multi-select.js" type="text/javascript"></script> -->
-<!-- <script src="http://loudev.com/js/application.js" type="text/javascript"></script> -->
 
 @endsection
