@@ -249,7 +249,7 @@ class VideoController extends Controller
                     $video->url_video = $json;
                     $video->save();
 
-                    dispatch(new ProcessLecture($video->link_video, 1080));
+                    // dispatch(new ProcessLecture($video->link_video, 1080));
                     dispatch(new ProcessLecture($video->link_video, 720));
                     dispatch(new ProcessLecture($video->link_video, 480));
                     dispatch(new ProcessLecture($video->link_video, 360));
