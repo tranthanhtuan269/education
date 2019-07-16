@@ -97,77 +97,19 @@ class Helper
         return $demanding_user_course;
     }
 
-    public static function convertVideoToMultiResolution($video){
-
+    public static function convertVideoToMultiResolution($video, $resolution){
+        $t=time();
         $input = public_path('/uploads/videos/').$video;
-        $output_1080 = public_path('/uploads/videos_output/1080/').$video;
-        $output_720 = public_path('/uploads/videos_output/720/').$video;
-        $output_480 = public_path('/uploads/videos_output/480/').$video;
-        $output_360 = public_path('/uploads/videos_output/360/').$video;
-        $block_txt = public_path('/uploads/block_'.$video.'.txt');
-
+        $output = public_path('/uploads/videos_output/'.$resolution.'/').$video;
+        $block_txt = public_path('/uploads/block_'.$t.'.txt');
 
         $format = 'mp4';
         $avcodec = '-c:v libx264 -strict -2';
         $time = '-ss ' . "00:00:00";
-        
-        $bitrate_1080 = '-vf scale=1080:-2';
-        $bitrate_720 = '-vf scale=720:-2';
-        $bitrate_480 = '-vf scale=480:-2';
-        $bitrate_360 = '-vf scale=360:-2';
+        $bitrate = '-vf scale='.$resolution.':-2';
 		
-        $command_1080 = config('config.path_ffmpeg_exe') .' -i '.$input.' '.$time.' '.$avcodec.' '.$bitrate_1080.' '.$output_1080.' 1> '.$block_txt.' 2>&1';
-        dd($command_1080);
-		exec($command_1080, $output2, $return);
-		if ($return) {
-	    	if(file_exists($output_1080)){
-	        	unlink($output_1080);
-	    	}
-	    	
-	    	if(file_exists($block_txt)){
-	        	unlink($block_txt);
-            }
-            
-            $command_720 = config('config.path_ffmpeg_exe') .' -i '.$input.' '.$time.' '.$avcodec.' '.$bitrate_720.' '.$output_720.' 1> '.$block_txt.' 2>&1';
-            exec($command_720, $output2, $return);
-            if ($return) {
-                if(file_exists($output_720)){
-                    unlink($output_720);
-                }
-                
-                if(file_exists($block_txt)){
-                    unlink($block_txt);
-                }
+        $command = config('config.path_ffmpeg_exe') .' -i '.$input.' '.$time.' '.$avcodec.' '.$bitrate.' '.$output.' 1> '.$block_txt.' 2>&1';
 
-                $command_480 = config('config.path_ffmpeg_exe') .' -i '.$input.' '.$time.' '.$avcodec.' '.$bitrate_480.' '.$output_480.' 1> '.$block_txt.' 2>&1';
-                exec($command_480, $output2, $return);
-                if ($return) {
-                    if(file_exists($output_480)){
-                        unlink($output_480);
-                    }
-                    
-                    if(file_exists($block_txt)){
-                        unlink($block_txt);
-                    }
-
-                    $command_360 = config('config.path_ffmpeg_exe') .' -i '.$input.' '.$time.' '.$avcodec.' '.$bitrate_360.' '.$output_360.' 1> '.$block_txt.' 2>&1';
-                    exec($command_360, $output2, $return);
-                    if ($return) {
-                        if(file_exists($output_360)){
-                            unlink($output_360);
-                        }
-                        
-                        if(file_exists($block_txt)){
-                            unlink($block_txt);
-                        }
-
-                        return '{"360": "'.$output_360.'", "480": "'.$output_480.'", "720": "'.$output_720.'", "1080": "'.$output_1080.'"}';
-                    }
-                    return '{"480": "'.$output_480.'", "720": "'.$output_720.'", "1080": "'.$output_1080.'"}';
-                }
-                return '{"720": "'.$output_720.'", "1080": "'.$output_1080.'"}';
-            }
-            return '{"1080": "'.$output_1080.'"}';
-		}
+        exec($command);
 	}
 }

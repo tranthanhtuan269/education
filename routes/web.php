@@ -165,7 +165,7 @@ Route::post('reviews/info', 'Backends\UserController@infoRoleUser');
 Route::post('/saveFileAjax', 'Frontends\HomeController@saveFileAjax');
 Route::get('duration', 'Frontends\HomeController@duration');
 Route::get('logout', 'Frontends\HomeController@logout');
-Route::get('test', 'Frontends\HomeController@test');
+Route::get('test', 'Backends\VideoController@testVideo');
 Route::get('coming-soon', 'Frontends\HomeController@comingSoon')->name('coming-soon');
 Route::get('comments/see-more', 'Frontends\CommentController@seeMore')->name('see-more');
 

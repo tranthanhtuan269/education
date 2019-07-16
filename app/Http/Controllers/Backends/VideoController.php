@@ -9,6 +9,7 @@ use App\Unit;
 use App\Video;
 use Illuminate\Http\Request;
 use App\Helper\Helper;
+use App\Jobs\ProcessLecture;
 
 class VideoController extends Controller
 {
@@ -240,8 +241,18 @@ class VideoController extends Controller
 
                 if ($request->state == 1) {
                     // convert video to multi resolution
-                    $video->url_video = Helper::convertVideoToMultiResolution($video->link_video);
+                    $path_360 = public_path('/uploads/videos_output/360/').$video->link_video;
+                    $path_480 = public_path('/uploads/videos_output/480/').$video->link_video;
+                    $path_720 = public_path('/uploads/videos_output/720/').$video->link_video;
+                    $path_1080 = public_path('/uploads/videos_output/1080/').$video->link_video;
+                    $json = '{"360": "'.$path_360.'", "480": "'.$path_480.'", "720": "'.$path_720.'", "1080": "'.$path_1080.'"}';
+                    $video->url_video = $json;
                     $video->save();
+
+                    dispatch(new ProcessLecture($video->link_video, 1080));
+                    dispatch(new ProcessLecture($video->link_video, 720));
+                    dispatch(new ProcessLecture($video->link_video, 480));
+                    dispatch(new ProcessLecture($video->link_video, 360));
                     
                     $res = array('status' => "200", "message" => "Duyệt thành công");
                 } else {
@@ -316,5 +327,11 @@ class VideoController extends Controller
             }
             echo json_encode($res);
         }
+    }
+
+    public function testVideo(){
+        $video = Video::find(157);
+        // Helper::convertVideoToMultiResolution($video->link_video, 480);
+        dispatch(new ProcessLecture($video->link_video, 480));
     }
 }
