@@ -40,11 +40,12 @@ class SendEmailJob implements ShouldQueue
             'course_name'      => $this->course_name,
         ];
 
-        $email = ['trinhnk@tohsoft.com'];
+        // $email = ['trinhnk@tohsoft.com'];
+        $email = [$this->email];
 
         \Mail::send('backends.emails.gift', $content_mail, function($message) use ($email) {
-            $message->from('nhansu@tohsoft.com', 'TOH-EDU');
-            $title = "[TOH-EDU] Qua tang...";
+            $message->from('nhansu@tohsoft.com', 'Courdemy');
+            $title = "[Courdemy] Tặng khóa học miễn phí từ Courdemy";
             $message->to($email)->subject($title);
         });
     }

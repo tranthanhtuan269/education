@@ -3,11 +3,9 @@
 @section('content')
 
 <!-- Begin MultiSelect -->
-<link href="https://rawgit.com/pbauerochse/searchable-option-list/master/sol.css" rel="stylesheet" />
-<script src="https://rawgit.com/pbauerochse/searchable-option-list/master/sol.js"></script>
+<link href="{{ asset('backend/css/sol.css') }}" rel="stylesheet" />
+<script src="{{ asset('backend/js/sol.js') }}"></script>
 <!-- End MultiSelect -->
-<!-- <link href="http://loudev.com/css/multi-select.css" rel="stylesheet" /> -->
-<!--  -->
 
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.16/datatables.min.css"/>
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.16/datatables.min.js"></script>
