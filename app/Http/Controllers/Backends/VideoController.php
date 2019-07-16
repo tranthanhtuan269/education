@@ -8,7 +8,6 @@ use App\Course;
 use App\Unit;
 use App\Video;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
 
 class VideoController extends Controller
 {
@@ -124,24 +123,28 @@ class VideoController extends Controller
         $video = Video::find($request->video_id);
 
         if ($video) {
+            if($video->state!=-1){
+                $unit = $video->unit;
+                $unit->video_count -= 1;
+                $unit->save();
 
-            $unit = $video->unit;
-            $unit->video_count -= 1;
-            $unit->save();
+                $course = $unit->course;
+                $course->video_count -= 1;
+                $course->save();
+                
+                $video->state = -1;
+                $video->save();
 
-            $course = $unit->course;
-            $course->video_count -= 1;
-            $course->save();
-
-            // echo asset('uploads/videos/test.txt');die;
-            // File::delete(asset('uploads/videos/test.txt'));
-            
-            $video->delete();
-
-            return response()->json([
-                'status' => '200',
-                'message' => 'Delete video successfully!',
-            ]);
+                return response()->json([
+                    'status' => '200',
+                    'message' => 'Xóa video thành công!',
+                ]);
+            }else{
+                return response()->json([
+                    'status' => '404',
+                    'message' => 'Xóa video không thành công!',
+                ]);
+            }
         }
     }
 
@@ -217,7 +220,8 @@ class VideoController extends Controller
 
     public function getVideoAjax()
     {
-        $videos = Video::get();
+        // $videos = Video::get();
+        $videos = Video::whereIn('state',[0,1])->get();
         return datatables()->collection($videos)
             ->addColumn('course_name', function ($video) {
                 return $video->Unit->course->name;

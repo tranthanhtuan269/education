@@ -18,7 +18,11 @@ class UnitController extends Controller
     }
 
     public function getVideos($id){
-        $videos = Video::where('unit_id', $id)->orderBy('index', 'asc')->get()->toArray();
+        $videos = Video::where('unit_id', $id)
+                ->whereIn('state',[0,1])
+                ->orderBy('index', 'asc')
+                ->get()
+                ->toArray();
         // echo '<pre>';
         // print_r($videos);die;
         return \Response::json(array('status' => '200', 'message' => 'List Videos!', 'videos' => $videos));
