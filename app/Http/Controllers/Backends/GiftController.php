@@ -48,6 +48,7 @@ class GiftController extends Controller
         $data = [];
         $data_user_courses = [];
         $created_at = $updated_at = date('Y-m-d H:i:s');
+        $data_student_count = [];
 
         foreach ($arr_student_id as $student) {
             $arr_new_gift_course_id = $arr_gift_course_id;
@@ -82,10 +83,14 @@ class GiftController extends Controller
 
                             $course = Course::find($course_id);
                             if ($course) {
-                                $video_count = $course->video_count;
-                                $first_video_index = 1;
-                                $first_video_id = $course->units[0]->videos[0]->id;
+                                $video_count        = $course->video_count;
+                                $first_video_index  = 1;
+                                $first_video_id     = $course->units[0]->videos[0]->id;
                                 $user_course_videos = [];
+
+                                $course->student_count += 1;
+                                $course->updated_at = $updated_at;
+                                $course->save();
 
                                 for ($i = 0; $i < $video_count; $i++) {
                                     array_push($user_course_videos, 0);
@@ -134,6 +139,10 @@ class GiftController extends Controller
                             $first_video_index = 1;
                             $first_video_id = $course->units[0]->videos[0]->id;
                             $user_course_videos = [];
+
+                            $course->student_count += 1;
+                            $course->updated_at = $updated_at;
+                            $course->save();
 
                             for ($i = 0; $i < $video_count; $i++) {
                                 array_push($user_course_videos, 0);
@@ -184,6 +193,7 @@ class GiftController extends Controller
         
         Gift::insert($data);
         UserCourse::insert($data_user_courses);
+        // Course::insert($data_student_count);
         return \Response::json(array('status' => '200', 'message' => 'Has been succeeded!'));
     }
 }
