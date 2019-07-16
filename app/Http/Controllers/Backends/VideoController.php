@@ -57,6 +57,14 @@ class VideoController extends Controller
 
             $video->save();
 
+            $unit = $video->unit;
+            $unit->video_count += 1;
+            $unit->save();
+
+            $course = $video->unit->course;
+            $course->video_count += 1;
+            $course->save();
+
             return response()->json([
                 'status' => '200',
                 'message' => 'New video is created!',
