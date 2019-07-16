@@ -6,7 +6,7 @@
         <div class="cart-pre-info">
             <div class="cart-pre-info-left">
                 <div>
-                    <h2><i><span class="course-amount"></span> courses in cart</i></h2>
+                    <h2><i><span class="course-amount"></span> khóa học trong giỏ hàng</i></h2>
                 </div>
             </div>
         </div>
@@ -33,17 +33,17 @@
                         <div class="btn-checkout">
                             @if(Auth::check())
                             <a href="/cart/payment/method-selector">
-                                <button id="btnCartCheckOut"  class="btn btn-danger btnCartCheckout">Checkout</button>
+                                <button id="btnCartCheckOut"  class="btn btn-danger btnCartCheckout">Thanh toán</button>
                             </a>
                             @else
-                            <button class="btn btn-danger btnCartCheckout" data-toggle=modal data-target=#myModalLogin data-dismiss=modal >Checkout</button>
+                            <button class="btn btn-danger btnCartCheckout" data-toggle=modal data-target=#myModalLogin data-dismiss=modal >Thanh toán</button>
                             @endif
                         </div>
                     </div>
                     <div class="coupon-code-input">
                         <div class="input-group">
-                            <input type="text" id="input-coupon" class="form-control" placeholder="Apply coupon code" aria-describedby="btnCartCouponApply">
-                            <span class="input-group-addon" id="btnCartCouponApply">APPLY</span>
+                            <input type="text" id="input-coupon" class="form-control" placeholder="Nhập mã giảm giá" aria-describedby="btnCartCouponApply">
+                            <span class="input-group-addon" id="btnCartCouponApply"><b>Áp dụng</b></span>
                         </div>
                     </div>
                 </div>
@@ -52,13 +52,13 @@
     </div>
     <div class="cart-page-empty">
         <div class="container text-center">
-            <img src="http://courdemy.local/frontend/images/tab_cart.png" alt="" style="width: 10vw;">
+            <img src="/frontend/images/tab_cart.png" alt="" style="width: 10vw;">
             <div>
-                    Your cart is empty. Keep shopping to find a course!
+                Giỏ hàng trống. Hãy xem thêm các khóa học khác!
             </div>
             <div>
                 <a href="/">
-                    <button class="btn">Keep shopping</button>
+                    <button class="btn">Xem thêm khóa học</button>
                 </a>
             </div>   
         </div>
@@ -215,7 +215,7 @@
         });
 
 
-        $('#btnCartCheckOut').on('click', function(e){            
+        $('#btnCartCheckOut').on('click', function(e){
         });
 
         function checkout() {

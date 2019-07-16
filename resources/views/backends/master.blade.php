@@ -196,7 +196,9 @@
                                 @endif
                             </ul>
                         </li>
-
+                        <li class="@if ( Request::is('admincp/gifts*') ) active @endif">
+                            <a href="{{ url('/') }}/admincp/gifts"><i class="fa fa-gift"></i> Tặng quà</a>
+                        </li>
                     </ul>
                 </section>
                 <!-- /.sidebar -->

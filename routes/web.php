@@ -27,6 +27,7 @@ Auth::routes();
 
 // BACKEND
 Route::get('toh-admin', 'Backends\LoginController@getLoginAdmin')->name('toh-admin');
+
 Route::post('/login-admin', 'Backends\LoginController@postLoginAdmin');
 Route::get('login-admin', function () {
     return redirect('/');
@@ -68,6 +69,13 @@ Route::group(['middleware' => 'auth'], function () {
         // Block Users
         Route::put('users/block-user', 'Backends\UserController@blockUser');
         // End Block User
+
+        // Begin Tang khoa hoc
+        Route::get('gifts', 'Backends\GiftController@getGiveGift');
+        Route::get('gifts/getGiftStudentAjax', 'Backends\GiftController@getGiftStudentAjax');
+        Route::get('gifts/getGiftCourse', 'Backends\GiftController@getGiftCourse');
+        Route::post('gifts/handling-gift-ajax', 'Backends\GiftController@handlingGiftAjax');
+        // End Tang khoc hoc
 
         Route::get('teachers', 'Backends\UserController@getTeacher');
         Route::get('teachers/getTeacherAjax', 'Backends\UserController@getTeacherAjax');
@@ -125,6 +133,7 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 // FRONTEND
+
 Route::post('/loginAjax', 'Frontends\UserController@loginAjax');
 Route::post('/registerAjax', 'Frontends\UserController@registerAjax');
 Route::get('/', 'Frontends\HomeController@home')->name('home');
