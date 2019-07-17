@@ -5,7 +5,8 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                    <p>Register teacher</p>
+                    <p>Đăng ký làm giảng viên</p>
+                    <br><br>
             </div>
         </div>
     </div>
@@ -24,34 +25,41 @@
                         <div class="tab-pane active" id="buyed">
                                 <div class="row">
                                     <form action="" method="post" enctype="multipart/form-data">
-                                        <div class="col-md-6 col-sm-6">
+                                        <div class="col-md-12">
                                             <div class="form-group">
-                                                <label>Choose Image</label>
+                                                <label>Chọn ảnh đại diện</label>
                                                 <div class="dropzone dz-clickable" id="myDrop">
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6">
+                                            <!-- <div class="form-group">
+                                                <label>Chọn ảnh đại diện</label>
+                                                <div class="dropzone dz-clickable" id="myDrop">
+                                                </div>
+                                            </div> -->
                                             <div class="form-group">
-                                                <label>Full name</label>
+                                                <label>Tên đầy đủ</label>
                                                 <div class="form-group">
                                                     <input type="text" class="form-control" name="name" value="{{ Auth::check() ? Auth::user()->name : '' }}">
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label> Email </label>
+                                                <label>Email</label>
                                                 <div class="form-group">
                                                     <input type="email" class="form-control" name="email" value="{{ Auth::check() ? Auth::user()->email : '' }}" {{ Auth::check() ? 'disabled' : '' }}>
 
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label>Phone</label>
+                                                <label>Số điện thoại</label>
                                                 <div class="form-group">
                                                     <input type="text" class="form-control" name="phone" value="{{ Auth::check() ? Auth::user()->phone : '' }}">
 
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label>Birthday</label>
+                                                <label>Ngày sinh</label>
                                                 <div class="form-group">
                                                     <input type="text" class="form-control"  id="datepicker" name="birthday"  pattern="\d{1,2}/\d{1,2}/\d{4}" value="{{ Auth::check() ?  (Auth::user()->birthday != '') ? Helper::formatDate('Y-m-d', Auth::user()->birthday, 'd/m/Y') : '' :'' }}" autocomplete="off">
                                                     <script>
@@ -69,16 +77,16 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label>Gender</label>
+                                                <label>Giới tính</label>
                                                 <div class="form-group">
                                                     <select class="form-control" name="gender">
-                                                        <option value="1" @if( Auth::check() && Auth::user()->gender == 1) selected @endif>Female</option>
-                                                        <option value="2" @if( Auth::check() && Auth::user()->gender == 2) selected @endif>Male</option>
+                                                        <option value="1" @if( Auth::check() && Auth::user()->gender == 1) selected @endif>Nữ</option>
+                                                        <option value="2" @if( Auth::check() && Auth::user()->gender == 2) selected @endif>Nam</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label>Address</label>
+                                                <label>Địa chỉ</label>
                                                 <div class="form-group">
                                                     <textarea class="form-control" rows="4" cols="50" name="address">{{ Auth::check() ? Auth::user()->address : '' }}</textarea>
                                                 </div>
@@ -86,7 +94,7 @@
                                         </div>
                                         <div class="col-md-6 col-sm-6">
                                             <div class="form-group">
-                                                <label>Expert</label>
+                                                <label>Chuyên môn</label>
                                                 <div class="form-group">
                                                     <textarea class="form-control" rows="3" cols="50" name="expert"></textarea>
                                                 </div>
@@ -95,7 +103,8 @@
                                                 <label>CV</label>
                                                 <div class="form-group">
                                                     <script src="https://cdn.ckeditor.com/ckeditor5/12.1.0/classic/ckeditor.js"></script>
-                                                    <textarea id="editor-cv" class="form-control" rows="4" cols="50" name="cv"></textarea>
+                                                    <textarea id="editor-cv" class="form-control textarea-cv" rows="6" cols="50" name="cv"></textarea>
+                                                    <p>Số từ trong CV: <span id="wordCount">0</span>/2000 từ. (Tối thiểu 100 từ)</p>
                                                     <script>
                                                         ClassicEditor
                                                             .create( document.querySelector( '#editor-cv' ) )
@@ -106,18 +115,53 @@
                                                                 console.error( error );
                                                             } );
                                                     </script>
+                                                    <!-- <script>
+                                                        $('.textarea-cv').change(function() {
+                                                            var value = $('.textarea-cv').val();
+
+                                                            if (value.length == 0) {
+                                                                $('#wordCount').html(0);
+                                                                return;
+                                                            }
+                                                            var regex = /\s+/gi;
+                                                            var wordCount = value.trim().replace(regex, ' ').split(' ').length;
+                                                            if(wordCount<100 || wordCount>2000){
+                                                            $('#wordCount').css("color","red");
+                                                            }
+                                                            $('#wordCount').html(wordCount);
+                                                        });
+                                                    </script> -->
+                                                    <!-- <script type="text/javascript">
+                                                        CKEDITOR.replace( '#editor-cv',{
+                                                        extraPlugins : 'wordcount',
+                                                        wordcount : {
+                                                            showCharCount : true,
+                                                            showWordCount : true,
+                                            
+                                                            // Maximum allowed Word Count
+                                                            maxWordCount: 300,
+
+                                                            // Maximum allowed Char Count
+                                                            maxCharCount: 1000
+                                                        }
+                                                        } );
+
+                                                    //]]>
+                                                    </script> -->
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label>Link Video intro</label>
+                                                <label>Video giới thiệu</label>
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control" name="video-intro" value="">
+                                                    <input type="text" class="form-control" name="video-intro" placeholder="Yêu cầu link Youtube" value="" id="YoutubeUrl">
+                                                    <br><p id="warningVideoIntro"></p>
+                                                    <!-- <iframe id="videoObject" type="text/html" width="500" height="265" frameborder="0" allowfullscreen></iframe> -->
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group text-center" style="padding-top: 5px;">
-                                                <button class="btn btn-success" id="save-profile" type="button"><i class="fa fa-save"></i> Save</button>
+                                                <button class="btn btn-success" id="save-profile" type="button"><i class="fa fa-save"></i>Lưu</button>
                                             </div>
                                         </div>
                                     </form>
@@ -231,7 +275,7 @@
 			if (!validationDate( $('#datepicker').val() )) {
                 Swal.fire({
                     type: 'warning',
-                    html: 'Field birthday is invalid!',
+                    html: 'Ngày sinh không hợp lệ!',
                 })
 				return false;
             }
@@ -334,7 +378,7 @@
         });
             
         myDropzone.on("error", function (data) {
-            $("#msg").html('<div class="alert alert-danger">There is some thing wrong, Please try again!</div>');
+            $("#msg").html('<div class="alert alert-danger">Một số thông tin chưa đúng. Yêu cầu nhập lại!</div>');
         });
             
         myDropzone.on("complete", function(file) {
@@ -408,6 +452,24 @@
         return false;
     }
 </script>
+<script>
+    $("input[name=video-intro]").keyup(function(){
+        var url = $('#YoutubeUrl').val();
+        if (url != undefined || url != '') {       
+            var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
+            var match = url.match(regExp);
+            if (match && match[2].length == 11) {
+                $('#warningVideoIntro').css("color","green");
+                document.getElementById("warningVideoIntro").innerHTML = "Link Youtube.";
+                // $('#videoObject').attr('src', 'https://www.youtube.com/embed/' + match[2] + '?autoplay=1&enablejsapi=1');
+            }else{
+                $('#warningVideoIntro').css("color","red");
+                document.getElementById("warningVideoIntro").innerHTML = "Không phải link Youtube. Yêu cầu nhập lại!";
+            }
+        }
+    });
+</script>
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 @endsection
