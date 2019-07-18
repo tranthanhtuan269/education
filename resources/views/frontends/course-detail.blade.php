@@ -63,11 +63,11 @@
                                 <div class="row box clearfix">
                                     <div class="col-xs-6 full-width-mobile pb-10px">
                                         <span class="box-img"><img src="{{ asset('frontend/images/ic_duration.png') }}" class="icon" alt="" /></span>
-                                        <span class="special">{{ $info_course->approx_time }} hours on-demand video</span>
+                                        <span class="special">Tổng số giờ học: {{ $info_course->approx_time }} giờ</span>
                                     </div>
                                     <div class="col-xs-6 full-width-mobile pb-10px">
                                         <span class="box-img"><img src="{{ asset('frontend/images/ic_download.png') }}" class="icon" alt="" /></span>
-                                        <span class="special">{{ $info_course->downloadable_count	 }} downloadable resources</span>
+                                        <span class="special">{{ $info_course->downloadable_count	 }} Tài liệu đính kèm</span>
                                         
                                     </div>
                                 </div>
@@ -75,22 +75,22 @@
                                     <div class="col-xs-6 full-width-mobile pb-10px">
                                         <span class="box-img"><img src="{{ asset('frontend/images/ic_lifetime.png') }}" class="icon" alt="" /></span>
                                         <!-- <i class="fas fa-infinity fa-2x fa-fw"></i> -->
-                                        <span class="special">Full lifetime access</span>
+                                        <span class="special">Sở hữu trọn đời</span>
                                     </div>
                                     <div class="col-xs-6 full-width-mobile pb-10px">
                                         <span class="box-img"><img src="{{ asset('frontend/images/ic_mtuli_device.png') }}" class="icon" alt="" /></span>
-                                        <span class="special">Access on Mobile & TV</span>
+                                        <span class="special">Học trên Smartphone và TV</span>
                                         
                                     </div>
                                 </div>
                                 <div class="row box clearfix">
                                     <div class="col-xs-6 full-width-mobile pb-10px">
                                         <span class="box-img"><img src="{{ asset('frontend/images/ic_course.png') }}" class="icon" alt="" /></span>
-                                        <span class="special">{{ number_format($info_course->video_count, 0, ',' , '.') }} videos</span>
+                                        <span class="special">{{ number_format($info_course->video_count, 0, ',' , '.') }} Videos</span>
                                     </div>
                                     <div class="col-xs-6 full-width-mobile pb-10px">
                                         <span class="box-img"><img src="{{ asset('frontend/images/ic_student.png') }}" class="icon" alt="" /></span>
-                                        <span class="special">{{ number_format($info_course->student_count, 0, ',' , '.') }} Students</span>
+                                        <span class="special">{{ number_format($info_course->student_count, 0, ',' , '.') }} Học viên</span>
                                     </div>
                                 </div>
                                 <div class="row box clearfix">
@@ -107,10 +107,10 @@
                                 </div>
                                 <div class="box clearfix">
                                     <div class="btn-add-cart">
-                                        <button type="button" id="add-cart" class="btn btn-primary btn-toh"><b>Add to cart</b></button>
+                                        <button type="button" id="add-cart" data-id="{{ $info_course->id }}" class="btn btn-primary btn-toh"><b>Add to cart</b></button>
                                     </div>
                                     <div class="btn-buy-now">
-                                        <button type="button" id="buy-now" class="btn btn-warning btn-toh"><b>Buy Now</b></button>
+                                        <button type="button" id="buy-now" data-id="{{ $info_course->id }}" class="btn btn-warning btn-toh"><b>Buy Now</b></button>
                                     </div>
                                 </div>
                                 <div class="box clearfix">
@@ -511,7 +511,7 @@
         </div>
     </div>
 
-    <div class="interactive-bar">
+    <div class="interactive-bar" data-i="{{ $info_course->id }}">
         <div class="row">
             <div class="info col-xs-12 col-md-8 col-sm-7">
                 <div class="title">
@@ -720,6 +720,18 @@
             });
         });
     }
+
+    jQuery(function () {
+        if(localStorage.getItem('cart') != null){
+            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
+
+            $.each( number_items_in_cart, function(i, obj) {
+                $('button[data-id='+obj.id+']').remove();
+                $('.interactive-bar[data-i='+obj.id+']').remove();
+            });
+            // $('.interactive-bar[data-i="{{ $info_course->id }}"]').remove();
+        }
+    })
 
     function addItem(arr, obj) {
         const { length } = arr;
