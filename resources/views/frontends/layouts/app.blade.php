@@ -654,6 +654,9 @@
                 var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
                 // alert(number_items_in_cart.length)
                 $('.number-in-cart').text(number_items_in_cart.length);
+
+                $('.img-mask').remove();
+                alert('Đã thêm vào giỏ hàng!');
             })
 
             if(localStorage.getItem('cart') != null){

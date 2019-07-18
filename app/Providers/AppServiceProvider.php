@@ -53,6 +53,11 @@ class AppServiceProvider extends ServiceProvider
             return (Helper::handlingTime($birthday) <= Helper::handlingTime($dateCurrent) ) ? TRUE : FALSE ;
         });
 
+        // Validate Youtube Url
+        // Validator::extend('validate_youtube_url', function(){
+
+        // });
+
         // Validate check password old when change password
         Validator::extend('check_pass', function($attribute, $value, $parameters, $validator) {
             $data = $validator->getData();

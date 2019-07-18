@@ -104,8 +104,8 @@
                                                 <div class="form-group">
                                                     <script src="https://cdn.ckeditor.com/ckeditor5/12.1.0/classic/ckeditor.js"></script>
                                                     <textarea id="editor-cv" class="form-control textarea-cv" rows="6" cols="50" name="cv"></textarea>
-                                                    <p>Số từ trong CV: <span id="wordCount">0</span>/2000 từ. (Tối thiểu 100 từ)</p>
-                                                    <script>
+                                                    <p>Số từ: <b><span id="wordCount">0</span>/700</b> từ. (Tối thiểu 30 từ, tối đa 700 từ)</p>
+                                                    <!-- <script>
                                                         ClassicEditor
                                                             .create( document.querySelector( '#editor-cv' ) )
                                                             .then( editor => {
@@ -114,39 +114,6 @@
                                                             .catch( error => {
                                                                 console.error( error );
                                                             } );
-                                                    </script>
-                                                    <!-- <script>
-                                                        $('.textarea-cv').change(function() {
-                                                            var value = $('.textarea-cv').val();
-
-                                                            if (value.length == 0) {
-                                                                $('#wordCount').html(0);
-                                                                return;
-                                                            }
-                                                            var regex = /\s+/gi;
-                                                            var wordCount = value.trim().replace(regex, ' ').split(' ').length;
-                                                            if(wordCount<100 || wordCount>2000){
-                                                            $('#wordCount').css("color","red");
-                                                            }
-                                                            $('#wordCount').html(wordCount);
-                                                        });
-                                                    </script> -->
-                                                    <!-- <script type="text/javascript">
-                                                        CKEDITOR.replace( '#editor-cv',{
-                                                        extraPlugins : 'wordcount',
-                                                        wordcount : {
-                                                            showCharCount : true,
-                                                            showWordCount : true,
-                                            
-                                                            // Maximum allowed Word Count
-                                                            maxWordCount: 300,
-
-                                                            // Maximum allowed Char Count
-                                                            maxCharCount: 1000
-                                                        }
-                                                        } );
-
-                                                    //]]>
                                                     </script> -->
                                                 </div>
                                             </div>
@@ -161,7 +128,7 @@
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group text-center" style="padding-top: 5px;">
-                                                <button class="btn btn-success" id="save-profile" type="button"><i class="fa fa-save"></i>Lưu</button>
+                                                <button class="btn btn-success" id="save-profile" type="button"><i class="fa fa-save fa-fw"></i>Lưu</button>
                                             </div>
                                         </div>
                                     </form>
@@ -177,6 +144,30 @@
 <script>
     Dropzone.autoDiscover = false;
     $(document).ready(function(){
+        ClassicEditor
+            .create( document.querySelector( '#editor-cv' ) )
+            .then( editor => {
+                cv = editor;
+                editor.model.document.on( 'change', () => {
+                    var value = cv.getData();
+                    if (value.length == 0) {
+                        $('#wordCount').html(0);
+                        return;
+                    }
+                    var regex = /\s+/gi;
+                    var wordCount = value.trim().replace(regex, ' ').split(' ').length;
+                    
+                    if(wordCount>30 && wordCount<700){
+                        $('#wordCount').css("color","green");
+                    }
+
+                    $('#wordCount').html(wordCount);
+                } );
+            } )
+            .catch( error => {
+                console.error( error );
+        } );
+
         $('body').on('click','.dz-image-preview',function(){
             $("#myDrop").trigger("click");
         });
@@ -460,16 +451,15 @@
             var match = url.match(regExp);
             if (match && match[2].length == 11) {
                 $('#warningVideoIntro').css("color","green");
-                document.getElementById("warningVideoIntro").innerHTML = "Link Youtube.";
+                document.getElementById("warningVideoIntro").innerHTML = "Link video được chấp nhận.";
                 // $('#videoObject').attr('src', 'https://www.youtube.com/embed/' + match[2] + '?autoplay=1&enablejsapi=1');
             }else{
                 $('#warningVideoIntro').css("color","red");
-                document.getElementById("warningVideoIntro").innerHTML = "Không phải link Youtube. Yêu cầu nhập lại!";
+                document.getElementById("warningVideoIntro").innerHTML = "Link video sai. Yêu cầu nhập lại!";
             }
         }
     });
 </script>
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 @endsection
