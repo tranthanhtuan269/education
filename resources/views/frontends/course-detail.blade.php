@@ -722,6 +722,19 @@
     }
 
     jQuery(function () {
+        $(".btn-add-cart button").click( function(e){
+            e.stopPropagation()
+            e.preventDefault()
+
+            $(this).remove();
+            $(".btn-buy-now button").remove();
+            $('.interactive-bar').remove();
+            Swal.fire({
+                type: 'success',
+                text: 'Đã thêm vào giỏ hàng!'
+            })
+        })
+
         if(localStorage.getItem('cart') != null){
             var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
 
