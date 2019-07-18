@@ -112,20 +112,20 @@ class GiftController extends Controller
 
                                 $course_link = url('course/'.$course->slug);
                                 $course_name = $course->name;
-                                $email = User::find($user_id)->email;
+                                $current_user= User::find($user_id);
+                                $email = $current_user->email;
+
+                                // add to bought of user 
+                                $bought = [];
+                                if (strlen($current_user->bought) > 0) {
+                                    $bought = \json_decode($current_user->bought);
+                                }
+                                $bought[] = $course->id;
+                                $current_user->bought = \json_encode($bought);
+                                $current_user->save();
+
                                 //Gui Email
                                 dispatch(new SendEmailJob($course_link, $course_name, $email));
-                                // $content_mail = [
-                                //     'course_link'      => $course_link,
-                                //     'course_name'      => $course_name,
-                                // ];
-                                // $email = ['trinhnk@tohsoft.com'];
-                        
-                                // \Mail::send('backends.emails.gift', $content_mail, function($message) use ($email) {
-                                //     $message->from('nhansu@tohsoft.com', 'TOH-EDU');
-                                //     $title = "[TOH-EDU] Qua tang...";
-                                //     $message->to($email)->subject($title);
-                                // });
                             }                         
                         }
                     }
@@ -172,21 +172,20 @@ class GiftController extends Controller
 
                         $course_link = url('course/'.$course->slug);
                         $course_name = $course->name;
-                        $email = User::find($user_id)->email;
+                        $current_user= User::find($user_id);
+                        $email = $current_user->email;
+
+                        // add to bought of user 
+                        $bought = [];
+                        if (strlen($current_user->bought) > 0) {
+                            $bought = \json_decode($current_user->bought);
+                        }
+                        $bought[] = $course->id;
+                        $current_user->bought = \json_encode($bought);
+                        $current_user->save();
+
                         //Gui Email
                         dispatch(new SendEmailJob($course_link, $course_name, $email));
-                        // $content_mail = [
-                        //     'course_link'      => $course_link,
-                        //     'course_name'      => $course_name,
-                        // ];
-                
-                        // $email = ['trinhnk@tohsoft.com'];
-                
-                        // \Mail::send('backends.emails.gift', $content_mail, function($message) use ($email) {
-                        //     $message->from('nhansu@tohsoft.com', 'TOH-EDU');
-                        //     $title = "[TOH-EDU] Qua tang...";
-                        //     $message->to($email)->subject($title);
-                        // });
                 }
             }
         }
