@@ -254,7 +254,8 @@ class VideoController extends Controller
                     $json = '{"360": "'.$path_360.'", "480": "'.$path_480.'", "720": "'.$path_720.'", "1080": "'.$path_1080.'"}';
                     // echo json_encode($json);die;
                     // $video->url_video = $json; // Đoạn này TuanTT viết nhưng ko chạy
-                    $video->url_video = json_encode($json); // Đoạn này BaTV sửa lại
+                    // $video->url_video = json_encode($json); // Đoạn này BaTV sửa lại
+                    $video->url_video = $json;
                     $video->save();
                     
                     dispatch(new ProcessLecture($path_720, $request->video_id, $video->link_video, 720));
