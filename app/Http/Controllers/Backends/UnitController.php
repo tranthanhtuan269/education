@@ -114,6 +114,28 @@ class UnitController extends Controller
     public function destroy(Request $request){
         $unit = Unit::find($request->id);
         if($unit){
+            // BaTV - Xoá tất cả video với các định dạng trong Unit đó
+            $arr_video_id = Video::where('unit_id', $request->id)->pluck('id')->toArray();
+            $arr_video = Video::where('unit_id', $request->id)->pluck('url_video');
+
+            if (count($arr_video) > 0) {
+                foreach ($arr_video as $path) {
+
+                    $json_video = json_decode($path, true);
+
+                    if (count($json_video) > 0) {
+                        foreach ($json_video as $path_video) {
+                            if(\File::exists($path_video)) {
+                                \File::delete($path_video);
+                            }
+                        }
+                    }
+
+                }
+
+                Video::whereIn('id', $arr_video_id)->delete();
+            }
+
             $unit->delete();
             return \Response::json(array('status' => '200', 'message' => 'Xóa Unit thành công!'));
         }
