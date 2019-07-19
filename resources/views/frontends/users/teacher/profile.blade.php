@@ -17,31 +17,31 @@
                 <div class="tabbable-line">
                     <ul class="nav nav-tabs">
                         {{-- <li class="active">
-                            <a href="#buyed" class="buyed" data-toggle="tab"><i class="fa fa-user"></i>&nbsp;&nbsp;Profile</a>
+                            <a href="#buyed" class="buyed" data-toggle="tab"><i class="fa fa-user"></i>&nbsp;&nbsp;Hồ sơ</a>
                         </li> --}}
                         <li data-toggle="modal" data-target="#myModalChangePass" data-dismiss="modal" class="pull-right">
-                            <button type="button" class="btn btn-warning">Change password</button>
+                            <button type="button" class="btn btn-warning">Đôi mật khẩu</button>
                         </li>
                         <div id="myModalChangePass" class="modal fade" role="dialog" >
-                            <div class="modal-dialog">
+                            <div class="modal-dialog modal-login">
                                 <div class="modal-content">
                                     <div class="modal-header">				
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title">Change password</h4>
+                                        <h4 class="modal-title">Đổi mật khẩu</h4>
                                     </div>
                                     <div class="modal-body">
                                         <form action="/examples/actions/confirmation.php" method="post">
                                             <div class="form-group">
-                                                <input type="password" class="form-control" placeholder="Password old" name="pass-old">					
+                                                <input type="password" class="form-control" placeholder="Mật khẩu cũ" name="pass-old">					
                                             </div>
                                             <div class="form-group">
-                                                <input type="password" class="form-control" placeholder="Password new" name="pass-new">					
+                                                <input type="password" class="form-control" placeholder="Mật khẩu mới" name="pass-new">					
                                             </div>
                                             <div class="form-group">
-                                                <input type="password" class="form-control" placeholder="Retype new password" name="confirm-pass">					
+                                                <input type="password" class="form-control" placeholder="Nhập lại mật khẩu mới" name="confirm-pass">					
                                             </div>
                                             <div class="form-group">
-                                                <input type="button" class="btn btn-primary btn-block btn-lg" value="Confirm" onclick="changePassAjax()">
+                                                <input type="button" class="btn btn-primary btn-block btn-lg" value="Xác nhận" onclick="changePassAjax()">
                                             </div>
                                         </form>				
                                     </div>
@@ -53,34 +53,36 @@
                         <div class="tab-pane active" id="buyed">
                                 <div class="row">
                                     <form action="/dashboard/user/profile" method="post" enctype="multipart/form-data">
-                                        <div class="col-md-6 col-sm-6">
+                                        <div class="col-md-12">
                                             <div class="form-group">
-                                                <label>Choose Image</label>
+                                                <label>Chọn ảnh đại diện</label>
                                                 <div class="dropzone dz-clickable" id="myDrop">
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6">
                                             <div class="form-group">
-                                                <label>Full name</label>
+                                                <label>Tên đầy đủ</label>
                                                 <div class="form-group">
                                                     <input type="text" id="muser-fullname" class="form-control" name="name" value="{{ Auth::user()->name }}">
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label> Email </label>
+                                                <label>Email</label>
                                                 <div class="form-group">
                                                     <input type="email" id="muser-email" class="form-control" name="email" value="{{ Auth::user()->email }}" disabled>
 
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label>Phone</label>
+                                                <label>Số điện thoại</label>
                                                 <div class="form-group">
                                                     <input type="text" id="muser-phone" class="form-control" name="phone" value="{{ Auth::user()->phone }}">
 
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label>Birthday</label>
+                                                <label>Ngày sinh</label>
                                                 <div class="form-group">
                                                     <input type="text" class="form-control"  id="datepicker" name="birthday"  pattern="\d{1,2}/\d{1,2}/\d{4}" value="{{ (Auth::user()->birthday != '') ? Helper::formatDate('Y-m-d', Auth::user()->birthday, 'd/m/Y') : '' }}" autocomplete="off">
                                                     <script>
@@ -98,16 +100,16 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label>Gender</label>
+                                                <label>Giới tính</label>
                                                 <div class="form-group">
                                                     <select class="form-control" name="gender">
-                                                        <option value="1" @if(Auth::user()->gender == 1) selected @endif>Female</option>
-                                                        <option value="2" @if(Auth::user()->gender == 2) selected @endif>Male</option>
+                                                        <option value="1" @if(Auth::user()->gender == 1) selected @endif>Nữ</option>
+                                                        <option value="2" @if(Auth::user()->gender == 2) selected @endif>Nam</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label>Address</label>
+                                                <label>Địa chỉ</label>
                                                 <div class="form-group">
                                                     <textarea class="form-control" rows="4" cols="50" name="address">{{ Auth::user()->address }}</textarea>
                                                 </div>
@@ -115,7 +117,7 @@
                                         </div>
                                         <div class="col-md-6 col-sm-6">
                                             <div class="form-group">
-                                                <label>Expert</label>
+                                                <label>Chuyên môn</label>
                                                 <div class="form-group">
                                                     <textarea class="form-control" rows="3" cols="50" name="expert">@if(Auth::user()->userRolesTeacher()->teacher){{ Auth::user()->userRolesTeacher()->teacher->expert }}@endif
                                                     </textarea>
@@ -125,9 +127,10 @@
                                                 <label>CV</label>
                                                 <div class="form-group">
                                                     <script src="https://cdn.ckeditor.com/ckeditor5/12.1.0/classic/ckeditor.js"></script>
-                                                    <textarea id="editor-cv" class="form-control" rows="4" cols="50" name="cv">@if (Auth::user()->userRolesTeacher()->teacher) {!! Auth::user()->userRolesTeacher()->teacher->cv !!} @endif
+                                                    <textarea id="editor-cv" class="form-control" rows="6" cols="50" name="cv">@if (Auth::user()->userRolesTeacher()->teacher) {!! Auth::user()->userRolesTeacher()->teacher->cv !!} @endif
                                                     </textarea>
-                                                    <script>
+                                                    <p>Số từ: <b><span id="wordCount">0</span>/700</b> từ. (Tối thiểu 30 từ, tối đa 700 từ)</p>
+                                                    <!-- <script>
                                                         ClassicEditor
                                                             .create( document.querySelector( '#editor-cv' ) )
                                                             .then( editor => {
@@ -136,19 +139,20 @@
                                                             .catch( error => {
                                                                 console.error( error );
                                                             } );
-                                                    </script>
+                                                    </script> -->
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label>Link Video intro</label>
+                                                <label>Video giới thiệu</label>
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control" name="video-intro" value=" @if (Auth::user()->userRolesTeacher()->teacher) {{ Auth::user()->userRolesTeacher()->teacher->video_intro }} @endif ">
+                                                    <input type="text" class="form-control" name="video-intro" id="YoutubeUrl" value="@if(Auth::user()->userRolesTeacher()->teacher){{Auth::user()->userRolesTeacher()->teacher->video_intro}}@endif">
+                                                    <br><p id="warningVideoIntro"></p>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group text-center" style="padding-top: 5px;">
-                                                <button class="btn btn-success" id="save-profile" type="button"><i class="fa fa-save"></i> Save</button>
+                                                <button class="btn btn-success" id="save-profile" type="button"><i class="fa fa-save fa-fw"></i>Lưu</button>
                                             </div>
                                         </div>
                                     </form>
@@ -164,6 +168,30 @@
 <script>
     Dropzone.autoDiscover = false;
     $(document).ready(function(){
+        ClassicEditor
+            .create( document.querySelector( '#editor-cv' ) )
+            .then( editor => {
+                cv = editor;
+                editor.model.document.on( 'change', () => {
+                    var value = cv.getData();
+                    if (value.length == 0) {
+                        $('#wordCount').html(0);
+                        return;
+                    }
+                    var regex = /\s+/gi;
+                    var wordCount = value.trim().replace(regex, ' ').split(' ').length;
+                    
+                    if(wordCount>30 && wordCount<700){
+                        $('#wordCount').css("color","green");
+                    }
+
+                    $('#wordCount').html(wordCount);
+                } );
+            } )
+            .catch( error => {
+                console.error( error );
+        } );
+
         $('body').on('click','.dz-image-preview',function(){
             $("#myDrop").trigger("click");
         });
@@ -439,6 +467,23 @@
 
         return false;
     }
+</script>
+<script>
+    $("input[name=video-intro]").keyup(function(){
+        var url = $('#YoutubeUrl').val();
+        if (url != undefined || url != '') {       
+            var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
+            var match = url.match(regExp);
+            if (match && match[2].length == 11) {
+                $('#warningVideoIntro').css("color","green");
+                document.getElementById("warningVideoIntro").innerHTML = "Link được chấp nhận.";
+                // $('#videoObject').attr('src', 'https://www.youtube.com/embed/' + match[2] + '?autoplay=1&enablejsapi=1');
+            }else{
+                $('#warningVideoIntro').css("color","red");
+                document.getElementById("warningVideoIntro").innerHTML = "Link video sai. Yêu cầu nhập lại!";
+            }
+        }
+    });
 </script>
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>

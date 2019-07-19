@@ -24,7 +24,7 @@
                 {{-- <div class="tabbable-line">
                     <ul class="nav nav-tabs">
                         <li class="active">
-                            <a href="#buyed" class="buyed" data-toggle="tab"><i class="fa fa-play-circle"></i>&nbsp;&nbsp;Courses</a>
+                            <a href="#buyed" class="buyed" data-toggle="tab"><i class="fa fa-play-circle"></i>&nbsp;&nbsp;Khóa học</a>
                         </li>
                     </ul> --}}
                     <div class="tab-content">
@@ -34,16 +34,16 @@
                                     <form action="" method="get">
                                         <div class="form-inline box-search-course">
                                             <div class="form-group box-input">
-                                                <input type="text" class="form-control" name="u-keyword" placeholder="Search course..." value="{{ Request::get('u-keyword') }}">
+                                                <input type="text" class="form-control" name="u-keyword" placeholder="Tìm kiếm..." value="{{ Request::get('u-keyword') }}">
                                             </div>
                                             <div class="form-group">
-                                                <button type="submit" class="btn btn-success">Search</button>
+                                                <button type="submit" class="btn btn-success">Tìm kiếm</button>
                                             </div>
                                         </div>
                                     </form>
                                 </div>
                                 <div class="col-sm-6">
-                                    <div class="pull-right"><button class="btn btn-primary" id="create-course-btn"><i class="fas fa-book"></i> Create Course</button></div>
+                                    <div class="pull-right"><button class="btn btn-primary" id="create-course-btn"><i class="fas fa-book fa-fw"></i>Tạo khóa học</button></div>
                                 </div>
                             </div>
                             <div class="row">
@@ -88,13 +88,13 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="exampleModalLabel">Create a new Course</h4>
+                <h4 class="modal-title" id="exampleModalLabel">Tạo khóa học mới</h4>
             </div>
             <div class="modal-body">
                 <form class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label>Choose Image</label>
+                            <label>Chọn ảnh</label>
                             <div class="dropzone dz-clickable" id="myDrop0">
                                 <div class="dz-default dz-message" data-dz-message="">
                                     <span>Drop files here to upload</span>
@@ -102,7 +102,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="price" class="control-label">Course price:</label>
+                            <label for="price" class="control-label">Giá khóa học:</label>
                             <input type="text" class="form-control" id="course-price" name="price">
                         </div>
                         <div class="form-group">
@@ -110,21 +110,21 @@
                             <input type="text" class="form-control" id="course-level" name="level">
                         </div>
                         <div class="form-group">
-                            <label for="approx_time" class="control-label">Approx Time: (hours)</label>
+                            <label for="approx_time" class="control-label">Thời gian ước tính: (hours)</label>
                             <input type="text" class="form-control" id="course-approx-time" name="approx-time">
                         </div>
                     </div>
                     <div class="col-md-8">
                         <div class="form-group">
-                            <label for="name" class="control-label">Course Name:</label>
+                            <label for="name" class="control-label">Tên khóa học:</label>
                             <input type="text" class="form-control" id="course-name" name="name">
                         </div>
                         <div class="form-group">
-                            <label for="short_description" class="control-label">Short Description:</label>
+                            <label for="short_description" class="control-label">Tóm tắt:</label>
                             <input type="text" class="form-control" id="short-description" name="short-description">
                         </div>
                         <div class="form-group">
-                            <label for="description" class="control-label">Description:</label>
+                            <label for="description" class="control-label">Mô tả:</label>
                             <textarea id="course-description" name="description" class="form-control" rows="5" style="margin: 0px -11.3438px 0px 0px; width: 558px; height: 150px;"></textarea>
                         </div>
                         <div class="form-group">
@@ -132,11 +132,11 @@
                             <input type="text" class="form-control" id="course-will-learn" name="will-learn">
                         </div>
                         <div class="form-group">
-                            <label for="requirement" class="control-label">Requirement:</label>
+                            <label for="requirement" class="control-label">Yêu cầu:</label>
                             <input type="text" class="form-control" id="course-requirement" name="requirement">
                         </div>
                         <div class="form-group">
-                            <label for="category" class="control-label">Category:</label>
+                            <label for="category" class="control-label">Danh mục:</label>
                             <script type="text/javascript">
                                 $('#course-category').multiselect();
                             </script>
@@ -154,8 +154,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" id="save-btn">Create</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-primary" id="save-btn">Tạo</button>
             </div>
         </div>
     </div>
@@ -166,7 +166,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="exampleModalLabel">Edit <span id="course-name"></span> Course</h4>
+                <h4 class="modal-title" id="exampleModalLabel">Edit <span id="course-name"></span>Khóa học</h4>
             </div>
             <div class="modal-body">
                 <form class="row">
