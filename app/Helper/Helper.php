@@ -97,4 +97,19 @@ class Helper
         return $demanding_user_course;
     }
 
+    public static function convertVideoToMultiResolution($video, $resolution){
+        $t=time();
+        $input = public_path('/uploads/videos/').$video;
+        $output = public_path('/uploads/videos_output/'.$resolution.'/').$video;
+        $block_txt = public_path('/uploads/block_'.$t.'.txt');
+
+        $format = 'mp4';
+        $avcodec = '-c:v libx264 -strict -2';
+        $time = '-ss ' . "00:00:00";
+        $bitrate = '-vf scale='.$resolution.':-2';
+		
+        $command = config('config.path_ffmpeg_exe') .' -i '.$input.' '.$time.' '.$avcodec.' '.$bitrate.' '.$output.' 1> '.$block_txt.' 2>&1';
+
+        exec($command);
+	}
 }

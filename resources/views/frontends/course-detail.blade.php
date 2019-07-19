@@ -141,7 +141,7 @@
             <div class="info clearfix my-30px">
                 <div class="col-sm-8">
                     <div class="desc">
-                        <h3>Descriptions</h3>
+                        <h3>Mô tả khóa học</h3>
                         <p>
                             {!! $info_course->description !!}
                         </p>
@@ -149,7 +149,7 @@
                     <?php $will_learn = json_decode($info_course->will_learn); ?>
                     @if ($will_learn != '')
                     <div class="knowledge clearfix">
-                        <h3>What you'll learn</h3>
+                        <h3>Bạn sẽ học được gì</h3>
                         <ul class="row">
                                 @foreach ($will_learn as $will)                            
                                 <li class="col-lg-6">
@@ -221,7 +221,7 @@
                 @if ($requirements != '')                    
                 <div class="col-sm-4">
                     <div class="requirement" id="box_requirements">
-                        <h3>Requirement</h3>
+                        <h3>Yêu cầu</h3>
                         <ul>
                             @foreach ($requirements as $requirement)
                             <li>{!! $requirement !!}</li>    
@@ -255,7 +255,7 @@
                                 <div class="frame clearfix">
                                     <div class="pull-left">
                                         <img src="{{ asset('frontend/images/ic_course.png') }}" alt="" /> 
-                                        <span class="special">{{ $lecturer->teacher->course_count }} Courses</span>
+                                        <span class="special">{{ $lecturer->teacher->course_count }} Khóa học</span>
                                     </div>
                                     <div class="pull-right">
                                         @include(
@@ -270,7 +270,7 @@
                                 </div>
                                 <div class="">
                                     <img src="{{ asset('frontend/images/ic_student.png') }}" alt="" /> 
-                                    <span class="special">{{ $lecturer->teacher->student_count }} Students</span>
+                                    <span class="special">{{ $lecturer->teacher->student_count }} Học viên</span>
                                 </div>
                             </div>
                         </div>
@@ -285,7 +285,7 @@
         <div class="course-learning-review">
             <div class="feedback clearfix">
                 <div class="col-sm-4 student-rating">
-                    <h3>Students Feedback</h3>
+                    <h3>Đánh giá của học viên</h3>
                     <p class="number">
                         {{ number_format(intval($info_course->star_count) / intval($info_course->vote_count), 1, ',' , '.') }}
                     </p>
