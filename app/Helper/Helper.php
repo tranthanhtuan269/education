@@ -109,7 +109,7 @@ class Helper
         $bitrate = '-vf scale='.$resolution.':-2';
 		
         $command = config('config.path_ffmpeg_exe') .' -i '.$input.' '.$time.' '.$avcodec.' '.$bitrate.' '.$output.' 1> '.$block_txt.' 2>&1';
-
+        // echo $command;die;
         exec($command);
 	}
 }

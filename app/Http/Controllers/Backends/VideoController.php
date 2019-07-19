@@ -134,9 +134,16 @@ class VideoController extends Controller
             $course->video_count -= 1;
             $course->save();
 
-            // echo asset('uploads/videos/test.txt');die;
-            // File::delete(asset('uploads/videos/test.txt'));
-            
+            $json_video = json_decode($video->url_video, true);
+
+            if (count($json_video) > 0) {
+                foreach ($json_video as $path_video) {
+                    if(\File::exists($path_video)) {
+                        \File::delete($path_video);
+                    }
+                }
+            }
+
             $video->delete();
 
             return response()->json([
@@ -238,7 +245,6 @@ class VideoController extends Controller
             $video = Video::find($request->video_id);
 
             if ($video) {
-
                 if ($request->state == 1) {
                     // convert video to multi resolution
                     $path_360 = public_path('/uploads/videos_output/360/').$video->link_video;
@@ -246,14 +252,16 @@ class VideoController extends Controller
                     $path_720 = public_path('/uploads/videos_output/720/').$video->link_video;
                     $path_1080 = public_path('/uploads/videos_output/1080/').$video->link_video;
                     $json = '{"360": "'.$path_360.'", "480": "'.$path_480.'", "720": "'.$path_720.'", "1080": "'.$path_1080.'"}';
+                    // echo json_encode($json);die;
+                    // $video->url_video = $json; // Đoạn này TuanTT viết nhưng ko chạy
+                    // $video->url_video = json_encode($json); // Đoạn này BaTV sửa lại
                     $video->url_video = $json;
                     $video->save();
-
-                    // dispatch(new ProcessLecture($video->link_video, 1080));
-                    dispatch(new ProcessLecture($video->link_video, 720));
-                    dispatch(new ProcessLecture($video->link_video, 480));
-                    dispatch(new ProcessLecture($video->link_video, 360));
                     
+                    dispatch(new ProcessLecture($path_720, $request->video_id, $video->link_video, 720));
+                    dispatch(new ProcessLecture($path_480, $request->video_id, $video->link_video, 480));
+                    dispatch(new ProcessLecture($path_360, $request->video_id, $video->link_video, 360));
+
                     $res = array('status' => "200", "message" => "Duyệt thành công");
                 } else {
                     // BaTV - Nếu hủy bất kỳ video nào trong khóa học đó =>  Khóa học tương ứng sẽ hủy theo
@@ -263,9 +271,9 @@ class VideoController extends Controller
                     $res = array('status' => "200", "message" => "Hủy thành công");
                 }
 
-                $video->state = $request->state;
-                $video->save();
-                echo json_encode($res);die;
+                // $video->state = $request->state;
+                // $video->save();
+                // echo json_encode($res);die;
             }
         }
 
@@ -306,6 +314,16 @@ class VideoController extends Controller
         if ($request->video_id) {
             $video = Video::find($request->video_id);
             if ($video) {
+                $json_video = json_decode($video->url_video, true);
+
+                if (count($json_video) > 0) {
+                    foreach ($json_video as $path_video) {
+                        if(\File::exists($path_video)) {
+                            \File::delete($path_video);
+                        }
+                    }
+                }
+
                 $video->delete();
                 $res = array('status' => "200", "message" => "Xóa thành công");
                 echo json_encode($res);die;
