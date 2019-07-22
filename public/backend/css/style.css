@@ -251,7 +251,7 @@ h5.modal-title{
 }
 .multiselect-container {
     max-height: 400px;
-    min-height: 400px;
+    min-height: 150px;
     overflow: auto;
 }
 #create_user,#create_permission,#create_role{

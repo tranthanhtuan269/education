@@ -694,6 +694,22 @@
             }
         });
 
+        $( "#myModalLogin" ).on('hide.bs.modal', function (e) {
+            $('#myModalLogin input[name=email]').val('');
+            $('#myModalLogin input[name=pass]').val('');
+        });
+
+        $( "#myModalRegister" ).on('hide.bs.modal', function (e) {
+            $('#myModalRegister input[name=name]').val('');
+            $('#myModalRegister input[name=email]').val('');
+            $('#myModalRegister input[name=pass]').val('');
+            $('#myModalRegister input[name=confirmpass]').val('');
+        });
+
+        $( "#myModalChangePass" ).on('hide.bs.modal', function (e) {
+            $('#myModalChangePass input[type="password"]').val('');
+        });
+
         function loginAjax(){
             var email = $('#myModalLogin input[name=email]').val();
             email = email.trim();
