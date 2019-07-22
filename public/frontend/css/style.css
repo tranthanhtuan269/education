@@ -10,7 +10,9 @@ body{font-family:'Open Sans',sans-serif;font-size:14px; padding-right: 0 !import
     z-index: 2001!important;
     background-color: rgba(0,0,0,.4);
 }
-
+.dz-size{
+  display: none;
+}
 .modal-open {
     overflow: auto;
 }

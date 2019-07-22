@@ -456,9 +456,9 @@
                                                                 <input type="password" class="form-control" name="confirmpass" placeholder="Confirm Password" required="required">
                                                             </div>				
                                                         </div>
-                                                        <div class="terms-and-policy">
+                                                        {{-- <div class="terms-and-policy">
                                                             <label class="checkbox-inline"><input type="checkbox">You agree to our <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>!</label>
-                                                        </div>
+                                                        </div> --}}
                                                         <div class="form-group">
                                                             <input type="button" class="btn btn-success btn-block btn-lg" value="Create Account" onclick="registerAjax()">
                                                         </div>
