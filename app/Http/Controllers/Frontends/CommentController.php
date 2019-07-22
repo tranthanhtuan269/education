@@ -95,11 +95,53 @@ class CommentController extends Controller
 
     public function updateStar(Request $request)
     {
+        // dd($request->all());
         $course = Course::find($request->course_id);
         if ($course) {
             $currentRating = RatingCourse::where('user_id', Auth::id())->where('course_id', $request->course_id)->first();
             if (!isset($currentRating)) {
-                return \Response::json(array('status' => '401', 'message' => 'Mời quay lại trang khóa học để review!'));
+                $commentCourse = new CommentCourse;
+                if($request->review_text != null){
+                    $commentCourse->content = $request->review_text;
+                }
+                $commentCourse->course_id = $request->course_id;
+                $commentCourse->user_role_id = Helper::getUserRoleOfCourse($request->course_id)->user_role_id;
+                if (isset($request->parentId)) {
+                    $commentCourse->parent_id = $request->parentId;
+                }
+                $commentCourse->score = $request->score;
+                $commentCourse->state = 0;
+                $commentCourse->save();
+
+                $check = RatingCourse::where('user_id', Auth::id())->where('course_id', $request->course_id)->first();
+                if (!isset($check)) {
+                    $ratingCourse = new RatingCourse;
+                    $ratingCourse->user_id = Auth::id();
+                    $ratingCourse->course_id = $request->course_id;
+                    $ratingCourse->score = $request->score;
+                    $ratingCourse->save();
+
+                    // Lưu vào table Courses
+                    switch ($request->score) {
+                        case 1:$course->one_stars += 1;
+                            break;
+                        case 2:$course->two_stars += 1;
+                            break;
+                        case 3:$course->three_stars += 1;
+                            break;
+                        case 4:$course->four_stars += 1;
+                            break;
+                        case 5:$course->five_stars += 1;
+                            break;
+                        default:break;
+                    }
+
+                    $course->star_count += $request->score;
+                    $course->vote_count += 1;
+                    $course->save();
+                }
+
+                return \Response::json(array('status' => '200', 'message' => 'Thêm mới review aka comment_course thành công'));
             } else {
                 switch ($currentRating->score) {
                     case 1:$course->one_stars -= 1;
