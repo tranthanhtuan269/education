@@ -630,6 +630,7 @@
                                 $("input[name=keyword]").focus();
                             }
                         });
+                    return false;
                 }
             })
 
