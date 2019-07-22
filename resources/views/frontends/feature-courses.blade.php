@@ -4,7 +4,7 @@
     <div class="feature-course">
         <div class="row">
             <div class="col-xs-12 title-module-home mt-xs-30px">
-                <h2>Featured Courses</h2>
+                <h2>Khóa học nổi bật</h2>
             </div>
             @if (isset($feature_course[0]))
             <div class="col-sm-7 mt-xs-120px">

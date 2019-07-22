@@ -200,7 +200,7 @@ nav .pagination li a img{width:35px;position:relative;top:-6px}
 .unica-acc-zone{float:right;margin-top:13px}
 .unica-acc-zone li{display:inline-table;margin:0 5px}
 ul.unica-acc-zone li a{color:#555}
-ul.unica-acc-zone li.special{cursor: pointer; border:1px solid #555;padding:9px 10px;border-radius:25px;display:inline-block;color:#555;width:80px;text-align:center}
+ul.unica-acc-zone li.special{cursor: pointer; border:1px solid #555;padding:9px 10px;border-radius:25px;display:inline-block;color:#555;text-align:center}
 ul.unica-acc-zone li.special:hover{border:none;background:#FF8F00}
 ul.unica-acc-zone li.special:hover a{color:#fff}
 .amazonmenu{visibility:hidden;opacity:0;position:absolute;padding-top:23px}

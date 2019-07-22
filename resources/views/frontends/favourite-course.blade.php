@@ -28,7 +28,7 @@
                                 )
                             @endfor
                             <div class="col-sm-12 text-center">
-                                <button type="button" class="btn">SEE ALL</button>
+                                <button type="button" class="btn">Tất cả</button>
                             </div>
                         </div>
                     </div>
