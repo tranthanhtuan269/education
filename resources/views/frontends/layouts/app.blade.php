@@ -393,10 +393,15 @@
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
-                                                            <div class="input-group">
+                                                            <div class="input-group password-group">
                                                                 <span class="input-group-addon"><i class="fas fa-lock fa-fw fa-md"></i></span>
-                                                                <input type="password" class="form-control" name="pass" placeholder="Password" required="required">
-                                                            </div>				
+                                                                <input type="password" class="form-control" name="pass" placeholder="Password" required="required" id="showMyPassword">
+                                                                <div class="show-password" onclick="showPassword()">
+                                                                    <i class="fas fa-eye fa-fw fa-md" id="eye"></i>
+                                                                    <!-- <i class="fas fa-eye-slash fa-fw fa-lg" style="display:none"></i> -->
+                                                                </div>
+                                                            </div>
+                                                            <!-- <div><input type="checkbox" onclick="showPassword()"> Hiển thị mật khẩu</div> -->
                                                         </div>
                                                         {{-- <div class="form-group">
                                                             <input type="checkbox" name="remember"> Keep my logged in on this computer
@@ -833,5 +838,22 @@
         }
     </script>
     <script src="{{ asset('frontend/js/function.js') }}"></script>
+    <script>
+        var flag = 1;
+        function showPassword() {
+            var x = document.getElementById("showMyPassword");
+            if (x.type === "password") {
+                x.type = "text";
+                flag = 1;
+                $('#eye').removeClass('fa-eye')
+                $('#eye').addClass('fa-eye-slash')
+            } else {
+                x.type = "password";
+                flag = 0;
+                $('#eye').removeClass('fa-eye-slash')
+                $('#eye').addClass('fa-eye')
+            }
+        }
+    </script>
 </body>
 </html>

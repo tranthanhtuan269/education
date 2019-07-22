@@ -434,6 +434,15 @@ ul.unica-acc-zone li.special:hover a{color:#fff}
   font-size: 12px;
   margin-bottom: 20px;
 }
+.password-group{
+  position: relative;
+}
+.show-password{
+  position: absolute;
+  right: 45px;
+  z-index: 3;
+}
+
 
 footer{font-weight:500;background:url(../images/bg-footer.png) no-repeat;background-size:100% 100%}
 footer .img-logo{padding:30px 0}
