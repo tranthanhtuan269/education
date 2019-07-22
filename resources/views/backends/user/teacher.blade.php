@@ -170,9 +170,9 @@
                         
                     @endif
 
-                    @if (Helper::checkPermissions('users.delete', $list_roles)) 
-                        html += '<a class="btn-delete" data-id="'+data+'" title="Xóa"><i class="fa fa-trash fa-fw" aria-hidden="true"></i></a>';
-                    @endif
+                    // @if (Helper::checkPermissions('users.delete', $list_roles)) 
+                    //     html += '<a class="btn-delete" data-id="'+data+'" title="Xóa"><i class="fa fa-trash fa-fw" aria-hidden="true"></i></a>';
+                    // @endif
 
                     return html;
                 },
