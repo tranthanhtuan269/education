@@ -5,6 +5,7 @@
     if(Auth::check() && strlen(Auth::user()->bought) > 0){
         $list_bought = \json_decode(Auth::user()->bought);
     }
+    $i = 0;
 ?>
 <div class="box-search">
   <div class="container">
@@ -29,6 +30,9 @@
                             <h2>{{ count($tag->courses) }} results found</h2>
                         </div>
                         @foreach ($tag->courses as $result)
+                        @if($i%4==0)
+                        <div class="row">
+                        @endif
                         <?php
                             $lecturers = count($result->Lecturers()) > 1 ? 'Nhiều tác giả' : count($result->Lecturers()) > 0 ? $result->Lecturers()[0]->user->name : "Courdemy";
                         ?>
@@ -55,6 +59,10 @@
 
                             ]
                         )
+                        @if($i%4 == 3)
+                        </div>
+                        @endif
+                        <?php $i++; ?>
                         @endforeach
                         <style>.img-course {position: relative;}</style>
                       <div class="col-xs-12 text-center">

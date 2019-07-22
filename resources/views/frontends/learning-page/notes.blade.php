@@ -60,6 +60,7 @@
 
     function addNotes(){
         var player = videojs('my-video')
+        var currentTime = parseInt(player.currentTime())
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -69,7 +70,8 @@
             Swal.fire({
                 type:"warning",
                 text:"Content cannot be empty!"
-            })             
+            })
+                   
         }else{
             var request = $.ajax({
                 url: "{{ url('notes/store') }}",
@@ -77,7 +79,7 @@
                 data: {
                     videoId: {{ $main_video->id }},
                     content: noteEditor.getData(),
-                    timeTick: player.currentTime()
+                    timeTick: currentTime
                 },
                 dataType: "json"
             });
@@ -98,7 +100,7 @@
                         html += '</div>'
                     html += '</div>'
                 html += '</div>'
-                
+                noteEditor.setData("")
                 $(".ln-notes-list").prepend(html)
             })
         }

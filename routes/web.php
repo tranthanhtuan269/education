@@ -24,6 +24,9 @@ Auth::routes();
 // Route::get('/detail-teacher','HomeController@detailTeacher');
 // Route::get('/course-learning','HomeController@courseLearning');
 // Route::get('/course-detail','HomeController@courseDetail');
+Route::get('duongtest', function(){
+    return view('test');
+});
 
 // BACKEND
 Route::get('toh-admin', 'Backends\LoginController@getLoginAdmin')->name('toh-admin');
@@ -158,6 +161,7 @@ Route::get('list-course', ['uses' =>'Frontends\HomeController@listCourse']);
 Route::get('cart', ['uses' =>'Frontends\HomeController@cart'])->name('cart.show');
 Route::get('check-coupon', ['uses' =>'Frontends\HomeController@checkCoupon'])->name('coupon.check');
 Route::post('checkout', ['uses' =>'Frontends\HomeController@checkout'])->name('cart.checkout');
+Route::put('button-add-to-card', 'Frontends\HomeController@buttonAddToCart');
 
 // Đăng nhập mới đánh giá khóa học dc
 Route::post('reviews/info', 'Backends\UserController@infoRoleUser');

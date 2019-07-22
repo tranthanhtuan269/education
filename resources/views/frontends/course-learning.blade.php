@@ -3,11 +3,16 @@
 	$user_role_course_instance_video = json_decode($user_role_course_instance->videos);
 	$video_count = count($user_role_course_instance_video->videos);
 	$video_done_array = $user_role_course_instance_video->videos;
-	$video_done_count = array_count_values($video_done_array)[1];
+	// dd($video_done_array);
+	if(array_search(1, $video_done_array) === false){
+		$video_done_count = 0;
+	}else{
+		$video_done_count = array_count_values($video_done_array)[1];
+	}
 	$video_done_percent = (int)(($video_done_count/$video_count)*100);
-	// $video_done_count = 2;
-	// $video_done_percent = 2;
 	$lecturers = $info_course->Lecturers();
+	$currentRating = \App\RatingCourse::where('user_id', Auth::id())->where('course_id', $info_course->id)->first();
+
 @endphp
 @section('content')
 <div class="course-learning-banner">
@@ -49,8 +54,8 @@
 					<div class="row">
 						<div class="col-xs-9">
 							<div class="number-unit">
-								
 								<p>{{$video_done_count}} of {{$video_count}} items complate</p>
+								
 							</div>
 						</div>
 						{{-- <div class="col-xs-3">
@@ -106,6 +111,13 @@
 						@endif
 					@endif
 				</h3>
+				<br>
+				@if (!$ratingCourse)
+					<div class="form-group">
+						<label for="review-text">Your review:</label>
+						<textarea name="review-text" id="reviewText" cols="30" rows="10"></textarea>
+					</div>					
+				@endif
 			</div>
 			<div class="modal-footer" style="text-align:center !important;">
 				<button class="btn btn-primary" id="btnEditRating">SAVE</button>
@@ -197,7 +209,7 @@
 						@endphp
 							<div class="teacher-info">
 								<p class="instructor">Instructor</p>
-								<img class="avatar" src="{{asset($ltr_avatar)}}" alt="Avatar">
+								<img class="avatar" src="{{asset('/frontend/'.$ltr_avatar)}}" alt="Avatar">
 								<p class="name">{{$ltr_name}}</p>
 								<p class="office"><span>{{$ltr_expert}}</span></p>
 								<div class="total-course">
@@ -412,7 +424,8 @@
 			method: "PUT",
 			data: {
 				course_id: {{ $info_course->id }},
-				score: $('.reviews-star').attr('data-star')
+				score: $('.reviews-star').attr('data-star'),
+				review_text: $('#reviewText').val() 
 			},
 			dataType: "json"
 		})
@@ -425,6 +438,7 @@
 						$("#editRatingModal").modal('hide')
 					}
 				})
+				location.reload()
 			}
 		})
 	})

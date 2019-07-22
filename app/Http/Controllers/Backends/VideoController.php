@@ -125,31 +125,42 @@ class VideoController extends Controller
         $video = Video::find($request->video_id);
 
         if ($video) {
+            if($video->state!=-1){
+                $unit = $video->unit;
+                $unit->video_count -= 1;
+                $unit->save();
 
-            $unit = $video->unit;
-            $unit->video_count -= 1;
-            $unit->save();
+                $course = $unit->course;
+                $course->video_count -= 1;
+                $course->save();
+                
+                $video->state = -1;
+                $video->save();
 
-            $course = $unit->course;
-            $course->video_count -= 1;
-            $course->save();
 
-            $json_video = json_decode($video->url_video, true);
 
-            if (count($json_video) > 0) {
-                foreach ($json_video as $path_video) {
-                    if(\File::exists($path_video)) {
-                        \File::delete($path_video);
-                    }
-                }
+	            $json_video = json_decode($video->url_video, true);
+
+	            if (count($json_video) > 0) {
+	                foreach ($json_video as $path_video) {
+	                    if(\File::exists($path_video)) {
+	                        \File::delete($path_video);
+	                    }
+	                }
+	            }
+
+	            $video->delete();
+
+	            return response()->json([
+	                'status' => '200',
+	                'message' => 'Delete video successfully!'
+	            ]);
+            }else{
+                return response()->json([
+                    'status' => '404',
+                    'message' => 'Xóa video không thành công!',
+                ]);
             }
-
-            $video->delete();
-
-            return response()->json([
-                'status' => '200',
-                'message' => 'Delete video successfully!',
-            ]);
         }
     }
 
@@ -225,7 +236,8 @@ class VideoController extends Controller
 
     public function getVideoAjax()
     {
-        $videos = Video::get();
+        // $videos = Video::get();
+        $videos = Video::whereIn('state',[0,1])->get();
         return datatables()->collection($videos)
             ->addColumn('course_name', function ($video) {
                 return $video->Unit->course->name;
@@ -253,8 +265,8 @@ class VideoController extends Controller
                     $path_1080 = public_path('/uploads/videos_output/1080/').$video->link_video;
                     $json = '{"360": "'.$path_360.'", "480": "'.$path_480.'", "720": "'.$path_720.'", "1080": "'.$path_1080.'"}';
                     // echo json_encode($json);die;
-                    // $video->url_video = $json; // Đoạn này TuanTT viết nhưng ko chạy
-                    // $video->url_video = json_encode($json); // Đoạn này BaTV sửa lại
+                    // $video->url_video = $json; 
+                    // $video->url_video = json_encode($json);
                     $video->url_video = $json;
                     $video->save();
                     

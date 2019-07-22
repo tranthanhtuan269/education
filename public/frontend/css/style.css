@@ -10,7 +10,9 @@ body{font-family:'Open Sans',sans-serif;font-size:14px; padding-right: 0 !import
     z-index: 2001!important;
     background-color: rgba(0,0,0,.4);
 }
-
+.dz-size{
+  display: none;
+}
 .modal-open {
     overflow: auto;
 }
@@ -1891,4 +1893,12 @@ div[data-u="slides"] div div{
 }
 .pay-field .payment .accept-terms{
   font-size: small;
+}
+
+.ck-editor__editable_inline {
+  min-height: 220px !important;
+  max-height: 300px;
+}
+#wordCount{
+  color:red
 }

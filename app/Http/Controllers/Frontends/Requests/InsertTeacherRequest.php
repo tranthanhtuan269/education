@@ -28,6 +28,7 @@ class InsertTeacherRequest extends FormRequest
             'expert'        => 'required|max:255',
             'address'       => 'max:255',
             'birthday'      => 'date_format:"d/m/Y"|regex:/[0-9]{2}\/[0-9]{2}\/[0-9]{4}/|validate_birthday',
+            // 'video-intro'   => 'required|regex:/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/|validate_youtube_url',
         ];
     }
 

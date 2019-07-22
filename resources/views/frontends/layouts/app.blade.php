@@ -456,9 +456,9 @@
                                                                 <input type="password" class="form-control" name="confirmpass" placeholder="Confirm Password" required="required">
                                                             </div>				
                                                         </div>
-                                                        <div class="terms-and-policy">
+                                                        {{-- <div class="terms-and-policy">
                                                             <label class="checkbox-inline"><input type="checkbox">You agree to our <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>!</label>
-                                                        </div>
+                                                        </div> --}}
                                                         <div class="form-group">
                                                             <input type="button" class="btn btn-success btn-block btn-lg" value="Create Account" onclick="registerAjax()">
                                                         </div>
@@ -654,10 +654,21 @@
                 var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
                 // alert(number_items_in_cart.length)
                 $('.number-in-cart').text(number_items_in_cart.length);
+
+                $(this).remove();
+                Swal.fire({
+                    type: 'success',
+                    text: 'Đã thêm vào giỏ hàng!'
+                })
             })
 
             if(localStorage.getItem('cart') != null){
                 var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
+
+                $.each( number_items_in_cart, function(i, obj) {
+                    $('button[data-id='+obj.id+']').remove();
+                });
+
                 $('.number-in-cart').text(number_items_in_cart.length);
             }else{
                 $('.number-in-cart').text(0);

@@ -43,9 +43,13 @@
                 <div class="clearfix" style="line-height:1.7">
                     <div>
                         <span class="name-teacher">
-                        <a href="{{ url('/') }}/teacher/{{ $course->Lecturers()[0]->user->id }}" title="{{ $course->Lecturers()[0]->user->name }}">
-                            {{ $lecturers }}
-                        </a>
+                            @if(count($course->Lecturers()) > 0)
+                                <a href="{{ url('/') }}/teacher/{{ $course->Lecturers()[0]->user->id }}" title="{{ $course->Lecturers()[0]->user->name }}">
+                                    {{ $lecturers }}
+                                </a>
+                            @else
+                                Courdemy
+                            @endif
                         </span>
                     </div>
                     <div class="name-category">
