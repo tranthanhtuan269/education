@@ -438,6 +438,7 @@ ul.unica-acc-zone li.special:hover a{color:#fff}
 footer{font-weight:500;background:url(../images/bg-footer.png) no-repeat;background-size:100% 100%}
 footer .img-logo{padding:30px 0}
 footer .img-fanpage {padding:40px 0 20px;width: 100%;max-width: 300px;}
+footer .img-fanpage iframe{border: 1px solid #fff;border-radius: 5px;}
 footer .item-1 p{padding:5px 0}
 footer .item-1 a{color:#fff}
 footer .item-2{background-color:#000}
