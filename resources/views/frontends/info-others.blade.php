@@ -5,9 +5,9 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="ads-teacher">
-                            <p>BECOME</p>
-                            <h2>COURDEMY'S <br> TEACHER</h2>
-                            <a href="{{ Auth::check() ? url('user/register-teacher') : 'javascript:void(0)' }}" title="Register Teacher" {{ Auth::check() ? '' : ' data-toggle=modal data-target=#myModalLogin data-dismiss=modal id=redirect_register_teacher' }}>REGISTER NOW</a>
+                            <p>TRỞ THÀNH</p>
+                            <h2>GIẢNG VIÊN<br> COURDEMY</h2>
+                            <a href="{{ Auth::check() ? url('user/register-teacher') : 'javascript:void(0)' }}" title="Register Teacher" {{ Auth::check() ? '' : ' data-toggle=modal data-target=#myModalLogin data-dismiss=modal id=redirect_register_teacher' }}>ĐĂNG KÝ NGAY</a>
                         </div>
                     </div>
                     <div class="col-sm-6 hidden-xs">
@@ -27,11 +27,11 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="courdemy-member">
-                    <p id="coursdemy">Coursdemy's</p>
-                    <p id="txt-format">Member Card</p>
-                    <p class="des-member-card">Learning can happen anywhere with our apps on your computer, mobile device, and TV, featuring enhanced navigation and faster streaming for anytime learning.</p>
+                    <p id="coursdemy">Thẻ thành viên</p>
+                    <p id="txt-format">Courdemy</p>
+                    <p class="des-member-card">Trở thành thành viên của Courdemy để hưởng những ưu đãi bất ngờ cho các khóa học mà bạn quan tâm</p>
                     <div class="btn-register">
-                        <a href="{{ url('member-card') }}" title="Register Member">Register Now</a>
+                        <a href="{{ url('member-card') }}" title="Register Member">ĐĂNG KÝ NGAY</a>
                     </div>
                 </div>
             </div>
@@ -47,8 +47,8 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <h2>Need to Train Your Team?</h2>
-                <p>We offer flexible, cost-effective group memberships for your business, school, or government organization. Contact us to learn more.</p>
+                <h2>Đào tạo nâng cao <br> đội ngũ nhân viên của bạn?</h2>
+                <p>Chúng tôi cung cấp giải pháp tiết kiệm, linh hoạt và hiệu quả <br> cho chương trình đạo tạo của bạn </p>
             </div>
         </div>
         <div class="partner-img clearfix">

@@ -14,7 +14,7 @@
     </ol>
 </section>
 <!-- Main content -->
-<section class="content">
+{{-- <section class="content">
     <!-- Small boxes (Stat box) -->
     <div class="row">
         <div class="col-lg-3 col-xs-6">
@@ -195,7 +195,12 @@
             </div>
         </div>
     </div>
-</section>
+</section> --}}
+<div class="container">
+    <h4>Phần dashboard này chả có gì ráo</h4>
+    <h4>Không dữ liệu thì thêm vào làm sao?</h4>
+
+</div>
 
 
 @endsection

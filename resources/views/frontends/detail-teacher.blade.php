@@ -233,9 +233,9 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="ads-teacher">
-                            <p>BECOME</p>
-                            <h2>COURDEMY'S <br> TEACHER</h2>
-                            <a href="{{ Auth::check() ? url('user/register-teacher') : 'javascript:void(0)' }}" title="Register Teacher" {{ Auth::check() ? '' : ' data-toggle=modal data-target=#myModalLogin data-dismiss=modal id=redirect_register_teacher' }}>REGISTER NOW</a>
+                            <p>TRỞ THÀNH</p>
+                            <h2>GIẢNG VIÊN <br>COURDEMY</h2>
+                            <a href="{{ Auth::check() ? url('user/register-teacher') : 'javascript:void(0)' }}" title="Register Teacher" {{ Auth::check() ? '' : ' data-toggle=modal data-target=#myModalLogin data-dismiss=modal id=redirect_register_teacher' }}>ĐĂNG KÝ NGAY</a>
                         </div>
                     </div>
                     <div class="col-sm-6 hidden-xs">

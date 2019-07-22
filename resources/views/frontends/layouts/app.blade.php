@@ -70,7 +70,7 @@
                     </div>
                     <ul class="nav navbar-nav sm-customize-menu">
                         <li><a href="/"><i class="fa fa-home" aria-hidden="true"></i> Trang chủ</a></li>
-                        <li><a href="javascript:void(0)"> Start Learning <i class="fa fa-key" aria-hidden="true"></i></a></li>
+                        <li><a href="javascript:void(0)"> Vào học <i class="fa fa-key" aria-hidden="true"></i></a></li>
                         <li>
                             <a title="Các khóa học công nghệ thông tin Online từ cơ bản đến chuyên sâu" href="/course/cong-nghe-thong-tin"><i class="fa fa-angle-code" aria-hidden="true"></i> Công nghệ thông tin</a>
                             <ul class="issub" style="z-index: 1002; display: none;">
@@ -257,7 +257,7 @@
                 <div id="userPanel" class="popover user-login-panel">
                     <div class="popover-content">
                         <a class="btn btn-block btn-white" href="/login" class="btnDangxuat"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
-                        <a class="btn btn-block btn-white" href="/register" class="btnDangxuat">Sign Up</a>
+                        <a class="btn btn-block btn-white" href="/register" class="btnDangxuat">Đăng ký</a>
                     </div>
                 </div>
             </div>
@@ -268,7 +268,7 @@
                     <div class="col-lg-3 col-sm-4 cate-md">
                         <a class="unica-logo" href="{{ url('/') }}"><img class="img-responsive" src="{{ asset('frontend/images/tab_logo.png') }}" alt="" width="138" height="33" /></a>
                         <div class="unica-menu-cate">
-                            <i class="fa fa-th" aria-hidden="true"></i> Categories
+                            <i class="fa fa-th" aria-hidden="true"></i> Danh mục
 
                             {{-- CATEGORY BAR --}}
                             <nav id="mysidebarmenu" class="amazonmenu">
@@ -299,7 +299,7 @@
                     </div>
                     <div class="col-lg-5 col-sm-4 cate-sm">
                         <form class="unica-search-boxtop navbar-form form-inline" method="GET" action="/search">
-                            <input name="keyword" type="text" class="form-control unica-form" placeholder="Search for anything" value="{{ Request::get('keyword') }}">
+                            <input name="keyword" type="text" class="form-control unica-form" placeholder="Tìm kiếm khóa học mà bạn quan tâm" value="{{ Request::get('keyword') }}">
                             <button type="submit" class="btn unica-btn-search"><i class="fa fa-search" aria-hidden="true"></i></button>
                         </form>
                     </div>
@@ -309,9 +309,9 @@
                             <ul class="unica-acc-zone db-item">
                                 @if(Auth::check())
                                     @if ( !(count(Auth::user()->userRoles) == 1 && (Auth::user()->userRoles->first()->role_id) == 1) )
-                                        <li><a href="{{ url('user/student/course') }}" class="unica-active-course responsive-start-learning"><p class="hidden-md hidden-xs hidden-sm">Start Learning</p></a></li>
+                                        <li><a href="{{ url('user/student/course') }}" class="unica-active-course responsive-start-learning"><p class="hidden-md hidden-xs hidden-sm">Vào học</p></a></li>
                                     @else
-                                        <li><a href="{{ url('admincp') }}" class="unica-admin"><p class="hidden-md hidden-xs hidden-sm">Admin Page</p></a></li>
+                                        <li><a href="{{ url('admincp') }}" class="unica-admin"><p class="hidden-md hidden-xs hidden-sm">Trang quản trị</p></a></li>
                                     @endif
                                 {{-- </li> --}}
                                 @endif
@@ -342,32 +342,32 @@
                                         <ul class="dropdown-menu db-drop">
                                             @if ( !(count(Auth::user()->userRoles) == 1 && (Auth::user()->userRoles->first()->role_id) == 1) )
                                                 @if ($check_multi_role_user == 2)
-                                                    <li><a href="{{ url('user/teacher/course') }}"><i class="fas fa-chalkboard-teacher"></i> Teacher</a></li>
-                                                    <li><a href="{{ url('user/student/course') }}"><i class="fas fa-user-graduate"></i> Student</a></li>
+                                                    <li><a href="{{ url('user/teacher/course') }}"><i class="fas fa-chalkboard-teacher"></i> Giảng viên</a></li>
+                                                    <li><a href="{{ url('user/student/course') }}"><i class="fas fa-user-graduate"></i> Học viên</a></li>
                                                 @else                                                
-                                                    <li><a href="{{ url('user/student/course') }}"><i class="fa fa-list-alt" aria-hidden="true"></i> Start Learning</a></li>
+                                                    <li><a href="{{ url('user/student/course') }}"><i class="fa fa-list-alt" aria-hidden="true"></i> Vào học</a></li>
                                                     {{-- <li><a href="{{ route('coming-soon') }}"><i class="fa fa-share-alt" aria-hidden="true"></i> Affiliate</a></li> --}}
                                                     {{-- <li><a href="{{ route('coming-soon') }}"><i class="fa fa-key" aria-hidden="true"></i> Activate course</a></li> --}}
-                                                    <li><a href="{{ url('user/student/profile') }}"><i class="fa fa-user" aria-hidden="true"></i> Profile </a></li>
-                                                    <li><a href="{{ url('member-card') }}"><i class="fa fa-credit-card" aria-hidden="true"></i>  Recharge </a></li>
+                                                    <li><a href="{{ url('user/student/profile') }}"><i class="fa fa-user" aria-hidden="true"></i> Hồ sơ </a></li>
+                                                    <li><a href="{{ url('member-card') }}"><i class="fa fa-credit-card" aria-hidden="true"></i>  Nạp tiền </a></li>
                                                 @endif
                                             @else
                                                 {{-- <li><a href="{{ url('admincp') }}"><i class="fas fa-user-shield"></i> Admin Page</a></li>           --}}
 
                                             @endif
                                             <li class="divider"></li>
-                                            <li><a href="{{ url('user/logout') }}" class="btnDangxuat"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                                            <li><a href="{{ url('user/logout') }}" class="btnDangxuat"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
                                         </ul>
                                     </li>
                                     @else
-                                    <li class="special" data-toggle="modal" data-target="#myModalLogin" data-dismiss="modal"><a class="unica-log-acc" href="javascript:void(0)" >Login</a></li>
-                                    <li class="special" data-toggle="modal" data-target="#myModalRegister" data-dismiss="modal"><a class="unica-reg-acc" href="javascript:void(0)">Sign Up</a></li>
+                                    <li class="special" data-toggle="modal" data-target="#myModalLogin" data-dismiss="modal"><a class="unica-log-acc" href="javascript:void(0)" >Đăng nhập</a></li>
+                                    <li class="special" data-toggle="modal" data-target="#myModalRegister" data-dismiss="modal"><a class="unica-reg-acc" href="javascript:void(0)">Đăng ký</a></li>
                                     <div id="myModalLogin" class="modal fade" role="dialog" >
                                         <div class="modal-dialog modal-login">
                                             <div class="modal-content">
                                                 <div class="modal-header">				
                                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                    <div class="modal-title"><b>Log In to Your Courdemy Account!</b></div>
+                                                    <div class="modal-title"><b>Đăng nhập vào tài khoản Courdemy của bạn</b></div>
                                                 </div>
                                                 <div class="modal-body">
                                                     <div class="social-login">
@@ -375,13 +375,13 @@
                                                             <span class="social-login-icon">
                                                                 <i class="fab fa-facebook-f fa-lg fa-fw"></i>
                                                             </span>
-                                                            Continue with Facebook
+                                                            Đăng nhập với facebook
                                                         </a>
                                                         <a href="#" class="btn btn-lg btn-danger btn-block kpx_btn_google" data-toggle="tooltip" data-placement="top" title="Google">
                                                             <span class="social-login-icon">
                                                                 <i class="fab fa-google fa-lg fa-fw"></i>
                                                             </span>
-                                                            Continue with Google
+                                                            Đăng nhập với Google
                                                         </a>
                                                     </div>
 
@@ -407,7 +407,7 @@
                                                     </form>
                                                     <div class="forgot-password">
                                                         <div>
-                                                            or <a href="#">Forgot Password</a>
+                                                            <a href="#">Quên mật khẩu?</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -415,7 +415,7 @@
                                                 <div class="modal-footer">
                                                     <div class="link-to-sign-up">
                                                         <div>
-                                                            Don't have an account? <a href="javascript:void(0)" data-toggle="modal" data-target="#myModalRegister" data-dismiss="modal"><b>Sign up</b></a>
+                                                            Bạn chưa có tài khoản? <a href="javascript:void(0)" data-toggle="modal" data-target="#myModalRegister" data-dismiss="modal"><b>Đăng ký</b></a>
                                                         </div>
                                                     </div>
                                                     {{-- <a href="javascript:void(0)" data-toggle="modal" data-target="#myModalRegister" data-dismiss="modal">Need an account</a> --}}
@@ -428,7 +428,7 @@
                                             <div class="modal-content">
                                                 <div class="modal-header">				
                                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                    <div class="modal-title"><b>Create an account</b></div>
+                                                    <div class="modal-title"><b>Tạo tài khoản mới</b></div>
                                                 </div>
                                                 <div class="modal-body">
                                                     <form action="/examples/actions/confirmation.php" method="post">
@@ -457,7 +457,7 @@
                                                             </div>				
                                                         </div>
                                                         <div class="terms-and-policy">
-                                                            <label class="checkbox-inline"><input type="checkbox">You agree to our <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>!</label>
+                                                            <label class="checkbox-inline"><input type="checkbox">Tôi đồng ý với <a href="#">Điều khoản</a> và <a href="#">Dịch vụ</a>!</label>
                                                         </div>
                                                         <div class="form-group">
                                                             <input type="button" class="btn btn-success btn-block btn-lg" value="Create Account" onclick="registerAjax()">

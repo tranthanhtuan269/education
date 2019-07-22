@@ -23,7 +23,7 @@
                         <div class="link-parent">
                         <!-- <a href="{{ url('/') }}/category/{{ $feature->slug }}" class="text-center"> -->
                             <h3>{{ $feature->name }}</h3>
-                            <p>Over {{ $feature->courses_count }} courses</p>
+                            <p>Hơn {{ $feature->courses_count }} khóa học</p>
                         <!-- </a> -->
                         </div>
                     </a>
