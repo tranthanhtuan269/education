@@ -24,6 +24,9 @@ Auth::routes();
 // Route::get('/detail-teacher','HomeController@detailTeacher');
 // Route::get('/course-learning','HomeController@courseLearning');
 // Route::get('/course-detail','HomeController@courseDetail');
+Route::get('duongtest', function(){
+    return view('test');
+});
 
 // BACKEND
 Route::get('toh-admin', 'Backends\LoginController@getLoginAdmin')->name('toh-admin');

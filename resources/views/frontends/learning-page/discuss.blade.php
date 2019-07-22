@@ -153,7 +153,7 @@
                     html += '<div class="ln-disc-post-wrapper">';
                         html += '<div data-toggle="collapse" data-target="#discWrapper'+ id +'">';
                             html += '<div class="ln-disc-post-left">';
-                                html += '<img src="/'+ avatar +'" width="60px" alt="">';
+                                html += '<img src="frontend/'+ avatar +'" width="60px" alt="">';
                             html += '</div>';
                             html += '<div class="ln-disc-post-right">';
                                 html += '<div class="ln-disc-post-username">';
@@ -216,7 +216,7 @@
             
             request.done(function( response ) {
                 if(response.status == 200){
-                    console.log(response);
+                    // console.log(response);
                     
                     var avatar = response.commentVideo.data.avatar
                     var username = response.commentVideo.data.username
@@ -227,7 +227,7 @@
                     var html = '';
                     html += '<div class="ln-disc-comment">';
                         html += '<div class="ln-disc-comment-left">';
-                            html += '<img src="/'+ avatar +'" width="40px" alt="">';
+                            html += '<img src="frontend/'+ avatar +'" width="40px" alt="">';
                         html += '</div>';
                         html += '<div class="ln-disc-comment-right">';
                             html += '<div class="ln-disc-comment-username">';
