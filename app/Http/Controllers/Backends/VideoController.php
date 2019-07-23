@@ -253,8 +253,7 @@ class VideoController extends Controller
 
     public function accept(Request $request)
     {
-        dd($request->video_id);
-        if ($request->video_id) {
+        if ($request->video_id != null) {
             $video = Video::find($request->video_id);
 
             if ($video) {
