@@ -253,7 +253,6 @@ class VideoController extends Controller
 
     public function accept(Request $request)
     {
-        dd($request->video_id != null);
         if ($request->video_id != null) {
             $video = Video::find($request->video_id);
 
@@ -284,9 +283,9 @@ class VideoController extends Controller
                     $res = array('status' => "200", "message" => "Hủy thành công");
                 }
 
-                // $video->state = $request->state;
-                // $video->save();
-                // echo json_encode($res);die;
+                $video->state = $request->state;
+                $video->save();
+                echo json_encode($res);die;
             }
         }
 
