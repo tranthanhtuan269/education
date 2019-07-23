@@ -65,7 +65,7 @@
                 <label  class="col-sm-4 col-form-label">Tên <span class="text-danger">*</span></label>
                 <div class="col-sm-8">
                     <input type="hidden" id="userID_upd" value="">
-                    <input type="text" class="form-control" id="userName_upd" >
+                    <input type="text" class="form-control" id="userName_upd" value="">
                     <div id="nameErrorUpd" class="alert-errors d-none" role="alert">
                       
                     </div>
@@ -74,7 +74,7 @@
             <div class="form-group row">
                 <label  class="col-sm-4 col-form-label">Email <span class="text-danger">*</span></label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" id="userEmail_upd" >
+                    <input type="text" class="form-control" id="userEmail_upd" disabled>
                     <div id="emailErrorUpd" class="alert-errors d-none" role="alert">
                       
                     </div>
@@ -454,7 +454,8 @@
                         fnDrawCallback: function( oSettings ) {
                             addEventListener();
                             checkCheckboxChecked();
-                        }
+                        },
+                        "searching": false,
                     });
 
         $('#user-table').css('width', '100%');
@@ -764,9 +765,10 @@
 
         $('#saveUser').click(function(){
             var id = $('#userID_upd').val();
-            var name = $('#userName_upd').val();
+            // var name = $('#userName_upd').val();
             var data    = {
-                name                : name,
+                // name                : name,
+                name                : $('#userName_upd').val(),
                 email               : $('#userEmail_upd').val(),
                 password            : $('#userPassword_upd').val(),
                 confirmpassword     : $('#passConfirm_upd').val(),
@@ -796,11 +798,12 @@
                         }
                         $('#edit_user_modal').modal('hide');
                         dataTable.page(current_page).draw(false);
+                        // $().toastmessage('showSuccessToast', data.Message);
+                        dataTable.ajax.reload();
                         Swal.fire({
                             type: 'success',
-                            text: data.Message
+                            text: 'Chỉnh sửa tài khoản thành công!'
                         })
-
                     }else{
                         $.each(data.responseJSON.errors, function( index, value ) {
                             $('#' + index + 'ErrorUpd').html(value);

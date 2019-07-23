@@ -80,6 +80,12 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('gifts/handling-gift-ajax', 'Backends\GiftController@handlingGiftAjax');
         // End Tang khoc hoc
 
+        // 
+        Route::get('categories', 'Backends\CategoryController@getCategory');
+        Route::get('categories/getCategoryAjax', 'Backends\CategoryController@getCategoryAjax');
+        Route::post('categories/addCategory', 'Backends\CategoryController@addCategory');
+        // 
+
         Route::get('teachers', 'Backends\UserController@getTeacher');
         Route::get('teachers/getTeacherAjax', 'Backends\UserController@getTeacherAjax');
         Route::put('teachers/accept', 'Backends\UserController@accept');
