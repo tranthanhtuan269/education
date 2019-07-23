@@ -48,7 +48,7 @@
 			<div class="form-group">
 				<input type="text" class="form-control" id="address" placeholder="Address">
 			</div>
-			<button type="submit" class="btn-save">SAVE</button>
+			<button type="submit" class="btn-save">Lưu</button>
 		</form>
 	</div>
 </div>

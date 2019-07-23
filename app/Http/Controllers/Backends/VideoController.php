@@ -47,7 +47,7 @@ class VideoController extends Controller
             $video->name = $request->name;
             $video->unit_id = $request->unit_id;
             $video->description = $request->description;
-            $video->index = $unit->videos_count;
+            $video->index = $unit->videos_count+1;
             $video->url_video = json_encode(['a' => 'b']);
 
             if ($request->link_video != '') {
@@ -253,7 +253,7 @@ class VideoController extends Controller
 
     public function accept(Request $request)
     {
-        if ($request->video_id) {
+        if ($request->video_id != null) {
             $video = Video::find($request->video_id);
 
             if ($video) {
@@ -265,8 +265,8 @@ class VideoController extends Controller
                     $path_1080 = public_path('/uploads/videos_output/1080/').$video->link_video;
                     $json = '{"360": "'.$path_360.'", "480": "'.$path_480.'", "720": "'.$path_720.'", "1080": "'.$path_1080.'"}';
                     // echo json_encode($json);die;
-                    // $video->url_video = $json; // Đoạn này TuanTT viết nhưng ko chạy
-                    // $video->url_video = json_encode($json); // Đoạn này BaTV sửa lại
+                    // $video->url_video = $json; 
+                    // $video->url_video = json_encode($json);
                     $video->url_video = $json;
                     $video->save();
                     
@@ -283,9 +283,9 @@ class VideoController extends Controller
                     $res = array('status' => "200", "message" => "Hủy thành công");
                 }
 
-                // $video->state = $request->state;
-                // $video->save();
-                // echo json_encode($res);die;
+                $video->state = $request->state;
+                $video->save();
+                echo json_encode($res);die;
             }
         }
 

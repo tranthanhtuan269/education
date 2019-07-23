@@ -240,7 +240,10 @@
                     if(response.status == 200){
                         clearFormCreate();
                         $('#add_role_modal').modal('toggle');
-                        $().toastmessage('showSuccessToast', response.Message);
+                        Swal.fire({
+                            type: 'success',
+                            text: response.Message
+                        })
                         dataTable.ajax.reload();
                     }
                 },
@@ -254,7 +257,10 @@
                         if(data.status == 401){
                           window.location.replace(baseURL);
                         }else{
-                         $().toastmessage('showErrorToast', errorConnect);
+                            Swal.fire({
+                                type: 'warning',
+                                text: errorConnect
+                            })
                         }
                     }
                 }
@@ -501,7 +507,10 @@
                     if(data.status == 401){
                       window.location.replace(baseURL);
                     }else{
-                      $().toastmessage('showErrorToast', errorConnect);
+                        Swal.fire({
+                            type: 'warning',
+                            text: errorConnect
+                        })
                     }
                 }
             });
@@ -550,17 +559,26 @@
                                 var html_data = '';
                                 if(response.status == 200){
                                   dataTable.page(checkEmptyTable()).draw(false);
-                                  $().toastmessage('showSuccessToast', response.Message);
+                                  Swal.fire({
+                                        type: 'success',
+                                        text: response.Message
+                                    })
                                   dataTable.ajax.reload();
                                 }else{
-                                  $().toastmessage('showErrorToast', response.Message);
+                                    Swal.fire({
+                                        type: 'warning',
+                                        text: response.Message
+                                    })
                                 }
                             },
                             error: function (data) {
                                 if(data.status == 401){
                                   window.location.replace(baseURL);
                                 }else{
-                                 $().toastmessage('showErrorToast', errorConnect);
+                                    Swal.fire({
+                                        type: 'warning',
+                                        text: errorConnect
+                                    })
                                 }
                             }
                         });
@@ -605,7 +623,10 @@
                     if(response.status == 200){
                       dataTable.page(current_page).draw(false);
                       $('#edit_role_modal').modal('toggle');
-                        $().toastmessage('showSuccessToast', response.Message);
+                      Swal.fire({
+                            type: 'success',
+                            text: response.Message
+                        })
                     }else{
                         $('#roleNameErrorUpd').html(response.Message);
                         $('#roleNameErrorUpd').show();
@@ -622,7 +643,10 @@
                         if(data.status == 401){
                           window.location.replace(baseURL);
                         }else{
-                         $().toastmessage('showErrorToast', errorConnect);
+                            Swal.fire({
+                                type: 'warning',
+                                text: errorConnect
+                            })
                         }
                     }
                 }
@@ -657,7 +681,7 @@
 
                             $.ajax({
                                 type: "POST",
-                                url: "{{ url('/') }}/backend/admincp/roles/delMulti",
+                                url:  baseURL+"/admincp/roles/delMulti",
                                 data: data,
                                 success: function (response) {
                                     var obj = $.parseJSON(response);
@@ -667,15 +691,27 @@
                                                 $(this).parent().parent().hide("slow");
                                             }
                                         });
-                                        $().toastmessage('showSuccessToast', obj.Message);
+                                        Swal.fire({
+                                            type: 'success',
+                                            text: obj.Message
+                                        })
+
                                         dataTable.ajax.reload(); 
+                                    } else {
+                                        Swal.fire({
+                                            type: 'warning',
+                                            text: obj.Message
+                                        })
                                     }
                                 },
                                 error: function (data) {
                                     if(data.status == 401){
                                       window.location.replace(baseURL);
                                     }else{
-                                     $().toastmessage('showErrorToast', errorConnect);
+                                        Swal.fire({
+                                            type: 'warning',
+                                            text: errorConnect
+                                        })
                                     }
                                 }
                             });

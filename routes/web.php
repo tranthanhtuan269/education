@@ -47,7 +47,7 @@ Route::get('mailable', function () {
 // BACKEND
 Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'admincp'], function () {
-        Route::get('/', 'Backends\HomeController@getAdminCp');
+        Route::get('/', 'Backends\UserController@index');
 
         // Begin Duyet khoa hoc
         Route::get('courses', 'Backends\CourseController@getCourse');
@@ -180,6 +180,11 @@ Route::get('coming-soon', 'Frontends\HomeController@comingSoon')->name('coming-s
 Route::get('comments/see-more', 'Frontends\CommentController@seeMore')->name('see-more');
 
 Route::get('search', 'Frontends\HomeController@search');
+
+
+
+Route::get('nap-tien', 'Frontends\HomeController@naptien');
+
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/learning-page/{courseId}/lecture/{videoId}', 'Frontends\VideoPlayerController@show')->name('videoplayer.show');

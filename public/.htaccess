@@ -18,4 +18,11 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
+
+    # external redirect for chancing URL
+    RewriteCond %{THE_REQUEST} \s/+test/index\.php[\s?] [NC]
+    RewriteRule ^ home/ [L,R=302]
+
+    # internal routing to actual URL
+    RewriteRule ^home/?$ test/index.php [L,NC]
 </IfModule>

@@ -10,13 +10,13 @@
         <div class="row">
             <div class="col-sm-12 clearfix title-module-home">
                 <div class="pull-left">
-                    <h2>All Courses</h2>
+                    <h2>Tất cả khóa học</h2>
                 </div>
                 <div class="pull-right">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a data-toggle="tab" href="#best-seller">Bestseller</a></li>
-                        <li><a data-toggle="tab" href="#menu1">New</a></li>
-                        <li><a data-toggle="tab" href="#menu2">Trending</a></li>
+                        <li class="active"><a data-toggle="tab" href="#best-seller">Bán chạy nhất</a></li>
+                        <li><a data-toggle="tab" href="#menu1">Mới nhất</a></li>
+                        <li><a data-toggle="tab" href="#menu2">Thịnh hành</a></li>
                     </ul>
                 </div>
             </div>
@@ -50,7 +50,7 @@
                             @endforeach
                             @if (Request::is('/')) 
                                 <div class="col-sm-12 text-center">
-                                    <a href="{{ url('list-course?type=best-seller') }}" class="btn btn-default btn-seeall">SEE ALL</a>
+                                    <a href="{{ url('list-course?type=best-seller') }}" class="btn btn-default btn-seeall">Tất cả</a>
                                 </div>
                             @endif
                         </div>
@@ -86,7 +86,7 @@
                         @endforeach
                         @if (Request::is('/'))
                         <div class="col-sm-12 text-center">
-                            <a href="{{ url('list-course?type=new') }}" class="btn btn-default btn-seeall">SEE ALL</a>
+                            <a href="{{ url('list-course?type=new') }}" class="btn btn-default btn-seeall">Tất cả</a>
                         </div>
                         @endif
                     </div>
@@ -121,7 +121,7 @@
                         @endforeach
                         @if (Request::is('/'))
                         <div class="col-sm-12 text-center">
-                            <a href="{{ url('list-course?type=trendding') }}" class="btn btn-default btn-seeall">SEE ALL</a>
+                            <a href="{{ url('list-course?type=trendding') }}" class="btn btn-default btn-seeall">Tất cả</a>
                         </div>
                         @endif
                     </div>

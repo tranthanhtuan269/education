@@ -22,7 +22,7 @@ class Helper {
 	}
 
 	public static function createSecurityTokenForVideoLink($user_id, $video_id, $video_url){
-		$wowza_serverip = "http://45.56.82.249"; // your ip/host 
+		$wowza_serverip = "http://45.56.82.249"; //  ip/host
         $courdemysecure = 'courdemysecure'; 
 		$courdemysecurestarttime = 0;
 		$validity = 1800;
@@ -32,6 +32,7 @@ class Helper {
 		$courdemysecureCustomHash = strtr(base64_encode($courdemysecureCustomHash), '+/', '-_'); 
 		
 		$content_path = $video_url;
+		//content_path example = vod/_definst_/dung-yeu-nua-em-met-roi-1080.mp4
 		$secret = "zz725f4728cca67282";
 
 

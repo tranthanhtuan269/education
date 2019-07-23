@@ -50,7 +50,7 @@
                       </div>
                     </div>
                     @else
-                    <h1>No list_course</h1>
+                    <h1>Không có danh sách khóa học</h1>
                     @endif
                       <!--error_search-->
 

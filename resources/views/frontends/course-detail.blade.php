@@ -49,7 +49,7 @@
                                     <div class="col-sm-6 pull-left">
                                         <span class="sale">{!! number_format($info_course->price, 0, ',' , '.') !!}đ</span>
                                         <span class="price">{!! number_format($info_course->real_price, 0, ',' , '.') !!}đ</span>
-                                        <span class="interval">{{ $date_to->diff($date_from)->format("%d") }} days left off the price!</span>
+                                        <span class="interval">Còn {{ $date_to->diff($date_from)->format("%d") }} ngày tại mức giá này </span>
                                     </div>
                                     <div class="col-sm-6">
                                         <span class="price-off pull-right">{{ round(100 - ($info_course->price/$info_course->real_price)*100,2) }}%  off</span>
@@ -107,15 +107,15 @@
                                 </div>
                                 <div class="box clearfix">
                                     <div class="btn-add-cart">
-                                        <button type="button" id="add-cart" data-id="{{ $info_course->id }}" class="btn btn-primary btn-toh"><b>Add to cart</b></button>
+                                        <button type="button" id="add-cart" data-id="{{ $info_course->id }}" class="btn btn-primary btn-toh"><b>Thêm vào giỏ hàng</b></button>
                                     </div>
                                     <div class="btn-buy-now">
-                                        <button type="button" id="buy-now" data-id="{{ $info_course->id }}" class="btn btn-warning btn-toh"><b>Buy Now</b></button>
+                                        <button type="button" id="buy-now" data-id="{{ $info_course->id }}" class="btn btn-warning btn-toh"><b>Mua ngay</b></button>
                                     </div>
                                 </div>
                                 <div class="box clearfix">
                                     <div class="pull-left money-back">
-                                        30-Days Money-back Guarantee
+                                        30 ngày hoàn tiền
                                     </div>
                                 </div>
                             </div>
@@ -129,12 +129,12 @@
             <div class="menu clearfix">
                 <div class="col-sm-12">
                     <ul>
-                        <li class="active"> About </li>
-                        <li><a href="javascript:;" class="go-box" data-box="box_content">Content</a></li>                        
-                        <li><a href="javascript:;" class="go-box" data-box="box_requirements">Requirements</a></li>
-                        <li><a href="javascript:;" class="go-box" data-box="box_reviews">Reviews</a> </li>
-                        @if (count($info_course->Lecturers()) >= 1) <li><a href="javascript:;" class="go-box" data-box="box_instructors">Instructors</a></li> @endif
-                        <li><a href="javascript:;" class="go-box" data-box="box_related_course">Related Courses </a></li>
+                        <li class="active"> Mô tả </li>
+                        <li><a href="javascript:;" class="go-box" data-box="box_content">Danh sách bài học</a></li>                        
+                        <li><a href="javascript:;" class="go-box" data-box="box_requirements">Yêu cầu</a></li>
+                        <li><a href="javascript:;" class="go-box" data-box="box_reviews">Đánh giá</a> </li>
+                        @if (count($info_course->Lecturers()) >= 1) <li><a href="javascript:;" class="go-box" data-box="box_instructors">Thông tin giảng viên</a></li> @endif
+                        <li><a href="javascript:;" class="go-box" data-box="box_related_course">Khóa học liên quan </a></li>
                     </ul>
                 </div>
             </div>
@@ -164,29 +164,29 @@
                     <ul class="others">
                         <li>
                             <img src="{{ asset('frontend/images/features_online.png') }}" alt="" /> 
-                            <span class="txt-large">100 Online</span>
+                            <span class="txt-large">100% trực tuyến</span>
                             {{-- <span class="txt-small">Content comming soon...</span> --}}
                         </li>
                         <li>
                             <img src="{{ asset('frontend/images/features_deadline.png') }}" alt="" /> 
-                            <span class="txt-large">Flexible deadlines</span>
+                            <span class="txt-large">Thời gian học linh hoạt</span>
                             {{-- <span class="txt-small">Content comming soon...</span> --}}
                         </li>
                         <li>
                             <img src="{{ asset('frontend/images/features_level.png') }}" alt="" /> 
-                            <span class="txt-large">Benginner Level</span>
+                            <span class="txt-large">Cho người mới học</span>
                             {{-- <span class="txt-small">Content comming soon...</span> --}}
                         </li>
                         @if ($info_course->approx_time != '')
                         <li>
                             <img src="{{ asset('frontend/images/features_hour.png') }}" alt="" /> 
-                            <span class="txt-large">Approx {{ $info_course->approx_time }} hours to complete</span>
+                            <span class="txt-large">Khoảng {{ $info_course->approx_time }} giờ để hoàn thành</span>
                             {{-- <span class="txt-small">Content comming soon...</span> --}}
                         </li>
                         @endif
                         <li>
                             <img src="{{ asset('frontend/images/features_subtitle.png') }}" alt="" /> 
-                            <span class="txt-large">English</span>
+                            <span class="txt-large">Tiếng Việt</span>
                             {{-- <span class="txt-small">Content comming soon...</span> --}}
                         </li>
                     </ul>
@@ -238,7 +238,7 @@
         <div class="container">
             <div class="row" id="box_instructors">
                 <div class="col-sm-12">
-                    <h3>About the instructors</h3>
+                    <h3>Thông tin giảng viên</h3>
                 </div>
                 @foreach ($info_course->Lecturers() as $lecturer)
                 <div class="col-md-8 col-sm-10">
@@ -297,7 +297,7 @@
                             ]
                         )
                     </p>
-                    <p>Course Rating</p>
+                    <p>Đánh giá khóa học</p>
                 </div>
                 <div class="col-sm-8 rating-process">
                     <div class="row">
@@ -345,7 +345,7 @@
                 </div>
             </div>
             <div class="reviews"  id="box_reviews">
-                <h3>Reviews
+                <h3>Đánh giá
                     @if(Auth::check())
                         @if(\App\Helper\Helper::getUserRoleOfCourse($info_course->id))
                             <span class="reviews-star" data-star="{{ isset($ratingCourse) ? $ratingCourse->score : 1 }}">
@@ -369,7 +369,7 @@
                 </h3>
                 @if(Auth::check())
                 @if(\App\Helper\Helper::getUserRoleOfCourse($info_course->id))
-                <textarea name="content" id="editor" class="form-control" placeholder="Type the content here!"></textarea>
+                <textarea name="content" id="editor" class="form-control" placeholder="Nội dung"></textarea>
                 <div class="btn-submit text-center mt-10 mb-20">
                     <input class="btn btn-primary submit-question" type="submit" value="SUBMIT A REVIEW" id="create-comment-new"/>
                 </div>
@@ -466,7 +466,7 @@
                                             html += '</button>';
                                         html += '</div>';
                                         html += '<div id="reply-textbox-'+data.commentCourse.data.id+'" class="reply-textbox hide">';
-                                            html += '<textarea name="reply-'+data.commentCourse.data.id+'" id="reply-'+data.commentCourse.data.id+'" class="form-control" placeholder="Type the content here!"></textarea>';
+                                            html += '<textarea name="reply-'+data.commentCourse.data.id+'" id="reply-'+data.commentCourse.data.id+'" class="form-control" placeholder="Nội dung"></textarea>';
                                             html += '<div class="btn-submit text-center mt-10 mb-20">';
                                                 html += '<input class="btn btn-primary create-reply-btn" type="submit" value="SUBMIT A REPLY" id="create-reply-'+data.commentCourse.data.id+'" data-id="'+data.commentCourse.data.id+'"/>';
                                             html += '</div>';
@@ -490,7 +490,7 @@
                 </script>
                 @endif
                 @else
-                <h4>Reviews are under verification!</h4>
+                <h4>Đăng nhập để xem đánh giá</h4>
                 @endif
                 <div id="review-box">
                     @foreach($info_course->takeComment(0, 3) as $comment)
@@ -500,7 +500,7 @@
             </div>
             @if(count($info_course->comments) > 0)
             <div class="col-sm-12 btn-see-more" data-skip="3" data-take="3">
-                <button type="button" class="btn">See more</button>
+                <button type="button" class="btn">Xem thêm</button>
             </div>
             @endif
         </div>
@@ -525,8 +525,8 @@
             </div>
             <div class="buttons col-xs-12 col-md-4 col-sm-5">
                 <div class="group-btn-buy-course">
-                    <button class="btn btn-primary">Add to cart</button>
-                    <button class="btn btn-warning">Buy now</button>
+                    <button class="btn btn-primary">Thêm vào giỏ hàng</button>
+                    <button class="btn btn-warning">Mua ngay</button>
                 </div>
             </div>
         </div>

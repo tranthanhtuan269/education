@@ -135,7 +135,7 @@
 			<div class="col-sm-12">
 				<ul>
 					<li class="active">Overview</li>
-					<li><a href="javascript:;" class="go-box" data-box="box_course_content">Course Content</a></li>
+					<li><a href="javascript:;" class="go-box" data-box="box_course_content">Bài học</a></li>
 					<li><a href="javascript:;" class="go-box" data-box="box_document">Documents</a> </li>
 					{{-- <li><a href="javascript:;" class="go-box" data-box="box_question">Q & A</a></li> --}}
 				</ul>
@@ -296,7 +296,7 @@
 					</div>
 					<div class="text-center">
 						<a href="/category/{{$info_course->category->slug}}">
-							<button type="button" class="btn btn-see-all">SEE ALL</button>
+							<button type="button" class="btn btn-see-all">Tất cả</button>
 						</a>
 					</div>
 				</div>
@@ -337,7 +337,7 @@
 				@endif
 			</div>
 			<div class="col-sm-12 btn-seen-all">
-				<button type="button" class="btn">See all student feedback</button>
+				<button type="button" class="btn">Tất cả phản hồi của học viên</button>
 			</div>
 		</div>
 	</div>
@@ -348,7 +348,7 @@
 	<div class="course-recommend">
 		<div class="row">
 			<div class="col-sm-12">
-				<h3>Student also bought</h3>
+				<h3>Học viên cũng mua</h3>
 			</div>
 			@for($i = 0; $i < 4; $i++)
 				@include(

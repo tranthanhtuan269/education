@@ -291,14 +291,20 @@
                                 $("#userPassword_upd").val(response.user.password);
                                 $("#passConfirm_upd").val(response.user.password);
                             }else{
-                                $().toastmessage('showErrorToast', response.Message);
+                                Swal.fire({
+                                    type: 'warning',
+                                    text: response.Message
+                                })
                             }
                         },
                         error: function (data) {
                             if(data.status == 401){
                             window.location.replace(baseURL);
                             }else{
-                            $().toastmessage('showErrorToast', errorConnect);
+                                Swal.fire({
+                                    type: 'warning',
+                                    text: errorConnect
+                                })
                             }
                         }
                     });
@@ -307,7 +313,10 @@
                     if(data.status == 401){
                       window.location.replace(baseURL);
                     }else{
-                      $().toastmessage('showErrorToast', errorConnect);
+                        Swal.fire({
+                                type: 'warning',
+                                text: errorConnect
+                            })
                     }
                 }
             });
@@ -596,7 +605,10 @@
                                 if(data.status == 401){
                                 window.location.replace(baseURL);
                                 }else{
-                                $().toastmessage('showErrorToast', errorConnect);
+                                    Swal.fire({
+                                        type: 'warning',
+                                        text: errorConnect
+                                    })
                                 }
                             }
                         });
@@ -634,17 +646,26 @@
                                 var html_data = '';
                                 if(response.status == 200){
                                   dataTable.page(checkEmptyTable()).draw(false);
-                                  $().toastmessage('showSuccessToast', response.Message);
+                                  Swal.fire({
+                                        type: 'success',
+                                        text: response.Message
+                                    })
                                   dataTable.ajax.reload();
                                 }else{
-                                  $().toastmessage('showErrorToast', response.Message);
+                                    Swal.fire({
+                                        type: 'warning',
+                                        text: response.Message
+                                    })
                                 }
                             },
                             error: function (data) {
                                 if(data.status == 401){
                                   window.location.replace(baseURL);
                                 }else{
-                                 $().toastmessage('showErrorToast', errorConnect);
+                                    Swal.fire({
+                                        type: 'warning',
+                                        text: errorConnect
+                                    })
                                 }
                             }
                         });
@@ -800,7 +821,10 @@
                         if(data.status == 401){
                           window.location.replace(baseURL);
                         }else{
-                         $().toastmessage('showErrorToast', errorConnect);
+                            Swal.fire({
+                                type: 'warning',
+                                text: errorConnect
+                            })
                         }
                     }
                 }
@@ -842,14 +866,20 @@
                                         }
                                     });
                                     dataTable.ajax.reload(); 
-                                    $().toastmessage('showSuccessToast', obj.Message);
+                                    Swal.fire({
+                                        type: 'success',
+                                        text: obj.Message
+                                    })
                                 }
                             },
                             error: function (data) {
                                 if(data.status == 401){
                                     window.location.replace(baseURL);
                                 }else{
-                                    $().toastmessage('showErrorToast', errorConnect);
+                                    Swal.fire({
+                                        type: 'wa',
+                                        text: errorConnect
+                                    })
                                 }
                             }
                         });
@@ -889,10 +919,16 @@
                     if(response.status == 200){
                         clearFormCreate();
                         $('#add_user_modal').modal('toggle');
-                        $().toastmessage('showSuccessToast', response.Message);
+                        Swal.fire({
+                            type: 'success',
+                            text: response.Message
+                        })
                         dataTable.ajax.reload(); 
                     } else {
-                        $().toastmessage('showErrorsToast', response.Message);
+                        Swal.fire({
+                            type: 'warning',
+                            text: response.Message
+                        })
                     }
                 },
                 error: function (data) {

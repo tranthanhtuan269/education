@@ -207,7 +207,7 @@
                         $('#input-coupon').val('')
                         return Swal.fire({
                             type:"warning",
-                            text:"The coupon doesn't exist!"
+                            text:"Mã khuyến mãi không tồn tại!"
                         })
                     }
                 })
@@ -252,7 +252,7 @@
                         
                         return Swal.fire({
                             type:"success",
-                            text:"Order has been created!"
+                            text:"Mua khóa học không thành công!"
                         }).then((result) => {
                             if (result.value) {
                                 location.reload();
@@ -261,7 +261,7 @@
                     }else if(response.status == 204){
                         return Swal.fire({
                             type:"warning",
-                            text:"Your balance is not enough!"
+                            text:"Tài khoản của bạn không đủ để thực hiện giao dịch!"
                         }).then((result) => {
                             if (result.value) {
                                 window.location.href = "/member-card";
@@ -270,7 +270,7 @@
                     }else{
                         return Swal.fire({
                             type:"warning",
-                            text:"Order has not been created!"
+                            text:"Mua khóa học không thành công!"
                         })
                     }
                 })

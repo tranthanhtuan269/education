@@ -46,7 +46,6 @@ class HomeController extends Controller
         $best_seller_course = Course::where('status', 1)->orderBy('sale_count', 'desc')->limit(8)->get();
         $new_course = Course::where('status', 1)->orderBy('id', 'desc')->limit(8)->get();
         $popular_teacher = Teacher::getTeacherBestVote();
-        //dd($popular_teacher->userRole);
         return view('frontends.home', compact('feature_category', 'feature_course', 'best_seller_course', 'new_course', 'popular_teacher'));
     }
 
@@ -128,14 +127,19 @@ class HomeController extends Controller
 
     public function showTeacher($id_teacher)
     {
-        $user = User::find($id_teacher);
-        if ($user) {
+        $teacher = Teacher::find($id_teacher);
+        // dd($teacher->user_role_id);
+        if ($teacher) {
+            if(\Auth::check()){
+                $ratingTeacher = RatingTeacher::where('teacher_id', $id_teacher)->where('user_id', \Auth::id())->first();
+            }else{
+                $ratingTeacher = RatingTeacher::where('teacher_id', $id_teacher)->first();
+            }
             $feature_category = Category::where('featured', 1)->orderBy('featured_index', 'asc')->limit(10)->get();
-            $ratingTeacher = RatingTeacher::where('teacher_id', $user->userRolesTeacher()->id)->where('user_id', \Auth::id())->first();
-            $info_teacher = $user->userRolesTeacher()->teacher;
-            $feature_course = $user->userRolesTeacher()->userCoursesByFeature();
-            $best_seller_course = $user->userRolesTeacher()->userCoursesByTrendding();
-            $new_course = $user->userRolesTeacher()->userCoursesByNew();
+            $info_teacher = $teacher;
+            $feature_course = $teacher->userRole()->first()->userCoursesByFeature();
+            $best_seller_course = $teacher->userRole()->first()->userCoursesByTrendding();
+            $new_course = $teacher->userRole()->first()->userCoursesByNew();
             return view('frontends.detail-teacher', compact('info_teacher', 'feature_category', 'feature_course', 'best_seller_course', 'new_course', 'ratingTeacher'));
         }
         return abort(404);
@@ -398,6 +402,15 @@ class HomeController extends Controller
             echo json_encode(array('status' => 404));
         }
 
+    }
+
+    public function naptien(){
+        $users = User::get();
+        foreach($users as $user){
+            $user->coins += 1000000;
+            $user->save();
+        }
+        echo "Đã nạp cho mỗi người 1 củ nhé!";
     }
 }
 

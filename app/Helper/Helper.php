@@ -100,7 +100,7 @@ class Helper
     public static function convertVideoToMultiResolution($video, $resolution){
         $t=time();
         $input = public_path('/uploads/videos/').$video;
-        $output = public_path('/uploads/videos_output/'.$resolution.'/').$video;
+        $output = "/usr/local/WowzaStreamingEngine-4.7.7/content/".$video;
         $block_txt = public_path('/uploads/block_'.$t.'.txt');
 
         $format = 'mp4';

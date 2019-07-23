@@ -1,9 +1,9 @@
 <div class="u-list-course" id="u-list-course">
     <div class="top clearfix">
-        <h3 class="pull-left">Course Content</h3>
+        <h3 class="pull-left">Bài học</h3>
         <ul class="pull-right">
             {{-- <li>Expand all</li> --}}
-            <li>{{ $info_course->video_count }} lectures</li>
+            <li>{{ $info_course->video_count }} khóa học</li>
             <li>{{ $info_course->duration }}</li>
         </ul>
     </div>

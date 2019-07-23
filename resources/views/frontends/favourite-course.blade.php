@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-xs-12 clearfix title-module-home">
                 <div class="pull-left">
-                    <h2>Favourite Courses</h2>
+                    <h2>Khóa học được yêu thích</h2>
                 </div>
             </div>
             <div class="col-sm-12">
@@ -28,7 +28,7 @@
                                 )
                             @endfor
                             <div class="col-sm-12 text-center">
-                                <button type="button" class="btn">SEE ALL</button>
+                                <button type="button" class="btn">Tất cả</button>
                             </div>
                         </div>
                     </div>
