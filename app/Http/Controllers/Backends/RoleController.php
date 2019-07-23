@@ -135,7 +135,7 @@ class RoleController extends Controller
     public function destroy($id)
     {
         if (isset($id)) {
-            if (User::where('role_id', $id)->first()) {
+            if (UserRole::where('role_id', $id)->first()) {
                 $res = array('status' => "204", "Message" => "Vai trò đã tồn tại với người dùng");
             } else {
                 $role = Role::find($id);
@@ -155,12 +155,18 @@ class RoleController extends Controller
         if (isset($request) && $request->input('id_list')) {
             $id_list = $request->input('id_list');
             $id_list = rtrim($id_list, ',');
-
-            if (Role::deleteMulti($id_list)) {
-                $res = array('status' => 200, "Message" => "Đã xóa lựa chọn thành công");
+            $arr_id_list = explode(",",$id_list);
+        
+            if (UserRole::whereIn('role_id', $arr_id_list)->first()) {
+                $res = array('status' => "204", "Message" => "Trong danh sách chọn đã có ít nhất 1 vai trò đã tồn tại với người dùng!");
             } else {
-                $res = array('status' => "204", "Message" => "Có lỗi trong quá trình xủ lý !");
+                if (Role::deleteMulti($id_list)) {
+                    $res = array('status' => 200, "Message" => "Đã xóa lựa chọn thành công");
+                } else {
+                    $res = array('status' => "204", "Message" => "Có lỗi trong quá trình xủ lý !");
+                }
             }
+
             echo json_encode($res);
         }
     }

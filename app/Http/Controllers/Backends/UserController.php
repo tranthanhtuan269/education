@@ -67,7 +67,7 @@ class UserController extends Controller
         }
         UserRole::insert($arr_roles);
 
-        $res = array('status' => "200", "message" => "Thêm mới thông tin thành công");
+        $res = array('status' => "200", "Message" => "Thêm mới thông tin thành công");
         echo json_encode($res);
 
     }
@@ -133,10 +133,10 @@ class UserController extends Controller
             }
             UserRole::insert($arr_roles);
 
-            $res = array('status' => "200", "message" => "Cập nhật thông tin thành công");
+            $res = array('status' => "200", "Message" => "Cập nhật thông tin thành công");
 
         } else {
-            $res = array('status' => "401", "message" => "Cập nhật thông tin không thành công!");
+            $res = array('status' => "401", "Message" => "Cập nhật thông tin không thành công!");
         }
         echo json_encode($res);
     }
@@ -152,9 +152,9 @@ class UserController extends Controller
         if (isset($id)) {
             $user = User::find($id);
             if (isset($user) && $user->delete()) {
-                $res = array('status' => "200", "message" => "Xóa thông tin thành công ");
+                $res = array('status' => "200", "Message" => "Xóa thông tin thành công ");
             } else {
-                $res = array('status' => "204", "message" => "Xóa thông tin không thành công!");
+                $res = array('status' => "204", "Message" => "Xóa thông tin không thành công!");
             }
             echo json_encode($res);
         }
@@ -167,9 +167,9 @@ class UserController extends Controller
             $id_list = rtrim($id_list, ',');
 
             if (User::delMultiUser($id_list)) {
-                $res = array('status' => 200, "message" => "Đã xóa lựa chọn thành công");
+                $res = array('status' => 200, "Message" => "Đã xóa lựa chọn thành công");
             } else {
-                $res = array('status' => "204", "message" => "Có lỗi trong quá trình xủ lý !");
+                $res = array('status' => "204", "Message" => "Có lỗi trong quá trình xủ lý !");
             }
             echo json_encode($res);
         }
@@ -219,9 +219,9 @@ class UserController extends Controller
         // echo '<pre>';
         // print_r($user);die;
         if ($user) {
-            $res = array('status' => "200", "message" => "Người dùng đã tồn tại!", "user" => $user);
+            $res = array('status' => "200", "Message" => "Người dùng đã tồn tại!", "user" => $user);
         } else {
-            $res = array('status' => "401", "message" => "Người dùng không tồn tại!", "user" => null);
+            $res = array('status' => "401", "Message" => "Người dùng không tồn tại!", "user" => null);
         }
         echo json_encode($res);
     }
@@ -245,9 +245,9 @@ class UserController extends Controller
         }
 
         if ($user->save()) {
-            $res = array('status' => "200", "message" => "Cập nhật thông tin thành công", "user" => $user);
+            $res = array('status' => "200", "Message" => "Cập nhật thông tin thành công", "user" => $user);
         } else {
-            $res = array('status' => "401", "message" => 'Người dùng không tồn tại.', "user" => null);
+            $res = array('status' => "401", "Message" => 'Người dùng không tồn tại.', "user" => null);
         }
         echo json_encode($res);
     }
@@ -266,7 +266,7 @@ class UserController extends Controller
     public function infoRoleUser(Request $request)
     {
         $result = Role::where('id', $request->role_id)->value('name');
-        $res = array('Response' => "Success", "message" => "Successfully", 'result' => $result);
+        $res = array('Response' => "Success", "Message" => "Successfully", 'result' => $result);
         echo json_encode($res);
     }
 
@@ -307,15 +307,15 @@ class UserController extends Controller
                 $teacher->status = $request->status;
                 $teacher->save();
                 if($request->status == 1){
-                    $res = array('status' => "200", "message" => "Duyệt thành công");
+                    $res = array('status' => "200", "Message" => "Duyệt thành công");
                 }else{
                     $teacher->userRole->courses()->update(['courses.status' => 0]);        
-                    $res = array('status' => "200", "message" => "Hủy thành công");
+                    $res = array('status' => "200", "Message" => "Hủy thành công");
                 }
                 echo json_encode($res);die;
             }
         }
-        $res = array('status' => "401", "message" => 'Người dùng không tồn tại.');
+        $res = array('status' => "401", "Message" => 'Người dùng không tồn tại.');
         echo json_encode($res);die;
     }
 
@@ -325,9 +325,9 @@ class UserController extends Controller
             $id_list = $request->input('id_list');
 
             if (Teacher::acceptMulti($id_list, 1)) {
-                $res = array('status' => 200, "message" => "Đã duyệt hết");
+                $res = array('status' => 200, "Message" => "Đã duyệt hết");
             } else {
-                $res = array('status' => "204", "message" => "Có lỗi trong quá trình xủ lý !");
+                $res = array('status' => "204", "Message" => "Có lỗi trong quá trình xủ lý !");
             }
             echo json_encode($res);
         }
@@ -339,9 +339,9 @@ class UserController extends Controller
             $id_list = $request->input('id_list');
 
             if (Teacher::acceptMulti($id_list, 0)) {
-                $res = array('status' => 200, "message" => "Đã hủy hết");
+                $res = array('status' => 200, "Message" => "Đã hủy hết");
             } else {
-                $res = array('status' => "204", "message" => "Có lỗi trong quá trình xủ lý !");
+                $res = array('status' => "204", "Message" => "Có lỗi trong quá trình xủ lý !");
             }
             echo json_encode($res);
         }
@@ -353,11 +353,11 @@ class UserController extends Controller
             $teacher = Teacher::find($request->teacherId);
             if($teacher){
                 $teacher->delete();
-                $res = array('status' => "200", "message" => "Xóa thành công");
+                $res = array('status' => "200", "Message" => "Xóa thành công");
                 echo json_encode($res);die;
             }
         }
-        $res = array('status' => "401", "message" => 'Người dùng không tồn tại.');
+        $res = array('status' => "401", "Message" => 'Người dùng không tồn tại.');
         echo json_encode($res);die;
     }
 
@@ -367,9 +367,9 @@ class UserController extends Controller
             $id_list = $request->input('id_list');
 
             if (Teacher::delMulti($id_list)) {
-                $res = array('status' => 200, "message" => "Đã xóa hết");
+                $res = array('status' => 200, "Message" => "Đã xóa hết");
             } else {
-                $res = array('status' => "204", "message" => "Có lỗi trong quá trình xủ lý !");
+                $res = array('status' => "204", "Message" => "Có lỗi trong quá trình xủ lý !");
             }
             echo json_encode($res);
         }
@@ -383,9 +383,9 @@ class UserController extends Controller
                 $user->status = $request->status;
                 $user->save();
                 if($request->status == 1){
-                    $res = array('status' => "200", "message" => "Bỏ chặn người dùng thành công");
+                    $res = array('status' => "200", "Message" => "Bỏ chặn người dùng thành công");
                 }else{
-                    $res = array('status' => "200", "message" => "Chặn người dùng thành công");
+                    $res = array('status' => "200", "Message" => "Chặn người dùng thành công");
                 }
                 echo json_encode($res);die;
             }
