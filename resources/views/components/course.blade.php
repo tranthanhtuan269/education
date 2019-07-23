@@ -104,6 +104,5 @@
         e.preventDefault()
         var teacherId = $(this).attr('data-teacher-id')
         window.location.href = `/teacher/${teacherId}`
-
     })
 </script>

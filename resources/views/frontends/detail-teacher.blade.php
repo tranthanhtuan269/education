@@ -18,11 +18,10 @@
 							<a class="btn btn-default btn-xs" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(url()->current()); ?>" target="_blank">
 								<i class="fas fa-share-alt"></i> Share Fb
 							</a>
-							<a  class="btn btn-default btn-xs" href="{{ url($info_teacher->userRole->user->facebook) }}" target="_blank">
+							<a  class="btn btn-default btn-xs" href="{{ url('/') }}/{{ $info_teacher->userRole->user->facebook }}" target="_blank">
 								<i class="fab fa-facebook-square"></i> Fb Teacher
 							</a>
-
-
+								
 							@if(Auth::check())
 								@if(Helper::getUserRoleOfTeacher($info_teacher->user_role_id) )
 									<div class="rating big">

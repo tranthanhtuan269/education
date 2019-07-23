@@ -5,11 +5,10 @@
                 <h2>Giảng viên tiêu biểu</h2>
             </div>
             @foreach ($popular_teacher as $teacher)
-            
                 @include(
                     'components.teacher', 
                     [
-                        'id' => $teacher->userRole->user->id,
+                        'id' => $teacher->id,
                         'image' => url('frontend/'.$teacher->userRole->user->avatar),
                         'name' => $teacher->userRole->user->name,
                         'expert' => $teacher->expert,
