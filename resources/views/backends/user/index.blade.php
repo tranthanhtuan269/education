@@ -832,10 +832,13 @@
         });
 
         $('#apply-all-btn').click(function (){
-            $.ajsrConfirm({
-                message: "Bạn có chắc chắn muốn xóa ?",
-                okButton: "Đồng ý",
-                onConfirm: function() {
+            Swal.fire({
+                type: 'warning',
+                text: 'Bạn có chắc chắn xóa tất cả?',
+                showCancelButton: true,
+            })
+            .then(function (result) {
+                if(result.value){  
                     var $id_list = '';
                     $.each($('.check-user'), function (key, value){
                         if($(this).prop('checked') == true) {
@@ -884,10 +887,77 @@
                             }
                         });
                         
+                    }else{
+                        Swal.fire({
+                            type: 'warning',
+                            text: 'Cần chọn ít nhất 1 tài khoản!'
+                        })
                     }
-                },
-                nineCorners: false,
-            });
+                }
+            })
+
+
+            // $.ajsrConfirm({
+            //     // message: "Bạn có chắc chắn muốn xóa ?",
+            //     // okButton: "Đồng ý",
+            //     onConfirm: function() {
+            //         var $id_list = '';
+            //         $.each($('.check-user'), function (key, value){
+            //             if($(this).prop('checked') == true) {
+            //                 $id_list += $(this).attr("data-column") + ',';
+            //             }
+            //         });
+
+            //         if ($id_list.length > 0) {
+            //             var data = {
+            //                 id_list:$id_list,
+            //                 _method:'delete'
+            //             };
+            //             $.ajaxSetup({
+            //                 headers: {
+            //                     'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
+            //                 }
+            //             });
+            //             $.ajax({
+            //                 type: "POST",
+            //                 url: "{{ url('/') }}/admincp/users/delMultiUser",
+            //                 data: data,
+            //                 success: function (response) {
+            //                     var obj = $.parseJSON(response);
+            //                     if(obj.status == 200){
+            //                         $.each($('.check-user'), function (key, value){
+            //                             if($(this).prop('checked') == true) {
+            //                                 $(this).parent().parent().hide("slow");
+            //                             }
+            //                         });
+            //                         dataTable.ajax.reload(); 
+            //                         Swal.fire({
+            //                             type: 'success',
+            //                             text: obj.Message
+            //                         })
+            //                     }
+            //                 },
+            //                 error: function (data) {
+            //                     if(data.status == 401){
+            //                         window.location.replace(baseURL);
+            //                     }else{
+            //                         Swal.fire({
+            //                             type: 'wa',
+            //                             text: errorConnect
+            //                         })
+            //                     }
+            //                 }
+            //             });
+                        
+            //         }else{
+            //             Swal.fire({
+            //                 type: 'warning',
+            //                 text: 'Cần chọn ít nhất 1 tài khoản!'
+            //             })
+            //         }
+            //     },
+            //     nineCorners: false,
+            // });
 
         });
 
