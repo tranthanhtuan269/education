@@ -19,7 +19,9 @@
 									<img class="" src="{{ url('/frontend/'.$tag->image) }}" alt="{{ $tag->name }}" height="290">
 									<div class="explore">
 										<h4 class="big-course">{{ $tag->name }}</h4>
+										@if($tag->course_count)
 										<p class="big-course">Hơn {{ $tag->course_count }} khóa học</p>
+										@endif
 									</div>
 								</a>
 							</div>
@@ -31,7 +33,9 @@
 									<img class="box-full-height" src="{{ url('/frontend/'.$tag->image) }}" alt="{{ $tag->name }}" >
 									<div class="explore">
 										<h4>{{ $tag->name }}</h4>
+										@if($tag->course_count)
 										<p>Hơn {{ $tag->course_count }} khóa học</p>
+										@endif
 									</div>
 								</a>
 							</div>

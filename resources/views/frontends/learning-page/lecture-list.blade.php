@@ -29,6 +29,9 @@
                         $video_done_in_one_section = 0;
                     @endphp
                     @foreach ($unit->videos as $video)
+                    @php
+                        // dd($video);
+                    @endphp
                         @if ($video_done_array[($video->index)-1] == 1)
                         @php
                             $video_done_in_one_section += 1;                            

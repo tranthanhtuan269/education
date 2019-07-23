@@ -1,14 +1,16 @@
 @php 
     $momentNow = new MomentPHP\MomentPHP();
     $user_role_course_instance_video = json_decode($user_role_course_instance->videos);
-    // dd($user_role_course_instance->videos);
+    // dd($user_role_course_instance_video->videos);
     $video_count = count($user_role_course_instance_video->videos);
+    // dd($video_count);
     $video_done_array = $user_role_course_instance_video->videos;
-    if(count(array_count_values($video_done_array)) < 2){
-        $video_done_count = 0;
-    }else{
-        $video_done_count = array_count_values($video_done_array)[1];
-    }
+    // dd($video_done_array);
+    if(array_search(1, $video_done_array) === false){
+		$video_done_count = 0;
+	}else{
+		$video_done_count = array_count_values($video_done_array)[1];
+	}
     $video_done_percent = (int)(($video_done_count/$video_count)*100);
     $video_urls = json_decode($main_video->url_video, true);
     // $urls = [];

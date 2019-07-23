@@ -47,7 +47,7 @@ class VideoController extends Controller
             $video->name = $request->name;
             $video->unit_id = $request->unit_id;
             $video->description = $request->description;
-            $video->index = $unit->videos_count;
+            $video->index = $unit->videos_count+1;
             $video->url_video = json_encode(['a' => 'b']);
 
             if ($request->link_video != '') {

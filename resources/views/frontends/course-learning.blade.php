@@ -135,7 +135,7 @@
 			<div class="col-sm-12">
 				<ul>
 					<li class="active">Overview</li>
-					<li><a href="javascript:;" class="go-box" data-box="box_course_content">Course Content</a></li>
+					<li><a href="javascript:;" class="go-box" data-box="box_course_content">Bài học</a></li>
 					<li><a href="javascript:;" class="go-box" data-box="box_document">Documents</a> </li>
 					{{-- <li><a href="javascript:;" class="go-box" data-box="box_question">Q & A</a></li> --}}
 				</ul>

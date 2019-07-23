@@ -130,7 +130,7 @@
                 <div class="col-sm-12">
                     <ul>
                         <li class="active"> Mô tả </li>
-                        <li><a href="javascript:;" class="go-box" data-box="box_content">Nội dung</a></li>                        
+                        <li><a href="javascript:;" class="go-box" data-box="box_content">Danh sách bài học</a></li>                        
                         <li><a href="javascript:;" class="go-box" data-box="box_requirements">Yêu cầu</a></li>
                         <li><a href="javascript:;" class="go-box" data-box="box_reviews">Đánh giá</a> </li>
                         @if (count($info_course->Lecturers()) >= 1) <li><a href="javascript:;" class="go-box" data-box="box_instructors">Thông tin giảng viên</a></li> @endif
@@ -369,7 +369,7 @@
                 </h3>
                 @if(Auth::check())
                 @if(\App\Helper\Helper::getUserRoleOfCourse($info_course->id))
-                <textarea name="content" id="editor" class="form-control" placeholder="Type the content here!"></textarea>
+                <textarea name="content" id="editor" class="form-control" placeholder="Nội dung"></textarea>
                 <div class="btn-submit text-center mt-10 mb-20">
                     <input class="btn btn-primary submit-question" type="submit" value="SUBMIT A REVIEW" id="create-comment-new"/>
                 </div>
@@ -466,7 +466,7 @@
                                             html += '</button>';
                                         html += '</div>';
                                         html += '<div id="reply-textbox-'+data.commentCourse.data.id+'" class="reply-textbox hide">';
-                                            html += '<textarea name="reply-'+data.commentCourse.data.id+'" id="reply-'+data.commentCourse.data.id+'" class="form-control" placeholder="Type the content here!"></textarea>';
+                                            html += '<textarea name="reply-'+data.commentCourse.data.id+'" id="reply-'+data.commentCourse.data.id+'" class="form-control" placeholder="Nội dung"></textarea>';
                                             html += '<div class="btn-submit text-center mt-10 mb-20">';
                                                 html += '<input class="btn btn-primary create-reply-btn" type="submit" value="SUBMIT A REPLY" id="create-reply-'+data.commentCourse.data.id+'" data-id="'+data.commentCourse.data.id+'"/>';
                                             html += '</div>';
