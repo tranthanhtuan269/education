@@ -120,8 +120,6 @@
             $(".checkout-column .percent-off").append("<span>"+Math.floor(100-(totalPrice/totalInitialPrice)*100)+"% off</span>")
         }
 
-
-
         $('.btn-remove i').on('click', function(e){
             e.stopPropagation()
             e.preventDefault()

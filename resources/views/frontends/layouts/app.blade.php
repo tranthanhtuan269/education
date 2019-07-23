@@ -664,9 +664,27 @@
 
             if(localStorage.getItem('cart') != null){
                 var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
+                var product_bought = [];
+                @if(\Auth::check())
+                    @php
+                        $bought = [];
+                        $products = [];
+                        if(\Auth::user()->bought) $bought = \json_decode(\Auth::user()->bought);
+                        if(\Auth::user()->products) $products = \json_decode(\Auth::user()->products);
+                        $product_bought = array_merge($bought,$products);
+                        foreach($product_bought as $b){
+                            echo "product_bought.push(".$b.");";
+                        }
+                    @endphp
+                @endif
 
                 $.each( number_items_in_cart, function(i, obj) {
                     $('button[data-id='+obj.id+']').remove();
+                    for(var k = 0; k < product_bought.length; k++){
+                        if(obj.id == product_bought[k]){
+                            number_items_in_cart.slice(i, 1)
+                        }
+                    }
                 });
 
                 $('.number-in-cart').text(number_items_in_cart.length);

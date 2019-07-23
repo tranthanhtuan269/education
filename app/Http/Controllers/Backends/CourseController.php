@@ -46,9 +46,18 @@ class CourseController extends Controller
         $item->updated_at           = date('Y-m-d H:i:s');
         $item->save();
 
+        $products = [];
+        $current_user = \Auth::user();
+        if (strlen($current_user->products) > 0) {
+            $products = \json_decode($current_user->products);
+        }
+        $products[] = $item->id;
+        $current_user->products = \json_encode($products);
+        $current_user->save();
+
         // save user_course
         $userCourse = new UserCourse;
-        $userCourse->user_role_id   = \Auth::user()->userRolesTeacher()->id;
+        $userCourse->user_role_id   = $current_user->userRolesTeacher()->id;
         $userCourse->course_id      = $item->id;
         $userCourse->created_at     = date('Y-m-d H:i:s');
         $userCourse->updated_at     = date('Y-m-d H:i:s');
