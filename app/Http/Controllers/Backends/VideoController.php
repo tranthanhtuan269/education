@@ -283,9 +283,9 @@ class VideoController extends Controller
                     $res = array('status' => "200", "message" => "Hủy thành công");
                 }
 
-                // $video->state = $request->state;
-                // $video->save();
-                // echo json_encode($res);die;
+                $video->state = $request->state;
+                $video->save();
+                echo json_encode($res);die;
             }
         }
 

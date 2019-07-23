@@ -191,7 +191,6 @@
                 })
             },
             sending: function(file, xhr, formData) {
-                
                 // $.each($('form').serializeArray(), function(key,value) {
                 //     formData.append(this.name, this.value);
                 // });
