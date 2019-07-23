@@ -300,7 +300,7 @@
                     <div class="col-lg-5 col-sm-4 cate-sm">
                         <form class="unica-search-boxtop navbar-form form-inline" method="GET" action="/search">
                             <input name="keyword" type="text" class="form-control unica-form" placeholder="Tìm kiếm khóa học mà bạn quan tâm" value="{{ Request::get('keyword') }}">
-                            <button type="submit" class="btn unica-btn-search"><i class="fa fa-search" aria-hidden="true"></i></button>
+                            <button type="submit" class="unica-btn-search"><i class="fa fa-search" aria-hidden="true"></i></button>
                         </form>
                     </div>
                     <div class="col-lg-4 col-sm-4 cate-sm">
