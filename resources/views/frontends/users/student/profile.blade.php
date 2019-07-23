@@ -20,17 +20,17 @@
                             <a href="#buyed" class="buyed" data-toggle="tab"><i class="fa fa-user"></i>&nbsp;&nbsp;Profile</a>
                         </li> --}}
                         <li data-toggle="modal" data-target="#myModalChangePass" data-dismiss="modal" class="pull-right">
-                            <button type="button" class="btn btn-warning">Change Password</button>
+                            <button type="button" class="btn btn-warning">Thay đổi mật khẩu</button>
                         </li>
                         <div id="myModalChangePass" class="modal fade" role="dialog" >
                             <div class="modal-dialog modal-login">
                                 <div class="modal-content">
                                     <div class="modal-header">				
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <div class="modal-title"><b>Change Password</b></div>
+                                        <div class="modal-title"><b>Thay đổi mật khẩu</b></div>
                                     </div>
                                     <div class="modal-body">
-                                        <p class="change-password-notice">Change your password here.</p>
+                                        <p class="change-password-notice">Thay đổi mật khẩu của bạn tại đây</p>
                                         <form action="" method="post">
                                             <div class="form-group">
                                                 <div class="input-group">
@@ -65,17 +65,17 @@
                                 <form id="w0" action="/dashboard/user/profile" method="post" enctype="multipart/form-data">
                                     <div class="col-md-6 col-sm-6">
                                         <div class="form-group">
-                                            <label>Choose Image</label>
+                                            <label>Chọn ảnh</label>
                                             <div class="dropzone dz-clickable" id="myDrop">
                                                 <div class="dz-default dz-message" data-dz-message="">
-                                                    <span>Drop files here to upload</span>
+                                                    <span>Kéo thả file ảnh của bạn vào đây để upload</span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-sm-6">
                                         <div class="form-group">
-                                            <label>Full name</label>
+                                            <label>Họ tên</label>
                                             <div class="form-group">
                                                 <input type="text" class="form-control" name="name" value="{{ Auth::user()->name }}">
                                             </div>
@@ -88,14 +88,14 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label>Phone</label>
+                                            <label>Số điện thoại</label>
                                             <div class="form-group">
                                                 <input type="text" class="form-control" name="phone" value="{{ Auth::user()->phone }}">
 
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label>Birthday</label>
+                                            <label>Ngày sinh</label>
                                             <div class="form-group">
                                                 <input type="text" class="form-control"  id="datepicker" name="birthday"  pattern="\d{1,2}/\d{1,2}/\d{4}" value="{{ (Auth::user()->birthday != '') ? Helper::formatDate('Y-m-d', Auth::user()->birthday, 'd/m/Y') : '' }}" autocomplete="off">
                                                 <script>
@@ -113,16 +113,16 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label>Gender</label>
+                                        <label>Giới tính</label>
                                         <div class="form-group">
                                             <select class="form-control" name="gender">
-                                                <option value="1" @if(Auth::user()->gender == 1) selected @endif>Female</option>
-                                                <option value="2" @if(Auth::user()->gender == 2) selected @endif>Male</option>
+                                                <option value="1" @if(Auth::user()->gender == 1) selected @endif>Nữ</option>
+                                                <option value="2" @if(Auth::user()->gender == 2) selected @endif>Nam</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label>Address</label>
+                                        <label>Địa chỉ</label>
                                         <div class="form-group">
                                             <textarea class="form-control" rows="4" cols="50" name="address">{{ Auth::user()->address }}</textarea>
                                         </div>
@@ -130,7 +130,7 @@
                                 </div>
                                 <div class="col-sm-12">
                                     <div class="form-group text-center" style="padding-top: 5px;">
-                                        <button class="btn btn-success" id="save-profile" type="button"><i class="fa fa-save"></i> Save</button>
+                                        <button class="btn btn-success" id="save-profile" type="button"><i class="fa fa-save"></i> Lưu</button>
                                     </div>
                                 </div>
                             </form>
@@ -249,7 +249,7 @@
 			if (!validationDate( $('#datepicker').val() )) {
                 Swal.fire({
                     type: 'warning',
-                    html: 'Field birthday is invalid!',
+                    html: 'Định dạng ngày sinh không đúng',
                 })
                 return false;
             }
@@ -346,7 +346,7 @@
         });
 
         myDropzone.on("error", function (data) {
-            $("#msg").html('<div class="alert alert-danger">There is some thing wrong, Please try again!</div>');
+            $("#msg").html('<div class="alert alert-danger">Có lỗi, làm ơn thử lại!</div>');
         });
 
         myDropzone.on("complete", function(file) {

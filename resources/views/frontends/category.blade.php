@@ -6,7 +6,7 @@
 		<div class="highlight">
 			<div class="row title">
 				<div class="col-sm-12">
-					<p>Explore topics & skills</p>	
+					<p>Khám phá những chủ đề và kỹ năng mới</p>	
 				</div>
 			</div>
 			@if (count($tags) > 0)
@@ -19,7 +19,7 @@
 									<img class="" src="{{ url('/frontend/'.$tag->image) }}" alt="{{ $tag->name }}" height="290">
 									<div class="explore">
 										<h4 class="big-course">{{ $tag->name }}</h4>
-										<p class="big-course">Over {{ $tag->course_count }} courses</p>
+										<p class="big-course">Hơn {{ $tag->course_count }} khóa học</p>
 									</div>
 								</a>
 							</div>
@@ -31,7 +31,7 @@
 									<img class="box-full-height" src="{{ url('/frontend/'.$tag->image) }}" alt="{{ $tag->name }}" >
 									<div class="explore">
 										<h4>{{ $tag->name }}</h4>
-										<p>Over {{ $tag->course_count }} courses</p>
+										<p>Hơn {{ $tag->course_count }} khóa học</p>
 									</div>
 								</a>
 							</div>

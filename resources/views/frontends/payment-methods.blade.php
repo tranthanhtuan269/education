@@ -5,8 +5,8 @@
 		<div class="row">
 			<div class="col-xs-12 clearfix title-bill-info">
 				<div class="pull-left">
-					<h2>Billing Information</h2>
-					<h3>Balance :<span> {{ number_format($user_balance, 0, '.', '.') }} ₫</span></h3>
+					<h2>Thông tin đơn hàng</h2>
+					<h3>Tài khoản :<span> {{ number_format($user_balance, 0, '.', '.') }} ₫</span></h3>
 				</div>
 				<div class="pull-right">
 					<ul class="nav nav-tabs" id="fullpageTab">
@@ -115,7 +115,7 @@
 				<div id="payTab" class="col-xs-12 tab-pane payment-method check-out-page fade in active">
 					<div class="col-sm-4 left-column">
 						<div class="cart-info">
-							<p>Your Items (<span></span>)</p>
+							<p>Khóa học (<span></span>)</p>
 						</div>
 					</div>
 					<div class="col-sm-8">
@@ -123,7 +123,7 @@
 							<span class="price-text"></span>
 						</div>
 						<div class="">
-							<a href="/cart">Edit your cart</a>
+							<a href="/cart">Chỉnh sửa đơn hàng</a>
 						</div>
 						{{-- <div class="pay-field">
 							<ul id="payTabTabs" class="nav nav-pills nav-justified">
@@ -188,17 +188,17 @@
 						<div class="pay-field" >
 							<div class="row payment" style="display:flex; align-items: center;">
 								<div class="col-sm-5">
-									<button id="btnPurchaseWBalance" class="btn btn-success btn-lg btn-block">Complete Payment</button>
+									<button id="btnPurchaseWBalance" class="btn btn-success btn-lg btn-block">Thanh toán</button>
 								</div>
 								<div class="col-sm-4 accept-terms">
-									<span>By completing your purchase you agree to these</span><a href="/terms-of-service"> Terms of Service</a>.
+									<span>Bằng việc tiến hành thanh toán, bạn đồng ý với các</span><a href="/terms-of-service"> Điều khoản và điều kiện</a> của Courdemy.
 								</div>
 								<div class="col-sm-3 text-right" style="display:flex; align-items: center;">
 									<div class="col-sm-5 text-right" style="display:flex; align-items: center; justify-content: flex-end; padding-right:0;">
 										<i class="fas fa-lock" style="font-size: xx-large"></i>
 									</div>
 									<div class="col-sm-7 text-left">
-										Secure connection
+										Kết nối bảo mật
 									</div>
 								</div>
 							</div>
@@ -211,14 +211,14 @@
 					<div class="row">
 						<div class="col-xs-12 balance">
 							<div class="row">
-								<div class="col-sm-4"><p>BALANCE:</p><p class="amount"> {{ number_format($user_balance, 0, '.', '.') }} ₫</p></div>
+								<div class="col-sm-4"><p>Số dư:</p><p class="amount"> {{ number_format($user_balance, 0, '.', '.') }} ₫</p></div>
 								<div class="col-sm-8">
 									<form>
 										<div class="form-row">
 											<div class="form-group col-sm-8">
 												<input type="text" class="form-control" id="amount-money" placeholder="Enter Your Amount of Money">
 											</div>
-											<button type="submit" class="col-sm-4 btn-confirm">Confirm</button>
+											<button type="submit" class="col-sm-4 btn-confirm">Xác nhận</button>
 										</div>
 									</form>
 								</div>
@@ -285,7 +285,7 @@
 				<div class="modal-body">
 					<div class="pay-field">
 						<ul id="payTabTabs" class="nav nav-pills nav-justified">
-							<li role="presentation" class="active"><a data-toggle="tab" href="#topUpWallet">Top up your account</a></li>
+							<li role="presentation" class="active"><a data-toggle="tab" href="#topUpWallet">Nạp tiền vào tài khoản</a></li>
 							{{-- <li role="presentation"><a data-toggle="tab" href="#payByCard">Pay directly by card</a></li> --}}
 						</ul>
 						<div class="tab-content">
@@ -293,7 +293,7 @@
 								<div class="row" style="margin: 1em 0;">
 									<div class="col-sm-4 text-center" style="">
 										<div>
-											Your Balance:
+											Tài khoản:
 										</div>
 										<div>
 											{{ number_format($user_balance, 0, '.', '.') }} ₫
@@ -301,7 +301,7 @@
 									</div>
 									<div class="col-sm-8">
 										<div class="input-group top-up-amount">
-											<span class="input-group-addon" id="topUpAmount">Amount</span>
+											<span class="input-group-addon" id="topUpAmount">Tiền muốn nạp:</span>
 											<input type="text" class="form-control" aria-describedby="topUpAmount">
 										</div>
 									</div>
@@ -539,7 +539,7 @@
 				if(cart_items.length < 1){
 					return Swal.fire({
 						type:"warning",
-						text:"Cart can't be empty!"
+						text:"Giỏ hàng không được trống!"
 					})
 				}else{
 					var request = $.ajax({
@@ -570,16 +570,16 @@
 							var htmlNot = ""
 							htmlNot += '<div class="options">'
 								htmlNot += '<div class="payment-options">'
-									htmlNot += '<button id="openTopUpModal" class="btn btn-warning">Top up your account</button>'
+									htmlNot += '<button id="openTopUpModal" class="btn btn-warning">Nạp tiền vào tài khoản</button>'
 									htmlNot += '<a href="/member-card" style="margin-left: 1em;">'
-										htmlNot += '<button class="btn btn-danger">Buy member cards</button>'
+										htmlNot += '<button class="btn btn-danger">Mua thẻ thành viên</button>'
 									htmlNot += '</a>'
 								htmlNot += '</div>'
 							htmlNot += '</div>'
 
 							return Swal.fire({
 								type: "warning",
-								text: `Your balance is not enough!`,
+								text: `Tài khoản của bạn không đủ để thực hiện giao dịch!`,
 								footer: htmlNot,
 								allowOutsideClick: false,
 								showConfirmButton: false,
@@ -592,7 +592,7 @@
 						}else{
 							return Swal.fire({
 								type:"warning",
-								text:"Order has not been created!"
+								text:"Đơn hàng không được tạo thành công!"
 							})
 						}
 					})

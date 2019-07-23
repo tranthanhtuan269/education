@@ -8,7 +8,7 @@
     <div class="row" id="box_related_course">
         <div class="col-xs-12 clearfix title-module-home">
             <div class="pull-left">
-                <h3>Related Courses</h3>
+                <h3>Khóa học liên quan</h3>
             </div>
         </div>
         <div class="col-sm-12">

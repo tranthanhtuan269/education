@@ -66,7 +66,7 @@
                     @else
                     <div class="error_search">
                         <div class="search_style">
-                            <h2>No results</h2>
+                            <h2>Không có kết quả</h2>
                         </div>
                     </div>
                     @endif

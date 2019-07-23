@@ -62,7 +62,7 @@
                                         </div>
                                         <div class="col-md-6 col-sm-6">
                                             <div class="form-group">
-                                                <label>Tên đầy đủ</label>
+                                                <label>Họ tên</label>
                                                 <div class="form-group">
                                                     <input type="text" id="muser-fullname" class="form-control" name="name" value="{{ Auth::user()->name }}">
                                                 </div>

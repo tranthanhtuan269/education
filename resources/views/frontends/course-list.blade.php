@@ -13,13 +13,13 @@
 						<div class="clearfix">
 							<button class="btn btn-remove pull-right">
 								<i class="fa fa-heart fa-lg" aria-hidden="true"></i>&nbsp;
-								<span>Remove from wishlist</span>
+								<span>Xóa khỏi danh sách mơ ước</span>
 							</button>
 							<button class="btn btn-share pull-right">
 								<i class="fa fa-share-alt" aria-hidden="true"></i>&nbsp;
 								<span>Share</span>
 							</button>
-							<span class="course-number pull-right">1.200 Courses</span>
+							<span class="course-number pull-right">1.200 khóa học</span>
 						</div>
 					</div>
 				</div>

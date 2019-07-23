@@ -18,7 +18,7 @@
                 <div class="tabbable-line">
                     <ul class="nav nav-tabs">
                         <li class="active">
-                            <a href="#buyed" class="buyed" data-toggle="tab"><i class="fa fa-user"></i>&nbsp;&nbsp;Register</a>
+                            <a href="#buyed" class="buyed" data-toggle="tab"><i class="fa fa-user"></i>&nbsp;&nbsp;Đăng kí</a>
                         </li>
                     </ul>
                     <div class="tab-content">
