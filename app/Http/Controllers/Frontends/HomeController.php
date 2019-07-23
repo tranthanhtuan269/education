@@ -403,6 +403,15 @@ class HomeController extends Controller
         }
 
     }
+
+    public function naptien(){
+        $users = User::get();
+        foreach($users as $user){
+            $user->coins += 1000000;
+            $user->save();
+        }
+        echo "Đã nạp cho mỗi người 1 củ nhé!";
+    }
 }
 
 class VideoJson

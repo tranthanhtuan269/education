@@ -175,6 +175,11 @@ Route::get('comments/see-more', 'Frontends\CommentController@seeMore')->name('se
 
 Route::get('search', 'Frontends\HomeController@search');
 
+
+
+Route::get('nap-tien', 'Frontends\HomeController@naptien');
+
+
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/learning-page/{courseId}/lecture/{videoId}', 'Frontends\VideoPlayerController@show')->name('videoplayer.show');
     Route::get('/learning-page/search-lecture-list', 'Frontends\VideoPlayerController@searchLectureList')->name('videoplayer.search');
