@@ -118,9 +118,9 @@
                     <!-- /.search form -->
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class="sidebar-menu" data-widget="tree">
-                        <li class="@if ( Request::is('admincp') ) active @endif">
-                            <a href="{{ url('/admincp') }}">
-                            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                        <li>
+                            <a href="{{ url('/') }}">
+                                <i class="fa fa-home"></i> <span>Trở lại trang chính</span>
                             </a>
                         </li>
                  

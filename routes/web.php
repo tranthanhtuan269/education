@@ -47,7 +47,7 @@ Route::get('mailable', function () {
 // BACKEND
 Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'admincp'], function () {
-        Route::get('/', 'Backends\HomeController@getAdminCp');
+        Route::get('/', 'Backends\UserController@index');
 
         // Begin Duyet khoa hoc
         Route::get('courses', 'Backends\CourseController@getCourse');
