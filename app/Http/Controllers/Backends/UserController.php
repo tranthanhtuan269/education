@@ -115,9 +115,8 @@ class UserController extends Controller
     {
         $user = User::find($id);
         if ($user) {
-            $user->name = $request->name;
-            $user->email = $request->email;
-
+            $user->name     = $request->name;
+            $user->email    = $request->email;
 
             if ($request->password != $user->password) {
                 $user->password = bcrypt(trim($request->password));
@@ -135,6 +134,7 @@ class UserController extends Controller
 
             $res = array('status' => "200", "message" => "Cập nhật thông tin thành công");
 
+            $user->save();
         } else {
             $res = array('status' => "401", "message" => "Cập nhật thông tin không thành công!");
         }
