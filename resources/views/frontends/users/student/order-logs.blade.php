@@ -28,11 +28,11 @@
                                 <table class="table table-bordered" id="order-table">
                                     <thead class="thead-custom">
                                         <tr>
-                                            <th scope="col">Code</th>
-                                            <th scope="col">Total price</th>
-                                            <th scope="col">Total price hide</th>
-                                            <th scope="col">Status</th>
-                                            <th scope="col">Created at</th>
+                                            <th scope="col">Mã</th>
+                                            <th scope="col">Tổng giá trị đơn hàng</th>
+                                            <th scope="col">Tổng giá trị ẩn</th>
+                                            <th scope="col">Trạng thái</th>
+                                            <th scope="col">Được tạo mới</th>
                                         </tr>
                                     </thead>
                                     <tbody></tbody>
@@ -49,7 +49,7 @@
                 <div class="modal-content">
                     <div class="modal-header text-center">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title" style="color: #00B7F1">Detail order</h4>
+                        <h4 class="modal-title" style="color: #00B7F1">Chi tiết đơn hàng</h4>
                     </div>
                     <div class="modal-body">
                     </div>
@@ -139,17 +139,17 @@
                 var courses          = JSON.parse(courses);
 
                 $('#show-detail-order .modal-title').html('Detail order #DH_' + id)
-                var html_data = '<table class="table"><thead><tr><th scope="col">General</th><th scope="col">Info payment</th></tr></thead><tbody>';
+                var html_data = '<table class="table"><thead><tr><th scope="col">General</th><th scope="col">Thông tin thanh toán</th></tr></thead><tbody>';
 
                 html_data += '<tr>';
                 html_data += '<td style="width:38%;">';
-                    html_data += '<table><tbody><tr><td style="width:45%;">Full name: </td><td>{{ Auth::user()->name }}</td></tr><tr><td style="width:45%;">Created at:</td><td>' + created_at + '</td></tr><tr><td>Status: </td><td style="width:45%;">' + statusOrder(status) + '</td></tr></tbody></table>';
+                    html_data += '<table><tbody><tr><td style="width:45%;">Họ tên: </td><td>{{ Auth::user()->name }}</td></tr><tr><td style="width:45%;">Created at:</td><td>' + created_at + '</td></tr><tr><td>Status: </td><td style="width:45%;">' + statusOrder(status) + '</td></tr></tbody></table>';
                 html_data += '<td style="width:62%;">';
                     html_data += '<table><tbody>';
-                    html_data += '<tr><td style="width:45%;">Address: </td><td>{{ Auth::user()->address }}</td></tr>'
+                    html_data += '<tr><td style="width:45%;">Địa chỉ: </td><td>{{ Auth::user()->address }}</td></tr>'
                     html_data += '<tr><td style="width:45%;">Email: </td><td>{{ Auth::user()->email }}</td></tr>';
-                    html_data += '<tr><td style="width:45%;">Phone: </td><td>{{ Auth::user()->phone }}</td></tr>';
-                    html_data += '<tr><td style="width:45%;">Payment: </td><td>' + payment + '</td></tr>';
+                    html_data += '<tr><td style="width:45%;">Số điện thoại: </td><td>{{ Auth::user()->phone }}</td></tr>';
+                    html_data += '<tr><td style="width:45%;">Thanh toán: </td><td>' + payment + '</td></tr>';
                     html_data += '</tbody></table>';
                 html_data += '</td>';
                 html_data += '</tr>';

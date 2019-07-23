@@ -3,13 +3,13 @@
             <div class="row">
                 <div class="col-xs-12 clearfix title-module-home">
                     <div class="pull-left">
-                        <h2>Purchased Courses</h2>
+                        <h2>Khóa học đã mua</h2>
                     </div>
                     <div class="pull-right">
                         <ul class="nav nav-tabs">
-                            <li class="active"><a data-toggle="tab" href="#best-seller">In-Progress</a></li>
-                            <li><a data-toggle="tab" href="#menu1">Recently</a></li>
-                            <li><a data-toggle="tab" href="#menu2">Gifted</a></li>
+                            <li class="active"><a data-toggle="tab" href="#best-seller">Đang được xử lý</a></li>
+                            <li><a data-toggle="tab" href="#menu1">Gần đây</a></li>
+                            <li><a data-toggle="tab" href="#menu2">Được tặng</a></li>
                         </ul>
                     </div>
                 </div>
