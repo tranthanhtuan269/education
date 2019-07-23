@@ -180,7 +180,6 @@
                 // alert(response);
             },
             accept: function(file, done) {
-                // alert(2)
                 done();
             },
             error: function(file, message, xhr){

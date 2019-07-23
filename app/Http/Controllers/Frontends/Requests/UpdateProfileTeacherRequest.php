@@ -36,6 +36,7 @@ class UpdateProfileTeacherRequest extends FormRequest
     {
         return [
             'email.regex_email'         => 'The email must be a valid email address.',
+            'email.regex_phone'         => 'The phone must be a valid.',
         ];
     }
 }
