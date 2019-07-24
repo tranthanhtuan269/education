@@ -162,10 +162,10 @@
                     $('.number-in-cart').text(cart_items.length);
 
                     localStorage.setItem('cart', JSON.stringify(cart_items))
-                    
+
                     if(cart_items.length == 0){
                         // location.reload();
-                        $(".cart-page-content").remove()
+                        $(".cart-page-content").hide()
 
                         $(".cart-page-empty").show()
                     }
