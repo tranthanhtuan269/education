@@ -680,9 +680,7 @@
                 
                 // alert(1)
                 var id_to_remove = []
-                var total_price = 0;
-                var total_real_price = 0;
-                var total_amount = 0;
+                
                 $.each( number_items_in_cart, function(i, obj) {                
                     
                     $('button[data-id='+obj.id+']').remove();
@@ -701,13 +699,7 @@
                             id_to_remove.push(obj.id)
                             $('.cart-single-item[data-parent='+obj.id+']').remove()
                         }else{
-                            total_price += obj.price
-                            total_real_price += obj.real_price
-                            total_amount++;
-                            $('#course-amount').text(total_amount);
-                            $('.current-price span').text(number_format(total_price, 0, '.', '.') + " đ");
-                            $('.initial-price span').text(number_format(total_real_price, 0, '.', '.') + " đ");
-                            $('.percent-off span').text(Math.floor(100-(total_price/total_real_price)*100) + "% off");
+                           
                         }
                     });
                 });
@@ -718,6 +710,19 @@
 
                 });                
                 $('.course-amount').text(number_items_in_cart.length)
+                $('#course-amount').text(total_amount);
+                var total_price = 0;
+                var total_real_price = 0;
+                var total_amount = 0;
+                number_items_in_cart.forEach(item => {
+                    total_price += item.price
+                    total_real_price += item.real_price
+                    total_amount++;
+                })
+                $('.current-price span').text(number_format(total_price, 0, '.', '.') + " đ");
+                $('.initial-price span').text(number_format(total_real_price, 0, '.', '.') + " đ");
+                $('.percent-off span').text(Math.floor(100-(total_price/total_real_price)*100) + "% off");
+
                 localStorage.setItem('cart',JSON.stringify(number_items_in_cart))
                 
 
