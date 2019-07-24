@@ -4,13 +4,13 @@
             <p>{{$main_video->name}}</p>
         </div>
         <div class="ln-desc-subtitle">
-            <p>Section {{$main_video->unit->index}}, Lecture {{$main_video->index}}</p>
+            <p>Phần {{$main_video->unit->index}}, Bài {{$main_video->index}}</p>
         </div>
         <div class="ln-desc-content">
         <p>{{$main_video->description}}</p>
         </div>
         <div class="ln-desc-achv">
-            <p>{{$video_done_count}} of {{$video_count}} items completed</p>
+            <p>Đã hoàn thành {{$video_done_count}} trên {{$video_count}} bài học</p>
             <div class="ln-progress-bar">
                 <div class="progress lecture-progress" style="width: 30vw">
                     <div class="progress-bar progress-bar-success" role="progressbar" style="width: {{$video_done_percent}}%" aria-valuenow="{{$video_done_percent}}" aria-valuemin="0" aria-valuemax="100"></div>
@@ -35,7 +35,7 @@
         </div>
         <br>
         <div class="ln-desc-btn-play">
-            <button class="btn btn-warning" id="lnDescBtnPlay"><i class="fas fa-play-circle"></i> Continue</button>
+            <button class="btn btn-warning" id="lnDescBtnPlay"><i class="fas fa-play-circle"></i> Tiếp tục</button>
         </div>
     </div>
 
@@ -56,28 +56,28 @@
             <div class="ln-desc-group-btn-utilities">
                 <div class="btn ln-btn-server" data-toggle='tooltip' data-placement='top' title='Servers'>
                     <i class="fas fa-server"></i>
-                    <span>&nbsp;Server Video</span>
+                    <span>&nbsp;Máy chủ video</span>
                 </div>
                 <div class="btn ln-btn-note" data-toggle='tooltip' data-placement='top' title='Note'>
                     <i class="fas fa-sticky-note"></i>
-                    <span>&nbsp;Note</span>
+                    <span>&nbsp;Ghi chú</span>
                 </div>
                 <div class="btn ln-btn-discuss" data-toggle='tooltip' data-placement='top' title='Discussion'>
                     <i class="fas fa-comments"></i>
-                    <span>&nbsp;Discussion</span>
+                    <span>&nbsp;Thảo luận</span>
                 </div>
                 <div class="btn ln-btn-file" data-toggle='tooltip' data-placement='top' title='Files'>
                     <i class="fas fa-file-alt"></i>
-                    <span>&nbsp;Files</span>
+                    <span>&nbsp;Tài liệu</span>
                 </div>
             </div>
             <div class="ln-desc-group-btn-utilities-2" data-toggle='tooltip' data-placement='top' title='Autoplay'>
                 <div class="btn ln-btn-autoplay">
-                    <span>&nbsp;Autoplay</span>
+                    <span>&nbsp;Tự động chạy</span>
                 </div>
                 <div class="btn ln-btn-report" data-toggle="modal" data-target="#playerReportModal" data-toggle='tooltip' data-placement='top' title='Report'>
                     <i class="fas fa-exclamation-circle"></i>
-                    <span>&nbsp;Report</span>
+                    <span>&nbsp;Báo lỗi</span>
                 </div>
             </div>
         </div>

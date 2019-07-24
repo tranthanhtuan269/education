@@ -45,7 +45,7 @@
                 </div>
                 @if (isset($btn_start_learning))  
                 <div class="text-center">
-                    <a href="{{ "learning-page/".$courseId."/lecture/".$learningId }}" class="btn btn-primary btn-sm btn-start-learning">Continue learning</a>
+                    <a href="{{ "learning-page/".$courseId."/lecture/".$learningId }}" class="btn btn-primary btn-sm btn-start-learning">Tiếp tục học</a>
                 </div>
                 @endif
             </div>
