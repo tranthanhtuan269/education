@@ -77,6 +77,9 @@
         }else{
             $(".cart-page-content").addClass('active')
         }
+
+        console.log(cart_items);
+        
         
         $(".cart-pre-info .course-amount").append(cart_items.length)
         cart_items.forEach((element, index) => {
@@ -89,7 +92,7 @@
                 html += '<div class="course-info">'
 
                     html += '<div class="course-name">'+element.name+'</div>'
-                    html += '<div class="lecturer-info">By '+element.lecturer+'</div>'
+                    html += '<div class="lecturer-info">Giảng viên: '+element.lecturer+'</div>'
                 html += '</div>'
                 html += '<div class="actions">'
                     html += '<div class="btn-remove"><i class="far fa-trash-alt" data-child="'+element.id+'"></i></div>'

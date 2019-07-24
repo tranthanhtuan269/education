@@ -28,7 +28,7 @@
                                 <img src="{{asset("frontend/images/ic_add_to_card.png")}}" width="20px">
                             </span>
                             <span class="text">
-                                Add to cart
+                                Thêm vào giỏ hàng
                             </span>
                         </button>
                     </div>                        
@@ -75,10 +75,10 @@
                 </div>
                 <div class="time-view">
                     <span class="time">
-                        <i class="fas fa-stopwatch"></i> {{ $course->approx_time }}h
+                        <i class="fas fa-stopwatch"></i> {{ $course->approx_time }} giờ
                     </span>
                     <span class="view pull-right">
-                        <i class="fa fa-eye" aria-hidden="true"></i> {!! number_format($course->view_count, 0, ',' , '.') !!} views
+                        <i class="fa fa-eye" aria-hidden="true"></i> {!! number_format($course->view_count, 0, ',' , '.') !!}
                     </span>
                 </div>
                 @if (isset($setup))  
@@ -117,7 +117,7 @@
                 </div>
                 @if (isset($btn_start_learning))  
                 <div class="text-center">
-                    <a href="{{ url('coming-soon') }}" class="btn btn-primary btn-sm btn-start-learning">Start Learning</a>
+                    <a href="{{ url('coming-soon') }}" class="btn btn-primary btn-sm btn-start-learning">Vào học</a>
                 </div>
                 @endif
             </div>

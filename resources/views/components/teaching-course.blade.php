@@ -48,10 +48,10 @@
                 </div>
                 <div class="time-view">
                     <span class="time">
-                        <i class="fas fa-stopwatch"></i> {{ $time }}h
+                        <i class="fas fa-stopwatch"></i> {{ $time }} giờ
                     </span>
                     <span class="view pull-right">
-                        <i class="fa fa-eye" aria-hidden="true"></i> {!! number_format($view_number, 0, ',' , '.') !!} views
+                        <i class="fa fa-eye" aria-hidden="true"></i> {!! number_format($view_number, 0, ',' , '.') !!}
                     </span>
                 </div>
                 {{-- @if (isset($setup))  

@@ -1,7 +1,7 @@
 <div class="learning-discussion">
     <div class="ln-disc-header">
         <div id="btnCloseDiscussion"><i class="fas fa-times-circle"></i></div>
-        <p>Discussion</p>
+        <p>Thảo luận</p>
         <p></p>
     </div>
     <div class="ln-disc-body">
@@ -9,7 +9,7 @@
             <div class="input-group">
                 <textarea name="content" id="discussionEditor"></textarea>
                 <div class="btn-submit">
-                    <button class="btn">Ask a question or share your opinions</button>
+                    <button class="btn">Hỏi một câu hỏi hoặc chia sẻ ý kiến của bạn</button>
                 </div>
                 <script>
                     var discussEditor;
@@ -39,9 +39,9 @@
                             @php
                                 $comment_user_role_id = $comment_video->userRole->role_id;
                             @endphp
-                            <p>{{$comment_video->userRole->user->name}} - {{ $comment_user_role_id == 1 ? "Student" : ($comment_user_role_id == 2 ? "Teacher" : "Affliate") }}    
+                            <p>{{$comment_video->userRole->user->name}} - {{ $comment_user_role_id == 1 ? "Học viên" : ($comment_user_role_id == 2 ? "Giảng viên" : "Tiếp thị viên") }}    
                             </p>
-                        @if ( ($momentNow->diff($comment_video->created_at, 'months')) <= 1  )
+                        @if ( ($momentNow->diff($comment_video->created_at, 'tháng trước')) <= 1  )
                             <span><i>{{$momentNow->from($comment_video->created_at)}}</i></span>                    
                         @else
                             <span><i>{{ $comment_video->created_at->format("d F Y") }}</i></span>                        
@@ -69,10 +69,10 @@
                                     <p>{{$sub_comment_video->userRole->user->name}} - 
                                     @php
                                         // 1: Student, 2:Teacher
-                                        echo $sub_comment_user_role_id == 1 ? "Student" : ($sub_comment_user_role_id == 2 ? "Teacher" : "Affliate");
+                                        echo $sub_comment_user_role_id == 1 ? "Học viên" : ($sub_comment_user_role_id == 2 ? "Giảng viên" : "Tiếp thị viên");
                                     @endphp 
                                     </p>
-                                    @if ( ($momentNow->diff($sub_comment_video->created_at, 'months')) <= 1  )
+                                    @if ( ($momentNow->diff($sub_comment_video->created_at, 'tháng trước')) <= 1  )
                                         <span><i>{{$momentNow->from($sub_comment_video->created_at)}}</i></span>                    
                                     @else
                                         <span><i>{{ $sub_comment_video->created_at->format("d F Y") }}</i></span>                        
@@ -90,9 +90,9 @@
                     @endforeach
                     
                     <div class="ln-disc-comment-input input-group" id="discSubCommentInput{{$comment_video->id}}" data-parent="{{$comment_video->id}}">
-                        <input data-child="{{$comment_video->id}}"  type="text" class="form-control" placeholder="Comment...">
+                        <input data-child="{{$comment_video->id}}"  type="text" class="form-control" placeholder="Bình luận...">
                         <span class="input-group-btn">
-                            <button data-child="{{$comment_video->id}}"  class="btn btn-default" type="button">Go</button>
+                            <button data-child="{{$comment_video->id}}"  class="btn btn-default" type="button">Gửi</button>
                         </span>
                     </div>
                 </div>
@@ -170,9 +170,9 @@
                         
                         html += '<div id="discWrapper'+ id +'" data-parent="'+ id +'" class="ln-disc-comment-wrapper collapse">';
                             html += '<div class="ln-disc-comment-input input-group" id="#discSubCommentInput'+ id +'" data-parent="'+id+'">';
-                                html += '<input id="input-'+ id +'" data-child="'+ id +'" type="text" class="form-control" placeholder="Comment...">';
+                                html += '<input id="input-'+ id +'" data-child="'+ id +'" type="text" class="form-control" placeholder="Bình luận...">';
                                 html += '<span class="input-group-btn">';
-                                    html += '<button data-child="'+ id +'" class="btn btn-default" type="button">Go</button>';
+                                    html += '<button data-child="'+ id +'" class="btn btn-default" type="button">Gửi</button>';
                                 html += '</span>';
                             html += '</div>';
                         html += '</div>';
@@ -199,7 +199,7 @@
         });
         if($('input[data-child="'+parentId+'"]').val() == ""){
             Swal.fire({
-                text:"Content cannot be empty!"
+                text:"Nội dung không được để trống!"
             })
         }else{
             var request = $.ajax({
@@ -232,7 +232,7 @@
                         html += '<div class="ln-disc-comment-right">';
                             html += '<div class="ln-disc-comment-username">';
                                 html += '<p>'+ username +' - '+ userType +'</p>';
-                                html += '<span><em>Just now</em></span>';
+                                html += '<span><em>Vừa xong</em></span>';
                             html += '</div>';
                             html += '<div class="ln-disc-comment-content">';
                                 html += '<p>'+ content +'</p>';

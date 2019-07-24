@@ -40,10 +40,10 @@
                 </div>
                 <div class="time-view">
                     <span class="time">
-                        <i class="fas fa-stopwatch"></i> {{ $course->approx_time }}h
+                        <i class="fas fa-stopwatch"></i> {{ $course->approx_time }} giờ
                     </span>
                     <span class="view pull-right">
-                        <i class="fa fa-eye" aria-hidden="true"></i> {!! number_format($course->view_number, 0, ',' , '.') !!} views
+                        <i class="fa fa-eye" aria-hidden="true"></i> {!! number_format($course->view_number, 0, ',' , '.') !!}
                     </span>
                 </div>
 
@@ -67,55 +67,55 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="exampleModalLabel">Edit {{ $course->name }} Course</h4>
+                <h4 class="modal-title" id="exampleModalLabel">Chỉnh sửa {{ $course->name }} khóa học</h4>
             </div>
             <div class="modal-body">
                 <form class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label>Choose Image</label>
+                            <label>Chọn ảnh</label>
                             <div class="dropzone dz-clickable" id="myDrop{{ $course->id }}">
                                 <div class="dz-default dz-message" data-dz-message="">
-                                    <span>Drop files here to upload</span>
+                                    <span>Tải ảnh lên</span>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="price" class="control-label">Course price:</label>
+                            <label for="price" class="control-label">Giá khóa học:</label>
                             <input type="text" class="form-control" id="course-price{{ $course->id }}" name="price" value="{{ $course->price }}">
                         </div>
                         <div class="form-group">
-                            <label for="level" class="control-label">Level:</label>
+                            <label for="level" class="control-label">Cấp độ:</label>
                             <input type="text" class="form-control" id="course-level{{ $course->id }}" name="level" value="{{ $course->level }}">
                         </div>
                         <div class="form-group">
-                            <label for="approx_time" class="control-label">Approx Time: (hours)</label>
+                            <label for="approx_time" class="control-label">Thời gian dự kiến hoàn thành: (giờ)</label>
                             <input type="text" class="form-control" id="course-approx-time{{ $course->id }}" name="approx-time" value="{{ $course->approx_time }}">
                         </div>
                     </div>
                     <div class="col-md-8">
                         <div class="form-group">
-                            <label for="name" class="control-label">Course Name:</label>
+                            <label for="name" class="control-label">Tên khóa học:</label>
                             <input type="text" class="form-control" id="course-name{{ $course->id }}" name="name" value="{{ $course->name }}">
                         </div>
                         <div class="form-group">
-                            <label for="short_description" class="control-label">Short Description:</label>
+                            <label for="short_description" class="control-label">Mô tả ngắn:</label>
                             <input type="text" class="form-control" id="short-description{{ $course->id }}" name="short-description" value="{{ $course->short_description }}">
                         </div>
                         <div class="form-group">
-                            <label for="description" class="control-label">Description:</label>
+                            <label for="description" class="control-label">Mô tả:</label>
                             <textarea id="course-description{{ $course->id }}" name="description" class="form-control" rows="5" style="margin: 0px -11.3438px 0px 0px; width: 558px; height: 150px;">{{ $course->description }}</textarea>
                         </div>
                         <div class="form-group">
-                            <label for="will-learn" class="control-label">Will Learn:</label>
+                            <label for="will-learn" class="control-label">Học viên sẽ học được:</label>
                             <input type="text" class="form-control" id="course-will-learn{{ $course->id }}" name="will-learn" value="{{ $course->will_learn }}">
                         </div>
                         <div class="form-group">
-                            <label for="requirement" class="control-label">Requirement:</label>
+                            <label for="requirement" class="control-label">Yêu cầu:</label>
                             <input type="text" class="form-control" id="course-requirement{{ $course->id }}" name="requirement" value="{{ $course->requirement }}">
                         </div>
                         <div class="form-group">
-                            <label for="category" class="control-label">Category:</label>
+                            <label for="category" class="control-label">Danh mục:</label>
                             <script type="text/javascript">
                                 $('#course-category{{ $course->id }}').multiselect();
                             </script>
@@ -137,8 +137,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" id="save-btn{{ $course->id }}">Update</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-primary" id="save-btn{{ $course->id }}">Cập nhật</button>
             </div>
         </div>
     </div>
@@ -148,8 +148,8 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <div class="btn btn-primary pull-right" id="add-unit-btn"><i class="fas fa-plus"></i> Add Unit</div>
-                <h4 class="modal-title" id="exampleModalLabel">List Unit</h4>
+                <div class="btn btn-primary pull-right" id="add-unit-btn"><i class="fas fa-plus"></i>Thêm phần học</div>
+                <h4 class="modal-title" id="exampleModalLabel">Danh sách các phần</h4>
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -168,7 +168,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
             </div>
         </div>
     </div>
@@ -395,7 +395,7 @@
                     }else{
                         Swal.fire({
                             type: 'warning',
-                            html: 'Error',
+                            html: 'Lỗi',
                         })
                     }
                 },
@@ -523,7 +523,7 @@
         });
 
         myDropzone.on("error", function (data) {
-            $("#msg").html('<div class="alert alert-danger">There is some thing wrong, Please try again!</div>');
+            $("#msg").html('<div class="alert alert-danger">Có lỗi, làm ơn thử lại!</div>');
         });
 
         myDropzone.on("complete", function(file) {
