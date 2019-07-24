@@ -123,8 +123,6 @@
             $(".checkout-column .percent-off").append("<span>"+Math.floor(100-(totalPrice/totalInitialPrice)*100)+"% off</span>")
         }
 
-
-
         $('.btn-remove i').on('click', function(e){
             e.stopPropagation()
             e.preventDefault()
@@ -166,8 +164,17 @@
                     $(".cart-pre-info .course-amount").prepend(cart_items.length)
                     $('.number-in-cart').text(cart_items.length);
 
-                    localStorage.setItem('cart', JSON.stringify(cart_items))                    
+                    localStorage.setItem('cart', JSON.stringify(cart_items))
+
+                    if(cart_items.length == 0){
+                        // location.reload();
+                        $(".cart-page-content").hide()
+
+                        $(".cart-page-empty").show()
+                    }
                 }
+                
+                
             })
             
         })
