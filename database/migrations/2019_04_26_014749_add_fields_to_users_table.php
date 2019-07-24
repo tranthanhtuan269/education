@@ -20,6 +20,7 @@ class AddFieldsToUsersTable extends Migration
             $table->string('address', 255)->nullable();
             $table->string('avatar', 255)->nullable();
             $table->longText('bought', 2000)->nullable();
+            $table->longText('products', 2000)->nullable();
             $table->integer('coins')->default(0);
             $table->date('dob')->nullable();
             $table->tinyInteger('gender')->default(1);

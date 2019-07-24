@@ -671,10 +671,67 @@
 
             if(localStorage.getItem('cart') != null){
                 var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
-
-                $.each( number_items_in_cart, function(i, obj) {
+                var product_bought = [];
+                @if(\Auth::check())
+                    @php
+                        $bought = [];
+                        $products = [];
+                        if(\Auth::user()->bought) $bought = \json_decode(\Auth::user()->bought);
+                        if(\Auth::user()->products) $products = \json_decode(\Auth::user()->products);
+                        $product_bought = array_merge($bought,$products);
+                        foreach($product_bought as $b){
+                            echo "product_bought.push(".$b.");";
+                        }
+                    @endphp
+                @endif
+                
+                // alert(1)
+                var id_to_remove = []
+                
+                $.each( number_items_in_cart, function(i, obj) {                
+                    
                     $('button[data-id='+obj.id+']').remove();
+                    // console.log(obj);
+                    
+                    
+                    // for(var k = 0; k < product_bought.length; k++){
+                    //     if(obj.id == product_bought[k]){
+                    //         console.log(`phantu thu ${k}`);
+                    //         id_to_remove.push(i)
+                    //     }
+                    // }
+                    
+                    product_bought.forEach( (element, index) => {
+                        if(element == obj.id){
+                            id_to_remove.push(obj.id)
+                            $('.cart-single-item[data-parent='+obj.id+']').remove()
+                        }else{
+                           
+                        }
+                    });
                 });
+                
+                id_to_remove.forEach(element => {
+                    var result = number_items_in_cart.filter( item => item.id != element)
+                    number_items_in_cart = result
+
+                });                
+                $('.course-amount').text(number_items_in_cart.length)
+                $('#course-amount').text(total_amount);
+                var total_price = 0;
+                var total_real_price = 0;
+                var total_amount = 0;
+                number_items_in_cart.forEach(item => {
+                    total_price += item.price
+                    total_real_price += item.real_price
+                    total_amount++;
+                })
+                $('.current-price span').text(number_format(total_price, 0, '.', '.') + " đ");
+                $('.initial-price span').text(number_format(total_real_price, 0, '.', '.') + " đ");
+                $('.percent-off span').text(Math.floor(100-(total_price/total_real_price)*100) + "% off");
+
+                localStorage.setItem('cart',JSON.stringify(number_items_in_cart))
+                
 
                 $('.number-in-cart').text(number_items_in_cart.length);
             }else{
@@ -732,7 +789,7 @@
                 // },
                 success: function (response) {
                     if(response.status == 200){
-                        location.reload();
+                        location.reload(true);
                     }else{
                         Swal.fire({
                             type: 'warning',
