@@ -677,15 +677,49 @@
                         }
                     @endphp
                 @endif
-
-                $.each( number_items_in_cart, function(i, obj) {
+                
+                // alert(1)
+                var id_to_remove = []
+                var total_price = 0;
+                var total_real_price = 0;
+                var total_amount = 0;
+                $.each( number_items_in_cart, function(i, obj) {                
+                    
                     $('button[data-id='+obj.id+']').remove();
-                    for(var k = 0; k < product_bought.length; k++){
-                        if(obj.id == product_bought[k]){
-                            number_items_in_cart.slice(i, 1)
+                    // console.log(obj);
+                    
+                    
+                    // for(var k = 0; k < product_bought.length; k++){
+                    //     if(obj.id == product_bought[k]){
+                    //         console.log(`phantu thu ${k}`);
+                    //         id_to_remove.push(i)
+                    //     }
+                    // }
+                    
+                    product_bought.forEach( (element, index) => {
+                        if(element == obj.id){
+                            id_to_remove.push(obj.id)
+                            $('.cart-single-item[data-parent='+obj.id+']').remove()
+                        }else{
+                            total_price += obj.price
+                            total_real_price += obj.real_price
+                            total_amount++;
+                            $('#course-amount').text(total_amount);
+                            $('.current-price span').text(number_format(total_price, 0, '.', '.') + " đ");
+                            $('.initial-price span').text(number_format(total_real_price, 0, '.', '.') + " đ");
+                            $('.percent-off span').text(Math.floor(100-(total_price/total_real_price)*100) + "% off");
                         }
-                    }
+                    });
                 });
+                
+                id_to_remove.forEach(element => {
+                    var result = number_items_in_cart.filter( item => item.id != element)
+                    number_items_in_cart = result
+
+                });                
+                $('.course-amount').text(number_items_in_cart.length)
+                localStorage.setItem('cart',JSON.stringify(number_items_in_cart))
+                
 
                 $('.number-in-cart').text(number_items_in_cart.length);
             }else{
@@ -743,7 +777,7 @@
                 // },
                 success: function (response) {
                     if(response.status == 200){
-                        location.reload();
+                        location.reload(true);
                     }else{
                         Swal.fire({
                             type: 'warning',
