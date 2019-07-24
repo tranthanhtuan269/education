@@ -128,7 +128,7 @@
             var dataChild = $(this).attr("data-child")
             Swal.fire({
                 type: "warning",
-                text: "Do you want to remove this course from your cart?",
+                text: "Bạn có muốn xóa khóa học khỏi giỏ hàng không?",
                 showCancelButton: true,
             }).then( (result) =>{
                 if(result.value){
@@ -182,7 +182,7 @@
             if(coupon.length < 1){
                 return Swal.fire({
                     type:"warning",
-                    text:"Coupon can't be empty!"
+                    text:"Chưa có mã khuyến mại!"
                 })
             }else{
                 var request = $.ajax({
@@ -230,7 +230,7 @@
             if(cart_items.length < 1){
                 return Swal.fire({
                     type:"warning",
-                    text:"Cart can't be empty!"
+                    text:"Giỏ hàng đang trống!"
                 })
             }else{
                 var request = $.ajax({

@@ -22,7 +22,7 @@
                         </div>
                         <div class="network pull-right network-reponsive">
                             <a class="btn btn-default btn-xs" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(url()->current()); ?>" target="_blank">
-                                <i class="fas fa-share-alt"></i> Share
+                                <i class="fas fa-share-alt"></i> Chia sẻ
                             </a>
                             <a class="btn btn-default btn-xs" href="https://www.facebook.com/canhchimcodon26988" target="_blank">
                                 <i class="fab fa-facebook-square"></i> Facebook
@@ -195,7 +195,7 @@
             @if (count($info_course->tags) > 0)
                 <div class="skill clearfix my-30px">
                     <div class="col-xs-12">
-                        <h3>Skills you'll again</h3>
+                        <h3>Các mục liên quan</h3>
                         <ul class="row row-centered">
                             @foreach ($info_course->tags as $key => $tag)
                             <?php
