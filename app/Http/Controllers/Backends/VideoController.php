@@ -264,10 +264,10 @@ class VideoController extends Controller
                     $path_720 = "/usr/local/WowzaStreamingEngine-4.7.7/content/720/".$video->link_video;
                     $path_1080 = "/usr/local/WowzaStreamingEngine-4.7.7/content/1080/".$video->link_video;
 
-                    $content_path_360 = "vod/_definst_/1080/".$video->link_video;
-                    $content_path_480 = "vod/_definst_/720/".$video->link_video;
-                    $content_path_720 = "vod/_definst_/480/".$video->link_video;
-                    $content_path_1080 = "vod/_definst_/360/".$video->link_video;
+                    $content_path_360 = "vod/_definst_/360/".$video->link_video;
+                    $content_path_480 = "vod/_definst_/480/".$video->link_video;
+                    $content_path_720 = "vod/_definst_/720/".$video->link_video;
+                    $content_path_1080 = "vod/_definst_/1080/".$video->link_video;
 
                     $json = '{"360": "'.$content_path_360.'", "480": "'.$content_path_480.'", "720": "'.$content_path_720.'", "1080": "'.$content_path_1080.'"}';
                     // echo json_encode($json);die;
