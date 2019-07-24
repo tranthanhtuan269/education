@@ -445,6 +445,55 @@ ul.unica-acc-zone li.special:hover a{color:#fff}
   z-index: 3;
 }
 
+.feature-course .top-feature-course{
+  position: relative;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+.feature-course .top-feature-course .course-info{
+  /* background-color: rgba(0,0,0,0.5); */
+  background: linear-gradient(to bottom,rgba(0,0,0,0),rgba(0,0,0,1));
+  float: none;
+  margin: 0;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 100px 20px 20px 20px;
+  z-index: 2;
+  color: #fff;
+  box-sizing: border-box;
+}
+.feature-course .top-feature-course .course-info-author{
+    padding-bottom: 10px;
+}
+.feature-course .top-feature-course .course-info-author img{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-bottom:-18px;
+}
+.feature-course .top-feature-course .course-info-author .info-author-name{
+  /* padding-bottom: 18px; */
+  padding-left: 5px;
+  /* margin-right: 20px; */
+}
+.feature-course .top-feature-course h3 a{
+  color: #fff;
+}
+.feature-course .top-feature-course h5 {
+  font-size: 16px;
+  font-weight: bold;
+}
+.feature-course .top-feature-course .course-detail div{
+  display: inline-block;
+}
+.feature-course .top-feature-course .course-detail .course-info-price{
+  margin-left: 60px;
+}
+.feature-course .course-info .course-detail{
+  padding-top:10px;
+}
 
 footer{font-weight:500;background:url(../images/bg-footer.png) no-repeat;background-size:100% 100%}
 footer .img-logo{padding:30px 0}

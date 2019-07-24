@@ -8,27 +8,57 @@
             </div>
             @if (isset($feature_course[0]))
             <div class="col-sm-7 mt-xs-120px">
-                <a href="{{ url('/') }}/course/{{ $feature_course[0]->slug }}" title="{{ $feature_course[0]->name }}">
-                    <img  alt="{{ $feature_course[0]->name }}" src="{{ asset('frontend/images/'.$feature_course[0]->image) }}" height="390">
+                <a href="{{ url('/') }}/course/{{ $feature_course[0]->slug }}">
+                    <div class="top-feature-course" style="background-image:url({{ asset('frontend/images/'.$feature_course[0]->image) }}); width: 100%; height:390">
+                        <div class="course-info">
+                        <h3>{{ $feature_course[0]->name }}</h3>
+                            <div class="course-detail">
+                                <div class="course-info-author">
+                                    <img src="{{url('frontend/'.$feature_course[0]->Lecturers()[0]->user->avatar)}}" alt="">
+                                    <span class="info-author-name">Giảng viên:<b> {{$feature_course[0]->Lecturers()[0]->user->name}}</b></span>
+                                </div>
+                                
+                                <div class="course-info-price">Học phí: <b style="font-size:20px">{{ $feature_course[0]->price }} ₫</b></div>
+                            </div>
+
+                            <!-- <h3>{{ $feature_course[0]->name }}</h3> -->
+                        </div>
+                    </div>
+                    <!-- <a href="{{ url('/') }}/course/{{ $feature_course[0]->slug }}" title="{{ $feature_course[0]->name }}">
+                        <img  alt="{{ $feature_course[0]->name }}" src="{{ asset('frontend/images/'.$feature_course[0]->image) }}" height="390">
+                    </a> -->
                 </a>
             </div>
             @endif
 
             <div class="col-sm-5">
                 @if (isset($feature_course[1]))
-                <div class="img-top">
-                    <a href="{{ url('/') }}/course/{{ $feature_course[1]->slug }}" title="{{ $feature_course[1]->name }}">
-                        <img  alt="{{ $feature_course[1]->name }}" src="{{ asset('frontend/images/'.$feature_course[1]->image) }}" height="187">
-                    </a>
-                </div>
+                <a href="{{ url('/') }}/course/{{ $feature_course[1]->slug }}">
+                    <div class="img-top">
+                        <!-- <a href="{{ url('/') }}/course/{{ $feature_course[1]->slug }}" title="{{ $feature_course[1]->name }}">
+                            <img  alt="{{ $feature_course[1]->name }}" src="{{ asset('frontend/images/'.$feature_course[1]->image) }}" height="187">
+                        </a> -->
+                        <div class="top-feature-course" style="background-image:url({{ asset('frontend/images/'.$feature_course[1]->image) }}); width: 100%; height:187">
+                            <div class="course-info">
+                                <h5>{{ $feature_course[1]->name }}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </a>
                 @endif
 
                 @if (isset($feature_course[2]))
-                <div class="img-bottom">
-                        <a href="{{ url('/') }}/course/{{ $feature_course[2]->slug }}" title="{{ $feature_course[2]->name }}">
-                            <img  alt="{{ $feature_course[2]->name }}" src="{{ asset('frontend/images/'.$feature_course[2]->image) }}" height="187">
-                        </a>
-                </div>
+                <a href="{{ url('/') }}/course/{{ $feature_course[2]->slug }}">
+                    <div class="img-bottom">
+                            <!-- <a href="{{ url('/') }}/course/{{ $feature_course[2]->slug }}" title="{{ $feature_course[2]->name }}">
+                                <img  alt="{{ $feature_course[2]->name }}" src="{{ asset('frontend/images/'.$feature_course[2]->image) }}" height="187">
+                            </a> -->
+                        <div class="top-feature-course" style="background-image:url({{ asset('frontend/images/'.$feature_course[2]->image) }}); width: 100%; height:187">
+                        <div class="course-info">
+                            <h5>{{ $feature_course[2]->name }}</h5>
+                        </div>
+                    </div>
+                </a>
                 @endif
 
             </div>
