@@ -78,14 +78,21 @@
                     // }
                 ?>
                 <div class="price-course">
-                    <span class="price line-through">
-                        {!! number_format($course->real_price, 0, ',' , '.') !!}đ
-                    </span>
-                    @if ($course->real_price != $course->price)
-                    <span class="sale pull-right">
-                        {!! number_format($course->price, 0, ',' , '.') !!}đ
-                    </span>                        
+                    @if ($course->price == $course->real_price)
+                        <span class="sale text-right">
+                            {!! number_format($course->real_price, 0, ',' , '.') !!}đ
+                        </span> 
+                    @else
+                        <span class="price line-through">
+                            {!! number_format($course->real_price, 0, ',' , '.') !!}đ
+                        </span>
+                        @if ($course->real_price != $course->price)
+                        <span class="sale pull-right">
+                            {!! number_format($course->price, 0, ',' , '.') !!}đ
+                        </span>                        
+                        @endif
                     @endif
+
                 </div>
                 @if (isset($btn_start_learning))  
                 <div class="text-center">
