@@ -97,10 +97,11 @@ class Helper
         return $demanding_user_course;
     }
 
-    public static function convertVideoToMultiResolution($video, $resolution){
+    public static function convertVideoToMultiResolution($video, $resolution, $path_video){
         $t=time();
         $input = public_path('/uploads/videos/').$video;
-        $output = "/usr/local/WowzaStreamingEngine-4.7.7/content/".$video;
+        $output = $path_video;
+        // $output = "/usr/local/WowzaStreamingEngine-4.7.7/content/".$video;
         $block_txt = public_path('/uploads/block_'.$t.'.txt');
 
         $format = 'mp4';

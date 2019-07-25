@@ -4,6 +4,9 @@
 <title>Facebook Login JavaScript Example</title>
 <meta charset="UTF-8">
 </head>
+@php
+    phpinfo();
+@endphp
 <body>
         <div id="fb-root"></div>
         <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&autoLogAppEvents=1&version=v3.3&appId=484211768813006"></script>
