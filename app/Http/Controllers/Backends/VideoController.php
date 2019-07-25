@@ -367,6 +367,11 @@ class VideoController extends Controller
 
     public function testVideo(){
         $video = Video::find(1);
+
+        $path_360 = "/usr/local/WowzaStreamingEngine-4.7.7/content/360/".$video->link_video;
+
+        dispatch(new ProcessLecture($path_360, $video->id, $video->link_video, 360));
+
         // Helper::convertVideoToMultiResolution($video->link_video, 480);
         dispatch(new ProcessLecture($video->link_video, 480));
     }
