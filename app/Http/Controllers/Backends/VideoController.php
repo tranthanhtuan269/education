@@ -366,7 +366,7 @@ class VideoController extends Controller
     }
 
     public function testVideo(){
-        $video = Video::find(157);
+        $video = Video::find(1);
         // Helper::convertVideoToMultiResolution($video->link_video, 480);
         dispatch(new ProcessLecture($video->link_video, 480));
     }
