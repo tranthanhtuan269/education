@@ -14,10 +14,10 @@ class ProcessLecture implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    protected $path_video;
-    protected $video_id;
-    protected $video;
-    protected $resolution;
+    public $path_video;
+    public $video_id;
+    public $video;
+    public $resolution;
     /**
      * Create a new job instance.
      *
