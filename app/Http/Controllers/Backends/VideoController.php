@@ -367,6 +367,7 @@ class VideoController extends Controller
 
     public function testVideo(){
         $video = Video::find(1);
+        dd($video);
 
         $path_360 = "/usr/local/WowzaStreamingEngine-4.7.7/content/360/".$video->link_video;
 
