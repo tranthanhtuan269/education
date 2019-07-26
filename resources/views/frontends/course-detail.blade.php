@@ -146,14 +146,18 @@
                             {!! $info_course->description !!}
                         </p>
                     </div>
-                    <?php $will_learn = json_decode($info_course->will_learn); ?>
-                    @if ($will_learn != '')
+                    @php
+                        $will_learn = $info_course->will_learn;
+                        $will_learn = json_decode($will_learn);
+                    @endphp
+                    @if ($will_learn != null)
+                    
                     <div class="knowledge clearfix">
                         <h3>Bạn sẽ học được gì</h3>
                         <ul class="row">
                                 @foreach ($will_learn as $will)                            
                                 <li class="col-lg-6">
-                                    <img src="{{ asset('frontend/images/ic_check.png') }}" alt="" /> {!! $will !!}
+                                    <img src="{{ asset('frontend/images/ic_check.png') }}" alt="" /> {!! trim($will) !!}
                                 </li>
                                 @endforeach
                             </ul>

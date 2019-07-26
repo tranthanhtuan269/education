@@ -30,12 +30,17 @@ class CourseController extends Controller
             $img_link = $file_name;
         }
 
+        if($request->will_learn){
+            $will_learn = explode(",", $request->will_learn);
+            $will_learn = \json_encode($will_learn);
+        }
+
         $item = new Course;
         $item->name                 = $request->name;
         $item->image                = $img_link;
         $item->short_description    = $request->short_description;
         $item->description          = $request->description;
-        $item->will_learn           = $request->will_learn;
+        $item->will_learn           = $will_learn;
         $item->requirement          = $request->requirement;
         $item->price                = $request->price;
         $item->real_price           = $request->price;
@@ -91,11 +96,16 @@ class CourseController extends Controller
                     $img_link = $file_name;
                 }
 
+                if($request->will_learn){
+                    $will_learn = explode(",", $request->will_learn);
+                    $will_learn = \json_encode($will_learn);
+                }
+
                 $item->name                 = $request->name;
                 $item->image                = $img_link;
                 $item->short_description    = $request->short_description;
                 $item->description          = $request->description;
-                $item->will_learn           = $request->will_learn;
+                $item->will_learn           = $will_learn;
                 $item->requirement          = $request->requirement;
                 $item->price                = $request->price;
                 $item->real_price           = $request->price;
