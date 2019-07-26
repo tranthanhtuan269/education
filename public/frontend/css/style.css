@@ -520,7 +520,8 @@ input.cropit-image-zoom-input {
 }
 
 .image-cropit-editor{
-  margin-left: 50px;
+  margin-left: 30px;
+  /* margin-top: 20px; */
 }
 .image-cropit-editor #image-cropper{
   width: 280px;

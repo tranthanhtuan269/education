@@ -76,11 +76,10 @@
                                                 </div>
                                             </div> -->
                                             <div class="row">
-                                                <br>
-                                                <div class="col-sm-4 text-center">
-                                                    <img src="{{ asset('frontend/'.(Auth::user()->avatar != '' ? Auth::user()->avatar : 'images/avatar.jpg')) }}" alt="avatar" width="150">
+                                                <div class="col-md-4 text-center">
+                                                    <img src="{{ asset('frontend/'.(Auth::user()->avatar != '' ? Auth::user()->avatar : 'images/avatar.jpg')) }}" alt="avatar" width="150" style="margin-bottom: 20px">
                                                 </div>
-                                                <div class="col-sm-8">
+                                                <div class="col-md-8">
                                                     <div class="image-cropit-editor">
                                                         <div id="image-cropper">
                                                             <div class="cropit-preview text-center">
