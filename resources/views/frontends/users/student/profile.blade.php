@@ -1,6 +1,10 @@
 @extends('frontends.layouts.app') 
 @section('content')
 
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<script src="{{ url('/') }}/frontend/js/jquery.cropit.js"></script>
+<!-- <script src="{{ url('/') }}/frontend/js/validate-image.js"></script> -->
+
 <div class="u-dashboard-top" style="background-image:  url({{ url('frontend/images/bg-db-user.jpg') }});">
     <div class="container">
         <div class="row">
@@ -65,10 +69,45 @@
                                 <form id="w0" action="/dashboard/user/profile" method="post" enctype="multipart/form-data">
                                     <div class="col-md-6 col-sm-6">
                                         <div class="form-group">
-                                            <label>Chọn ảnh</label>
-                                            <div class="dropzone dz-clickable" id="myDrop">
+                                            <label>Ảnh đại diện</label>
+                                            <!-- <div class="dropzone dz-clickable" id="myDrop">
                                                 <div class="dz-default dz-message" data-dz-message="">
-                                                    <span>Kéo thả file ảnh của bạn vào đây để upload</span>
+                                                    <span>Tải lên ảnh của bạn</span>
+                                                </div>
+                                            </div> -->
+                                            <div class="row">
+                                                <br>
+                                                <div class="col-sm-4 text-center">
+                                                    <img src="{{ asset('frontend/'.(Auth::user()->avatar != '' ? Auth::user()->avatar : 'images/avatar.jpg')) }}" alt="avatar" width="150">
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <div class="image-cropit-editor">
+                                                        <div id="image-cropper">
+                                                            <div class="cropit-preview text-center">
+                                                            <img class="sample-avatar" src="http://www.auroracl.com/template/resources/images/news/quote1494914715.png" alt="sample avatar">
+                                                            </div>
+                                                            <br>
+                                                            <div class="text-center">
+                                                                <div class="note">(Kích thước nhỏ nhất: 250x250)</div>
+                                                            </div>
+                                                            <input type="range" class="cropit-image-zoom-input" />
+                                                            <!-- The actual file input will be hidden -->
+                                                            <div class="text-center">
+                                                                <b>Xoay ảnh:</b>&nbsp;
+                                                                <span class="rotate-ccw-btn"> <i class="fas fa-undo"></i> </span>&nbsp;
+                                                                <span class="rotate-cw-btn"> <i class="fas fa-redo"></i> </span>
+                                                            </div>
+                                                            <input type="file" class="cropit-image-input" style="visibility:hidden" value="" id="image-file-input"/>
+                                                            <!-- And clicking on this button will open up select file dialog -->
+
+                                                            <div class="text-center">
+                                                                <div class="btn btn-primary select-image-btn"><i class="fas fa-image fa-fw"></i> Tải lên ảnh đại diện</div>
+                                                                <br>
+                                                                <br>
+                                                                <!-- <div class="btn btn-success export-image">Cắt ảnh</div> -->
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -144,238 +183,65 @@
 </div>
 <script src="{{ asset('frontend/js/dropzone.js') }}"></script>
 <script>
-    Dropzone.autoDiscover = false;
-    $(document).ready(function(){
-        $('body').on('click','.dz-image-preview',function(){
-            $("#myDrop").trigger("click");
-        });
-
-        $('.reorder').on('click',function(){
-            $("ul.nav").sortable({ tolerance: 'pointer' });
-            $('.reorder').html('Save Reordering');
-            $('.reorder').attr("id","updateReorder");
-            $('#reorder-msg').slideDown('');
-            $('.img-link').attr("href","javascript:;");
-            $('.img-link').css("cursor","move");
-        });
-
-        var link_base64;
-        var myDropzone = new Dropzone("div#myDrop", 
-        { 
-            paramName: "files", // The name that will be used to transfer the file
-            addRemoveLinks: true,
-            uploadMultiple: false,
-            autoProcessQueue: true,
-            parallelUploads: 50,
-            maxFilesize: 5, // MB
-            thumbnailWidth:"200",
-            thumbnailHeight:"200",
-            acceptedFiles: ".png, .jpeg, .jpg, .gif",
-            url: "{{ url('upload-image') }}",
-            headers: {
-                'X-CSRF-TOKEN': "{{ csrf_token() }}"
-            },
-
-            success: function(file, response){
-                // alert(response);
-            },
-            accept: function(file, done) {
-                done();
-            },
-            error: function(file, message, xhr){
-                if (xhr == null) this.removeFile(file);
-                $('.dz-image-preview').show(500);
-                Swal.fire({
-                    type: 'warning',
-                    html: message,
-                })
-            },
-            sending: function(file, xhr, formData) {
-                // $.each($('form').serializeArray(), function(key,value) {
-                //     formData.append(this.name, this.value);
-                // });
-                // data_request = formData;
-                // alert(data);
-                // console.log(formData);
-
-            },
-            init: function() {
-                var thisDropzone = this;
-                var mockFile = { name: '', size: 12345, type: 'image/jpeg' };
-                thisDropzone.emit("addedfile", mockFile);
-                thisDropzone.emit("success", mockFile);
-                thisDropzone.emit("thumbnail", mockFile, "{{ url('frontend/'.((Auth::user()->avatar != '') ? Auth::user()->avatar : 'images/avatar.jpg') ) }}")
-                // this.on("maxfilesexceeded", function(file){
-                // this.removeFile(file);
-                //     alert("No more files please!");
-                // });
-
-                this.on('addedfile', function(file) {
-                    $('.dz-image-preview').hide(500);
-                    $('.dz-progress').hide();
-                    if (this.files.length > 1) {
-                        this.removeFile(this.files[0]);
-                    }
-
-                });
-            },
-            // error: function (file, response){
-            //     alert(1);
-            //     if ($.type(response) === "string")
-            //         var message = response; //dropzone sends it's own error messages in string
-            //     else
-            //         var message = response.message;
-            //     file.previewElement.classList.add("dz-error");
-            //     _ref = file.previewElement.querySelectorAll("[data-dz-errormessage]");
-            //     _results = [];
-            //     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-            //         node = _ref[_i];
-            //         _results.push(node.textContent = message);
-            //     }
-            //     return _results;
-            // },
-
-            // reset: function () {
-            //     console.log("resetFiles");
-            //     this.removeAllFiles(true);
-            // }
-        });
-
-
-
-        $("#save-profile").click(function(){
-			// Validate Birthday
-			if (!validationDate( $('#datepicker').val() )) {
-                Swal.fire({
-                    type: 'warning',
-                    html: 'Định dạng ngày sinh không đúng',
-                })
-                return false;
-            }
-            
-            $.ajaxSetup(
-            {
-                headers:
-                {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            var birthday = $('input[name=birthday]').val().trim();
-            if (birthday != '') {
-                var data = {
-                    link_base64:link_base64,
-                    name: $('input[name=name]').val().trim(),
-                    phone: $('input[name=phone]').val().trim(),
-                    birthday: $('input[name=birthday]').val().trim(),
-                    gender: $('select[name=gender]').val(),
-                    address: $('textarea[name=address]').val().trim(),
-                };
-            } else {
-                var data = {
-                    link_base64:link_base64,
-                    name: $('input[name=name]').val().trim(),
-                    phone: $('input[name=phone]').val().trim(),
-                    gender: $('select[name=gender]').val(),
-                    address: $('textarea[name=address]').val().trim(),
-                };
-            }
-
-
-            $.ajax({
-                method: "POST",
-                url: "{{ url('user/student/profile') }}",
-                data: data,
-                dataType: 'json',
-                // beforeSend: function() {
-                //     $("#pre_ajax_loading").show();
-                // },
-                // complete: function() {
-                //     $("#pre_ajax_loading").hide();
-                // },
-                success: function (response) {
-                    if(response.status == 200){
-                        Swal.fire({
-                            type: 'success',
-                            html: response.message,
-
-                        }).then((result) => {
-                            if (result.value) {
-                                location.reload();
-                            }
-                        });
-                    }else{
-                        Swal.fire({
-                            type: 'warning',
-                            html: 'Error',
-                        })
-                    }
-                },
-                error: function (error) {
-                    var obj_errors = error.responseJSON.errors;
-                    // console.log(obj_errors)
-                    var txt_errors = '';
-                    for (k of Object.keys(obj_errors)) {
-                        txt_errors += obj_errors[k][0] + '</br>';
-                    }
-                    Swal.fire({
-                        type: 'warning',
-                        html: txt_errors,
-                    })
-                }
-            });
-
-            return;
-        });  
-
-
-        myDropzone.on("sending", function(file, xhr, formData) {
-            var filenames = [];
-            
-            $('.dz-preview .dz-filename').each(function() {
-                filenames.push($(this).find('span').text());
-            });
-            
-            formData.append('filenames', filenames);
-        });
-
-        /* Add Files Script*/
-        myDropzone.on("success", function(file, message){
-            $("#msg").html(message);
-            //setTimeout(function(){window.location.href="index.php"},200);
-        });
-
-        myDropzone.on("error", function (data) {
-            $("#msg").html('<div class="alert alert-danger">Có lỗi, làm ơn thử lại!</div>');
-        });
-
-        myDropzone.on("complete", function(file) {
-            //myDropzone.removeFile(file);
-        });
-
-        myDropzone.on('thumbnail', function(file, dataUri) {
-            link_base64 = dataUri;
-        });
-
+$(document).ready(function() {
+    $('body').on('click', '.dz-image-preview', function() {
+        $("#myDrop").trigger("click");
     });
-    
-    function changePassAjax(){
-        var data = {
-            password_old        : $('#myModalChangePass input[name=pass-old]').val(),
-            password            : $('#myModalChangePass input[name=pass-new]').val(),
-            confirmpassword     : $('#myModalChangePass input[name=confirm-pass]').val(),
-            _method:"put"
-        };
-        $.ajaxSetup(
-        {
-            headers:
-            {
+
+    $('.reorder').on('click', function() {
+        $("ul.nav").sortable({
+            tolerance: 'pointer'
+        });
+        $('.reorder').html('Save Reordering');
+        $('.reorder').attr("id", "updateReorder");
+        $('#reorder-msg').slideDown('');
+        $('.img-link').attr("href", "javascript:;");
+        $('.img-link').css("cursor", "move");
+    });
+
+    var link_base64;
+
+    $("#save-profile").click(function() {
+        link_base64 = $('#image-cropper').cropit('export');
+        // alert(link_base64)
+
+        // Validate Birthday
+        if (!validationDate($('#datepicker').val())) {
+            Swal.fire({
+                type: 'warning',
+                html: 'Định dạng ngày sinh không đúng',
+            })
+            return false;
+        }
+
+        $.ajaxSetup({
+            headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        // console.log(data);
+        var birthday = $('input[name=birthday]').val().trim();
+        if (birthday != '') {
+            var data = {
+                link_base64: link_base64,
+                name: $('input[name=name]').val().trim(),
+                phone: $('input[name=phone]').val().trim(),
+                birthday: $('input[name=birthday]').val().trim(),
+                gender: $('select[name=gender]').val(),
+                address: $('textarea[name=address]').val().trim(),
+            };
+        } else {
+            var data = {
+                link_base64: link_base64,
+                name: $('input[name=name]').val().trim(),
+                phone: $('input[name=phone]').val().trim(),
+                gender: $('select[name=gender]').val(),
+                address: $('textarea[name=address]').val().trim(),
+            };
+        }
+
         $.ajax({
             method: "POST",
-            url: '{{ url("user/change-pass-ajax") }}',
+            url: "{{ url('user/student/profile') }}",
             data: data,
             dataType: 'json',
             // beforeSend: function() {
@@ -384,8 +250,8 @@
             // complete: function() {
             //     $("#pre_ajax_loading").hide();
             // },
-            success: function (response) {
-                if(response.status == 200){
+            success: function(response) {
+                if (response.status == 200) {
                     Swal.fire({
                         type: 'success',
                         html: response.message,
@@ -395,15 +261,14 @@
                             location.reload();
                         }
                     });
-                }else{
+                } else {
                     Swal.fire({
                         type: 'warning',
-                        html: response.message,
+                        html: 'Error',
                     })
                 }
             },
-            error: function (error) {
-
+            error: function(error) {
                 var obj_errors = error.responseJSON.errors;
                 // console.log(obj_errors)
                 var txt_errors = '';
@@ -417,9 +282,122 @@
             }
         });
 
-        return false;
-    }
+        return;
+    });
+
+    $('#image-cropper').cropit();
+
+    // When user clicks select image button,
+    // open select file dialog programmatically
+    $('.select-image-btn').click(function() {
+        $('.cropit-image-input').click();
+    });
+
+    // Handle rotation
+    $('.rotate-cw-btn').click(function() {
+        $('#image-cropper').cropit('rotateCW');
+    });
+    $('.rotate-ccw-btn').click(function() {
+        $('#image-cropper').cropit('rotateCCW');
+    });
+
+    var _URL = window.URL || window.webkitURL;
+    $("#image-file-input").change(function(e) {
+        var file, img;
+        if ((file = this.files[0])) {
+            img = new Image();
+            img.onload = function() {
+                /* alert(this.width + " " + this.height); */
+                if(this.width < 250 || this.height < 250){
+                    // alert('Kích thước ảnh >= 250px');
+                    Swal.fire({
+                        type: 'warning',
+                        text: 'Yêu cầu kích thước ảnh >= 250x250!',
+                    })
+                }
+            };
+            img.onerror = function() {
+                // alert( "Tập tin không hợp lệ: " + file.type);
+                Swal.fire({
+                    type: 'warning',
+                    text: 'Tập tin không hợp lệ!',
+                })
+            };
+            img.src = _URL.createObjectURL(file);
+        }
+    });
+});
+
+// $('.cropit-image-input').change(function(){
+//     alert(1);
+// });
+// function check_upload_image(){
+
+//     console.log($('#image-cropper').cropit('export'));
+// }
+
+function changePassAjax() {
+    var data = {
+        password_old: $('#myModalChangePass input[name=pass-old]').val(),
+        password: $('#myModalChangePass input[name=pass-new]').val(),
+        confirmpassword: $('#myModalChangePass input[name=confirm-pass]').val(),
+        _method: "put"
+    };
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    // console.log(data);
+    $.ajax({
+        method: "POST",
+        url: '{{ url("user/change-pass-ajax") }}',
+        data: data,
+        dataType: 'json',
+        // beforeSend: function() {
+        //     $("#pre_ajax_loading").show();
+        // },
+        // complete: function() {
+        //     $("#pre_ajax_loading").hide();
+        // },
+        success: function(response) {
+            if (response.status == 200) {
+                Swal.fire({
+                    type: 'success',
+                    html: response.message,
+
+                }).then((result) => {
+                    if (result.value) {
+                        location.reload();
+                    }
+                });
+            } else {
+                Swal.fire({
+                    type: 'warning',
+                    html: response.message,
+                })
+            }
+        },
+        error: function(error) {
+
+            var obj_errors = error.responseJSON.errors;
+            // console.log(obj_errors)
+            var txt_errors = '';
+            for (k of Object.keys(obj_errors)) {
+                txt_errors += obj_errors[k][0] + '</br>';
+            }
+            Swal.fire({
+                type: 'warning',
+                html: txt_errors,
+            })
+        }
+    });
+
+    return false;
+} 
 </script>
+
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
 @endsection
