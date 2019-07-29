@@ -169,9 +169,6 @@ class CourseController extends Controller
     {
         $courses = Course::get();
         return datatables()->collection($courses)
-            ->addColumn('active-course', function ($course) {
-                return $course->id;
-            })
             ->addColumn('action', function ($course) {
                 return $course->id;
             })
@@ -221,21 +218,6 @@ class CourseController extends Controller
         
         $res = array('status' => "401", "message" => 'Người dùng không tồn tại.');
         echo json_encode($res);die;
-    }
-
-    public function activeCourse(Request $request)
-    {   
-        if($request->course_id){
-            $course = Course::find($request->course_id);
-            $course->featured = $request->featured;
-            $course->save();
-
-            $res = array('status' => "200", "message" => "Thay đổi thành công!");
-            echo json_encode($res);
-        }
-        
-        // $res = array('status' => "401", "message" => 'Người dùng không tồn tại.');
-        // echo json_encode($res);die;
     }
 
     public function acceptMultiCourse(Request $request)
