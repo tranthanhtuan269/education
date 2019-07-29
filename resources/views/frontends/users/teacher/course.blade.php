@@ -106,7 +106,7 @@
                             <input type="text" class="form-control" id="course-price" name="price">
                         </div>
                         <div class="form-group">
-                            <label for="level" class="control-label">Level:</label>
+                            <label for="level" class="control-label">Cấp độ:</label>
                             <input type="text" class="form-control" id="course-level" name="level">
                         </div>
                         <div class="form-group">
@@ -128,12 +128,12 @@
                             <textarea id="course-description" name="description" class="form-control" rows="5" style="margin: 0px -11.3438px 0px 0px; width: 558px; height: 150px;"></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="will-learn" class="control-label">Will Learn:</label>
-                            <input type="text" class="form-control" id="course-will-learn" name="will-learn">
+                            <label for="will-learn" class="control-label">Học viên sẽ học được:</label>
+                            <input type="text" class="form-control" id="course-will-learn" name="will-learn" placeholder="ví dụ 1, ví dụ 2, ví dụ 3">
                         </div>
                         <div class="form-group">
                             <label for="requirement" class="control-label">Yêu cầu:</label>
-                            <input type="text" class="form-control" id="course-requirement" name="requirement">
+                            <input type="text" class="form-control" id="course-requirement" name="requirement" placeholder="ví dụ 1, ví dụ 2, ví dụ 3">
                         </div>
                         <div class="form-group">
                             <label for="category" class="control-label">Danh mục:</label>

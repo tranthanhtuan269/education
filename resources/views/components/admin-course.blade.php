@@ -106,14 +106,50 @@
                             <label for="description" class="control-label">Mô tả:</label>
                             <textarea id="course-description{{ $course->id }}" name="description" class="form-control" rows="5" style="margin: 0px -11.3438px 0px 0px; width: 558px; height: 150px;">{{ $course->description }}</textarea>
                         </div>
-                        <div class="form-group">
-                            <label for="will-learn" class="control-label">Học viên sẽ học được:</label>
-                            <input type="text" class="form-control" id="course-will-learn{{ $course->id }}" name="will-learn" value="{{ $course->will_learn }}">
-                        </div>
-                        <div class="form-group">
-                            <label for="requirement" class="control-label">Yêu cầu:</label>
-                            <input type="text" class="form-control" id="course-requirement{{ $course->id }}" name="requirement" value="{{ $course->requirement }}">
-                        </div>
+                        @php
+                        $will_learns = \json_decode($course->will_learn);
+                        $requirements = \json_decode($course->requirement);
+                        @endphp
+                        @if (is_array($will_learns))
+                            @php
+                                $will_learn_string = "";
+                                foreach ($will_learns as $key => $will) {
+                                    if($key > 0){
+                                        $will_learn_string .= ",";
+                                    }
+                                    $will_learn_string .= $will;    
+                                }
+                            @endphp
+                            <div class="form-group">
+                                <label for="will-learn" class="control-label">Học viên sẽ học được:</label>                            
+                                <input type="text" class="form-control" id="course-will-learn{{ $course->id }}" name="will-learn" value="{{$will_learn_string}}">
+                            </div>
+                        @else
+                            <div class="form-group">
+                                <label for="will-learn" class="control-label">Học viên sẽ học được:</label>                            
+                                <input type="text" class="form-control" id="course-will-learn{{ $course->id }}" name="will-learn" value="{{$will_learns}}">
+                            </div>
+                        @endif
+                        @if (is_array($requirements))                            
+                            @php
+                            $requirement_string = "";
+                            foreach ($requirements as $key => $requirement) {
+                                if($key > 0){
+                                    $requirement_string .= ",";
+                                }
+                                $requirement_string .= $requirement;    
+                            }
+                            @endphp
+                            <div class="form-group">
+                                <label for="requirement" class="control-label">Yêu cầu:</label> 
+                                <input type="text" class="form-control" id="course-requirement{{ $course->id }}" name="requirement" value="{{ $requirement_string }}">
+                            </div>
+                        @else
+                            <div class="form-group">
+                                <label for="requirement" class="control-label">Yêu cầu:</label> 
+                                <input type="text" class="form-control" id="course-requirement{{ $course->id }}" name="requirement" value="{{$requirements}}">
+                            </div>
+                        @endif
                         <div class="form-group">
                             <label for="category" class="control-label">Danh mục:</label>
                             <script type="text/javascript">

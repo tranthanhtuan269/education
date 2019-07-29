@@ -24,9 +24,9 @@
                             <a class="btn btn-default btn-xs" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(url()->current()); ?>" target="_blank">
                                 <i class="fas fa-share-alt"></i> Chia sẻ
                             </a>
-                            <a class="btn btn-default btn-xs" href="https://www.facebook.com/canhchimcodon26988" target="_blank">
+                            {{-- <a class="btn btn-default btn-xs" href="https://www.facebook.com/canhchimcodon26988" target="_blank">
                                 <i class="fab fa-facebook-square"></i> Facebook
-                            </a>
+                            </a> --}}
                         </div>
                     </div>
                     <div class="frame_2">
