@@ -27,10 +27,10 @@
                                     <form action="" method="get">
                                         <div class="form-inline box-search-course">
                                             <div class="form-group box-input">
-                                                <input type="text" class="form-control" name="u-keyword" placeholder="Search course..." value="{{ Request::get('u-keyword') }}">
+                                                <input type="text" class="form-control" name="u-keyword" placeholder="Tìm kiếm khóa học..." value="{{ Request::get('u-keyword') }}">
                                             </div>
                                             <div class="form-group">
-                                                <button type="submit" class="btn btn-success">Search</button>
+                                                <button type="submit" class="btn btn-success">Tìm kiếm</button>
                                             </div>
                                         </div>
                                     </form>
