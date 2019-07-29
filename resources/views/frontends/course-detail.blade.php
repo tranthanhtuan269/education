@@ -6,6 +6,7 @@
         $info_course->vote_count = 1;
         $percent_temp = 0;
     }
+    // dd($info_course->Lecturers()->first()->teacher);
 ?>
 <div class="detail-course">
     <img class="background bg-category" src="{{ asset('frontend/images/banner_profile_teacher.png') }}">
@@ -245,17 +246,20 @@
                     <h3>Thông tin giảng viên</h3>
                 </div>
                 @foreach ($info_course->Lecturers() as $lecturer)
+                @php
+                    // dd($lecturer->teacher->expert);
+                @endphp
                 <div class="col-md-8 col-sm-10">
                     <div class="row">
                         <div class="col-sm-3 avatar-center">
-                            <a href="{{ url('/') }}/teacher/{{ $lecturer->user->id }}" title="{{ $lecturer->user->name }}" >
+                            <a href="{{ url('/') }}/teacher/{{ $lecturer->teacher->id }}" title="{{ $lecturer->user->name }}" >
                                 <img class="avatar" alt="{{ $lecturer->user->name }}" src="{{ asset('frontend/'.$lecturer->user->avatar) }}">
                             </a>
                         </div>
                         <div class="col-sm-9">
                             <div class="detail-info">
-                                <p class="name"><a href="{{ url('/') }}/teacher/{{ $lecturer->user->id }}" title="{{ $lecturer->user->name }}" >{{ $lecturer->user->name }}</a></p>
-                                <p class="expret">{{ $lecturer->expert }}</p>
+                                <p class="name"><a href="{{ url('/') }}/teacher/{{ $lecturer->teacher->id }}" title="{{ $lecturer->user->name }}" >{{ $lecturer->user->name }}</a></p>
+                                <p class="expret">{{ $lecturer->teacher->expert }}</p>
                                 <div class="frame clearfix">
                                     <div class="pull-left">
                                         <img src="{{ asset('frontend/images/ic_course.png') }}" alt="" /> 

@@ -15,16 +15,16 @@ class CategoriesTableSeeder extends Seeder
     public function run()
     {
     	$cateArr = [
-            ['Design', 0, 'fa-palette', 'banner_cat_design.png'], 
-            ['Technology', 0, 'fa-wrench', 'banner_cat_technology.png'], 
-            ['Health', 0, 'fa-book-medical', 'banner_cat_health.png'],
-            ['Kid', 0, 'fa-baby', 'banner_cat_kid.png'], 
-            ['Language', 0, 'fa-language', 'banner_cat_language.png'],
-            ['LifeStyle', 0, 'fa-tshirt', 'banner_cat_lifestyle.png'], 
+            ['Thiết kế', 0, 'fa-palette', 'banner_cat_design.png'], 
+            ['Công nghệ', 0, 'fa-wrench', 'banner_cat_technology.png'], 
+            ['Sức khoẻ, lối sống', 0, 'fa-book-medical', 'banner_cat_health.png'],
+            ['Nuôi dạy con', 0, 'fa-baby', 'banner_cat_kid.png'], 
+            ['Ngôn ngữ', 0, 'fa-language', 'banner_cat_language.png'],
+            ['Lối sống', 0, 'fa-tshirt', 'banner_cat_lifestyle.png'], 
             ['Marketing', 0, 'fa-store', 'banner_cat_marketing.png'],
-            ['Marriage', 0, 'fa-home', 'banner_cat_marriage.png'],
-            ['Personal', 0, 'fa-users', 'banner_cat_personal.png'],
-            ['Photography', 0, 'fa-camera-retro', 'banner_cat_photography.png']
+            ['Hôn nhân', 0, 'fa-home', 'banner_cat_marriage.png'],
+            ['Phong cách sống', 0, 'fa-users', 'banner_cat_personal.png'],
+            ['Nhiếp ảnh, dựng phim', 0, 'fa-camera-retro', 'banner_cat_photography.png']
         ];
 
         $subCateArr = [

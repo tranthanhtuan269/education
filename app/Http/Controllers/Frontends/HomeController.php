@@ -294,6 +294,11 @@ class HomeController extends Controller
                             $course->userRoles()->attach($user_role_id->id, ['videos' => $videoJson]);
                             $order->courses()->attach($item['id']);
                         }
+
+                        // lưu vào bảng teacher của mỗi course để tăng số lượng học viên cho mỗi teacher
+                        $teacher = $course->Lecturers()->first()->teacher;
+                        $teacher->student_count += 1;
+                        $teacher->save();
                     }
                 }
                 if ($coupon) {
@@ -307,6 +312,8 @@ class HomeController extends Controller
                 $current_user->bought = \json_encode($bought);
                 $current_user->coins = $current_user->coins - $total_price;
                 $current_user->save();
+
+
                 return \Response::json(array('status' => '201', 'message' => 'Order has been created'));
             }
             return \Response::json(array('status' => '204', 'message' => 'Order has not been created'));
