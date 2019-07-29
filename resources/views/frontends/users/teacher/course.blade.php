@@ -63,9 +63,9 @@
                                     <div class="col-xs-12">
                                         <p class="result-search-u-keyword">
                                             @if (Request::get('u-keyword'))
-                                                No results
+                                                Không tìm thấy khóa học nào!
                                             @else
-                                                Has not purchased the course on Courdemy
+                                                Bạn chưa mua khóa học nào!
                                             @endif
                                         </p>
                                     </div>
