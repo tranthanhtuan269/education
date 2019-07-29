@@ -110,14 +110,14 @@ class HomeController extends Controller
         if (\Auth::check()) {
             if ($course) {
                 $ratingCourse = RatingCourse::where('course_id', $course->id)->where('user_id', \Auth::id())->first();
-                $related_course = Course::where('category_id', $course->category_id)->limit(4)->get();
+                $related_course = Course::where('category_id', $course->category_id)->where('id','!=',$course->id)->limit(4)->get();
                 $info_course = Course::find($course->id);
                 // dd($info_course->comments[0]->likeCheckUser());
                 return view('frontends.course-detail', compact('related_course', 'info_course', 'unit', 'ratingCourse'));
             }
         } else {
             if ($course) {
-                $related_course = Course::where('category_id', $course->category_id)->limit(4)->get();
+                $related_course = Course::where('category_id', $course->category_id)->where('id','!=',$course->id)->limit(4)->get();
                 $info_course = Course::find($course->id);
                 return view('frontends.course-detail', compact('related_course', 'info_course', 'unit'));
             }
@@ -173,7 +173,8 @@ class HomeController extends Controller
         if (\Auth::check()) {
             if ($course) {
                 $ratingCourse = RatingCourse::where('course_id', $course->id)->where('user_id', \Auth::id())->first();
-                $related_courses = Course::where('status', 1)->where('category_id', $course->category_id)->limit(4)->get();
+                // $related_courses = Course::where('status', 1)->where('category_id', $course->category_id)->limit(4)->get();
+                $related_courses = Course::where('status', 1)->where('category_id', $course->category_id)->where('id','!=',$course->id)->limit(4)->get();
                 $info_course = Course::where('status', 1)->find($course->id);
                 $user_role_course_instance = Helper::getUserRoleOfCourse($course->id);
 
@@ -187,7 +188,7 @@ class HomeController extends Controller
             }
         } else {
             if ($course) {
-                $related_courses = Course::where('status', 1)->where('category_id', $course->category_id)->limit(4)->get();
+                $related_courses = Course::where('status', 1)->where('category_id', $course->category_id)->where('id','!=',$course->id)->limit(4)->get();
                 $info_course = Course::where('status', 1)->find($course->id);
                 return view('frontends.course-learning', compact('related_courses', 'info_course', 'unit'));
             }
