@@ -29,6 +29,7 @@
                             <th scope="col">Tóm tắt</th>
                             <th scope="col">Thời lượng</th>
                             <th csope="col">Giá</th>
+                            <th csope="col">Nổi bật</th>
                             <th scope="col">Update</th>
                             <th scope="col">Thao tác</th>
                         </tr>
@@ -144,6 +145,21 @@
             {
                 data:"real_price",
                 class: "real_price-field"
+            },
+            {
+                data: "active-course",
+                class: "action-field",
+                render: function(data, type, row){
+                    var html = '';
+                        if(row['featured'] == 1){
+                            html += '<a class="btn-active-course" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Đang kích hoạt" style="color:#fff;cursor: pointer;"> <i class="fa fa-check fa-fw"></i>Có</a>';
+                        }else{
+                            html += '<a class="btn-active-course" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Chưa kích hoạt" style="color:#000;cursor: pointer;"> <i class="fa fa-times fa-fw"></i>Không</a>';
+                        }
+
+                    return html;
+                },
+                orderable: false
             },
             {
                 data: "updated_at"
@@ -356,6 +372,70 @@
                                         type: 'success',
                                         text: response.message
                                     })
+                                }else{
+                                    Swal.fire({
+                                        type: 'warning',
+                                        html: response.message
+                                    })
+                                }
+                            },
+                            error: function (data) {
+                                if(data.status == 401){
+                                window.location.replace(baseURL);
+                                }else{
+                                $().toastmessage('showErrorToast', errorConnect);
+                                }
+                            }
+                        });
+                    },
+                    nineCorners: false,
+                });
+            });
+
+            $('.btn-active-course').off('click')
+            $('.btn-active-course').click(function(){
+                var _self   = $(this);
+                var id      = $(this).attr('data-id');
+                // alert(id)
+                var featured  = 1;
+                var message = "Bạn có chắc chắn muốn hủy nổi bật?";
+                if(_self.children().hasClass('fa-times')){
+                    featured = 0;
+                    message = "Bạn có chắc chắn muốn khóa học nổi bật?";
+                }
+                $.ajsrConfirm({
+                    message: message,
+                    okButton: "Đồng ý",
+                    onConfirm: function() {
+                        $.ajaxSetup({
+                            headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
+                        $.ajax({
+                            url: baseURL+"/admincp/courses/activeCourse",
+                            data: {
+                                course_id : id,
+                                featured : 1 - featured,
+                            },
+                            method: "PUT",
+                            dataType:'json',
+                            beforeSend: function(r, a){
+                                current_page = dataTable.page.info().page;
+                            },
+                            success: function (response) {
+                                if(response.status == 200){
+                                    if(_self.children().hasClass('fa-times')){
+                                        _self.find('i').removeClass('fa-check').addClass('fa-times');
+                                    }else{
+                                        _self.find('i').removeClass('fa-times').addClass('fa-check');
+                                    }
+
+                                    Swal.fire({
+                                        type: 'success',
+                                        text: response.message
+                                    })
+                                    dataTable.ajax.reload();
                                 }else{
                                     Swal.fire({
                                         type: 'warning',

@@ -57,6 +57,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('courses/inaccept-multiple-course', 'Backends\CourseController@inacceptMultiCourse');
         Route::delete('courses/delete', 'Backends\CourseController@deleteCourse');
         Route::delete('courses/delete-multiple-course', 'Backends\CourseController@deleteMultiCourse');
+        Route::put('courses/activeCourse', 'Backends\CourseController@activeCourse');
 
         // Trinhnk Duyet video
         Route::get('videos', 'Backends\VideoController@getVideo');
