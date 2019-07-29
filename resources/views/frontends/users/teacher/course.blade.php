@@ -97,7 +97,7 @@
                             <label>Chọn ảnh</label>
                             <div class="dropzone dz-clickable" id="myDrop0">
                                 <div class="dz-default dz-message" data-dz-message="">
-                                    <span>Drop files here to upload</span>
+                                    <span>Tải lên</span>
                                 </div>
                             </div>
                         </div>
@@ -106,11 +106,11 @@
                             <input type="text" class="form-control" id="course-price" name="price">
                         </div>
                         <div class="form-group">
-                            <label for="level" class="control-label">Level:</label>
+                            <label for="level" class="control-label">Cấp độ:</label>
                             <input type="text" class="form-control" id="course-level" name="level">
                         </div>
                         <div class="form-group">
-                            <label for="approx_time" class="control-label">Thời gian ước tính: (hours)</label>
+                            <label for="approx_time" class="control-label">Thời gian ước tính: (giờ)</label>
                             <input type="text" class="form-control" id="course-approx-time" name="approx-time">
                         </div>
                     </div>
@@ -128,12 +128,12 @@
                             <textarea id="course-description" name="description" class="form-control" rows="5" style="margin: 0px -11.3438px 0px 0px; width: 558px; height: 150px;"></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="will-learn" class="control-label">Will Learn:</label>
-                            <input type="text" class="form-control" id="course-will-learn" name="will-learn">
+                            <label for="will-learn" class="control-label">Học viên sẽ học được:</label>
+                            <input type="text" class="form-control" id="course-will-learn" name="will-learn" placeholder="ví dụ 1, ví dụ 2, ví dụ 3">
                         </div>
                         <div class="form-group">
                             <label for="requirement" class="control-label">Yêu cầu:</label>
-                            <input type="text" class="form-control" id="course-requirement" name="requirement">
+                            <input type="text" class="form-control" id="course-requirement" name="requirement" placeholder="ví dụ 1, ví dụ 2, ví dụ 3">
                         </div>
                         <div class="form-group">
                             <label for="category" class="control-label">Danh mục:</label>
@@ -166,55 +166,55 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="exampleModalLabel">Edit <span id="course-name"></span>Khóa học</h4>
+                <h4 class="modal-title" id="exampleModalLabel">Chỉnh sửa <span id="course-name"></span>Khóa học</h4>
             </div>
             <div class="modal-body">
                 <form class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label>Choose Image</label>
+                            <label>Chọn ảnh</label>
                             <div class="dropzone dz-clickable" id="myDrop">
                                 <div class="dz-default dz-message" data-dz-message="">
-                                    <span>Drop files here to upload</span>
+                                    <span>Tải lên</span>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="price" class="control-label">Course price:</label>
+                            <label for="price" class="control-label">Giá:</label>
                             <input type="text" class="form-control" id="course-price" name="price">
                         </div>
                         <div class="form-group">
-                            <label for="level" class="control-label">Level:</label>
+                            <label for="level" class="control-label">Cấp độ:</label>
                             <input type="text" class="form-control" id="course-level" name="level">
                         </div>
                         <div class="form-group">
-                            <label for="approx_time" class="control-label">Approx Time: (hours)</label>
+                            <label for="approx_time" class="control-label">Thời gian ước tính: (giờ)</label>
                             <input type="text" class="form-control" id="course-approx-time" name="approx-time">
                         </div>
                     </div>
                     <div class="col-md-8">
                         <div class="form-group">
-                            <label for="name" class="control-label">Course Name:</label>
+                            <label for="name" class="control-label">Tên khóa học:</label>
                             <input type="text" class="form-control" id="course-name" name="name">
                         </div>
                         <div class="form-group">
-                            <label for="short_description" class="control-label">Short Description:</label>
+                            <label for="short_description" class="control-label">Mô tả ngắn:</label>
                             <input type="text" class="form-control" id="short-description" name="short-description">
                         </div>
                         <div class="form-group">
-                            <label for="description" class="control-label">Description:</label>
+                            <label for="description" class="control-label">Mô tả:</label>
                             <textarea id="course-description" name="description" class="form-control" rows="5" style="margin: 0px -11.3438px 0px 0px; width: 558px; height: 150px;"></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="will-learn" class="control-label">Will Learn:</label>
+                            <label for="will-learn" class="control-label">Học viên sẽ học được:</label>
                             <input type="text" class="form-control" id="course-will-learn" name="will-learn">
                         </div>
                         <div class="form-group">
-                            <label for="requirement" class="control-label">Requirement:</label>
+                            <label for="requirement" class="control-label">Yêu cầu:</label>
                             <input type="text" class="form-control" id="course-requirement" name="requirement">
                         </div>
                         <div class="form-group">
-                            <label for="category" class="control-label">Category:</label>
+                            <label for="category" class="control-label">Danh mục:</label>
                             <select class="form-control" id="course-category" name="category">
                             </select>
                         </div>
@@ -222,8 +222,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" id="save-btn">Update</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-primary" id="save-btn">Tải lên</button>
             </div>
         </div>
     </div>
@@ -233,8 +233,8 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <div class="btn btn-primary pull-right btn-add-video" id="addVideoBtn" ><i class="fas fa-plus"></i> Add lecture</div>
-                <h4 class="modal-title">Lecture list</h4>
+                <div class="btn btn-primary pull-right btn-add-video" id="addVideoBtn" ><i class="fas fa-plus"></i> Thêm bài học</div>
+                <h4 class="modal-title">Danh sách bài học</h4>
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -244,7 +244,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default close-popup-lecture" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default close-popup-lecture" data-dismiss="modal">Đóng</button>
             </div>
         </div>
     </div>
@@ -254,24 +254,24 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                Add a Lecture
+                Thêm bài học
             </div>
             <div class="modal-body">
                 <div class="form-group row">
-                    <label class="col-sm-3" for="name">Name:</label>
+                    <label class="col-sm-3" for="name">Tên bài học:</label>
                     <input class="col-sm-9 form-control add-video-name" type="text" class="form-control">
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-3" for="name">Description:</label>
+                    <label class="col-sm-3" for="name">Mô tả:</label>
                     <textarea class="col-sm-9 form-control add-video-description" rows="5" class="form-control" class="form-control"></textarea>
                 </div>
                 <div class="form-group row">
                     <div class="clearfix">
-                        <label class="col-sm-3" for="name">Lecture video:</label>
+                        <label class="col-sm-3" for="name">Video bài học:</label>
                         <div class="btn-upload clearfix">
                             <span class="file-wrapper">
                               <input type="file" name="file-mp4-upload-off" id="file-mp4-upload-off">
-                              <span class="button text-uppercase" >Upload file</span>
+                              <span class="button text-uppercase" >Tải lên</span>
                             </span>
                         </div>
                     </div>
@@ -279,7 +279,7 @@
                     {{-- <input type="file" name="file-mp4-upload-off" id="file-mp4-upload-off"> --}}
                     <div class="progress">
                         <div class="progress-bar" role="progressbar" aria-valuenow="70"aria-valuemin="0" aria-valuemax="100" style="width:0%">
-                            <span class="sr-only">0% Complete</span>
+                            <span class="sr-only">Hoàn thành 0%</span>
                         </div>
                     </div>
                     <video controls="controls" src="" style="max-width:100%" class="hidden">
@@ -288,8 +288,8 @@
                 </div>                                         
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary save-add-video">Save</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button class="btn btn-primary save-add-video">Lưu</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
             </div>
         </div>
     </div>
@@ -302,30 +302,30 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                Edit Lecture: <span id="lecture-name"></span>
+                Chỉnh sửa bài học: <span id="lecture-name"></span>
             </div>
             <div class="modal-body">
                 <div class="form-group row">
-                    <label class="col-sm-3" for="name">Name:</label>
+                    <label class="col-sm-3" for="name">Tên:</label>
                     <input class="col-sm-9 form-control edit-video-name" type="text" class="form-control">
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-3" for="name">Description:</label>
+                    <label class="col-sm-3" for="name">Mô tả:</label>
                     <textarea class="col-sm-9 form-control edit-video-description" rows="5" class="form-control" class="form-control"></textarea>
                 </div>
                 <div class="form-group row">
                     <div class="clearfix">
-                        <label class="col-sm-3" for="name">Lecture video:</label>
+                        <label class="col-sm-3" for="name">Video bài học:</label>
                         <div class="btn-upload clearfix">
                             <span class="file-wrapper">
                               <input type="file" name="file-mp4-upload-off" id="file-mp4-upload-off-updated">
-                              <span class="button text-uppercase" >Upload file</span>
+                              <span class="button text-uppercase" >Tải lên</span>
                             </span>
                         </div>
                     </div>
                     <div class="progress">
                         <div class="progress-bar" role="progressbar" aria-valuenow="70"aria-valuemin="0" aria-valuemax="100" style="width:0%">
-                            <span class="sr-only">0% Complete</span>
+                            <span class="sr-only">Hoàn thành 0%</span>
                         </div>
                     </div>
                     <video controls="controls" src="" style="max-width:100%">
@@ -336,8 +336,8 @@
             </div>
 
             <div class="modal-footer">
-                <button class="btn btn-primary save-edit-video">Save</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button class="btn btn-primary save-edit-video">Lưu</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
             </div>
         </div>
     </div>
@@ -454,7 +454,7 @@
         });
 
         myDropzone.on("error", function (data) {
-            $("#msg").html('<div class="alert alert-danger">There is some thing wrong, Please try again!</div>');
+            $("#msg").html('<div class="alert alert-danger">Có lỗi, mời thử lại!</div>');
         });
 
         myDropzone.on("complete", function(file) {
@@ -807,7 +807,7 @@
                 } else {
                     Swal.fire({
                         type: 'warning',
-                        html: 'Error format.',
+                        html: 'Lỗi định dạng.',
                     })
                 }
                 $('#file-mp4-upload-off-updated').val('');
@@ -850,7 +850,7 @@
                 } else {
                     Swal.fire({
                         type: 'warning',
-                        html: 'Error format.',
+                        html: 'Lỗi định dạng.',
                     })
                 }
                 $('#file-mp4-upload-off').val('');
@@ -886,7 +886,7 @@
 
             function errorHandler(event) {
                 // alert("Upload Failed");
-                document.getElementById("status").innerHTML = "Upload Failed";
+                document.getElementById("status").innerHTML = "Tải lên thất bại";
             }
 
             function abortHandler(event) {

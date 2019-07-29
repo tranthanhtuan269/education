@@ -7,6 +7,7 @@ use App\Http\Requests\StoreCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
 use App\Course;
 use App\UserCourse;
+use Auth;
 
 
 class CourseController extends Controller
@@ -30,13 +31,23 @@ class CourseController extends Controller
             $img_link = $file_name;
         }
 
+        if($request->will_learn){
+            $will_learn = explode(",", $request->will_learn);
+            $will_learn = \json_encode($will_learn);
+        }
+
+        if($request->requirement){
+            $requirement = explode(",", $request->requirement);
+            $requirement = \json_encode($requirement);
+        }
+
         $item = new Course;
         $item->name                 = $request->name;
         $item->image                = $img_link;
         $item->short_description    = $request->short_description;
         $item->description          = $request->description;
-        $item->will_learn           = $request->will_learn;
-        $item->requirement          = $request->requirement;
+        $item->will_learn           = $will_learn;
+        $item->requirement          = $requirement;
         $item->price                = $request->price;
         $item->real_price           = $request->price;
         $item->level                = $request->level;
@@ -46,13 +57,28 @@ class CourseController extends Controller
         $item->updated_at           = date('Y-m-d H:i:s');
         $item->save();
 
-        // save user_course
+        // lưu vào trường products gồm những bài giảng user này đã đăng ký
+        $products = [];
+        $current_user = \Auth::user();
+        if (strlen($current_user->products) > 0) {
+            $products = \json_decode($current_user->products);
+        }
+        $products[] = $item->id;
+        $current_user->products = \json_encode($products);
+        $current_user->save();
+
+        // lưu vào bảng user_course
         $userCourse = new UserCourse;
-        $userCourse->user_role_id   = \Auth::user()->userRolesTeacher()->id;
+        $userCourse->user_role_id   = $current_user->userRolesTeacher()->id;
         $userCourse->course_id      = $item->id;
         $userCourse->created_at     = date('Y-m-d H:i:s');
         $userCourse->updated_at     = date('Y-m-d H:i:s');
         $userCourse->save();
+
+        //tăng lượng course cho teacher trong bảng teachers
+        $teacherInstance = Auth::user()->userRolesTeacher()->teacher;
+        $teacherInstance->course_count += 1;
+        $teacherInstance->save();
 
         return \Response::json(array('status' => '200', 'message' => 'Course has been created!'));
     }
@@ -82,12 +108,22 @@ class CourseController extends Controller
                     $img_link = $file_name;
                 }
 
+                if($request->will_learn){
+                    $will_learn = explode(",", $request->will_learn);
+                    $will_learn = \json_encode($will_learn);
+                }
+
+                if($request->requirement){
+                    $requirement = explode(",", $request->requirement);
+                    $requirement = \json_encode($requirement);
+                }
+
                 $item->name                 = $request->name;
                 $item->image                = $img_link;
                 $item->short_description    = $request->short_description;
                 $item->description          = $request->description;
-                $item->will_learn           = $request->will_learn;
-                $item->requirement          = $request->requirement;
+                $item->will_learn           = $will_learn;
+                $item->requirement          = $requirement;
                 $item->price                = $request->price;
                 $item->real_price           = $request->price;
                 $item->level                = $request->level;

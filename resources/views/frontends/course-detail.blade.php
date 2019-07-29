@@ -6,6 +6,7 @@
         $info_course->vote_count = 1;
         $percent_temp = 0;
     }
+    // dd($info_course->Lecturers()->first()->teacher);
 ?>
 <div class="detail-course">
     <img class="background bg-category" src="{{ asset('frontend/images/banner_profile_teacher.png') }}">
@@ -22,11 +23,11 @@
                         </div>
                         <div class="network pull-right network-reponsive">
                             <a class="btn btn-default btn-xs" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(url()->current()); ?>" target="_blank">
-                                <i class="fas fa-share-alt"></i> Share
+                                <i class="fas fa-share-alt"></i> Chia sẻ
                             </a>
-                            <a class="btn btn-default btn-xs" href="https://www.facebook.com/canhchimcodon26988" target="_blank">
+                            {{-- <a class="btn btn-default btn-xs" href="https://www.facebook.com/canhchimcodon26988" target="_blank">
                                 <i class="fab fa-facebook-square"></i> Facebook
-                            </a>
+                            </a> --}}
                         </div>
                     </div>
                     <div class="frame_2">
@@ -146,14 +147,18 @@
                             {!! $info_course->description !!}
                         </p>
                     </div>
-                    <?php $will_learn = json_decode($info_course->will_learn); ?>
-                    @if ($will_learn != '')
+                    @php
+                        $will_learn = $info_course->will_learn;
+                        $will_learn = json_decode($will_learn);
+                    @endphp
+                    @if ($will_learn != null)
+                    
                     <div class="knowledge clearfix">
                         <h3>Bạn sẽ học được gì</h3>
                         <ul class="row">
                                 @foreach ($will_learn as $will)                            
                                 <li class="col-lg-6">
-                                    <img src="{{ asset('frontend/images/ic_check.png') }}" alt="" /> {!! $will !!}
+                                    <img src="{{ asset('frontend/images/ic_check.png') }}" alt="" /> {!! trim($will) !!}
                                 </li>
                                 @endforeach
                             </ul>
@@ -195,7 +200,7 @@
             @if (count($info_course->tags) > 0)
                 <div class="skill clearfix my-30px">
                     <div class="col-xs-12">
-                        <h3>Skills you'll again</h3>
+                        <h3>Các mục liên quan</h3>
                         <ul class="row row-centered">
                             @foreach ($info_course->tags as $key => $tag)
                             <?php
@@ -241,17 +246,20 @@
                     <h3>Thông tin giảng viên</h3>
                 </div>
                 @foreach ($info_course->Lecturers() as $lecturer)
+                @php
+                    // dd($lecturer->teacher->expert);
+                @endphp
                 <div class="col-md-8 col-sm-10">
                     <div class="row">
                         <div class="col-sm-3 avatar-center">
-                            <a href="{{ url('/') }}/teacher/{{ $lecturer->user->id }}" title="{{ $lecturer->user->name }}" >
+                            <a href="{{ url('/') }}/teacher/{{ $lecturer->teacher->id }}" title="{{ $lecturer->user->name }}" >
                                 <img class="avatar" alt="{{ $lecturer->user->name }}" src="{{ asset('frontend/'.$lecturer->user->avatar) }}">
                             </a>
                         </div>
                         <div class="col-sm-9">
                             <div class="detail-info">
-                                <p class="name"><a href="{{ url('/') }}/teacher/{{ $lecturer->user->id }}" title="{{ $lecturer->user->name }}" >{{ $lecturer->user->name }}</a></p>
-                                <p class="expret">{{ $lecturer->expert }}</p>
+                                <p class="name"><a href="{{ url('/') }}/teacher/{{ $lecturer->teacher->id }}" title="{{ $lecturer->user->name }}" >{{ $lecturer->user->name }}</a></p>
+                                <p class="expret">{{ $lecturer->teacher->expert }}</p>
                                 <div class="frame clearfix">
                                     <div class="pull-left">
                                         <img src="{{ asset('frontend/images/ic_course.png') }}" alt="" /> 

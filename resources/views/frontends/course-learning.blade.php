@@ -48,13 +48,13 @@
 									</span>
 								@endif
 							@endif
-							<span data-toggle="modal" data-target="#editRatingModal" class="edit-rating">Edit your rating</span>
+							<span data-toggle="modal" data-target="#editRatingModal" class="edit-rating">Chỉnh sửa đánh giá của bạn</span>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-xs-9">
 							<div class="number-unit">
-								<p>{{$video_done_count}} of {{$video_count}} items complate</p>
+								<p>Bạn đã hoàn thành {{$video_done_count}}/{{$video_count}} bài học</p>
 								
 							</div>
 						</div>
@@ -95,7 +95,7 @@
 	<div class="modal-dialog modal-sm" style="margin-top: 10%">
 		<div class="modal-content">
 			<div class="modal-header text-center">
-				<span>EDIT YOUR RATING</span>
+				<span>SỬA ĐÁNH GIÁ CỦA BẠN</span>
 			</div>
 			<div class="modal-body text-center">
 				<h3>
@@ -114,13 +114,13 @@
 				<br>
 				@if (!$ratingCourse)
 					<div class="form-group">
-						<label for="review-text">Your review:</label>
+						<label for="review-text">Đánh giá của bạn:</label>
 						<textarea name="review-text" id="reviewText" cols="30" rows="10"></textarea>
 					</div>					
 				@endif
 			</div>
 			<div class="modal-footer" style="text-align:center !important;">
-				<button class="btn btn-primary" id="btnEditRating">SAVE</button>
+				<button class="btn btn-primary" id="btnEditRating">LƯU</button>
 			</div>
 		</div>
 	</div>
@@ -134,9 +134,9 @@
 		<div class="menu clearfix">
 			<div class="col-sm-12">
 				<ul>
-					<li class="active">Overview</li>
+					<li class="active">Tổng quan</li>
 					<li><a href="javascript:;" class="go-box" data-box="box_course_content">Bài học</a></li>
-					<li><a href="javascript:;" class="go-box" data-box="box_document">Documents</a> </li>
+					<li><a href="javascript:;" class="go-box" data-box="box_document">Tài liệu</a> </li>
 					{{-- <li><a href="javascript:;" class="go-box" data-box="box_question">Q & A</a></li> --}}
 				</ul>
 			</div>
@@ -148,7 +148,7 @@
 					
 					{{-- Description --}}
 					<div class="desc">
-						<h3>Description</h3>
+						<h3>Mô tả</h3>
 						<p>{!! $info_course->description !!}</p>
 					</div>
 					<div class="lessons clearfix" id="box_course_content">
@@ -157,7 +157,7 @@
 
 					{{-- Documents --}}
 					<div class="course-document" id="box_document">
-						<h3>Documents</h3>
+						<h3>Tài liệu</h3>
 						<div class="all-doc">
 							@foreach ($info_course->units as $unit)
 								@foreach ($unit->videos as $key_video => $video)
@@ -174,7 +174,7 @@
 												</div>
 												<div class="col-md-2">
 													<a target="_blank" href="{{$document->url_document}}">
-														<button class="btn btn-download-doc">Download</button>
+														<button class="btn btn-download-doc">Tải về</button>
 													</a>
 												</div>
 												<div class="col-md-2">
@@ -208,7 +208,7 @@
 							$ltr_vote_count = $lecturer->teacher->vote_count;
 						@endphp
 							<div class="teacher-info">
-								<p class="instructor">Instructor</p>
+								<p class="instructor">Giảng viên</p>
 								<img class="avatar" src="{{asset('/frontend/'.$ltr_avatar)}}" alt="Avatar">
 								<p class="name">{{$ltr_name}}</p>
 								<p class="office"><span>{{$ltr_expert}}</span></p>
@@ -217,7 +217,7 @@
 										<div class="col-xs-4">
 											<div class="course-number">
 												<i class="fa fa-book fa-lg" aria-hidden="true"></i>
-												<span>{{$ltr_course_count}} courses</span>
+												<span>{{$ltr_course_count}} khóa học</span>
 											</div>
 										</div>
 										<div class="col-xs-8">
@@ -241,14 +241,14 @@
 										<div class="col-xs-5">
 											<div class="student-number">
 												<i class="fa fa-graduation-cap fa-lg" aria-hidden="true"></i>
-												<span>{{$ltr_student_count}} Student</span>
+												<span>{{$ltr_student_count}} học viên</span>
 											</div>
 										</div>
 										<div class="col-xs-7 pull-right">
 											<div class="btn inbox">
 												<a href="mailto:teacher@example.com?Subject=Hello" target="_top">
 													<i class="fas fa-envelope fa-lg"></i>
-													<span>Inbox</span>
+													<span>Hộp thư</span>
 												</a>
 											</div>
 										</div>
@@ -270,7 +270,7 @@
 
 				{{-- Related Course --}}
 				<div class="relate-course">
-					<p class="relate-title">Related Courses</p>
+					<p class="relate-title">Khóa học liên quan</p>
 					<div class="list-course">
 						@foreach ($related_courses as $related_course)
 						@php
@@ -310,7 +310,7 @@
 @if (false)
 <div class="course-learning-question" id="box_question">
 	<div class="container">
-		<h3 class="title">Questions & Answers</h3>
+		<h3 class="title">Thảo luận</h3>
 		<div class="text-box">
 			<form>
 				<div class="form-group">

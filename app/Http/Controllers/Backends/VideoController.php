@@ -259,11 +259,17 @@ class VideoController extends Controller
             if ($video) {
                 if ($request->state == 1) {
                     // convert video to multi resolution
-                    $path_360 = public_path('/uploads/videos_output/360/').$video->link_video;
-                    $path_480 = public_path('/uploads/videos_output/480/').$video->link_video;
-                    $path_720 = public_path('/uploads/videos_output/720/').$video->link_video;
-                    $path_1080 = public_path('/uploads/videos_output/1080/').$video->link_video;
-                    $json = '{"360": "'.$path_360.'", "480": "'.$path_480.'", "720": "'.$path_720.'", "1080": "'.$path_1080.'"}';
+                    $path_360 = "/usr/local/WowzaStreamingEngine-4.7.7/content/360/".$video->link_video;
+                    $path_480 = "/usr/local/WowzaStreamingEngine-4.7.7/content/480/".$video->link_video;
+                    $path_720 = "/usr/local/WowzaStreamingEngine-4.7.7/content/720/".$video->link_video;
+                    $path_1080 = "/usr/local/WowzaStreamingEngine-4.7.7/content/1080/".$video->link_video;
+
+                    $content_path_360 = "vod/_definst_/360/".$video->link_video;
+                    $content_path_480 = "vod/_definst_/480/".$video->link_video;
+                    $content_path_720 = "vod/_definst_/720/".$video->link_video;
+                    $content_path_1080 = "vod/_definst_/1080/".$video->link_video;
+
+                    $json = '{"360": "'.$content_path_360.'", "480": "'.$content_path_480.'", "720": "'.$content_path_720.'", "1080": "'.$content_path_1080.'"}';
                     // echo json_encode($json);die;
                     // $video->url_video = $json; 
                     // $video->url_video = json_encode($json);
@@ -360,8 +366,10 @@ class VideoController extends Controller
     }
 
     public function testVideo(){
-        $video = Video::find(157);
-        // Helper::convertVideoToMultiResolution($video->link_video, 480);
-        dispatch(new ProcessLecture($video->link_video, 480));
+        $video = Video::find(1);
+
+        $path_360 = "/usr/local/WowzaStreamingEngine-4.7.7/content/360/".$video->link_video;
+
+        dispatch(new ProcessLecture($path_360, $video->id, $video->link_video, 360));
     }
 }

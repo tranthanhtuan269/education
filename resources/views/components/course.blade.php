@@ -1,7 +1,7 @@
 <?php
     if($course->vote_count == 0) $course->vote_count = 1;
     $lecturers = count($course->Lecturers()) > 1 ? 'Nhiều tác giả' : (count($course->Lecturers()) > 0 ? $course->Lecturers()[0]->user->name : "Courdemy");
-    $main_lecturer = $course->Lecturers()->first() ? $course->Lecturers()->first()->teacher->id : 0;
+    $main_lecturer = $course->Lecturers()->first() ? $course->Lecturers()->first()->user->id : 0;
     // dd($course->userRoles()->first()->teacher->id);
 ?>
 <div class="col-md-3 col-sm-6">
@@ -26,7 +26,7 @@
                                 <img src="{{asset("frontend/images/ic_add_to_card.png")}}" width="20px">
                             </span>
                             <span class="text">
-                                Add to cart
+                                Thêm vào giỏ hàng
                             </span>
                         </button>
                     </div>                        
@@ -53,10 +53,10 @@
                 </div>
                 <div class="time-view">
                     <span class="time">
-                        <i class="fas fa-stopwatch"></i> {{ $course->approx_time }}h
+                        <i class="fas fa-stopwatch"></i> {{ $course->approx_time }} giờ
                     </span>
                     <span class="view pull-right">
-                        <i class="fa fa-eye" aria-hidden="true"></i> {!! number_format($course->view_count, 0, ',' , '.') !!} views
+                        <i class="fa fa-eye" aria-hidden="true"></i> {!! number_format($course->view_count, 0, ',' , '.') !!}
                     </span>
                 </div>
                 @if (isset($setup))  
@@ -78,18 +78,25 @@
                     // }
                 ?>
                 <div class="price-course">
-                    <span class="price line-through">
-                        {!! number_format($course->real_price, 0, ',' , '.') !!}đ
-                    </span>
-                    @if ($course->real_price != $course->price)
-                    <span class="sale pull-right">
-                        {!! number_format($course->price, 0, ',' , '.') !!}đ
-                    </span>                        
+                    @if ($course->price == $course->real_price)
+                        <span class="sale text-right">
+                            {!! number_format($course->real_price, 0, ',' , '.') !!}đ
+                        </span> 
+                    @else
+                        <span class="price line-through">
+                            {!! number_format($course->real_price, 0, ',' , '.') !!}đ
+                        </span>
+                        @if ($course->real_price != $course->price)
+                        <span class="sale pull-right">
+                            {!! number_format($course->price, 0, ',' , '.') !!}đ
+                        </span>                        
+                        @endif
                     @endif
+
                 </div>
                 @if (isset($btn_start_learning))  
                 <div class="text-center">
-                    <a href="{{ url('coming-soon') }}" class="btn btn-primary btn-sm btn-start-learning">Start Learning</a>
+                    <a href="{{ url('coming-soon') }}" class="btn btn-primary btn-sm btn-start-learning">Vào học</a>
                 </div>
                 @endif
             </div>
