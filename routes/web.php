@@ -49,7 +49,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'admincp'], function () {
         Route::get('/', 'Backends\UserController@index');
 
-        // Begin Duyet khoa hoc
+        // Trinhnk Duyet khoa hoc
         Route::get('courses', 'Backends\CourseController@getCourse');
         Route::get('courses/getCourseAjax', 'Backends\CourseController@getCourseAjax');
         Route::put('courses/accept', 'Backends\CourseController@accept');
@@ -57,9 +57,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('courses/inaccept-multiple-course', 'Backends\CourseController@inacceptMultiCourse');
         Route::delete('courses/delete', 'Backends\CourseController@deleteCourse');
         Route::delete('courses/delete-multiple-course', 'Backends\CourseController@deleteMultiCourse');
-        // End Duyet khoa hoc
 
-        // Begin Duyet video
+        // Trinhnk Duyet video
         Route::get('videos', 'Backends\VideoController@getVideo');
         Route::get('videos/getVideoAjax', 'Backends\VideoController@getVideoAjax');
         Route::put('videos/accept', 'Backends\VideoController@accept');
@@ -67,24 +66,22 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('videos/inaccept-multiple-video', 'Backends\VideoController@inacceptMultiVideo');
         Route::delete('videos/delete', 'Backends\VideoController@deleteVideo');
         Route::delete('videos/delete-multiple-video', 'Backends\VideoController@deleteMultiVideo');
-        // End Duyet Video
 
-        // Block Users
+        // Trinhnk Block Users
         Route::put('users/block-user', 'Backends\UserController@blockUser');
-        // End Block User
 
-        // Begin Tang khoa hoc
+        // Trinhnk Tang khoa hoc
         Route::get('gifts', 'Backends\GiftController@getGiveGift');
         Route::get('gifts/getGiftStudentAjax', 'Backends\GiftController@getGiftStudentAjax');
         Route::get('gifts/getGiftCourse', 'Backends\GiftController@getGiftCourse');
         Route::post('gifts/handling-gift-ajax', 'Backends\GiftController@handlingGiftAjax');
-        // End Tang khoc hoc
 
-        // 
+        // Trinhnk Category
         Route::get('categories', 'Backends\CategoryController@getCategory');
         Route::get('categories/getCategoryAjax', 'Backends\CategoryController@getCategoryAjax');
         Route::post('categories/addCategory', 'Backends\CategoryController@addCategory');
-        // 
+        Route::post('categories/editCategory', 'Backends\CategoryController@editCategory');
+        // End
 
         Route::get('teachers', 'Backends\UserController@getTeacher');
         Route::get('teachers/getTeacherAjax', 'Backends\UserController@getTeacherAjax');
