@@ -43,6 +43,8 @@ class HomeController extends Controller
         $feature_category = Category::withCount('courses')->where('parent_id', '>', 0)->where('featured', 1)->orderBy('featured_index', 'asc')->limit(10)->get();
         // trending = feature courses
         $feature_course = Course::where('status', 1)->where('featured', 1)->orderBy('featured_index', 'asc')->limit(8)->get();
+        // echo $feature_course[1]->Lecturers()[0]->user->name;die;
+        // dd($feature_course);
         $best_seller_course = Course::where('status', 1)->orderBy('sale_count', 'desc')->limit(8)->get();
         $new_course = Course::where('status', 1)->orderBy('id', 'desc')->limit(8)->get();
         $popular_teacher = Teacher::getTeacherBestVote();
@@ -110,14 +112,14 @@ class HomeController extends Controller
         if (\Auth::check()) {
             if ($course) {
                 $ratingCourse = RatingCourse::where('course_id', $course->id)->where('user_id', \Auth::id())->first();
-                $related_course = Course::where('category_id', $course->category_id)->where('id','!=',$course->id)->limit(4)->get();
+                $related_course = Course::where('category_id', $course->category_id)->where('id','!=',$course->id)->where('status', 1)->limit(4)->get();
                 $info_course = Course::find($course->id);
                 // dd($info_course->comments[0]->likeCheckUser());
                 return view('frontends.course-detail', compact('related_course', 'info_course', 'unit', 'ratingCourse'));
             }
         } else {
             if ($course) {
-                $related_course = Course::where('category_id', $course->category_id)->where('id','!=',$course->id)->limit(4)->get();
+                $related_course = Course::where('category_id', $course->category_id)->where('id','!=',$course->id)->where('status', 1)->limit(4)->get();
                 $info_course = Course::find($course->id);
                 return view('frontends.course-detail', compact('related_course', 'info_course', 'unit'));
             }

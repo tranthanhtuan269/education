@@ -56,49 +56,11 @@
                     <option value="{{ $course->id }}">{{ $course->name }}</option>
                     @endforeach
                 </select></p>
-                <script type="text/javascript">
-                
-                    var sol = $('#demonstration').searchableOptionList({ 
-                                maxHeight: '250px',
-                                showSelectAll: true
-                            });
-                </script>
             </div>
         </div>
     </div>
     <div class="text-center"><button class="btn btn-primary" id="btn-gift">Xác nhận tặng</button></div>
 </section>
-<!-- <section>
-    <div class="modal fade" id="chooseGiftCourse" tabindex="-1">
-        <div class="modal-dialog" style="width:900px">
-            <div class="modal-content" style="height:450px">
-                <div class="modal-header">
-                    <h3>Chọn khóa học</h3>
-                </div>
-                <div class="modal-body">
-                    <div class='span12'>
-                        <select multiple class="searchable" name="searchable[]">
-                        @foreach ($courses as $course)
-                        <option value="{{ $course->id }}">{{ $course->name }}</option>
-                        @endforeach
-                        </select>
-                        <br />
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="form-group row">
-                        <div class="col-sm-2">
-                            <button type="button" class="btn btn-success" data-dismiss="modal">Xác nhận</button>
-                        </div>
-                        <div class="col-sm-10">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section> -->
 
 <script type="text/javascript">
     var dataTable           = null;
@@ -119,22 +81,18 @@
                 });
             }
 
-
             var asInputs = sol.getSelection(),
                 course_id = [];
-
 
             for (var i = 0; i < asInputs.length; i++) {
                 course_id[i] = $(asInputs[i]).data('sol-item').value;
             }
-
 
             if (student_id.length == 0) {
                 Swal.fire({
                     type: 'warning',
                     text: 'Chưa có học viên nào được chọn!'
                 })
-
                 return;
             }
 
@@ -143,7 +101,6 @@
                     type: 'warning',
                     text: 'Chưa có khóa học nào được chọn!'
                 })
-
                 return;
             }
 
@@ -174,7 +131,6 @@
                     }
                 },
                 error: function (data) {
-
                 }
             });
         });
@@ -348,6 +304,11 @@
             return current_page;
         }
 
+    });
+
+    var sol = $('#demonstration').searchableOptionList({ 
+        maxHeight: '250px',
+        showSelectAll: true
     });
 </script>
 

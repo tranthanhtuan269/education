@@ -19,8 +19,8 @@
 
 }
 @media (min-width:1599px) and (max-width:1920px) {
-    .unica-home-menutop .col-lg-3 { width: 16.66666667%; padding: 0; }
-    .unica-home-menutop .col-lg-4 { width: 41.66666667%; }
+    /* .unica-home-menutop .col-lg-3 { width: 16.66666667%; padding: 0; } */
+    /* .unica-home-menutop .col-lg-4 { width: 41.66666667%; } */
     .unica-blog .container { width: 1600px; }
     .unica-blog-list .container { width: 1600px; }
     .img-blog-news { width: 22%; }

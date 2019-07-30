@@ -660,7 +660,11 @@
 
                 var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
                 // alert(number_items_in_cart.length)
-                $('.number-in-cart').text(number_items_in_cart.length);
+                // $('.number-in-cart').text(number_items_in_cart.length);
+
+                if(number_items_in_cart.length==0){
+                    $('.unica-sl-cart').style.display='none';
+                }
 
                 $(this).remove();
                 Swal.fire({

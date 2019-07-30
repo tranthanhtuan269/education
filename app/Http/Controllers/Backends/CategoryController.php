@@ -23,6 +23,9 @@ class CategoryController extends Controller
                 return $category->id;
             })
             ->addColumn('parent-id', function ($category) {
+                return $category->parent['id'];
+            })
+            ->addColumn('parent-name', function ($category) {
                 return $category->parent['name'];
             })
             ->addColumn('rows', function ($category) {
@@ -47,9 +50,26 @@ class CategoryController extends Controller
         $category->featured     = $request->featured;
         $category->icon         = $request->icon;
         // $category->slug         = \Str::slug($request->name, '-');
-        $category->image        = $file_name;;
+        $category->image        = $file_name;;                $res = array('status' => 200, "Message" => "Đã hủy hết");
+
         $category->save();
 
         return \Response::json(array('status' => '200', 'Message' => 'Thêm mới danh mục thành công!'));
+    }
+
+    public function editCategory(StoreCategoryRequest $request, $id)
+    {
+        $category = Category::find($id);
+
+        $category->name         = $request->name;
+        $category->parent_id    = $request->parent_id;
+        $category->featured     = $request->featured;
+        $category->icon         = $request->icon;
+        // $category->image        = $file_name;
+        $category->updated_at   = date('Y-m-d H:i:s');
+
+        $category->save();
+
+        return \Response::json(array('status' => '200', 'Message' => 'Sửa danh mục thành công!'));
     }
 }

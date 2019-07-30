@@ -57,6 +57,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('courses/inaccept-multiple-course', 'Backends\CourseController@inacceptMultiCourse');
         Route::delete('courses/delete', 'Backends\CourseController@deleteCourse');
         Route::delete('courses/delete-multiple-course', 'Backends\CourseController@deleteMultiCourse');
+        Route::put('courses/activeCourse', 'Backends\CourseController@activeCourse');
 
         // Trinhnk Duyet video
         Route::get('videos', 'Backends\VideoController@getVideo');
@@ -81,6 +82,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('categories/getCategoryAjax', 'Backends\CategoryController@getCategoryAjax');
         Route::post('categories/addCategory', 'Backends\CategoryController@addCategory');
         Route::post('categories/editCategory', 'Backends\CategoryController@editCategory');
+
+        // Trinhnk Feature Course
+        Route::get('feature-course', 'Backends\CourseController@getFeatureCourse');
+        Route::post('feature-course/handling-feature-course', 'Backends\CourseController@handlingFeatureCourseAjax');
         // End
 
         Route::get('teachers', 'Backends\UserController@getTeacher');

@@ -34,7 +34,7 @@ class UnitController extends Controller
             $unit = new Unit;
             $unit->name = $request->name;
             $unit->course_id = $course->id;
-            $unit->index = $course->units_count;
+            $unit->index = $course->units_count + 1;
             $unit->save();
 
             return \Response::json(array('status' => '200', 'message' => 'Tạo Unit thành công!', 'unit' => fractal($unit, new UnitTransformer())->toArray()));
