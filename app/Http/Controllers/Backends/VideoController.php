@@ -67,6 +67,8 @@ class VideoController extends Controller
             $course->video_count += 1;
             $course->save();
 
+            // DuongNT // thêm lượng video đã xem vào bảng user_courses
+
             return response()->json([
                 'status' => '200',
                 'message' => 'New video is created!',
