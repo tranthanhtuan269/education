@@ -24,7 +24,11 @@
             <div class=''>
                 <select multiple class="searchable" name="searchable1" style="width: 50%">
                 @foreach ($courses as $course)
-                <option value="{{ $course->id }}">{{ $course->name }}</option>
+                <option
+                @if($course->featured_index==1)
+                selected
+                @endif
+                value="{{ $course->id }}">{{ $course->name }}</option>
                 @endforeach
                 </select>
             </div>
@@ -33,7 +37,11 @@
             <div class=''>
                 <select multiple class="searchable" name="searchable2" style="width: 50%">
                 @foreach ($courses as $course)
-                <option value="{{ $course->id }}">{{ $course->name }}</option>
+                <option
+                @if($course->featured_index==2)
+                selected
+                @endif
+                value="{{ $course->id }}">{{ $course->name }}</option>
                 @endforeach
                 </select>
             </div>
@@ -42,7 +50,11 @@
             <div class=''>
                 <select multiple class="searchable" name="searchable3" style="width: 50%">
                 @foreach ($courses as $course)
-                <option value="{{ $course->id }}">{{ $course->name }}</option>
+                <option
+                @if($course->featured_index==3)
+                selected
+                @endif
+                value="{{ $course->id }}">{{ $course->name }}</option>
                 @endforeach
                 </select>
             </div>
