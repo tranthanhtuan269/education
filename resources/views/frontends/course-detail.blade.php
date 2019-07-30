@@ -6,7 +6,7 @@
         $info_course->vote_count = 1;
         $percent_temp = 0;
     }
-    // dd($info_course->Lecturers()->first()->teacher);
+    // dd($info_course->Lecturers()->first());
 ?>
 <div class="detail-course">
     <img class="background bg-category" src="{{ asset('frontend/images/banner_profile_teacher.png') }}">
@@ -246,9 +246,7 @@
                     <h3>Thông tin giảng viên</h3>
                 </div>
                 @foreach ($info_course->Lecturers() as $lecturer)
-                @php
-                    // dd($lecturer->teacher->expert);
-                @endphp
+                @if($lecturer->teacher)
                 <div class="col-md-8 col-sm-10">
                     <div class="row">
                         <div class="col-sm-3 avatar-center">
@@ -284,6 +282,11 @@
                         </div>
                     </div>
                 </div>
+                @else
+                <div>
+                    Thông tin giảng viên đang được cập nhật.
+                </div>
+                @endif
                 @endforeach
             </div>
         </div>
