@@ -49,6 +49,8 @@ class UserController extends Controller
 
     public function store(StoreUserRequest $request)
     {
+        // dd();
+
         // echo $request->password;die;
         $time_created = date('Y-m-d H:i:s');
 
@@ -63,10 +65,29 @@ class UserController extends Controller
         $created_at = $updated_at = date('Y-m-d H:i:s');
         $arr_roles = [];
         foreach ($request->role_id as $role) {
-            $arr_roles[] = ['user_id' => $user_id, 'role_id' => $role, 'created_at' => $created_at, 'updated_at' => $updated_at];
+            // $arr_roles[] = ['user_id' => $user_id, 'role_id' => $role, 'created_at' => $created_at, 'updated_at' => $updated_at];
+            $user_role = new UserRole;
+            $user_role->user_id = $user_id;
+            $user_role->role_id = $role;
+            $user_role->save();
+
+            // Thêm vào bảng teacher
+            if($role == "2"){ //nghĩa là người dùng được định nghĩa là teacher
+                $teacher = new Teacher;
+                $teacher->user_role_id = $user_role->id;
+                $teacher->cv = "You need to update this information ASAP!";
+                $teacher->expert = "You need to update this information ASAP!";
+                $teacher->rating_count = 0;
+                $teacher->student_count = 0;
+                $teacher->course_count = 0;
+                $teacher->video_intro = "https://www.youtube.com/embed/fbnD3b9wgsk";
+                $teacher->status = 1; //active
+                $teacher->save();
+            }
+
         }
         UserRole::insert($arr_roles);
-
+        
         $res = array('status' => "200", "Message" => "Thêm mới thông tin thành công");
         echo json_encode($res);
 

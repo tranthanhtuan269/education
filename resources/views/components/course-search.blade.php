@@ -44,7 +44,7 @@
                     <div>
                         <span class="name-teacher">
                             @if(count($course->Lecturers()) > 0)
-                                <a href="{{ url('/') }}/teacher/{{ $course->Lecturers()[0]->user->id }}" title="{{ $course->Lecturers()[0]->user->name }}">
+                                <a href="{{ url('/') }}/teacher/{{ $course->Lecturers()[0]->teacher->id }}" title="{{ $course->Lecturers()[0]->user->name }}">
                                     {{ $lecturers }}
                                 </a>
                             @else
