@@ -282,7 +282,7 @@ class CourseController extends Controller
     }
 
     public function handlingFeatureCourseAjax(Request $request){
-        $course = Course::where('featured_index', '>', 0)->update(['featured_index' => 0]);
+        $course = Course::where('featured', '>', 0)->update(['featured_index' => 0,'featured' => 0]);
 
         $course1 = Course::find($request->course_1);
         $course1->featured       = 1;
