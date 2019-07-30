@@ -7,6 +7,7 @@ use App\Transformers\VideoTransformer;
 use App\Course;
 use App\Unit;
 use App\Video;
+use App\UserCourse;
 use Illuminate\Http\Request;
 use App\Helper\Helper;
 use App\Jobs\ProcessLecture;
@@ -43,6 +44,27 @@ class VideoController extends Controller
     {
         $unit = Unit::withCount('videos')->find($request->unit_id);
         if ($unit) {
+
+
+            // DuongNT // thêm 1 video vào lượng đã xem vào bảng user_courses
+            // $course = Unit::find($request->unit_id)->course;
+            // $user_roles = $course->userRoles()->get()->all();
+            // $user_roles = \array_filter($user_roles, function($user_role){
+            //     return $user_role->role_id == 3; //lấy những user_role đại diện student
+            // });
+            // $unit = Unit::find($request->unit_id);
+            // $unit_videos = $unit->videos;
+            // dd($unit_videos);
+
+            // foreach ($user_roles as $key => $user_role) {
+            //     $user_course = UserCourse::where("user_role_id", $user_role->id)->where("course_id", $course->id)->first();
+            //     $videos = json_decode($user_course->videos);
+            //     $videos_arr = $videos->{'videos'};
+            //     \array_push($videos->{'videos'}, 0);
+            //     $videos = json_encode($videos);
+            //     // dd($videos);
+            // }
+
             $video = new Video;
             $video->name = $request->name;
             $video->unit_id = $request->unit_id;
@@ -67,7 +89,7 @@ class VideoController extends Controller
             $course->video_count += 1;
             $course->save();
 
-            // DuongNT // thêm lượng video đã xem vào bảng user_courses
+
 
             return response()->json([
                 'status' => '200',
