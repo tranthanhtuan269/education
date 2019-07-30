@@ -88,7 +88,8 @@
                         </div>
                         <div class="form-group">
                             <label>Ảnh đại diện</label>
-                            <input type="file" class="form-control" name="image" id="files">
+                            <input type="file" class="form-control" name="image" id="files" onchange="preview_image(event)"><br>
+                            <img id="preview_category_img" src="#" style="max-width:570px"/>
                         </div>
                     </form>
                 </div>
@@ -111,12 +112,12 @@
                     <form>
                         <div class="form-group">
                             <label>Tên Danh mục</label>
-                            <input type="text" class="form-control" name="name" id="" value="">
+                            <input type="text" class="form-control" name="name" id="editName" value="">
                         </div>
                         <div class="form-group">
                             <label>Danh mục cha</label>
                             <!-- <input type="text" class="form-control" name="categoryParent"> -->
-                            <select class="form-control" name="parent_id" id="">
+                            <select class="form-control" name="parent_id" id="editParentId">
                                 <option value="0">--</option>
                                 @foreach($categories as $cat)
                                 <option value="{{$cat->id}}">{{$cat->name}}</option>
@@ -125,21 +126,21 @@
                         </div>
                         <div class="form-group">
                             <label>Nổi bật</label><br>
-                            <label class="radio-inline"><input type="radio" name="featured" checked value="1">Có</label>
-                            <label class="radio-inline"><input type="radio" name="featured" value="0">Không</label>
+                            <label class="radio-inline"><input type="radio" name="editFeatured" value="1">Có</label>
+                            <label class="radio-inline"><input type="radio" name="editFeatured" value="0">Không</label>
                         </div>
                         <div class="form-group">
-                            <label>Icon</label>
-                            <input type="text" class="form-control" name="icon" id="">
+                            <label class="label-icon-category">Icon:</label>
+                            <input type="text" class="form-control" name="icon" id="editIcon">
                         </div>
                         <div class="form-group">
                             <label>Ảnh đại diện</label>
-                            <input type="file" class="form-control" name="image" id="">
+                            <input type="file" class="form-control" name="image" id="editImage">
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="addCategory">Xác nhận</button>
+                    <button type="button" class="btn btn-primary" id="editCategory">Xác nhận</button>
                 </div>
             </div>
         </div>
@@ -192,76 +193,141 @@ $(document).ready(function() {
     }
 
     $('#addCategory').click(function(){
-            // alert(link_image_base64);return;
-            // if (link_image_base64 == '') {
-            //     Swal.fire({
-            //         type: 'warning',
-            //         html: 'Xin vui lòng chọn ảnh!',
-            //     })
-            //     return;
-            // } 
-            var data    = {
-                name             : $('#categoryName_id').val(),
-                parent_id        : $('#categoryParent_id').val(),
-                featured         : $('input[name=featured]').val(),
-                icon             : $('#categoryIcon_id').val(),
-                image            : link_image_base64,
-            };
+        // alert(link_image_base64);return;
+        // if (link_image_base64 == '') {
+        //     Swal.fire({
+        //         type: 'warning',
+        //         html: 'Xin vui lòng chọn ảnh!',
+        //     })
+        //     return;
+        // } 
+        var data    = {
+            name             : $('#categoryName_id').val(),
+            parent_id        : $('#categoryParent_id').val(),
+            featured         : $('input[name=featured]').val(),
+            icon             : $('#categoryIcon_id').val(),
+            image            : link_image_base64,
+        };
 
-            $.ajaxSetup({
-                headers: {
-                  'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            
-            $.ajax({
-                url: baseURL+"/admincp/categories/addCategory",
-                data: data,
-                method: "POST",
-                dataType:'json',
-                beforeSend: function(r, a){
-                    $('.alert-errors').addClass('d-none');
-                },
-                success: function (response) {
-                    var html_data = '';
-                    if(response.status == 200){
-                        clearFormCreate();
-                        $('#showAddModal').modal('toggle');
-                        dataTable.ajax.reload();
-                        Swal.fire({
-                            type: 'success',
-                            text: response.Message
-                        })
-                         
-                    } else {
-                        Swal.fire({
-                            type: 'warning',
-                            text: response.Message
-                        })
-                    }
-                },
-                error: function (error) {
-                    var obj_errors = error.responseJSON.errors;
-                    // console.log(obj_errors)
-                    var txt_errors = '';
-                    for (k of Object.keys(obj_errors)) {
-                        txt_errors += obj_errors[k][0] + '</br>';
-                    }
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        
+        $.ajax({
+            url: baseURL+"/admincp/categories/addCategory",
+            data: data,
+            method: "POST",
+            dataType:'json',
+            beforeSend: function(r, a){
+                $('.alert-errors').addClass('d-none');
+            },
+            success: function (response) {
+                var html_data = '';
+                if(response.status == 200){
+                    clearFormCreate();
+                    $('#showAddModal').modal('toggle');
+                    dataTable.ajax.reload();
+                    Swal.fire({
+                        type: 'success',
+                        text: response.Message
+                    })
+                        
+                } else {
                     Swal.fire({
                         type: 'warning',
-                        html: txt_errors,
+                        text: response.Message
                     })
                 }
-            });
+            },
+            error: function (error) {
+                var obj_errors = error.responseJSON.errors;
+                // console.log(obj_errors)
+                var txt_errors = '';
+                for (k of Object.keys(obj_errors)) {
+                    txt_errors += obj_errors[k][0] + '</br>';
+                }
+                Swal.fire({
+                    type: 'warning',
+                    html: txt_errors,
+                })
+            }
         });
+    });
+
+    $('#editCategory').click(function(){
+        // alert(link_image_base64);return;
+        // if (link_image_base64 == '') {
+        //     Swal.fire({
+        //         type: 'warning',
+        //         html: 'Xin vui lòng chọn ảnh!',
+        //     })
+        //     return;
+        // } 
+        var data    = {
+            name             : $('#editName').val(),
+            parent_id        : $('#editParentId').val(),
+            featured         : $('input[name=editFeatured]').val(),
+            icon             : $('#editIcon').val(),
+            image            : link_image_base64,
+        };
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        
+        $.ajax({
+            url: baseURL+"/admincp/categories/editCategory" + id,
+            data: data,
+            method: "POST",
+            dataType:'json',
+            beforeSend: function(r, a){
+                $('.alert-errors').addClass('d-none');
+            },
+            success: function (response) {
+                var html_data = '';
+                if(response.status == 200){
+                    clearFormCreate();
+                    $('#showEditModal').modal('toggle');
+                    dataTable.ajax.reload();
+                    Swal.fire({
+                        type: 'success',
+                        text: response.Message
+                    })
+                        
+                } else {
+                    Swal.fire({
+                        type: 'warning',
+                        text: response.Message
+                    })
+                }
+            },
+            error: function (error) {
+                var obj_errors = error.responseJSON.errors;
+                // console.log(obj_errors)
+                var txt_errors = '';
+                for (k of Object.keys(obj_errors)) {
+                    txt_errors += obj_errors[k][0] + '</br>';
+                }
+                Swal.fire({
+                    type: 'warning',
+                    html: txt_errors,
+                })
+            }
+        });
+    });
 
     function clearFormCreate(){
-        $('input[name=name]').val('')
-        $('input[name=icon]').val('')
-        $('input[type=file]').val('')
+        $('input[name=name]').val('');
+        $('select[name=parent_id]').val('0');
         $('input:radio[name="featured"]').filter('[value="1"]').attr('checked', true);
+        $('input[name=icon]').val('');
+        $('input[type=file]').val('');
         $('select option[value="0"]').attr("selected",true);
-
+        $('#preview_category_img').src('');
     }
 
     window.onbeforeunload = function() {
@@ -291,7 +357,7 @@ $(document).ready(function() {
             class: "name-field"
         },
         {
-            data: "parent-id",
+            data: "parent-name",
         },
         {
             data: "featured",
@@ -302,7 +368,7 @@ $(document).ready(function() {
             class: "text-center",
             render: function(data, type, row) {
                 var html = baseURL +'/frontend/images/' + row.image;
-                return '<img src="'+ html +'" style="width:50px;">'
+                return '<img src="'+ html +'" style="width:75px;height:40px;">'
                 // alert(row.image)
             },
             orderable: false
@@ -357,7 +423,12 @@ $(document).ready(function() {
             addEventListener();
             checkCheckboxChecked();
         },
-
+        createdRow: function( row, data, dataIndex){
+            $(row).attr('data-name', data['name']);
+            $(row).attr('data-parent-id', data['parent-id']);
+            $(row).attr('data-featured', data['featured']);
+            $(row).attr('data-icon', data['icon']);
+        }
     });
 
     $('#category-table').css('width', '100%');
@@ -425,6 +496,17 @@ $(document).ready(function() {
         $('.edit-category').off('click')
         $('.edit-category').click(function() {
             $('#showEditModal').modal('show');
+            var curr_name       = $(this).parent().parent().attr('data-name');
+            var curr_parent_id  = $(this).parent().parent().attr('data-parent-id');
+            var curr_featured   = $(this).parent().parent().attr('data-featured');
+            var curr_icon       = $(this).parent().parent().attr('data-icon');
+
+            // alert(curr_icon);
+
+            $("input[name='name']").val(curr_name);
+            $("select[name='parent_id']").val(curr_parent_id);
+            $("input[name='editFeatured'][value='"+curr_featured+"']").prop('checked', true);
+            $("input[name='icon']").val(curr_icon);
         })
 
         $('.add-category').off('click')
@@ -432,6 +514,7 @@ $(document).ready(function() {
             // var curr_cv = $(this).parent().parent().attr('data-cv')
             $('#showAddModal').modal('show');
             // $("#cv").html(curr_cv)
+            clearFormCreate();
         })
 
         $('.btn-delete').off('click')
@@ -529,6 +612,20 @@ $(document).ready(function() {
 
     }
 });
+</script>
+
+<script type='text/javascript'>
+function preview_image(event) 
+    {
+        var reader = new FileReader();
+        // $('input[name=image]').append('<img id="preview_category_img" src="#" max-width="570"/>');
+        reader.onload = function()
+        {
+            var output = document.getElementById('preview_category_img');
+            output.src = reader.result;
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    }
 </script>
 
 @endsection

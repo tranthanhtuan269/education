@@ -43,6 +43,8 @@ class HomeController extends Controller
         $feature_category = Category::withCount('courses')->where('parent_id', '>', 0)->where('featured', 1)->orderBy('featured_index', 'asc')->limit(10)->get();
         // trending = feature courses
         $feature_course = Course::where('status', 1)->where('featured', 1)->orderBy('featured_index', 'asc')->limit(8)->get();
+        // echo $feature_course[1]->Lecturers()[0]->user->name;die;
+        // dd($feature_course);
         $best_seller_course = Course::where('status', 1)->orderBy('sale_count', 'desc')->limit(8)->get();
         $new_course = Course::where('status', 1)->orderBy('id', 'desc')->limit(8)->get();
         $popular_teacher = Teacher::getTeacherBestVote();

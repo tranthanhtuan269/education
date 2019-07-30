@@ -202,6 +202,9 @@
                         <li class="@if ( Request::is('admincp/category*') ) active @endif">
                             <a href="{{ url('/') }}/admincp/categories"><i class="fa fa-briefcase"></i> Danh mục</a>
                         </li>
+                        <li class="@if ( Request::is('admincp/feature-course*') ) active @endif">
+                            <a href="{{ url('/') }}/admincp/feature-course"><i class="fa fa-star"></i> Khóa học nổi bật</a>
+                        </li>
                     </ul>
                 </section>
                 <!-- /.sidebar -->
