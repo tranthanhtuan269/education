@@ -119,7 +119,9 @@
                                             <div class="form-group">
                                                 <label>Chuyên môn</label>
                                                 <div class="form-group">
-                                                    <textarea class="form-control" rows="3" cols="50" name="expert">@if(Auth::user()->userRolesTeacher()->teacher){{Auth::user()->userRolesTeacher()->teacher->expert}}@endif</textarea>
+                                                    {{-- <textarea class="form-control" rows="3" cols="50" name="expert">@if(Auth::user()->userRolesTeacher()->teacher){{Auth::user()->userRolesTeacher()->teacher->expert}}@endif</textarea> --}}
+                                                    <input type="text" class="form-control" name="expert" value="@if(Auth::user()->userRolesTeacher()->teacher){{Auth::user()->userRolesTeacher()->teacher->expert}}@endif">
+                                                    <p>Số ký tự: <b><span id="count-character">0</span>/55</b>. (Tối đa 55 ký tự)</p>
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -165,6 +167,7 @@
 <script src="{{ asset('frontend/js/dropzone.js') }}"></script>
 <script>
     var wordCount;
+    var characterCount = 0;
     Dropzone.autoDiscover = false;
     $(document).ready(function(){
         ClassicEditor
@@ -191,7 +194,7 @@
             } )
             .catch( error => {
                 console.error( error );
-        } );
+            } );
 
         $('body').on('click','.dz-image-preview',function(){
             $("#myDrop").trigger("click");
@@ -311,6 +314,13 @@
                     return false;
                 }
             }
+            if($("input[name=expert]").val().length > 55){
+                Swal.fire({
+                    type: 'warning',
+                    html: 'Số ký tự của "Chuyên môn" quá dài!',
+                })
+                return false;
+            }
             var url = $('#YoutubeUrl').val();
             if (url != undefined || url != '') {       
                 var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
@@ -341,7 +351,7 @@
                         birthday: $('input[name=birthday]').val().trim(),
                         gender: $('select[name=gender]').val(),
                         address: $('textarea[name=address]').val().trim(),
-                        expert: $('textarea[name=expert]').val().trim(),
+                        expert: $('input[name=expert]').val().trim(),
                         video_intro : $('input[name=video-intro]').val().trim(),
                         cv : cv.getData(),
                     };
@@ -401,7 +411,6 @@
                     })
                 }
             });
-
             return;
         });  
                   
@@ -512,6 +521,21 @@
                 document.getElementById("warningVideoIntro").innerHTML = "Link video sai. Yêu cầu nhập lại!";
             }
         }
+    });
+
+    function characterCount(){
+        var characterCount = $("input[name=expert]").val().length;
+        $('#count-character').html(characterCount);
+
+        if(characterCount > 0 && characterCount <= 55){
+            $('#count-character').css("color","green");
+        }else{
+            $('#count-character').css("color","red");
+        }
+    }
+    characterCount();
+    $("input[name=expert]").keyup(function(){
+        characterCount();
     });
 </script>
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.css">

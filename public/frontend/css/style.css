@@ -509,14 +509,24 @@ input.cropit-image-zoom-input {
 .cropit-preview {
   width: 250px;
   height: 250px;
-  margin: 15px auto;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  -webkit-box-shadow: 4px 4px 10px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 4px 4px 10px 0px rgba(0,0,0,0.75);
+  box-shadow: 4px 4px 10px 0px rgba(0,0,0,0.75);
 }
 
 .image-cropit-editor #image-cropper{
-  width: 280px;
+  width: 350px;
   border: 2px dashed #ccc;
   border-radius: 10px;
-  margin: 15px auto;
+  margin-top: 15px;
+  margin-bottom: 0px;
+  margin-left: auto;
+  margin-right: auto;
+  /* margin: 15px auto; */
 }
 .image-cropit-editor input[type='range']  {
   -webkit-appearance: none ;
@@ -619,7 +629,7 @@ input.cropit-image-zoom-input {
 .register-teacher .image-cropit-editor #image-cropper{
   width: 600px;
 }
-.register-teacher .image-cropit-editor .note{
+.image-cropit-editor .note{
   margin: 15px auto;
 }
 /* End Cropit */

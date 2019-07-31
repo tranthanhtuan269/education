@@ -75,17 +75,15 @@
                                                         <div class="cropit-preview text-center">
                                                         <img class="sample-avatar" src="{{ asset('frontend/'.(Auth::user()->avatar != '' ? Auth::user()->avatar : 'images/avatar.jpg')) }}" alt="sample avatar">
                                                         </div>
-                                                        <div class="text-center">
-                                                            <div class="note">(Kích thước nhỏ nhất: 250x250)</div>
-                                                        </div>
                                                         <input type="range" class="cropit-image-zoom-input" style="display: none"/>
                                                         <div class="text-center rotate-btn-group" style="display: none">
                                                             <b>Xoay ảnh:</b>&nbsp;
                                                             <span class="rotate-ccw-btn"> <i class="fas fa-undo"></i> </span>&nbsp;
                                                             <span class="rotate-cw-btn"> <i class="fas fa-redo"></i> </span>
                                                         </div>
-                                                        <input type="file" class="cropit-image-input" style="visibility:hidden" value="" id="image-file-input"/>
+                                                        <input type="file" class="cropit-image-input" style="display:none" value="" id="image-file-input"/>
                                                         <div class="text-center">
+                                                            <div class="note">(Kích thước nhỏ nhất: 250x250)</div>
                                                             <div class="btn btn-primary select-image-btn"><i class="fas fa-image fa-fw"></i> Tải lên ảnh đại diện</div>
                                                         </div>
                                                     </div>
