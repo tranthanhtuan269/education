@@ -3,7 +3,6 @@
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 <script src="{{ url('/') }}/frontend/js/jquery.cropit.js"></script>
-<!-- <script src="{{ url('/') }}/frontend/js/validate-image.js"></script> -->
 
 <div class="u-dashboard-top" style="background-image:  url({{ url('frontend/images/bg-db-user.jpg') }});">
     <div class="container">
@@ -70,41 +69,24 @@
                                     <div class="col-md-6 col-sm-6">
                                         <div class="form-group">
                                             <label>Ảnh đại diện</label>
-                                            <!-- <div class="dropzone dz-clickable" id="myDrop">
-                                                <div class="dz-default dz-message" data-dz-message="">
-                                                    <span>Tải lên ảnh của bạn</span>
-                                                </div>
-                                            </div> -->
                                             <div class="row">
-                                                <div class="col-md-4 text-center">
-                                                    <img src="{{ asset('frontend/'.(Auth::user()->avatar != '' ? Auth::user()->avatar : 'images/avatar.jpg')) }}" alt="avatar" width="150" style="margin-bottom: 20px">
-                                                </div>
-                                                <div class="col-md-8">
-                                                    <div class="image-cropit-editor">
-                                                        <div id="image-cropper">
-                                                            <div class="cropit-preview text-center">
-                                                            <img class="sample-avatar" src="http://www.auroracl.com/template/resources/images/news/quote1494914715.png" alt="sample avatar">
-                                                            </div>
-                                                            <br>
-                                                            <div class="text-center">
-                                                                <div class="note">(Kích thước nhỏ nhất: 250x250)</div>
-                                                            </div>
-                                                            <input type="range" class="cropit-image-zoom-input" />
-                                                            <!-- The actual file input will be hidden -->
-                                                            <div class="text-center">
-                                                                <b>Xoay ảnh:</b>&nbsp;
-                                                                <span class="rotate-ccw-btn"> <i class="fas fa-undo"></i> </span>&nbsp;
-                                                                <span class="rotate-cw-btn"> <i class="fas fa-redo"></i> </span>
-                                                            </div>
-                                                            <input type="file" class="cropit-image-input" style="visibility:hidden" value="" id="image-file-input"/>
-                                                            <!-- And clicking on this button will open up select file dialog -->
-
-                                                            <div class="text-center">
-                                                                <div class="btn btn-primary select-image-btn"><i class="fas fa-image fa-fw"></i> Tải lên ảnh đại diện</div>
-                                                                <br>
-                                                                <br>
-                                                                <!-- <div class="btn btn-success export-image">Cắt ảnh</div> -->
-                                                            </div>
+                                                <div class="image-cropit-editor">
+                                                    <div id="image-cropper">
+                                                        <div class="cropit-preview text-center">
+                                                        <img class="sample-avatar" src="{{ asset('frontend/'.(Auth::user()->avatar != '' ? Auth::user()->avatar : 'images/avatar.jpg')) }}" alt="sample avatar">
+                                                        </div>
+                                                        <div class="text-center">
+                                                            <div class="note">(Kích thước nhỏ nhất: 250x250)</div>
+                                                        </div>
+                                                        <input type="range" class="cropit-image-zoom-input" style="display: none"/>
+                                                        <div class="text-center rotate-btn-group" style="display: none">
+                                                            <b>Xoay ảnh:</b>&nbsp;
+                                                            <span class="rotate-ccw-btn"> <i class="fas fa-undo"></i> </span>&nbsp;
+                                                            <span class="rotate-cw-btn"> <i class="fas fa-redo"></i> </span>
+                                                        </div>
+                                                        <input type="file" class="cropit-image-input" style="visibility:hidden" value="" id="image-file-input"/>
+                                                        <div class="text-center">
+                                                            <div class="btn btn-primary select-image-btn"><i class="fas fa-image fa-fw"></i> Tải lên ảnh đại diện</div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -122,7 +104,6 @@
                                             <label> Email </label>
                                             <div class="form-group">
                                                 <input type="email" class="form-control" name="email" value="{{ Auth::user()->email }}" disabled>
-
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -286,8 +267,6 @@ $(document).ready(function() {
 
     $('#image-cropper').cropit();
 
-    // When user clicks select image button,
-    // open select file dialog programmatically
     $('.select-image-btn').click(function() {
         $('.cropit-image-input').click();
     });
@@ -323,17 +302,12 @@ $(document).ready(function() {
                 })
             };
             img.src = _URL.createObjectURL(file);
+
+            $('.cropit-image-zoom-input').show();
+            $('.rotate-btn-group').show();
         }
     });
 });
-
-// $('.cropit-image-input').change(function(){
-//     alert(1);
-// });
-// function check_upload_image(){
-
-//     console.log($('#image-cropper').cropit('export'));
-// }
 
 function changePassAjax() {
     var data = {
