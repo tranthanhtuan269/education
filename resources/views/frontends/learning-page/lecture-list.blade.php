@@ -26,20 +26,18 @@
                 <p class="ln-lect-list-sect-number">Section {{ $key+1 }}</p>
                 <p class="ln-lect-list-sect-counter">
                     @php
-                        $video_done_in_one_section = 0;
+                        $videos_arr = $unit->videos->sortBy('index');
                     @endphp
-                    @foreach ($unit->videos as $video)
-                    @php
-                        // dd($video);
-                    @endphp
-                        @if ($video_done_array[($video->index)-1] == 1)
+                    @foreach ($videos_arr as $video)
                         @php
-                            $video_done_in_one_section += 1;                            
-                        @endphp    
-                        @endif
-                       
+                            $video_done_in_this_units = 0;
+                            $list_video_done_in_unit = $video_done_units[($unit->index)-1];
+                            if( isset( array_count_values($list_video_done_in_unit)[1] ) ){
+                                $video_done_in_this_units += array_count_values($list_video_done_in_unit)[1];
+                            }
+                        @endphp                       
                     @endforeach
-                    <span id="videoDoneOneSect{{$key+1}}">{{$video_done_in_one_section}}</span>
+                    <span id="videoDoneOneSect{{$key+1}}">{{$video_done_in_this_units}}</span>
                     / {{$unit->video_count}}
                 </p>
                 </div>
@@ -49,14 +47,18 @@
             </div>
             <div id="sectionBody{{ $key+1 }}" class="ln-lect-list-body collapse">
                 <ul>
-                    @foreach($unit->videos as $video)
+                    @foreach($unit->videos->sortBy('index') as $video)
                         <li class="video-list-item" id="listItem{{$video->id}}" data-parent="{{$video->id}}">
                             {{-- <a href="{{ route('videoplayer.show', ['courseId' => $unit->course_id, 'videoId' => $video->id]) }}"> --}}
+                                @php
+                                    $list_video_done_in_unit = $video_done_units[($unit->index)-1];
+                                    // dd($list_video_done_in_unit);
+                                @endphp
                             <a href="learning-page/{{$unit->course_id}}/lecture/{{$video->id}}">
                                 <span class="ln-lect-list-lect-title-icon"><span><i class="fas fa-play-circle"></i></span></span>
                                 <span class="ln-lect-list-lect-title">{{$video->index}}.  {{ $video->name }}</span>
                                 <span class="ln-lect-list-lect-duration">{{ App\Helper::convertSecondToTimeFormat($video->duration) }}</span>
-                                @if ($video_done_array[$video->index-1] == 1)
+                                @if ($list_video_done_in_unit[$video->index-1] == 1)
                                 <span class="ln-btn-complete" id="lnBtnComplete{{$video->id}}" data-child="{{$key+1}}">
                                     <button >
                                         <span class="fa-stack">
@@ -65,7 +67,7 @@
                                         </span>
                                     </button>
                                 </span>
-                                @elseif($video_done_array[$video->index-1] == 0)
+                                @elseif($list_video_done_in_unit[$video->index-1] == 0)
                                 <span class="ln-btn-complete" id="lnBtnNotComplete{{$video->id}}" data-child="{{$key+1}}">
                                     <button class="ln-btn-complete " >
                                         <span class="fa-stack">

@@ -60,6 +60,7 @@
                                             'from_sale' => $course->from_sale,
                                             'to_sale' => $course->to_sale,
                                             'btn_start_learning' => true,
+                                            'video_count'=>$course->video_count
                                         ]
                                     )
                                     @endforeach

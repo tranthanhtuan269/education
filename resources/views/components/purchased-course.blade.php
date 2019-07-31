@@ -1,16 +1,14 @@
 <?php
     if($vote_count == 0) $vote_count = 1;
     $user_role_course_instance = App\Helper\Helper::getUserRoleOfCourse($courseId);
-    // dd($user_role_course_instance );
     $user_role_course_instance_video = json_decode($user_role_course_instance->videos);
-    // dd($user_role_course_instance_video);
     $learningId = $user_role_course_instance_video->learning_id;
-    $video_count = count($user_role_course_instance_video->videos);
-    $video_done_array = $user_role_course_instance_video->videos;
-    if(count(array_count_values($video_done_array)) < 2){
-        $video_done_count = 0;
-    }else{
-        $video_done_count = array_count_values($video_done_array)[1];
+    $video_done_units = $user_role_course_instance_video->videos;
+    $video_done_count = 0;
+    foreach ($video_done_units as $key => $unit) {
+        if(isset(array_count_values($unit)[1])){
+            $video_done_count += array_count_values($unit)[1];
+        }
     }
     $video_done_percent = (int)(($video_done_count/$video_count)*100);
 ?>

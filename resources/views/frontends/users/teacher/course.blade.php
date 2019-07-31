@@ -125,7 +125,7 @@
                         </div>
                         <div class="form-group">
                             <label for="description" class="control-label">Mô tả:</label>
-                            <textarea id="course-description" name="description" class="form-control" rows="5" style="margin: 0px -11.3438px 0px 0px; width: 558px; height: 150px;"></textarea>
+                            <textarea id="course-description" name="description"  rows="5" style="margin: 0px -11.3438px 0px 0px; width: 558px; height: 150px;"></textarea>
                         </div>
                         <div class="form-group">
                             <label for="will-learn" class="control-label">Học viên sẽ học được:</label>
@@ -264,6 +264,10 @@
                 <div class="form-group row">
                     <label class="col-sm-3" for="name">Mô tả:</label>
                     <textarea class="col-sm-9 form-control add-video-description" rows="5" class="form-control" class="form-control"></textarea>
+                </div>
+                <div class="form-group row">
+                    <label for="file" class="col-sm-3">Tài liệu:</label>
+                    <input type="file" id="video-file" name="file" class="form-control">
                 </div>
                 <div class="form-group row">
                     <div class="clearfix">
@@ -636,14 +640,23 @@
             })
 
             });
-
+            $('#video-file').on('change', function(e){
+                    var file = e.target.files[0]
+                    var reader = new FileReader()
+                    reader.onload(function(e){
+console.log(e.target.result);
+                    })
+                    reader.readAsDataURL(file)
+            })
             $('.save-add-video').off('click');
             $('.save-add-video').click(function(){
                 var unit_id = $(this).attr('data-unit-id');
                 var video_name = $('.add-video-name').val()
                 var video_description = $('.add-video-description').val()
                 var link_video = $('#fileName').val()
-                // alert(link_video);return;
+                // alert(link_video);return
+                
+
                 $.ajax({
                     method: 'POST',
                     url: "{{ url('user/units/video/store') }}",
