@@ -119,16 +119,14 @@
                                             <div class="form-group">
                                                 <label>Chuyên môn</label>
                                                 <div class="form-group">
-                                                    <textarea class="form-control" rows="3" cols="50" name="expert">@if(Auth::user()->userRolesTeacher()->teacher){{ Auth::user()->userRolesTeacher()->teacher->expert }}@endif
-                                                    </textarea>
+                                                    <textarea class="form-control" rows="3" cols="50" name="expert">@if(Auth::user()->userRolesTeacher()->teacher){{Auth::user()->userRolesTeacher()->teacher->expert}}@endif</textarea>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label>CV</label>
                                                 <div class="form-group">
                                                     <script src="https://cdn.ckeditor.com/ckeditor5/12.1.0/classic/ckeditor.js"></script>
-                                                    <textarea id="editor-cv" class="form-control" rows="6" cols="50" name="cv">@if (Auth::user()->userRolesTeacher()->teacher) {!! Auth::user()->userRolesTeacher()->teacher->cv !!} @endif
-                                                    </textarea>
+                                                    <textarea id="editor-cv" class="form-control" rows="6" cols="50" name="cv">@if (Auth::user()->userRolesTeacher()->teacher) {!! Auth::user()->userRolesTeacher()->teacher->cv !!} @endif</textarea>
                                                     <p>Số từ: <b><span id="wordCount">0</span>/700</b> từ. (Tối thiểu 30 từ, tối đa 700 từ)</p>
                                                     <!-- <script>
                                                         ClassicEditor
@@ -166,23 +164,26 @@
 </div>
 <script src="{{ asset('frontend/js/dropzone.js') }}"></script>
 <script>
+    var wordCount;
     Dropzone.autoDiscover = false;
     $(document).ready(function(){
         ClassicEditor
             .create( document.querySelector( '#editor-cv' ) )
-            .then( editor => {
+            .then(editor => {
                 cv = editor;
-                editor.model.document.on( 'change', () => {
+                editor.model.document.on('change', () => {
                     var value = cv.getData();
                     if (value.length == 0) {
                         $('#wordCount').html(0);
                         return;
                     }
                     var regex = /\s+/gi;
-                    var wordCount = value.trim().replace(regex, ' ').split(' ').length;
+                    wordCount = value.trim().replace(regex, ' ').split(' ').length;
                     
-                    if(wordCount>30 && wordCount<700){
+                    if(wordCount > 30 && wordCount < 700){
                         $('#wordCount').css("color","green");
+                    }else{
+                        $('#wordCount').css("color","red");
                     }
 
                     $('#wordCount').html(wordCount);
@@ -294,7 +295,35 @@
                     html: 'Field birthday is invalid!',
                 })
 				return false;
-			}
+            }
+            if (wordCount < 30) {
+                Swal.fire({
+                    type: 'warning',
+                    html: 'CV của bạn quá ngắn!',
+                })
+                return false;
+            } else {
+                if(wordCount > 700){
+                    Swal.fire({
+                        type: 'warning',
+                        html: 'CV của bạn quá dài!',
+                    })
+                    return false;
+                }
+            }
+            var url = $('#YoutubeUrl').val();
+            if (url != undefined || url != '') {       
+                var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
+                var match = url.match(regExp);
+                if (match && match[2].length == 11) {
+                }else{
+                    Swal.fire({
+                        type: 'warning',
+                        html: 'Link Video không hợp lệ!',
+                    })
+                    return false;
+                }
+            }
 
             $.ajaxSetup(
             {

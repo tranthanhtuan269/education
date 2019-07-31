@@ -282,9 +282,11 @@ class CourseController extends Controller
     }
 
     public function handlingFeatureCourseAjax(Request $request){
+        $course = Course::where('featured', '>', 0)->update(['featured_index' => 0,'featured' => 0]);
+
         $course1 = Course::find($request->course_1);
         $course1->featured       = 1;
-        $course1->featured_index = 3;
+        $course1->featured_index = 1;
         $course1->save();
 
         $course2 = Course::find($request->course_2);
@@ -294,7 +296,7 @@ class CourseController extends Controller
 
         $course3 = Course::find($request->course_3);
         $course3->featured       = 1;
-        $course3->featured_index = 1;
+        $course3->featured_index = 3;
         $course3->save();
 
         return \Response::json(array('status' => '200', 'message' => 'Thay đổi khóa học nổi bật thành công!'));

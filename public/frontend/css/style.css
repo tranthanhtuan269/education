@@ -507,26 +507,16 @@ input.cropit-image-zoom-input {
 } */
 
 .cropit-preview {
-  /* You can specify preview size in CSS */
   width: 250px;
   height: 250px;
-  /* border: 1px solid #ccc; */
-  margin: 15px;
-}
-.cropit-preview .sample-avatar{
-  /* width: 240px; */
-  /* height: 240px; */
-  border: 1px solid #afb9d4;
+  margin: 15px auto;
 }
 
-.image-cropit-editor{
-  margin-left: 30px;
-  /* margin-top: 20px; */
-}
 .image-cropit-editor #image-cropper{
   width: 280px;
   border: 2px dashed #ccc;
   border-radius: 10px;
+  margin: 15px auto;
 }
 .image-cropit-editor input[type='range']  {
   -webkit-appearance: none ;
@@ -595,7 +585,7 @@ input.cropit-image-zoom-input {
   width: 100%;
   height: 8px;
   cursor: pointer;
-  animate: 0.2s;
+  animation: 0.2s;
   background: transparent;
   border-color: transparent;
   border-width: 39px 0;
@@ -622,6 +612,15 @@ input.cropit-image-zoom-input {
   background: #037cd5;
   cursor: pointer;
   margin-top: -2px;	
+}
+.image-cropit-editor .select-image-btn{
+  margin-bottom: 20px;
+}
+.register-teacher .image-cropit-editor #image-cropper{
+  width: 600px;
+}
+.register-teacher .image-cropit-editor .note{
+  margin: 15px auto;
 }
 /* End Cropit */
 

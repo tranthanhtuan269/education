@@ -89,7 +89,7 @@
                         <div class="form-group">
                             <label>Ảnh đại diện</label>
                             <input type="file" class="form-control" name="image" id="files" onchange="preview_image(event)"><br>
-                            <img id="preview_category_img" src="#" style="max-width:570px"/>
+                            <img id="preview_category_img" src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-image-128.png" style="max-width:570px"/>
                         </div>
                     </form>
                 </div>
@@ -136,6 +136,7 @@
                         <div class="form-group">
                             <label>Ảnh đại diện</label>
                             <input type="file" class="form-control" name="image" id="editImage">
+                            <img id="edit_category_img" src="" style="max-width:570px"/>
                         </div>
                     </form>
                 </div>
