@@ -212,13 +212,38 @@ class VideoController extends Controller
     {
         if ($request->data) {
             $list = json_decode($request->data);
-            dd($list);
+
+            $course = 0;
+            $unit = 0;
+            $video = 0;
             foreach ($list as $obj) {
                 $video = Video::find($obj->id);
+
+                $old_video_index = $video->index;
                 if ($video) {
-                    $video->index = $obj->index;
+                    $video->index = $obj->index+1;
+                    $unit = $video->unit;
+                    $course = $video->unit->course;
+                    
                     $video->save();
                 }
+            }
+
+            $user_roles = $course->userRoles()->where('role_id', 3)->get();
+            // dd(count($user_roles));
+            foreach ($user_roles as $key => $user_role) {
+                echo $key;
+                $user_course = UserCourse::where("user_role_id", $user_role->id)->where("course_id", $course->id)->first();
+                $videos = json_decode($user_course->videos);
+                $unit_arr = $videos->{'videos'}[($unit->index)-1];
+                var_dump($unit_arr);
+                echo 'br';
+                Helper::moveElementInArray($unit_arr, $request->old_pos - 1, $request->new_pos - 1);
+                var_dump($unit_arr);
+                $videos->{'videos'}[($unit->index)-1] = $unit_arr;
+                $videos = json_encode($videos);
+                $user_course->videos = $videos;
+                $user_course->save();
             }
             return \Response::json(array('status' => '200', 'message' => 'Sửa Video thành công!'));
         }

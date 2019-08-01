@@ -746,25 +746,35 @@ console.log(e.target.result);
                 })
             });
 
+            var old_pos = 0;
+            var new_pos = 0;
             $( "#videoSortable" ).sortable({
                 placeholder: "ui-state-highlight",
                 update: function( event, ui ) {
+                    old_pos = $(ui.item).attr('data-video-index');
+
                     // check key begin vs after
                     var data = [];
                     $.each($( "#videoSortable li" ), function( index, value ) {
-                        if(index != $(value).attr('data-video-index'))
-                        data.push({
-                            id: $(value).attr('data-video-id'),
-                            index: index,
-                        });
-                        
+                        if(index != $(value).attr('data-video-index')-1 ){
+                            if(new_pos == 0){
+                                new_pos = index;
+                            }
+                            data.push({
+                                id: $(value).attr('data-video-id'),
+                                index: index,
+                                unit_id: $(this).attr('data-unit-id')
+                            });   
+                        }
                     });
                     // end check key 
                     $.ajax({
                         method: "PUT",
                         url: "{{ url('/') }}/user/videos/sort",
                         data: {
-                            data: JSON.stringify( data )
+                            data: JSON.stringify( data ),
+                            old_pos: old_pos,
+                            new_pos: new_pos
                         },
                         dataType: 'json',
                         success: function (response) {

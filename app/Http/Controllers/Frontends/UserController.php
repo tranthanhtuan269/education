@@ -180,7 +180,7 @@ class UserController extends Controller
             $teacher = Auth::user()->userRolesTeacher()->teacher;
             $teacher->expert = $request->expert;
             $teacher->cv = $request->cv;
-            $teacher->video_intro = $request->video_intro;
+            $teacher->video_intro = "https://www.youtube.com/embed/" . Helper::getYouTubeVideoId($request->video_intro);
             $teacher->save();
 
             return \Response::json(['message' => 'Change profile success!', 'status' => 200]);
