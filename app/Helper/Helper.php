@@ -149,8 +149,8 @@ class Helper
          return $video_id;
     }
 
-    public static function moveElementInArray(&$array, $a, $b) {
-        $out = array_splice($array, $a, 1);
-        array_splice($array, $b, 0, $out);
+    public static function moveElementInArray(&$a, $oldpos, $newpos) {
+        if ($oldpos==$newpos) {return;}
+        array_splice($a,max($newpos,0),0,array_splice($a,max($oldpos,0),1));
     }
 }

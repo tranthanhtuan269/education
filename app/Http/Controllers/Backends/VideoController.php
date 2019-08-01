@@ -235,12 +235,12 @@ class VideoController extends Controller
                 echo $key;
                 $user_course = UserCourse::where("user_role_id", $user_role->id)->where("course_id", $course->id)->first();
                 $videos = json_decode($user_course->videos);
-                $unit_arr = $videos->{'videos'}[($unit->index)-1];
+                $unit_arr = $videos->{'videos'}[($unit->index)];
                 var_dump($unit_arr);
                 echo 'br';
                 Helper::moveElementInArray($unit_arr, $request->old_pos - 1, $request->new_pos - 1);
                 var_dump($unit_arr);
-                $videos->{'videos'}[($unit->index)-1] = $unit_arr;
+                $videos->{'videos'}[($unit->index)] = $unit_arr;
                 $videos = json_encode($videos);
                 $user_course->videos = $videos;
                 $user_course->save();

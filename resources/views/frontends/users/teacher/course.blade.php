@@ -751,22 +751,29 @@ console.log(e.target.result);
             $( "#videoSortable" ).sortable({
                 placeholder: "ui-state-highlight",
                 update: function( event, ui ) {
+                    // console.log($(ui.item));
+                    
                     old_pos = $(ui.item).attr('data-video-index');
 
                     // check key begin vs after
                     var data = [];
+                    var new_pos;
                     $.each($( "#videoSortable li" ), function( index, value ) {
+                        if($(value).attr('data-video-index') == old_pos){
+                            new_pos = index+1
+                        }
                         if(index != $(value).attr('data-video-index')-1 ){
-                            if(new_pos == 0){
-                                new_pos = index;
-                            }
+                            
                             data.push({
                                 id: $(value).attr('data-video-id'),
                                 index: index,
                                 unit_id: $(this).attr('data-unit-id')
-                            });   
+                            });
+                            $(value).attr('data-video-index', index+1)
                         }
                     });
+                    console.log(`old_pos = ${old_pos}`);
+                    console.log(`new_pos = ${new_pos}`);
                     // end check key 
                     $.ajax({
                         method: "PUT",
@@ -934,6 +941,113 @@ console.log(e.target.result);
             }
 
         }
+
+        function addEvent(){
+            $("#listUnit{{ $course->id }} .edit-unit").off('click')
+            $("#listUnit{{ $course->id }} .remove-unit").off('click')
+            $("#listUnit{{ $course->id }} .save-unit").off('click')
+          
+            $("#listUnit{{ $course->id }} .save-unit").click(function(){
+                var content = $('#unit-input').val()
+                // var html = '<i class="fas fa-sort"></i> <span class="unit-content">'+content+'</span> <i class="fas fa-trash remove-unit" id="remove-unit" data-id="{{ $course->id }}"></i><i class="fas fa-edit edit-unit" id="edit-unit" data-id="{{ $course->id }}"></i>'
+                var parent = $(this).parent()
+                var name = parent.find('input').val()
+
+                // send data to server
+                var unit_id = $(this).attr('data-unit-id')
+                var course_id = $(this).attr('data-course-id')
+                var data = {
+                    name: name
+                }
+
+                $.ajax({
+                    method: "PUT",
+                    url: "{{ url('/') }}/user/units/"+unit_id+"/update",
+                    data: data,
+                    dataType: 'json',
+                    success: function (response) {
+                        if(response.status == 200){
+                            parent.find('input').remove()
+                            parent.find('i.save-unit').remove()
+
+                            var html = ""
+                            html += '<i class="fas fa-sort"></i> '
+                            html += '<span class="unit-content">'+content+'</span>'
+                            html += '<i class="fas fa-trash remove-unit" id="remove-unit-'+ unit_id +'" data-unit-id="'+ unit_id +'" data-course-id="'+ course_id +'"></i>'
+                            html += '<i class="fas fa-edit edit-unit" id="edit-unit-'+ unit_id +'" data-unit-id="'+ unit_id +'" data-course-id="'+ course_id +'"></i>'
+                            html += '<i class="fas fa-bars list-vid-unit" id="list-vid-unit-'+ unit_id +'" data-unit-id="'+ unit_id +'" data-course-id="'+ course_id +'"></i>'
+
+                            parent.append(html)
+                            addEvent()
+                        }
+                    },
+                    error: function (error) {
+                        var obj_errors = error.responseJSON.errors;
+                        // console.log(obj_errors)
+                        var txt_errors = '';
+                        for (k of Object.keys(obj_errors)) {
+                            txt_errors += obj_errors[k][0] + '</br>';
+                        }
+                        Swal.fire({
+                            type: 'warning',
+                            html: txt_errors,
+                        })
+                    }
+                });
+                // end send data to server
+                addEvent()
+            })
+
+            $("#listUnit{{ $course->id }} .edit-unit").click(function(){
+                var unit_id = $(this).attr('data-unit-id');
+                var content = $(this).parent().find('span.unit-content').html()
+                var html = "<input class='form-control' id='unit-input' value='" + content +"'><i class='fas fa-check save-unit' id='btn-save-unit' data-unit-id='"+unit_id+"'></i>"
+                $(this).parent().html(html);
+                addEvent()
+            })
+
+            $("#listUnit{{ $course->id }} .remove-unit").click(function(){
+                var unit_id = $(this).attr('data-unit-id')
+                var sefl = $(this)
+                var data = {
+                    id: unit_id
+                };
+
+                $.ajax({
+                    method: "DELETE",
+                    url: "{{ url('user/units/delete') }}",
+                    data: data,
+                    dataType: 'json',
+                    success: function (response) {
+                        if(response.status == 200){
+                            sefl.parent().remove()
+                            $("#listUnit{{ $course->id }} #sortable").sortable('refresh')
+                        }
+                    },
+                    error: function (error) {
+                        var obj_errors = error.responseJSON.errors;
+                        // console.log(obj_errors)
+                        var txt_errors = '';
+                        for (k of Object.keys(obj_errors)) {
+                            txt_errors += obj_errors[k][0] + '</br>';
+                        }
+                        Swal.fire({
+                            type: 'warning',
+                            html: txt_errors,
+                        })
+                    }
+                });
+            })
+
+            $('#listUnit{{ $course->id }} .list-vid-unit').on('click', function () {
+                var unit_id = $(this).attr('data-unit-id')
+                $(".box-unit").modal('hide')
+                $("#listVideo").attr("data-unit-id", unit_id)
+                $("#listVideo").modal('show')
+            })
+
+        }
+        
     });
 </script>
 @endsection
