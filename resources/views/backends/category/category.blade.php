@@ -33,7 +33,7 @@
                             <th scope="col">Danh mục cha</th>
                             <th scope="col">Nổi bật</th>
                             <th scope="col">Image</th>
-                            <th scope="col">Thao tác</th>
+                            <th scope="col">Sửa, Xóa</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -107,6 +107,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
+                    <input type="hidden" id="userIdUpdate" value="">
                 </div>
                 <div class="modal-body">
                     <form>
@@ -134,9 +135,9 @@
                             <input type="text" class="form-control" name="icon" id="editIcon">
                         </div>
                         <div class="form-group">
-                            <label>Ảnh đại diện</label>
-                            <input type="file" class="form-control" name="image" id="editImage">
-                            <img id="edit_category_img" src="" style="max-width:570px"/>
+                            <label style="display:block">Ảnh đại diện</label>
+                            {{-- <input type="file" class="form-control" name="image" id="editImage"><br> --}}
+                            <img id="editCategoryImg" src="" style="max-width:570px"/>
                         </div>
                     </form>
                 </div>
@@ -194,14 +195,13 @@ $(document).ready(function() {
     }
 
     $('#addCategory').click(function(){
-        // alert(link_image_base64);return;
-        // if (link_image_base64 == '') {
-        //     Swal.fire({
-        //         type: 'warning',
-        //         html: 'Xin vui lòng chọn ảnh!',
-        //     })
-        //     return;
-        // } 
+        if (link_image_base64 == '') {
+            Swal.fire({
+                type: 'warning',
+                html: 'Xin vui lòng chọn ảnh!',
+            })
+            return;
+        } 
         var data    = {
             name             : $('#categoryName_id').val(),
             parent_id        : $('#categoryParent_id').val(),
@@ -258,22 +258,16 @@ $(document).ready(function() {
     });
 
     $('#editCategory').click(function(){
-        // alert(link_image_base64);return;
-        // if (link_image_base64 == '') {
-        //     Swal.fire({
-        //         type: 'warning',
-        //         html: 'Xin vui lòng chọn ảnh!',
-        //     })
-        //     return;
-        // } 
+        var id      = $("input[id=userIdUpdate]").val();
         var data    = {
+            id               : id,
             name             : $('#editName').val(),
             parent_id        : $('#editParentId').val(),
             featured         : $('input[name=editFeatured]').val(),
             icon             : $('#editIcon').val(),
-            image            : link_image_base64,
+            // image            : link_image_base64,
         };
-
+        // alert(1);
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
@@ -281,7 +275,7 @@ $(document).ready(function() {
         });
         
         $.ajax({
-            url: baseURL+"/admincp/categories/editCategory" + id,
+            url: baseURL+"/admincp/categories/editCategory",
             data: data,
             method: "POST",
             dataType:'json',
@@ -328,7 +322,7 @@ $(document).ready(function() {
         $('input[name=icon]').val('');
         $('input[type=file]').val('');
         $('select option[value="0"]').attr("selected",true);
-        $('#preview_category_img').src('');
+        $('#preview_category_img').src = "";
     }
 
     window.onbeforeunload = function() {
@@ -379,10 +373,10 @@ $(document).ready(function() {
             class: "action-field",
             render: function(data, type, row) {
                 var html = '';
-                html += '<a class="btn-accept mr-2 edit-category" data-id="' + data + '" data-title="' + row.title + '" data-content="' + row.content + '" title="Sửa"> <i class="fa fa-pencil fa-fw"></i></a>';
+                html += '<a class="edit-category" data-id="' + data + '" data-title="' + row.title + '" data-content="' + row.content + '" title="Sửa"> <i class="fa fa-pencil fa-fw"></i>Edit</a>';
+                html += '<br>';
                 // html += '&nbsp';
-                // html += '&nbsp';
-                // html += '<a class="btn-delete" data-id="' + data + '" title="Xóa"><i class="fa fa-trash fa-fw" aria-hidden="true"></i></a>';
+                html += '<a class="delete-category" data-id="' + data + '" title="Xóa"><i class="fa fa-trash fa-fw" aria-hidden="true"></i>Del</a>';
 
                 return html;
             },
@@ -429,6 +423,7 @@ $(document).ready(function() {
             $(row).attr('data-parent-id', data['parent-id']);
             $(row).attr('data-featured', data['featured']);
             $(row).attr('data-icon', data['icon']);
+            $(row).attr('data-image', data['image']);
         }
     });
 
@@ -501,30 +496,30 @@ $(document).ready(function() {
             var curr_parent_id  = $(this).parent().parent().attr('data-parent-id');
             var curr_featured   = $(this).parent().parent().attr('data-featured');
             var curr_icon       = $(this).parent().parent().attr('data-icon');
-
-            // alert(curr_icon);
+            var curr_image      = $(this).parent().parent().attr('data-image');
+            var id              = $(this).attr('data-id');
 
             $("input[name='name']").val(curr_name);
             $("select[name='parent_id']").val(curr_parent_id);
             $("input[name='editFeatured'][value='"+curr_featured+"']").prop('checked', true);
             $("input[name='icon']").val(curr_icon);
+            $("input[id=userIdUpdate]").val(id);
+            $("img[id=editCategoryImg]").attr("src", baseURL +'/frontend/images/' + curr_image);
         })
 
         $('.add-category').off('click')
         $('.add-category').click(function() {
-            // var curr_cv = $(this).parent().parent().attr('data-cv')
             $('#showAddModal').modal('show');
-            // $("#cv").html(curr_cv)
             clearFormCreate();
         })
 
-        $('.btn-delete').off('click')
-        $('.btn-delete').click(function(e) {
+        $('.delete-category').off('click')
+        $('.delete-category').click(function(e) {
             var _self = $(this);
             var id = $(this).attr('data-id');
             var row = $(e.currentTarget).closest("tr");
             $.ajsrConfirm({
-                message: "Bạn có chắc chắn muốn xóa ?",
+                message: "Xóa danh mục sẽ ảnh hưởng tới khóa học và các danh mục con. Bạn có chắc chắn muốn xóa?",
                 okButton: "Đồng ý",
                 onConfirm: function() {
                     $.ajaxSetup({
@@ -533,11 +528,11 @@ $(document).ready(function() {
                         }
                     });
                     $.ajax({
-                        url: baseURL + "/admincp/teachers/delete",
+                        url: baseURL + "/admincp/categories/delete",
                         data: {
-                            teacherId: id
+                            category_id: id
                         },
-                        method: "DELETE",
+                        method: "POST",
                         dataType: 'json',
                         beforeSend: function(r, a) {
                             current_page = dataTable.page.info().page;
@@ -576,41 +571,6 @@ $(document).ready(function() {
             }
             return current_page;
         }
-
-        $("#editEmail").click(function() {
-            var id = $(this).attr("data-id")
-            var title = $("#edit_subject_Ins").val()
-            var content = edit_content_Ins.getData()
-
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            var request = $.ajax({
-                method: "PUT",
-                url: "edit-email",
-                data: {
-                    id: id,
-                    title: title,
-                    content: content
-                },
-                dataType: "json"
-            })
-            request.done(function(response) {
-                $("#edit_subject_Ins").val("")
-                edit_content_Ins.setData("")
-                Swal.fire({
-                    text: response.message
-                })
-                if (response.status == 200) {
-                    $("#editEmailModal").modal("hide")
-                    dataTable.ajax.reload();
-                }
-            })
-        })
-
     }
 });
 </script>
