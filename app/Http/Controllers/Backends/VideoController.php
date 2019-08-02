@@ -8,6 +8,8 @@ use App\Course;
 use App\Unit;
 use App\Video;
 use App\UserCourse;
+use App\UserRole;
+use App\User;
 use Illuminate\Http\Request;
 use App\Helper\Helper;
 use App\Jobs\ProcessLecture;
@@ -312,6 +314,9 @@ class VideoController extends Controller
             ->addColumn('course_name', function ($video) {
                 return $video->Unit->course->name;
             })
+            // ->addColumn('teacherName', function ($video) {
+            //     return $video->unit->course->Lecturers()->first()->user->name;
+            // })
             ->addColumn('action', function ($video) {
                 return $video->id;
             })
@@ -402,20 +407,29 @@ class VideoController extends Controller
         if ($request->video_id) {
             $video = Video::find($request->video_id);
             if ($video) {
-                $json_video = json_decode($video->url_video, true);
+                // $json_video = json_decode($video->url_video, true);
 
-                if (count($json_video) > 0) {
-                    foreach ($json_video as $path_video) {
-                        if(\File::exists($path_video)) {
-                            \File::delete($path_video);
-                        }
-                    }
-                }
+                // if (count($json_video) > 0) {
+                //     foreach ($json_video as $path_video) {
+                //         if(\File::exists($path_video)) {
+                //             \File::delete($path_video);
+                //         }
+                //     }
+                // }
+                // echo 'rm /usr/local/WowzaStreamingEngine-4.7.7/content/360/'.$video->link_video;die;
+                exec('rm /usr/local/WowzaStreamingEngine-4.7.7/content/360/'.$video->link_video);
+                exec('rm /usr/local/WowzaStreamingEngine-4.7.7/content/480/'.$video->link_video);
+                exec('rm /usr/local/WowzaStreamingEngine-4.7.7/content/720/'.$video->link_video);
+
+                $path_video_origin = public_path('/uploads/videos/').$video->link_video;
+                if($path_video_origin){
+                    unlink($path_video_origin);
+                }    
+
                 $video->delete();
                 $res = array('status' => "200", "message" => "Xóa thành công");
                 echo json_encode($res);die;
             }
-
         }
         $res = array('status' => "401", "message" => 'Người dùng không tồn tại.');
         echo json_encode($res);die;
@@ -441,5 +455,49 @@ class VideoController extends Controller
         $path_360 = "/usr/local/WowzaStreamingEngine-4.7.7/content/360/".$video->link_video;
 
         dispatch(new ProcessLecture($path_360, $video->id, $video->link_video, 360));
+    }
+
+    public function getRequestDeleteVideo()
+    {
+        return view('backends.videos.request-delete-video');
+    }
+
+    public function getRequestDeleteVideoAjax()
+    {
+        $videos = Video::whereIn('state',[2])->get();
+        return datatables()->collection($videos)
+            ->addColumn('course_name', function ($video) {
+                return $video->Unit->course->name;
+            })
+            ->addColumn('teacherName', function ($video) {
+                return $video->unit->course->Lecturers()->first()->user->name;
+            })
+            ->addColumn('action', function ($video) {
+                return $video->id;
+            })
+            ->addColumn('reject', function ($video) {
+                return $video->id;
+            })
+            ->removeColumn('id')->make(true);
+    }
+
+    public function rejectRequesDeleteVideo(Request $request)
+    {
+        // echo 1;die;
+        $video = Video::find($request->video_id);
+        if ($video) {
+            $video->state       = 1;
+            $video->updated_at  = date('Y-m-d H:i:s');
+            $video->save();
+
+            return response()->json([
+                'status' => 200,
+                'message' => 'Đã hủy yêu cầu xóa Video!',
+            ]);
+        }
+        return response()->json([
+            'status' => 404,
+            'message' => 'Video is not found!',
+        ]);
     }
 }

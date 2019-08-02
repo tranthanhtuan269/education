@@ -67,6 +67,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('videos/inaccept-multiple-video', 'Backends\VideoController@inacceptMultiVideo');
         Route::delete('videos/delete', 'Backends\VideoController@deleteVideo');
         Route::delete('videos/delete-multiple-video', 'Backends\VideoController@deleteMultiVideo');
+        Route::get('request-delete-videos', 'Backends\VideoController@getRequestDeleteVideo');
+        Route::get('request-delete-videos/getRequestDeleteVideoAjax', 'Backends\VideoController@getRequestDeleteVideoAjax');
+        Route::put('request-delete-videos/reject', 'Backends\VideoController@rejectRequesDeleteVideo');
 
         // Trinhnk Block Users
         Route::put('users/block-user', 'Backends\UserController@blockUser');
