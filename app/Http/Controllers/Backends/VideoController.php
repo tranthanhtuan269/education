@@ -443,7 +443,7 @@ class VideoController extends Controller
                 exec('rm /usr/local/WowzaStreamingEngine-4.7.7/content/720/'.$video->link_video);
 
                 $path_video_origin = public_path('/uploads/videos/').$video->link_video;
-                if($path_video_origin){
+                if(\File::exists($path_video_origin)){
                     unlink($path_video_origin);
                 }    
 
