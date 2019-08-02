@@ -279,6 +279,21 @@ class VideoController extends Controller
         if ($video) {
             $video->state = 1;
             $video->save();
+            
+            // DuongNT // thêm 1 video vào lượng đã xem vào bảng user_courses
+            $unit = $video->unit;
+            $course = $unit->course;
+            $user_roles = $course->userRoles()->where('role_id', 3)->get()->all();//lấy những user_role đại diện student
+            #Insert cho từng student
+            
+            foreach ($user_roles as $key => $user_role) {
+                $user_course = UserCourse::where("user_role_id", $user_role->id)->where("course_id", $course->id)->first();
+                $videos = json_decode($user_course->videos);
+                array_push($videos->{'videos'}[($unit->index) - 1 ], 0);
+                $videos = json_encode($videos);
+                $user_course->videos = $videos;
+                $user_course->save();
+            }
 
             return response()->json([
                 'status' => 200,
@@ -357,6 +372,21 @@ class VideoController extends Controller
 
                 $video->state = $request->state;
                 $video->save();
+
+                // DuongNT // thêm 1 video vào lượng đã xem vào bảng user_courses
+                $unit = $video->unit;
+                $course = $unit->course;
+                $user_roles = $course->userRoles()->where('role_id', 3)->get()->all();//lấy những user_role đại diện student
+                #Insert cho từng student
+                
+                foreach ($user_roles as $key => $user_role) {
+                    $user_course = UserCourse::where("user_role_id", $user_role->id)->where("course_id", $course->id)->first();
+                    $videos = json_decode($user_course->videos);
+                    array_push($videos->{'videos'}[($unit->index) - 1 ], 0);
+                    $videos = json_encode($videos);
+                    $user_course->videos = $videos;
+                    $user_course->save();
+                }
                 echo json_encode($res);die;
             }
         }
