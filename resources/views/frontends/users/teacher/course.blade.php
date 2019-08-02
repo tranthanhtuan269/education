@@ -558,10 +558,15 @@
                 success: function (response) {
                     if(response.status == '200'){
                         var html = "";
+                        
                         for(var i = 0; i < response.videos.length; i++){
                             html += '<li class="ui-state-default ui-sortable-handle"  data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'">'
                             html += '<i class="fas fa-sort"></i> '
-                            html += '<span class="video-content">'+response.videos[i].name+'</span>'
+                            if(response.videos[i].state == "2"){
+                                html += '<span class="video-content">'+response.videos[i].name+'</span><span style="color: red;"> <i> (Yêu cầu xoá đang được duyệt)</i></span>'
+                            }else{
+                                html += '<span class="video-content">'+response.videos[i].name+'</span>'                                
+                            }
                             html += '<i class="fas fa-trash pull-right remove-video" data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'"></i>'
                             html += '<i class="fas fa-edit pull-right edit-video" data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'"></i>'
                             html += '</li>'
@@ -725,16 +730,16 @@ console.log(e.target.result);
 
             $(".remove-video").off('click');
             $(".remove-video").click(function(){
-                var sefl = $(this)
+                var self = $(this)
                 var video_id = $(this).attr('data-video-id')
 
-                //DuongNT // Đánh lại index cho từng video sau khi xoá
-                var deleted_index = $(this).parent().attr("data-video-index")
-                $.each($( "#videoSortable li" ), function( index, value ) {
-                    if(index >= (deleted_index-1)){
-                        $(value).attr("data-video-index", index)
-                    }
-                })
+                //DuongNT // Đánh lại index cho từng video trên DOM sau khi xoá
+                // var deleted_index = $(this).parent().attr("data-video-index")
+                // $.each($( "#videoSortable li" ), function( index, value ) {
+                //     if(index >= (deleted_index-1)){
+                //         $(value).attr("data-video-index", index)
+                //     }
+                // })
 
                 $.ajax({
                     method: 'DELETE',
@@ -745,7 +750,9 @@ console.log(e.target.result);
                     dataType: 'json',
                     success: function (response) {
                         if(response.status == '200'){
-                            sefl.parent().remove();
+                            // sefl.parent().remove();
+                            console.log(self.parent().children('span'))
+                            self.parent().children('span').after('<span style="color: red;"> <i> (Yêu cầu xoá đang được duyệt)</i></span>')                            
                         }
                     },
                     error: function () {

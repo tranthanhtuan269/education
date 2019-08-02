@@ -249,7 +249,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::put('sort-video', 'Backends\UnitController@sortVideo');
             Route::post('video/store', 'Backends\VideoController@store');
             Route::post('video/edit', 'Backends\VideoController@edit');
-            Route::delete('video/remove', 'Backends\VideoController@destroy');
+            Route::delete('video/remove', 'Backends\VideoController@sendRemoveVideoRequest');
             Route::delete('delete', 'Backends\UnitController@destroy');
         });
 
