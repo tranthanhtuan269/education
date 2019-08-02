@@ -90,7 +90,7 @@ class UnitController extends Controller
             foreach($list as $obj){
                 $unit = Unit::find($obj->id);
                 if($unit){
-                    $unit->index = $obj->index;
+                    $unit->index = $obj->index+1;
                     $unit->save();
                 }
             }
@@ -99,8 +99,10 @@ class UnitController extends Controller
             $user_roles = $course->userRoles()->where('role_id', 3)->get();
             foreach($user_roles as $key => $user_role){
                 $user_course = \App\UserCourse::where("user_role_id", $user_role->id)->where("course_id", $course->id)->first();
-                $videos = json_decode($user_course->videos);                
-                \App\Helper\Helper::moveElementInArray($videos, $request->old_pos, $request->new_pos);
+                $videos = json_decode($user_course->videos);
+                $unit_arr = $videos->{'videos'};
+                \App\Helper\Helper::moveElementInArray($unit_arr, $request->old_pos, $request->new_pos);
+                $videos->{'videos'} = $unit_arr;
                 $videos = json_encode($videos);
                 $user_course->videos = $videos;
                 $user_course->save();
