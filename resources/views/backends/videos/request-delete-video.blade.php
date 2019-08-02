@@ -287,7 +287,7 @@
                             }
                         });
                         $.ajax({
-                            url: baseURL+"/admincp/request-delete-videos/accept",
+                            url: baseURL+"/admincp/videos/delete",
                             data: {
                                 video_id : id
                             },

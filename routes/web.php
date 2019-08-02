@@ -70,7 +70,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('request-delete-videos', 'Backends\VideoController@getRequestDeleteVideo');
         Route::get('request-delete-videos/getRequestDeleteVideoAjax', 'Backends\VideoController@getRequestDeleteVideoAjax');
         Route::put('request-delete-videos/reject', 'Backends\VideoController@rejectRequestDeleteVideo');
-        Route::delete('request-delete-videos/accept', 'Backends\VideoController@acceptRequestDeleteVideo');
+        // Route::delete('request-delete-videos/accept', 'Backends\VideoController@acceptRequestDeleteVideo');
 
 
         // Trinhnk Block Users
