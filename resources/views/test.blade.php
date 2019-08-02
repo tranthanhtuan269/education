@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 </head>
 @php
-    // phpinfo();
+    phpinfo();
 @endphp
 <body>
         
