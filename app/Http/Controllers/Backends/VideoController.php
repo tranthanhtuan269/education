@@ -462,7 +462,7 @@ class VideoController extends Controller
             ->removeColumn('id')->make(true);
     }
 
-    public function rejectRequesDeleteVideo(Request $request)
+    public function rejectRequestDeleteVideo(Request $request)
     {
         // echo 1;die;
         $video = Video::find($request->video_id);
@@ -480,5 +480,50 @@ class VideoController extends Controller
             'status' => 404,
             'message' => 'Video is not found!',
         ]);
+    }
+
+    public function acceptRequestDeleteVideo(Request $request){
+        $video = Video::find($request->video_id);
+        if($video){
+            $unit = $video->unit;
+            $unit->video_count -= 1;
+            $unit->save();
+
+            $course = $unit->course;
+            $course->video_count -= 1;
+            $course->save();
+
+            $json_video = json_decode($video->url_video, true);
+            //Xoá luôn video trên server
+            if (count($json_video) > 0) {
+                foreach ($json_video as $path_video) {
+                    if(\File::exists($path_video)) {
+                        \File::delete($path_video);
+                    }
+                }
+            }
+            
+            // DuongNT // Xoá trong bảng usercourse phần tử đại diện video đã xem
+            $user_roles = $course->userRoles()->where('role_id', 3)->get()->all(); //lấy những user_role đại diện student
+            // $user_roles = \array_filter($user_roles, function($user_role){
+            //     return $user_role->role_id == 3; 
+            // });
+            foreach ($user_roles as $key => $user_role) {
+                $user_course = UserCourse::where("user_role_id", $user_role->id)->where("course_id", $course->id)->first();
+                $videos = json_decode($user_course->videos);
+                $unit_arr = $videos->{'videos'}[ ($unit->index) - 1 ];
+                array_splice($unit_arr, ($video->index - 1), 1);
+                $videos->{'videos'}[ ($unit->index) - 1 ] = $unit_arr;
+                $videos = json_encode($videos);
+                $user_course->videos = $videos;
+                $user_course->save();
+            }  
+
+            $video->delete();
+
+
+
+            $json_video = json_decode($video->url_video, true);
+        }
     }
 }
