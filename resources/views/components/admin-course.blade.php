@@ -213,25 +213,39 @@
 <script>
     Dropzone.autoDiscover = false;
     $(document).ready(function(){
+        var old_pos = 0;
         $( "#listUnit{{ $course->id }} #sortable" ).sortable({
             placeholder: "ui-state-highlight",
             update: function( event, ui ) {
                 // check key begin vs after
+
+                old_pos = $(ui.item).attr('data-unit-key');                
+
                 var data = [];
+                var new_pos;
                 $.each($( "#listUnit{{ $course->id }} li" ), function( index, value ) {
+
+                    if($(value).attr('data-unit-key') == old_pos){
+                        new_pos = index
+                    }
                     if(index != $(value).attr('data-unit-key'))
                     data.push({
                         id: $(value).attr('data-unit-id'),
-                        index: index,
+                        index: index,                        
                     });
-                    
+                    $(value).attr('data-unit-key', index)
+
                 });
+                console.log(`old_pos: ${old_pos}`)
+                console.log(`new_pos: ${new_pos}`)
                 // end check key 
                 $.ajax({
                     method: "PUT",
                     url: "{{ url('/') }}/user/units/sort",
                     data: {
-                        data: JSON.stringify( data )
+                        data: JSON.stringify( data ),
+                        old_pos: old_pos,
+                        new_pos: new_pos
                     },
                     dataType: 'json',
                     success: function (response) {
@@ -270,7 +284,7 @@
                 success: function (response) {
                     if(response.status == 200){
                         console.log(response.unit.data.id);
-                        var html = '<li class="ui-state-default"><i class="fas fa-sort"></i> <span class="unit-content">Item 1 </span> <i class="fas fa-trash remove-unit" id="remove-unit-'+response.unit.data.id+'" data-unit-id="'+response.unit.data.id+'" data-course-id="{{ $course->id }}"></i><i class="fas fa-edit edit-unit" id="edit-unit-'+response.unit.data.id+'" data-unit-id="'+response.unit.data.id+'" data-course-id="{{ $course->id }}"></i><i class="fas fa-bars list-vid-unit" id="list-vid-unit-'+response.unit.data.id+'" data-unit-id="'+response.unit.data.id+'" data-course-id="'+response.unit.data.id+'"></i></li>';
+                        var html = '<li class="ui-state-default" data-unit-id="'+response.unit.data.id+'" data-unit-key="'+(response.unit.data.index-1)+'"><i class="fas fa-sort"></i> <span class="unit-content">Item 1 </span> <i class="fas fa-trash remove-unit" id="remove-unit-'+response.unit.data.id+'" data-unit-id="'+response.unit.data.id+'" data-course-id="{{ $course->id }}"></i><i class="fas fa-edit edit-unit" id="edit-unit-'+response.unit.data.id+'" data-unit-id="'+response.unit.data.id+'" data-course-id="{{ $course->id }}"></i><i class="fas fa-bars list-vid-unit" id="list-vid-unit-'+response.unit.data.id+'" data-unit-id="'+response.unit.data.id+'" data-course-id="'+response.unit.data.id+'"></i></li>';
                         $("#listUnit{{ $course->id }} #sortable").append(html);
                         $("#listUnit{{ $course->id }} #sortable").sortable('refresh');
                         addEvent();
@@ -361,7 +375,15 @@
                 var sefl = $(this)
                 var data = {
                     id: unit_id
-                };
+                }
+
+                //DuongNT // Đánh lại index cho từng unit sau khi xoá 1 unit
+                var deleted_key = $(this).parent().attr("data-unit-key")
+                $.each($( "#listUnit{{ $course->id }} #sortable li"), function( index, value ) {
+                    if(index > (deleted_key)){
+                        $(value).attr("data-unit-key", index-1)
+                    }
+                })
 
                 $.ajax({
                     method: "DELETE",

@@ -16,6 +16,7 @@ class UnitTransformer extends TransformerAbstract
     {
         return [
             'id' => $unit->id,
+            'index'=> $unit->index,
             'name' => $unit->name,
             'course_id' => $unit->course_id,
         ];

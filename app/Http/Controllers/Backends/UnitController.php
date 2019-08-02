@@ -35,6 +35,19 @@ class UnitController extends Controller
             $unit->name = $request->name;
             $unit->course_id = $course->id;
             $unit->index = $course->units_count + 1;
+
+            $user_roles = $course->userRoles()->where('role_id', 3)->get();
+            foreach ($user_roles as $key => $user_role) {
+                $user_course = \App\UserCourse::where("user_role_id", $user_role->id)->where("course_id", $course->id)->first();
+                $videos = json_decode($user_course->videos);
+                $video_arr = $videos->{"videos"};
+                array_push($video_arr, []);
+                $videos->{"videos"} = $video_arr;
+                $videos = json_encode($videos);
+                $user_course->videos = $videos;
+                $user_course->save();
+            }
+
             $unit->save();
 
             return \Response::json(array('status' => '200', 'message' => 'Tạo Unit thành công!', 'unit' => fractal($unit, new UnitTransformer())->toArray()));
@@ -81,6 +94,18 @@ class UnitController extends Controller
                     $unit->save();
                 }
             }
+
+            $course = $unit->course;
+            $user_roles = $course->userRoles()->where('role_id', 3)->get();
+            foreach($user_roles as $key => $user_role){
+                $user_course = \App\UserCourse::where("user_role_id", $user_role->id)->where("course_id", $course->id)->first();
+                $videos = json_decode($user_course->videos);                
+                \App\Helper\Helper::moveElementInArray($videos, $request->old_pos, $request->new_pos);
+                $videos = json_encode($videos);
+                $user_course->videos = $videos;
+                $user_course->save();
+            }
+
             return \Response::json(array('status' => '200', 'message' => 'Sửa Unit thành công!'));
         }
         return \Response::json(array('status' => '404', 'message' => 'Sửa Unit không thành công!'));
@@ -138,6 +163,19 @@ class UnitController extends Controller
                 }
 
                 Video::whereIn('id', $arr_video_id)->delete();
+            }
+            //DuongNT // Xoá array đại diện cho unit này trong array video của user_course đại diện mõi student
+            $course = $unit->course;
+            $user_roles = $course->userRoles()->where('role_id', 3)->get();
+            foreach ($user_roles as $key => $user_role) {
+                $user_course = \App\UserCourse::where("user_role_id", $user_role->id)->where("course_id", $course->id)->first();
+                $videos = json_decode($user_course->videos);
+                $video_arr = $videos->{"videos"};
+                array_splice($video_arr, $unit->index-1, 1);
+                $videos->{"videos"} = $video_arr;
+                $videos = json_encode($videos);
+                $user_course->videos = $videos;
+                $user_course->save();
             }
 
             $unit->delete();

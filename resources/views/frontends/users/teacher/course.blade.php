@@ -728,6 +728,14 @@ console.log(e.target.result);
                 var sefl = $(this)
                 var video_id = $(this).attr('data-video-id')
 
+                //DuongNT // Đánh lại index cho từng video sau khi xoá
+                var deleted_index = $(this).parent().attr("data-video-index")
+                $.each($( "#videoSortable li" ), function( index, value ) {
+                    if(index >= (deleted_index-1)){
+                        $(value).attr("data-video-index", index)
+                    }
+                })
+
                 $.ajax({
                     method: 'DELETE',
                     url: "{{ url('/') }}/user/units/video/remove",
@@ -772,8 +780,6 @@ console.log(e.target.result);
                             $(value).attr('data-video-index', index+1)
                         }
                     });
-                    console.log(`old_pos = ${old_pos}`);
-                    console.log(`new_pos = ${new_pos}`);
                     // end check key 
                     $.ajax({
                         method: "PUT",
