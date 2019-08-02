@@ -23,7 +23,7 @@
 .u-outline{
     outline: none !important;
 }
-.btn-edit,.btn-delete{
+.btn-edit,.btn-delete, .btn-reject{
     cursor: pointer;
 }
 h5.modal-title{
@@ -139,7 +139,7 @@ h5.modal-title{
     float: right;
     margin-bottom: 15px;
 }
-.btn-view, .btn-accept, .btn-delete{
+.btn-view, .btn-accept, .btn-delete, .btn-reject{
     color: #333;
 }
 .form-control-file{
