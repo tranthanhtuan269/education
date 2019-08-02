@@ -184,6 +184,11 @@ $(document).ready(function () {
     })
     $(".video-list-item").click(function () {
         var video_id = $(this).attr("data-parent")
+        var section_dom = $(this).parent()
+        section_dom.each(function (index, value){
+            alert(index)
+        })
+        
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -198,7 +203,7 @@ $(document).ready(function () {
             dataType: "json",
         });
         request.done(function(){
-            window.location.replace("/learning-page/"+ course_id +"/lecture/"+ video_id) 
+            // window.location.replace("/learning-page/"+ course_id +"/lecture/"+ video_id)
         })
     })
 

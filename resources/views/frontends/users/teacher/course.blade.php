@@ -954,7 +954,7 @@ console.log(e.target.result);
             }
 
         }
-
+        @if(isset($course))
         function addEvent(){
             $("#listUnit{{ $course->id }} .edit-unit").off('click')
             $("#listUnit{{ $course->id }} .remove-unit").off('click')
@@ -1060,6 +1060,7 @@ console.log(e.target.result);
             })
 
         }
+        @endif
         
     });
 </script>
