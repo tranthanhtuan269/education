@@ -5,12 +5,9 @@
 <meta charset="UTF-8">
 </head>
 @php
-    // phpinfo();
+    phpinfo();
 @endphp
 <body>
-        
-        <video id="video-view" src="http://education.local/uploads/videos/1564716583_dYw8EtKMA8TDBpIvtNUJ2c0xXtMwAiTJBqJ5aDOc.mp4" width="545" height="280""></video>
-
         <div id="fb-root"></div>
         <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&autoLogAppEvents=1&version=v3.3&appId=484211768813006"></script>
         <div class="fb-login-button" data-width="" data-size="medium" data-button-type="login_with" data-auto-logout-link="false" data-use-continue-as="false"></div>

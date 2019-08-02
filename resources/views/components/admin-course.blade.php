@@ -213,7 +213,7 @@
 <script>
     Dropzone.autoDiscover = false;
     $(document).ready(function(){
-        // alert("tuan")
+        alert("tuan")
         $( "#listUnit{{ $course->id }} #sortable" ).sortable({
             placeholder: "ui-state-highlight",
             update: function( event, ui ) {

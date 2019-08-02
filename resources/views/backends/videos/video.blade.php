@@ -49,6 +49,26 @@
     </div>
 </section>
 <section>
+    <!-- <div class="modal fade" id="showCVModal" tabindex="-1">
+        <div class="modal-content" >
+            <div class="modal-header">
+                <h3>CV</h3>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row" id="cv">
+                    
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="form-group row">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-11">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
     <div class="modal fade" id="showVideoIntroModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content" >
@@ -58,8 +78,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="form-group col-sm-12 text-center">
-                            {{-- <iframe id="video-intro" src="" frameborder="0" width="545" height="280" allowscriptaccess="always" allowfullscreen="true"></iframe> --}}
-                            <video id="video-view" controls autoplay src="" frameborder="0" width="545" height="280" allowscriptaccess="always" allowfullscreen="true"></video>
+                            <iframe id="video-intro" src="" frameborder="0" width="545" height="280" allowscriptaccess="always" allowfullscreen="true"></iframe>
                         </div>
                     </div>
                 </div>
@@ -125,7 +144,7 @@
                 data: "link_video",
                 class: "video-item",
                 render: function(data, type, row){
-                    return '<a class="btn-view mr-2 view-video"><i class="fa fa-video-camera fa-fw" aria-hidden="true"></i></a>';
+                    return '<a class="btn-view mr-2 view-video-intro"><i class="fa fa-video-camera fa-fw" aria-hidden="true"></i></a>';
                 },
                 orderable: false
             },
@@ -207,7 +226,7 @@
                                 $(row).addClass('red-row');
                             }
                             // $(row).attr('data-cv', data['cv']);
-                            $(row).attr('data-video', data['link_video']);
+                            $(row).attr('data-video', data['url_video']);
                         }
                     });
                     
@@ -281,7 +300,7 @@
         }
 
         $('#showVideoIntroModal').on('hide.bs.modal', function () {
-            $("#video-view").attr('src', '')
+            $("#video-intro").attr('src', '')
         })
 
         function addEventListener(){
@@ -293,13 +312,12 @@
             //     $("#cv").html(curr_cv)
             // })
 
-            $('.view-video').off('click')
-            $('.view-video').click(function(){
+            $('.view-video-intro').off('click')
+            $('.view-video-intro').click(function(){
                 var curr_video_intro = $(this).parent().parent().attr('data-video')
 
                 $('#showVideoIntroModal').modal('show');
-                // $("#video-view").attr('src', curr_video_intro)
-                $("#video-view").attr('src', `http://45.56.82.249/uploads/videos/${curr_video_intro}`)
+                $("#video-intro").attr('src', curr_video_intro)
             })
 
             $('.btn-accept').off('click')
