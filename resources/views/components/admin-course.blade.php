@@ -394,6 +394,11 @@
                         if(response.status == 200){
                             sefl.parent().remove()
                             $("#listUnit{{ $course->id }} #sortable").sortable('refresh')
+                        }else if(response.status == 201) {
+                            Swal.fire({
+                                type:'warning',
+                                text: response.message
+                            })
                         }
                     },
                     error: function (error) {
@@ -409,6 +414,7 @@
                         })
                     }
                 });
+                
             })
 
             $('#listUnit{{ $course->id }} .list-vid-unit').on('click', function () {
@@ -491,8 +497,8 @@
             autoProcessQueue: true,
             parallelUploads: 50,
             maxFilesize: 5, // MB
-            thumbnailWidth:"259",
-            thumbnailHeight:"200",
+            thumbnailWidth:"640",
+            thumbnailHeight:"370",
             acceptedFiles: ".png, .jpeg, .jpg, .gif",
             url: "{{ url('upload-image') }}",
             headers: {

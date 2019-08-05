@@ -149,7 +149,7 @@ class UnitController extends Controller
             $arr_video_id = Video::where('unit_id', $request->id)->pluck('id')->toArray();
             $arr_video = Video::where('unit_id', $request->id)->pluck('url_video');
 
-            if (count($arr_video) > 0) {
+            if (count($arr_video) == 0) {
                 foreach ($arr_video as $path) {
 
                     $json_video = json_decode($path, true);
@@ -165,6 +165,11 @@ class UnitController extends Controller
                 }
 
                 Video::whereIn('id', $arr_video_id)->delete();
+            }else{
+                return response()->json([
+                    'status' => '201',
+                    'message' => 'Phần học vẫn còn bài học, không thể xoá!'
+                ]);
             }
             //DuongNT // Xoá array đại diện cho unit này trong array video của user_course đại diện mõi student
             $course = $unit->course;
