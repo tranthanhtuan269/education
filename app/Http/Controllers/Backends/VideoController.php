@@ -8,6 +8,8 @@ use App\Course;
 use App\Unit;
 use App\Video;
 use App\UserCourse;
+use App\UserRole;
+use App\User;
 use Illuminate\Http\Request;
 use App\Helper\Helper;
 use App\Jobs\ProcessLecture;
@@ -73,24 +75,19 @@ class VideoController extends Controller
             $course->save();
 
             // DuongNT // thêm 1 video vào lượng đã xem vào bảng user_courses
-            $user_roles = $course->userRoles()->get()->all();
-            $user_roles = \array_filter($user_roles, function($user_role){
-                return $user_role->role_id == 3; //lấy những user_role đại diện student
-            });
-            #Tìm vị trí cần để insert
-            // $counter = 0;
-            // for($i = 1; $i <= $unit->index; $i++){
-            //     $counter += Unit::where('course_id', $course->id)->where('index', $i)->first()->video_count;
+            // $user_roles = $course->userRoles()->get()->all();
+            // $user_roles = \array_filter($user_roles, function($user_role){
+            //     return $user_role->role_id == 3; //lấy những user_role đại diện student
+            // });
+            // #Insert cho từng student
+            // foreach ($user_roles as $key => $user_role) {
+            //     $user_course = UserCourse::where("user_role_id", $user_role->id)->where("course_id", $course->id)->first();
+            //     $videos = json_decode($user_course->videos);
+            //     array_push($videos->{'videos'}[($unit->index) - 1 ], 0);
+            //     $videos = json_encode($videos);
+            //     $user_course->videos = $videos;
+            //     $user_course->save();
             // }
-            #Insert cho từng student
-            foreach ($user_roles as $key => $user_role) {
-                $user_course = UserCourse::where("user_role_id", $user_role->id)->where("course_id", $course->id)->first();
-                $videos = json_decode($user_course->videos);
-                array_push($videos->{'videos'}[($unit->index) - 1], 0);
-                $videos = json_encode($videos);
-                $user_course->videos = $videos;
-                $user_course->save();
-            }
 
 
             return response()->json([
@@ -146,63 +143,64 @@ class VideoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function sendRemoveVideoRequest(Request $request)
     {
         $video = Video::find($request->video_id);
 
         if ($video) {
             if($video->state!=-1){
                 $unit = $video->unit;
-                $unit->video_count -= 1;
-                $unit->save();
+                // $unit->video_count -= 1;
+                // $unit->save();
 
                 $course = $unit->course;
-                $course->video_count -= 1;
-                $course->save();
+                // $course->video_count -= 1;
+                // $course->save();
                 
-                $video->state = -1;
+                $video->state = 2; //Đang được admin duyệt
                 $video->save();
 
 
 
 	            $json_video = json_decode($video->url_video, true);
 
-	            if (count($json_video) > 0) {
-	                foreach ($json_video as $path_video) {
-	                    if(\File::exists($path_video)) {
-	                        \File::delete($path_video);
-	                    }
-	                }
-                }
+                //Xoá luôn video trên server
+	            // if (count($json_video) > 0) {
+	            //     foreach ($json_video as $path_video) {
+	            //         if(\File::exists($path_video)) {
+	            //             \File::delete($path_video);
+	            //         }
+	            //     }
+                // }
                 
                 // DuongNT // Xoá trong bảng usercourse phần tử đại diện video đã xem
-                $unit = $video->unit;
-                $course = $video->unit->course;
-                $user_roles = $course->userRoles()->get()->all();
-                $user_roles = \array_filter($user_roles, function($user_role){
-                    return $user_role->role_id == 3; //lấy những user_role đại diện student
-                });
-                foreach ($user_roles as $key => $user_role) {
-                    $user_course = UserCourse::where("user_role_id", $user_role->id)->where("course_id", $course->id)->first();
-                    $videos = json_decode($user_course->videos);
-                    $unit_arr = $videos->{'videos'}[ ($unit->index) - 1 ];
-                    array_splice($unit_arr, ($video->index - 1), 1);
-                    $videos->{'videos'}[ ($unit->index) - 1 ] = $unit_arr;
-                    $videos = json_encode($videos);
-                    $user_course->videos = $videos;
-                    $user_course->save();
-                }                
+                // $unit = $video->unit;
+                // $course = $video->unit->course;
+                // $user_roles = $course->userRoles()->get()->all();
+                // $user_roles = \array_filter($user_roles, function($user_role){
+                //     return $user_role->role_id == 3; //lấy những user_role đại diện student
+                // });
+                // foreach ($user_roles as $key => $user_role) {
+                //     $user_course = UserCourse::where("user_role_id", $user_role->id)->where("course_id", $course->id)->first();
+                //     $videos = json_decode($user_course->videos);
+                //     $unit_arr = $videos->{'videos'}[ ($unit->index) - 1 ];
+                //     array_splice($unit_arr, ($video->index - 1), 1);
+                //     $videos->{'videos'}[ ($unit->index) - 1 ] = $unit_arr;
+                //     $videos = json_encode($videos);
+                //     $user_course->videos = $videos;
+                //     $user_course->save();
+                // }                
 
-	            $video->delete();
+	            // $video->delete();
 
 	            return response()->json([
 	                'status' => '200',
-	                'message' => 'Delete video successfully!'
+	                'message' => 'Yêu cầu xoá video đã được gửi!'
 	            ]);
             }else{
                 return response()->json([
                     'status' => '404',
-                    'message' => 'Xóa video không thành công!',
+                    'message' => 'Yêu cầu xoá video không được gửi thành công!',
                 ]);
             }
         }
@@ -230,16 +228,11 @@ class VideoController extends Controller
             }
 
             $user_roles = $course->userRoles()->where('role_id', 3)->get();
-            // dd(count($user_roles));
             foreach ($user_roles as $key => $user_role) {
-                echo $key;
                 $user_course = UserCourse::where("user_role_id", $user_role->id)->where("course_id", $course->id)->first();
                 $videos = json_decode($user_course->videos);
                 $unit_arr = $videos->{'videos'}[($unit->index)-1];
-                var_dump($unit_arr);
-                echo 'br';
                 Helper::moveElementInArray($unit_arr, $request->old_pos - 1, $request->new_pos - 1);
-                var_dump($unit_arr);
                 $videos->{'videos'}[($unit->index)-1] = $unit_arr;
                 $videos = json_encode($videos);
                 $user_course->videos = $videos;
@@ -284,8 +277,23 @@ class VideoController extends Controller
     {
         $video = Video::find($request->video_id);
         if ($video) {
-            $video->state = 1;
+            $video->state = 3;
             $video->save();
+            
+            // DuongNT // thêm 1 video vào lượng đã xem vào bảng user_courses
+            $unit = $video->unit;
+            $course = $unit->course;
+            $user_roles = $course->userRoles()->where('role_id', 3)->get()->all();//lấy những user_role đại diện student
+            #Insert cho từng student
+            
+            foreach ($user_roles as $key => $user_role) {
+                $user_course = UserCourse::where("user_role_id", $user_role->id)->where("course_id", $course->id)->first();
+                $videos = json_decode($user_course->videos);
+                array_push($videos->{'videos'}[($unit->index) - 1 ], 0);
+                $videos = json_encode($videos);
+                $user_course->videos = $videos;
+                $user_course->save();
+            }
 
             return response()->json([
                 'status' => 200,
@@ -307,11 +315,14 @@ class VideoController extends Controller
     public function getVideoAjax()
     {
         // $videos = Video::get();
-        $videos = Video::whereIn('state',[0,1])->get();
+        $videos = Video::whereIn('state',[0,1,3])->get();
         return datatables()->collection($videos)
             ->addColumn('course_name', function ($video) {
                 return $video->Unit->course->name;
             })
+            // ->addColumn('teacherName', function ($video) {
+            //     return $video->unit->course->Lecturers()->first()->user->name;
+            // })
             ->addColumn('action', function ($video) {
                 return $video->id;
             })
@@ -327,7 +338,7 @@ class VideoController extends Controller
             $video = Video::find($request->video_id);
 
             if ($video) {
-                if ($request->state == 1) {
+                if ($request->state == 3) { //state = 3 đang đợi convert trong hàng đợi
                     // convert video to multi resolution
                     $path_360 = "/usr/local/WowzaStreamingEngine-4.7.7/content/360/".$video->link_video;
                     $path_480 = "/usr/local/WowzaStreamingEngine-4.7.7/content/480/".$video->link_video;
@@ -361,6 +372,7 @@ class VideoController extends Controller
 
                 $video->state = $request->state;
                 $video->save();
+                
                 echo json_encode($res);die;
             }
         }
@@ -402,20 +414,29 @@ class VideoController extends Controller
         if ($request->video_id) {
             $video = Video::find($request->video_id);
             if ($video) {
-                $json_video = json_decode($video->url_video, true);
+                // $json_video = json_decode($video->url_video, true);
 
-                if (count($json_video) > 0) {
-                    foreach ($json_video as $path_video) {
-                        if(\File::exists($path_video)) {
-                            \File::delete($path_video);
-                        }
-                    }
-                }
+                // if (count($json_video) > 0) {
+                //     foreach ($json_video as $path_video) {
+                //         if(\File::exists($path_video)) {
+                //             \File::delete($path_video);
+                //         }
+                //     }
+                // }
+                // echo 'rm /usr/local/WowzaStreamingEngine-4.7.7/content/360/'.$video->link_video;die;
+                exec('rm /usr/local/WowzaStreamingEngine-4.7.7/content/360/'.$video->link_video);
+                exec('rm /usr/local/WowzaStreamingEngine-4.7.7/content/480/'.$video->link_video);
+                exec('rm /usr/local/WowzaStreamingEngine-4.7.7/content/720/'.$video->link_video);
+
+                $path_video_origin = public_path('/uploads/videos/').$video->link_video;
+                if(\File::exists($path_video_origin)){
+                    unlink($path_video_origin);
+                }    
+
                 $video->delete();
                 $res = array('status' => "200", "message" => "Xóa thành công");
                 echo json_encode($res);die;
             }
-
         }
         $res = array('status' => "401", "message" => 'Người dùng không tồn tại.');
         echo json_encode($res);die;
@@ -440,6 +461,55 @@ class VideoController extends Controller
 
         $path_360 = "/usr/local/WowzaStreamingEngine-4.7.7/content/360/".$video->link_video;
 
-        dispatch(new ProcessLecture($path_360, $video->id, $video->link_video, 360));
+        // dispatch(new ProcessLecture($path_360, $video->id, $video->link_video, 360));
+        ProcessLecture::dispatch($path_360, $video->id, $video->link_video, 360);
+
+        return response()->json([
+            'message'=>'done'
+        ]);
+    }
+
+    public function getRequestDeleteVideo()
+    {
+        return view('backends.videos.request-delete-video');
+    }
+
+    public function getRequestDeleteVideoAjax()
+    {
+        $videos = Video::whereIn('state',[2])->get();
+        return datatables()->collection($videos)
+            ->addColumn('course_name', function ($video) {
+                return $video->Unit->course->name;
+            })
+            ->addColumn('teacherName', function ($video) {
+                return $video->unit->course->Lecturers()->first()->user->name;
+            })
+            ->addColumn('action', function ($video) {
+                return $video->id;
+            })
+            ->addColumn('reject', function ($video) {
+                return $video->id;
+            })
+            ->removeColumn('id')->make(true);
+    }
+
+    public function rejectRequestDeleteVideo(Request $request)
+    {
+        // echo 1;die;
+        $video = Video::find($request->video_id);
+        if ($video) {
+            $video->state       = 1;
+            $video->updated_at  = date('Y-m-d H:i:s');
+            $video->save();
+
+            return response()->json([
+                'status' => 200,
+                'message' => 'Đã hủy yêu cầu xóa Video!',
+            ]);
+        }
+        return response()->json([
+            'status' => 404,
+            'message' => 'Video is not found!',
+        ]);
     }
 }

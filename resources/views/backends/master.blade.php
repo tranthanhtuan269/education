@@ -193,6 +193,9 @@
                                     <li class="@if ( Request::is('admincp/videos*') ) active @endif">
                                         <a href="{{ url('/') }}/admincp/videos"><i class="fa fa-minus"></i> Yêu cầu duyệt bài giảng</a>
                                     </li>
+                                    <li class="@if ( Request::is('admincp/request-delete-videos*') ) active @endif">
+                                        <a href="{{ url('/') }}/admincp/request-delete-videos"><i class="fa fa-minus"></i> Yêu cầu xóa Video</a>
+                                    </li>
                                 @endif
                             </ul>
                         </li>

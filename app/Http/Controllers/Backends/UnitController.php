@@ -19,7 +19,7 @@ class UnitController extends Controller
 
     public function getVideos($id){
         $videos = Video::where('unit_id', $id)
-                ->whereIn('state',[0,1])
+                ->whereIn('state',[0,1,2])
                 ->orderBy('index', 'asc')
                 ->get()
                 ->toArray();
@@ -35,6 +35,19 @@ class UnitController extends Controller
             $unit->name = $request->name;
             $unit->course_id = $course->id;
             $unit->index = $course->units_count + 1;
+
+            $user_roles = $course->userRoles()->where('role_id', 3)->get();
+            foreach ($user_roles as $key => $user_role) {
+                $user_course = \App\UserCourse::where("user_role_id", $user_role->id)->where("course_id", $course->id)->first();
+                $videos = json_decode($user_course->videos);
+                $video_arr = $videos->{"videos"};
+                array_push($video_arr, []);
+                $videos->{"videos"} = $video_arr;
+                $videos = json_encode($videos);
+                $user_course->videos = $videos;
+                $user_course->save();
+            }
+
             $unit->save();
 
             return \Response::json(array('status' => '200', 'message' => 'Tạo Unit thành công!', 'unit' => fractal($unit, new UnitTransformer())->toArray()));
@@ -77,10 +90,24 @@ class UnitController extends Controller
             foreach($list as $obj){
                 $unit = Unit::find($obj->id);
                 if($unit){
-                    $unit->index = $obj->index;
+                    $unit->index = $obj->index+1;
                     $unit->save();
                 }
             }
+
+            $course = $unit->course;
+            $user_roles = $course->userRoles()->where('role_id', 3)->get();
+            foreach($user_roles as $key => $user_role){
+                $user_course = \App\UserCourse::where("user_role_id", $user_role->id)->where("course_id", $course->id)->first();
+                $videos = json_decode($user_course->videos);
+                $unit_arr = $videos->{'videos'};
+                \App\Helper\Helper::moveElementInArray($unit_arr, $request->old_pos, $request->new_pos);
+                $videos->{'videos'} = $unit_arr;
+                $videos = json_encode($videos);
+                $user_course->videos = $videos;
+                $user_course->save();
+            }
+
             return \Response::json(array('status' => '200', 'message' => 'Sửa Unit thành công!'));
         }
         return \Response::json(array('status' => '404', 'message' => 'Sửa Unit không thành công!'));
@@ -122,7 +149,7 @@ class UnitController extends Controller
             $arr_video_id = Video::where('unit_id', $request->id)->pluck('id')->toArray();
             $arr_video = Video::where('unit_id', $request->id)->pluck('url_video');
 
-            if (count($arr_video) > 0) {
+            if (count($arr_video) == 0) {
                 foreach ($arr_video as $path) {
 
                     $json_video = json_decode($path, true);
@@ -138,6 +165,24 @@ class UnitController extends Controller
                 }
 
                 Video::whereIn('id', $arr_video_id)->delete();
+            }else{
+                return response()->json([
+                    'status' => '201',
+                    'message' => 'Phần học vẫn còn bài học, không thể xoá!'
+                ]);
+            }
+            //DuongNT // Xoá array đại diện cho unit này trong array video của user_course đại diện mõi student
+            $course = $unit->course;
+            $user_roles = $course->userRoles()->where('role_id', 3)->get();
+            foreach ($user_roles as $key => $user_role) {
+                $user_course = \App\UserCourse::where("user_role_id", $user_role->id)->where("course_id", $course->id)->first();
+                $videos = json_decode($user_course->videos);
+                $video_arr = $videos->{"videos"};
+                array_splice($video_arr, $unit->index-1, 1);
+                $videos->{"videos"} = $video_arr;
+                $videos = json_encode($videos);
+                $user_course->videos = $videos;
+                $user_course->save();
             }
 
             $unit->delete();

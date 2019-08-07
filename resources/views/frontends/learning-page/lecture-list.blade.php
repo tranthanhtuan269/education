@@ -47,7 +47,7 @@
             </div>
             <div id="sectionBody{{ $key+1 }}" class="ln-lect-list-body collapse">
                 <ul>
-                    @foreach($unit->videos->sortBy('index') as $video)
+                    @foreach($unit->videos->sortBy('index') as $key => $video)
                         <li class="video-list-item" id="listItem{{$video->id}}" data-parent="{{$video->id}}">
                             {{-- <a href="{{ route('videoplayer.show', ['courseId' => $unit->course_id, 'videoId' => $video->id]) }}"> --}}
                                 @php

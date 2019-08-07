@@ -32,12 +32,12 @@ class CourseController extends Controller
         }
 
         if($request->will_learn){
-            $will_learn = explode(",", $request->will_learn);
+            $will_learn = explode(";;", $request->will_learn);
             $will_learn = \json_encode($will_learn);
         }
 
         if($request->requirement){
-            $requirement = explode(",", $request->requirement);
+            $requirement = explode(";;", $request->requirement);
             $requirement = \json_encode($requirement);
         }
 
@@ -109,12 +109,12 @@ class CourseController extends Controller
                 }
 
                 if($request->will_learn){
-                    $will_learn = explode(",", $request->will_learn);
+                    $will_learn = explode(";;", $request->will_learn);
                     $will_learn = \json_encode($will_learn);
                 }
 
                 if($request->requirement){
-                    $requirement = explode(",", $request->requirement);
+                    $requirement = explode(";;", $request->requirement);
                     $requirement = \json_encode($requirement);
                 }
 

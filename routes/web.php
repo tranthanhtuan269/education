@@ -67,6 +67,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('videos/inaccept-multiple-video', 'Backends\VideoController@inacceptMultiVideo');
         Route::delete('videos/delete', 'Backends\VideoController@deleteVideo');
         Route::delete('videos/delete-multiple-video', 'Backends\VideoController@deleteMultiVideo');
+        Route::get('request-delete-videos', 'Backends\VideoController@getRequestDeleteVideo');
+        Route::get('request-delete-videos/getRequestDeleteVideoAjax', 'Backends\VideoController@getRequestDeleteVideoAjax');
+        Route::put('request-delete-videos/reject', 'Backends\VideoController@rejectRequestDeleteVideo');
+        // Route::delete('request-delete-videos/accept', 'Backends\VideoController@acceptRequestDeleteVideo');
+
 
         // Trinhnk Block Users
         Route::put('users/block-user', 'Backends\UserController@blockUser');
@@ -249,7 +254,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::put('sort-video', 'Backends\UnitController@sortVideo');
             Route::post('video/store', 'Backends\VideoController@store');
             Route::post('video/edit', 'Backends\VideoController@edit');
-            Route::delete('video/remove', 'Backends\VideoController@destroy');
+            Route::delete('video/remove', 'Backends\VideoController@sendRemoveVideoRequest');
             Route::delete('delete', 'Backends\UnitController@destroy');
         });
 

@@ -162,7 +162,7 @@ class VideoPlayerController extends Controller
 
                 $videoData = \json_encode($videoObj);
                 $user_course->videos = $videoData;
-                $user_course->save();
+                // $user_course->save();
                 return \Response::json(array('status' => '200', 'message' => 'Cập nhật thông tin thành công!'));
             }
         }
