@@ -9,7 +9,8 @@
         <a href="{{ url('/') }}/course/{{ $course->slug }}" title="{{ $course->name }}" class="course-box-slider pop">
             <div class="img-course">
             	<img class="img-responsive"
-                    src="{{ url('/frontend/images').'/'.$course->image }}"
+                    {{-- src="{{ url('/frontend/images').'/'.$course->image }}" --}}
+                    src="{{ $course->image }}"
                     alt="{{ $course->name }}">
                 @if (isset($heart))
                 <i class="fa fa-heart fa-lg heart-icon" aria-hidden="true"></i>    
@@ -38,7 +39,8 @@
                 <h3 class="title-course">{{ $course->name }}</h3>
                 <div class="clearfix" style="line-height:1.7">
                     <span class="name-teacher pull-left" data-teacher-id="{{$main_lecturer}}" >
-                        {{ $lecturers }}
+                        {{-- {{ $lecturers }} --}}
+                        {{ $course->author }}
                     </span>
                     <br>
                     <span class="pull-left">
@@ -53,7 +55,8 @@
                 </div>
                 <div class="time-view">
                     <span class="time">
-                        <i class="fas fa-stopwatch"></i> {{ $course->approx_time }} giờ
+                        {{-- <i class="fas fa-stopwatch"></i> {{ $course->approx_time }} giờ --}}
+                        <i class="fas fa-stopwatch"></i> {{ intval($course->duration / 60) }} giờ {{ $course->duration % 60 }} phút
                     </span>
                     <span class="view pull-right">
                         <i class="fa fa-eye" aria-hidden="true"></i> {!! number_format($course->view_count, 0, ',' , '.') !!}

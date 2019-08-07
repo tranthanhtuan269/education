@@ -16,7 +16,8 @@
                     <div class="row">
                         <div class="col-md-12">
                             <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $key_unit }}" class="accordion-toggle @if ($key_unit != 0) collapsed in @endif" aria-expanded="true"><span>Section {{ $key_unit + 1 }}:&nbsp; {{ $value_unit->name }}</span></a>
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $key_unit }}" class="accordion-toggle @if ($key_unit != 0) collapsed in @endif" aria-expanded="true"><span>{{ $value_unit->name }}</span></a>
+                                <!-- <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $key_unit }}" class="accordion-toggle @if ($key_unit != 0) collapsed in @endif" aria-expanded="true"><span>Section {{ $key_unit + 1 }}:&nbsp; {{ $value_unit->name }}</span></a> -->
                             </h4>
                         </div>
                     </div>
@@ -33,11 +34,13 @@
                                             @if(App\Helper\Helper::getUserRoleOfCourse($info_course->id))
                                             <a href="/learning-page/{{$info_course->id}}/lecture/{{$value_video->id}}">
                                                 <i class="fa fa-play-circle" aria-hidden="true"></i>
-                                                <span>Lecture {{ $value_video->index }}: &nbsp;{{ $value_video->name }}</span> 
+                                                <!-- <span>Lecture {{ $value_video->index }}: &nbsp;{{ $value_video->name }}</span>  -->
+                                                <span>{{ $value_video->name }}</span> 
                                             </a>
                                             @else
                                                 <i class="fa fa-play-circle" aria-hidden="true"></i>
-                                                <span>Lecture {{ $value_video->index }}: &nbsp;{{ $value_video->name }}</span> 
+                                                <!-- <span>Lecture {{ $value_video->index }}: &nbsp;{{ $value_video->name }}</span>  -->
+                                                <span>{{ $value_video->name }}</span> 
                                             @endif
                                         </div>
                                     </div>

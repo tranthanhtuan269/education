@@ -4,7 +4,6 @@ namespace App;
 
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
-use App\Category;
 
 class Category extends Model
 {

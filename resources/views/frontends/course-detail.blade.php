@@ -87,7 +87,7 @@
                                 <div class="row box clearfix">
                                     <div class="col-xs-6 full-width-mobile pb-10px">
                                         <span class="box-img"><img src="{{ asset('frontend/images/ic_course.png') }}" class="icon" alt="" /></span>
-                                        <span class="special">{{ number_format($info_course->video_count, 0, ',' , '.') }} Videos</span>
+                                        <span class="special">{{ $info_course->video_count }} Videos</span>
                                     </div>
                                     <div class="col-xs-6 full-width-mobile pb-10px">
                                         <span class="box-img"><img src="{{ asset('frontend/images/ic_student.png') }}" class="icon" alt="" /></span>
@@ -251,7 +251,8 @@
                     <div class="row">
                         <div class="col-sm-3 avatar-center">
                             <a href="{{ url('/') }}/teacher/{{ $lecturer->teacher->id }}" title="{{ $lecturer->user->name }}" >
-                                <img class="avatar" alt="{{ $lecturer->user->name }}" src="{{ asset('frontend/'.$lecturer->user->avatar) }}">
+                                <!-- <img class="avatar" alt="{{ $lecturer->user->name }}" src="{{ asset('frontend/'.$lecturer->user->avatar) }}"> -->
+                                <img class="avatar" alt="{{ $lecturer->user->name }}" src="{{ $lecturer->user->avatar }}">
                             </a>
                         </div>
                         <div class="col-sm-9">

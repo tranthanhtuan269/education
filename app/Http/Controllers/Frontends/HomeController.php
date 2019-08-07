@@ -429,6 +429,28 @@ class HomeController extends Controller
         }
         echo "Đã nạp cho mỗi người 1 củ nhé!";
     }
+
+    public function clone(){
+        // dd(\App\Category2::where('parent_id', 0)->get());
+        // create curl resource 
+        $ch = curl_init(); 
+
+        // set url 
+        curl_setopt($ch, CURLOPT_URL, "https://unica.vn/course/ngoai-ngu"); 
+
+        //return the transfer as a string 
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+
+        // $output contains the output string 
+        $output = curl_exec($ch); 
+
+        // close curl resource to free up system resources 
+        curl_close($ch);
+
+        echo $output;
+
+        
+    }
 }
 
 class VideoJson
