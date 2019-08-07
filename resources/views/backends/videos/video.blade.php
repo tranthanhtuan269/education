@@ -203,6 +203,8 @@
                         createdRow: function( row, data, dataIndex){
                             if(data['state'] == 1){
                                 $(row).addClass('blue-row');
+                            }else if(data['state'] == 3){
+                                $(row).addClass('yellow-row'); //đang convert ở background
                             }else{
                                 $(row).addClass('red-row');
                             }
@@ -311,6 +313,67 @@
                 if(_self.parent().parent().hasClass('blue-row')){
                     state = 1;
                     message = "Bạn có chắc chắn muốn hủy?";
+
+                    // Nếu video đã duyệt xong
+                    return $.ajsrConfirm({
+                        message: message,
+                        okButton: "Đồng ý",
+                        onConfirm: function() {
+                            $.ajaxSetup({
+                                headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                }
+                            });
+                            $.ajax({
+                                url: baseURL+"/admincp/videos/accept",
+                                data: {
+                                    video_id : id,
+                                    state : 0
+                                },
+                                method: "PUT",
+                                dataType:'json',
+                                beforeSend: function(r, a){
+                                    current_page = dataTable.page.info().page;
+                                },
+                                success: function (response) {
+                                    if(response.status == 200){
+                                        if(_self.parent().parent().hasClass('blue-row')){
+                                            $(_self).prop('title', 'Duyệt');
+                                        } else {
+                                            $(_self).prop('title', 'Hủy');
+                                        }
+
+                                        if(_self.parent().parent().hasClass('red-row')){
+                                            _self.find('i').removeClass('fa-check').addClass('fa-times');
+                                            _self.parent().parent().removeClass('red-row').addClass('blue-row');
+                                        }else{
+                                            _self.find('i').removeClass('fa-times').addClass('fa-check');
+                                            _self.parent().parent().addClass('red-row').removeClass('blue-row');
+                                        }
+
+                                        Swal.fire({
+                                            type: 'success',
+                                            text: response.message
+                                        })
+
+                                    }else{
+                                        Swal.fire({
+                                            type: 'warning',
+                                            text: response.message
+                                        })
+                                    }
+                                },
+                                error: function (data) {
+                                    if(data.status == 401){
+                                    window.location.replace(baseURL);
+                                    }else{
+                                    $().toastmessage('showErrorToast', errorConnect);
+                                    }
+                                }
+                            });
+                        },
+                        nineCorners: false,
+                    });
                 }
                 $.ajsrConfirm({
                     message: message,
@@ -325,7 +388,7 @@
                             url: baseURL+"/admincp/videos/accept",
                             data: {
                                 video_id : id,
-                                state : 1 - state
+                                state : 3
                             },
                             method: "PUT",
                             dataType:'json',
@@ -341,11 +404,8 @@
                                     }
 
                                     if(_self.parent().parent().hasClass('red-row')){
-                                        _self.find('i').removeClass('fa-check').addClass('fa-times');
-                                        _self.parent().parent().removeClass('red-row').addClass('blue-row');
-                                    }else{
-                                        _self.find('i').removeClass('fa-times').addClass('fa-check');
-                                        _self.parent().parent().addClass('red-row').removeClass('blue-row');
+                                        _self.find('i').remove();
+                                        _self.parent().parent().removeClass('red-row').addClass('yellow-row');
                                     }
 
                                     Swal.fire({

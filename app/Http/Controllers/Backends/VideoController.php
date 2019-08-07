@@ -277,7 +277,7 @@ class VideoController extends Controller
     {
         $video = Video::find($request->video_id);
         if ($video) {
-            $video->state = 1;
+            $video->state = 3;
             $video->save();
             
             // DuongNT // thêm 1 video vào lượng đã xem vào bảng user_courses
@@ -315,7 +315,7 @@ class VideoController extends Controller
     public function getVideoAjax()
     {
         // $videos = Video::get();
-        $videos = Video::whereIn('state',[0,1])->get();
+        $videos = Video::whereIn('state',[0,1,3])->get();
         return datatables()->collection($videos)
             ->addColumn('course_name', function ($video) {
                 return $video->Unit->course->name;
@@ -338,7 +338,7 @@ class VideoController extends Controller
             $video = Video::find($request->video_id);
 
             if ($video) {
-                if ($request->state == 1) {
+                if ($request->state == 3) { //state = 3 đang đợi convert trong hàng đợi
                     // convert video to multi resolution
                     $path_360 = "/usr/local/WowzaStreamingEngine-4.7.7/content/360/".$video->link_video;
                     $path_480 = "/usr/local/WowzaStreamingEngine-4.7.7/content/480/".$video->link_video;
@@ -372,21 +372,7 @@ class VideoController extends Controller
 
                 $video->state = $request->state;
                 $video->save();
-
-                // DuongNT // thêm 1 video vào lượng đã xem vào bảng user_courses
-                $unit = $video->unit;
-                $course = $unit->course;
-                $user_roles = $course->userRoles()->where('role_id', 3)->get()->all();//lấy những user_role đại diện student
-                #Insert cho từng student
                 
-                foreach ($user_roles as $key => $user_role) {
-                    $user_course = UserCourse::where("user_role_id", $user_role->id)->where("course_id", $course->id)->first();
-                    $videos = json_decode($user_course->videos);
-                    array_push($videos->{'videos'}[($unit->index) - 1 ], 0);
-                    $videos = json_encode($videos);
-                    $user_course->videos = $videos;
-                    $user_course->save();
-                }
                 echo json_encode($res);die;
             }
         }
@@ -475,7 +461,12 @@ class VideoController extends Controller
 
         $path_360 = "/usr/local/WowzaStreamingEngine-4.7.7/content/360/".$video->link_video;
 
-        dispatch(new ProcessLecture($path_360, $video->id, $video->link_video, 360));
+        // dispatch(new ProcessLecture($path_360, $video->id, $video->link_video, 360));
+        ProcessLecture::dispatch($path_360, $video->id, $video->link_video, 360);
+
+        return response()->json([
+            'message'=>'done'
+        ]);
     }
 
     public function getRequestDeleteVideo()

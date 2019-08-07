@@ -443,6 +443,9 @@ ul.alert li{
 .red-row{
     background-color: #ff4e4e;
 }
+.yellow-row{
+    background-color: yellow;
+}
 .red-row .video-item a, .red-row{
     color: white;
 }
