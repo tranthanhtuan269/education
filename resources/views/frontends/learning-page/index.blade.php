@@ -13,7 +13,7 @@
         }
     }
     // dd($video_done_count);
-    $video_done_percent = (int)(($video_done_count/$video_count)*100);
+    $video_done_percent = (int)(($video_done_count/(int)$video_count)*100);
     $video_urls = json_decode($main_video->url_video, true);
     // $urls = [];
     foreach ($video_urls as $key => $video_url) {

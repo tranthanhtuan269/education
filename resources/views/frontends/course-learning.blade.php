@@ -209,7 +209,8 @@
 						@endphp
 							<div class="teacher-info">
 								<p class="instructor">Giảng viên</p>
-								<img class="avatar" src="{{asset('/frontend/'.$ltr_avatar)}}" alt="Avatar">
+								{{-- <img class="avatar" src="{{asset('/frontend/'.$ltr_avatar)}}" alt="Avatar"> --}}
+								<img class="avatar" src="{{$ltr_avatar}}" alt="Avatar">
 								<p class="name">{{$ltr_name}}</p>
 								<p class="office"><span>{{$ltr_expert}}</span></p>
 								<div class="total-course">
@@ -280,7 +281,8 @@
 								<div class="row">
 									<div class="col-xs-6">
 										<a href="/course/{{$related_course->slug}}">
-											<img src="{{ asset("frontend/images/".$related_course->image)}}" alt="Courses" title="Courses">
+											{{-- <img src="{{ asset("frontend/images/".$related_course->image)}}" alt="Courses" title="Courses"> --}}
+											<img src="{{ $related_course->image}}" alt="Courses" title="Courses">
 										</a>
 									</div>
 									<div class="col-xs-6">

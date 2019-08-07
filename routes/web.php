@@ -24,9 +24,11 @@ Auth::routes();
 // Route::get('/detail-teacher','HomeController@detailTeacher');
 // Route::get('/course-learning','HomeController@courseLearning');
 // Route::get('/course-detail','HomeController@courseDetail');
-Route::get('duongtest', function(){
-    return view('test');
-});
+Route::get('them-banner-cho-category', 'Frontends\HomeController@themBannerChoCategory');
+Route::get('duyet-tat-ca-giang-vien','Frontends\HomeController@duyetAllTeacher' );
+Route::get('dem-video-cho-unit', 'Frontends\HomeController@demVideoChoUnit');
+Route::get('them-video-link', 'Frontends\HomeController@themVideoLink');
+
 
 // BACKEND
 Route::get('toh-admin', 'Backends\LoginController@getLoginAdmin')->name('toh-admin');

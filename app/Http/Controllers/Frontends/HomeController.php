@@ -11,6 +11,8 @@ use App\RatingTeacher;
 use App\Tag;
 use App\Teacher;
 use App\User;
+use App\Unit;
+use App\Video;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -40,7 +42,7 @@ class HomeController extends Controller
 
     public function home()
     {
-        $feature_category = Category::withCount('courses')->where('parent_id', '>', 0)->where('featured', 1)->orderBy('featured_index', 'asc')->limit(10)->get();
+        $feature_category = Category::withCount('courses')->where('featured', 1)->orderBy('featured_index', 'asc')->limit(10)->get();
         // trending = feature courses
         $feature_course = Course::where('status', 1)->where('featured', 1)->orderBy('featured_index', 'asc')->limit(8)->get();
         $best_seller_course = Course::where('status', 1)->orderBy('sale_count', 'desc')->limit(8)->get();
@@ -451,6 +453,79 @@ class HomeController extends Controller
 
         
     }
+    
+    // thêm banner cho category
+    public function themBannerChoCategory(){
+        $categories = Category::get();
+        $cateArr = [
+            ['Thiết kế', 0, 'fa-palette', 'banner_cat_design.png'], 
+            ['Công nghệ', 0, 'fa-wrench', 'banner_cat_technology.png'], 
+            ['Sức khoẻ, lối sống', 0, 'fa-book-medical', 'banner_cat_health.png'],
+            ['Nuôi dạy con', 0, 'fa-baby', 'banner_cat_kid.png'], 
+            ['Ngôn ngữ', 0, 'fa-language', 'banner_cat_language.png'],
+            ['Lối sống', 0, 'fa-tshirt', 'banner_cat_lifestyle.png'], 
+            ['Marketing', 0, 'fa-store', 'banner_cat_marketing.png'],
+            ['Hôn nhân', 0, 'fa-home', 'banner_cat_marriage.png'],
+            ['Phong cách sống', 0, 'fa-users', 'banner_cat_personal.png'],
+            ['Nhiếp ảnh, dựng phim', 0, 'fa-camera-retro', 'banner_cat_photography.png']
+        ];
+        foreach ($categories as $key => $category) {
+            $category->image = $cateArr[rand(0,9)][3];
+            $category->save();
+        }
+        return response()->json([
+            'message'=> 'done'
+        ]);
+    }
+
+    public function duyetAllTeacher(){
+        $teachers = Teacher::get();
+        $teacher_done = [];
+        foreach ($teachers as $key => $teacher) {
+            $teacher->status = 1;
+            $teacher->video_intro = "https://www.youtube.com/embed/U1_0b7CkucA";
+            $teacher->save();
+
+            array_push($teacher_done, $teacher->id);
+
+        }
+        return response()->json([
+            'message'=> 'done',
+            'teacher_id' => $teacher_done
+        ]);
+    }
+
+    public function demVideoChoUnit(){
+        $units = Unit::get();
+        $unit_done = [];
+        foreach ($units as $key => $unit) {
+            $videos = $unit->videos;
+            $video_count = $videos->count();
+            $unit->video_count = $video_count;
+            $unit->save();
+
+            array_push($unit_done, $unit->name);
+        }
+
+        return response()->json([
+            'message'=> 'done',
+            'unit_done' => $unit_done
+        ]);
+    }
+
+    public function themVideoLink(){
+        $videos = Video::get();
+        foreach ($videos as $key => $video) {
+            $video->url_video = '{"360": "vod/_definst_/360/dung-yeu-nua-em-met-roi-360.mp4","480": "vod/_definst_/480/dung-yeu-nua-em-met-roi-480.mp4","720": "vod/_definst_/720/dung-yeu-nua-em-met-roi-720.mp4","1080": "vod/_definst_/1080/dung-yeu-nua-em-met-roi-1080.mp4"}';
+            $video->save();
+        }
+        return response()->json([
+            'message'=> 'done',
+        ]);
+    }
+
+
+
 }
 
 class VideoJson

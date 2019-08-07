@@ -7,7 +7,7 @@
             <p>Phần {{$main_video->unit->index}}, Bài {{$main_video->index}}</p>
         </div>
         <div class="ln-desc-content">
-        <p>{{$main_video->description}}</p>
+        {!!$main_video->description!!}
         </div>
         <div class="ln-desc-achv">
             <p>Đã hoàn thành {{$video_done_count}} trên {{$video_count}} bài học</p>

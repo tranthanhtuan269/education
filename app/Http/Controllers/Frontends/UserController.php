@@ -80,7 +80,7 @@ class UserController extends Controller
         $user_role->save();
 
         Auth::login($user);
-        return response()->json(['message' => 'Your account has been created!', 'status' => 200]);
+        return response()->json(['message' => 'Chúc mừng bạn đã đăng ký thành công!', 'status' => 200]);
     }
 
     public function courseStudent(Request $request)

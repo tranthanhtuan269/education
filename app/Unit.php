@@ -9,6 +9,7 @@ class Unit extends Model
     protected $fillable = [
         'name', 'index', 'course', 'video_count'
     ];
+    public $timestamps = false;
 
     public function course()
     {
