@@ -22,9 +22,11 @@ class Category extends Model
             ]
         ];
     }
+    public $timestamps = false;
+
 
     protected $fillable = [
-        'name', 'parent_id', 'featured', 'featured_index', 'course_count','slug'
+        'name', 'parent_id', 'featured', 'featured_index', 'course_count','slug', 'image'
     ];
 
     public function courses()

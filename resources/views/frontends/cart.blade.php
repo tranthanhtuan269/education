@@ -87,7 +87,11 @@
             html = '';
             html += '<a href="/course/'+element.slug+'"><div class="cart-single-item" data-parent="'+element.id+'" data-index="'+index+'">'
                 html += '<div class="image">'
+                if(element.image.indexOf('unica') !== -1){
+                    html += '<img src="'+element.image+'" width="130rem" alt="">'
+                }else{
                     html += '<img src="/frontend/images/'+element.image+'" width="130rem" alt="">'
+                }
                 html += '</div>'
                 html += '<div class="course-info">'
 

@@ -9,7 +9,7 @@
                     'components.teacher', 
                     [
                         'id' => $teacher->id,
-                        'image' => url('frontend/'.$teacher->userRole->user->avatar),
+                        'image' => $teacher->userRole->user->avatar,
                         'name' => $teacher->userRole->user->name,
                         'expert' => $teacher->expert,
                         'rate' => $teacher->rating_score,

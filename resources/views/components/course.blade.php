@@ -8,10 +8,17 @@
     <div class="box-course">
         <a href="{{ url('/') }}/course/{{ $course->slug }}" title="{{ $course->name }}" class="course-box-slider pop">
             <div class="img-course">
-            	<img class="img-responsive"
-                    {{-- src="{{ url('/frontend/images').'/'.$course->image }}" --}}
-                    src="{{ $course->image }}"
-                    alt="{{ $course->name }}">
+                @if (strpos($course->image, 'unica') !== false)
+                    <img class="img-responsive"
+                        {{-- src="{{ url('/frontend/images').'/'.$course->image }}" --}}
+                        src="{{ $course->image }}"
+                        alt="{{ $course->name }}">
+                @else
+                    <img class="img-responsive"
+                    src="{{ url('/frontend/images').'/'.$course->image }}"
+                    {{-- src="{{ $course->image }}" --}}
+                    alt="{{ $course->name }}">             
+                @endif
                 @if (isset($heart))
                 <i class="fa fa-heart fa-lg heart-icon" aria-hidden="true"></i>    
                 @endif

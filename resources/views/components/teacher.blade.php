@@ -2,7 +2,11 @@
     <div class="info">
         <a href="{{ url('/') }}/teacher/{{ $id }}" title="{{ $name }}" class="course-box-slider pop">
             <div class="avatar text-center">
-                <img class="" src="{{ $image }}">
+                @if (strpos($image, 'unica') !== false)
+                    <img class="" src="{{ $image }}">
+                @else
+                    <img class="" src="{{ url('frontend/'.$teacher->userRole->user->avatar) }}">
+                @endif
             </div>
             <h3 class="name-teacher text-center text-center">{!! $name !!}</h3>
         </a>

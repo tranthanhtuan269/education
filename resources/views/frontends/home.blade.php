@@ -1,5 +1,8 @@
 @extends('frontends.layouts.app')
 @section('content')
+@php
+    // dd($feature_category);
+@endphp
 <div class="banner hidden-xs">
     
     {{-- <img class="pd-mb-banner hidden-xs" src="{{ asset('frontend/images/banner_home.png') }}" width="100%" alt="Banner home"> --}}

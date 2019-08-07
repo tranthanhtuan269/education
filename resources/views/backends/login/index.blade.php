@@ -20,14 +20,14 @@
 			    <form action="{{url('login-admin')}}" method="POST">
 			      <div class="form-group">
 			        <label>Email address</label>
-			        <input class="form-control" name="email" type="email" aria-describedby="emailHelp" placeholder="Enter email" value="{{ old('email') }}">
+			        <input class="form-control" name="email" type="email" aria-describedby="emailHelp" placeholder="Nhập email" value="{{ old('email') }}">
 					@if($errors->has('email'))
 						<span class="alert-errors">{{$errors->first('email')}}</span>
 					@endif
 			      </div>
 			      <div class="form-group">
 			        <label>Password</label>
-			        <input class="form-control" name="password" type="password" placeholder="Password" value="{{ old('password') }}">
+			        <input class="form-control" name="password" type="password" placeholder="Mật khẩu" value="{{ old('password') }}">
 					@if($errors->has('password'))
 						<span class="alert-errors">{{$errors->first('password')}}</span>
 					@endif

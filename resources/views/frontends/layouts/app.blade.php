@@ -395,7 +395,7 @@
                                                         <div class="form-group">
                                                             <div class="input-group password-group">
                                                                 <span class="input-group-addon"><i class="fas fa-lock fa-fw fa-md"></i></span>
-                                                                <input type="password" class="form-control" name="pass" placeholder="Password" required="required" id="showMyPassword">
+                                                                <input type="password" class="form-control" name="pass" placeholder="Mật khẩu" required="required" id="showMyPassword">
                                                                 <div class="show-password" onclick="showPassword()">
                                                                     <i class="fas fa-eye fa-fw fa-md" id="eye"></i>
                                                                     <!-- <i class="fas fa-eye-slash fa-fw fa-lg" style="display:none"></i> -->
@@ -407,7 +407,7 @@
                                                             <input type="checkbox" name="remember"> Keep my logged in on this computer
                                                         </div> --}}
                                                         <div class="form-group">
-                                                            <input type="button" class="btn btn-success btn-block btn-lg" value="Log In" onclick="loginAjax()">
+                                                            <input type="button" class="btn btn-success btn-block btn-lg" value="Đăng nhập" onclick="loginAjax()">
                                                         </div>
                                                     </form>
                                                     <div class="forgot-password">
@@ -440,7 +440,7 @@
                                                         <div class="form-group">
                                                             <div class="input-group">
                                                                 <span class="input-group-addon"><i class="fas fa-user fa-lock fa-fw fa-md"></i></span>
-                                                                <input type="text" class="form-control" name="name" placeholder="Username" required="required">
+                                                                <input type="text" class="form-control" name="name" placeholder="Tên của bạn" required="required">
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
@@ -452,27 +452,27 @@
                                                         <div class="form-group">
                                                             <div class="input-group">
                                                                 <span class="input-group-addon"><i class="fas fa-lock fa-fw fa-md"></i></span>
-                                                                <input type="password" class="form-control" name="pass" placeholder="Password" required="required">
+                                                                <input type="password" class="form-control" name="pass" placeholder="Mật khẩu" required="required">
                                                             </div>				
                                                         </div>
                                                         <div class="form-group">
                                                             <div class="input-group">
                                                                 <span class="input-group-addon"><i class="fas fa-lock fa-fw fa-md"></i></span>
-                                                                <input type="password" class="form-control" name="confirmpass" placeholder="Confirm Password" required="required">
+                                                                <input type="password" class="form-control" name="confirmpass" placeholder="Nhập lại mật khẩu" required="required">
                                                             </div>				
                                                         </div>
                                                         {{-- <div class="terms-and-policy">
                                                             <label class="checkbox-inline"><input type="checkbox">You agree to our <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>!</label>
                                                         </div> --}}
                                                         <div class="form-group">
-                                                            <input type="button" class="btn btn-success btn-block btn-lg" value="Create Account" onclick="registerAjax()">
+                                                            <input type="button" class="btn btn-success btn-block btn-lg" value="Đăng ký" onclick="registerAjax()">
                                                         </div>
                                                     </form>				
                                                 </div>
                                                 <div class="modal-footer">
                                                     <div class="link-to-sign-up">
                                                         <div>
-                                                            Already have an account? <a href="javascript:void(0)" data-toggle="modal" data-target="#myModalLogin" data-dismiss="modal"><b>Log In</b></a>
+                                                            Bạn đã có tài khoản? <a href="javascript:void(0)" data-toggle="modal" data-target="#myModalLogin" data-dismiss="modal"><b>Đăng nhập</b></a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -660,7 +660,7 @@
 
                 var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
                 // alert(number_items_in_cart.length)
-                // $('.number-in-cart').text(number_items_in_cart.length);
+                $('.number-in-cart').text(number_items_in_cart.length);
 
                 if(number_items_in_cart.length==0){
                     $('.unica-sl-cart').style.display='none';

@@ -502,7 +502,13 @@
 					html = ''
 					html += '<div class="row item-box">'
 						html += '<div class="image col-sm-3">'
+						
+
+						if(element.image.indexOf('unica') !== -1){
+							html += '<img src="'+element.image+'" width="100%" alt="">'
+						}else{
 							html += '<img src="/frontend/images/'+element.image+'" width="100%" alt="">'
+						}
 						html += '</div>'
 						html += '<div class="info col-sm-9">'
 							html += '<div class="title">'

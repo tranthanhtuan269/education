@@ -10,15 +10,21 @@
             $video_done_count += array_count_values($unit)[1];
         }
     }
-    $video_done_percent = (int)(($video_done_count/$video_count)*100);
+    $video_done_percent = (int)(($video_done_count/ (int) $video_count)*100);
 ?>
 <div class="col-md-3 col-sm-6">
     <div class="box-course">
         <div class="purchase_course">
             <div class="img-course">
-            	<img class="img-responsive img-full-width"
-                    src="{{ $image }}"
-                    alt="{{ $title }}">
+                @if (strpos($rawImage, 'unica') !== false)
+                    <img class="img-responsive img-full-width"
+                        src="{{ $rawImage }}"
+                        alt="{{ $title }}">
+                @else
+                    <img class="img-responsive img-full-width"
+                        src="{{ $image }}"
+                        alt="{{ $title }}">
+                @endif
                 @if (isset($heart))
                 <i class="fa fa-heart fa-lg heart-icon" aria-hidden="true"></i>    
                 @endif

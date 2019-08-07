@@ -149,7 +149,12 @@
                     </div>
                     @php
                         $will_learn = $info_course->will_learn;
-                        $will_learn = json_decode($will_learn);
+                        $will_learn = explode(";;", $will_learn);
+                        $will_learn = array_filter($will_learn, function($will){
+                            $will = trim($will);
+                            return $will != '';
+                        });
+                        // $will_learn = json_decode($will_learn);
                     @endphp
                     @if ($will_learn != null)
                     
