@@ -9,16 +9,17 @@
     <div class="top-course">
         <div class="row">
             <div class="col-sm-12 clearfix title-module-home">
-                <div class="pull-left">
+                {{-- <div class="pull-left">
                     <h2>Tất cả khóa học</h2>
-                </div>
-                <div class="pull-right">
+                </div> --}}
+                <div class="">
                     <ul class="nav nav-tabs">
                         <li class="active"><a data-toggle="tab" href="#best-seller">Bán chạy nhất</a></li>
                         <li><a data-toggle="tab" href="#menu1">Mới nhất</a></li>
                         <li><a data-toggle="tab" href="#menu2">Thịnh hành</a></li>
                     </ul>
                 </div>
+                <br>
             </div>
             <div class="col-sm-12">
                 <div class="tab-content">

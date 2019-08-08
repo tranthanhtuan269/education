@@ -9,7 +9,7 @@
 					<p>Khám phá những chủ đề và kỹ năng mới</p>	
 				</div>
 			</div>
-			@if (count($tags) > 0)
+			{{-- @if (count($tags) > 0)
 			<div class="slider">
 				@foreach ($tags as $key => $tag)
 					@if ($key % 5 == 0)
@@ -55,13 +55,13 @@
 					fade: true
 				});
 			</script>
-			@endif
+			@endif --}}
 		</div>
 	</div>
 </div>
 
 
-@include('frontends.feature-courses')
+{{-- @include('frontends.feature-courses') --}}
 @include('frontends.all-courses')
 @include('frontends.popular-teacher')
 @include('frontends.info-others')

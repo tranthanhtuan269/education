@@ -623,7 +623,7 @@
                 }else{
                     Swal.fire({
                             type: 'warning',
-                            html: 'Search field is empty',
+                            html: 'Bạn chưa nhập từ khoá!',
                         })
                         .then((result) => {
                             if (result.value) {
