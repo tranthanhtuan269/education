@@ -118,7 +118,13 @@
                     </span>
                     @else
                     <span class="price" style="color: #FF8F00">
-                        {!! number_format($course->real_price, 0, ',' , '.') !!}đ
+                        {{-- {!! number_format($course->real_price, 0, ',' , '.') !!}đ --}}
+                        @if (is_numeric($course->real_price))
+                        {!! number_format((int)$course->real_price, 0, ',' , '.') !!}đ
+                        @else
+                        Miễn phí
+                        @endif
+
                     </span>
                     @endif
                 </div>
