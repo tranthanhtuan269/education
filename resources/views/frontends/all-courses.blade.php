@@ -9,15 +9,31 @@
     <div class="top-course">
         <div class="row">
             <div class="col-sm-12 clearfix title-module-home">
-                {{-- <div class="pull-left">
-                    <h2>Tất cả khóa học</h2>
-                </div> --}}
-                <div class="">
+                <div class="pull-left" id="allCoursesTitle">
+                    <h2></h2>
+                </div>
+                <div class="pull-right">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a data-toggle="tab" href="#best-seller">Bán chạy nhất</a></li>
-                        <li><a data-toggle="tab" href="#menu1">Mới nhất</a></li>
-                        <li><a data-toggle="tab" href="#menu2">Thịnh hành</a></li>
+                        <li class="active" data-title="Bán chạy nhất"><a data-toggle="tab" href="#best-seller">Bán chạy nhất</a></li>
+                        <li data-title="Mới nhất"><a data-toggle="tab" href="#menu1">Mới nhất</a></li>
+                        <li data-title="Thịnh hành"><a data-toggle="tab" href="#menu2">Thịnh hành</a></li>
                     </ul>
+                    <script>
+                        $(document).ready(function(){
+                            switchAllCoursesTitle()
+                            $(document).on('click', '.nav.nav-tabs li', function(){
+                                switchAllCoursesTitle()
+                            })
+                        })
+                        function switchAllCoursesTitle(){
+                            $('.nav.nav-tabs li').each(function(index, element){
+                                if($(this).hasClass('active')){
+                                    var title = $(this).attr('data-title')
+                                    $('#allCoursesTitle h2').text(title)
+                                }                       
+                            })
+                        }
+                    </script>
                 </div>
                 <br>
             </div>
