@@ -1,7 +1,7 @@
 <?php
     if($course->vote_count == 0) $course->vote_count = 1;
     $random_name = ['Steve Rogers', 'Natasha Romanoff', 'Tony Stark', 'Peter Quill', "Bruce Banner", "Stephen Strange"];
-    $lecturers = count($course->Lecturers()) > 1 ? 'Nhiều tác giả' : (count($course->Lecturers()) > 0 ? $course->Lecturers()[0]->user->name : "Courdemy");
+    $lecturers = count($course->Lecturers()) > 1 ? 'Nhiều tác giả' : (count($course->Lecturers()) > 0 ? $course->Lecturers()->first()->user->name : "Courdemy");
 ?>
 <div class="col-md-3 col-sm-6">
     <div class="box-course course-search">
@@ -49,12 +49,25 @@
                 <div class="clearfix" style="line-height:1.7">
                     <div>
                         <span class="name-teacher">
-                            @if(count($course->Lecturers()) > 0)
-                                <a href="{{ url('/') }}/teacher/{{ $course->Lecturers()[0]->teacher->id }}" title="{{ $course->Lecturers()[0]->user->name }}">
-                                    {{ $lecturers }}
-                                </a>
+                            @php
+                                // print_r($course->userRoles->where('role_id', 2)->first()->teacher);
+                            @endphp
+                            @if (isset($course->userRoles->where('role_id', 2)->first()->teacher))
+                                @if(($course->Lecturers()->count()) > 0)
+                                    @if ($course->Lecturers()->count() > 1)
+                                    Nhiều tác giả
+                                    @else    
+                                    <a href="{{ url('/') }}/teacher/{{ $course->Lecturers()->first()->teacher->id }}" title="{{ $course->Lecturers()->first()->user->name }}">
+                                        {{ $lecturers }}
+                                    </a>
+                                    @endif
+                                @else
+                                    Courdemy
+                                @endif
                             @else
+                            <a href="{{ url('/') }}" title="Courdemy">
                                 Courdemy
+                            </a>
                             @endif
                         </span>
                     </div>
