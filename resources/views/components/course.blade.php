@@ -1,8 +1,12 @@
 <?php
     if($course->vote_count == 0) $course->vote_count = 1;
     $lecturers = count($course->Lecturers()) > 1 ? 'Nhiều tác giả' : (count($course->Lecturers()) > 0 ? $course->Lecturers()[0]->user->name : "Courdemy");
-    $main_lecturer = $course->Lecturers()->first() ? $course->Lecturers()->first()->teacher->id : 0;
     // dd($course->userRoles()->first()->teacher->id);
+    if (isset($course->Lecturers()->first()->teacher->id)) {
+        $main_lecturer = $course->Lecturers()->first() ? $course->Lecturers()->first()->teacher->id : 0;
+    }else{
+        $main_lecturer = null;
+    }
 ?>
 <div class="col-md-3 col-sm-6">
     <div class="box-course">
@@ -51,6 +55,9 @@
                     </span>
                     <br>
                     <span class="pull-left">
+                        {{-- @php
+                            echo($course->vote_count);
+                        @endphp --}}
                         @include(
                             'components.vote', 
                             [

@@ -9,9 +9,15 @@
         <div class="course-box-slider pop">
         <div class="img-course">
             <a href="{{ url('/') }}/course/{{ $course->slug }}" title="{{ $course->name }}">
+                @if (strpos($course->image, 'unica') !== false)
             	<img class="img-responsive"
+                    src="{{ $course->image }}"
+                    alt="{{ $course->name }}">
+                @else
+                <img class="img-responsive"
                     src="{{ url('/frontend/images').'/'.$course->image }}"
                     alt="{{ $course->name }}">
+                @endif
             </a>
                 @if (isset($heart))
                 <i class="fa fa-heart fa-lg heart-icon" aria-hidden="true"></i>    

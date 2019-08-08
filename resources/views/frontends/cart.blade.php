@@ -104,8 +104,12 @@
                 html += '<div class="single-price">'
                     html += '<div>'
                         html += '<div>'
+                        if(element.price == element.real_price){
                             html += '<div class="current-price">'+number_format(element.price, 0, '.', '.')+' ₫</div>'
+                        }else{
                             html += '<div class="initial-price">'+number_format(element.real_price, 0, '.', '.')+' ₫</div>'
+                            html += '<div class="current-price">'+number_format(element.price, 0, '.', '.')+' ₫</div>'
+                        }
                         html += '</div>'
                         // html += '<i class="fas fa-tag"></i>'
                     html += '</div>'
@@ -117,9 +121,12 @@
             totalPrice += element.price
             totalInitialPrice += element.real_price
         });
-
-        $(".checkout-column .current-price").append("<span>"+number_format(totalPrice, 0, '.', '.')+" ₫</span>")
-        $(".checkout-column .initial-price").append("<span>"+number_format(totalInitialPrice, 0, '.', '.')+" ₫</span>")
+        if(totalPrice == totalInitialPrice){
+            $(".checkout-column .current-price").append("<span>"+number_format(totalPrice, 0, '.', '.')+" ₫</span>")
+        }else{
+            $(".checkout-column .current-price").append("<span>"+number_format(totalPrice, 0, '.', '.')+" ₫</span>")
+            $(".checkout-column .initial-price").append("<span>"+number_format(totalInitialPrice, 0, '.', '.')+" ₫</span>")
+        }
         
         if(totalInitialPrice == 0){
             $(".checkout-column .percent-off").append("<span>0% off</span>")
