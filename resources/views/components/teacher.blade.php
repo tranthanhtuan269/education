@@ -7,6 +7,9 @@
                 @else
                     <img class="" src="{{ url('frontend/'.$teacher->userRole->user->avatar) }}">
                 @endif
+                @php
+                    // print_r($teacher);
+                @endphp
             </div>
             <h3 class="name-teacher text-center text-center">{!! $name !!}</h3>
         </a>

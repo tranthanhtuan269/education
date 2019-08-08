@@ -22,7 +22,6 @@ class Teacher extends Model
     public function courses()
     {
         return $this->belongsToMany('App\Course', 'user_courses', 'user_role_id');
-
     }
 
     static public function getTeacherBestVote()

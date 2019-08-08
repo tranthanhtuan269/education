@@ -1,3 +1,6 @@
+@php
+	// dd($info_teacher);
+@endphp
 @extends('frontends.layouts.app')
 @section('content')
 <div class="detail-teacher">

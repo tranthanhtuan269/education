@@ -26,7 +26,8 @@
                                     <span class="info-author-name">Giảng viên:<b> {{$feature_course[0]->Lecturers()[0]->user->name}}</b></span>
                                 </div>
                                 
-                                <div class="course-info-price">Học phí: <b style="font-size:20px">{{ $feature_course[0]->price }} ₫</b></div>
+                                <div class="course-info-price">Học phí: <b style="font-size:20px">{{ number_format($feature_course[0]->price, 0, ',' , '.') }} ₫</b></div>
+                                
                             </div>
 
                             <!-- <h3>{{ $feature_course[0]->name }}</h3> -->
