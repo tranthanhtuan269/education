@@ -6,7 +6,7 @@
 		<div class="highlight">
 			<div class="row title">
 				<div class="col-sm-12">
-					<p>Khám phá những chủ đề và kỹ năng mới</p>	
+					{{-- <p>Khám phá những chủ đề và kỹ năng mới</p>	 --}}
 				</div>
 			</div>
 			{{-- @if (count($tags) > 0)

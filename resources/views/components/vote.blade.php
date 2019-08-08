@@ -27,6 +27,6 @@
 @if(isset($rating_number) && isset($rate))
     <span class="n-rate">
         {!! number_format($rate, 1, ',' , '.') !!}&nbsp;
-        (<span>{!! $rating_number-1 !!}@if(isset($rating_txt)) đánh giá @endif</span>)
+        (<span>{!! $rating_number !!}@if(isset($rating_txt)) đánh giá @endif</span>)
     </span>
 @endif

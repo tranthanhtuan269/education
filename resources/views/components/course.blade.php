@@ -1,5 +1,5 @@
 <?php
-    if($course->vote_count == 0) $course->vote_count = 1;
+    // if($course->vote_count == 0) $course->vote_count = 0;
     $lecturers = count($course->Lecturers()) > 1 ? 'Nhiều tác giả' : (count($course->Lecturers()) > 0 ? $course->Lecturers()[0]->user->name : "Courdemy");
     // dd($course->userRoles()->first()->teacher->id);
     if (isset($course->Lecturers()->first()->teacher->id)) {
@@ -58,13 +58,23 @@
                         {{-- @php
                             echo($course->vote_count);
                         @endphp --}}
-                        @include(
-                            'components.vote', 
-                            [
-                                'rate' => intval($course->star_count) / intval($course->vote_count),
-                                'rating_number' => $course->vote_count,
-                            ]
-                        )
+                        @if($course->vote_count == 0)
+                            @include(
+                                'components.vote', 
+                                [
+                                    'rate' => 0,
+                                    'rating_number' => $course->vote_count,
+                                ]
+                            )
+                        @else
+                            @include(
+                                'components.vote', 
+                                [
+                                    'rate' => intval($course->star_count) / intval($course->vote_count),
+                                    'rating_number' => $course->vote_count,
+                                ]
+                            )
+                        @endif
                     </span>
                 </div>
                 <div class="time-view">
