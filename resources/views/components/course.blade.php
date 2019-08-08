@@ -70,7 +70,7 @@
                 <div class="time-view">
                     <span class="time">
                         {{-- <i class="fas fa-stopwatch"></i> {{ $course->approx_time }} giờ --}}
-                        <i class="fas fa-stopwatch"></i> {{ intval($course->duration / 60) }} giờ {{ $course->duration % 60 }} phút
+                        <i class="fas fa-stopwatch"></i> {{ intval($course->duration / 60) }} giờ
                     </span>
                     <span class="view pull-right">
                         <i class="fa fa-eye" aria-hidden="true"></i> {!! number_format($course->view_count, 0, ',' , '.') !!}
