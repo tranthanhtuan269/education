@@ -484,6 +484,7 @@ class HomeController extends Controller
         foreach ($teachers as $key => $teacher) {
             $teacher->status = 1;
             $teacher->video_intro = "https://www.youtube.com/embed/U1_0b7CkucA";
+            $teacher->course_count = $teacher->userRole->courses->count();
             $teacher->save();
 
             array_push($teacher_done, $teacher->id);
