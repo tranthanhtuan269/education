@@ -650,7 +650,7 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
 .popular-teacher .info .avatar{margin:8px 0}
 .popular-teacher .info .avatar img{vertical-align:middle;width:100px;height:100px;border-radius:50%;border:3px solid #fff;box-shadow:2px 1px 10px grey}
 .popular-teacher .info .name-teacher{font-size:18px;padding:10px 0;font-weight:600}
-.popular-teacher .info .des-teacher{font-size:16px}
+.popular-teacher .info .des-teacher{font-size:16px;min-height: 45px;overflow: hidden;text-overflow: ellipsis;}
 .popular-teacher .info .n-rate{color:#666}
 .popular-teacher .info .star-teacher{padding:10px 0}
 /*.slick-slider{position:relative;display:block;box-sizing:border-box;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-touch-callout:none;-khtml-user-select:none;-ms-touch-action:pan-y;touch-action:pan-y;-webkit-tap-highlight-color:transparent;bottom:80px} */
