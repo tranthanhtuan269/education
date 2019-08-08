@@ -681,10 +681,15 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
 .item-slider{cursor:pointer;}
 .cat-item-slider{margin-top:33px;color:#fff}
 .demo-aaaa{position:relative;display:block;bottom:80px}
-.bg-category{height: 250px; width: 100%}
+.bg-category{height: 200px; width: 100%}
 .background-page .slider img{width:100%}
 .background-page .slider .item{padding-bottom:10px; height: 149px;}
-.background-page .highlight .title p{text-transform:uppercase;font-size:24px;color:#fff}
+.background-page .highlight .title p{
+  text-transform:uppercase;font-size:24px;color:#fff;
+  font-size: 3rem;
+  font-style: italic;
+  font-family: 'Palanquin Dark', sans-serif;
+}
 .background-page .highlight{position:relative;bottom:120px}
 .background-page .highlight .title{margin-bottom:20px;font-size:25px}
 .background-page .highlight .thumbnail-img h4{font-size:22px;padding-bottom:5px;text-transform:uppercase}
