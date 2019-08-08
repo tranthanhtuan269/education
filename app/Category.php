@@ -49,6 +49,11 @@ class Category extends Model
         return $this->hasMany('App\Category', 'parent_id');
     }
 
+    public function childrenHavingCourse()
+    {
+        return $this->hasMany('App\Category', 'parent_id')->has('courses');
+    }
+
     public function parent()
     {
         return $this->hasOne('App\Category', 'id', 'parent_id');

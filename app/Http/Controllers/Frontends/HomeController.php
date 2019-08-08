@@ -28,11 +28,11 @@ class HomeController extends Controller
         $type = trim($request->get('type'));
         if ($type == 'best-seller') {
             $list_course = Course::where('status', 1)->orderBy('sale_count', 'desc')->paginate(16);
-            $title = 'Best seller';
-        } elseif ($type == 'new') {
+            $title = 'Khoá học được mua nhiều nhất';
+        } elseif ($type == 'Khoá học mới nhất') {
             $list_course = Course::where('status', 1)->orderBy('id', 'desc')->paginate(16);
             $title = 'New';
-        } elseif ($type == 'trendding') {
+        } elseif ($type == 'Khoá học đang thịnh hành') {
             $list_course = Course::where('status', 1)->where('featured', 1)->orderBy('featured_index', 'asc')->paginate(16);
             $title = 'Trendding';
         }
