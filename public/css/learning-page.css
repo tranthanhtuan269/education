@@ -179,6 +179,11 @@ body{
 .ln-desc-subtitle p{
     font-size: 1.5vw;
 }
+.ln-desc-content{
+    max-height: 45%;
+    overflow-y: scroll;
+
+}
 .ln-desc-content p{
     font-size: 1.25vw;
     text-align:justify;
