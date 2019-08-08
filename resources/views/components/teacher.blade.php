@@ -13,7 +13,7 @@
             </div>
             <h3 class="name-teacher text-center text-center">{!! $name !!}</h3>
         </a>
-        <p class="des-teacher text-center">{!! $expert !!}</p>
+        <div class="des-teacher text-center" title="{!! $expert !!}">{{ $expert }}</div>
         <div class="star-teacher text-center">
             @include(
                 'components.vote', 

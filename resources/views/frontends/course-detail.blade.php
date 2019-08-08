@@ -67,7 +67,7 @@
                                 <div class="row box clearfix">
                                     <div class="col-xs-6 full-width-mobile pb-10px">
                                         <span class="box-img"><img src="{{ asset('frontend/images/ic_duration.png') }}" class="icon" alt="" /></span>
-                                        <span class="special">Tổng số giờ học: {{ $info_course->approx_time }} giờ</span>
+                                        <span class="special">Tổng số giờ học: {{ intval($info_course->duration / 60) }} giờ</span>
                                     </div>
                                     <div class="col-xs-6 full-width-mobile pb-10px">
                                         <span class="box-img"><img src="{{ asset('frontend/images/ic_download.png') }}" class="icon" alt="" /></span>
