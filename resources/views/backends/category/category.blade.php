@@ -95,6 +95,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="addCategory">Thêm mới</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
                 </div>
             </div>
         </div>
@@ -134,15 +135,16 @@
                             <label class="label-icon-category">Icon:</label>
                             <input type="text" class="form-control" name="icon" id="editIcon">
                         </div>
-                        <div class="form-group">
-                            <label style="display:block">Ảnh đại diện</label>
+                        {{-- <div class="form-group"> --}}
+                            {{-- <label style="display:block">Ảnh đại diện</label> --}}
                             {{-- <input type="file" class="form-control" name="image" id="editImage"><br> --}}
-                            <img id="editCategoryImg" src="" style="max-width:570px"/>
-                        </div>
+                            {{-- <img id="editCategoryImg" src="" style="max-width:570px"/> --}}
+                        {{-- </div> --}}
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="editCategory">Xác nhận</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
                 </div>
             </div>
         </div>
@@ -232,23 +234,23 @@ $(document).ready(function() {
                     dataTable.ajax.reload();
                     Swal.fire({
                         type: 'success',
-                        text: response.Message
+                        text: response.message
                     })
                         
                 } else {
                     Swal.fire({
                         type: 'warning',
-                        text: response.Message
+                        text: response.message
                     })
                 }
             },
             error: function (error) {
-                var obj_errors = error.responseJSON.errors;
-                // console.log(obj_errors)
-                var txt_errors = '';
-                for (k of Object.keys(obj_errors)) {
-                    txt_errors += obj_errors[k][0] + '</br>';
-                }
+                var obj_errors = error;
+                console.log(obj_errors)
+                var txt_errors = 'abc';
+                // for (k of Object.keys(obj_errors)) {
+                //     txt_errors += obj_errors[k][0] + '</br>';
+                // }
                 Swal.fire({
                     type: 'warning',
                     html: txt_errors,
@@ -304,9 +306,9 @@ $(document).ready(function() {
                 var obj_errors = error.responseJSON.errors;
                 // console.log(obj_errors)
                 var txt_errors = '';
-                for (k of Object.keys(obj_errors)) {
-                    txt_errors += obj_errors[k][0] + '</br>';
-                }
+                // for (k of Object.keys(obj_errors)) {
+                //     txt_errors += obj_errors[k][0] + '</br>';
+                // }
                 Swal.fire({
                     type: 'warning',
                     html: txt_errors,

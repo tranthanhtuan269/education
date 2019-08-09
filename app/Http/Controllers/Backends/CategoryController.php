@@ -68,7 +68,7 @@ class CategoryController extends Controller
         $category->featured     = $request->featured;
         $category->icon         = $request->icon;
         // $category->image        = $file_name;
-        $category->updated_at   = date('Y-m-d H:i:s');
+        // $category->updated_at   = date('Y-m-d H:i:s');
 
         $category->save();
 
@@ -76,7 +76,7 @@ class CategoryController extends Controller
     }
 
     public function deleteCategory(Request $request){
-        $category = Category::where('parent_id', '=', $request->category_id)->update(['parent_id'=>0]);
+        $category = Category::where('parent_id', '=', $request->category_id)->update(['parent_id'=>1]);
 
         $course = Course::where('category_id', '=', $request->category_id)->update(['category_id'=>1]);
 

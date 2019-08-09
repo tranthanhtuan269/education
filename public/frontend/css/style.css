@@ -244,7 +244,7 @@ ul.unica-acc-zone li.special:hover a{color:#fff}
 .partner p{text-align:center;font-size:20px}
 .partner .partner-img{padding:30px 0 0}
 .partner .partner-img ul{text-align: center}
-.partner .partner-img li{display: table-cell;}
+.partner .partner-img li{display: ruby;}
 .partner .partner-img li div{padding-bottom: 20px}
 .partner .partner-img li img{height:80px;width:auto;padding:0 25px}
 .member-card-banner{background:url(../images/member-card-banner.png) no-repeat;background-size:auto 100%}

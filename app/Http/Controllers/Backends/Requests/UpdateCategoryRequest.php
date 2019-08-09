@@ -23,10 +23,10 @@ class UpdateCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:categories,name,Leadership',
+            // 'name' => 'required|unique:categories,name,'.$this->name,
             // 'name' => 'required|unique:categories,name|present',
             // 'image' => 'required',
-            'parent_id' => 'required',
+            // 'parent_id' => 'required',
             'featured' => 'required',
             'icon' => 'required',
         ];
