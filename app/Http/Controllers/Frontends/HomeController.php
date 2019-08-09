@@ -28,11 +28,11 @@ class HomeController extends Controller
         $type = trim($request->get('type'));
         if ($type == 'best-seller') {
             $list_course = Course::where('status', 1)->orderBy('sale_count', 'desc')->paginate(16);
-            $title = 'Best seller';
-        } elseif ($type == 'new') {
+            $title = 'Khoá học được mua nhiều nhất';
+        } elseif ($type == 'Khoá học mới nhất') {
             $list_course = Course::where('status', 1)->orderBy('id', 'desc')->paginate(16);
             $title = 'New';
-        } elseif ($type == 'trendding') {
+        } elseif ($type == 'Khoá học đang thịnh hành') {
             $list_course = Course::where('status', 1)->where('featured', 1)->orderBy('featured_index', 'asc')->paginate(16);
             $title = 'Trendding';
         }
@@ -79,12 +79,28 @@ class HomeController extends Controller
         $cat_id = Category::where('slug', $cat)->value('id');
 
         if ($cat_id) {
+            
+            $category = Category::where('slug', $cat)->first();
+            
             $tags = Tag::where('category_id', $cat_id)->get();
+            
             $feature_course = Course::where('status', 1)->where('category_id', $cat_id)->where('featured', 1)->orderBy('featured_index', 'asc')->limit(8)->get();
+            
             $best_seller_course = Course::where('status', 1)->where('category_id', $cat_id)->orderBy('sale_count', 'desc')->limit(8)->get();
+            
             $new_course = Course::where('status', 1)->where('category_id', $cat_id)->orderBy('id', 'desc')->limit(8)->get();
-            $popular_teacher = Teacher::getTeacherBestVote();
-            return view('frontends.category', compact('category', 'feature_course', 'best_seller_course', 'new_course', 'popular_teacher', 'tags'));
+            
+            // $popular_teacher = Teacher::getTeacherBestVote();
+
+            $popular_teacher = Teacher::getTeacherBestVote($cat_id);
+
+            
+            // $filtered_teachers = $popular_teacher->filter(function ($teacher, $key) use ($cat_id){
+            //     $courses = $teacher->courses->where('category_id', $cat_id);
+
+            //     return $courses->cate;
+            // });
+            return view('frontends.category', compact('category', 'feature_course', 'best_seller_course', 'new_course', 'popular_teacher', 'tags' ));
         }
 
         return abort(404);

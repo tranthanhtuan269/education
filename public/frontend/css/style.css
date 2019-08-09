@@ -650,7 +650,9 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
 .popular-teacher .info .avatar{margin:8px 0}
 .popular-teacher .info .avatar img{vertical-align:middle;width:100px;height:100px;border-radius:50%;border:3px solid #fff;box-shadow:2px 1px 10px grey}
 .popular-teacher .info .name-teacher{font-size:18px;padding:10px 0;font-weight:600}
-.popular-teacher .info .des-teacher{font-size:16px;min-height: 45px;overflow: hidden;text-overflow: ellipsis;}
+/* .popular-teacher .info .des-teacher{font-size:16px;min-height: 45px;max-height: 45px;overflow: hidden;text-overflow: ellipsis;} */
+.popular-teacher .info .des-teacher{display: block;display: -webkit-box;max-width: 100%;height: 45px;margin: 0 auto;font-size: 16px;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis;}
+
 .popular-teacher .info .n-rate{color:#666}
 .popular-teacher .info .star-teacher{padding:10px 0}
 /*.slick-slider{position:relative;display:block;box-sizing:border-box;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-touch-callout:none;-khtml-user-select:none;-ms-touch-action:pan-y;touch-action:pan-y;-webkit-tap-highlight-color:transparent;bottom:80px} */
@@ -679,10 +681,15 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
 .item-slider{cursor:pointer;}
 .cat-item-slider{margin-top:33px;color:#fff}
 .demo-aaaa{position:relative;display:block;bottom:80px}
-.bg-category{height: 250px; width: 100%}
+.bg-category{height: 200px; width: 100%}
 .background-page .slider img{width:100%}
 .background-page .slider .item{padding-bottom:10px; height: 149px;}
-.background-page .highlight .title p{text-transform:uppercase;font-size:24px;color:#fff}
+.background-page .highlight .title p{
+  text-transform:uppercase;font-size:24px;color:#fff;
+  font-size: 3rem;
+  font-style: italic;
+  font-family: 'Palanquin Dark', sans-serif;
+}
 .background-page .highlight{position:relative;bottom:120px}
 .background-page .highlight .title{margin-bottom:20px;font-size:25px}
 .background-page .highlight .thumbnail-img h4{font-size:22px;padding-bottom:5px;text-transform:uppercase}
