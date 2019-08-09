@@ -267,7 +267,18 @@
                 </div>
                 <div class="form-group row">
                     <label for="file" class="col-sm-3">Tài liệu:</label>
-                    <input type="file" id="video-file" name="file" class="form-control">
+                    <div class="btn-upload clearfix">
+                        <span class="file-wrapper">
+                            <input type="file"  id="addVideoDocument" name="document-upload" class="form-control" multiple style="display:none;">
+                            <span class="button text-uppercase" id="btnAddVideoDocument" >Thêm tài liệu</span>
+                        </span>
+                    </div>
+                    <div class="document-field col-sm-12">
+                        {{-- <div>
+                            <span class="pull-left">document.doc</span>
+                            <span class="pull-right"><button class="btn btn-danger">Xoá</button></span>
+                        </div> --}}
+                    </div>
                 </div>
                 <div class="form-group row">
                     <div class="clearfix">
@@ -547,6 +558,41 @@
         $('#editVideoModal').on('hidden.bs.modal', function () {
             $('#listVideo').modal('toggle');
         });
+        
+        $("#btnAddVideoDocument").click(function(){
+            $('#addVideoDocument').click()            
+        })
+        var inputFile = $('#addVideoDocument')
+        let files = [];
+        inputFile.change(function(){
+            let newFiles = []; 
+            for(let index = 0; index < inputFile[0].files.length; index++) {
+                let file = inputFile[0].files[index];
+                newFiles.push(file);
+                files.push(file);
+                var filesLength = files.length
+
+                var html = ''
+                html += `<div class="row" data-index="${filesLength - 1}">`
+                    html += `<span class="pull-left">${file.name}</span>`
+                    html += `<span class="pull-right"><button data-index="${filesLength - 1}" class="btn btn-danger" id="btnDeleteDocument">Xoá</button></span>`
+                html += `</div>`
+
+                $('.document-field').append(html)
+            }
+            
+        })
+
+        $(document).on('click', '#btnDeleteDocument', function(){
+            var indexToRemove = $(this).attr("data-index")
+            files.splice(indexToRemove,1)
+            $(this).parent().parent().remove()
+
+            $('.document-field>.row').each( (index, element) =>{
+                $(this).attr('data-index', index)
+                $(this).children(button).attr('data-index', index)
+            })
+        })
 
         $('#listVideo').on('shown.bs.modal', function () {
             var unit_id = $(this).attr('data-unit-id');
