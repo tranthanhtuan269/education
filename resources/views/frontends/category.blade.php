@@ -1,15 +1,21 @@
 @extends('frontends.layouts.app')
 @section('content')
 <div class="background-page">
-	<img class="bg-category" src="{{ asset('frontend/images/banner_profile_teacher.png') }}">
+	{{-- <img class="bg-category" src="{{ asset('frontend/images/banner_profile_teacher.png') }}"> --}}
+	{{-- <div class="hightlight">
+		<h1 style='font-family:proxima-nova,"Helvetica Neue",Helvetica,sans-serif'>Danh mục: {{ $category->name }}</h1>
+	</div> --}}
 	<div class='container'>
+		<img class="bg-category" src="{{ asset('frontend/images/banner_profile_teacher.png') }}">
 		<div class="highlight">
 			<div class="row title">
 				<div class="col-sm-12">
-					@php
-						// dd($category);
-					@endphp
-					<p>  Danh mục: {{ $category->name }}</p>	
+					<p>Danh mục:</p>
+					<h1>{{ $category->name }}</h1>
+					{{-- @php --}}
+						{{-- // dd($category); --}}
+					{{-- @endphp --}}
+					{{-- <p>  Danh mục: {{ $category->name }}</p>	 --}}
 				</div>
 			</div>
 			{{-- @if (count($tags) > 0)
