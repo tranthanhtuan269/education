@@ -1,6 +1,6 @@
 <?php
+    $initial_vote_count = $course->vote_count;
     if($course->vote_count == 0) {
-        $initial_vote_count = $course->vote_count;
         $course->vote_count = 1;
     }
     $image = url('/frontend/images/'.$course->image);

@@ -2,9 +2,7 @@
 @section('content')
 <?php
     $percent_temp = 100;
-    if($info_course->vote_count == 0){
-        $initial_vote_count = 0;
-    }
+    $initial_vote_count = $info_course->vote_count;
     if($info_course->vote_count == 0) {
         $info_course->vote_count = 1;
         $percent_temp = 0;
