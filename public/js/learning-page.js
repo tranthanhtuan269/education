@@ -186,7 +186,7 @@ $(document).ready(function () {
         var video_id = $(this).attr("data-parent")
         var section_dom = $(this).parent()
         section_dom.each(function (index, value){
-            alert(index)
+            // alert(index)
         })
         
         $.ajaxSetup({
