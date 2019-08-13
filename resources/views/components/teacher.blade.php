@@ -15,13 +15,13 @@
         </a>
         <div class="des-teacher text-center" title="{!! $expert !!}">{{ $expert }}</div>
         <div class="star-teacher text-center">
-            @include(
+            {{-- @include(
                 'components.vote', 
                 [
                     'rate' => $rate,
                     'rating_number' => $rating_number
                 ]
-            )
+            ) --}}
         </div>
         <div class="clearfix">
             <span class="number-course"><i class="fas fa-book"></i> {!! number_format($course_number, 0, ',' , '.') !!} khóa học</span>
