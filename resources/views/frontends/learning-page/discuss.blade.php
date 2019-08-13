@@ -38,9 +38,10 @@
                         <div class="ln-disc-post-username">
                             @php
                                 $comment_user_role_id = $comment_video->userRole->role_id;
+                                // echo($comment_user_role_id);
                                 // echo($comment_video->created_at)
                             @endphp
-                            <p>{{$comment_video->userRole->user->name}} - {{ $comment_user_role_id == 1 ? "Học viên" : ($comment_user_role_id == 2 ? "Giảng viên" : "Tiếp thị viên") }}    
+                            <p>{{$comment_video->userRole->user->name}} - {{ $comment_user_role_id == 3 ? "Học viên" : ($comment_user_role_id == 2 ? "Giảng viên" : "Tiếp thị viên") }}    
                             </p>
                         {{-- @if ( ($momentNow->diff($comment_video->created_at, 'tháng trước')) <= 1  )
                             <span><i>{{$momentNow->from($comment_video->created_at)}}</i></span>                    
