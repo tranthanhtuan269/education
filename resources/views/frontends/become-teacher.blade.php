@@ -52,7 +52,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="title-block-2">
-                            <p><b>Unica là e-learning platform, là cổng kết nối các CHUYÊN GIA tới hàng triệu người dân Việt Nam.</b></p>
+                            <p><b>Courdemy là e-learning platform, là cổng kết nối các CHUYÊN GIA tới hàng triệu người dân Việt Nam.</b></p>
                             <p>Các bài giảng được dưới dạng video giúp học viên có thể xem được bất kỳ khi nào, bất kỳ đâu.</p>
                         </div>
                         <div class="block-3">
@@ -60,7 +60,7 @@
                                 <div class="col-lg-4 col-md-4 col-sm-4">
                                     <div class="box-teacher-2">
                                         <img src="https://unica.vn/media/img/tc1.png" alt="" />
-                                        <p>unica partner</p>
+                                        <p>courdemy partner</p>
                                         <ul>
                                             <li>- Chuyên gia</li>
                                             <li>- Giảng viên</li>
@@ -78,7 +78,7 @@
                                 <div class="col-lg-4 col-md-4 col-sm-4">
                                     <div class="box-teacher-2">
                                         <img src="https://unica.vn/media/img/tc3.png" alt="" />
-                                        <p>unica student</p>
+                                        <p>courdemy student</p>
                                         <ul>
                                             <li>- Lãnh đạo</li>
                                             <li>- Người đi làm</li>
@@ -95,7 +95,7 @@
         <div class="unica-teacher-block-3">
             <div class="container">
                 <div class="row">
-                    <h3>5 lý do nên giảng dạy trên unica</h3>
+                    <h3>5 lý do nên giảng dạy trên courdemy</h3>
                     <div class="box-reason-teacher">
                         <ul class="slider">
                             <li>
@@ -362,8 +362,9 @@
     <div class="unica-teacher-block-7">
         <div class="container">
             <h3>ĐĂNG KÝ ĐỂ TRỞ THÀNH GIẢNG VIÊN Courdemy NGAY HÔM NAY</h3>
-                            <a style="cursor: pointer;" class="register_check">Đăng ký giảng viên</a>
-                        <p>HOTLINE: HN: 0392791528 - HCM: 0938005451</p>
+                {{-- <a style="cursor: pointer;" class="register_check">Đăng ký giảng viên</a> --}}
+                <a href="{{ Auth::check() ? url('user/register-teacher') : 'javascript:void(0)' }}" title="Register Teacher" {{ Auth::check() ? '' : ' data-toggle=modal data-target=#myModalLogin data-dismiss=modal id=redirect_register_teacher' }}>Đăng ký giảng viên</a>
+            <p>HOTLINE TOÀN QUỐC: 0973619398 </p>
         </div>
     </div>
 </main>
