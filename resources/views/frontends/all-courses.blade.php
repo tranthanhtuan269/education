@@ -14,9 +14,9 @@
                 </div>
                 <div class="pull-right">
                     <ul class="nav nav-tabs">
-                        <li class="active" data-title="Mua nhiều nhất"><a data-toggle="tab" href="#best-seller">Mua nhiều nhất</a></li>
-                        <li data-title="Mới nhất"><a data-toggle="tab" href="#menu1">Mới nhất</a></li>
-                        <li data-title="Thịnh hành"><a data-toggle="tab" href="#menu2">Thịnh hành</a></li>
+                        <li class="active" data-title="Các khóa học bán chạy"><a data-toggle="tab" href="#best-seller">Bán chạy</a></li>
+                        <li data-title="Các khóa học mới nhất"><a data-toggle="tab" href="#menu1">Mới nhất</a></li>
+                        <li data-title="Các khóa học thịnh hành"><a data-toggle="tab" href="#menu2">Thịnh hành</a></li>
                     </ul>
                     <script>
                         $(document).ready(function(){
