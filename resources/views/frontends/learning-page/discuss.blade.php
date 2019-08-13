@@ -38,14 +38,15 @@
                         <div class="ln-disc-post-username">
                             @php
                                 $comment_user_role_id = $comment_video->userRole->role_id;
+                                // echo($comment_video->created_at)
                             @endphp
                             <p>{{$comment_video->userRole->user->name}} - {{ $comment_user_role_id == 1 ? "Học viên" : ($comment_user_role_id == 2 ? "Giảng viên" : "Tiếp thị viên") }}    
                             </p>
-                        @if ( ($momentNow->diff($comment_video->created_at, 'tháng trước')) <= 1  )
+                        {{-- @if ( ($momentNow->diff($comment_video->created_at, 'tháng trước')) <= 1  )
                             <span><i>{{$momentNow->from($comment_video->created_at)}}</i></span>                    
                         @else
                             <span><i>{{ $comment_video->created_at->format("d F Y") }}</i></span>                        
-                        @endif
+                        @endif --}}
                         </div>
                         <div class="ln-disc-post-short-content" id="discComment{{$comment_video->id}}">
                             {!!$comment_video->content!!}
@@ -72,11 +73,11 @@
                                         echo $sub_comment_user_role_id == 1 ? "Học viên" : ($sub_comment_user_role_id == 2 ? "Giảng viên" : "Tiếp thị viên");
                                     @endphp 
                                     </p>
-                                    @if ( ($momentNow->diff($sub_comment_video->created_at, 'tháng trước')) <= 1  )
+                                    {{-- @if ( ($momentNow->diff($sub_comment_video->created_at, 'tháng trước')) <= 1  )
                                         <span><i>{{$momentNow->from($sub_comment_video->created_at)}}</i></span>                    
                                     @else
                                         <span><i>{{ $sub_comment_video->created_at->format("d F Y") }}</i></span>                        
-                                    @endif
+                                    @endif --}}
                                 </div>
                                 <div class="ln-disc-comment-content">
                                     {!!$sub_comment_video->content!!}

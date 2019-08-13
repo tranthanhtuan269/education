@@ -1,5 +1,8 @@
 <?php
-    if($course->vote_count == 0) $course->vote_count = 1;
+    if($course->vote_count == 0) {
+        $initial_vote_count = $course->vote_count;
+        $course->vote_count = 1;
+    }
     $image = url('/frontend/images/'.$course->image);
     $lecturers = count($course->Lecturers()) > 1 ? 'Nhiều tác giả' : count($course->Lecturers()) > 0 ? $course->Lecturers()[0]->user->name : "Courdemy";
 ?>
@@ -29,13 +32,23 @@
                     </span>
                     <br>
                     <span class="pull-left">
-                        @include(
-                            'components.vote', 
-                            [
-                                'rate' => intval($course->star_count) / intval($course->vote_count),
-                                'rating_number' => $course->vote_count,
-                            ]
-                        )
+                        @if ($initial_vote_count == 0)
+                            @include(
+                                'components.vote', 
+                                [
+                                    'rate' => intval($course->star_count) / intval($course->vote_count),
+                                    'rating_number' => 0,
+                                ]
+                            )
+                        @else
+                            @include(
+                                'components.vote', 
+                                [
+                                    'rate' => intval($course->star_count) / intval($course->vote_count),
+                                    'rating_number' => $course->vote_count,
+                                ]
+                            )                            
+                        @endif
                     </span>
                 </div>
                 <div class="time-view">

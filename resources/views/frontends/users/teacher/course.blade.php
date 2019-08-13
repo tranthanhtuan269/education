@@ -267,7 +267,18 @@
                 </div>
                 <div class="form-group row">
                     <label for="file" class="col-sm-3">Tài liệu:</label>
-                    <input type="file" id="video-file" name="file" class="form-control">
+                    <div class="btn-upload clearfix">
+                        <span class="file-wrapper">
+                            <input type="file"  id="addVideoDocument" name="document-upload" class="form-control" multiple style="display:none;">
+                            <span class="button text-uppercase" id="btnAddVideoDocument" >Thêm tài liệu</span>
+                        </span>
+                    </div>
+                    <div class="document-field col-sm-12">
+                        {{-- <div>
+                            <span class="pull-left">document.doc</span>
+                            <span class="pull-right"><button class="btn btn-danger">Xoá</button></span>
+                        </div> --}}
+                    </div>
                 </div>
                 <div class="form-group row">
                     <div class="clearfix">
@@ -547,6 +558,56 @@
         $('#editVideoModal').on('hidden.bs.modal', function () {
             $('#listVideo').modal('toggle');
         });
+        
+
+        //DUONG NT UPLOAD DOCUMENT
+        $("#btnAddVideoDocument").click(function(){
+            $('#addVideoDocument').click()            
+        })
+        var inputFile = $('#addVideoDocument')
+        let files = [];
+        inputFile.change(function(){
+            let newFiles = []; 
+            for(let index = 0; index < inputFile[0].files.length; index++) {
+                let file = inputFile[0].files[index];
+
+                // var reader = new FileReader()
+                // reader.onload = function(e){
+                    
+                // }
+                // reader.readAsDataURL(file)
+                newFiles.push(file);
+                files.push(file);
+                
+                var filesLength = files.length
+
+                var html = ''
+                html += `<div class="row" data-index="${filesLength - 1}">`
+                    html += `<span class="pull-left">${file.name}</span>`
+                    html += `<span class="pull-right btn-delete-document "><button data-index="${filesLength - 1}" class="btn btn-danger" id="btnDeleteDocument">Xoá</button></span>`
+                html += `</div>`
+
+                $('.document-field').append(html)
+                
+                
+                
+            }
+            
+        })        
+
+        $(document).on('click', '#btnDeleteDocument', function(){
+            var indexToRemove = $(this).attr("data-index")
+            files.splice(indexToRemove,1)
+            $(this).parent().parent().remove()
+
+            //re-index
+            $.each($('.document-field .row'), function(index, value){
+                console.log($(value));
+                $(value).attr('data-index', index)
+                $(value).children('span.btn-delete-document').children('button').attr('data-index', index)
+            })
+            
+        })
 
         $('#listVideo').on('shown.bs.modal', function () {
             var unit_id = $(this).attr('data-unit-id');
@@ -649,29 +710,38 @@
                     var file = e.target.files[0]
                     var reader = new FileReader()
                     reader.onload(function(e){
-console.log(e.target.result);
+                    // console.log(e.target.result);
                     })
                     reader.readAsDataURL(file)
             })
             $('.save-add-video').off('click');
-            $('.save-add-video').click(function(){
+            $('.save-add-video').click(function(){                
+
                 var unit_id = $(this).attr('data-unit-id');
                 var video_name = $('.add-video-name').val()
                 var video_description = $('.add-video-description').val()
                 var link_video = $('#fileName').val()
+                var documents =  JSON.stringify(files)
                 // alert(link_video);return
-                
+
+                var formData = new FormData()
+                // formData.append('documents', files, 'asdsa')
+                formData.append('name', video_name)
+                formData.append('description', video_description)
+                formData.append('unit_id', unit_id)
+                formData.append('link_video', link_video)
+
+                files.forEach((file, index) => {
+                    formData.append(`document${index}`, file)                    
+                });
 
                 $.ajax({
                     method: 'POST',
                     url: "{{ url('user/units/video/store') }}",
-                    data:{
-                        name        : video_name,
-                        description : video_description,
-                        unit_id     : unit_id,
-                        link_video  : link_video,
-                    },
-                    dataType: 'json',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    // dataType: 'json',
                     success: function (response) {
                         if(response.status == '200'){
                             $('#addVideoModal').modal('hide')
@@ -679,15 +749,15 @@ console.log(e.target.result);
                         }
                     },
                     error: function (error) {
-                        var obj_errors = error.responseJSON.errors;
-                        var txt_errors = '';
-                        for (k of Object.keys(obj_errors)) {
-                            txt_errors += obj_errors[k][0] + '</br>';
-                        }
-                        Swal.fire({
-                            type: 'warning',
-                            html: txt_errors,
-                        })
+                        // var obj_errors = error.responseJSON.errors;
+                        // var txt_errors = '';
+                        // for (k of Object.keys(obj_errors)) {
+                        //     txt_errors += obj_errors[k][0] + '</br>';
+                        // }
+                        // Swal.fire({
+                        //     type: 'warning',
+                        //     html: txt_errors,
+                        // })
                     }
                 })
             })

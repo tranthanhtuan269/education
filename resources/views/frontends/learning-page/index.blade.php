@@ -1,6 +1,6 @@
 @php 
     $momentNow = new MomentPHP\MomentPHP();
-    // dd($course);
+    // dd($momentNow->diff('2005-08-15 15:52:01', 'tháng trước'));
     $user_role_course_instance_video = json_decode($user_role_course_instance->videos);
     // dd($user_role_course_instance_video->videos);
     $video_count = $course->video_count;
@@ -20,7 +20,6 @@
         $video_urls[$key] = \App\Helper::createSecurityTokenForVideoLink(\Auth::id(), $main_video->id, $video_url);
     }    
     $video_urls = json_encode($video_urls);
-    // dd($video_urls);
 @endphp
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
