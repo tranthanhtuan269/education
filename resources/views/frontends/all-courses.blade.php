@@ -41,7 +41,10 @@
                 <div class="tab-content">
                     <div id="best-seller" class="tab-pane fade in active">
                         <div class="row">
-                            @foreach ($best_seller_course as $best_seller)
+                            @foreach ($best_seller_course as $key => $best_seller)
+                            @if($key%4 == 0)
+                            <div class="row open">
+                            @endif
                                 @include(
                                     'components.course', 
                                     [   
@@ -64,6 +67,9 @@
                                         // 'bought' => $best_seller->checkCourseNotLearning(),
                                     ]
                                 )
+                            @if($key%4 == 3)
+                            </div>
+                            @endif
                             @endforeach
                             @if (Request::is('/')) 
                                 <div class="col-sm-12 text-center">
@@ -73,7 +79,10 @@
                         </div>
                     </div>
                     <div id="menu1" class="tab-pane fade">
-                        @foreach ($new_course as $new)
+                        @foreach ($new_course as $key => $new)
+                        @if($key%4 == 0)
+                        <div class="row open">
+                        @endif
                             <?php
                                 $lecturers = count($new->Lecturers()) > 1 ? 'Nhiều tác giả' : count($new->Lecturers()) > 0 ? $new->Lecturers()[0]->user->name : "Courdemy";
                             ?>
@@ -100,6 +109,9 @@
 
                                 ]
                             )
+                        @if($key%4 == 3)
+                        </div>
+                        @endif
                         @endforeach
                         @if (Request::is('/'))
                         <div class="col-sm-12 text-center">
@@ -109,6 +121,9 @@
                     </div>
                     <div id="menu2" class="tab-pane fade">
                         @foreach ($feature_course as $feature)
+                        @if($key%4 == 0)
+                        <div class="row open">
+                        @endif
                             <?php
                                 $lecturers = count($feature->Lecturers()) > 1 ? 'Nhiều tác giả' : count($feature->Lecturers()) > 0 ? $feature->Lecturers()[0]->user->name : "Courdemy";
                             ?>
@@ -135,6 +150,9 @@
                             
                                 ]
                             )
+                        @if($key%4 == 3)
+                        </div>
+                        @endif
                         @endforeach
                         @if (Request::is('/'))
                         <div class="col-sm-12 text-center">
