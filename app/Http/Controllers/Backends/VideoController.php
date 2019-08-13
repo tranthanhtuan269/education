@@ -10,6 +10,7 @@ use App\Video;
 use App\UserCourse;
 use App\UserRole;
 use App\User;
+use App\Document;
 use Illuminate\Http\Request;
 use App\Helper\Helper;
 use App\Jobs\ProcessLecture;
@@ -42,12 +43,10 @@ class VideoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreVideoRequest $request)
+    public function store(Request $request)
     {
         $unit = Unit::withCount('videos')->find($request->unit_id);
         if ($unit) {
-
-
             
 
             $video = new Video;
@@ -63,8 +62,29 @@ class VideoController extends Controller
                 $command = config('config.path_ffprobe_exe') . ' -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 ' . public_path("/uploads/videos/") . $link_video . ' 2>&1';
                 $video->duration = exec($command, $output, $return);
             }
-
             $video->save();
+
+            //DuongNT upload file
+            if($request->file()){
+                foreach ($request->file() as $key => $file) {
+                    if($fcile->isValid()){
+                        $document = new Document;
+                        $document->title = $file->getClientOriginalName();
+                        $document->video_id = $video->id;
+                        $document->url_document = $video->id.'_'.time().'_'.$file->getClientOriginalName();
+                        $document->size = $file->getClientSize();
+                        $document->save();
+
+                        $file->move('uploads/files', $video->id.'_'.time().'_'.$file->getClientOriginalName());                        
+                    }else{
+                        return response()->json([
+                            'status' => "401",
+                            'message' => "File bị lỗi khi upload!"
+                        ]);
+                    }
+                }
+            }
+
 
             $unit = $video->unit;
             $unit->video_count += 1;
