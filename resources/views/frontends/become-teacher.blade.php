@@ -18,7 +18,7 @@
 
 <link rel="stylesheet" href="https://unica.vn/media/styles_v2018/animate.css">
 
-<div class="hidden-xs" style="margin-top: 63px;"></div>
+{{-- <div class="hidden-xs" style="margin-top: 63px;"></div> --}}
 <div class="hidden-md hidden-sm hidden-lg" style="margin-top: 45px;"></div>
         <main>
     <div class="unica-teacher">
