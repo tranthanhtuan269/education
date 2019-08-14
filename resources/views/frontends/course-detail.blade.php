@@ -583,45 +583,46 @@
     
     $(document).ready(function() { 
         $(".interactive-bar .buttons button:first-child").click(function(){
-            $("#add-cart").click()
+            $(".btn-add-cart button").click();
         })
         $(".interactive-bar .buttons button:last-child").click(function(){
-            $("#add-cart").click()
+            addCard();
             window.location.replace("/cart/payment/method-selector")
         })
         $("#buy-now").click(function(){
-            $("#add-cart").click()
+            addCard();
             window.location.replace("/cart/payment/method-selector")
         })
-        $('#add-cart').click(function(){
-            var item = {
-                'id' : {!! $info_course->id !!},
-                'image' : '{!! $info_course->image !!}',
-                'slug' : '{!! $info_course->slug !!}',                
-                @if(count($info_course->Lecturers()) > 0)
-                'lecturer' : "{!! $info_course->Lecturers()[0]->user->name !!}",
-                @else
-                'lecturer' : 'Nhiều giảng viên',
-                @endif
-                'name' : "{!! $info_course->name !!}",
-                'price' : {!! $info_course->price !!},
-                'real_price' : {!! $info_course->real_price !!},
-            }
+        // $('#add-cart').click(function(){
+        // function addCard(){
+        //     var item = {
+        //         'id' : {!! $info_course->id !!},
+        //         'image' : '{!! $info_course->image !!}',
+        //         'slug' : '{!! $info_course->slug !!}',                
+        //         @if(count($info_course->Lecturers()) > 0)
+        //         'lecturer' : "{!! $info_course->Lecturers()[0]->user->name !!}",
+        //         @else
+        //         'lecturer' : 'Nhiều giảng viên',
+        //         @endif
+        //         'name' : "{!! $info_course->name !!}",
+        //         'price' : {!! $info_course->price !!},
+        //         'real_price' : {!! $info_course->real_price !!},
+        //     }
 
-            if (localStorage.getItem("cart") != null) {
-                var list_item = JSON.parse(localStorage.getItem("cart"));
-                addItem(list_item, item);
-                localStorage.setItem("cart", JSON.stringify(list_item));
-            }else{
-                var list_item = [];
-                addItem(list_item, item);
-                localStorage.setItem("cart", JSON.stringify(list_item));
-            }
+        //     if (localStorage.getItem("cart") != null) {
+        //         var list_item = JSON.parse(localStorage.getItem("cart"));
+        //         addItem(list_item, item);
+        //         localStorage.setItem("cart", JSON.stringify(list_item));
+        //     }else{
+        //         var list_item = [];
+        //         addItem(list_item, item);
+        //         localStorage.setItem("cart", JSON.stringify(list_item));
+        //     }
 
-            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
-                // alert(number_items_in_cart.length)
-            $('.number-in-cart').text(number_items_in_cart.length);
-        });
+        //     var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
+        //         // alert(number_items_in_cart.length)
+        //     $('.number-in-cart').text(number_items_in_cart.length);
+        // }
 
         $('.btn-see-more').click(function(){
             var current_skip = $(this).attr('data-skip');
@@ -765,6 +766,7 @@
                 type: 'success',
                 text: 'Đã thêm vào giỏ hàng!'
             })
+            addCard();
         })
 
         if(localStorage.getItem('cart') != null){
@@ -784,5 +786,35 @@
         if (!found) arr.push(obj);
         return arr;
     }
+
+    function addCard(){
+            var item = {
+                'id' : {!! $info_course->id !!},
+                'image' : '{!! $info_course->image !!}',
+                'slug' : '{!! $info_course->slug !!}',                
+                @if(count($info_course->Lecturers()) > 0)
+                'lecturer' : "{!! $info_course->Lecturers()[0]->user->name !!}",
+                @else
+                'lecturer' : 'Nhiều giảng viên',
+                @endif
+                'name' : "{!! $info_course->name !!}",
+                'price' : {!! $info_course->price !!},
+                'real_price' : {!! $info_course->real_price !!},
+            }
+
+            if (localStorage.getItem("cart") != null) {
+                var list_item = JSON.parse(localStorage.getItem("cart"));
+                addItem(list_item, item);
+                localStorage.setItem("cart", JSON.stringify(list_item));
+            }else{
+                var list_item = [];
+                addItem(list_item, item);
+                localStorage.setItem("cart", JSON.stringify(list_item));
+            }
+
+            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
+                // alert(number_items_in_cart.length)
+            $('.number-in-cart').text(number_items_in_cart.length);
+        }
 </script>
 @endsection
