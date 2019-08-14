@@ -48,6 +48,7 @@ class HomeController extends Controller
         $best_seller_course = Course::where('status', 1)->orderBy('sale_count', 'desc')->limit(8)->get();
         $new_course = Course::where('status', 1)->orderBy('id', 'desc')->limit(8)->get();
         $popular_teacher = Teacher::getTeacherBestVote();
+
         return view('frontends.home', compact('feature_category', 'feature_course', 'best_seller_course', 'new_course', 'popular_teacher'));
     }
 
@@ -540,6 +541,17 @@ class HomeController extends Controller
             'message'=> 'done',
         ]);
     }
+
+    // public function capnhatCategory(){
+    //     $categories = Category::get();
+    //     foreach ($categories as $key => $category) {
+    //         $category->image = $cateArr[rand(0,9)][3];
+    //         $category->save();
+    //     }
+    //     return response()->json([
+    //         'message'=> 'done'
+    //     ]);
+    // }
 
 
 

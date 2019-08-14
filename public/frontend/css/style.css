@@ -1859,33 +1859,33 @@ div[data-u="slides"] div div{
   margin-bottom: 10em;
 
 }
-.slick-prev, .slick-next{
+.category-slider .slick-prev, .category-slider .slick-next{
   background: #ffffff;
   width: 30px;
   height: 30px;
   border-radius: 50%;
   z-index: 1;
 }
-.slick-prev{left: 10px;}
-.slick-next{right: 7px;}
-.slick-next:hover, .slick-next:focus, .slick-prev:hover, .slick-prev:focus{
+.category-slider .slick-prev{left: 10px;}
+.category-slider .slick-next{right: 7px;}
+.category-slider .slick-next:hover, .category-slider .slick-next:focus, .category-slider .slick-prev:hover, .category-slider .slick-prev:focus{
   z-index: 1;
   background: #ffffff;
   width: 30px;
   height: 30px;
   border-radius: 50%;
 }
-.slick-prev:before, .slick-next:before{
+.category-slider .slick-prev:before,.category-slider .slick-next:before{
   font-size: 20px !important;
   color: #606060;
   font-family: 'Font Awesome\ 5 Free';
   font-weight: 900;
 }
-.slick-prev:before {
+.category-slider .slick-prev:before {
   content: "\f060";
   
 }
-.slick-next:before {
+.category-slider .slick-next:before {
   content: "\f061";
 }
 
