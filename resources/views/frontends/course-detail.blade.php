@@ -8,6 +8,10 @@
         $percent_temp = 0;
     }
     // dd($info_course->Lecturers()->first());
+    $list_bought = [];
+    if(Auth::check() && strlen(Auth::user()->bought) > 0){
+        $list_bought = \json_decode(Auth::user()->bought);
+    }
 ?>
 <div class="detail-course">
     <img class="background bg-category" src="{{ asset('frontend/images/banner_profile_teacher.png') }}">
@@ -119,6 +123,7 @@
                                         @endif
                                     </div>
                                 </div>
+                                @if (!in_array($info_course->id, $list_bought))
                                 <div class="box clearfix">
                                     <div class="btn-add-cart">
                                         <button type="button" id="add-cart" data-id="{{ $info_course->id }}" class="btn btn-primary btn-toh"><b>Thêm vào giỏ hàng</b></button>
@@ -127,6 +132,7 @@
                                         <button type="button" id="buy-now" data-id="{{ $info_course->id }}" class="btn btn-warning btn-toh"><b>Mua ngay</b></button>
                                     </div>
                                 </div>
+                                @endif
                                 <div class="box clearfix">
                                     <div class="pull-left money-back">
                                         30 ngày hoàn tiền
@@ -555,12 +561,14 @@
                     @endforeach
                 </div>
             </div>
+            @if (!in_array($info_course->id, $list_bought))
             <div class="buttons col-xs-12 col-md-4 col-sm-5">
                 <div class="group-btn-buy-course">
                     <button class="btn btn-primary">Thêm vào giỏ hàng</button>
                     <button class="btn btn-warning">Mua ngay</button>
                 </div>
             </div>
+            @endif
         </div>
     </div>
     <script>
