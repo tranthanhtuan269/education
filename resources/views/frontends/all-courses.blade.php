@@ -43,7 +43,7 @@
                         <div class="row">
                             @foreach ($best_seller_course as $key => $best_seller)
                             @if($key%4 == 0)
-                            <div class="row open">
+                            <div class="row">
                             @endif
                                 @include(
                                     'components.course', 
@@ -81,7 +81,7 @@
                     <div id="menu1" class="tab-pane fade">
                         @foreach ($new_course as $key => $new)
                         @if($key%4 == 0)
-                        <div class="row open">
+                        <div class="row">
                         @endif
                             <?php
                                 $lecturers = count($new->Lecturers()) > 1 ? 'Nhiều tác giả' : count($new->Lecturers()) > 0 ? $new->Lecturers()[0]->user->name : "Courdemy";
@@ -120,9 +120,9 @@
                         @endif
                     </div>
                     <div id="menu2" class="tab-pane fade">
-                        @foreach ($feature_course as $feature)
+                        @foreach ($feature_course as $key => $feature)
                         @if($key%4 == 0)
-                        <div class="row open">
+                        <div class="row">
                         @endif
                             <?php
                                 $lecturers = count($feature->Lecturers()) > 1 ? 'Nhiều tác giả' : count($feature->Lecturers()) > 0 ? $feature->Lecturers()[0]->user->name : "Courdemy";

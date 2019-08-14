@@ -587,11 +587,11 @@
         })
         $(".interactive-bar .buttons button:last-child").click(function(){
             $("#add-cart").click()
-            window.location.replace("/cart")
+            window.location.replace("/cart/payment/method-selector")
         })
         $("#buy-now").click(function(){
             $("#add-cart").click()
-            window.location.replace("/cart")
+            window.location.replace("/cart/payment/method-selector")
         })
         $('#add-cart').click(function(){
             var item = {
