@@ -1,6 +1,6 @@
 @extends('frontends.layouts.app')
 @section('content')
-<div class="member-card-banner">
+{{-- <div class="member-card-banner">
     <div class="container">
         <div class="row">
             <div class="col-xs-12 bann">
@@ -13,7 +13,7 @@
             
         </div>
     </div>
-</div>
+</div> --}}
 <div class="container">
     <div class="member-card-offer">
         <h2>Các loại thẻ thành viên:</h2>
@@ -196,7 +196,7 @@
         </div>
     </div>
 </div>
-<div class="member-card-purchase-way">
+{{-- <div class="member-card-purchase-way">
     <div class="container">
         <div class="row">
             <div class="col-md-7 col-sm-12">
@@ -213,8 +213,8 @@
             </div>
         </div>
     </div>
-</div>
-<div class="container">
+</div> --}}
+{{-- <div class="container">
     <div class="member-card-info">
         <h2>Courdemy's <span style="color: #00baed;">Thẻ thành viên</span></h2>
         <div class="row">
@@ -294,5 +294,5 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 @endsection

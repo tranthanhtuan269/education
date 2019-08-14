@@ -23,7 +23,7 @@
         </div>
     </div>
 </div>
-<div class="container">
+{{-- <div class="container">
     <div class="member-card">
         <div class="row">
             <div class="col-sm-6">
@@ -43,7 +43,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 <div class="partner">
     <div class="container">
         <div class="row">
