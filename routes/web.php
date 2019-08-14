@@ -195,6 +195,7 @@ Route::get('search', 'Frontends\HomeController@search');
 
 Route::get('nap-tien', 'Frontends\HomeController@naptien');
 
+Route::get('become-teacher', 'Frontends\HomeController@becomeTeacher');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/learning-page/{courseId}/lecture/{videoId}', 'Frontends\VideoPlayerController@show')->name('videoplayer.show');

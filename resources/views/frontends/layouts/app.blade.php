@@ -368,7 +368,7 @@
                                     </li>
                                     @else
                                     <li class="special" data-toggle="modal" data-target="#myModalLogin" data-dismiss="modal"><a class="unica-log-acc" href="javascript:void(0)" >Đăng nhập</a></li>
-                                    <li class="special" data-toggle="modal" data-target="#myModalRegister" data-dismiss="modal"><a class="unica-reg-acc" href="javascript:void(0)">Đăng ký</a></li>
+                                    <li class="special button-sign-up" data-toggle="modal" data-target="#myModalRegister" data-dismiss="modal"><a class="unica-reg-acc" href="javascript:void(0)">Đăng ký</a></li>
                                     <div id="myModalLogin" class="modal fade" role="dialog" >
                                         <div class="modal-dialog modal-login">
                                             <div class="modal-content">

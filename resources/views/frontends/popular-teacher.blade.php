@@ -12,8 +12,8 @@
                         'image' => $teacher->userRole->user->avatar,
                         'name' => $teacher->userRole->user->name,
                         'expert' => $teacher->expert,
-                        'rate' => $teacher->rating_score,
-                        'rating_number' => $teacher->vote_count,
+                        // 'rate' => $teacher->rating_score,
+                        // 'rating_number' => $teacher->vote_count,
                         'course_number' => $teacher->course_count,
                         'student_number' => $teacher->student_count
                     ]

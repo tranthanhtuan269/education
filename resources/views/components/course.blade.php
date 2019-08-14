@@ -30,6 +30,11 @@
                 @if (isset($setup))  
                 <i class="fa fa-cog fa-lg setting-icon" aria-hidden="true"></i>
                 @endif
+
+                @if ($course->real_price != $course->price)
+                <span class="percent-discount">-{{(int)(($course->real_price - $course->price)/($course->real_price)*100)}}%</span>
+                @endif
+                
                 @if (!in_array($course->id, $list_bought))
                 <div class="img-mask hidden-sm">
                     <div class="btn-add-to-cart">
@@ -52,6 +57,9 @@
                     <span class="name-teacher pull-left" data-teacher-id="{{$main_lecturer}}" >
                         {{-- {{ $lecturers }} --}}
                         {{ $course->author }}
+                    </span>
+                    <span class="time pull-right">
+                        <i class="fas fa-stopwatch"></i> {{ intval($course->duration / 60) }} giờ
                     </span>
                     <br>
                     <span class="pull-left">
@@ -77,15 +85,15 @@
                         @endif
                     </span>
                 </div>
-                <div class="time-view">
-                    <span class="time">
+                {{-- <div class="time-view"> --}}
+                    {{-- <span class="time"> --}}
                         {{-- <i class="fas fa-stopwatch"></i> {{ $course->approx_time }} giờ --}}
-                        <i class="fas fa-stopwatch"></i> {{ intval($course->duration / 60) }} giờ
-                    </span>
-                    <span class="view pull-right">
-                        <i class="fa fa-eye" aria-hidden="true"></i> {!! number_format($course->view_count, 0, ',' , '.') !!}
-                    </span>
-                </div>
+                        {{-- <i class="fas fa-stopwatch"></i> {{ intval($course->duration / 60) }} giờ --}}
+                    {{-- </span> --}}
+                    {{-- <span class="view pull-right"> --}}
+                        {{-- <i class="fa fa-eye" aria-hidden="true"></i> {!! number_format($course->view_count, 0, ',' , '.') !!} --}}
+                    {{-- </span> --}}
+                {{-- </div> --}}
                 @if (isset($setup))  
                 <div class="progress">
                     <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
@@ -107,20 +115,23 @@
                 <div class="price-course">
                     @if ($course->price == $course->real_price)
                         <span class="sale text-right">
-                            {!! number_format($course->real_price, 0, ',' , '.') !!}đ
+                            
+                        </span>
+                        <span class="sale pull-right">
+                            <b>{!! number_format($course->real_price, 0, ',' , '.') !!}</b><sup>₫</sup>
                         </span> 
                     @else
-                        <span class="price line-through">
-                            {!! number_format($course->real_price, 0, ',' , '.') !!}đ
-                        </span>
-                        @if ($course->real_price != $course->price)
+                        {{-- @if ($course->real_price != $course->price) --}}
                         <span class="sale pull-right">
-                            {!! number_format($course->price, 0, ',' , '.') !!}đ
+                            &nbsp;<b>{!! number_format($course->price, 0, ',' , '.') !!}</b><sup>₫</sup>
                         </span>                        
-                        @endif
+                        {{-- @endif --}}
+                        <span class="price line-through pull-right">
+                            {!! number_format($course->real_price, 0, ',' , '.') !!}<sup>₫</sup>
+                        </span>
                     @endif
-
                 </div>
+                <div class="clearfix"></div>
                 @if (isset($btn_start_learning))  
                 <div class="text-center">
                     <a href="{{ url('coming-soon') }}" class="btn btn-primary btn-sm btn-start-learning">Vào học</a>

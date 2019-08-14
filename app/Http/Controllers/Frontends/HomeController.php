@@ -541,7 +541,9 @@ class HomeController extends Controller
         ]);
     }
 
-
+    public function becomeTeacher(){
+        return view('frontends.become-teacher');
+    }
 
 }
 
