@@ -58,9 +58,6 @@
                         {{-- {{ $lecturers }} --}}
                         {{ $course->author }}
                     </span>
-                    <span class="time pull-right">
-                        <i class="fas fa-stopwatch"></i> {{ intval($course->duration / 60) }} giờ
-                    </span>
                     <br>
                     <span class="pull-left">
                         {{-- @php
@@ -83,6 +80,9 @@
                                 ]
                             )
                         @endif
+                    </span>
+                    <span class="time pull-right">
+                        <i class="fas fa-stopwatch"></i> {{ intval($course->duration / 60) }} giờ
                     </span>
                 </div>
                 {{-- <div class="time-view"> --}}
@@ -112,23 +112,24 @@
                     //     }
                     // }
                 ?>
-                <div class="price-course">
+                <div class="price-course text-center">
                     @if ($course->price == $course->real_price)
-                        <span class="sale text-right">
-                            
+                        <span class="price text-right">
+                            Giá khóa học:
                         </span>
-                        <span class="sale pull-right">
+                        <span class="sale">
                             <b>{!! number_format($course->real_price, 0, ',' , '.') !!}</b><sup>₫</sup>
                         </span> 
                     @else
+                        <span class="price line-through">
+                            {!! number_format($course->real_price, 0, ',' , '.') !!}<sup>₫</sup>
+                        </span>
                         {{-- @if ($course->real_price != $course->price) --}}
-                        <span class="sale pull-right">
+                        <span class="sale">
                             &nbsp;<b>{!! number_format($course->price, 0, ',' , '.') !!}</b><sup>₫</sup>
                         </span>                        
                         {{-- @endif --}}
-                        <span class="price line-through pull-right">
-                            {!! number_format($course->real_price, 0, ',' , '.') !!}<sup>₫</sup>
-                        </span>
+                        
                     @endif
                 </div>
                 <div class="clearfix"></div>
