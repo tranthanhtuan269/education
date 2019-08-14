@@ -5,8 +5,8 @@
 		<div class="row">
 			<div class="col-xs-12 clearfix title-bill-info">
 				<div class="pull-left">
-					<h2>Thông tin đơn hàng</h2>
-					<h3>Tài khoản :<span> {{ number_format($user_balance, 0, '.', '.') }} ₫</span></h3>
+					<h2>Thông tin đơn hàng</h2><br>
+					<p style="font-size: 20px">Tài khoản: <b>{{ number_format($user_balance, 0, '.', '.') }} ₫</b></p>
 				</div>
 				<div class="pull-right">
 					<ul class="nav nav-tabs" id="fullpageTab">
