@@ -498,6 +498,9 @@ ul.unica-acc-zone li.special:hover a{color:#fff}
 .feature-course .course-info .course-detail{
   padding-top:10px;
 }
+.feature-course .slick-dots {
+  position: relative;
+}
 
 /* Begin Cropit */
 /* .cropit-preview-background {

@@ -30,9 +30,10 @@
                 @if (isset($setup))  
                 <i class="fa fa-cog fa-lg setting-icon" aria-hidden="true"></i>
                 @endif
-
-                @if ($course->real_price != $course->price)
-                <span class="percent-discount">-{{(int)(($course->real_price - $course->price)/($course->real_price)*100)}}%</span>
+                @if ($course->real_price != 0)
+                    @if ($course->real_price != $course->price)
+                    <span class="percent-discount">-{{(int)(($course->real_price - $course->price)/($course->real_price)*100)}}%</span>
+                    @endif                    
                 @endif
                 
                 @if (!in_array($course->id, $list_bought))

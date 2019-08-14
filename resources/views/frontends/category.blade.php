@@ -18,7 +18,7 @@
 					{{-- <p>  Danh mục: {{ $category->name }}</p>	 --}}
 				</div>
 			</div>
-			@if (count($tags) > 0)
+			{{-- @if (count($tags) > 0)
 			<div class="slider">
 				@foreach ($tags as $key => $tag)
 					@if ($key % 5 == 0)
@@ -64,7 +64,7 @@
 					fade: true
 				});
 			</script>
-			@endif
+			@endif --}}
 		</div>
 	</div>
 </div>
