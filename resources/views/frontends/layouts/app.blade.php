@@ -741,6 +741,11 @@
                 $('.initial-price span').text(number_format(total_real_price, 0, '.', '.') + " đ");
                 $('.percent-off span').text(Math.floor(100-(total_price/total_real_price)*100) + "% off");
 
+                if(number_items_in_cart.length < 1){
+                    $(".cart-page-empty").addClass('active')
+                    $(".cart-page-content").removeClass('active')
+                }
+
                 localStorage.setItem('cart',JSON.stringify(number_items_in_cart))
                 
 
