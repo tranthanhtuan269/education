@@ -40,12 +40,12 @@
                             @endif
                         </div>
                     </div>
-                    <div class="coupon-code-input">
+                    {{-- <div class="coupon-code-input">
                         <div class="input-group">
                             <input type="text" id="input-coupon" class="form-control" placeholder="Nhập mã giảm giá" aria-describedby="btnCartCouponApply">
                             <span class="input-group-addon" id="btnCartCouponApply"><b>Áp dụng</b></span>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
@@ -98,6 +98,17 @@
                     html += '<div class="course-name">'+element.name+'</div>'
                     html += '<div class="lecturer-info">Giảng viên: '+element.lecturer+'</div>'
                 html += '</div>'
+                html += '<div class="coupon">'
+                    html += '<div class="coupon-code-label"><b>Mã giảm giá:<b></div>'
+                    html += '<div class="row">'
+                        html += '<div class="col-md-8">'
+                            html += '<input type="text" class="form-control coupon-input" >'
+                        html += '</div>'
+                        html += '<div class="col-md-4">'
+                            html += '<button class="btn btn-info coupon-button" data-child="'+element.id+'" data-price="'+element.price+'" data-index="'+index+'">Áp dụng</button>'
+                        html += '</div>'
+                    html += '</div>'
+                html +='</div>'
                 html += '<div class="actions">'
                     html += '<div class="btn-remove"><i class="far fa-trash-alt" data-child="'+element.id+'"></i></div>'
                 html +='</div>'
@@ -105,10 +116,10 @@
                     html += '<div>'
                         html += '<div>'
                         if(element.price == element.real_price){
-                            html += '<div class="current-price">'+number_format(element.price, 0, '.', '.')+' ₫</div>'
+                            html += '<div class="current-price" id="current_price'+element.id+'">'+number_format(element.price, 0, '.', '.')+' ₫ </div>'
                         }else{
-                            html += '<div class="initial-price">'+number_format(element.real_price, 0, '.', '.')+' ₫</div>'
-                            html += '<div class="current-price">'+number_format(element.price, 0, '.', '.')+' ₫</div>'
+                            html += '<div class="initial-price" id="initial_price'+element.id+'">'+number_format(element.real_price, 0, '.', '.')+' ₫ </div>'
+                            html += '<div class="current-price" id="current_price'+element.id+'">'+number_format(element.price, 0, '.', '.')+' ₫ </div>'
                         }
                         html += '</div>'
                         // html += '<i class="fas fa-tag"></i>'
@@ -129,11 +140,24 @@
         }
         
         if(totalInitialPrice == 0){
-            $(".checkout-column .percent-off").append("<span>0% off</span>")
+            // $(".checkout-column .percent-off").append("<span>0% off</span>")
         }else{
-            $(".checkout-column .percent-off").append("<span>"+Math.floor(100-(totalPrice/totalInitialPrice)*100)+"% off</span>")
+            $(".checkout-column .percent-off").append("<span>Tiết kiệm "+Math.floor(100-(totalPrice/totalInitialPrice)*100)+"%</span>")
         }
 
+        $('.coupon-code').on('click', function(e){
+            e.stopPropagation()
+            e.preventDefault()
+        });
+        $('.coupon-input').on('click', function(e){
+            e.stopPropagation()
+            e.preventDefault()
+        });
+        // $('.coupon-button').on('click', function(e){
+        //     e.stopPropagation()
+        //     e.preventDefault()
+        // });
+        
         $('.btn-remove i').on('click', function(e){
             e.stopPropagation()
             e.preventDefault()
@@ -167,9 +191,9 @@
                     $(".checkout-column .initial-price").append("<span>"+number_format(totalInitialPrice, 0, '.', '.')+" ₫</span>")
                     $(".checkout-column .percent-off span").remove()
                     if(cart_items.length == 0){
-                        $(".checkout-column .percent-off").append("<span>0% off</span>")
+                        // $(".checkout-column .percent-off").append("<span>0% off</span>")
                     }else{
-                        $(".checkout-column .percent-off").append("<span>"+Math.floor(100-(totalPrice/totalInitialPrice)*100)+"% off</span>")
+                        $(".checkout-column .percent-off").append("<span>Tiết kiệm "+Math.floor(100-(totalPrice/totalInitialPrice)*100)+"%</span>")
                     }
                     $(".cart-pre-info .course-amount").html("")
                     $(".cart-pre-info .course-amount").prepend(cart_items.length)
@@ -194,16 +218,71 @@
             
         })
 
-        $('#btnCartCouponApply').on('click', function(e){
+        // $('#btnCartCouponApply').on('click', function(e){
+        //     e.stopPropagation()
+        //     e.preventDefault()
+        //     $.ajaxSetup({
+        //         headers: {
+        //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //         }
+        //     });
+
+        //     var coupon = $('#input-coupon').val();
+        //     if(coupon.length < 1){
+        //         return Swal.fire({
+        //             type:"warning",
+        //             text:"Chưa có mã khuyến mại!"
+        //         })
+        //     }else{
+        //         var request = $.ajax({
+        //             url : "/check-coupon",
+        //             method: "GET",
+        //             data :{
+        //                 "coupon" : coupon
+        //             },
+        //             dataType: "json",                
+        //         })
+
+        //         request.done((response)=>{
+        //             console.log(response)
+        //             if(response.status == 200){
+        //                 localStorage.setItem('coupon', coupon)
+        //                 return Swal.fire({
+        //                     type:"success",
+        //                     text:"The coupon exists!"
+        //                 })
+        //             }else{
+        //                 localStorage.removeItem('coupon')
+        //                 $('#input-coupon').val('')
+        //                 return Swal.fire({
+        //                     type:"warning",
+        //                     text:"Mã khuyến mãi không tồn tại!"
+        //                 })
+        //             }
+        //         })
+        //     }
+        // });
+
+        $('.coupon-button').on('click', function(e){
             e.stopPropagation()
             e.preventDefault()
+            var dataChild = $(this).attr("data-child")
+            var dataPrice = $(this).attr("data-price")
+            var new_totalPrice = 0;
+            var numeric_cart = $(this).parent().parent().parent().parent().parent().parent().attr("data-index")
+            // alert(numeric_cart);return
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
 
-            var coupon = $('#input-coupon').val();
+            // var coupon = $('.coupon-input').val();
+            var coupon = $(".cart-single-item[data-parent="+dataChild+"] input").val();
+            // var initial_price = parseInt($(".cart-single-item[data-parent="+dataChild+"] .single-price .current-price").text())*1000
+
+            // alert(initial_price)
+            // alert(coupon)
             if(coupon.length < 1){
                 return Swal.fire({
                     type:"warning",
@@ -214,6 +293,7 @@
                     url : "/check-coupon",
                     method: "GET",
                     data :{
+                        "course_id" : dataChild,
                         "coupon" : coupon
                     },
                     dataType: "json",                
@@ -222,11 +302,9 @@
                 request.done((response)=>{
                     console.log(response)
                     if(response.status == 200){
-                        localStorage.setItem('coupon', coupon)
-                        return Swal.fire({
-                            type:"success",
-                            text:"The coupon exists!"
-                        })
+                        // localStorage.setItem('coupon', coupon)
+                        new_price = dataPrice*(100-response.coupon_value)/100
+                        // new_totalPrice = totalPrice - dataPrice + new_price
                     }else{
                         localStorage.removeItem('coupon')
                         $('#input-coupon').val('')
@@ -235,10 +313,30 @@
                             text:"Mã khuyến mãi không tồn tại!"
                         })
                     }
+                    // totalPrice = new_totalPrice
+                    var new_cart = JSON.parse(localStorage.getItem('cart'))
+                    new_cart[numeric_cart].coupon_price = new_price
+                    new_cart[numeric_cart].coupon_code  = coupon
+                    localStorage.setItem('cart', JSON.stringify(new_cart))
+                                        
+                    $("#current_price"+dataChild).text('')
+                    $("#current_price"+dataChild).append(number_format(new_price, 0, '.', '.')+' ₫')
+
+                    var course_count = 1;
+                    // new_totalPrice = new_price
+                    cart_items.forEach((element)=>{
+                        new_totalPrice += parseFloat($('#current_price'+course_count).text())*1000
+                        course_count++
+                    })
+                    // alert(new_totalPrice)
+
+                    $(".checkout-column .current-price span").remove()
+                    $(".checkout-column .current-price").append("<span>"+number_format(new_totalPrice, 0, '.', '.')+" ₫</span>")
+                    $(".checkout-column .percent-off span").remove()
+                    $(".checkout-column .percent-off").append("<span> Tiết kiệm "+Math.floor(100-(new_totalPrice/totalInitialPrice)*100)+"%</span>")
                 })
             }
         });
-
 
         $('#btnCartCheckOut').on('click', function(e){
         });

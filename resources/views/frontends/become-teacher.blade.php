@@ -39,7 +39,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <p>“MỖI CHÚNG TA ĐỀU CÓ MỘT SƯ MỆNH CHIA SẺ LẠI GIÁ TRỊ CHO THẾ HỆ SAU”</p>
-                        <span>- Trần Thanh Tuấn - Web Team Leader TOHsoft -</span>
+                        <span>- Tuấn Đông Anh - Web Team Leader TOHsoft -</span>
                         <div class="video-youtube">
                             <iframe width="100%" height="315" src="https://www.youtube.com/embed/BqeGaO4-XSY?rel=0" frameborder="0" allowfullscreen=""></iframe>
                         </div>
@@ -384,7 +384,7 @@
 <link rel="manifest" href="/manifest.json">
 
 <div id="fb-root"></div>
-<script type="text/javascript" >
+{{-- <script type="text/javascript" >
     var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
     (function() {
         var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
@@ -395,37 +395,38 @@
         s0.parentNode.insertBefore(s1, s0);
     })();
     var _csrf_code = 'U3B6MXguZ1Q1BBRdDUEXYwZIG3tVcS8hFzUgSyAbVxExRz0ASGYKeQ==';
-</script>
+</script> --}}
 <!--End of Tawk.to Script-->
-<script >(function(d, s, id) {
+{{-- <script >(function(d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) return;
         js = d.createElement(s); js.id = id;
         js.src = 'https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.11&appId=410486232859596';
         fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));</script>
+    }(document, 'script', 'facebook-jssdk'));
+</script> --}}
 <!-- Google Code dành cho Thẻ tiếp thị lại -->
-<script type="text/javascript" >
+{{-- <script type="text/javascript" >
     /* <![CDATA[ */
     var google_conversion_id = 875197056;
     var google_custom_params = window.google_tag_params;
     var google_remarketing_only = true;
     /* ]]> */
-</script>
-<script  type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
-</script>
-<noscript>
+</script> --}}
+{{-- <script  type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+</script> --}}
+{{-- <noscript>
     <div style="display:inline;">
         <img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/875197056/?value=0&amp;guid=ON&amp;script=0"/>
     </div>
-</noscript>
+</noscript> --}}
 <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5HFBS73"
-                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+{{-- <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5HFBS73"
+                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript> --}}
 <!-- End Google Tag Manager (noscript) -->
 <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5HFBS73"
-                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+{{-- <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5HFBS73"
+                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript> --}}
 <!-- End Google Tag Manager (noscript) -->
 <script type="text/javascript">
     function getTimeRemaining(endtime) {
@@ -480,11 +481,12 @@
             "surname": ""
         }
     };
-</script>        <script src="/media/js_v2018/bootstrap.min.js"></script>
+</script>
+{{-- <script src="/media/js_v2018/bootstrap.min.js"></script>
 <script src="/media/js_v2018/slick.js"></script>
-<script src="/media/js_v2018/bootstrap.offcanvas.js"></script>
-<script src="/media/js_v2018/sidenav.min.js"></script>
-<script src="/media/js_v2018/amazonmenu.js"></script>
+<script src="/media/js_v2018/bootstrap.offcanvas.js"></script> --}}
+{{-- <script src="/media/js_v2018/sidenav.min.js"></script> --}}
+{{-- <script src="/media/js_v2018/amazonmenu.js"></script>
 <script src="/media/js_v2018/sticky-sidebar.js"></script>
 <script src="/media/js_v2018/libs/selectpicker/bootrap-select.js"></script>
 <script src="/media/js_v2018/chosen.js"></script>
@@ -495,111 +497,110 @@
 <script src="/media/js_v2018/dev/membership.js"></script>
 <script src="/media/js_v2018/dev/userprofile.js"></script>
 <script src="/media/js/myScript.js"></script>
-<script src="/media/js_v2018/dev/blog.js"></script>        <script >
-            $(document).ready(function() {
-                $('.owl-slider').owlCarousel({
-                    animateOut: 'fadeOut',
-                    items: 1,
-                    autoplay: true,
-                    nav: false,
-                    loop: true,
-                    autoplayTimeout: 5000,
-                    dots: true,
-                });
-            });
+<script src="/media/js_v2018/dev/blog.js"></script>         --}}
+<script>
+    $(document).ready(function() {
+        $('.owl-slider').owlCarousel({
+            animateOut: 'fadeOut',
+            items: 1,
+            autoplay: true,
+            nav: false,
+            loop: true,
+            autoplayTimeout: 5000,
+            dots: true,
+        });
+    });
 
-            jQuery(function () {
-                amazonmenu.init({
-                    menuid: 'mysidebarmenu'
-                })
-            })
+    jQuery(function () {
+        amazonmenu.init({
+            menuid: 'mysidebarmenu'
+        })
+    })
 
-			resizeWindow();
+    resizeWindow();
 
-            window.addEventListener('resize', resizeWindow);
+    window.addEventListener('resize', resizeWindow);
 
-            function resizeWindow() {
-                $('.slider').slick({
-                    responsive: [{
-                            breakpoint: 2500,
-                            settings: "unslick"
-                        },
-                        {
-                            breakpoint: 640,
-                            settings: {
-                                dots: true,
-                                infinite: true
-                            }
-                        }
-                    ]
-                });
+    function resizeWindow() {
+        $('.slider').slick({
+            responsive: [{
+                    breakpoint: 2500,
+                    settings: "unslick"
+                },
+                {
+                    breakpoint: 640,
+                    settings: {
+                        dots: true,
+                        infinite: true
+                    }
+                }
+            ]
+        });
+    }
+
+    $('.u-blog-slide').slick({
+            infinite: true,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            responsive: [{
+                    breakpoint: 1025,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                        infinite: true
+                    }
+                },
+                {
+                    breakpoint: 769,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1
+                    }
+                }
+            ]
+    });
+
+    $('.unica-lt-box').owlCarousel({
+        loop: true,
+        margin: 10,
+        responsiveClass: true,
+        autoplay: true,
+        autoplayTimeout: 5000,
+        nav: true,
+        navText: ['<i class="fa fa-chevron-left"></i>', '<i class="fa fa-chevron-right"></i>'],
+        dots: false,
+        responsive: {
+            320: {
+                items: 2,
+                nav: true,
+                loop: true,
+                margin: 5
+            },
+            600: {
+                items: 5,
+                nav: true,
+                loop: true,
+                margin: 15
+            },
+            1000: {
+                items: 6,
+                nav: true,
+                loop: true,
+                margin: 15
             }
+        }
+    });
 
-			$('.u-blog-slide').slick({
-					infinite: true,
-					slidesToShow: 1,
-					slidesToScroll: 1,
-					responsive: [{
-							breakpoint: 1025,
-							settings: {
-								slidesToShow: 1,
-								slidesToScroll: 1,
-								infinite: true
-							}
-						},
-						{
-							breakpoint: 769,
-							settings: {
-								slidesToShow: 1,
-								slidesToScroll: 1
-							}
-						},
-						{
-							breakpoint: 480,
-							settings: {
-								slidesToShow: 1,
-								slidesToScroll: 1
-							}
-						}
-					]
-			});
-
-            $('.unica-lt-box').owlCarousel({
-				loop: true,
-				margin: 10,
-				responsiveClass: true,
-				autoplay: true,
-				autoplayTimeout: 5000,
-				nav: true,
-				navText: ['<i class="fa fa-chevron-left"></i>', '<i class="fa fa-chevron-right"></i>'],
-				dots: false,
-				responsive: {
-					320: {
-						items: 2,
-						nav: true,
-						loop: true,
-						margin: 5
-					},
-					600: {
-						items: 5,
-						nav: true,
-						loop: true,
-						margin: 15
-					},
-					1000: {
-						items: 6,
-						nav: true,
-						loop: true,
-						margin: 15
-					}
-				}
-			});
-
-            if($('.lazy').length){
-                $('.lazy').lazy();
-            }
-		</script>
-        <!--trazk js không biết cái gì. A Vương cài-->
-        <script type='text/javascript' src='//c.trazk.com/c.js?_key=undefined' async > </script>
+    if($('.lazy').length){
+        $('.lazy').lazy();
+    }
+</script>
 
 @endsection

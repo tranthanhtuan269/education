@@ -661,6 +661,8 @@
                     'name' : $(this).attr("data-name"),
                     'price' : parseInt($(this).attr("data-price")),
                     'real_price' : parseInt($(this).attr("data-real-price")),
+                    'coupon_price' : parseInt($(this).attr("data-price")),
+                    'coupon_code' : 0,
                 }
 
                 if (localStorage.getItem("cart") != null) {
