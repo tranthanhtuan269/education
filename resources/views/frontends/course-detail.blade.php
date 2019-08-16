@@ -410,7 +410,7 @@
                 @if(\App\Helper\Helper::getUserRoleOfCourse($info_course->id))
                 <textarea name="content" id="editor" class="form-control" placeholder="Nội dung"></textarea>
                 <div class="btn-submit text-center mt-10 mb-20">
-                    <input class="btn btn-primary submit-question" type="submit" value="SUBMIT A REVIEW" id="create-comment-new"/>
+                    <input class="btn btn-primary submit-question" type="submit" value="Gửi nhận xét" id="create-comment-new"/>
                 </div>
                 <script>
                     var baseURL = $('base').attr('href');
@@ -478,7 +478,7 @@
                                 var htmlRate = $('.reviews-star').html();
                                 html += '<div class="box clearfix">';
                                     html += '<div class="col-sm-3">';
-                                        html += '<img class="avatar" src="'+baseURL + '/' + data.commentCourse.data.avatar +'" alt="">';
+                                        html += '<img class="avatar" src="'+baseURL + '/frontend/' + data.commentCourse.data.avatar +'" alt="">';
                                         html += '<div class="info-account">';
                                             html += '<p class="interval">' + data.commentCourse.data.created_at +'</p>';
                                             html += '<p class="name">' + data.commentCourse.data.username +'</p>';
@@ -507,7 +507,7 @@
                                         html += '<div id="reply-textbox-'+data.commentCourse.data.id+'" class="reply-textbox hide">';
                                             html += '<textarea name="reply-'+data.commentCourse.data.id+'" id="reply-'+data.commentCourse.data.id+'" class="form-control" placeholder="Nội dung"></textarea>';
                                             html += '<div class="btn-submit text-center mt-10 mb-20">';
-                                                html += '<input class="btn btn-primary create-reply-btn" type="submit" value="SUBMIT A REPLY" id="create-reply-'+data.commentCourse.data.id+'" data-id="'+data.commentCourse.data.id+'"/>';
+                                                html += '<input class="btn btn-primary create-reply-btn" type="submit" value="Gửi trả lời" id="create-reply-'+data.commentCourse.data.id+'" data-id="'+data.commentCourse.data.id+'"/>';
                                             html += '</div>';
                                         html += '</div>';
                                         html += '<div class="reply-hold-'+data.commentCourse.data.id+'"></div>';
