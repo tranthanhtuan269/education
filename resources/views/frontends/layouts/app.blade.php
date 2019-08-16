@@ -654,7 +654,7 @@
                     'price' : parseInt($(this).attr("data-price")),
                     'real_price' : parseInt($(this).attr("data-real-price")),
                     'coupon_price' : parseInt($(this).attr("data-price")),
-                    'coupon_code' : 0,
+                    'coupon_code' : '',
                 }
 
                 if (localStorage.getItem("cart") != null) {
@@ -735,7 +735,7 @@
                 var total_real_price = 0;
                 var total_amount = 0;
                 number_items_in_cart.forEach(item => {
-                    total_price += item.price
+                    total_price += item.coupon_price
                     total_real_price += item.real_price
                     total_amount++;
                 })

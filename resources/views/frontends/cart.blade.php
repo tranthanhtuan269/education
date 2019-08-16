@@ -102,7 +102,7 @@
                     html += '<div class="coupon-code-label"><b>Mã giảm giá:<b></div>'
                     html += '<div class="row">'
                         html += '<div class="col-md-8">'
-                            html += '<input type="text" class="form-control coupon-input" >'
+                            html += '<input type="text" class="form-control coupon-input" value="'+element.coupon_code+'">'
                         html += '</div>'
                         html += '<div class="col-md-4">'
                             html += '<button class="btn btn-info coupon-button" data-child="'+element.id+'" data-price="'+element.price+'" data-index="'+index+'">Áp dụng</button>'
@@ -116,10 +116,10 @@
                     html += '<div>'
                         html += '<div>'
                         if(element.price == element.real_price){
-                            html += '<div class="current-price" id="current_price'+element.id+'">'+number_format(element.price, 0, '.', '.')+' ₫ </div>'
+                            html += '<div class="current-price" id="current_price'+element.id+'">'+number_format(element.coupon_price, 0, '.', '.')+' ₫ </div>'
                         }else{
                             html += '<div class="initial-price" id="initial_price'+element.id+'">'+number_format(element.real_price, 0, '.', '.')+' ₫ </div>'
-                            html += '<div class="current-price" id="current_price'+element.id+'">'+number_format(element.price, 0, '.', '.')+' ₫ </div>'
+                            html += '<div class="current-price" id="current_price'+element.id+'">'+number_format(element.coupon_price, 0, '.', '.')+' ₫ </div>'
                         }
                         html += '</div>'
                         // html += '<i class="fas fa-tag"></i>'
@@ -129,7 +129,7 @@
 
             $(".cart-item-list").append(html)
 
-            totalPrice += element.price
+            totalPrice += element.coupon_price
             totalInitialPrice += element.real_price
         });
         if(totalPrice == totalInitialPrice){
@@ -181,7 +181,7 @@
                     totalInitialPrice = 0
 
                     cart_items.forEach((element)=>{
-                        totalPrice += element.price
+                        totalPrice += element.coupon_price
                         totalInitialPrice += element.real_price
                     })
                    
@@ -321,8 +321,7 @@
                     var course_count = 1;
                     // new_totalPrice = new_price
                     cart_items.forEach((element)=>{
-                        new_totalPrice += parseFloat($('#current_price'+course_count).text())*1000
-                        course_count++
+                        new_totalPrice += element.coupon_price
                     })
                     // alert(new_totalPrice)
 
