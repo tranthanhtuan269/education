@@ -678,7 +678,10 @@
                 $('.number-in-cart').text(number_items_in_cart.length);
 
                 if(number_items_in_cart.length < 1){
-                    $('.unica-sl-cart').style.display='none';
+                    $('.unica-sl-cart').css('display', 'none')
+                }
+                if(number_items_in_cart.length >= 1){
+                    $('.unica-sl-cart').css('display', 'block' )
                 }
 
                 $(this).remove();
@@ -748,6 +751,7 @@
                 $('.current-price span').text(number_format(total_price, 0, '.', '.') + " đ");
                 $('.initial-price span').text(number_format(total_real_price, 0, '.', '.') + " đ");
                 $('.percent-off span').text(Math.floor(100-(total_price/total_real_price)*100) + "% off");
+                // $('.unica-sl-cart').get(0).css('display', 'block' )
 
                 if(number_items_in_cart.length < 1){
                     $(".cart-page-empty").addClass('active')
@@ -755,9 +759,8 @@
                     // $('.unica-sl-cart').remove()
                     $('.unica-sl-cart').css('display', 'none' )
 
-                }else{
-                    $('.unica-sl-cart').css('display', 'block' )
                 }
+
 
                 localStorage.setItem('cart',JSON.stringify(number_items_in_cart))
                 
