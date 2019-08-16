@@ -15,7 +15,8 @@
     <div class="cart-page-content container">
         
         <div class="row">
-            <div class="cart-item-list col-md-9">             
+            <div class="cart-item-list col-md-9">
+                
             </div>
             <div class="checkout-column col-md-3">
                 <div>
@@ -48,6 +49,9 @@
                     </div> --}}
                 </div>
             </div>
+        </div><br>
+        <div class="clearfix text-center">
+            <a href="/list-course?type=best-seller" class="btn btn-info"><i class="fa fa-plus"></i> Chọn thêm khóa học</a>
         </div>
     </div>
     <div class="cart-page-empty">
@@ -138,7 +142,7 @@
             $(".checkout-column .current-price").append("<span>"+number_format(totalPrice, 0, '.', '.')+" ₫</span>")
             $(".checkout-column .initial-price").append("<span>"+number_format(totalInitialPrice, 0, '.', '.')+" ₫</span>")
         }
-        
+
         if(totalInitialPrice == 0){
             // $(".checkout-column .percent-off").append("<span>0% off</span>")
         }else{
