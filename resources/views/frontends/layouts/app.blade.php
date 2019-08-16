@@ -250,7 +250,7 @@
             <a class="logo-mobile" href="/"><img src="{{ asset('frontend/images/tab_logo.png') }}" alt=""/></a>
             <a class="cart-mobile" href="{{route('cart.show')}}">
                 <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                <span class="unica-sl-cart" style="top:1px;"><b class="number-in-cart">0</b></span>
+                {{-- <span class="unica-sl-cart" style="top:1px;"><b class="number-in-cart">0</b></span> --}}
             </a>
             <div class="login-mobile">
                 <span class="ava-img" data-toggle="collapse" data-target="#userPanel">
@@ -569,6 +569,9 @@
                 $('.unica-home-menutop').removeClass('fixed');
             }
         });
+        if(localStorage.getItem('cart') != []){
+            
+        }
         @if(Auth::check())
         $(document).ready( function () {
             $.ajaxSetup({
@@ -593,6 +596,11 @@
                     });
                     
                     $(".unica-sl-notify b").text(response.unread_emails.length)
+
+                    if(response.unread_emails.length < 1){
+                        // $(".unica-sl-notify").remove()
+                        $('.unica-sl-notify').css('display', 'none' )
+                    }
 
                 },
                 error: function (response) {
@@ -669,7 +677,7 @@
                 // alert(number_items_in_cart.length)
                 $('.number-in-cart').text(number_items_in_cart.length);
 
-                if(number_items_in_cart.length==0){
+                if(number_items_in_cart.length < 1){
                     $('.unica-sl-cart').style.display='none';
                 }
 
@@ -680,7 +688,7 @@
                 })
             })
 
-            if(localStorage.getItem('cart') != null){
+            if(localStorage.getItem('cart') !== null){
                 var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
                 var product_bought = [];
                 @if(\Auth::check())
@@ -744,6 +752,11 @@
                 if(number_items_in_cart.length < 1){
                     $(".cart-page-empty").addClass('active')
                     $(".cart-page-content").removeClass('active')
+                    // $('.unica-sl-cart').remove()
+                    $('.unica-sl-cart').css('display', 'none' )
+
+                }else{
+                    $('.unica-sl-cart').css('display', 'block' )
                 }
 
                 localStorage.setItem('cart',JSON.stringify(number_items_in_cart))
@@ -751,7 +764,7 @@
 
                 $('.number-in-cart').text(number_items_in_cart.length);
             }else{
-                $('.number-in-cart').text(0);
+                $('.number-in-cart').text("dm");        
             }
         })
 
