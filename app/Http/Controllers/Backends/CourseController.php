@@ -175,7 +175,9 @@ class CourseController extends Controller
             ->addColumn('rows', function ($course) {
                 return $course->id;
             })
-            ->removeColumn('id')->make(true);
+            ->removeColumn('id')
+            ->rawColumns(['description'])
+            ->make(true);
     }
 
     public function accept(Request $request)

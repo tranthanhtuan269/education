@@ -476,11 +476,13 @@ ul.unica-acc-zone li.special:hover a{color:#fff}
   height: 50px;
   border-radius: 50%;
   margin-bottom:-18px;
+  display: inline-block;
 }
 .feature-course .top-feature-course .course-info-author .info-author-name{
   /* padding-bottom: 18px; */
   padding-left: 5px;
   /* margin-right: 20px; */
+  display: inline-block;
 }
 .feature-course .top-feature-course h3 a{
   color: #fff;
@@ -497,6 +499,9 @@ ul.unica-acc-zone li.special:hover a{color:#fff}
 }
 .feature-course .course-info .course-detail{
   padding-top:10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .feature-course .slick-dots {
   position: relative;
