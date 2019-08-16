@@ -1,6 +1,6 @@
 <div class="box clearfix">
     <div class="col-sm-3">
-        <img class="avatar" src="{{ url('/') }}/{{ $comment->userRole->user->avatar }}" alt="" />
+        <img class="avatar" src="{{ url('/frontend/') }}/{{ $comment->userRole->user->avatar }}" alt="" />
         <div class="info-account">
             <p class="interval">{{ $comment->created_at }}</p>
             <p class="name">{{ $comment->userRole->user->name }}</p>
@@ -16,19 +16,19 @@
         <div class="comment">
             {!! $comment->content !!}
         </div>
-        @if(Auth::check())
+        @if(Auth::check() || true)
         <div class="btn-action">
             <button type="button" class="btn btn-default btn-reply" data-comment-id="{{ $comment->id }}">
                 <i class="fas fa-comment"></i>
-                <span>Reply</span>
+                <span>Trả lời</span>
             </button>
             <button type="button" class="btn @if($comment->likeCheckUser() == 1) btn-primary @else btn-default @endif btn-like" data-comment-id="{{ $comment->id }}">
                 <i class="fas fa-thumbs-up"></i>
-                <span>Like</span>
+                <span>Thích</span>
             </button>
             <button type="button" class="btn @if($comment->unlikeCheckUser() == 1) btn-primary @else btn-default @endif btn-dislike" data-comment-id="{{ $comment->id }}">
                 <i class="fas fa-thumbs-down"></i>
-                <span>Dislike</span>
+                <span>Không thích</span>
             </button>
         </div>
         <div id="reply-textbox-{{ $comment->id }}" class="reply-textbox hide">

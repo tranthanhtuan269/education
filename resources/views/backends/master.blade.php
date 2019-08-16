@@ -208,6 +208,9 @@
                         <li class="@if ( Request::is('admincp/feature-course*') ) active @endif">
                             <a href="{{ url('/') }}/admincp/feature-course"><i class="fa fa-star"></i> Khóa học nổi bật</a>
                         </li>
+                        <li class="@if ( Request::is('admincp/create-coupon*') ) active @endif">
+                            <a href="{{ url('/') }}/admincp/create-coupon"><i class="fa fa-star"></i> Tạo Coupon</a>
+                        </li>
                     </ul>
                 </section>
                 <!-- /.sidebar -->
