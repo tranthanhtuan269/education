@@ -242,12 +242,109 @@ class HomeController extends Controller
 
     public function checkCoupon(Request $request)
     {
-        $coupon = Coupon::where('name', $request->coupon)->first();
+        $coupon = Coupon::where('name', $request->coupon)->where('course_id', $request->course_id)->first();
         if ($coupon) {
-            return \Response::json(array('status' => '200', 'coupon' => $coupon));
+            return \Response::json(array('status' => '200', 'coupon' => $coupon, 'coupon_value' => $coupon->value));
         }
         return \Response::json(array('status' => '404', 'message' => 'Coupon không tồn tại!'));
     }
+
+    // public function checkout(Request $request)
+    // {
+    //     if (Auth::check()) {
+    //         $current_user = Auth::user();
+    //         $user_role_id = $current_user->userRolesStudent();
+    //         $items = $request->items;
+    //         if ($items) {
+    //             $coupon = null;
+    //             $coupon_value;
+    //             $coupon_name;
+
+    //             $cart = \json_decode($request->cart, true);
+
+    //             $total_price = 0;
+
+    //             $order = new Order;
+    //             $order->payment_id = 1; // 1 = ck
+    //             $order->user_id = $user_role_id->id;
+    //             $order->status = 1; // 1 = ok, 2 = pending, 0 = cancel
+    //             $order->total_price = 0;
+    //             $order->coupon = '';
+    //             $order->save();
+
+    //             foreach ($items as $key => $item) {
+    //                 if ($item['id']) {
+    //                     $coupon = Coupon::where('name', $item["coupon_code"])->where('course_id', $item["id"])->first();
+    //                     $course = Course::find($item['id']);
+    //                     if ($course) {
+    //                         if($coupon){
+    //                             $total_price =  $total_price + $course->price * (100 - $coupon->value) / 100;
+    //                         }else{
+    //                             $total_price += $course->price;
+    //                         }
+
+    //                         $bought[] = $item['id']; //Them vao trường đã mua của user TuanTT
+    //                         $video_count = $course->video_count;
+    //                         $units = $course->units;
+    //                         $first_video_index = 1;
+    //                         $first_video_id = $course->units[0]->videos[0]->id;
+    //                         $user_course_videos = [];
+                            
+    //                         //DuongNT - Tạo array video đã xem
+    //                         foreach ($units as $key => $unit) {
+    //                             if($unit->video_count > 0){
+    //                                 $unit_arr = [];
+    //                                 for ($k=0; $k < $unit->video_count; $k++) { 
+    //                                     array_push($unit_arr, 0);                                    
+    //                                 }
+    //                                 array_push($user_course_videos, $unit_arr);
+    //                             }
+    //                         }
+    //                         $videoJson = new VideoJson;
+    //                         $videoJson->videos = $user_course_videos;
+    //                         $videoJson->learning = 1;
+    //                         $videoJson->learning_id = $first_video_id;
+
+    //                         $videoJson = json_encode($videoJson);
+
+    //                         $course->userRoles()->attach($user_role_id->id, ['videos' => $videoJson]);
+    //                         $order->courses()->attach($item['id']);
+    //                     }
+
+    //                     // lưu vào bảng teacher của mỗi course để tăng số lượng học viên cho mỗi teacher
+    //                     $teacher = $course->Lecturers()->first()->teacher;
+    //                     $teacher->student_count += 1;
+    //                     $teacher->save();
+    //                 }
+    //             }
+
+    //             // dd($total_price);
+
+    //             $bought = [];
+    //             if (strlen($current_user->bought) > 0) {
+    //                 $bought = \json_decode($current_user->bought);
+    //             }
+    //             if ($coupon) {
+    //                 // $order->total_price = $total_price * (100 - $coupon->value) / 100;
+    //                 $order->total_price = $total_price;
+    //                 $order->coupon = $coupon->name;
+    //             } else {
+    //                 $order->total_price = $total_price;
+    //                 $order->coupon = '';
+    //             }
+    //             $order->save();
+    //             $current_user->bought = \json_encode($bought);
+    //             $current_user->coins = $current_user->coins - $total_price;
+    //             $current_user->save();
+
+
+    //             return \Response::json(array('status' => '201', 'message' => 'Order has been created'));
+    //         }
+    //         return \Response::json(array('status' => '204', 'message' => 'Order has not been created'));
+    //     } else {
+    //         return \Response::json(array('status' => '401', 'message' => 'Unauthorized'));
+    //     }
+    // }
 
     public function checkout(Request $request)
     {
@@ -272,10 +369,26 @@ class HomeController extends Controller
                 }
 
                 // check coupon
+                // $coupon = null;
+                // if ($request->coupon) {
+                //     $coupon = Coupon::where('name', $request->coupon)->first();
+                // }
+
+                // $order = new Order;
+                // $order->payment_id = 1; // 1 = ck
+                // $order->user_id = $user_role_id->id;
+                // $order->status = 1; // 1 = ok, 2 = pending, 0 = cancel
+                // $order->total_price = 0;
+                // $order->coupon = '';
+                // $order->save();
+
                 $coupon = null;
-                if ($request->coupon) {
-                    $coupon = Coupon::where('name', $request->coupon)->first();
-                }
+                $coupon_value;
+                $coupon_name;
+
+                $cart = \json_decode($request->cart, true);
+
+                $total_price = 0;
 
                 $order = new Order;
                 $order->payment_id = 1; // 1 = ck
@@ -285,16 +398,66 @@ class HomeController extends Controller
                 $order->coupon = '';
                 $order->save();
 
+                // $bought = [];
+                // if (strlen($current_user->bought) > 0) {
+                //     $bought = \json_decode($current_user->bought);
+                // }
                 $bought = [];
                 if (strlen($current_user->bought) > 0) {
                     $bought = \json_decode($current_user->bought);
                 }
 
-                foreach ($items as $item) {
+                // foreach ($items as $item) {
+                //     if ($item['id']) {
+                //         $course = Course::find($item['id']);
+                //         if ($course) {
+                //             $bought[] = $item['id'];
+                //             $video_count = $course->video_count;
+                //             $units = $course->units;
+                //             $first_video_index = 1;
+                //             $first_video_id = $course->units[0]->videos[0]->id;
+                //             $user_course_videos = [];
+                            
+                //             //DuongNT - Tạo array video đã xem
+                //             foreach ($units as $key => $unit) {
+                //                 if($unit->video_count > 0){
+                //                     $unit_arr = [];
+                //                     for ($k=0; $k < $unit->video_count; $k++) { 
+                //                         array_push($unit_arr, 0);                                    
+                //                     }
+                //                     array_push($user_course_videos, $unit_arr);
+                //                 }
+                //             }
+                //             $videoJson = new VideoJson;
+                //             $videoJson->videos = $user_course_videos;
+                //             $videoJson->learning = 1;
+                //             $videoJson->learning_id = $first_video_id;
+
+                //             $videoJson = json_encode($videoJson);
+
+                //             $course->userRoles()->attach($user_role_id->id, ['videos' => $videoJson]);
+                //             $order->courses()->attach($item['id']);
+                //         }
+
+                //         // lưu vào bảng teacher của mỗi course để tăng số lượng học viên cho mỗi teacher
+                //         $teacher = $course->Lecturers()->first()->teacher;
+                //         $teacher->student_count += 1;
+                //         $teacher->save();
+                //     }
+                // }
+
+                foreach ($items as $key => $item) {
                     if ($item['id']) {
+                        $coupon = Coupon::where('name', $item["coupon_code"])->where('course_id', $item["id"])->first();
                         $course = Course::find($item['id']);
                         if ($course) {
-                            $bought[] = $item['id'];
+                            if($coupon){
+                                $total_price =  $total_price + $course->price * (100 - $coupon->value) / 100;
+                            }else{
+                                $total_price += $course->price;
+                            }
+
+                            $bought[] = $item['id']; //Them vao trường đã mua của user TuanTT
                             $video_count = $course->video_count;
                             $units = $course->units;
                             $first_video_index = 1;
@@ -328,8 +491,22 @@ class HomeController extends Controller
                         $teacher->save();
                     }
                 }
+
+                // if ($coupon) {
+                //     $order->total_price = $total_price * (100 - $coupon->value) / 100;
+                //     $order->coupon = $coupon->name;
+                // } else {
+                //     $order->total_price = $total_price;
+                //     $order->coupon = '';
+                // }
+                // $order->save();
+                // $current_user->bought = \json_encode($bought);
+                // $current_user->coins = $current_user->coins - $total_price;
+                // $current_user->save();
+
                 if ($coupon) {
-                    $order->total_price = $total_price * (100 - $coupon->value) / 100;
+                    // $order->total_price = $total_price * (100 - $coupon->value) / 100;
+                    $order->total_price = $total_price;
                     $order->coupon = $coupon->name;
                 } else {
                     $order->total_price = $total_price;

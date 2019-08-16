@@ -653,6 +653,8 @@
                     'name' : $(this).attr("data-name"),
                     'price' : parseInt($(this).attr("data-price")),
                     'real_price' : parseInt($(this).attr("data-real-price")),
+                    'coupon_price' : parseInt($(this).attr("data-price")),
+                    'coupon_code' : 0,
                 }
 
                 if (localStorage.getItem("cart") != null) {
@@ -739,7 +741,7 @@
                 })
                 $('.current-price span').text(number_format(total_price, 0, '.', '.') + " đ");
                 $('.initial-price span').text(number_format(total_real_price, 0, '.', '.') + " đ");
-                $('.percent-off span').text(Math.floor(100-(total_price/total_real_price)*100) + "% off");
+                $('.percent-off span').text("Tiết kiệm " + Math.floor(100-(total_price/total_real_price)*100) + "%");
 
                 localStorage.setItem('cart',JSON.stringify(number_items_in_cart))
                 

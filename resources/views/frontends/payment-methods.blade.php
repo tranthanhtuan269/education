@@ -403,6 +403,9 @@
     	var final_price = 0
     	var totalInitialPrice = 0
 		var balance = {{$user_balance}}
+		var pay_price = 0;
+		var coupon_code_array = new Array()
+		var course_id_array = new Array()
 
 		$(document).ready( function () {
 			showItems()
@@ -410,7 +413,10 @@
 			toggleCardMethodPanel()		
 
 			$("#payTab .cart-info span").append(cart_items.length)				
-			
+			 
+			// $("#payTab .final-price .price-text").append(number_format(pay_price, 0, '.', '.') +" ₫")
+			// $('#payWithBalance .price').append(number_format(pay_price, 0, '.', '.') +" ₫")
+
 			function getFinalPrice() {				
 				$.ajaxSetup({
 					headers: {
@@ -434,8 +440,10 @@
 						},
 						success: function (response) {
 							if(response.status == '200'){
-								$("#payTab .final-price .price-text").append(number_format(response.final_price, 0, '.', '.') +" ₫")
-								$('#payWithBalance .price').append(number_format(response.final_price, 0, '.', '.') +" ₫")
+								// $("#payTab .final-price .price-text").append(number_format(response.final_price, 0, '.', '.') +" ₫")
+								// $('#payWithBalance .price').append(number_format(response.final_price, 0, '.', '.') +" ₫")
+								$("#payTab .final-price .price-text").append(number_format(pay_price, 0, '.', '.') +" ₫")
+								$('#payWithBalance .price').append(number_format(pay_price, 0, '.', '.') +" ₫")
 								final_price = response.final_price
 
 								if(balance < final_price){
@@ -495,7 +503,12 @@
 			
 			function showItems(){
 				cart_items.forEach((element, index) => {
-					var selling_price = element.price
+					// var selling_price = element.price
+					
+					coupon_code_array[index] = element.coupon_code
+					course_id_array[index] = element.id
+					// console.log(coupon_code_array)
+					var selling_price = element.coupon_price
 					if(element.real_price == null){
 						selling_price = element.real_price
 					}
@@ -524,6 +537,7 @@
 					html += '</div>'
 
 					$("#payTab .left-column").append(html)
+					pay_price += selling_price
 				})
 			}
 			
@@ -548,12 +562,17 @@
 						text:"Giỏ hàng không được trống!"
 					})
 				}else{
+					var list_coupon = JSON.stringify(coupon_code_array)
+					var list_course_id = JSON.stringify(course_id_array)
+
 					var request = $.ajax({
 						url : "/checkout",
 						method: "POST",
 						data :{
 							"items" : cart_items,
-							"coupon" : coupon_code
+							"coupon" : coupon_code,
+							// "cart" : localStorage.getItem('cart'),
+							// "list_course_id" : list_course_id,
 						},
 						dataType: "json",                
 					})

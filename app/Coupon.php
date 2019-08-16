@@ -10,7 +10,8 @@ class Coupon extends Model
         'name', 
         'value',
         'expired',
-        'status'
+        'status',
+        'course_id'
     ];
     
     public $timestamps=false;

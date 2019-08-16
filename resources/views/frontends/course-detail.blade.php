@@ -51,18 +51,18 @@
                                             }
                                         }
                                     ?>
-                                    @if ($check_time_sale == true)                                        
+                                    @if ($check_time_sale == true || $info_course->price != $info_course->real_price)                                        
                                     <div class="col-sm-6 pull-left">
                                         <span class="sale">{!! number_format($info_course->price, 0, ',' , '.') !!}đ</span>
                                         <span class="price">{!! number_format($info_course->real_price, 0, ',' , '.') !!}đ</span>
-                                        <span class="interval">Còn {{ $date_to->diff($date_from)->format("%d") }} ngày tại mức giá này </span>
+                                        {{-- <span class="interval">Còn {{ $date_to->diff($date_from)->format("%d") }} ngày tại mức giá này </span> --}}
                                     </div>
                                     <div class="col-sm-6">
-                                        <span class="price-off pull-right">{{ round(100 - ($info_course->price/$info_course->real_price)*100,2) }}%  off</span>
+                                        <span class="percent-price-off pull-right">Tiết kiệm {{ (int)(100 - ($info_course->price/$info_course->real_price)*100) }}%</span>
                                     </div>
                                     @else
                                     <div class="col-sm-6 pull-left">
-                                        <span class="sale">{!! number_format($info_course->real_price, 0, ',' , '.') !!}đ</span>
+                                        <span class="sale">{!! number_format($info_course->price, 0, ',' , '.') !!}đ</span>
                                     </div>
                                     @endif
                                 </div>
@@ -132,12 +132,13 @@
                                         <button type="button" id="buy-now" data-id="{{ $info_course->id }}" class="btn btn-warning btn-toh"><b>Mua ngay</b></button>
                                     </div>
                                 </div>
-                                @endif
                                 <div class="box clearfix">
                                     <div class="pull-left money-back">
                                         30 ngày hoàn tiền
                                     </div>
                                 </div>
+                                @endif
+                                
                             </div>
                             <div class="col-sm-6">
                                 <iframe src="https://www.youtube.com/embed/tgbNymZ7vqY?controls=0"  frameborder="0" allowfullscreen></iframe>
