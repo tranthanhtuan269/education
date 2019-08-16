@@ -39,7 +39,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <p>“MỖI CHÚNG TA ĐỀU CÓ MỘT SƯ MỆNH CHIA SẺ LẠI GIÁ TRỊ CHO THẾ HỆ SAU”</p>
-                        <span>- Trần Thanh Tuấn - Web Team Leader TOHsoft -</span>
+                        <span>- Tuấn Đông Anh - Web Team Leader TOHsoft -</span>
                         <div class="video-youtube">
                             <iframe width="100%" height="315" src="https://www.youtube.com/embed/BqeGaO4-XSY?rel=0" frameborder="0" allowfullscreen=""></iframe>
                         </div>
