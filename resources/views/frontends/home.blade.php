@@ -27,7 +27,7 @@
                         <div class="link-parent">
                         <!-- <a href="{{ url('/') }}/category/{{ $feature->slug }}" class="text-center"> -->
                             <h3>{{ $feature->name }}</h3>
-                            <p>Hơn {{ $feature->courses->where('status', 1)->count() }} khóa học</p>
+                            <p>Có {{ $feature->courses->where('status', 1)->count() }} khóa học</p>
                         <!-- </a> -->
                         </div>
                     </a>
