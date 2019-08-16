@@ -72,6 +72,20 @@
 
 {{-- @include('frontends.feature-courses') --}}
 @include('frontends.all-courses')
+
+@if ($tags->count() > 0)
+<div class="container category-tag" style="margin-bottom: 2em;">
+	<h3>Tags</h3><br>
+	@foreach ($tags as $tag)
+	<a href="{{ url('/') }}/tags/{{ $tag->slug }}" title="{{ $tag->name }}" class="thumbnail-img">
+
+	<button class="btn btn-primary">{{$tag->name}}</button>
+
+	</a>
+	@endforeach
+</div>
+@endif
+
 @include('frontends.popular-teacher')
 @include('frontends.info-others')
 
