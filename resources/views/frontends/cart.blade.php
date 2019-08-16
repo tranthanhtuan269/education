@@ -326,9 +326,10 @@
                     // new_totalPrice = new_price
                     cart_items.forEach((element)=>{
                         new_totalPrice += element.coupon_price
+                        // console.log(element.coupon_price)
                     })
+                    new_totalPrice = new_totalPrice - dataPrice + new_price
                     // alert(new_totalPrice)
-
                     $(".checkout-column .current-price span").remove()
                     $(".checkout-column .current-price").append("<span>"+number_format(new_totalPrice, 0, '.', '.')+" ₫</span>")
                     $(".checkout-column .percent-off span").remove()
