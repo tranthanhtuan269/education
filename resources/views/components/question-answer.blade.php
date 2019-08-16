@@ -16,7 +16,7 @@
         <div class="comment">
             {!! $comment->content !!}
         </div>
-        @if(Auth::check())
+        @if(Auth::check() || true)
         <div class="btn-action">
             <button type="button" class="btn btn-default btn-reply" data-comment-id="{{ $comment->id }}">
                 <i class="fas fa-comment"></i>

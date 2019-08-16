@@ -383,7 +383,7 @@
             </div>
             <div class="reviews"  id="box_reviews">
                 <h3>Nhận xét của học viên
-                    @if(Auth::check())
+                    {{-- @if(Auth::check()) --}}
                         @if(\App\Helper\Helper::getUserRoleOfCourse($info_course->id))
                             <span class="reviews-star" data-star="{{ isset($ratingCourse) ? $ratingCourse->score : 1 }}">
                                 @if($ratingCourse)
@@ -402,11 +402,11 @@
                                 @endif
                             </span>
                         @endif
-                    @else
+                    {{-- @else
                     Đăng nhập để xem nhận xét của các học viên khác
-                    @endif
+                    @endif --}}
                 </h3>
-                @if(Auth::check())
+                {{-- @if(Auth::check()) --}}
                 @if(\App\Helper\Helper::getUserRoleOfCourse($info_course->id))
                 <textarea name="content" id="editor" class="form-control" placeholder="Nội dung"></textarea>
                 <div class="btn-submit text-center mt-10 mb-20">
@@ -528,9 +528,9 @@
                     });
                 </script>
                 @endif
-                @else
+                {{-- @else
                 <h4>Đăng nhập để xem đánh giá</h4>
-                @endif
+                @endif --}}
                 <div id="review-box">
                     @foreach($info_course->takeComment(0, 3) as $comment)
                         @include('components.question-answer', ['comment' => $comment])

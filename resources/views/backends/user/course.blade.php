@@ -294,7 +294,7 @@
                 var curr_cv = $(this).parent().parent().attr('data-description')
 
                 $('#showDescriptionModal').modal('show');
-                $("#cv").html(curr_cv)
+                $("#cv").append(curr_cv);
             })
 
             // $('.view-video-intro').off('click')

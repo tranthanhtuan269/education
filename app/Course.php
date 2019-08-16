@@ -105,6 +105,8 @@ class Course extends Model
                             ->orWhere('user_role_id', Helper::getUserRoleOfCourse($sefl->id)->user_role_id);
                     })->orderBy('created_at', 'desc');
             }
+        }else{
+            return $this->hasMany('App\CommentCourse')->orderBy('created_at', 'desc');
         }
         return $this->hasMany('App\CommentCourse')->where('state', 1);
         
