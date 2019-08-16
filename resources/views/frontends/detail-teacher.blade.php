@@ -49,7 +49,7 @@
 											<img src="{{ asset('frontend/images/ic_student.png') }}" alt="" /> 
 											<span class="special">{{ $info_teacher->student_count }} Students</span>
 										</li>
-										<li>
+										{{-- <li>
 											@include(
 												'components.vote', 
 												[
@@ -57,7 +57,7 @@
                         							'rating_number' => $info_teacher->vote_count,
 												]
 											)
-										</li>
+										</li> --}}
 									</ul>
 								</div>
 							</div>
