@@ -21,6 +21,9 @@
         <li class="@if(Request::is('user/student/order-logs')) active  @endif">
             <a href="{{ url('user/student/order-logs') }}" class=""> <i class="fa fa-history" aria-hidden="true"></i> Lịch sử</a>
         </li>
+        <li class="@if(Request::is('user/student/top-up')) active  @endif">
+            <a href="{{ url('user/student/top-up') }}" class=""> <i class="far fa-money-bill-alt"></i> Nạp tiền</a>
+        </li>
         <li class="@if(Request::is('user/student/mail-box')) active  @endif">
             <a href="{{ url('user/student/mail-box') }}" class=""> <i class="fas fa-envelope"></i> Hộp thư</a>
         </li>

@@ -306,7 +306,7 @@ ul.unica-acc-zone li.special:hover a{color:#fff}
 .top-course .tab-content .info .progress{background-color:#aaa;-webkit-box-shadow:none;box-shadow:none;border-radius:10px;height:20px}
 .bill-info{padding-bottom:80px}
 .bill-info .title-bill-info{padding:40px 0}
-.bill-info .balance{padding:40px 0}
+.bill-info .balance{padding-top: 40px;margin-left: 0.75em;}
 .bill-info .balance p{font-size:20px;font-weight:700;text-align:center}
 .bill-info .balance .amount{color:#44B900;font-size:32px}
 .bill-info .balance .btn-confirm{text-align:center;padding:7px 0;background-color:#FF8F00;border:none;border-radius:10px;color:#fff}

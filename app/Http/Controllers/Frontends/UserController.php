@@ -84,6 +84,10 @@ class UserController extends Controller
         return response()->json(['message' => 'Chúc mừng bạn đã đăng ký thành công!', 'status' => 200]);
     }
 
+    public function showTopup(){
+        return view('frontends.users.student.top-up');
+    }
+
     public function courseStudent(Request $request)
     {
         $keyword = trim($request->get('u-keyword'));

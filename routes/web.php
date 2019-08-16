@@ -234,6 +234,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::post('profile', 'Frontends\UserController@updateProfileStudent');
             Route::get('order/{id}','Frontends\UserController@detailOrder')->where('id','[0-9]+');
             Route::get('order-logs', 'Frontends\UserController@orderLogs');
+            Route::get('top-up', 'Frontends\UserController@showTopup');
         });
 
         Route::group(['prefix' => 'teacher'],function () {
