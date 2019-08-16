@@ -15,7 +15,8 @@
     <div class="cart-page-content container">
         
         <div class="row">
-            <div class="cart-item-list col-md-9">             
+            <div class="cart-item-list col-md-9">
+                
             </div>
             <div class="checkout-column col-md-3">
                 <div>
@@ -48,6 +49,9 @@
                     </div> --}}
                 </div>
             </div>
+        </div><br>
+        <div class="clearfix text-center">
+            <a href="/list-course?type=best-seller" class="btn btn-info"><i class="fa fa-plus"></i> Chọn thêm khóa học</a>
         </div>
     </div>
     <div class="cart-page-empty">
@@ -102,7 +106,7 @@
                     html += '<div class="coupon-code-label"><b>Mã giảm giá:<b></div>'
                     html += '<div class="row">'
                         html += '<div class="col-md-8">'
-                            html += '<input type="text" class="form-control coupon-input" >'
+                            html += '<input type="text" class="form-control coupon-input" value="'+element.coupon_code+'">'
                         html += '</div>'
                         html += '<div class="col-md-4">'
                             html += '<button class="btn btn-info coupon-button" data-child="'+element.id+'" data-price="'+element.price+'" data-index="'+index+'">Áp dụng</button>'
@@ -116,10 +120,10 @@
                     html += '<div>'
                         html += '<div>'
                         if(element.price == element.real_price){
-                            html += '<div class="current-price" id="current_price'+element.id+'">'+number_format(element.price, 0, '.', '.')+' ₫ </div>'
+                            html += '<div class="current-price" id="current_price'+element.id+'">'+number_format(element.coupon_price, 0, '.', '.')+' ₫ </div>'
                         }else{
                             html += '<div class="initial-price" id="initial_price'+element.id+'">'+number_format(element.real_price, 0, '.', '.')+' ₫ </div>'
-                            html += '<div class="current-price" id="current_price'+element.id+'">'+number_format(element.price, 0, '.', '.')+' ₫ </div>'
+                            html += '<div class="current-price" id="current_price'+element.id+'">'+number_format(element.coupon_price, 0, '.', '.')+' ₫ </div>'
                         }
                         html += '</div>'
                         // html += '<i class="fas fa-tag"></i>'
@@ -129,7 +133,7 @@
 
             $(".cart-item-list").append(html)
 
-            totalPrice += element.price
+            totalPrice += element.coupon_price
             totalInitialPrice += element.real_price
         });
         if(totalPrice == totalInitialPrice){
@@ -138,7 +142,7 @@
             $(".checkout-column .current-price").append("<span>"+number_format(totalPrice, 0, '.', '.')+" ₫</span>")
             $(".checkout-column .initial-price").append("<span>"+number_format(totalInitialPrice, 0, '.', '.')+" ₫</span>")
         }
-        
+
         if(totalInitialPrice == 0){
             // $(".checkout-column .percent-off").append("<span>0% off</span>")
         }else{
@@ -181,7 +185,7 @@
                     totalInitialPrice = 0
 
                     cart_items.forEach((element)=>{
-                        totalPrice += element.price
+                        totalPrice += element.coupon_price
                         totalInitialPrice += element.real_price
                     })
                    
@@ -325,8 +329,7 @@
                     var course_count = 1;
                     // new_totalPrice = new_price
                     cart_items.forEach((element)=>{
-                        new_totalPrice += parseFloat($('#current_price'+course_count).text())*1000
-                        course_count++
+                        new_totalPrice += element.coupon_price
                     })
                     // alert(new_totalPrice)
 

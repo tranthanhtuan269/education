@@ -14,6 +14,8 @@ use App\Menu;
 use Auth;
 use Validator;
 use Cache;
+use App\Course;
+use App\Coupon;
 
 class HomeController extends Controller{
 
@@ -91,5 +93,34 @@ class HomeController extends Controller{
         SiteConfig::where('key', '=', 'lat')->update(['value' => $request->lat]);
         SiteConfig::where('key', '=', 'lng')->update(['value' => $request->lng]);
         return back()->with(['flash_message_succ' => 'Cập nhật thông tin thành công!']);
+    }
+
+    public function createCoupon(){
+        $courses = Course::where('status', 1)->get();
+        return view('backends.coupon.coupon', compact('courses'));
+    }
+
+    public function addCoupon(Request $request){
+        $arr_course_id = $request->course_id;
+        $coupon_code   = $request->coupon_code;
+        $coupon_value  = $request->coupon_value;
+        $coupon_expired= $request->coupon_expired;
+
+        foreach($arr_course_id as $course_id){
+            $check = Coupon::where('name', $coupon_code)->where('course_id', $course_id)->first();
+            // dd($check->id);
+
+            if(!isset($check->id)){
+                $coupon = new Coupon;
+    
+                $coupon->name           = $coupon_code;
+                $coupon->value          = $coupon_value;
+                $coupon->expired        = $coupon_expired;
+                $coupon->course_id      = $course_id;
+                $coupon->status         = 1;   
+                $coupon->save();
+            }
+        }
+        return \Response::json(array('status' => '200', 'message' => 'Success!'));
     }
 }
