@@ -809,7 +809,7 @@
                 'name' : "{!! $info_course->name !!}",
                 'price' : {!! $info_course->price !!},
                 'real_price' : {!! $info_course->real_price !!},
-                'coupon_price' : {!! $info_course->real_price !!},
+                'coupon_price' : {!! $info_course->price !!},
                 'coupon_code' : '',
             }
 
