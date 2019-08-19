@@ -159,28 +159,29 @@
                     </ul>
                 </div>
             </div>
-            <div class="info clearfix my-30px">
-                <div class="col-sm-8">
-                    <div class="desc">
-                        <h3>Mô tả khóa học</h3>
-                        <p>
-                            {!! $info_course->description !!}
-                        </p>
-                    </div>
-                    @php
-                        $will_learn = $info_course->will_learn;
-                        $will_learn = explode(";;", $will_learn);
-                        $will_learn = array_filter($will_learn, function($will){
-                            $will = trim($will);
-                            return $will != '';
-                        });
-                        // $will_learn = json_decode($will_learn);
-                    @endphp
-                    @if ($will_learn != null)
-                    
-                    <div class="knowledge clearfix">
-                        <h3>Bạn sẽ học được gì</h3>
-                        <ul class="row">
+            <div class="info clearfix my-30px col-xs-12">
+                <div class="row">
+                    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                        <div class="desc">
+                            <h3>Mô tả khóa học</h3>
+                            <p>
+                                {!! $info_course->description !!}
+                            </p>
+                        </div>
+                        @php
+                            $will_learn = $info_course->will_learn;
+                            $will_learn = explode(";;", $will_learn);
+                            $will_learn = array_filter($will_learn, function($will){
+                                $will = trim($will);
+                                return $will != '';
+                            });
+                            // $will_learn = json_decode($will_learn);
+                        @endphp
+                        @if ($will_learn != null)
+                        
+                        <div class="knowledge clearfix">
+                            <h3>Bạn sẽ học được gì</h3>
+                            <ul class="row">
                                 @foreach ($will_learn as $will)                            
                                 <li class="col-lg-6">
                                     <img src="{{ asset('frontend/images/ic_check.png') }}" alt="" /> {!! ltrim($will,";") !!}
@@ -188,42 +189,131 @@
                                 @endforeach
                             </ul>
                         </div>
-                    @endif
-                </div>
-                <div class="col-sm-4">
-                    <ul class="others">
-                        <li>
-                            <img src="{{ asset('frontend/images/features_online.png') }}" alt="" /> 
-                            <span class="txt-large">100% trực tuyến</span>
-                            {{-- <span class="txt-small">Content comming soon...</span> --}}
-                        </li>
-                        <li>
-                            <img src="{{ asset('frontend/images/features_deadline.png') }}" alt="" /> 
-                            <span class="txt-large">Thời gian học linh hoạt</span>
-                            {{-- <span class="txt-small">Content comming soon...</span> --}}
-                        </li>
-                        <li>
-                            <img src="{{ asset('frontend/images/features_level.png') }}" alt="" /> 
-                            <span class="txt-large">Cho người mới học</span>
-                            {{-- <span class="txt-small">Content comming soon...</span> --}}
-                        </li>
-                        @if ($info_course->approx_time != '')
-                        <li>
-                            <img src="{{ asset('frontend/images/features_hour.png') }}" alt="" /> 
-                            <span class="txt-large">Khoảng {{ $info_course->approx_time }} giờ để hoàn thành</span>
-                            {{-- <span class="txt-small">Content comming soon...</span> --}}
-                        </li>
                         @endif
-                        <li>
-                            <img src="{{ asset('frontend/images/features_subtitle.png') }}" alt="" /> 
-                            <span class="txt-large">Tiếng Việt</span>
-                            {{-- <span class="txt-small">Content comming soon...</span> --}}
-                        </li>
-                    </ul>
+                        <div class="lessons clearfix">
+                            {{-- <div class="col-sm-8" id="box_content"> --}}
+                                    @include('components.course-lesson-list')
+                            {{-- </div> --}}
+                            <?php 
+                            // $requirements = json_decode($info_course->requirement); 
+                            ?>
+                            {{-- @if ($requirements != '')                    
+                            <div class="col-sm-4">
+                                <div class="requirement" id="box_requirements">
+                                    <h3>Yêu cầu</h3>
+                                    <ul>
+                                        @foreach ($requirements as $requirement)
+                                        <li>{!! $requirement !!}</li>    
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+                            @endif --}}
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 hidden-xs">
+                        <ul class="others fixed">
+                            <li>
+                                <img src="{{ asset('frontend/images/features_online.png') }}" alt="" /> 
+                                <span class="txt-large">100% trực tuyến</span>
+                                {{-- <span class="txt-small">Content comming soon...</span> --}}
+                            </li>
+                            <li>
+                                <img src="{{ asset('frontend/images/features_deadline.png') }}" alt="" /> 
+                                <span class="txt-large">Thời gian học linh hoạt</span>
+                                {{-- <span class="txt-small">Content comming soon...</span> --}}
+                            </li>
+                            <li>
+                                <img src="{{ asset('frontend/images/features_level.png') }}" alt="" /> 
+                                <span class="txt-large">Cho người mới học</span>
+                                {{-- <span class="txt-small">Content comming soon...</span> --}}
+                            </li>
+                            @if ($info_course->approx_time != '')
+                            <li>
+                                <img src="{{ asset('frontend/images/features_hour.png') }}" alt="" /> 
+                                <span class="txt-large">Khoảng {{ $info_course->approx_time }} giờ để hoàn thành</span>
+                                {{-- <span class="txt-small">Content comming soon...</span> --}}
+                            </li>
+                            @endif
+                            <li>
+                                <img src="{{ asset('frontend/images/features_subtitle.png') }}" alt="" /> 
+                                <span class="txt-large">Tiếng Việt</span>
+                                {{-- <span class="txt-small">Content comming soon...</span> --}}
+                            </li>
+                        </ul>
+                        <div style="height: 475px; position: relative;">
+                            <div style="position: fixed; top: 100px">
+                                <div class="u-sm-left">
+                                    <div class="block-price">
+                                        <span class="big-price">399,000<sup>đ</sup></span>
+                                        <span class="small-price">800,000<sup>đ</sup></span><span class="discount-price" data-percent="50">-50%</span>
+                                    </div>
+                                    <div class="time-uudai"><i class="fa fa-tachometer" aria-hidden="true"></i> Thời gian ưu đãi còn 1 ngày</div>
+                                    <div class="block-btn">
+                                        <a course_id="z2hm9kf9eTEOe2D6Xq85Xg%3D%3D" href="https://unica.vn/order/step1?id=1212" class="btn-buy-course">Đăng ký học</a>
+                                        <a data-id="z2hm9kf9eTEOe2D6Xq85Xg%3D%3D" href="javascript:void(0)" onclick="addcart(this)" class="btn-cart-course btn-add_cart"><i class="fa fa-cart-plus" aria-hidden="true"></i>Thêm vào giỏ hàng</a>
+                                        <p>Hoàn tiền trong 7 ngày nếu không hài lòng</p>
+                                    </div>
+                                </div>
+                                <div class="u-sm-right">
+                                    <div class="block-ulti">
+                                        <ul style="margin-left: 0">
+                                            <li><i class="fa fa-clock-o" aria-hidden="true"></i> Thời lượng:
+                                                <p>01 giờ 56 phút</p>
+                                            </li>
+                                            <li><i class="fa fa-play-circle" aria-hidden="true"></i> Giáo trình:
+                                                <p>17 bài giảng</p>
+                                            </li>
+                                            <li><i class="fa fa-history" aria-hidden="true"></i> Sở hữu khóa học trọn đời</li>
+                                            <li><i class="fa fa-percent" aria-hidden="true"></i>Giảm thêm <b>10%</b> khi thanh toán online</li>
+                                        </ul>
+                                        <center><a href="javascript:void(0)" class="dropdown-coupon">Bạn có mã giảm giá?</a></center>
+                                        <div class="dropdown-input-coupon">
+                                            <div class="col-lg-8 col-xs-8">
+                                                <div class="form-group">
+                                                    <input name="coupon_code" pattern="[^'\x22]+" required="" type="text" class="form-control" id="coupon_code" placeholder="Nhập mã giảm giá..." style="margin-left:-10px;">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2 col-xs-4">
+                                                <div class="form-group">
+                                                    <button onclick="submit_coupon()" type="button" class="coupon-submit btn btn-coupon" style="margin-left:-25px;">Áp dụng</button>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12" style="display:inline-block;margin-bottom: 5px;">
+                                                <span style="display: none" class="error_message label label-danger">Coupon không hợp lệ</span>
+                                            </div>
+                                                <div class="col-lg-12" style="display:inline-block;">
+                                                <span style="display: none" class="success_message label label-success">Kích hoạt coupon thành công</span>
+                                            </div>
+                                        <br>
+                                        </div>
+                            
+                                        <div class="clearfix"></div>
+                                        
+                                    </div>
+                                    <div class="block-share" style="display: none">
+                                        <div style="margin-bottom: 15px;" class="share-title">
+                                            <b>CHIA SẺ NHẬN NGAY MÃ GIẢM GIÁ 50%</b>
+                                        </div>
+                                        <button style="width: 50%;margin-bottom: 10px" onclick="share(1212)" class="btn btn-sm btn-primary"><i class="fa fa-facebook"></i> CHIA SẺ NGAY</button>
+                                        <div class="result-share" style="display: none;">
+                                            <div style="margin-bottom: 15px;">
+                                                <b>BẠN NHẬN ĐƯỢC MÃ GIẢM GIÁ 50% </b>
+                                            </div>
+                                            <p>HỌC PHÍ CHỈ CÒN <b>399,000đ</b></p>
+                                            <div style="color: #35BAF6;font-size: 16px;margin-bottom: 10px;"><b class="coupon-share"></b></div>
+                                            <i style="color: #858585;font-style: italic !important;" class="coupon-expired">xx</i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                    
+                        </div>
+        {{-- <link rel="stylesheet" href="https://unica.vn/media/styles_v2018/main.css"> --}}
+                    </div>
                 </div>
             </div>
             @if (count($info_course->tags) > 0)
-                <div class="skill clearfix my-30px">
+            <div class="skill clearfix my-30px">
                     <div class="col-xs-12">
                         <h3>Các mục liên quan</h3>
                         <ul class="row row-centered">
@@ -243,24 +333,6 @@
                     </div>
                 </div>
             @endif
-            <div class="lessons clearfix">
-                <div class="col-sm-8" id="box_content">
-                        @include('components.course-lesson-list')
-                </div>
-                <?php $requirements = json_decode($info_course->requirement); ?>
-                @if ($requirements != '')                    
-                <div class="col-sm-4">
-                    <div class="requirement" id="box_requirements">
-                        <h3>Yêu cầu</h3>
-                        <ul>
-                            @foreach ($requirements as $requirement)
-                            <li>{!! $requirement !!}</li>    
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
-                @endif
-            </div>
         </div>
     </div>
     @if (count($info_course->Lecturers()) >= 1)
