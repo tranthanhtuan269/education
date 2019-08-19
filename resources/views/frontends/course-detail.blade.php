@@ -159,7 +159,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="info clearfix my-30px col-xs-12" id="benefit-course">
+            <div class="info clearfix col-xs-12" id="benefit-course">
                 <div class="row">
                     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                         <div class="desc">
@@ -311,7 +311,7 @@
                                 // $('#sidebar-content').height()
                                 // $('.instructors').position().top
                                 var block_on = $('#benefit-course').position().top + $('#benifit-first').height() + 62 //Padding
-                                var block_below = $('.instructors').position().top - $('#sidebar-content').height() - 32 - 61 - 20 //Padding
+                                var block_below = $('.instructors').position().top - $('#sidebar-content').height() - 32 - 61 //Padding
                                 // console.log($('.instructors').position().top)
                                 // console.log($('#sidebar-content').height() + 32)
                                 // console.log($("#benefit-course").scrollTop())
@@ -324,9 +324,11 @@
                                 // $(".sidebar-content").show();
                                 if($(window).scrollTop() <= block_below){
                                     document.getElementById("sidebar-content").classList.add("sidebar-fixed");
+                                    $("#sidebar-content").removeClass('sidebar-unfix').css('top', '');
                                 }else{
                                     document.getElementById("sidebar-content").classList.remove("sidebar-fixed");
-                                    document.getElementById("sidebar-content").css("margin-top", "1365px");
+                                    $("#sidebar-content").addClass('sidebar-unfix').css('top', block_below - block_on + 20);
+                                    // document.getElementById("sidebar-content").css("margin-top", "1365px");
                                 }
                             } else {
                                 document.getElementById("sidebar-content").classList.remove("sidebar-fixed");

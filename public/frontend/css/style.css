@@ -795,7 +795,7 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
 .detail-course .info ul.others li span.txt-small{display:block;font-size:12px}
 .detail-course .info ul.others li{padding-bottom:30px}
 .detail-course .info ul.others li:last-child{padding-bottom:0}
-.detail-course .lessons{padding-bottom:50px}
+/* .detail-course .lessons{padding-bottom:50px} */
 .detail-course .lessons .u-video-list-course .panel{border-radius:0;border:0;box-shadow:none}
 .detail-course .lessons .u-video-list-course .col{display:inline-block;width:100%;border-bottom:1px solid #eaeaea;padding:5px 0 8px}
 .detail-course .lessons .u-docu{margin:5px;padding:5px;background:#ccc;color:#fff;display:inline-block;width:98%}
@@ -860,6 +860,9 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
   position: fixed;
   top: 75px;
   width: 376.66px;
+}
+.detail-course .info-course-sidebar .sidebar-unfix{
+  position: absolute;
 }
 .detail-course .info-course-sidebar .button-class{
   text-align: center;
