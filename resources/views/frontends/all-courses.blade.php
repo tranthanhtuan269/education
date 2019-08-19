@@ -71,6 +71,9 @@
                             </div>
                             @endif
                             @endforeach
+                            @if($key < 3)
+                            </div>
+                            @endif
                             @if (Request::is('/')) 
                                 <div class="col-sm-12 text-center">
                                     <a href="{{ url('list-course?type=best-seller') }}" class="btn btn-default btn-seeall">Tất cả</a>
@@ -113,6 +116,9 @@
                         </div>
                         @endif
                         @endforeach
+                        @if($key < 4)
+                        </div>
+                        @endif
                         @if (Request::is('/'))
                         <div class="col-sm-12 text-center">
                             <a href="{{ url('list-course?type=new') }}" class="btn btn-default btn-seeall">Tất cả</a>
@@ -154,6 +160,9 @@
                         </div>
                         @endif
                         @endforeach
+                        @if($key < 4)
+                        </div>
+                        @endif
                         @if (Request::is('/'))
                         <div class="col-sm-12 text-center">
                             <a href="{{ url('list-course?type=trendding') }}" class="btn btn-default btn-seeall">Tất cả</a>

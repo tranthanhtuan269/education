@@ -220,7 +220,7 @@
 </div>
 
 @include('frontends.all-courses')
-@php
+{{-- @php
 	$isTeacher = false;
 	if(Auth::check()){
 		$userRoles = Auth::user()->userRoles;
@@ -230,8 +230,8 @@
 			}
 		}
 	}
-@endphp
-@if (!$isTeacher)
+@endphp --}}
+{{-- @if (!$isTeacher)
 	<div class="become-teacher">
     <div class="container">
         <div class="row">
@@ -256,6 +256,6 @@
         </div>
     </div>
 </div>
-@endif
+@endif --}}
 {{-- @include('frontends.info-others') --}}
 @endsection
