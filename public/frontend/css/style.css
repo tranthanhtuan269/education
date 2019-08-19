@@ -802,7 +802,7 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
 .detail-course .info ul.others li span.txt-small{display:block;font-size:12px}
 .detail-course .info ul.others li{padding-bottom:30px}
 .detail-course .info ul.others li:last-child{padding-bottom:0}
-.detail-course .lessons{padding-bottom:50px}
+/* .detail-course .lessons{padding-bottom:50px} */
 .detail-course .lessons .u-video-list-course .panel{border-radius:0;border:0;box-shadow:none}
 .detail-course .lessons .u-video-list-course .col{display:inline-block;width:100%;border-bottom:1px solid #eaeaea;padding:5px 0 8px}
 .detail-course .lessons .u-docu{margin:5px;padding:5px;background:#ccc;color:#fff;display:inline-block;width:98%}
@@ -853,6 +853,57 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
 .detail-course .feedback .student-rating .number{font-size:32px;color:#FF8F00;font-weight:600}
 .detail-course .feedback .student-rating .star{font-size:26px;padding-bottom:5px}
 .detail-course .top-course #best-seller .info{margin:0}
+.detail-course .info-course-sidebar{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.detail-course .info-course-sidebar #sidebar-content{
+    border: 1px solid #d7d7d7;
+    border-radius: 5px;
+    background: #fff;
+    padding: 15px;
+}
+.detail-course .info-course-sidebar .sidebar-fixed{
+  position: fixed;
+  top: 75px;
+  width: 376.66px;
+}
+.detail-course .info-course-sidebar .sidebar-unfix{
+  position: absolute;
+}
+.detail-course .info-course-sidebar .button-class{
+  text-align: center;
+}
+.detail-course .info-course-sidebar button{
+  width: 90%;
+  padding: 10px 0;
+  margin-top: 10px;
+  text-transform: uppercase;
+}
+.detail-course .info-course-sidebar .money-back{
+  font-size: 12px;
+  padding-bottom: 10px;
+}
+.detail-course .info-course-sidebar .percent-price-off{
+  font-size: 16px;
+  background-color: #ff8f00;
+  color: #fff; padding: 4px;
+  border-radius: 5px;
+  font-weight: bold
+}
+.detail-course .info-course-sidebar .sale{color:#FF8F00;
+  font-size:30px;
+  padding-right:10px;
+  font-weight: bold
+}
+.detail-course .info-course-sidebar .price{
+  text-decoration:line-through;
+  font-size: 17px;
+}
+.detail-course .info-course-sidebar .u-sm-right ul li{
+  margin: 10px;
+}
+
 .reviews img.avatar{vertical-align:middle;width:60px;height:60px;border-radius:50%;float:left;margin-right:15px}
 .reviews .info-account{padding-top:13px}
 .reviews .info-account .interval{color:#29C2F3;font-size:13px}
