@@ -183,7 +183,7 @@
                         <ul class="row">
                                 @foreach ($will_learn as $will)                            
                                 <li class="col-lg-6">
-                                    <img src="{{ asset('frontend/images/ic_check.png') }}" alt="" /> {!! trim($will) !!}
+                                    <img src="{{ asset('frontend/images/ic_check.png') }}" alt="" /> {!! ltrim($will,";") !!}
                                 </li>
                                 @endforeach
                             </ul>
@@ -289,7 +289,7 @@
                                         <img src="{{ asset('frontend/images/ic_course.png') }}" alt="" /> 
                                         <span class="special">{{ $lecturer->teacher->course_count }} Khóa học</span>
                                     </div>
-                                    <div class="pull-right">
+                                    {{-- <div class="pull-right">
                                         @include(
                                             'components.vote', 
                                             [
@@ -298,7 +298,7 @@
                                                 'rating_txt' => true,
                                             ]
                                         )
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <div class="">
                                     <img src="{{ asset('frontend/images/ic_student.png') }}" alt="" /> 
