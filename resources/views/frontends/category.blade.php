@@ -3,15 +3,14 @@
 <div class="background-page">
 	{{-- <img class="bg-category" src="{{ asset('frontend/images/banner_profile_teacher.png') }}"> --}}
 	{{-- <div class="hightlight">
-		<h1 style='font-family:proxima-nova,"Helvetica Neue",Helvetica,sans-serif'>Danh mục: {{ $category->name }}</h1>
+		<h1 style='font-family:proxima-nova,"Helvetica Neue",Helvetica,sans-serif'>{{ $category->name }}</h1>
 	</div> --}}
-	<div class='container'>
+	<div class='container-fuild'>
 		<img class="bg-category" src="{{ asset('frontend/images/banner_profile_teacher.png') }}">
 		<div class="highlight">
 			<div class="row title">
 				<div class="col-sm-12">
 					{{-- <p>Danh mục:</p> --}}
-					<br>
 					<h1>{{ $category->name }}</h1>
 					{{-- @php --}}
 						{{-- // dd($category); --}}
@@ -72,7 +71,26 @@
 
 
 {{-- @include('frontends.feature-courses') --}}
+
 @include('frontends.all-courses')
+
+@if ($tags->count() > 0)
+<div class="container category-tag" style="margin-bottom: 2em;" style="display: inline-block;">
+	<div class="row">
+		<span style="font-size: large; margin-left: 1em"><strong>Tags: &nbsp;</strong></span>
+		<span>
+			@foreach ($tags as $tag)
+			<a href="{{ url('/') }}/tags/{{ $tag->slug }}" title="{{ $tag->name }}" class="thumbnail-img">
+		
+			<button class="btn btn-primary">{{$tag->name}}</button>
+		
+			</a>
+			@endforeach
+		</span>
+	</div>
+</div>
+@endif
+
 @include('frontends.popular-teacher')
 @include('frontends.info-others')
 

@@ -205,6 +205,10 @@
 
                     localStorage.setItem('cart', JSON.stringify(cart_items))
 
+                    if(cart_items.length < 1){
+                        $('.unica-sl-cart').css('display', 'none' )
+                    }
+
                     if(cart_items.length == 0){
                         // location.reload();
                         $(".cart-page-content").hide()

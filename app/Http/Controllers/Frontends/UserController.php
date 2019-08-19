@@ -72,6 +72,7 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = bcrypt(trim($request->password));
+        $user->status = 1;
         $user->save();
 
         $user_role = new UserRole();
@@ -83,10 +84,15 @@ class UserController extends Controller
         return response()->json(['message' => 'Chúc mừng bạn đã đăng ký thành công!', 'status' => 200]);
     }
 
+    public function showTopup(){
+        return view('frontends.users.student.top-up');
+    }
+
     public function courseStudent(Request $request)
     {
         $keyword = trim($request->get('u-keyword'));
         $lifelong_course = Auth::user()->userRolesStudent()->userLifelongCourse($keyword);
+        // dd($li;
         
         // dd($lifelong_course);
         return view('frontends.users.student.course', compact('lifelong_course'));

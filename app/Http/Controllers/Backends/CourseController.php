@@ -7,6 +7,7 @@ use App\Http\Requests\StoreCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
 use App\Course;
 use App\UserCourse;
+use App\Setting;
 use Auth;
 
 
@@ -175,7 +176,9 @@ class CourseController extends Controller
             ->addColumn('rows', function ($course) {
                 return $course->id;
             })
-            ->removeColumn('id')->make(true);
+            ->removeColumn('id')
+            ->rawColumns(['description'])
+            ->make(true);
     }
 
     public function accept(Request $request)
@@ -278,7 +281,8 @@ class CourseController extends Controller
 
     public function getFeatureCourse(){
         $courses = Course::where('status', 1)->get();
-        return view('backends.course.feature-course', compact('courses'));
+        $percent = Setting::where('name', 'percent_feature_course')->first()->value;
+        return view('backends.course.feature-course', compact('courses', 'percent'));
     }
 
     public function handlingFeatureCourseAjax(Request $request){
@@ -298,6 +302,12 @@ class CourseController extends Controller
         $course3->featured       = 1;
         $course3->featured_index = 3;
         $course3->save();
+
+        if($request->percent_feature_course != null){
+            $setting_percent_feature_course = Setting::where('name', 'percent_feature_course')->first();
+            $setting_percent_feature_course->value = $request->percent_feature_course;
+            $setting_percent_feature_course->save();
+        }
 
         return \Response::json(array('status' => '200', 'message' => 'Thay đổi khóa học nổi bật thành công!'));
     }

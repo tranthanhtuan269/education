@@ -58,6 +58,12 @@
                 @endforeach
                 </select>
             </div>
+            <br>
+            <p><b>Chọn % giảm giá để được là khoá học nổi bật</b></p>
+            <div>
+                <input id="percentFeatureCourse" value="{{$percent}}" type="text"> %
+            </div>
+
         </div>
     </div>
     <br>
@@ -69,6 +75,7 @@
             var course_1 = $('select[name=searchable1]').children("option:selected").val();
             var course_2 = $('select[name=searchable2]').children("option:selected").val();
             var course_3 = $('select[name=searchable3]').children("option:selected").val();
+            var percentFeatureCourse = $('#percentFeatureCourse').val()
             
             if (course_1 == course_2 || course_3 == course_2 || course_1 == course_3) {
                 Swal.fire({
@@ -89,7 +96,8 @@
                 data: {
                     course_1 : course_1,
                     course_2 : course_2,
-                    course_3 : course_3
+                    course_3 : course_3,
+                    percent_feature_course : percentFeatureCourse
                 },
                 method: "POST",
                 dataType:'json',

@@ -13,6 +13,7 @@ use App\Teacher;
 use App\User;
 use App\Unit;
 use App\Video;
+use App\Setting;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -43,8 +44,17 @@ class HomeController extends Controller
     public function home()
     {
         $feature_category = Category::withCount('courses')->where('featured', 1)->orderBy('featured_index', 'asc')->limit(10)->get();
-        // trending = feature courses
-        $feature_course = Course::where('status', 1)->where('featured', 1)->orderBy('featured_index', 'asc')->limit(8)->get();
+        // Duong NT// trending = feature courses
+        $percent_feature_course = Setting::where('name', 'percent_feature_course')->first()->value;
+        $feature_course = Course::where('status', 1)->orderBy('featured_index', 'asc')->get();
+        $feature_course = $feature_course->filter(function ($value, $key) use ($percent_feature_course) {
+            if($value->price < $value->real_price){
+                $percent = 100 - intval($value->price/$value->real_price)*100;
+            }else{
+                $percent = 0;
+            }
+            return ($percent > intval($percent_feature_course)) || $value->featured == 1 ;
+        })->values(); //reindex the collection
         $best_seller_course = Course::where('status', 1)->orderBy('sale_count', 'desc')->limit(8)->get();
         $new_course = Course::where('status', 1)->orderBy('id', 'desc')->limit(8)->get();
         $popular_teacher = Teacher::getTeacherBestVote();
