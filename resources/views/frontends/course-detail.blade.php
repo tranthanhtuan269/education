@@ -159,7 +159,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="info clearfix my-30px col-xs-12">
+            <div class="info clearfix my-30px col-xs-12" id="benefit-course">
                 <div class="row">
                     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                         <div class="desc">
@@ -212,7 +212,7 @@
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-12 hidden-xs">
-                        <ul class="others fixed">
+                        <ul class="others fixed" id="benifit-first">
                             <li>
                                 <img src="{{ asset('frontend/images/features_online.png') }}" alt="" /> 
                                 <span class="txt-large">100% trực tuyến</span>
@@ -243,7 +243,8 @@
                         </ul>
                         <div class="info-course-sidebar" style="height: 475px; position: relative;">
                             {{-- <div class="sidebar-content" style="position: fixed; top: 75px; width: 376.66px"> --}}
-                            <div class="sidebar-fixed" id="sidebar-content">
+                            {{-- <div class="sidebar-fixed" id="sidebar-content"> --}}
+                            <div id="sidebar-content">
                                 <div class="u-sm-left">
                                     <div class="block-price">
                                         <?php
@@ -302,15 +303,31 @@
                             </div>                    
                         </div>
                         <script>
+                            
                             $(window).scroll(function() {
+                                // $('#benefit-course').position().top
+                                // $('#benifit-first').height()
+                                // var margin_obj = 20;
+                                // $('#sidebar-content').height()
+                                // $('.instructors').position().top
+                                var block_on = $('#benefit-course').position().top + $('#benifit-first').height() + 62 //Padding
+                                var block_below = $('.instructors').position().top - $('#sidebar-content').height() - 32 - 61 - 20 //Padding
+                                // console.log($('.instructors').position().top)
+                                // console.log($('#sidebar-content').height() + 32)
+                                // console.log($("#benefit-course").scrollTop())
                             // var barHeight = $(".interactive-bar").outerHeight()
-                            if ($(window).scrollTop() > 830 ) {
+                            if ($(window).scrollTop() >= block_on ) {
                                 //    $(".sidebar-content").css("margin-bottom", barHeight)
                                 //    $("#button").css("bottom", "-26")
-                                //    console.log(barHeight);
+                                   console.log(block_below);
                                 
                                 // $(".sidebar-content").show();
-                                document.getElementById("sidebar-content").classList.add("sidebar-fixed");
+                                if($(window).scrollTop() <= block_below){
+                                    document.getElementById("sidebar-content").classList.add("sidebar-fixed");
+                                }else{
+                                    document.getElementById("sidebar-content").classList.remove("sidebar-fixed");
+                                    document.getElementById("sidebar-content").css("margin-top", "1365px");
+                                }
                             } else {
                                 document.getElementById("sidebar-content").classList.remove("sidebar-fixed");
                                 // $(".sidebar-content").hide();
@@ -660,7 +677,7 @@
                 if ($(window).scrollTop() > 300) {
                     $("footer .item-2").css("margin-bottom", barHeight)
                     $("#button").css("bottom", "-26")
-                    console.log(barHeight);
+                    // console.log(barHeight);
                     
                     $(".interactive-bar").fadeIn();
                 } else {
