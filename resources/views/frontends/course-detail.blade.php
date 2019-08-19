@@ -241,74 +241,83 @@
                                 {{-- <span class="txt-small">Content comming soon...</span> --}}
                             </li>
                         </ul>
-                        <div style="height: 475px; position: relative;">
-                            <div style="position: fixed; top: 100px">
+                        <div class="info-course-sidebar" style="height: 475px; position: relative;">
+                            {{-- <div class="sidebar-content" style="position: fixed; top: 75px; width: 376.66px"> --}}
+                            <div class="sidebar-fixed" id="sidebar-content">
                                 <div class="u-sm-left">
                                     <div class="block-price">
-                                        <span class="big-price">399,000<sup>đ</sup></span>
-                                        <span class="small-price">800,000<sup>đ</sup></span><span class="discount-price" data-percent="50">-50%</span>
+                                        <?php
+                                        $check_time_sale = false;
+                                        if ($info_course->from_sale != '' && $info_course->to_sale != '') {
+                                            $start_sale = strtotime($info_course->from_sale.' 00:00:00');
+                                            $end_sale = strtotime($info_course->to_sale.' 23:59:59');
+                                            $date_to = new DateTime($info_course->to_sale);
+                                            $date_from = new DateTime(date('Y-m-d'));
+                                            if (time() >= $start_sale && time() <= $end_sale) {
+                                                $check_time_sale = true;
+                                            }
+                                        }
+                                        ?>
+                                        @if ($check_time_sale == true || $info_course->price != $info_course->real_price)                                        
+                                        <div class="col-sm-6 pull-left">
+                                            <span class="sale">{!! number_format($info_course->price, 0, ',' , '.') !!}đ</span>
+                                            <span class="price">{!! number_format($info_course->real_price, 0, ',' , '.') !!}đ</span>
+                                            {{-- <span class="interval">Còn {{ $date_to->diff($date_from)->format("%d") }} ngày tại mức giá này </span> --}}
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <span class="percent-price-off pull-right">-{{ (int)(100 - ($info_course->price/$info_course->real_price)*100) }}%</span>
+                                        </div>
+                                        @else
+                                        <div class="col-sm-6 pull-left">
+                                            <span class="sale">{!! number_format($info_course->price, 0, ',' , '.') !!}đ</span>
+                                        </div>
+                                        @endif
                                     </div>
-                                    <div class="time-uudai"><i class="fa fa-tachometer" aria-hidden="true"></i> Thời gian ưu đãi còn 1 ngày</div>
-                                    <div class="block-btn">
-                                        <a course_id="z2hm9kf9eTEOe2D6Xq85Xg%3D%3D" href="https://unica.vn/order/step1?id=1212" class="btn-buy-course">Đăng ký học</a>
-                                        <a data-id="z2hm9kf9eTEOe2D6Xq85Xg%3D%3D" href="javascript:void(0)" onclick="addcart(this)" class="btn-cart-course btn-add_cart"><i class="fa fa-cart-plus" aria-hidden="true"></i>Thêm vào giỏ hàng</a>
-                                        <p>Hoàn tiền trong 7 ngày nếu không hài lòng</p>
+                                    @if (!in_array($info_course->id, $list_bought))
+                                    <div class="button-class clearfix">
+                                        <div class="btn-add-cart">
+                                            <button type="button" id="add-cart2" data-id="{{ $info_course->id }}" class="btn btn-primary btn-toh"><b>Thêm vào giỏ hàng</b></button>
+                                        </div>
+                                        <div class="btn-buy-now">
+                                            <button type="button" id="buy-now2" data-id="{{ $info_course->id }}" class="btn btn-warning btn-toh"><b>Mua ngay</b></button>
+                                        </div>
                                     </div>
+                                    <div class="clearfix">
+                                        <div class="text-center money-back">
+                                            (Hoàn tiền trong 30 ngày nếu không hài lòng)
+                                        </div>
+                                    </div>
+                                    @endif
                                 </div>
                                 <div class="u-sm-right">
                                     <div class="block-ulti">
                                         <ul style="margin-left: 0">
-                                            <li><i class="fa fa-clock-o" aria-hidden="true"></i> Thời lượng:
-                                                <p>01 giờ 56 phút</p>
-                                            </li>
-                                            <li><i class="fa fa-play-circle" aria-hidden="true"></i> Giáo trình:
-                                                <p>17 bài giảng</p>
-                                            </li>
-                                            <li><i class="fa fa-history" aria-hidden="true"></i> Sở hữu khóa học trọn đời</li>
-                                            <li><i class="fa fa-percent" aria-hidden="true"></i>Giảm thêm <b>10%</b> khi thanh toán online</li>
+                                            <li><i class="far fa-clock fa-fw" aria-hidden="true"></i> Thời lượng: <b>{{ intval($info_course->duration / 60) }} giờ</b></li>
+                                            <li><i class="far fa-play-circle fa-fw" aria-hidden="true"></i> Bài giảng: <b>{{ $info_course->video_count }} Videos</b></li>
+                                            <li><i class="fas fa-user-graduate fa-fw" aria-hidden="true"></i> <b>{{ number_format($info_course->student_count, 0, ',' , '.') }} Học viên</b> theo học</li>                                        
                                         </ul>
-                                        <center><a href="javascript:void(0)" class="dropdown-coupon">Bạn có mã giảm giá?</a></center>
-                                        <div class="dropdown-input-coupon">
-                                            <div class="col-lg-8 col-xs-8">
-                                                <div class="form-group">
-                                                    <input name="coupon_code" pattern="[^'\x22]+" required="" type="text" class="form-control" id="coupon_code" placeholder="Nhập mã giảm giá..." style="margin-left:-10px;">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-2 col-xs-4">
-                                                <div class="form-group">
-                                                    <button onclick="submit_coupon()" type="button" class="coupon-submit btn btn-coupon" style="margin-left:-25px;">Áp dụng</button>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-12" style="display:inline-block;margin-bottom: 5px;">
-                                                <span style="display: none" class="error_message label label-danger">Coupon không hợp lệ</span>
-                                            </div>
-                                                <div class="col-lg-12" style="display:inline-block;">
-                                                <span style="display: none" class="success_message label label-success">Kích hoạt coupon thành công</span>
-                                            </div>
-                                        <br>
-                                        </div>
-                            
                                         <div class="clearfix"></div>
-                                        
-                                    </div>
-                                    <div class="block-share" style="display: none">
-                                        <div style="margin-bottom: 15px;" class="share-title">
-                                            <b>CHIA SẺ NHẬN NGAY MÃ GIẢM GIÁ 50%</b>
-                                        </div>
-                                        <button style="width: 50%;margin-bottom: 10px" onclick="share(1212)" class="btn btn-sm btn-primary"><i class="fa fa-facebook"></i> CHIA SẺ NGAY</button>
-                                        <div class="result-share" style="display: none;">
-                                            <div style="margin-bottom: 15px;">
-                                                <b>BẠN NHẬN ĐƯỢC MÃ GIẢM GIÁ 50% </b>
-                                            </div>
-                                            <p>HỌC PHÍ CHỈ CÒN <b>399,000đ</b></p>
-                                            <div style="color: #35BAF6;font-size: 16px;margin-bottom: 10px;"><b class="coupon-share"></b></div>
-                                            <i style="color: #858585;font-style: italic !important;" class="coupon-expired">xx</i>
-                                        </div>
                                     </div>
                                 </div>
                             </div>                    
                         </div>
-        {{-- <link rel="stylesheet" href="https://unica.vn/media/styles_v2018/main.css"> --}}
+                        <script>
+                            $(window).scroll(function() {
+                            // var barHeight = $(".interactive-bar").outerHeight()
+                            if ($(window).scrollTop() > 830 ) {
+                                //    $(".sidebar-content").css("margin-bottom", barHeight)
+                                //    $("#button").css("bottom", "-26")
+                                //    console.log(barHeight);
+                                
+                                // $(".sidebar-content").show();
+                                document.getElementById("sidebar-content").classList.add("sidebar-fixed");
+                            } else {
+                                document.getElementById("sidebar-content").classList.remove("sidebar-fixed");
+                                // $(".sidebar-content").hide();
+                                // $(".sidebar-content").css("position", "static !important")
+                            }
+                            });
+                        </script>
                     </div>
                 </div>
             </div>
@@ -671,6 +680,10 @@
             window.location.replace("/cart/payment/method-selector")
         })
         $("#buy-now").click(function(){
+            addCard();
+            window.location.replace("/cart/payment/method-selector")
+        })
+        $("#buy-now2").click(function(){
             addCard();
             window.location.replace("/cart/payment/method-selector")
         })
