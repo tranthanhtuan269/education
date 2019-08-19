@@ -45,6 +45,11 @@
                                         </div>
                                     </div>
                                     <div class="col-xs-4 col-md-2">
+                                        @if(App\Helper\Helper::getUserRoleOfCourse($info_course->id))
+                                        <a class="btn-preview btn-success" href="/learning-page/{{$info_course->id}}/lecture/{{$value_video->id}}">Xem</a>
+                                        @else
+                                            <i class="fas fa-lock fa-fw" aria-hidden="true"></i>
+                                        @endif
                                         {{-- @if ($value_video->state == 1)
                                         <div class="link">
                                             &nbsp;
