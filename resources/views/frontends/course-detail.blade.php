@@ -241,7 +241,7 @@
                                 {{-- <span class="txt-small">Content comming soon...</span> --}}
                             </li>
                         </ul>
-                        <div class="info-course-sidebar" style="height: 475px; position: relative;">
+                        <div class="info-course-sidebar hidden-md hidden-xs" style="position: relative;">
                             {{-- <div class="sidebar-content" style="position: fixed; top: 75px; width: 376.66px"> --}}
                             {{-- <div class="sidebar-fixed" id="sidebar-content"> --}}
                             <div id="sidebar-content">
@@ -311,18 +311,18 @@
                                 // $('#sidebar-content').height()
                                 // $('.instructors').position().top
                                 var block_on = $('#benefit-course').position().top + $('#benifit-first').height() + 62 //Padding
-                                var block_below = $('.instructors').position().top - $('#sidebar-content').height() - 32 - 61 //Padding
+                                var block_below = $('.instructors').position().top - $('#sidebar-content').height() - 32 - 60 //Padding
                                 // console.log($('.instructors').position().top)
                                 // console.log($('#sidebar-content').height() + 32)
                                 // console.log($("#benefit-course").scrollTop())
                             // var barHeight = $(".interactive-bar").outerHeight()
-                            if ($(window).scrollTop() >= block_on ) {
+                            if ($(window).scrollTop() >= block_on - 40) {
                                 //    $(".sidebar-content").css("margin-bottom", barHeight)
                                 //    $("#button").css("bottom", "-26")
                                    console.log(block_below);
                                 
                                 // $(".sidebar-content").show();
-                                if($(window).scrollTop() <= block_below){
+                                if($(window).scrollTop() <= block_below - 40){
                                     document.getElementById("sidebar-content").classList.add("sidebar-fixed");
                                     $("#sidebar-content").removeClass('sidebar-unfix').css('top', '');
                                 }else{
