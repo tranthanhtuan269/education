@@ -71,8 +71,22 @@
 		</div>
 	</div>
 </div>
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12">
+			@foreach($courses_of_teacher as $course)
+			@include(
+				'components.course-of-teacher',
+				[
+					'course' => $course
+				]
+				)
+			@endforeach
+		</div>
+	</div>
+</div>
 
-@include('frontends.all-courses')
+
 {{-- @php
 	$isTeacher = false;
 	if(Auth::check()){

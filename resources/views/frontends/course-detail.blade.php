@@ -181,13 +181,27 @@
                         
                         <div class="knowledge clearfix">
                             <h3>Bạn sẽ học được gì</h3>
-                            <ul class="row">
-                                @foreach ($will_learn as $will)                            
-                                <li class="col-lg-6">
-                                    <img src="{{ asset('frontend/images/ic_check.png') }}" alt="" /> {!! ltrim($will,";") !!}
-                                </li>
-                                @endforeach
-                            </ul>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    @foreach ($will_learn as $key => $will)
+                                    @if($key % 2 == 0)
+                                    <div class="row">
+                                    @endif
+                                    <?php                          
+                                    if(count(explode(" ",trim($will," "))) < 2) continue;
+                                    ?>                       
+                                    <div class="col-lg-6 will-learn">
+                                        <img src="{{ asset('frontend/images/ic_check.png') }}"/> {!! ltrim($will,";") !!}
+                                    </div>
+                                    @if($key % 2 == 1)
+                                    </div>
+                                    @endif
+                                    @endforeach
+                                    @if($key % 2 < 1)
+                                    </div>
+                                    @endif
+                                </div>
+                            </div>
                         </div>
                         @endif
                         <div class="lessons clearfix">

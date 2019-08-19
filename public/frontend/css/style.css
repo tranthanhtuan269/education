@@ -793,8 +793,8 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
 /* .detail-course .info{margin-bottom:50px} */
 .detail-course .info h3{padding-bottom:15px}
 .detail-course .info .knowledge{padding:30px 0 10px}
-.detail-course .info .knowledge li{padding-bottom:25px}
-.detail-course .info .knowledge li img{float:left;padding-right:10px;width:35px}
+.detail-course .info .knowledge .will-learn{padding-bottom:25px}
+.detail-course .info .knowledge img{float:left;padding-right:10px;width:35px}
 .detail-course .info ul.others{border:1px solid #ccc;background:#F5F5F5}
 .detail-course .info ul.others li img{float:left;padding-right:10px}
 .detail-course .info ul.others li span.txt-large{font-size:16px}

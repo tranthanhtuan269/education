@@ -165,10 +165,12 @@ class HomeController extends Controller
             }
             $feature_category = Category::where('featured', 1)->orderBy('featured_index', 'asc')->limit(10)->get();
             $info_teacher = $teacher;
-            $feature_course = $teacher->userRole()->first()->userCoursesByFeature();
-            $best_seller_course = $teacher->userRole()->first()->userCoursesByTrendding();
-            $new_course = $teacher->userRole()->first()->userCoursesByNew();
-            return view('frontends.detail-teacher', compact('info_teacher', 'feature_category', 'feature_course', 'best_seller_course', 'new_course', 'ratingTeacher'));
+            // $feature_course = $teacher->userRole()->first()->userCoursesByFeature();
+            // $best_seller_course = $teacher->userRole()->first()->userCoursesByTrendding();
+            // $new_course = $teacher->userRole()->first()->userCoursesByNew();
+            $courses_of_teacher = $teacher->userRole()->first()->userCoursesByTeacher();
+            // dd($best_seller_course->first());
+            return view('frontends.detail-teacher', compact('info_teacher', 'feature_category', 'ratingTeacher', 'courses_of_teacher'));
         }
         return abort(404);
     }
