@@ -3,15 +3,14 @@
 <div class="background-page">
 	{{-- <img class="bg-category" src="{{ asset('frontend/images/banner_profile_teacher.png') }}"> --}}
 	{{-- <div class="hightlight">
-		<h1 style='font-family:proxima-nova,"Helvetica Neue",Helvetica,sans-serif'>Danh mục: {{ $category->name }}</h1>
+		<h1 style='font-family:proxima-nova,"Helvetica Neue",Helvetica,sans-serif'>{{ $category->name }}</h1>
 	</div> --}}
-	<div class='container'>
+	<div class='container-fuild'>
 		<img class="bg-category" src="{{ asset('frontend/images/banner_profile_teacher.png') }}">
 		<div class="highlight">
 			<div class="row title">
 				<div class="col-sm-12">
 					{{-- <p>Danh mục:</p> --}}
-					<br>
 					<h1>{{ $category->name }}</h1>
 					{{-- @php --}}
 						{{-- // dd($category); --}}
@@ -72,6 +71,7 @@
 
 
 {{-- @include('frontends.feature-courses') --}}
+
 @include('frontends.all-courses')
 
 @if ($tags->count() > 0)
