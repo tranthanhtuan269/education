@@ -102,6 +102,20 @@
                                 fixedColumnsRight: 1,
                                 fixedColumnsLeft: 1
                             },
+                            oLanguage: {
+                                sSearch: "Tìm kiếm",
+                                sLengthMenu: "Hiển thị _MENU_ đơn hàng",
+                                // zeroRecords: "Không tìm thấy bản ghi",
+                                sInfo: "Hiển thị  _START_ - _END_ /_TOTAL_ đơn hàng",
+                                sInfoFiltered: "",
+                                sInfoEmpty: "",
+                                sZeroRecords: "Chưa có đơn hàng nào",
+                                oPaginate: {
+                                    sPrevious: "Trang trước",
+                                    sNext: "Trang sau",
+
+                                },
+                            },
                             createdRow: function( row, data, dataIndex ) {
                                 $(row).attr('id', 'row-' + dataIndex);
                             },

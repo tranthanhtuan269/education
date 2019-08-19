@@ -28,10 +28,10 @@
                                 <table class="table table-bordered" id="mailbox-table">
                                     <thead class="thead-custom">
                                         <tr>
-                                            <th scope="col">From</th>
-                                            <th scope="col">Title</th>
-                                            <th scope="col">Content</th>
-                                            <th scope="col">Created at</th>
+                                            <th scope="col">Người gửi</th>
+                                            <th scope="col">Tiêu đề</th>
+                                            <th scope="col">Nội dung</th>
+                                            <th scope="col">Ngày gửi</th>
                                         </tr>
                                     </thead>
                                     <tbody></tbody>
@@ -90,6 +90,20 @@
                             colReorder: {
                                 fixedColumnsRight: 1,
                                 fixedColumnsLeft: 1
+                            },
+                            oLanguage: {
+                                sSearch: "Tìm kiếm",
+                                sLengthMenu: "Hiển thị _MENU_ tin nhắn",
+                                // zeroRecords: "Không tìm thấy bản ghi",
+                                sInfo: "Hiển thị  _START_ - _END_ /_TOTAL_ tin nhắn",
+                                sInfoFiltered: "",
+                                sInfoEmpty: "",
+                                sZeroRecords: "Bạn chưa có tin nhắn nào",
+                                oPaginate: {
+                                    sPrevious: "Trang trước",
+                                    sNext: "Trang sau",
+
+                                },
                             },
                             createdRow: function( row, data, dataIndex ) {
                                 $(row).attr('id', 'row-' + dataIndex);

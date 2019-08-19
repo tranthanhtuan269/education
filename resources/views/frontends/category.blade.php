@@ -10,7 +10,8 @@
 		<div class="highlight">
 			<div class="row title">
 				<div class="col-sm-12">
-					<p>Danh mục:</p>
+					{{-- <p>Danh mục:</p> --}}
+					<br>
 					<h1>{{ $category->name }}</h1>
 					{{-- @php --}}
 						{{-- // dd($category); --}}

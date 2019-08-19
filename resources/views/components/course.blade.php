@@ -113,11 +113,11 @@
                     //     }
                     // }
                 ?>
-                <div class="price-course text-center">
+                <div class="price-course pull-right">
                     @if ($course->price == $course->real_price)
-                        <span class="price text-right">
+                        {{-- <span class="price text-right">
                             Giá khóa học:
-                        </span>
+                        </span> --}}
                         <span class="sale">
                             <b>{!! number_format($course->real_price, 0, ',' , '.') !!}</b><sup>₫</sup>
                         </span> 
