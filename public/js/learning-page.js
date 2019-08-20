@@ -15,19 +15,26 @@ $(document).ready(function () {
         isPlayerAutoplay = false
         $(".ln-btn-autoplay").prepend("<i class='fas fa-toggle-off'></i>")
     }
+        
 
     $(".ln-btn-autoplay").click(function () {
         if(localStorage.getItem('autoplay') == "true"){
             localStorage.setItem('autoplay', false)
-            $(".fa-toggle-on").remove()
+            $(".ln-btn-autoplay .fa-toggle-on").remove()
+            $(".vjs-subtitle-control.btn.vjs-control.vjs-button button .fa-toggle-on").remove()
+            $(".vjs-subtitle-control.btn.vjs-control.vjs-button button").prepend("<i class='fas fa-toggle-off' id='btnAutoplay'></i>")
             $(".ln-btn-autoplay").prepend("<i class='fas fa-toggle-off'></i>")
         }else if(localStorage.getItem('autoplay') == "false"){
             localStorage.setItem('autoplay', true)
-            $(".fa-toggle-off").remove()
+            $(".ln-btn-autoplay .fa-toggle-off").remove()
+            $(".vjs-subtitle-control.btn.vjs-control.vjs-button button .fa-toggle-off").remove()
+            $(".vjs-subtitle-control.btn.vjs-control.vjs-button button").prepend("<i class='fas fa-toggle-on' id='btnAutoplay'></i>")
             $(".ln-btn-autoplay").prepend("<i class='fas fa-toggle-on'></i>")
         }else{
             localStorage.setItem('autoplay', true)   
-            $(".fa-toggle-off").remove()
+            $(".ln-btn-autoplay .fa-toggle-off").remove()
+            $(".vjs-subtitle-control.btn.vjs-control.vjs-button button .fa-toggle-off").remove()
+            $(".vjs-subtitle-control.btn.vjs-control.vjs-button button").prepend("<i class='fas fa-toggle-on' id='btnAutoplay'></i>")
             $(".ln-btn-autoplay").prepend("<i class='fas fa-toggle-on'></i>")
         }
     })
@@ -47,6 +54,12 @@ $(document).ready(function () {
     initializePlayerControlBar()
     toggleBigPlayButton()
     clickToPlay()
+
+    player.on('ended', function(){
+        if(isAutoplay == 'true'){
+            $("#btnContinue").click()
+        }
+    })
 
     var imageAddr = "https://3.bp.blogspot.com/-p4_qEVLk2dk/V5ZOdoiObWI/AAAAAAAAB74/8F9sCzKkNSY/chien-binh-sieu-am-thanh.jpg"; 
     // var imageAddr = "http://www.kenrockwell.com/contax/images/g2/examples/31120037-5mb.jpg";
@@ -182,7 +195,10 @@ $(document).ready(function () {
     $("#btnCloseNotes").click(function (){
         toggleNotes()
     })
-    $(".video-list-item").click(function () {
+    $(".video-list-item").click(function (e) {
+        e.stopImmediatePropagation()
+        e.stopPropagation()
+        e.preventDefault()
         var video_id = $(this).attr("data-parent")
         var section_dom = $(this).parent()
         section_dom.each(function (index, value){
@@ -203,7 +219,7 @@ $(document).ready(function () {
             dataType: "json",
         });
         request.done(function(){
-            // window.location.replace("/learning-page/"+ course_id +"/lecture/"+ video_id)
+            window.location.replace("/learning-page/"+ course_id +"/lecture/"+ video_id)
         })
     })
 
@@ -303,7 +319,7 @@ $(document).ready(function () {
 
     function toggleDiscussion(){
         if(!$(".learning-discussion").hasClass('active')){
-            activeRightBar()
+            // activeRightBar()
 
             $(".learning-discussion").addClass("active")
             $(".learning-notes").removeClass("active")
@@ -318,7 +334,7 @@ $(document).ready(function () {
     
     function toggleFiles() {
         if(!$(".learning-files").hasClass('active')){
-            activeRightBar()
+            // activeRightBar()
             $(".learning-files").addClass("active")
             $(".learning-notes").removeClass("active")
             $(".learning-discussion").removeClass("active")            
@@ -333,7 +349,7 @@ $(document).ready(function () {
     function toggleNotes() {
         if(!$(".learning-notes").hasClass('active')){
             player.pause()
-            activeRightBar()
+            // activeRightBar()
             $(".learning-notes").addClass("active")
             $(".learning-files").removeClass("active")
             $(".learning-discussion").removeClass("active")            
@@ -393,9 +409,9 @@ $(document).ready(function () {
 
     function initializePlayerControlBar() {
         //Time Controller Buttons
-        var btnRewind = "<div class='btn' id='btnRewind' data-toggle='tooltip' data-placement='top' title='Rewind 5s'><i class='fas fa-undo-alt'></i></div>"
+        var btnRewind = "<div class='btn' id='btnRewind' data-toggle='tooltip' data-placement='top' title='Lùi 5 giây'><i class='fas fa-undo-alt'></i></div>"
         var btnSpeed = $(".vjs-playback-rate.vjs-control")
-        var btnForward = "<div class='btn' id='btnForward' data-toggle='tooltip' data-placement='top' title='Forward 5s'><i class='fas fa-redo-alt'></i></div>"
+        var btnForward = "<div class='btn' id='btnForward' data-toggle='tooltip' data-placement='top' title='Tới 5 giây'><i class='fas fa-redo-alt'></i></div>"
 
         $(".vjs-play-control").after(btnRewind)
         $("#btnRewind").after(btnSpeed)
@@ -410,13 +426,14 @@ $(document).ready(function () {
 
         $("#btnForward").after(groupPlayerTimeDiv)
         $(".group-player-time").append(currentTimeSpan)
+        $(".group-player-time").attr('title', 'Thời gian')
         $(".player-current-time").after(endTimeSpan)
 
         //Three utility buttons in the middle
         var groupBtnUtilities = "<div class='group-btn-utilities'></div>"
-        var btnNote = "<div class='btn ln-btn-note' id='btnNote' data-toggle='tooltip' data-placement='top' title='Note'><i class='fas fa-sticky-note'></i><span>&nbsp;&nbsp;Note</span></div>"
-        var btnDiscuss = "<div class='btn ln-btn-discuss' id='btnDiscuss' data-toggle='tooltip' data-placement='top' title='Discussion'><i class='fas fa-comments'></i><span>&nbsp;&nbsp;Discussion</span></div>"
-        var btnFile = "<div class='btn ln-btn-file' id='btnFile' data-toggle='tooltip' data-placement='top' title='Files'><i class='fas fa-file-alt'></i><span>&nbsp;&nbsp;Files</span></div>"
+        var btnNote = "<div class='btn ln-btn-note' id='btnNote' data-toggle='tooltip' data-placement='top' title='Ghi chú'><i class='fas fa-sticky-note'></i><span>&nbsp;&nbsp;Ghi chú</span></div>"
+        var btnDiscuss = "<div class='btn ln-btn-discuss' id='btnDiscuss' data-toggle='tooltip' data-placement='top' title='Thảo luận'><i class='fas fa-comments'></i><span>&nbsp;&nbsp;Thảo luận</span></div>"
+        var btnFile = "<div class='btn ln-btn-file' id='btnFile' data-toggle='tooltip' data-placement='top' title='Tài liệu'><i class='fas fa-file-alt'></i><span>&nbsp;&nbsp;Tài liệu</span></div>"
 
         $(".group-player-time").after(groupBtnUtilities)
         $(".group-btn-utilities").append(btnNote)
@@ -424,7 +441,7 @@ $(document).ready(function () {
         $("#btnDiscuss").after(btnFile)
 
         //Button Continue
-        var btnContinue = "<div class='btn' id='btnContinue' data-toggle='tooltip' data-placement='top' title='Next'><span>Next&nbsp;&nbsp</span><i class='fas fa-step-forward'></i></div>"
+        var btnContinue = "<div class='btn' id='btnContinue' data-toggle='tooltip' data-placement='top' title='Bài sau'><span>Bài sau&nbsp;&nbsp</span><i class='fas fa-step-forward'></i></div>"
         $(".vjs-volume-panel").before(btnContinue)
 
         //Video Quality Selector
@@ -437,12 +454,20 @@ $(document).ready(function () {
 
         //Button Autoplay
         if(localStorage.getItem('autoplay') == "true"){
-            var btnAutoplay = "<div class='vjs-subtitle-control btn vjs-control vjs-button' data-toggle='tooltip' data-placement='top' title='Autoplay Switch'><button class='btn'><i class='fas fa-toggle-on' id='btnAutoplay'></i></button></div>"
+            var btnAutoplay = "<div class='vjs-subtitle-control btn vjs-control vjs-button' data-toggle='tooltip' data-placement='top' title='Tự động chạy'><button class='btn'><i class='fas fa-toggle-on' id='btnAutoplay'></i></button></div>"
             $(".vjs-quality-selector").after(btnAutoplay)
         }else{
-            var btnAutoplay = "<div class='vjs-subtitle-control btn vjs-control vjs-button'><button class='btn'><i class='fas fa-toggle-off' id='btnAutoplay'></i></button></div>"
+            var btnAutoplay = "<div class='vjs-subtitle-control btn vjs-control vjs-button' data-toggle='tooltip' data-placement='top' title='Tự động chạy'><button class='btn'><i class='fas fa-toggle-off' id='btnAutoplay'></i></button></div>"
             $(".vjs-quality-selector").after(btnAutoplay)            
         }
+
+        // $('.vjs-mute-control.vjs-control.vjs-button .vjs-control-text').text('Tắt âm')
+        $('.vjs-mute-control.vjs-control.vjs-button').attr('title', 'Âm lượng')
+        $('.vjs-fullscreen-control.vjs-control.vjs-button').attr('title', 'Toàn màn hình')
+        $('.vjs-menu-button.vjs-menu-button-popup.vjs-button').attr('title', 'Chât lượng video')
+        $('.vjs-play-control.vjs-control.vjs-button.vjs-playing').attr('title', 'Tạm dừng')
+        $('.vjs-play-control.vjs-control.vjs-button.vjs-paused').attr('title', 'Chạy')
+
     }
 
     function tickCompleteLecture(e) {

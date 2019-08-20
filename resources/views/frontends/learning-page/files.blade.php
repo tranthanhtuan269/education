@@ -1,7 +1,7 @@
 <div class="learning-files">
     <div class="ln-files-header">
         <div id="btnCloseFiles"><i class="fas fa-times-circle"></i></div>
-        <p>Files</p>
+        <p>Tài liệu</p>
         <p></p>
     </div>
     <div class="ln-files-body">

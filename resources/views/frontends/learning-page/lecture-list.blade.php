@@ -23,7 +23,7 @@
         <div class="ln-lect-list-item">
         <div class="ln-lect-list-header" data-toggle="collapse" data-target="#sectionBody{{$key+1}}">
                 <div class="ln-lect-list-header-row-1">
-                <p class="ln-lect-list-sect-number">Section {{ $key+1 }}</p>
+                <p class="ln-lect-list-sect-number">Phần {{ $key+1 }}</p>
                 <p class="ln-lect-list-sect-counter">
                     @php
                         $videos_arr = $unit->videos->sortBy('index');
@@ -56,7 +56,7 @@
                                 @endphp
                             <a href="learning-page/{{$unit->course_id}}/lecture/{{$video->id}}">
                                 <span class="ln-lect-list-lect-title-icon"><span><i class="fas fa-play-circle"></i></span></span>
-                                <span class="ln-lect-list-lect-title">{{$video->index}}.  {{ $video->name }}</span>
+                                <span class="ln-lect-list-lect-title">{{ $video->name }}</span>
                                 <span class="ln-lect-list-lect-duration">{{ App\Helper::convertSecondToTimeFormat($video->duration) }}</span>
                                 @if ($list_video_done_in_unit[$video->index-1] == 1)
                                 <span class="ln-btn-complete" id="lnBtnComplete{{$video->id}}" data-child="{{$key+1}}">
@@ -97,6 +97,8 @@
 <script>
     $(document).ready( function (){
         var initialLectureList = $(".ln-lect-list-item").get()
+        
+        // Search Lecture List
         $("#btnSearchSidebar").click(function (){
             // alert()
             var courseId = {{$course->id}}
