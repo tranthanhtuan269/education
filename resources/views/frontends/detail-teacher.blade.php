@@ -28,8 +28,6 @@
 							<a  class="btn btn-default btn-xs" href="{{ url('/') }}/{{ $info_teacher->userRole->user->facebook }}" target="_blank">
 								<i class="fab fa-facebook-square"></i> Fb Teacher
 							</a>
-								
-							
 						</div>
 					</div>
 					<div class="frame_2 frame_2-top">
@@ -73,6 +71,11 @@
 </div>
 <div class="container">
 	<div class="row">
+		<div class="col-xs-12 clearfix title-module-home">
+			<div class="pull-left">
+			<h3>Khóa học của giảng viên {{$info_teacher->userRole->user->name}}</h3>
+			</div>
+		</div><br><br>
 		<div class="col-sm-12">
 			@foreach($courses_of_teacher as $course)
 			@include(
@@ -85,7 +88,44 @@
 		</div>
 	</div>
 </div>
-
+<div class="container">
+	<div class="row"><br>
+		<div class="col-xs-12 clearfix title-module-home">
+			<div class="pull-left">
+				<h3>Các khóa học liên quan</h3>
+			</div>
+		</div><br><br>
+		<div class="col-sm-12">
+			<?php
+			$list_bought = [];
+			if(Auth::check() && strlen(Auth::user()->bought) > 0){
+				$list_bought = \json_decode(Auth::user()->bought);
+			}
+			?>
+			<div class="tab-content">
+					<div id="best-seller" class="tab-pane fade in active">
+						<div class="row">
+							@foreach ($course_of_category as $key => $related)
+								<?php
+									$lecturers = count($related->Lecturers()) > 1 ? 'Nhiều tác giả' : count($related->Lecturers()) > 0 ? $related->Lecturers()[0]->user->name : "Courdemy";
+								?>
+								@include(
+									'components.course', 
+									[
+										'course' => $related,
+										'list_course' => $list_bought
+									]
+								)
+								@if($key == 3) 
+								@break;
+								@endif
+							@endforeach
+						</div>
+					</div>
+				</div>
+		</div>
+	</div>
+</div>
 
 {{-- @php
 	$isTeacher = false;

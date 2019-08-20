@@ -53,8 +53,8 @@
                                     ?>
                                     @if ($check_time_sale == true || $info_course->price != $info_course->real_price)                                        
                                     <div class="col-sm-6 pull-left">
-                                        <span class="sale">{!! number_format($info_course->price, 0, ',' , '.') !!}đ</span>
-                                        <span class="price">{!! number_format($info_course->real_price, 0, ',' , '.') !!}đ</span>
+                                        <span class="sale">{!! number_format((float)$info_course->price, 0, ',' , '.') !!}đ</span>
+                                        <span class="price">{!! number_format((float)$info_course->real_price, 0, ',' , '.') !!}đ</span>
                                         {{-- <span class="interval">Còn {{ $date_to->diff($date_from)->format("%d") }} ngày tại mức giá này </span> --}}
                                     </div>
                                     <div class="col-sm-6">
@@ -62,7 +62,7 @@
                                     </div>
                                     @else
                                     <div class="col-sm-6 pull-left">
-                                        <span class="sale">{!! number_format($info_course->price, 0, ',' , '.') !!}đ</span>
+                                        <span class="sale">{!! number_format((float)$info_course->price, 0, ',' , '.') !!}đ</span>
                                     </div>
                                     @endif
                                 </div>
@@ -397,12 +397,10 @@
                             <a href="{{ url('/') }}/teacher/{{ $lecturer->teacher->id }}" title="{{ $lecturer->user->name }}" >
                                 <!-- <img class="avatar" alt="{{ $lecturer->user->name }}" src="{{ asset('frontend/'.$lecturer->user->avatar) }}"> -->
                                 <img class="avatar" alt="{{ $lecturer->user->name }}" src="{{ $lecturer->user->avatar }}">
-                            </a>
-                        </div>
-                        <div class="col-sm-3">
+                            </a><br><br>
                             <div class="detail-info">
-                                <p class="name"><a href="{{ url('/') }}/teacher/{{ $lecturer->teacher->id }}" title="{{ $lecturer->user->name }}" >{{ $lecturer->user->name }}</a></p>
-                                <p class="expret">{{ $lecturer->teacher->expert }}</p>
+                                {{-- <p class="name"><a href="{{ url('/') }}/teacher/{{ $lecturer->teacher->id }}" title="{{ $lecturer->user->name }}" >{{ $lecturer->user->name }}</a></p> --}}
+                                {{-- <p class="expret">{{ $lecturer->teacher->expert }}</p> --}}
                                 <div class="frame clearfix">
                                     <div class="pull-left">
                                         <img src="{{ asset('frontend/images/ic_course.png') }}" alt="" /> 
@@ -418,18 +416,21 @@
                                             ]
                                         )
                                     </div> --}}
-                                </div>
-                                <div class="">
-                                    <img src="{{ asset('frontend/images/ic_student.png') }}" alt="" /> 
-                                    <span class="special">{{ $lecturer->teacher->student_count }} Học viên</span>
+                                    <div class="pull-right">
+                                        <img src="{{ asset('frontend/images/ic_student.png') }}" alt="" /> 
+                                        <span class="special">{{ $lecturer->teacher->student_count }} Học viên</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-6">
+                        {{-- <div class="col-sm-3">
+                        </div> --}}
+                        <div class="col-sm-9">
                             <div class="info-teacher-right">
-                                {{-- <div class="expert-teacher">{{$lecturer->teacher->expert}}</div> --}}
+                                <p class="name"><a href="{{ url('/') }}/teacher/{{ $lecturer->teacher->id }}" title="{{ $lecturer->user->name }}" >{{ $lecturer->user->name }}</a></p>
+                                <div class="expert-teacher">{{$lecturer->teacher->expert}}</div>
                                 <div class="cv-teacher">
-                                    {{$lecturer->teacher->cv}}
+                                    {!! $lecturer->teacher->cv !!}
                                 </div>
                             </div>
                         </div>
@@ -903,11 +904,16 @@
             $(this).remove();
             $(".btn-buy-now button").remove();
             $('.interactive-bar').remove();
+            
+            addCard();
             Swal.fire({
                 type: 'success',
                 text: 'Đã thêm vào giỏ hàng!'
             })
-            addCard();
+            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'));
+            $('.number-in-cart').text(number_items_in_cart.length);
+            $('.unica-sl-cart').css('display', 'block')
+            // console.log(number_items_in_cart.length)
         })
 
         if(localStorage.getItem('cart') != null){

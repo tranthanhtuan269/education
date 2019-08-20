@@ -114,23 +114,29 @@
                     // }
                 ?>
                 <div class="price-course pull-right">
-                    @if ($course->price == $course->real_price)
-                        {{-- <span class="price text-right">
-                            Giá khóa học:
-                        </span> --}}
-                        <span class="sale">
-                            <b>{!! number_format($course->real_price, 0, ',' , '.') !!}</b><sup>₫</sup>
-                        </span> 
+                    @if ($course->real_price != 0)
+                        @if ($course->price == $course->real_price)
+                            {{-- <span class="price text-right">
+                                Giá khóa học:
+                            </span> --}}
+                            <span class="sale">
+                                <b>{!! number_format($course->real_price, 0, ',' , '.') !!}</b><sup>₫</sup>
+                            </span> 
+                        @else
+                            <span class="price line-through">
+                                {!! number_format($course->real_price, 0, ',' , '.') !!}<sup>₫</sup>
+                            </span>
+                            {{-- @if ($course->real_price != $course->price) --}}
+                            <span class="sale">
+                                &nbsp;<b>{!! number_format((float)$course->price, 0, ',' , '.') !!}</b><sup>₫</sup>
+                            </span>                        
+                            {{-- @endif --}}
+                            
+                        @endif
                     @else
-                        <span class="price line-through">
-                            {!! number_format($course->real_price, 0, ',' , '.') !!}<sup>₫</sup>
-                        </span>
-                        {{-- @if ($course->real_price != $course->price) --}}
                         <span class="sale">
-                            &nbsp;<b>{!! number_format($course->price, 0, ',' , '.') !!}</b><sup>₫</sup>
-                        </span>                        
-                        {{-- @endif --}}
-                        
+                            &nbsp;<b>{!! number_format((float)$course->price, 0, ',' , '.') !!}</b><sup>₫</sup>
+                        </span> 
                     @endif
                 </div>
                 <div class="clearfix"></div>
