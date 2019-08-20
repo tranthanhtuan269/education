@@ -38,6 +38,11 @@ class UserRole extends Model
     	return $this->hasOne('App\Teacher', 'user_role_id');
     }
 
+    public function userCoursesByTeacher()
+    {
+        return $this->belongsToMany('App\Course', 'user_courses')->get();
+    }
+
     public function userCoursesByFeature()
     {
         return $this->belongsToMany('App\Course', 'user_courses')->where('featured', 1)->orderBy('featured_index', 'asc')->get();

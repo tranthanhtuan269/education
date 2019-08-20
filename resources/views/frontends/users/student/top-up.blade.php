@@ -15,58 +15,54 @@
     <div class="bill-info">
         <div id="addFundTab" class="col-xs-12 payment-method tab-pane fade in">
             <div class="row">
-                <div class="col-xs-12 balance">
-                    <div class="row">
-                        <div class="col-sm-8">
-                            <form>
-                                <div class="form-row">
-                                    <div class="form-group col-sm-8">
-                                        <input type="text" class="form-control" id="amount-money" placeholder="Số tiến bạn muốn nạp">
-                                    </div>
-                                    <button type="submit" class="col-sm-4 btn-confirm">Xác nhận</button>
-                                </div>
-                            </form>
+                <ul>
+                    <li>
+                        <div class="payment-card">
+                            <a href="javascript:void(0)" title="Internet Banking">
+                                <img src="{{asset('frontend/images/payment-method-1.png')}}" alt="Payment Methods 1">
+                            </a>
                         </div>
-                    </div>
-                </div>
+                    </li>
+                    <li>
+                        <div class="payment-card">
+                            <a href="javascript:void(0)" title="Visa">
+                                <img src="{{asset('frontend/images/payment-method-2.png')}}" alt="Payment Methods 2">
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="payment-card">
+                            <a href="javascript:void(0)" title="NganLuongVN">
+                                <img src="{{asset('frontend/images/payment-method-3.png')}}" alt="Payment Methods 3">
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="payment-card">
+                            <a href="javascript:void(0)" title="Paypal">
+                                <img src="{{asset('frontend/images/payment-method-4.png')}}" alt="Payment Methods 4">
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="payment-card">
+                            <a href="javascript:void(0)" title="Bank Transfer">
+                                <img src="{{asset('frontend/images/payment-method-5.png')}}" alt="Payment Methods 5">
+                            </a>
+                        </div>
+                    </li>
+                </ul>
             </div>
             <div class="row">
-                <div class="col-sm-4">
-                    <div class="payment-card">
-                        <a href="javascript:void(0)" title="Internet Banking">
-                            <img src="{{asset('frontend/images/payment-method-1.png')}}" alt="Payment Methods 1">
-                        </a>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="payment-card">
-                        <a href="javascript:void(0)" title="Visa">
-                            <img src="{{asset('frontend/images/payment-method-2.png')}}" alt="Payment Methods 2">
-                        </a>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="payment-card">
-                        <a href="javascript:void(0)" title="NganLuongVN">
-                            <img src="{{asset('frontend/images/payment-method-3.png')}}" alt="Payment Methods 3">
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-4 col-sm-offset-2">
-                    <div class="payment-card">
-                        <a href="javascript:void(0)" title="Paypal">
-                            <img src="{{asset('frontend/images/payment-method-4.png')}}" alt="Payment Methods 4">
-                        </a>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="payment-card">
-                        <a href="javascript:void(0)" title="Bank Transfer">
-                            <img src="{{asset('frontend/images/payment-method-5.png')}}" alt="Payment Methods 5">
-                        </a>
-                    </div>
+                <div class="col-sm-8 col-sm-offset-2 col-xs-12 balance">
+                    <form>
+                        <div class="form-row">
+                            <div class="form-group col-sm-8">
+                                <input type="text" class="form-control" id="amount-money" placeholder="Số tiền bạn muốn nạp">
+                            </div>
+                            <button type="submit" class="col-sm-4 btn-confirm">Xác nhận</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>    
