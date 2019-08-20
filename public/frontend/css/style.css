@@ -58,7 +58,8 @@ div[data-u="slides"] div div{
 #config-slider h2{
   font-size: 22px;
 }
-.detail-course .related-course,.detail-course .instructors,.detail-course .feedback,.course-recommend{padding:50px 0}
+.detail-course .related-course,.detail-course .feedback,.course-recommend{padding:50px 0}
+.detail-course .instructors{padding: 30px 0}
 .notifications.alert-danger{background:linear-gradient(to right,#F4A111,#fe7202);margin-bottom:0;color:#fff;border:0;border-radius:0}
 .notifications.alert-danger img{width:20px}
 .notifications .close{opacity:.8}
@@ -761,6 +762,22 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
 .detail-teacher .frame_2 .info-others ul li:nth-child(3){padding-top:4px}
 .detail-teacher .frame_2 .info-others ul li span.special{position:relative;bottom:5px}
 .detail-teacher .frame_2 .info-others ul li img{padding-right:5px}
+.ubc-course { border: 1px solid #e0e0e0; background: #fff; padding: 10px 10px 5px 10px; border-radius: 3px; display: inline-block; width: 100%; margin-bottom: 10px; }
+.ubc-course .price-b { float: right; }
+.img-ubc-course { width: 30%; float: left; }
+.des-ubc-course { width: 47%; float: left; margin-left: 20px; }
+.des-ubc-course p { font-size: 16px; font-weight: bold; margin-bottom: 10px }
+.mini-des { display: inline-block; margin-bottom: 10px; }
+.mini-des li { float: left; margin-right: 20px; }
+.big-des i { color: #0090ff; }
+.big-des li { line-height: 25px; }
+.lp-bc-price {    text-align: right;    font-weight: bold;    width: 20%;    float: right;}
+.lp-bc-price .price-b {    font-size: 34px; text-decoration: none;}
+.lp-bc-price .price-b sup {    font-size: 20px;}
+.lp-bc-price .price-s {    font-size: 24px;    color: #696969;    text-decoration: line-through;}
+.lp-bc-price .price-s sup {    font-size: 12px;}
+.lp-bc-price .price-o {    font-size: 14px;    background: #f26522;    border-radius: 3px;    padding: 5px;    color: #fff;    display: inline-block;    margin: 10px 0;}
+.lp-bc-price a {    background: #ff0000;    padding: 10px 20px;    text-transform: uppercase;    font-size: 16px;    text-align: center;    color: #fff;    display: inline-block;    width: 100%;    border-radius: 3px;}
 .network .btn{padding:5px 22px;margin:0 5px;border-radius:6px}
 .detail-course{margin-bottom:80px}
 /* .detail-course .frame .network{padding-top:25px} */
@@ -854,6 +871,10 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
   color: #727272;
   margin: 10px 0 20px 0;
 }
+.info-teacher-right .cv-teacher p{
+  line-height: 2;
+}
+.info-teacher-right .name{font-size: 26px;font-weight: bold}
 .detail-course .feedback .percent-rating{padding-left:10px}
 .detail-course .feedback .student-rating{text-align:center}
 .detail-course .feedback .student-rating h3{padding-bottom:6px}
