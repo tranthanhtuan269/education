@@ -39,6 +39,9 @@
                             @else
                             <button class="btn btn-danger btnCartCheckout" data-toggle=modal data-target=#myModalLogin data-dismiss=modal >Thanh toán</button>
                             @endif
+                        </div><br>
+                        <div class="clearfix text-center">
+                            <a href="/list-course?type=best-seller" class="btn btn-info" style="width:100%;padding: 1em;"><span><i class="fa fa-plus"></i> Chọn thêm khóa học</span></a>
                         </div>
                     </div>
                     {{-- <div class="coupon-code-input">
@@ -50,9 +53,7 @@
                 </div>
             </div>
         </div><br>
-        <div class="clearfix text-center">
-            <a href="/list-course?type=best-seller" class="btn btn-info"><i class="fa fa-plus"></i> Chọn thêm khóa học</a>
-        </div>
+        
     </div>
     <div class="cart-page-empty">
         <div class="container text-center">
@@ -141,13 +142,11 @@
         }else{
             $(".checkout-column .current-price").append("<span>"+number_format(totalPrice, 0, '.', '.')+" ₫</span>")
             $(".checkout-column .initial-price").append("<span>"+number_format(totalInitialPrice, 0, '.', '.')+" ₫</span>")
+            if(totalInitialPrice != 0){
+                $(".checkout-column .percent-off").append("<span>Tiết kiệm "+Math.floor(100-(totalPrice/totalInitialPrice)*100)+"%</span>")
+            }
         }
 
-        if(totalInitialPrice == 0){
-            // $(".checkout-column .percent-off").append("<span>0% off</span>")
-        }else{
-            $(".checkout-column .percent-off").append("<span>Tiết kiệm "+Math.floor(100-(totalPrice/totalInitialPrice)*100)+"%</span>")
-        }
 
         $('.coupon-code').on('click', function(e){
             e.stopPropagation()
@@ -329,15 +328,26 @@
                     var course_count = 1;
                     // new_totalPrice = new_price
                     cart_items.forEach((element)=>{
-                        new_totalPrice += element.coupon_price
-                        // console.log(element.coupon_price)
+                        // if(element.id != dataChild){
+                            new_totalPrice += parseFloat($('#current_price'+element.id).text())*1000
+                        // }else{
+                            // new_totalPrice += new_price
+                        // }
                     })
-                    new_totalPrice = new_totalPrice - dataPrice + new_price
+
+                    // new_totalPrice = new_totalPrice - dataPrice + new_price
                     // alert(new_totalPrice)
-                    $(".checkout-column .current-price span").remove()
-                    $(".checkout-column .current-price").append("<span>"+number_format(new_totalPrice, 0, '.', '.')+" ₫</span>")
-                    $(".checkout-column .percent-off span").remove()
-                    $(".checkout-column .percent-off").append("<span> Tiết kiệm "+Math.floor(100-(new_totalPrice/totalInitialPrice)*100)+"%</span>")
+                    if(new_totalPrice == totalInitialPrice){
+                        $(".checkout-column .current-price span").remove()
+                        $(".checkout-column .current-price").append("<span>"+number_format(new_totalPrice, 0, '.', '.')+" ₫</span>")
+                    }else{
+                        $(".checkout-column .current-price span").remove()
+                        $(".checkout-column .current-price").append("<span>"+number_format(new_totalPrice, 0, '.', '.')+" ₫</span>")
+                        $(".checkout-column .initial-price span").remove()
+                        $(".checkout-column .initial-price").append("<span>"+number_format(totalInitialPrice, 0, '.', '.')+" ₫</span>")
+                        $(".checkout-column .percent-off span").remove()
+                        $(".checkout-column .percent-off").append("<span> Tiết kiệm "+Math.floor(100-(new_totalPrice/totalInitialPrice)*100)+"%</span>")
+                    }
                 })
             }
         });
