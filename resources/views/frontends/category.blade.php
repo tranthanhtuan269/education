@@ -76,13 +76,13 @@
 
 @if ($tags->count() > 0)
 <div class="container category-tag" style="margin-bottom: 2em;" style="display: inline-block;">
-	<div class="row">
-		<span style="font-size: large; margin-left: 1em"><strong>Tags: &nbsp;</strong></span>
+	<div class="row" style="margin-left: 1em">
+		<span style="font-size: large"><strong>Tags: &nbsp;</strong></span>
 		<span>
 			@foreach ($tags as $tag)
 			<a href="{{ url('/') }}/tags/{{ $tag->slug }}" title="{{ $tag->name }}" class="thumbnail-img">
 		
-			<button class="btn btn-primary">{{$tag->name}}</button>
+			<button class="btn btn-primary" style="margin-top: 5px;">{{$tag->name}}</button>
 		
 			</a>
 			@endforeach

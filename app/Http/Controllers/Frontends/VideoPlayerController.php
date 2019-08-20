@@ -145,24 +145,24 @@ class VideoPlayerController extends Controller
         //
     }
 
+    // DuongNT // đổi 0 thành 1 ở vị trí video vừa click trong array video đã xem
     public function updateWatched(Request $request ){
         $video = Video::find($request->video_id);
+        $unit = $video->unit;
         if($video){
             $course = $video->unit->course;
             $user_course = Helper::getUserRoleOfCourse($course->id);
             if($user_course){
                 $videos = $user_course->videos;
                 $videoObj = \json_decode($videos);
-                $videoList = $videoObj->videos;
-                $videoList[($video->index)-1] = 1;
+                ($videoObj->videos[$unit->index-1])[$video->index-1] = 1;
                 
-                $videoObj->videos = $videoList;
                 $videoObj->learning = $video->index;
                 $videoObj->learning_id = $video->id;
 
                 $videoData = \json_encode($videoObj);
                 $user_course->videos = $videoData;
-                // $user_course->save();
+                $user_course->save();
                 return \Response::json(array('status' => '200', 'message' => 'Cập nhật thông tin thành công!'));
             }
         }

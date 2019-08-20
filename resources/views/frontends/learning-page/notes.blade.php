@@ -2,7 +2,7 @@
 <div class="learning-notes">
     <div class="ln-notes-header">
         <div id="btnCloseNotes"><i class="fas fa-times-circle"></i></div>
-        <p>Notes</p>
+        <p>Ghi chú</p>
         <p></p>
     </div>
     <div class="ln-notes-body">
@@ -10,7 +10,7 @@
             <div class="input-group">
                 <textarea name="content" id="notesEditor"></textarea>
                 <div class="btn-submit">
-                    <button class="btn">Save</button>
+                    <button class="btn">Lưu</button>
                     {{-- <button class="btn"> 0:51</button> --}}
                 </div>
                 <script>

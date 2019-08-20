@@ -328,14 +328,18 @@ body{
 .ln-lect-list-sect-number{
     float: left;
     margin-left: 2rem;
+    font-size: smaller;
 }
 .ln-lect-list-sect-counter{
     float: right;
     margin-right: 2rem;
+    font-size: smaller;
 }
 .ln-lect-list-sect-title{
     margin-bottom: 0;
-    /* font-weight: bold; */
+    margin-top: 5px;
+    font-weight: bold;
+    
 }
 .ln-lect-list-body{
     font-size: 12px;
@@ -558,7 +562,7 @@ body{
 .learning-discussion{
     z-index: 4;
     position: fixed;
-    right: -350px;
+    left: -350px;
     top: 0;
     width: 350px;
     height: 100vh;
@@ -566,7 +570,7 @@ body{
     transition: 0.2s;
 }
 .learning-discussion.active{
-    right: 0;
+    left: 0;
 }
 
 
@@ -736,7 +740,7 @@ body{
 .learning-files{
     z-index: 4;
     position: fixed;
-    right: -350px;
+    left: -350px;
     top: 0;
     width: 350px;
     height: 100vh;
@@ -744,12 +748,12 @@ body{
     transition: 0.2s;
 }
 .learning-files.active{
-    right: 0;
+    left: 0;
 }
 .learning-notes{
     z-index: 4;
     position: fixed;
-    right: -350px;
+    left: -350px;
     top: 0;
     width: 350px;
     height: 100vh;
@@ -757,7 +761,7 @@ body{
     transition: 0.2s;
 }
 .learning-notes.active{
-    right: 0;
+    left: 0;
 }
 
 .ln-notes-list, .ln-files-list{

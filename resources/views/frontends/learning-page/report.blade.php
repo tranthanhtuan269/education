@@ -8,13 +8,13 @@
                         </span>
                     </button>
                 <h4 class="modal-title">
-                    Report
+                    Báo lỗi
                 </h4>
             </div>
             <div class="modal-body">
-                <h5>Title:</h5>
+                <h5>Tiêu đề:</h5>
                 <input class="form-control" type="text" name="title" id="videoReportTitle">
-                <h5>Your message:</h5>
+                <h5>Lỗi:</h5>
                 <textarea name="content" id="reportEditor"></textarea>
                 <script>
                         var reportEditor;
@@ -31,7 +31,7 @@
                 </script>
             </div>
             <div class="modal-footer">
-                <button type="button" id="btnSubmitVideoReport" class="btn btn-primary">Send</button>
+                <button type="button" id="btnSubmitVideoReport" class="btn btn-primary">Gửi</button>
             </div>
         </div>
     </div>
