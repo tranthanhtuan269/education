@@ -187,8 +187,12 @@
                                     @if($key % 2 == 0)
                                     <div class="row">
                                     @endif
-                                    <?php                          
-                                    if(count(explode(" ",trim($will," "))) < 2) continue;
+                                    <?php
+                                    $ch = false;
+                                    if(count(explode(" ",trim($will," "))) < 2) {
+                                        $ch = true;
+                                        continue;
+                                    }
                                     ?>                       
                                     <div class="col-lg-6 will-learn">
                                         <img src="{{ asset('frontend/images/ic_check.png') }}"/> {!! ltrim($will,";") !!}
@@ -197,7 +201,7 @@
                                     </div>
                                     @endif
                                     @endforeach
-                                    @if($key % 2 < 1)
+                                    @if($key % 2 == 0 || $ch = true )
                                     </div>
                                     @endif
                                 </div>
