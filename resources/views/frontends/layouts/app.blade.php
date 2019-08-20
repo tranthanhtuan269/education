@@ -754,9 +754,9 @@
                 })
                 
                 if(total_price == total_real_price){
-                    $('.current-price span').text(number_format(total_price, 0, '.', '.') + " đ");
+                    $('.current-price span').text(number_format(total_price, 0, '.', '.') + " ₫");
                 }else{
-                    $('.initial-price span').text(number_format(total_real_price, 0, '.', '.') + " đ");
+                    $('.initial-price span').text(number_format(total_real_price, 0, '.', '.') + " ₫");
                     $('.percent-off span').text("Tiết kiệm " + Math.floor(100-(total_price/total_real_price)*100) + "%");
                 }
                 // $('.unica-sl-cart').get(0).css('display', 'block' )
