@@ -850,6 +850,10 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
 .detail-course .instructors .detail-info .name{font-weight:600; font-size:1.5em;}
 .detail-course .instructors .detail-info .expret{padding:6px 0}
 .detail-course .instructors .detail-info ul li{float:left;padding-right:10px}
+.info-teacher-right .expert-teacher{
+  color: #727272;
+  margin: 10px 0 20px 0;
+}
 .detail-course .feedback .percent-rating{padding-left:10px}
 .detail-course .feedback .student-rating{text-align:center}
 .detail-course .feedback .student-rating h3{padding-bottom:6px}

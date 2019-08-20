@@ -391,7 +391,7 @@
                 </div>
                 @foreach ($info_course->Lecturers() as $lecturer)
                 @if($lecturer->teacher)
-                <div class="col-md-8 col-sm-10">
+                <div class="col-xs-12">
                     <div class="row">
                         <div class="col-sm-3 avatar-center">
                             <a href="{{ url('/') }}/teacher/{{ $lecturer->teacher->id }}" title="{{ $lecturer->user->name }}" >
@@ -399,7 +399,7 @@
                                 <img class="avatar" alt="{{ $lecturer->user->name }}" src="{{ $lecturer->user->avatar }}">
                             </a>
                         </div>
-                        <div class="col-sm-9">
+                        <div class="col-sm-3">
                             <div class="detail-info">
                                 <p class="name"><a href="{{ url('/') }}/teacher/{{ $lecturer->teacher->id }}" title="{{ $lecturer->user->name }}" >{{ $lecturer->user->name }}</a></p>
                                 <p class="expret">{{ $lecturer->teacher->expert }}</p>
@@ -422,6 +422,14 @@
                                 <div class="">
                                     <img src="{{ asset('frontend/images/ic_student.png') }}" alt="" /> 
                                     <span class="special">{{ $lecturer->teacher->student_count }} Học viên</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="info-teacher-right">
+                                {{-- <div class="expert-teacher">{{$lecturer->teacher->expert}}</div> --}}
+                                <div class="cv-teacher">
+                                    {{$lecturer->teacher->cv}}
                                 </div>
                             </div>
                         </div>
