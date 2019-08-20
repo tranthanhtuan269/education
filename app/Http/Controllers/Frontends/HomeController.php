@@ -171,9 +171,9 @@ class HomeController extends Controller
             // $new_course = $teacher->userRole()->first()->userCoursesByNew();
             $courses_of_teacher = $teacher->userRole()->first()->userCoursesByTeacher();
             $category_first_course = $courses_of_teacher->first()->category_id;
-            $course_of_category = Course::where('category_id', $courses_of_teacher->first()->category_id)->whereNotIn('teacher_id', $id_teacher)->get();
+            $course_of_category = Course::where('category_id', $courses_of_teacher->first()->category_id)->get();
             // dd($category_first_course);
-            dd($course_of_category);
+            // dd($course_of_category);
             // dd($courses_of_teacher->first()->category_id);
             return view('frontends.detail-teacher', compact('info_teacher', 'feature_category', 'ratingTeacher', 'courses_of_teacher', 'course_of_category'));
         }
