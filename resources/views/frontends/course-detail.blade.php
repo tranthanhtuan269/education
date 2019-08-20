@@ -183,12 +183,13 @@
                             <h3>Bạn sẽ học được gì</h3>
                             <div class="row">
                                 <div class="col-sm-12">
+                                    @php $ch = false;
+                                    @endphp
                                     @foreach ($will_learn as $key => $will)
                                     @if($key % 2 == 0)
                                     <div class="row">
                                     @endif
                                     <?php
-                                    $ch = false;
                                     if(count(explode(" ",trim($will," "))) < 2) {
                                         $ch = true;
                                         continue;
@@ -201,7 +202,7 @@
                                     </div>
                                     @endif
                                     @endforeach
-                                    @if($key % 2 == 0 || $ch = true )
+                                    @if($key % 2 == 0 || $ch == true )
                                     </div>
                                     @endif
                                 </div>
