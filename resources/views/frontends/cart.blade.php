@@ -1,7 +1,7 @@
 @extends('frontends.layouts.app')
 @section('content')
 <div class="cart-banner jumbotron">
-    <div class="row">
+    <div class="container" style="display:flex;">
         <div class="col-sm-offset-1">
             <img src="/frontend/images/ic_cart.png" alt="image cart" style="width: 6em !important;">
         </div>
