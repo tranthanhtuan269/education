@@ -136,7 +136,7 @@
                         html += '</div>'
                         // html += '<i class="fas fa-tag"></i>'
                         html += '<div class="actions">'
-                            html += '<div class="btn-remove"><img width="75%" class="far fa-trash-alt" src="/frontend/images/ic_delete.png" data-child="'+element.id+'"/></div>'
+                            html += '<div class="btn-remove"><img width="75%" src="/frontend/images/ic_delete.png" data-child="'+element.id+'"/></div>'
                         html +='</div>'
                     
                 html += '</div>'
