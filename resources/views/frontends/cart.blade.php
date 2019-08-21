@@ -1,16 +1,22 @@
 @extends('frontends.layouts.app')
 @section('content')
+<div class="cart-banner jumbotron">
+    <div class="row">
+        <div class="col-sm-offset-1">
+            <img src="/frontend/images/ic_cart.png" alt="image cart" style="width: 6em !important;">
+        </div>
+        <div class="cart-banner-title">
+            <div>SHOPPING</div>
+            <div>CART</div>
+        </div>
+    </div>
+</div>
 <div class="cart-page-body background-page">
     <div class="cart-page-title container">
         {{-- <img src="http://courdemy.local/frontend/images/tab_cart.png" alt="" style="width: auto;"> --}}
-        <div class="cart-pre-info">
-            <div class="cart-pre-info-left">
                 <div>
-                    <h2><i><span class="course-amount"></span> khóa học trong giỏ hàng</i></h2>
+                    <p>BẠN CÓ <span class="course-amount"></span> KHOÁ HỌC TRONG GIỎ HÀNG</p>
                 </div>
-            </div>
-        </div>
-        <div class="blue-half-square" style=""></div>
     </div>
     <div class="cart-page-content container">
         
@@ -21,7 +27,9 @@
             <div class="checkout-column col-md-3">
                 <div>
                     <div class="price-group">
-                        
+                        <div class="text-total">
+                            TỔNG
+                        </div>
                         <div class="current-price">
                             
                         </div>
@@ -37,11 +45,11 @@
                                 <button id="btnCartCheckOut"  class="btn btn-danger btnCartCheckout">Thanh toán</button>
                             </a>
                             @else
-                            <button class="btn btn-danger btnCartCheckout" data-toggle=modal data-target=#myModalLogin data-dismiss=modal >Thanh toán</button>
+                            <button class="btn btnCartCheckout" data-toggle=modal data-target=#myModalLogin data-dismiss=modal >THANH TOÁN</button>
                             @endif
-                        </div><br>
-                        <div class="clearfix text-center">
-                            <a href="/list-course?type=best-seller" class="btn btn-info" style="width:100%;padding: 1em;"><span><i class="fa fa-plus"></i> Chọn thêm khóa học</span></a>
+                        </div>
+                        <div class="" style="margin-top: 0.5em;">
+                            <a href="/list-course?type=best-seller" class="btn btn-info" style="padding: 0.5em 1em; font-size:larger;"><span><i class="fa fa-plus"></i> THÊM KHOÁ HỌC</span></a>
                         </div>
                     </div>
                     {{-- <div class="coupon-code-input">
@@ -86,50 +94,51 @@
         // console.log(cart_items);
         
         
-        $(".cart-pre-info .course-amount").append(cart_items.length)
+        $(".cart-page-title .course-amount").append(`(${cart_items.length})`)
         cart_items.forEach((element, index) => {
             
             html = '';
             html += '<a href="/course/'+element.slug+'"><div class="cart-single-item" data-parent="'+element.id+'" data-index="'+index+'">'
                 html += '<div class="image">'
                 if(element.image.indexOf('unica') !== -1){
-                    html += '<img src="'+element.image+'" width="130rem" alt="">'
+                    html += '<img src="'+element.image+'" width="250rem" alt="">'
                 }else{
-                    html += '<img src="/frontend/images/'+element.image+'" width="130rem" alt="">'
+                    html += '<img src="/frontend/images/'+element.image+'" width="250rem" alt="">'
                 }
                 html += '</div>'
                 html += '<div class="course-info">'
 
                     html += '<div class="course-name">'+element.name+'</div>'
-                    html += '<div class="lecturer-info">Giảng viên: '+element.lecturer+'</div>'
+                    html += '<div class="lecturer-info">'+element.lecturer+'</div>'
+                    html += '<div class="coupon">'
+                        // html += '<div class="coupon-code-label"><b>Mã giảm giá:<b></div>'
+                        html += '<div class="coupon-input-field">'
+                            html += '<div>'
+                                html += '<input placeholder="Mã giảm giá" type="text" class="form-control coupon-input" value="'+element.coupon_code+'">'
+                            html += '</div>'
+                            html += '<div>'
+                                html += '<button class="btn coupon-button" data-child="'+element.id+'" data-price="'+element.price+'" data-index="'+index+'">ÁP DỤNG</button>'
+                            html += '</div>'
+                        html += '</div>'
+                    html +='</div>'
                 html += '</div>'
-                html += '<div class="coupon">'
-                    html += '<div class="coupon-code-label"><b>Mã giảm giá:<b></div>'
-                    html += '<div class="row">'
-                        html += '<div class="col-md-8">'
-                            html += '<input type="text" class="form-control coupon-input" value="'+element.coupon_code+'">'
-                        html += '</div>'
-                        html += '<div class="col-md-4">'
-                            html += '<button class="btn btn-info coupon-button" data-child="'+element.id+'" data-price="'+element.price+'" data-index="'+index+'">Áp dụng</button>'
-                        html += '</div>'
-                    html += '</div>'
-                html +='</div>'
-                html += '<div class="actions">'
-                    html += '<div class="btn-remove"><i class="far fa-trash-alt" data-child="'+element.id+'"></i></div>'
-                html +='</div>'
+                
                 html += '<div class="single-price">'
-                    html += '<div>'
+                    
                         html += '<div class="price-tag">'
                         if(element.coupon_price == element.real_price){
+                            html += '<div class="current-price" id="current_price'+element.id+'">'+number_format(element.coupon_price, 0, '.', '.')+' ₫ </div>'
                             html += '<div class="initial-price" id="initial_price'+element.id+'" style="display:none">'+number_format(element.real_price, 0, '.', '.')+' ₫ </div>'
-                            html += '<div class="current-price" id="current_price'+element.id+'">'+number_format(element.coupon_price, 0, '.', '.')+' ₫ </div>'
                         }else{
-                            html += '<div class="initial-price" id="initial_price'+element.id+'">'+number_format(element.real_price, 0, '.', '.')+' ₫ </div>'
                             html += '<div class="current-price" id="current_price'+element.id+'">'+number_format(element.coupon_price, 0, '.', '.')+' ₫ </div>'
+                            html += '<div class="initial-price" id="initial_price'+element.id+'">'+number_format(element.real_price, 0, '.', '.')+' ₫ </div>'
                         }
                         html += '</div>'
                         // html += '<i class="fas fa-tag"></i>'
-                    html += '</div>'
+                        html += '<div class="actions">'
+                            html += '<div class="btn-remove"><img width="75%" class="far fa-trash-alt" src="/frontend/images/ic_delete.png" data-child="'+element.id+'"/></div>'
+                        html +='</div>'
+                    
                 html += '</div>'
             html += '</div></a>'
 
@@ -162,7 +171,7 @@
         //     e.preventDefault()
         // });
         
-        $('.btn-remove i').on('click', function(e){
+        $('.btn-remove img').on('click', function(e){
             e.stopPropagation()
             e.preventDefault()
             var dataChild = $(this).attr("data-child")
@@ -200,8 +209,8 @@
                     }else{
                         $(".checkout-column .percent-off").append("<span>Tiết kiệm "+Math.floor(100-(totalPrice/totalInitialPrice)*100)+"%</span>")
                     }
-                    $(".cart-pre-info .course-amount").html("")
-                    $(".cart-pre-info .course-amount").prepend(cart_items.length)
+                    $(".cart-page-title .course-amount").html("")
+                    $(".cart-page-title .course-amount").prepend(`(${cart_items.length})`)
                     $('.number-in-cart').text(cart_items.length);
 
                     localStorage.setItem('cart', JSON.stringify(cart_items))
