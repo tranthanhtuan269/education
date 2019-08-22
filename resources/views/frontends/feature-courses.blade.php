@@ -71,7 +71,7 @@
 <script type="text/javascript">
     $('.feature-course').slick({
         autoplay: true,
-        arrows: true,
+        arrows: false,
         infinite: true,
         dots: true,
         // fade: true

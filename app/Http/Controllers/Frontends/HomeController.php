@@ -14,7 +14,9 @@ use App\User;
 use App\Unit;
 use App\Video;
 use App\Setting;
+use App\Mail\OrderCompleted;
 use Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -411,53 +413,10 @@ class HomeController extends Controller
                 $order->coupon = '';
                 $order->save();
 
-                // $bought = [];
-                // if (strlen($current_user->bought) > 0) {
-                //     $bought = \json_decode($current_user->bought);
-                // }
                 $bought = [];
                 if (strlen($current_user->bought) > 0) {
                     $bought = \json_decode($current_user->bought);
                 }
-
-                // foreach ($items as $item) {
-                //     if ($item['id']) {
-                //         $course = Course::find($item['id']);
-                //         if ($course) {
-                //             $bought[] = $item['id'];
-                //             $video_count = $course->video_count;
-                //             $units = $course->units;
-                //             $first_video_index = 1;
-                //             $first_video_id = $course->units[0]->videos[0]->id;
-                //             $user_course_videos = [];
-                            
-                //             //DuongNT - Tạo array video đã xem
-                //             foreach ($units as $key => $unit) {
-                //                 if($unit->video_count > 0){
-                //                     $unit_arr = [];
-                //                     for ($k=0; $k < $unit->video_count; $k++) { 
-                //                         array_push($unit_arr, 0);                                    
-                //                     }
-                //                     array_push($user_course_videos, $unit_arr);
-                //                 }
-                //             }
-                //             $videoJson = new VideoJson;
-                //             $videoJson->videos = $user_course_videos;
-                //             $videoJson->learning = 1;
-                //             $videoJson->learning_id = $first_video_id;
-
-                //             $videoJson = json_encode($videoJson);
-
-                //             $course->userRoles()->attach($user_role_id->id, ['videos' => $videoJson]);
-                //             $order->courses()->attach($item['id']);
-                //         }
-
-                //         // lưu vào bảng teacher của mỗi course để tăng số lượng học viên cho mỗi teacher
-                //         $teacher = $course->Lecturers()->first()->teacher;
-                //         $teacher->student_count += 1;
-                //         $teacher->save();
-                //     }
-                // }
 
                 foreach ($items as $key => $item) {
                     if ($item['id']) {
@@ -525,7 +484,18 @@ class HomeController extends Controller
                     $order->total_price = $total_price;
                     $order->coupon = '';
                 }
+                Mail::to($current_user)->queue(new OrderCompleted($order, $current_user));
+                // dd($order);
                 $order->save();
+
+                // Lưu vào bảng user_email
+                $user_email  = new \App\UserEmail;
+                $user_email->user_id = Auth::id();
+                $user_email->email_id = \App\Email::where('title', 'Thông báo mua hàng thành công')->first()->id;
+                $user_email->sender_user_id = 333;
+                $user_email->save();
+
+                
                 $current_user->bought = \json_encode($bought);
                 $current_user->coins = $current_user->coins - $total_price;
                 $current_user->save();
@@ -721,14 +691,16 @@ class HomeController extends Controller
     }
 
     public function themVideoLink(){
-        $videos = Video::get();
-        foreach ($videos as $key => $video) {
-            $video->url_video = '{"360": "vod/_definst_/360/dung-yeu-nua-em-met-roi-360.mp4","480": "vod/_definst_/480/dung-yeu-nua-em-met-roi-480.mp4","720": "vod/_definst_/720/dung-yeu-nua-em-met-roi-720.mp4","1080": "vod/_definst_/1080/dung-yeu-nua-em-met-roi-1080.mp4"}';
-            $video->save();
-        }
-        return response()->json([
-            'message'=> 'done',
-        ]);
+        // $videos = Video::get();
+        // foreach ($videos as $key => $video) {
+        //     $video->url_video = '{"360": "vod/_definst_/360/dung-yeu-nua-em-met-roi-360.mp4","480": "vod/_definst_/480/dung-yeu-nua-em-met-roi-480.mp4","720": "vod/_definst_/720/dung-yeu-nua-em-met-roi-720.mp4","1080": "vod/_definst_/1080/dung-yeu-nua-em-met-roi-1080.mp4"}';
+        //     $video->save();
+        // }
+        // Mail::to(Auth::user())->queue(new OrderCompleted());
+        
+        // return response()->json([
+        //     'message'=> 'done',
+        // ]);
     }
 
     public function becomeTeacher(){

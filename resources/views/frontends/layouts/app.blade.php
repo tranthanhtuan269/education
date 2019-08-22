@@ -742,7 +742,7 @@
                     number_items_in_cart = result
 
                 });                
-                $('.course-amount').text(number_items_in_cart.length)
+                $('.course-amount').text(`(${number_items_in_cart.length})`)
                 $('#course-amount').text(total_amount);
                 var total_price = 0;
                 var total_real_price = 0;

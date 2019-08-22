@@ -17,6 +17,12 @@
 
 Auth::routes();
 
+Route::get('mailable', function () {
+    $order = App\Order::find(9);
+
+    return new App\Mail\OrderCompleted($order, Auth::user() );
+});
+
 // // FRONTEND
 // Route::get('/home','HomeController@home');
 // Route::get('/member-card','HomeController@memberCard');
@@ -39,12 +45,12 @@ Route::get('login-admin', function () {
 });
 Route::get('/logout-admin', 'Backends\LoginController@getLogoutAdmin')->name('logout-admin');
 
-Route::get('mailable', function () {
-    $user = App\User::find(1);
-    $email = App\Email::find(1);
+// Route::get('mailable', function () {
+//     $user = App\User::find(1);
+//     $email = App\Email::find(1);
 
-    return new App\Mail\DiscountNot($user, $email);
-});
+//     return new App\Mail\DiscountNot($user, $email);
+// });
 
 // BACKEND
 Route::group(['middleware' => 'auth'], function () {
