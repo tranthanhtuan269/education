@@ -42,7 +42,7 @@
                         <div class="btn-checkout">
                             @if(Auth::check())
                             <a href="/cart/payment/method-selector">
-                                <button id="btnCartCheckOut"  class="btn btn-danger btnCartCheckout">Thanh toán</button>
+                                <button id="btnCartCheckOut"  class="btn btnCartCheckout">Thanh toán</button>
                             </a>
                             @else
                             <button class="btn btnCartCheckout" data-toggle=modal data-target=#myModalLogin data-dismiss=modal >THANH TOÁN</button>
