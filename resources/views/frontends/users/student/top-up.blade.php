@@ -54,7 +54,7 @@
                 </ul>
             </div>
             <div class="row">
-                <div class="col-sm-8 col-sm-offset-2 col-xs-12 balance">
+                <div class="col-sm-6 col-sm-offset-3 col-xs-12 balance">
                     <form>
                         <div class="form-row">
                             <div class="form-group col-sm-8">

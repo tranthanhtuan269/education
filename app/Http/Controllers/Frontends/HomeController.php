@@ -707,6 +707,11 @@ class HomeController extends Controller
         return view('frontends.become-teacher');
     }
 
+    public function proceedCheckout()
+    {
+        return view('frontends.proceed-checkout');
+    }
+
 }
 
 class VideoJson
