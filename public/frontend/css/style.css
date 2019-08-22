@@ -103,11 +103,11 @@ nav .pagination li a img{width:35px;position:relative;top:-6px}
 .box-course .img-course .img-mask{
 	display: none;
 	position: absolute;
-    align-items: flex-end;
-    justify-content: center;
-    top: 0;
-    left: 0;
-    width: 100%;
+  align-items: flex-end;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  width: 100%;
 	height: 100%;
 	/* display: flex; */
 	border-radius:10px 10px 0 0;
@@ -662,6 +662,181 @@ input.cropit-image-zoom-input {
   font-weight: bold;
   padding-left: 50px;
   /* text-transform: uppercase; */
+}
+
+.top-checkout .bg-checkout{position:relative}
+.top-checkout .highlight{position: absolute; top: 25vh; left: 18vw}
+.top-checkout .highlight h1{
+  font-family:proxima-nova,"Helvetica Neue",Helvetica,sans-serif;
+  color:#fff;
+  font-weight: 900;
+  padding-left: 10px;
+  padding-top: 6px;
+  text-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+}
+.top-checkout .highlight .title{
+  display: inline-flex;
+}
+.body-checkout{
+  font-size: 16px;
+}
+.body-checkout h2{
+  margin-top: 40px;
+  margin-bottom: 40px;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 24px;
+}
+.body-checkout h3{
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+.body-checkout hr{
+  border-top: 1px solid #c1c1c1;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.body-checkout .payment-method{
+  border: 1px solid #c1c1c1;
+  background-color: #f5f5f5;
+  padding: 40px;
+  margin-bottom: 40px;
+}
+.body-checkout .payment-method .header{
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.body-checkout .payment-method .header .view-more{
+  text-decoration: underline;
+}
+.body-checkout .payment-method .bank-transfer .box-img{
+  margin: 10px 1px;
+  /* padding: 5px; */
+}
+.body-checkout .payment-method .bank-transfer .img-bank{
+  cursor: pointer;
+  border-radius: 5px;
+  border: 1px dashed #c1c1c1;
+}
+.body-checkout .payment-method .bank-transfer .img-bank:hover{
+  border: 1px dashed #007ff0;
+}
+.body-checkout .payment-method .bank-transfer .active{
+  border: 2px solid green;
+  border-radius: 5px;
+  position: relative;
+}
+.body-checkout .payment-method .bank-transfer .ic-check-bank{
+  position: absolute;
+  top: -15px;
+  right: -15px;
+}
+.body-checkout .payment-method .bank-transfer .ic-check-bank img{
+  width: 30px;
+  height: 30px;
+}
+.body-checkout .payment-method .international-card .card-info{
+  width: 60%;
+  float: left;
+}
+.body-checkout .payment-method .international-card .card-info .block{
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.body-checkout .payment-method .international-card .card-info .secure-code{
+  display: flex;
+}
+.body-checkout .payment-method .international-card .card-info ul{
+  display: flex;
+  align-items: center;
+}
+.body-checkout .payment-method .international-card .card-info ul li{
+  display: inline-block;
+}
+.body-checkout .payment-method .international-card .card-info #card-number, .body-checkout .payment-method .international-card .card-info #name{
+  width: 375px;
+  height: 40px;
+}
+.body-checkout .payment-method .international-card .card-info .exp input, .body-checkout .payment-method .international-card .card-info .secure-code input{
+  width: 130px;
+  height: 40px;
+}
+/* .body-checkout .payment-method .international-card .card-info .exp, .body-checkout .payment-method .international-card .card-info .secure-code{
+  display: inline;
+} */
+.body-checkout .payment-method .international-card .img-card{
+  width: 40%;
+  float: left;
+}
+.body-checkout .payment-method .international-card .img-card #atm-card{
+  width: 100%;
+  padding-bottom: 20px;
+  padding-top: 10px;
+}
+.body-checkout .payment-method .international-card .img-card .red-dot{
+  /*  */
+  width: 20px;
+  height: 20px;
+}
+.body-checkout .payment-method .international-card .img-card .flex{
+  display: flex;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.body-checkout .payment-method .international-card .img-card .flex span{
+  padding-left: 10px;
+}
+.body-checkout .payment-method .international-card .card-info .card-type img{
+  /* padding-left: 10px; */
+  width: 100px;
+  padding: 20px;
+  /* height: 40px; */
+}
+.body-checkout .payment-method .international-card .secure-code img{
+  padding-left: 10px;
+  height: 40px;
+  width: 80px;
+}
+.body-checkout .payment-method .international-card .label-text{
+  padding-bottom: 10px;
+}
+.body-checkout .order{
+  border: 1px solid #c1c1c1;
+  border-radius: 5px;
+  background-color: #F5F5F5;
+  padding: 10px;
+}
+.body-checkout .order .list-course-order .info{
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.body-checkout .order .list-course-order hr{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.body-checkout .order .list-course-order .info .title{
+  padding-bottom: 10px;
+}
+.body-checkout .order .list-course-order .info .author{
+  font-size: 12px;
+}
+.body-checkout .order .list-course-order .info .price{
+  color: #ff8f00;
+  font-size: 14px;
+}
+.body-checkout .order .total-price{
+  color: #ff8f00;
+  font-size: 26px;
+  font-weight: bold;
+  margin: 10px auto;
+}
+.body-checkout .order .box-price p{
+  font-size: 14px;
+}
+.body-checkout .order .checkout button{
+  font-size: 16px;
+  margin: 10px auto;
+  padding: 10px 40px;
 }
 
 footer{font-weight:500;background:url(../images/bg-footer.png) no-repeat;background-size:100% 100%}

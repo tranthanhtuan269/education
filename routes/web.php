@@ -183,6 +183,7 @@ Route::get('cart', ['uses' =>'Frontends\HomeController@cart'])->name('cart.show'
 Route::get('check-coupon', ['uses' =>'Frontends\HomeController@checkCoupon'])->name('coupon.check');
 Route::post('checkout', ['uses' =>'Frontends\HomeController@checkout'])->name('cart.checkout');
 Route::put('button-add-to-card', 'Frontends\HomeController@buttonAddToCart');
+Route::get('proceed-checkout', ['uses' =>'Frontends\HomeController@proceedCheckout']);
 
 // Đăng nhập mới đánh giá khóa học dc
 Route::post('reviews/info', 'Backends\UserController@infoRoleUser');

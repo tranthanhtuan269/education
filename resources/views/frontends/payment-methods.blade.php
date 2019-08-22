@@ -595,10 +595,10 @@
 							var htmlNot = ""
 							htmlNot += '<div class="options">'
 								htmlNot += '<div class="payment-options">'
-									htmlNot += '<button id="openTopUpModal" class="btn btn-warning">Nạp tiền vào tài khoản</button>'
-									// htmlNot += '<a href="/member-card" style="margin-left: 1em;">'
-									// 	htmlNot += '<button class="btn btn-danger">Mua thẻ thành viên</button>'
-									// htmlNot += '</a>'
+									// htmlNot += '<button id="openTopUpModal" class="btn btn-warning">Nạp tiền vào tài khoản</button>'
+									htmlNot += '<a href="/proceed-checkout">'
+										htmlNot += '<button class="btn btn-danger">Thanh toán qua bên thứ ba</button>'
+									htmlNot += '</a>'
 								htmlNot += '</div>'
 							htmlNot += '</div>'
 
