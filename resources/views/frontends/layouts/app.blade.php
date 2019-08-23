@@ -380,7 +380,7 @@
                                                 </div>
                                                 <div class="modal-body">
                                                     <div class="social-login">
-                                                        <a href="#" class="btn btn-lg btn-primary btn-block kpx_btn-facebook" data-toggle="tooltip" data-placement="top" title="Facebook">
+                                                        <a href="{{url('/redirect')}}" class="btn btn-lg btn-primary btn-block kpx_btn-facebook" data-toggle="tooltip" data-placement="top" title="Facebook">
                                                             <span class="social-login-icon">
                                                                 <i class="fab fa-facebook-f fa-lg fa-fw"></i>
                                                             </span>
@@ -393,6 +393,14 @@
                                                             Đăng nhập với Google
                                                         </a>
                                                     </div>
+                                                    <br />
+                        {{-- <p style="margin-left:265px">OR</p>
+                        <br />
+                        <div class="form-group">
+                            <div class="col-md-8 col-md-offset-4">
+                              <a href="{{url('/redirect')}}" class="btn btn-primary">Login with Facebook</a>
+                            </div>
+                        </div> --}}
 
                                                     <form action="/examples/actions/confirmation.php" method="post">
                                                         <div class="form-group">
