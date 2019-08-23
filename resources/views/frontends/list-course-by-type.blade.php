@@ -5,6 +5,7 @@
     if(Auth::check() && strlen(Auth::user()->bought) > 0){
         $list_bought = \json_decode(Auth::user()->bought);
     }
+    dd($list_course);
 ?>
 <div class="box-list-course-by-type">
   <div class="container">

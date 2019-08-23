@@ -214,7 +214,11 @@
                     $('.number-in-cart').text(cart_items.length);
 
                     localStorage.setItem('cart', JSON.stringify(cart_items))
-
+                    if(totalPrice == totalInitialPrice){
+                        $('.initial-price').css('display', 'none')
+                    }else{
+                        $('.initial-price').css('display', 'block')
+                    }
                     if(cart_items.length < 1){
                         $('.unica-sl-cart').css('display', 'none' )
                     }
