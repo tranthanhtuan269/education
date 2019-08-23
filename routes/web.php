@@ -23,6 +23,8 @@ Route::get('mailable', function () {
     return new App\Mail\OrderCompleted($order, Auth::user() );
 });
 
+Route::get('/redirect', 'SocialAuthFacebookController@redirect');
+Route::get('/callback', 'SocialAuthFacebookController@callback');
 // // FRONTEND
 // Route::get('/home','HomeController@home');
 // Route::get('/member-card','HomeController@memberCard');

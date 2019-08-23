@@ -179,6 +179,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+        Laravel\Socialite\SocialiteServiceProvider::class,
 
 
     ],
@@ -233,6 +234,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         'Helper' => App\Helper\Helper::class,
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
     ],
 
 ];
