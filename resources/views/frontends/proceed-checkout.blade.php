@@ -7,7 +7,7 @@
 <div class="top-checkout">
     <div class='row'>
         <img class="bg-checkout" src="{{ asset('frontend/images/banner_checkout.png') }}" width="100%">
-        <div class="container">
+        <div class="container fixed-title">
             <div class="highlight">
                 <div class="col-sm-4">
                     <div class="row title">

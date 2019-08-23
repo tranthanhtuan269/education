@@ -665,15 +665,15 @@ input.cropit-image-zoom-input {
 }
 
 /* .top-checkout .bg-checkout{position:relative} */
-.top-checkout {position:relative}
+.top-checkout .fixed-title{position:relative}
 
-.top-checkout .highlight{position: absolute; top: 15vh; left: 15vw}
+.top-checkout .highlight{position: absolute; top: -32vh; left: 10vw}
 .top-checkout .highlight h1{
   font-family:proxima-nova,"Helvetica Neue",Helvetica,sans-serif;
   color:#fff;
   font-weight: 900;
   padding-left: 10px;
-  padding-top: 6px;
+  padding-top: 30px;
   text-shadow: 0px 0px 10px rgba(0,0,0,0.5);
 }
 .top-checkout .highlight .title{
