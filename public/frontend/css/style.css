@@ -665,6 +665,7 @@ input.cropit-image-zoom-input {
   /* padding-left: 50px; */
   /* text-transform: uppercase; */
   padding-top: 25px;
+  padding-left: 10px;
   text-shadow: 0px 0px 10px rgba(0,0,0,0.5);
 }
 .background-page .highlight .title i{
