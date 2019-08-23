@@ -283,7 +283,7 @@
             var dataChild = $(this).attr("data-child")
             var dataPrice = $(this).attr("data-price")
             var new_totalPrice = 0;
-            var numeric_cart = $(this).parent().parent().parent().parent().parent().parent().attr("data-index")
+            var numeric_cart = $(this).parent().parent().parent().parent().parent().attr("data-index")
             // alert(numeric_cart);return
             $.ajaxSetup({
                 headers: {
