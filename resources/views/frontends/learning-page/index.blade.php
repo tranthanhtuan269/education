@@ -67,7 +67,7 @@
             </div> --}}
             <div class="lecture-subtitle">
                 <a href="{{ url("/learning/{$course->slug}") }}">
-                    <p>Go to Dashboard</p>
+                    <p>TRỞ VỀ TRANG KHOÁ HỌC</p>
                 </a>
             </div>
         </div>
