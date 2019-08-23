@@ -597,7 +597,7 @@
 								htmlNot += '<div class="payment-options">'
 									// htmlNot += '<button id="openTopUpModal" class="btn btn-warning">Nạp tiền vào tài khoản</button>'
 									htmlNot += '<a href="/proceed-checkout">'
-										htmlNot += '<button class="btn btn-danger">Thanh toán qua bên thứ ba</button>'
+										htmlNot += '<button class="btn btn-danger"><b>Chọn hình thức thanh toán</b></button>'
 									htmlNot += '</a>'
 								htmlNot += '</div>'
 							htmlNot += '</div>'
