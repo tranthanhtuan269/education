@@ -775,7 +775,8 @@
 
                 $('.number-in-cart').text(number_items_in_cart.length);
             }else{
-                $('.number-in-cart').text("dm");        
+                $('.number-in-cart').text("0");
+                $('.unica-sl-cart').css('display', 'none')      
             }
         })
 
