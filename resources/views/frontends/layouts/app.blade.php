@@ -696,7 +696,7 @@
                     $('.unica-sl-cart').css('display', 'block' )
                 }
 
-                $(this).remove();
+                $('.course-'+$(this).attr("data-id")).remove();
                 Swal.fire({
                     type: 'success',
                     text: 'Đã thêm vào giỏ hàng!'

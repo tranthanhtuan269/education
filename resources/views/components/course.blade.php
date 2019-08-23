@@ -38,7 +38,7 @@
                 
                 @if (!in_array($course->id, $list_bought))
                 <div class="img-mask hidden-sm">
-                    <div class="btn-add-to-cart">
+                <div class="btn-add-to-cart course-{{$course->id}}">
                         <button class="btn btn-success" data-id="{{ $course->id }}" data-image="{{ $course->image }}" data-lecturer="{{ $lecturers }}" data-name="{{ $course->name }}" data-price="{{ $course->price }}" data-real-price="{{ $course->real_price }}" data-slug="{{ $course->slug }}">
                             <span class="img">
                                 <img src="{{asset("frontend/images/ic_add_to_card.png")}}" width="20px">
