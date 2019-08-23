@@ -1,17 +1,21 @@
 @extends('frontends.layouts.app')
 @php
 	$user_role_course_instance_video = json_decode($user_role_course_instance->videos);
-	$video_count = count($user_role_course_instance_video->videos);
+	$video_count = ($info_course->video_count);
 	$video_done_array = $user_role_course_instance_video->videos;
 	// dd($video_done_array);
-	if(array_search(1, $video_done_array) === false){
-		$video_done_count = 0;
-	}else{
-		$video_done_count = array_count_values($video_done_array)[1];
-	}
-	$video_done_percent = (int)(($video_done_count/$video_count)*100);
+	$video_done_units = $user_role_course_instance_video->videos;
+    $video_done_count = 0;
+    foreach ($video_done_units as $key => $unit) {
+        if(isset(array_count_values($unit)[1])){
+            $video_done_count += array_count_values($unit)[1];
+        }
+    }
+	$video_done_percent = (int)(($video_done_count/(int)$video_count)*100);
 	$lecturers = $info_course->Lecturers();
 	$currentRating = \App\RatingCourse::where('user_id', Auth::id())->where('course_id', $info_course->id)->first();
+
+	
 
 @endphp
 @section('content')
@@ -26,7 +30,7 @@
 					<h2>{{ $info_course->name }}</h2>
 					<p class="meta-des">{{ $info_course->short_description }}</p>
 					<div class="vote">
-					<div class="continue"><a href="/learning-page/{{$info_course->id}}/lecture/{{$user_role_course_instance_video->learning_id}}" title="Continue">Continue to Lecture {{$user_role_course_instance_video->learning}}</a></div>
+					<div class="continue"><a href="/learning-page/{{$info_course->id}}/lecture/{{$user_role_course_instance_video->learning_id}}" title="Continue">Học tiếp bài {{$user_role_course_instance_video->learning}}</a></div>
 						<div class="rating big">
 							@if(Auth::check())
 								@if(\App\Helper\Helper::getUserRoleOfCourse($info_course->id))
