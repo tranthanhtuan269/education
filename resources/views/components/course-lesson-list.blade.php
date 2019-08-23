@@ -44,7 +44,7 @@
                                             @endif
                                         </div>
                                     </div>
-                                    <div class="col-xs-4 col-md-2">
+                                    <div class="col-xs-4 col-md-2 text-center">
                                         @if(App\Helper\Helper::getUserRoleOfCourse($info_course->id))
                                         <a class="btn-preview btn-success" href="/learning-page/{{$info_course->id}}/lecture/{{$value_video->id}}">Xem</a>
                                         @else
