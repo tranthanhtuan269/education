@@ -17,7 +17,7 @@
         var    email            = profile.getEmail();
         var    google_id        = profile.getId();
 
-        console.log(gapi.auth2);
+        // console.log(gapi.auth2);
 
         $.ajaxSetup({
             headers: {
@@ -79,6 +79,12 @@
                 })
             }
         });
+
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+        console.log('User signed out.');
+        });
+        location.reload();
     }
 
     // function signOut() {
