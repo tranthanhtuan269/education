@@ -1,5 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="vi" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://ogp.me/ns/fb#">
 <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <!-- Google API login -->
     <meta name="google-signin-client_id" content="658704434303-kgbsdp88qh3avffl16blio0s3kkd7gfa.apps.googleusercontent.com">
 
@@ -18,6 +20,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/bootstrap.offcanvas.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/sidenav.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/slick.css') }}">
+
 
     <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}" />
     <link rel="stylesheet" href="{{ asset('frontend/css/responsive.css') }}" />
