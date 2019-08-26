@@ -17,6 +17,8 @@
         var    email            = profile.getEmail();
         var    google_id        = profile.getId();
 
+        console.log(gapi.auth2);
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
