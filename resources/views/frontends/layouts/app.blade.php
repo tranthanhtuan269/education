@@ -1,7 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="vi" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://ogp.me/ns/fb#">
 <head>
     <!-- Google API login -->
-    {{-- <meta name="google-signin-client_id" content="658704434303-kgbsdp88qh3avffl16blio0s3kkd7gfa.apps.googleusercontent.com"> --}}
+    <meta name="google-signin-client_id" content="658704434303-kgbsdp88qh3avffl16blio0s3kkd7gfa.apps.googleusercontent.com">
 
     <!-- Required meta tags -->
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -33,9 +33,6 @@
     <meta name="copyright" content="Edu">
     <meta name="author" content="Edu"/>
     <base href="{{ url('/') }}">
-    <meta name="google-signin-scope" content="profile email">
-    <meta name="google-signin-client_id" content="658704434303-kgbsdp88qh3avffl16blio0s3kkd7gfa.apps.googleusercontent.com">
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
 <body>
         <div id="fb-root"></div>
@@ -373,10 +370,11 @@
                                             <li class="divider"></li>
                                             <li><a href="{{ url('user/logout') }}" class="btnDangxuat"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
                                             <li><a href="#" onclick="signOut();">Sign out</a></li>
+                                            <script src="https://apis.google.com/js/platform.js" async></script>
                                             <script>
                                                 function signOut() {
-                                                    gapi.auth2.init();
-                                                    var auth2 = gapi.auth2.getAuthInstance();
+                                                    // var auth2 = gapi.auth2.getAuthInstance();
+                                                    var auth2 = gapi.auth2.GoogleAuth.signOut();
                                                     auth2.signOut().then(function () {
                                                     console.log('User signed out.');
                                                     });
@@ -409,24 +407,16 @@
                                                             Đăng nhập với Google
                                                         </a>
                                                     </div>
-                                                    <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
-                                                    <script>
-                                                    function onSignIn(googleUser) {
-                                                        // Useful data for your client-side scripts:
-                                                        var profile = googleUser.getBasicProfile();
-                                                        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
-                                                        console.log('Full Name: ' + profile.getName());
-                                                        console.log('Given Name: ' + profile.getGivenName());
-                                                        console.log('Family Name: ' + profile.getFamilyName());
-                                                        console.log("Image URL: " + profile.getImageUrl());
-                                                        console.log("Email: " + profile.getEmail());
-                                                
-                                                        // The ID token you need to pass to your backend:
-                                                        var id_token = googleUser.getAuthResponse().id_token;
-                                                        console.log("ID Token: " + id_token);
-                                                        location.reload();
-                                                    }
-                                                    </script>
+                                                    @include('components.google-login')
+
+                                                    <br />
+                        {{-- <p style="margin-left:265px">OR</p>
+                        <br />
+                        <div class="form-group">
+                            <div class="col-md-8 col-md-offset-4">
+                              <a href="{{url('/redirect')}}" class="btn btn-primary">Login with Facebook</a>
+                            </div>
+                        </div> --}}
 
                                                     <form action="/examples/actions/confirmation.php" method="post">
                                                         <div class="form-group">
