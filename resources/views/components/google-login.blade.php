@@ -5,7 +5,7 @@
 <div class="g-signin2" data-onsuccess="onSignIn"></div>
 <script>
     function onSignIn(googleUser) {
-        alert(1)
+        // alert(1)
         var profile = googleUser.getBasicProfile();
 
         console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
