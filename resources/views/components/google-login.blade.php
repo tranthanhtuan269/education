@@ -43,7 +43,7 @@
                         type: 'success',
                         text: 'Đăng nhập thành công'
                     })
-                    // location.reload();
+                    location.reload();
                 } else {
                     if(response.status == 201){
                         Swal.fire({
@@ -84,7 +84,7 @@
         // auth2.signOut().then(function () {
         // console.log('User signed out.');
         // });
-        // location.reload();
+        // 
     }
 
     // function signOut() {
