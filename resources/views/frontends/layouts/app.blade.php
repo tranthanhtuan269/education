@@ -372,9 +372,9 @@
                                             <li><a href="#" onclick="signOut();">Sign out</a></li>
                                             <script src="https://apis.google.com/js/platform.js" async></script>
                                             <script>
-                                                function signOut() {
-                                                    // var auth2 = gapi.auth2.getAuthInstance();
-                                                    var auth2 = gapi.auth2.GoogleAuth.signOut();
+                                                function signOut(googleUser) {
+                                                    var auth2 = gapi.auth2.getAuthInstance();
+                                                    // var auth2 = gapi.auth2.GoogleAuth.signOut();
                                                     auth2.signOut().then(function () {
                                                     console.log('User signed out.');
                                                     });
