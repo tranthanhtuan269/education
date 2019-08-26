@@ -43,7 +43,7 @@
         <p class="price-b">{!! number_format($course->price, 0, ',' , '.') !!}<sup>đ</sup></p>
         @if($course->real_price != $course->price && $course->real_price != 0)
         <p class="price-s">{!! number_format($course->real_price, 0, ',' , '.') !!}<sup>đ</sup></p>
-        <p class="price-o">Tiết kiệm {{(int)(100 - ($course->price/$course->real_price)*100)}}</p>
+        <p class="price-o">Tiết kiệm {{(int)(100 - ($course->price/$course->real_price)*100)}}%</p>
         @endif
 
         <a href="/course/{{$course->slug}}">Đăng ký học</a>
