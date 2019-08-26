@@ -67,7 +67,7 @@ class VideoController extends Controller
             //DuongNT upload file
             if($request->file()){
                 foreach ($request->file() as $key => $file) {
-                    if($fcile->isValid()){
+                    if($file->isValid()){
                         $document = new Document;
                         $document->title = $file->getClientOriginalName();
                         $document->video_id = $video->id;

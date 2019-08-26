@@ -14,7 +14,8 @@ class UnitController extends Controller
 {
     public function getVideo($id){
         $video = Video::find($id);
-        return \Response::json(array('status' => '200', 'message' => 'List Videos!', 'video' => $video));
+        $documents = $video->documents;
+        return \Response::json(array('status' => '200', 'message' => 'List Videos!', 'video' => $video, 'documents' => $documents));
     }
 
     public function getVideos($id){

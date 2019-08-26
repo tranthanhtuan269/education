@@ -195,8 +195,11 @@
                                         continue;
                                     }
                                     ?>                       
-                                    <div class="col-lg-6 will-learn">
-                                        <img src="{{ asset('frontend/images/ic_check.png') }}"/> {!! ltrim($will,";") !!}
+                                    <div class="col-lg-6 will-learn row">
+                                        <img class="" src="{{ asset('frontend/images/ic_check.png') }}"/> 
+                                        <div class="col-sm-10">
+                                            {!! ltrim($will,";") !!}
+                                        </div>
                                     </div>
                                     @if($key % 2 == 1)
                                     </div>

@@ -12,16 +12,22 @@
             @foreach ($info_course->units as $key_unit => $value_unit)
             <div class="panel panel-default">
                 <!-- phần -->
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $key_unit }}" class="accordion-toggle @if ($key_unit != 0) collapsed in @endif" aria-expanded="true"><span>{{ $value_unit->name }}</span></a>
-                                <!-- <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $key_unit }}" class="accordion-toggle @if ($key_unit != 0) collapsed in @endif" aria-expanded="true"><span>Section {{ $key_unit + 1 }}:&nbsp; {{ $value_unit->name }}</span></a> -->
-                            </h4>
+                {{-- <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $key_unit }}" class="accordion-toggle @if ($key_unit != 0) collapsed in @endif" aria-expanded="true"> --}}
+                <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $key_unit }}" class="accordion-toggle @if ($key_unit != 0) collapsed in @endif" aria-expanded="true" style="cursor: pointer;">
+                    <div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4 class="panel-title">
+                                    
+                                        <span>{{ $value_unit->name }}</span>
+                                    <!-- <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $key_unit }}" class="accordion-toggle @if ($key_unit != 0) collapsed in @endif" aria-expanded="true"><span>Section {{ $key_unit + 1 }}:&nbsp; {{ $value_unit->name }}</span></a> -->
+                                </h4>
+                            </div>
                         </div>
                     </div>
                 </div>
+                {{-- </a> --}}
+
                 <!-- bài -->
                 <div id="collapse{{ $key_unit }}" class="panel-collapse collapse  @if ($key_unit == 0) in @endif" aria-expanded="true">
                     <div class="panel-body">

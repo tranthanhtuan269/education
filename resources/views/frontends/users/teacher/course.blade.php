@@ -329,6 +329,21 @@
                     <textarea class="col-sm-9 form-control edit-video-description" rows="5" class="form-control" class="form-control"></textarea>
                 </div>
                 <div class="form-group row">
+                    <label for="file" class="col-sm-3">Tài liệu:</label>
+                    <div class="btn-upload clearfix">
+                        <span class="file-wrapper">
+                            <input type="file"  id=editVideoDocument" name="document-upload" class="form-control" multiple style="">
+                            <span class="button text-uppercase" id="btnEditVideoDocument" >Thêm tài liệu</span>
+                        </span>
+                    </div>
+                    <div class="edit-document-field col-sm-12">
+                        {{-- <div>
+                            <span class="pull-left">document.doc</span>
+                            <span class="pull-right"><button class="btn btn-danger">Xoá</button></span>
+                        </div> --}}
+                    </div>
+                </div>
+                <div class="form-group row">
                     <div class="clearfix">
                         <label class="col-sm-3" for="name">Video bài học:</label>
                         <div class="btn-upload clearfix">
@@ -358,6 +373,8 @@
     </div>
 </div>
 <script>
+    let filesEditLength = 0;
+
     Dropzone.autoDiscover = false;
     $(document).ready(function(){
         $('#create-course-btn').click(function(){
@@ -559,7 +576,9 @@
             $('#listVideo').modal('toggle');
         });
         
-
+        $("#btnEditVideoDocument").click(function(){
+            $('#editVideoDocument').click()            
+        })
         //DUONG NT UPLOAD DOCUMENT
         $("#btnAddVideoDocument").click(function(){
             $('#addVideoDocument').click()            
@@ -570,12 +589,6 @@
             let newFiles = []; 
             for(let index = 0; index < inputFile[0].files.length; index++) {
                 let file = inputFile[0].files[index];
-
-                // var reader = new FileReader()
-                // reader.onload = function(e){
-                    
-                // }
-                // reader.readAsDataURL(file)
                 newFiles.push(file);
                 files.push(file);
                 
@@ -587,13 +600,12 @@
                     html += `<span class="pull-right btn-delete-document "><button data-index="${filesLength - 1}" class="btn btn-danger" id="btnDeleteDocument">Xoá</button></span>`
                 html += `</div>`
 
-                $('.document-field').append(html)
-                
-                
-                
+                $('.document-field').append(html)                                                
             }
             
-        })        
+        })
+
+         
 
         $(document).on('click', '#btnDeleteDocument', function(){
             var indexToRemove = $(this).attr("data-index")
@@ -668,7 +680,7 @@
             $('#addVideoModal textarea.add-video-description').val('');
             $('#addVideoModal video').addClass('hidden');
         })
-
+        
         function addEventAndSort(){
             $(".progress-bar").html('');
             $(".progress-bar").css("width", "0%");
@@ -690,6 +702,18 @@
                         $('#editVideoModal textarea').val(response.video.description);
                         $('#editVideoModal video').attr('src', "{{ url('uploads/videos') }}/" + response.video.link_video);
                         $("#editVideoModal video")[0].load();
+
+                        filesEditLength = response.video.documents.length
+                        
+                        response.video.documents.forEach( (document, index) => {
+                            var html = ''
+                            html += `<div class="row" data-index="${index}">`
+                                html += `<span class="pull-left">${document.title}</span>`
+                                html += `<span class="pull-right btn-delete-document "><button data-index="${index}" class="btn btn-danger" id="btnDeleteDocumentInEdit">Xoá</button></span>`
+                            html += `</div>`
+                            $('.edit-document-field').append(html)                                                
+                            
+                        });
                     }
                 },
                 error: function (error) {
@@ -704,6 +728,26 @@
                     })
                 }
             })
+            var inputFileEdit = $('#editVideoDocument')
+            let filesEdit = [];            
+            inputFileEdit.change(function(){
+                alert(1)
+                let newFiles = []; 
+                for(let index = 0; index < inputFile[0].files.length; index++) {
+                    let file = inputFile[0].files[index];
+                    newFiles.push(file);
+                    filesEdit.push(file);
+
+                    var html = ''
+                    html += `<div class="row" data-index="${filesEdit.length + filesEditLength - 1}">`
+                        html += `<span class="pull-left">${file.name}</span>`
+                        html += `<span class="pull-right btn-delete-document "><button data-index="${filesEdit.length + filesEditLength - 1}" class="btn btn-danger" id="btnDeleteDocument">Xoá</button></span>`
+                    html += `</div>`
+
+                    $('.document-field').append(html)                                                
+                }
+                
+            }) 
 
             });
             $('#video-file').on('change', function(e){
