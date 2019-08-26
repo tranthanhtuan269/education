@@ -423,7 +423,8 @@
                                                             var    email            = profile.getEmail();
                                                             var    google_id        = profile.getId();
 
-                                                            console.log(gapi.auth2);
+
+                                                            gapi.auth2.init();
 
                                                             $.ajaxSetup({
                                                                 headers: {
