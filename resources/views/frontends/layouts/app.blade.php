@@ -369,7 +369,7 @@
                                             @endif
                                             <li class="divider"></li>
                                             <li><a href="{{ url('user/logout') }}" class="btnDangxuat"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
-                                            <li><span href="#" onclick="signOut();">Sign out</span></li>
+                                            <li><a href="#" onclick="signOut();">Sign out</a></li>
                                             <script src="https://apis.google.com/js/platform.js" async></script>
                                             <script>
                                                 function signOut() {
