@@ -293,21 +293,28 @@
                                         </div>
                                         @endif
                                     </div>
-                                    @if (!in_array($info_course->id, $list_bought))
                                     <div class="button-class clearfix">
-                                        <div class="btn-add-cart">
-                                            <button type="button" id="add-cart2" data-id="{{ $info_course->id }}" class="btn btn-primary btn-toh"><b>Thêm vào giỏ hàng</b></button>
+                                        @if (!in_array($info_course->id, $list_bought))
+                                        <div class="sidebar-add-cart">
+                                            <button type="button" id="{{ $info_course->id }}" class="btn btn-primary"><b>Thêm vào giỏ hàng</b></button>
                                         </div>
                                         <div class="btn-buy-now">
-                                            <button type="button" id="buy-now2" data-id="{{ $info_course->id }}" class="btn btn-warning btn-toh"><b>Mua ngay</b></button>
+                                            <button type="button" id="buy-now2" class="btn btn-warning"><b>Mua ngay</b></button>
                                         </div>
+                                        @else
+                                        <div class="sidebar-add-cart">
+                                            <button type="button" id="add-cart2" class="btn btn-primary"><b>Bạn đã mua khóa học này</b></button>
+                                        </div>
+                                        <div class="btn-buy-now">
+                                            <a href="/list-course?type=best-seller" class="btn btn-warning" style="width: 90%;padding: 10px 0;margin-top: 10px;text-transform: uppercase;"><b>Xem các khóa học phổ biến</b></a>
+                                        </div>
+                                        @endif
                                     </div>
                                     <div class="clearfix">
                                         <div class="text-center money-back">
                                             (Hoàn tiền trong 30 ngày nếu không hài lòng)
                                         </div>
                                     </div>
-                                    @endif
                                 </div>
                                 <div class="u-sm-right">
                                     <div class="block-ulti">
@@ -915,13 +922,36 @@
             $('.unica-sl-cart').css('display', 'block')
             // console.log(number_items_in_cart.length)
         })
+        
+        $(".sidebar-add-cart button").click( function(e){
+            e.stopPropagation()
+            e.preventDefault()
+
+            // $(this).remove();
+            // $(".btn-buy-now button").remove();
+            // $('.interactive-bar').remove();
+
+            $(this).html('<b>Đã thêm vào giỏ hàng</b>')
+            
+            addCard();
+            Swal.fire({
+                type: 'success',
+                text: 'Đã thêm vào giỏ hàng!'
+            })
+            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'));
+            $('.number-in-cart').text(number_items_in_cart.length);
+            $('.unica-sl-cart').css('display', 'block')
+            // console.log(number_items_in_cart.length)
+        })
 
         if(localStorage.getItem('cart') != null){
             var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
 
             $.each( number_items_in_cart, function(i, obj) {
-                $('button[data-id='+obj.id+']').remove();
+                $('.btn-add-cart button[data-id='+obj.id+']').remove();
                 $('.interactive-bar[data-i='+obj.id+']').remove();
+
+                $('.sidebar-add-cart button[id='+obj.id+']').html('<b>Đã thêm vào giỏ hàng</b>');
             });
             // $('.interactive-bar[data-i="{{ $info_course->id }}"]').remove();
         }
