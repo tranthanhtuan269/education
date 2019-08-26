@@ -1,5 +1,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="vi" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://ogp.me/ns/fb#">
 <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Google API login -->
+    <meta name="google-signin-client_id" content="658704434303-kgbsdp88qh3avffl16blio0s3kkd7gfa.apps.googleusercontent.com">
+
     <!-- Required meta tags -->
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
@@ -15,6 +20,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/bootstrap.offcanvas.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/sidenav.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/slick.css') }}">
+
 
     <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}" />
     <link rel="stylesheet" href="{{ asset('frontend/css/responsive.css') }}" />
@@ -365,7 +371,24 @@
 
                                             @endif
                                             <li class="divider"></li>
-                                            <li><a href="{{ url('user/logout') }}" class="btnDangxuat"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
+                                            <li><a href="{{ url('user/logout') }}" class="btnDangxuat btn-google-logout"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
+
+                                            <div class="g-signin2" data-onsuccess="onSignIn" style="display:none"></div>
+                                            <script src="https://apis.google.com/js/platform.js" async></script>
+                                            <script>
+                                                $('.btn-google-logout').click(function(){
+                                                    
+                                                })
+                                                function onSignIn(googleUser) {
+                                                    var profile = googleUser.getBasicProfile();
+
+                                                    var auth2 = gapi.auth2.getAuthInstance();
+                                                    auth2.signOut().then(function () {
+                                                    // console.log('User signed out.');
+                                                    });
+                                                    // location.reload();
+                                                }
+                                            </script>
                                         </ul>
                                     </li>
                                     @else
@@ -386,13 +409,15 @@
                                                             </span>
                                                             Đăng nhập với facebook
                                                         </a>
-                                                        <a href="#" class="btn btn-lg btn-danger btn-block kpx_btn_google" data-toggle="tooltip" data-placement="top" title="Google">
+                                                        <div class="btn btn-lg btn-danger btn-block kpx_btn_google" id="btn-google-login">
                                                             <span class="social-login-icon">
                                                                 <i class="fab fa-google fa-lg fa-fw"></i>
                                                             </span>
                                                             Đăng nhập với Google
-                                                        </a>
+                                                        </div>
                                                     </div>
+                                                    @include('components.google-login')
+
                                                     <br />
                         {{-- <p style="margin-left:265px">OR</p>
                         <br />

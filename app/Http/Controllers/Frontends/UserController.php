@@ -403,4 +403,74 @@ class UserController extends Controller
         return $detail_order;
     }
 
+    public function googleLogin(Request $request)
+    {
+        // $check = '';
+
+        // $check = User::where('google_id', $request->google_id)->first()->google_id;
+        if(User::where('email', $request->email)->first()){
+            $user = User::where('email', $request->email)->first();
+
+            if(User::where('email', $request->email)->first()->google_id == $request->google_id){
+                if (User::where('email', $request->email)->first()->status == 0) {
+                    return response()->json(['message' => 'Tài khoản của bạn đang bị khóa.', 'status' => 404]);
+                } else {
+                    Auth::login(User::where('email', $request->email)->first(), $request->get('remember'));
+                    return response()->json(['message' => 'Ok', 'status' => 200]);
+                }
+            }else{
+                $user->google_id = $request->google_id;
+                $user->save();
+                
+                Auth::login($user);
+                return \Response::json(array('status' => '200'));
+            }
+
+        }else{
+            $user = new User;
+            $user->name     = $request->name;
+            $user->email    = $request->email;
+            $user->google_id= $request->google_id;
+            $user->password = bcrypt(trim($request->google_id));
+            $user->status   = 1;
+            $user->save();
+    
+            $user_role = new UserRole();
+            $user_role->user_id = $user->id;
+            $user_role->role_id = \Config::get('app.student');
+            $user_role->save();
+    
+            Auth::login($user);
+    
+            $user_role->save();
+            return \Response::json(array('status' => '201'));
+        }
+
+
+        // if($check != ''){
+        //     $email = $request->email;
+        //     $google_id = $request->google_id;
+                
+        //     $user = User::where('email', $email)->first();
+            
+        //     if( !isset($user) ) {
+        //         return response()->json(['message' => 'Email is incorrect.', 'status' => 404]);
+        //     } else {    
+        //         if ( \Hash::check($google_id, $user->google_id) ) {
+        //             if ($user->status == 0) {
+        //                 return response()->json(['message' => 'This account has been locked.', 'status' => 404]);
+        //             } else {
+        //                 Auth::login($user, $request->get('remember'));
+        //                 return response()->json(['message' => 'Ok', 'status' => 200]);
+        //             }
+        //         } else { 
+        //             return response()->json(['message' => 'Password is incorrect.', 'status' => 404]);         
+        //         }
+        //     }
+        //     return \Response::json(array('status' => '200'));
+        // }else{
+        // }
+
+    }
+
 }
