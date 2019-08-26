@@ -406,12 +406,12 @@
                                                             </span>
                                                             Đăng nhập với facebook
                                                         </a>
-                                                        <a href="#" class="btn btn-lg btn-danger btn-block kpx_btn_google btn-google_login" data-toggle="tooltip" data-placement="top" title="Google">
+                                                        <div class="btn btn-lg btn-danger btn-block kpx_btn_google btn-google-login">
                                                             <span class="social-login-icon">
                                                                 <i class="fab fa-google fa-lg fa-fw"></i>
                                                             </span>
                                                             Đăng nhập với Google
-                                                        </a>
+                                                        </div>
                                                     </div>
                                                     @include('components.google-login')
 

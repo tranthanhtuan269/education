@@ -5,7 +5,7 @@
 <div class="g-signin2" data-onsuccess="onSignIn" style="display:none"></div>
 
 <script>
-    $('.btn-google_login').click(function(){
+    $('.btn-google-login').click(function(){
         $('.g-signin2').click();
     })
 
