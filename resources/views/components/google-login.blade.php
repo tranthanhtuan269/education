@@ -8,10 +8,10 @@
         alert(1)
         var profile = googleUser.getBasicProfile();
 
-        // console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-        // console.log('Name: ' + profile.getName());
-        // console.log('Image URL: ' + profile.getImageUrl());
-        // console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+        console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+        console.log('Name: ' + profile.getName());
+        console.log('Image URL: ' + profile.getImageUrl());
+        console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
 
         var    name             = profile.getName();
         var    email            = profile.getEmail();
@@ -67,7 +67,7 @@
             error: function (error) {
                 var obj_errors = error;
                 console.log(obj_errors)
-                var txt_errors = 'abc';
+                // var txt_errors = 'abc';
                 // for (k of Object.keys(obj_errors)) {
                 //     txt_errors += obj_errors[k][0] + '</br>';
                 // }
@@ -78,7 +78,7 @@
             }
         });
     }
-    
+
     function signOut() {
         var auth2 = gapi.auth2.getAuthInstance();
         auth2.signOut().then(function () {
