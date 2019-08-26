@@ -2,8 +2,13 @@
 {{-- <meta name="google-signin-client_id" content="658704434303-kgbsdp88qh3avffl16blio0s3kkd7gfa.apps.googleusercontent.com"> --}}
 
 
-<div class="g-signin2" data-onsuccess="onSignIn"></div>
+<div class="g-signin2" data-onsuccess="onSignIn" style="display:none"></div>
+
 <script>
+    $('.btn-google_login').click(function(){
+        $('.g-signin2').click();
+    })
+
     function onSignIn(googleUser) {
         // alert(1)
         var profile = googleUser.getBasicProfile();

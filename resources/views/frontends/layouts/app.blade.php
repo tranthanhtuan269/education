@@ -406,7 +406,7 @@
                                                             </span>
                                                             Đăng nhập với facebook
                                                         </a>
-                                                        <a href="#" class="btn btn-lg btn-danger btn-block kpx_btn_google" data-toggle="tooltip" data-placement="top" title="Google">
+                                                        <a href="#" class="btn btn-lg btn-danger btn-block kpx_btn_google btn-google_login" data-toggle="tooltip" data-placement="top" title="Google">
                                                             <span class="social-login-icon">
                                                                 <i class="fab fa-google fa-lg fa-fw"></i>
                                                             </span>
