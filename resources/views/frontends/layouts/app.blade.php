@@ -373,7 +373,7 @@
                                             <li><a href="#" onclick="signOut();">Sign out</a></li>
                                             <script>
                                                 function signOut() {
-
+                                                    gapi.auth2.init();
                                                     var auth2 = gapi.auth2.getAuthInstance();
                                                     auth2.signOut().then(function () {
                                                     console.log('User signed out.');
@@ -422,9 +422,6 @@
                                                             var    name             = profile.getName();
                                                             var    email            = profile.getEmail();
                                                             var    google_id        = profile.getId();
-
-
-                                                            gapi.auth2.init();
 
                                                             $.ajaxSetup({
                                                                 headers: {
