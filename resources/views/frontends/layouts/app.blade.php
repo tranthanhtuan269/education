@@ -1,7 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="vi" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://ogp.me/ns/fb#">
 <head>
     <!-- Google API login -->
-    <meta name="google-signin-client_id" content="658704434303-kgbsdp88qh3avffl16blio0s3kkd7gfa.apps.googleusercontent.com">
+    {{-- <meta name="google-signin-client_id" content="658704434303-kgbsdp88qh3avffl16blio0s3kkd7gfa.apps.googleusercontent.com"> --}}
 
     <!-- Required meta tags -->
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -33,6 +33,8 @@
     <meta name="copyright" content="Edu">
     <meta name="author" content="Edu"/>
     <base href="{{ url('/') }}">
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="658704434303-kgbsdp88qh3avffl16blio0s3kkd7gfa.apps.googleusercontent.com">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
 <body>
@@ -407,92 +409,23 @@
                                                             Đăng nhập với Google
                                                         </a>
                                                     </div>
-                                                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
-                                                    {{-- @include('components.google-login') --}}
+                                                    <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
                                                     <script>
-                                                        function onSignIn(googleUser) {
-                                                            // alert(1)
-                                                            var profile = googleUser.getBasicProfile();
-
-                                                            console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-                                                            console.log('Name: ' + profile.getName());
-                                                            console.log('Image URL: ' + profile.getImageUrl());
-                                                            console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-
-                                                            var    name             = profile.getName();
-                                                            var    email            = profile.getEmail();
-                                                            var    google_id        = profile.getId();
-
-                                                            $.ajaxSetup({
-                                                                headers: {
-                                                                    'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
-                                                                }
-                                                            });
-                                                            
-                                                            $.ajax({
-                                                                url: "/googleLogin",
-                                                                data: {
-                                                                    name        : name,
-                                                                    email       : email,
-                                                                    google_id   : google_id,
-                                                                },
-                                                                method: "POST",
-                                                                dataType:'json',
-                                                                beforeSend: function(r, a){
-                                                                    $('.alert-errors').addClass('d-none');
-                                                                },
-                                                                success: function (response) {
-                                                                    if(response.status == 200){
-                                                                        Swal.fire({
-                                                                            type: 'success',
-                                                                            text: 'Đăng nhập thành công'
-                                                                        })
-                                                                        // location.reload();
-                                                                    } else {
-                                                                        if(response.status == 201){
-                                                                            Swal.fire({
-                                                                                type: 'success',
-                                                                                text: 'Đăng ký thành công!'
-                                                                            })
-                                                                            location.reload();
-                                                                        }else{
-                                                                            Swal.fire({
-                                                                                type: 'warning',
-                                                                                text: 'Đăng nhập thất bại'
-                                                                            })
-                                                                        }
-                                                                        if(response.status){
-                                                                            Swal.fire({
-                                                                                type: 'warning',
-                                                                                text: 'Email đã có tài khoản, yêu cầu đăng nhập!'
-                                                                            })
-                                                                            // location.reload();
-                                                                        }
-                                                                    }
-                                                                },
-                                                                error: function (error) {
-                                                                    var obj_errors = error;
-                                                                    console.log(obj_errors)
-                                                                    var txt_errors = 'Lỗi';
-                                                                    // for (k of Object.keys(obj_errors)) {
-                                                                    //     txt_errors += obj_errors[k][0] + '</br>';
-                                                                    // }
-                                                                    Swal.fire({
-                                                                        type: 'warning',
-                                                                        html: txt_errors,
-                                                                    })
-                                                                }
-                                                            });
-                                                        }
+                                                    function onSignIn(googleUser) {
+                                                        // Useful data for your client-side scripts:
+                                                        var profile = googleUser.getBasicProfile();
+                                                        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+                                                        console.log('Full Name: ' + profile.getName());
+                                                        console.log('Given Name: ' + profile.getGivenName());
+                                                        console.log('Family Name: ' + profile.getFamilyName());
+                                                        console.log("Image URL: " + profile.getImageUrl());
+                                                        console.log("Email: " + profile.getEmail());
+                                                
+                                                        // The ID token you need to pass to your backend:
+                                                        var id_token = googleUser.getAuthResponse().id_token;
+                                                        console.log("ID Token: " + id_token);
+                                                    }
                                                     </script>
-                                                    <br />
-                        {{-- <p style="margin-left:265px">OR</p>
-                        <br />
-                        <div class="form-group">
-                            <div class="col-md-8 col-md-offset-4">
-                              <a href="{{url('/redirect')}}" class="btn btn-primary">Login with Facebook</a>
-                            </div>
-                        </div> --}}
 
                                                     <form action="/examples/actions/confirmation.php" method="post">
                                                         <div class="form-group">
