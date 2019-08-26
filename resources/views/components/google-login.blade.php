@@ -2,12 +2,13 @@
 {{-- <meta name="google-signin-client_id" content="658704434303-kgbsdp88qh3avffl16blio0s3kkd7gfa.apps.googleusercontent.com"> --}}
 
 
-<div class="g-signin2" data-onsuccess="onSignIn" style="display:none"></div>
+<div class="g-signin2" data-onsuccess="onSignIn" id="button-signin-gg"></div>
 
 <script>
-    $('.btn-google-login').click(function(){
-        $('.g-signin2').click();
-    })
+    $('#btn-google-login').click(function(){
+        // $('#button-signin-gg').click();
+        onSignIn(googleUser);
+    });
 
     function onSignIn(googleUser) {
         // alert(1)
