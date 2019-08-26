@@ -945,6 +945,8 @@
             $('.number-in-cart').text(number_items_in_cart.length);
             $('.unica-sl-cart').css('display', 'block')
             // console.log(number_items_in_cart.length)
+            
+            $(this).off()
         })
 
         if(localStorage.getItem('cart') != null){
@@ -955,7 +957,9 @@
                 $('.interactive-bar[data-i='+obj.id+']').remove();
 
                 $('.sidebar-add-cart button[id='+obj.id+']').html('<b>Đã thêm vào giỏ hàng</b>');
+                $(".sidebar-add-cart button").off()
             });
+            
             // $('.interactive-bar[data-i="{{ $info_course->id }}"]').remove();
         }
     })
