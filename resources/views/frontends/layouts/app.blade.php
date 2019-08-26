@@ -366,6 +366,7 @@
                                             @endif
                                             <li class="divider"></li>
                                             <li><a href="{{ url('user/logout') }}" class="btnDangxuat"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
+                                            <li><a href="#" onclick="signOut();">Sign out</a></li>
                                         </ul>
                                     </li>
                                     @else
@@ -393,6 +394,8 @@
                                                             Đăng nhập với Google
                                                         </a>
                                                     </div>
+                                                    @include('components.google-login')
+
                                                     <br />
                         {{-- <p style="margin-left:265px">OR</p>
                         <br />
