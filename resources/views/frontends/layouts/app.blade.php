@@ -368,12 +368,16 @@
 
                                             @endif
                                             <li class="divider"></li>
-                                            <li><a href="{{ url('user/logout') }}" class="btnDangxuat"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
+                                            <li><a href="{{ url('user/logout') }}" class="btnDangxuat btn-google-logout"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
                                             {{-- <li><a href="#" onclick="signOut();">Sign out</a></li> --}}
                                             {{-- <div class="g-signin2" data-onsuccess="onSignIn"></div> --}}
-                                            <a href="#" data-onsuccess="onSignIn">Sign out</a></li>
+                                            {{-- <a href="#" data-onsuccess="onSignIn">Sign out</a></li> --}}
+                                            <div class="g-signin2" data-onsuccess="onSignIn"></div>
                                             <script src="https://apis.google.com/js/platform.js" async></script>
                                             <script>
+                                                $('.btn-google-logout').click(function(){
+                                                    
+                                                })
                                                 function onSignIn(googleUser) {
                                                     var profile = googleUser.getBasicProfile();
 
