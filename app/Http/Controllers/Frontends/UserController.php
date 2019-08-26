@@ -419,7 +419,11 @@ class UserController extends Controller
                     return response()->json(['message' => 'Ok', 'status' => 200]);
                 }
             }else{
-                return response()->json(['status' => 301]);
+                $user->google_id = $request->google_id;
+                $user->save();
+                
+                Auth::login($user);
+                return \Response::json(array('status' => '200'));
             }
 
         }else{
@@ -438,7 +442,7 @@ class UserController extends Controller
     
             Auth::login($user);
     
-            $user->save();
+            $user_role->save();
             return \Response::json(array('status' => '201'));
         }
 
