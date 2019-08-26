@@ -67,7 +67,7 @@
             error: function (error) {
                 var obj_errors = error;
                 console.log(obj_errors)
-                // var txt_errors = 'abc';
+                var txt_errors = 'Lỗi';
                 // for (k of Object.keys(obj_errors)) {
                 //     txt_errors += obj_errors[k][0] + '</br>';
                 // }
