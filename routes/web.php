@@ -209,7 +209,7 @@ Route::get('search', 'Frontends\HomeController@search');
 
 Route::get('nap-tien', 'Frontends\HomeController@naptien');
 
-Route::get('googleLogin', 'Frontends\UserController@googleLogin');
+Route::post('googleLogin', 'Frontends\UserController@googleLogin');
 
 
 Route::get('become-teacher', 'Frontends\HomeController@becomeTeacher');
