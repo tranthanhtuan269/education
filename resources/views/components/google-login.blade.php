@@ -1,5 +1,5 @@
 <script src="https://apis.google.com/js/platform.js" async></script>
-<meta name="google-signin-client_id" content="658704434303-kgbsdp88qh3avffl16blio0s3kkd7gfa.apps.googleusercontent.com">
+{{-- <meta name="google-signin-client_id" content="658704434303-kgbsdp88qh3avffl16blio0s3kkd7gfa.apps.googleusercontent.com"> --}}
 
 
 <div class="g-signin2" data-onsuccess="onSignIn"></div>
@@ -79,11 +79,11 @@
         });
     }
 
-    function signOut() {
-        var auth2 = gapi.auth2.getAuthInstance();
-        auth2.signOut().then(function () {
-        console.log('User signed out.');
-        });
-    }
+    // function signOut() {
+    //     var auth2 = gapi.auth2.getAuthInstance();
+    //     auth2.signOut().then(function () {
+    //     console.log('User signed out.');
+    //     });
+    // }
 
 </script>

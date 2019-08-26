@@ -1,5 +1,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="vi" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://ogp.me/ns/fb#">
 <head>
+    <!-- Google API login -->
+    <meta name="google-signin-client_id" content="658704434303-kgbsdp88qh3avffl16blio0s3kkd7gfa.apps.googleusercontent.com">
+
     <!-- Required meta tags -->
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
@@ -366,7 +369,16 @@
                                             @endif
                                             <li class="divider"></li>
                                             <li><a href="{{ url('user/logout') }}" class="btnDangxuat"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
+                                            <script src="https://apis.google.com/js/platform.js" async></script>
                                             <li><a href="#" onclick="signOut();">Sign out</a></li>
+                                            <script>
+                                                function signOut() {
+                                                    var auth2 = gapi.auth2.getAuthInstance();
+                                                    auth2.signOut().then(function () {
+                                                    console.log('User signed out.');
+                                                    });
+                                                }
+                                            </script>
                                         </ul>
                                     </li>
                                     @else
