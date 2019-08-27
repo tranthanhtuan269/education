@@ -606,9 +606,11 @@
                 $('.unica-home-menutop').removeClass('fixed');
             }
         });
-        if(localStorage.getItem('cart') != []){
-            
+        var localStoreageCart = JSON.parse(localStorage.getItem('cart'))
+        if(localStoreageCart.length >= 1){
+            $('.unica-sl-cart').css('display', 'block')
         }
+
         @if(Auth::check())
         $(document).ready( function () {
             $.ajaxSetup({
@@ -634,9 +636,9 @@
                     
                     $(".unica-sl-notify b").text(response.unread_emails.length)
 
-                    if(response.unread_emails.length < 1){
+                    if(response.unread_emails.length >= 1){
                         // $(".unica-sl-notify").remove()
-                        $('.unica-sl-notify').css('display', 'none' )
+                        $('.unica-sl-notify').css('display', 'block' )
                     }
 
                 },
@@ -800,10 +802,10 @@
                     $(".cart-page-empty").addClass('active')
                     $(".cart-page-content").removeClass('active')
                     // $('.unica-sl-cart').remove()
-                    $('.unica-sl-cart').css('display', 'none' )
+                    // $('.unica-sl-cart').css('display', 'none' )
 
                 }else{
-                    
+
                 }
 
 

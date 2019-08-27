@@ -87,6 +87,7 @@
     $(document).ready(function(){
         if(cart_items.length < 1){
             $(".cart-page-empty").addClass('active')
+            $('.cart-page-title.container').hide()
         }else{
             $(".cart-page-content").addClass('active')
         }
@@ -215,19 +216,26 @@
 
                     localStorage.setItem('cart', JSON.stringify(cart_items))
                     if(totalPrice == totalInitialPrice){
-                        $('.initial-price').css('display', 'none')
+                        $('.price-group .initial-price').css('display', 'none')
+                        $('.price-group .percent-off').css('display', 'none')
                     }else{
-                        $('.initial-price').css('display', 'block')
+                        $('.price-group .percent-off').css('display', 'block')
+                        $('.price-group .initial-price').css('display', 'block')
                     }
                     if(cart_items.length < 1){
                         $('.unica-sl-cart').css('display', 'none' )
+                    }else{
+                        $('.unica-sl-cart').css('display', 'block' )
                     }
 
                     if(cart_items.length == 0){
                         // location.reload();
                         $(".cart-page-content").hide()
+                        $('.cart-page-title.container').hide()
 
                         $(".cart-page-empty").show()
+                    }else{
+                        $('.cart-page-title.container').show()
                     }
                 }
                 
