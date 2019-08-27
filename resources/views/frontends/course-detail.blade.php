@@ -299,14 +299,14 @@
                                     <div class="button-class clearfix">
                                         @if (!in_array($info_course->id, $list_bought))
                                         <div class="sidebar-add-cart">
-                                            <button type="button" id="{{ $info_course->id }}" class="btn btn-primary"><b>Thêm vào giỏ hàng</b></button>
+                                            <button type="button" id="{{ $info_course->id }}" class="btn btn-primary button-add-to-cart"><b>Thêm vào giỏ hàng</b></button>
                                         </div>
                                         <div class="sidebar-buy-now">
                                             <button type="button" id="buy-now2" class="btn btn-warning"><b>Mua ngay</b></button>
                                         </div>
                                         @else
                                         <div class="sidebar-add-cart">
-                                            <button type="button" id="add-cart2" class="btn btn-primary"><b>Bạn đã mua khóa học này</b></button>
+                                            <button type="button" id="add-cart2" class="btn btn-primary button-add-to-cart"><b>Bạn đã mua khóa học này</b></button>
                                         </div>
                                         <div class="sidebar-buy-now">
                                             <a href="/list-course?type=best-seller" class="btn btn-warning" style="width: 90%;padding: 10px 0;margin-top: 10px;text-transform: uppercase;"><b>Xem các khóa học phổ biến</b></a>
@@ -914,8 +914,6 @@
             $(this).remove();
             $(".btn-buy-now button").remove();
             $('.interactive-bar').remove();
-
-            
             
             addCard();
             Swal.fire({
@@ -932,7 +930,7 @@
             $.each( number_items_in_cart, function(i, obj) {
                 $('.sidebar-add-cart button[id='+obj.id+']').html('<b>Đã thêm vào giỏ hàng</b>');
             });
-            $(".sidebar-add-cart button").off()
+            // $(".sidebar-add-cart button").off()
         })
         
         $(".sidebar-add-cart button").click( function(e){
@@ -943,7 +941,8 @@
             // $(".btn-buy-now button").remove();
             // $('.interactive-bar').remove();
 
-            $(this).html('<b>Đã thêm vào giỏ hàng</b>')
+            $(this).html('<b>Đã thêm vào giỏ hàng</b>').attr('disabled', true)
+
             
             addCard();
             Swal.fire({
@@ -966,7 +965,8 @@
                 $('.interactive-bar[data-i='+obj.id+']').remove();
 
                 $('.sidebar-add-cart button[id='+obj.id+']').html('<b>Đã thêm vào giỏ hàng</b>');
-                $(".sidebar-add-cart button").off()
+                $(".sidebar-add-cart button").off().attr('disabled', true)
+                
             });
             
             // $('.interactive-bar[data-i="{{ $info_course->id }}"]').remove();
@@ -981,35 +981,35 @@
     }
 
     function addCard(){
-            var item = {
-                'id' : {!! $info_course->id !!},
-                'image' : '{!! $info_course->image !!}',
-                'slug' : '{!! $info_course->slug !!}',                
-                @if(count($info_course->Lecturers()) > 0)
-                'lecturer' : "{!! $info_course->Lecturers()[0]->user->name !!}",
-                @else
-                'lecturer' : 'Nhiều giảng viên',
-                @endif
-                'name' : "{!! $info_course->name !!}",
-                'price' : {!! $info_course->price !!},
-                'real_price' : {!! $info_course->real_price !!},
-                'coupon_price' : {!! $info_course->price !!},
-                'coupon_code' : '',
-            }
-
-            if (localStorage.getItem("cart") != null) {
-                var list_item = JSON.parse(localStorage.getItem("cart"));
-                addItem(list_item, item);
-                localStorage.setItem("cart", JSON.stringify(list_item));
-            }else{
-                var list_item = [];
-                addItem(list_item, item);
-                localStorage.setItem("cart", JSON.stringify(list_item));
-            }
-
-            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
-                // alert(number_items_in_cart.length)
-            $('.number-in-cart').text(number_items_in_cart.length);
+        var item = {
+            'id' : {!! $info_course->id !!},
+            'image' : '{!! $info_course->image !!}',
+            'slug' : '{!! $info_course->slug !!}',                
+            @if(count($info_course->Lecturers()) > 0)
+            'lecturer' : "{!! $info_course->Lecturers()[0]->user->name !!}",
+            @else
+            'lecturer' : 'Nhiều giảng viên',
+            @endif
+            'name' : "{!! $info_course->name !!}",
+            'price' : {!! $info_course->price !!},
+            'real_price' : {!! $info_course->real_price !!},
+            'coupon_price' : {!! $info_course->price !!},
+            'coupon_code' : '',
         }
+
+        if (localStorage.getItem("cart") != null) {
+            var list_item = JSON.parse(localStorage.getItem("cart"));
+            addItem(list_item, item);
+            localStorage.setItem("cart", JSON.stringify(list_item));
+        }else{
+            var list_item = [];
+            addItem(list_item, item);
+            localStorage.setItem("cart", JSON.stringify(list_item));
+        }
+
+        var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
+            // alert(number_items_in_cart.length)
+        $('.number-in-cart').text(number_items_in_cart.length);
+    }
 </script>
 @endsection

@@ -28,13 +28,19 @@
         @endphp
         @if ($will_learn != null)
             <ul class="big-des">
-                @foreach ($will_learn as $will)
+                @foreach ($will_learn as $key => $will)
                 <?php                          
                 if(count(explode(" ",trim($will," "))) < 2) continue;
                 ?>
                 <li>
                     <i class="fa fa-chevron-right fa-fw" aria-hidden="true"></i>{!! ltrim($will,";") !!}
                 </li>
+                @if( $key == 3 )
+                <li>
+                    <i class="fa fa-chevron-right fa-fw" aria-hidden="true"></i>...
+                </li>
+                @break
+                @endif
                 @endforeach
             </ul>
         @endif
@@ -46,6 +52,74 @@
         <p class="price-o">Tiết kiệm {{(int)(100 - ($course->price/$course->real_price)*100)}}%</p>
         @endif
 
-        <a href="/course/{{$course->slug}}">Đăng ký học</a>
+        <a href="/course/{{$course->slug}}">Thêm vào giỏ hàng</a>
+        <div class="teacher-course">
+            <button type="button" id="add-cart" data-id="{{ $course->id }}" class="btn btn-danger"><b>THÊM VÀO GIỎ HÀNG</b></button>
+        </div>
     </div>
 </div>
+
+<script>
+
+    jQuery(function () {
+        $(".teacher-course button").click( function(e){
+            e.stopPropagation()
+            e.preventDefault()
+
+            $(this).html('<b>ĐÃ THÊM VÀO GIỎ HÀNG</b>')
+            
+            addCard();
+            Swal.fire({
+                type: 'success',
+                text: 'Đã thêm vào giỏ hàng!'
+            })
+            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'));
+            $('.number-in-cart').text(number_items_in_cart.length);
+            $('.unica-sl-cart').css('display', 'block')
+            // console.log(number_items_in_cart.length)
+            
+            $(this).off()
+        })
+
+        if(localStorage.getItem('cart') != null){
+            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
+
+            $.each( number_items_in_cart, function(i, obj) {
+                $('.teacher-course button[data-id='+obj.id+']').html('<b>ĐÃ THÊM VÀO GIỎ HÀNG</b>');
+                // $(".sidebar-add-cart button").off()
+            });
+        }
+    })
+
+    function addCard(){
+        var item = {
+            'id' : {!! $course->id !!},
+            'image' : '{!! $course->image !!}',
+            'slug' : '{!! $course->slug !!}',                
+            @if(count($course->Lecturers()) > 0)
+            'lecturer' : "{!! $course->Lecturers()[0]->user->name !!}",
+            @else
+            'lecturer' : 'Nhiều giảng viên',
+            @endif
+            'name' : "{!! $course->name !!}",
+            'price' : {!! $course->price !!},
+            'real_price' : {!! $course->real_price !!},
+            'coupon_price' : {!! $course->price !!},
+            'coupon_code' : '',
+        }
+
+        if (localStorage.getItem("cart") != null) {
+            var list_item = JSON.parse(localStorage.getItem("cart"));
+            addItem(list_item, item);
+            localStorage.setItem("cart", JSON.stringify(list_item));
+        }else{
+            var list_item = [];
+            addItem(list_item, item);
+            localStorage.setItem("cart", JSON.stringify(list_item));
+        }
+
+        var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
+            // alert(number_items_in_cart.length)
+        $('.number-in-cart').text(number_items_in_cart.length);
+    }
+</script>
