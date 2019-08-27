@@ -236,6 +236,7 @@ ul.unica-acc-zone li.special:hover a{color:#fff}
 .become-teacher .ads-teacher h2{font-size:36px;color:#FFC700;font-weight:600;padding:15px 0 25px 0}
 .become-teacher .ads-teacher a{background:#fff;color:#52937A;border:none;border-radius:10px;padding:10px 30px;display:inline-block;font-weight:800;font-size: 16px}
 .become-teacher img{height:300px}
+.become-teacher .ads-teacher a:hover{box-shadow: 0px 5px 5px rgba(256, 256, 256, 0.4);transform: translateY(-1px);}
 .member-card{padding:30px 0}
 .member-card .courdemy-member{padding-bottom:40px}
 /*.member-card .courdemy-member a{font-size: 20px;font-weight: 800}*/
