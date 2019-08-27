@@ -1,3 +1,13 @@
+<?php
+    $list_bought = [];
+    if(Auth::check() && strlen(Auth::user()->bought) > 0){
+        $list_bought = \json_decode(Auth::user()->bought);
+    }
+
+    // dd($list_bought)
+    // dd($course->id)
+?>
+
 <div class="ubc-course">
     <div class="img-ubc-course">
     <a href="/course/{{$course->slug}}">
@@ -52,9 +62,13 @@
         <p class="price-o">Tiết kiệm {{(int)(100 - ($course->price/$course->real_price)*100)}}%</p>
         @endif
 
-        <a href="/course/{{$course->slug}}">Thêm vào giỏ hàng</a>
+        {{-- <a href="/course/{{$course->slug}}">Thêm vào giỏ hàng</a> --}}
         <div class="teacher-course">
-            <button type="button" id="add-cart" data-id="{{ $course->id }}" class="btn btn-danger"><b>THÊM VÀO GIỎ HÀNG</b></button>
+            @if (in_array($course->id, $list_bought))
+            <div class="btn btn-danger" disabled><b>BẠN ĐÃ MUA KHÓA HỌC NÀY</b></div>
+            @else
+            <div id="add-cart" data-id="{{ $course->id }}" class="btn btn-danger"><b>THÊM VÀO GIỎ HÀNG</b></div>
+            @endif
         </div>
     </div>
 </div>
@@ -62,11 +76,11 @@
 <script>
 
     jQuery(function () {
-        $(".teacher-course button").click( function(e){
+        $(".teacher-course #add-cart").click( function(e){
             e.stopPropagation()
             e.preventDefault()
 
-            $(this).html('<b>ĐÃ THÊM VÀO GIỎ HÀNG</b>')
+            $(this).html('<b>ĐÃ THÊM VÀO GIỎ HÀNG</b>').attr('disabled', true)
             
             addCard();
             Swal.fire({
@@ -77,15 +91,13 @@
             $('.number-in-cart').text(number_items_in_cart.length);
             $('.unica-sl-cart').css('display', 'block')
             // console.log(number_items_in_cart.length)
-            
-            $(this).off()
         })
 
         if(localStorage.getItem('cart') != null){
             var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
 
             $.each( number_items_in_cart, function(i, obj) {
-                $('.teacher-course button[data-id='+obj.id+']').html('<b>ĐÃ THÊM VÀO GIỎ HÀNG</b>');
+                $('.teacher-course #add-cart').html('<b>ĐÃ THÊM VÀO GIỎ HÀNG</b>').attr('disabled', true)
                 // $(".sidebar-add-cart button").off()
             });
         }
