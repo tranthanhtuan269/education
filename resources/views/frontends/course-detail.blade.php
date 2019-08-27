@@ -301,14 +301,14 @@
                                         <div class="sidebar-add-cart">
                                             <button type="button" id="{{ $info_course->id }}" class="btn btn-primary"><b>Thêm vào giỏ hàng</b></button>
                                         </div>
-                                        <div class="btn-buy-now">
+                                        <div class="sidebar-buy-now">
                                             <button type="button" id="buy-now2" class="btn btn-warning"><b>Mua ngay</b></button>
                                         </div>
                                         @else
                                         <div class="sidebar-add-cart">
                                             <button type="button" id="add-cart2" class="btn btn-primary"><b>Bạn đã mua khóa học này</b></button>
                                         </div>
-                                        <div class="btn-buy-now">
+                                        <div class="sidebar-buy-now">
                                             <a href="/list-course?type=best-seller" class="btn btn-warning" style="width: 90%;padding: 10px 0;margin-top: 10px;text-transform: uppercase;"><b>Xem các khóa học phổ biến</b></a>
                                         </div>
                                         @endif
@@ -914,6 +914,8 @@
             $(this).remove();
             $(".btn-buy-now button").remove();
             $('.interactive-bar').remove();
+
+            
             
             addCard();
             Swal.fire({
@@ -924,6 +926,13 @@
             $('.number-in-cart').text(number_items_in_cart.length);
             $('.unica-sl-cart').css('display', 'block')
             // console.log(number_items_in_cart.length)
+
+            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
+
+            $.each( number_items_in_cart, function(i, obj) {
+                $('.sidebar-add-cart button[id='+obj.id+']').html('<b>Đã thêm vào giỏ hàng</b>');
+            });
+            $(".sidebar-add-cart button").off()
         })
         
         $(".sidebar-add-cart button").click( function(e){
