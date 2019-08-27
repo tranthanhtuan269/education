@@ -5,6 +5,9 @@
     $learningId = $user_role_course_instance_video->learning_id;
     $video_done_units = $user_role_course_instance_video->videos;
     $video_done_count = 0;
+    if(!is_array($video_done_units[0])){
+        $video_done_units = array($video_done_units);
+    }
     foreach ($video_done_units as $key => $unit) {
         if(isset(array_count_values($unit)[1])){
             $video_done_count += array_count_values($unit)[1];

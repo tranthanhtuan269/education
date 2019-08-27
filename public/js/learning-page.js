@@ -60,6 +60,15 @@ $(document).ready(function () {
             $("#btnContinue").click()
         }
     })
+    $('.vjs-fullscreen-control.vjs-control.vjs-button').on('click', function () {
+        var isFullscreen = player.isFullscreen()
+        if(isFullscreen){
+            $('.group-btn-utilities div').hide()
+        }else{
+            $('.group-btn-utilities div').show()
+        }       
+    })
+
 
     var imageAddr = "https://3.bp.blogspot.com/-p4_qEVLk2dk/V5ZOdoiObWI/AAAAAAAAB74/8F9sCzKkNSY/chien-binh-sieu-am-thanh.jpg"; 
     // var imageAddr = "http://www.kenrockwell.com/contax/images/g2/examples/31120037-5mb.jpg";

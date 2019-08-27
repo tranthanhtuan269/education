@@ -80,6 +80,7 @@
                             </a>
                         </li>
                         @if ($video->id === $main_video->id)
+                        
                             <script>
                                 $("#sectionBody"+{{ $key+1 }}).addClass('in')
                             </script>
