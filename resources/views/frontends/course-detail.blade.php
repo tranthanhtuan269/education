@@ -965,7 +965,7 @@
                 $('.interactive-bar[data-i='+obj.id+']').remove();
 
                 $('.sidebar-add-cart button[id='+obj.id+']').html('<b>Đã thêm vào giỏ hàng</b>');
-                $(".sidebar-add-cart button").off().attr('disabled', true)
+                $('.sidebar-add-cart button[id='+obj.id+']').attr('disabled', true)
                 
             });
             
