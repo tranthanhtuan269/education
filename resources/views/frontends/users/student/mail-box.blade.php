@@ -154,7 +154,11 @@
                         $('#myModalContentMailBox').modal('show');
                         if(self.parent().parent().attr('style').length > 0){
                             var note_number = parseInt($('.unica-sl-notify b').text())
-                            $('.unica-sl-notify b').text(note_number-1)
+                            if(note_number - 1 > 0){
+                                $('.unica-sl-notify b').text(note_number-1)
+                            }else{
+                                $('.unica-sl-notify').css('display', 'none')
+                            }
                         }
                         self.parent().parent().attr('style','')
                     },
