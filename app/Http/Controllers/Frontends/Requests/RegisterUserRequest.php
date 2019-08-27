@@ -32,7 +32,7 @@ class RegisterUserRequest extends FormRequest
     public function messages()
     {
         return [
-            'email.regex_email'         => 'The email must be a valid email address.',
+            'email.regex_email'         => 'Địa chỉ Email không hợp lệ.',
             'confirmpassword.required'  => 'The confirm field is required.',
             'confirmpassword.same'      => 'The confirm password and password must match.',
         ];

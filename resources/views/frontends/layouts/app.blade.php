@@ -402,7 +402,7 @@
                                                     <div class="modal-title"><b>Đăng nhập vào tài khoản Courdemy của bạn</b></div>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <div class="social-login">
+                                                    {{-- <div class="social-login">
                                                         <a href="{{url('/redirect')}}" class="btn btn-lg btn-primary btn-block kpx_btn-facebook" data-toggle="tooltip" data-placement="top" title="Facebook">
                                                             <span class="social-login-icon">
                                                                 <i class="fab fa-facebook-f fa-lg fa-fw"></i>
@@ -415,8 +415,10 @@
                                                             </span>
                                                             Đăng nhập với Google
                                                         </div>
-                                                    </div>
-                                                    @include('components.google-login')
+                                                    </div> --}}
+                                                    @if($_SERVER['SERVER_NAME'] === "timtruyen.online")
+                                                        @include('components.google-login')
+                                                    @endif
 
                                                     <br />
                         {{-- <p style="margin-left:265px">OR</p>
@@ -453,9 +455,9 @@
                                                         </div>
                                                     </form>
                                                     <div class="forgot-password">
-                                                        <div>
+                                                        {{-- <div>
                                                             <a href="#">Quên mật khẩu?</a>
-                                                        </div>
+                                                        </div> --}}
                                                     </div>
                                                 </div>
 
