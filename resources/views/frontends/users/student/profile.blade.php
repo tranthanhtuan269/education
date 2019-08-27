@@ -282,6 +282,13 @@ $(document).ready(function() {
         var file, img;
         if ((file = this.files[0])) {
             img = new Image();
+            img.onerror = function() {
+                // alert( "Tập tin không hợp lệ: " + file.type);
+                Swal.fire({
+                    type: 'warning',
+                    text: 'Tập tin không hợp lệ!',
+                })
+            };
             img.onload = function() {
                 /* alert(this.width + " " + this.height); */
                 if(this.width < 250 || this.height < 250){
@@ -290,19 +297,13 @@ $(document).ready(function() {
                         type: 'warning',
                         text: 'Yêu cầu kích thước ảnh >= 250x250!',
                     })
+                }else{
+                    $('.cropit-image-zoom-input').show();
+                    $('.rotate-btn-group').show();
                 }
-            };
-            img.onerror = function() {
-                // alert( "Tập tin không hợp lệ: " + file.type);
-                Swal.fire({
-                    type: 'warning',
-                    text: 'Tập tin không hợp lệ!',
-                })
             };
             img.src = _URL.createObjectURL(file);
 
-            $('.cropit-image-zoom-input').show();
-            $('.rotate-btn-group').show();
         }
     });
 });
