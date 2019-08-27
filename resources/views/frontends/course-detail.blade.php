@@ -306,7 +306,7 @@
                                         </div>
                                         @else
                                         <div class="sidebar-add-cart">
-                                            <button type="button" id="add-cart2" class="btn btn-primary button-add-to-cart"><b>Bạn đã mua khóa học này</b></button>
+                                            <button type="button" id="add-cart2" class="btn btn-primary button-add-to-cart" disabled><b>Bạn đã mua khóa học này</b></button>
                                         </div>
                                         <div class="sidebar-buy-now">
                                             <a href="/list-course?type=best-seller" class="btn btn-warning" style="width: 90%;padding: 10px 0;margin-top: 10px;text-transform: uppercase;"><b>Xem các khóa học phổ biến</b></a>
