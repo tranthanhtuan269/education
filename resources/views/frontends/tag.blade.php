@@ -72,7 +72,7 @@
                     @else
                     <div class="error_search">
                         <div class="search_style">
-                            <h2>No results</h2>
+                            <h2>Chưa có khóa học nào</h2>
                         </div>
                     </div>
                     @endif

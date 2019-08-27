@@ -5,7 +5,7 @@
     
     <div class="learning-lecture-list-searchbar">
         <div class="input-group">
-            <input type="text" class="form-control" id="sidebarInput" placeholder="Search for lectures">
+            <input type="text" class="form-control" id="sidebarInput" placeholder="Tìm kiếm bài giảng">
             
             <span class="input-group-addon" id="btnSearchSidebar" ><i class="fas fa-search"></i></span>
             

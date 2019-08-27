@@ -44,10 +44,10 @@ class ReportController extends Controller
             $report->message = $request->message;
 
             $report->save();
-            return \Response::json(array('status' => '200', 'message' => 'Report Submitted Successfully!'));
+            return \Response::json(array('status' => '200', 'message' => 'Gửi báo lỗi thành công!'));
 
         }else{
-            return \Response::json(array('status' => '404', 'message' => 'Message Receiving Error!'));
+            return \Response::json(array('status' => '404', 'message' => 'Gửi báo lỗi thất bại!'));
         }
 
     }

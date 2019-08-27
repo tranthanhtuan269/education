@@ -31,9 +31,16 @@ class ChangePassUserRequest extends FormRequest
     public function messages()
     {
         return [
-            'password_old.check_pass'      => 'Current password is not exact.',
-            'confirmpassword.required'     => 'The confirm password field is required.',
-            'confirmpassword.same'         => 'The confirm password and password must match.',
+            'password_old.required'        => 'Bạn chưa nhập mật khẩu hiện tại.',
+            'password_old.check_pass'      => 'Mật khẩu hiện tại chưa chính xác.',
+
+            'password.required'            => 'Bạn chưa nhập mật khẩu mới.',
+            'password.min'                 => 'Mật khẩu mới phải có ít nhất 8 ký tự.',
+            'password.max'                 => 'Mật khẩu mới có tối đa 32 ký tự.',
+            'password.different'           => 'Mật khẩu mới và mật khẩu hiện tại trùng nhau.',
+
+            'confirmpassword.required'     => 'Bạn chưa Xác nhận mật khẩu.',
+            'confirmpassword.same'         => 'Mật khẩu và Xác nhận mật khẩu không trùng nhau.',
         ];
     }
 }

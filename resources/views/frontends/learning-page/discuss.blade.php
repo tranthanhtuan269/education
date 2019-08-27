@@ -162,7 +162,7 @@
                                 html += '<p>'+ username +' - ';
                                 html += userType;
                                 html += '</p>';
-                                html += '<span><em>Just now</em></span>';
+                                html += '<span><em>Vừa xong</em></span>';
                                 html += '</div>';
                                 html += '<div class="ln-disc-post-short-content" id="discComment'+ id +'">';
                                     html += '<p>'+ content +'</p>';

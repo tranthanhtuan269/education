@@ -14,7 +14,7 @@
             <div class="modal-body">
                 <h5>Tiêu đề:</h5>
                 <input class="form-control" type="text" name="title" id="videoReportTitle">
-                <h5>Lỗi:</h5>
+                <h5>Mô tả lỗi:</h5>
                 <textarea name="content" id="reportEditor"></textarea>
                 <script>
                         var reportEditor;

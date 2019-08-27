@@ -31,13 +31,13 @@ class HomeController extends Controller
         $type = trim($request->get('type'));
         if ($type == 'best-seller') {
             $list_course = Course::where('status', 1)->orderBy('sale_count', 'desc')->paginate(16);
-            $title = 'Khoá học được mua nhiều nhất';
+            $title = 'Các khoá học bán chạy';
         } elseif ($type == 'new') {
             $list_course = Course::where('status', 1)->orderBy('id', 'desc')->paginate(16);
-            $title = 'New';
+            $title = 'Các khóa học mới nhất';
         } elseif ($type == 'trendding') {
             $list_course = Course::where('status', 1)->where('featured', 1)->orderBy('featured_index', 'asc')->paginate(16);
-            $title = 'Trendding';
+            $title = 'Các khóa học thịnh hành';
         }
 
         return view('frontends.list-course-by-type', compact('list_course', 'title'));
