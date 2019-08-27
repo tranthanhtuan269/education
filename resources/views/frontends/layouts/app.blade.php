@@ -800,6 +800,8 @@
                     // $('.unica-sl-cart').remove()
                     $('.unica-sl-cart').css('display', 'none' )
 
+                }else{
+                    
                 }
 
 
