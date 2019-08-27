@@ -25,7 +25,7 @@
 							<a class="btn btn-default btn-xs" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(url()->current()); ?>" target="_blank">
 								<i class="fas fa-share-alt fa-fw"></i> Chia sẻ Facebook
 							</a>
-							<a  class="btn btn-default btn-xs" href="{{ url('/') }}/{{ $info_teacher->userRole->user->facebook }}" target="_blank">
+							<a  class="btn btn-default btn-xs" href="{{ $info_teacher->userRole->user->facebook }}" target="_blank">
 								<i class="fab fa-facebook-square fa-fw"></i>Facebook Giảng viên
 							</a>
 						</div>
