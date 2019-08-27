@@ -152,7 +152,7 @@
                     <ul>
                         <li class="active"> Mô tả </li>
                         <li><a href="javascript:;" class="go-box" data-box="box_content">Danh sách bài học</a></li>                        
-                        <li><a href="javascript:;" class="go-box" data-box="box_requirements">Yêu cầu</a></li>
+                        {{-- <li><a href="javascript:;" class="go-box" data-box="box_requirements">Yêu cầu</a></li> --}}
                         <li><a href="javascript:;" class="go-box" data-box="box_reviews">Đánh giá</a> </li>
                         @if (count($info_course->Lecturers()) >= 1) <li><a href="javascript:;" class="go-box" data-box="box_instructors">Thông tin giảng viên</a></li> @endif
                         <li><a href="javascript:;" class="go-box" data-box="box_related_course">Khóa học liên quan </a></li>
@@ -213,9 +213,9 @@
                         </div>
                         @endif
                         <div class="lessons clearfix">
-                            {{-- <div class="col-sm-8" id="box_content"> --}}
+                            <div class="" id="box_content">
                                     @include('components.course-lesson-list')
-                            {{-- </div> --}}
+                            </div>
                             <?php 
                             // $requirements = json_decode($info_course->requirement); 
                             ?>
