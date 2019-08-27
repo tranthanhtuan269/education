@@ -674,14 +674,14 @@
                         @include('components.question-answer', ['comment' => $comment])
                     @endforeach
                 </div>
-            <div class="fb-comments" data-href="http://timtruyen.online/course/{{$info_course->slug}}" data-width="700" data-numposts="5"></div>
             </div>
-            {{-- @if(count($info_course->comments) > 0)
+            @if(count($info_course->comments) > 0)
             <div class="col-sm-12 btn-see-more" data-skip="3" data-take="3">
                 <button type="button" class="btn">Xem thêm</button>
             </div>
-            @endif --}}
+            @endif
         </div>
+        <div class="fb-comments" data-href="http://timtruyen.online/course/{{$info_course->slug}}" data-width="700" data-numposts="5"></div>
     </div>
     <div class="related-course">
         <div class="container">
