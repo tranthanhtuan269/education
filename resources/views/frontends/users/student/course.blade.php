@@ -38,9 +38,16 @@
                             </div>
                             <div class="row">
                                 @if (count($lifelong_course) > 0)
+                                @php
+                                    // dd($lifelong_course)
+                                @endphp
                                     @foreach ($lifelong_course as $course)
                                     <?php
                                         $lecturers = count($course->Lecturers()) > 1 ? 'Nhiều tác giả' : count($course->Lecturers()) > 0 ? $course->Lecturers()[0]->user->name : "Courdemy";
+                                        // if($course->id == 14){
+                                        //     dd($course);
+                                        // }
+                                        // print_r($course->id);die;
                                     ?>
                                     @include(
                                         'components.purchased-course', 

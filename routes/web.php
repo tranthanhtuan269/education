@@ -19,7 +19,6 @@ Auth::routes();
 
 Route::get('mailable', function () {
     $order = App\Order::find(9);
-
     return new App\Mail\OrderCompleted($order, Auth::user() );
 });
 
