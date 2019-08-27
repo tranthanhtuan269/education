@@ -153,8 +153,8 @@
                         <li class="active"> Mô tả </li>
                         <li><a href="javascript:;" class="go-box" data-box="box_content">Danh sách bài học</a></li>                        
                         {{-- <li><a href="javascript:;" class="go-box" data-box="box_requirements">Yêu cầu</a></li> --}}
-                        <li><a href="javascript:;" class="go-box" data-box="box_reviews">Đánh giá</a> </li>
                         @if (count($info_course->Lecturers()) >= 1) <li><a href="javascript:;" class="go-box" data-box="box_instructors">Thông tin giảng viên</a></li> @endif
+                        <li><a href="javascript:;" class="go-box" data-box="box_reviews">Đánh giá</a> </li>
                         <li><a href="javascript:;" class="go-box" data-box="box_related_course">Khóa học liên quan </a></li>
                     </ul>
                 </div>
@@ -212,8 +212,8 @@
                             </div>
                         </div>
                         @endif
-                        <div class="lessons clearfix">
-                            <div class="" id="box_content">
+                        <div class="lessons clearfix" id="box_content">
+                            <div class="">
                                     @include('components.course-lesson-list')
                             </div>
                             <?php 
@@ -457,7 +457,7 @@
     </div>
     @endif
     <div class="container">
-        <div class="course-learning-review">
+        <div class="course-learning-review" id="box_reviews">
             <div class="feedback clearfix">
                 <div class="col-sm-4 student-rating">
                     <h3>Đánh giá của học viên</h3>
@@ -519,7 +519,7 @@
                     </div>
                 </div>
             </div>
-            <div class="reviews"  id="box_reviews">
+            <div class="reviews"  id="">
                 <h3>Nhận xét của học viên
                     {{-- @if(Auth::check()) --}}
                         @if(\App\Helper\Helper::getUserRoleOfCourse($info_course->id))
