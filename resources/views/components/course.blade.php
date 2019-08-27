@@ -10,7 +10,7 @@
 ?>
 <div class="col-md-3 col-sm-6">
     <div class="box-course">
-        <a href="{{ url('/') }}/course/{{ $course->slug }}" title="{{ $course->name }}" class="course-box-slider pop">
+        <a title="{{ $course->name }}" class="course-box-slider pop">
             <div class="img-course">
                 @if (strpos($course->image, 'unica') !== false)
                     <img class="img-responsive"
@@ -51,7 +51,8 @@
                 </div>               
                 @endif
              </div>
-                    
+        <a href="{{ url('/') }}/course/{{ $course->slug }}" title="{{ $course->name }}" class="course-box-slider pop">
+            
             <div class="content-course">
                 <h3 class="title-course">{{ $course->name }}</h3>
                 <div class="clearfix" style="line-height:1.7">
@@ -146,6 +147,7 @@
                 </div>
                 @endif
             </div>
+        </a>
         </a>
     </div>
 </div>
