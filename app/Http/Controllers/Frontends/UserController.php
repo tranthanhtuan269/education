@@ -41,17 +41,17 @@ class UserController extends Controller
         $user = User::where('email', $email)->first();
         
         if( !isset($user) ) {
-            return response()->json(['message' => 'Email is incorrect.', 'status' => 404]);
+            return response()->json(['message' => 'Địa chỉ Email không chính xác.', 'status' => 404]);
         } else {    
             if ( \Hash::check($password, $user->password) ) {
                 if ($user->status == 0) {
-                    return response()->json(['message' => 'This account has been locked.', 'status' => 404]);
+                    return response()->json(['message' => 'Tài khoản của bạn đang bị khóa.', 'status' => 404]);
                 } else {
                     Auth::login($user, $request->get('remember'));
                     return response()->json(['message' => 'Ok', 'status' => 200]);
                 }
             } else { 
-                return response()->json(['message' => 'Password is incorrect.', 'status' => 404]);         
+                return response()->json(['message' => 'Mật khẩu không chính xác.', 'status' => 404]);         
             }
         }
         
@@ -137,10 +137,10 @@ class UserController extends Controller
 
             $user->save();
 
-            return \Response::json(['message' => 'Change profile success!', 'status' => 200]);
+            return \Response::json(['message' => 'Sửa thông tin thành công!', 'status' => 200]);
         }
 
-        return \Response::json(['message' => 'Change profile unsuccess!', 'status' => 404]);
+        return \Response::json(['message' => 'Sửa thông tin không thành công!', 'status' => 404]);
     }
 
     public function profileTeacher()
@@ -189,10 +189,10 @@ class UserController extends Controller
             $teacher->video_intro = "https://www.youtube.com/embed/" . Helper::getYouTubeVideoId($request->video_intro);
             $teacher->save();
 
-            return \Response::json(['message' => 'Change profile success!', 'status' => 200]);
+            return \Response::json(['message' => 'Sửa thông tin thành công!', 'status' => 200]);
         }
 
-        return \Response::json(['message' => 'Change profile unsuccess!', 'status' => 404]);
+        return \Response::json(['message' => 'Sửa thông tin không thành công!', 'status' => 404]);
     }
 
     public function registerTeacher()
@@ -248,13 +248,13 @@ class UserController extends Controller
                 $teacher->video_intro = $request->video_intro;
                 $teacher->save();
     
-                return \Response::json(['message' => 'Register teacher success!', 'status' => 200]);
+                return \Response::json(['message' => 'Đăng ký giảng viên thành công!', 'status' => 200]);
             }
 
-            return \Response::json(['message' => 'You are registered as a teacher!', 'status' => 404]);
+            return \Response::json(['message' => 'Bạn đang là giảng viên!', 'status' => 404]);
         }
 
-        return \Response::json(['message' => 'Register teacher unsuccess!', 'status' => 404]);
+        return \Response::json(['message' => 'Đăng ký giảng viên không thành công!', 'status' => 404]);
     }
 
     public function courseTeacher(Request $request)
@@ -279,10 +279,10 @@ class UserController extends Controller
             $user->password = bcrypt($request->password);
             $user->save();
             Auth::login($user);
-            return \Response::json(['message' => 'You have changed the password to success!', 'status' => 200]);
+            return \Response::json(['message' => 'Thay đổi mật khẩu thành công!', 'status' => 200]);
         }
 
-        return \Response::json(['message' => 'You have changed the password to unsuccess!', 'status' => 404]);
+        return \Response::json(['message' => 'Thay đổi mật khẩu không thành công!', 'status' => 404]);
     }
 
     public function mailBoxStudent()

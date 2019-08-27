@@ -585,7 +585,7 @@
 							
 							return Swal.fire({
 								type:"success",
-								text:"Order has been created!"
+								text:"Mua khóa học thành công!"
 							}).then((result) => {
 								if (result.value) {
 									window.location.href = "/";									

@@ -24,7 +24,7 @@ class RegisterUserRequest extends FormRequest
         return [
             'name'              => 'required|min:3|max:50',
             'email'             => 'required|unique:users,email|regex_email:"/^[_a-zA-Z0-9-]{2,}+(\.[_a-zA-Z0-9-]{2,}+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,3})$/"',
-            'password'          => 'required|min:8|max:100',
+            'password'          => 'required|min:8|max:32',
             'confirmpassword'   => 'required|same:password',
         ];
     }
@@ -32,9 +32,20 @@ class RegisterUserRequest extends FormRequest
     public function messages()
     {
         return [
+            'name.required'             => 'Bạn chưa nhập tên.',
+            'name.min'                  => 'Tên phải có ít nhất 3 ký tự.',
+            'name.max'                  => 'Tên được phép có tối đa 50 ký tự.',
+
+            'email.required'            => 'Bạn chưa nhập email.',
+            'email.unique'              => 'Địa chỉ email đã tồn tại.',
             'email.regex_email'         => 'Địa chỉ Email không hợp lệ.',
-            'confirmpassword.required'  => 'The confirm field is required.',
-            'confirmpassword.same'      => 'The confirm password and password must match.',
+
+            'password.required'         => 'Bạn chưa nhập mật khẩu.',
+            'password.min'              => 'Mật khẩu phải có ít nhất 8 ký tự.',
+            'password.max'              => 'Mật khẩu được phép có tối đa 32 ký tự ký tự.',
+
+            'confirmpassword.required'  => 'Bạn chưa nhập lại mật khẩu.',
+            'confirmpassword.same'      => 'Mật khẩu và Nhập lại mật khẩu không trùng nhau.',
         ];
     }
 }

@@ -96,7 +96,7 @@
                         html += '<p>'+content+'</p>'
                         html += '<div>'
                             html += '<span><strong>'+timeTick+'</strong></span>'
-                            html += '<span><i>Just now</i></span>'
+                            html += '<span><i>Vừa xong</i></span>'
                         html += '</div>'
                     html += '</div>'
                 html += '</div>'

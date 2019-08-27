@@ -23,10 +23,10 @@
 						</div>
 						<div class="network pull-right network-teacher">
 							<a class="btn btn-default btn-xs" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(url()->current()); ?>" target="_blank">
-								<i class="fas fa-share-alt"></i> Share Fb
+								<i class="fas fa-share-alt fa-fw"></i> Chia sẻ Facebook
 							</a>
 							<a  class="btn btn-default btn-xs" href="{{ url('/') }}/{{ $info_teacher->userRole->user->facebook }}" target="_blank">
-								<i class="fab fa-facebook-square"></i> Fb Teacher
+								<i class="fab fa-facebook-square fa-fw"></i>Facebook Giảng viên
 							</a>
 						</div>
 					</div>
@@ -41,11 +41,11 @@
 									<ul>
 										<li>
 											<img src="{{ asset('frontend/images/ic_course.png') }}" alt="" /> 
-											<span class="special">{{ $info_teacher->course_count }} Courses</span>
+											<span class="special">{{ $info_teacher->course_count }} Khóa học</span>
 										</li>
 										<li>
 											<img src="{{ asset('frontend/images/ic_student.png') }}" alt="" /> 
-											<span class="special">{{ $info_teacher->student_count }} Students</span>
+											<span class="special">{{ $info_teacher->student_count }} Học viên</span>
 										</li>
 										{{-- <li>
 											@include(

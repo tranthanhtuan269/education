@@ -38,23 +38,23 @@
                                             <div class="form-group">
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="fas fa-lock fa-fw fa-md"></i></span>
-                                                    <input type="password" class="form-control" placeholder="Current Password" name="pass-old">
+                                                    <input type="password" class="form-control" placeholder="Mật khẩu hiện tại" name="pass-old">
                                                 </div>				
                                             </div>
                                             <div class="form-group">
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="fas fa-lock fa-fw fa-md"></i></span>
-                                                    <input type="password" class="form-control" placeholder="New Password" name="pass-new">
+                                                    <input type="password" class="form-control" placeholder="Mật khẩu mới" name="pass-new">
                                                 </div>				
                                             </div>
                                             <div class="form-group">
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="fas fa-lock fa-fw fa-md"></i></span>
-                                                    <input type="password" class="form-control" placeholder="Re-type New Password" name="confirm-pass">
+                                                    <input type="password" class="form-control" placeholder="Xác nhận mật khẩu mới" name="confirm-pass">
                                                 </div>			
                                             </div>
                                             <div class="form-group">
-                                                <input type="button" class="btn btn-danger btn-block btn-lg" value="Change Password" onclick="changePassAjax()">
+                                                <input type="button" class="btn btn-danger btn-block btn-lg" value="Đổi mật khẩu" onclick="changePassAjax()">
                                             </div>
                                         </form>				
                                     </div>
