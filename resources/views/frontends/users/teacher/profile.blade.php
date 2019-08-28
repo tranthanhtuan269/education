@@ -363,7 +363,7 @@
                         phone: $('input[name=phone]').val().trim(),
                         gender: $('select[name=gender]').val(),
                         address: $('textarea[name=address]').val().trim(),
-                        expert: $('textarea[name=expert]').val().trim(),
+                        expert: $('input[name=expert]').val().trim(),
                         video_intro : $('input[name=video-intro]').val().trim(),
                         cv : cv.getData(),
                     };
