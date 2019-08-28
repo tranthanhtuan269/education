@@ -981,6 +981,20 @@
     }
 
     function addCard(){
+        var course_id = {!! $info_course->id !!}
+        // alert(course_id)
+        // return false
+
+        if(localStorage.getItem('cart') != null){
+            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
+
+            $.each( number_items_in_cart, function(i, obj) {
+                if( course_id == obj.id ){
+                    return false
+                }
+            });
+        }
+
         var item = {
             'id' : {!! $info_course->id !!},
             'image' : '{!! $info_course->image !!}',
