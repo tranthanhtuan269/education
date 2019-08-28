@@ -181,13 +181,12 @@ $(document).ready(function() {
 
     $("#save-profile").click(function() {
         link_base64 = $('#image-cropper').cropit('export');
-        // alert(link_base64)
 
         // Validate Birthday
         if (!validationDate($('#datepicker').val())) {
             Swal.fire({
                 type: 'warning',
-                html: 'Định dạng ngày sinh không đúng',
+                html: 'Ngày sinh phải có định dạng Ngày/Tháng/Năm (Ví dụ: 31/12/1993)',
             })
             return false;
         }
