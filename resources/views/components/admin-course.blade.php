@@ -179,12 +179,12 @@
                             </div>
                         @endif
                     </div>
-                    <div class="modal-footer">
-                        <input id="resetForm" type="reset" value="Reset the form" style="display:none">
-                        <button type="button" class="btn btn-default clear-modal" data-dismiss="modal">Hủy</button>
-                        <button type="button" class="btn btn-primary" id="save-btn{{ $course->id }}">Cập nhật</button>
-                    </div>
+                    <input id="resetForm" type="reset" value="Reset the form" style="display:none">
                 </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default clear-modal" data-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-primary" id="save-btn{{ $course->id }}">Cập nhật</button>
             </div>
             <script>
                 $('.clear-modal').click(function() {
