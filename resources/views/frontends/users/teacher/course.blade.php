@@ -106,34 +106,8 @@
                             <input type="text" class="form-control" id="course-price" name="price">
                         </div>
                         <div class="form-group">
-                            <label for="level" class="control-label">Cấp độ:</label>
-                            <input type="text" class="form-control" id="course-level" name="level">
-                        </div>
-                        <div class="form-group">
                             <label for="approx_time" class="control-label">Thời gian ước tính: (giờ)</label>
                             <input type="text" class="form-control" id="course-approx-time" name="approx-time">
-                        </div>
-                    </div>
-                    <div class="col-md-8">
-                        <div class="form-group">
-                            <label for="name" class="control-label">Tên khóa học:</label>
-                            <input type="text" class="form-control" id="course-name" name="name">
-                        </div>
-                        <div class="form-group">
-                            <label for="short_description" class="control-label">Tóm tắt:</label>
-                            <input type="text" class="form-control" id="short-description" name="short-description">
-                        </div>
-                        <div class="form-group">
-                            <label for="description" class="control-label">Mô tả:</label>
-                            <textarea id="course-description" name="description"  rows="5" style="margin: 0px -11.3438px 0px 0px; width: 558px; height: 150px;"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="will-learn" class="control-label">Học viên sẽ học được:</label>
-                            <input type="text" class="form-control" id="course-will-learn" name="will-learn" placeholder="ví dụ 1, ví dụ 2, ví dụ 3">
-                        </div>
-                        <div class="form-group">
-                            <label for="requirement" class="control-label">Yêu cầu:</label>
-                            <input type="text" class="form-control" id="course-requirement" name="requirement" placeholder="ví dụ 1, ví dụ 2, ví dụ 3">
                         </div>
                         <div class="form-group">
                             <label for="category" class="control-label">Danh mục:</label>
@@ -151,6 +125,32 @@
                             </select>
                         </div>
                     </div>
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="name" class="control-label">Tên khóa học:</label>
+                            <input type="text" class="form-control" id="course-name" name="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="short_description" class="control-label">Tóm tắt:</label>
+                            <input type="text" class="form-control" id="short-description" name="short-description">
+                        </div>
+                        <div class="form-group">
+                            <label for="description" class="control-label">Mô tả:</label>
+                            <textarea id="course-description" name="description"  rows="5" style="margin: 0px -11.3438px 0px 0px; width: 558px; height: 150px;"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="will-learn" class="control-label">Học viên sẽ học được gì:</label>
+                            <input type="text" class="form-control" id="course-will-learn" name="will-learn" placeholder="Ví dụ 1, ví dụ 2, ví dụ 3">
+                        </div>
+                        <div class="form-group">
+                            <label for="requirement" class="control-label">Yêu cầu:</label>
+                            <input type="text" class="form-control" id="course-requirement" name="requirement" placeholder="Ví dụ 1, ví dụ 2, ví dụ 3">
+                        </div>
+                        {{-- <div class="form-group">
+                            <label for="requirement" class="control-label">Video giới thiệu:</label>
+                            <input type="text" class="form-control" id="course-requirement" name="requirement" placeholder="Yêu cầu video từ Youtube">
+                        </div> --}}
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
@@ -166,7 +166,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="exampleModalLabel">Chỉnh sửa <span id="course-name"></span>Khóa học</h4>
+                <h4 class="modal-title" id="exampleModalLabel">Chỉnh sửa khóa học <b><span id="course-name"></span></b></h4>
             </div>
             <div class="modal-body">
                 <form class="row">
@@ -184,12 +184,13 @@
                             <input type="text" class="form-control" id="course-price" name="price">
                         </div>
                         <div class="form-group">
-                            <label for="level" class="control-label">Cấp độ:</label>
-                            <input type="text" class="form-control" id="course-level" name="level">
-                        </div>
-                        <div class="form-group">
                             <label for="approx_time" class="control-label">Thời gian ước tính: (giờ)</label>
                             <input type="text" class="form-control" id="course-approx-time" name="approx-time">
+                        </div>
+                        <div class="form-group">
+                            <label for="category" class="control-label">Danh mục:</label>
+                            <select class="form-control" id="course-category" name="category">
+                            </select>
                         </div>
                     </div>
                     <div class="col-md-8">
@@ -206,7 +207,7 @@
                             <textarea id="course-description" name="description" class="form-control" rows="5" style="margin: 0px -11.3438px 0px 0px; width: 558px; height: 150px;"></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="will-learn" class="control-label">Học viên sẽ học được:</label>
+                            <label for="will-learn" class="control-label">Học viên sẽ học được gì:</label>
                             <input type="text" class="form-control" id="course-will-learn" name="will-learn">
                         </div>
                         <div class="form-group">
@@ -504,7 +505,6 @@
             var course_will_learn = $('#course-will-learn').val()
             var course_requirement = $('#course-requirement').val()
             var course_price = $('#course-price').val()
-            var course_level = $('#course-level').val()
             var course_approx_time = $('#course-approx-time').val()
             var course_category = $('#course-category').val()
             $('#createCourse').modal('toggle')
@@ -517,7 +517,6 @@
                 will_learn: course_will_learn,
                 requirement: course_requirement,
                 price: course_price,
-                level: course_level,
                 approx_time: course_approx_time,
                 category: course_category,
             };

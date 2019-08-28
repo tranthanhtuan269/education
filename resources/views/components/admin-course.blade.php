@@ -80,7 +80,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="exampleModalLabel">Chỉnh sửa {{ $course->name }} khóa học</h4>
+                <h4 class="modal-title" id="exampleModalLabel">Chỉnh sửa khóa học <b>{{ $course->name }}</b></h4>
             </div>
             <div class="modal-body">
                 <form class="row">
@@ -98,12 +98,27 @@
                             <input type="text" class="form-control" id="course-price{{ $course->id }}" name="price" value="{{ $course->price }}">
                         </div>
                         <div class="form-group">
-                            <label for="level" class="control-label">Cấp độ:</label>
-                            <input type="text" class="form-control" id="course-level{{ $course->id }}" name="level" value="{{ $course->level }}">
-                        </div>
-                        <div class="form-group">
                             <label for="approx_time" class="control-label">Thời gian dự kiến hoàn thành: (giờ)</label>
                             <input type="text" class="form-control" id="course-approx-time{{ $course->id }}" name="approx-time" value="{{ $course->approx_time }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="category" class="control-label">Danh mục:</label>
+                            <script type="text/javascript">
+                                $('#course-category').multiselect();
+                            </script>
+                            <select class="form-control" id="course-category{{ $course->id }}" name="category">
+                                @foreach($categories as $category)
+                                <optgroup label="{{ $category->name }}">
+                                    @foreach($category->children as $child)
+                                    @if($child->id == $course->category_id)
+                                    <option value="{{ $child->id }}" selected>{{ $child->name }}</option>
+                                    @else
+                                    <option value="{{ $child->id }}">{{ $child->name }}</option>
+                                    @endif
+                                    @endforeach
+                                </optgroup>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <div class="col-md-8">
@@ -163,25 +178,6 @@
                                 <input type="text" class="form-control" id="course-requirement{{ $course->id }}" name="requirement" value="{{$requirements}}">
                             </div>
                         @endif
-                        <div class="form-group">
-                            <label for="category" class="control-label">Danh mục:</label>
-                            <script type="text/javascript">
-                                $('#course-category{{ $course->id }}').multiselect();
-                            </script>
-                            <select class="form-control" id="course-category{{ $course->id }}" name="category">
-                                @foreach($categories as $category)
-                                <optgroup label="{{ $category->name }}">
-                                    @foreach($category->children as $child)
-                                    @if($category->id == $course->category_id)
-                                    <option value="{{ $child->id }}" selected>{{ $child->name }}</option>
-                                    @else
-                                    <option value="{{ $child->id }}">{{ $child->name }}</option>
-                                    @endif
-                                    @endforeach
-                                </optgroup>
-                                @endforeach
-                            </select>
-                        </div>
                     </div>
                 </form>
             </div>
@@ -620,7 +616,10 @@
             var course_price = $('#course-price{{ $course->id }}').val()
             var course_level = $('#course-level{{ $course->id }}').val()
             var course_approx_time = $('#course-approx-time{{ $course->id }}').val()
-            var course_category = $('#course-category{{ $course->id }}').val()
+
+            var selector = document.getElementById('course-category{{ $course->id }}')
+            var course_category = selector[selector.selectedIndex].value
+            // alert(course_category)
             $('#editCourse{{ $course->id }}').modal('toggle')
 
             var data = {

@@ -51,7 +51,6 @@ class CourseController extends Controller
         $item->requirement          = $requirement;
         $item->price                = $request->price;
         $item->real_price           = $request->price;
-        $item->level                = $request->level;
         $item->approx_time          = $request->approx_time;
         $item->category_id          = $request->category;
         $item->created_at           = date('Y-m-d H:i:s');
@@ -127,7 +126,6 @@ class CourseController extends Controller
                 $item->requirement          = $requirement;
                 $item->price                = $request->price;
                 $item->real_price           = $request->price;
-                $item->level                = $request->level;
                 $item->approx_time          = $request->approx_time;
                 $item->category_id          = $request->category;
                 $item->created_at           = date('Y-m-d H:i:s');
