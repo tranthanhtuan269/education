@@ -50,7 +50,7 @@
                                             <div class="form-group">
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="fas fa-lock fa-fw fa-md"></i></span>
-                                                    <input type="password" class="form-control" placeholder="Xác nhận mật khẩu mới" name="confirm-pass">
+                                                    <input type="password" class="form-control" placeholder="Nhập lại mật khẩu mới" name="confirm-pass">
                                                 </div>			
                                             </div>
                                             <div class="form-group">
