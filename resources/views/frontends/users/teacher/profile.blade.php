@@ -20,28 +20,38 @@
                             <a href="#buyed" class="buyed" data-toggle="tab"><i class="fa fa-user"></i>&nbsp;&nbsp;Hồ sơ</a>
                         </li> --}}
                         <li data-toggle="modal" data-target="#myModalChangePass" data-dismiss="modal" class="pull-right">
-                            <button type="button" class="btn btn-warning">Đôi mật khẩu</button>
+                            <button type="button" class="btn btn-warning">Thay đổi mật khẩu</button>
                         </li>
                         <div id="myModalChangePass" class="modal fade" role="dialog" >
                             <div class="modal-dialog modal-login">
                                 <div class="modal-content">
                                     <div class="modal-header">				
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title">Đổi mật khẩu</h4>
+                                        <div class="modal-title"><b>Thay đổi mật khẩu</b></div>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="/examples/actions/confirmation.php" method="post">
+                                        <p class="change-password-notice">Thay đổi mật khẩu của bạn tại đây</p>
+                                        <form action="" method="post">
                                             <div class="form-group">
-                                                <input type="password" class="form-control" placeholder="Mật khẩu cũ" name="pass-old">					
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fas fa-lock fa-fw fa-md"></i></span>
+                                                    <input type="password" class="form-control" placeholder="Mật khẩu hiện tại" name="pass-old">
+                                                </div>				
                                             </div>
                                             <div class="form-group">
-                                                <input type="password" class="form-control" placeholder="Mật khẩu mới" name="pass-new">					
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fas fa-lock fa-fw fa-md"></i></span>
+                                                    <input type="password" class="form-control" placeholder="Mật khẩu mới" name="pass-new">
+                                                </div>				
                                             </div>
                                             <div class="form-group">
-                                                <input type="password" class="form-control" placeholder="Nhập lại mật khẩu mới" name="confirm-pass">					
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fas fa-lock fa-fw fa-md"></i></span>
+                                                    <input type="password" class="form-control" placeholder="Nhập lại mật khẩu mới" name="confirm-pass">
+                                                </div>			
                                             </div>
                                             <div class="form-group">
-                                                <input type="button" class="btn btn-primary btn-block btn-lg" value="Xác nhận" onclick="changePassAjax()">
+                                                <input type="button" class="btn btn-danger btn-block btn-lg" value="Đổi mật khẩu" onclick="changePassAjax()">
                                             </div>
                                         </form>				
                                     </div>
