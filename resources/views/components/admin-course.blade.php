@@ -83,7 +83,7 @@
                 <h4 class="modal-title" id="exampleModalLabel">Chỉnh sửa khóa học <b>{{ $course->name }}</b></h4>
             </div>
             <div class="modal-body">
-                <form class="row">
+                <form class="row form-edit-course">
                     <div class="col-md-4">
                         <div class="form-group">
                             <label>Chọn ảnh</label>
@@ -179,12 +179,19 @@
                             </div>
                         @endif
                     </div>
+                    <div class="modal-footer">
+                        <input id="resetForm" type="reset" value="Reset the form" style="display:none">
+                        <button type="button" class="btn btn-default clear-modal" data-dismiss="modal">Hủy</button>
+                        <button type="button" class="btn btn-primary" id="save-btn{{ $course->id }}">Cập nhật</button>
+                    </div>
                 </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
-                <button type="button" class="btn btn-primary" id="save-btn{{ $course->id }}">Cập nhật</button>
-            </div>
+            <script>
+                $('.clear-modal').click(function() {
+                    // alert(123456);
+                    $('#resetForm').click()
+                });
+            </script>
         </div>
     </div>
 </div>
