@@ -28,4 +28,11 @@ class StoreVideoRequest extends FormRequest
             'unit_id' => 'required',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Bạn chưa nhập tên.'
+        ];
+    }
 }

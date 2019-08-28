@@ -28,11 +28,29 @@ class UpdateCourseRequest extends FormRequest
             'short_description' => 'required|max:255',
             'description' => 'required',
             'will_learn' => 'required|max:255',
-            'requirement' => 'required|max:255',
+            // 'requirement' => 'required|max:255',
             'price' => 'required|numeric',
-            'level' => 'required|numeric',
             'approx_time' => 'required|numeric',
-            'category' => 'required|numeric'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required'             => 'Bạn chưa nhập tên khóa học.',
+            'name.max'                  => 'Tên khóa học quá dài.',
+
+            'short_description.required'=> 'Bạn chưa nhập Tóm tắt.',
+            'short_description.max'     => 'Tóm tắt quá dài.',
+            'description.required'      => 'Bạn chưa nhập Mô tả.',
+
+            'will_learn.required'       => 'Bạn chưa nhập Học viên sẽ học được gì.',
+
+            'price.required'            => 'Bạn chưa nhập giá khóa học.',
+            'price.numeric'             => 'Giá khóa học phải là số.',
+
+            'approx_time.required'      => 'Bạn chưa nhập Thời gian ước tính.',
+            'approx_time.numeric'       => 'Thời gian ước tính phải là số.',
         ];
     }
 }

@@ -27,4 +27,11 @@ class UpdateUnitRequest extends FormRequest
             'name' => 'required'
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Bạn chưa nhập tên Phần học.'
+        ];
+    }
 }
