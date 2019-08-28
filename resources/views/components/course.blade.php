@@ -84,7 +84,7 @@
                         @endif
                     </span>
                     <span class="time pull-right">
-                        <i class="fas fa-stopwatch"></i> {{ intval($course->duration / 60) }} giờ
+                        <i class="fas fa-stopwatch"></i> {{ intval($course->duration / 3600) }}h {{ intval($course->duration % 60) }}m
                     </span>
                 </div>
                 {{-- <div class="time-view"> --}}

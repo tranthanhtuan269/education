@@ -69,7 +69,7 @@
                                 <div class="row box clearfix">
                                     <div class="col-xs-6 full-width-mobile pb-10px">
                                         <span class="box-img"><img src="{{ asset('frontend/images/ic_duration.png') }}" class="icon" alt="" /></span>
-                                        <span class="special">Tổng số giờ học: {{ intval($info_course->duration / 60) }} giờ</span>
+                                        <span class="special">Tổng số giờ học: {{ intval($info_course->duration / 3600) }} giờ {{ intval($info_course->duration % 60 ) }} phút</span>
                                     </div>
                                     <div class="col-xs-6 full-width-mobile pb-10px">
                                         <span class="box-img"><img src="{{ asset('frontend/images/ic_download.png') }}" class="icon" alt="" /></span>
@@ -322,7 +322,7 @@
                                 <div class="u-sm-right">
                                     <div class="block-ulti">
                                         <ul style="margin-left: 0">
-                                            <li><i class="far fa-clock fa-fw" aria-hidden="true"></i> Thời lượng: <b>{{ intval($info_course->duration / 60) }} giờ</b></li>
+                                            <li><i class="far fa-clock fa-fw" aria-hidden="true"></i> Thời lượng: <b>{{ intval($info_course->duration / 3600) }} giờ {{ intval($info_course->duration % 60 ) }} phút</b></li>
                                             <li><i class="far fa-play-circle fa-fw" aria-hidden="true"></i> Bài giảng: <b>{{ $info_course->video_count }} Videos</b></li>
                                             <li><i class="fas fa-user-graduate fa-fw" aria-hidden="true"></i> <b>{{ number_format($info_course->student_count, 0, ',' , '.') }} Học viên</b> theo học</li>                                        
                                         </ul>
