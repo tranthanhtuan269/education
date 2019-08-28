@@ -4,7 +4,7 @@
         <ul class="pull-right">
             {{-- <li>Expand all</li> --}}
             <li>{{ $info_course->video_count }} bài học</li>
-            <li>{{ (int)($info_course->duration/60) }} giờ</li>
+            <li>{{ intval($info_course->duration / 3600) }} giờ {{ intval($info_course->duration % 60 ) }} phút</li>
         </ul>
     </div>
     <div class="content">
