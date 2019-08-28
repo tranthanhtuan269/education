@@ -129,17 +129,7 @@
                                                 <div class="form-group">
                                                     <script src="https://cdn.ckeditor.com/ckeditor5/12.1.0/classic/ckeditor.js"></script>
                                                     <textarea id="editor-cv" class="form-control" rows="6" cols="50" name="cv">@if (Auth::user()->userRolesTeacher()->teacher) {!! Auth::user()->userRolesTeacher()->teacher->cv !!} @endif</textarea>
-                                                    <p>Số từ: <b><span id="wordCount">0</span>/700</b> từ. (Tối thiểu 30 từ, tối đa 700 từ)</p>
-                                                    <!-- <script>
-                                                        ClassicEditor
-                                                            .create( document.querySelector( '#editor-cv' ) )
-                                                            .then( editor => {
-                                                                cv = editor;
-                                                            } )
-                                                            .catch( error => {
-                                                                console.error( error );
-                                                            } );
-                                                    </script> -->
+                                                    <p id="boxWordsCount" style="display:none">Số từ: <b><span id="wordCount">0</span>/700</b> từ. (Tối thiểu 30 từ, tối đa 700 từ)</p>
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -170,6 +160,7 @@
     var characterCount = 0;
     Dropzone.autoDiscover = false;
     $(document).ready(function(){
+        // alert(12345)
         ClassicEditor
             .create( document.querySelector( '#editor-cv' ) )
             .then(editor => {
@@ -188,7 +179,7 @@
                     }else{
                         $('#wordCount').css("color","red");
                     }
-
+                    $('#boxWordsCount').css('display', 'block')
                     $('#wordCount').html(wordCount);
                 } );
             } )
