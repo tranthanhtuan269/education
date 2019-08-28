@@ -152,12 +152,12 @@
                 var courses          = $(this).attr('data-course');
                 var courses          = JSON.parse(courses);
 
-                $('#show-detail-order .modal-title').html('Detail order #DH_' + id)
-                var html_data = '<table class="table"><thead><tr><th scope="col">General</th><th scope="col">Thông tin thanh toán</th></tr></thead><tbody>';
+                $('#show-detail-order .modal-title').html('Chi tiết đơn hàng #DH_' + id)
+                var html_data = '<table class="table"><thead><tr><th scope="col">Thông tin chung</th><th scope="col">Thông tin thanh toán</th></tr></thead><tbody>';
 
                 html_data += '<tr>';
                 html_data += '<td style="width:38%;">';
-                    html_data += '<table><tbody><tr><td style="width:45%;">Họ tên: </td><td>{{ Auth::user()->name }}</td></tr><tr><td style="width:45%;">Created at:</td><td>' + created_at + '</td></tr><tr><td>Status: </td><td style="width:45%;">' + statusOrder(status) + '</td></tr></tbody></table>';
+                    html_data += '<table><tbody><tr><td style="width:45%;">Họ tên: </td><td>{{ Auth::user()->name }}</td></tr><tr><td style="width:45%;">Ngày tạo:</td><td>' + created_at + '</td></tr><tr><td>Trạng thái: </td><td style="width:45%;">' + statusOrder(status) + '</td></tr></tbody></table>';
                 html_data += '<td style="width:62%;">';
                     html_data += '<table><tbody>';
                     html_data += '<tr><td style="width:45%;">Địa chỉ: </td><td>{{ Auth::user()->address }}</td></tr>'
@@ -170,7 +170,7 @@
 
                 html_data += '</tbody></table>';
 
-                html_data += '<table class="table table-bordered"><thead><tr><th scope="col">Course</th><th scope="col">Quantity</th><th scope="col">Price</th></tr></thead><tbody>';
+                html_data += '<table class="table table-bordered"><thead><tr><th scope="col">Tên khóa học</th><th scope="col">Số lượng</th><th scope="col">Giá</th></tr></thead><tbody>';
                 var totalValue = 0;
                 for(var i = 0; i < courses.length; i++){
                     html_data += '<tr>';
@@ -189,9 +189,9 @@
 
                     totalValue += courses[i].sale > 0 ? 1 * courses[i].sale : 1 * courses[i].price;
                 }
-                html_data += '<tr><td></td><td><b>Total</b></td><td style="color:red; font-size:18px;">'+ numberFormat(totalValue, 0, '.', '.') +' đ</td></tr>';
+                html_data += '<tr><td></td><td><b>Tổng</b></td><td style="color:red; font-size:18px;">'+ numberFormat(totalValue, 0, '.', '.') +' đ</td></tr>';
                 if (coupon != '') {
-                    html_data += '<tr><td></td><td><b>Total real (Coupon: ' + coupon + ')</b></td><td style="color:red; font-size:18px;">'+ numberFormat(total_price_real, 0, '.', '.') +' đ</td></tr>';
+                    html_data += '<tr><td></td><td><b>Giá gốc (Coupon: ' + coupon + ')</b></td><td style="color:red; font-size:18px;">'+ numberFormat(total_price_real, 0, '.', '.') +' đ</td></tr>';
                 }
                 html_data += '</tbody></table>';
                 

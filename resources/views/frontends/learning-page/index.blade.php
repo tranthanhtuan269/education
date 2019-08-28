@@ -20,6 +20,8 @@
         $video_urls[$key] = \App\Helper::createSecurityTokenForVideoLink(\Auth::id(), $main_video->id, $video_url);
     }    
     $video_urls = json_encode($video_urls);
+
+    // dd($main_video->id);
 @endphp
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -66,7 +68,7 @@
                 <p>{{$main_video->name}}</p>
             </div> --}}
             <div class="lecture-subtitle">
-                <a href="{{ url("/learning/{$course->slug}") }}">
+                <a href="{{ url("/course/{$course->slug}") }}">
                     <p>TRỞ VỀ TRANG KHOÁ HỌC</p>
                 </a>
             </div>

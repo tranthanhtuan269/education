@@ -17,9 +17,11 @@
 
 Auth::routes();
 
+Route::get('fix-course', 'Frontends\HomeController@fixDurationCourse');
+Route::get('fix-video', 'Frontends\HomeController@fixDurationVideo');
+
 Route::get('mailable', function () {
     $order = App\Order::find(9);
-
     return new App\Mail\OrderCompleted($order, Auth::user() );
 });
 

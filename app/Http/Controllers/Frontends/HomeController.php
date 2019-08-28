@@ -712,6 +712,23 @@ class HomeController extends Controller
         return view('frontends.proceed-checkout');
     }
 
+    public function fixDurationVideo(){
+        $videos = Video::get();
+        foreach($videos as $video){
+            $video->duration = 376;
+            $video->save();
+        }
+        echo "done";
+    }
+
+    public function fixDurationCourse(){
+        $courses = Course::get();
+        foreach($courses as $course){
+            $course->duration = intval($course->video_count) * 376;
+            $course->save();
+        }
+        echo "done";
+    }
 }
 
 class VideoJson

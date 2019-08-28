@@ -32,8 +32,17 @@ class UpdateProfileUserRequest extends FormRequest
     public function messages()
     {
         return [
-            'email.regex_email'         => 'The email must be a valid email address.',
-            'email.regex_phone'         => 'The phone must be a valid.',
+            'name.required'             => 'Bạn chưa nhập tên.',
+            'name.min'                  => 'Tên phải có ít nhất 3 ký tự.',
+            'name.max'                  => 'Tên được phép có tối đa 50 ký tự.',
+
+            'address.max'               => 'Địa chỉ quá dài.',
+            
+            'phone.required'            => 'Bạn chưa nhập số điện thoại.',
+            'phone.max'                 => 'Số điện thoại không tồn tại.',
+            'phone.regex_phone'         => 'Số điện thoại không tồn tại.',
+
+            'birthday.date_format'      => 'Ngày sinh phải có định dạng Ngày/Tháng/Năm (Ví dụ: 31/12/1993).'
         ];
     }
 }

@@ -35,16 +35,16 @@ function numberFormat( number, decimals, dec_point, thousands_sep ) {
 function statusOrder($param) {
     switch ($param) {
         case 0:
-            $txt = '<span class="btn btn-sm text-center btn-warning">Unapproved</span>';
+            $txt = '<span class="btn btn-sm text-center btn-warning active" >Không thành công</span>';
             break;
         case 1:
-            $txt = '<span class="btn btn-sm text-center btn-success" >Approved</span>';
+            $txt = '<span class="btn btn-sm text-center btn-success active" >Thành công</span>';
             break;
         case 2:
-            $txt = '<span class="btn btn-sm text-center btn-danger" >Cancelled</span>';
+            $txt = '<span class="btn btn-sm text-center btn-danger active" >Đã hủy</span>';
             break;
         default:
-            $txt = '<span class="btn btn-sm text-center btn-success" >Approved</span>';
+            $txt = '<span class="btn btn-sm text-center btn-success active" >Thành công</span>';
             break;
     }
     return $txt;
