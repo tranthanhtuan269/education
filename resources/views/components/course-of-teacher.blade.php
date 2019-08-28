@@ -42,15 +42,15 @@
                 <?php                          
                 if(count(explode(" ",trim($will," "))) < 2) continue;
                 ?>
-                <li>
-                    <i class="fa fa-chevron-right fa-fw" aria-hidden="true"></i>{!! ltrim($will,";") !!}
-                </li>
-                @if( $key == 3 )
+                @if( $key > 3 )
                 <li>
                     <i class="fa fa-chevron-right fa-fw" aria-hidden="true"></i>...
                 </li>
                 @break
                 @endif
+                <li>
+                    <i class="fa fa-chevron-right fa-fw" aria-hidden="true"></i>{!! ltrim($will,";") !!}
+                </li>
                 @endforeach
             </ul>
         @endif
