@@ -23,7 +23,7 @@ class RegisterUserRequest extends FormRequest
     {
         return [
             'name'              => 'required|min:3|max:50',
-            'email'             => 'required|unique:users,email|regex_email:"/^[_a-zA-Z0-9-]{2,}+(\.[_a-zA-Z0-9-]{2,}+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,3})$/"',
+            'email'             => 'required|unique:users,email|regex_email:"/^[_a-zA-Z0-9-]{3,}+(\.[_a-zA-Z0-9-]{3,}+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,3})$/"',
             'password'          => 'required|min:8|max:32',
             'confirmpassword'   => 'required|same:password',
         ];
