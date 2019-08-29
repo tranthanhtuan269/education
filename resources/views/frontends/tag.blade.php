@@ -27,7 +27,7 @@
                     @if (count($tag->courses) > 0)
                     <div class="row">
                         <div class="col-xs-12">
-                            <h2>{{ count($tag->courses) }} results found</h2>
+                            <h2>{{ count($tag->courses) }} kết quả được tìm thấy</h2>
                         </div>
                         @foreach ($tag->courses as $result)
                         @if($i%4==0)

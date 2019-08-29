@@ -24,14 +24,15 @@ class UpdateUnitRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required'
+            'name' => 'required|max:100'
         ];
     }
 
     public function messages()
     {
         return [
-            'name.required' => 'Bạn chưa nhập tên Phần học.'
+            'name.required' => 'Bạn chưa nhập tên Phần học.',
+            'name.max'      => 'Tên phần học quá dài. (Yêu cầu <100 ký tự)'
         ];
     }
 }
