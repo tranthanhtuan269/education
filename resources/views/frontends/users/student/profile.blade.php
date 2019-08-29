@@ -76,11 +76,11 @@
                                                         <img class="sample-avatar" src="{{ asset('frontend/'.(Auth::user()->avatar != '' ? Auth::user()->avatar : 'images/avatar.jpg')) }}" alt="sample avatar">
                                                         </div>
                                                         <input type="range" class="cropit-image-zoom-input" style="display: none"/>
-                                                        <div class="text-center rotate-btn-group" style="display: none">
+                                                        {{-- <div class="text-center rotate-btn-group" style="display: none">
                                                             <b>Xoay ảnh:</b>&nbsp;
                                                             <span class="rotate-ccw-btn"> <i class="fas fa-undo"></i> </span>&nbsp;
                                                             <span class="rotate-cw-btn"> <i class="fas fa-redo"></i> </span>
-                                                        </div>
+                                                        </div> --}}
                                                         <input type="file" class="cropit-image-input" style="display:none" value="" id="image-file-input"/>
                                                         <div class="text-center">
                                                             <div class="note">(Kích thước nhỏ nhất: 250x250)</div>
@@ -269,12 +269,12 @@ $(document).ready(function() {
     });
 
     // Handle rotation
-    $('.rotate-cw-btn').click(function() {
-        $('#image-cropper').cropit('rotateCW');
-    });
-    $('.rotate-ccw-btn').click(function() {
-        $('#image-cropper').cropit('rotateCCW');
-    });
+    // $('.rotate-cw-btn').click(function() {
+    //     $('#image-cropper').cropit('rotateCW');
+    // });
+    // $('.rotate-ccw-btn').click(function() {
+    //     $('#image-cropper').cropit('rotateCCW');
+    // });
 
     var _URL = window.URL || window.webkitURL;
     $("#image-file-input").change(function(e) {
@@ -297,8 +297,8 @@ $(document).ready(function() {
                         text: 'Yêu cầu kích thước ảnh >= 250x250!',
                     })
                 }else{
-                    $('.cropit-image-zoom-input').show();
-                    $('.rotate-btn-group').show();
+                    $('.cropit-image-zoom-input').show().css('padding-top', '15px');
+                    // $('.rotate-btn-group').show();
                 }
             };
             img.src = _URL.createObjectURL(file);

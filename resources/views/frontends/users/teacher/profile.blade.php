@@ -379,7 +379,7 @@
                         })
                     }else{
                         $('.cropit-image-zoom-input').show().css('padding-top', '15px');
-                        $('.rotate-btn-group').show();
+                        // $('.rotate-btn-group').show();
                     }
                 };
                 img.src = _URL.createObjectURL(file);
