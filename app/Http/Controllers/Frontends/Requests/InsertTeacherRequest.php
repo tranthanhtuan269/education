@@ -23,7 +23,7 @@ class InsertTeacherRequest extends FormRequest
     {
         return [
             'name'          => 'required|min:3|max:50',
-            'phone'         => 'required|max:20|regex_phone:"/^[\+]?[(]?[0-9]{1,3}[)]?[-\s]?[0-9]{1,3}[-\s]?[0-9]{4,9}$/"',
+            'phone'         => 'required|min:10|max:11|regex_phone:"/^[\+]?[(]?[0-9]{1,3}[)]?[-\s]?[0-9]{1,3}[-\s]?[0-9]{4,9}$/"',
             'cv'            => 'required',
             'expert'        => 'required',
             'address'       => 'max:255',
@@ -41,6 +41,7 @@ class InsertTeacherRequest extends FormRequest
 
             'phone.required'            => 'Bạn chưa nhập số điện thoại.',
             'phone.regex_phone'         => 'Số điện thoại không tồn tại.',
+            'phone.min'                 => 'Số điện thoại không tồn tại.',
             'phone.max'                 => 'Số điện thoại không tồn tại.',
 
             'cv.required'               => 'Bạn chưa nhập CV.',
