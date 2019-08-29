@@ -287,6 +287,7 @@ $(document).ready(function() {
                     type: 'warning',
                     text: 'Tập tin không hợp lệ!',
                 })
+                $("#image-file-input").val('')
             };
             img.onload = function() {
                 /* alert(this.width + " " + this.height); */
@@ -296,6 +297,7 @@ $(document).ready(function() {
                         type: 'warning',
                         text: 'Yêu cầu kích thước ảnh >= 250x250!',
                     })
+                    $("#image-file-input").val('')
                 }else{
                     $('.cropit-image-zoom-input').show().css('padding-top', '15px');
                     // $('.rotate-btn-group').show();
