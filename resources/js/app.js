@@ -6,8 +6,11 @@
  */
 
 require('./bootstrap');
+require( '@ckeditor/ckeditor5-build-classic');
 
 window.Vue = require('vue');
+
+// import Link from '@ckeditor/ckeditor5-link/src/link';
 
 /**
  * The following block of code may be used to automatically register your

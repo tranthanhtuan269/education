@@ -599,6 +599,7 @@
     </footer>
 
     <script>
+        
         $(window).scroll(function(event){
             if ($(this).scrollTop() > 0){
                 $('.unica-home-menutop').addClass('fixed');
@@ -606,6 +607,9 @@
                 $('.unica-home-menutop').removeClass('fixed');
             }
         });
+        if(localStorage.getItem('cart') == null){
+            localStorage.setItem('cart', '[]')
+        }
         var localStoreageCart = JSON.parse(localStorage.getItem('cart'))
         if(localStoreageCart.length >= 1){
             $('.unica-sl-cart').css('display', 'block')
