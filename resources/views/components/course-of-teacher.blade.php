@@ -10,8 +10,12 @@
 <div class="ubc-course">
     <div class="img-ubc-course">
     <a href="/course/{{$course->slug}}">
-    <img class="img-responsive" src="{{$course->image}}" alt="{{$course->name}}">
-        </a>
+        @if(filter_var($course->image, FILTER_VALIDATE_URL))
+            <img class="img-responsive" src="{{$course->image}}" alt="{{$course->name}}">
+        @else
+            <img class="img-responsive" src="{{ asset('frontend/images/'.$course->image)}}" alt="{{$course->name}}">
+        @endif
+    </a>
     </div>
     <div class="des-ubc-course">
         <p><a href="/course/{{$course->slug}}">{{$course->name}}</a></p>

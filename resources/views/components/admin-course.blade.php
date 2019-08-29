@@ -629,6 +629,8 @@
             // alert(course_category)
             $('#editCourse{{ $course->id }}').modal('toggle')
 
+            // alert(course_will_learn)
+
             var data = {
                 image:link_base64,
                 name: course_name,
