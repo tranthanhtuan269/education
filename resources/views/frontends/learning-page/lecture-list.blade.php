@@ -51,16 +51,12 @@
                         <li class="video-list-item" id="listItem{{$video->id}}" data-parent="{{$video->id}}">
                             {{-- <a href="{{ route('videoplayer.show', ['courseId' => $unit->course_id, 'videoId' => $video->id]) }}"> --}}
                                 @php
-                                    $list_video_done_in_unit = $video_done_units[($unit->index)-1];
-                                    // if(!is_array($list_video_done_in_unit[$video->index-1])){
-                                    //     $list_video_done_in_unit = array($list_video_done_in_unit);
-                                    // }
-                                    // dd($list_video_done_in_unit);
+                                    $list_video_done_in_unit = $video_done_units[($unit->index)-1];                  
                                 @endphp
                             <a href="learning-page/{{$unit->course_id}}/lecture/{{$video->id}}">
                                 <span class="ln-lect-list-lect-title-icon"><span><i class="fas fa-play-circle"></i></span></span>
                                 <span class="ln-lect-list-lect-title">{{ $video->name }}</span>
-                                <span class="ln-lect-list-lect-duration">{{ App\Helper::convertSecondToTimeFormat($video->duration) }}</span>
+                                <span class="ln-lect-list-lect-duration">{{ App\Helper::convertSecondToTimeFormat($video->duration) }}</span>                                
                                 @if ($list_video_done_in_unit[$video->index-1] == 1)
                                 <span class="ln-btn-complete" id="lnBtnComplete{{$video->id}}" data-child="{{$key2+1}}">
                                     <button >

@@ -15,7 +15,9 @@
                     var discussEditor;
                         ClassicEditor
                             .create( document.querySelector( '#discussionEditor' ),{
-                                toolbar: ['bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ],
+                                toolbar: {
+                                    items: ['bold', 'italic', 'underline', 'bulletedList', 'numberedList', 'blockQuote'] 
+                                },
                             } )
                             .then(editor =>{
                                 discussEditor = editor
