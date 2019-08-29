@@ -912,23 +912,19 @@
             e.preventDefault()
 
             $(this).remove();
-            $(".btn-buy-now button").remove();
-            $('.interactive-bar').remove();
+            $(".btn-buy-now button").remove()
+            $('.interactive-bar').remove()
             
-            addCart();
+            addCart()
             Swal.fire({
                 type: 'success',
                 text: 'Đã thêm vào giỏ hàng!'
             })
-            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'));
-            $('.number-in-cart').text(number_items_in_cart.length);
-            $('.unica-sl-cart').css('display', 'block')
-            // console.log(number_items_in_cart.length)
-
             var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
-
+            $('.number-in-cart').text(number_items_in_cart.length)
+            $('.unica-sl-cart').css('display', 'block')
             $.each( number_items_in_cart, function(i, obj) {
-                $('.sidebar-add-cart button[id='+obj.id+']').html('<b>Đã thêm vào giỏ hàng</b>');
+                $('.sidebar-add-cart button[id='+obj.id+']').html('<b>Đã thêm vào giỏ hàng</b>').attr('disabled', true)
             });
             // $(".sidebar-add-cart button").off()
         })
@@ -949,12 +945,14 @@
                 type: 'success',
                 text: 'Đã thêm vào giỏ hàng!'
             })
-            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'));
+            $(".btn-add-cart button").remove()
+            $(".btn-buy-now button").remove()
+            $('.interactive-bar').remove()
+
+            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
             $('.number-in-cart').text(number_items_in_cart.length);
             $('.unica-sl-cart').css('display', 'block')
-            // console.log(number_items_in_cart.length)
             
-            $(this).off()
         })
 
         if(localStorage.getItem('cart') != null){
