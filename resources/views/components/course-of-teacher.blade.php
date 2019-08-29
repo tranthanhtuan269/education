@@ -82,7 +82,7 @@
 
             $(this).html('<b>ĐÃ THÊM VÀO GIỎ HÀNG</b>').attr('disabled', true)
             
-            addCard();
+            addCart();
             Swal.fire({
                 type: 'success',
                 text: 'Đã thêm vào giỏ hàng!'
@@ -103,7 +103,7 @@
         }
     })
 
-    function addCard(){
+    function addCart(){
         var item = {
             'id' : {!! $course->id !!},
             'image' : '{!! $course->image !!}',

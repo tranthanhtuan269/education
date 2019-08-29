@@ -734,19 +734,19 @@
             $(".btn-add-cart button").click();
         })
         $(".interactive-bar .buttons button:last-child").click(function(){
-            addCard();
+            addCart();
             window.location.replace("/cart/payment/method-selector")
         })
         $("#buy-now").click(function(){
-            addCard();
+            addCart();
             window.location.replace("/cart/payment/method-selector")
         })
         $("#buy-now2").click(function(){
-            addCard();
+            addCart();
             window.location.replace("/cart/payment/method-selector")
         })
         // $('#add-cart').click(function(){
-        // function addCard(){
+        // function addCart(){
         //     var item = {
         //         'id' : {!! $info_course->id !!},
         //         'image' : '{!! $info_course->image !!}',
@@ -915,7 +915,7 @@
             $(".btn-buy-now button").remove();
             $('.interactive-bar').remove();
             
-            addCard();
+            addCart();
             Swal.fire({
                 type: 'success',
                 text: 'Đã thêm vào giỏ hàng!'
@@ -944,7 +944,7 @@
             $(this).html('<b>Đã thêm vào giỏ hàng</b>').attr('disabled', true)
 
             
-            addCard();
+            addCart();
             Swal.fire({
                 type: 'success',
                 text: 'Đã thêm vào giỏ hàng!'
@@ -980,50 +980,53 @@
         return arr;
     }
 
-    function addCard(){
+    function addCart(){
         var course_id = {!! $info_course->id !!}
-        // alert(course_id)
-        // return false
-
+        course_id = Number(course_id)
+        var check = true
+        
         if(localStorage.getItem('cart') != null){
             var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
+            // alert(typeof course_id)
 
             $.each( number_items_in_cart, function(i, obj) {
+                obj.id = Number(obj.id)
+                // alert(typeof obj.id)
                 if( course_id == obj.id ){
-                    return false
+                    check = false
                 }
             });
         }
-
-        var item = {
-            'id' : {!! $info_course->id !!},
-            'image' : '{!! $info_course->image !!}',
-            'slug' : '{!! $info_course->slug !!}',                
-            @if(count($info_course->Lecturers()) > 0)
-            'lecturer' : "{!! $info_course->Lecturers()[0]->user->name !!}",
-            @else
-            'lecturer' : 'Nhiều giảng viên',
-            @endif
-            'name' : "{!! $info_course->name !!}",
-            'price' : {!! $info_course->price !!},
-            'real_price' : {!! $info_course->real_price !!},
-            'coupon_price' : {!! $info_course->price !!},
-            'coupon_code' : '',
+        if(check){
+            var item = {
+                'id' : {!! $info_course->id !!},
+                'image' : '{!! $info_course->image !!}',
+                'slug' : '{!! $info_course->slug !!}',                
+                @if(count($info_course->Lecturers()) > 0)
+                'lecturer' : "{!! $info_course->Lecturers()[0]->user->name !!}",
+                @else
+                'lecturer' : 'Nhiều giảng viên',
+                @endif
+                'name' : "{!! $info_course->name !!}",
+                'price' : {!! $info_course->price !!},
+                'real_price' : {!! $info_course->real_price !!},
+                'coupon_price' : {!! $info_course->price !!},
+                'coupon_code' : '',
+            }
+    
+            if (localStorage.getItem("cart") != null) {
+                var list_item = JSON.parse(localStorage.getItem("cart"));
+                addItem(list_item, item);
+                localStorage.setItem("cart", JSON.stringify(list_item));
+            }else{
+                var list_item = [];
+                addItem(list_item, item);
+                localStorage.setItem("cart", JSON.stringify(list_item));
+            }
+    
+            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
+            $('.number-in-cart').text(number_items_in_cart.length);
         }
-
-        if (localStorage.getItem("cart") != null) {
-            var list_item = JSON.parse(localStorage.getItem("cart"));
-            addItem(list_item, item);
-            localStorage.setItem("cart", JSON.stringify(list_item));
-        }else{
-            var list_item = [];
-            addItem(list_item, item);
-            localStorage.setItem("cart", JSON.stringify(list_item));
-        }
-
-        var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
-            // alert(number_items_in_cart.length)
-        $('.number-in-cart').text(number_items_in_cart.length);
     }
 </script>
 @endsection
