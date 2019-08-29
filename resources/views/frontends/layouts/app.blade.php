@@ -373,22 +373,24 @@
                                             <li class="divider"></li>
                                             <li><a href="{{ url('user/logout') }}" class="btnDangxuat btn-google-logout"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
 
-                                            <div class="g-signin2" data-onsuccess="onSignIn" style="display:none"></div>
-                                            <script src="https://apis.google.com/js/platform.js" async></script>
-                                            <script>
-                                                $('.btn-google-logout').click(function(){
-                                                    
-                                                })
-                                                function onSignIn(googleUser) {
-                                                    var profile = googleUser.getBasicProfile();
+                                            @if($_SERVER['SERVER_NAME'] === "timtruyen.online")
+                                                <div class="g-signin2" data-onsuccess="onSignIn" style="display:none"></div>
+                                                <script src="https://apis.google.com/js/platform.js" async></script>
+                                                <script>
+                                                    $('.btn-google-logout').click(function(){
+                                                        
+                                                    })
+                                                    function onSignIn(googleUser) {
+                                                        var profile = googleUser.getBasicProfile();
 
-                                                    var auth2 = gapi.auth2.getAuthInstance();
-                                                    auth2.signOut().then(function () {
-                                                    // console.log('User signed out.');
-                                                    });
-                                                    // location.reload();
-                                                }
-                                            </script>
+                                                        var auth2 = gapi.auth2.getAuthInstance();
+                                                        auth2.signOut().then(function () {
+                                                        // console.log('User signed out.');
+                                                        });
+                                                        // location.reload();
+                                                    }
+                                                </script>
+                                            @endif
                                         </ul>
                                     </li>
                                     @else
