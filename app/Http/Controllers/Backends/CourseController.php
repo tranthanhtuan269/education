@@ -80,7 +80,7 @@ class CourseController extends Controller
         $teacherInstance->course_count += 1;
         $teacherInstance->save();
 
-        return \Response::json(array('status' => '200', 'message' => 'Course has been created!'));
+        return \Response::json(array('status' => '200', 'message' => 'Tạo khóa học thành công!'));
     }
 
     /**
@@ -132,10 +132,10 @@ class CourseController extends Controller
                 $item->updated_at           = date('Y-m-d H:i:s');
                 $item->save();
 
-                return response()->json(array('status' => '200', 'message' => 'Course has been deleted!'));
+                return response()->json(array('status' => '200', 'message' => 'Sửa khóa học thành công!'));
             }     
         }
-        return response()->json(array('status'=> '404', 'message' => 'Course not found'));
+        return response()->json(array('status'=> '404', 'message' => 'Không tìm thấy khóa học!'));
     }
 
     /**
@@ -151,10 +151,10 @@ class CourseController extends Controller
                 $course->status = -1;
                 $course->save();
 
-                return response()->json(array('status' => '200', 'message' => 'Course has been deleted!'));
+                return response()->json(array('status' => '200', 'message' => 'Xóa khóa học thành công!'));
             }     
         }
-        return response()->json(array('status'=> '404', 'message' => 'Course not found'));
+        return response()->json(array('status'=> '404', 'message' => 'Không tìm thấy khóa học!'));
         
     }
 
