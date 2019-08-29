@@ -108,6 +108,8 @@ class CourseController extends Controller
                     $img_link = $file_name;
                 }
 
+                // dd($will_learn);
+
                 if($request->will_learn){
                     $will_learn = explode(";;", $request->will_learn);
                     $will_learn = \json_encode($will_learn);
