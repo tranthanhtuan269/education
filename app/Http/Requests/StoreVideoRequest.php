@@ -24,7 +24,7 @@ class StoreVideoRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
+            'name' => 'required|max:100',
             'unit_id' => 'required',
         ];
     }
@@ -32,7 +32,8 @@ class StoreVideoRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'Bạn chưa nhập tên.'
+            'name.required' => 'Bạn chưa nhập tên bài học.',
+            'name.max'      => 'Tên bài học quá dài. (Yêu cầu <100 ký tự)'
         ];
     }
 }

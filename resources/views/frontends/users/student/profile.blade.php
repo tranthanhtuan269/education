@@ -352,7 +352,6 @@ function changePassAjax() {
             }
         },
         error: function(error) {
-
             var obj_errors = error.responseJSON.errors;
             // console.log(obj_errors)
             var txt_errors = '';
