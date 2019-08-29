@@ -985,12 +985,9 @@
         
         if(localStorage.getItem('cart') != null){
             var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
-            // alert(typeof course_id)
 
             $.each( number_items_in_cart, function(i, obj) {
-                obj.id = Number(obj.id)
-                // alert(typeof obj.id)
-                if( course_id == obj.id ){
+                if( course_id == Number(obj.id) ){
                     check = false
                 }
             });
