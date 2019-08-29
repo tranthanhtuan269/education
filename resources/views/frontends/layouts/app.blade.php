@@ -698,6 +698,16 @@
                 e.stopPropagation()
                 e.preventDefault()
 
+                if(localStorage.getItem('cart') != null){
+                    var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
+
+                    $.each( number_items_in_cart, function(i, obj) {
+                        if( $(this).attr("data-id") == obj.id ){
+                            return false
+                        }
+                    });
+                }
+
                 var item = {
                     'id' : $(this).attr("data-id"),
                     'image' : $(this).attr("data-image"),

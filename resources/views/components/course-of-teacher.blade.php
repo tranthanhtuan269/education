@@ -3,9 +3,6 @@
     if(Auth::check() && strlen(Auth::user()->bought) > 0){
         $list_bought = \json_decode(Auth::user()->bought);
     }
-
-    // dd($list_bought)
-    // dd($course->id)
 ?>
 
 <div class="ubc-course">
@@ -19,14 +16,7 @@
         <ul class="mini-des">
             <li><i class="fa fa-list-alt fa-fw" aria-hidden="true"></i> {{$course->video_count}} bài giảng</li>
             <li><i class="far fa-clock fa-fw" aria-hidden="true"></i> {{ intval($course->duration / 3600) }} giờ {{ intval($course->duration % 60 ) }} phút</li>
-
         </ul>
-        {{-- <ul class="big-des">
-            <li><i class="fa fa-chevron-right" aria-hidden="true"></i> Nắm được 36 thế Yoga giúp tăng cường sinh lý</li>
-            <li><i class="fa fa-chevron-right" aria-hidden="true"></i> Cải thiện hạnh phúc gia đình</li>
-            <li><i class="fa fa-chevron-right" aria-hidden="true"></i> Lấy lại cân bằng cho cuộc sống</li>
-            <li><i class="fa fa-chevron-right" aria-hidden="true"></i> Cải thiện sinh lý tự nhiên mà không cần thuốc</li>
-        </ul> --}}
         @php
             $will_learn = $course->will_learn;
             $will_learn = explode(";;", $will_learn);
@@ -34,7 +24,6 @@
                 $will = trim($will);
                 return $will != '';
             });
-            // $will_learn = json_decode($will_learn);
         @endphp
         @if ($will_learn != null)
             <ul class="big-des">
@@ -62,19 +51,18 @@
         <p class="price-o">Tiết kiệm {{(int)(100 - ($course->price/$course->real_price)*100)}}%</p>
         @endif
 
-        {{-- <a href="/course/{{$course->slug}}">Thêm vào giỏ hàng</a> --}}
         <div class="teacher-course">
             @if (in_array($course->id, $list_bought))
-            <div class="btn btn-danger" disabled><b>BẠN ĐÃ MUA KHÓA HỌC NÀY</b></div>
+            <div class="btn btn-primary" disabled><b>BẠN ĐÃ MUA KHÓA HỌC NÀY</b></div>
             @else
-            <div id="add-cart" data-id="{{ $course->id }}" class="btn btn-danger"><b>THÊM VÀO GIỎ HÀNG</b></div>
+            <div id="add-cart" data-id="{{ $course->id }}" class="btn btn-primary"><b>THÊM VÀO GIỎ HÀNG</b></div>
             @endif
         </div>
     </div>
 </div>
 
 <script>
-
+    var course_id = Number( {{ $course->id }} )
     jQuery(function () {
         $(".teacher-course #add-cart").click( function(e){
             e.stopPropagation()
@@ -82,7 +70,7 @@
 
             $(this).html('<b>ĐÃ THÊM VÀO GIỎ HÀNG</b>').attr('disabled', true)
             
-            addCard();
+            addCart();
             Swal.fire({
                 type: 'success',
                 text: 'Đã thêm vào giỏ hàng!'
@@ -97,13 +85,14 @@
             var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
 
             $.each( number_items_in_cart, function(i, obj) {
-                $('.teacher-course #add-cart').html('<b>ĐÃ THÊM VÀO GIỎ HÀNG</b>').attr('disabled', true)
-                // $(".sidebar-add-cart button").off()
+                if(course_id == Number(obj.id)){
+                    $('.teacher-course #add-cart').html('<b>ĐÃ THÊM VÀO GIỎ HÀNG</b>').attr('disabled', true)
+                }
             });
         }
     })
 
-    function addCard(){
+    function addCart(){
         var item = {
             'id' : {!! $course->id !!},
             'image' : '{!! $course->image !!}',
