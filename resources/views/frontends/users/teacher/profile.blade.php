@@ -135,7 +135,7 @@
                                             <div class="form-group">
                                                 <label>Địa chỉ</label>
                                                 <div class="form-group">
-                                                    <textarea class="form-control" rows="4" cols="50" name="address">{{ Auth::user()->address }}</textarea>
+                                                    <textarea class="form-control" rows="3" cols="50" name="address">{{ Auth::user()->address }}</textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -145,7 +145,7 @@
                                                 <div class="form-group">
                                                     {{-- <textarea class="form-control" rows="3" cols="50" name="expert">@if(Auth::user()->userRolesTeacher()->teacher){{Auth::user()->userRolesTeacher()->teacher->expert}}@endif</textarea> --}}
                                                     <input type="text" class="form-control" name="expert" value="@if(Auth::user()->userRolesTeacher()->teacher){{Auth::user()->userRolesTeacher()->teacher->expert}}@endif">
-                                                    <p>Số ký tự: <b><span id="count-character">0</span>/55</b>. (Tối đa 55 ký tự)</p>
+                                                    <p id="boxCharacterCount" style="display:none">Số ký tự: <b><span id="count-character">0</span>/55</b>. (Tối đa 55 ký tự)</p>
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -470,6 +470,7 @@
     function characterCount(){
         var characterCount = $("input[name=expert]").val().length;
         $('#count-character').html(characterCount);
+        $('#boxCharacterCount').css('display','block')
 
         if(characterCount > 0 && characterCount <= 55){
             $('#count-character').css("color","green");
@@ -477,7 +478,7 @@
             $('#count-character').css("color","red");
         }
     }
-    characterCount();
+    // characterCount();
     $("input[name=expert]").keyup(function(){
         characterCount();
     });
