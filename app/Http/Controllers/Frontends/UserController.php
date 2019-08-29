@@ -71,6 +71,7 @@ class UserController extends Controller
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
+        $user->avatar = 'images/avatar.jpg';
         $user->password = bcrypt(trim($request->password));
         $user->status = 1;
         $user->save();

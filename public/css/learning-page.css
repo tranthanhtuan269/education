@@ -714,8 +714,7 @@ body{
 }
 .ln-disc-input-bar, .ln-notes-input-bar{
     padding: 0.6em;
-    height: 600px;
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
 }
 .ln-disc-input-bar .input-group, .ln-notes-input-bar .input-group{
     width: 100%;

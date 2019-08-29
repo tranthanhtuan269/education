@@ -47,11 +47,14 @@
             </div>
             <div id="sectionBody{{ $key+1 }}" class="ln-lect-list-body collapse">
                 <ul>
-                    @foreach($unit->videos->sortBy('index') as $key => $video)
+                    @foreach($unit->videos->sortBy('index') as $key2 => $video)
                         <li class="video-list-item" id="listItem{{$video->id}}" data-parent="{{$video->id}}">
                             {{-- <a href="{{ route('videoplayer.show', ['courseId' => $unit->course_id, 'videoId' => $video->id]) }}"> --}}
                                 @php
                                     $list_video_done_in_unit = $video_done_units[($unit->index)-1];
+                                    // if(!is_array($list_video_done_in_unit[$video->index-1])){
+                                    //     $list_video_done_in_unit = array($list_video_done_in_unit);
+                                    // }
                                     // dd($list_video_done_in_unit);
                                 @endphp
                             <a href="learning-page/{{$unit->course_id}}/lecture/{{$video->id}}">
@@ -59,7 +62,7 @@
                                 <span class="ln-lect-list-lect-title">{{ $video->name }}</span>
                                 <span class="ln-lect-list-lect-duration">{{ App\Helper::convertSecondToTimeFormat($video->duration) }}</span>
                                 @if ($list_video_done_in_unit[$video->index-1] == 1)
-                                <span class="ln-btn-complete" id="lnBtnComplete{{$video->id}}" data-child="{{$key+1}}">
+                                <span class="ln-btn-complete" id="lnBtnComplete{{$video->id}}" data-child="{{$key2+1}}">
                                     <button >
                                         <span class="fa-stack">
                                             <i class="fas fa-circle fa-stack-2x" style="color: #44b900;"></i>
@@ -68,7 +71,7 @@
                                     </button>
                                 </span>
                                 @elseif($list_video_done_in_unit[$video->index-1] == 0)
-                                <span class="ln-btn-complete" id="lnBtnNotComplete{{$video->id}}" data-child="{{$key+1}}">
+                                <span class="ln-btn-complete" id="lnBtnNotComplete{{$video->id}}" data-child="{{$key2+1}}">
                                     <button class="ln-btn-complete " >
                                         <span class="fa-stack">
                                             <i class="fas fa-circle fa-stack-2x" style="color: rgb(200, 201, 202);"></i>
@@ -80,9 +83,10 @@
                             </a>
                         </li>
                         @if ($video->id === $main_video->id)
-                        
                             <script>
-                                $("#sectionBody"+{{ $key+1 }}).addClass('in')
+                                $(document).ready(function(){
+                                    $("#sectionBody"+{{ $key+1 }}).addClass('in')
+                                })
                             </script>
                         @endif
                         

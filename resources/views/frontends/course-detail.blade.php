@@ -409,8 +409,8 @@
                                 <img class="avatar" alt="{{ $lecturer->user->name }}" src="{{ $lecturer->user->avatar }}">
                             </a><br><br>
                             <div class="detail-info">
-                                {{-- <p class="name"><a href="{{ url('/') }}/teacher/{{ $lecturer->teacher->id }}" title="{{ $lecturer->user->name }}" >{{ $lecturer->user->name }}</a></p> --}}
-                                {{-- <p class="expret">{{ $lecturer->teacher->expert }}</p> --}}
+                                <p class="name"><a href="{{ url('/') }}/teacher/{{ $lecturer->teacher->id }}" title="{{ $lecturer->user->name }}" >{{ $lecturer->user->name }}</a></p>
+                                <p class="expret">{{ $lecturer->teacher->expert }}</p>
                                 <div class="frame clearfix">
                                     <div class="pull-left">
                                         <img src="{{ asset('frontend/images/ic_course.png') }}" alt="" /> 
@@ -437,8 +437,8 @@
                         </div> --}}
                         <div class="col-sm-9">
                             <div class="info-teacher-right">
-                                <p class="name"><a href="{{ url('/') }}/teacher/{{ $lecturer->teacher->id }}" title="{{ $lecturer->user->name }}" >{{ $lecturer->user->name }}</a></p>
-                                <div class="expert-teacher">{{$lecturer->teacher->expert}}</div>
+                                {{-- <p class="name"><a href="{{ url('/') }}/teacher/{{ $lecturer->teacher->id }}" title="{{ $lecturer->user->name }}" >{{ $lecturer->user->name }}</a></p>
+                                <div class="expert-teacher">{{$lecturer->teacher->expert}}</div> --}}
                                 <div class="cv-teacher">
                                     {!! $lecturer->teacher->cv !!}
                                 </div>

@@ -17,7 +17,7 @@
                     var noteEditor;
                         ClassicEditor
                             .create( document.querySelector( '#notesEditor' ),{
-                                toolbar: ['bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ],
+                                toolbar: ['bold', 'italic', 'bulletedList', 'numberedList', 'blockQuote' ],
                             } )
                             .then(editor =>{
                                 noteEditor = editor
