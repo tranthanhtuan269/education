@@ -43,12 +43,12 @@
         <div class="ln-desc-btm-center">
             <div class="ln-desc-btm-group-track">
                 @if (($main_video_id_key) > 0)
-                <a href="{{$video_id_list[$main_video_id_key-1]}}">
+                <a href="/learning-page/{{$main_video->unit->course->id}}/lecture/{{$video_id_list[$main_video_id_key-1]}}">
                     <button class="btn" id="lnDescBtnPrevious" data-toggle='tooltip' data-placement='top' title='Bài trước'><i class="fas fa-step-backward"></i></button>
                 </a>
                 @endif
                 @if (($main_video_id_key) < (count($video_id_list) - 1) )
-                <a href="{{$video_id_list[$main_video_id_key + 1]}}">
+                <a href="/learning-page/{{$main_video->unit->course->id}}/lecture/{{$video_id_list[$main_video_id_key + 1]}}">
                     <button class="btn" id="lnDescBtnNext" data-toggle='tooltip' data-placement='top' title='Bài sau'><i class="fas fa-step-forward"></i></button>
                 </a>
                 @endif
