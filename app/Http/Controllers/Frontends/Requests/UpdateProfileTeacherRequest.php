@@ -26,7 +26,7 @@ class UpdateProfileTeacherRequest extends FormRequest
             'expert'        => 'required',
             'cv'            => 'required',
             'address'       => 'max:255',
-            'phone'         => 'required|max:20|regex_phone:"/^[\+]?[(]?[0-9]{1,3}[)]?[-\s]?[0-9]{1,3}[-\s]?[0-9]{4,9}$/"',
+            'phone'         => 'required|min:10|max:11|regex_phone:"/^[\+]?[(]?[0-9]{1,3}[)]?[-\s]?[0-9]{1,3}[-\s]?[0-9]{4,9}$/"',
             'birthday'      => 'date_format:"d/m/Y"|regex:/[0-9]{2}\/[0-9]{2}\/[0-9]{4}/|validate_birthday',
         ];
     }
@@ -41,6 +41,7 @@ class UpdateProfileTeacherRequest extends FormRequest
             'phone.required'            => 'Bạn chưa nhập số điện thoại.',
             'phone.regex_phone'         => 'Số điện thoại không tồn tại.',
             'phone.max'                 => 'Số điện thoại không tồn tại.',
+            'phone.min'                 => 'Số điện thoại không tồn tại.',
 
             'cv.required'               => 'Bạn chưa nhập CV.',
 
