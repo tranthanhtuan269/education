@@ -513,17 +513,8 @@ ul.unica-acc-zone li.special:hover a{color:#fff}
 }
 
 /* Begin Cropit */
-/* .cropit-preview-background {
-  opacity: .2;
-}
-input.cropit-image-zoom-input {
-  position: relative;
-}
-#image-cropper {
-  overflow: hidden;
-} */
 
-.cropit-preview {
+.preview-profile {
   width: 250px;
   height: 250px;
   margin-top: 30px;
@@ -535,7 +526,19 @@ input.cropit-image-zoom-input {
   box-shadow: 4px 4px 10px 0px rgba(0,0,0,0.75);
 }
 
-.image-cropit-editor #image-cropper{
+.preview-image-course{
+  width: 640px;
+  height: 360px;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  -webkit-box-shadow: 4px 4px 10px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 4px 4px 10px 0px rgba(0,0,0,0.75);
+  box-shadow: 4px 4px 10px 0px rgba(0,0,0,0.75);
+}
+
+.image-cropit-editor .box-avatar-preview{
   width: 350px;
   border: 2px dashed #ccc;
   border-radius: 10px;
@@ -545,6 +548,17 @@ input.cropit-image-zoom-input {
   margin-right: auto;
   /* margin: 15px auto; */
 }
+.image-cropit-editor .box-course-preview{
+  width: 720px;
+  border: 2px dashed #ccc;
+  border-radius: 10px;
+  margin-top: 15px;
+  margin-bottom: 0px;
+  margin-left: auto;
+  margin-right: auto;
+  margin: 15px auto;
+}
+
 .image-cropit-editor input[type='range']  {
   -webkit-appearance: none ;
   width:200px;
@@ -2489,4 +2503,15 @@ div[data-u="slides"] div div{
 
 .swal2-shown{
   overflow: inherit !important;
+}
+
+.will-learn-class .cke_chrome{
+  padding-left: 1px;
+  padding-bottom: 1px;
+}
+.will-learn-class .cke_editable{
+  margin: 10px;
+}
+.will-learn-class ul{
+  padding: 0 20px;
 }

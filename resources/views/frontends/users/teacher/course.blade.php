@@ -4,9 +4,12 @@
 <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap-multiselect.css') }}" type="text/css">
 <script type="text/javascript" src="{{ asset('frontend/js/bootstrap-multiselect.js') }}"></script>
 
-<script src="{{ asset('frontend/js/dropzone.js') }}"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<script src="{{ url('/') }}/frontend/js/jquery.cropit.js"></script>
+
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://cdn.ckeditor.com/4.12.1/basic/ckeditor.js"></script>
 
 <div class="u-dashboard-top" style="background-image: url({{ url('frontend/images/bg-db-user.jpg') }});">
     <div class="container">
@@ -91,40 +94,22 @@
                 <h4 class="modal-title" id="exampleModalLabel">Tạo khóa học mới</h4>
             </div>
             <div class="modal-body">
-                <form class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label>Chọn ảnh</label>
-                            <div class="dropzone dz-clickable" id="myDrop0">
-                                <div class="dz-default dz-message" data-dz-message="">
-                                    <span>Tải lên</span>
-                                </div>
+                <div class="row">
+                    <div class="image-cropit-editor">
+                        <div class="box-course-preview" id="image-cropper">
+                            <div class="cropit-preview text-center preview-image-course" id="cropitPreview" style="display: none">
+                                {{-- <img class="sample-avatar" src="" alt="sample avatar"> --}}
+                            </div>
+                            <input type="range" class="cropit-image-zoom-input" id="cropit-zoom-input" style="display: none"/>
+                            <input type="file" class="cropit-image-input" style="display:none" value="" id="image-file-input"/>
+                            <div class="text-center">
+                                <div class="note">(Kích thước nhỏ nhất: 640x360)</div>
+                                <div class="btn btn-primary select-image-btn" id="btn-cropit-upload"><i class="fas fa-image fa-fw"></i> Tải lên ảnh khóa học</div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="price" class="control-label">Giá khóa học:</label>
-                            <input type="text" class="form-control" id="course-price" name="price">
-                        </div>
-                        <div class="form-group">
-                            <label for="approx_time" class="control-label">Thời gian ước tính: (giờ)</label>
-                            <input type="text" class="form-control" id="course-approx-time" name="approx-time">
-                        </div>
-                        <div class="form-group">
-                            <label for="category" class="control-label">Danh mục:</label>
-                            <script type="text/javascript">
-                                $('#course-category').multiselect();
-                            </script>
-                            <select class="form-control" id="course-category" name="category">
-                                @foreach($categories as $category)
-                                <optgroup label="{{ $category->name }}">
-                                    @foreach($category->children as $child)
-                                    <option value="{{ $child->id }}">{{ $child->name }}</option>
-                                    @endforeach
-                                </optgroup>
-                                @endforeach
-                            </select>
-                        </div>
                     </div>
+                </div>
+                <form class="row">
                     <div class="col-md-8">
                         <div class="form-group">
                             <label for="name" class="control-label">Tên khóa học:</label>
@@ -136,51 +121,21 @@
                         </div>
                         <div class="form-group">
                             <label for="description" class="control-label">Mô tả:</label>
-                            <textarea id="course-description" name="description"  rows="5" style="margin: 0px -11.3438px 0px 0px; width: 558px; height: 150px;"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="will-learn" class="control-label">Học viên sẽ học được gì:</label>
-                            <input type="text" class="form-control" id="course-will-learn" name="will-learn" placeholder="Ví dụ 1, ví dụ 2, ví dụ 3">
+                            <textarea id="course-description" class="form-control" rows="6" cols="50" name="description-course"></textarea>
+                            <script>
+                                    CKEDITOR.replace( 'description-course',{
+                                        height: '300px',
+                                    } )
+                            </script>
                         </div>
                         <div class="form-group">
                             <label for="requirement" class="control-label">Yêu cầu:</label>
                             <input type="text" class="form-control" id="course-requirement" name="requirement" placeholder="Ví dụ 1, ví dụ 2, ví dụ 3">
                         </div>
-                        {{-- <div class="form-group">
-                            <label for="requirement" class="control-label">Video giới thiệu:</label>
-                            <input type="text" class="form-control" id="course-requirement" name="requirement" placeholder="Yêu cầu video từ Youtube">
-                        </div> --}}
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
-                <button type="button" class="btn btn-primary" id="save-btn">Tạo</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div id="editCourse" class="box-course modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="exampleModalLabel">Chỉnh sửa khóa học <b><span id="course-name"></span></b></h4>
-            </div>
-            <div class="modal-body">
-                <form class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label>Chọn ảnh</label>
-                            <div class="dropzone dz-clickable" id="myDrop">
-                                <div class="dz-default dz-message" data-dz-message="">
-                                    <span>Tải lên</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="price" class="control-label">Giá:</label>
+                            <label for="price" class="control-label">Giá khóa học:</label>
                             <input type="text" class="form-control" id="course-price" name="price">
                         </div>
                         <div class="form-group">
@@ -189,42 +144,44 @@
                         </div>
                         <div class="form-group">
                             <label for="category" class="control-label">Danh mục:</label>
+                            {{-- <script type="text/javascript">
+                                $('#course-category').multiselect();
+                            </script> --}}
                             <select class="form-control" id="course-category" name="category">
+                                @foreach($categories as $category)
+                                <optgroup label="{{ $category->name }}">
+                                    @foreach($category->children as $child)
+                                    <option value="{{ $child->id }}">{{ $child->name }}</option>
+                                    @endforeach
+                                </optgroup>
+                                @endforeach
                             </select>
                         </div>
-                    </div>
-                    <div class="col-md-8">
                         <div class="form-group">
-                            <label for="name" class="control-label">Tên khóa học:</label>
-                            <input type="text" class="form-control" id="course-name" name="name">
+                            <label for="will-learn" class="control-label">Học viên sẽ học được:</label>
+                            <div class="form-group will-learn-class">
+                                <textarea id="course-will-learn" class="form-control" rows="6" cols="50" style="height:243px" name="will-learn"></textarea>
+                            </div>
+                            <script>
+                                    CKEDITOR.replace( 'will-learn', {
+                                        toolbar : [
+                                            { name: 'basicstyles', items: [ 'Bold', 'Italic', 'NumberedList', 'BulletedList'] },
+                                        ],
+                                        height: '215px',
+                                    });
+                            </script>
                         </div>
                         <div class="form-group">
-                            <label for="short_description" class="control-label">Mô tả ngắn:</label>
-                            <input type="text" class="form-control" id="short-description" name="short-description">
-                        </div>
-                        <div class="form-group">
-                            <label for="description" class="control-label">Mô tả:</label>
-                            <textarea id="course-description" name="description" class="form-control" rows="5" style="margin: 0px -11.3438px 0px 0px; width: 558px; height: 150px;"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="will-learn" class="control-label">Học viên sẽ học được gì:</label>
-                            <input type="text" class="form-control" id="course-will-learn" name="will-learn">
-                        </div>
-                        <div class="form-group">
-                            <label for="requirement" class="control-label">Yêu cầu:</label>
-                            <input type="text" class="form-control" id="course-requirement" name="requirement">
-                        </div>
-                        <div class="form-group">
-                            <label for="category" class="control-label">Danh mục:</label>
-                            <select class="form-control" id="course-category" name="category">
-                            </select>
+                            <label for="link_video" class="control-label">Video giới thiệu:</label>
+                            <input type="text" class="form-control" id="course-intro" name="course-intro" value="" placeholder="Link Youtube">
                         </div>
                     </div>
+                    
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
-                <button type="button" class="btn btn-primary" id="save-btn">Tải lên</button>
+                <button type="button" class="btn btn-primary" id="save-btn">Tạo</button>
             </div>
         </div>
     </div>
@@ -376,7 +333,6 @@
 <script>
     let filesEditLength = 0;
 
-    Dropzone.autoDiscover = false;
     $(document).ready(function(){
         $('#create-course-btn').click(function(){
             // alert(1)
@@ -388,184 +344,76 @@
         })
 
 
-        var link_base64;
-        var myDropzone = new Dropzone("div#myDrop0", 
-        { 
-            paramName: "files", // The name that will be used to transfer the file
-            addRemoveLinks: true,
-            uploadMultiple: false,
-            autoProcessQueue: true,
-            parallelUploads: 50,
-            maxFilesize: 5, // MB
-            thumbnailWidth:"259",
-            thumbnailHeight:"200",
-            acceptedFiles: ".png, .jpeg, .jpg, .gif",
-            url: "{{ url('upload-image') }}",
-            headers: {
-                'X-CSRF-TOKEN': "{{ csrf_token() }}"
-            },
+        // var link_base64;
+        
+        // $('#save-btn').click(function(){
+        //     var course_name = $('#course-name').val()
+        //     var short_description = $('#short-description').val()
+        //     var course_description = $('#course-description').val()
+        //     var course_will_learn = $('#course-will-learn').val()
+        //     var course_requirement = $('#course-requirement').val()
+        //     var course_price = $('#course-price').val()
+        //     var course_approx_time = $('#course-approx-time').val()
+        //     var course_category = $('#course-category').val()
+        //     $('#createCourse').modal('toggle')
 
-            success: function(file, response){
-                // alert(response);
-            },
-            accept: function(file, done) {
-                // alert(2)
-                done();
-            },
-            error: function(file, message, xhr){
-                if (xhr == null) this.removeFile(file);
-                $('#createCourse .dz-image-preview').show(500);
-                Swal.fire({
-                    type: 'warning',
-                    html: message,
-                })
-            },
-            sending: function(file, xhr, formData) {
-                // $.each($('form').serializeArray(), function(key,value) {
-                //     formData.append(this.name, this.value);
-                // });
-                // data_request = formData;
-                // alert(data);
-                // console.log(formData);
-            },
-            init: function() {
-                // var thisDropzone = this;
-                // var mockFile = { name: '', size: 12345, type: 'image/jpeg' };
-                // thisDropzone.emit("addedfile", mockFile);
-                // thisDropzone.emit("success", mockFile);
-                // // thisDropzone.emit("thumbnail", mockFile, "{{ url('frontend/'.((Auth::user()->avatar != '') ? Auth::user()->avatar : 'images/avatar.jpg') ) }}")
-                // // this.on("maxfilesexceeded", function(file){
-                // // this.removeFile(file);
-                // //     alert("No more files please!");
-                // // });
+        //     var data = {
+        //         image:link_base64,
+        //         name: course_name,
+        //         short_description: short_description,
+        //         description: course_description,
+        //         will_learn: course_will_learn,
+        //         requirement: course_requirement,
+        //         price: course_price,
+        //         approx_time: course_approx_time,
+        //         category: course_category,
+        //     };
 
-                this.on('addedfile', function(file) {
-                    $('#createCourse .dz-image-preview').hide(500);
-                    $('#createCourse .dz-progress').hide();
-                    if (this.files.length > 1) {
-                        this.removeFile(this.files[0]);
-                    }
+        //     $.ajax({
+        //         method: "POST",
+        //         url: "{{ url('user/courses/store') }}",
+        //         data: data,
+        //         dataType: 'json',
+        //         // beforeSend: function() {
+        //         //     $("#pre_ajax_loading").show();
+        //         // },
+        //         // complete: function() {
+        //         //     $("#pre_ajax_loading").hide();
+        //         // },
+        //         success: function (response) {
+        //             if(response.status == 200){
+        //                 Swal.fire({
+        //                     type: 'success',
+        //                     html: response.message,
 
-                });
-            },
-            // error: function (file, response){
-            //     alert(1);
-            //     if ($.type(response) === "string")
-            //         var message = response; //dropzone sends it's own error messages in string
-            //     else
-            //         var message = response.message;
-            //     file.previewElement.classList.add("dz-error");
-            //     _ref = file.previewElement.querySelectorAll("[data-dz-errormessage]");
-            //     _results = [];
-            //     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-            //         node = _ref[_i];
-            //         _results.push(node.textContent = message);
-            //     }
-            //     return _results;
-            // },
+        //                 }).then((result) => {
+        //                     if (result.value) {
+        //                         location.reload();
+        //                     }
+        //                 });
+        //             }else{
+        //                 Swal.fire({
+        //                     type: 'warning',
+        //                     html: 'Error',
+        //                 })
+        //             }
+        //         },
+        //         error: function(error) {
+        //             var obj_errors = error.responseJSON.errors;
+        //             console.log(obj_errors)
+        //             var txt_errors = '';
+        //             for (k of Object.keys(obj_errors)) {
+        //                 txt_errors += obj_errors[k][0] + '</br>';
+        //             }
+        //             Swal.fire({
+        //                 type: 'warning',
+        //                 html: txt_errors,
+        //             })
+        //         }
+        //     });
 
-            // reset: function () {
-            //     console.log("resetFiles");
-            //     this.removeAllFiles(true);
-            // }
-        });
-
-        myDropzone.on("sending", function(file, xhr, formData) {
-            var filenames = [];
-            
-            $('.dz-preview .dz-filename').each(function() {
-                filenames.push($(this).find('span').text());
-            });
-            
-            formData.append('filenames', filenames);
-        });
-
-        /* Add Files Script*/
-        myDropzone.on("success", function(file, message){
-            $("#msg").html(message);
-            //setTimeout(function(){window.location.href="index.php"},200);
-        });
-
-        myDropzone.on("error", function (data) {
-            $("#msg").html('<div class="alert alert-danger">Có lỗi, mời thử lại!</div>');
-        });
-
-        myDropzone.on("complete", function(file) {
-            //myDropzone.removeFile(file);
-        });
-
-        myDropzone.on('thumbnail', function(file, dataUri) {
-            link_base64 = dataUri;
-        });
-
-        $('#save-btn').click(function(){
-            var course_name = $('#course-name').val()
-            var short_description = $('#short-description').val()
-            var course_description = $('#course-description').val()
-            var course_will_learn = $('#course-will-learn').val()
-            var course_requirement = $('#course-requirement').val()
-            var course_price = $('#course-price').val()
-            var course_approx_time = $('#course-approx-time').val()
-            var course_category = $('#course-category').val()
-            $('#createCourse').modal('toggle')
-
-            var data = {
-                image:link_base64,
-                name: course_name,
-                short_description: short_description,
-                description: course_description,
-                will_learn: course_will_learn,
-                requirement: course_requirement,
-                price: course_price,
-                approx_time: course_approx_time,
-                category: course_category,
-            };
-
-            $.ajax({
-                method: "POST",
-                url: "{{ url('user/courses/store') }}",
-                data: data,
-                dataType: 'json',
-                // beforeSend: function() {
-                //     $("#pre_ajax_loading").show();
-                // },
-                // complete: function() {
-                //     $("#pre_ajax_loading").hide();
-                // },
-                success: function (response) {
-                    if(response.status == 200){
-                        Swal.fire({
-                            type: 'success',
-                            html: response.message,
-
-                        }).then((result) => {
-                            if (result.value) {
-                                location.reload();
-                            }
-                        });
-                    }else{
-                        Swal.fire({
-                            type: 'warning',
-                            html: 'Error',
-                        })
-                    }
-                },
-                error: function(error) {
-                    var obj_errors = error.responseJSON.errors;
-                    console.log(obj_errors)
-                    var txt_errors = '';
-                    for (k of Object.keys(obj_errors)) {
-                        txt_errors += obj_errors[k][0] + '</br>';
-                    }
-                    Swal.fire({
-                        type: 'warning',
-                        html: txt_errors,
-                    })
-                }
-            });
-
-            return;
-        })
+        //     return;
+        // })
 
         $('#addVideoModal').on('hidden.bs.modal', function () {
             $('#listVideo').modal('toggle');
@@ -603,8 +451,6 @@
             }
             
         })
-
-         
 
         $(document).on('click', '#btnDeleteDocument', function(){
             var indexToRemove = $(this).attr("data-index")
@@ -1171,10 +1017,214 @@
                 $("#listVideo").attr("data-unit-id", unit_id)
                 $("#listVideo").modal('show')
             })
-
         }
         @endif
+    });
+</script>
+
+<script>
+    $( document ).ready(function() {
+        var S2 = jQuery.noConflict();
+
+        S2('#image-cropper').cropit();
         
+        $('#btn-cropit-upload').click(function() {
+            $('#image-file-input').click();
+        });
+        
+        var _URL = window.URL || window.webkitURL;
+        $("#image-file-input").change(function(e) {
+            var file, img;
+            if ((file = this.files[0])) {
+                img = new Image();
+                img.onerror = function() {
+                    Swal.fire({
+                        type: 'warning',
+                        text: 'Tập tin không hợp lệ!',
+                    })
+                    $("#image-file-input").val('')
+                };
+                img.onload = function() {
+                    if(this.width < 640 || this.height < 360){
+                        Swal.fire({
+                            type: 'warning',
+                            text: 'Yêu cầu kích thước ảnh >= 640x360!',
+                        })
+                        $("#image-file-input").val('')
+                    }else{
+                        $('#cropit-zoom-input').css('display','block').css('padding-top', '15px');
+                        $('#cropitPreview').css('display', 'block')
+                    }
+                };
+                img.src = _URL.createObjectURL(file);
+            }
+        })
+
+        // var link_base64;
+        
+        // S2('#save-btn').click(function(){
+        //     link_base64 = S2('#image-cropper').cropit('export');
+
+        //     var course_name = $('#course-name').val()
+        //     var short_description = $('#short-description').val()
+        //     var course_description = CKEDITOR.instances['course-description'].getData()
+
+        //     var course_will_learn = CKEDITOR.instances['course-will-learn'].getData()
+
+        //     var course_requirement = $('#course-requirement').val()
+        //     var course_price = $('#course-price').val()
+        //     var course_approx_time = $('#course-approx-time').val()
+
+        //     var selector = document.getElementById('course-category')
+        //     var course_category = selector[selector.selectedIndex].value
+
+        //     $('#editCourse').modal('toggle')
+
+        //     var data = {
+        //         image:link_base64,
+        //         name: course_name,
+        //         short_description: short_description,
+        //         description: course_description,
+        //         will_learn: course_will_learn,
+        //         requirement: course_requirement,
+        //         price: course_price,
+        //         approx_time: course_approx_time,
+        //         category: course_category,
+        //     };
+
+        //     $.ajax({
+        //         method: "PUT",
+        //         url: "{{ url('user/courses/'.$course->id.'/update') }}",
+        //         data: data,
+        //         dataType: 'json',
+        //         // beforeSend: function() {
+        //         //     $("#pre_ajax_loading").show();
+        //         // },
+        //         // complete: function() {
+        //         //     $("#pre_ajax_loading").hide();
+        //         // },
+        //         success: function (response) {
+        //             if(response.status == 200){
+        //                 Swal.fire({
+        //                     type: 'success',
+        //                     html: response.message,
+
+        //                 }).then((result) => {
+        //                     if (result.value) {
+        //                         location.reload();
+        //                     }
+        //                 });
+        //             }else{
+        //                 Swal.fire({
+        //                     type: 'warning',
+        //                     html: 'Error',
+        //                 })
+        //             }
+        //         },
+        //         error: function (error) {
+        //             var obj_errors = error.responseJSON.errors;
+        //             var txt_errors = '';
+        //             for (k of Object.keys(obj_errors)) {
+        //                 txt_errors += obj_errors[k][0] + '</br>';
+        //             }
+        //             Swal.fire({
+        //                 type: 'warning',
+        //                 html: txt_errors,
+        //             })
+        //         }
+        //     });
+
+        //     return;
+        // })
+
+        var link_base64;
+        
+        S2('#save-btn').click(function(){
+            link_base64 = S2('#image-cropper').cropit('export');
+
+            var course_name = $('#course-name').val()
+            var short_description = $('#short-description').val()
+            var course_description = CKEDITOR.instances['course-description'].getData()
+
+            var course_will_learn = CKEDITOR.instances['course-will-learn'].getData()
+
+            var course_requirement = $('#course-requirement').val()
+            var course_price = $('#course-price').val()
+            var course_approx_time = $('#course-approx-time').val()
+
+            var selector = document.getElementById('course-category')
+            var course_category = selector[selector.selectedIndex].value
+
+            var link_intro = $('#course-intro').val()
+
+            // $('#editCourse').modal('toggle')
+
+            var url = link_intro;
+            if (url != undefined || url != '') {       
+                var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
+                var match = url.match(regExp);
+                if (match && match[2].length == 11) {
+                }else{
+                    Swal.fire({
+                        type: 'warning',
+                        html: 'Link Video không hợp lệ!',
+                    })
+                    return false;
+                }
+            }
+
+            var data = {
+                image:link_base64,
+                name: course_name,
+                short_description: short_description,
+                description: course_description,
+                will_learn: course_will_learn,
+                requirement: course_requirement,
+                price: course_price,
+                approx_time: course_approx_time,
+                category: course_category,
+                link_intro: link_intro,
+            };
+
+            $.ajax({
+                method: "POST",
+                url: "{{ url('user/courses/store') }}",
+                data: data,
+                dataType: 'json',
+                success: function (response) {
+                    if(response.status == 200){
+                        Swal.fire({
+                            type: 'success',
+                            html: response.message,
+
+                        }).then((result) => {
+                            if (result.value) {
+                                location.reload();
+                            }
+                        });
+                    }else{
+                        Swal.fire({
+                            type: 'warning',
+                            html: 'Error',
+                        })
+                    }
+                },
+                error: function(error) {
+                    var obj_errors = error.responseJSON.errors;
+                    console.log(obj_errors)
+                    var txt_errors = '';
+                    for (k of Object.keys(obj_errors)) {
+                        txt_errors += obj_errors[k][0] + '</br>';
+                    }
+                    Swal.fire({
+                        type: 'warning',
+                        html: txt_errors,
+                    })
+                }
+            });
+
+            return;
+        })
     });
 </script>
 @endsection

@@ -9,6 +9,7 @@ use App\Course;
 use App\UserCourse;
 use App\Setting;
 use Auth;
+use App\Helper\Helper;
 
 
 class CourseController extends Controller
@@ -53,6 +54,7 @@ class CourseController extends Controller
         $item->real_price           = $request->price;
         $item->approx_time          = $request->approx_time;
         $item->category_id          = $request->category;
+        $item->link_intro           = "https://www.youtube.com/embed/" . Helper::getYouTubeVideoId($request->link_intro);
         $item->created_at           = date('Y-m-d H:i:s');
         $item->updated_at           = date('Y-m-d H:i:s');
         $item->save();
@@ -110,26 +112,27 @@ class CourseController extends Controller
 
                 // dd($will_learn);
 
-                if($request->will_learn){
-                    $will_learn = explode(";;", $request->will_learn);
-                    $will_learn = \json_encode($will_learn);
-                }
+                // if($request->will_learn){
+                //     $will_learn = explode(";;", $request->will_learn);
+                //     $will_learn = \json_encode($will_learn);
+                // }
 
-                if($request->requirement){
-                    $requirement = explode(";;", $request->requirement);
-                    $requirement = \json_encode($requirement);
-                }
+                // if($request->requirement){
+                //     $requirement = explode(";;", $request->requirement);
+                //     $requirement = \json_encode($requirement);
+                // }
 
                 $item->name                 = $request->name;
                 $item->image                = $img_link;
                 $item->short_description    = $request->short_description;
                 $item->description          = $request->description;
-                $item->will_learn           = $will_learn;
-                $item->requirement          = $requirement;
+                $item->will_learn           = $request->will_learn;
+                $item->requirement          = $request->requirement;
                 $item->price                = $request->price;
                 $item->real_price           = $request->price;
                 $item->approx_time          = $request->approx_time;
                 $item->category_id          = $request->category;
+                $item->link_intro           = "https://www.youtube.com/embed/" . Helper::getYouTubeVideoId($request->link_intro);
                 $item->created_at           = date('Y-m-d H:i:s');
                 $item->updated_at           = date('Y-m-d H:i:s');
                 $item->save();

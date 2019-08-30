@@ -75,7 +75,7 @@
     </div>
 </div>
 
-<div id="editCourse{{ $course->id }}" class="box-course modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+<div id="editCourse-{{ $course->id }}" class="box-course modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -83,108 +83,118 @@
                 <h4 class="modal-title" id="exampleModalLabel">Chỉnh sửa khóa học <b>{{ $course->name }}</b></h4>
             </div>
             <div class="modal-body">
-                <form class="row form-edit-course">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label>Chọn ảnh</label>
-                            <div class="dropzone dz-clickable" id="myDrop{{ $course->id }}">
-                                <div class="dz-default dz-message" data-dz-message="">
-                                    <span>Tải ảnh lên</span>
-                                </div>
+                <div class="row">
+                    <div class="image-cropit-editor">
+                        <div class="box-course-preview" id="image-cropper-{{$course->id}}">
+                            <div class="cropit-preview text-center preview-image-course">
+                                <img class="sample-avatar" src="{{ asset('frontend/images/'.$course->image) }}" alt="sample avatar">
+                            </div>
+                            <input type="range" class="cropit-image-zoom-input" id="cropit-zoom-input-{{$course->id}}" style="display: none"/>
+                            <input type="file" class="cropit-image-input" style="display:none" value="" id="image-file-input-{{$course->id}}"/>
+                            <div class="text-center">
+                                <div class="note">(Kích thước nhỏ nhất: 640x360)</div>
+                                <div class="btn btn-primary select-image-btn" id="btn-cropit-upload-{{$course->id}}"><i class="fas fa-image fa-fw"></i> Tải lên ảnh khóa học</div>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <form class="row form-edit-course">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="name" class="control-label">Tên khóa học:</label>
+                                <input type="text" class="form-control" id="course-name-{{ $course->id }}" name="name" value="{{ $course->name }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="short_description" class="control-label">Mô tả ngắn:</label>
+                                <input type="text" class="form-control" id="short-description-{{ $course->id }}" name="short-description-{{ $course->id }}" value="{{ $course->short_description }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="description" class="control-label">Mô tả:</label>
+                                <textarea id="course-description-{{$course->id}}" class="form-control" rows="6" cols="50" name="description-course-{{ $course->id }}">{!! $course->description !!}</textarea>
+                                <script>
+                                        CKEDITOR.replace( 'description-course-{{ $course->id }}', {
+                                                height: '300px',
+                                            },
+                                        )
+                                </script>
+                            </div>
+                            
+                            @if (is_array($course->requirement))                            
+                                @php
+                                $requirement_string = "";
+                                foreach ($requirements as $key => $course->requirement) {
+                                    if($key > 0){
+                                        $requirement_string .= ",";
+                                    }
+                                    $requirement_string .= $course->requirement;    
+                                }
+                                @endphp
+                                <div class="form-group">
+                                    <label for="requirement" class="control-label">Yêu cầu:</label> 
+                                    <input type="text" class="form-control" id="course-requirement-{{$course->id}}" name="requirement-{{$course->id}}" value="{{ $requirement_string }}">
+                                </div>
+                            @else
+                                <div class="form-group">
+                                    <label for="requirement" class="control-label">Yêu cầu:</label> 
+                                    <input type="text" class="form-control" id="course-requirement-{{$course->id}}" name="requirement-{{$course->id}}" value="{{$course->requirement}}">
+                                </div>
+                            @endif
+                        </div>
+                    <div class="col-md-4">
                         <div class="form-group">
-                            <label for="price" class="control-label">Giá khóa học:</label>
-                            <input type="text" class="form-control" id="course-price{{ $course->id }}" name="price" value="{{ $course->price }}">
+                            <label for="price" class="control-label">Giá khóa học: (₫)</label>
+                            <input type="text" class="form-control" id="course-price-{{$course->id}}" name="price-{{$course->id}}" value="{{$course->price}}">
                         </div>
                         <div class="form-group">
                             <label for="approx_time" class="control-label">Thời gian dự kiến hoàn thành: (giờ)</label>
-                            <input type="text" class="form-control" id="course-approx-time{{ $course->id }}" name="approx-time" value="{{ $course->approx_time }}">
+                            <input type="text" class="form-control" id="course-approx-time-{{$course->id}}" name="approx-time-{{$course->id}}" value="{{$course->approx_time}}">
                         </div>
                         <div class="form-group">
                             <label for="category" class="control-label">Danh mục:</label>
-                            <script type="text/javascript">
+                            {{-- <script type="text/javascript">
                                 $('#course-category').multiselect();
-                            </script>
-                            <select class="form-control" id="course-category{{ $course->id }}" name="category">
+                            </script> --}}
+                            <select class="form-control" id="course-category{{$course->id}}" name="category-{{$course->id}}">
                                 @foreach($categories as $category)
-                                <optgroup label="{{ $category->name }}">
+                                <optgroup label="{{$category->name}}">
                                     @foreach($category->children as $child)
                                     @if($child->id == $course->category_id)
-                                    <option value="{{ $child->id }}" selected>{{ $child->name }}</option>
+                                    <option value="{{$child->id}}" selected>{{$child->name}}</option>
                                     @else
-                                    <option value="{{ $child->id }}">{{ $child->name }}</option>
+                                    <option value="{{$child->id}}">{{$child->name}}</option>
                                     @endif
                                     @endforeach
                                 </optgroup>
                                 @endforeach
                             </select>
                         </div>
-                    </div>
-                    <div class="col-md-8">
                         <div class="form-group">
-                            <label for="name" class="control-label">Tên khóa học:</label>
-                            <input type="text" class="form-control" id="course-name{{ $course->id }}" name="name" value="{{ $course->name }}">
+                            <label for="will-learn" class="control-label">Học viên sẽ học được:</label>
+                            <div class="form-group will-learn-class">
+                                <textarea id="course-will-learn-{{$course->id}}" class="form-control" rows="6" cols="50" name="will-learn{{ $course->id }}">{!! $course->will_learn !!}</textarea>
+                            </div>
+                            <script>
+                                CKEDITOR.replace( 'will-learn{{ $course->id }}', {
+                                        toolbar : [
+                                            { name: 'basicstyles', items: [ 'Bold', 'Italic', 'NumberedList', 'BulletedList'] },
+                                        ],
+                                        // removeButtons : 'Anchor,About,Link,Unlink,Outdent,Indent,Strike,Underline,Undo,Redo,Cut,Copy,Paste,Subscript,Superscript'
+                                        height: '215px',
+                                    },
+                                );
+                            </script>
                         </div>
                         <div class="form-group">
-                            <label for="short_description" class="control-label">Mô tả ngắn:</label>
-                            <input type="text" class="form-control" id="short-description{{ $course->id }}" name="short-description" value="{{ $course->short_description }}">
+                            <label for="link_video" class="control-label">Video giới thiệu:</label>
+                            <input type="text" class="form-control" id="course-intro-{{$course->id}}" name="course-intro-{{$course->id}}" value="{{$course->link_intro}}" placeholder="Link Youtube">
                         </div>
-                        <div class="form-group">
-                            <label for="description" class="control-label">Mô tả:</label>
-                            <textarea id="course-description{{ $course->id }}" name="description" class="form-control" rows="5" style="margin: 0px -11.3438px 0px 0px; width: 558px; height: 150px;">{{ $course->description }}</textarea>
-                        </div>
-                        @php
-                        $will_learns = \json_decode($course->will_learn);
-                        $requirements = \json_decode($course->requirement);
-                        @endphp
-                        @if (is_array($will_learns))
-                            @php
-                                $will_learn_string = "";
-                                foreach ($will_learns as $key => $will) {
-                                    if($key > 0){
-                                        $will_learn_string .= ",";
-                                    }
-                                    $will_learn_string .= $will;    
-                                }
-                            @endphp
-                            <div class="form-group">
-                                <label for="will-learn" class="control-label">Học viên sẽ học được:</label>                            
-                                <input type="text" class="form-control" id="course-will-learn{{ $course->id }}" name="will-learn" value="{{$will_learn_string}}">
-                            </div>
-                        @else
-                            <div class="form-group">
-                                <label for="will-learn" class="control-label">Học viên sẽ học được:</label>                            
-                                <input type="text" class="form-control" id="course-will-learn{{ $course->id }}" name="will-learn" value="{{$will_learns}}">
-                            </div>
-                        @endif
-                        @if (is_array($requirements))                            
-                            @php
-                            $requirement_string = "";
-                            foreach ($requirements as $key => $requirement) {
-                                if($key > 0){
-                                    $requirement_string .= ",";
-                                }
-                                $requirement_string .= $requirement;    
-                            }
-                            @endphp
-                            <div class="form-group">
-                                <label for="requirement" class="control-label">Yêu cầu:</label> 
-                                <input type="text" class="form-control" id="course-requirement{{ $course->id }}" name="requirement" value="{{ $requirement_string }}">
-                            </div>
-                        @else
-                            <div class="form-group">
-                                <label for="requirement" class="control-label">Yêu cầu:</label> 
-                                <input type="text" class="form-control" id="course-requirement{{ $course->id }}" name="requirement" value="{{$requirements}}">
-                            </div>
-                        @endif
                     </div>
                     <input id="resetForm" type="reset" value="Reset the form" style="display:none">
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default clear-modal" data-dismiss="modal">Hủy</button>
-                <button type="button" class="btn btn-primary" id="save-btn{{ $course->id }}">Cập nhật</button>
+                <button type="button" class="btn btn-primary" id="save-btn-{{$course->id}}">Cập nhật</button>
             </div>
             <script>
                 $('.clear-modal').click(function() {
@@ -227,10 +237,10 @@
 </div>
 
 <script>
-    Dropzone.autoDiscover = false;
     $(document).ready(function(){
         var old_pos = 0;
-        $( "#listUnit{{ $course->id }} #sortable" ).sortable({
+        var j = jQuery.noConflict();
+        j( "#listUnit{{ $course->id }} #sortable" ).sortable({
             placeholder: "ui-state-highlight",
             update: function( event, ui ) {
                 // check key begin vs after
@@ -284,7 +294,7 @@
             }
         });
 
-        $( "#listUnit{{ $course->id }} #sortable" ).disableSelection();
+        j( "#listUnit{{ $course->id }} #sortable" ).disableSelection();
 
         $("#listUnit{{ $course->id }} #add-unit-btn").click(function(){
             var data = {
@@ -442,7 +452,7 @@
         }
 
         $('#btn-edit-{{ $course->id }}').click(function(){
-            $('#editCourse{{ $course->id }}').modal('toggle')
+            $('#editCourse-{{ $course->id }}').modal('toggle')
         })
 
         $('#btn-remove-{{ $course->id }}').click(function(){
@@ -499,137 +509,84 @@
             $(".box-unit").removeClass('active-modal')
             $('#listUnit{{ $course->id }}').addClass('active-modal')
         })
+    });
+</script>
 
-        $('body').on('click','#editCourse{{ $course->id }} .dz-image-preview',function(){
-            $("#myDrop{{ $course->id }}").trigger("click")
+{{-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<script src="{{ url('/') }}/frontend/js/jquery.cropit.js"></script> --}}
+
+<script>
+    $( document ).ready(function() {
+        var j2 = jQuery.noConflict();
+
+        j2('#image-cropper-{{$course->id}}').cropit();
+        
+        $('#btn-cropit-upload-{{$course->id}}').click(function() {
+            $('#image-file-input-{{$course->id}}').click();
+        });
+        
+        var _URL = window.URL || window.webkitURL;
+        $("#image-file-input-{{$course->id}}").change(function(e) {
+            var file, img;
+            if ((file = this.files[0])) {
+                img = new Image();
+                img.onerror = function() {
+                    Swal.fire({
+                        type: 'warning',
+                        text: 'Tập tin không hợp lệ!',
+                    })
+                    $("#image-file-input-{{$course->id}}").val('')
+                };
+                img.onload = function() {
+                    if(this.width < 640 || this.height < 360){
+                        Swal.fire({
+                            type: 'warning',
+                            text: 'Yêu cầu kích thước ảnh >= 640x360!',
+                        })
+                        $("#image-file-input-{{$course->id}}").val('')
+                    }else{
+                        $('#cropit-zoom-input-{{$course->id}}').css('display','block').css('padding-top', '15px');
+                    }
+                };
+                img.src = _URL.createObjectURL(file);
+            }
         })
 
         var link_base64;
-        var myDropzone = new Dropzone("div#myDrop{{ $course->id }}", 
-        { 
-            paramName: "files", // The name that will be used to transfer the file
-            addRemoveLinks: true,
-            uploadMultiple: false,
-            autoProcessQueue: true,
-            parallelUploads: 50,
-            maxFilesize: 5, // MB
-            thumbnailWidth:"640",
-            thumbnailHeight:"370",
-            acceptedFiles: ".png, .jpeg, .jpg, .gif",
-            url: "{{ url('upload-image') }}",
-            headers: {
-                'X-CSRF-TOKEN': "{{ csrf_token() }}"
-            },
+        
+        j2('#save-btn-{{ $course->id }}').click(function(){
+            link_base64 = j2('#image-cropper-{{$course->id}}').cropit('export');
 
-            success: function(file, response){
-                // alert(response);
-            },
-            accept: function(file, done) {
-                // alert(2)
-                done();
-            },
-            error: function(file, message, xhr){
-                if (xhr == null) this.removeFile(file);
-                $('#editCourse{{ $course->id }} .dz-image-preview').show(500);
-                Swal.fire({
-                    type: 'warning',
-                    html: message,
-                })
-            },
-            sending: function(file, xhr, formData) {
-                // $.each($('form').serializeArray(), function(key,value) {
-                //     formData.append(this.name, this.value);
-                // });
-                // data_request = formData;
-                // alert(data);
-                // console.log(formData);
-            },
-            init: function() {
-                var thisDropzone = this;
-                var mockFile = { name: '', size: 12345, type: 'image/jpeg' };
-                thisDropzone.emit("addedfile", mockFile);
-                thisDropzone.emit("success", mockFile);
-                thisDropzone.emit("thumbnail", mockFile, "{{ url('frontend/images/'.$course->image) }}")
-                // this.on("maxfilesexceeded", function(file){
-                // this.removeFile(file);
-                //     alert("No more files please!");
-                // });
+            var course_name = $('#course-name-{{$course->id}}').val()
+            var short_description = $('#short-description-{{$course->id}}').val()
+            var course_description = CKEDITOR.instances['course-description-{{$course->id}}'].getData()
 
-                this.on('addedfile', function(file) {
-                    $('#editCourse{{ $course->id }} .dz-image-preview').hide(500);
-                    $('#editCourse{{ $course->id }} .dz-progress').hide();
-                    if (this.files.length > 1) {
-                        this.removeFile(this.files[0]);
-                    }
+            var course_will_learn = CKEDITOR.instances['course-will-learn-{{$course->id}}'].getData()
 
-                });
-            },
-            // error: function (file, response){
-            //     alert(1);
-            //     if ($.type(response) === "string")
-            //         var message = response; //dropzone sends it's own error messages in string
-            //     else
-            //         var message = response.message;
-            //     file.previewElement.classList.add("dz-error");
-            //     _ref = file.previewElement.querySelectorAll("[data-dz-errormessage]");
-            //     _results = [];
-            //     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-            //         node = _ref[_i];
-            //         _results.push(node.textContent = message);
-            //     }
-            //     return _results;
-            // },
+            var course_requirement = $('#course-requirement-{{$course->id}}').val()
+            var course_price = $('#course-price-{{ $course->id }}').val()
+            var course_approx_time = $('#course-approx-time-{{$course->id}}').val()
 
-            // reset: function () {
-            //     console.log("resetFiles");
-            //     this.removeAllFiles(true);
-            // }
-        });
-
-        myDropzone.on("sending", function(file, xhr, formData) {
-            var filenames = [];
-            
-            $('.dz-preview .dz-filename').each(function() {
-                filenames.push($(this).find('span').text());
-            });
-            
-            formData.append('filenames', filenames);
-        });
-
-        /* Add Files Script*/
-        myDropzone.on("success", function(file, message){
-            $("#msg").html(message);
-            //setTimeout(function(){window.location.href="index.php"},200);
-        });
-
-        myDropzone.on("error", function (data) {
-            $("#msg").html('<div class="alert alert-danger">Có lỗi, làm ơn thử lại!</div>');
-        });
-
-        myDropzone.on("complete", function(file) {
-            //myDropzone.removeFile(file);
-        });
-
-        myDropzone.on('thumbnail', function(file, dataUri) {
-            link_base64 = dataUri;
-        });
-
-        $('#save-btn{{ $course->id }}').click(function(){
-            var course_name = $('#course-name{{ $course->id }}').val()
-            var short_description = $('#short-description{{ $course->id }}').val()
-            var course_description = $('#course-description{{ $course->id }}').val()
-            var course_will_learn = $('#course-will-learn{{ $course->id }}').val()
-            var course_requirement = $('#course-requirement{{ $course->id }}').val()
-            var course_price = $('#course-price{{ $course->id }}').val()
-            var course_level = $('#course-level{{ $course->id }}').val()
-            var course_approx_time = $('#course-approx-time{{ $course->id }}').val()
-
-            var selector = document.getElementById('course-category{{ $course->id }}')
+            var selector = document.getElementById('course-category{{$course->id}}')
             var course_category = selector[selector.selectedIndex].value
-            // alert(course_category)
-            $('#editCourse{{ $course->id }}').modal('toggle')
 
-            // alert(course_will_learn)
+            var link_intro = $('#course-intro-{{$course->id}}').val()
+
+            // $('#editCourse-{{$course->id}}').modal('toggle')
+
+            var url = link_intro;
+            if (url != undefined || url != '') {       
+                var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
+                var match = url.match(regExp);
+                if (match && match[2].length == 11) {
+                }else{
+                    Swal.fire({
+                        type: 'warning',
+                        html: 'Link Video không hợp lệ!',
+                    })
+                    return false;
+                }
+            }
 
             var data = {
                 image:link_base64,
@@ -639,9 +596,9 @@
                 will_learn: course_will_learn,
                 requirement: course_requirement,
                 price: course_price,
-                level: course_level,
                 approx_time: course_approx_time,
                 category: course_category,
+                link_intro: link_intro,
             };
 
             $.ajax({
@@ -675,7 +632,6 @@
                 },
                 error: function (error) {
                     var obj_errors = error.responseJSON.errors;
-                    // console.log(obj_errors)
                     var txt_errors = '';
                     for (k of Object.keys(obj_errors)) {
                         txt_errors += obj_errors[k][0] + '</br>';

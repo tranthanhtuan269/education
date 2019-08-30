@@ -70,8 +70,8 @@
                                             <div class="form-group">
                                                 <label>Ảnh đại diện</label>
                                                 <div class="image-cropit-editor">
-                                                    <div id="image-cropper">
-                                                        <div class="cropit-preview text-center">
+                                                    <div id="image-cropper" class="box-avatar-preview">
+                                                        <div class="cropit-preview text-center preview-profile">
                                                             <img class="sample-avatar" src="{{ asset('frontend/'.(Auth::user()->avatar != '' ? Auth::user()->avatar : 'images/avatar.jpg')) }}" alt="sample avatar">
                                                         </div>
                                                         <input type="range" class="cropit-image-zoom-input" style="display: none"/>
@@ -135,7 +135,7 @@
                                             <div class="form-group">
                                                 <label>Địa chỉ</label>
                                                 <div class="form-group">
-                                                    <textarea class="form-control" rows="3" cols="50" name="address">{{ Auth::user()->address }}</textarea>
+                                                    <textarea class="form-control" rows="2" cols="50" name="address">{{ Auth::user()->address }}</textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -182,7 +182,6 @@
 <script>
     var wordCount;
     var characterCount = 0;
-    Dropzone.autoDiscover = false;
     $(document).ready(function(){
         // alert(12345)
         ClassicEditor
