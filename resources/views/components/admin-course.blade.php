@@ -1,5 +1,3 @@
-
-
 <?php
     $initial_vote_count = $course->vote_count;
     if($course->vote_count == 0) {
@@ -87,15 +85,15 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="image-cropit-editor">
-                        <div class="box-course-preview" id="image-cropper">
+                        <div class="box-course-preview" id="image-cropper-{{$course->id}}">
                             <div class="cropit-preview text-center preview-image-course">
                                 <img class="sample-avatar" src="{{ asset('frontend/images/'.$course->image) }}" alt="sample avatar">
                             </div>
-                            <input type="range" class="cropit-image-zoom-input" style="display: none"/>
-                            <input type="file" class="cropit-image-input" style="display:none" value="" id="image-file-input"/>
+                            <input type="range" class="cropit-image-zoom-input" id="cropit-zoom-input-{{$course->id}}" style="display: none"/>
+                            <input type="file" class="cropit-image-input" style="display:none" value="" id="image-file-input-{{$course->id}}"/>
                             <div class="text-center">
                                 <div class="note">(Kích thước nhỏ nhất: 640x360)</div>
-                                <div class="btn btn-primary select-image-btn"><i class="fas fa-image fa-fw"></i> Tải lên ảnh khóa học</div>
+                                <div class="btn btn-primary select-image-btn" id="btn-cropit-upload-{{$course->id}}"><i class="fas fa-image fa-fw"></i> Tải lên ảnh khóa học</div>
                             </div>
                         </div>
                     </div>
@@ -537,86 +535,6 @@
         $('body').on('click','#editCourse{{ $course->id }} .dz-image-preview',function(){
             $("#myDrop{{ $course->id }}").trigger("click")
         })
-
-        // var link_base64;
-
-        // $('#save-btn{{ $course->id }}').click(function(){
-        //     link_base64 = $('#image-cropper').cropit('export');
-
-        //     var course_name = $('#course-name{{ $course->id }}').val()
-        //     var short_description = $('#short-description{{ $course->id }}').val()
-        //     var course_description = $('#course-description{{ $course->id }}').val()
-        //     var course_will_learn = $('#course-will-learn{{ $course->id }}').val()
-        //     var course_requirement = $('#course-requirement{{ $course->id }}').val()
-        //     var course_price = $('#course-price{{ $course->id }}').val()
-        //     var course_level = $('#course-level{{ $course->id }}').val()
-        //     var course_approx_time = $('#course-approx-time{{ $course->id }}').val()
-
-        //     var selector = document.getElementById('course-category{{ $course->id }}')
-        //     var course_category = selector[selector.selectedIndex].value
-        //     // alert(course_category)
-        //     $('#editCourse{{ $course->id }}').modal('toggle')
-
-        //     // alert(course_will_learn)
-
-        //     var data = {
-        //         image:link_base64,
-        //         name: course_name,
-        //         short_description: short_description,
-        //         description: course_description,
-        //         will_learn: course_will_learn,
-        //         requirement: course_requirement,
-        //         price: course_price,
-        //         level: course_level,
-        //         approx_time: course_approx_time,
-        //         category: course_category,
-        //     };
-
-        //     $.ajax({
-        //         method: "PUT",
-        //         url: "{{ url('user/courses/'.$course->id.'/update') }}",
-        //         data: data,
-        //         dataType: 'json',
-        //         // beforeSend: function() {
-        //         //     $("#pre_ajax_loading").show();
-        //         // },
-        //         // complete: function() {
-        //         //     $("#pre_ajax_loading").hide();
-        //         // },
-        //         success: function (response) {
-        //             if(response.status == 200){
-        //                 Swal.fire({
-        //                     type: 'success',
-        //                     html: response.message,
-
-        //                 }).then((result) => {
-        //                     if (result.value) {
-        //                         location.reload();
-        //                     }
-        //                 });
-        //             }else{
-        //                 Swal.fire({
-        //                     type: 'warning',
-        //                     html: 'Error',
-        //                 })
-        //             }
-        //         },
-        //         error: function (error) {
-        //             var obj_errors = error.responseJSON.errors;
-        //             // console.log(obj_errors)
-        //             var txt_errors = '';
-        //             for (k of Object.keys(obj_errors)) {
-        //                 txt_errors += obj_errors[k][0] + '</br>';
-        //             }
-        //             Swal.fire({
-        //                 type: 'warning',
-        //                 html: txt_errors,
-        //             })
-        //         }
-        //     });
-
-        //     return;
-        // })
     });
 </script>
 
@@ -625,14 +543,14 @@
 
 <script>
     $( document ).ready(function() {
-        $('#image-cropper').cropit();
+        $('#image-cropper-{{$course->id}}').cropit();
         
-        $('.select-image-btn').click(function() {
-            $('.cropit-image-input').click();
+        $('#btn-cropit-upload-{{$course->id}}').click(function() {
+            $('#image-file-input-{{$course->id}}').click();
         });
         
         var _URL = window.URL || window.webkitURL;
-        $("#image-file-input").change(function(e) {
+        $("#image-file-input-{{$course->id}}").change(function(e) {
             var file, img;
             if ((file = this.files[0])) {
                 img = new Image();
@@ -651,11 +569,12 @@
                         })
                         $("#image-file-input").val('')
                     }else{
-                        $('.cropit-image-zoom-input').show().css('padding-top', '15px');
+                        $('#cropit-zoom-input-{{$course->id}}').css('display','block').css('padding-top', '15px');
                         // $('.rotate-btn-group').show();
                     }
                 };
                 img.src = _URL.createObjectURL(file);
+
             }
         })
 
@@ -663,7 +582,7 @@
         var j = jQuery.noConflict();
         
         j('#save-btn{{ $course->id }}').click(function(){
-            link_base64 = j('#image-cropper').cropit('export');
+            link_base64 = j('#image-cropper-{{$course->id}}').cropit('export');
 
             var course_name = $('#course-name{{ $course->id }}').val()
             var short_description = $('#short-description{{ $course->id }}').val()
