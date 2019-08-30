@@ -111,9 +111,9 @@
                         </div>
                         <div class="form-group">
                             <label for="category" class="control-label">Danh mục:</label>
-                            <script type="text/javascript">
+                            {{-- <script type="text/javascript">
                                 $('#course-category').multiselect();
-                            </script>
+                            </script> --}}
                             <select class="form-control" id="course-category" name="category">
                                 @foreach($categories as $category)
                                 <optgroup label="{{ $category->name }}">

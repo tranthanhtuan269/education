@@ -27,7 +27,7 @@ class UpdateCourseRequest extends FormRequest
             'name' => 'required|max:255',
             'short_description' => 'required|max:255',
             'description' => 'required',
-            'will_learn' => 'required|max:255',
+            'will_learn' => 'required',
             // 'requirement' => 'required|max:255',
             'price' => 'required|numeric',
             'approx_time' => 'required|numeric',

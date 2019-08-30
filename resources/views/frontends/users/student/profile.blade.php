@@ -71,7 +71,7 @@
                                             <label>Ảnh đại diện</label>
                                             <div class="row">
                                                 <div class="image-cropit-editor">
-                                                    <div id="image-cropper">
+                                                    <div id="image-cropper" class="box-avatar-preview">
                                                         <div class="cropit-preview text-center">
                                                         <img class="sample-avatar" src="{{ asset('frontend/'.(Auth::user()->avatar != '' ? Auth::user()->avatar : 'images/avatar.jpg')) }}" alt="sample avatar">
                                                         </div>
