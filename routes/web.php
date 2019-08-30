@@ -19,6 +19,7 @@ Auth::routes();
 
 Route::get('fix-course', 'Frontends\HomeController@fixDurationCourse');
 Route::get('fix-video', 'Frontends\HomeController@fixDurationVideo');
+Route::get('fix-will-learn', 'Frontends\HomeController@fixWillLearn');
 
 Route::get('mailable', function () {
     $order = App\Order::find(9);

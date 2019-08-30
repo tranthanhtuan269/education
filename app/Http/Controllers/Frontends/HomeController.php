@@ -729,6 +729,15 @@ class HomeController extends Controller
         }
         echo "done";
     }
+
+    public function fixWillLearn(){
+        $courses = Course::get();
+        foreach($courses as $course){
+            $course->will_learn = "<ul><li>" . str_replace(";;", "</li><li>", $course->will_learn) . "</li></ul>";
+            $course->save();
+        }
+        echo "done";   
+    }
 }
 
 class VideoJson
