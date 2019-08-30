@@ -638,9 +638,9 @@
                                 html += '<span class="video-content">'+response.videos[i].name+'</span><span style="color: red;"> <i> (Yêu cầu xoá đang được duyệt)</i></span>'
                             }else{
                                 html += '<span class="video-content">'+response.videos[i].name+'</span>'                                
+                                html += '<i class="fas fa-trash pull-right remove-video" data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'"></i>'
+                                html += '<i class="fas fa-edit pull-right edit-video" data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'"></i>'
                             }
-                            html += '<i class="fas fa-trash pull-right remove-video" data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'"></i>'
-                            html += '<i class="fas fa-edit pull-right edit-video" data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'"></i>'
                             html += '</li>'
                         }
                         $('#videoSortable').html(html);
@@ -853,23 +853,41 @@
                 //         $(value).attr("data-video-index", index)
                 //     }
                 // })
+                // console.log(self.parent().children('i.edit-video'));
+                // self.parent().children('i.edit-video').remove()
 
-                $.ajax({
-                    method: 'DELETE',
-                    url: "{{ url('/') }}/user/units/video/remove",
-                    data: {
-                        video_id : video_id
-                    },
-                    dataType: 'json',
-                    success: function (response) {
-                        if(response.status == '200'){
-                            // sefl.parent().remove();
-                            console.log(self.parent().children('span'))
-                            self.parent().children('span').after('<span style="color: red;"> <i> (Yêu cầu xoá đang được duyệt)</i></span>')                            
-                        }
-                    },
-                    error: function () {
-
+                Swal.fire({
+                    type: 'warning',
+                    text : 'Bạn có chắc chắn muốn xoá bài giảng này?',
+                    showCancelButton: true,
+                }).then( result => {
+                    if(result.value){
+                        $.ajax({
+                            method: 'DELETE',
+                            url: "{{ url('/') }}/user/units/video/remove",
+                            data: {
+                                video_id : video_id
+                            },
+                            dataType: 'json',
+                            success: function (response) {
+                                if(response.status == '200'){
+                                    // sefl.parent().remove();
+                                    // console.log(self.parent().children('span'))
+                                    self.parent().children('span').after('<span style="color: red;"> <i> (Yêu cầu xoá đang được duyệt)</i></span>')
+                                    self.parent().children('i.edit-video').remove()
+                                    return self.remove()
+                                }
+                                if(response.status == '201'){
+                                    return Swal.fire({
+                                        type: 'info',
+                                        text: response.message
+                                    })
+                                }
+                            },
+                            error: function () {
+        
+                            }
+                        })                        
                     }
                 })
             });
