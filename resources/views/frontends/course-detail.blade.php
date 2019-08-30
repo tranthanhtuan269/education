@@ -799,15 +799,15 @@
         })
         $(".interactive-bar .buttons button:last-child").click(function(){
             addCart();
-            window.location.replace("/cart/payment/method-selector")
+            window.location.href = ("/cart/payment/method-selector")
         })
         $("#buy-now").click(function(){
             addCart();
-            window.location.replace("/cart/payment/method-selector")
+            window.location.href =("/cart/payment/method-selector")
         })
         $("#buy-now2").click(function(){
             addCart();
-            window.location.replace("/cart/payment/method-selector")
+            window.location.href = ("/cart/payment/method-selector")
         })
         // $('#add-cart').click(function(){
         // function addCart(){
