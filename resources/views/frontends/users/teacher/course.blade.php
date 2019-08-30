@@ -332,7 +332,7 @@
 </div>
 <script>
     let filesEditLength = 0;
-
+    var S = jQuery.noConflict();
     $(document).ready(function(){
         $('#create-course-btn').click(function(){
             // alert(1)
@@ -650,7 +650,7 @@
 
             var old_pos = 0;
             var new_pos = 0;
-            $( "#videoSortable" ).sortable({
+            S( "#videoSortable" ).sortable({
                 placeholder: "ui-state-highlight",
                 update: function( event, ui ) {
                     // console.log($(ui.item));
