@@ -123,8 +123,25 @@
                                         @endif
                                     </div>
                                 </div>
-                                @if( (int)($info_course->userRoles[0]->user_id) != (int)(Auth::user()->id) )
-                                    @if (!in_array($info_course->id, $list_bought))
+                                @if (Auth::check())
+                                    @if( (int)($info_course->userRoles[0]->user_id) != (int)(Auth::user()->id) )
+                                        @if (!in_array($info_course->id, $list_bought))
+                                        <div class="box clearfix">
+                                            <div class="btn-add-cart">
+                                                <button type="button" id="add-cart" data-id="{{ $info_course->id }}" class="btn btn-primary btn-toh"><b>Thêm vào giỏ hàng</b></button>
+                                            </div>
+                                            <div class="btn-buy-now">
+                                                <button type="button" id="buy-now" data-id="{{ $info_course->id }}" class="btn btn-warning btn-toh"><b>Mua ngay</b></button>
+                                            </div>
+                                        </div>
+                                        <div class="box clearfix">
+                                            <div class="pull-left money-back">
+                                                30 ngày hoàn tiền
+                                            </div>
+                                        </div>
+                                        @endif
+                                    @endif                                    
+                                @else
                                     <div class="box clearfix">
                                         <div class="btn-add-cart">
                                             <button type="button" id="add-cart" data-id="{{ $info_course->id }}" class="btn btn-primary btn-toh"><b>Thêm vào giỏ hàng</b></button>
@@ -138,7 +155,6 @@
                                             30 ngày hoàn tiền
                                         </div>
                                     </div>
-                                    @endif
                                 @endif
                             </div>
                             <div class="col-sm-6">
@@ -169,50 +185,24 @@
                                 {!! $info_course->description !!}
                             </p>
                         </div>
-                        @php
-                            $will_learn = $info_course->will_learn;
-                            $will_learn = explode(";;", $will_learn);
-                            $will_learn = array_filter($will_learn, function($will){
-                                $will = trim($will);
-                                return $will != '';
-                            });
-                            // $will_learn = json_decode($will_learn);
-                        @endphp
-                        @if ($will_learn != null)
                         
                         <div class="knowledge clearfix">
                             <h3>Bạn sẽ học được gì</h3>
                             <div class="row">
                                 <div class="col-sm-12">
-                                    @php $ch = false;
-                                    @endphp
-                                    @foreach ($will_learn as $key => $will)
-                                    @if($key % 2 == 0)
-                                    <div class="row">
-                                    @endif
-                                    <?php
-                                    if(count(explode(" ",trim($will," "))) < 2) {
-                                        $ch = true;
-                                        continue;
-                                    }
-                                    ?>                       
-                                    <div class="col-lg-6 will-learn row">
-                                        <img class="" src="{{ asset('frontend/images/ic_check.png') }}"/> 
-                                        <div class="col-sm-10">
-                                            {!! ltrim($will,";") !!}
-                                        </div>
-                                    </div>
-                                    @if($key % 2 == 1)
-                                    </div>
-                                    @endif
-                                    @endforeach
-                                    @if($key % 2 == 0 || $ch == true )
-                                    </div>
-                                    @endif
+                                    {!! $info_course->will_learn !!}
                                 </div>
                             </div>
                         </div>
-                        @endif
+                        <style type="text/css">
+                            .knowledge ul {
+                                columns: 2;
+                                -webkit-columns: 2;
+                                -moz-columns: 2;
+                                height: 30px;
+                                list-style-image: url('http://timtruyen.online/frontend/images/ic_check.png');
+                            }
+                        </style>
                         <div class="lessons clearfix" id="box_content">
                             <div class="">
                                     @include('components.course-lesson-list')
@@ -298,38 +288,45 @@
                                         @endif
                                     </div>
                                     <div class="button-class clearfix">
-                                        @if( (int)($info_course->userRoles[0]->user_id) == (int)(Auth::user()->id) )
-                                            <div class="sidebar-add-cart">
-                                                <button type="button" id="add-cart2" class="btn btn-primary button-add-to-cart" disabled><b>Đây là khóa học của bạn</b></button>
-                                            </div>
-                                            <div class="sidebar-buy-now">
-                                                <a href="/list-course?type=best-seller" class="btn btn-warning" style="width: 90%;padding: 10px 0;margin-top: 10px;text-transform: uppercase;"><b>Xem các khóa học khác</b></a>
-                                            </div>
-                                        @else 
-                                            @if (!in_array($info_course->id, $list_bought))
+                                        @if (Auth::check())
+                                            @if( (int)($info_course->userRoles[0]->user_id) == (int)(Auth::user()->id) )
                                                 <div class="sidebar-add-cart">
-                                                    <button type="button" id="{{ $info_course->id }}" class="btn btn-primary button-add-to-cart"><b>Thêm vào giỏ hàng</b></button>
-                                                </div>
-                                                <div class="sidebar-buy-now">
-                                                    <button type="button" id="buy-now2" class="btn btn-warning"><b>Mua ngay</b></button>
-                                                </div>
-                                            @else
-                                                <div class="sidebar-add-cart">
-                                                    <button type="button" id="add-cart2" class="btn btn-primary button-add-to-cart" disabled><b>Bạn đã mua khóa học này</b></button>
+                                                    <button type="button" id="add-cart2" class="btn btn-primary button-add-to-cart" disabled><b>Đây là khóa học của bạn</b></button>
                                                 </div>
                                                 <div class="sidebar-buy-now">
                                                     <a href="/list-course?type=best-seller" class="btn btn-warning" style="width: 90%;padding: 10px 0;margin-top: 10px;text-transform: uppercase;"><b>Xem các khóa học khác</b></a>
                                                 </div>
-                                            @endif
+                                            @else 
+                                                @if (!in_array($info_course->id, $list_bought))
+                                                    <div class="sidebar-add-cart">
+                                                        <button type="button" id="{{ $info_course->id }}" class="btn btn-primary button-add-to-cart"><b>Thêm vào giỏ hàng</b></button>
+                                                    </div>
+                                                    <div class="sidebar-buy-now">
+                                                        <button type="button" id="buy-now2" class="btn btn-warning"><b>Mua ngay</b></button>
+                                                    </div>
+                                                @else
+                                                    <div class="sidebar-add-cart">
+                                                        <button type="button" id="add-cart2" class="btn btn-primary button-add-to-cart" disabled><b>Bạn đã mua khóa học này</b></button>
+                                                    </div>
+                                                    <div class="sidebar-buy-now">
+                                                        <a href="/list-course?type=best-seller" class="btn btn-warning" style="width: 90%;padding: 10px 0;margin-top: 10px;text-transform: uppercase;"><b>Xem các khóa học khác</b></a>
+                                                    </div>
+                                                @endif
+                                            @endif                                            
+                                        @else
+                                            <div class="sidebar-add-cart">
+                                                <button type="button" id="{{ $info_course->id }}" class="btn btn-primary button-add-to-cart"><b>Thêm vào giỏ hàng</b></button>
+                                            </div>
+                                            <div class="sidebar-buy-now">
+                                                <button type="button" id="buy-now2" class="btn btn-warning"><b>Mua ngay</b></button>
+                                            </div>
                                         @endif
                                     </div>
-                                    @if( (int)($info_course->userRoles[0]->user_id) != (int)(Auth::user()->id) )
-                                        <div class="clearfix">
-                                            <div class="text-center money-back">
-                                                (Hoàn tiền trong 30 ngày nếu không hài lòng)
-                                            </div>
+                                    <div class="clearfix">
+                                        <div class="text-center money-back">
+                                            (Hoàn tiền trong 30 ngày nếu không hài lòng)
                                         </div>
-                                    @endif
+                                    </div>
                                 </div>
                                 <div class="u-sm-right">
                                     <div class="block-ulti">
@@ -703,8 +700,33 @@
             @include('frontends.related-course')
         </div>
     </div>
-    @if( (int)($info_course->userRoles[0]->user_id) != (int)(Auth::user()->id) )
-        <div class="interactive-bar" data-i="{{ $info_course->id }}">
+    @if (Auth::check())
+        @if( (int)($info_course->userRoles[0]->user_id) != (int)(Auth::user()->id) )
+            <div class="interactive-bar" data-i="{{ $info_course->id }}">
+                <div class="row">
+                    <div class="info col-xs-12 col-md-8 col-sm-7">
+                        <div class="title">
+                            <strong><p>{{ $info_course->name }}</p></strong>
+                        </div>
+                        <div class="lecturer">
+                            @foreach ($info_course->Lecturers() as $lecturer)
+                            <p>{{$lecturer->user->name}}</p>              
+                            @endforeach
+                        </div>
+                    </div>
+                    @if (!in_array($info_course->id, $list_bought))
+                    <div class="buttons col-xs-12 col-md-4 col-sm-5">
+                        <div class="group-btn-buy-course">
+                            <button class="btn btn-primary">Thêm vào giỏ hàng</button>
+                            <button class="btn btn-warning">Mua ngay</button>
+                        </div>
+                    </div>
+                    @endif
+                </div>
+            </div>
+        @endif
+    @else
+    <div class="interactive-bar" data-i="{{ $info_course->id }}">
             <div class="row">
                 <div class="info col-xs-12 col-md-8 col-sm-7">
                     <div class="title">
@@ -716,14 +738,14 @@
                         @endforeach
                     </div>
                 </div>
-                @if (!in_array($info_course->id, $list_bought))
+                {{-- @if (!in_array($info_course->id, $list_bought)) --}}
                 <div class="buttons col-xs-12 col-md-4 col-sm-5">
                     <div class="group-btn-buy-course">
                         <button class="btn btn-primary">Thêm vào giỏ hàng</button>
                         <button class="btn btn-warning">Mua ngay</button>
                     </div>
                 </div>
-                @endif
+                {{-- @endif --}}
             </div>
         </div>
     @endif
@@ -751,15 +773,15 @@
         })
         $(".interactive-bar .buttons button:last-child").click(function(){
             addCart();
-            window.location.replace("/cart/payment/method-selector")
+            window.location.href = ("/cart/payment/method-selector")
         })
         $("#buy-now").click(function(){
             addCart();
-            window.location.replace("/cart/payment/method-selector")
+            window.location.href =("/cart/payment/method-selector")
         })
         $("#buy-now2").click(function(){
             addCart();
-            window.location.replace("/cart/payment/method-selector")
+            window.location.href = ("/cart/payment/method-selector")
         })
         // $('#add-cart').click(function(){
         // function addCart(){

@@ -58,14 +58,18 @@
         @endif
 
         <div class="teacher-course">
-            @if( (int)($course->userRoles[0]->user_id) == (int)(Auth::user()->id) )
-                <div id="add-cart" class="btn btn-primary" disabled><b>ĐÂY LÀ KHÓA HỌC CỦA BẠN</b></div>
-            @else
-                @if (in_array($course->id, $list_bought))
-                    <div id="add-cart" class="btn btn-primary" disabled><b>BẠN ĐÃ MUA KHÓA HỌC NÀY</b></div>
+            @if (Auth::check())
+                @if( (int)($course->userRoles[0]->user_id) == (int)(Auth::user()->id) )
+                    <div id="add-cart" class="btn btn-primary" disabled><b>ĐÂY LÀ KHÓA HỌC CỦA BẠN</b></div>
                 @else
-                    <div id="add-cart" data-id="{{ $course->id }}" class="btn btn-primary"><b>THÊM VÀO GIỎ HÀNG</b></div>
-                @endif
+                    @if (in_array($course->id, $list_bought))
+                        <div id="add-cart" class="btn btn-primary" disabled><b>BẠN ĐÃ MUA KHÓA HỌC NÀY</b></div>
+                    @else
+                        <div id="add-cart" data-id="{{ $course->id }}" class="btn btn-primary"><b>THÊM VÀO GIỎ HÀNG</b></div>
+                    @endif
+                @endif     
+            @else
+            <div id="add-cart" data-id="{{ $course->id }}" class="btn btn-primary"><b>THÊM VÀO GIỎ HÀNG</b></div>
             @endif
         </div>
     </div>

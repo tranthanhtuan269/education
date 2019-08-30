@@ -228,7 +228,7 @@ $(document).ready(function () {
             dataType: "json",
         });
         request.done(function(){
-            window.location.replace("/learning-page/"+ course_id +"/lecture/"+ video_id)
+            window.location.href = ("/learning-page/"+ course_id +"/lecture/"+ video_id)
         })
     })
 

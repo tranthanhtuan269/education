@@ -428,7 +428,7 @@
 						type:"warning",
 						text:"Cart can't be empty!"
 					}).then((result) => {
-						window.location.replace('/')
+						window.location.href = ('/')
 					})
 				}else{
 					$.ajax({
