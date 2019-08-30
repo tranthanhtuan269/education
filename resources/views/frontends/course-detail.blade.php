@@ -142,7 +142,7 @@
                                 @endif
                             </div>
                             <div class="col-sm-6">
-                                <iframe src="https://www.youtube.com/embed/tgbNymZ7vqY?controls=0"  frameborder="0" allowfullscreen></iframe>
+                            <iframe src="{{$info_course->link_intro}}"  frameborder="0" allowfullscreen></iframe>
                             </div>
                         </div>
                     </div>

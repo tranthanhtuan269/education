@@ -2504,3 +2504,14 @@ div[data-u="slides"] div div{
 .swal2-shown{
   overflow: inherit !important;
 }
+
+.will-learn-class .cke_chrome{
+  padding-left: 1px;
+  padding-bottom: 1px;
+}
+.will-learn-class .cke_editable{
+  margin: 10px;
+}
+.will-learn-class ul{
+  padding: 0 20px;
+}

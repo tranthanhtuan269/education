@@ -59,6 +59,7 @@ class Course extends Model
         'two_stars',
         'one_stars',
 
+        'link_intro',
         'status'
     ];
 
