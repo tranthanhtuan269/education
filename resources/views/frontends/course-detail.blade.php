@@ -185,50 +185,24 @@
                                 {!! $info_course->description !!}
                             </p>
                         </div>
-                        @php
-                            $will_learn = $info_course->will_learn;
-                            $will_learn = explode(";;", $will_learn);
-                            $will_learn = array_filter($will_learn, function($will){
-                                $will = trim($will);
-                                return $will != '';
-                            });
-                            // $will_learn = json_decode($will_learn);
-                        @endphp
-                        @if ($will_learn != null)
                         
                         <div class="knowledge clearfix">
                             <h3>Bạn sẽ học được gì</h3>
                             <div class="row">
                                 <div class="col-sm-12">
-                                    @php $ch = false;
-                                    @endphp
-                                    @foreach ($will_learn as $key => $will)
-                                    @if($key % 2 == 0)
-                                    <div class="row">
-                                    @endif
-                                    <?php
-                                    if(count(explode(" ",trim($will," "))) < 2) {
-                                        $ch = true;
-                                        continue;
-                                    }
-                                    ?>                       
-                                    <div class="col-lg-6 will-learn row">
-                                        <img class="" src="{{ asset('frontend/images/ic_check.png') }}"/> 
-                                        <div class="col-sm-10">
-                                            {!! ltrim($will,";") !!}
-                                        </div>
-                                    </div>
-                                    @if($key % 2 == 1)
-                                    </div>
-                                    @endif
-                                    @endforeach
-                                    @if($key % 2 == 0 || $ch == true )
-                                    </div>
-                                    @endif
+                                    {!! $info_course->will_learn !!}
                                 </div>
                             </div>
                         </div>
-                        @endif
+                        <style type="text/css">
+                            .knowledge ul {
+                                columns: 2;
+                                -webkit-columns: 2;
+                                -moz-columns: 2;
+                                height: 30px;
+                                list-style-image: url('http://timtruyen.online/frontend/images/ic_check.png');
+                            }
+                        </style>
                         <div class="lessons clearfix" id="box_content">
                             <div class="">
                                     @include('components.course-lesson-list')
