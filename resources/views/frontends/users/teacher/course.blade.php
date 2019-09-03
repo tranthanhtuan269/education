@@ -991,6 +991,8 @@
         var link_base64;
         
         S2('#save-btn').click(function(){
+            $(this).attr('disabled', true)
+
             link_base64 = S2('#image-cropper').cropit('export');
 
             var course_name = $('#course-name').val()
@@ -1009,7 +1011,7 @@
             var link_intro = $('#course-intro').val()
 
             // $('#editCourse').modal('toggle')
-
+            
             var url = link_intro;
             if (url != undefined || url != '') {       
                 var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
@@ -1019,7 +1021,9 @@
                     Swal.fire({
                         type: 'warning',
                         html: 'Link Video không hợp lệ!',
+                        allowOutsideClick: false,
                     })
+                    $(this).attr('disabled', false)
                     return false;
                 }
             }
@@ -1047,7 +1051,7 @@
                         Swal.fire({
                             type: 'success',
                             html: response.message,
-
+                            allowOutsideClick: false,
                         }).then((result) => {
                             if (result.value) {
                                 location.reload();
@@ -1057,7 +1061,9 @@
                         Swal.fire({
                             type: 'warning',
                             html: 'Error',
+                            allowOutsideClick: false,
                         })
+                        $(this).attr('disabled', false)
                     }
                 },
                 error: function(error) {
@@ -1070,10 +1076,12 @@
                     Swal.fire({
                         type: 'warning',
                         html: txt_errors,
+                        allowOutsideClick: false,
                     })
+                    $(this).attr('disabled', false)
                 }
             });
-
+            $(this).attr('disabled', false)
             return;
         })
     });

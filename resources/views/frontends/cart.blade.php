@@ -303,12 +303,19 @@
                 }
             });
 
-            // var coupon = $('.coupon-input').val();
-            var coupon = $(".cart-single-item[data-parent="+dataChild+"] input").val();
-            // var initial_price = parseInt($(".cart-single-item[data-parent="+dataChild+"] .single-price .current-price").text())*1000
 
-            // alert(initial_price)
-            // alert(coupon)
+            var coupon = $(".cart-single-item[data-parent="+dataChild+"] input").val();
+
+            var new_cart = JSON.parse(localStorage.getItem('cart'))
+            get_coupon = new_cart[numeric_cart].coupon_code
+
+            if(get_coupon == coupon){
+                return Swal.fire({
+                    type:"warning",
+                    text:"Mã khuyến mãi đã được áp dụng!"
+                })
+            }
+
             if(coupon.length < 1){
                 return Swal.fire({
                     type:"warning",
@@ -333,6 +340,10 @@
                             new_price = dataPrice*(100-response.coupon_value)/100
                         }
                         // new_totalPrice = totalPrice - dataPrice + new_price
+                        Swal.fire({
+                            type:"success",
+                            text:"Áp dụng mã khuyến mãi thành công!"
+                        })
                     }else{
                         localStorage.removeItem('coupon')
                         $('#input-coupon').val('')

@@ -49,7 +49,7 @@ class CourseController extends Controller
         $item->short_description    = $request->short_description;
         $item->description          = $request->description;
         $item->will_learn           = $will_learn;
-        $item->requirement          = $requirement;
+        $item->requirement          = $request->requirement;
         $item->price                = $request->price;
         $item->real_price           = $request->price;
         $item->approx_time          = $request->approx_time;
