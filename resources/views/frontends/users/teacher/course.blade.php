@@ -344,10 +344,11 @@
     $(document).ready(function(){
         $('#create-course-btn').click(function(){
             // alert(1)
-            $('#createCourse').modal('toggle')
-            $('*:not(#createCourse)').click(function(e){
-                e.preventDefault();
-            });
+            // $('#createCourse').modal('toggle')
+            $('#createCourse').modal({
+                backdrop: 'static',
+                keyboard: false
+            })
         })
 
         $('body').on('click','#createCourse .dz-image-preview',function(){
@@ -355,11 +356,19 @@
         })
 
         $('#addVideoModal').on('hidden.bs.modal', function () {
-            $('#listVideo').modal('toggle');
+            // $('#listVideo').modal('toggle');
+            $('#listVideo').modal({
+                backdrop: 'static',
+                keyboard: false
+            });
         });
 
         $('#editVideoModal').on('hidden.bs.modal', function () {
-            $('#listVideo').modal('toggle');
+            // $('#listVideo').modal('toggle');
+            $('#listVideo').modal({
+                backdrop: 'static',
+                keyboard: false
+            });
         });
         
         $("#btnEditVideoDocument").click(function(){
@@ -454,12 +463,21 @@
         });
 
         $('.close-popup-lecture').click(function(){
-			$('.active-modal').modal('toggle');
+			$('.active-modal').modal({
+                backdrop: 'static',
+                keyboard: false
+            });;
         })
 
         $('#addVideoBtn').on('click', function () {
-            $('#listVideo').modal('toggle')
-            $('#addVideoModal').modal('toggle');
+            $('#listVideo').modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+            $('#addVideoModal').modal({
+                backdrop: 'static',
+                keyboard: false
+            });
             $('.save-add-video').attr('data-unit-id', $(this).attr('data-unit-id'));
             $('#addVideoModal input.add-video-name').val('');
             $('#addVideoModal textarea.add-video-description').val('');
@@ -474,7 +492,10 @@
             $(".edit-video").click(function(){
                 var video_id = $(this).attr('data-video-id');
                 $('#listVideo').modal('hide')
-                $('#editVideoModal').attr('data-video-id', video_id).modal('toggle')
+                $('#editVideoModal').attr('data-video-id', video_id).modal({
+                    backdrop: 'static',
+                    keyboard: false
+                });
 
                 $.ajax({
                 method: 'GET',
@@ -981,7 +1002,10 @@
                 var unit_id = $(this).attr('data-unit-id')
                 $(".box-unit").modal('hide')
                 $("#listVideo").attr("data-unit-id", unit_id)
-                $("#listVideo").modal('show')
+                $("#listVideo").modal({
+                    backdrop: 'static',
+                    keyboard: false
+                })
             })
         }
         @endif

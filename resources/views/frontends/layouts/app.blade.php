@@ -619,6 +619,10 @@
 
         @if(Auth::check())
         $(document).ready( function () {
+
+            $(".modal").attr('data-backdrop', 'static');
+            $(".modal").attr('data-keyboard', false);
+
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

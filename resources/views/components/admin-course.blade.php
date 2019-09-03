@@ -456,12 +456,19 @@
                 var unit_id = $(this).attr('data-unit-id')
                 $(".box-unit").modal('hide')
                 $("#listVideo").attr("data-unit-id", unit_id)
-                $("#listVideo").modal('show')
+                $("#listVideo").modal({
+                    backdrop: 'static',
+                    keyboard: false
+                })
             })
         }
 
         $('#btn-edit-{{ $course->id }}').click(function(){
-            $('#editCourse-{{ $course->id }}').modal('toggle')
+            // $('#editCourse-{{ $course->id }}').modal('toggle')
+            $('#editCourse-{{ $course->id }}').modal({
+                backdrop: 'static',
+                keyboard: false
+            })
         })
 
         $('#btn-remove-{{ $course->id }}').click(function(){
@@ -516,7 +523,11 @@
         })
 
         $('#btn-unit-{{ $course->id }}').click(function(){
-            $('#listUnit{{ $course->id }}').modal('toggle')
+            // $('#listUnit{{ $course->id }}').modal('toggle')
+            $('#listUnit{{ $course->id }}').modal({
+                backdrop: 'static',
+                keyboard: false
+            })
             $(".box-unit").removeClass('active-modal')
             $('#listUnit{{ $course->id }}').addClass('active-modal')
         })
