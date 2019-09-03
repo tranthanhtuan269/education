@@ -138,7 +138,7 @@
                                         </div>
                                         <div class="box clearfix">
                                             <div class="pull-left money-back">
-                                                30 ngày hoàn tiền
+                                                (Hoàn tiền trong 30 ngày nếu không hài lòng)
                                             </div>
                                         </div>
                                         @endif
@@ -154,7 +154,7 @@
                                     </div>
                                     <div class="box clearfix">
                                         <div class="pull-left money-back">
-                                            30 ngày hoàn tiền
+                                            (Hoàn tiền trong 30 ngày nếu không hài lòng)
                                         </div>
                                     </div>
                                 @endif
@@ -199,7 +199,6 @@
                                     {!! $info_course->will_learn !!}
                                 </div>
                             </div>
-                            
                         </div>
                         <script>
                             $(document).ready(function (){

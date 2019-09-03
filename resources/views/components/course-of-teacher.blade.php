@@ -23,32 +23,30 @@
             <li><i class="fa fa-list-alt fa-fw" aria-hidden="true"></i> {{$course->video_count}} bài giảng</li>
             <li><i class="far fa-clock fa-fw" aria-hidden="true"></i> {{ intval($course->duration / 3600) }} giờ {{ intval($course->duration % 60 ) }} phút</li>
         </ul>
-        @php
+        <?php 
             $will_learn = $course->will_learn;
-            $will_learn = explode(";;", $will_learn);
-            $will_learn = array_filter($will_learn, function($will){
-                $will = trim($will);
-                return $will != '';
-            });
-        @endphp
-        @if ($will_learn != null)
-            <ul class="big-des">
-                @foreach ($will_learn as $key => $will)
-                <?php                          
-                if(count(explode(" ",trim($will," "))) < 2) continue;
-                ?>
-                @if( $key > 3 )
-                <li>
-                    <i class="fa fa-chevron-right fa-fw" aria-hidden="true"></i>...
-                </li>
-                @break
-                @endif
-                <li>
-                    <i class="fa fa-chevron-right fa-fw" aria-hidden="true"></i>{!! ltrim($will,";") !!}
-                </li>
-                @endforeach
-            </ul>
-        @endif
+            $will_learn = explode("</li>", $will_learn);
+            // $will_learn = str_replace("<li></li>","",$will_learn);
+            // $will_learn = str_replace("<li>;    </li>","",$will_learn);
+            if(count($will_learn) > 3){
+                $will_learn = $will_learn[0]."</li>".$will_learn[1]."</li>".$will_learn[2]."</li>".$will_learn[3]."<li>...</li>";
+            }
+            // dd($will_learn);
+        ?>
+        {{-- @if ($course->will_learn != null) --}}
+        <div class="clearfix course-des">
+            <div class="row">
+                <div class="col-sm-12 big-des">
+                    {!! $will_learn !!}
+                </div>
+            </div>
+        </div>
+        {{-- @endif --}}
+        <script>
+            $(document).ready(function (){
+                $('.course-des .row li').prepend('<i class="fa fa-chevron-right fa-fw" aria-hidden="true"></i>')
+            })
+        </script>
     </div>
     <div class="lp-bc-price">
         <p class="price-b">{!! number_format($course->price, 0, ',' , '.') !!}<sup>₫</sup></p>
