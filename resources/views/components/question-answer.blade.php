@@ -1,6 +1,10 @@
 <div class="box clearfix">
     <div class="col-sm-3">
+        @if($comment->userRole->user != null)
         <img class="avatar" src="{{ url('/frontend/') }}/{{ $comment->userRole->user->avatar }}" alt="" />
+        @else
+        <img class="avatar" src="{{ url('/frontend/images/avatar.jpg') }}" alt="" />
+        @endif
         <div class="info-account">
             <p class="interval">{{ $comment->created_at }}</p>
             <p class="name">{{ $comment->userRole->user->name }}</p>

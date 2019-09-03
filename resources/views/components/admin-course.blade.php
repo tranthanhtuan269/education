@@ -234,7 +234,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="closeModal{{ $course->id }}">Đóng</button>
             </div>
         </div>
     </div>
@@ -291,6 +291,7 @@
                         Swal.fire({
                             type: 'warning',
                             html: txt_errors,
+                            allowOutsideClick: false,
                         })
                     }
                 });
@@ -330,6 +331,7 @@
                     Swal.fire({
                         type: 'warning',
                         html: txt_errors,
+                        allowOutsideClick: false,
                     })
                 }
             })
@@ -385,6 +387,7 @@
                         Swal.fire({
                             type: 'warning',
                             html: txt_errors,
+                            allowOutsideClick: false,
                         })
                     }
                 });
@@ -427,7 +430,8 @@
                         }else if(response.status == 201) {
                             Swal.fire({
                                 type:'warning',
-                                text: response.message
+                                text: response.message,
+                                allowOutsideClick: false,
                             })
                         }
                     },
@@ -441,6 +445,7 @@
                         Swal.fire({
                             type: 'warning',
                             html: txt_errors,
+                            allowOutsideClick: false,
                         })
                     }
                 });
@@ -480,7 +485,7 @@
                         Swal.fire({
                             type: 'success',
                             html: response.message,
-
+                            allowOutsideClick: false,
                         }).then((result) => {
                             if (result.value) {
                                 location.reload();
@@ -490,6 +495,7 @@
                         Swal.fire({
                             type: 'warning',
                             html: 'Lỗi',
+                            allowOutsideClick: false,
                         })
                     }
                 },
@@ -503,6 +509,7 @@
                     Swal.fire({
                         type: 'warning',
                         html: txt_errors,
+                        allowOutsideClick: false,
                     })
                 }
             });
@@ -512,6 +519,10 @@
             $('#listUnit{{ $course->id }}').modal('toggle')
             $(".box-unit").removeClass('active-modal')
             $('#listUnit{{ $course->id }}').addClass('active-modal')
+        })
+
+        $('#closeModal{{ $course->id }}').click(function(){
+            location.reload()
         })
     });
 </script>
