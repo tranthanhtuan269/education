@@ -47,22 +47,25 @@ class CommentController extends Controller
     {
         $course = Course::find($request->course_id);
         if ($course) {
-            $commentCourse = new CommentCourse;
-            $commentCourse->content = $request->content;
-            $commentCourse->user_role_id = Helper::getUserRoleOfCourse($request->course_id)->user_role_id;
-            $commentCourse->course_id = $request->course_id;
-            if (isset($request->parentId)) {
-                $commentCourse->parent_id = $request->parentId;
-            }
-            $commentCourse->score = $request->score;
-            $commentCourse->state = 0;
-            $commentCourse->save();
-
             // Kiểm tra user đã rating từ trước chưa?
             // Nếu chưa thì add thêm vào bảng RatingCourse.
             // Nếu có rồi thì bỏ qua bước này.
             $check = RatingCourse::where('user_id', Auth::id())->where('course_id', $request->course_id)->first();
             if (!isset($check)) {
+
+                // add comment
+                $commentCourse = new CommentCourse;
+                $commentCourse->content = $request->content;
+                $commentCourse->user_role_id = Helper::getUserRoleOfCourse($request->course_id)->user_role_id;
+                $commentCourse->course_id = $request->course_id;
+                if (isset($request->parentId)) {
+                    $commentCourse->parent_id = $request->parentId;
+                }
+                $commentCourse->score = $request->score;
+                $commentCourse->state = 0;
+                $commentCourse->save();
+                // end add comment
+
                 $ratingCourse = new RatingCourse;
                 $ratingCourse->user_id = Auth::id();
                 $ratingCourse->course_id = $request->course_id;
@@ -87,8 +90,10 @@ class CommentController extends Controller
                 $course->star_count += $request->score;
                 $course->vote_count += 1;
                 $course->save();
+                return \Response::json(array('status' => '201', 'message' => 'Cập nhật thông tin thành công!', 'commentCourse' => fractal($commentCourse, new CommentCourseTransformer())->toArray(), 'course' => $course));
+            }else{
+                return \Response::json(array('status' => '200', 'message' => 'Bạn chỉ được gửi nhận xét một lần cho mỗi khóa học!'));
             }
-            return \Response::json(array('status' => '200', 'message' => 'Cập nhật thông tin thành công!', 'commentCourse' => fractal($commentCourse, new CommentCourseTransformer())->toArray()));
         }
         return \Response::json(array('status' => '404', 'message' => 'Khóa học không tồn tại!'));
     }
