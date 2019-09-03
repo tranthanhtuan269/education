@@ -163,12 +163,12 @@
                                 <textarea id="course-will-learn" class="form-control" rows="6" cols="50" style="height:243px" name="will-learn"></textarea>
                             </div>
                             <script>
-                                    CKEDITOR.replace( 'will-learn', {
-                                        toolbar : [
-                                            { name: 'basicstyles', items: [ 'Bold', 'Italic', 'NumberedList', 'BulletedList'] },
-                                        ],
-                                        height: '215px',
-                                    });
+                                CKEDITOR.replace( 'will-learn', {
+                                    toolbar : [
+                                        { name: 'basicstyles', items: [ 'Bold', 'Italic', 'NumberedList', 'BulletedList'] },
+                                    ],
+                                    height: '215px',
+                                });
                             </script>
                         </div>
                         <div class="form-group">
@@ -176,13 +176,21 @@
                             <input type="text" class="form-control" id="course-intro" name="course-intro" value="" placeholder="Link Youtube">
                         </div>
                     </div>
-                    
+                    <input id="resetForm" type="reset" value="Reset the form" style="display:none">
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="clearModal">Hủy</button>
                 <button type="button" class="btn btn-primary" id="save-btn">Tạo</button>
             </div>
+            <script>
+                $('#clearModal').click(function() {
+                    // alert(123456);
+                    $('#resetForm').click()
+                    CKEDITOR.instances['course-description'].setData("")
+                    CKEDITOR.instances['course-will-learn'].setData("")
+                });
+            </script>
         </div>
     </div>
 </div>
