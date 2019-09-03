@@ -29,14 +29,14 @@
                         alt="{{ $title }}">
                 @endif
                 @if (isset($heart))
-                <i class="fa fa-heart fa-lg heart-icon" aria-hidden="true"></i>    
+                <i class="fa fa-heart fa-lg heart-icon" aria-hidden="true"></i>
                 @endif
 
-                @if (isset($setup))  
+                @if (isset($setup))
                 <i class="fa fa-cog fa-lg setting-icon" aria-hidden="true"></i>
-                @endif        
+                @endif
              </div>
-                    
+
             <div class="content-course">
                 <h3 class="title-course">{{ $title }}</h3>
                 <div class="clearfix">
@@ -50,9 +50,40 @@
                             {{$video_done_percent}}%
                     </div>
                 </div>
-                @if (isset($btn_start_learning))  
+                @if (isset($btn_start_learning))
                 <div class="text-center">
                     <a href="{{ "learning-page/".$courseId."/lecture/".$learningId }}" class="btn btn-primary btn-sm btn-start-learning">Tiếp tục học</a>
+                    <script>
+                        $(document).ready(function () {
+                            $('.btn.btn-primary.btn-sm.btn-start-learning').click(function (e) {
+                              e.stopPropagation()
+                              e.preventDefault()
+
+                              const course_id = {{ $courseId }}
+                              const learning_id = {{ $learningId }}
+                              
+                              $.ajaxSetup({
+                                  headers: {
+                                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                  }
+                              });
+                              const request = $.ajax({
+                                  method: 'POST',
+                                  url: "/user-course/update-watched",
+                                  data: {
+                                      'video_id': learning_id
+                                  },
+                                  dataType: "json",
+                                  success: function () {
+                                      window.location.href = ("/learning-page/"+ course_id +"/lecture/"+ learning_id)
+                                  },
+                                  error: function () {
+  
+                                  }
+                              });
+                            })
+                        })
+                    </script>
                 </div>
                 @endif
             </div>
