@@ -344,7 +344,11 @@
     $(document).ready(function(){
         $('#create-course-btn').click(function(){
             // alert(1)
-            $('#createCourse').modal('toggle')
+            // $('#createCourse').modal('toggle')
+            $('#createCourse').modal({
+                backdrop: 'static',
+                keyboard: false
+            })
         })
 
         $('body').on('click','#createCourse .dz-image-preview',function(){
@@ -352,11 +356,19 @@
         })
 
         $('#addVideoModal').on('hidden.bs.modal', function () {
-            $('#listVideo').modal('toggle');
+            // $('#listVideo').modal('toggle');
+            $('#listVideo').modal({
+                backdrop: 'static',
+                keyboard: false
+            });
         });
 
         $('#editVideoModal').on('hidden.bs.modal', function () {
-            $('#listVideo').modal('toggle');
+            // $('#listVideo').modal('toggle');
+            $('#listVideo').modal({
+                backdrop: 'static',
+                keyboard: false
+            });
         });
         
         $("#btnEditVideoDocument").click(function(){
@@ -439,6 +451,7 @@
                     Swal.fire({
                         type: 'warning',
                         html: txt_errors,
+                        allowOutsideClick: false,
                     })
                 }
             })
@@ -450,12 +463,21 @@
         });
 
         $('.close-popup-lecture').click(function(){
-			$('.active-modal').modal('toggle');
+			$('.active-modal').modal({
+                backdrop: 'static',
+                keyboard: false
+            });;
         })
 
         $('#addVideoBtn').on('click', function () {
-            $('#listVideo').modal('toggle')
-            $('#addVideoModal').modal('toggle');
+            $('#listVideo').modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+            $('#addVideoModal').modal({
+                backdrop: 'static',
+                keyboard: false
+            });
             $('.save-add-video').attr('data-unit-id', $(this).attr('data-unit-id'));
             $('#addVideoModal input.add-video-name').val('');
             $('#addVideoModal textarea.add-video-description').val('');
@@ -470,7 +492,10 @@
             $(".edit-video").click(function(){
                 var video_id = $(this).attr('data-video-id');
                 $('#listVideo').modal('hide')
-                $('#editVideoModal').attr('data-video-id', video_id).modal('toggle')
+                $('#editVideoModal').attr('data-video-id', video_id).modal({
+                    backdrop: 'static',
+                    keyboard: false
+                });
 
                 $.ajax({
                 method: 'GET',
@@ -506,6 +531,7 @@
                     Swal.fire({
                         type: 'warning',
                         html: txt_errors,
+                        allowOutsideClick: false,
                     })
                 }
             })
@@ -618,6 +644,7 @@
                         Swal.fire({
                             type: 'warning',
                             html: txt_errors,
+                            allowOutsideClick: false,
                         })
                     }
                 })
@@ -662,7 +689,8 @@
                                 if(response.status == '201'){
                                     return Swal.fire({
                                         type: 'info',
-                                        text: response.message
+                                        text: response.message,
+                                        allowOutsideClick: false,
                                     })
                                 }
                             },
@@ -723,6 +751,7 @@
                             Swal.fire({
                                 type: 'warning',
                                 html: txt_errors,
+                                allowOutsideClick: false,
                             })
                         }
                     });
@@ -764,6 +793,7 @@
                     Swal.fire({
                         type: 'warning',
                         html: 'Lỗi định dạng.',
+                        allowOutsideClick: false,
                     })
                 }
                 $('#file-mp4-upload-off-updated').val('');
@@ -807,6 +837,7 @@
                     Swal.fire({
                         type: 'warning',
                         html: 'Lỗi định dạng.',
+                        allowOutsideClick: false,
                     })
                 }
                 $('#file-mp4-upload-off').val('');
@@ -917,6 +948,7 @@
                         Swal.fire({
                             type: 'warning',
                             html: txt_errors,
+                            allowOutsideClick: false,
                         })
                     }
                 });
@@ -960,6 +992,7 @@
                         Swal.fire({
                             type: 'warning',
                             html: txt_errors,
+                            allowOutsideClick: false,
                         })
                     }
                 });
@@ -969,7 +1002,10 @@
                 var unit_id = $(this).attr('data-unit-id')
                 $(".box-unit").modal('hide')
                 $("#listVideo").attr("data-unit-id", unit_id)
-                $("#listVideo").modal('show')
+                $("#listVideo").modal({
+                    backdrop: 'static',
+                    keyboard: false
+                })
             })
         }
         @endif
@@ -995,6 +1031,7 @@
                     Swal.fire({
                         type: 'warning',
                         text: 'Tập tin không hợp lệ!',
+                        allowOutsideClick: false,
                     })
                     $("#image-file-input").val('')
                 };
@@ -1003,6 +1040,7 @@
                         Swal.fire({
                             type: 'warning',
                             text: 'Yêu cầu kích thước ảnh >= 640x360!',
+                            allowOutsideClick: false,
                         })
                         $("#image-file-input").val('')
                     }else{

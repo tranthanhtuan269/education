@@ -234,7 +234,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="closeModal{{ $course->id }}">Đóng</button>
             </div>
         </div>
     </div>
@@ -291,6 +291,7 @@
                         Swal.fire({
                             type: 'warning',
                             html: txt_errors,
+                            allowOutsideClick: false,
                         })
                     }
                 });
@@ -330,6 +331,7 @@
                     Swal.fire({
                         type: 'warning',
                         html: txt_errors,
+                        allowOutsideClick: false,
                     })
                 }
             })
@@ -385,6 +387,7 @@
                         Swal.fire({
                             type: 'warning',
                             html: txt_errors,
+                            allowOutsideClick: false,
                         })
                     }
                 });
@@ -427,7 +430,8 @@
                         }else if(response.status == 201) {
                             Swal.fire({
                                 type:'warning',
-                                text: response.message
+                                text: response.message,
+                                allowOutsideClick: false,
                             })
                         }
                     },
@@ -441,6 +445,7 @@
                         Swal.fire({
                             type: 'warning',
                             html: txt_errors,
+                            allowOutsideClick: false,
                         })
                     }
                 });
@@ -451,12 +456,19 @@
                 var unit_id = $(this).attr('data-unit-id')
                 $(".box-unit").modal('hide')
                 $("#listVideo").attr("data-unit-id", unit_id)
-                $("#listVideo").modal('show')
+                $("#listVideo").modal({
+                    backdrop: 'static',
+                    keyboard: false
+                })
             })
         }
 
         $('#btn-edit-{{ $course->id }}').click(function(){
-            $('#editCourse-{{ $course->id }}').modal('toggle')
+            // $('#editCourse-{{ $course->id }}').modal('toggle')
+            $('#editCourse-{{ $course->id }}').modal({
+                backdrop: 'static',
+                keyboard: false
+            })
         })
 
         $('#btn-remove-{{ $course->id }}').click(function(){
@@ -480,7 +492,7 @@
                         Swal.fire({
                             type: 'success',
                             html: response.message,
-
+                            allowOutsideClick: false,
                         }).then((result) => {
                             if (result.value) {
                                 location.reload();
@@ -490,6 +502,7 @@
                         Swal.fire({
                             type: 'warning',
                             html: 'Lỗi',
+                            allowOutsideClick: false,
                         })
                     }
                 },
@@ -503,15 +516,24 @@
                     Swal.fire({
                         type: 'warning',
                         html: txt_errors,
+                        allowOutsideClick: false,
                     })
                 }
             });
         })
 
         $('#btn-unit-{{ $course->id }}').click(function(){
-            $('#listUnit{{ $course->id }}').modal('toggle')
+            // $('#listUnit{{ $course->id }}').modal('toggle')
+            $('#listUnit{{ $course->id }}').modal({
+                backdrop: 'static',
+                keyboard: false
+            })
             $(".box-unit").removeClass('active-modal')
             $('#listUnit{{ $course->id }}').addClass('active-modal')
+        })
+
+        $('#closeModal{{ $course->id }}').click(function(){
+            location.reload()
         })
     });
 </script>
