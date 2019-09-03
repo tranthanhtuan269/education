@@ -158,7 +158,11 @@
                                 @endif
                             </div>
                             <div class="col-sm-6">
-                            <iframe src="{{$info_course->link_intro}}"  frameborder="0" allowfullscreen></iframe>
+                                @if( $info_course->link_intro == null )
+                                    <iframe src="https://www.youtube.com/embed/JKi4M6ME64o"  frameborder="0" allowfullscreen></iframe>
+                                @else
+                                    <iframe src="{{$info_course->link_intro}}"  frameborder="0" allowfullscreen></iframe>
+                                @endif
                             </div>
                         </div>
                     </div>

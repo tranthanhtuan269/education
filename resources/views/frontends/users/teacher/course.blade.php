@@ -332,7 +332,7 @@
 </div>
 <script>
     let filesEditLength = 0;
-
+    var S = jQuery.noConflict();
     $(document).ready(function(){
         $('#create-course-btn').click(function(){
             // alert(1)
@@ -342,78 +342,6 @@
         $('body').on('click','#createCourse .dz-image-preview',function(){
             $("#myDrop0").trigger("click")
         })
-
-
-        // var link_base64;
-        
-        // $('#save-btn').click(function(){
-        //     var course_name = $('#course-name').val()
-        //     var short_description = $('#short-description').val()
-        //     var course_description = $('#course-description').val()
-        //     var course_will_learn = $('#course-will-learn').val()
-        //     var course_requirement = $('#course-requirement').val()
-        //     var course_price = $('#course-price').val()
-        //     var course_approx_time = $('#course-approx-time').val()
-        //     var course_category = $('#course-category').val()
-        //     $('#createCourse').modal('toggle')
-
-        //     var data = {
-        //         image:link_base64,
-        //         name: course_name,
-        //         short_description: short_description,
-        //         description: course_description,
-        //         will_learn: course_will_learn,
-        //         requirement: course_requirement,
-        //         price: course_price,
-        //         approx_time: course_approx_time,
-        //         category: course_category,
-        //     };
-
-        //     $.ajax({
-        //         method: "POST",
-        //         url: "{{ url('user/courses/store') }}",
-        //         data: data,
-        //         dataType: 'json',
-        //         // beforeSend: function() {
-        //         //     $("#pre_ajax_loading").show();
-        //         // },
-        //         // complete: function() {
-        //         //     $("#pre_ajax_loading").hide();
-        //         // },
-        //         success: function (response) {
-        //             if(response.status == 200){
-        //                 Swal.fire({
-        //                     type: 'success',
-        //                     html: response.message,
-
-        //                 }).then((result) => {
-        //                     if (result.value) {
-        //                         location.reload();
-        //                     }
-        //                 });
-        //             }else{
-        //                 Swal.fire({
-        //                     type: 'warning',
-        //                     html: 'Error',
-        //                 })
-        //             }
-        //         },
-        //         error: function(error) {
-        //             var obj_errors = error.responseJSON.errors;
-        //             console.log(obj_errors)
-        //             var txt_errors = '';
-        //             for (k of Object.keys(obj_errors)) {
-        //                 txt_errors += obj_errors[k][0] + '</br>';
-        //             }
-        //             Swal.fire({
-        //                 type: 'warning',
-        //                 html: txt_errors,
-        //             })
-        //         }
-        //     });
-
-        //     return;
-        // })
 
         $('#addVideoModal').on('hidden.bs.modal', function () {
             $('#listVideo').modal('toggle');
@@ -722,7 +650,7 @@
 
             var old_pos = 0;
             var new_pos = 0;
-            $( "#videoSortable" ).sortable({
+            S( "#videoSortable" ).sortable({
                 placeholder: "ui-state-highlight",
                 update: function( event, ui ) {
                     // console.log($(ui.item));
@@ -1059,83 +987,6 @@
                 img.src = _URL.createObjectURL(file);
             }
         })
-
-        // var link_base64;
-        
-        // S2('#save-btn').click(function(){
-        //     link_base64 = S2('#image-cropper').cropit('export');
-
-        //     var course_name = $('#course-name').val()
-        //     var short_description = $('#short-description').val()
-        //     var course_description = CKEDITOR.instances['course-description'].getData()
-
-        //     var course_will_learn = CKEDITOR.instances['course-will-learn'].getData()
-
-        //     var course_requirement = $('#course-requirement').val()
-        //     var course_price = $('#course-price').val()
-        //     var course_approx_time = $('#course-approx-time').val()
-
-        //     var selector = document.getElementById('course-category')
-        //     var course_category = selector[selector.selectedIndex].value
-
-        //     $('#editCourse').modal('toggle')
-
-        //     var data = {
-        //         image:link_base64,
-        //         name: course_name,
-        //         short_description: short_description,
-        //         description: course_description,
-        //         will_learn: course_will_learn,
-        //         requirement: course_requirement,
-        //         price: course_price,
-        //         approx_time: course_approx_time,
-        //         category: course_category,
-        //     };
-
-        //     $.ajax({
-        //         method: "PUT",
-        //         url: "{{ url('user/courses/'.$course->id.'/update') }}",
-        //         data: data,
-        //         dataType: 'json',
-        //         // beforeSend: function() {
-        //         //     $("#pre_ajax_loading").show();
-        //         // },
-        //         // complete: function() {
-        //         //     $("#pre_ajax_loading").hide();
-        //         // },
-        //         success: function (response) {
-        //             if(response.status == 200){
-        //                 Swal.fire({
-        //                     type: 'success',
-        //                     html: response.message,
-
-        //                 }).then((result) => {
-        //                     if (result.value) {
-        //                         location.reload();
-        //                     }
-        //                 });
-        //             }else{
-        //                 Swal.fire({
-        //                     type: 'warning',
-        //                     html: 'Error',
-        //                 })
-        //             }
-        //         },
-        //         error: function (error) {
-        //             var obj_errors = error.responseJSON.errors;
-        //             var txt_errors = '';
-        //             for (k of Object.keys(obj_errors)) {
-        //                 txt_errors += obj_errors[k][0] + '</br>';
-        //             }
-        //             Swal.fire({
-        //                 type: 'warning',
-        //                 html: txt_errors,
-        //             })
-        //         }
-        //     });
-
-        //     return;
-        // })
 
         var link_base64;
         
