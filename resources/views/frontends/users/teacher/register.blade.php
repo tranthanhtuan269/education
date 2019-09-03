@@ -1,6 +1,9 @@
 @extends('frontends.layouts.app') 
 @section('content')
 
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<script src="{{ url('/') }}/frontend/js/jquery.cropit.js"></script>
+
 <div class="u-dashboard-top" style="background-image:  url({{ url('frontend/images/bg-db-user.jpg') }});">
     <div class="container">
         <div class="row">
@@ -27,17 +30,23 @@
                                     <form action="" method="post" enctype="multipart/form-data">
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label>Chọn ảnh đại diện</label>
-                                                <div class="dropzone dz-clickable" id="myDrop">
+                                                <label>Ảnh đại diện</label>
+                                                <div class="image-cropit-editor">
+                                                    <div id="image-cropper" class="box-avatar-preview">
+                                                        <div class="cropit-preview text-center preview-profile">
+                                                            <img class="sample-avatar" src="{{ asset('frontend/'.(Auth::user()->avatar != '' ? Auth::user()->avatar : 'images/avatar.jpg')) }}" alt="sample avatar">
+                                                        </div>
+                                                        <input type="range" class="cropit-image-zoom-input" style="display: none"/>
+                                                        <input type="file" class="cropit-image-input" style="display:none" value="" id="image-file-input"/>
+                                                        <div class="text-center">
+                                                            <div class="note">(Kích thước nhỏ nhất: 250x250)</div>
+                                                            <div class="btn btn-primary select-image-btn"><i class="fas fa-image fa-fw"></i> Tải lên ảnh đại diện</div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-sm-6">
-                                            <!-- <div class="form-group">
-                                                <label>Chọn ảnh đại diện</label>
-                                                <div class="dropzone dz-clickable" id="myDrop">
-                                                </div>
-                                            </div> -->
                                             <div class="form-group">
                                                 <label>Tên đầy đủ</label>
                                                 <div class="form-group">
@@ -140,10 +149,8 @@
         </div>
     </div>
 </div>
-<script src="{{ asset('frontend/js/dropzone.js') }}"></script>
 <script>
     var wordCount;
-    Dropzone.autoDiscover = false;
     $(document).ready(function(){
         ClassicEditor
             .create(document.querySelector('#editor-cv'))
@@ -171,9 +178,6 @@
                 console.error(error);
             });
 
-        $('body').on('click', '.dz-image-preview', function() {
-            $("#myDrop").trigger("click");
-        });
         $('.reorder').on('click', function() {
             $("ul.nav").sortable({
                 tolerance: 'pointer'
@@ -186,91 +190,9 @@
         });
 
         var link_base64;
-        var myDropzone = new Dropzone("div#myDrop", {
-            paramName: "files", // The name that will be used to transfer the file
-            addRemoveLinks: true,
-            uploadMultiple: false,
-            autoProcessQueue: true,
-            parallelUploads: 50,
-            maxFilesize: 5, // MB
-            acceptedFiles: ".png, .jpeg, .jpg, .gif",
-            url: "{{ url('upload-image') }}",
-            headers: {
-                'X-CSRF-TOKEN': "{{ csrf_token() }}"
-            },
-
-            success: function(file, response) {
-                // alert(response);
-            },
-            accept: function(file, done) {
-                // alert(2)
-                done();
-            },
-            error: function(file, message, xhr) {
-                if (xhr == null) this.removeFile(file);
-                $('.dz-image-preview').show(500);
-                Swal.fire({
-                    type: 'warning',
-                    html: message,
-                })
-            },
-            sending: function(file, xhr, formData) {
-                // $.each($('form').serializeArray(), function(key,value) {
-                //     formData.append(this.name, this.value);
-                // });
-                // data_request = formData;
-                // alert(data);
-                // console.log(formData);
-
-            },
-            init: function() {
-                var thisDropzone = this;
-                var mockFile = {
-                    name: '',
-                    size: 12345,
-                    type: 'image/jpeg'
-                };
-                thisDropzone.emit("addedfile", mockFile);
-                thisDropzone.emit("success", mockFile);
-                // thisDropzone.emit("thumbnail", mockFile, "{{ url('frontend/images/avatar.jpg') }}")
-                thisDropzone.emit("thumbnail", mockFile, "{{ asset('frontend/'.(Auth::user()->avatar != '' ? Auth::user()->avatar : 'images/avatar.jpg')) }}")
-                // this.on("maxfilesexceeded", function(file){
-                // this.removeFile(file);
-                //     alert("No more files please!");
-                // });
-
-                this.on('addedfile', function(file) {
-                    $('.dz-image-preview').hide(500);
-                    $('.dz-progress').hide();
-                    if (this.files.length > 1) {
-                        this.removeFile(this.files[0]);
-                    }
-
-                });
-            },
-            // error: function (file, response){
-            //     alert(1);
-            //     if ($.type(response) === "string")
-            //         var message = response; //dropzone sends it's own error messages in string
-            //     else
-            //         var message = response.message;
-            //     file.previewElement.classList.add("dz-error");
-            //     _ref = file.previewElement.querySelectorAll("[data-dz-errormessage]");
-            //     _results = [];
-            //     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-            //         node = _ref[_i];
-            //         _results.push(node.textContent = message);
-            //     }
-            //     return _results;
-            // },
-
-            // reset: function () {
-            //     console.log("resetFiles");
-            //     this.removeAllFiles(true);
-            // }
-        });
 
         $("#save-profile").click(function() {
+            link_base64 = $('#image-cropper').cropit('export');
             // Validate Birthday
             if (!validationDate($('#datepicker').val())) {
                 Swal.fire({
@@ -382,39 +304,46 @@
                     })
                 }
             });
-
             return;
         });
+        
+        $('#image-cropper').cropit();
 
-
-        myDropzone.on("sending", function(file, xhr, formData) {
-            var filenames = [];
-
-            $('.dz-preview .dz-filename').each(function() {
-                filenames.push($(this).find('span').text());
-            });
-
-            formData.append('filenames', filenames);
+        $('.select-image-btn').click(function() {
+            $('.cropit-image-input').click();
         });
 
-        /* Add Files Script*/
-        myDropzone.on("success", function(file, message) {
-            $("#msg").html(message);
-            //setTimeout(function(){window.location.href="index.php"},200);
-        });
+        var _URL = window.URL || window.webkitURL;
+        $("#image-file-input").change(function(e) {
+            var file, img;
+            if ((file = this.files[0])) {
+                img = new Image();
+                img.onerror = function() {
+                    // alert( "Tập tin không hợp lệ: " + file.type);
+                    Swal.fire({
+                        type: 'warning',
+                        text: 'Tập tin không hợp lệ!',
+                    })
+                    $("#image-file-input").val('')
+                };
+                img.onload = function() {
+                    /* alert(this.width + " " + this.height); */
+                    if(this.width < 250 || this.height < 250){
+                        // alert('Kích thước ảnh >= 250px');
+                        Swal.fire({
+                            type: 'warning',
+                            text: 'Yêu cầu kích thước ảnh >= 250x250!',
+                        })
+                        $("#image-file-input").val('')
+                    }else{
+                        $('.cropit-image-zoom-input').show().css('padding-top', '15px');
+                        // $('.rotate-btn-group').show();
+                    }
+                };
+                img.src = _URL.createObjectURL(file);
 
-        myDropzone.on("error", function(data) {
-            $("#msg").html('<div class="alert alert-danger">Một số thông tin chưa đúng. Yêu cầu nhập lại!</div>');
+            }
         });
-
-        myDropzone.on("complete", function(file) {
-            //myDropzone.removeFile(file);
-        });
-
-        myDropzone.on('thumbnail', function(file, dataUri) {
-            link_base64 = dataUri;
-        });
-
     });
     function changePassAjax(){
         var data = {
