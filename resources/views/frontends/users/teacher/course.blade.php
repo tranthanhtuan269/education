@@ -345,6 +345,9 @@
         $('#create-course-btn').click(function(){
             // alert(1)
             $('#createCourse').modal('toggle')
+            $('*:not(#createCourse)').click(function(e){
+                e.preventDefault();
+            });
         })
 
         $('body').on('click','#createCourse .dz-image-preview',function(){
@@ -439,6 +442,7 @@
                     Swal.fire({
                         type: 'warning',
                         html: txt_errors,
+                        allowOutsideClick: false,
                     })
                 }
             })
@@ -506,6 +510,7 @@
                     Swal.fire({
                         type: 'warning',
                         html: txt_errors,
+                        allowOutsideClick: false,
                     })
                 }
             })
@@ -618,6 +623,7 @@
                         Swal.fire({
                             type: 'warning',
                             html: txt_errors,
+                            allowOutsideClick: false,
                         })
                     }
                 })
@@ -662,7 +668,8 @@
                                 if(response.status == '201'){
                                     return Swal.fire({
                                         type: 'info',
-                                        text: response.message
+                                        text: response.message,
+                                        allowOutsideClick: false,
                                     })
                                 }
                             },
@@ -723,6 +730,7 @@
                             Swal.fire({
                                 type: 'warning',
                                 html: txt_errors,
+                                allowOutsideClick: false,
                             })
                         }
                     });
@@ -764,6 +772,7 @@
                     Swal.fire({
                         type: 'warning',
                         html: 'Lỗi định dạng.',
+                        allowOutsideClick: false,
                     })
                 }
                 $('#file-mp4-upload-off-updated').val('');
@@ -807,6 +816,7 @@
                     Swal.fire({
                         type: 'warning',
                         html: 'Lỗi định dạng.',
+                        allowOutsideClick: false,
                     })
                 }
                 $('#file-mp4-upload-off').val('');
@@ -917,6 +927,7 @@
                         Swal.fire({
                             type: 'warning',
                             html: txt_errors,
+                            allowOutsideClick: false,
                         })
                     }
                 });
@@ -960,6 +971,7 @@
                         Swal.fire({
                             type: 'warning',
                             html: txt_errors,
+                            allowOutsideClick: false,
                         })
                     }
                 });
@@ -995,6 +1007,7 @@
                     Swal.fire({
                         type: 'warning',
                         text: 'Tập tin không hợp lệ!',
+                        allowOutsideClick: false,
                     })
                     $("#image-file-input").val('')
                 };
@@ -1003,6 +1016,7 @@
                         Swal.fire({
                             type: 'warning',
                             text: 'Yêu cầu kích thước ảnh >= 640x360!',
+                            allowOutsideClick: false,
                         })
                         $("#image-file-input").val('')
                     }else{
