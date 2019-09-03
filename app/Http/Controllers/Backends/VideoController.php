@@ -168,6 +168,12 @@ class VideoController extends Controller
         $video = Video::find($request->video_id);
 
         if ($video) {
+            if($video->state == 2){ //Đang được admin duyệt
+                return response()->json([
+	                'status' => '201',
+	                'message' => 'Yêu cầu xoá video đang được duyệt!'
+	            ]);
+            }
             if($video->state!=-1){
                 $unit = $video->unit;
                 // $unit->video_count -= 1;

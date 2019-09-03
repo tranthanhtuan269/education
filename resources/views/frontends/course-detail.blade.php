@@ -197,14 +197,23 @@
                                     {!! $info_course->will_learn !!}
                                 </div>
                             </div>
+                            
                         </div>
+                        <script>
+                            $(document).ready(function (){
+                                $('.knowledge .row li').prepend("<span><img src='/frontend/images/ic_check.png' width:'100%'></span>")
+                            })
+                        </script>
                         <style type="text/css">
                             .knowledge ul {
                                 columns: 2;
                                 -webkit-columns: 2;
                                 -moz-columns: 2;
-                                height: 30px;
-                                list-style-image: url('http://timtruyen.online/frontend/images/ic_check.png');
+                                /* height: 30px; */
+                                /* list-style-image: url('/frontend/images/ic_check.png'); */
+                            }
+                            .knowledge ul li{
+                                margin-left: 7%;
                             }
                         </style>
                         <div class="lessons clearfix" id="box_content">
