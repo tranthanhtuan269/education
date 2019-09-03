@@ -189,7 +189,7 @@
                             <input type="text" class="form-control" id="course-intro-{{$course->id}}" name="course-intro-{{$course->id}}" value="{{$course->link_intro}}" placeholder="Link Youtube">
                         </div>
                     </div>
-                    <input id="resetForm" type="reset" value="Reset the form" style="display:none">
+                    <input id="resetForms{{$course->id}}" type="reset" value="Reset the form" style="display:none">
                 </form>
             </div>
             <div class="modal-footer">
@@ -198,8 +198,12 @@
             </div>
             <script>
                 $('.clear-modal').click(function() {
-                    // alert(123456);
-                    $('#resetForm').click()
+                    $('#resetForms{{$course->id}}').click()
+
+                    var t_des = '{!! $course->description !!}'
+                    var t_wl = '{!! $course->will_learn !!}'
+                    CKEDITOR.instances['course-description-{{$course->id}}'].setData(t_des)
+                    CKEDITOR.instances['course-will-learn-{{$course->id}}'].setData(t_wl)
                 });
             </script>
         </div>
