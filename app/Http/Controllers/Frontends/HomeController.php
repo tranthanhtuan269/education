@@ -131,7 +131,6 @@ class HomeController extends Controller
     {
         
         $course = Course::where('slug', $course)->first();
-
         if ($course) {
             $course->view_count = $course->view_count + 1;
             $course->save();
@@ -143,13 +142,13 @@ class HomeController extends Controller
                 $related_course = Course::where('category_id', $course->category_id)->where('id','!=',$course->id)->where('status', 1)->limit(4)->get();
                 $info_course = Course::find($course->id);
                 // dd($info_course->comments[0]->likeCheckUser());
-                return view('frontends.course-detail', compact('related_course', 'info_course', 'unit', 'ratingCourse'));
+                return view('frontends.course-detail', compact('related_course', 'info_course', 'ratingCourse'));
             }
         } else {
             if ($course) {
                 $related_course = Course::where('category_id', $course->category_id)->where('id','!=',$course->id)->where('status', 1)->limit(4)->get();
                 $info_course = Course::find($course->id);
-                return view('frontends.course-detail', compact('related_course', 'info_course', 'unit'));
+                return view('frontends.course-detail', compact('related_course', 'info_course'));
             }
         }
         return abort(404);

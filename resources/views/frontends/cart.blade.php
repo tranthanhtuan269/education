@@ -99,17 +99,17 @@
         cart_items.forEach((element, index) => {
             
             html = '';
-            html += '<a href="/course/'+element.slug+'"><div class="cart-single-item" data-parent="'+element.id+'" data-index="'+index+'">'
+            html += '<div class="cart-single-item" data-parent="'+element.id+'" data-index="'+index+'">'
                 html += '<div class="image">'
                 if(element.image.indexOf('unica') !== -1){
-                    html += '<img src="'+element.image+'" width="250rem" alt="">'
+                    html += '<a href="/course/'+element.slug+'"><img src="'+element.image+'" width="250rem" alt=""></a>'
                 }else{
-                    html += '<img src="/frontend/images/'+element.image+'" width="250rem" alt="">'
+                    html += '<a href="/course/'+element.slug+'"><img src="/frontend/images/'+element.image+'" width="250rem" alt=""></a>'
                 }
                 html += '</div>'
                 html += '<div class="course-info">'
 
-                    html += '<div class="course-name">'+element.name+'</div>'
+                    html += '<a href="/course/'+element.slug+'"><div class="course-name">'+element.name+'</div></a>'
                     html += '<div class="lecturer-info">'+element.lecturer+'</div>'
                     html += '<div class="coupon">'
                         // html += '<div class="coupon-code-label"><b>Mã giảm giá:<b></div>'
@@ -137,11 +137,11 @@
                         html += '</div>'
                         // html += '<i class="fas fa-tag"></i>'
                         html += '<div class="actions">'
-                            html += '<div class="btn-remove"><img width="75%" src="/frontend/images/ic_delete.png" data-child="'+element.id+'"/></div>'
+                            html += '<div class="btn-remove" style="cursor: pointer;" ><img width="75%" src="/frontend/images/ic_delete.png" data-child="'+element.id+'"/></div>'
                         html +='</div>'
                     
                 html += '</div>'
-            html += '</div></a>'
+            html += '</div>'
 
             $(".cart-item-list").append(html)
 
@@ -173,8 +173,8 @@
         // });
         
         $('.btn-remove img').on('click', function(e){
-            e.stopPropagation()
-            e.preventDefault()
+            // e.stopPropagation()
+            // e.preventDefault()
             var dataChild = $(this).attr("data-child")
             Swal.fire({
                 type: "warning",
@@ -187,7 +187,7 @@
                     cartSingleItem.fadeOut("normal", function () {
                         // your other code
                         $(this).trigger('myFadeOutEvent');
-                        cartSingleItem.parent().remove();
+                        cartSingleItem.remove();
                     });    
                     $.each($('.cart-single-item'), function(index, value){ $(value).attr('data-index', index)})
                     cart_items.splice(cartSingleItem.attr("data-index"), 1)
