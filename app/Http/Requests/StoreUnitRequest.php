@@ -24,7 +24,7 @@ class StoreUnitRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:100',
+            'name' => 'required|max:80',
             'course_id' => 'required',
         ];
     }
@@ -32,7 +32,7 @@ class StoreUnitRequest extends FormRequest
     {
         return [
             'name.required' => 'Bạn chưa nhập tên Phần học.',
-            'name.max'      => 'Tên phần học quá dài. (Yêu cầu <100 ký tự)'
+            'name.max'      => 'Tên phần học quá dài. (Yêu cầu <80 ký tự)'
         ];
     }
 }
