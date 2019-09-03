@@ -534,6 +534,7 @@
                     Swal.fire({
                         type: 'warning',
                         text: 'Tập tin không hợp lệ!',
+                        allowOutsideClick: false,
                     })
                     $("#image-file-input-{{$course->id}}").val('')
                 };
@@ -542,6 +543,7 @@
                         Swal.fire({
                             type: 'warning',
                             text: 'Yêu cầu kích thước ảnh >= 640x360!',
+                            allowOutsideClick: false,
                         })
                         $("#image-file-input-{{$course->id}}").val('')
                     }else{
@@ -583,6 +585,7 @@
                     Swal.fire({
                         type: 'warning',
                         html: 'Link Video không hợp lệ!',
+                        allowOutsideClick: false,
                     })
                     return false;
                 }
@@ -617,7 +620,7 @@
                         Swal.fire({
                             type: 'success',
                             html: response.message,
-
+                            allowOutsideClick: false,
                         }).then((result) => {
                             if (result.value) {
                                 location.reload();
@@ -627,6 +630,7 @@
                         Swal.fire({
                             type: 'warning',
                             html: 'Error',
+                            allowOutsideClick: false,
                         })
                     }
                 },
@@ -639,6 +643,7 @@
                     Swal.fire({
                         type: 'warning',
                         html: txt_errors,
+                        allowOutsideClick: false,
                     })
                 }
             });
