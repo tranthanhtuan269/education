@@ -100,7 +100,7 @@ class Course extends Model
         if(Auth::check()){
             $sefl = $this;
             if(Helper::getUserRoleOfCourse($sefl->id) != null){
-                return $this->hasMany('App\CommentCourse')->where(
+                return $this->hasMany('App\CommentCourse')->where('parent_id', 0)->where(
                     function($q) use ($sefl){
                         $q->where('state', 1)
                             ->orWhere('user_role_id', Helper::getUserRoleOfCourse($sefl->id)->user_role_id);
