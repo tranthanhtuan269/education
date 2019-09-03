@@ -26,14 +26,10 @@
         <?php 
             $will_learn = $course->will_learn;
             $will_learn = explode("</li>", $will_learn);
-            // $will_learn = str_replace("<li></li>","",$will_learn);
-            // $will_learn = str_replace("<li>;    </li>","",$will_learn);
             if(count($will_learn) > 3){
                 $will_learn = $will_learn[0]."</li>".$will_learn[1]."</li>".$will_learn[2]."</li>".$will_learn[3]."<li>...</li>";
             }
-            // dd($will_learn);
         ?>
-        {{-- @if ($course->will_learn != null) --}}
         <div class="clearfix course-des">
             <div class="row">
                 <div class="col-sm-12 big-des">
@@ -41,7 +37,6 @@
                 </div>
             </div>
         </div>
-        {{-- @endif --}}
         <script>
             $(document).ready(function (){
                 $('.course-des .row li').prepend('<i class="fa fa-chevron-right fa-fw" aria-hidden="true"></i>')

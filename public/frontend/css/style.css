@@ -2276,10 +2276,21 @@ div[data-u="slides"] div div{
   padding: 8px;
 }
 
-#sortable { list-style-type: none; margin: 0; padding: 0; }
-#sortable li { margin: 8px; padding: 8px; font-size: 28px; height: 52px; line-height: 30px; }
-#sortable li *{ font-size: 16px; line-height: 37px; }
+#sortable, #videoSortable { list-style-type: none; margin: 0; padding: 0; }
+#sortable li, #videoSortable li { margin: 8px; padding: 8px; font-size: 28px; height: 52px; line-height: 30px; }
+#sortable li *, #videoSortable li *{ font-size: 16px; line-height: 37px; }
 .ui-state-highlight { min-height: 52px; line-height: 40px; }
+#sortable .ui-state-default.ui-sortable-handle .fas.fa-sort, #videoSortable .ui-state-default.ui-sortable-handle .fas.fa-sort{
+  float: left;
+}
+#sortable .unit-content, #videoSortable .video-content {
+  float: left;
+  margin-left: 1%;
+  width: 75%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 #videoSortable .edit-video{
   cursor: pointer;

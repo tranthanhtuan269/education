@@ -172,7 +172,7 @@ class HomeController extends Controller
             $courses_of_teacher = $teacher->userRole()->first()->userCoursesByTeacher();
             $category_first_course = $courses_of_teacher->first()->category_id;
             // $course_of_category = Course::where('category_id', $courses_of_teacher->first()->category_id)->get();
-            return view('frontends.detail-teacher', compact('info_teacher', 'feature_category', 'ratingTeacher', 'courses_of_teacher', 'course_of_category'));
+            return view('frontends.detail-teacher', compact('info_teacher', 'feature_category', 'ratingTeacher', 'courses_of_teacher'));
         }
         return abort(404);
     }

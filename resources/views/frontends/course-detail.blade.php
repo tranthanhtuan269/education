@@ -196,6 +196,7 @@
                             <h3>Bạn sẽ học được gì</h3>
                             <div class="row">
                                 <div class="col-sm-12">
+                                    {{-- @dd($info_course->will_learn) --}}
                                     {!! $info_course->will_learn !!}
                                 </div>
                             </div>

@@ -600,15 +600,15 @@
                         }
                     },
                     error: function (error) {
-                        // var obj_errors = error.responseJSON.errors;
-                        // var txt_errors = '';
-                        // for (k of Object.keys(obj_errors)) {
-                        //     txt_errors += obj_errors[k][0] + '</br>';
-                        // }
-                        // Swal.fire({
-                        //     type: 'warning',
-                        //     html: txt_errors,
-                        // })
+                        var obj_errors = error.responseJSON.errors;
+                        var txt_errors = '';
+                        for (k of Object.keys(obj_errors)) {
+                            txt_errors += obj_errors[k][0] + '</br>';
+                        }
+                        Swal.fire({
+                            type: 'warning',
+                            html: txt_errors,
+                        })
                     }
                 })
             })
