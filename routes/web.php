@@ -208,7 +208,7 @@ Route::get('comments/see-more', 'Frontends\CommentController@seeMore')->name('se
 
 Route::get('search', 'Frontends\HomeController@search');
 
-
+Route::get('fix-data', 'Frontends\HomeController@fixData');
 
 Route::get('nap-tien', 'Frontends\HomeController@naptien');
 

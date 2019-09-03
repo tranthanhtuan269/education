@@ -737,6 +737,34 @@ class HomeController extends Controller
         }
         echo "done";   
     }
+
+    public function fixData(){
+        // $course = Course::where('slug', 'anh-van-giao-tiep-cho-nguoi-hoan-toan-mat-goc')->first();
+        // xu ly
+        $courses = Course::get();
+        foreach($courses as $course){
+            $course->will_learn = preg_replace('/\s\s+/', ' ', $course->will_learn);
+            $course->will_learn =  str_replace("<li> ","<li>",$course->will_learn) ;
+            $course->will_learn =  str_replace("\t","",$course->will_learn);
+            $course->will_learn =  str_replace("<li></li>","",$course->will_learn);
+            $course->will_learn =  str_replace("<li>; ","<li>",$course->will_learn);
+            $course->will_learn = $course->will_learn;
+            $course->save();
+        }
+        // $course = Course::where('slug', 'tieng-anh-cho-nguoi-viet-season-1-noi-chuan-cap-do-tu')->first();
+        // $course->will_learn = preg_replace('/\s\s+/', ' ', $course->will_learn);
+        // $course->will_learn = str_replace("<li> ","<li>",$course->will_learn);
+        // // $course->will_learn = str_replace("\t","",$course->will_learn);
+        // $course->will_learn = str_replace("<li></li>","",$course->will_learn);
+        // // $course->will_learn = str_replace("<li>; ","<li>",$course->will_learn);
+       
+        // // end xu ly
+        // // luu vao
+        // $course->will_learn = $course->will_learn;
+        // $course->save();
+        // // end luu vao
+        // dd($course->will_learn);
+    }
 }
 
 class VideoJson
