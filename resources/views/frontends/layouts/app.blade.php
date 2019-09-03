@@ -1008,6 +1008,18 @@
                 $('#eye').addClass('fa-eye')
             }
         }
+        
+        $(document).ready(function(){
+            Swal.update({
+                allowOutsideClick: false,
+                allowEscapeKey: false
+            })	
+            Swal.mixin({
+                allowOutsideClick: false,
+                allowEscapeKey: false
+            })
+        })
+
     </script>
 </body>
 </html>
