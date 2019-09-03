@@ -35,7 +35,7 @@
         <div id="reply-textbox-{{ $comment->id }}" class="reply-textbox hide">
             <textarea name="reply-{{ $comment->id }}" id="reply-{{ $comment->id }}" class="form-control" placeholder="Nội dung"></textarea>
             <div class="btn-submit text-center mt-10 mb-20">
-                <input class="btn btn-primary create-reply-btn" type="submit" value="SUBMIT A REPLY" id="create-reply-{{ $comment->id }}" data-id="{{ $comment->id }}"/>
+                <input class="btn btn-primary create-reply-btn" type="submit" value="Gửi trả lời" id="create-reply-{{ $comment->id }}" data-id="{{ $comment->id }}"/>
             </div>
         </div>
         @endif
