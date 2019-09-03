@@ -992,9 +992,16 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
 .detail-course .info .skill ul li,.detail-course .lessons .tags ul li,.left-content .lessons .tags ul li{float:left;background:#ccc;margin:0 20px;padding:5px 25px;border-radius:20px}
 .detail-course .frame .avatar{display:flex;align-items:center}
 .detail-course .frame .info{color:#fff}
-.detail-course .frame .info .name{font-weight:600;font-size:19px}
+.detail-course .frame .info .name{
+  font-weight:600;
+  padding: 10px 0;
+  width: 65vw;
+  font-family: proxima-nova,"Helvetica Neue",Helvetica,sans-serif;
+  text-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+}
+.detail-course .frame .info .expert{width: 65vw;}
 .detail-course .background{position:absolute}
-.detail-course .item{margin-top:100px}
+.detail-course .item{margin-top:80px}
 .detail-course .frame .avatar{padding-left:50px}
 .detail-course .frame .avatar .info{color:#fff}
 /* .detail-course .frame_2 .box{padding:0 20px 20px 0} */
@@ -1020,7 +1027,7 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
 .detail-course .info h3{padding-bottom:15px}
 .detail-course .info .knowledge{padding:30px 0 10px}
 .detail-course .info .knowledge .will-learn{padding-bottom:25px}
-/* .detail-course .info .knowledge img{float:left;padding-right:10px;width:35px} */
+.detail-course .info .knowledge img{float:left;padding-right:10px;width:35px}
 .detail-course .info ul.others{border:1px solid #ccc;background:#F5F5F5}
 .detail-course .info ul.others li img{float:left;padding-right:10px}
 .detail-course .info ul.others li span.txt-large{font-size:16px}

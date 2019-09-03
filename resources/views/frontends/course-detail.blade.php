@@ -12,6 +12,7 @@
     if(Auth::check() && strlen(Auth::user()->bought) > 0){
         $list_bought = \json_decode(Auth::user()->bought);
     }
+    // dd(strlen('Học tiếng Trung dành cho người bắt đầu, thông thạo các chủ đề giao tiếp thông dụng, tự tin giao tiếp cơ bản với người Trung Quốc người Trung Quốc'))
 ?>
 <div class="detail-course">
     <img class="background bg-category" src="{{ asset('frontend/images/banner_profile_teacher.png') }}">
@@ -22,17 +23,18 @@
                     <div class="frame clearfix pb-40px">
                         <div class="pull-left">
                             <div class="info">
-                                <p class="name">{{ $info_course->name }}</p>
-                                <p class="expret">{{ $info_course->short_description }}</p>
+                                <h1 class="name">{{ $info_course->name }}</h1>
+                                <p class="expert" id="tomTat">{{ $info_course->short_description }}</p>
                             </div>
                         </div>
-                        <div class="network pull-right network-reponsive">
+                        <div class="network pull-right network-reponsive"
+                        @if( strlen($info_course->short_description) >= 200)
+                        style="padding-top: 40px"
+                        @endif
+                        >
                             <a class="btn btn-default btn-xs" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(url()->current()); ?>" target="_blank">
                                 <i class="fas fa-share-alt"></i> Chia sẻ
                             </a>
-                            {{-- <a class="btn btn-default btn-xs" href="https://www.facebook.com/canhchimcodon26988" target="_blank">
-                                <i class="fab fa-facebook-square"></i> Facebook
-                            </a> --}}
                         </div>
                     </div>
                     <div class="frame_2">
@@ -797,6 +799,7 @@
 <script type="text/javascript">
     
     $(document).ready(function() { 
+
         $(".interactive-bar .buttons button:first-child").click(function(){
             $(".btn-add-cart button").click();
         })
