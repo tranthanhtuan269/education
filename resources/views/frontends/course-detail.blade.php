@@ -514,7 +514,7 @@
 
                             $percent_temp -= (int)$percent_vote;
                         ?>
-                        <div class="item-progress">
+                        <div class="item-progress" id="rate-{{ 10 - $i }}" data-rate="{{ 10 - $i }}" data-vote="{{ $count_star }}" data-percent="{{ (int)$percent_vote }}">
                             <div class="col-sm-9">
                                 <div class="progress">
                                     <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ $percent_vote }}"
@@ -615,19 +615,21 @@
                     });
 
                     $('#create-comment-new').on('click', function (e) {
+                        var score = $('.reviews-star').attr('data-star');
+
                         var request = $.ajax({
                             url: baseURL + '/reviews/store',
                             method: "POST",
                             data: {
                                 course_id: {{ $info_course->id }},
                                 content : $('#editor').val(),
-                                score: $('.reviews-star').attr('data-star')
+                                score: score
                             },
                             dataType: "json"
                         });
 
                         request.done(function( data ) {
-                            if(data.status == 200){
+                            if(data.status == 201){
                                 var html = "";
                                 var htmlRate = $('.reviews-star').html();
                                 html += '<div class="box clearfix">';
@@ -673,6 +675,20 @@
                                 $('#review-box').prepend(html);
                                 
                                 addEventToButton();
+
+                                // change vote 
+                                var rate_arr = [];
+                                $(".item-progress").each(function( index ) {
+                                    rate_arr[$( this ).attr('data-rate')] = $(this).attr('data-vote'); 
+                                });
+
+                                console.log(rate_arr[$( this ).attr('data-rate')]);
+                                location.reload();
+                            }else if(data.status == 200){
+                                Swal.fire({
+                                    type: 'warning',
+                                    text: data.message
+                                })
                             }
                         });
 
