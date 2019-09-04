@@ -262,6 +262,11 @@ class UserController extends Controller
     {
         $keyword = trim($request->get('u-keyword'));
         $lifelong_course = Auth::user()->userRolesTeacher()->userLifelongCourse($keyword);
+        if(count($lifelong_course) == 0){
+            if($lifelong_course->currentPage() > 1){
+                return redirect($lifelong_course->previousPageUrl());
+            }
+        }
         $categories = Category::where('parent_id', 0)->get();
         return view('frontends.users.teacher.course', compact('lifelong_course', 'categories'));
     }

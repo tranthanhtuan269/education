@@ -346,8 +346,6 @@
     var S = jQuery.noConflict();
     $(document).ready(function(){
         $('#create-course-btn').click(function(){
-            // alert(1)
-            // $('#createCourse').modal('toggle')
             $('#createCourse').modal({
                 backdrop: 'static',
                 keyboard: false
@@ -359,7 +357,6 @@
         })
 
         $('#addVideoModal').on('hidden.bs.modal', function () {
-            // $('#listVideo').modal('toggle');
             $('#listVideo').modal({
                 backdrop: 'static',
                 keyboard: false
@@ -367,7 +364,6 @@
         });
 
         $('#editVideoModal').on('hidden.bs.modal', function () {
-            // $('#listVideo').modal('toggle');
             $('#listVideo').modal({
                 backdrop: 'static',
                 keyboard: false
