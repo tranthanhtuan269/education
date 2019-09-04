@@ -2162,7 +2162,7 @@ div[data-u="slides"] div div{
   /* text-align: center */
   color: #333333;
 }
-.box-course.course-search .content-course div.clearfix{
+.box-course.course-search .content-course div .name-category{
   text-align: center;
 }
 .box-course.course-search .content-course div.clearfix a{

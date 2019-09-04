@@ -36,20 +36,20 @@
                     @endif                    
                 @endif
                 
-                @if (!in_array($course->id, $list_bought))
                 <div class="img-mask hidden-sm">
-                <div class="btn-add-to-cart course-{{$course->id}}">
-                        <button class="btn btn-success" data-id="{{ $course->id }}" data-image="{{ $course->image }}" data-lecturer="{{ $lecturers }}" data-name="{{ $course->name }}" data-price="{{ $course->price }}" data-real-price="{{ $course->real_price }}" data-slug="{{ $course->slug }}">
-                            <span class="img">
-                                <img src="{{asset("frontend/images/ic_add_to_card.png")}}" width="20px">
-                            </span>
-                            <span class="text">
-                                Thêm vào giỏ hàng
-                            </span>
-                        </button>
+                    <div class="btn-add-to-cart course-{{$course->id}}">
+                        @if (!in_array($course->id, $list_bought))
+                            <button class="btn btn-success" data-id="{{ $course->id }}" data-image="{{ $course->image }}" data-lecturer="{{ $lecturers }}" data-name="{{ $course->name }}" data-price="{{ $course->price }}" data-real-price="{{ $course->real_price }}" data-slug="{{ $course->slug }}">
+                                <span class="img">
+                                    <img src="{{asset("frontend/images/ic_add_to_card.png")}}" width="20px">
+                                </span>
+                                <span class="text">
+                                    Thêm vào giỏ hàng
+                                </span>
+                            </button>
+                        @endif
                     </div>                        
                 </div>               
-                @endif
              </div>
         <a href="{{ url('/') }}/course/{{ $course->slug }}" title="{{ $course->name }}" class="course-box-slider pop">
             
@@ -103,23 +103,9 @@
                     </div>
                 </div>
                 @endif
-
-                <?php
-                    // $check_time_sale = false;
-                    // if ($course->from_sale != '' && $course->to_sale != '') {
-                    //     $start_sale = strtotime($course->from_sale.' 00:00:00');
-                    //     $end_sale = strtotime($course->to_sale.' 23:59:59');
-                    //     if (time() >= $start_sale && time() <= $end_sale) {
-                    //         $check_time_sale = true;
-                    //     }
-                    // }
-                ?>
                 <div class="price-course pull-right">
                     @if ($course->real_price != 0)
                         @if ($course->price == $course->real_price)
-                            {{-- <span class="price text-right">
-                                Giá khóa học:
-                            </span> --}}
                             <span class="sale">
                                 <b>{!! number_format($course->real_price, 0, ',' , '.') !!}</b><sup>₫</sup>
                             </span> 
