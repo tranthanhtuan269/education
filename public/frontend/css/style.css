@@ -2298,6 +2298,7 @@ div[data-u="slides"] div div{
 }
 #videoSortable .remove-video{
   cursor: pointer;
+  margin-right: 1em;
 }
 
 .list-vid-unit{
