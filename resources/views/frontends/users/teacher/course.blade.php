@@ -345,7 +345,6 @@
     let filesEditLength = 0;
     var S = jQuery.noConflict();
     var ajax = new XMLHttpRequest();
-    var flag = false;
     $(document).ready(function(){
         $('#create-course-btn').click(function(){
             $('#createCourse').modal({
@@ -804,10 +803,14 @@
 
             //// upload video
             $("#addVideoModal #file-mp4-upload-off").change(function(){
-                if(flag){
-                    alert('uploading');
-                }else{
+                if($('.progress-bar').css('width') == "0%" || $('.progress-bar').css('width') == "100%"){
                     uploadFile();
+                }else{
+                    Swal.fire({
+                        type: 'warning',
+                        html: 'Quá trình upload file đang được diễn ra\n Bạn chỉ có thể upload khi quá trình upload trước của bạn đã được hoàn tất.',
+                        allowOutsideClick: false,
+                    })
                 }
             });
 
@@ -852,12 +855,6 @@
 
             function progressHandler(event){
                 var percent = (event.loaded / event.total) * 100;
-                if(event.loaded < event.total) {
-                    flag = true;
-                }else{
-                    flag = false;
-                }
-                console.log(percent);
                 var type_txt = checkTypeFile(extension_input);
                 waitting_upload_file = true;
 
