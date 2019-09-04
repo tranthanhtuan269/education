@@ -344,6 +344,8 @@
 <script>
     let filesEditLength = 0;
     var S = jQuery.noConflict();
+    var ajax = new XMLHttpRequest();
+    var flag = false;
     $(document).ready(function(){
         $('#create-course-btn').click(function(){
             $('#createCourse').modal({
@@ -540,7 +542,6 @@
             var inputFileEdit = $('#editVideoDocument')
             let filesEdit = [];            
             inputFileEdit.change(function(){
-                alert(1)
                 let newFiles = []; 
                 for(let index = 0; index < inputFile[0].files.length; index++) {
                     let file = inputFile[0].files[index];
@@ -783,7 +784,7 @@
                     formdata.append("file-mp4-upload-off", file);
                     formdata.append("_token", $('meta[name="csrf-token"]').attr('content'));
                     // formdata.append("data", "{ demo : '{{ time() }}'  }");
-                    var ajax = new XMLHttpRequest();
+                    ajax = new XMLHttpRequest();
                     ajax.upload.addEventListener("progress", progressHandler, false);
                     ajax.addEventListener("load", completeHandlerEdit, false);
                     ajax.addEventListener("error", errorHandler, false);
@@ -803,7 +804,10 @@
 
             //// upload video
             $("#addVideoModal #file-mp4-upload-off").change(function(){
-                uploadFile();
+                if(flag){
+                    alert('uploading');
+                    uploadFile();
+                }
             });
 
             function uploadFile(){
@@ -827,7 +831,7 @@
                     formdata.append("file-mp4-upload-off", file);
                     formdata.append("_token", $('meta[name="csrf-token"]').attr('content'));
                     // formdata.append("data", "{ demo : '{{ time() }}'  }");
-                    var ajax = new XMLHttpRequest();
+                    ajax = new XMLHttpRequest();
                     ajax.upload.addEventListener("progress", progressHandler, false);
                     ajax.addEventListener("load", completeHandler, false);
                     ajax.addEventListener("error", errorHandler, false);
@@ -847,6 +851,11 @@
 
             function progressHandler(event){
                 var percent = (event.loaded / event.total) * 100;
+                if(event.loaded < event.total) {
+                    flag = true;
+                }else{
+                    flag = false;
+                }
                 console.log(percent);
                 var type_txt = checkTypeFile(extension_input);
                 waitting_upload_file = true;
@@ -879,13 +888,14 @@
             }
 
             function abortHandler(event) {
-                // swal({
-                //   title: "Are you sure?",
-                //   text: "Once cancel, you will not be able to recover this imaginary file!",
-                //   icon: "warning",
-                //   buttons: true,
-                //   dangerMode: true,
-                // });
+
+                swal({
+                  title: "Are you sure?",
+                  text: "Once cancel, you will not be able to recover this imaginary file!",
+                  icon: "warning",
+                  buttons: true,
+                  dangerMode: true,
+                });
 
                 //alert("Upload Aborted");
                 //document.getElementById("status").innerHTML = "Upload Aborted";
