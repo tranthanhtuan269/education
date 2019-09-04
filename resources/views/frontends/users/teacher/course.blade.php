@@ -262,7 +262,7 @@
 
                     {{-- <input type="file" name="file-mp4-upload-off" id="file-mp4-upload-off"> --}}
                     <div class="progress">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="0"aria-valuemin="0" aria-valuemax="100" style="width:0%">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="70"aria-valuemin="0" aria-valuemax="100" style="width:0%">
                             <span class="sr-only">Hoàn thành 0%</span>
                         </div>
                     </div>
@@ -323,7 +323,7 @@
                         </div>
                     </div>
                     <div class="progress">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="0"aria-valuemin="0" aria-valuemax="100" style="width:0%">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="70"aria-valuemin="0" aria-valuemax="100" style="width:0%">
                             <span class="sr-only">Hoàn thành 0%</span>
                         </div>
                     </div>
@@ -809,6 +809,7 @@
                         html: 'Bạn chỉ có thể upload khi tiến trình upload trước của bạn đã hoàn tất.',
                         allowOutsideClick: false,
                     })
+                    $("#addVideoModal #file-mp4-upload-off").off()
                     return;
                 }
                 uploadFile();
@@ -872,6 +873,7 @@
                 $('#addVideoModal video').attr('src', "{{ url('uploads/videos') }}/" + textUpload + '.mp4');
                 $("#addVideoModal video")[0].load();
                 uploading = false;
+                $("#addVideoModal #file-mp4-upload-off").on();
                 console.log(uploading);
             }
 
