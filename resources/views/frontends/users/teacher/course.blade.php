@@ -439,11 +439,13 @@
                         var html = "";
                         
                         for(var i = 0; i < response.videos.length; i++){
-                            html += '<li class="ui-state-default ui-sortable-handle"  data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'">'
-                            html += '<i class="fas fa-sort"></i> '
                             if(response.videos[i].state == "2"){
-                                html += '<span class="video-content">'+response.videos[i].name+'</span><span style="color: red;"> <i> (Yêu cầu xoá đang được duyệt)</i></span>'
+                                html += '<li style="display:flex" class="ui-state-default ui-sortable-handle"  data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'">'
+                                html += '<i class="fas fa-sort"></i> '
+                                html += '<span class="video-content">'+response.videos[i].name+'</span><span style="color:red;float:right;width:270px;margin-left:20px"> (Yêu cầu xoá đang được duyệt)</span>'
                             }else{
+                                html += '<li class="ui-state-default ui-sortable-handle"  data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'">'
+                                html += '<i class="fas fa-sort"></i> '
                                 html += '<span class="video-content">'+response.videos[i].name+'</span>'                                
                                 html += '<i class="fas fa-trash pull-right remove-video" data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'"></i>'
                                 html += '<i class="fas fa-edit pull-right edit-video" data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'"></i>'
