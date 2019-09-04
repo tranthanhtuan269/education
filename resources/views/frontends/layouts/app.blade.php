@@ -649,13 +649,13 @@
                         $("#mailBoxNavDropdown").append(html)                            
                     });
                     
-                    $(".unica-sl-notify b").text(response.unread_emails.length)
+                    $(".unica-sl-notify b").text(response.number_unread_emails)
 
                     if(response.unread_emails.length >= 1){
                         // $(".unica-sl-notify").remove()
                         $('.unica-sl-notify').css('display', 'block' )
                     }
-                    console.log(response.unread_emails.length)
+                    // console.log(response.number_unread_emails)
 
                 },
                 error: function (response) {
