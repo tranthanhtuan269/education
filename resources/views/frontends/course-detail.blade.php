@@ -643,9 +643,13 @@
                             if(data.status == 201){
                                 var html = "";
                                 var htmlRate = $('.reviews-star').html();
+                                var avt = "images/avatar.jpg";
+                                if(data.commentCourse.data.avatar.length > 0){
+                                    avt = data.commentCourse.data.avatar;
+                                }
                                 html += '<div class="box clearfix">';
                                     html += '<div class="col-sm-3">';
-                                        html += '<img class="avatar" src="'+baseURL + '/frontend/' + data.commentCourse.data.avatar +'" alt="">';
+                                        html += '<img class="avatar" src="'+baseURL + '/frontend/' + avt +'" alt="">';
                                         html += '<div class="info-account">';
                                             html += '<p class="interval">' + data.commentCourse.data.created_at +'</p>';
                                             html += '<p class="name">' + data.commentCourse.data.username +'</p>';
