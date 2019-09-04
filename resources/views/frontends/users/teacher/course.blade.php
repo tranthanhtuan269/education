@@ -50,6 +50,7 @@
                                 </div>
                             </div>
                             <div class="row">
+                                {{ count($lifelong_course) }}
                                 @if (count($lifelong_course) > 0)
                                     @foreach ($lifelong_course as $course)
                                     @include(
@@ -60,7 +61,7 @@
                                     )
                                     @endforeach
                                     <div class="col-xs-12 text-center">
-                                        <div class="u-number-page">{{ $lifelong_course->appends(Request::all())->links() }}</div>
+                                        <div class="u-number-page">{{ $lifelong_course->links() }}</div>
                                     </div>
                                 @else
                                     <div class="col-xs-12">
@@ -71,6 +72,9 @@
                                                 Bạn chưa tạo khoá học nào!
                                             @endif
                                         </p>
+                                    </div>
+                                    <div class="col-xs-12 text-center">
+                                        <div class="u-number-page">{{ $lifelong_course->links() }}</div>
                                     </div>
                                 @endif
                             </div>
