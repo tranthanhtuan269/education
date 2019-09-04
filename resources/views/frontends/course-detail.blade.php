@@ -12,7 +12,7 @@
     if(Auth::check() && strlen(Auth::user()->bought) > 0){
         $list_bought = \json_decode(Auth::user()->bought);
     }
-    // dd(strlen('Học tiếng Trung dành cho người bắt đầu, thông thạo các chủ đề giao tiếp thông dụng, tự tin giao tiếp cơ bản với người Trung Quốc người Trung Quốc'))
+    // dd(intval($info_course->star_count) / intval($info_course->vote_count))
 ?>
 <div class="detail-course">
     <img class="background bg-category" src="{{ asset('frontend/images/banner_profile_teacher.png') }}">
