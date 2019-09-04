@@ -334,7 +334,7 @@
                                 <a href="{{route('cart.show')}}" class="unica-cart">
 
                                     <img src="{{ asset('frontend/images/tab_cart.png') }}" alt="" style="width: 21px;" />
-                                    <span class="unica-sl-cart"><b class="number-in-cart">0</b></span>
+                                    <span class="unica-sl-cart"><b class="number-in-cart"></b></span>
                                 </a>
                                 <li>
 
@@ -615,6 +615,8 @@
         var localStoreageCart = JSON.parse(localStorage.getItem('cart'))
         if(localStoreageCart.length >= 1){
             $('.unica-sl-cart').css('display', 'block')
+        }else{
+            $('.unica-sl-cart').css('display', 'none')
         }
 
         @if(Auth::check())
@@ -822,7 +824,7 @@
                     $(".cart-page-empty").addClass('active')
                     $(".cart-page-content").removeClass('active')
                     // $('.unica-sl-cart').remove()
-                    // $('.unica-sl-cart').css('display', 'none' )
+                    $('.unica-sl-cart').css('display', 'none' )
 
                 }else{
 

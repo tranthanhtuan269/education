@@ -23,7 +23,7 @@
                     <div class="frame clearfix pb-40px">
                         <div class="pull-left">
                             <div class="info">
-                                <h1 class="name">{{ $info_course->name }}</h1>
+                                <h1 class="name" style="font-size:26px">{{ $info_course->name }}</h1>
                                 <p class="expert" id="tomTat">{{ $info_course->short_description }}</p>
                             </div>
                         </div>
@@ -996,7 +996,6 @@
             $.each( number_items_in_cart, function(i, obj) {
                 $('.sidebar-add-cart button[id='+obj.id+']').html('<b>Đã thêm vào giỏ hàng</b>').attr('disabled', true)
             });
-            // $(".sidebar-add-cart button").off()
         })
         
         $(".sidebar-add-cart button").click( function(e){
