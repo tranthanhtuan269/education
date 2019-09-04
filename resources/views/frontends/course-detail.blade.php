@@ -441,7 +441,10 @@
                                 <div class="frame clearfix">
                                     <div class="pull-left">
                                         <img src="{{ asset('frontend/images/ic_course.png') }}" alt="" /> 
-                                        <span class="special">{{ $lecturer->teacher->course_count }} Khóa học</span>
+                                        <?php
+                                        $count_teacher_course = count($lecturer->teacher->userRole->userCoursesByTeacher()->where('status', 1))
+                                        ?>
+                                        <span class="special">{{ $count_teacher_course }} Khóa học</span>
                                     </div>
                                     {{-- <div class="pull-right">
                                         @include(
