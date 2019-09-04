@@ -644,7 +644,7 @@
                                 var html = "";
                                 var htmlRate = $('.reviews-star').html();
                                 var avt = "images/avatar.jpg";
-                                if(data.commentCourse.data.avatar.length > 0){
+                                if(data.commentCourse.data.avatar != null && data.commentCourse.data.avatar.length > 0){
                                     avt = data.commentCourse.data.avatar;
                                 }
                                 html += '<div class="box clearfix">';
@@ -956,10 +956,14 @@
 
             request.done(function( data ) {
                 if(data.status == 200){
+                    var avt = "images/avatar.jpg";
+                    if(data.commentCourse.data.avatar != null && (data.commentCourse.data.avatar + "").length > 0){
+                        avt = data.commentCourse.data.avatar;
+                    }
                     var html = "";
                     html += '<div class="comment-reply">';
                         html += '<div>';
-                            html += '<img class="avatar" src="'+baseURL + '/' + data.commentCourse.data.avatar +'" alt="" />';
+                            html += '<img class="avatar" src="'+baseURL + '/frontend/' + avt +'" alt="" />';
                             html += '<div class="info-account">';
                                 html += '<p class="interval">' + data.commentCourse.data.created_at +'</p>';
                                 html += '<p class="name">' + data.commentCourse.data.username +'</p>';
@@ -971,6 +975,7 @@
                     html += '</div>';
 
                     $('.reply-hold-' + comment_id).prepend(html);
+                    $("#reply-" + comment_id).val("")
                 }
             });
 
