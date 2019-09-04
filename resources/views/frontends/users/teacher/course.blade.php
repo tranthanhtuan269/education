@@ -763,42 +763,50 @@
 
             //// upload video updated
             $("#editVideoModal #file-mp4-upload-off-updated").change(function(){
-                $.ajaxSetup(
-                    {
-                        headers:
-                        {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-                var file = document.getElementById("file-mp4-upload-off-updated").files[0];
-                var extension = document.getElementById("file-mp4-upload-off-updated").files[0].name;
-                extension = extension.split(".");
-                extension_input = extension[extension.length - 1];
-                extension_input = extension_input.toLowerCase();
-                var arrExtension = ["mp4"];
-                if(jQuery.inArray(extension_input, arrExtension) !== -1) {
-                    // $('.btn-upload, .or, .btn-link').hide();
-                    $('.progressBar').show();
-                    var formdata = new FormData();
-                    formdata.append("file-mp4-upload-off", file);
-                    formdata.append("_token", $('meta[name="csrf-token"]').attr('content'));
-                    // formdata.append("data", "{ demo : '{{ time() }}'  }");
-                    var ajax = new XMLHttpRequest();
-                    ajax.upload.addEventListener("progress", progressHandler, false);
-                    ajax.addEventListener("load", completeHandlerEdit, false);
-                    ajax.addEventListener("error", errorHandler, false);
-                    ajax.addEventListener("abort", abortHandler, false);
-                    ajax.open("POST", "{{ url('/') }}/saveFileAjax");
-                    ajax.setRequestHeader("X-CSRF-Token", $('meta[name="csrf-token"]').attr('content'));
-                    ajax.send(formdata);
-                } else {
+                if(uploading){
                     Swal.fire({
                         type: 'warning',
-                        html: 'Lỗi định dạng.',
+                        html: 'Bạn chỉ có thể upload khi tiến trình upload trước của bạn đã hoàn tất.',
                         allowOutsideClick: false,
                     })
+                }else{
+                    $.ajaxSetup(
+                        {
+                            headers:
+                            {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    var file = document.getElementById("file-mp4-upload-off-updated").files[0];
+                    var extension = document.getElementById("file-mp4-upload-off-updated").files[0].name;
+                    extension = extension.split(".");
+                    extension_input = extension[extension.length - 1];
+                    extension_input = extension_input.toLowerCase();
+                    var arrExtension = ["mp4"];
+                    if(jQuery.inArray(extension_input, arrExtension) !== -1) {
+                        // $('.btn-upload, .or, .btn-link').hide();
+                        $('.progressBar').show();
+                        var formdata = new FormData();
+                        formdata.append("file-mp4-upload-off", file);
+                        formdata.append("_token", $('meta[name="csrf-token"]').attr('content'));
+                        // formdata.append("data", "{ demo : '{{ time() }}'  }");
+                        var ajax = new XMLHttpRequest();
+                        ajax.upload.addEventListener("progress", progressHandler, false);
+                        ajax.addEventListener("load", completeHandlerEdit, false);
+                        ajax.addEventListener("error", errorHandler, false);
+                        ajax.addEventListener("abort", abortHandler, false);
+                        ajax.open("POST", "{{ url('/') }}/saveFileAjax");
+                        ajax.setRequestHeader("X-CSRF-Token", $('meta[name="csrf-token"]').attr('content'));
+                        ajax.send(formdata);
+                    } else {
+                        Swal.fire({
+                            type: 'warning',
+                            html: 'Lỗi định dạng.',
+                            allowOutsideClick: false,
+                        })
+                    }
+                    $('#file-mp4-upload-off-updated').val('');
                 }
-                $('#file-mp4-upload-off-updated').val('');
             });
 
             //// upload video
