@@ -105,7 +105,7 @@
                                 <input type="text" class="form-control" id="course-name-{{ $course->id }}" name="name" value="{{ $course->name }}">
                             </div>
                             <div class="form-group">
-                                <label for="short_description" class="control-label">Mô tả ngắn:</label>
+                                <label for="short_description" class="control-label">Tóm tắt:</label>
                                 <input type="text" class="form-control" id="short-description-{{ $course->id }}" name="short-description-{{ $course->id }}" value="{{ $course->short_description }}">
                             </div>
                             <div class="form-group">
@@ -147,7 +147,7 @@
                         </div>
                         <div class="form-group">
                             <label for="approx_time" class="control-label">Thời gian dự kiến hoàn thành: (giờ)</label>
-                            <input type="text" class="form-control" id="course-approx-time-{{$course->id}}" name="approx-time-{{$course->id}}" value="{{$course->approx_time}}">
+                            <input type="number" class="form-control" id="course-approx-time-{{$course->id}}" name="approx-time-{{$course->id}}" value="{{$course->approx_time}}">
                         </div>
                         <div class="form-group">
                             <label for="category" class="control-label">Danh mục:</label>
