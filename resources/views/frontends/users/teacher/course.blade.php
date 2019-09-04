@@ -809,10 +809,9 @@
                         html: 'Bạn chỉ có thể upload khi tiến trình upload trước của bạn đã hoàn tất.',
                         allowOutsideClick: false,
                     })
-                    $("#addVideoModal #file-mp4-upload-off").off()
-                    return;
+                }else{
+                    uploadFile();
                 }
-                uploadFile();
             });
 
             function uploadFile(){
