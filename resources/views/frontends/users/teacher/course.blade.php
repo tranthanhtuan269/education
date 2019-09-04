@@ -255,7 +255,8 @@
                         <div class="btn-upload clearfix">
                             <span class="file-wrapper">
                               <input type="file" name="file-mp4-upload-off" id="file-mp4-upload-off">
-                              <span class="button text-uppercase" >Tải lên</span>
+                              <span class="button text-uppercase upload-new-video">Tải lên</span>
+                              <span class="button text-lowercase uploading-new-video" style="display: none;">Đang tải lên</span>
                             </span>
                         </div>
                     </div>
@@ -318,7 +319,8 @@
                         <div class="btn-upload clearfix">
                             <span class="file-wrapper">
                               <input type="file" name="file-mp4-upload-off" id="file-mp4-upload-off-updated">
-                              <span class="button text-uppercase" >Tải lên</span>
+                              <span class="button text-uppercase upload-old-video">Tải lên</span>
+                              <span class="button text-lowercase uploading-old-video" style="display: none;">Đang tải lên</span>
                             </span>
                         </div>
                     </div>
@@ -351,6 +353,14 @@
                 backdrop: 'static',
                 keyboard: false
             })
+        })
+
+        $('.upload-new-video').click(function(){
+            $('#file-mp4-upload-off').click();
+        })
+
+        $('.upload-old-video').click(function(){
+            $('#file-mp4-upload-off-updated').click();
         })
 
         $('body').on('click','#createCourse .dz-image-preview',function(){
@@ -863,6 +873,10 @@
 
             function progressHandler(event){
                 uploading = true;
+                $('.upload-new-video').hide();
+                $('.upload-old-video').hide();
+                $('.uploading-new-video').show();
+                $('.uploading-old-video').show();
                 var percent = (event.loaded / event.total) * 100;
                 var type_txt = checkTypeFile(extension_input);
                 waitting_upload_file = true;
@@ -880,6 +894,10 @@
                 $('#addVideoModal video').attr('src', "{{ url('uploads/videos') }}/" + textUpload + '.mp4');
                 $("#addVideoModal video")[0].load();
                 uploading = false;
+                $('.upload-new-video').show();
+                $('.upload-old-video').show();
+                $('.uploading-new-video').hide();
+                $('.uploading-old-video').hide();
                 $("#addVideoModal #file-mp4-upload-off").on();
                 console.log(uploading);
             }

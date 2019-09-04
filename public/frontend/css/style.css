@@ -2456,17 +2456,22 @@ div[data-u="slides"] div div{
   text-align: center;
 }
 .file-wrapper input {
-  cursor: pointer;
-  filter: alpha(opacity=1);
-  -moz-opacity: 0.01;
-  opacity: 0.01;
-  position: absolute;
-  right: 0;
-  top: 0;
-  min-height: 150px;
+  display: none;
 }
-.file-wrapper .button {
+.file-wrapper .button.text-uppercase {
   background: #e8624a;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 12px;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  padding: 4px 12px;
+  width: 100%;
+  word-break: break-word;
+}
+.file-wrapper .button.text-lowercase {
+  background: #e0a095;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 12px;
