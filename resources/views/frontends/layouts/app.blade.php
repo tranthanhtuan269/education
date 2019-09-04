@@ -809,15 +809,21 @@
                 var total_price = 0;
                 var total_real_price = 0;
                 var total_amount = 0;
+                
                 number_items_in_cart.forEach(item => {
                     total_price += item.coupon_price
                     total_real_price += item.real_price
                     total_amount++;
                 })
+                // alert(total_price)
+                // alert(total_real_price)
                 
                 if(total_price == total_real_price){
-                    $('.current-price span').text(number_format(total_price, 0, '.', '.') + " ₫");
+                    $('.current-price span').text(number_format(total_price, 0, '.', '.') + " ₫")
+                    $('.initial-price span').remove()
+                    $('.percent-off span').remove()
                 }else{
+                    $('.current-price span').text(number_format(total_price, 0, '.', '.') + " ₫")
                     $('.initial-price span').text(number_format(total_real_price, 0, '.', '.') + " ₫");
                     $('.percent-off span').text("Tiết kiệm " + Math.floor(100-(total_price/total_real_price)*100) + "%");
                 }
@@ -894,7 +900,7 @@
                 // },
                 success: function (response) {
                     if(response.status == 200){
-                        location.reload(true);
+                        location.reload()
                     }else{
                         Swal.fire({
                             type: 'warning',
