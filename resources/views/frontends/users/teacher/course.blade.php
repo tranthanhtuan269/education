@@ -266,7 +266,7 @@
                             <span class="sr-only">Hoàn thành 0%</span>
                         </div>
                     </div>
-                    <video controls="controls" src="" style="max-width:100%" class="hidden">
+                    <video class="video_player" controls="controls" src="" style="max-width:100%" class="hidden">
                         Your browser does not support the HTML5 Video element.
                     </video>
                 </div>                                         
@@ -357,6 +357,9 @@
         })
 
         $('#addVideoModal').on('hidden.bs.modal', function () {
+            for(var i = 0; i < $('.video_player').length; i++){
+               $('.video_player')[i].pause(); 
+            }
             $('#listVideo').modal({
                 backdrop: 'static',
                 keyboard: false
