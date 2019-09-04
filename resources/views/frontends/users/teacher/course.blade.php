@@ -50,7 +50,6 @@
                                 </div>
                             </div>
                             <div class="row">
-                                {{ count($lifelong_course) }}
                                 @if (count($lifelong_course) > 0)
                                     @foreach ($lifelong_course as $course)
                                     @include(
