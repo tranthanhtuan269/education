@@ -1,5 +1,6 @@
 
 <?php
+    $avg_star = $rate;
     $rate_temp = $rate - (int) $rate;
     if(0 <= $rate_temp && $rate_temp < 0.25){
         $rate = (int)$rate;
@@ -8,6 +9,7 @@
     }else{
         $rate = (int)$rate + 1;
     }
+    // dd($avg_star)
 ?>
 <span class="star-rate">
     <!-- <i class="fa fa-star co-or" aria-hidden="true"></i> -->
@@ -26,7 +28,7 @@
 
 @if(isset($rating_number) && isset($rate))
     <span class="n-rate">
-        {!! number_format($rate, 1, ',' , '.') !!}&nbsp;
+        {!! number_format($avg_star, 1, ',' , '.') !!}&nbsp;
         (<span>{!! $rating_number !!}@if(isset($rating_txt)) đánh giá @endif</span>)
     </span>
 @endif
