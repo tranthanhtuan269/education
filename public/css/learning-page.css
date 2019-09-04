@@ -1,7 +1,8 @@
 html,body, h1, h2, h3, h4, h5, h6, form, input, select, ul, textarea, p { margin: 0px; padding: 0; }
 ul { list-style: inside; }
 button {box-shadow: none !important; outline: none !important;}
-li { margin: 0px; padding: 0px; list-style: none; }
+li { margin: 0px; padding: 0px }
+.learning-lecture-list-body li {list-style: none; }
 body{
     font-family: 'Open Sans', sans-serif !important;
 }
@@ -767,7 +768,7 @@ body{
 
 .ln-notes-list, .ln-files-list{
     padding: 0.6em;
-    height: 69vh;
+    height: 64vh;
     overflow: auto;
 }
 .ln-notes-wrapper, .ln-files-wrapper{

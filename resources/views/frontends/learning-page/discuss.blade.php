@@ -7,24 +7,20 @@
     <div class="ln-disc-body">
         <div class="ln-disc-input-bar">
             <div class="input-group">
-                <textarea name="content" id="discussionEditor"></textarea>
+                <textarea name="content" id="discussEditor"></textarea>
                 <div class="btn-submit">
                     <button class="btn">Hỏi một câu hỏi hoặc chia sẻ ý kiến của bạn</button>
                 </div>
-                <script>
-                    var discussEditor;
-                        ClassicEditor
-                            .create( document.querySelector( '#discussionEditor' ),{
-                                toolbar: {
-                                    items: ['bold', 'italic', 'underline', 'bulletedList', 'numberedList', 'blockQuote'] 
-                                },
-                            } )
-                            .then(editor =>{
-                                discussEditor = editor
-                            } )
-                            .catch( error => {
-                                console.error( error );
-                            } );                                
+                <script>  
+                            
+                    CKEDITOR.replace( 'discussEditor', {
+                        toolbar : [
+                            { name: 'basicstyles', items: [ 'Bold', 'Italic'] },
+                            { name: 'paragraph', items: [ 'NumberedList', 'BulletedList'] },
+                        ],
+                        height: '5em',
+                    });
+                    var discussEditor = CKEDITOR.instances.discussEditor
                 </script>
             </div>
         </div>

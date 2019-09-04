@@ -1,5 +1,13 @@
-let isAutoplay = localStorage.getItem('autoplay')
 const baseURL = $('base').attr('href');
+
+let isAutoplay;
+if(localStorage.getItem('autoplay') != null){
+    isAutoplay = localStorage.getItem('autoplay')
+}else{
+    const newLocal = 'false';
+    localStorage.setItem('autoplay', newLocal)
+    isAutoplay = localStorage.getItem('autoplay')
+}
 $(document).ready(function () {
 
     // Set up the player

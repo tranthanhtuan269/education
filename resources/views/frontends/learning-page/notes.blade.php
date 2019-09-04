@@ -8,23 +8,20 @@
     <div class="ln-notes-body">
         <div class="ln-notes-input-bar">
             <div class="input-group">
-                <textarea name="content" id="notesEditor"></textarea>
+                <textarea name="noteContent" id="noteEditor"></textarea>
                 <div class="btn-submit">
                     <button class="btn">Lưu</button>
                     {{-- <button class="btn"> 0:51</button> --}}
                 </div>
                 <script>
-                    var noteEditor;
-                        ClassicEditor
-                            .create( document.querySelector( '#notesEditor' ),{
-                                toolbar: ['bold', 'italic', 'bulletedList', 'numberedList', 'blockQuote' ],
-                            } )
-                            .then(editor =>{
-                                noteEditor = editor
-                            })
-                            .catch( error => {
-                                console.error( error );
-                            } );                                
+                        CKEDITOR.replace( 'noteContent', {
+                            toolbar : [
+                                { name: 'basicstyles', items: [ 'Bold', 'Italic'] },
+                                { name: 'paragraph', items: [ 'NumberedList', 'BulletedList'] },
+                            ],
+                            height: '5em',
+                        });
+                        var noteEditor = CKEDITOR.instances.noteEditor;
                 </script>
             </div>
         </div>

@@ -37,7 +37,9 @@
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 
         <!-- Scripts -->
-        <script src="https://cdn.ckeditor.com/ckeditor5/12.4.0/classic/ckeditor.js"></script>
+        {{-- <script src="https://cdn.ckeditor.com/ckeditor5/12.4.0/classic/ckeditor.js"></script> --}}
+        <script src="https://cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script>
+
         {{-- <script src="https://cdn.tiny.cloud/1/lt4hs1j5octreut3946kr2zrr6g1q6tadfsvm28b7cv6gp84/tinymce/5/tinymce.min.js"></script> --}}
         {{-- <script src="{{asset('frontend/js/ckeditor5-classic-12.4.0.js')}}"></script> --}}
         {{-- <script src="https://cdn.ckeditor.com/ckeditor5/12.4.0/decoupled-document/ckeditor.js"></script> --}}
