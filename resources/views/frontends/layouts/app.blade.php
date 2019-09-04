@@ -371,15 +371,13 @@
 
                                             @endif
                                             <li class="divider"></li>
-                                            <li><a href="{{ url('user/logout') }}" class="btnDangxuat btn-google-logout"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
+                                            <li><a href="{{ url('user/logout') }}" class="btnDangxuat btn-google-logout btn-logout-account"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
 
                                             @if($_SERVER['SERVER_NAME'] === "timtruyen.online")
                                                 <div class="g-signin2" data-onsuccess="onSignIn" style="display:none"></div>
                                                 <script src="https://apis.google.com/js/platform.js" async></script>
                                                 <script>
-                                                    $('.btn-google-logout').click(function(){
-                                                        
-                                                    })
+                                                    // $('.btn-google-logout').click()
                                                     function onSignIn(googleUser) {
                                                         var profile = googleUser.getBasicProfile();
 
@@ -391,6 +389,11 @@
                                                     }
                                                 </script>
                                             @endif
+                                            <script>
+                                                $('.btn-logout-account').click(function(){
+                                                    localStorage.removeItem('cart')
+                                                })
+                                            </script>
                                         </ul>
                                     </li>
                                     @else
