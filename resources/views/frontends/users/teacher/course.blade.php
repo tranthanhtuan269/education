@@ -60,7 +60,7 @@
                                     )
                                     @endforeach
                                     <div class="col-xs-12 text-center">
-                                        <div class="u-number-page">{{ $lifelong_course->appends(Request::all())->links() }}</div>
+                                        <div class="u-number-page">{{ $lifelong_course->links() }}</div>
                                     </div>
                                 @else
                                     <div class="col-xs-12">
@@ -71,6 +71,9 @@
                                                 Bạn chưa tạo khoá học nào!
                                             @endif
                                         </p>
+                                    </div>
+                                    <div class="col-xs-12 text-center">
+                                        <div class="u-number-page">{{ $lifelong_course->links() }}</div>
                                     </div>
                                 @endif
                             </div>
@@ -263,7 +266,7 @@
                             <span class="sr-only">Hoàn thành 0%</span>
                         </div>
                     </div>
-                    <video controls="controls" src="" style="max-width:100%" class="hidden">
+                    <video class="video_player" controls="controls" src="" style="max-width:100%" class="hidden">
                         Your browser does not support the HTML5 Video element.
                     </video>
                 </div>                                         
@@ -343,8 +346,6 @@
     var S = jQuery.noConflict();
     $(document).ready(function(){
         $('#create-course-btn').click(function(){
-            // alert(1)
-            // $('#createCourse').modal('toggle')
             $('#createCourse').modal({
                 backdrop: 'static',
                 keyboard: false
@@ -356,7 +357,9 @@
         })
 
         $('#addVideoModal').on('hidden.bs.modal', function () {
-            // $('#listVideo').modal('toggle');
+            for(var i = 0; i < $('.video_player').length; i++){
+               $('.video_player')[i].pause(); 
+            }
             $('#listVideo').modal({
                 backdrop: 'static',
                 keyboard: false
@@ -364,7 +367,6 @@
         });
 
         $('#editVideoModal').on('hidden.bs.modal', function () {
-            // $('#listVideo').modal('toggle');
             $('#listVideo').modal({
                 backdrop: 'static',
                 keyboard: false
