@@ -18,6 +18,7 @@ use App\Mail\OrderCompleted;
 use Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
+use App\UserRole;
 
 class HomeController extends Controller
 {
@@ -129,29 +130,41 @@ class HomeController extends Controller
 
     public function showCourse($course)
     {
-        
         $course = Course::where('slug', $course)->first();
-        if ($course) {
-            $course->view_count = $course->view_count + 1;
-            $course->save();
-        }
-
-        if (\Auth::check()) {
-            if ($course) {
-                $ratingCourse = RatingCourse::where('course_id', $course->id)->where('user_id', \Auth::id())->first();
-                $related_course = Course::where('category_id', $course->category_id)->where('id','!=',$course->id)->where('status', 1)->limit(4)->get();
-                $info_course = Course::find($course->id);
-                // dd($info_course->comments[0]->likeCheckUser());
-                return view('frontends.course-detail', compact('related_course', 'info_course', 'ratingCourse'));
+        if($course){
+            if($course->status == 1){
+                if ($course) {
+                    $course->view_count = $course->view_count + 1;
+                    $course->save();
+                }
+                
+                if (\Auth::check()) {
+                    if ($course) {
+                        $ratingCourse = RatingCourse::where('course_id', $course->id)->where('user_id', \Auth::id())->first();
+                        $related_course = Course::where('category_id', $course->category_id)->where('id','!=',$course->id)->where('status', 1)->limit(4)->get();
+                        $info_course = Course::find($course->id);
+                        return view('frontends.course-detail', compact('related_course', 'info_course', 'ratingCourse'));
+                    }
+                } else {
+                    if ($course) {
+                        $related_course = Course::where('category_id', $course->category_id)->where('id','!=',$course->id)->where('status', 1)->limit(4)->get();
+                        $info_course = Course::find($course->id);
+                        return view('frontends.course-detail', compact('related_course', 'info_course'));
+                    }
+                }
+            }else{
+                if(\Auth::check() && Auth::user()->userRolesTeacher()->userCoursesByTeacher()->where('id', $course->id)->first() != null){
+                    $ratingCourse = RatingCourse::where('course_id', $course->id)->where('user_id', \Auth::id())->first();
+                    $related_course = Course::where('category_id', $course->category_id)->where('id','!=',$course->id)->where('status', 1)->limit(4)->get();
+                    $info_course = Course::find($course->id);
+                    return view('frontends.course-detail', compact('related_course', 'info_course', 'ratingCourse'));
+                }else{
+                    return Redirect('/');
+                }
             }
-        } else {
-            if ($course) {
-                $related_course = Course::where('category_id', $course->category_id)->where('id','!=',$course->id)->where('status', 1)->limit(4)->get();
-                $info_course = Course::find($course->id);
-                return view('frontends.course-detail', compact('related_course', 'info_course'));
-            }
+        }else{
+            return abort(404);
         }
-        return abort(404);
     }
 
     public function showTeacher($id_teacher)
