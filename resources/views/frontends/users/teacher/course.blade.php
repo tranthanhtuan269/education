@@ -806,6 +806,7 @@
             $("#addVideoModal #file-mp4-upload-off").change(function(){
                 if(flag){
                     alert('uploading');
+                }else{
                     uploadFile();
                 }
             });
