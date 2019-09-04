@@ -145,9 +145,15 @@
 
             $(".cart-item-list").append(html)
 
+            // totalPrice += element.coupon_price
+            // totalInitialPrice += element.real_price
+        });
+
+        cart_items.forEach((element)=>{
             totalPrice += element.coupon_price
             totalInitialPrice += element.real_price
-        });
+        })
+
         if(totalPrice == totalInitialPrice){
             $(".checkout-column .current-price").append("<span>"+number_format(totalPrice, 0, '.', '.')+" ₫</span>")
         }else{
@@ -448,7 +454,6 @@
             }
         }
     })
-    
     
 </script>
 
