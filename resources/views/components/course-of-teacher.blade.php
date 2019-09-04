@@ -25,8 +25,8 @@
         </ul>
         <?php 
             $will_learn = $course->will_learn;
-            $will_learn = explode("</li>", $will_learn);
-            if(count($will_learn) > 3){
+            if(count(explode("</li>", $will_learn)) > 3){
+                $will_learn = explode("</li>", $will_learn);
                 $will_learn = $will_learn[0]."</li>".$will_learn[1]."</li>".$will_learn[2]."</li>".$will_learn[3]."<li>...</li>";
             }
         ?>
