@@ -460,6 +460,10 @@ class HomeController extends Controller
                         $teacher = $course->Lecturers()->first()->teacher;
                         $teacher->student_count += 1;
                         $teacher->save();
+
+                        $course2 = Course::find($item['id']);
+                        $course2->student_count += 1;
+                        $course2->save();
                     }
                 }
 
