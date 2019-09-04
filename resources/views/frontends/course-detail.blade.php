@@ -441,7 +441,10 @@
                                 <div class="frame clearfix">
                                     <div class="pull-left">
                                         <img src="{{ asset('frontend/images/ic_course.png') }}" alt="" /> 
-                                        <span class="special">{{ $lecturer->teacher->course_count }} Khóa học</span>
+                                        <?php
+                                        $count_teacher_course = count($lecturer->teacher->userRole->userCoursesByTeacher()->where('status', 1))
+                                        ?>
+                                        <span class="special">{{ $count_teacher_course }} Khóa học</span>
                                     </div>
                                     {{-- <div class="pull-right">
                                         @include(
@@ -643,9 +646,13 @@
                             if(data.status == 201){
                                 var html = "";
                                 var htmlRate = $('.reviews-star').html();
+                                var avt = "images/avatar.jpg";
+                                if(data.commentCourse.data.avatar != null && data.commentCourse.data.avatar.length > 0){
+                                    avt = data.commentCourse.data.avatar;
+                                }
                                 html += '<div class="box clearfix">';
                                     html += '<div class="col-sm-3">';
-                                        html += '<img class="avatar" src="'+baseURL + '/frontend/' + data.commentCourse.data.avatar +'" alt="">';
+                                        html += '<img class="avatar" src="'+baseURL + '/frontend/' + avt +'" alt="">';
                                         html += '<div class="info-account">';
                                             html += '<p class="interval">' + data.commentCourse.data.created_at +'</p>';
                                             html += '<p class="name">' + data.commentCourse.data.username +'</p>';
@@ -952,10 +959,14 @@
 
             request.done(function( data ) {
                 if(data.status == 200){
+                    var avt = "images/avatar.jpg";
+                    if(data.commentCourse.data.avatar != null && (data.commentCourse.data.avatar + "").length > 0){
+                        avt = data.commentCourse.data.avatar;
+                    }
                     var html = "";
                     html += '<div class="comment-reply">';
                         html += '<div>';
-                            html += '<img class="avatar" src="'+baseURL + '/' + data.commentCourse.data.avatar +'" alt="" />';
+                            html += '<img class="avatar" src="'+baseURL + '/frontend/' + avt +'" alt="" />';
                             html += '<div class="info-account">';
                                 html += '<p class="interval">' + data.commentCourse.data.created_at +'</p>';
                                 html += '<p class="name">' + data.commentCourse.data.username +'</p>';
@@ -967,6 +978,7 @@
                     html += '</div>';
 
                     $('.reply-hold-' + comment_id).prepend(html);
+                    $("#reply-" + comment_id).val("")
                 }
             });
 

@@ -310,13 +310,11 @@
                 url: "{{ url('user/teacher/profile') }}",
                 data: data,
                 dataType: 'json',
-                // beforeSend: function() {
-                //     $("#pre_ajax_loading").show();
-                // },
-                // complete: function() {
-                //     $("#pre_ajax_loading").hide();
-                // },
+                beforeSend: function() {
+                    $(".ajax_waiting").addClass("loading");
+                },
                 success: function (response) {
+                    $(".ajax_waiting").removeClass("loading");
                     if(response.status == 200){
                         Swal.fire({
                             type: 'success',
@@ -335,6 +333,7 @@
                     }
                 },
                 error: function (error) {
+                    $(".ajax_waiting").removeClass("loading");
                     var obj_errors = error.responseJSON.errors;
                     // console.log(obj_errors)
                     var txt_errors = '';
