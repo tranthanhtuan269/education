@@ -138,12 +138,12 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="price" class="control-label">Giá khóa học:</label>
+                            <label for="price" class="control-label">Giá khóa học: (₫)</label>
                             <input type="text" class="form-control" id="course-price" name="price">
                         </div>
                         <div class="form-group">
-                            <label for="approx_time" class="control-label">Thời gian ước tính: (giờ)</label>
-                            <input type="text" class="form-control" id="course-approx-time" name="approx-time">
+                            <label for="approx_time" class="control-label">Thời gian dự kiến hoàn thành: (giờ)</label>
+                            <input type="number" class="form-control" id="course-approx-time" name="approx-time">
                         </div>
                         <div class="form-group">
                             <label for="category" class="control-label">Danh mục:</label>
