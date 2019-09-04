@@ -70,9 +70,11 @@
                 { 
                     data: "total_price",
                     render: function(data, type, row){
-                        return numberFormat(row.total_price, 0, '.', '.') + ' đ';
+                        if(type == "display"){
+                            return numberFormat(row.total_price, 0, '.', '.') + ' đ';
+                        }
+                        return data;
                     },
-                    // class: "hide"
                 },
                 { 
                     data: "total_price",
@@ -83,6 +85,8 @@
                     render: function(data, type, row){
                         return statusOrder(row.status);
                     },
+                    class: "text-center",
+                    orderable: false,
                 },
                 { 
                     data: "created_at",
