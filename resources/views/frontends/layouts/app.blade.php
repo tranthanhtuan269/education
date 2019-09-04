@@ -258,7 +258,7 @@
             <a class="logo-mobile" href="/"><img src="{{ asset('frontend/images/tab_logo.png') }}" alt=""/></a>
             <a class="cart-mobile" href="{{route('cart.show')}}">
                 <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                {{-- <span class="unica-sl-cart" style="top:1px;"><b class="number-in-cart">0</b></span> --}}
+                <span class="unica-sl-cart" style="top:1px; display: none;"><b class="number-in-cart">0</b></span>
             </a>
             <div class="login-mobile">
                 <span class="ava-img" data-toggle="collapse" data-target="#userPanel">
@@ -334,7 +334,7 @@
                                 <a href="{{route('cart.show')}}" class="unica-cart">
 
                                     <img src="{{ asset('frontend/images/tab_cart.png') }}" alt="" style="width: 21px;" />
-                                    <span class="unica-sl-cart"><b class="number-in-cart"></b></span>
+                                    <span class="unica-sl-cart" style="display: none;"><b class="number-in-cart"></b></span>
                                 </a>
                                 <li>
 

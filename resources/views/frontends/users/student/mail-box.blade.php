@@ -81,7 +81,7 @@
             dataTable = $('#mailbox-table').DataTable( {
                             serverSide: false,
                             aaSorting: [],
-                            stateSave: true,
+                            stateSave: false,
                             ajax: "{{ url('/') }}/user/getDataMailBoxAjax",
                             columns: dataObject,
                             // bLengthChange: false,

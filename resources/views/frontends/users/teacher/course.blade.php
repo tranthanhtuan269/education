@@ -255,7 +255,8 @@
                         <div class="btn-upload clearfix">
                             <span class="file-wrapper">
                               <input type="file" name="file-mp4-upload-off" id="file-mp4-upload-off">
-                              <span class="button text-uppercase" >Tải lên</span>
+                              <span class="button text-uppercase upload-new-video">Tải lên</span>
+                              <span class="button text-lowercase uploading-new-video" style="display: none;">Đang tải lên</span>
                             </span>
                         </div>
                     </div>
@@ -318,7 +319,8 @@
                         <div class="btn-upload clearfix">
                             <span class="file-wrapper">
                               <input type="file" name="file-mp4-upload-off" id="file-mp4-upload-off-updated">
-                              <span class="button text-uppercase" >Tải lên</span>
+                              <span class="button text-uppercase upload-old-video">Tải lên</span>
+                              <span class="button text-lowercase uploading-old-video" style="display: none;">Đang tải lên</span>
                             </span>
                         </div>
                     </div>
@@ -344,12 +346,21 @@
 <script>
     let filesEditLength = 0;
     var S = jQuery.noConflict();
+    var uploading = false;
     $(document).ready(function(){
         $('#create-course-btn').click(function(){
             $('#createCourse').modal({
                 backdrop: 'static',
                 keyboard: false
             })
+        })
+
+        $('.upload-new-video').click(function(){
+            $('#file-mp4-upload-off').click();
+        })
+
+        $('.upload-old-video').click(function(){
+            $('#file-mp4-upload-off-updated').click();
         })
 
         $('body').on('click','#createCourse .dz-image-preview',function(){
@@ -540,7 +551,6 @@
             var inputFileEdit = $('#editVideoDocument')
             let filesEdit = [];            
             inputFileEdit.change(function(){
-                alert(1)
                 let newFiles = []; 
                 for(let index = 0; index < inputFile[0].files.length; index++) {
                     let file = inputFile[0].files[index];
@@ -763,47 +773,63 @@
 
             //// upload video updated
             $("#editVideoModal #file-mp4-upload-off-updated").change(function(){
-                $.ajaxSetup(
-                    {
-                        headers:
-                        {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-                var file = document.getElementById("file-mp4-upload-off-updated").files[0];
-                var extension = document.getElementById("file-mp4-upload-off-updated").files[0].name;
-                extension = extension.split(".");
-                extension_input = extension[extension.length - 1];
-                extension_input = extension_input.toLowerCase();
-                var arrExtension = ["mp4"];
-                if(jQuery.inArray(extension_input, arrExtension) !== -1) {
-                    // $('.btn-upload, .or, .btn-link').hide();
-                    $('.progressBar').show();
-                    var formdata = new FormData();
-                    formdata.append("file-mp4-upload-off", file);
-                    formdata.append("_token", $('meta[name="csrf-token"]').attr('content'));
-                    // formdata.append("data", "{ demo : '{{ time() }}'  }");
-                    var ajax = new XMLHttpRequest();
-                    ajax.upload.addEventListener("progress", progressHandler, false);
-                    ajax.addEventListener("load", completeHandlerEdit, false);
-                    ajax.addEventListener("error", errorHandler, false);
-                    ajax.addEventListener("abort", abortHandler, false);
-                    ajax.open("POST", "{{ url('/') }}/saveFileAjax");
-                    ajax.setRequestHeader("X-CSRF-Token", $('meta[name="csrf-token"]').attr('content'));
-                    ajax.send(formdata);
-                } else {
+                if(uploading){
                     Swal.fire({
                         type: 'warning',
-                        html: 'Lỗi định dạng.',
+                        html: 'Bạn chỉ có thể upload khi tiến trình upload trước của bạn đã hoàn tất.',
                         allowOutsideClick: false,
                     })
+                }else{
+                    $.ajaxSetup(
+                        {
+                            headers:
+                            {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    var file = document.getElementById("file-mp4-upload-off-updated").files[0];
+                    var extension = document.getElementById("file-mp4-upload-off-updated").files[0].name;
+                    extension = extension.split(".");
+                    extension_input = extension[extension.length - 1];
+                    extension_input = extension_input.toLowerCase();
+                    var arrExtension = ["mp4"];
+                    if(jQuery.inArray(extension_input, arrExtension) !== -1) {
+                        // $('.btn-upload, .or, .btn-link').hide();
+                        $('.progressBar').show();
+                        var formdata = new FormData();
+                        formdata.append("file-mp4-upload-off", file);
+                        formdata.append("_token", $('meta[name="csrf-token"]').attr('content'));
+                        // formdata.append("data", "{ demo : '{{ time() }}'  }");
+                        var ajax = new XMLHttpRequest();
+                        ajax.upload.addEventListener("progress", progressHandler, false);
+                        ajax.addEventListener("load", completeHandlerEdit, false);
+                        ajax.addEventListener("error", errorHandler, false);
+                        ajax.addEventListener("abort", abortHandler, false);
+                        ajax.open("POST", "{{ url('/') }}/saveFileAjax");
+                        ajax.setRequestHeader("X-CSRF-Token", $('meta[name="csrf-token"]').attr('content'));
+                        ajax.send(formdata);
+                    } else {
+                        Swal.fire({
+                            type: 'warning',
+                            html: 'Lỗi định dạng.',
+                            allowOutsideClick: false,
+                        })
+                    }
+                    $('#file-mp4-upload-off-updated').val('');
                 }
-                $('#file-mp4-upload-off-updated').val('');
             });
 
             //// upload video
             $("#addVideoModal #file-mp4-upload-off").change(function(){
-                uploadFile();
+                if(uploading){
+                    Swal.fire({
+                        type: 'warning',
+                        html: 'Bạn chỉ có thể upload khi tiến trình upload trước của bạn đã hoàn tất.',
+                        allowOutsideClick: false,
+                    })
+                }else{
+                    uploadFile();
+                }
             });
 
             function uploadFile(){
@@ -846,23 +872,34 @@
             }
 
             function progressHandler(event){
+                uploading = true;
+                $('.upload-new-video').hide();
+                $('.upload-old-video').hide();
+                $('.uploading-new-video').show();
+                $('.uploading-old-video').show();
                 var percent = (event.loaded / event.total) * 100;
-                console.log(percent);
                 var type_txt = checkTypeFile(extension_input);
                 waitting_upload_file = true;
 
                 $(".progress-bar").css("width", Math.round(percent) + "%");
                 $(".progress-bar").html(Math.round(percent) + "%");
+                console.log(uploading)
             }
 
             function completeHandler(event) {
                 unsaved = true;
                 textUpload = event.target.responseText;
-                // alert(textUpload)
                 $('#fileName').val(textUpload);
                 $('#addVideoModal video').removeClass('hidden');
                 $('#addVideoModal video').attr('src', "{{ url('uploads/videos') }}/" + textUpload + '.mp4');
                 $("#addVideoModal video")[0].load();
+                uploading = false;
+                $('.upload-new-video').show();
+                $('.upload-old-video').show();
+                $('.uploading-new-video').hide();
+                $('.uploading-old-video').hide();
+                $("#addVideoModal #file-mp4-upload-off").on();
+                console.log(uploading);
             }
 
             function completeHandlerEdit(event) {
@@ -879,13 +916,14 @@
             }
 
             function abortHandler(event) {
-                // swal({
-                //   title: "Are you sure?",
-                //   text: "Once cancel, you will not be able to recover this imaginary file!",
-                //   icon: "warning",
-                //   buttons: true,
-                //   dangerMode: true,
-                // });
+
+                swal({
+                  title: "Are you sure?",
+                  text: "Once cancel, you will not be able to recover this imaginary file!",
+                  icon: "warning",
+                  buttons: true,
+                  dangerMode: true,
+                });
 
                 //alert("Upload Aborted");
                 //document.getElementById("status").innerHTML = "Upload Aborted";
