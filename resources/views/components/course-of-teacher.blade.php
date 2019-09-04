@@ -30,7 +30,7 @@
                 $will_learn = $will_learn[0]."</li>".$will_learn[1]."</li>".$will_learn[2]."</li>".$will_learn[3]."<li>...</li>";
             }
         ?>
-        <div class="clearfix course-des">
+        <div class="clearfix course-des-{{$course->id}}">
             <div class="row">
                 <div class="col-sm-12 big-des">
                     {!! $will_learn !!}
@@ -39,7 +39,7 @@
         </div>
         <script>
             $(document).ready(function (){
-                $('.course-des .row li').prepend('<i class="fa fa-chevron-right fa-fw" aria-hidden="true"></i>')
+                $('.course-des-{{$course->id}} .row li').prepend('<i class="fa fa-chevron-right fa-fw" aria-hidden="true"></i>')
             })
         </script>
     </div>
