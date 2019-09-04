@@ -367,12 +367,14 @@ class UserController extends Controller
     public function getDataMailBoxNavAjax(){
         $user = Auth::user();
         $unread_user_emails = $user->user_emails->where('viewed', 0);
-        // $unread_emails = Email::whereIn('id', $unread_user_emails->pluck('email_id'))->get();
+        $unread_emails = Email::whereIn('id', $unread_user_emails->pluck('email_id'))->get();
+        $number_unread_emails = count($unread_user_emails);
         
         return response()->json([
             'status' => '200',
             'message' => 'Success',
-            'unread_emails' => $unread_user_emails,
+            'unread_emails' => $unread_emails,
+            'number_unread_emails' => $number_unread_emails,
         ]);
 
     }
