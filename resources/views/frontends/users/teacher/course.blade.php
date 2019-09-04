@@ -262,7 +262,7 @@
 
                     {{-- <input type="file" name="file-mp4-upload-off" id="file-mp4-upload-off"> --}}
                     <div class="progress">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="70"aria-valuemin="0" aria-valuemax="100" style="width:0%">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="0"aria-valuemin="0" aria-valuemax="100" style="width:0%">
                             <span class="sr-only">Hoàn thành 0%</span>
                         </div>
                     </div>
@@ -323,7 +323,7 @@
                         </div>
                     </div>
                     <div class="progress">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="70"aria-valuemin="0" aria-valuemax="100" style="width:0%">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="0"aria-valuemin="0" aria-valuemax="100" style="width:0%">
                             <span class="sr-only">Hoàn thành 0%</span>
                         </div>
                     </div>
@@ -344,7 +344,7 @@
 <script>
     let filesEditLength = 0;
     var S = jQuery.noConflict();
-    var ajax = new XMLHttpRequest();
+    var uploading = false;
     $(document).ready(function(){
         $('#create-course-btn').click(function(){
             $('#createCourse').modal({
@@ -783,7 +783,7 @@
                     formdata.append("file-mp4-upload-off", file);
                     formdata.append("_token", $('meta[name="csrf-token"]').attr('content'));
                     // formdata.append("data", "{ demo : '{{ time() }}'  }");
-                    ajax = new XMLHttpRequest();
+                    var ajax = new XMLHttpRequest();
                     ajax.upload.addEventListener("progress", progressHandler, false);
                     ajax.addEventListener("load", completeHandlerEdit, false);
                     ajax.addEventListener("error", errorHandler, false);
@@ -803,15 +803,15 @@
 
             //// upload video
             $("#addVideoModal #file-mp4-upload-off").change(function(){
-                if($('.progress-bar').css('width') == "0%" || $('.progress-bar').css('width') == "100%"){
-                    uploadFile();
-                }else{
+                if(uploading){
                     Swal.fire({
                         type: 'warning',
-                        html: 'Quá trình upload file đang được diễn ra\n Bạn chỉ có thể upload khi quá trình upload trước của bạn đã được hoàn tất.',
+                        html: 'Bạn chỉ có thể upload khi tiến trình upload trước của bạn đã hoàn tất.',
                         allowOutsideClick: false,
                     })
+                    return;
                 }
+                uploadFile();
             });
 
             function uploadFile(){
@@ -835,7 +835,7 @@
                     formdata.append("file-mp4-upload-off", file);
                     formdata.append("_token", $('meta[name="csrf-token"]').attr('content'));
                     // formdata.append("data", "{ demo : '{{ time() }}'  }");
-                    ajax = new XMLHttpRequest();
+                    var ajax = new XMLHttpRequest();
                     ajax.upload.addEventListener("progress", progressHandler, false);
                     ajax.addEventListener("load", completeHandler, false);
                     ajax.addEventListener("error", errorHandler, false);
@@ -854,22 +854,25 @@
             }
 
             function progressHandler(event){
+                uploading = true;
                 var percent = (event.loaded / event.total) * 100;
                 var type_txt = checkTypeFile(extension_input);
                 waitting_upload_file = true;
 
                 $(".progress-bar").css("width", Math.round(percent) + "%");
                 $(".progress-bar").html(Math.round(percent) + "%");
+                console.log(uploading)
             }
 
             function completeHandler(event) {
                 unsaved = true;
                 textUpload = event.target.responseText;
-                // alert(textUpload)
                 $('#fileName').val(textUpload);
                 $('#addVideoModal video').removeClass('hidden');
                 $('#addVideoModal video').attr('src', "{{ url('uploads/videos') }}/" + textUpload + '.mp4');
                 $("#addVideoModal video")[0].load();
+                uploading = false;
+                console.log(uploading);
             }
 
             function completeHandlerEdit(event) {
