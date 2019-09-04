@@ -655,6 +655,7 @@
                         // $(".unica-sl-notify").remove()
                         $('.unica-sl-notify').css('display', 'block' )
                     }
+                    console.log(response.unread_emails.length)
 
                 },
                 error: function (response) {
