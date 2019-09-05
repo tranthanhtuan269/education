@@ -124,20 +124,32 @@
         if( discussEditor.getData() == ""){
             Swal.fire({
                 type: "warning",
-                text:"Content cannot be empty!"
+                text:" Nội dung không được trống!"
             })         
             // Swal.fire('Any fool can use a computer')
     
         }else{
             var request = $.ajax({
-            url: "{{ url('comments/store') }}",
-            method: "POST",
-            data: {
-                videoId: {{ $main_video->id }},
-                content: discussEditor.getData(),
-                type : "discussionComment",
-            },
-            dataType: "json"
+                url: "{{ url('comments/store') }}",
+                method: "POST",
+                data: {
+                    videoId: {{ $main_video->id }},
+                    content: discussEditor.getData(),
+                    type : "discussionComment",
+                },
+                dataType: "json",
+                error: function (error) {
+                    var obj_errors = error.responseJSON.errors;
+                    var txt_errors = '';
+                    for (k of Object.keys(obj_errors)) {
+                        txt_errors += obj_errors[k][0] + '</br>';
+                    }
+                    Swal.fire({
+                        type: 'warning',
+                        html: txt_errors,
+                        allowOutsideClick: false,
+                    })
+                }
             });
 
             request.done(function( response ) {

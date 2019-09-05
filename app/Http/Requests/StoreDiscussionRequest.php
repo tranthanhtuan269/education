@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Auth;
 
-class StoreNoteRequest extends FormRequest
+class StoreDiscussionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,15 +25,16 @@ class StoreNoteRequest extends FormRequest
     public function rules()
     {
         return [
-            'content' => 'required|max:255',
+            'content' => 'required|max:255'
         ];
     }
 
     public function messages()
     {
         return [
-            'content.required' => 'Bạn chưa nhập ghi chú.',
-            'content.max'      => 'Ghi chú quá dài. (Yêu cầu <255 ký tự)'
+            'content.required' => 'Bạn chưa nhập nội dung.',
+            'content.max'      => 'Nội dung quá dài. (Yêu cầu <255 ký tự)'
         ];
     }
+
 }
