@@ -104,7 +104,7 @@
                         html += '<p>'+content+'</p>'
                         html += '<div>'
                             html += '<span><strong>'+timeTick+'</strong></span>'
-                            html += '<span style="font-size: 0.9em;"><i>Vừa xong</i></span>'
+                            html += '<span style="font-size: smaller;"><i>Vừa xong</i></span>'
                         html += '</div>'
                     html += '</div>'
                 html += '</div>'
