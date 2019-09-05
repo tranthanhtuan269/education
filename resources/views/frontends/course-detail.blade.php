@@ -553,7 +553,7 @@
                 <h3>Nhận xét của học viên
                     {{-- @if(Auth::check()) --}}
                         @if(\App\Helper\Helper::getUserRoleOfCourse($info_course->id))
-                            <span class="reviews-star" data-star="{{ isset($ratingCourse) ? $ratingCourse->score : 5 }}">
+                            <span class="reviews-star" data-star="{{ isset($ratingCourse) ? $ratingCourse->score : 0 }}">
                                 @if($ratingCourse)
                                 @include(
                                     'components.vote', 
@@ -562,7 +562,7 @@
                                     ]
                                 )
                                 @else
-                                <i id="star-1" class="fa fa-star review-star" data-id="1"></i>
+                                <i id="star-1" class="far fa-star review-star" data-id="1"></i>
                                 <i id="star-2" class="far fa-star review-star" data-id="2"></i>
                                 <i id="star-3" class="far fa-star review-star" data-id="3"></i>
                                 <i id="star-4" class="far fa-star review-star" data-id="4"></i>
@@ -638,6 +638,15 @@
                             })
                             return false;
                         }
+
+                        if($('.reviews-star').attr("data-star") == 0){
+                            Swal.fire({
+                                type: 'warning',
+                                html: 'Bạn chưa nhập sao.',
+                            })
+                            return false;
+                        }
+
                         var request = $.ajax({
                             url: baseURL + '/reviews/store',
                             method: "POST",
