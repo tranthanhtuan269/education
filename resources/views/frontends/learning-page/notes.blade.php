@@ -33,12 +33,11 @@
                     <p>{!!$note->content!!}
                     </p>
                     <div>
-                        <span><strong>{{\Helper::convertSecondToTimeFormat($note->time_tick)}}</strong></span>
-
+                        <span style="font-size: smaller;"><strong>{{\Helper::convertSecondToTimeFormat($note->time_tick)}}</strong></span>
                     @if ( ($momentNow->diff($note->created_at, 'months')) <= 1  )
-                        <span><i>{{$momentNow->from($note->created_at)}}</i></span>                    
+                        <span style="font-size: smaller;"><i>{{\Carbon\Carbon::now()->subSeconds($momentNow->diff($note->created_at))->locale('vi_VN')->diffForHumans()}}</i></span>                    
                     @else
-                        <span><i>{{ $note->created_at->format("d F Y") }}</i></span>                        
+                        <span style="font-size: smaller;"><i>{{ $note->created_at->format("d F Y") }}</i></span>                        
                     @endif
                     
                     {{-- <span><i>{{ $note->created_at->format('d F Y') }}</i></span>              --}}

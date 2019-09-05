@@ -41,11 +41,13 @@
                             @endphp
                             <p>{{$comment_video->userRole->user->name}} - {{ $comment_user_role_id == 3 ? "Học viên" : ($comment_user_role_id == 2 ? "Giảng viên" : "Tiếp thị viên") }}    
                             </p>
-                        {{-- @if ( ($momentNow->diff($comment_video->created_at, 'tháng trước')) <= 1  )
-                            <span><i>{{$momentNow->from($comment_video->created_at)}}</i></span>                    
+                        @if ( ($momentNow->diff($comment_video->created_at, 'months')) <= 1  )
+                            <span style="font-size: 0.9em;"><i>
+                                    {{\Carbon\Carbon::now()->subSeconds($momentNow->diff($comment_video->created_at))->locale('vi_VN')->diffForHumans()}}
+                            </i></span>                    
                         @else
-                            <span><i>{{ $comment_video->created_at->format("d F Y") }}</i></span>                        
-                        @endif --}}
+                            <span style="font-size: 0.9em;"><i>{{ $comment_video->created_at->format("d F Y") }}</i></span>                        
+                        @endif
                         </div>
                         <div class="ln-disc-post-short-content" id="discComment{{$comment_video->id}}">
                             {!!$comment_video->content!!}
@@ -67,16 +69,15 @@
                                             $sub_comment_user_role_id = $sub_comment_video->userRole->role_id;
                                         @endphp
                                     <p>{{$sub_comment_video->userRole->user->name}} - 
-                                    @php
-                                        // 1: Student, 2:Teacher
-                                        echo $sub_comment_user_role_id == 1 ? "Học viên" : ($sub_comment_user_role_id == 2 ? "Giảng viên" : "Tiếp thị viên");
-                                    @endphp 
+                                        {{ $sub_comment_user_role_id == 3 ? "Học viên" : ($sub_comment_user_role_id == 2 ? "Giảng viên" : "Tiếp thị viên") }}
                                     </p>
-                                    {{-- @if ( ($momentNow->diff($sub_comment_video->created_at, 'tháng trước')) <= 1  )
-                                        <span><i>{{$momentNow->from($sub_comment_video->created_at)}}</i></span>                    
+                                    @if ( ($momentNow->diff($sub_comment_video->created_at, 'months')) <= 1  )
+                                        <span style="font-size: 0.75em;"><i>
+                                                {{\Carbon\Carbon::now()->subSeconds($momentNow->diff($sub_comment_video->created_at))->locale('vi_VN')->diffForHumans()}}
+                                        </i></span>                    
                                     @else
-                                        <span><i>{{ $sub_comment_video->created_at->format("d F Y") }}</i></span>                        
-                                    @endif --}}
+                                        <span style="font-size: 0.75em;"><i>{{ $sub_comment_video->created_at->format("d F Y") }}</i></span>                        
+                                    @endif
                                 </div>
                                 <div class="ln-disc-comment-content">
                                     {!!$sub_comment_video->content!!}
@@ -172,7 +173,7 @@
                                 html += '<p>'+ username +' - ';
                                 html += userType;
                                 html += '</p>';
-                                // html += '<span><em>Vừa xong</em></span>';
+                                html += '<span style="font-size: 0.9em;"><em>Vừa xong</em></span>';
                                 html += '</div>';
                                 html += '<div class="ln-disc-post-short-content" id="discComment'+ id +'">';
                                     html += '<p>'+ content +'</p>';
@@ -244,7 +245,7 @@
                         html += '<div class="ln-disc-comment-right">';
                             html += '<div class="ln-disc-comment-username">';
                                 html += '<p>'+ username +' - '+ userType +'</p>';
-                                html += '<span><em>Vừa xong</em></span>';
+                                html += '<span style="font-size: 0.75em;"><em>Vừa xong</em></span>';
                             html += '</div>';
                             html += '<div class="ln-disc-comment-content">';
                                 html += '<p>'+ content +'</p>';
