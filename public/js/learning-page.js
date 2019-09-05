@@ -162,8 +162,7 @@ $(document).ready(function () {
             }
         })
     });
-
-    $("#btnAutoplay").click(function () {
+    $(document).on('click',"#btnAutoplay", function(){
         if(localStorage.getItem('autoplay') == "true"){
             localStorage.setItem('autoplay', false)
             $("#btnAutoplay").removeClass("fa-toggle-on")
