@@ -97,20 +97,20 @@ class Course extends Model
 
     public function comments()
     {
-        if(Auth::check()){
-            $sefl = $this;
-            if(Helper::getUserRoleOfCourse($sefl->id) != null){
-                return $this->hasMany('App\CommentCourse')->where('parent_id', 0)->where(
-                    function($q) use ($sefl){
-                        $q->where('state', 1)
-                            ->orWhere('user_role_id', Helper::getUserRoleOfCourse($sefl->id)->user_role_id);
-                    })->orderBy('created_at', 'desc');
-            }
-        }else{
-            return $this->hasMany('App\CommentCourse')->orderBy('created_at', 'desc');
-        }
-        return $this->hasMany('App\CommentCourse')->where('state', 1);
-        
+        // if(Auth::check()){
+        //     $sefl = $this;
+        //     if(Helper::getUserRoleOfCourse($sefl->id) != null){
+        //         return $this->hasMany('App\CommentCourse')->where('parent_id', 0)->where(
+        //             function($q) use ($sefl){
+        //                 $q->where('state', 1)
+        //                     ->orWhere('user_role_id', Helper::getUserRoleOfCourse($sefl->id)->user_role_id);
+        //             })->orderBy('created_at', 'desc');
+        //     }
+        // }else{
+        //     return $this->hasMany('App\CommentCourse')->orderBy('created_at', 'desc');
+        // }
+        // return $this->hasMany('App\CommentCourse')->where('state', 1);
+        return $this->hasMany('App\CommentCourse')->orderBy('created_at', 'desc');
     }
 
     public function takeComment($from, $take){

@@ -372,7 +372,7 @@
                             if ($(window).scrollTop() >= block_on - 40) {
                                 //    $(".sidebar-content").css("margin-bottom", barHeight)
                                 //    $("#button").css("bottom", "-26")
-                                   console.log(block_below);
+                                //    console.log(block_below);
                                 
                                 // $(".sidebar-content").show();
                                 if($(window).scrollTop() <= block_below - 40){
@@ -553,7 +553,7 @@
                 <h3>Nhận xét của học viên
                     {{-- @if(Auth::check()) --}}
                         @if(\App\Helper\Helper::getUserRoleOfCourse($info_course->id))
-                            <span class="reviews-star" data-star="{{ isset($ratingCourse) ? $ratingCourse->score : 1 }}">
+                            <span class="reviews-star" data-star="{{ isset($ratingCourse) ? $ratingCourse->score : 5 }}">
                                 @if($ratingCourse)
                                 @include(
                                     'components.vote', 
@@ -630,7 +630,14 @@
 
                     $('#create-comment-new').on('click', function (e) {
                         var score = $('.reviews-star').attr('data-star');
-
+                        alert(score)
+                        if($('#editor').val() == ''){
+                            Swal.fire({
+                                type: 'warning',
+                                html: 'Bạn chưa nhập nhận xét.',
+                            })
+                            return false;
+                        }
                         var request = $.ajax({
                             url: baseURL + '/reviews/store',
                             method: "POST",
@@ -700,7 +707,7 @@
                                     rate_arr[$( this ).attr('data-rate')] = $(this).attr('data-vote'); 
                                 });
 
-                                console.log(rate_arr[$( this ).attr('data-rate')]);
+                                // console.log(rate_arr[$( this ).attr('data-rate')]);
                                 location.reload();
                             }else if(data.status == 200){
                                 Swal.fire({
@@ -709,9 +716,13 @@
                                 })
                             }
                         });
-
                         request.fail(function( jqXHR, textStatus ) {
-                            alert( "Request failed: " + textStatus );
+                            // alert( "Request failed: " + textStatus );
+                            Swal.fire({
+                                type: 'warning',
+                                html: 'Có lỗi! Nhấn tải lại trang và thử lại!',
+                            })
+                            return false;
                         });
                     });
                 </script>
@@ -723,9 +734,12 @@
                     @foreach($info_course->takeComment(0, 3) as $comment)
                         @include('components.question-answer', ['comment' => $comment])
                     @endforeach
+                    <?php 
+                    // dd($info_course->takeComment()->first());
+                    ?>
                 </div>
             </div>
-            @if(count($info_course->comments) > 0)
+            @if(count($info_course->comments) > 3)
             <div class="col-sm-12 btn-see-more" data-skip="3" data-take="3">
                 <button type="button" class="btn">Xem thêm</button>
             </div>
