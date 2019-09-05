@@ -231,26 +231,31 @@ $(document).ready(function () {
         e.preventDefault()
         var video_id = $(this).attr("data-parent")
         var section_dom = $(this).parent()
+        var isStudent = $(this).attr("data-isstudent")
         section_dom.each(function (index, value){
             // alert(index)
         })
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        var request = $.ajax({
-            method: 'POST',
-            url: "/user-course/update-watched",
-            data: {
-                'video_id' : video_id
-            },
-            dataType: "json",
-        });
-        request.done(function(){
+        if(isStudent){
+            // alert(isStudent)
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            var request = $.ajax({
+                method: 'POST',
+                url: "/user-course/update-watched",
+                data: {
+                    'video_id' : video_id
+                },
+                dataType: "json",
+            });
+            request.done(function(){
+                window.location.href = ("/learning-page/"+ course_id +"/lecture/"+ video_id)
+            })
+        }else{
             window.location.href = ("/learning-page/"+ course_id +"/lecture/"+ video_id)
-        })
+        }
     })
 
 

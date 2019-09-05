@@ -24,22 +24,24 @@
         <div class="ln-lect-list-header" data-toggle="collapse" data-target="#sectionBody{{$key+1}}">
                 <div class="ln-lect-list-header-row-1">
                 <p class="ln-lect-list-sect-number">Phần {{ $key+1 }}</p>
-                <p class="ln-lect-list-sect-counter">
-                    @php
-                        $videos_arr = $unit->videos->sortBy('index');
-                    @endphp
-                    @foreach ($videos_arr as $video)
+                @if ($isStudent)
+                    <p class="ln-lect-list-sect-counter">
                         @php
-                            $video_done_in_this_units = 0;
-                            $list_video_done_in_unit = $video_done_units[($unit->index)-1];
-                            if( isset( array_count_values($list_video_done_in_unit)[1] ) ){
-                                $video_done_in_this_units += array_count_values($list_video_done_in_unit)[1];
-                            }
-                        @endphp                       
-                    @endforeach
-                    <span id="videoDoneOneSect{{$key+1}}">{{$video_done_in_this_units}}</span>
-                    / {{$unit->video_count}}
-                </p>
+                            $videos_arr = $unit->videos->sortBy('index');
+                        @endphp
+                        @foreach ($videos_arr as $video)
+                            @php
+                                $video_done_in_this_units = 0;
+                                $list_video_done_in_unit = $video_done_units[($unit->index)-1];
+                                if( isset( array_count_values($list_video_done_in_unit)[1] ) ){
+                                    $video_done_in_this_units += array_count_values($list_video_done_in_unit)[1];
+                                }
+                            @endphp                       
+                        @endforeach
+                        <span id="videoDoneOneSect{{$key+1}}">{{$video_done_in_this_units}}</span>
+                        / {{$unit->video_count}}
+                    </p>                
+                @endif
                 </div>
                 <div class="ln-lect-list-header-row-2">
                     <h5 class="ln-lect-list-sect-title">{{$unit->name}}</h5>
@@ -48,33 +50,35 @@
             <div id="sectionBody{{ $key+1 }}" class="ln-lect-list-body collapse">
                 <ul>
                     @foreach($unit->videos->sortBy('index') as $key2 => $video)
-                        <li class="video-list-item" id="listItem{{$video->id}}" data-parent="{{$video->id}}">
+                        <li class="video-list-item" id="listItem{{$video->id}}" data-parent="{{$video->id}}" data-isstudent="{{$isStudent}}">
                             {{-- <a href="{{ route('videoplayer.show', ['courseId' => $unit->course_id, 'videoId' => $video->id]) }}"> --}}
-                                @php
-                                    $list_video_done_in_unit = $video_done_units[($unit->index)-1];                  
-                                @endphp
                             <a href="learning-page/{{$unit->course_id}}/lecture/{{$video->id}}">
                                 <span class="ln-lect-list-lect-title-icon"><span><i class="fas fa-play-circle"></i></span></span>
                                 <span class="ln-lect-list-lect-title">{{ $video->name }}</span>
                                 <span class="ln-lect-list-lect-duration">{{ App\Helper::convertSecondToTimeFormat($video->duration) }}</span>                                
-                                @if ($list_video_done_in_unit[$video->index-1] == 1)
-                                <span class="ln-btn-complete" id="lnBtnComplete{{$video->id}}" data-child="{{$key2+1}}">
-                                    <button >
-                                        <span class="fa-stack">
-                                            <i class="fas fa-circle fa-stack-2x" style="color: #44b900;"></i>
-                                            <i class="fas fa-check fa-stack-1x" style="color: #ffffff;"></i>
-                                        </span>
-                                    </button>
-                                </span>
-                                @elseif($list_video_done_in_unit[$video->index-1] == 0)
-                                <span class="ln-btn-complete" id="lnBtnNotComplete{{$video->id}}" data-child="{{$key2+1}}">
-                                    <button class="ln-btn-complete " >
-                                        <span class="fa-stack">
-                                            <i class="fas fa-circle fa-stack-2x" style="color: rgb(200, 201, 202);"></i>
-                                            <i class="fas fa-check fa-stack-1x" style="color: rgb(200, 201, 202)"></i>                         
-                                        </span>
-                                    </button>
-                                </span>
+                                @if ($isStudent)
+                                    @php
+                                        $list_video_done_in_unit = $video_done_units[($unit->index)-1];                  
+                                    @endphp
+                                    @if ($list_video_done_in_unit[$video->index-1] == 1)
+                                    <span class="ln-btn-complete" id="lnBtnComplete{{$video->id}}" data-child="{{$key2+1}}">
+                                        <button >
+                                            <span class="fa-stack">
+                                                <i class="fas fa-circle fa-stack-2x" style="color: #44b900;"></i>
+                                                <i class="fas fa-check fa-stack-1x" style="color: #ffffff;"></i>
+                                            </span>
+                                        </button>
+                                    </span>
+                                    @elseif($list_video_done_in_unit[$video->index-1] == 0)
+                                    <span class="ln-btn-complete" id="lnBtnNotComplete{{$video->id}}" data-child="{{$key2+1}}">
+                                        <button class="ln-btn-complete " >
+                                            <span class="fa-stack">
+                                                <i class="fas fa-circle fa-stack-2x" style="color: rgb(200, 201, 202);"></i>
+                                                <i class="fas fa-check fa-stack-1x" style="color: rgb(200, 201, 202)"></i>                         
+                                            </span>
+                                        </button>
+                                    </span>
+                                    @endif                                    
                                 @endif
                             </a>
                         </li>
