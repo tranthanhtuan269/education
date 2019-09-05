@@ -397,15 +397,21 @@
                                         </ul>
                                     </li>
                                     @else
-                                    <li class="special" data-toggle="modal" data-target="#myModalLogin" data-dismiss="modal"><a class="unica-log-acc" href="javascript:void(0)" onclick="clearModalLogin()">Đăng nhập</a></li>
-                                    <li class="special button-sign-up" data-toggle="modal" data-target="#myModalRegister" data-dismiss="modal"><a class="unica-reg-acc" href="javascript:void(0)" onclick="clearModalSignup()">Đăng ký</a></li>
+                                    <li class="special" data-toggle="modal" data-target="#myModalLogin" data-dismiss="modal"><a class="unica-log-acc" href="">Đăng nhập</a></li>
+                                    <li class="special button-sign-up" data-toggle="modal" data-target="#myModalRegister" data-dismiss="modal"><a class="unica-reg-acc" href="">Đăng ký</a></li>
                                     <script>
-                                        function clearModalLogin(){
+                                        $('.unica-log-acc').click(function(e){
+                                            e.stopPropagation()
+                                            e.preventDefault()
                                             $('#resetFormsLogin').click()
-                                        }
-                                        function clearModalSignup(){
+                                            $("#myModalLogin").modal("toggle"); 
+                                        })
+                                        $('.unica-reg-acc').click(function(e){
+                                            e.stopPropagation()
+                                            e.preventDefault()
                                             $('#resetFormsSignup').click()
-                                        }
+                                            $("#myModalRegister").modal("toggle"); 
+                                        })
                                     </script>
                                     <div id="myModalLogin" class="modal fade" role="dialog" >
                                         <div class="modal-dialog modal-login">
