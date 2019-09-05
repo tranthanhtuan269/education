@@ -192,6 +192,8 @@
                     $('#resetForm').click()
                     CKEDITOR.instances['course-description'].setData("")
                     CKEDITOR.instances['course-will-learn'].setData("")
+                    $('#cropitPreview').css('display', 'none')
+                    $('#cropit-zoom-input').css('display', 'none')
                 });
             </script>
         </div>
