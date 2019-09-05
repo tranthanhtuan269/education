@@ -86,8 +86,8 @@
                 <div class="row">
                     <div class="image-cropit-editor">
                         <div class="box-course-preview" id="image-cropper-{{$course->id}}">
-                            <div class="cropit-preview text-center preview-image-course">
-                                <img class="sample-avatar" src="{{ asset('frontend/images/'.$course->image) }}" alt="sample avatar">
+                            <div class="cropit-preview text-center preview-image-course" id="cropitPreview{{$course->id}}">
+                                <img class="sample-avatar" src="{{ asset('frontend/images/'.$course->image) }}" alt="Course Image">
                             </div>
                             <input type="range" class="cropit-image-zoom-input" id="cropit-zoom-input-{{$course->id}}" style="display: none"/>
                             <input type="file" class="cropit-image-input" style="display:none" value="" id="image-file-input-{{$course->id}}"/>
@@ -193,17 +193,24 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default clear-modal" data-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="clearModal{{$course->id}}">Hủy</button>
                 <button type="button" class="btn btn-primary" id="save-btn-{{$course->id}}">Cập nhật</button>
             </div>
             <script>
-                $('.clear-modal').click(function() {
+                $('#clearModal{{$course->id}}').click(function() {
                     $('#resetForms{{$course->id}}').click()
 
                     var t_des = '{!! $course->description !!}'
                     var t_wl = '{!! $course->will_learn !!}'
                     CKEDITOR.instances['course-description-{{$course->id}}'].setData(t_des)
                     CKEDITOR.instances['course-will-learn-{{$course->id}}'].setData(t_wl)
+                    $('#cropitPreview').css('display', 'none')
+                    $('#cropit-zoom-input-{{$course->id}}').css('display', 'none')
+
+                    $('input.cropit-image-input').val('');
+                    $('.cropit-preview').removeClass('cropit-image-loaded');
+                    // $('.cropit-preview-image').removeAttr('style');
+                    $('.cropit-preview-image').attr('src','');
                 });
             </script>
         </div>
@@ -464,11 +471,7 @@
         }
 
         $('#btn-edit-{{ $course->id }}').click(function(){
-            // $('#editCourse-{{ $course->id }}').modal('toggle')
-            $('#editCourse-{{ $course->id }}').modal({
-                backdrop: 'static',
-                keyboard: false
-            })
+            $('#editCourse-{{ $course->id }}').modal('toggle')
         })
 
         $('#btn-remove-{{ $course->id }}').click(function(){
