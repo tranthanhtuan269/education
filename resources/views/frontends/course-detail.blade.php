@@ -630,7 +630,6 @@
 
                     $('#create-comment-new').on('click', function (e) {
                         var score = $('.reviews-star').attr('data-star');
-                        alert(score)
                         if($('#editor').val() == ''){
                             Swal.fire({
                                 type: 'warning',
