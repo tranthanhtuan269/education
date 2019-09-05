@@ -34,11 +34,11 @@
                 <i class="fas fa-comment"></i>
                 <span>Trả lời</span>
             </button>
-            <button type="button" class="btn @if($comment->likeCheckUser() == 1) btn-primary @else btn-default @endif btn-like" data-comment-id="{{ $comment->id }}">
+            <button type="button" class="btn @if($comment->likeCheckUser() == 1) btn-primary @else btn-default @endif btn-default btn-like" data-comment-id="{{ $comment->id }}">
                 <i class="fas fa-thumbs-up"></i>
                 <span>Thích</span>
             </button>
-            <button type="button" class="btn @if($comment->unlikeCheckUser() == 1) btn-primary @else btn-default @endif btn-dislike" data-comment-id="{{ $comment->id }}">
+            <button type="button" class="btn @if($comment->unlikeCheckUser() == 1) btn-primary @else btn-default @endif btn-default btn-dislike" data-comment-id="{{ $comment->id }}">
                 <i class="fas fa-thumbs-down"></i>
                 <span>Không thích</span>
             </button>
