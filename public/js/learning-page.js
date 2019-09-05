@@ -18,7 +18,7 @@ $(document).ready(function () {
     if(isFirefox && isAutoplay){
         Swal.fire({
             type : 'info',
-            html: 'Bạn đang bật tính năng tự động chạy bài giảng. <br> Từ phiên bản Firefox 66, Firefox đã ngừng hỗ trợ theo mặc định tính năng tự động chạy video/audio. Để bật tính năng này cho trình duyệt Firefox của bạn, vui lòng làm theo hướng dẫn tại <a href="https://support.mozilla.org/vi/kb/block-autoplay">đây.</a>'
+            html: 'Bạn đang bật tính năng tự động chạy bài giảng. <br> Từ phiên bản Firefox 66, Firefox đã ngừng hỗ trợ theo mặc định tính năng tự động chạy video/audio. Để bật tính năng này cho trình duyệt Firefox của bạn, vui lòng làm theo hướng dẫn tại <a href="https://support.mozilla.org/vi/kb/block-autoplay" target="_blank">đây.</a>'
         })
     }
 
