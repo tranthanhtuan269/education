@@ -8,23 +8,20 @@
     <div class="ln-notes-body">
         <div class="ln-notes-input-bar">
             <div class="input-group">
-                <textarea name="content" id="notesEditor"></textarea>
+                <textarea name="noteContent" id="noteEditor"></textarea>
                 <div class="btn-submit">
                     <button class="btn">Lưu</button>
                     {{-- <button class="btn"> 0:51</button> --}}
                 </div>
                 <script>
-                    var noteEditor;
-                        ClassicEditor
-                            .create( document.querySelector( '#notesEditor' ),{
-                                toolbar: ['bold', 'italic', 'bulletedList', 'numberedList', 'blockQuote' ],
-                            } )
-                            .then(editor =>{
-                                noteEditor = editor
-                            })
-                            .catch( error => {
-                                console.error( error );
-                            } );                                
+                        CKEDITOR.replace( 'noteContent', {
+                            toolbar : [
+                                { name: 'basicstyles', items: [ 'Bold', 'Italic'] },
+                                { name: 'paragraph', items: [ 'NumberedList', 'BulletedList'] },
+                            ],
+                            height: '5em',
+                        });
+                        var noteEditor = CKEDITOR.instances.noteEditor;
                 </script>
             </div>
         </div>
@@ -69,7 +66,7 @@
         if( noteEditor.getData() == ""){
             Swal.fire({
                 type:"warning",
-                text:"Content cannot be empty!"
+                text:"Bạn chưa nhập ghi chú!"
             })
                    
         }else{
@@ -81,7 +78,19 @@
                     content: noteEditor.getData(),
                     timeTick: currentTime
                 },
-                dataType: "json"
+                dataType: "json",
+                error: function (error) {
+                    var obj_errors = error.responseJSON.errors;
+                    var txt_errors = '';
+                    for (k of Object.keys(obj_errors)) {
+                        txt_errors += obj_errors[k][0] + '</br>';
+                    }
+                    Swal.fire({
+                        type: 'warning',
+                        html: txt_errors,
+                        allowOutsideClick: false,
+                    })
+                }
             });
             request.done(function (response) {
                 console.log(response);

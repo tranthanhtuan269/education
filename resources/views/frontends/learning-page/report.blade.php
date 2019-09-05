@@ -17,17 +17,24 @@
                 <h5>Mô tả lỗi:</h5>
                 <textarea name="content" id="reportEditor"></textarea>
                 <script>
-                        var reportEditor;
-                            ClassicEditor
-                                .create( document.querySelector( '#reportEditor' ),{
-                                    toolbar: ['bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ],
-                                } )
-                                .then(editor =>{
-                                    reportEditor = editor
-                                } )
-                                .catch( error => {
-                                    console.error( error );
-                                } );                                
+                        // var reportEditor;
+                        //     ClassicEditor
+                        //         .create( document.querySelector( '#reportEditor' ),{
+                        //             toolbar: ['bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ],
+                        //         } )
+                        //         .then(editor =>{
+                        //             reportEditor = editor
+                        //         } )
+                        //         .catch( error => {
+                        //             console.error( error );
+                        //         } );
+                                CKEDITOR.replace( 'reportEditor', {
+                            toolbar : [
+                                { name: 'basicstyles', items: [ 'Bold', 'Italic'] },
+                                { name: 'paragraph', items: [ 'NumberedList', 'BulletedList'] },
+                            ],
+                        });   
+                        var reportEditor = CKEDITOR.instances.reportEditor
                 </script>
             </div>
             <div class="modal-footer">

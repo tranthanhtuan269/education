@@ -1,7 +1,8 @@
 html,body, h1, h2, h3, h4, h5, h6, form, input, select, ul, textarea, p { margin: 0px; padding: 0; }
 ul { list-style: inside; }
 button {box-shadow: none !important; outline: none !important;}
-li { margin: 0px; padding: 0px; list-style: none; }
+li { margin: 0px; padding: 0px }
+.learning-lecture-list-body li {list-style: none; }
 body{
     font-family: 'Open Sans', sans-serif !important;
 }
@@ -568,6 +569,7 @@ body{
     height: 100vh;
     background: #f2f3f6;
     transition: 0.2s;
+    overflow: auto;
 }
 .learning-discussion.active{
     left: 0;
@@ -600,10 +602,10 @@ body{
 }
 .ln-disc-post-list{
     margin: 0.6em;
-    height: 69vh;
+    /* height: 69vh; */
     /* color: #000000; */
     background-color: #F2F3F6;
-    overflow-y: auto;
+    /* overflow-y: auto; */
 }
 .ln-disc-post-wrapper{
     padding: 0.6em;
@@ -651,11 +653,11 @@ body{
     max-width: 100%;
 }
 .ln-disc-post-short-content p {
-    display: block;
-    overflow: hidden;
+    /* display: block; */
+    /* overflow: hidden; */
     margin-bottom: 0;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    /* text-overflow: ellipsis; */
+    /* white-space: nowrap; */
     /* margin-bottom: 0px; */
 }
 .ln-disc-post-short-content p.active{
@@ -677,7 +679,7 @@ body{
 }
 .ln-disc-comment-wrapper .ln-disc-comment{
     display: flex;
-    padding-left: 80px;
+    padding-left: 15%;
     margin-bottom: 10px;
 }
 .ln-disc-comment-left img{
@@ -767,7 +769,7 @@ body{
 
 .ln-notes-list, .ln-files-list{
     padding: 0.6em;
-    height: 69vh;
+    height: 64vh;
     overflow: auto;
 }
 .ln-notes-wrapper, .ln-files-wrapper{

@@ -7,24 +7,20 @@
     <div class="ln-disc-body">
         <div class="ln-disc-input-bar">
             <div class="input-group">
-                <textarea name="content" id="discussionEditor"></textarea>
+                <textarea name="content" id="discussEditor"></textarea>
                 <div class="btn-submit">
                     <button class="btn">Hỏi một câu hỏi hoặc chia sẻ ý kiến của bạn</button>
                 </div>
-                <script>
-                    var discussEditor;
-                        ClassicEditor
-                            .create( document.querySelector( '#discussionEditor' ),{
-                                toolbar: {
-                                    items: ['bold', 'italic', 'underline', 'bulletedList', 'numberedList', 'blockQuote'] 
-                                },
-                            } )
-                            .then(editor =>{
-                                discussEditor = editor
-                            } )
-                            .catch( error => {
-                                console.error( error );
-                            } );                                
+                <script>  
+                            
+                    CKEDITOR.replace( 'discussEditor', {
+                        toolbar : [
+                            { name: 'basicstyles', items: [ 'Bold', 'Italic'] },
+                            { name: 'paragraph', items: [ 'NumberedList', 'BulletedList'] },
+                        ],
+                        height: '5em',
+                    });
+                    var discussEditor = CKEDITOR.instances.discussEditor
                 </script>
             </div>
         </div>
@@ -128,20 +124,32 @@
         if( discussEditor.getData() == ""){
             Swal.fire({
                 type: "warning",
-                text:"Content cannot be empty!"
+                text:" Nội dung không được trống!"
             })         
             // Swal.fire('Any fool can use a computer')
     
         }else{
             var request = $.ajax({
-            url: "{{ url('comments/store') }}",
-            method: "POST",
-            data: {
-                videoId: {{ $main_video->id }},
-                content: discussEditor.getData(),
-                type : "discussionComment",
-            },
-            dataType: "json"
+                url: "{{ url('comments/store') }}",
+                method: "POST",
+                data: {
+                    videoId: {{ $main_video->id }},
+                    content: discussEditor.getData(),
+                    type : "discussionComment",
+                },
+                dataType: "json",
+                error: function (error) {
+                    var obj_errors = error.responseJSON.errors;
+                    var txt_errors = '';
+                    for (k of Object.keys(obj_errors)) {
+                        txt_errors += obj_errors[k][0] + '</br>';
+                    }
+                    Swal.fire({
+                        type: 'warning',
+                        html: txt_errors,
+                        allowOutsideClick: false,
+                    })
+                }
             });
 
             request.done(function( response ) {
