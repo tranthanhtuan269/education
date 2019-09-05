@@ -1,5 +1,13 @@
-let isAutoplay = localStorage.getItem('autoplay')
 const baseURL = $('base').attr('href');
+
+let isAutoplay;
+if(localStorage.getItem('autoplay') != null){
+    isAutoplay = localStorage.getItem('autoplay')
+}else{
+    const newLocal = 'false';
+    localStorage.setItem('autoplay', newLocal)
+    isAutoplay = localStorage.getItem('autoplay')
+}
 $(document).ready(function () {
 
     // Set up the player
@@ -146,23 +154,15 @@ $(document).ready(function () {
 
 
     videojs('my-video').ready(function () {
-        // var endTime = convertSecondToTimeFormat(player.duration())
-        console.log(this.readyState());
-        this.on('play', function(){
-            
-        })
         
-        // $(".player-current-time").text(convertSecondToTimeFormat(this.currentTime()) + ' / ')
-        // $(".player-end-time").text(endTime)
-
-        // this.on('timeupdate', function () {
-        //     // console.log(this.currentTime());
-        //     $(".player-current-time").text(convertSecondToTimeFormat(this.currentTime()) + ' / ')
-
-        // })
+        this.on('timeupdate', function () {
+            if(this.bufferedPercent() > 0){                
+                $(".player-current-time").text(convertSecondToTimeFormat(this.currentTime()) + ' / ')
+                $(".player-end-time").text(convertSecondToTimeFormat(player.duration()))
+            }
+        })
     });
-
-    $("#btnAutoplay").click(function () {
+    $(document).on('click',"#btnAutoplay", function(){
         if(localStorage.getItem('autoplay') == "true"){
             localStorage.setItem('autoplay', false)
             $("#btnAutoplay").removeClass("fa-toggle-on")
@@ -439,8 +439,8 @@ $(document).ready(function () {
 
         //Displaying Time
         var groupPlayerTimeDiv = "<div class='group-player-time btn'></div>"
-        var currentTimeSpan = "<span class='player-current-time'>00:00 / </span>"
-        var endTimeSpan = "<span class='player-end-time'> 00:00</span>"
+        var currentTimeSpan = "<span class='player-current-time'></span>"
+        var endTimeSpan = "<span class='player-end-time'></span>"
 
         $("#btnForward").after(groupPlayerTimeDiv)
         $(".group-player-time").append(currentTimeSpan)

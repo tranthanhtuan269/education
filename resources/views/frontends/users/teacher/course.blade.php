@@ -412,7 +412,7 @@
 
                 $('.document-field').append(html)                                                
             }
-            
+            $('#addVideoDocument').val("");
         })
 
         $(document).on('click', '#btnDeleteDocument', function(){
@@ -426,7 +426,9 @@
                 $(value).attr('data-index', index)
                 $(value).children('span.btn-delete-document').children('button').attr('data-index', index)
             })
-            
+
+
+            $('#addVideoDocument').val("");
         })
 
         $('#listVideo').on('shown.bs.modal', function () {
@@ -487,10 +489,11 @@
         })
 
         $('#addVideoBtn').on('click', function () {
-            $('#listVideo').modal({
-                backdrop: 'static',
-                keyboard: false
-            });
+            // $('#listVideo').modal({
+            //     backdrop: 'static',
+            //     keyboard: false
+            // });
+            $('#listVideo').modal('toggle')
             $('#addVideoModal').modal({
                 backdrop: 'static',
                 keyboard: false
@@ -569,6 +572,7 @@
 
                     $('.document-field').append(html)                                                
                 }
+                $('#addVideoDocument').val("");
                 
             }) 
 
@@ -612,7 +616,7 @@
                     success: function (response) {
                         if(response.status == '200'){
                             $('#addVideoModal').modal('hide')
-                            // $('#listVideo').modal('toggle')
+                            $('#listVideo').modal('toggle')
                         }
                     },
                     error: function (error) {
@@ -821,6 +825,8 @@
                     }
                     $('#file-mp4-upload-off-updated').val('');
                 }
+
+                $("#editVideoModal #file-mp4-upload-off-updated").val("")
             });
 
             //// upload video

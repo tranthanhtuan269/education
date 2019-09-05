@@ -15,6 +15,7 @@ use App\Transformers\CommentVideoTransformer;
 use App\Video;
 use Auth;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreDiscussionRequest;
 
 class CommentController extends Controller
 {
@@ -25,7 +26,7 @@ class CommentController extends Controller
         $this->middleware('auth');
     }
 
-    public function storeCommentVideo(Request $request)
+    public function storeCommentVideo(StoreDiscussionRequest $request)
     {
         $video = Video::find($request->videoId);
         if ($video) {
