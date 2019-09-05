@@ -38,7 +38,6 @@
     <base href="{{ url('/') }}">
 </head>
 <body>
-    <div class="ajax_waiting"></div>
         <div id="fb-root"></div>
         <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v4.0&appId=2474435149283816&autoLogAppEvents=1"></script>
     {{-- <div class="notifications alert alert-danger fade in alert-dismissible">
@@ -398,8 +397,16 @@
                                         </ul>
                                     </li>
                                     @else
-                                    <li class="special" data-toggle="modal" data-target="#myModalLogin" data-dismiss="modal"><a class="unica-log-acc" href="javascript:void(0)" >Đăng nhập</a></li>
-                                    <li class="special button-sign-up" data-toggle="modal" data-target="#myModalRegister" data-dismiss="modal"><a class="unica-reg-acc" href="javascript:void(0)">Đăng ký</a></li>
+                                    <li class="special" data-toggle="modal" data-target="#myModalLogin" data-dismiss="modal"><a class="unica-log-acc" href="javascript:void(0)" onclick="clearModalLogin()">Đăng nhập</a></li>
+                                    <li class="special button-sign-up" data-toggle="modal" data-target="#myModalRegister" data-dismiss="modal"><a class="unica-reg-acc" href="javascript:void(0)" onclick="clearModalSignup()">Đăng ký</a></li>
+                                    <script>
+                                        function clearModalLogin(){
+                                            $('#resetFormsLogin').click()
+                                        }
+                                        function clearModalSignup(){
+                                            $('#resetFormsSignup').click()
+                                        }
+                                    </script>
                                     <div id="myModalLogin" class="modal fade" role="dialog" >
                                         <div class="modal-dialog modal-login">
                                             <div class="modal-content">
@@ -459,6 +466,7 @@
                                                         <div class="form-group">
                                                             <input type="button" class="btn btn-success btn-block btn-lg" value="Đăng nhập" onclick="loginAjax()">
                                                         </div>
+                                                        <input id="resetFormsLogin" type="reset" value="Reset the form" style="display:none">
                                                     </form>
                                                     <div class="forgot-password">
                                                         {{-- <div>
@@ -517,6 +525,7 @@
                                                         <div class="form-group">
                                                             <input type="button" class="btn btn-success btn-block btn-lg" value="Đăng ký" onclick="registerAjax()">
                                                         </div>
+                                                        <input id="resetFormsSignup" type="reset" value="Reset the form" style="display:none">
                                                     </form>				
                                                 </div>
                                                 <div class="modal-footer">
