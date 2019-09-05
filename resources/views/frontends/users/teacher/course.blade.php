@@ -493,6 +493,8 @@
             //     backdrop: 'static',
             //     keyboard: false
             // });
+            $('#addVideoModal .document-field').empty()
+
             $('#listVideo').modal('toggle')
             $('#addVideoModal').modal({
                 backdrop: 'static',
@@ -617,6 +619,7 @@
                         if(response.status == '200'){
                             $('#addVideoModal').modal('hide')
                             $('#listVideo').modal('toggle')
+                            files = []
                         }
                     },
                     error: function (error) {
