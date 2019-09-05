@@ -562,7 +562,7 @@
                                     ]
                                 )
                                 @else
-                                <i id="star-1" class="fa fa-star yellow-color" data-id="1"></i>
+                                <i id="star-1" class="fa fa-star review-star" data-id="1"></i>
                                 <i id="star-2" class="far fa-star review-star" data-id="2"></i>
                                 <i id="star-3" class="far fa-star review-star" data-id="3"></i>
                                 <i id="star-4" class="far fa-star review-star" data-id="4"></i>
@@ -584,7 +584,7 @@
                     var baseURL = $('base').attr('href');
 
                     function hideStar(){
-                        for(var j = 1; j <= 5; j++){
+                        for(var j = 0; j <= 5; j++){
                             $('#star-' + j).removeClass('fa').addClass('far');
                         }
                     }
@@ -616,7 +616,8 @@
                     }).mouseleave(function(){
                         hideStar();
                     }).click(function(){
-                        showStar($(this).attr('data-id'))
+                        console.log($(this));
+                        hideStar();showStar($(this).attr('data-id'))
                         $('.review-star').off( "mouseenter")
                         $('.review-star').off( "mouseleave")
                         $('.reviews-star').attr('data-star', $(this).attr('data-id'))
