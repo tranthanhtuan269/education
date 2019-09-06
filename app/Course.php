@@ -114,7 +114,7 @@ class Course extends Model
     }
 
     public function takeComment($from, $take){
-        return $this->comments()->skip($from)->take($take)->get();
+        return $this->comments()->where('parent_id', 0)->skip($from)->take($take)->get();
     }
     
     public function videos()
