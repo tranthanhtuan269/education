@@ -564,9 +564,9 @@
     <script src="{{ asset('frontend/js/bootstrap.offcanvas.js') }}"></script>
     <script src="{{ asset('frontend/js/sidenav.min.js') }}"></script>
     <script src="{{ asset('frontend/js/amazonmenu.js') }}"></script>
-
+    <div id="min-height">
     @yield('content')
-
+    </div>
     <div id="button" style="display:none;"><i class="fas fa-angle-double-up"></i></div>
 
     {{-- Begin Footer --}}
@@ -1055,5 +1055,16 @@
         })
 
     </script>
+    <script>
+    
+    $( document ).ready(function() {
+        var x = $('body').height();
+        var y = $('header').height();
+        var z = $('footer').height();
+        x=x-y-z;
+        // document.getElementById("min-height").style.minHeight = x;
+        $('#min-height').css('minHeight',x);
+});
+</script>
 </body>
 </html>

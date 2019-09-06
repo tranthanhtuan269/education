@@ -78,7 +78,7 @@
       </div>
   </div>
 </div>
-<script>
+<!-- <script>
     
     $( document ).ready(function() {
         var x = $('body').height();
@@ -88,5 +88,5 @@
         // document.getElementById("min-height").style.minHeight = x;
         $('#min-height').css('minHeight',x);
 });
-</script>
+</script> -->
 @endsection
