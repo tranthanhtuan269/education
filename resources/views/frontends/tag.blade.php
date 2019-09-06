@@ -91,7 +91,8 @@
         var y = $('header').height();
         var z = $('footer').height();
         x=x-y-z;
-        document.getElementById("min-height").style.minHeight = x;
+        // document.getElementById("min-height").style.minHeight = x;
+        $('#min-height').css('minHeight',x);
 });
 </script>
 @endsection
