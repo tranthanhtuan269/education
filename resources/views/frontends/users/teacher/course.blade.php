@@ -519,6 +519,8 @@
                     keyboard: false
                 });
 
+                $('.edit-document-field').empty()
+
                 $.ajax({
                 method: 'GET',
                 url: "{{ url('/') }}/user/videos/"+video_id,
