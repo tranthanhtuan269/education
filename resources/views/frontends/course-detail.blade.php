@@ -986,6 +986,13 @@
 
         $('.create-reply-btn').on('click', function (e) {
             var comment_id = $(this).attr('data-id');
+            if($("#reply-" + comment_id).val() == ''){
+                Swal.fire({
+                    type: 'warning',
+                    html: 'Bạn chưa nhập nội dung trả lời.',
+                })
+                return false;
+            }
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -1028,7 +1035,12 @@
             });
 
             request.fail(function( jqXHR, textStatus ) {
-                alert( "Request failed: " + textStatus );
+                // alert( "Request failed: " + textStatus );
+                Swal.fire({
+                    type: 'warning',
+                    html: 'Có lỗi! Nhấn tải lại trang và thử lại!',
+                })
+                return false;
             });
         });
     }
