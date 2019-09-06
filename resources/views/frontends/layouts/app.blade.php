@@ -30,6 +30,8 @@
     <script type="text/javascript" src="{{ asset('frontend/js/slick.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('frontend/js/jssor.slider.min.js') }}"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="{{ asset('frontend/js/sweetalert2.min.js') }}"></script>
+    <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/sweetalert2.min.css') }}">
     <title>@yield('title', 'Edu')</title>
     <meta name="description" content="@yield('description', '')"/>
     <meta name="keywords" content="@yield('keywords', '')"/>
@@ -423,13 +425,13 @@
                                                     @endif
 
                                                     <br />
-                        {{-- <p style="margin-left:265px">OR</p>
-                        <br />
-                        <div class="form-group">
-                            <div class="col-md-8 col-md-offset-4">
-                              <a href="{{url('/redirect')}}" class="btn btn-primary">Login with Facebook</a>
-                            </div>
-                        </div> --}}
+                                                    {{-- <p style="margin-left:265px">OR</p>
+                                                    <br />
+                                                    <div class="form-group">
+                                                        <div class="col-md-8 col-md-offset-4">
+                                                        <a href="{{url('/redirect')}}" class="btn btn-primary">Login with Facebook</a>
+                                                        </div>
+                                                    </div> --}}
 
                                                     <form action="/examples/actions/confirmation.php" method="post">
                                                         <div class="form-group">
@@ -952,7 +954,6 @@
                         Swal.fire({
                             type: 'success',
                             html: response.message,
-
                         }).then((result) => {
                             if (result.value) {
                                 var check_redirect_register_teacher = localStorage.getItem('redirect_register_teacher');
