@@ -200,11 +200,11 @@
                                 $will_learn = str_replace('<li>','<br>',$will_learn);
                                 $will_learn = str_replace('<p>','<br>',$will_learn);
                                 $will_learn = explode("<br>", $will_learn);
-                                for( $i = 0 ; $i < count($will_learn) ; $i++){
+                                $counter_w = count($will_learn);
+                                for( $i = 0 ; $i < $counter_w ; $i++){
                                     $will_learn[$i] = trim($will_learn[$i]);
                                     $will_learn[$i] = strip_tags($will_learn[$i]);
                                 }
-                                $counter_w = count($will_learn);
                                 $will_learn = array_filter($will_learn);
                                     // dd($will_learn);
                             ?>
@@ -237,7 +237,7 @@
                                 margin-left: 10px;
                                 display: inline-flex;
                                 width: 48%;
-                                height: 50px;
+                                min-height: 50px;
                             }
                         </style>
                         <div class="lessons clearfix" id="box_content">
@@ -900,8 +900,8 @@
 
         $('.btn-see-more').click(function(){
             var baseURL = $('base').attr('href');
-            var current_skip = $(this).attr('data-skip');
-            var current_take = $(this).attr('data-take');
+            var current_skip = Number($(this).attr('data-skip'));
+            var current_take = Number($(this).attr('data-take'));
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -914,7 +914,7 @@
             });
 
             request.done(function( data ) {
-                if(data == ''){
+                if(data == '' || {{ $info_course->comments()->count() }} <= current_skip + current_take){
                     $('.btn-see-more').hide();    
                 }
                 $('.btn-see-more').attr('data-skip', current_skip + current_take);

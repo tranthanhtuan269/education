@@ -1,5 +1,6 @@
 @foreach($comments as $comment)
 <div class="box clearfix">
+    @if($comment->userRole && $comment->userRole->user)
     <div class="col-sm-3">
         <img class="avatar" src="{{ url('/') }}/{{ $comment->userRole->user->avatar }}" alt="" />
         <div class="info-account">
@@ -7,6 +8,15 @@
             <p class="name">{{ $comment->userRole->user->name }}</p>
         </div>
     </div>
+    @else
+    <div class="col-sm-3">
+        <img class="avatar" src="{{ url('/') }}/frontends/images/avatar.jpg" alt="" />
+        <div class="info-account">
+            <p class="interval">{{ $comment->created_at }}</p>
+            <p class="name">Anonymous</p>
+        </div>
+    </div>
+    @endif
     <div class="col-sm-9">
         @include(
             'components.vote', 
@@ -44,11 +54,19 @@
             @foreach($comment->children as $reply)
             <div class="comment-reply">
                 <div>
+                    @if($reply->userRole->user)
                     <img class="avatar" src="{{ url('/') }}/{{ $reply->userRole->user->avatar }}" alt="" />
                     <div class="info-account">
                         <p class="interval">{{ $reply->created_at }}</p>
                         <p class="name">{{ $reply->userRole->user->name }}</p>
                     </div>
+                    @else
+                    <img class="avatar" src="{{ url('/') }}/frontend/images/avatar.jpg" alt="" />
+                    <div class="info-account">
+                        <p class="interval">{{ $reply->created_at }}</p>
+                        <p class="name">Anonymous</p>
+                    </div>
+                    @endif
                 </div>
                 <div class="comment">
                     {!! $reply->content !!}
