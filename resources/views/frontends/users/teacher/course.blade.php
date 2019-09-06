@@ -276,7 +276,7 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-primary save-add-video">Lưu</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-default cancel-add-video" data-dismiss="modal">Đóng</button>
             </div>
         </div>
     </div>
@@ -340,7 +340,7 @@
 
             <div class="modal-footer">
                 <button class="btn btn-primary save-edit-video">Lưu</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-default cancel-edit-video" data-dismiss="modal">Đóng</button>
             </div>
         </div>
     </div>
@@ -904,6 +904,10 @@
                 $('.upload-old-video').hide();
                 $('.uploading-new-video').show();
                 $('.uploading-old-video').show();
+                $('.save-add-video').attr('disabled', true);
+                $('.cancel-add-video').attr('disabled', true);
+                $('.save-edit-video').attr('disabled', true);
+                $('.cancel-edit-video').attr('disabled', true);
                 var percent = (event.loaded / event.total) * 100;
                 var type_txt = checkTypeFile(extension_input);
                 waitting_upload_file = true;
@@ -925,6 +929,10 @@
                 $('.upload-old-video').show();
                 $('.uploading-new-video').hide();
                 $('.uploading-old-video').hide();
+                $('.save-add-video').attr('disabled', false);
+                $('.cancel-add-video').attr('disabled', false);
+                $('.save-edit-video').attr('disabled', false);
+                $('.cancel-edit-video').attr('disabled', false);
                 $("#addVideoModal #file-mp4-upload-off").on();
                 console.log(uploading);
             }
