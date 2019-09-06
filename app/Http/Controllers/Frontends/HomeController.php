@@ -778,21 +778,21 @@ class HomeController extends Controller
         // $course = Course::find(1);
         // dd($course->userRoles);
 
-        // $teachers = Teacher::get();
-        // foreach($teachers as $teacher){
-        //     $teacher->student_count = 0;
-        //     $teacher->save();
-        // }
+        $teachers = Teacher::get();
+        foreach($teachers as $teacher){
+            $teacher->student_count = 0;
+            $teacher->save();
+        }
 
-        // foreach($courses as $course){
-        //     if($course->Lecturers()->first() && $course->Lecturers()->first()->teacher){
-        //         $teacher = Teacher::find($course->Lecturers()->first()->teacher->id);
-        //         if($teacher){
-        //             $teacher->student_count += $course->student_count;
-        //             $teacher->save();
-        //         }
-        //     }
-        // }
+        foreach($courses as $course){
+            if($course->Lecturers()->first() && $course->Lecturers()->first()->teacher){
+                $teacher = Teacher::find($course->Lecturers()->first()->teacher->id);
+                if($teacher){
+                    $teacher->student_count += $course->student_count;
+                    $teacher->save();
+                }
+            }
+        }
         echo "done";
     }
 
