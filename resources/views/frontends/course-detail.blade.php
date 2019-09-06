@@ -868,6 +868,7 @@
         // }
 
         $('.btn-see-more').click(function(){
+            var baseURL = $('base').attr('href');
             var current_skip = $(this).attr('data-skip');
             var current_take = $(this).attr('data-take');
             $.ajaxSetup({
@@ -875,7 +876,6 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-
             var request = $.ajax({
                 url: baseURL + '/comments/see-more?course_id=' + {{ $info_course->id }} + '&skip=' + current_skip + '&take=' + current_take,
                 method: "GET",
@@ -890,7 +890,7 @@
                 $('#review-box').append(data);
                 addEventToButton();
             });
-        });
+        })
 
         $('.go-box').click(function() {
             var box = $(this).attr('data-box');
