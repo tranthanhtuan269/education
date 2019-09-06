@@ -95,7 +95,10 @@ nav .pagination li a img{width:35px;position:relative;top:-6px}
 /* .box-course a.btn-start-learning {
     margin-top: 12px;
 } */
-.box-course{padding-bottom:30px;margin:0 5px 0 8px}
+.box-course{
+  padding-bottom:30px;
+  margin:0 5px 0 5px;
+}
 .box-course .content-course{border:1px solid #cccccca6;border-radius:0 0 10px 10px;padding:15px}
 .box-course .content-course h3.title-course{font-size:16px;font-weight:600;line-height:26px;min-height:52px}
 .box-course .img-course{position: relative;}
@@ -882,7 +885,7 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
 .feature-course{padding-bottom:50px;margin-top:-35px}
 .feature-course img{width:100%}
 .feature-course .img-top{padding-bottom:15px}
-.title-module-home h2{padding-bottom:25px;font-weight:700;margin:0 5px;font-size:28px}
+.title-module-home h2{padding-bottom:25px;font-weight:700;font-size:28px}
 .top-course{padding-bottom:35px;}
 .top-course .nav.nav-tabs{border:none}
 .top-course .nav.nav-tabs li a{cursor:pointer;background-color:#E0E0E0;border-radius:10px;margin:0 10px;padding:5px 15px;color:#333;padding:10px 25px;font-weight:600}
@@ -891,7 +894,7 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
 .top-course .btn-seeall{padding:8px 30px;border-radius:8px;background-color:#E0E0E0;font-weight:600}
 .top-course .btn-seeall:hover{background-color:#ccc}
 .popular-teacher img{width:100%}
-.popular-teacher .info{padding:20px 15px 25px;margin:0 5px 20px 8px;background:#E9E9E9;border:1px solid #dddddd99;border-radius:10px}
+.popular-teacher .info{padding:20px 15px 25px;margin:0 6px 20px 6px;background:#E9E9E9;border:1px solid #dddddd99;border-radius:10px}
 .popular-teacher .info .avatar{margin:8px 0}
 .popular-teacher .info .avatar img{vertical-align:middle;width:100px;height:100px;border-radius:50%;border:3px solid #fff;box-shadow:2px 1px 10px grey}
 .popular-teacher .info .name-teacher{font-size:18px;padding:10px 0;font-weight:600}
