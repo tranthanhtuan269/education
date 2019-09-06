@@ -195,8 +195,10 @@
                         <div class="knowledge clearfix">
                             <h3>Bạn sẽ học được gì</h3>
                             <?php 
+                                $info_course->will_learn = str_replace(";","", $info_course->will_learn);
                                 $will_learn = $info_course->will_learn;
                                 $will_learn = str_replace('<li>','<br>',$will_learn);
+                                $will_learn = str_replace('<p>','<br>',$will_learn);
                                 $will_learn = explode("<br>", $will_learn);
                                 for( $i = 0 ; $i < count($will_learn) ; $i++){
                                     $will_learn[$i] = trim($will_learn[$i]);
@@ -204,7 +206,7 @@
                                 }
                                 $counter_w = count($will_learn);
                                 $will_learn = array_filter($will_learn);
-                                // dd($will_learn);
+                                    // dd($will_learn);
                             ?>
                             <div class="row">
                                 <div class="col-sm-12">
