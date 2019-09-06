@@ -262,6 +262,11 @@ class UserController extends Controller
     {
         $keyword = trim($request->get('u-keyword'));
         $lifelong_course = Auth::user()->userRolesTeacher()->userLifelongCourse($keyword);
+        if(count($lifelong_course) == 0){
+            if($lifelong_course->currentPage() > 1){
+                return redirect($lifelong_course->previousPageUrl());
+            }
+        }
         $categories = Category::where('parent_id', 0)->get();
         return view('frontends.users.teacher.course', compact('lifelong_course', 'categories'));
     }
@@ -363,12 +368,13 @@ class UserController extends Controller
         $user = Auth::user();
         $unread_user_emails = $user->user_emails->where('viewed', 0);
         $unread_emails = Email::whereIn('id', $unread_user_emails->pluck('email_id'))->get();
-        
+        $number_unread_emails = count($unread_user_emails);
         
         return response()->json([
             'status' => '200',
             'message' => 'Success',
             'unread_emails' => $unread_emails,
+            'number_unread_emails' => $number_unread_emails,
         ]);
 
     }

@@ -12,6 +12,7 @@
     if(Auth::check() && strlen(Auth::user()->bought) > 0){
         $list_bought = \json_decode(Auth::user()->bought);
     }
+    // dd(intval($info_course->star_count) / intval($info_course->vote_count))
 ?>
 <div class="detail-course">
     <img class="background bg-category" src="{{ asset('frontend/images/banner_profile_teacher.png') }}">
@@ -22,17 +23,18 @@
                     <div class="frame clearfix pb-40px">
                         <div class="pull-left">
                             <div class="info">
-                                <p class="name">{{ $info_course->name }}</p>
-                                <p class="expret">{{ $info_course->short_description }}</p>
+                                <h1 class="name" style="font-size:26px">{{ $info_course->name }}</h1>
+                                <p class="expert" id="tomTat">{{ $info_course->short_description }}</p>
                             </div>
                         </div>
-                        <div class="network pull-right network-reponsive">
+                        <div class="network pull-right network-reponsive"
+                        @if( strlen($info_course->short_description) >= 200)
+                        style="padding-top: 40px"
+                        @endif
+                        >
                             <a class="btn btn-default btn-xs" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(url()->current()); ?>" target="_blank">
                                 <i class="fas fa-share-alt"></i> Chia sẻ
                             </a>
-                            {{-- <a class="btn btn-default btn-xs" href="https://www.facebook.com/canhchimcodon26988" target="_blank">
-                                <i class="fab fa-facebook-square"></i> Facebook
-                            </a> --}}
                         </div>
                     </div>
                     <div class="frame_2">
@@ -136,7 +138,7 @@
                                         </div>
                                         <div class="box clearfix">
                                             <div class="pull-left money-back">
-                                                30 ngày hoàn tiền
+                                                (Hoàn tiền trong 30 ngày nếu không hài lòng)
                                             </div>
                                         </div>
                                         @endif
@@ -152,7 +154,7 @@
                                     </div>
                                     <div class="box clearfix">
                                         <div class="pull-left money-back">
-                                            30 ngày hoàn tiền
+                                            (Hoàn tiền trong 30 ngày nếu không hài lòng)
                                         </div>
                                     </div>
                                 @endif
@@ -192,28 +194,50 @@
                         
                         <div class="knowledge clearfix">
                             <h3>Bạn sẽ học được gì</h3>
+                            <?php 
+                                $info_course->will_learn = str_replace(";","", $info_course->will_learn);
+                                $will_learn = $info_course->will_learn;
+                                $will_learn = str_replace('<li>','<br>',$will_learn);
+                                $will_learn = str_replace('<p>','<br>',$will_learn);
+                                $will_learn = explode("<br>", $will_learn);
+                                $counter_w = count($will_learn);
+                                for( $i = 0 ; $i < $counter_w ; $i++){
+                                    $will_learn[$i] = trim($will_learn[$i]);
+                                    $will_learn[$i] = strip_tags($will_learn[$i]);
+                                }
+                                $will_learn = array_filter($will_learn);
+                                    // dd($will_learn);
+                            ?>
                             <div class="row">
                                 <div class="col-sm-12">
-                                    {!! $info_course->will_learn !!}
+                                    <ul>
+                                        @for( $i = 0 ; $i < $counter_w ; $i++)
+                                        @if(isset($will_learn[$i]))
+                                        <li><span><img src='/frontend/images/ic_check.png' width:'100%'></span>{!!$will_learn[$i]!!}</li>
+                                        @endif
+                                        @endfor
+                                    </ul>
                                 </div>
                             </div>
-                            
                         </div>
                         <script>
                             $(document).ready(function (){
-                                $('.knowledge .row li').prepend("<span><img src='/frontend/images/ic_check.png' width:'100%'></span>")
+                                // $('.knowledge .row li').prepend("<span><img src='/frontend/images/ic_check.png' width:'100%'></span>")
                             })
                         </script>
                         <style type="text/css">
                             .knowledge ul {
-                                columns: 2;
-                                -webkit-columns: 2;
-                                -moz-columns: 2;
+                                /* columns: 2; */
+                                /* -webkit-columns: 2; */
+                                /* -moz-columns: 2; */
                                 /* height: 30px; */
                                 /* list-style-image: url('/frontend/images/ic_check.png'); */
                             }
                             .knowledge ul li{
-                                margin-left: 7%;
+                                margin-left: 10px;
+                                display: inline-flex;
+                                width: 48%;
+                                min-height: 50px;
                             }
                         </style>
                         <div class="lessons clearfix" id="box_content">
@@ -370,7 +394,7 @@
                             if ($(window).scrollTop() >= block_on - 40) {
                                 //    $(".sidebar-content").css("margin-bottom", barHeight)
                                 //    $("#button").css("bottom", "-26")
-                                   console.log(block_below);
+                                //    console.log(block_below);
                                 
                                 // $(".sidebar-content").show();
                                 if($(window).scrollTop() <= block_below - 40){
@@ -439,7 +463,10 @@
                                 <div class="frame clearfix">
                                     <div class="pull-left">
                                         <img src="{{ asset('frontend/images/ic_course.png') }}" alt="" /> 
-                                        <span class="special">{{ $lecturer->teacher->course_count }} Khóa học</span>
+                                        <?php
+                                        $count_teacher_course = count($lecturer->teacher->userRole->userCoursesByTeacher()->where('status', 1))
+                                        ?>
+                                        <span class="special">{{ $count_teacher_course }} Khóa học</span>
                                     </div>
                                     {{-- <div class="pull-right">
                                         @include(
@@ -548,7 +575,7 @@
                 <h3>Nhận xét của học viên
                     {{-- @if(Auth::check()) --}}
                         @if(\App\Helper\Helper::getUserRoleOfCourse($info_course->id))
-                            <span class="reviews-star" data-star="{{ isset($ratingCourse) ? $ratingCourse->score : 1 }}">
+                            <span class="reviews-star" data-star="{{ isset($ratingCourse) ? $ratingCourse->score : 0 }}">
                                 @if($ratingCourse)
                                 @include(
                                     'components.vote', 
@@ -557,7 +584,7 @@
                                     ]
                                 )
                                 @else
-                                <i id="star-1" class="fa fa-star yellow-color" data-id="1"></i>
+                                <i id="star-1" class="far fa-star review-star" data-id="1"></i>
                                 <i id="star-2" class="far fa-star review-star" data-id="2"></i>
                                 <i id="star-3" class="far fa-star review-star" data-id="3"></i>
                                 <i id="star-4" class="far fa-star review-star" data-id="4"></i>
@@ -579,7 +606,7 @@
                     var baseURL = $('base').attr('href');
 
                     function hideStar(){
-                        for(var j = 1; j <= 5; j++){
+                        for(var j = 0; j <= 5; j++){
                             $('#star-' + j).removeClass('fa').addClass('far');
                         }
                     }
@@ -611,7 +638,8 @@
                     }).mouseleave(function(){
                         hideStar();
                     }).click(function(){
-                        showStar($(this).attr('data-id'))
+                        console.log($(this));
+                        hideStar();showStar($(this).attr('data-id'))
                         $('.review-star').off( "mouseenter")
                         $('.review-star').off( "mouseleave")
                         $('.reviews-star').attr('data-star', $(this).attr('data-id'))
@@ -625,6 +653,21 @@
 
                     $('#create-comment-new').on('click', function (e) {
                         var score = $('.reviews-star').attr('data-star');
+                        if($('#editor').val() == ''){
+                            Swal.fire({
+                                type: 'warning',
+                                html: 'Bạn chưa nhập nhận xét.',
+                            })
+                            return false;
+                        }
+
+                        if($('.reviews-star').attr("data-star") == 0){
+                            Swal.fire({
+                                type: 'warning',
+                                html: 'Bạn chưa nhập sao.',
+                            })
+                            return false;
+                        }
 
                         var request = $.ajax({
                             url: baseURL + '/reviews/store',
@@ -641,9 +684,13 @@
                             if(data.status == 201){
                                 var html = "";
                                 var htmlRate = $('.reviews-star').html();
+                                var avt = "images/avatar.jpg";
+                                if(data.commentCourse.data.avatar != null && data.commentCourse.data.avatar.length > 0){
+                                    avt = data.commentCourse.data.avatar;
+                                }
                                 html += '<div class="box clearfix">';
                                     html += '<div class="col-sm-3">';
-                                        html += '<img class="avatar" src="'+baseURL + '/frontend/' + data.commentCourse.data.avatar +'" alt="">';
+                                        html += '<img class="avatar" src="'+baseURL + '/frontend/' + avt +'" alt="">';
                                         html += '<div class="info-account">';
                                             html += '<p class="interval">' + data.commentCourse.data.created_at +'</p>';
                                             html += '<p class="name">' + data.commentCourse.data.username +'</p>';
@@ -691,7 +738,7 @@
                                     rate_arr[$( this ).attr('data-rate')] = $(this).attr('data-vote'); 
                                 });
 
-                                console.log(rate_arr[$( this ).attr('data-rate')]);
+                                // console.log(rate_arr[$( this ).attr('data-rate')]);
                                 location.reload();
                             }else if(data.status == 200){
                                 Swal.fire({
@@ -700,9 +747,13 @@
                                 })
                             }
                         });
-
                         request.fail(function( jqXHR, textStatus ) {
-                            alert( "Request failed: " + textStatus );
+                            // alert( "Request failed: " + textStatus );
+                            Swal.fire({
+                                type: 'warning',
+                                html: 'Có lỗi! Nhấn tải lại trang và thử lại!',
+                            })
+                            return false;
                         });
                     });
                 </script>
@@ -714,9 +765,12 @@
                     @foreach($info_course->takeComment(0, 3) as $comment)
                         @include('components.question-answer', ['comment' => $comment])
                     @endforeach
+                    <?php 
+                    // dd($info_course->takeComment()->first());
+                    ?>
                 </div>
             </div>
-            @if(count($info_course->comments) > 0)
+            @if(count($info_course->comments) > 3)
             <div class="col-sm-12 btn-see-more" data-skip="3" data-take="3">
                 <button type="button" class="btn">Xem thêm</button>
             </div>
@@ -797,6 +851,7 @@
 <script type="text/javascript">
     
     $(document).ready(function() { 
+
         $(".interactive-bar .buttons button:first-child").click(function(){
             $(".btn-add-cart button").click();
         })
@@ -844,14 +899,14 @@
         // }
 
         $('.btn-see-more').click(function(){
-            var current_skip = $(this).attr('data-skip');
-            var current_take = $(this).attr('data-take');
+            var baseURL = $('base').attr('href');
+            var current_skip = Number($(this).attr('data-skip'));
+            var current_take = Number($(this).attr('data-take'));
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-
             var request = $.ajax({
                 url: baseURL + '/comments/see-more?course_id=' + {{ $info_course->id }} + '&skip=' + current_skip + '&take=' + current_take,
                 method: "GET",
@@ -859,14 +914,14 @@
             });
 
             request.done(function( data ) {
-                if(data == ''){
+                if(data == '' || {{ $info_course->comments()->count() }} <= current_skip + current_take){
                     $('.btn-see-more').hide();    
                 }
                 $('.btn-see-more').attr('data-skip', current_skip + current_take);
                 $('#review-box').append(data);
                 addEventToButton();
             });
-        });
+        })
 
         $('.go-box').click(function() {
             var box = $(this).attr('data-box');
@@ -931,6 +986,13 @@
 
         $('.create-reply-btn').on('click', function (e) {
             var comment_id = $(this).attr('data-id');
+            if($("#reply-" + comment_id).val() == ''){
+                Swal.fire({
+                    type: 'warning',
+                    html: 'Bạn chưa nhập nội dung trả lời.',
+                })
+                return false;
+            }
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -949,10 +1011,14 @@
 
             request.done(function( data ) {
                 if(data.status == 200){
+                    var avt = "images/avatar.jpg";
+                    if(data.commentCourse.data.avatar != null && (data.commentCourse.data.avatar + "").length > 0){
+                        avt = data.commentCourse.data.avatar;
+                    }
                     var html = "";
                     html += '<div class="comment-reply">';
                         html += '<div>';
-                            html += '<img class="avatar" src="'+baseURL + '/' + data.commentCourse.data.avatar +'" alt="" />';
+                            html += '<img class="avatar" src="'+baseURL + '/frontend/' + avt +'" alt="" />';
                             html += '<div class="info-account">';
                                 html += '<p class="interval">' + data.commentCourse.data.created_at +'</p>';
                                 html += '<p class="name">' + data.commentCourse.data.username +'</p>';
@@ -964,11 +1030,17 @@
                     html += '</div>';
 
                     $('.reply-hold-' + comment_id).prepend(html);
+                    $("#reply-" + comment_id).val("")
                 }
             });
 
             request.fail(function( jqXHR, textStatus ) {
-                alert( "Request failed: " + textStatus );
+                // alert( "Request failed: " + textStatus );
+                Swal.fire({
+                    type: 'warning',
+                    html: 'Có lỗi! Nhấn tải lại trang và thử lại!',
+                })
+                return false;
             });
         });
     }
@@ -993,7 +1065,6 @@
             $.each( number_items_in_cart, function(i, obj) {
                 $('.sidebar-add-cart button[id='+obj.id+']').html('<b>Đã thêm vào giỏ hàng</b>').attr('disabled', true)
             });
-            // $(".sidebar-add-cart button").off()
         })
         
         $(".sidebar-add-cart button").click( function(e){

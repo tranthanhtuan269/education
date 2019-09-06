@@ -6,8 +6,7 @@
             <img src="/frontend/images/ic_cart.png" alt="image cart" style="width: 6em !important;">
         </div>
         <div class="cart-banner-title">
-            <div>SHOPPING</div>
-            <div>CART</div>
+            <div>GIỎ HÀNG <br>CỦA TÔI</div>
         </div>
     </div>
 </div>
@@ -145,9 +144,15 @@
 
             $(".cart-item-list").append(html)
 
+            // totalPrice += element.coupon_price
+            // totalInitialPrice += element.real_price
+        });
+
+        cart_items.forEach((element)=>{
             totalPrice += element.coupon_price
             totalInitialPrice += element.real_price
-        });
+        })
+
         if(totalPrice == totalInitialPrice){
             $(".checkout-column .current-price").append("<span>"+number_format(totalPrice, 0, '.', '.')+" ₫</span>")
         }else{
@@ -448,7 +453,6 @@
             }
         }
     })
-    
     
 </script>
 

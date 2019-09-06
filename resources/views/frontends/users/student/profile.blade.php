@@ -23,12 +23,12 @@
                             <a href="#buyed" class="buyed" data-toggle="tab"><i class="fa fa-user"></i>&nbsp;&nbsp;Profile</a>
                         </li> --}}
                         <li data-toggle="modal" data-target="#myModalChangePass" data-dismiss="modal" class="pull-right">
-                            <button type="button" class="btn btn-warning">Thay đổi mật khẩu</button>
+                            <button id="studentChangePassword" type="button" class="btn btn-warning">Thay đổi mật khẩu</button>
                         </li>
                         <div id="myModalChangePass" class="modal fade" role="dialog" >
                             <div class="modal-dialog modal-login">
                                 <div class="modal-content">
-                                    <div class="modal-header">				
+                                    <div class="modal-header">	
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                                         <div class="modal-title"><b>Thay đổi mật khẩu</b></div>
                                     </div>
@@ -56,6 +56,7 @@
                                             <div class="form-group">
                                                 <input type="button" class="btn btn-danger btn-block btn-lg" value="Đổi mật khẩu" onclick="changePassAjax()">
                                             </div>
+                                            <input id="resetStudentChangePass" type="reset" value="Reset the form" style="display:none">
                                         </form>				
                                     </div>
                                 </div>
@@ -155,9 +156,20 @@
 <script src="{{ asset('frontend/js/dropzone.js') }}"></script>
 <script>
 $(document).ready(function() {
-    $('body').on('click', '.dz-image-preview', function() {
-        $("#myDrop").trigger("click");
-    });
+    var student = jQuery.noConflict();
+
+    student('#studentChangePassword').click(function(e){
+        e.stopPropagation()
+        e.preventDefault()
+        $('#resetStudentChangePass').click()
+        $('#myModalChangePass').modal("toggle")
+    })
+
+    // p('#myModalChangePass').on('shown.bs.modal', function () {
+    //         // var id      = $('#userID_upd').val();
+    //         alert(1)
+    //     })
+
 
     $('.reorder').on('click', function() {
         $("ul.nav").sortable({
@@ -173,7 +185,7 @@ $(document).ready(function() {
     var link_base64;
 
     $("#save-profile").click(function() {
-        link_base64 = $('#image-cropper').cropit('export');
+        link_base64 = student('#image-cropper').cropit('export');
 
         // Validate Birthday
         if (!validationDate($('#datepicker').val())) {
@@ -255,19 +267,19 @@ $(document).ready(function() {
         return;
     });
 
-    $('#image-cropper').cropit();
+    student('#image-cropper').cropit();
 
     $('.select-image-btn').click(function() {
         $('.cropit-image-input').click();
     });
 
     // Handle rotation
-    // $('.rotate-cw-btn').click(function() {
-    //     $('#image-cropper').cropit('rotateCW');
-    // });
-    // $('.rotate-ccw-btn').click(function() {
-    //     $('#image-cropper').cropit('rotateCCW');
-    // });
+    $('.rotate-cw-btn').click(function() {
+        $('#image-cropper').cropit('rotateCW');
+    });
+    $('.rotate-ccw-btn').click(function() {
+        $('#image-cropper').cropit('rotateCCW');
+    });
 
     var _URL = window.URL || window.webkitURL;
     $("#image-file-input").change(function(e) {

@@ -1,10 +1,7 @@
-
 @if (isset($feature_course[0]))
 <div class="container">
-    <div class="container">
-        <h2><strong>Khoá học tiêu biểu</strong></h2>
-    </div>
-    <div class="feature-course container" style="margin-top: 1em;">
+    <h2><strong>Khoá học tiêu biểu</strong></h2>
+    <div class="feature-course" style="margin-top: 1em;">
         @foreach ($feature_course as $key => $course)
             @if ($key % 3 == 0)
                 <div class="row">
@@ -64,7 +61,6 @@
             @endif
         @endforeach
     </div>
-</div>
 </div>
 @endif
 

@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Auth;
 
-class UpdateUnitRequest extends FormRequest
+class StoreNoteRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +14,7 @@ class UpdateUnitRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return Auth::check();
     }
 
     /**
@@ -24,15 +25,15 @@ class UpdateUnitRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:100'
+            'content' => 'required|max:255',
         ];
     }
 
     public function messages()
     {
         return [
-            'name.required' => 'Bạn chưa nhập tên Phần học.',
-            'name.max'      => 'Tên phần học quá dài. (Yêu cầu <100 ký tự)'
+            'content.required' => 'Bạn chưa nhập ghi chú.',
+            'content.max'      => 'Ghi chú quá dài. (Yêu cầu <255 ký tự)'
         ];
     }
 }

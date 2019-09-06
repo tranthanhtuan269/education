@@ -1,11 +1,15 @@
 <div class="box clearfix">
     <div class="col-sm-3">
         @if($comment->userRole->user != null)
-        <img class="avatar" src="{{ url('/frontend/') }}/{{ $comment->userRole->user->avatar }}" alt="" />
-        <div class="info-account">
-            <p class="interval">{{ $comment->created_at }}</p>
-            <p class="name">{{ $comment->userRole->user->name }}</p>
-        </div>
+            @if(strlen($comment->userRole->user->avatar) > 0)
+            <img class="avatar" src="{{ url('/frontend/') }}/{{ $comment->userRole->user->avatar }}" alt="" />
+            @else
+            <img class="avatar" src="{{ url('/frontend/') }}/images/avatar.jpg" alt="" />
+            @endif
+            <div class="info-account">
+                <p class="interval">{{ $comment->created_at }}</p>
+                <p class="name">{{ $comment->userRole->user->name }}</p>
+            </div>
         @else
         <img class="avatar" src="{{ url('/frontend/images/avatar.jpg') }}" alt="" />
         <div class="info-account">
@@ -30,11 +34,11 @@
                 <i class="fas fa-comment"></i>
                 <span>Trả lời</span>
             </button>
-            <button type="button" class="btn @if($comment->likeCheckUser() == 1) btn-primary @else btn-default @endif btn-like" data-comment-id="{{ $comment->id }}">
+            <button type="button" class="btn @if($comment->likeCheckUser() == 1) btn-primary @else btn-default @endif btn-default btn-like" data-comment-id="{{ $comment->id }}">
                 <i class="fas fa-thumbs-up"></i>
                 <span>Thích</span>
             </button>
-            <button type="button" class="btn @if($comment->unlikeCheckUser() == 1) btn-primary @else btn-default @endif btn-dislike" data-comment-id="{{ $comment->id }}">
+            <button type="button" class="btn @if($comment->unlikeCheckUser() == 1) btn-primary @else btn-default @endif btn-default btn-dislike" data-comment-id="{{ $comment->id }}">
                 <i class="fas fa-thumbs-down"></i>
                 <span>Không thích</span>
             </button>
@@ -51,11 +55,23 @@
             @foreach($comment->children as $reply)
             <div class="comment-reply">
                 <div>
-                    <img class="avatar" src="{{ url('/') }}/{{ $reply->userRole->user->avatar }}" alt="" />
+                    @if($reply->userRole->user)
+                    @if(strlen($reply->userRole->user->avatar) > 0)
+                    <img class="avatar" src="{{ url('/') }}/frontend/{{ $reply->userRole->user->avatar }}" alt="" />
+                    @else
+                    <img class="avatar" src="{{ url('/') }}/frontend/images/avatar.jpg" alt="" />
+                    @endif
                     <div class="info-account">
                         <p class="interval">{{ $reply->created_at }}</p>
                         <p class="name">{{ $reply->userRole->user->name }}</p>
                     </div>
+                    @else
+                    <img class="avatar" src="{{ url('/') }}/frontend/images/avatar.jpg" alt="" />
+                    <div class="info-account">
+                        <p class="interval">{{ $reply->created_at }}</p>
+                        <p class="name">Anonymous</p>
+                    </div>
+                    @endif
                 </div>
                 <div class="comment">
                     {!! $reply->content !!}

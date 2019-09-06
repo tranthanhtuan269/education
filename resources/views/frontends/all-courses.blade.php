@@ -40,31 +40,29 @@
             <div class="col-sm-12">
                 <div class="tab-content">
                     <div id="best-seller" class="tab-pane fade in active">
+                        @foreach ($best_seller_course as $key => $best_seller)
+                        @if($key%4 == 0)
                         <div class="row">
-                            @foreach ($best_seller_course as $key => $best_seller)
-                            @if($key%4 == 0)
-                            <div class="row">
-                            @endif
-                                @include(
-                                    'components.course', 
-                                    [   
-                                        'course' => $best_seller,
-                                        'list_course' => $list_bought
-                                    ]
-                                )
-                            @if($key%4 == 3)
-                            </div>
-                            @endif
-                            @endforeach
-                            @if($key%4 < 3)
-                            </div>
-                            @endif
-                            @if (Request::is('/')) 
-                                <div class="col-sm-12 text-center">
-                                    <a href="{{ url('list-course?type=best-seller') }}" class="btn btn-default btn-seeall">Tất cả</a>
-                                </div>
-                            @endif
+                        @endif
+                            @include(
+                                'components.course', 
+                                [   
+                                    'course' => $best_seller,
+                                    'list_course' => $list_bought
+                                ]
+                            )
+                        @if($key%4 == 3)
                         </div>
+                        @endif
+                        @endforeach
+                        @if($key%4 < 3)
+                        </div>
+                        @endif
+                        @if (Request::is('/')) 
+                            <div class="col-sm-12 text-center">
+                                <a href="{{ url('list-course?type=best-seller') }}" class="btn btn-default btn-seeall">Tất cả</a>
+                            </div>
+                        @endif
                     </div>
                     <div id="menu1" class="tab-pane fade">
                         @foreach ($new_course as $key => $new)

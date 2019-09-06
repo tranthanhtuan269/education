@@ -18,6 +18,7 @@ use App\Mail\OrderCompleted;
 use Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
+use App\UserRole;
 
 class HomeController extends Controller
 {
@@ -67,7 +68,7 @@ class HomeController extends Controller
     {
         $keyword = $request->get('keyword');
         $results = [];
-
+        
         if ($keyword != '') {
             $keyword = trim($request->get('keyword'));
             $arr_course_id = User::join('user_roles', 'user_roles.user_id', '=', 'users.id')
@@ -129,29 +130,41 @@ class HomeController extends Controller
 
     public function showCourse($course)
     {
-        
         $course = Course::where('slug', $course)->first();
-        if ($course) {
-            $course->view_count = $course->view_count + 1;
-            $course->save();
-        }
-
-        if (\Auth::check()) {
-            if ($course) {
-                $ratingCourse = RatingCourse::where('course_id', $course->id)->where('user_id', \Auth::id())->first();
-                $related_course = Course::where('category_id', $course->category_id)->where('id','!=',$course->id)->where('status', 1)->limit(4)->get();
-                $info_course = Course::find($course->id);
-                // dd($info_course->comments[0]->likeCheckUser());
-                return view('frontends.course-detail', compact('related_course', 'info_course', 'ratingCourse'));
+        if($course){
+            if($course->status == 1){
+                if ($course) {
+                    $course->view_count = $course->view_count + 1;
+                    $course->save();
+                }
+                
+                if (\Auth::check()) {
+                    if ($course) {
+                        $ratingCourse = RatingCourse::where('course_id', $course->id)->where('user_id', \Auth::id())->first();
+                        $related_course = Course::where('category_id', $course->category_id)->where('id','!=',$course->id)->where('status', 1)->limit(4)->get();
+                        $info_course = Course::find($course->id);
+                        return view('frontends.course-detail', compact('related_course', 'info_course', 'ratingCourse'));
+                    }
+                } else {
+                    if ($course) {
+                        $related_course = Course::where('category_id', $course->category_id)->where('id','!=',$course->id)->where('status', 1)->limit(4)->get();
+                        $info_course = Course::find($course->id);
+                        return view('frontends.course-detail', compact('related_course', 'info_course'));
+                    }
+                }
+            }else{
+                if(\Auth::check() && Auth::user()->userRolesTeacher()->userCoursesByTeacher()->where('id', $course->id)->first() != null){
+                    $ratingCourse = RatingCourse::where('course_id', $course->id)->where('user_id', \Auth::id())->first();
+                    $related_course = Course::where('category_id', $course->category_id)->where('id','!=',$course->id)->where('status', 1)->limit(4)->get();
+                    $info_course = Course::find($course->id);
+                    return view('frontends.course-detail', compact('related_course', 'info_course', 'ratingCourse'));
+                }else{
+                    return Redirect('/');
+                }
             }
-        } else {
-            if ($course) {
-                $related_course = Course::where('category_id', $course->category_id)->where('id','!=',$course->id)->where('status', 1)->limit(4)->get();
-                $info_course = Course::find($course->id);
-                return view('frontends.course-detail', compact('related_course', 'info_course'));
-            }
+        }else{
+            return abort(404);
         }
-        return abort(404);
     }
 
     public function showTeacher($id_teacher)
@@ -169,10 +182,10 @@ class HomeController extends Controller
             // $feature_course = $teacher->userRole()->first()->userCoursesByFeature();
             // $best_seller_course = $teacher->userRole()->first()->userCoursesByTrendding();
             // $new_course = $teacher->userRole()->first()->userCoursesByNew();
-            $courses_of_teacher = $teacher->userRole()->first()->userCoursesByTeacher();
-            $category_first_course = $courses_of_teacher->first()->category_id;
+            $courses_of_teacher = $teacher->userRole()->first()->userCoursesByTeacher()->where('status', 1);
+            // $category_first_course = $courses_of_teacher->first()->category_id;
             // $course_of_category = Course::where('category_id', $courses_of_teacher->first()->category_id)->get();
-            return view('frontends.detail-teacher', compact('info_teacher', 'feature_category', 'ratingTeacher', 'courses_of_teacher', 'course_of_category'));
+            return view('frontends.detail-teacher', compact('info_teacher', 'feature_category', 'ratingTeacher', 'courses_of_teacher'));
         }
         return abort(404);
     }
@@ -460,6 +473,10 @@ class HomeController extends Controller
                         $teacher = $course->Lecturers()->first()->teacher;
                         $teacher->student_count += 1;
                         $teacher->save();
+
+                        $course2 = Course::find($item['id']);
+                        $course2->student_count += 1;
+                        $course2->save();
                     }
                 }
 
@@ -732,12 +749,18 @@ class HomeController extends Controller
     public function fixWillLearn(){
         $courses = Course::get();
         foreach($courses as $course){
-            $course->will_learn = "<ul><li>" . str_replace(";;", "</li><li>", $course->will_learn) . "</li></ul>";
+            $course->will_learn = str_replace("&nbsp","", $course->will_learn);
+            $course->will_learn = str_replace(";","", $course->will_learn);
+            $course->will_learn = str_replace("\t","", $course->will_learn);
+            $course->will_learn = str_replace("<li></li>","", $course->will_learn);
+            $course->will_learn = preg_replace('/(?:\s\s+|\n|\t)/', ' ', $course->will_learn);
+            $course->will_learn = str_replace("<li> ","<li>", $course->will_learn);
+            $course->will_learn = str_replace(" </li>","</li>", $course->will_learn);
+            $course->will_learn = preg_replace('!\s+!', ' ', $course->will_learn);
             $course->save();
         }
         echo "done";   
     }
-
     public function fixData(){
         // $course = Course::where('slug', 'anh-van-giao-tiep-cho-nguoi-hoan-toan-mat-goc')->first();
         // xu ly
@@ -764,6 +787,56 @@ class HomeController extends Controller
         // $course->save();
         // // end luu vao
         // dd($course->will_learn);
+        }
+    public function test(){
+
+        $courses = Course::get();
+        foreach($courses as $course){
+            if(count($course->userRoles) != 0){
+                echo(count($course->userRoles)-1).'<br>';
+                $course->student_count = (count($course->userRoles)-1);
+                $course->save();
+            }else{
+                $course->student_count = 0;
+                $course->save();
+            }
+        }
+        // $course = Course::find(1);
+        // dd($course->userRoles);
+
+        $teachers = Teacher::get();
+        foreach($teachers as $teacher){
+            $teacher->student_count = 0;
+            $teacher->save();
+        }
+
+        foreach($courses as $course){
+            if($course->Lecturers()->first() && $course->Lecturers()->first()->teacher){
+                $teacher = Teacher::find($course->Lecturers()->first()->teacher->id);
+                if($teacher){
+                    $teacher->student_count += $course->student_count;
+                    $teacher->save();
+                }
+            }
+        }
+        echo "done";
+    }
+
+    public function seeMore(Request $request)
+    {
+        $end = false;
+        if ($request->course_id != null && $request->take != null && $request->skip != null) {
+            $course = Course::find($request->course_id);
+            if ($course) {
+                if($course->comments()->count() == $request->skip + $request->take){
+                    $end = true;
+                }
+                $commentCourses = $course->takeComment($request->skip, $request->take);
+                return view('components.question-answer-list', ['comments' => $commentCourses, 'end' => $end]);
+            }
+            return '';
+        }
+        return '';
     }
 }
 

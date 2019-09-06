@@ -26,9 +26,14 @@
                 @if (isset($setup))  
                 <i class="fa fa-cog fa-lg setting-icon" aria-hidden="true"></i>
                 @endif
-                @if (!in_array($course->id, $list_bought))
-                <div class="img-mask">
-                    <div class="btn-add-to-cart">
+                @if ($course->real_price != 0)
+                    @if ($course->real_price != $course->price)
+                    <span class="percent-discount">-{{(int)(($course->real_price - $course->price)/($course->real_price)*100)}}%</span>
+                    @endif                    
+                @endif
+                <div class="img-mask hidden-sm">
+                    <div class="btn-add-to-cart course-{{$course->id}}">
+                        @if (!in_array($course->id, $list_bought))
                         <button class="btn btn-success" data-id="{{ $course->id }}" data-image="{{ $course->image }}" data-lecturer="{{ $lecturers }}" data-name="{{ $course->name }}" data-price="{{ $course->price }}" data-real-price="{{ $course->real_price }}" data-slug="{{ $course->slug }}">
                             <span class="img">
                                 <img src="{{asset("frontend/images/ic_add_to_card.png")}}" width="20px">
@@ -37,9 +42,9 @@
                                 Thêm vào giỏ hàng
                             </span>
                         </button>
+                        @endif
                     </div>                        
                 </div>               
-                @endif
              </div>
                     
             <div class="content-course">
@@ -91,14 +96,8 @@
                             ]
                         )
                     </span>
-                </div>
-                <div class="time-view">
-                    <span class="time">
-                        {{-- <i class="fas fa-stopwatch"></i> {{ $course->approx_time }} giờ --}}
-                        <i class="fas fa-stopwatch"></i> {{ intval($course->duration / 60) }} giờ
-                    </span>
-                    <span class="view pull-right">
-                        <i class="fa fa-eye" aria-hidden="true"></i> {!! number_format($course->view_count, 0, ',' , '.') !!}
+                    <span class="time pull-right">
+                        <i class="fas fa-stopwatch"></i> {{ intval($course->duration / 3600) }}h {{ intval($course->duration % 60) }}m
                     </span>
                 </div>
                 @if (isset($setup))  
@@ -108,39 +107,33 @@
                     </div>
                 </div>
                 @endif
-
-                <?php
-                    $check_time_sale = false;
-                    if ($course->from_sale != '' && $course->to_sale != '') {
-                        $start_sale = strtotime($course->from_sale.' 00:00:00');
-                        $end_sale = strtotime($course->to_sale.' 23:59:59');
-                        // $date_to = new DateTime($to_sale);
-                        // $date_from = new DateTime(date('Y-m-d'));
-                        if (time() >= $start_sale && time() <= $end_sale) {
-                            $check_time_sale = true;
-                        }
-                    }
-                ?>
-                <div class="price-course">
-                    @if ($check_time_sale == true)                                        
-                    <span class="price line-through">
-                        {!! number_format($course->real_price, 0, ',' , '.') !!}đ
-                    </span>
-                    <span class="sale pull-right">
-                        {!! number_format($course->price, 0, ',' , '.') !!}đ
-                    </span>
-                    @else
-                    <span class="price" style="color: #FF8F00">
-                        {{-- {!! number_format($course->real_price, 0, ',' , '.') !!}đ --}}
-                        @if (is_numeric($course->real_price))
-                        {!! number_format((int)$course->real_price, 0, ',' , '.') !!}đ
+                <div class="price-course pull-right">
+                    @if ($course->real_price != 0)
+                        @if ($course->price == $course->real_price)
+                            {{-- <span class="price text-right">
+                                Giá khóa học:
+                            </span> --}}
+                            <span class="sale">
+                                <b>{!! number_format($course->real_price, 0, ',' , '.') !!}</b><sup>₫</sup>
+                            </span> 
                         @else
-                        Miễn phí
+                            <span class="price line-through">
+                                {!! number_format($course->real_price, 0, ',' , '.') !!}<sup>₫</sup>
+                            </span>
+                            {{-- @if ($course->real_price != $course->price) --}}
+                            <span class="sale">
+                                &nbsp;<b>{!! number_format((float)$course->price, 0, ',' , '.') !!}</b><sup>₫</sup>
+                            </span>                        
+                            {{-- @endif --}}
+                            
                         @endif
-
-                    </span>
+                    @else
+                        <span class="sale">
+                            &nbsp;<b>{!! number_format((float)$course->price, 0, ',' , '.') !!}</b><sup>₫</sup>
+                        </span> 
                     @endif
                 </div>
+                <div class="clearfix"></div>
                 @if (isset($btn_start_learning))  
                 <div class="text-center">
                     <a href="{{ url('coming-soon') }}" class="btn btn-primary btn-sm btn-start-learning">Vào học</a>

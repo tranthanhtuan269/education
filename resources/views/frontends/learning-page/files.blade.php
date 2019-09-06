@@ -6,6 +6,11 @@
     </div>
     <div class="ln-files-body">
         <div class="ln-files-list">
+            @if ($files->count() == 0)
+                <div class="text-center">
+                    Không có tài liệu nào tương ứng
+                </div>
+            @endif
             @foreach ($files as $file)
                 <div class="ln-files-wrapper">
                     <div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontends;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreNoteRequest;
 use App\Note;
 use App\Video;
 use App\Transformers\NoteTransformer;
@@ -33,11 +34,8 @@ class NoteController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreNoteRequest $request)
     {
         //
         $video = Video::find($request->videoId);

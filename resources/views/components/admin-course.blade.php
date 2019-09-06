@@ -86,8 +86,8 @@
                 <div class="row">
                     <div class="image-cropit-editor">
                         <div class="box-course-preview" id="image-cropper-{{$course->id}}">
-                            <div class="cropit-preview text-center preview-image-course">
-                                <img class="sample-avatar" src="{{ asset('frontend/images/'.$course->image) }}" alt="sample avatar">
+                            <div class="cropit-preview text-center preview-image-course" id="cropitPreview{{$course->id}}">
+                                <img class="sample-avatar" src="{{ asset('frontend/images/'.$course->image) }}" alt="Course Image">
                             </div>
                             <input type="range" class="cropit-image-zoom-input" id="cropit-zoom-input-{{$course->id}}" style="display: none"/>
                             <input type="file" class="cropit-image-input" style="display:none" value="" id="image-file-input-{{$course->id}}"/>
@@ -105,7 +105,7 @@
                                 <input type="text" class="form-control" id="course-name-{{ $course->id }}" name="name" value="{{ $course->name }}">
                             </div>
                             <div class="form-group">
-                                <label for="short_description" class="control-label">Mô tả ngắn:</label>
+                                <label for="short_description" class="control-label">Tóm tắt:</label>
                                 <input type="text" class="form-control" id="short-description-{{ $course->id }}" name="short-description-{{ $course->id }}" value="{{ $course->short_description }}">
                             </div>
                             <div class="form-group">
@@ -147,7 +147,7 @@
                         </div>
                         <div class="form-group">
                             <label for="approx_time" class="control-label">Thời gian dự kiến hoàn thành: (giờ)</label>
-                            <input type="text" class="form-control" id="course-approx-time-{{$course->id}}" name="approx-time-{{$course->id}}" value="{{$course->approx_time}}">
+                            <input type="number" class="form-control" id="course-approx-time-{{$course->id}}" name="approx-time-{{$course->id}}" value="{{$course->approx_time}}">
                         </div>
                         <div class="form-group">
                             <label for="category" class="control-label">Danh mục:</label>
@@ -193,17 +193,24 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default clear-modal" data-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="clearModal{{$course->id}}">Hủy</button>
                 <button type="button" class="btn btn-primary" id="save-btn-{{$course->id}}">Cập nhật</button>
             </div>
             <script>
-                $('.clear-modal').click(function() {
+                $('#clearModal{{$course->id}}').click(function() {
                     $('#resetForms{{$course->id}}').click()
 
                     var t_des = '{!! $course->description !!}'
                     var t_wl = '{!! $course->will_learn !!}'
                     CKEDITOR.instances['course-description-{{$course->id}}'].setData(t_des)
                     CKEDITOR.instances['course-will-learn-{{$course->id}}'].setData(t_wl)
+                    $('#cropitPreview').css('display', 'none')
+                    $('#cropit-zoom-input-{{$course->id}}').css('display', 'none')
+
+                    $('input.cropit-image-input').val('');
+                    $('.cropit-preview').removeClass('cropit-image-loaded');
+                    // $('.cropit-preview-image').removeAttr('style');
+                    $('.cropit-preview-image').attr('src','');
                 });
             </script>
         </div>
@@ -303,7 +310,7 @@
 
         $("#listUnit{{ $course->id }} #add-unit-btn").click(function(){
             var data = {
-                name: "My Unit",
+                name: "Item",
                 course_id: {{ $course->id }}
             }
 
@@ -315,7 +322,7 @@
                 success: function (response) {
                     if(response.status == 200){
                         console.log(response.unit.data.id);
-                        var html = '<li class="ui-state-default" data-unit-id="'+response.unit.data.id+'" data-unit-key="'+(response.unit.data.index-1)+'"><i class="fas fa-sort"></i> <span class="unit-content">Item 1 </span> <i class="fas fa-trash remove-unit" id="remove-unit-'+response.unit.data.id+'" data-unit-id="'+response.unit.data.id+'" data-course-id="{{ $course->id }}"></i><i class="fas fa-edit edit-unit" id="edit-unit-'+response.unit.data.id+'" data-unit-id="'+response.unit.data.id+'" data-course-id="{{ $course->id }}"></i><i class="fas fa-bars list-vid-unit" id="list-vid-unit-'+response.unit.data.id+'" data-unit-id="'+response.unit.data.id+'" data-course-id="'+response.unit.data.id+'"></i></li>';
+                        var html = '<li class="ui-state-default" data-unit-id="'+response.unit.data.id+'" data-unit-key="'+(response.unit.data.index-1)+'"><i class="fas fa-sort"></i> <span class="unit-content">Item</span> <i class="fas fa-trash remove-unit" id="remove-unit-'+response.unit.data.id+'" data-unit-id="'+response.unit.data.id+'" data-course-id="{{ $course->id }}"></i><i class="fas fa-edit edit-unit" id="edit-unit-'+response.unit.data.id+'" data-unit-id="'+response.unit.data.id+'" data-course-id="{{ $course->id }}"></i><i class="fas fa-bars list-vid-unit" id="list-vid-unit-'+response.unit.data.id+'" data-unit-id="'+response.unit.data.id+'" data-course-id="'+response.unit.data.id+'"></i></li>';
                         $("#listUnit{{ $course->id }} #sortable").append(html);
                         j("#listUnit{{ $course->id }} #sortable").sortable('refresh');
                         addEvent();
@@ -464,11 +471,7 @@
         }
 
         $('#btn-edit-{{ $course->id }}').click(function(){
-            // $('#editCourse-{{ $course->id }}').modal('toggle')
-            $('#editCourse-{{ $course->id }}').modal({
-                backdrop: 'static',
-                keyboard: false
-            })
+            $('#editCourse-{{ $course->id }}').modal('toggle')
         })
 
         $('#btn-remove-{{ $course->id }}').click(function(){

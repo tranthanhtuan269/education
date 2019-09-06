@@ -60,7 +60,7 @@
                                     )
                                     @endforeach
                                     <div class="col-xs-12 text-center">
-                                        <div class="u-number-page">{{ $lifelong_course->appends(Request::all())->links() }}</div>
+                                        <div class="u-number-page">{{ $lifelong_course->links() }}</div>
                                     </div>
                                 @else
                                     <div class="col-xs-12">
@@ -71,6 +71,9 @@
                                                 Bạn chưa tạo khoá học nào!
                                             @endif
                                         </p>
+                                    </div>
+                                    <div class="col-xs-12 text-center">
+                                        <div class="u-number-page">{{ $lifelong_course->links() }}</div>
                                     </div>
                                 @endif
                             </div>
@@ -135,12 +138,12 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="price" class="control-label">Giá khóa học:</label>
+                            <label for="price" class="control-label">Giá khóa học: (₫)</label>
                             <input type="text" class="form-control" id="course-price" name="price">
                         </div>
                         <div class="form-group">
-                            <label for="approx_time" class="control-label">Thời gian ước tính: (giờ)</label>
-                            <input type="text" class="form-control" id="course-approx-time" name="approx-time">
+                            <label for="approx_time" class="control-label">Thời gian dự kiến hoàn thành: (giờ)</label>
+                            <input type="number" class="form-control" id="course-approx-time" name="approx-time">
                         </div>
                         <div class="form-group">
                             <label for="category" class="control-label">Danh mục:</label>
@@ -189,6 +192,8 @@
                     $('#resetForm').click()
                     CKEDITOR.instances['course-description'].setData("")
                     CKEDITOR.instances['course-will-learn'].setData("")
+                    $('#cropitPreview').css('display', 'none')
+                    $('#cropit-zoom-input').css('display', 'none')
                 });
             </script>
         </div>
@@ -252,7 +257,8 @@
                         <div class="btn-upload clearfix">
                             <span class="file-wrapper">
                               <input type="file" name="file-mp4-upload-off" id="file-mp4-upload-off">
-                              <span class="button text-uppercase" >Tải lên</span>
+                              <span class="button text-uppercase upload-new-video">Tải lên</span>
+                              <span class="button text-lowercase uploading-new-video" style="display: none;">Đang tải lên</span>
                             </span>
                         </div>
                     </div>
@@ -263,14 +269,14 @@
                             <span class="sr-only">Hoàn thành 0%</span>
                         </div>
                     </div>
-                    <video controls="controls" src="" style="max-width:100%" class="hidden">
+                    <video class="video_player" controls="controls" src="" style="max-width:100%" class="hidden">
                         Your browser does not support the HTML5 Video element.
                     </video>
                 </div>                                         
             </div>
             <div class="modal-footer">
                 <button class="btn btn-primary save-add-video">Lưu</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-default cancel-add-video" data-dismiss="modal">Đóng</button>
             </div>
         </div>
     </div>
@@ -315,7 +321,8 @@
                         <div class="btn-upload clearfix">
                             <span class="file-wrapper">
                               <input type="file" name="file-mp4-upload-off" id="file-mp4-upload-off-updated">
-                              <span class="button text-uppercase" >Tải lên</span>
+                              <span class="button text-uppercase upload-old-video">Tải lên</span>
+                              <span class="button text-lowercase uploading-old-video" style="display: none;">Đang tải lên</span>
                             </span>
                         </div>
                     </div>
@@ -333,7 +340,7 @@
 
             <div class="modal-footer">
                 <button class="btn btn-primary save-edit-video">Lưu</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-default cancel-edit-video" data-dismiss="modal">Đóng</button>
             </div>
         </div>
     </div>
@@ -341,14 +348,21 @@
 <script>
     let filesEditLength = 0;
     var S = jQuery.noConflict();
+    var uploading = false;
     $(document).ready(function(){
         $('#create-course-btn').click(function(){
-            // alert(1)
-            // $('#createCourse').modal('toggle')
             $('#createCourse').modal({
                 backdrop: 'static',
                 keyboard: false
             })
+        })
+
+        $('.upload-new-video').click(function(){
+            $('#file-mp4-upload-off').click();
+        })
+
+        $('.upload-old-video').click(function(){
+            $('#file-mp4-upload-off-updated').click();
         })
 
         $('body').on('click','#createCourse .dz-image-preview',function(){
@@ -356,7 +370,9 @@
         })
 
         $('#addVideoModal').on('hidden.bs.modal', function () {
-            // $('#listVideo').modal('toggle');
+            for(var i = 0; i < $('.video_player').length; i++){
+               $('.video_player')[i].pause(); 
+            }
             $('#listVideo').modal({
                 backdrop: 'static',
                 keyboard: false
@@ -364,7 +380,6 @@
         });
 
         $('#editVideoModal').on('hidden.bs.modal', function () {
-            // $('#listVideo').modal('toggle');
             $('#listVideo').modal({
                 backdrop: 'static',
                 keyboard: false
@@ -397,7 +412,7 @@
 
                 $('.document-field').append(html)                                                
             }
-            
+            $('#addVideoDocument').val("");
         })
 
         $(document).on('click', '#btnDeleteDocument', function(){
@@ -411,7 +426,9 @@
                 $(value).attr('data-index', index)
                 $(value).children('span.btn-delete-document').children('button').attr('data-index', index)
             })
-            
+
+
+            $('#addVideoDocument').val("");
         })
 
         $('#listVideo').on('shown.bs.modal', function () {
@@ -426,11 +443,13 @@
                         var html = "";
                         
                         for(var i = 0; i < response.videos.length; i++){
-                            html += '<li class="ui-state-default ui-sortable-handle"  data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'">'
-                            html += '<i class="fas fa-sort"></i> '
                             if(response.videos[i].state == "2"){
-                                html += '<span class="video-content">'+response.videos[i].name+'</span><span style="color: red;"> <i> (Yêu cầu xoá đang được duyệt)</i></span>'
+                                html += '<li style="display:flex" class="ui-state-default ui-sortable-handle"  data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'">'
+                                html += '<i class="fas fa-sort"></i> '
+                                html += '<span class="video-content">'+response.videos[i].name+'</span><span style="color:red;float:right;width:270px;margin-left:20px"> (Yêu cầu xoá đang được duyệt)</span>'
                             }else{
+                                html += '<li class="ui-state-default ui-sortable-handle"  data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'">'
+                                html += '<i class="fas fa-sort"></i> '
                                 html += '<span class="video-content">'+response.videos[i].name+'</span>'                                
                                 html += '<i class="fas fa-trash pull-right remove-video" data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'"></i>'
                                 html += '<i class="fas fa-edit pull-right edit-video" data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'"></i>'
@@ -470,10 +489,13 @@
         })
 
         $('#addVideoBtn').on('click', function () {
-            $('#listVideo').modal({
-                backdrop: 'static',
-                keyboard: false
-            });
+            // $('#listVideo').modal({
+            //     backdrop: 'static',
+            //     keyboard: false
+            // });
+            $('#addVideoModal .document-field').empty()
+
+            $('#listVideo').modal('toggle')
             $('#addVideoModal').modal({
                 backdrop: 'static',
                 keyboard: false
@@ -496,6 +518,8 @@
                     backdrop: 'static',
                     keyboard: false
                 });
+
+                $('.edit-document-field').empty()
 
                 $.ajax({
                 method: 'GET',
@@ -538,7 +562,6 @@
             var inputFileEdit = $('#editVideoDocument')
             let filesEdit = [];            
             inputFileEdit.change(function(){
-                alert(1)
                 let newFiles = []; 
                 for(let index = 0; index < inputFile[0].files.length; index++) {
                     let file = inputFile[0].files[index];
@@ -553,6 +576,7 @@
 
                     $('.document-field').append(html)                                                
                 }
+                $('#addVideoDocument').val("");
                 
             }) 
 
@@ -593,22 +617,28 @@
                     processData: false,
                     contentType: false,
                     // dataType: 'json',
+                    beforeSend: function() {
+                        $(".ajax_waiting").addClass("loading");
+                    },
                     success: function (response) {
+                        $(".ajax_waiting").removeClass("loading");
                         if(response.status == '200'){
                             $('#addVideoModal').modal('hide')
-                            // $('#listVideo').modal('toggle')
+                            $('#listVideo').modal('toggle')
+                            files = []
                         }
                     },
                     error: function (error) {
-                        // var obj_errors = error.responseJSON.errors;
-                        // var txt_errors = '';
-                        // for (k of Object.keys(obj_errors)) {
-                        //     txt_errors += obj_errors[k][0] + '</br>';
-                        // }
-                        // Swal.fire({
-                        //     type: 'warning',
-                        //     html: txt_errors,
-                        // })
+                        $(".ajax_waiting").removeClass("loading");
+                        var obj_errors = error.responseJSON.errors;
+                        var txt_errors = '';
+                        for (k of Object.keys(obj_errors)) {
+                            txt_errors += obj_errors[k][0] + '</br>';
+                        }
+                        Swal.fire({
+                            type: 'warning',
+                            html: txt_errors,
+                        })
                     }
                 })
             })
@@ -629,13 +659,18 @@
                         link_video  : link_video,
                     },
                     dataType: 'json',
+                    beforeSend: function() {
+                        $(".ajax_waiting").addClass("loading");
+                    },
                     success: function (response) {
+                        $(".ajax_waiting").removeClass("loading");
                         if(response.status == '200'){
                             $('#editVideoModal').modal('hide')
                             // $('#listVideo').modal('toggle')
                         }
                     },
                     error: function (error) {
+                        $(".ajax_waiting").removeClass("loading");
                         var obj_errors = error.responseJSON.errors;
                         var txt_errors = '';
                         for (k of Object.keys(obj_errors)) {
@@ -678,7 +713,11 @@
                                 video_id : video_id
                             },
                             dataType: 'json',
+                            beforeSend: function() {
+                                $(".ajax_waiting").addClass("loading");
+                            },
                             success: function (response) {
+                                $(".ajax_waiting").removeClass("loading");
                                 if(response.status == '200'){
                                     // sefl.parent().remove();
                                     // console.log(self.parent().children('span'))
@@ -695,7 +734,7 @@
                                 }
                             },
                             error: function () {
-        
+                                $(".ajax_waiting").removeClass("loading");
                             }
                         })                        
                     }
@@ -761,47 +800,65 @@
 
             //// upload video updated
             $("#editVideoModal #file-mp4-upload-off-updated").change(function(){
-                $.ajaxSetup(
-                    {
-                        headers:
-                        {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-                var file = document.getElementById("file-mp4-upload-off-updated").files[0];
-                var extension = document.getElementById("file-mp4-upload-off-updated").files[0].name;
-                extension = extension.split(".");
-                extension_input = extension[extension.length - 1];
-                extension_input = extension_input.toLowerCase();
-                var arrExtension = ["mp4"];
-                if(jQuery.inArray(extension_input, arrExtension) !== -1) {
-                    // $('.btn-upload, .or, .btn-link').hide();
-                    $('.progressBar').show();
-                    var formdata = new FormData();
-                    formdata.append("file-mp4-upload-off", file);
-                    formdata.append("_token", $('meta[name="csrf-token"]').attr('content'));
-                    // formdata.append("data", "{ demo : '{{ time() }}'  }");
-                    var ajax = new XMLHttpRequest();
-                    ajax.upload.addEventListener("progress", progressHandler, false);
-                    ajax.addEventListener("load", completeHandlerEdit, false);
-                    ajax.addEventListener("error", errorHandler, false);
-                    ajax.addEventListener("abort", abortHandler, false);
-                    ajax.open("POST", "{{ url('/') }}/saveFileAjax");
-                    ajax.setRequestHeader("X-CSRF-Token", $('meta[name="csrf-token"]').attr('content'));
-                    ajax.send(formdata);
-                } else {
+                if(uploading){
                     Swal.fire({
                         type: 'warning',
-                        html: 'Lỗi định dạng.',
+                        html: 'Bạn chỉ có thể upload khi tiến trình upload trước của bạn đã hoàn tất.',
                         allowOutsideClick: false,
                     })
+                }else{
+                    $.ajaxSetup(
+                        {
+                            headers:
+                            {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    var file = document.getElementById("file-mp4-upload-off-updated").files[0];
+                    var extension = document.getElementById("file-mp4-upload-off-updated").files[0].name;
+                    extension = extension.split(".");
+                    extension_input = extension[extension.length - 1];
+                    extension_input = extension_input.toLowerCase();
+                    var arrExtension = ["mp4"];
+                    if(jQuery.inArray(extension_input, arrExtension) !== -1) {
+                        // $('.btn-upload, .or, .btn-link').hide();
+                        $('.progressBar').show();
+                        var formdata = new FormData();
+                        formdata.append("file-mp4-upload-off", file);
+                        formdata.append("_token", $('meta[name="csrf-token"]').attr('content'));
+                        // formdata.append("data", "{ demo : '{{ time() }}'  }");
+                        var ajax = new XMLHttpRequest();
+                        ajax.upload.addEventListener("progress", progressHandler, false);
+                        ajax.addEventListener("load", completeHandlerEdit, false);
+                        ajax.addEventListener("error", errorHandler, false);
+                        ajax.addEventListener("abort", abortHandler, false);
+                        ajax.open("POST", "{{ url('/') }}/saveFileAjax");
+                        ajax.setRequestHeader("X-CSRF-Token", $('meta[name="csrf-token"]').attr('content'));
+                        ajax.send(formdata);
+                    } else {
+                        Swal.fire({
+                            type: 'warning',
+                            html: 'Lỗi định dạng.',
+                            allowOutsideClick: false,
+                        })
+                    }
+                    $('#file-mp4-upload-off-updated').val('');
                 }
-                $('#file-mp4-upload-off-updated').val('');
+
+                $("#editVideoModal #file-mp4-upload-off-updated").val("")
             });
 
             //// upload video
             $("#addVideoModal #file-mp4-upload-off").change(function(){
-                uploadFile();
+                if(uploading){
+                    Swal.fire({
+                        type: 'warning',
+                        html: 'Bạn chỉ có thể upload khi tiến trình upload trước của bạn đã hoàn tất.',
+                        allowOutsideClick: false,
+                    })
+                }else{
+                    uploadFile();
+                }
             });
 
             function uploadFile(){
@@ -844,23 +901,42 @@
             }
 
             function progressHandler(event){
+                uploading = true;
+                $('.upload-new-video').hide();
+                $('.upload-old-video').hide();
+                $('.uploading-new-video').show();
+                $('.uploading-old-video').show();
+                $('.save-add-video').attr('disabled', true);
+                $('.cancel-add-video').attr('disabled', true);
+                $('.save-edit-video').attr('disabled', true);
+                $('.cancel-edit-video').attr('disabled', true);
                 var percent = (event.loaded / event.total) * 100;
-                console.log(percent);
                 var type_txt = checkTypeFile(extension_input);
                 waitting_upload_file = true;
 
                 $(".progress-bar").css("width", Math.round(percent) + "%");
                 $(".progress-bar").html(Math.round(percent) + "%");
+                console.log(uploading)
             }
 
             function completeHandler(event) {
                 unsaved = true;
                 textUpload = event.target.responseText;
-                // alert(textUpload)
                 $('#fileName').val(textUpload);
                 $('#addVideoModal video').removeClass('hidden');
                 $('#addVideoModal video').attr('src', "{{ url('uploads/videos') }}/" + textUpload + '.mp4');
                 $("#addVideoModal video")[0].load();
+                uploading = false;
+                $('.upload-new-video').show();
+                $('.upload-old-video').show();
+                $('.uploading-new-video').hide();
+                $('.uploading-old-video').hide();
+                $('.save-add-video').attr('disabled', false);
+                $('.cancel-add-video').attr('disabled', false);
+                $('.save-edit-video').attr('disabled', false);
+                $('.cancel-edit-video').attr('disabled', false);
+                $("#addVideoModal #file-mp4-upload-off").on();
+                console.log(uploading);
             }
 
             function completeHandlerEdit(event) {
@@ -877,13 +953,14 @@
             }
 
             function abortHandler(event) {
-                // swal({
-                //   title: "Are you sure?",
-                //   text: "Once cancel, you will not be able to recover this imaginary file!",
-                //   icon: "warning",
-                //   buttons: true,
-                //   dangerMode: true,
-                // });
+
+                swal({
+                  title: "Are you sure?",
+                  text: "Once cancel, you will not be able to recover this imaginary file!",
+                  icon: "warning",
+                  buttons: true,
+                  dangerMode: true,
+                });
 
                 //alert("Upload Aborted");
                 //document.getElementById("status").innerHTML = "Upload Aborted";

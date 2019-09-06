@@ -23,7 +23,7 @@
                             <a href="#buyed" class="buyed" data-toggle="tab"><i class="fa fa-user"></i>&nbsp;&nbsp;Hồ sơ</a>
                         </li> --}}
                         <li data-toggle="modal" data-target="#myModalChangePass" data-dismiss="modal" class="pull-right">
-                            <button type="button" class="btn btn-warning">Thay đổi mật khẩu</button>
+                            <button id="studentChangePassword" type="button" class="btn btn-warning">Thay đổi mật khẩu</button>
                         </li>
                         <div id="myModalChangePass" class="modal fade" role="dialog" >
                             <div class="modal-dialog modal-login">
@@ -183,6 +183,14 @@
     var wordCount;
     var characterCount = 0;
     $(document).ready(function(){
+        var teacher = jQuery.noConflict();
+
+        teacher('#studentChangePassword').click(function(e){
+            e.stopPropagation()
+            e.preventDefault()
+            $('#resetStudentChangePass').click()
+            $('#myModalChangePass').modal("toggle")
+        })
         // alert(12345)
         ClassicEditor
             .create( document.querySelector( '#editor-cv' ) )
@@ -226,7 +234,7 @@
         var link_base64;
 
         $("#save-profile").click(function(){
-            link_base64 = $('#image-cropper').cropit('export');
+            link_base64 = teacher('#image-cropper').cropit('export');
 			// Validate Birthday
 			if (!validationDate( $('#datepicker').val() )) {
                 Swal.fire({
@@ -310,13 +318,11 @@
                 url: "{{ url('user/teacher/profile') }}",
                 data: data,
                 dataType: 'json',
-                // beforeSend: function() {
-                //     $("#pre_ajax_loading").show();
-                // },
-                // complete: function() {
-                //     $("#pre_ajax_loading").hide();
-                // },
+                beforeSend: function() {
+                    $(".ajax_waiting").addClass("loading");
+                },
                 success: function (response) {
+                    $(".ajax_waiting").removeClass("loading");
                     if(response.status == 200){
                         Swal.fire({
                             type: 'success',
@@ -335,6 +341,7 @@
                     }
                 },
                 error: function (error) {
+                    $(".ajax_waiting").removeClass("loading");
                     var obj_errors = error.responseJSON.errors;
                     // console.log(obj_errors)
                     var txt_errors = '';
@@ -350,7 +357,7 @@
             return;
         });  
 
-        $('#image-cropper').cropit();
+        teacher('#image-cropper').cropit();
 
         $('.select-image-btn').click(function() {
             $('.cropit-image-input').click();

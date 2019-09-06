@@ -15,6 +15,7 @@ use App\Transformers\CommentVideoTransformer;
 use App\Video;
 use Auth;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreDiscussionRequest;
 
 class CommentController extends Controller
 {
@@ -25,7 +26,7 @@ class CommentController extends Controller
         $this->middleware('auth');
     }
 
-    public function storeCommentVideo(Request $request)
+    public function storeCommentVideo(StoreDiscussionRequest $request)
     {
         $video = Video::find($request->videoId);
         if ($video) {
@@ -226,19 +227,6 @@ class CommentController extends Controller
             return \Response::json(array('status' => '200', 'message' => 'Cập nhật thông tin thành công!', 'commentCourse' => fractal($commentCourse, new CommentCourseTransformer())->toArray()));
         }
         return \Response::json(array('status' => '404', 'message' => 'Khóa học không tồn tại!'));
-    }
-
-    public function seeMore(Request $request)
-    {
-        if ($request->course_id != null && $request->take != null && $request->skip != null) {
-            $course = Course::find($request->course_id);
-            if ($course) {
-                $commentCourses = $course->takeComment($request->skip, $request->take);
-                return view('components.question-answer-list', ['comments' => $commentCourses]);
-            }
-            return '';
-        }
-        return '';
     }
 
     public function insertStarTeacher(Request $request)

@@ -9,6 +9,7 @@
         {{-- <div class="ln-desc-content">
         {!!$main_video->description!!}
         </div> --}}
+        @if ($isStudent)
         <div class="ln-desc-achv">
             <p>Đã hoàn thành {{$video_done_count}} trên {{$video_count}} bài học</p>
             <div class="ln-progress-bar">
@@ -33,6 +34,8 @@
                 @endif
             </div>
         </div>
+            
+        @endif
         <br>
         <div class="ln-desc-btn-play">
             <button class="btn btn-warning" id="lnDescBtnPlay" title='Chạy bài giảng'><i class="fas fa-play-circle"></i> Chạy bài giảng</button>

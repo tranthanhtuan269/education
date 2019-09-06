@@ -85,7 +85,6 @@ class VideoController extends Controller
                 }
             }
 
-
             $unit = $video->unit;
             $unit->video_count += 1;
             $unit->save();

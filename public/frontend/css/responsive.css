@@ -1368,6 +1368,7 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        width: 85%;
     }
     .my-30px{
         margin-top: 30px;

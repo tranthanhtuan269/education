@@ -31,7 +31,7 @@ class StoreCourseRequest extends FormRequest
             'will_learn'        => 'required',
             'requirement'       => 'required',
             'price'             => 'required|numeric',
-            'approx_time'       => 'required|numeric',
+            'approx_time'       => 'required|numeric|min:0|max:999',
         ];
     }
 
@@ -51,8 +51,11 @@ class StoreCourseRequest extends FormRequest
             'price.required'            => 'Bạn chưa nhập giá khóa học.',
             'price.numeric'             => 'Giá khóa học phải là số.',
 
-            'approx_time.required'      => 'Bạn chưa nhập Thời gian ước tính.',
-            'approx_time.numeric'       => 'Thời gian ước tính phải là số.',
+            'approx_time.required'      => 'Bạn chưa nhập Thời gian dự kiến hoàn thành.',
+            'approx_time.numeric'       => 'Thời gian dự kiến hoàn thành phải là số.',
+            'approx_time.min'           => 'Thời gian dự kiến hoàn thành không thể <0.',
+            'approx_time.numeric'       => 'Thời gian dự kiến hoàn thành quá lớn.',
+
             'requirement.required'      => 'Bạn chưa nhập Yêu cầu của khóa học.'
         ];
     }

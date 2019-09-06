@@ -1,7 +1,27 @@
-var isAutoplay = localStorage.getItem('autoplay')
-var baseURL = $('base').attr('href');
+const baseURL = $('base').attr('href');
+
+
+
+
+let isAutoplay;
+if(localStorage.getItem('autoplay') != null){
+    isAutoplay = localStorage.getItem('autoplay')
+}else{
+    const newLocal = 'false';
+    localStorage.setItem('autoplay', newLocal)
+    isAutoplay = localStorage.getItem('autoplay')
+}
+
 $(document).ready(function () {
-    
+    //Check browser có phải là firefox hay không để hiện thông báo
+    var isFirefox = typeof InstallTrigger !== 'undefined';
+    if(isFirefox && isAutoplay){
+        Swal.fire({
+            type : 'info',
+            html: 'Bạn đang bật tính năng tự động chạy bài giảng. <br> Từ phiên bản Firefox 66, Firefox đã ngừng hỗ trợ theo mặc định tính năng tự động chạy video/audio. Để bật tính năng này cho trình duyệt Firefox của bạn, vui lòng làm theo hướng dẫn tại <a href="https://support.mozilla.org/vi/kb/block-autoplay" target="_blank">đây.</a>'
+        })
+    }
+
     // Set up the player
     var isPlayerAutoplay = false
     if(isAutoplay == null){
@@ -10,12 +30,12 @@ $(document).ready(function () {
         isPlayerAutoplay = true
         $(".ln-btn-autoplay").prepend("<i class='fas fa-toggle-on'></i>")
         $(".learning-desc-panel").hide()
-        
+
     }else if(isAutoplay == "false"){
         isPlayerAutoplay = false
         $(".ln-btn-autoplay").prepend("<i class='fas fa-toggle-off'></i>")
     }
-        
+
 
     $(".ln-btn-autoplay").click(function () {
         if(localStorage.getItem('autoplay') == "true"){
@@ -31,14 +51,14 @@ $(document).ready(function () {
             $(".vjs-subtitle-control.btn.vjs-control.vjs-button button").prepend("<i class='fas fa-toggle-on' id='btnAutoplay'></i>")
             $(".ln-btn-autoplay").prepend("<i class='fas fa-toggle-on'></i>")
         }else{
-            localStorage.setItem('autoplay', true)   
+            localStorage.setItem('autoplay', true)
             $(".ln-btn-autoplay .fa-toggle-off").remove()
             $(".vjs-subtitle-control.btn.vjs-control.vjs-button button .fa-toggle-off").remove()
             $(".vjs-subtitle-control.btn.vjs-control.vjs-button button").prepend("<i class='fas fa-toggle-on' id='btnAutoplay'></i>")
             $(".ln-btn-autoplay").prepend("<i class='fas fa-toggle-on'></i>")
         }
     })
-    
+
     var options = {
         controls: true,
         preload: 'auto',
@@ -49,7 +69,7 @@ $(document).ready(function () {
         playbackRates: [0.5, 1, 1.5, 2]
     }
     var player = videojs('my-video', options)
-    
+
     prePlay(360);
     initializePlayerControlBar()
     toggleBigPlayButton()
@@ -66,24 +86,24 @@ $(document).ready(function () {
             $('.group-btn-utilities div').hide()
         }else{
             $('.group-btn-utilities div').show()
-        }       
+        }
     })
 
 
-    var imageAddr = "https://3.bp.blogspot.com/-p4_qEVLk2dk/V5ZOdoiObWI/AAAAAAAAB74/8F9sCzKkNSY/chien-binh-sieu-am-thanh.jpg"; 
+    var imageAddr = "https://3.bp.blogspot.com/-p4_qEVLk2dk/V5ZOdoiObWI/AAAAAAAAB74/8F9sCzKkNSY/chien-binh-sieu-am-thanh.jpg";
     // var imageAddr = "http://www.kenrockwell.com/contax/images/g2/examples/31120037-5mb.jpg";
     var downloadSize = 40128; //bytes
-    
+
 	function InitiateSpeedDetection() {
         window.setTimeout(MeasureConnectionSpeed, 1);
-	};    
+	};
 
 	if (window.addEventListener) {
 	    window.addEventListener('load', InitiateSpeedDetection, false);
 	} else if (window.attachEvent) {
 	    window.attachEvent('onload', InitiateSpeedDetection);
     }
-    
+
     function prePlay(autoSelected){
         var source = []
 
@@ -94,7 +114,7 @@ $(document).ready(function () {
                     type: 'application/x-mpegURL',
                     label: key,
                     selected: true,
-                })    
+                })
             }else{
                 source.push({
                     src: videoSource[key],
@@ -113,15 +133,15 @@ $(document).ready(function () {
 	        endTime = (new Date()).getTime();
 	        showResults();
 	    }
-	    
+
 	    download.onerror = function (err, msg) {
 	        // ShowProgressMessage("Invalid image, or error downloading");
 	    }
-	    
+
 	    startTime = (new Date()).getTime();
 	    var cacheBuster = "?nnn=" + startTime;
 	    download.src = imageAddr + cacheBuster;
-	    
+
 	    function showResults() {
 	        var duration = (endTime - startTime) / 1000;
 	        var bitsLoaded = downloadSize * 8;
@@ -139,21 +159,32 @@ $(document).ready(function () {
             }
 	    }
 	}
-    
+
     function checkIfVideoIsPlaying(){
-        console.log(player.paused());        
+        console.log(player.paused());
     }
-    
+    player.on('error', function(e){
+        var mediaError = player.error() 
+        if(mediaError.code == 4){
+            return Swal.fire({
+                type: 'info',
+                text: 'Video bài giảng chưa được duyệt!'
+            })
+        }
+         
+    })
 
     videojs('my-video').ready(function () {
+        
         this.on('timeupdate', function () {
-            // console.log(this.currentTime());
-            $(".player-current-time").html(convertSecondToTimeFormat(this.currentTime()) + ' / ')
-            $(".player-end-time").html(convertSecondToTimeFormat(this.duration()))
+            if(this.bufferedPercent() > 0){                
+                $(".player-current-time").text(convertSecondToTimeFormat(this.currentTime()) + ' / ')
+                $(".player-end-time").text(convertSecondToTimeFormat(player.duration()))
+            }
         })
+        
     });
-
-    $("#btnAutoplay").click(function () {
+    $(document).on('click',"#btnAutoplay", function(){
         if(localStorage.getItem('autoplay') == "true"){
             localStorage.setItem('autoplay', false)
             $("#btnAutoplay").removeClass("fa-toggle-on")
@@ -164,7 +195,7 @@ $(document).ready(function () {
             $("#btnAutoplay").removeClass("fa-toggle-off")
             $("#btnAutoplay").addClass("fa-toggle-on")
         }else{
-            localStorage.setItem('autoplay', true)   
+            localStorage.setItem('autoplay', true)
             $("#btnAutoplay").removeClass("fa-toggle-off")
             $("#btnAutoplay").addClass("fa-toggle-on")
         }
@@ -210,31 +241,36 @@ $(document).ready(function () {
         e.preventDefault()
         var video_id = $(this).attr("data-parent")
         var section_dom = $(this).parent()
+        var isStudent = $(this).attr("data-isstudent")
         section_dom.each(function (index, value){
             // alert(index)
         })
-        
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        var request = $.ajax({
-            method: 'POST',
-            url: "/user-course/update-watched",
-            data: {
-                'video_id' : video_id
-            },
-            dataType: "json",
-        });
-        request.done(function(){
+        if(isStudent){
+            // alert(isStudent)
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            var request = $.ajax({
+                method: 'POST',
+                url: "/user-course/update-watched",
+                data: {
+                    'video_id' : video_id
+                },
+                dataType: "json",
+            });
+            request.done(function(){
+                window.location.href = ("/learning-page/"+ course_id +"/lecture/"+ video_id)
+            })
+        }else{
             window.location.href = ("/learning-page/"+ course_id +"/lecture/"+ video_id)
-        })
+        }
     })
 
 
-    
-    
+
+
     function seekTime(secs) {
         var seekingTime   = player.currentTime() + secs
         var videoDuration = player.duration()
@@ -249,7 +285,7 @@ $(document).ready(function () {
     }
 
     function clickToPlay() {
-        //btn continue 
+        //btn continue
         $("#lnDescBtnPlay").click(function () {
             player.play()
             $(".learning-desc-panel").fadeOut()
@@ -288,8 +324,8 @@ $(document).ready(function () {
             $(".learning-lecture-list").addClass('active')
             $(".learning-notes").removeClass("active")
             $(".learning-discussion").removeClass("active")
-            $(".learning-files").removeClass("active")            
-            
+            $(".learning-files").removeClass("active")
+
             $("#my-video").removeClass('rightbarActive')
             $("#my-video").addClass('leftbarActive')
 
@@ -311,7 +347,7 @@ $(document).ready(function () {
 
             $(".learning-lecture-list").removeClass('active')
             $("#my-video").removeClass('leftbarActive')
-            
+
             $(".learning-desc-panel-body").removeClass('leftbarActive')
             $(".ln-desc-bottom").removeClass("leftbarActive")
 
@@ -337,21 +373,21 @@ $(document).ready(function () {
         } else {
             unActiveRightBar()
             $(".learning-discussion").removeClass("active")
-            
+
         }
     }
-    
+
     function toggleFiles() {
         if(!$(".learning-files").hasClass('active')){
             // activeRightBar()
             $(".learning-files").addClass("active")
             $(".learning-notes").removeClass("active")
-            $(".learning-discussion").removeClass("active")            
+            $(".learning-discussion").removeClass("active")
             $(".learning-lecture-list").removeClass('active')
         } else {
             unActiveRightBar()
             $(".learning-files").removeClass("active")
-            
+
         }
     }
 
@@ -361,12 +397,12 @@ $(document).ready(function () {
             // activeRightBar()
             $(".learning-notes").addClass("active")
             $(".learning-files").removeClass("active")
-            $(".learning-discussion").removeClass("active")            
+            $(".learning-discussion").removeClass("active")
             $(".learning-lecture-list").removeClass('active')
         } else {
             unActiveRightBar()
             $(".learning-notes").removeClass("active")
-            
+
         }
     }
 
@@ -380,7 +416,7 @@ $(document).ready(function () {
 
         // $(".ln-desc-bottom").removeClass("leftbarActive")
         $(".ln-desc-bottom").addClass("rightbarActive")
-        
+
         // $(".vjs-custom-big-play-button").removeClass('leftbarActive')
         $(".vjs-custom-big-play-button").addClass('rightbarActive')
         // $(".vjs-custom-big-play-button").fadeIn()
@@ -414,7 +450,7 @@ $(document).ready(function () {
         checkIfVideoIsPlaying()
 
     }
-    
+
 
     function initializePlayerControlBar() {
         //Time Controller Buttons
@@ -430,8 +466,8 @@ $(document).ready(function () {
 
         //Displaying Time
         var groupPlayerTimeDiv = "<div class='group-player-time btn'></div>"
-        var currentTimeSpan = "<span class='player-current-time'>00:00 / </span>"
-        var endTimeSpan = "<span class='player-end-time'> 00:00</span>"
+        var currentTimeSpan = "<span class='player-current-time'></span>"
+        var endTimeSpan = "<span class='player-end-time'></span>"
 
         $("#btnForward").after(groupPlayerTimeDiv)
         $(".group-player-time").append(currentTimeSpan)
@@ -462,12 +498,13 @@ $(document).ready(function () {
         $(".vjs-quality-selector .vjs-menu-button").append(qualitySelectorIcon)
 
         //Button Autoplay
+        var btnAutoplay
         if(localStorage.getItem('autoplay') == "true"){
-            var btnAutoplay = "<div class='vjs-subtitle-control btn vjs-control vjs-button' data-toggle='tooltip' data-placement='top' title='Tự động chạy'><button class='btn'><i class='fas fa-toggle-on' id='btnAutoplay'></i></button></div>"
+            btnAutoplay = "<div class='vjs-subtitle-control btn vjs-control vjs-button' data-toggle='tooltip' data-placement='top' title='Tự động chạy'><button class='btn'><i class='fas fa-toggle-on' id='btnAutoplay'></i></button></div>"
             $(".vjs-quality-selector").after(btnAutoplay)
         }else{
-            var btnAutoplay = "<div class='vjs-subtitle-control btn vjs-control vjs-button' data-toggle='tooltip' data-placement='top' title='Tự động chạy'><button class='btn'><i class='fas fa-toggle-off' id='btnAutoplay'></i></button></div>"
-            $(".vjs-quality-selector").after(btnAutoplay)            
+            btnAutoplay = "<div class='vjs-subtitle-control btn vjs-control vjs-button' data-toggle='tooltip' data-placement='top' title='Tự động chạy'><button class='btn'><i class='fas fa-toggle-off' id='btnAutoplay'></i></button></div>"
+            $(".vjs-quality-selector").after(btnAutoplay)
         }
 
         // $('.vjs-mute-control.vjs-control.vjs-button .vjs-control-text').text('Tắt âm')
@@ -487,11 +524,11 @@ $(document).ready(function () {
         //     $(".ln-btn-complete i").remove()
         //     $(".ln-btn-complete").append("<i class='fas fa-circle'></i>")
         // }
-        
+
         alert("This Function is still in development!!")
     }
 
-    
+
 
 });
 

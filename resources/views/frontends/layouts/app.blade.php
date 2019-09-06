@@ -40,6 +40,7 @@
     <base href="{{ url('/') }}">
 </head>
 <body>
+    <div class="ajax_waiting"></div>
         <div id="fb-root"></div>
         <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v4.0&appId=2474435149283816&autoLogAppEvents=1"></script>
     {{-- <div class="notifications alert alert-danger fade in alert-dismissible">
@@ -260,7 +261,7 @@
             <a class="logo-mobile" href="/"><img src="{{ asset('frontend/images/tab_logo.png') }}" alt=""/></a>
             <a class="cart-mobile" href="{{route('cart.show')}}">
                 <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                {{-- <span class="unica-sl-cart" style="top:1px;"><b class="number-in-cart">0</b></span> --}}
+                <span class="unica-sl-cart" style="top:1px; display: none;"><b class="number-in-cart">0</b></span>
             </a>
             <div class="login-mobile">
                 <span class="ava-img" data-toggle="collapse" data-target="#userPanel">
@@ -336,7 +337,7 @@
                                 <a href="{{route('cart.show')}}" class="unica-cart">
 
                                     <img src="{{ asset('frontend/images/tab_cart.png') }}" alt="" style="width: 21px;" />
-                                    <span class="unica-sl-cart"><b class="number-in-cart">0</b></span>
+                                    <span class="unica-sl-cart" style="display: none;"><b class="number-in-cart"></b></span>
                                 </a>
                                 <li>
 
@@ -373,15 +374,13 @@
 
                                             @endif
                                             <li class="divider"></li>
-                                            <li><a href="{{ url('user/logout') }}" class="btnDangxuat btn-google-logout"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
+                                            <li><a href="{{ url('user/logout') }}" class="btnDangxuat btn-google-logout btn-logout-account"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
 
                                             @if($_SERVER['SERVER_NAME'] === "timtruyen.online")
                                                 <div class="g-signin2" data-onsuccess="onSignIn" style="display:none"></div>
                                                 <script src="https://apis.google.com/js/platform.js" async></script>
                                                 <script>
-                                                    $('.btn-google-logout').click(function(){
-                                                        
-                                                    })
+                                                    // $('.btn-google-logout').click()
                                                     function onSignIn(googleUser) {
                                                         var profile = googleUser.getBasicProfile();
 
@@ -393,11 +392,30 @@
                                                     }
                                                 </script>
                                             @endif
+                                            <script>
+                                                $('.btn-logout-account').click(function(){
+                                                    localStorage.removeItem('cart')
+                                                })
+                                            </script>
                                         </ul>
                                     </li>
                                     @else
-                                    <li class="special" data-toggle="modal" data-target="#myModalLogin" data-dismiss="modal"><a class="unica-log-acc" href="javascript:void(0)" >Đăng nhập</a></li>
-                                    <li class="special button-sign-up" data-toggle="modal" data-target="#myModalRegister" data-dismiss="modal"><a class="unica-reg-acc" href="javascript:void(0)">Đăng ký</a></li>
+                                    <li class="special" data-toggle="modal" data-target="#myModalLogin" data-dismiss="modal"><a class="unica-log-acc" href="">Đăng nhập</a></li>
+                                    <li class="special button-sign-up" data-toggle="modal" data-target="#myModalRegister" data-dismiss="modal"><a class="unica-reg-acc" href="">Đăng ký</a></li>
+                                    <script>
+                                        $('.unica-log-acc').click(function(e){
+                                            e.stopPropagation()
+                                            e.preventDefault()
+                                            $('#resetFormsLogin').click()
+                                            $("#myModalLogin").modal("toggle"); 
+                                        })
+                                        $('.unica-reg-acc').click(function(e){
+                                            e.stopPropagation()
+                                            e.preventDefault()
+                                            $('#resetFormsSignup').click()
+                                            $("#myModalRegister").modal("toggle"); 
+                                        })
+                                    </script>
                                     <div id="myModalLogin" class="modal fade" role="dialog" >
                                         <div class="modal-dialog modal-login">
                                             <div class="modal-content">
@@ -457,6 +475,7 @@
                                                         <div class="form-group">
                                                             <input type="button" class="btn btn-success btn-block btn-lg" value="Đăng nhập" onclick="loginAjax()">
                                                         </div>
+                                                        <input id="resetFormsLogin" type="reset" value="Reset the form" style="display:none">
                                                     </form>
                                                     <div class="forgot-password">
                                                         {{-- <div>
@@ -515,6 +534,7 @@
                                                         <div class="form-group">
                                                             <input type="button" class="btn btn-success btn-block btn-lg" value="Đăng ký" onclick="registerAjax()">
                                                         </div>
+                                                        <input id="resetFormsSignup" type="reset" value="Reset the form" style="display:none">
                                                     </form>				
                                                 </div>
                                                 <div class="modal-footer">
@@ -617,6 +637,8 @@
         var localStoreageCart = JSON.parse(localStorage.getItem('cart'))
         if(localStoreageCart.length >= 1){
             $('.unica-sl-cart').css('display', 'block')
+        }else{
+            $('.unica-sl-cart').css('display', 'none')
         }
 
         @if(Auth::check())
@@ -646,12 +668,13 @@
                         $("#mailBoxNavDropdown").append(html)                            
                     });
                     
-                    $(".unica-sl-notify b").text(response.unread_emails.length)
+                    $(".unica-sl-notify b").text(response.number_unread_emails)
 
                     if(response.unread_emails.length >= 1){
                         // $(".unica-sl-notify").remove()
                         $('.unica-sl-notify').css('display', 'block' )
                     }
+                    // console.log(response.number_unread_emails)
 
                 },
                 error: function (response) {
@@ -806,15 +829,21 @@
                 var total_price = 0;
                 var total_real_price = 0;
                 var total_amount = 0;
+                
                 number_items_in_cart.forEach(item => {
                     total_price += item.coupon_price
                     total_real_price += item.real_price
                     total_amount++;
                 })
+                // alert(total_price)
+                // alert(total_real_price)
                 
                 if(total_price == total_real_price){
-                    $('.current-price span').text(number_format(total_price, 0, '.', '.') + " ₫");
+                    $('.current-price span').text(number_format(total_price, 0, '.', '.') + " ₫")
+                    $('.initial-price span').remove()
+                    $('.percent-off span').remove()
                 }else{
+                    $('.current-price span').text(number_format(total_price, 0, '.', '.') + " ₫")
                     $('.initial-price span').text(number_format(total_real_price, 0, '.', '.') + " ₫");
                     $('.percent-off span').text("Tiết kiệm " + Math.floor(100-(total_price/total_real_price)*100) + "%");
                 }
@@ -824,7 +853,7 @@
                     $(".cart-page-empty").addClass('active')
                     $(".cart-page-content").removeClass('active')
                     // $('.unica-sl-cart').remove()
-                    // $('.unica-sl-cart').css('display', 'none' )
+                    $('.unica-sl-cart').css('display', 'none' )
 
                 }else{
 
@@ -891,7 +920,7 @@
                 // },
                 success: function (response) {
                     if(response.status == 200){
-                        location.reload(true);
+                        location.reload()
                     }else{
                         Swal.fire({
                             type: 'warning',
@@ -1013,6 +1042,18 @@
                 $('#eye').addClass('fa-eye')
             }
         }
+        
+        $(document).ready(function(){
+            Swal.update({
+                allowOutsideClick: false,
+                allowEscapeKey: false
+            })	
+            Swal.mixin({
+                allowOutsideClick: false,
+                allowEscapeKey: false
+            })
+        })
+
     </script>
 </body>
 </html>
