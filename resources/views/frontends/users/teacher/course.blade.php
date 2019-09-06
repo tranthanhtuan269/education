@@ -615,7 +615,11 @@
                     processData: false,
                     contentType: false,
                     // dataType: 'json',
+                    beforeSend: function() {
+                        $(".ajax_waiting").addClass("loading");
+                    },
                     success: function (response) {
+                        $(".ajax_waiting").removeClass("loading");
                         if(response.status == '200'){
                             $('#addVideoModal').modal('hide')
                             $('#listVideo').modal('toggle')
@@ -623,6 +627,7 @@
                         }
                     },
                     error: function (error) {
+                        $(".ajax_waiting").removeClass("loading");
                         var obj_errors = error.responseJSON.errors;
                         var txt_errors = '';
                         for (k of Object.keys(obj_errors)) {
@@ -652,13 +657,18 @@
                         link_video  : link_video,
                     },
                     dataType: 'json',
+                    beforeSend: function() {
+                        $(".ajax_waiting").addClass("loading");
+                    },
                     success: function (response) {
+                        $(".ajax_waiting").removeClass("loading");
                         if(response.status == '200'){
                             $('#editVideoModal').modal('hide')
                             // $('#listVideo').modal('toggle')
                         }
                     },
                     error: function (error) {
+                        $(".ajax_waiting").removeClass("loading");
                         var obj_errors = error.responseJSON.errors;
                         var txt_errors = '';
                         for (k of Object.keys(obj_errors)) {
@@ -701,7 +711,11 @@
                                 video_id : video_id
                             },
                             dataType: 'json',
+                            beforeSend: function() {
+                                $(".ajax_waiting").addClass("loading");
+                            },
                             success: function (response) {
+                                $(".ajax_waiting").removeClass("loading");
                                 if(response.status == '200'){
                                     // sefl.parent().remove();
                                     // console.log(self.parent().children('span'))
@@ -718,7 +732,7 @@
                                 }
                             },
                             error: function () {
-        
+                                $(".ajax_waiting").removeClass("loading");
                             }
                         })                        
                     }
