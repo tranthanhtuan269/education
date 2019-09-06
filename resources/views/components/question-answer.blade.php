@@ -1,15 +1,15 @@
 <div class="box clearfix">
     <div class="col-sm-3">
         @if($comment->userRole->user != null)
-        @if(strlen($comment->userRole->user->avatar) > 0)
-        <img class="avatar" src="{{ url('/frontend/') }}/{{ $comment->userRole->user->avatar }}" alt="" />
-        @else
-        <img class="avatar" src="{{ url('/frontend/') }}/images/avatar.jpg" alt="" />
-        @endif
-        <div class="info-account">
-            <p class="interval">{{ $comment->created_at }}</p>
-            <p class="name">{{ $comment->userRole->user->name }}</p>
-        </div>
+            @if(strlen($comment->userRole->user->avatar) > 0)
+            <img class="avatar" src="{{ url('/frontend/') }}/{{ $comment->userRole->user->avatar }}" alt="" />
+            @else
+            <img class="avatar" src="{{ url('/frontend/') }}/images/avatar.jpg" alt="" />
+            @endif
+            <div class="info-account">
+                <p class="interval">{{ $comment->created_at }}</p>
+                <p class="name">{{ $comment->userRole->user->name }}</p>
+            </div>
         @else
         <img class="avatar" src="{{ url('/frontend/images/avatar.jpg') }}" alt="" />
         <div class="info-account">
@@ -57,13 +57,17 @@
                 <div>
                     @if($reply->userRole->user && strlen($reply->userRole->user->avatar) > 0)
                     <img class="avatar" src="{{ url('/') }}/frontend/{{ $reply->userRole->user->avatar }}" alt="" />
-                    @else
-                    <img class="avatar" src="{{ url('/') }}/frontend/images/avatar.jpg" alt="" />
-                    @endif
                     <div class="info-account">
                         <p class="interval">{{ $reply->created_at }}</p>
                         <p class="name">{{ $reply->userRole->user->name }}</p>
                     </div>
+                    @else
+                    <img class="avatar" src="{{ url('/') }}/frontend/images/avatar.jpg" alt="" />
+                    <div class="info-account">
+                        <p class="interval">{{ $reply->created_at }}</p>
+                        <p class="name">Anonymous</p>
+                    </div>
+                    @endif
                 </div>
                 <div class="comment">
                     {!! $reply->content !!}
