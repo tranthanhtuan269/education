@@ -2486,12 +2486,12 @@ div[data-u="slides"] div div{
   width: 100%;
   word-break: break-word;
 }
-.document-field{
+.document-field, .edit-document-field{
   border: 1px solid lightgray;
   padding: 1em;
   margin-top: 1em;
 }
-.document-field>div{
+.document-field>div, .edit-document-field>div{
   margin-bottom: 0.5em;
 }
 

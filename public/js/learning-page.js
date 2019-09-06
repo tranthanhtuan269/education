@@ -163,7 +163,16 @@ $(document).ready(function () {
     function checkIfVideoIsPlaying(){
         console.log(player.paused());
     }
-
+    player.on('error', function(e){
+        var mediaError = player.error() 
+        if(mediaError.code == 4){
+            return Swal.fire({
+                type: 'info',
+                text: 'Video bài giảng chưa được duyệt!'
+            })
+        }
+         
+    })
 
     videojs('my-video').ready(function () {
         
@@ -173,6 +182,7 @@ $(document).ready(function () {
                 $(".player-end-time").text(convertSecondToTimeFormat(player.duration()))
             }
         })
+        
     });
     $(document).on('click',"#btnAutoplay", function(){
         if(localStorage.getItem('autoplay') == "true"){

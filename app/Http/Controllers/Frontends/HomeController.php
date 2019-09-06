@@ -68,7 +68,7 @@ class HomeController extends Controller
     {
         $keyword = $request->get('keyword');
         $results = [];
-
+        
         if ($keyword != '') {
             $keyword = trim($request->get('keyword'));
             $arr_course_id = User::join('user_roles', 'user_roles.user_id', '=', 'users.id')
@@ -760,6 +760,57 @@ class HomeController extends Controller
             $course->save();
         }
         echo "done";   
+    }
+
+    public function test(){
+
+        $courses = Course::get();
+        foreach($courses as $course){
+            if(count($course->userRoles) != 0){
+                echo(count($course->userRoles)-1).'<br>';
+                $course->student_count = (count($course->userRoles)-1);
+                $course->save();
+            }else{
+                $course->student_count = 0;
+                $course->save();
+            }
+        }
+        // $course = Course::find(1);
+        // dd($course->userRoles);
+
+        $teachers = Teacher::get();
+        foreach($teachers as $teacher){
+            $teacher->student_count = 0;
+            $teacher->save();
+        }
+
+        foreach($courses as $course){
+            if($course->Lecturers()->first() && $course->Lecturers()->first()->teacher){
+                $teacher = Teacher::find($course->Lecturers()->first()->teacher->id);
+                if($teacher){
+                    $teacher->student_count += $course->student_count;
+                    $teacher->save();
+                }
+            }
+        }
+        echo "done";
+    }
+
+    public function seeMore(Request $request)
+    {
+        $end = false;
+        if ($request->course_id != null && $request->take != null && $request->skip != null) {
+            $course = Course::find($request->course_id);
+            if ($course) {
+                if($course->comments()->count() == $request->skip + $request->take){
+                    $end = true;
+                }
+                $commentCourses = $course->takeComment($request->skip, $request->take);
+                return view('components.question-answer-list', ['comments' => $commentCourses, 'end' => $end]);
+            }
+            return '';
+        }
+        return '';
     }
 }
 

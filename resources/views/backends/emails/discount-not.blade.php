@@ -11,7 +11,7 @@
     <h3>Chào {{$userName}},</h3>
     <div>{!!$mailContent!!}</div>
     
-    <p>Thanks,</p>
-    <p>Courdemy Support Team</p>
+    <p>Cảm ơn bạn,</p>
+    <p>Courdemy</p>
 </body>
 </html>

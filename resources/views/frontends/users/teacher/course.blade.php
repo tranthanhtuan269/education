@@ -276,7 +276,7 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-primary save-add-video">Lưu</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-default cancel-add-video" data-dismiss="modal">Đóng</button>
             </div>
         </div>
     </div>
@@ -340,7 +340,7 @@
 
             <div class="modal-footer">
                 <button class="btn btn-primary save-edit-video">Lưu</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-default cancel-edit-video" data-dismiss="modal">Đóng</button>
             </div>
         </div>
     </div>
@@ -519,6 +519,8 @@
                     keyboard: false
                 });
 
+                $('.edit-document-field').empty()
+
                 $.ajax({
                 method: 'GET',
                 url: "{{ url('/') }}/user/videos/"+video_id,
@@ -615,7 +617,11 @@
                     processData: false,
                     contentType: false,
                     // dataType: 'json',
+                    beforeSend: function() {
+                        $(".ajax_waiting").addClass("loading");
+                    },
                     success: function (response) {
+                        $(".ajax_waiting").removeClass("loading");
                         if(response.status == '200'){
                             $('#addVideoModal').modal('hide')
                             $('#listVideo').modal('toggle')
@@ -623,6 +629,7 @@
                         }
                     },
                     error: function (error) {
+                        $(".ajax_waiting").removeClass("loading");
                         var obj_errors = error.responseJSON.errors;
                         var txt_errors = '';
                         for (k of Object.keys(obj_errors)) {
@@ -652,13 +659,18 @@
                         link_video  : link_video,
                     },
                     dataType: 'json',
+                    beforeSend: function() {
+                        $(".ajax_waiting").addClass("loading");
+                    },
                     success: function (response) {
+                        $(".ajax_waiting").removeClass("loading");
                         if(response.status == '200'){
                             $('#editVideoModal').modal('hide')
                             // $('#listVideo').modal('toggle')
                         }
                     },
                     error: function (error) {
+                        $(".ajax_waiting").removeClass("loading");
                         var obj_errors = error.responseJSON.errors;
                         var txt_errors = '';
                         for (k of Object.keys(obj_errors)) {
@@ -701,7 +713,11 @@
                                 video_id : video_id
                             },
                             dataType: 'json',
+                            beforeSend: function() {
+                                $(".ajax_waiting").addClass("loading");
+                            },
                             success: function (response) {
+                                $(".ajax_waiting").removeClass("loading");
                                 if(response.status == '200'){
                                     // sefl.parent().remove();
                                     // console.log(self.parent().children('span'))
@@ -718,7 +734,7 @@
                                 }
                             },
                             error: function () {
-        
+                                $(".ajax_waiting").removeClass("loading");
                             }
                         })                        
                     }
@@ -890,6 +906,10 @@
                 $('.upload-old-video').hide();
                 $('.uploading-new-video').show();
                 $('.uploading-old-video').show();
+                $('.save-add-video').attr('disabled', true);
+                $('.cancel-add-video').attr('disabled', true);
+                $('.save-edit-video').attr('disabled', true);
+                $('.cancel-edit-video').attr('disabled', true);
                 var percent = (event.loaded / event.total) * 100;
                 var type_txt = checkTypeFile(extension_input);
                 waitting_upload_file = true;
@@ -911,6 +931,10 @@
                 $('.upload-old-video').show();
                 $('.uploading-new-video').hide();
                 $('.uploading-old-video').hide();
+                $('.save-add-video').attr('disabled', false);
+                $('.cancel-add-video').attr('disabled', false);
+                $('.save-edit-video').attr('disabled', false);
+                $('.cancel-edit-video').attr('disabled', false);
                 $("#addVideoModal #file-mp4-upload-off").on();
                 console.log(uploading);
             }
