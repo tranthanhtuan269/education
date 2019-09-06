@@ -56,12 +56,12 @@
         if(reportEditor.getData() == ""){
             return Swal.fire({
                 type: "warning",
-                text: "Message cannot be empty!"
+                text: "Bạn chưa nhập mô tả lỗi!"
             })
         } else if($("#videoReportTitle").val() == ""){
             return Swal.fire({
                 type: "warning",
-                text: "Title cannot be empty!"
+                text: "Bạn chưa nhập tiêu đề!"
             })
         } else {
             $.ajaxSetup({

@@ -579,15 +579,15 @@
                             <img src="{{ asset('frontend/images/footer_logo.png') }}">    
                         </div>
                         <div class="row">
-                            <div class="col-xs-4">
-                                <p><a href="javascript:void(0)" title="Business">Business</a></p>
-                                <p><a href="javascript:void(0)" title="Certificates">Certificates</a></p>
-                                <p><a href="javascript:void(0)" title="Beta Testers">Beta Testers</a></p>
+                            <div class="col-xs-4" style="color:#fff">
+                                <p><i class="fas fa-location-arrow fa-fw"></i> 48 Tố Hữu,<br> Nam Từ Liêm, Hà Nội</p>
+                                <p><i class="fas fa-phone fa-fw"></i> 0918273645</p>
+                                <p><i class="fas fa-envelope fa-fw"></i> cskh@courdemy.com</p>
                             </div>
                             <div class="col-xs-4">
-                                <p><a href="javascript:void(0)" title="Business">Business</a></p>
-                                <p><a href="javascript:void(0)" title="Certificates">Certificates</a></p>
-                                <p><a href="javascript:void(0)" title="Beta Testers">Beta Testers</a></p>
+                                <p><a href="#">Giới thiệu Courdemy</a></p>
+                                <p><a href="#">Câu hỏi thường gặp</a></p>
+                                <p><a href="#">Điều khoản dịch vụ</a></p>
                             </div>
                             <div class="col-xs-4">
                                 <p><a href="javascript:void(0)" title="Business">Business</a></p>
@@ -615,7 +615,7 @@
                             <li><a href="javascript:void(0)" title="cookie policy">Cookie Policy</a></li>
                             <li><a href="javascript:void(0)" title="job post">Job Post</a></li>
                         </ul> --}}
-                        <p class="copyright">Copyright &copy; 2019 by courdemy.com. All rights servered!</p>
+                        <p class="copyright">&copy; 2019 Bản quyền thuộc về courdemy.com. Bảo lưu mọi quyền!</p>
                     </div>
                 </div>
             </div>
