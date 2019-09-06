@@ -215,7 +215,8 @@
                                 /* list-style-image: url('/frontend/images/ic_check.png'); */
                             }
                             .knowledge ul li{
-                                margin-left: 7%;
+                                margin-top: 10px;
+                                line-height: 20px;
                             }
                         </style>
                         <div class="lessons clearfix" id="box_content">
