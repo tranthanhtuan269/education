@@ -749,7 +749,13 @@ class HomeController extends Controller
     public function fixWillLearn(){
         $courses = Course::get();
         foreach($courses as $course){
-            $course->will_learn = "<ul><li>" . str_replace(";;", "</li><li>", $course->will_learn) . "</li></ul>";
+            $course->will_learn = str_replace(";","", $course->will_learn);
+            $course->will_learn = str_replace("\t","", $course->will_learn);
+            $course->will_learn = str_replace("<li></li>","", $course->will_learn);
+            $course->will_learn = preg_replace('/(?:\s\s+|\n|\t)/', ' ', $course->will_learn);
+            $course->will_learn = str_replace("<li> ","<li>", $course->will_learn);
+            $course->will_learn = str_replace(" </li>","</li>", $course->will_learn);
+            $course->will_learn = preg_replace('!\s+!', ' ', $course->will_learn);
             $course->save();
         }
         echo "done";   
