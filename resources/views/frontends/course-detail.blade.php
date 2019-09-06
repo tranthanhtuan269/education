@@ -194,28 +194,48 @@
                         
                         <div class="knowledge clearfix">
                             <h3>Bạn sẽ học được gì</h3>
+                            <?php 
+                                $will_learn = $info_course->will_learn;
+                                $will_learn = str_replace('<li>','<br>',$will_learn);
+                                $will_learn = explode("<br>", $will_learn);
+                                for( $i = 0 ; $i < count($will_learn) ; $i++){
+                                    $will_learn[$i] = trim($will_learn[$i]);
+                                    $will_learn[$i] = strip_tags($will_learn[$i]);
+                                }
+                                $counter_w = count($will_learn);
+                                $will_learn = array_filter($will_learn);
+                                // dd($will_learn);
+                            ?>
                             <div class="row">
                                 <div class="col-sm-12">
-                                    {{-- @dd($info_course->will_learn) --}}
-                                    {!! $info_course->will_learn !!}
+                                    <ul>
+                                        @for( $i = 0 ; $i < $counter_w ; $i++)
+                                        @if(isset($will_learn[$i]))
+                                        <li><span><img src='/frontend/images/ic_check.png' width:'100%'></span>{!!$will_learn[$i]!!}</li>
+                                        @endif
+                                        @endfor
+                                    </ul>
                                 </div>
                             </div>
                         </div>
                         <script>
                             $(document).ready(function (){
-                                $('.knowledge .row li').prepend("<span><img src='/frontend/images/ic_check.png' width:'100%'></span>")
+                                // $('.knowledge .row li').prepend("<span><img src='/frontend/images/ic_check.png' width:'100%'></span>")
                             })
                         </script>
                         <style type="text/css">
                             .knowledge ul {
-                                columns: 2;
-                                -webkit-columns: 2;
-                                -moz-columns: 2;
+                                /* columns: 2; */
+                                /* -webkit-columns: 2; */
+                                /* -moz-columns: 2; */
                                 /* height: 30px; */
                                 /* list-style-image: url('/frontend/images/ic_check.png'); */
                             }
                             .knowledge ul li{
-                                margin-left: 7%;
+                                margin-left: 10px;
+                                display: inline-flex;
+                                width: 48%;
+                                height: 50px;
                             }
                         </style>
                         <div class="lessons clearfix" id="box_content">
