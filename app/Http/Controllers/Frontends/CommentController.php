@@ -231,6 +231,7 @@ class CommentController extends Controller
 
     public function seeMore(Request $request)
     {
+        // dd($request->course_id);
         if ($request->course_id != null && $request->take != null && $request->skip != null) {
             $course = Course::find($request->course_id);
             if ($course) {
