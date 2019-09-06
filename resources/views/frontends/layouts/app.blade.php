@@ -580,19 +580,19 @@
                         </div>
                         <div class="row">
                             <div class="col-xs-4" style="color:#fff">
-                                <p><i class="fas fa-location-arrow fa-fw"></i> 48 Tố Hữu,<br> Nam Từ Liêm, Hà Nội</p>
+                                <p><i class="fas fa-location-arrow fa-fw"></i> 48 Tố Hữu, Hà Nội</p>
                                 <p><i class="fas fa-phone fa-fw"></i> 0918273645</p>
                                 <p><i class="fas fa-envelope fa-fw"></i> cskh@courdemy.com</p>
                             </div>
                             <div class="col-xs-4">
-                                <p><a href="#">Giới thiệu Courdemy</a></p>
-                                <p><a href="#">Câu hỏi thường gặp</a></p>
-                                <p><a href="#">Điều khoản dịch vụ</a></p>
+                                <p><a href="/about">Giới thiệu Courdemy</a></p>
+                                <p><a href="/faq">Câu hỏi thường gặp</a></p>
+                                <p><a href="/terms-of-service">Điều khoản dịch vụ</a></p>
                             </div>
                             <div class="col-xs-4">
-                                <p><a href="javascript:void(0)" title="Business">Business</a></p>
-                                <p><a href="javascript:void(0)" title="Certificates">Certificates</a></p>
-                                <p><a href="javascript:void(0)" title="Beta Testers">Beta Testers</a></p>
+                                <p><a href="/payment-guide">Hướng dẫn thanh toán</a></p>
+                                <p><a href="/become-teacher">Đăng ký giảng viên</a></p>
+                                <p><a href="/affiliate">Tiếp thị liên kết</a></p>
                             </div>
                         </div>
                     </div>
@@ -615,7 +615,7 @@
                             <li><a href="javascript:void(0)" title="cookie policy">Cookie Policy</a></li>
                             <li><a href="javascript:void(0)" title="job post">Job Post</a></li>
                         </ul> --}}
-                        <p class="copyright">&copy; 2019 Bản quyền thuộc về courdemy.com. Bảo lưu mọi quyền!</p>
+                        <p class="copyright">&copy; 2019, Bản quyền thuộc về courdemy.com. Bảo lưu mọi quyền!</p>
                     </div>
                 </div>
             </div>

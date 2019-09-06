@@ -838,6 +838,22 @@ class HomeController extends Controller
         }
         return '';
     }
+
+    public function aboutPage(){
+        return view('frontends.footer-page.about');
+    }
+    public function faqPage(){
+        return view('frontends.footer-page.faq');
+    }
+    public function termsOfServicePage(){
+        return view('frontends.footer-page.terms-of-service');
+    }
+    public function paymentGuidePage(){
+        return view('frontends.footer-page.payment-guide');
+    }
+    public function affiliatePage(){
+        return view('frontends.footer-page.affiliate');
+    }
 }
 
 class VideoJson

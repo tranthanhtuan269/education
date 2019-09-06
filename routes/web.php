@@ -215,8 +215,14 @@ Route::get('nap-tien', 'Frontends\HomeController@naptien');
 
 Route::post('googleLogin', 'Frontends\UserController@googleLogin');
 
-
 Route::get('become-teacher', 'Frontends\HomeController@becomeTeacher');
+
+Route::get('about', 'Frontends\HomeController@aboutPage');
+Route::get('faq', 'Frontends\HomeController@faqPage');
+Route::get('terms-of-service', 'Frontends\HomeController@termsOfServicePage');
+Route::get('payment-guide', 'Frontends\HomeController@paymentGuidePage');
+Route::get('affiliate', 'Frontends\HomeController@affiliatePage');
+
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/learning-page/{courseId}/lecture/{videoId}', 'Frontends\VideoPlayerController@show')->name('videoplayer.show');
