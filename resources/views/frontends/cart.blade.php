@@ -6,8 +6,7 @@
             <img src="/frontend/images/ic_cart.png" alt="image cart" style="width: 6em !important;">
         </div>
         <div class="cart-banner-title">
-            <div>SHOPPING</div>
-            <div>CART</div>
+            <div>GIỎ HÀNG <br>CỦA TÔI</div>
         </div>
     </div>
 </div>
