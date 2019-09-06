@@ -553,7 +553,7 @@
                 <h3>Nhận xét của học viên
                     {{-- @if(Auth::check()) --}}
                         @if(\App\Helper\Helper::getUserRoleOfCourse($info_course->id))
-                            <span class="reviews-star" data-star="{{ isset($ratingCourse) ? $ratingCourse->score : 5 }}">
+                            <span class="reviews-star" data-star="{{ isset($ratingCourse) ? $ratingCourse->score : 0 }}">
                                 @if($ratingCourse)
                                 @include(
                                     'components.vote', 
@@ -562,7 +562,7 @@
                                     ]
                                 )
                                 @else
-                                <i id="star-1" class="fa fa-star yellow-color" data-id="1"></i>
+                                <i id="star-1" class="far fa-star review-star" data-id="1"></i>
                                 <i id="star-2" class="far fa-star review-star" data-id="2"></i>
                                 <i id="star-3" class="far fa-star review-star" data-id="3"></i>
                                 <i id="star-4" class="far fa-star review-star" data-id="4"></i>
@@ -584,7 +584,7 @@
                     var baseURL = $('base').attr('href');
 
                     function hideStar(){
-                        for(var j = 1; j <= 5; j++){
+                        for(var j = 0; j <= 5; j++){
                             $('#star-' + j).removeClass('fa').addClass('far');
                         }
                     }
@@ -616,7 +616,8 @@
                     }).mouseleave(function(){
                         hideStar();
                     }).click(function(){
-                        showStar($(this).attr('data-id'))
+                        console.log($(this));
+                        hideStar();showStar($(this).attr('data-id'))
                         $('.review-star').off( "mouseenter")
                         $('.review-star').off( "mouseleave")
                         $('.reviews-star').attr('data-star', $(this).attr('data-id'))
@@ -630,7 +631,6 @@
 
                     $('#create-comment-new').on('click', function (e) {
                         var score = $('.reviews-star').attr('data-star');
-                        alert(score)
                         if($('#editor').val() == ''){
                             Swal.fire({
                                 type: 'warning',
@@ -638,6 +638,15 @@
                             })
                             return false;
                         }
+
+                        if($('.reviews-star').attr("data-star") == 0){
+                            Swal.fire({
+                                type: 'warning',
+                                html: 'Bạn chưa nhập sao.',
+                            })
+                            return false;
+                        }
+
                         var request = $.ajax({
                             url: baseURL + '/reviews/store',
                             method: "POST",

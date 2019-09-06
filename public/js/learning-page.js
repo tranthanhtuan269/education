@@ -1,5 +1,8 @@
 const baseURL = $('base').attr('href');
 
+
+
+
 let isAutoplay;
 if(localStorage.getItem('autoplay') != null){
     isAutoplay = localStorage.getItem('autoplay')
@@ -8,7 +11,16 @@ if(localStorage.getItem('autoplay') != null){
     localStorage.setItem('autoplay', newLocal)
     isAutoplay = localStorage.getItem('autoplay')
 }
+
 $(document).ready(function () {
+    //Check browser có phải là firefox hay không để hiện thông báo
+    var isFirefox = typeof InstallTrigger !== 'undefined';
+    if(isFirefox && isAutoplay){
+        Swal.fire({
+            type : 'info',
+            html: 'Bạn đang bật tính năng tự động chạy bài giảng. <br> Từ phiên bản Firefox 66, Firefox đã ngừng hỗ trợ theo mặc định tính năng tự động chạy video/audio. Để bật tính năng này cho trình duyệt Firefox của bạn, vui lòng làm theo hướng dẫn tại <a href="https://support.mozilla.org/vi/kb/block-autoplay" target="_blank">đây.</a>'
+        })
+    }
 
     // Set up the player
     var isPlayerAutoplay = false
@@ -219,26 +231,31 @@ $(document).ready(function () {
         e.preventDefault()
         var video_id = $(this).attr("data-parent")
         var section_dom = $(this).parent()
+        var isStudent = $(this).attr("data-isstudent")
         section_dom.each(function (index, value){
             // alert(index)
         })
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        var request = $.ajax({
-            method: 'POST',
-            url: "/user-course/update-watched",
-            data: {
-                'video_id' : video_id
-            },
-            dataType: "json",
-        });
-        request.done(function(){
+        if(isStudent){
+            // alert(isStudent)
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            var request = $.ajax({
+                method: 'POST',
+                url: "/user-course/update-watched",
+                data: {
+                    'video_id' : video_id
+                },
+                dataType: "json",
+            });
+            request.done(function(){
+                window.location.href = ("/learning-page/"+ course_id +"/lecture/"+ video_id)
+            })
+        }else{
             window.location.href = ("/learning-page/"+ course_id +"/lecture/"+ video_id)
-        })
+        }
     })
 
 

@@ -52,15 +52,15 @@
                 </div>
                 @if (isset($btn_start_learning))
                 <div class="text-center">
-                    <a href="{{ "learning-page/".$courseId."/lecture/".$learningId }}" class="btn btn-primary btn-sm btn-start-learning">Tiếp tục học</a>
+                    <div data-courseid="{{$courseId}}" data-learningid="{{$learningId}}" class="btn btn-primary btn-sm btn-start-learning">Tiếp tục học</div>
                     <script>
                         $(document).ready(function () {
                             $('.btn.btn-primary.btn-sm.btn-start-learning').click(function (e) {
                               e.stopPropagation()
                               e.preventDefault()
 
-                              const course_id = {{ $courseId }}
-                              const learning_id = {{ $learningId }}
+                              const course_id = $(this).attr('data-courseid')
+                              const learning_id = $(this).attr('data-learningid')
                               
                               $.ajaxSetup({
                                   headers: {

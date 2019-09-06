@@ -1,19 +1,26 @@
 @php 
     $momentNow = new MomentPHP\MomentPHP();
-    // dd($momentNow->diff('2005-08-15 15:52:01', 'tháng trước'));
+    $isStudent;
+
+    
     $user_role_course_instance_video = json_decode($user_role_course_instance->videos);
-    // dd($user_role_course_instance_video->videos);
     $video_count = $course->video_count;
-    // dd($video_count);
-    $video_done_units = $user_role_course_instance_video->videos;
-    $video_done_count = 0;
-    foreach ($video_done_units as $key => $unit) {
-        if(isset(array_count_values($unit)[1])){
-            $video_done_count += array_count_values($unit)[1];
-        }
+    if($user_role_course_instance_video){
+        $isStudent = true;
+    }else{
+        $isStudent = false;
     }
-    // dd($video_done_count);
-    $video_done_percent = (int)(($video_done_count/(int)$video_count)*100);
+    if($isStudent){
+        $video_done_units = $user_role_course_instance_video->videos;
+        $video_done_count = 0;
+        foreach ($video_done_units as $key => $unit) {
+            if(isset(array_count_values($unit)[1])){
+                $video_done_count += array_count_values($unit)[1];
+            }
+        }
+        // dd($video_done_count);
+        $video_done_percent = (int)(($video_done_count/(int)$video_count)*100);
+    }
     $video_urls = json_decode($main_video->url_video, true);
     // $urls = [];
     foreach ($video_urls as $key => $video_url) {
