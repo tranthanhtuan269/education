@@ -25,7 +25,6 @@ class UpdateVideoRequest extends FormRequest
     {
         return [
             'name' => 'required|max:100',
-            'unit_id' => 'required',
             'description'=> 'required',
             'link_video'=> 'required',
 
