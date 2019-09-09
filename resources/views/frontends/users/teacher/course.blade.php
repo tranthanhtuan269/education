@@ -434,6 +434,10 @@
         $('#listVideo').on('shown.bs.modal', function () {
             var unit_id = $(this).attr('data-unit-id');
             $('#addVideoBtn').attr('data-unit-id', unit_id);
+            getListVideoAjax(unit_id)
+        })
+
+        function getListVideoAjax(unit_id){
             $.ajax({
                 method: 'GET',
                 url: "{{ url('/') }}/user/units/"+unit_id+"/get-video",
@@ -446,7 +450,7 @@
                             if(response.videos[i].state == "2"){
                                 html += '<li style="display:flex" class="ui-state-default ui-sortable-handle"  data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'">'
                                 html += '<i class="fas fa-sort"></i> '
-                                html += '<span class="video-content">'+response.videos[i].name+'</span><span style="color:red;float:right;width:270px;margin-left:20px"> (Yêu cầu xoá đang được duyệt)</span>'
+                                html += '<span class="video-content">'+response.videos[i].name+'</span><span class="remove-request"> (Yêu cầu xoá đang được duyệt)</span>'
                             }else{
                                 html += '<li class="ui-state-default ui-sortable-handle"  data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'">'
                                 html += '<i class="fas fa-sort"></i> '
@@ -474,7 +478,7 @@
                     })
                 }
             })
-        })
+        }
 
         $('#listVideo').on('hide.bs.modal', function () {
             $('#videoSortable').html("");
@@ -689,6 +693,7 @@
             $(".remove-video").click(function(){
                 var self = $(this)
                 var video_id = $(this).attr('data-video-id')
+                
 
                 //DuongNT // Đánh lại index cho từng video trên DOM sau khi xoá
                 // var deleted_index = $(this).parent().attr("data-video-index")
@@ -719,11 +724,9 @@
                             success: function (response) {
                                 $(".ajax_waiting").removeClass("loading");
                                 if(response.status == '200'){
-                                    // sefl.parent().remove();
-                                    // console.log(self.parent().children('span'))
-                                    self.parent().children('span').after('<span style="color: red;"> <i> (Yêu cầu xoá đang được duyệt)</i></span>')
-                                    self.parent().children('i.edit-video').remove()
-                                    return self.remove()
+                                    $('#listVideo .modal-body #videoSortable').empty()
+                                    var unit_id = $('#listVideo').attr('data-unit-id')
+                                    getListVideoAjax(unit_id)
                                 }
                                 if(response.status == '201'){
                                     return Swal.fire({
