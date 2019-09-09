@@ -33,7 +33,9 @@
         <script src="{{ asset('backend/template/bower_components/jquery/dist/jquery.min.js') }}"></script>
         <script src="{{ asset('backend/js/jquery.easing.min.js') }}"></script>
         <script src="{{ asset('backend/js/priority.js') }}"></script>
-        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+        <script src="{{ asset('frontend/js/sweetalert2.min.js') }}"></script>
+        <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/sweetalert2.min.css') }}">
+
         <script type="text/javascript">
             $.ajaxSetup({
               headers: {
