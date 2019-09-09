@@ -120,6 +120,14 @@ class HomeController extends Controller
             $best_seller_course = Course::where('status', 1)->where('category_id', $cat_id)->orderBy('sale_count', 'desc')->limit(8)->get();
             
             $new_course = Course::where('status', 1)->where('category_id', $cat_id)->orderBy('id', 'desc')->limit(8)->get();
+
+            $limitDate = \Carbon\Carbon::now()->subDays(15);
+            $sql = "SELECT course_id, count(course_id) FROM orders JOIN order_details ON orders.id = order_details.order_id WHERE created_at > '" . $limitDate->toDateTimeString() ."' group by course_id ORDER BY count(course_id) desc LIMIT 8;";
+            $results = DB::select($sql);
+            foreach ($results as $key => $result) {
+                $course_id_arr[] = $result->course_id;
+            }
+            $trending_courses = \App\Course::whereIn('id', $course_id_arr)->where('category_id', $cat_id)->get();
             
             // $popular_teacher = Teacher::getTeacherBestVote();
 
@@ -131,7 +139,7 @@ class HomeController extends Controller
 
             //     return $courses->cate;
             // });
-            return view('frontends.category', compact('category', 'feature_course', 'best_seller_course', 'new_course', 'popular_teacher', 'tags' ));
+            return view('frontends.category', compact('category', 'feature_course', 'best_seller_course', 'new_course', 'trending_courses', 'popular_teacher', 'tags' ));
         }
 
         return abort(404);
