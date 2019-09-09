@@ -160,6 +160,7 @@
                         dataType: "json",
                     });
                     request.done(function(){
+                        alert("/learning-page/"+course_id+"/lecture/"+video_id_list[video_id_index + 1]+"")
                         window.location.href = ("/learning-page/"+course_id+"/lecture/"+video_id_list[video_id_index + 1]+"")
                     })
                 })
