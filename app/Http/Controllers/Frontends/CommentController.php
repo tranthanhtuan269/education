@@ -57,7 +57,7 @@ class CommentController extends Controller
                 // add comment
                 $commentCourse = new CommentCourse;
                 $commentCourse->content = $request->content;
-                $commentCourse->user_role_id = Helper::getUserRoleOfCourse($request->course_id)->user_role_id;
+                $commentCourse->user_role_id = Auth::user()->userRolesStudent()->id;
                 $commentCourse->course_id = $request->course_id;
                 if (isset($request->parentId)) {
                     $commentCourse->parent_id = $request->parentId;
