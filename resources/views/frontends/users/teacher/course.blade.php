@@ -630,6 +630,8 @@
                             $('#addVideoModal').modal('hide')
                             $('#listVideo').modal('toggle')
                             files = []
+
+                            $('#file-mp4-upload-off').val('');
                         }
                     },
                     error: function (error) {
