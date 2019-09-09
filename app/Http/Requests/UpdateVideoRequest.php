@@ -26,7 +26,6 @@ class UpdateVideoRequest extends FormRequest
         return [
             'name' => 'required|max:100',
             'description'=> 'required',
-            'link_video'=> 'required',
 
         ];
     }
@@ -37,7 +36,6 @@ class UpdateVideoRequest extends FormRequest
             'name.required' => 'Bạn chưa nhập tên bài học.',
             'name.max'      => 'Tên bài học quá dài. (Yêu cầu <100 ký tự)',
             'description.required' => 'Bạn chưa nhập mô tả bài giảng.',
-            'link_video.required' => 'Bạn chưa chọn video bài giảng.',
         ];
     }
 }
