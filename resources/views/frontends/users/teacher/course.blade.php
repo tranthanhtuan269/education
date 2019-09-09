@@ -1138,7 +1138,6 @@
         var link_base64;
         
         S2('#save-btn').click(function(){
-            $(this).attr('disabled', true)
 
             link_base64 = S2('#image-cropper').cropit('export');
 
@@ -1193,7 +1192,11 @@
                 url: "{{ url('user/courses/store') }}",
                 data: data,
                 dataType: 'json',
+                beforeSend: function() {
+                    $(".ajax_waiting").addClass("loading");
+                },
                 success: function (response) {
+                    $(".ajax_waiting").removeClass("loading");
                     if(response.status == 200){
                         Swal.fire({
                             type: 'success',
@@ -1210,12 +1213,11 @@
                             html: 'Error',
                             allowOutsideClick: false,
                         })
-                        $(this).attr('disabled', false)
                     }
                 },
                 error: function(error) {
+                    $(".ajax_waiting").removeClass("loading");
                     var obj_errors = error.responseJSON.errors;
-                    console.log(obj_errors)
                     var txt_errors = '';
                     for (k of Object.keys(obj_errors)) {
                         txt_errors += obj_errors[k][0] + '</br>';
@@ -1225,10 +1227,8 @@
                         html: txt_errors,
                         allowOutsideClick: false,
                     })
-                    $(this).attr('disabled', false)
                 }
             });
-            $(this).attr('disabled', false)
             return;
         })
     });
