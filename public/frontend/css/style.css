@@ -102,7 +102,7 @@ nav .pagination li a img{width:35px;position:relative;top:-6px}
 .box-course .content-course{border:1px solid #cccccca6;border-radius:0 0 10px 10px;padding:15px}
 .box-course .content-course h3.title-course{font-size:16px;font-weight:600;line-height:26px;min-height:52px}
 .box-course .img-course{position: relative;}
-.box-course .img-course img{border-radius:10px 10px 0 0; height: 134px;}
+.box-course .img-course img.img-responsive{border-radius:10px 10px 0 0; height: 134px;}
 .box-course .img-course .img-mask{
 	display: none;
 	position: absolute;
