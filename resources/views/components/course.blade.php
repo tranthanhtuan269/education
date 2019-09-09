@@ -57,8 +57,8 @@
                 <h3 class="title-course">{{ $course->name }}</h3>
                 <div class="clearfix" style="line-height:1.7">
                     <span class="name-teacher pull-left" data-teacher-id="{{$main_lecturer}}" >
-                        {{-- {{ $lecturers }} --}}
-                        {{ $course->author }}
+                        {{ $lecturers }}
+                        {{-- {{ $course->author }} --}}
                     </span>
                     <br>
                     <span class="pull-left">
