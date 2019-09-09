@@ -21,6 +21,25 @@ Route::get('fix-course', 'Frontends\HomeController@fixDurationCourse');
 Route::get('fix-video', 'Frontends\HomeController@fixDurationVideo');
 Route::get('fix-will-learn', 'Frontends\HomeController@fixWillLearn');
 
+Route::get('trending', function(){
+    $limitDate = \Carbon\Carbon::now()->subDays(15);
+    // dd($limitDate->toDateTimeString());
+    // $orders = DB::table('orders')
+    //             ->whereDate('created_at', '>',$limitDate)
+    //             ->join('order_details', 'id', '=', 'order_details.order_id')
+    //             ->latest()
+    //             ->get();
+    
+    $sql = "SELECT course_id, count(course_id) FROM orders JOIN order_details ON orders.id = order_details.order_id WHERE created_at > '" . $limitDate->toDateTimeString() ."' group by course_id ORDER BY count(course_id) desc LIMIT 8;";
+    // dd($sql);
+    $results = DB::select($sql);
+    foreach ($results as $key => $result) {
+        $course_id_arr[] = $result->course_id;
+    }
+    $trending_course = \App\Course::whereIn('id', $course_id_arr)->get();
+    // dd($trending_course);
+    return view('test', compact('orders'));
+});
 Route::get('mailable', function () {
     $order = App\Order::find(9);
     return new App\Mail\OrderCompleted($order, Auth::user() );
