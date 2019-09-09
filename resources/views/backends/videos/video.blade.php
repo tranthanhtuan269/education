@@ -170,7 +170,13 @@
                         serverSide: false,
                         aaSorting: [],
                         stateSave: true,
-                        ajax: "{{ url('/') }}/admincp/videos/getVideoAjax",
+                        ajax: {
+                            url: "{{ url('/') }}/admincp/videos/getVideoAjax",
+                            beforeSend: function() {
+                                // $(".ajax_waiting").addClass("loading");
+                                // document.getElementById("ajax_waiting").classList.add("loading");
+                            }
+                        },
                         columns: dataObject,
                         bLengthChange: true,
                         pageLength: 10,
@@ -194,7 +200,7 @@
                             },
                         },
                         fnServerParams: function ( aoData ) {
-
+                            // $(".ajax_waiting").addClass("loading");
                         },
                         fnDrawCallback: function( oSettings ) {
                             addEventListener();
