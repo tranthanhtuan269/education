@@ -53,6 +53,7 @@
 
         <div class="reply-hold-{{ $comment->id }}">
             @foreach($comment->children as $reply)
+            @if($reply->userRole)
             <div class="comment-reply">
                 <div>
                     @if($reply->userRole->user)
@@ -93,6 +94,7 @@
                 </div>
                 @endif
             </div>
+            @endif
             @endforeach
         </div>
     </div>
