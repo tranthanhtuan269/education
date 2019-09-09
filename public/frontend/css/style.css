@@ -872,6 +872,205 @@ ul.unica-acc-zone li.special:hover a{color:#fff}
   width: 100%
 }
 
+/* Become Teacher */
+.courdemy-teacher{
+  font-family: proxima-nova,"Helvetica Neue",Helvetica,sans-serif;
+}
+.courdemy-teacher .banner-top{
+  width: 100%;
+  height: 40vw;
+  background: url(/frontend/images/banner_become_teacher.png) no-repeat;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  color: #fff;
+}
+.courdemy-teacher .banner-top .title{
+  margin-top: 20vh;
+  text-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+}
+.courdemy-teacher .banner-top .title h1{
+  font-weight: bold;
+  margin-bottom: 20px;
+  font-size: 40px;
+}
+.courdemy-teacher .banner-top .title p{
+  font-size: 26px;
+  margin-bottom: 30px;
+}
+.courdemy-teacher .banner-top .title a{
+  color: #09bcef;
+  font-weight: bold;
+  font-size: 20px;
+  padding: 15px 40px;
+  background-color: #fff;
+  border-radius: 5px;
+  text-shadow: none;
+}
+.courdemy-teacher .banner-top .title a:hover{
+  background: #FF8F00;
+  text-shadow: 0px 2px 3px rgba(0, 0, 0, 0.7);
+  color: #fff;
+}
+.courdemy-teacher .banner-top img{
+  height: 80vh;
+  margin-top: 12vh;
+}
+.courdemy-teacher .discover{
+  margin: 40px auto;
+}
+.courdemy-teacher .discover .title{
+  font-weight: 900;
+  color: #6f6f6f;
+  font-size: 30px;
+}
+.courdemy-teacher .discover hr{
+  border: 2px solid #00acea;
+  width: 200px;
+  border-radius:2px;
+  margin-bottom: 80px;
+}
+.courdemy-teacher .discover .discover-box{
+  color: #6f6f6f;
+}
+.courdemy-teacher .discover .discover-box img{
+  width: 140px;
+}
+.courdemy-teacher .discover .discover-title{
+  font-size: 22px;
+  margin: 10px auto;
+}
+.courdemy-teacher .discover .discover-content{
+  font-size: 16px;
+  padding: 5px 20px;
+}
+.courdemy-teacher .statistic{
+  width: 100%;
+  height: 30vw;
+  background: url(/frontend/images/banner_oppotunity.png) no-repeat;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  color: #fff;
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+.courdemy-teacher .statistic hr{
+  border: 2px solid #fff;
+  width: 200px;
+  border-radius:2px;
+  margin-bottom: 60px;
+}
+.courdemy-teacher .statistic .title{
+  font-weight: 900;
+  color: #fff;
+  font-size: 30px;
+}
+.courdemy-teacher .statistic .statistic-number ul li{
+  display: inline-block;
+  margin: 5px 20px;
+}
+.courdemy-teacher .statistic .statistic-number .number{
+  font-size: 46px;
+  font-weight: 900;
+}
+.courdemy-teacher .statistic .statistic-number .type{
+  font-size: 20px;
+  width: 150px;
+}
+.courdemy-teacher .teacher-review{
+  /* background-color: #f5f5f5; */
+  padding-top: 80px;
+}
+.courdemy-teacher .teacher-review .title{
+  font-weight: 900;
+  color: #6f6f6f;
+  font-size: 30px;
+}
+.courdemy-teacher .teacher-review hr{
+  border: 2px solid #00acea;
+  width: 200px;
+  border-radius:2px;
+  margin-bottom: 80px;
+}
+.courdemy-teacher .teacher-review .box-teacher{
+  border: 1px solid #f1f1f1;
+  background-color: #efefef;
+  border-radius: 10px;
+  margin: auto 20px;
+  margin-bottom: 80px;
+}
+.courdemy-teacher .teacher-review .box-teacher .teacher-info{
+  margin: 30px 20px;
+}
+.courdemy-teacher .teacher-review .box-teacher .teacher-info .avatar{
+  padding-bottom: 15px;
+}
+.courdemy-teacher .teacher-review .box-teacher .teacher-info .avatar img{
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.courdemy-teacher .teacher-review .box-teacher .teacher-info .name{
+  font-weight: bold;
+  font-size: 20px;
+}
+.courdemy-teacher .teacher-review .box-teacher .review{
+  padding: 0 20px 20px 20px;
+  color: #6f6f6f;
+}
+.courdemy-teacher .teacher-review .box-teacher .review p{
+  font-size: 16px;
+  padding: 15px 0;
+}
+.courdemy-teacher .steps-register{
+  background-color: #f5f5f5;
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+.courdemy-teacher .steps-register .title{
+  font-weight: 900;
+  color: #6f6f6f;
+  font-size: 30px;
+}
+.courdemy-teacher .steps-register hr{
+  border: 2px solid #00acea;
+  width: 200px;
+  border-radius:2px;
+  margin-bottom: 80px;
+}
+.courdemy-teacher .steps-register img{
+  width: 200px;
+  padding-bottom: 20px;
+}
+.courdemy-teacher .steps-register .active p{
+  color: #00acea;
+  font-size: 24px;
+  font-weight: 900;
+}
+.courdemy-teacher .steps-register p{
+  color: #bababa;
+  font-size: 24px;
+  font-weight: 900;
+}
+.courdemy-teacher .steps-register-content{
+  background-color: #f5f5f5;
+  padding-bottom: 80px;
+}
+.courdemy-teacher .tab-content .tab-steps-register p{
+  color: #bababa;
+  font-size: 20px;
+  padding-left: 80px;
+  padding-right: 80px;
+  padding-bottom: 20px;
+}
+.courdemy-teacher .tab-content .tab-steps-register img{
+  width: 100%;
+  padding: 15px;
+}
+
 footer{font-weight:500;background:url(../images/bg-footer.png) no-repeat;background-size:100% 100%}
 footer .img-logo{padding:30px 0}
 footer .img-fanpage {padding:40px 0 20px;width: 100%;max-width: 300px;}
