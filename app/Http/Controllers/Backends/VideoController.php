@@ -14,6 +14,7 @@ use App\Document;
 use Illuminate\Http\Request;
 use App\Helper\Helper;
 use App\Jobs\ProcessLecture;
+use Str;
 
 class VideoController extends Controller
 {
@@ -63,7 +64,7 @@ class VideoController extends Controller
                 $video->duration = exec($command, $output, $return);
             }
             $video->save();
-
+            dd($request->file());
             //DuongNT upload file
             if($request->file()){
                 foreach ($request->file() as $key => $file) {
@@ -71,11 +72,11 @@ class VideoController extends Controller
                         $document = new Document;
                         $document->title = $file->getClientOriginalName();
                         $document->video_id = $video->id;
-                        $document->url_document = $video->id.'_'.time().'_'.$file->getClientOriginalName();
+                        $document->url_document = $video->id.'_'.time().'_'.Str::snake($file->getClientOriginalName());
                         $document->size = $file->getClientSize();
                         $document->save();
 
-                        $file->move('uploads/files', $video->id.'_'.time().'_'.$file->getClientOriginalName());                        
+                        $file->move('uploads/files', $video->id.'_'.time().'_'.Str::snake($file->getClientOriginalName()) );                        
                     }else{
                         return response()->json([
                             'status' => "401",
