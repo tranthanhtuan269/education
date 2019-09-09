@@ -2663,3 +2663,7 @@ div[data-u="slides"] div div{
     transform: rotate(360deg);
   }
 }
+
+.remove-request{
+  color:red;float:right;width:270px;margin-left:20px;
+}

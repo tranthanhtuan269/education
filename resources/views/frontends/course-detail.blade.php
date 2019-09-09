@@ -940,6 +940,7 @@
     });
 
     function vote(comment_id, type){
+        var baseURL = $('base').attr('href');
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -986,6 +987,7 @@
 
         $('.create-reply-btn').on('click', function (e) {
             var comment_id = $(this).attr('data-id');
+            var baseURL = $('base').attr('href');
             if($("#reply-" + comment_id).val() == ''){
                 Swal.fire({
                     type: 'warning',

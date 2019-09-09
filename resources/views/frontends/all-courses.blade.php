@@ -93,26 +93,32 @@
                         @endif
                     </div>
                     <div id="menu2" class="tab-pane fade">
-                        @foreach ($feature_course as $key => $feature)
-                        @if($key%4 == 0)
-                        <div class="row">
-                        @endif
-                            <?php
-                                $lecturers = count($feature->Lecturers()) > 1 ? 'Nhiều tác giả' : count($feature->Lecturers()) > 0 ? $feature->Lecturers()[0]->user->name : "Courdemy";
-                            ?>
-                            @include(
-                                'components.course', 
-                                [
-                                    'course' => $feature,
-                                    'list_course' => $list_bought
-                                ]
-                            )
-                        @if($key%4 == 3)
-                        </div>
-                        @endif
-                        @endforeach
-                        @if($key%4 < 3)
-                        </div>
+                        @if ($trending_courses->count() == 0)
+                            <div class="text-center">
+                                <p style="margin: 7em auto; font-size: 20px;">Không có khoá học nào phù hợp!</p>
+                            </div>
+                        @else
+                            @foreach ($trending_courses as $key => $feature)
+                            @if($key%4 == 0)
+                            <div class="row">
+                            @endif
+                                <?php
+                                    $lecturers = count($feature->Lecturers()) > 1 ? 'Nhiều tác giả' : count($feature->Lecturers()) > 0 ? $feature->Lecturers()[0]->user->name : "Courdemy";
+                                ?>
+                                @include(
+                                    'components.course', 
+                                    [
+                                        'course' => $feature,
+                                        'list_course' => $list_bought
+                                    ]
+                                )
+                            @if($key%4 == 3)
+                            </div>
+                            @endif
+                            @endforeach
+                            @if($key%4 < 3)
+                            </div>
+                            @endif
                         @endif
                         @if (Request::is('/'))
                         <div class="col-sm-12 text-center">
