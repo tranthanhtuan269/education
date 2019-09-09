@@ -632,6 +632,7 @@
                             files = []
 
                             $('#file-mp4-upload-off').val('');
+                            $('#fileName').val('')
                         }
                     },
                     error: function (error) {
