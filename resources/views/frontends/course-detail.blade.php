@@ -940,6 +940,7 @@
     });
 
     function vote(comment_id, type){
+        var baseURL = $('base').attr('href');
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
