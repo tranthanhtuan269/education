@@ -123,7 +123,7 @@ class Helper
               #### (dontcare)://youtu.be/<video id>
               $video_id = substr($url['path'], 1);
          }
-         elseif (strcasecmp($url['host'], 'www.youtube.com') === 0)
+         elseif (strcasecmp($url['host'], 'www.youtube.com') === 0 || strcasecmp($url['host'], 'youtube.com') === 0)
          {
               if (isset($url['query']))
               {

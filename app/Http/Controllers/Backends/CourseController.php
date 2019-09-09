@@ -121,6 +121,8 @@ class CourseController extends Controller
                 //     $requirement = explode(";;", $request->requirement);
                 //     $requirement = \json_encode($requirement);
                 // }
+                $link_intro = "https://www.youtube.com/embed/" . Helper::getYouTubeVideoId($request->link_intro);
+                // echo($link_intro);
 
                 $item->name                 = $request->name;
                 $item->image                = $img_link;
@@ -132,7 +134,7 @@ class CourseController extends Controller
                 $item->real_price           = $request->price;
                 $item->approx_time          = $request->approx_time;
                 $item->category_id          = $request->category;
-                $item->link_intro           = "https://www.youtube.com/embed/" . Helper::getYouTubeVideoId($request->link_intro);
+                $item->link_intro           = $link_intro;
                 $item->created_at           = date('Y-m-d H:i:s');
                 $item->updated_at           = date('Y-m-d H:i:s');
                 $item->save();
