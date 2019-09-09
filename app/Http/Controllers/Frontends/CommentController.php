@@ -217,7 +217,7 @@ class CommentController extends Controller
         if ($comment) {
             $commentCourse = new CommentCourse;
             $commentCourse->content = $request->content;
-            $commentCourse->user_role_id = Helper::getUserRoleOfCourse($comment->course->id)->user_role_id;
+            $commentCourse->user_role_id = Auth::user()->userRolesStudent()->id;
             $commentCourse->course_id = $comment->course_id;
             $commentCourse->parent_id = (int) $request->parent_id;
             $commentCourse->score = 0;
