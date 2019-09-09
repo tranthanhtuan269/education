@@ -45,6 +45,7 @@
         </script>
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
+        <div id="ajax_waiting"></div>
         <div class="wrapper">
             <header class="main-header">
                 <!-- Logo -->

@@ -31,15 +31,15 @@
         <div class="btn-action">
             <button type="button" class="btn btn-default btn-reply" data-comment-id="{{ $comment->id }}">
                 <i class="fas fa-comment"></i>
-                <span>Reply</span>
+                <span>Trả lời</span>
             </button>
             <button type="button" class="btn @if($comment->likeCheckUser() == 1) btn-primary @else btn-default @endif btn-like" data-comment-id="{{ $comment->id }}">
                 <i class="fas fa-thumbs-up"></i>
-                <span>Like</span>
+                <span>Thích</span>
             </button>
             <button type="button" class="btn @if($comment->unlikeCheckUser() == 1) btn-primary @else btn-default @endif btn-dislike" data-comment-id="{{ $comment->id }}">
                 <i class="fas fa-thumbs-down"></i>
-                <span>Dislike</span>
+                <span>Không thích</span>
             </button>
         </div>
         <div id="reply-textbox-{{ $comment->id }}" class="reply-textbox hide">
@@ -75,15 +75,15 @@
                 <div class="btn-action">
                     <button type="button" class="btn btn-default btn-reply" data-comment-id="{{ $comment->id }}">
                         <i class="fas fa-comment"></i>
-                        <span>Reply</span>
+                        <span>Trả lời</span>
                     </button>
                     <button type="button" class="btn btn-default btn-like" data-comment-id="{{ $comment->id }}">
                         <i class="fas fa-thumbs-up"></i>
-                        <span>Like</span>
+                        <span>Thích</span>
                     </button>
                     <button type="button" class="btn btn-default btn-dislike" data-comment-id="{{ $comment->id }}">
                         <i class="fas fa-thumbs-down"></i>
-                        <span>Dislike</span>
+                        <span>Không thích</span>
                     </button>
                 </div>
                 @endif
