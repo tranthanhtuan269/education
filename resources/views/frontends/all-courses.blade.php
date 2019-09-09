@@ -93,7 +93,7 @@
                         @endif
                     </div>
                     <div id="menu2" class="tab-pane fade">
-                        @foreach ($feature_course as $key => $feature)
+                        @foreach ($trending_courses as $key => $feature)
                         @if($key%4 == 0)
                         <div class="row">
                         @endif
