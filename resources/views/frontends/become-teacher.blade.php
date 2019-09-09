@@ -9,13 +9,13 @@
                     <div class="row">
                         <div class="col-md-7">
                             <div class="title">
-                                <h1>Trở thành <br>người nổi tiếng</h1>
+                                <h1>Trở thành <br>giảng viên Courdemy</h1>
                                 <p>Courdemy là e-learning platform, là cổng kết nối các CHUYÊN GIA tới hàng triệu người dân Việt Nam. Các bài giảng trực tuyến dưới dạng video giúp học viên có thể xem được bất kỳ khi nào, bất kỳ đâu.</p>
                                 <a href="{{ asset('/user/register-teacher') }}">ĐĂNG KÝ</a>
                             </div>
                         </div>
                         <div class="col-md-5">
-                            <img src="{{ asset('/frontend/images/banner-teacher.png') }}" alt="Courdemy Teacher">
+                            <img src="{{ asset('/frontend/images/teacher_shadow.png') }}" alt="Courdemy Teacher">
                         </div>
                     </div>
                 </div>
