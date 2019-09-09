@@ -70,7 +70,7 @@
                         <div class="row">
                         @endif
                             <?php
-                                $lecturers = count($new->Lecturers()) > 1 ? 'Nhiều tác giả' : count($new->Lecturers()) > 0 ? $new->Lecturers()[0]->user->name : "Courdemy";
+                                $lecturers = count($new->Lecturers()) > 1 ? 'Nhiều tác giả' : count($new->Lecturers()) > 0 ? ($new->Lecturers()[0]->user ? $new->Lecturers()[0]->user->name : "Courdemy") : "Courdemy";
                             ?>
                             @include(
                                 'components.course', 
