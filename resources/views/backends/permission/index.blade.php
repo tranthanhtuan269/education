@@ -459,6 +459,8 @@
                             type: 'success',
                             text: response.Message
                         })
+                        dataTable.ajax.reload();
+                        location.reload();
                     }
                 },
                 error: function (data) {
@@ -579,6 +581,7 @@
                             text: response.Message
                         })
                         dataTable.ajax.reload(); 
+                        location.reload();
                     }
                 },
                 error: function (data) {
