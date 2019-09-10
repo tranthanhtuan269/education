@@ -89,7 +89,13 @@
                     orderable: false,
                 },
                 { 
-                    data: "created_at",
+                    data: "id",
+                    render: function(data, type, row){
+                        if(type == "display"){
+                            return row.created_at;
+                        }
+                        return data;
+                    },
                 },
             ];
     
