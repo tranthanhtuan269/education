@@ -286,7 +286,7 @@
 <input type="hidden" id="duration" value="">
 
 <div id="editVideoModal" class="modal fade edit-video-modal">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 Chỉnh sửa bài học: <span id="lecture-name"></span>
@@ -304,7 +304,7 @@
                     <label for="file" class="col-sm-3">Tài liệu:</label>
                     <div class="btn-upload clearfix">
                         <span class="file-wrapper">
-                            <input type="file"  id=editVideoDocument" name="document-upload" class="form-control" multiple style="">
+                            <input type="file"  id="editVideoDocument" name="document-upload" class="form-control" multiple style="">
                             <span class="button text-uppercase" id="btnEditVideoDocument" >Thêm tài liệu</span>
                         </span>
                     </div>
@@ -331,7 +331,7 @@
                             <span class="sr-only">Hoàn thành 0%</span>
                         </div>
                     </div>
-                    <video controls="controls" src="" style="max-width:100%">
+                    <video id="videoInEdit" controls="controls" src="" style="max-width:100%">
                         Your browser does not support the HTML5 Video element.
                     </video>
                 </div>       
@@ -387,7 +387,7 @@
         });
         
         $("#btnEditVideoDocument").click(function(){
-            $('#editVideoDocument').click()            
+            $('#editVideoDocument').click()  
         })
         //DUONG NT UPLOAD DOCUMENT
         $("#btnAddVideoDocument").click(function(){
@@ -414,6 +414,7 @@
             }
             $('#addVideoDocument').val("");
         })
+        //End DuongNT upload
 
         $(document).on('click', '#btnDeleteDocument', function(){
             var indexToRemove = $(this).attr("data-index")
@@ -429,6 +430,60 @@
 
 
             $('#addVideoDocument').val("");
+        })
+
+        //DuongNT - Edit Video Document
+        var editInputFile = $("#editVideoDocument")
+        let editFiles = []
+        editInputFile.change(function(){
+            const initialEditFilesLength = $('.edit-document-field .row').length
+            let newFiles = []; 
+            for(let index = 0; index < editInputFile[0].files.length; index++) {
+                let file = editInputFile[0].files[index];
+                newFiles.push(file);
+                editFiles.push(file);
+                
+                var filesLength = editFiles.length + initialEditFilesLength
+
+                var html = ''
+                html += `<div class="row" data-index="${filesLength - 1}">`
+                    html += `<span class="pull-left">${file.name}</span>`
+                    html += `<span class="pull-right btn-delete-edit-document "><button data-index="${filesLength - 1}" data-active="false" data-file-id="${file.id}" class="btn btn-danger" id="btnDeleteDocumentInEdit">Xoá</button></span>`
+                html += `</div>`
+
+                $('.edit-document-field').append(html)                                                
+            }
+            $('#editVideoDocument').val("");
+        })
+
+        var activeFileToDelete = []
+        $(document).on('click', '#btnDeleteDocumentInEdit', function(){
+            Swal.fire({
+                type: 'warning',
+                text: 'Bạn có muốn xoá tài liệu này không?',
+                showCancelButton: true,
+                cancelButtonText: 'Huỷ'
+            }).then( (result) => {
+                if(result.value){
+                    var indexToRemove = $(this).attr("data-index")
+                    var fileId = $(this).attr('data-file-id')
+                    var isActive = $(this).attr('data-active') //kiểm tra tài liệu có trong database hay không
+                    editFiles.splice(indexToRemove,1)
+                    $(this).parent().parent().remove()
+                    if (isActive) {
+                        activeFileToDelete.push(fileId)
+                    }
+                    //re-index
+                    $.each($('.edit-document-field .row'), function(index, value){
+                        $(value).attr('data-index', index)
+                        $(value).children('span.btn-delete-edit-document').children('button').attr('data-index', index)
+                    })
+                    $('#editVideoDocument').val("");
+                }
+            })
+
+
+
         })
 
         $('#listVideo').on('shown.bs.modal', function () {
@@ -514,9 +569,12 @@
             $(".progress-bar").html('');
             $(".progress-bar").css("width", "0%");
             $(".progress-bar").attr("aria-valuemax", "0");
+
             $(".edit-video").off('click')
             $(".edit-video").click(function(){
+                editFiles = []
                 var video_id = $(this).attr('data-video-id');
+                activeFileToDelete = []
                 $('#listVideo').modal('hide')
                 $('#editVideoModal').attr('data-video-id', video_id).modal({
                     backdrop: 'static',
@@ -543,7 +601,7 @@
                             var html = ''
                             html += `<div class="row" data-index="${index}">`
                                 html += `<span class="pull-left">${document.title}</span>`
-                                html += `<span class="pull-right btn-delete-document "><button data-index="${index}" class="btn btn-danger" id="btnDeleteDocumentInEdit">Xoá</button></span>`
+                                html += `<span class="pull-right btn-delete-document "><button data-index="${index}" data-active="true" data-file-id="${document.id}" class="btn btn-danger" id="btnDeleteDocumentInEdit">Xoá</button></span>`
                             html += `</div>`
                             $('.edit-document-field').append(html)                                                
                             
@@ -563,26 +621,27 @@
                     })
                 }
             })
-            var inputFileEdit = $('#editVideoDocument')
-            let filesEdit = [];            
-            inputFileEdit.change(function(){
-                let newFiles = []; 
-                for(let index = 0; index < inputFile[0].files.length; index++) {
-                    let file = inputFile[0].files[index];
-                    newFiles.push(file);
-                    filesEdit.push(file);
+            // var inputFileEdit = $('#editVideoDocument')
+            // let filesEdit = []
 
-                    var html = ''
-                    html += `<div class="row" data-index="${filesEdit.length + filesEditLength - 1}">`
-                        html += `<span class="pull-left">${file.name}</span>`
-                        html += `<span class="pull-right btn-delete-document "><button data-index="${filesEdit.length + filesEditLength - 1}" class="btn btn-danger" id="btnDeleteDocument">Xoá</button></span>`
-                    html += `</div>`
+            // inputFileEdit.change(function(){
+            //     let newFiles = []; 
+            //     for(let index = 0; index < inputFile[0].files.length; index++) {
+            //         let file = inputFile[0].files[index];
+            //         newFiles.push(file);
+            //         filesEdit.push(file);
 
-                    $('.document-field').append(html)                                                
-                }
-                $('#addVideoDocument').val("");
+            //         var html = ''
+            //         html += `<div class="row" data-index="${filesEdit.length + filesEditLength - 1}">`
+            //             html += `<span class="pull-left">${file.name}</span>`
+            //             html += `<span class="pull-right btn-delete-document "><button data-index="${filesEdit.length + filesEditLength - 1}" class="btn btn-danger" id="btnDeleteDocument">Xoá</button></span>`
+            //         html += `</div>`
+
+            //         $('.document-field').append(html)                                                
+            //     }
+            //     $('#addVideoDocument').val("");
                 
-            }) 
+            // }) 
 
             });
             $('#video-file').on('change', function(e){
@@ -611,7 +670,7 @@
                 formData.append('link_video', link_video)
 
                 files.forEach((file, index) => {
-                    formData.append(`document${index}`, file)                    
+                    formData.append(`document${index}`, file)
                 });
 
                 $.ajax({
@@ -657,15 +716,24 @@
                 var video_description = $('.edit-video-description').val()
                 var link_video = $('#fileName').val()
 
+                var formData = new FormData()
+
+                formData.append('_method', 'PUT')
+                formData.append('name', video_name)
+                formData.append('description', video_description)
+                formData.append('link_video', link_video)
+                formData.append('active_file_to_delete', activeFileToDelete)
+
+                editFiles.forEach((file, index) => {
+                    formData.append(`document${index}`, file)
+                });
+
                 $.ajax({
-                    method: 'PUT',
+                    method: 'POST',
                     url: "{{ url('/') }}/user/units/video/"+ video_id + "/update",
-                    data:{
-                        name        : video_name,
-                        description : video_description,
-                        link_video  : link_video,
-                    },
-                    dataType: 'json',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
                     beforeSend: function() {
                         $(".ajax_waiting").addClass("loading");
                     },
@@ -674,7 +742,11 @@
                         if(response.status == '200'){
                             $('#editVideoModal').modal('hide')
                             // $('#listVideo').modal('toggle')
+                            editFiles = []
+                            $("#editVideoDocument").val("")
+                            $("#videoInEdit")[0].pause()
                         }
+                        
                     },
                     error: function (error) {
                         $(".ajax_waiting").removeClass("loading");
@@ -688,6 +760,7 @@
                             html: txt_errors,
                             allowOutsideClick: false,
                         })
+                        $("#videoInEdit")[0].pause()
                     }
                 })
             })
@@ -746,6 +819,9 @@
                     }
                 })
             });
+            $('.cancel-edit-video').on('click', function(){
+                $('#videoInEdit')[0].pause()
+            })
 
             var old_pos = 0;
             var new_pos = 0;

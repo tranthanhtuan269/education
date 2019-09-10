@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontends;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreReportRequest;
 use App\Report;
 use Auth;
 
@@ -34,7 +35,7 @@ class ReportController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreReportRequest $request)
     {
         if(isset($request->message)){
             $report = new Report;
