@@ -54,8 +54,8 @@
             @foreach($comment->children as $reply)
             <div class="comment-reply">
                 <div>
-                    @if($reply->userRole->user)
-                    <img class="avatar" src="{{ url('/') }}/{{ $reply->userRole->user->avatar }}" alt="" />
+                    @if($reply->userRole && $reply->userRole->user)
+                    <img class="avatar" src="{{ url('/') }}/frontend/{{ $reply->userRole->user->avatar }}" alt="" />
                     <div class="info-account">
                         <p class="interval">{{ $reply->created_at }}</p>
                         <p class="name">{{ $reply->userRole->user->name }}</p>
