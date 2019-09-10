@@ -46,12 +46,12 @@
         <div class="ln-desc-btm-center">
             <div class="ln-desc-btm-group-track">
                 @if (($main_video_id_key) > 0)
-                <a href="/learning-page/{{$main_video->unit->course->id}}/lecture/{{$video_id_list[$main_video_id_key-1]}}">
+                <a>
                     <button class="btn" id="lnDescBtnPrevious" data-toggle='tooltip' data-placement='top' title='Bài trước'><i class="fas fa-step-backward"></i></button>
                 </a>
                 @endif
                 @if (($main_video_id_key) < (count($video_id_list) - 1) )
-                <a href="/learning-page/{{$main_video->unit->course->id}}/lecture/{{$video_id_list[$main_video_id_key + 1]}}">
+                <a >
                     <button class="btn" id="lnDescBtnNext" data-toggle='tooltip' data-placement='top' title='Bài sau'><i class="fas fa-step-forward"></i></button>
                 </a>
                 @endif
@@ -86,3 +86,67 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function (){
+        
+        $('#lnDescBtnNext').on('click', function(e){
+            e.preventDefault()
+            e.stopPropagation()
+            var video_id_index = null
+            video_id_list.forEach(video_id => {
+                if(video_id == {{$main_video->id}}){
+                    video_id_index = video_id_list.indexOf(video_id)
+                    return 
+                }
+            });
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            var request = $.ajax({
+                method: 'POST',
+                url: "/user-course/update-watched",
+                data: {
+                    'video_id' : video_id_list[video_id_index + 1]
+                },
+                dataType: "json",
+            });
+            request.done(function(){
+                // alert("/learning-page/"+course_id+"/lecture/"+video_id_list[video_id_index + 1]+"")
+                window.location.href = ("/learning-page/"+course_id+"/lecture/"+video_id_list[video_id_index + 1]+"")
+            })
+        })
+
+        $('#lnDescBtnPrevious').on('click', function(e){
+            e.preventDefault()
+            e.stopPropagation()
+            var video_id_index = null
+            video_id_list.forEach(video_id => {
+                if(video_id == {{$main_video->id}}){
+                    video_id_index = video_id_list.indexOf(video_id)
+                    return 
+                }
+            });
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            var request = $.ajax({
+                method: 'POST',
+                url: "/user-course/update-watched",
+                data: {
+                    'video_id' : video_id_list[video_id_index - 1]
+                },
+                dataType: "json",
+            });
+            request.done(function(){
+                // alert("/learning-page/"+course_id+"/lecture/"+video_id_list[video_id_index + 1]+"")
+                window.location.href = ("/learning-page/"+course_id+"/lecture/"+video_id_list[video_id_index - 1 ]+"")
+            })
+        })
+    })
+</script>

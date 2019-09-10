@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backends;
 
 use App\Http\Requests\StoreVideoRequest;
+use App\Http\Requests\UpdateVideoRequest;
 use App\Transformers\VideoTransformer;
 use App\Course;
 use App\Unit;
@@ -68,14 +69,17 @@ class VideoController extends Controller
             if($request->file()){
                 foreach ($request->file() as $key => $file) {
                     if($file->isValid()){
+                        $file_name = $file->getClientOriginalName();
+                        $file_name = str_replace(" ", "_", $file->getClientOriginalName());
+
                         $document = new Document;
                         $document->title = $file->getClientOriginalName();
                         $document->video_id = $video->id;
-                        $document->url_document = $video->id.'_'.time().'_'.$file->getClientOriginalName();
+                        $document->url_document = $video->id.'_'.time().'_'.$file_name;
                         $document->size = $file->getClientSize();
                         $document->save();
 
-                        $file->move('uploads/files', $video->id.'_'.time().'_'.$file->getClientOriginalName());                        
+                        $file->move('uploads/files', $video->id.'_'.time().'_'.$file_name);                        
                     }else{
                         return response()->json([
                             'status' => "401",
@@ -151,9 +155,59 @@ class VideoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateVideoRequest $request, $id)
     {
-        //
+        // dd($request->all());
+        $video = Video::find($id);
+        if($video){
+            $video->name = $request->name;
+            $video->description = $request->description;
+
+            if ($request->link_video != '') {
+                $link_video = $request->link_video.'.mp4';
+                $video->link_video = $link_video;
+                $command = config('config.path_ffprobe_exe').' -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 '.public_path("/uploads/videos/").$link_video.' 2>&1';
+                $video->duration =  exec($command, $output, $return);
+            }           
+
+            $video->save();
+
+            //DuongNT upload file
+            if($request->file()){
+                foreach ($request->file() as $key => $file) {
+                    if($file->isValid()){
+                        $file_name = $file->getClientOriginalName();
+                        $file_name = str_replace(" ", "_", $file->getClientOriginalName());
+
+                        $document = new Document;
+                        $document->title = $file->getClientOriginalName();
+                        $document->video_id = $video->id;
+                        $document->url_document = $video->id.'_'.time().'_'.$file_name;
+                        $document->size = $file->getClientSize();
+                        $document->save();
+
+                        $file->move('uploads/files', $video->id.'_'.time().'_'.$file_name);                        
+                    }else{
+                        return response()->json([
+                            'status' => "401",
+                            'message' => "File bị lỗi khi upload!"
+                        ]);
+                    }
+                }
+            }
+
+            if($request->active_file_to_delete){
+                $document_ids = explode(",", $request->active_file_to_delete);
+                foreach ($document_ids as $key => $id) {
+                    $document = Document::find($id);
+                    unlink(public_path('uploads/files/'.$document->url_document));
+                    $document->delete();
+                }
+            }
+
+            return \Response::json(array('status' => '200', 'message' => 'Sửa Video thành công!', 'video' => $video));
+        }
+        return \Response::json(array('status' => '404', 'message' => 'Sửa Video không thành công!'));
     }
 
     /**
