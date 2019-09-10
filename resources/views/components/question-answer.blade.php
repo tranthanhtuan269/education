@@ -1,6 +1,6 @@
 <div class="box clearfix">
     <div class="col-sm-3">
-        @if($comment->userRole->user != null)
+        @if($comment->userRole && $comment->userRole->user != null)
             @if(strlen($comment->userRole->user->avatar) > 0)
             <img class="avatar" src="{{ url('/frontend/') }}/{{ $comment->userRole->user->avatar }}" alt="" />
             @else
