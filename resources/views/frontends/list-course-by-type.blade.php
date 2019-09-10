@@ -19,7 +19,13 @@
                         </div>
                         @foreach ($list_course as $course)
                         <?php
-                            $lecturers = count($course->Lecturers()) > 1 ? 'Nhiều tác giả' : count($course->Lecturers()) > 0 ? $course->Lecturers()[0]->user->name : "Courdemy";
+                            // dd($course->Lecturers()[0]->user);
+                            if(isset($course->Lecturers()[0]->user->name)){
+                                $lecturers_name1 = $course->Lecturers()[0]->user->name;
+                            }else{
+                                $lecturers_name1 = "Courdemy";
+                            }
+                            $lecturers = count($course->Lecturers()) > 1 ? 'Nhiều tác giả' : count($course->Lecturers()) > 0 ? $lecturers_name1 : "Courdemy";
                         ?>
                         @include(
                             'components.course', 
