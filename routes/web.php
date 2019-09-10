@@ -254,6 +254,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('getDataMailBoxNavAjax', 'Frontends\UserController@getDataMailBoxNavAjax');
         Route::get('getDataOrderAjax', 'Frontends\UserController@getDataOrderAjax');
         Route::get('getSingleEmailContentAjax', 'Frontends\UserController@getSingleEmailContentAjax');
+        
         Route::group(['prefix' => 'student'],function () {
             Route::get('mail-box', 'Frontends\UserController@mailBoxStudent'); 
             Route::get('course', 'Frontends\UserController@courseStudent'); 
@@ -281,11 +282,11 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('{id}/get-video', 'Backends\UnitController@getVideos');
             Route::post('store', 'Backends\UnitController@store');
             Route::put('{id}/update', 'Backends\UnitController@update');
-            Route::put('video/{id}/update', 'Backends\UnitController@updateVideo');
             Route::put('sort', 'Backends\UnitController@sort');
             Route::put('sort-video', 'Backends\UnitController@sortVideo');
             Route::post('video/store', 'Backends\VideoController@store');
             Route::post('video/edit', 'Backends\VideoController@edit');
+            Route::put('video/{id}/update', 'Backends\VideoController@update');
             Route::delete('video/remove', 'Backends\VideoController@sendRemoveVideoRequest');
             Route::delete('delete', 'Backends\UnitController@destroy');
         });
