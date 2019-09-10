@@ -19,6 +19,7 @@ use Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use App\UserRole;
+use DB;
 
 class HomeController extends Controller
 {
@@ -37,7 +38,14 @@ class HomeController extends Controller
             $list_course = Course::where('status', 1)->orderBy('id', 'desc')->paginate(16);
             $title = 'Các khóa học mới nhất';
         } elseif ($type == 'trendding') {
-            $list_course = Course::where('status', 1)->where('featured', 1)->orderBy('featured_index', 'asc')->paginate(16);
+            $limitDate = \Carbon\Carbon::now()->subDays(15);
+            $sql = "SELECT course_id, count(course_id) FROM orders JOIN order_details ON orders.id = order_details.order_id WHERE created_at > '" . $limitDate->toDateTimeString() ."' group by course_id ORDER BY count(course_id) desc;";
+            $results = DB::select($sql);
+            foreach ($results as $key => $result) {
+                $course_id_arr[] = $result->course_id;
+            }
+            $list_course = \App\Course::whereIn('id', $course_id_arr)->paginate(16);
+            
             $title = 'Các khóa học thịnh hành';
         }
 
@@ -60,8 +68,18 @@ class HomeController extends Controller
         })->values(); //reindex the collection
         $best_seller_course = Course::where('status', 1)->orderBy('sale_count', 'desc')->limit(8)->get();
         $new_course = Course::where('status', 1)->orderBy('id', 'desc')->limit(8)->get();
+
+        $limitDate = \Carbon\Carbon::now()->subDays(15);
+        $sql = "SELECT course_id, count(course_id) FROM orders JOIN order_details ON orders.id = order_details.order_id WHERE created_at > '" . $limitDate->toDateTimeString() ."' group by course_id ORDER BY count(course_id) desc LIMIT 8;";
+        $results = DB::select($sql);
+        foreach ($results as $key => $result) {
+            $course_id_arr[] = $result->course_id;
+        }
+        $trending_courses = \App\Course::whereIn('id', $course_id_arr)->get();
+
+        // dd($trending_course);
         $popular_teacher = Teacher::getTeacherBestVote();
-        return view('frontends.home', compact('feature_category', 'feature_course', 'best_seller_course', 'new_course', 'popular_teacher'));
+        return view('frontends.home', compact('feature_category', 'feature_course', 'best_seller_course', 'new_course', 'popular_teacher', 'trending_courses' ));
     }
 
     public function search(Request $request)
@@ -102,6 +120,14 @@ class HomeController extends Controller
             $best_seller_course = Course::where('status', 1)->where('category_id', $cat_id)->orderBy('sale_count', 'desc')->limit(8)->get();
             
             $new_course = Course::where('status', 1)->where('category_id', $cat_id)->orderBy('id', 'desc')->limit(8)->get();
+
+            $limitDate = \Carbon\Carbon::now()->subDays(15);
+            $sql = "SELECT course_id, count(course_id) FROM orders JOIN order_details ON orders.id = order_details.order_id WHERE created_at > '" . $limitDate->toDateTimeString() ."' group by course_id ORDER BY count(course_id) desc LIMIT 8;";
+            $results = DB::select($sql);
+            foreach ($results as $key => $result) {
+                $course_id_arr[] = $result->course_id;
+            }
+            $trending_courses = \App\Course::whereIn('id', $course_id_arr)->where('category_id', $cat_id)->get();
             
             // $popular_teacher = Teacher::getTeacherBestVote();
 
@@ -113,7 +139,7 @@ class HomeController extends Controller
 
             //     return $courses->cate;
             // });
-            return view('frontends.category', compact('category', 'feature_course', 'best_seller_course', 'new_course', 'popular_teacher', 'tags' ));
+            return view('frontends.category', compact('category', 'feature_course', 'best_seller_course', 'new_course', 'trending_courses', 'popular_teacher', 'tags' ));
         }
 
         return abort(404);
@@ -761,33 +787,7 @@ class HomeController extends Controller
         }
         echo "done";   
     }
-    public function fixData(){
-        // $course = Course::where('slug', 'anh-van-giao-tiep-cho-nguoi-hoan-toan-mat-goc')->first();
-        // xu ly
-        $courses = Course::get();
-        foreach($courses as $course){
-            $course->will_learn = preg_replace('/\s\s+/', ' ', $course->will_learn);
-            $course->will_learn =  str_replace("<li> ","<li>",$course->will_learn) ;
-            $course->will_learn =  str_replace("\t","",$course->will_learn);
-            $course->will_learn =  str_replace("<li></li>","",$course->will_learn);
-            $course->will_learn =  str_replace("<li>; ","<li>",$course->will_learn);
-            $course->will_learn = $course->will_learn;
-            $course->save();
-        }
-        // $course = Course::where('slug', 'tieng-anh-cho-nguoi-viet-season-1-noi-chuan-cap-do-tu')->first();
-        // $course->will_learn = preg_replace('/\s\s+/', ' ', $course->will_learn);
-        // $course->will_learn = str_replace("<li> ","<li>",$course->will_learn);
-        // // $course->will_learn = str_replace("\t","",$course->will_learn);
-        // $course->will_learn = str_replace("<li></li>","",$course->will_learn);
-        // // $course->will_learn = str_replace("<li>; ","<li>",$course->will_learn);
-       
-        // // end xu ly
-        // // luu vao
-        // $course->will_learn = $course->will_learn;
-        // $course->save();
-        // // end luu vao
-        // dd($course->will_learn);
-        }
+
     public function test(){
 
         $courses = Course::get();

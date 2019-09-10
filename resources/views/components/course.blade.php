@@ -1,6 +1,6 @@
 <?php
     // if($course->vote_count == 0) $course->vote_count = 0;
-    $lecturers = count($course->Lecturers()) > 1 ? 'Nhiều tác giả' : (count($course->Lecturers()) > 0 ? $course->Lecturers()[0]->user->name : "Courdemy");
+    $lecturers = count($course->Lecturers()) > 1 ? 'Nhiều tác giả' : (count($course->Lecturers()) > 0 ? ($course->Lecturers()[0]->user ? $course->Lecturers()[0]->user->name : "Courdemy") : "Courdemy");
     // dd($course->userRoles()->first()->teacher->id);
     if (isset($course->Lecturers()->first()->teacher->id)) {
         $main_lecturer = $course->Lecturers()->first() ? $course->Lecturers()->first()->teacher->id : 0;
@@ -57,8 +57,8 @@
                 <h3 class="title-course">{{ $course->name }}</h3>
                 <div class="clearfix" style="line-height:1.7">
                     <span class="name-teacher pull-left" data-teacher-id="{{$main_lecturer}}" >
-                        {{-- {{ $lecturers }} --}}
-                        {{ $course->author }}
+                        {{ $lecturers }}
+                        {{-- {{ $course->author }} --}}
                     </span>
                     <br>
                     <span class="pull-left">

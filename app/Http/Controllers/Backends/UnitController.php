@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backends;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreUnitRequest;
 use App\Http\Requests\UpdateUnitRequest;
+use App\Http\Requests\UpdateVideoRequest;
 use App\Transformers\UnitTransformer;
 use App\Course;
 use App\Unit;
@@ -56,7 +57,7 @@ class UnitController extends Controller
         return \Response::json(array('status' => '404', 'message' => 'Tạo Unit không thành công!'));
     }
 
-    public function updateVideo(Request $request, $id){
+    public function updateVideo(UpdateVideoRequest $request, $id){
         $video = Video::find($id);
         if($video){
             $video->name = $request->name;

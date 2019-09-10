@@ -98,7 +98,7 @@
                         </div>
                     </div>
                 </div>
-                <form class="row form-edit-course">
+                <form class="row form-edit-course" autocomplete="off">
                         <div class="col-md-8">
                             <div class="form-group">
                                 <label for="name" class="control-label">Tên khóa học:</label>

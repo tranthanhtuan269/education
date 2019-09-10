@@ -6,7 +6,7 @@
         $list_bought = \json_decode(Auth::user()->bought);
     }
 ?>
-<div class="box-search" id="min-height">
+<div class="box-search">
   <div class="container">
       <div class="row">
           {{-- <div class="col-lg-3 col-md-3 col-sm-4 u-list-leftbar hidden-xs">
@@ -78,15 +78,5 @@
       </div>
   </div>
 </div>
-<!-- <script>
-    
-    $( document ).ready(function() {
-        var x = $('body').height();
-        var y = $('header').height();
-        var z = $('footer').height();
-        x=x-y-z;
-        // document.getElementById("min-height").style.minHeight = x;
-        $('#min-height').css('minHeight',x);
-});
-</script> -->
+
 @endsection

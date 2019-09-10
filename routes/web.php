@@ -209,7 +209,7 @@ Route::get('comments/see-more', 'Frontends\HomeController@seeMore')->name('see-m
 
 Route::get('search', 'Frontends\HomeController@search');
 
-Route::get('fix-data', 'Frontends\HomeController@fixData');
+
 
 Route::get('nap-tien', 'Frontends\HomeController@naptien');
 

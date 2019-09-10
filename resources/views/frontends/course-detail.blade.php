@@ -912,10 +912,12 @@
                 method: "GET",
                 dataType: "html"
             });
-
+            console.log({{ $info_course->comments()->count() }})
+            console.log(current_skip)
+            console.log(current_take)
             request.done(function( data ) {
                 if(data == '' || {{ $info_course->comments()->count() }} <= current_skip + current_take){
-                    $('.btn-see-more').hide();    
+                    $('.btn-see-more').hide();
                 }
                 $('.btn-see-more').attr('data-skip', current_skip + current_take);
                 $('#review-box').append(data);
@@ -940,6 +942,7 @@
     });
 
     function vote(comment_id, type){
+        var baseURL = $('base').attr('href');
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -986,6 +989,7 @@
 
         $('.create-reply-btn').on('click', function (e) {
             var comment_id = $(this).attr('data-id');
+            var baseURL = $('base').attr('href');
             if($("#reply-" + comment_id).val() == ''){
                 Swal.fire({
                     type: 'warning',
