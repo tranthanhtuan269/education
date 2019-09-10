@@ -5,13 +5,6 @@
                 <h2>Giảng viên tiêu biểu</h2>
             </div>
             @foreach ($popular_teacher as $teacher)
-                <?php
-                if(isset($teacher->userRole->user->avatar)){
-                    $intern_avatar = $teacher->userRole->user->avatar;
-                }else{
-                    $intern_avatar = "images/avatar.jpg"
-                }
-                ?>
                 @include(
                     'components.teacher', 
                     [
