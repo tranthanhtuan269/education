@@ -10,10 +10,10 @@
     </div>
     @else
     <div class="col-sm-3">
-        <img class="avatar" src="{{ url('/') }}/frontends/images/avatar.jpg" alt="" />
+        <img class="avatar" src="{{ url('/') }}/frontend/images/avatar.jpg" alt="" />
         <div class="info-account">
             <p class="interval">{{ $comment->created_at }}</p>
-            <p class="name">Anonymous</p>
+            <p class="name">Học viên Courdemy</p>
         </div>
     </div>
     @endif
@@ -64,7 +64,7 @@
                     <img class="avatar" src="{{ url('/') }}/frontend/images/avatar.jpg" alt="" />
                     <div class="info-account">
                         <p class="interval">{{ $reply->created_at }}</p>
-                        <p class="name">Anonymous</p>
+                        <p class="name">Học viên Courdemy</p>
                     </div>
                     @endif
                 </div>
