@@ -2,10 +2,18 @@
 <div class="box clearfix">
     @if($comment->userRole && $comment->userRole->user)
     <div class="col-sm-3">
-        <img class="avatar" src="{{ url('/') }}/frontend/{{ $comment->userRole->user->avatar }}" alt="" />
+        @if($comment->userRole->user->avatar)
+            <img class="avatar" src="{{ url('/') }}/frontend/{{ $comment->userRole->user->avatar }}" alt="" />
+        @else
+            <img class="avatar" src="{{ url('/') }}/frontend/images/avatar.jpg" alt="" />
+        @endif
         <div class="info-account">
             <p class="interval">{{ $comment->created_at }}</p>
+            @if ($comment->userRole->user->name)
             <p class="name">{{ $comment->userRole->user->name }}</p>
+            @else
+            <p class="name">Học viên Courdemy</p>
+            @endif
         </div>
     </div>
     @else
@@ -55,17 +63,25 @@
             <div class="comment-reply">
                 <div>
                     @if($reply->userRole && $reply->userRole->user)
-                    <img class="avatar" src="{{ url('/') }}/frontend/{{ $reply->userRole->user->avatar }}" alt="" />
-                    <div class="info-account">
-                        <p class="interval">{{ $reply->created_at }}</p>
-                        <p class="name">{{ $reply->userRole->user->name }}</p>
-                    </div>
-                    @else
-                    <img class="avatar" src="{{ url('/') }}/frontend/images/avatar.jpg" alt="" />
-                    <div class="info-account">
-                        <p class="interval">{{ $reply->created_at }}</p>
-                        <p class="name">Học viên Courdemy</p>
-                    </div>
+                        @if($comment->userRole->user->avatar)
+                            <img class="avatar" src="{{ url('/') }}/frontend/{{ $reply->userRole->user->avatar }}" alt="" />
+                        @else
+                            <img class="avatar" src="{{ url('/') }}/frontend/images/avatar.jpg" alt="" />
+                        @endif
+                        <div class="info-account">
+                            <p class="interval">{{ $reply->created_at }}</p>
+                            @if ($comment->userRole->user->name)
+                            <p class="name">{{ $reply->userRole->user->name }}</p>
+                            @else
+                            <p class="name">Học viên Courdemy</p>
+                            @endif
+                        </div>
+                        @else
+                        <img class="avatar" src="{{ url('/') }}/frontend/images/avatar.jpg" alt="" />
+                        <div class="info-account">
+                            <p class="interval">{{ $reply->created_at }}</p>
+                            <p class="name">Học viên Courdemy</p>
+                        </div>
                     @endif
                 </div>
                 <div class="comment">
