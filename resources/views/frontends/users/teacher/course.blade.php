@@ -433,9 +433,9 @@
         })
 
         //DuongNT - Edit Video Document
-        const editInputFile = $("#editVideoDocument")
+        var editInputFile = $("#editVideoDocument")
         let editFiles = []
-        editInputFile.on('change', function(){
+        editInputFile.change(function(){
             const initialEditFilesLength = $('.edit-document-field .row').length
             let newFiles = []; 
             for(let index = 0; index < editInputFile[0].files.length; index++) {
@@ -475,7 +475,6 @@
                     }
                     //re-index
                     $.each($('.edit-document-field .row'), function(index, value){
-                        console.log($(value));
                         $(value).attr('data-index', index)
                         $(value).children('span.btn-delete-edit-document').children('button').attr('data-index', index)
                     })
@@ -573,6 +572,7 @@
 
             $(".edit-video").off('click')
             $(".edit-video").click(function(){
+                editFiles = []
                 var video_id = $(this).attr('data-video-id');
                 activeFileToDelete = []
                 $('#listVideo').modal('hide')
@@ -718,6 +718,7 @@
 
                 var formData = new FormData()
 
+                formData.append('_method', 'PUT')
                 formData.append('name', video_name)
                 formData.append('description', video_description)
                 formData.append('link_video', link_video)
@@ -741,7 +742,11 @@
                         if(response.status == '200'){
                             $('#editVideoModal').modal('hide')
                             // $('#listVideo').modal('toggle')
+                            editFiles = []
+                            $("#editVideoDocument").val("")
+                            console.log(formData);
                         }
+                        
                     },
                     error: function (error) {
                         $(".ajax_waiting").removeClass("loading");
