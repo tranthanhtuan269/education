@@ -608,6 +608,11 @@
             })
         })
 
+        $(".btn-secondary").click(function () {
+            $("#subject_Ins").val('');
+            content_Ins.setData("");
+        })
+
     });
 </script>
 
