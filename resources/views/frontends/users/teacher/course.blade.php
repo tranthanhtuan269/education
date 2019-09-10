@@ -998,7 +998,6 @@
 
                 $(".progress-bar").css("width", Math.round(percent) + "%");
                 $(".progress-bar").html(Math.round(percent) + "%");
-                console.log(uploading)
             }
 
             function completeHandler(event) {
@@ -1018,7 +1017,6 @@
                 $('.save-edit-video').attr('disabled', false);
                 $('.cancel-edit-video').attr('disabled', false);
                 $("#addVideoModal #file-mp4-upload-off").on();
-                console.log(uploading);
             }
 
             function completeHandlerEdit(event) {
@@ -1027,6 +1025,16 @@
                 $('#fileName').val(textUpload);
                 $('#editVideoModal video').attr('src', "{{ url('uploads/videos') }}/" + textUpload + '.mp4');
                 $("#editVideoModal video")[0].load();
+                uploading = false;
+                $('.upload-new-video').show();
+                $('.upload-old-video').show();
+                $('.uploading-new-video').hide();
+                $('.uploading-old-video').hide();
+                $('.save-add-video').attr('disabled', false);
+                $('.cancel-add-video').attr('disabled', false);
+                $('.save-edit-video').attr('disabled', false);
+                $('.cancel-edit-video').attr('disabled', false);
+                $("#editVideoModal #file-mp4-upload-off-updated").on();
             }
 
             function errorHandler(event) {
