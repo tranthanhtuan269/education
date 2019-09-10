@@ -2,7 +2,7 @@
 <div class="box clearfix">
     @if($comment->userRole && $comment->userRole->user)
     <div class="col-sm-3">
-        <img class="avatar" src="{{ url('/') }}/{{ $comment->userRole->user->avatar }}" alt="" />
+        <img class="avatar" src="{{ url('/') }}/frontend/{{ $comment->userRole->user->avatar }}" alt="" />
         <div class="info-account">
             <p class="interval">{{ $comment->created_at }}</p>
             <p class="name">{{ $comment->userRole->user->name }}</p>
