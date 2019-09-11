@@ -101,7 +101,6 @@
                     <div class="image-cropit-editor">
                         <div class="box-course-preview" id="image-cropper">
                             <div class="cropit-preview text-center preview-image-course" id="cropitPreview" style="display: none">
-                                {{-- <img class="sample-avatar" src="" alt="sample avatar"> --}}
                             </div>
                             <input type="range" class="cropit-image-zoom-input" id="cropit-zoom-input" style="display: none"/>
                             <input type="file" class="cropit-image-input" style="display:none" value="" id="image-file-input"/>

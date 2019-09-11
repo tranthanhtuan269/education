@@ -26,18 +26,18 @@
         <div class="col-md-6">
             <h3><b>Số học viên được tặng khóa học</b></h3>
             <br>
-            <div class="">
+            <div class="gift-student-number">
                 <span>Nhập số học viên: </span> &nbsp;
-                <input type="text" placeholder="10" name="student-number" value="10"> &nbsp;
+                <input type="number" min="0" step="1" name="student-number"> &nbsp;
                 <button class="btn btn-success btn-student-number">Xác nhận</button>
             </div>
             <br>
-            <div class="table-responsive">
+            <div class="table-responsive" style="display:none">
                 <table class="table table-bordered" id="student-table">
                     <thead class="thead-custom">
                         <tr>
                             <th scope="col">STT</th>
-                            <th scope="col">ID</th>
+                            {{-- <th scope="col">ID</th> --}}
                             <th scope="col">Tên</th>
                         </tr>
                     </thead>
@@ -155,15 +155,36 @@
                 data: "id",
                 orderable: false
             },
-            { 
-                data: "id",
-                class:"user-role-id"
-            },
+            // { 
+                // data: "id",
+                // class:"user-role-id"
+            // },
             { 
                 data:"name", 
             },
+            // { 
+            //     data:"course_id", 
+            // },
         ];
         $(".btn-student-number").click(function(){
+            var student_numb = $('input[name=student-number]').val()
+            if( student_numb == '' ){
+                Swal.fire({
+                    type: 'warning',
+                    text: 'Bạn chưa nhập số học viên.'
+                })
+                return
+            }
+
+            if( Number(student_numb) <= 0 ){
+                Swal.fire({
+                    type: 'warning',
+                    text: 'Số học viên không thể <= 0.'
+                })
+                return
+            }
+
+            $('.table-responsive').css('display', 'block')
             if (dataTable) {
                 dataTable.destroy();  
             }
@@ -177,11 +198,11 @@
                             ajax: "{{ url('/') }}/admincp/gifts/getGiftStudentAjax?number="  + $('input[name="student-number"]').val(),
                             columns: dataObject,
                             bLengthChange: true,
-                            pageLength: 100,
+                            pageLength: 10,
                             // order: [[ 4, "desc" ]],
                             colReorder: {
-                                fixedColumnsRight: 1,
-                                fixedColumnsLeft: 1
+                                fixedColumnsRight: 0,
+                                fixedColumnsLeft: 0
                             },
                             oLanguage: {
                                 sSearch: "Tìm",

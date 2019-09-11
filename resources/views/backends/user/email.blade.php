@@ -21,7 +21,7 @@
             <button class="btn btn-primary">Create Email</button>
         </a> --}}
         <a data-toggle="modal" data-target="#createEmailModal">
-            <button class="btn btn-primary">Create Email</button>
+            <button class="btn btn-primary">Tạo Email thông báo</button>
         </a>          
     </div>
     <div class="row">
@@ -33,8 +33,8 @@
                             <th class="id-field" width="1%">
                                 <input type="checkbox" id="select-all-btn" data-check="false">
                             </th>
-                            <th scope="col">Subject</th>
-                            <th scope="col">Content</th>
+                            <th scope="col">Chủ đề</th>
+                            <th scope="col">Nội dung</th>
                             <th scope="col">Ngày tạo</th>
                             <th scope="col">Thao tác</th>
                         </tr>
@@ -284,7 +284,7 @@
                     var html = '';
                     
                     @if (Helper::checkPermissions('users.edit', $list_roles)) 
-                        html += '<a class="btn-edit mr-2 edit-user" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Sửa"> <i class="fa fa-edit"></i></a>';
+                        html += '<a class="btn-edit mr-2 edit-email" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Sửa"> <i class="fa fa-edit"></i></a>';
                     @endif
 
                     @if (Helper::checkPermissions('users.delete', $list_roles)) 
@@ -335,6 +335,8 @@
 
         $('#email-table').css('width', '100%');
 
+        dataTable.search('  ').draw();
+    
         //select all checkboxes
         $("#select-all-btn").change(function(){  
             $('.page table tbody input[type="checkbox"]').prop('checked', $(this).prop("checked"));
@@ -396,10 +398,9 @@
 
             return false;
         }
-
         function addEventListener(){
-            $('.edit-user').off('click')
-            $('.edit-user').click(function(){
+            $('.edit-email').off('click')
+            $('.edit-email').click(function(){
                 var id       = $(this).attr('data-id')
                 var curr_title   = $(this).attr('data-title')
                 var curr_content = $(this).attr('data-content')

@@ -50,7 +50,7 @@
                                             <div class="form-group">
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="fas fa-lock fa-fw fa-md"></i></span>
-                                                    <input type="password" class="form-control" placeholder="Nhập lại mật khẩu mới" name="confirm-pass">
+                                                    <input type="password" class="form-control" placeholder="Xác nhận mật khẩu mới" name="confirm-pass">
                                                 </div>			
                                             </div>
                                             <div class="form-group">
@@ -321,6 +321,10 @@ function changePassAjax() {
         confirmpassword: $('#myModalChangePass input[name=confirm-pass]').val(),
         _method: "put"
     };
+    // var ch_length = ($('#myModalChangePass input[name=pass-new]').val()).length
+    // var ch_length2 = ($('#myModalChangePass input[name=confirm-pass]').val()).length
+    // alert($('#myModalChangePass input[name=pass-new]').val()+'xx'+ch_length)
+    // alert($('#myModalChangePass input[name=confirm-pass]').val()+'xx'+ch_length2)
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
