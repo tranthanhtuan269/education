@@ -17,7 +17,12 @@
                     <div class="row">
                         @foreach ($related_course as $related)
                             <?php
+                            if(isset($related->Lecturers()[0]->user->name)){
                                 $lecturers = count($related->Lecturers()) > 1 ? 'Nhiều tác giả' : count($related->Lecturers()) > 0 ? $related->Lecturers()[0]->user->name : "Courdemy";
+
+                            }else{
+                                $lectures = "Courdemy";
+                            }
                             ?>
                             @include(
                                 'components.course', 

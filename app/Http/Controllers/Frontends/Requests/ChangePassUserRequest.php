@@ -23,7 +23,7 @@ class ChangePassUserRequest extends FormRequest
     {
         return [
             'password_old'=>'required|check_pass',
-            'password'=>'required|min:8|max:32|different:password_old',
+            'password'=>'required|min:8|max:32|different:password_old|regex:/^\S*$/',
             'confirmpassword'=>'required|same:password',
         ];
     }
@@ -35,9 +35,10 @@ class ChangePassUserRequest extends FormRequest
             'password_old.check_pass'      => 'Mật khẩu hiện tại chưa chính xác.',
 
             'password.required'            => 'Bạn chưa nhập mật khẩu mới.',
-            'password.min'                 => 'Mật khẩu mới phải có ít nhất 8 ký tự.',
+            'password.min'                 => 'Mật khẩu mới phải có ít nhất 8 ký tự',
             'password.max'                 => 'Mật khẩu mới có tối đa 32 ký tự.',
             'password.different'           => 'Mật khẩu mới và mật khẩu hiện tại trùng nhau.',
+            'password.regex'               => 'Mật khẩu mới không được phép có khoảng trắng.',            
 
             'confirmpassword.required'     => 'Bạn chưa Xác nhận mật khẩu.',
             'confirmpassword.same'         => 'Mật khẩu và Xác nhận mật khẩu không trùng nhau.',

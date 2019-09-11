@@ -76,40 +76,43 @@ class AppServiceProvider extends ServiceProvider
             // $event->job->payload()
             $job = $event->job;
             Log::info('Job ready: ' . $event->job->resolveName());
-            Log::info('Job startet: ' . $event->job->resolveName());
+            Log::info('Job started: ' . $event->job->resolveName());
 
         });
 
         Queue::after(function (JobProcessed $event) {
             // $event->connectionName
             // $event->job
-            $job = $event->job->payload();
-
-            $payload = json_decode( $event->job->getRawBody() );
-            $data = unserialize( $payload->data->command );
-            $video_id = $data->video_id;
-
-            $video = Video::find($video_id);
-            if($video){
-                $video->status = 3;
-                $video->save();
-                // DuongNT // thêm 1 video vào lượng đã xem vào bảng user_courses
-                $unit = $video->unit;
-                $course = $unit->course;
-                $user_roles = $course->userRoles()->where('role_id', 3)->get()->all();//lấy những user_role đại diện student
-                #Insert cho từng student
-                foreach ($user_roles as $key => $user_role) {
-                    $user_course = UserCourse::where("user_role_id", $user_role->id)->where("course_id", $course->id)->first();
-                    $videos = json_decode($user_course->videos);
-                    array_push($videos->{'videos'}[($unit->index) - 1 ], 0);
-                    $videos = json_encode($videos);
-                    $user_course->videos = $videos;
-                    $user_course->save();
+            if($event->job->resolveName() == "App\Jobs\ProcessLecture"){
+                $job = $event->job->payload();
+    
+                $payload = json_decode( $event->job->getRawBody() );
+                $data = unserialize( $payload->data->command );
+                $video_id = $data->video_id;
+    
+                $video = Video::find($video_id);
+                if($video){
+                    $video->status = 3;
+                    $video->save();
+                    // DuongNT // thêm 1 video vào lượng đã xem vào bảng user_courses
+                    $unit = $video->unit;
+                    $course = $unit->course;
+                    $user_roles = $course->userRoles()->where('role_id', 3)->get()->all();//lấy những user_role đại diện student
+                    #Insert cho từng student
+                    foreach ($user_roles as $key => $user_role) {
+                        $user_course = UserCourse::where("user_role_id", $user_role->id)->where("course_id", $course->id)->first();
+                        $videos = json_decode($user_course->videos);
+                        array_push($videos->{'videos'}[($unit->index) - 1 ], 0);
+                        $videos = json_encode($videos);
+                        $user_course->videos = $videos;
+                        $user_course->save();
+                    }
                 }
+    
+                
+                $json_data = \json_encode($data->video_id);
             }
 
-            
-            $json_data = \json_encode($data->video_id);
             
             // $job = unserialize($job);
             // $job = \json_encode($job);

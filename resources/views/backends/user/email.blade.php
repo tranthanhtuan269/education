@@ -21,20 +21,21 @@
             <button class="btn btn-primary">Create Email</button>
         </a> --}}
         <a data-toggle="modal" data-target="#createEmailModal">
-            <button class="btn btn-primary">Create Email</button>
+            <button class="btn btn-primary">Tạo Email thông báo</button>
         </a>          
     </div>
     <div class="row">
         <div class="col-md-12">
             <div class="table-responsive">
-                <table class="table table-bordered" id="email-table">
+
+                <table class="table table-bordered" cellpadding="3" cellspacing="0" border="0" style="width: 67%; margin: 0 auto 2em auto;" id="notification-table">
                     <thead class="thead-custom">
                         <tr>
                             <th class="id-field" width="1%">
                                 <input type="checkbox" id="select-all-btn" data-check="false">
                             </th>
-                            <th scope="col">Subject</th>
-                            <th scope="col">Content</th>
+                            <th scope="col">Chủ đề</th>
+                            <th scope="col">Nội dung</th>
                             <th scope="col">Ngày tạo</th>
                             <th scope="col">Thao tác</th>
                         </tr>
@@ -43,6 +44,23 @@
                         
                     </tbody>
                 </table>
+
+                {{-- <table class="table table-bordered" id="list-email-table">
+                    <thead class="thead-custom">
+                        <tr>
+                            <th class="id-field" width="1%">
+                                <input type="checkbox" id="select-all-btn" data-check="false">
+                            </th>
+                            <th scope="col">Chủ đề</th>
+                            <th scope="col">Nội dung</th>
+                            <th scope="col">Ngày tạo</th>
+                            <th scope="col">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                </table> --}}
                 @if (Helper::checkPermissions('users.email', $list_roles)) 
                     <p class="action-selected-rows">
                         <span >Hành động trên các hàng đã chọn:</span>
@@ -51,77 +69,6 @@
                 @endif
             </div>
         </div>
-    </div>
-
-
-
-
-
-    <div id="edit_user_modal" class="modal fade" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title font-weight-600">Chỉnh sửa tài khoản</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div class="form-group row">
-                <label  class="col-sm-4 col-form-label">Tên <span class="text-danger">*</span></label>
-                <div class="col-sm-8">
-                    <input type="hidden" id="userID_upd" value="">
-                    <input type="text" class="form-control" id="userName_upd" >
-                    <div id="nameErrorUpd" class="alert-errors d-none" role="alert">
-                      
-                    </div>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label  class="col-sm-4 col-form-label">Email <span class="text-danger">*</span></label>
-                <div class="col-sm-8">
-                    <input type="text" class="form-control" id="userEmail_upd" >
-                    <div id="emailErrorUpd" class="alert-errors d-none" role="alert">
-                      
-                    </div>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-4 col-form-label">Mật khẩu <span class="text-danger">*</span></label>
-                <div class="col-sm-8">
-                    <input type="password" class="form-control" id="userPassword_upd" name="password" value="">
-                    <div id="passwordErrorUpd" class="alert-errors d-none" role="alert">
-                      
-                    </div>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-4 col-form-label">Nhập lại mật khẩu <span class="text-danger">*</span></label>
-                <div class="col-sm-8">
-                    <input type="password" class="form-control" id="passConfirm_upd" name="confirmpassword" value="">
-                    <div id="confirmpasswordErrorUpd" class="alert-errors d-none" role="alert">
-                      
-                    </div>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="userEmail_upd" class="col-sm-4 col-form-label">Vai trò <span class="text-danger">*</span></label>
-                <div class="col-sm-8">
-                    <select id="role-list-ins-edit" multiple="multiple">
-                        @foreach ($roles as $role)
-                            <option value="{{ $role->id }}">{{ $role->name }}</option>
-                        @endforeach
-                    </select>
-                    <div class="alert-errors d-none" role="alert" id="role_idErrorIns"></div>
-                </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" id="saveUser">Cập nhật</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
-          </div>
-        </div>
-      </div>
     </div>
 </section>
 <section>
@@ -284,7 +231,7 @@
                     var html = '';
                     
                     @if (Helper::checkPermissions('users.edit', $list_roles)) 
-                        html += '<a class="btn-edit mr-2 edit-user" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Sửa"> <i class="fa fa-edit"></i></a>';
+                        html += '<a class="btn-edit mr-2 edit-email" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Sửa"> <i class="fa fa-edit"></i></a>';
                     @endif
 
                     @if (Helper::checkPermissions('users.delete', $list_roles)) 
@@ -297,7 +244,7 @@
             },
         ];
 
-        dataTable = $('#email-table').DataTable( {
+        dataTable = $('#notification-table').DataTable( {
                         serverSide: false,
                         aaSorting: [],
                         stateSave: false,
@@ -333,8 +280,9 @@
                         }
                     });
 
-        $('#email-table').css('width', '100%');
+        $('#notification-table').css('width', '100%');
 
+        // dataTable.search('  ').draw();
         //select all checkboxes
         $("#select-all-btn").change(function(){  
             $('.page table tbody input[type="checkbox"]').prop('checked', $(this).prop("checked"));
@@ -396,10 +344,9 @@
 
             return false;
         }
-
         function addEventListener(){
-            $('.edit-user').off('click')
-            $('.edit-user').click(function(){
+            $('.edit-email').off('click')
+            $('.edit-email').click(function(){
                 var id       = $(this).attr('data-id')
                 var curr_title   = $(this).attr('data-title')
                 var curr_content = $(this).attr('data-content')
@@ -514,7 +461,7 @@
         }
 
         function checkEmptyTable(){
-            if ($('#email-table').DataTable().data().count() <= 1 && current_page > 0) {
+            if ($('#notification-table').DataTable().data().count() <= 1 && current_page > 0) {
                 current_page = current_page - 1;
             }
             return current_page;
