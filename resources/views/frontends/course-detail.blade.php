@@ -916,9 +916,9 @@
                 method: "GET",
                 dataType: "html"
             });
-            console.log({{ $info_course->comments()->count() }})
-            console.log(current_skip)
-            console.log(current_take)
+            // console.log({{ $info_course->comments()->count() }})
+            // console.log(current_skip)
+            // console.log(current_take)
             request.done(function( data ) {
                 if(data == '' || {{ $info_course->comments()->count() }} <= current_skip + current_take){
                     $('.btn-see-more').hide();

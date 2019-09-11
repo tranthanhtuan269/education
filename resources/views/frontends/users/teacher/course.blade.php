@@ -331,7 +331,7 @@
                             <span class="sr-only">Hoàn thành 0%</span>
                         </div>
                     </div>
-                    <video controls="controls" src="" style="max-width:100%">
+                    <video id="videoInEdit" controls="controls" src="" style="max-width:100%">
                         Your browser does not support the HTML5 Video element.
                     </video>
                 </div>       
@@ -744,7 +744,7 @@
                             // $('#listVideo').modal('toggle')
                             editFiles = []
                             $("#editVideoDocument").val("")
-                            console.log(formData);
+                            $("#videoInEdit")[0].pause()
                         }
                         
                     },
@@ -760,6 +760,7 @@
                             html: txt_errors,
                             allowOutsideClick: false,
                         })
+                        $("#videoInEdit")[0].pause()
                     }
                 })
             })
@@ -818,6 +819,9 @@
                     }
                 })
             });
+            $('.cancel-edit-video').on('click', function(){
+                $('#videoInEdit')[0].pause()
+            })
 
             var old_pos = 0;
             var new_pos = 0;

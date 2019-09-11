@@ -53,47 +53,52 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        if(reportEditor.getData() == ""){
-            return Swal.fire({
-                type: "warning",
-                text: "Bạn chưa nhập mô tả lỗi!"
-            })
-        } else if($("#videoReportTitle").val() == ""){
-            return Swal.fire({
-                type: "warning",
-                text: "Bạn chưa nhập tiêu đề!"
-            })
-        } else {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            var request = $.ajax({
-                url : "{{url('reports/store')}}",
-                method: "POST",
-                data : {
-                    videoId : {{$main_video->id}},
-                    title   : $("#videoReportTitle").val(),
-                    message : reportEditor.getData(),
-                }
-            })
-
-            request.done(function (response) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        var request = $.ajax({
+            url : "{{url('reports/store')}}",
+            method: "POST",
+            data : {
+                videoId : {{$main_video->id}},
+                title   : $("#videoReportTitle").val(),
+                message : reportEditor.getData(),
+            },
+            dataType: 'json',
+            success: (response) => {
                 if(response.status == 200){
                     Swal.fire({
                         type: "success",
                         text : response.message,
+                        confirmButtonText: 'Đồng ý'
                     }).then(function (result){
                         if(result.value){
                             $("#videoReportTitle").val("")
                             reportEditor.setData("")
                             $("#playerReportModal").modal("hide")
                         }
-                    })
-                    
+                    })                        
                 }
-            })
-        }
+            },
+            error: (error) =>{
+                $(".ajax_waiting").removeClass("loading");
+                if(error){
+                    var obj_errors = error.responseJSON.errors;
+                    var txt_errors = '';
+                    for (k of Object.keys(obj_errors)) {
+                        txt_errors += obj_errors[k][0] + '</br>';
+                    }
+                    Swal.fire({
+                        type: 'warning',
+                        html: txt_errors,
+                        allowOutsideClick: false,
+                        confirmButtonText: 'Đồng ý'
+                    })
+                }
+            }
+        })
+        
     }
 </script>
