@@ -23,7 +23,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="table-responsive">
-                <table class="table table-bordered" id="user-table">
+                <table class="table table-bordered" id="account-table">
                     <thead class="thead-custom">
                         <tr>
                             <th class="id-field" width="1%">
@@ -421,7 +421,7 @@
             },
         ];
 
-        dataTable = $('#user-table').DataTable( {
+        dataTable = $('#account-table').DataTable( {
                         serverSide: false,
                         aaSorting: [],
                         stateSave: false,
@@ -455,10 +455,10 @@
                             addEventListener();
                             checkCheckboxChecked();
                         },
-                        "searching": false,
+                        // "searching": false,
                     });
 
-        $('#user-table').css('width', '100%');
+        $('#account-table').css('width', '100%');
 
         // $('#user-table').on( 'page.dt', function () {
         //     $('html,body').animate({
@@ -757,7 +757,7 @@
         }
 
         function checkEmptyTable(){
-            if ($('#user-table').DataTable().data().count() <= 1 && current_page > 0) {
+            if ($('#account-table').DataTable().data().count() <= 1 && current_page > 0) {
                 current_page = current_page - 1;
             }
             return current_page;
