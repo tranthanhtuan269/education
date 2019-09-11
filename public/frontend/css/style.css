@@ -666,6 +666,10 @@ ul.unica-acc-zone li.special:hover a{color:#fff}
 .image-cropit-editor .note{
   margin: 15px auto;
 }
+.cropit-preview .sample-avatar{
+  width: 250px;
+  height: 250px;
+}
 /* End Cropit */
 
 .background-page{padding-bottom:40px}
