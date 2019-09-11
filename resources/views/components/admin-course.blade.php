@@ -87,7 +87,7 @@
                     <div class="image-cropit-editor">
                         <div class="box-course-preview" id="image-cropper-{{$course->id}}">
                             <div class="cropit-preview text-center preview-image-course" id="cropitPreview{{$course->id}}">
-                                <img class="sample-avatar" src="{{ asset('frontend/images/'.$course->image) }}" alt="Course Image">
+                                <img class="" src="{{ asset('frontend/images/'.$course->image) }}" alt="Course Image">
                             </div>
                             <input type="range" class="cropit-image-zoom-input" id="cropit-zoom-input-{{$course->id}}" style="display: none"/>
                             <input type="file" class="cropit-image-input" style="display:none" value="" id="image-file-input-{{$course->id}}"/>
