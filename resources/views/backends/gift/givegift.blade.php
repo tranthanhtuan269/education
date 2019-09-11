@@ -37,7 +37,7 @@
                     <thead class="thead-custom">
                         <tr>
                             <th scope="col">STT</th>
-                            {{-- <th scope="col">ID</th> --}}
+                            <th scope="col">ID</th>
                             <th scope="col">Tên</th>
                         </tr>
                     </thead>
@@ -155,10 +155,10 @@
                 data: "id",
                 orderable: false
             },
-            // { 
-                // data: "id",
-                // class:"user-role-id"
-            // },
+            { 
+                data: "id",
+                class:"user-role-id"
+            },
             { 
                 data:"name", 
             },
