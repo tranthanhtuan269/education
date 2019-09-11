@@ -24,7 +24,7 @@ class RegisterUserRequest extends FormRequest
         return [
             'name'              => 'required|min:3|max:50',
             'email'             => 'required|unique:users,email|regex_email:"/^[_a-zA-Z0-9-]{3,}+(\.[_a-zA-Z0-9-]{3,}+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,3})$/"',
-            'password'          => 'required|min:8|max:32',
+            'password'          => 'required|min:8|max:32|regex:/^\S*$/',
             'confirmpassword'   => 'required|same:password',
         ];
     }
@@ -43,6 +43,7 @@ class RegisterUserRequest extends FormRequest
             'password.required'         => 'Bạn chưa nhập mật khẩu.',
             'password.min'              => 'Mật khẩu phải có ít nhất 8 ký tự.',
             'password.max'              => 'Mật khẩu được phép có tối đa 32 ký tự ký tự.',
+            'password.regex'            => 'Mật khẩu không được phép có khoảng trắng.',
 
             'confirmpassword.required'  => 'Bạn chưa nhập lại mật khẩu.',
             'confirmpassword.same'      => 'Mật khẩu và Nhập lại mật khẩu không trùng nhau.',
