@@ -26,7 +26,7 @@
         <div class="col-md-6">
             <h3><b>Số học viên được tặng khóa học</b></h3>
             <br>
-            <div class="">
+            <div class="gift-student-number">
                 <span>Nhập số học viên: </span> &nbsp;
                 <input type="number" min="0" step="1" name="student-number"> &nbsp;
                 <button class="btn btn-success btn-student-number">Xác nhận</button>
@@ -157,7 +157,7 @@
             },
             // { 
                 // data: "id",
-            //     class:"user-role-id"
+                // class:"user-role-id"
             // },
             { 
                 data:"name", 
@@ -198,11 +198,11 @@
                             ajax: "{{ url('/') }}/admincp/gifts/getGiftStudentAjax?number="  + $('input[name="student-number"]').val(),
                             columns: dataObject,
                             bLengthChange: true,
-                            pageLength: 100,
+                            pageLength: 10,
                             // order: [[ 4, "desc" ]],
                             colReorder: {
-                                fixedColumnsRight: 1,
-                                fixedColumnsLeft: 1
+                                fixedColumnsRight: 0,
+                                fixedColumnsLeft: 0
                             },
                             oLanguage: {
                                 sSearch: "Tìm",
