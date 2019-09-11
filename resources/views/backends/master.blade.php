@@ -127,7 +127,7 @@
                             </a>
                         </li>
                  
-                        <li class="treeview @if ( Request::is('admincp/users*') || Request::is('admincp/permissions*') || Request::is('admincp/roles*') ) active @endif">
+                        <li class="treeview @if ( Request::is('admincp/users') || Request::is('admincp/permissions*') || Request::is('admincp/roles*') ) active @endif">
                             <a href="javascript:void(0)">
                                 <i class="fa fa-user-md"></i>
                                 <span>Tài khoản</span>
@@ -137,7 +137,7 @@
                             </a>
                             <ul class="treeview-menu">
                                 @if (Helper::checkPermissions('users.list', $list_roles)) 
-                                    <li class="@if ( Request::is('admincp/users*') ) active @endif">
+                                    <li class="@if ( Request::is('admincp/users') ) active @endif">
                                         <a href="{{ url('/') }}/admincp/users"><i class="fa fa-minus"></i> Danh sách</a>
                                     </li>
                                 @endif
@@ -157,7 +157,7 @@
                             </ul>
                         </li>
                  
-                        <li class="treeview @if ( Request::is('admincp/users*') || Request::is('admincp/permissions*') || Request::is('admincp/roles*') ) active @endif">
+                        <li class="treeview @if ( Request::is('admincp/users/email*')) active @endif">
                             <a href="javascript:void(0)">
                                 <i class="fa fa-user-md"></i>
                                 <span>Thông báo</span>
