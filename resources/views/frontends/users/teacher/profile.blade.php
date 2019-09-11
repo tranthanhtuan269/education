@@ -23,7 +23,7 @@
                             <a href="#buyed" class="buyed" data-toggle="tab"><i class="fa fa-user"></i>&nbsp;&nbsp;Hồ sơ</a>
                         </li> --}}
                         <li data-toggle="modal" data-target="#myModalChangePass" data-dismiss="modal" class="pull-right">
-                            <button id="studentChangePassword" type="button" class="btn btn-warning">Thay đổi mật khẩu</button>
+                            <button id="teacherChangePassword" type="button" class="btn btn-warning">Thay đổi mật khẩu</button>
                         </li>
                         <div id="myModalChangePass" class="modal fade" role="dialog" >
                             <div class="modal-dialog modal-login">
@@ -56,6 +56,7 @@
                                             <div class="form-group">
                                                 <input type="button" class="btn btn-danger btn-block btn-lg" value="Đổi mật khẩu" onclick="changePassAjax()">
                                             </div>
+                                            <input id="resetTeacherChangePass" type="reset" value="Reset the form" style="display:none">
                                         </form>				
                                     </div>
                                 </div>
@@ -185,10 +186,10 @@
     $(document).ready(function(){
         var teacher = jQuery.noConflict();
 
-        teacher('#studentChangePassword').click(function(e){
+        teacher('#teacherChangePassword').click(function(e){
             e.stopPropagation()
             e.preventDefault()
-            $('#resetStudentChangePass').click()
+            $('#resetTeacherChangePass').click()
             $('#myModalChangePass').modal("toggle")
         })
         // alert(12345)
