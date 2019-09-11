@@ -186,16 +186,15 @@
                 <button type="button" class="btn btn-default" data-dismiss="modal" id="clearModal">Hủy</button>
                 <button type="button" class="btn btn-primary" id="save-btn">Tạo</button>
             </div>
-            <script>
+            {{-- <script>
                 $('#clearModal').click(function() {
-                    // alert(123456);
                     $('#resetForm').click()
                     CKEDITOR.instances['course-description'].setData("")
                     CKEDITOR.instances['course-will-learn'].setData("")
                     $('#cropitPreview').css('display', 'none')
                     $('#cropit-zoom-input').css('display', 'none')
                 });
-            </script>
+            </script> --}}
         </div>
     </div>
 </div>
@@ -355,6 +354,11 @@
                 backdrop: 'static',
                 keyboard: false
             })
+            $('#resetForm').click()
+            CKEDITOR.instances['course-description'].setData("")
+            CKEDITOR.instances['course-will-learn'].setData("")
+            $('#cropitPreview').css('display', 'none')
+            $('#cropit-zoom-input').css('display', 'none')
         })
 
         $('.upload-new-video').click(function(){
