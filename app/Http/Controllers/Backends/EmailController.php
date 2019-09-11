@@ -10,6 +10,7 @@ use Auth;
 use Response;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\CustomMail;
+use App\Http\Requests\CreateEmailRequest;
 
 
 class EmailController extends Controller
@@ -40,7 +41,7 @@ class EmailController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateEmailRequest $request)
     {
         //
         if($request->content){
