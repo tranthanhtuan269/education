@@ -155,7 +155,12 @@ class VideoPlayerController extends Controller
             if($user_course){
                 $videos = $user_course->videos;
                 $videoObj = \json_decode($videos);
-                ($videoObj->videos[$unit->index-1])[$video->index-1] = 1;
+                // dd($videoObj->videos);
+                if(is_array($videoObj->videos[$unit->index-1])){
+                    $videoObj->videos[$unit->index-1][$video->index-1] = 1;
+                }else{
+                    $videoObj->videos[0][$video->index-1] = 1;
+                }
                 
                 $videoObj->learning = $video->index;
                 $videoObj->learning_id = $video->id;
