@@ -1,5 +1,5 @@
 <?php
-    if($course->vote_count == 0) $course->vote_count = 1;
+    // if($course->vote_count == 0) $course->vote_count = 1;
     $random_name = ['Steve Rogers', 'Natasha Romanoff', 'Tony Stark', 'Peter Quill', "Bruce Banner", "Stephen Strange"];
     $lecturers = count($course->Lecturers()) > 1 ? 'Nhiều tác giả' : (count($course->Lecturers()) > 0 ? $course->Lecturers()->first()->user->name : "Courdemy");
 ?>
@@ -88,13 +88,23 @@
                         </a>    
                     </div>
                     <span class="">
+                        @if( $course->vote_count != 0 )
                         @include(
                             'components.vote', 
-                            [
-                                'rate' => intval($course->star_count) / intval($course->vote_count),
-                                'rating_number' => $course->vote_count,
-                            ]
-                        )
+                                [
+                                    'rate' => intval($course->star_count) / intval($course->vote_count),
+                                    'rating_number' => $course->vote_count,
+                                ]
+                            )
+                        @else
+                        @include(
+                            'components.vote', 
+                                [
+                                    'rate' => 0,
+                                    'rating_number' => $course->vote_count,
+                                ]
+                            )
+                        @endif
                     </span>
                     <span class="time pull-right">
                         <i class="fas fa-stopwatch"></i> {{ intval($course->duration / 3600) }}h {{ intval($course->duration % 60) }}m

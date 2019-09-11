@@ -394,7 +394,7 @@ class VideoController extends Controller
     public function getVideoAjax()
     {
         // $videos = Video::get();
-        $videos = Video::whereIn('state',[0,1,3])->get();
+        $videos = Video::whereIn('state',[0,1,3])->take(100)->get();
         return datatables()->collection($videos)
             ->addColumn('course_name', function ($video) {
                 return $video->Unit->course->name;
