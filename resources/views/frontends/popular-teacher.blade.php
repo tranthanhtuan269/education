@@ -5,19 +5,21 @@
                 <h2>Giảng viên tiêu biểu</h2>
             </div>
             @foreach ($popular_teacher as $teacher)
-                @include(
-                    'components.teacher', 
-                    [
-                        'id' => $teacher->id,
-                        'image' => $teacher->userRole->user->avatar,
-                        'name' => $teacher->userRole->user->name,
-                        'expert' => $teacher->expert,
-                        // 'rate' => $teacher->rating_score,
-                        // 'rating_number' => $teacher->vote_count,
-                        'course_number' => $teacher->course_count,
-                        'student_number' => $teacher->student_count
-                    ]
-                )
+                @if ($teacher->userRole->user)
+                    @include(
+                        'components.teacher', 
+                        [
+                            'id' => $teacher->id,
+                            'image' => $teacher->userRole->user->avatar,
+                            'name' => $teacher->userRole->user->name,
+                            'expert' => $teacher->expert,
+                            // 'rate' => $teacher->rating_score,
+                            // 'rating_number' => $teacher->vote_count,
+                            'course_number' => $teacher->course_count,
+                            'student_number' => $teacher->student_count
+                        ]
+                    )                    
+                @endif
 
             @endforeach
         </div>
