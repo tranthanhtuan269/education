@@ -83,7 +83,7 @@
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label">Mật khẩu <span class="text-danger">*</span></label>
                 <div class="col-sm-8">
-                    <input type="password" class="form-control" id="userPassword_upd" name="password" value="">
+                    <input type="text" class="form-control" id="userPassword_upd" name="password" value="">
                     <div id="passwordErrorUpd" class="alert-errors d-none" role="alert">
                       
                     </div>
@@ -92,7 +92,7 @@
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label">Nhập lại mật khẩu <span class="text-danger">*</span></label>
                 <div class="col-sm-8">
-                    <input type="password" class="form-control" id="passConfirm_upd" name="confirmpassword" value="">
+                    <input type="text" class="form-control" id="passConfirm_upd" name="confirmpassword" value="">
                     <div id="confirmpasswordErrorUpd" class="alert-errors d-none" role="alert">
                       
                     </div>
@@ -151,7 +151,7 @@
             <div class="form-group row">
                 <label for="userPassword" class="col-sm-4 col-form-label">Mật khẩu <span class="text-danger">*</span></label>
                 <div class="col-sm-8">
-                    <input type="password" class="form-control" id="password_Ins" name="password" value="{{ Request::old('password') }}">
+                    <input type="text" class="form-control" id="password_Ins" name="password" value="{{ Request::old('password') }}">
                     <div class="alert-errors d-none" role="alert" id="passwordErrorIns">
                         
                     </div>
@@ -160,7 +160,7 @@
             <div class="form-group row">
                 <label for="passConfirm" class="col-sm-4 col-form-label">Nhập lại mật khẩu <span class="text-danger">*</span></label>
                 <div class="col-sm-8">
-                    <input type="password" class="form-control" id="confirmpassword_Ins" name="confirmpassword" value="{{ Request::old('confirmpassword') }}">
+                    <input type="text" class="form-control" id="confirmpassword_Ins" name="confirmpassword" value="{{ Request::old('confirmpassword') }}">
                     <div class="alert-errors d-none" role="alert" id="confirmpasswordErrorIns"></div>
                 </div>
             </div>
