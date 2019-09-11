@@ -23,11 +23,14 @@ class StoreCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:categories,name',
-            // 'image' => 'required',
-            'parent_id' => 'required',
-            'featured' => 'required',
-            'icon' => 'required',
+            'name' => 'required',
+            'icon' => 'required'
+        ];
+    }
+    public function messages() {
+        return [
+            'name.required' => "Bạn chưa điền tên danh mục",
+            'icon.required' => "Bạn chưa điền Icon"
         ];
     }
 }
