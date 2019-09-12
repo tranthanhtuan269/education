@@ -232,6 +232,7 @@ $(document).ready(function() {
                 var html_data = '';
                 if(response.status == 200){
                     clearFormCreate();
+                    $('#preview_category_img').attr('src','https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-image-128.png')
                     $('#showAddModal').modal('toggle');
                     dataTable.ajax.reload();
                     Swal.fire({
