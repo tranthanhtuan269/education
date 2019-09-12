@@ -332,5 +332,18 @@
         showSelectAll: true
     });
 </script>
+<style type="text/css">
+    .col-md-5 {
+        width: 100%;
+    }
+    
+    .col-md-7 {
+        text-align:center;
+        width: 100%;
+    }
+    #student-table_paginate{
+        text-align: center;
+    }
+</style>
 
 @endsection
