@@ -203,16 +203,29 @@
                             </ul>
                         </li>
                         <li class="@if ( Request::is('admincp/gifts*') ) active @endif">
-                            <a href="{{ url('/') }}/admincp/gifts"><i class="fa fa-gift"></i> Tặng quà</a>
+                            <a href="{{ url('/') }}/admincp/gifts"><i class="fa fa-gift"></i>
+                             <span>Tặng quà</span>
+                                <span class="pull-right-container">
+                            </a>
                         </li>
-                        <li class="@if ( Request::is('admincp/category*') ) active @endif">
-                            <a href="{{ url('/') }}/admincp/categories"><i class="fa fa-briefcase"></i> Danh mục</a>
+                        
+                        <li class="@if ( Request::is('admincp/categories*') ) active @endif">
+                            <a href="{{ url('/') }}/admincp/categories"><i class="fa fa-briefcase"></i>
+                                <span>Danh mục</span>
+                                <span class="pull-right-container">
+                            </a>
                         </li>
                         <li class="@if ( Request::is('admincp/feature-course*') ) active @endif">
-                            <a href="{{ url('/') }}/admincp/feature-course"><i class="fa fa-star"></i> Khóa học nổi bật</a>
+                            <a href="{{ url('/') }}/admincp/feature-course"><i class="fa fa-star"></i>
+                                <span>Khóa học nổi bật</span>
+                                <span class="pull-right-container">
+                            </a>
                         </li>
                         <li class="@if ( Request::is('admincp/create-coupon*') ) active @endif">
-                            <a href="{{ url('/') }}/admincp/create-coupon"><i class="fa fa-star"></i> Tạo Coupon</a>
+                            <a href="{{ url('/') }}/admincp/create-coupon"><i class="fa fa-star"></i>
+                                <span>Tạo Coupon</span>
+                                <span class="pull-right-container">
+                            </a>
                         </li>
                     </ul>
                 </section>
@@ -251,5 +264,18 @@
         <script type="text/javascript">
             var baseURL="<?php echo URL::to('/'); ?>";
         </script>
+        <style type="text/css">
+        .sidebar-mini:not(.sidebar-mini-expand-feature).sidebar-collapse .sidebar-menu>li:hover>a>span:not(.pull-right), .sidebar-mini:not(.sidebar-mini-expand-feature).sidebar-collapse .sidebar-menu>li:hover>.treeview-menu {
+            width:240px;
+        }
+        .sidebar-mini:not(.sidebar-mini-expand-feature).sidebar-collapse .sidebar-menu>li:hover>a>.pull-right-container {
+            position: relative !important;
+            float: right;
+            width: auto !important;
+            left: 240px !important;
+            top: -22px !important;
+            z-index: 900;
+        }
+        </style>
     </body>
 </html>
