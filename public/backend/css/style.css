@@ -250,8 +250,8 @@ h5.modal-title{
     text-align: center;
 }
 .multiselect-container {
-    max-height: 400px;
-    min-height: 400px;
+    max-height: 15vw;
+    min-height: 15vw;
     overflow: auto;
 }
 #create_user,#create_permission,#create_role{
