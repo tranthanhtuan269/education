@@ -215,31 +215,18 @@
                                 oPaginate: {
                                     sPrevious: "Trang trước",
                                     sNext: "Trang sau",
-
                                 },
                             },
-
                             fnServerParams: function ( aoData ) {
-
                             },
                             fnDrawCallback: function( oSettings ) {
                                 addEventListener();
                                 checkCheckboxChecked();
                             },
-                            // createdRow: function( row, data, dataIndex){
-                                // if(data['id']%2 == 1){
-                                //     $(row).addClass('blue-row');
-                                // }else{
-                                //     $(row).addClass('red-row');
-                                // }
-                                
-                                // $(row).attr('data-cv', data['cv']);
-                                // $(row).attr('data-video', data['video_intro']);
-                            // }
                         });
 
-                dataTable.on('order.dt search.dt', function () {
-                    dataTable.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+            dataTable.on('order.dt search.dt', function () {
+                dataTable.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
                     cell.innerHTML = i + 1;
                     dataTable.cell(cell).invalidate('dom');
                 });
@@ -317,14 +304,6 @@
                 $('#chooseGiftCourse').modal('show');
             })
         }
-
-        function checkEmptyTable(){
-            if ($('#student-table tr').length <= 1 && current_page > 0) {
-                current_page = current_page - 1;
-            }
-            return current_page;
-        }
-
     });
 
     var sol = $('#demonstration').searchableOptionList({ 

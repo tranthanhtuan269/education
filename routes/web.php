@@ -109,7 +109,7 @@ Route::group(['middleware' => 'auth'], function () {
         // Trinhnk Tạo Coupon
         Route::get('create-coupon', 'Backends\HomeController@createCoupon');
         Route::post('add-coupon', 'Backends\HomeController@addCoupon');
-
+        Route::get('coupon/getCouponAjax', 'Backends\HomeController@getCouponAjax');
         // End
 
         Route::get('teachers', 'Backends\UserController@getTeacher');
