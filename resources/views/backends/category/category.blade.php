@@ -167,18 +167,20 @@ $(document).ready(function() {
             var fileType = f["type"];
             var validImageTypes = ["image/gif", "image/jpeg", "image/png"];
             if ($.inArray(fileType, validImageTypes) < 0) {
+                $('#files').val('');
                 Swal.fire({
                     type: 'warning',
                     html: 'Ảnh không hợp lệ!',
                 })
             } else {
+                
                 var reader = new FileReader();
                 // Closure to capture the file information.
                 reader.onload = (function(theFile) {
                     return function(e) {
-                    var binaryData = e.target.result;
-                    //Converting Binary Data to base 64
-                    link_image_base64 = window.btoa(binaryData);
+                        var binaryData = e.target.result;
+                        //Converting Binary Data to base 64
+                        link_image_base64 = window.btoa(binaryData);
                     };
                 })(f);
                 // Read in the image file as a data URL.
@@ -234,10 +236,10 @@ $(document).ready(function() {
                     dataTable.ajax.reload();
                     Swal.fire({
                         type: 'success',
-                        text: response.message
-                    })
-                        
-                } else {
+                        text: response.Message
+                    })  
+                } 
+                else {
                     Swal.fire({
                         type: 'warning',
                         text: response.message
@@ -582,12 +584,20 @@ function preview_image(event)
     {
         var reader = new FileReader();
         // $('input[name=image]').append('<img id="preview_category_img" src="#" max-width="570"/>');
+        
         reader.onload = function()
         {
             var output = document.getElementById('preview_category_img');
             output.src = reader.result;
         }
-        reader.readAsDataURL(event.target.files[0]);
+        var fileInput = $('#files').val();
+        var allowedExtensions = /(\.gif|\.png|\.jpeg)$/i;
+        if (!allowedExtensions.exec(fileInput)){
+            reader.readAsDataURL(event.target.files[1]);
+        }
+        else{
+            reader.readAsDataURL(event.target.files[0]);
+        }
     }
 </script>
 
