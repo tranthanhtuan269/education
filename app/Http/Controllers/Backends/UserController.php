@@ -308,8 +308,11 @@ class UserController extends Controller
         $teachers = Teacher::orderBy('updated_at', 'desc')->get();
         return datatables()->collection($teachers)
             ->addColumn('name', function ($teacher) {
-                if($teacher->userRole->user != null){
-                    return $teacher->userRole->user->name;
+                if(isset($teacher->userRole)){
+                    if($teacher->userRole->user){
+                        return $teacher->userRole->user->name;
+                    }
+                    return "";
                 }
                 return "";
             })
