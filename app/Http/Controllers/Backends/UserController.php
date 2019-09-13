@@ -339,7 +339,9 @@ class UserController extends Controller
             ->addColumn('rows', function ($teacher) {
                 return $teacher->id;
             })
-            ->removeColumn('id')->make(true);
+            ->removeColumn('id')
+            ->rawColumns(['cv'])
+            ->make(true);
     }
 
     public function accept(Request $request)
