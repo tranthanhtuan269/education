@@ -90,7 +90,7 @@
                                 <input type="text" class="form-control" id="editCouponCode" name="name">
                                 <br>
                                 <label>Nhập số % của Coupon</label>
-                                <input type="number" class="form-control" id="editCouponValue" name="value">
+                                <input type="number" class="form-control" id="editCouponValue" min="1" max="100" name="value">
                                 <br>
                                 <label>Nhập ngày hết hạn của Coupon</label>
                                 <input type="text" class="form-control" id="editCouponExpired" name="expired" pattern="\d{1,2}/\d{1,2}/\d{4}" value="" autocomplete="off" onkeydown="return false">
@@ -161,6 +161,22 @@ var solTemp = null;
 
 $(document).ready(function(){
 
+    var positive_number = document.getElementById('coupon_value')
+    positive_number.onkeydown = function(e) {
+        if(!((e.keyCode > 95 && e.keyCode < 106)
+        || (e.keyCode > 47 && e.keyCode < 58) 
+        || e.keyCode == 8)) {
+            return false;
+        }
+    }
+
+    document.getElementById('editCouponValue').onkeydown = function(e) {
+        if(!((e.keyCode > 95 && e.keyCode < 106)
+        || (e.keyCode > 47 && e.keyCode < 58) 
+        || e.keyCode == 8)) {
+            return false;
+        }
+    }
 
     function addEventListener() {
 
