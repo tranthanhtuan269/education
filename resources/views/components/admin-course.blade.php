@@ -139,11 +139,19 @@
                                     <input type="text" class="form-control" id="course-requirement-{{$course->id}}" name="requirement-{{$course->id}}" value="{{$course->requirement}}">
                                 </div>
                             @endif
+                            <div class="form-group">
+                                <label for="link_video" class="control-label">Video giới thiệu:</label>
+                                <input type="text" class="form-control" id="course-intro-{{$course->id}}" name="course-intro-{{$course->id}}" value="{{$course->link_intro}}" placeholder="Link Youtube">
+                            </div>
                         </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="price" class="control-label">Giá khóa học: (₫)</label>
-                            <input type="text" class="form-control" id="course-price-{{$course->id}}" name="price-{{$course->id}}" value="{{$course->price}}">
+                            <label for="price" class="control-label">Giá gốc khóa học: (₫)</label>
+                            <input type="text" class="form-control" id="courseOriginalPrice{{$course->id}}" name="price-{{$course->id}}" value="{{$course->price}}">
+                        </div>
+                        <div class="form-group">
+                            <label for="price" class="control-label">Giá giảm khóa học: (₫)</label>
+                            <input type="text" class="form-control" id="courseDiscountPrice{{$course->id}}" name="price-{{$course->id}}" value="{{$course->price}}">
                         </div>
                         <div class="form-group">
                             <label for="approx_time" class="control-label">Thời gian dự kiến hoàn thành: (giờ)</label>
@@ -179,14 +187,10 @@
                                             { name: 'basicstyles', items: [ 'Bold', 'Italic', 'NumberedList', 'BulletedList'] },
                                         ],
                                         // removeButtons : 'Anchor,About,Link,Unlink,Outdent,Indent,Strike,Underline,Undo,Redo,Cut,Copy,Paste,Subscript,Superscript'
-                                        height: '215px',
+                                        height: '299px',
                                     },
                                 );
                             </script>
-                        </div>
-                        <div class="form-group">
-                            <label for="link_video" class="control-label">Video giới thiệu:</label>
-                            <input type="text" class="form-control" id="course-intro-{{$course->id}}" name="course-intro-{{$course->id}}" value="{{$course->link_intro}}" placeholder="Link Youtube">
                         </div>
                     </div>
                     <input id="resetForms{{$course->id}}" type="reset" value="Reset the form" style="display:none">

@@ -105,7 +105,7 @@
                         </div>
                         <div class="pull-left info">
                             <p>{{ Auth::user()->name }}</p>
-                            <a href="javascript:void(0)"><i class="fa fa-circle text-success"></i> Online</a>
+                            <a href="javascript:void(0)"><i class="fa fa-circle text-success"></i> Trực tuyến</a>
                         </div>
                     </div>
                     <!-- search form -->
@@ -212,7 +212,7 @@
                             <a href="{{ url('/') }}/admincp/feature-course"><i class="fa fa-star"></i> Khóa học nổi bật</a>
                         </li>
                         <li class="@if ( Request::is('admincp/create-coupon*') ) active @endif">
-                            <a href="{{ url('/') }}/admincp/create-coupon"><i class="fa fa-star"></i> Tạo Coupon</a>
+                            <a href="{{ url('/') }}/admincp/create-coupon"><i class="fa fa-star"></i> Mã giảm giá</a>
                         </li>
                     </ul>
                 </section>
