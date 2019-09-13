@@ -139,15 +139,23 @@
                                     <input type="text" class="form-control" id="course-requirement-{{$course->id}}" name="requirement-{{$course->id}}" value="{{$course->requirement}}">
                                 </div>
                             @endif
+                            <div class="form-group">
+                                <label for="link_video" class="control-label">Video giới thiệu:</label>
+                                <input type="text" class="form-control" id="course-intro-{{$course->id}}" name="course-intro-{{$course->id}}" value="{{$course->link_intro}}" placeholder="Link Youtube">
+                            </div>
                         </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="price" class="control-label">Giá khóa học: (₫)</label>
-                            <input type="text" class="form-control" id="course-price-{{$course->id}}" name="price-{{$course->id}}" value="{{$course->price}}">
+                            <label for="price" class="control-label">Giá gốc khóa học: (₫)</label>
+                            <input type="text" class="form-control" id="courseOriginalPrice{{$course->id}}" name="price-{{$course->id}}" value="{{$course->real_price}}">
+                        </div>
+                        <div class="form-group">
+                            <label for="price" class="control-label">Giá giảm khóa học: (₫)</label>
+                            <input type="text" class="form-control" id="courseDiscountPrice{{$course->id}}" name="price-{{$course->id}}" value="{{$course->price}}">
                         </div>
                         <div class="form-group">
                             <label for="approx_time" class="control-label">Thời gian dự kiến hoàn thành: (giờ)</label>
-                            <input type="number" class="form-control" id="course-approx-time-{{$course->id}}" name="approx-time-{{$course->id}}" value="{{$course->approx_time}}">
+                            <input type="number" class="form-control" id="course-approx-time-{{$course->id}}" name="approx-time-{{$course->id}}" value="{{$course->approx_time}}" min="0">
                         </div>
                         <div class="form-group">
                             <label for="category" class="control-label">Danh mục:</label>
@@ -179,14 +187,10 @@
                                             { name: 'basicstyles', items: [ 'Bold', 'Italic', 'NumberedList', 'BulletedList'] },
                                         ],
                                         // removeButtons : 'Anchor,About,Link,Unlink,Outdent,Indent,Strike,Underline,Undo,Redo,Cut,Copy,Paste,Subscript,Superscript'
-                                        height: '215px',
+                                        height: '299px',
                                     },
                                 );
                             </script>
-                        </div>
-                        <div class="form-group">
-                            <label for="link_video" class="control-label">Video giới thiệu:</label>
-                            <input type="text" class="form-control" id="course-intro-{{$course->id}}" name="course-intro-{{$course->id}}" value="{{$course->link_intro}}" placeholder="Link Youtube">
                         </div>
                     </div>
                     <input id="resetForms{{$course->id}}" type="reset" value="Reset the form" style="display:none">
@@ -249,6 +253,30 @@
 
 <script>
     $(document).ready(function(){
+
+        document.getElementById('courseOriginalPrice{{$course->id}}').onkeydown = function(e) {
+            if(!((e.keyCode > 95 && e.keyCode < 106)
+            || (e.keyCode > 47 && e.keyCode < 58) 
+            || e.keyCode == 8)) {
+                return false;
+            }
+        }
+        document.getElementById('courseDiscountPrice{{$course->id}}').onkeydown = function(e) {
+            if(!((e.keyCode > 95 && e.keyCode < 106)
+            || (e.keyCode > 47 && e.keyCode < 58)
+            || e.keyCode == 8)) {
+                return false;
+            }
+        }
+        document.getElementById('course-approx-time-{{$course->id}}').onkeydown = function(e) {
+            if(!((e.keyCode > 95 && e.keyCode < 106)
+            || (e.keyCode > 47 && e.keyCode < 58) 
+            || (e.keyCode == 8)
+            || e.keyCode == 190)) {
+                return false;
+            }
+        }
+
         var old_pos = 0;
         var j = jQuery.noConflict();
         j( "#listUnit{{ $course->id }} #sortable" ).sortable({
@@ -273,8 +301,8 @@
                     $(value).attr('data-unit-key', index)
 
                 });
-                console.log(`old_pos: ${old_pos}`)
-                console.log(`new_pos: ${new_pos}`)
+                // console.log(`old_pos: ${old_pos}`)
+                // console.log(`new_pos: ${new_pos}`)
                 // end check key 
                 $.ajax({
                     method: "PUT",
@@ -321,7 +349,7 @@
                 dataType: 'json',
                 success: function (response) {
                     if(response.status == 200){
-                        console.log(response.unit.data.id);
+                        // console.log(response.unit.data.id);
                         var html = '<li class="ui-state-default" data-unit-id="'+response.unit.data.id+'" data-unit-key="'+(response.unit.data.index-1)+'"><i class="fas fa-sort"></i> <span class="unit-content">Item</span> <i class="fas fa-trash remove-unit" id="remove-unit-'+response.unit.data.id+'" data-unit-id="'+response.unit.data.id+'" data-course-id="{{ $course->id }}"></i><i class="fas fa-edit edit-unit" id="edit-unit-'+response.unit.data.id+'" data-unit-id="'+response.unit.data.id+'" data-course-id="{{ $course->id }}"></i><i class="fas fa-bars list-vid-unit" id="list-vid-unit-'+response.unit.data.id+'" data-unit-id="'+response.unit.data.id+'" data-course-id="'+response.unit.data.id+'"></i></li>';
                         $("#listUnit{{ $course->id }} #sortable").append(html);
                         j("#listUnit{{ $course->id }} #sortable").sortable('refresh');
@@ -608,7 +636,10 @@
             var course_will_learn = CKEDITOR.instances['course-will-learn-{{$course->id}}'].getData()
 
             var course_requirement = $('#course-requirement-{{$course->id}}').val()
-            var course_price = $('#course-price-{{ $course->id }}').val()
+
+            var original_price = $('#courseOriginalPrice{{ $course->id }}').val()
+            var discount_price = $('#courseDiscountPrice{{ $course->id }}').val()
+
             var course_approx_time = $('#course-approx-time-{{$course->id}}').val()
 
             var selector = document.getElementById('course-category{{$course->id}}')
@@ -640,7 +671,8 @@
                 description: course_description,
                 will_learn: course_will_learn,
                 requirement: course_requirement,
-                price: course_price,
+                original_price: original_price,
+                discount_price: discount_price,
                 approx_time: course_approx_time,
                 category: course_category,
                 link_intro: link_intro,

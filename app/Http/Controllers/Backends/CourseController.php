@@ -50,8 +50,8 @@ class CourseController extends Controller
         $item->description          = $request->description;
         $item->will_learn           = $request->will_learn;
         $item->requirement          = $request->requirement;
-        $item->price                = $request->price;
-        $item->real_price           = $request->price;
+        $item->price                = $request->discount_price;
+        $item->real_price           = $request->original_price;
         $item->approx_time          = $request->approx_time;
         $item->category_id          = $request->category;
         $item->link_intro           = "https://www.youtube.com/embed/" . Helper::getYouTubeVideoId($request->link_intro);
@@ -132,8 +132,8 @@ class CourseController extends Controller
                 $item->description          = $request->description;
                 $item->will_learn           = $request->will_learn;
                 $item->requirement          = $request->requirement;
-                $item->price                = $request->price;
-                $item->real_price           = $request->price;
+                $item->price                = $request->discount_price;
+                $item->real_price           = $request->original_price;
                 $item->approx_time          = $request->approx_time;
                 $item->category_id          = $request->category;
                 $item->link_intro           = $link_intro;

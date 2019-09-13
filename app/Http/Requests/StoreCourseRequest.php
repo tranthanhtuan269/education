@@ -30,7 +30,8 @@ class StoreCourseRequest extends FormRequest
             'description'       => 'required',
             'will_learn'        => 'required',
             'requirement'       => 'required',
-            'price'             => 'required|numeric',
+            'original_price'    => 'required|numeric',
+            'discount_price'    => 'required|numeric',
             'approx_time'       => 'required|numeric|min:0|max:999',
         ];
     }
@@ -48,8 +49,10 @@ class StoreCourseRequest extends FormRequest
 
             'will_learn.required'       => 'Bạn chưa nhập Học viên sẽ học được gì.',
 
-            'price.required'            => 'Bạn chưa nhập giá khóa học.',
-            'price.numeric'             => 'Giá khóa học phải là số.',
+            'original_price.required'   => 'Bạn chưa nhập giá gốc khóa học.',
+            'original_price.numeric'    => 'Giá khóa học phải là số.',
+            'discount_price.required'   => 'Bạn chưa nhập giá giảm khóa học.',
+            'discount_price.numeric'    => 'Giá khóa học phải là số.',
 
             'approx_time.required'      => 'Bạn chưa nhập Thời gian dự kiến hoàn thành.',
             'approx_time.numeric'       => 'Thời gian dự kiến hoàn thành phải là số.',
