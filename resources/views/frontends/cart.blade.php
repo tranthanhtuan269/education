@@ -325,7 +325,7 @@
             if(coupon.length < 1){
                 return Swal.fire({
                     type:"warning",
-                    text:"Bạn chưa nhập mã giảm giá!"
+                    text:"Bạn chưa nhập mã giảm giá !"
                 })
             }
             else{
