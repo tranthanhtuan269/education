@@ -135,6 +135,7 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, $id)
     {
         $user = User::find($id);
+        $user_id = $user->id;
         if ($user) {
             $user->name     = $request->name;
             $user->email    = $request->email;
@@ -144,14 +145,30 @@ class UserController extends Controller
             }
 
             $user->updated_at = date('Y-m-d H:i:s');
+            $user_role_ids = $user->userRoles->pluck('role_id')->toArray();
+            $role_id_arr = $request->role_id;
 
-            UserRole::where('user_id', $id)->delete();
-            $created_at = $updated_at = date('Y-m-d H:i:s');
-            $arr_roles = [];
-            foreach ($request->role_id as $role) {
-                $arr_roles[] = ['user_id' => $id, 'role_id' => $role, 'created_at' => $created_at, 'updated_at' => $updated_at];
+            if($role_id_arr){
+                foreach($role_id_arr as $key => $role_id){
+                    $user_role = UserRole::where('user_id', $user_id)->where('role_id', $role_id)->first();
+                    if(!isset($user_role)){
+                        $new_user_role = new UserRole;
+                        $new_user_role->user_id = $user_id;
+                        $new_user_role->role_id = $role_id;
+                        $new_user_role->save();
+                    }
+                }              
             }
-            UserRole::insert($arr_roles);
+            
+            // dd($user->userRoles);
+            // foreach()
+            // UserRole::where('user_id', $id)->delete();
+            // $created_at = $updated_at = date('Y-m-d H:i:s');
+            // $arr_roles = [];
+            // foreach ($request->role_id as $role) {
+            //     $arr_roles[] = ['user_id' => $id, 'role_id' => $role, 'created_at' => $created_at, 'updated_at' => $updated_at];
+            // }
+            // UserRole::insert($arr_roles);
 
             $res = array('status' => "200", "Message" => "Cập nhật thông tin thành công");
 
@@ -308,8 +325,11 @@ class UserController extends Controller
         $teachers = Teacher::orderBy('updated_at', 'desc')->get();
         return datatables()->collection($teachers)
             ->addColumn('name', function ($teacher) {
-                if($teacher->userRole->user != null){
-                    return $teacher->userRole->user->name;
+                if(isset($teacher->userRole)){
+                    if($teacher->userRole->user){
+                        return $teacher->userRole->user->name;
+                    }
+                    return "";
                 }
                 return "";
             })
@@ -319,7 +339,9 @@ class UserController extends Controller
             ->addColumn('rows', function ($teacher) {
                 return $teacher->id;
             })
-            ->removeColumn('id')->make(true);
+            ->removeColumn('id')
+            ->rawColumns(['cv'])
+            ->make(true);
     }
 
     public function accept(Request $request)

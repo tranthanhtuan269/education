@@ -60,7 +60,9 @@ Route::get('/logout-admin', 'Backends\LoginController@getLogoutAdmin')->name('lo
 // BACKEND
 Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'admincp'], function () {
-        Route::get('/', 'Backends\UserController@index');
+        Route::get('/', function(){
+            return redirect('/admincp/users');
+        });
 
         // Trinhnk Duyet khoa hoc
         Route::get('courses', 'Backends\CourseController@getCourse');

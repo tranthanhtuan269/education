@@ -79,8 +79,10 @@ class CourseController extends Controller
 
         //tăng lượng course cho teacher trong bảng teachers
         $teacherInstance = Auth::user()->userRolesTeacher()->teacher;
-        $teacherInstance->course_count += 1;
-        $teacherInstance->save();
+        if(isset($teacherInstance)){
+            $teacherInstance->course_count += 1;
+            $teacherInstance->save();
+        }
 
         return \Response::json(array('status' => '200', 'message' => 'Tạo khóa học thành công!'));
     }

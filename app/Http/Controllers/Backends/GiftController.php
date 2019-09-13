@@ -92,8 +92,14 @@ class GiftController extends Controller
                                 $course->updated_at = $updated_at;
                                 $course->save();
 
-                                for ($i = 0; $i < $video_count; $i++) {
-                                    array_push($user_course_videos, 0);
+                                foreach ($units as $key => $unit) {
+                                    if($unit->video_count > 0){
+                                        $unit_arr = [];
+                                        for ($k=0; $k < $unit->video_count; $k++) { 
+                                            array_push($unit_arr, 0);                                    
+                                        }
+                                        array_push($user_course_videos, $unit_arr);
+                                    }
                                 }
 
                                 $videoJson = new VideoJson;
@@ -139,13 +145,20 @@ class GiftController extends Controller
                             $first_video_index = 1;
                             $first_video_id = $course->units[0]->videos[0]->id;
                             $user_course_videos = [];
+                            $units = $course->units;
 
                             $course->student_count += 1;
                             $course->updated_at = $updated_at;
                             $course->save();
 
-                            for ($i = 0; $i < $video_count; $i++) {
-                                array_push($user_course_videos, 0);
+                            foreach ($units as $key => $unit) {
+                                if($unit->video_count > 0){
+                                    $unit_arr = [];
+                                    for ($k=0; $k < $unit->video_count; $k++) { 
+                                        array_push($unit_arr, 0);                                    
+                                    }
+                                    array_push($user_course_videos, $unit_arr);
+                                }
                             }
 
                             $videoJson = new VideoJson;

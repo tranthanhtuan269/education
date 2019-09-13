@@ -86,7 +86,6 @@
 	</div>
 </div>
 @endif
-
 @include('frontends.popular-teacher')
 @include('frontends.info-others')
 

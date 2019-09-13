@@ -349,12 +349,19 @@
                             type:"success",
                             text:"Áp dụng mã khuyến mãi thành công!"
                         })
-                    }else{
+                    }
+                    if(response.status == 404){
                         localStorage.removeItem('coupon')
                         $('#input-coupon').val('')
                         return Swal.fire({
                             type:"warning",
                             text:"Mã khuyến mãi không tồn tại!"
+                        })
+                    }
+                    if(response.status == 403){
+                        return Swal.fire({
+                            type:"warning",
+                            text:"Mã khuyến đã hết hạn sử dụng!"
                         })
                     }
                     // totalPrice = new_totalPrice

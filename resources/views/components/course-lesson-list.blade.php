@@ -9,7 +9,7 @@
     </div>
     <div class="content">
         <div class="panel-group" id="accordion">
-            @foreach ($info_course->units as $key_unit => $value_unit)
+            @foreach ($info_course->units->sortBy('index') as $key_unit => $value_unit)
             <div class="panel panel-default">
                 <!-- phần -->
                 {{-- <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $key_unit }}" class="accordion-toggle @if ($key_unit != 0) collapsed in @endif" aria-expanded="true"> --}}
@@ -31,7 +31,7 @@
                 <!-- bài -->
                 <div id="collapse{{ $key_unit }}" class="panel-collapse collapse  @if ($key_unit == 0) in @endif" aria-expanded="true">
                     <div class="panel-body">
-                        @foreach ($value_unit->videos as $key_video => $value_video)
+                        @foreach ($value_unit->videos->sortBy('index') as $key_video => $value_video)
                         <div class="col">
                             <div class="container-fluid">
                                 <div class="row">
