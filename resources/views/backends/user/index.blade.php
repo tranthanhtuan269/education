@@ -348,7 +348,24 @@
             includeSelectAllOption: true,
             includeSelectAllIfMoreThan: 0,
             numberDisplayed: 2,
-            enableClickableOptGroups: true
+            enableClickableOptGroups: true,
+            onChange: function(element, checked){
+                const role_id = element.attr('value')
+                if(checked === true){
+                    if(role_id == 1){ //nếu chọn super-admin thì chọn cả teacher và student
+                        $('#role-list-ins').multiselect('select', ['2', '3'])
+                    }else if(role_id == 2){ //nếu chọn teacher thì chọn cả student
+                        $('#role-list-ins').multiselect('select', ['3'])
+                    }
+                            
+                }else if(checked === false){
+                    if(role_id == 3){ //nếu bỏ chọn student thì bỏ chọn cả teacher
+                        $('#role-list-ins').multiselect('deselect', ['2'])
+                    }
+                }else{
+                    $("#role-list-ins").multiselect('select', element.val());
+                }
+            }
         });
 
 
