@@ -111,7 +111,9 @@ Route::group(['middleware' => 'auth'], function () {
         // Trinhnk Tạo Coupon
         Route::get('create-coupon', 'Backends\HomeController@createCoupon');
         Route::post('add-coupon', 'Backends\HomeController@addCoupon');
-
+        Route::get('coupon/getCouponAjax', 'Backends\HomeController@getCouponAjax');
+        Route::delete('coupon/delete', 'Backends\HomeController@deleteCoupon');
+        Route::post('coupon/update', 'Backends\HomeController@updateCoupon');
         // End
 
         Route::get('teachers', 'Backends\UserController@getTeacher');
