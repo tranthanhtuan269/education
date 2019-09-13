@@ -79,6 +79,7 @@
             <div class="modal-content" >
                 <div class="modal-header">
                     <h5 class="modal-title font-weight-600">Sửa COUPON</h5>
+                    <input type="hidden" id="couponIdUpdate" value="">
                 </div>
                 <div class="modal-body">
                     <form>
@@ -108,8 +109,8 @@
                             </div>
                             <div class="col-md-8">
                                 <h3><b>Chọn khóa học được hưởng Coupon</b></h3><br>
-                                <label>ID các khóa học đang được hưởng COUPON:</label>
-                                <div id="edit_course_id_view"></div>
+                                <label>ID các khóa học đang được hưởng COUPON <span  id="addLabel"></span>:</label>
+                                <div id="edit_course_id_view"></div><br>
                                 <div>
                                     <p><select id="demonstrationEdit" name="course[]" style="width: 570px" multiple="multiple">
                                         @foreach ($courses as $course)
@@ -119,12 +120,12 @@
                                 </div>
                             </div>
                         </div>
-                        <input type="reset" id="resetFormCoupon" style="display:none">
+                        <input type="reset" id="resetEditCoupon" style="display:none">
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
-                    <button class="btn btn-success" id="btnConfirm"><b>Xác nhận</b></button>
+                    <button class="btn btn-success confirm-edit-coupon" id="btnConfirmEdit"><b>Xác nhận</b></button>
                 </div>
             </div>
         </div>
@@ -155,6 +156,7 @@
 </section>
 <script>
 var dataTable           = null;
+var solTemp = null;
 
 $(document).ready(function(){
 
@@ -162,15 +164,18 @@ $(document).ready(function(){
         $('.edit-coupon').off('click')
         $('.edit-coupon').click(function() {
             $('#showEditCouponModal').modal('show')
+            var coupon_id           = $(this).attr('data-id')
             var coupon_code         = $(this).parent().parent().attr('data-code')
             var coupon_value        = $(this).parent().parent().attr('data-value')
             var coupon_course_id    = $(this).parent().parent().attr('data-course-id')
             var coupon_expired      = $(this).parent().parent().attr('data-expired')
 
+            $("#couponIdUpdate").val(coupon_id)
             $("#editCouponCode").val(coupon_code)
             $("#editCouponValue").val(coupon_value)
             $("#editCouponExpired").val(coupon_expired)
             $("#edit_course_id_view").text(coupon_course_id)
+            $("label #addLabel").text('"'+coupon_code+'"')
 
             var arr_course_id = coupon_course_id.split(',')
 
@@ -181,11 +186,143 @@ $(document).ready(function(){
             })
 
             // $('#showEditCouponModal .sol-container').remove();
+            // $('#resetEditCoupon').click()
             var solEdit = $('#demonstrationEdit').searchableOptionList({ 
                 maxHeight: '250px',
                 showSelectAll: true
-            });
+            })
+
+            solTemp = solEdit;
+        })
+
+        $('#showEditCouponModal').on('hidden.bs.modal', function () {
+            location.reload();
+        });
+
+        $('.delete-coupon').off('click')
+        $('.delete-coupon').click(function(e) {
+            var coupon_id = $(this).attr('data-id')
             
+            Swal.fire({
+                type: 'warning',
+                text : 'Bạn có chắc chắn muốn xoá COUPON này?',
+                showCancelButton: true,
+            }).then( result => {
+                if(result.value){
+                    $.ajax({
+                        method: 'DELETE',
+                        url: "{{ url('/') }}/admincp/coupon/delete",
+                        data: {
+                            coupon_id : coupon_id
+                        },
+                        dataType: 'json',
+                        success: function (response) {
+                            if(response.status == '200'){
+                                Swal.fire({
+                                    type: 'success',
+                                    text : 'Xóa COUPON thành công!',
+                                    showCancelButton: true,
+                                })
+                                dataTable.ajax.reload()
+                            }
+                        },
+                    })                        
+                }
+            })
+        });
+
+        $('.confirm-edit-coupon').off('click')
+        $('.confirm-edit-coupon').click(function(){
+            var asInputs = solTemp.getSelection(), course_id = [];
+            var coupon_id = $('#couponIdUpdate').val()
+            var coupon_code = $('#editCouponCode').val();
+            var coupon_value = $('#editCouponValue').val();
+            var coupon_expired = $('#editCouponExpired').val();
+
+            if(coupon_code == ''){
+                Swal.fire({
+                    type: 'warning',
+                    text: 'Bạn chưa nhập mã Coupon!'
+                })
+                return;
+            }
+
+            if(coupon_value == ''){
+                Swal.fire({
+                    type: 'warning',
+                    text: 'Bạn chưa nhập số % được giảm!'
+                })
+                return;
+            }
+
+            if( Number(coupon_value) <= 0 ){
+                Swal.fire({
+                    type: 'warning',
+                    text: '% giá giảm không thể <= 0!'
+                })
+                return;
+            }
+
+            if( Number(coupon_value) > 100 ){
+                Swal.fire({
+                    type: 'warning',
+                    text: '% giá giảm không thể >100!'
+                })
+                return;
+            }
+
+            for (var i = 0; i < asInputs.length; i++) {
+                course_id[i] = $(asInputs[i]).data('sol-item').value;
+            }
+
+            if (course_id.length == 0) {
+                Swal.fire({
+                    type: 'warning',
+                    text: 'Chưa có khóa học nào được chọn!'
+                })
+                return;
+            }
+
+            $.ajaxSetup({
+                headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                url: baseURL+"/admincp/coupon/update",
+                data: {
+                    coupon_id      : coupon_id,
+                    coupon_code    : coupon_code,
+                    coupon_value   : coupon_value,
+                    course_id      : course_id,
+                    coupon_expired : coupon_expired
+                },
+                method: "POST",
+                dataType:'json',
+                beforeSend: function(r, a){
+                    
+                },
+                success: function (response) {
+                    if(response.status == 200){
+                        Swal.fire({
+                            type: 'success',
+                            text: 'Sửa mã giảm giá thành công!'
+                        }).then( result => {
+                        dataTable.ajax.reload();
+                        $('#showEditCouponModal').modal('hide')
+                        })
+                    }
+                    if(response.status == 403){
+                        Swal.fire({
+                            type: 'warning',
+                            text: 'Mã giảm giá đã tồn tại!'
+                        })
+                    }
+                },
+                error: function (response) {
+                }
+            })
         })
     }
 
@@ -193,8 +330,6 @@ $(document).ready(function(){
         $('#showAddCouponModal').modal('toggle')
         $('#resetFormCoupon').click()
     })
-
-    
 
     // Begin Datatable
     var dataObject = [
@@ -228,7 +363,7 @@ $(document).ready(function(){
             class: "action-field",
             render: function(data, type, row) {
                 var html = '';
-                html += '<a class="delete-category" data-id="' + data + '" title="Xóa"><i class="fa fa-trash fa-fw"></i>Xóa</a>';
+                html += '<a class="delete-coupon" data-id="' + data + '" title="Xóa"><i class="fa fa-trash fa-fw"></i>Xóa</a>';
                 return html;
             },
             orderable: false
@@ -266,6 +401,7 @@ $(document).ready(function(){
                         addEventListener();
                     },
                     createdRow: function( row, data, dataIndex){
+                        $(row).attr('data-id', data['id']);
                         $(row).attr('data-code', data['name']);
                         $(row).attr('data-value', data['value']);
                         $(row).attr('data-course-id', data['course_id']);
@@ -347,11 +483,11 @@ $(document).ready(function(){
             },
             success: function (response) {
                 if(response.status == 200){
+                    $('#showAddCouponModal').modal('hide')
                     Swal.fire({
                         type: 'success',
                         text: 'Thêm mã giảm giá thành công!'
                     })
-                    $('#showAddCouponModal').modal('hide')
                     dataTable.ajax.reload();
                 }
                 if(response.status == 403){

@@ -295,9 +295,14 @@ class HomeController extends Controller
 
     public function checkCoupon(Request $request)
     {
-        $coupon = Coupon::where('name', $request->coupon)->where('course_id', $request->course_id)->first();
-        if ($coupon) {
-            return \Response::json(array('status' => '200', 'coupon' => $coupon, 'coupon_value' => $coupon->value));
+        $coupon = Coupon::where('name', $request->coupon)->first();
+        $str_course_id = $coupon->course_id;
+        $arr_course_id = explode(",",$str_course_id);
+
+        foreach ($arr_course_id as $key => $course_id) {
+            if( $request->course_id = $course_id ){
+                return \Response::json(array('status' => '200', 'coupon' => $coupon, 'coupon_value' => $coupon->value));
+            }
         }
         return \Response::json(array('status' => '404', 'message' => 'Coupon không tồn tại!'));
     }
@@ -458,7 +463,7 @@ class HomeController extends Controller
 
                 foreach ($items as $key => $item) {
                     if ($item['id']) {
-                        $coupon = Coupon::where('name', $item["coupon_code"])->where('course_id', $item["id"])->first();
+                        $coupon = Coupon::where('name', $item["coupon_code"])->first();
                         $course = Course::find($item['id']);
                         if ($course) {
                             if($coupon){

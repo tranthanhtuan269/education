@@ -134,4 +134,42 @@ class HomeController extends Controller{
             return $coupon->id;
         })->make(true);
     }
+
+    public function deleteCoupon(Request $request){
+        $coupon = Coupon::find($request->coupon_id);
+
+        if($coupon){
+            $coupon->delete();
+            return response()->json(array('status' => '200'));
+        }
+    }
+
+    public function updateCoupon(Request $request){
+        $arr_course_id = json_encode($request->course_id);
+        $arr_course_id = str_replace('"','',$arr_course_id);
+        $arr_course_id = str_replace('[','',$arr_course_id);
+        $arr_course_id = str_replace(']','',$arr_course_id);
+
+        $coupon_code   = $request->coupon_code;
+        $coupon_value  = $request->coupon_value;
+        $coupon_expired= $request->coupon_expired;
+
+        
+        $coupon =Coupon::find($request->coupon_id);
+        if( $coupon->name != $coupon_code ){
+            $check = Coupon::where('name', $coupon_code)->first();
+            if(isset($check->id)){
+                return \Response::json(array('status' => '403'));
+            }
+        }
+
+        $coupon->name           = $coupon_code;
+        $coupon->value          = $coupon_value;
+        $coupon->expired        = $coupon_expired;
+        $coupon->course_id      = $arr_course_id;
+        $coupon->status         = 1;   
+        $coupon->save();
+
+        return \Response::json(array('status' => '200'));
+    }
 }
