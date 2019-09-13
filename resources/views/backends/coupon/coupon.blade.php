@@ -161,7 +161,9 @@ var solTemp = null;
 
 $(document).ready(function(){
 
+
     function addEventListener() {
+
         $('.edit-coupon').off('click')
         $('.edit-coupon').click(function() {
             $('#showEditCouponModal').modal('show')
@@ -236,14 +238,22 @@ $(document).ready(function(){
         $('.confirm-edit-coupon').click(function(){
             var asInputs = solTemp.getSelection(), course_id = [];
             var coupon_id = $('#couponIdUpdate').val()
-            var coupon_code = $('#editCouponCode').val();
-            var coupon_value = $('#editCouponValue').val();
-            var coupon_expired = $('#editCouponExpired').val();
+            var coupon_code = ($('#editCouponCode').val()).trim()
+            var coupon_value = $('#editCouponValue').val()
+            var coupon_expired = $('#editCouponExpired').val()
 
             if(coupon_code == ''){
                 Swal.fire({
                     type: 'warning',
                     text: 'Bạn chưa nhập mã Coupon!'
+                })
+                return;
+            }
+
+            if( coupon_code.length >=15 ){
+                Swal.fire({
+                    type: 'warning',
+                    text: 'Mã COUPON quá dài (Yêu cầu <15 ký tự)!'
                 })
                 return;
             }
@@ -268,6 +278,14 @@ $(document).ready(function(){
                 Swal.fire({
                     type: 'warning',
                     text: '% giá giảm không thể >100!'
+                })
+                return;
+            }
+
+            if( !coupon_expired ){
+                Swal.fire({
+                    type: 'warning',
+                    text: 'Bạn chưa chọn ngày hết hạn COUPON!'
                 })
                 return;
             }
@@ -345,7 +363,8 @@ $(document).ready(function(){
         },
         {
             data:"course_id",
-            class: "coupon-course-id"
+            class: "coupon-course-id",
+            orderable: false
         },
         { 
             data: "expired",
@@ -415,15 +434,23 @@ $(document).ready(function(){
     // End Datatable
 
     $("#btnConfirm").click(function(){
-        var asInputs = sol.getSelection(), course_id = [];
-        var coupon_code = $('#coupon_code').val();
-        var coupon_value = $('#coupon_value').val();
-        var coupon_expired = $('#coupon_expired').val();
+        var asInputs = sol.getSelection(), course_id = []
+        var coupon_code = ($('#coupon_code').val()).trim()
+        var coupon_value = $('#coupon_value').val()
+        var coupon_expired = $('#coupon_expired').val()
 
         if(coupon_code == ''){
             Swal.fire({
                 type: 'warning',
                 text: 'Bạn chưa nhập mã Coupon!'
+            })
+            return;
+        }
+
+        if( coupon_code.length >=15 ){
+            Swal.fire({
+                type: 'warning',
+                text: 'Mã COUPON quá dài (Yêu cầu <15 ký tự)!'
             })
             return;
         }
@@ -448,6 +475,14 @@ $(document).ready(function(){
             Swal.fire({
                 type: 'warning',
                 text: '% giá giảm không thể >100!'
+            })
+            return;
+        }
+
+        if( !coupon_expired ){
+            Swal.fire({
+                type: 'warning',
+                text: 'Bạn chưa chọn ngày hết hạn COUPON!'
             })
             return;
         }
