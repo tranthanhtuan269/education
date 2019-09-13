@@ -296,12 +296,20 @@ class HomeController extends Controller
     public function checkCoupon(Request $request)
     {
         $coupon = Coupon::where('name', $request->coupon)->first();
-        $str_course_id = $coupon->course_id;
-        $arr_course_id = explode(",",$str_course_id);
 
-        foreach ($arr_course_id as $key => $course_id) {
-            if( $request->course_id = $course_id ){
-                return \Response::json(array('status' => '200', 'coupon' => $coupon, 'coupon_value' => $coupon->value));
+        if(isset($coupon->course_id)){
+            $expired = strtotime($coupon->expired);
+            $today = strtotime(date("Y-m-d"));
+            if($expired < $today){
+                return \Response::json(array('status' => '403'));
+            }
+            $str_course_id = $coupon->course_id;
+            $arr_course_id = explode(",",$str_course_id);
+    
+            foreach ($arr_course_id as $key => $course_id) {
+                if( $request->course_id = $course_id ){
+                    return \Response::json(array('status' => '200', 'coupon' => $coupon, 'coupon_value' => $coupon->value));
+                }
             }
         }
         return \Response::json(array('status' => '404', 'message' => 'Coupon không tồn tại!'));
