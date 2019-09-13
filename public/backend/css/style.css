@@ -492,6 +492,12 @@ ul.alert li{
     color: #333;
 }
 
+.coupon-course-id{
+    width: 550px;
+    display: inline-block;
+    overflow: auto;
+}
+
 /* Absolute Center Spinner */
 .loading {
     position: fixed;
