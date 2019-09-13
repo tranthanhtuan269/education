@@ -109,8 +109,9 @@
                             </div>
                             <div class="col-md-8">
                                 <h3><b>Chọn khóa học được hưởng Coupon</b></h3><br>
-                                <label>ID các khóa học đang được hưởng COUPON <span  id="addLabel"></span>:</label>
-                                <div id="edit_course_id_view"></div><br>
+                                <label>Các khóa học đang được hưởng COUPON <span  id="addLabel"></span>:</label>
+                                {{-- <div id="edit_course_id_view"></div>--}}
+                                <br>
                                 <div>
                                     <p><select id="demonstrationEdit" name="course[]" style="width: 570px" multiple="multiple">
                                         @foreach ($courses as $course)
@@ -139,7 +140,7 @@
                         <th>ID</th>
                         <th scope="col">Mã COUPON</th>
                         <th scope="col">Giá trị (%)</th>
-                        <th scope="col">ID Khóa học</th>
+                        <th scope="col">ID<br> Khóa học</th>
                         <th scope="col">Ngày hết hạn</th>
                         <th scope="col">Sửa</th>
                         <th scope="col">Xóa</th>
@@ -344,6 +345,7 @@ $(document).ready(function(){
         },
         {
             data:"course_id",
+            class: "coupon-course-id"
         },
         { 
             data: "expired",
