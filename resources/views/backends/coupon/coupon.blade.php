@@ -15,7 +15,7 @@
     
 </section>
 <section class="content page">
-    <h1 class="text-center font-weight-600">Tạo Mã giảm giá</h1>
+    <h1 class="text-center font-weight-600">Danh sách Mã giảm giá</h1>
     <div class="text-center">
         <button class="btn btn-success" id="addCouponModal"><b>THÊM COUPON</b></button>
     </div>
@@ -35,7 +35,7 @@
                                 <input type="text" class="form-control" id="coupon_code" name="name">
                                 <br>
                                 <label>Nhập số % của Coupon</label>
-                                <input type="number" class="form-control" id="coupon_value" name="value">
+                                <input type="number" class="form-control" id="coupon_value" min="1" max="100" name="value">
                                 <br>
                                 <label>Nhập ngày hết hạn của Coupon</label>
                                 <input type="text" class="form-control" id="coupon_expired" pattern="\d{1,2}/\d{1,2}/\d{4}" value="" autocomplete="off" onkeydown="return false">
@@ -67,7 +67,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><b>Hủy bỏ</b></button>
                     <button class="btn btn-success" id="btnConfirm"><b>Xác nhận</b></button>
                 </div>
             </div>
@@ -125,7 +125,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><b>Hủy bỏ</b></button>
                     <button class="btn btn-success confirm-edit-coupon" id="btnConfirmEdit"><b>Xác nhận</b></button>
                 </div>
             </div>
@@ -224,7 +224,6 @@ $(document).ready(function(){
                                 Swal.fire({
                                     type: 'success',
                                     text : 'Xóa COUPON thành công!',
-                                    showCancelButton: true,
                                 })
                                 dataTable.ajax.reload()
                             }
@@ -328,8 +327,8 @@ $(document).ready(function(){
                             type: 'success',
                             text: 'Sửa mã giảm giá thành công!'
                         }).then( result => {
-                        dataTable.ajax.reload();
-                        $('#showEditCouponModal').modal('hide')
+                            dataTable.ajax.reload();
+                            $('#showEditCouponModal').modal('hide')
                         })
                     }
                     if(response.status == 403){
@@ -337,6 +336,7 @@ $(document).ready(function(){
                             type: 'warning',
                             text: 'Mã giảm giá đã tồn tại!'
                         })
+                        return;
                     }
                 },
                 error: function (response) {
@@ -548,8 +548,8 @@ $(document).ready(function(){
 });
 
 var sol = $('#demonstration').searchableOptionList({ 
-    maxHeight: '250px',
-    showSelectAll: true
+    maxHeight: '230px',
+    showSelectAll: true,
 });
 
 // var solEdit = $('#demonstrationEdit').searchableOptionList({ 

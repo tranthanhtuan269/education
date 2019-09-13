@@ -497,6 +497,11 @@ ul.alert li{
     display: inline-block;
     overflow: auto;
 }
+#showEditCouponModal .sol-selection-container, #showAddCouponModal .sol-selection-container{
+    /* top: 180px !important; */
+    left: 314px !important;
+    width: 570px !important;
+}
 
 /* Absolute Center Spinner */
 .loading {
