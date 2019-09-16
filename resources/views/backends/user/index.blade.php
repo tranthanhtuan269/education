@@ -279,6 +279,7 @@
                 dataType:'html',
                 success: function (response) {
                     $("#role-list-ins-edit").html(response);
+                    
                     $('#role-list-ins-edit').multiselect({
                         includeSelectAllOption: true,
                         includeSelectAllIfMoreThan: 0,
@@ -307,6 +308,7 @@
                             }
                         }
                     });
+                    $('#role-list-ins-edit').multiselect('rebuild')
                  
                     $.ajax({
                         url: baseURL+"/admincp/users/getInfoByID/" + id,
@@ -591,6 +593,8 @@
                 $('#userID_upd').val(id);
                 $('#userName_upd').val(curr_user_name);
                 $('#userEmail_upd').val(curr_user_email);
+
+                getRoleList(id)
                 // $('#userPassword_upd').val("not_change");
                 // $('#passConfirm_upd').val("not_change");
                 $(".alert-errors").addClass("d-none");

@@ -152,27 +152,31 @@
                                 {{-- </li> --}}
                                 @endif
                             <li>
+                                @if (!Auth::user()->isAdmin())
                                 <a href="{{route('cart.show')}}" class="unica-cart">
-
                                     <img src="{{ asset('frontend/images/tab_cart.png') }}" alt="" style="width: 21px;" />
                                     <span class="unica-sl-cart" style="display: none;"><b class="number-in-cart"></b></span>
                                 </a>
+                                    
+                                @endif
                                 <li>
 
                                     @if(Auth::check())
-                                    <li>
-                                        <div class="dropdown" id="btnMailBoxNav">
-                                            <a class="unica-cart unica-mail" href="/user/student/mail-box">
-                                                <img src="{{ asset('frontend/images/tab_notifications.png') }}" alt="" style="width: 21px;" />
-                                                <span class="unica-sl-notify"><b></b></span>
-                                            </a>
-                                            <ul class="dropdown-menu hidden" id="mailBoxNavDropdown" style="top:3em;">
-                                                <li class="row">
-                                                    <div class="col-xs-12 w-100">Lorem ipsum dolor sit amet conser ve</div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </li>
+                                        @if (!Auth::user()->isAdmin())
+                                        <li>
+                                            <div class="dropdown" id="btnMailBoxNav">
+                                                <a class="unica-cart unica-mail" href="/user/student/mail-box">
+                                                    <img src="{{ asset('frontend/images/tab_notifications.png') }}" alt="" style="width: 21px;" />
+                                                    <span class="unica-sl-notify"><b></b></span>
+                                                </a>
+                                                <ul class="dropdown-menu hidden" id="mailBoxNavDropdown" style="top:3em;">
+                                                    <li class="row">
+                                                        <div class="col-xs-12 w-100">Lorem ipsum dolor sit amet conser ve</div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>                                        
+                                        @endif
                                     <li class="btn-group">
                                         <a class="db-item-circle dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)"><img class="img-responsive" src="{{ asset('frontend/'.(Auth::user()->avatar != '' ? Auth::user()->avatar : 'images/avatar.jpg')) }}" alt="avatar"><span class="caret"></span></a>                                    
                                         <ul class="dropdown-menu db-drop">

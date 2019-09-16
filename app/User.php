@@ -112,6 +112,26 @@ class User extends Authenticatable
         }
     }
 
+    public function isStudent(){
+        $user_role_student = $this->hasMany('App\UserRole')->where('role_id', 3)->first();
+        if(isset($user_role_student)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function notOnlyStudent(){
+        $user_role_count = $this->hasMany('App\UserRole')->count();
+        if($user_role_count > 1){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    
+
     public function userRolesStudent()
     {
         return $this->hasMany('App\UserRole')->where('role_id', \Config::get('app.student'))->first();
