@@ -1,4 +1,5 @@
 
+@if (Auth::check())
 @if(!Auth::user()->notOnlyStudent())
 <div class="become-teacher">
     <div class="container">
@@ -26,6 +27,7 @@
         </div>
     </div>
 </div>
+@endif
 @endif
 {{-- <div class="container">
     <div class="member-card">

@@ -152,12 +152,13 @@
                                 {{-- </li> --}}
                                 @endif
                             <li>
-                                @if (!Auth::user()->isAdmin())
-                                <a href="{{route('cart.show')}}" class="unica-cart">
-                                    <img src="{{ asset('frontend/images/tab_cart.png') }}" alt="" style="width: 21px;" />
-                                    <span class="unica-sl-cart" style="display: none;"><b class="number-in-cart"></b></span>
-                                </a>
-                                    
+                                @if (Auth::check())
+                                    @if (!Auth::user()->isAdmin())
+                                    <a href="{{route('cart.show')}}" class="unica-cart">
+                                        <img src="{{ asset('frontend/images/tab_cart.png') }}" alt="" style="width: 21px;" />
+                                        <span class="unica-sl-cart" style="display: none;"><b class="number-in-cart"></b></span>
+                                    </a>
+                                    @endif                                    
                                 @endif
                                 <li>
 

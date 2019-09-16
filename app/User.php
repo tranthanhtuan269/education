@@ -123,8 +123,12 @@ class User extends Authenticatable
 
     public function notOnlyStudent(){
         $user_role_count = $this->hasMany('App\UserRole')->count();
-        if($user_role_count > 1){
-            return true;
+        if(isset($user_role_count)){
+            if($user_role_count > 1){
+                return true;
+            }else{
+                return false;
+            }
         }else{
             return false;
         }
