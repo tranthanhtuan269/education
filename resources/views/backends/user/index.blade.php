@@ -354,6 +354,11 @@
             includeSelectAllIfMoreThan: 0,
             numberDisplayed: 2,
             enableClickableOptGroups: true,
+            onInitialized: function(select, container) {
+                var studentInput = $(container).find('input[value="3"]') // không cho chỉnh sửa student
+                studentInput.prop('disabled', true)
+                studentInput.prop('checked', true)                            
+            },
             onChange: function(element, checked){
                 const role_id = element.attr('value')
                 if(checked === true){
