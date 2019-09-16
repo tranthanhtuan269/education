@@ -803,36 +803,41 @@ class HomeController extends Controller
 
     public function test(){
 
-        $courses = Course::get();
-        foreach($courses as $course){
-            if(count($course->userRoles) != 0){
-                echo(count($course->userRoles)-1).'<br>';
-                $course->student_count = (count($course->userRoles)-1);
-                $course->save();
-            }else{
-                $course->student_count = 0;
-                $course->save();
-            }
-        }
-        // $course = Course::find(1);
-        // dd($course->userRoles);
+        // $courses = Course::get();
+        // foreach($courses as $course){
+        //     if(count($course->userRoles) != 0){
+        //         echo(count($course->userRoles)-1).'<br>';
+        //         $course->student_count = (count($course->userRoles)-1);
+        //         $course->save();
+        //     }else{
+        //         $course->student_count = 0;
+        //         $course->save();
+        //     }
+        // }
+        // // $course = Course::find(1);
+        // // dd($course->userRoles);
 
-        $teachers = Teacher::get();
-        foreach($teachers as $teacher){
-            $teacher->student_count = 0;
-            $teacher->save();
-        }
+        // $teachers = Teacher::get();
+        // foreach($teachers as $teacher){
+        //     $teacher->student_count = 0;
+        //     $teacher->save();
+        // }
 
-        foreach($courses as $course){
-            if($course->Lecturers()->first() && $course->Lecturers()->first()->teacher){
-                $teacher = Teacher::find($course->Lecturers()->first()->teacher->id);
-                if($teacher){
-                    $teacher->student_count += $course->student_count;
-                    $teacher->save();
-                }
-            }
-        }
-        echo "done";
+        // foreach($courses as $course){
+        //     if($course->Lecturers()->first() && $course->Lecturers()->first()->teacher){
+        //         $teacher = Teacher::find($course->Lecturers()->first()->teacher->id);
+        //         if($teacher){
+        //             $teacher->student_count += $course->student_count;
+        //             $teacher->save();
+        //         }
+        //     }
+        // }
+        // echo "done";
+
+        // DuongNT - Test isTeacher
+        $user = Auth::user();
+        dd($user->isAdmin());
+
     }
 
     public function seeMore(Request $request)

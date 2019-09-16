@@ -850,22 +850,17 @@
                         });
                     }
                 },
-                error: function (data) {
-                    if(data.status == 422){
-                        $.each(data.responseJSON.errors, function( index, value ) {
-                            $('#' + index + 'ErrorUpd').html(value);
-                            $('#' + index + 'ErrorUpd').removeClass('d-none');
-                        });
-                    }else{
-                        if(data.status == 401){
-                          window.location.replace(baseURL);
-                        }else{
-                            Swal.fire({
-                                type: 'warning',
-                                text: errorConnect
-                            })
-                        }
+                error: function (error) {
+                    var obj_errors = error.responseJSON.errors;
+                    var txt_errors = '';
+                    for (k of Object.keys(obj_errors)) {
+                        txt_errors += obj_errors[k][0] + '</br>';
                     }
+                    Swal.fire({
+                        type: 'warning',
+                        html: txt_errors,
+                        allowOutsideClick: false,
+                    })
                 }
             });
         });
