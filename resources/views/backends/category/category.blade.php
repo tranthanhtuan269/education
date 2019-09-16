@@ -450,9 +450,11 @@ $(document).ready(function() {
             var curr_icon       = $(this).parent().parent().attr('data-icon');
             var curr_image      = $(this).parent().parent().attr('data-image');
             var id              = $(this).attr('data-id');
-
             $("input[name='name']").val(curr_name);
-            $("select[name='parent_id']").val(curr_parent_id);
+            if( !curr_parent_id ){
+                curr_parent_id = 0
+            }
+            $("select[id=editParentId]").val(curr_parent_id);
             if( curr_featured == 1 ){
                 $('input[name=editFeatured][value=0]').removeAttr('checked','checked');
                 $('input[name=editFeatured][value=1]').attr('checked','checked');
