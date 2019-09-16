@@ -62,7 +62,7 @@ class HomeController extends Controller
         $feature_course = $feature_course->filter(function ($value, $key) use ($percent_feature_course) {
             $percent;
             if($value->price < $value->real_price){
-                $percent = 100 - intval(($value->price/$value->real_price)*100);
+                $percent = intval(100 - (($value->price/$value->real_price)*100));
                 if($percent > intval($percent_feature_course)){
                     $value->setAttribute('discount_percent', $percent); // thêm trường discount_percent
                 }
