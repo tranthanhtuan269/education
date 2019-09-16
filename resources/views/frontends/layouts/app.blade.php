@@ -158,7 +158,12 @@
                                         <img src="{{ asset('frontend/images/tab_cart.png') }}" alt="" style="width: 21px;" />
                                         <span class="unica-sl-cart" style="display: none;"><b class="number-in-cart"></b></span>
                                     </a>
-                                    @endif                                    
+                                    @endif
+                                @else
+                                    <a href="{{route('cart.show')}}" class="unica-cart">
+                                        <img src="{{ asset('frontend/images/tab_cart.png') }}" alt="" style="width: 21px;" />
+                                        <span class="unica-sl-cart" style="display: none;"><b class="number-in-cart"></b></span>
+                                    </a>                            
                                 @endif
                                 <li>
 
