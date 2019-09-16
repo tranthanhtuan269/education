@@ -4,12 +4,13 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.16/datatables.min.css"/>
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.16/datatables.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.16/api/fnReloadAjax.js"></script>
-<!-- Include the plugin's CSS and JS: -->
-<script type="text/javascript" src="{{ url('/') }}/backend/js/bootstrap-multiselect.js"></script>
-<link rel="stylesheet" href="{{ url('/') }}/backend/css/bootstrap-multiselect.css" type="text/css"/>
 
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+{{-- Image Upload --}}
+{{-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script> --}}
+<script src="{{ url('/') }}/frontend/js/jquery.cropit.js"></script>
 
 <section class="content-header">
     
@@ -18,7 +19,7 @@
     <h1 class="text-center font-weight-600">Danh mục</h1>
     <div class="add-item text-center">
             <!-- <button id="create_user" data-toggle="modal" data-target="#add_user_modal" class="btn btn-success add-category" title="Thêm danh mục"><i class="fa fa-plus fa-fw"></i> Danh mục</button> -->
-            <a class="btn btn-success mr-2 add-category" data-id="' + data + '" data-title="' + row.title + '" data-content="' + row.content + '" title="Sửa"> <i class="fa fa-plus fa-fw"></i> Danh mục</a>
+            <a class="btn btn-success mr-2 add-category" data-id="' + data + '" data-title="' + row.title + '" data-content="' + row.content + '" title="Sửa"> <i class="fa fa-plus fa-fw"></i><b>Danh mục</b></a>
         </div>
     <div class="row">
         <div class="col-md-12">
@@ -26,27 +27,18 @@
                 <table class="table table-bordered" id="category-table">
                     <thead class="thead-custom">
                         <tr>
-                            <th class="id-field" width="1%">
-                                <input type="checkbox" id="select-all-btn" data-check="false">
-                            </th>
                             <th scope="col">Tên danh mục</th>
                             <th scope="col">Danh mục cha</th>
                             <th scope="col">Nổi bật</th>
                             <th scope="col">Image</th>
-                            <th scope="col">Sửa, Xóa</th>
+                            <th scope="col">Sửa</th>
+                            <th scope="col">Xóa</th>
                         </tr>
                     </thead>
                     <tbody>
                         
                     </tbody>
                 </table>
-                <!-- @if (Helper::checkPermissions('users.email', $list_roles))  -->
-                    <!-- <p class="action-selected-rows"> -->
-                        <!-- <span >Hành động trên các hàng đã chọn:</span> -->
-                        <!-- <span class="btn btn-info ml-2" id="deleteAllApplied">Xóa</span> -->
-                        <!-- <span class="btn btn-info ml-2" id="inacceptAllApplied">Hủy</span> -->
-                    <!-- </p>   -->
-                <!-- @endif -->
             </div>
         </div>
     </div>
@@ -62,7 +54,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form autocomplete="off">
                         <div class="form-group">
                             <label>Tên Danh mục</label>
                             <input type="text" class="form-control" name="name" id="categoryName_id">
@@ -79,8 +71,8 @@
                         </div>
                         <div class="form-group">
                             <label>Nổi bật</label><br>
-                            <label class="radio-inline"><input type="radio" name="featured" checked value="1">Có</label>
                             <label class="radio-inline"><input type="radio" name="featured" value="0">Không</label>
+                            <label class="radio-inline"><input type="radio" name="featured" value="1">Có</label>
                         </div>
                         <div class="form-group">
                             <label>Icon</label>
@@ -91,11 +83,22 @@
                             <input type="file" class="form-control" name="image" id="files" onchange="preview_image(event)"><br>
                             <img id="preview_category_img" src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-image-128.png" style="max-width:570px"/>
                         </div>
+                        <div class="image-cropit-editor">
+                            <div class="box-course-preview" id="image-cropper">
+                                <div class="text-center">
+                                    <div class="btn btn-primary select-image-btn" id="btn-cropit-upload"><i class="fa fa-picture-o fa-fw"></i> Tải lên ảnh khóa học</div>
+                                    <div class="note">(Kích thước nhỏ nhất: 640x360)</div>
+                                </div>
+                                <div class="cropit-preview text-center preview-image-course" id="cropitPreview" style="display: none"></div>
+                                <input type="range" class="cropit-image-zoom-input" id="cropit-zoom-input" style="display: none"/>
+                                <input type="file" class="cropit-image-input" style="display:none" value="" id="image-file-input"/>
+                            </div>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="addCategory">Thêm mới</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
+                    <button type="button" class="btn btn-primary" id="addCategory"><b>Xác nhận</b></button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><b>Hủy bỏ</b></button>
                 </div>
             </div>
         </div>
@@ -128,23 +131,25 @@
                         </div>
                         <div class="form-group">
                             <label>Nổi bật</label><br>
+                            <label class="radio-inline"><input type="radio" name="editFeatured" value="0" checked>Không</label>
                             <label class="radio-inline"><input type="radio" name="editFeatured" value="1">Có</label>
-                            <label class="radio-inline"><input type="radio" name="editFeatured" value="0">Không</label>
                         </div>
                         <div class="form-group">
                             <label class="label-icon-category">Icon:</label>
                             <input type="text" class="form-control" name="icon" id="editIcon">
                         </div>
-                        {{-- <div class="form-group"> --}}
-                            {{-- <label style="display:block">Ảnh đại diện</label> --}}
-                            {{-- <input type="file" class="form-control" name="image" id="editImage"><br> --}}
-                            {{-- <img id="editCategoryImg" src="" style="max-width:570px"/> --}}
-                        {{-- </div> --}}
+                        <div class="form-group">
+                            <label style="display:block">Ảnh đại diện</label>
+                            <input type="file" class="form-control" name="image" id="editImage"><br>
+                            <div class="text-center">
+                                <img id="editCategoryImg" src="" style="width:441px;height:190px"/>
+                            </div>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="editCategory">Xác nhận</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
+                    <button type="button" class="btn btn-primary" id="editCategory"><b>Xác nhận</b></button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><b>Hủy bỏ</b></button>
                 </div>
             </div>
         </div>
@@ -197,17 +202,10 @@ $(document).ready(function() {
     }
 
     $('#addCategory').click(function(){
-        if (link_image_base64 == '') {
-            Swal.fire({
-                type: 'warning',
-                html: 'Xin vui lòng chọn ảnh!',
-            })
-            return;
-        } 
         var data    = {
             name             : $('#categoryName_id').val(),
             parent_id        : $('#categoryParent_id').val(),
-            featured         : $('input[name=featured]').val(),
+            featured         : $('input[name=featured]:checked').val(),
             icon             : $('#categoryIcon_id').val(),
             image            : link_image_base64,
         };
@@ -245,12 +243,11 @@ $(document).ready(function() {
                 }
             },
             error: function (error) {
-                var obj_errors = error;
-                console.log(obj_errors)
-                var txt_errors = 'abc';
-                // for (k of Object.keys(obj_errors)) {
-                //     txt_errors += obj_errors[k][0] + '</br>';
-                // }
+                var obj_errors = error.responseJSON.errors;
+                var txt_errors = '';
+                for (k of Object.keys(obj_errors)) {
+                    txt_errors += obj_errors[k][0] + '</br>';
+                }
                 Swal.fire({
                     type: 'warning',
                     html: txt_errors,
@@ -261,15 +258,15 @@ $(document).ready(function() {
 
     $('#editCategory').click(function(){
         var id      = $("input[id=userIdUpdate]").val();
+
         var data    = {
             id               : id,
             name             : $('#editName').val(),
             parent_id        : $('#editParentId').val(),
-            featured         : $('input[name=editFeatured]').val(),
+            featured         : $('input[name="editFeatured"]:checked').val(),
             icon             : $('#editIcon').val(),
             // image            : link_image_base64,
         };
-        // alert(1);
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
@@ -294,7 +291,6 @@ $(document).ready(function() {
                         type: 'success',
                         text: response.Message
                     })
-                        
                 } else {
                     Swal.fire({
                         type: 'warning',
@@ -304,11 +300,10 @@ $(document).ready(function() {
             },
             error: function (error) {
                 var obj_errors = error.responseJSON.errors;
-                // console.log(obj_errors)
                 var txt_errors = '';
-                // for (k of Object.keys(obj_errors)) {
-                //     txt_errors += obj_errors[k][0] + '</br>';
-                // }
+                for (k of Object.keys(obj_errors)) {
+                    txt_errors += obj_errors[k][0] + '</br>';
+                }
                 Swal.fire({
                     type: 'warning',
                     html: txt_errors,
@@ -320,7 +315,7 @@ $(document).ready(function() {
     function clearFormCreate(){
         $('input[name=name]').val('');
         $('select[name=parent_id]').val('0');
-        $('input:radio[name="featured"]').filter('[value="1"]').attr('checked', true);
+        $('input:radio[name="featured"]').filter('[value="0"]').attr('checked', true);
         $('input[name=icon]').val('');
         $('input[type=file]').val('');
         $('select option[value="0"]').attr("selected",true);
@@ -341,14 +336,7 @@ $(document).ready(function() {
         // var id      = $('#userID_upd').val();
     })
 
-    var dataObject = [{
-            data: "rows",
-            class: "rows-item",
-            render: function(data, type, row) {
-                return '<input type="checkbox" name="selectCol" class="check-category" value="' + data + '" data-column="' + data + '">';
-            },
-            orderable: false
-        },
+    var dataObject = [
         {
             data: "name",
             class: "name-field"
@@ -365,7 +353,7 @@ $(document).ready(function() {
             class: "text-center",
             render: function(data, type, row) {
                 var html = baseURL +'/frontend/images/' + row.image;
-                return '<img src="'+ html +'" style="width:75px;height:40px;">'
+                return '<img src="'+ html +'" style="width:90px;height:40px;">'
                 // alert(row.image)
             },
             orderable: false
@@ -375,10 +363,17 @@ $(document).ready(function() {
             class: "action-field",
             render: function(data, type, row) {
                 var html = '';
-                html += '<a class="edit-category" data-id="' + data + '" data-title="' + row.title + '" data-content="' + row.content + '" title="Sửa"> <i class="fa fa-pencil fa-fw"></i>Edit</a>';
-                html += '<br>';
-                // html += '&nbsp';
-                html += '<a class="delete-category" data-id="' + data + '" title="Xóa"><i class="fa fa-trash fa-fw" aria-hidden="true"></i>Del</a>';
+                html += '<a class="edit-category" data-id="' + data + '"  title="Sửa"> <i class="fa fa-pencil fa-fw"></i>Sửa</a>';
+                return html;
+            },
+            orderable: false
+        },
+        {
+            data: "action",
+            class: "action-field",
+            render: function(data, type, row) {
+                var html = '';
+                html += '<a class="delete-category" data-id="' + data + '" title="Xóa"><i class="fa fa-trash fa-fw"></i>Xóa</a>';
 
                 return html;
             },
@@ -503,7 +498,14 @@ $(document).ready(function() {
 
             $("input[name='name']").val(curr_name);
             $("select[name='parent_id']").val(curr_parent_id);
-            $("input[name='editFeatured'][value='"+curr_featured+"']").prop('checked', true);
+            if( curr_featured == 1 ){
+                $('input[name=editFeatured][value=0]').removeAttr('checked','checked');
+                $('input[name=editFeatured][value=1]').attr('checked','checked');
+            }else{
+                $('input[name=editFeatured][value=1]').removeAttr('checked','checked');
+                $('input[name=editFeatured][value=0]').attr('checked','checked');
+            }
+
             $("input[name='icon']").val(curr_icon);
             $("input[id=userIdUpdate]").val(id);
             $("img[id=editCategoryImg]").attr("src", baseURL +'/frontend/images/' + curr_image);
@@ -517,54 +519,33 @@ $(document).ready(function() {
 
         $('.delete-category').off('click')
         $('.delete-category').click(function(e) {
-            var _self = $(this);
             var id = $(this).attr('data-id');
-            var row = $(e.currentTarget).closest("tr");
-            $.ajsrConfirm({
-                message: "Xóa danh mục sẽ ảnh hưởng tới khóa học và các danh mục con. Bạn có chắc chắn muốn xóa?",
-                okButton: "Đồng ý",
-                onConfirm: function() {
-                    $.ajaxSetup({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        }
-                    });
+
+            Swal.fire({
+                type: 'warning',
+                text : 'Xóa danh mục sẽ ảnh hưởng tới khóa học và các danh mục con. Bạn có chắc chắn muốn xóa?',
+                showCancelButton: true,
+            }).then( result => {
+                if(result.value){
                     $.ajax({
-                        url: baseURL + "/admincp/categories/delete",
+                        method: 'DELETE',
+                        url: "{{ url('/') }}/admincp/categories/delete",
                         data: {
-                            category_id: id
+                            category_id : id
                         },
-                        method: "POST",
                         dataType: 'json',
-                        beforeSend: function(r, a) {
-                            current_page = dataTable.page.info().page;
-                        },
-                        success: function(response) {
-                            if (response.status == 200) {
+                        success: function (response) {
+                            if(response.status == '200'){
                                 Swal.fire({
                                     type: 'success',
-                                    text: response.message
+                                    text : response.message,
                                 })
-                                dataTable.row(row).remove().draw(true);
-                                dataTable.page(checkEmptyTable()).draw(false);
-                            } else {
-                                Swal.fire({
-                                    type: 'warning',
-                                    text: response.message
-                                })
+                                dataTable.ajax.reload()
                             }
                         },
-                        error: function(data) {
-                            if (data.status == 401) {
-                                window.location.replace(baseURL);
-                            } else {
-                                $().toastmessage('showErrorToast', errorConnect);
-                            }
-                        }
-                    });
-                },
-                nineCorners: false,
-            });
+                    })                        
+                }
+            })
         });
 
         function checkEmptyTable() {

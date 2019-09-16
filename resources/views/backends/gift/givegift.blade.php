@@ -59,7 +59,7 @@
             </div>
         </div>
     </div>
-    <div class="text-center"><button class="btn btn-primary" id="btn-gift">Xác nhận tặng</button></div>
+    <div class="text-center"><button class="btn btn-primary" id="btn-gift"><b>Xác nhận tặng</b></button></div>
 </section>
 
 <script type="text/javascript">

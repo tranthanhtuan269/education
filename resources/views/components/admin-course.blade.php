@@ -147,15 +147,21 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="price" class="control-label">Giá gốc khóa học: (₫)</label>
-                            <input type="text" class="form-control" id="courseOriginalPrice{{$course->id}}" name="price-{{$course->id}}" value="{{$course->real_price}}">
+                            <input type="text" class="form-control" id="courseOriginalPrice{{$course->id}}" name="price-{{$course->id}}" value="{{$course->real_price}}" onpaste="return false">
                         </div>
                         <div class="form-group">
                             <label for="price" class="control-label">Giá giảm khóa học: (₫)</label>
-                            <input type="text" class="form-control" id="courseDiscountPrice{{$course->id}}" name="price-{{$course->id}}" value="{{$course->price}}">
+                            <input type="text" class="form-control" id="courseDiscountPrice{{$course->id}}" name="price-{{$course->id}}"
+                            @if ( $course->real_price == $course->price )
+                                value=""
+                            @else
+                                value="{{$course->price}}"
+                            @endif
+                            onpaste="return false">
                         </div>
                         <div class="form-group">
                             <label for="approx_time" class="control-label">Thời gian dự kiến hoàn thành: (giờ)</label>
-                            <input type="number" class="form-control" id="course-approx-time-{{$course->id}}" name="approx-time-{{$course->id}}" value="{{$course->approx_time}}" min="0">
+                            <input type="number" class="form-control" id="course-approx-time-{{$course->id}}" name="approx-time-{{$course->id}}" value="{{$course->approx_time}}" min="0" onpaste="return false">
                         </div>
                         <div class="form-group">
                             <label for="category" class="control-label">Danh mục:</label>
@@ -628,26 +634,33 @@
         
         j2('#save-btn-{{ $course->id }}').click(function(){
             link_base64 = j2('#image-cropper-{{$course->id}}').cropit('export');
-
             var course_name = $('#course-name-{{$course->id}}').val()
             var short_description = $('#short-description-{{$course->id}}').val()
             var course_description = CKEDITOR.instances['course-description-{{$course->id}}'].getData()
-
             var course_will_learn = CKEDITOR.instances['course-will-learn-{{$course->id}}'].getData()
-
             var course_requirement = $('#course-requirement-{{$course->id}}').val()
-
             var original_price = $('#courseOriginalPrice{{ $course->id }}').val()
             var discount_price = $('#courseDiscountPrice{{ $course->id }}').val()
-
             var course_approx_time = $('#course-approx-time-{{$course->id}}').val()
-
             var selector = document.getElementById('course-category{{$course->id}}')
             var course_category = selector[selector.selectedIndex].value
-
             var link_intro = $('#course-intro-{{$course->id}}').val()
 
             // $('#editCourse-{{$course->id}}').modal('toggle')
+            original_price = Number(original_price)
+            if( discount_price != null ){
+                discount_price = Number(discount_price)
+                if( discount_price > original_price ){
+                    Swal.fire({
+                            type: 'warning',
+                            html: 'Giá giảm không thể lớn hơn giá gốc.',
+                            allowOutsideClick: false,
+                        })
+                        return false;
+                }
+            }else{
+                discount_price = original_price
+            }
 
             var url = link_intro;
             if (url != undefined || url != '') {       
@@ -657,7 +670,7 @@
                 }else{
                     Swal.fire({
                         type: 'warning',
-                        html: 'Link Video không hợp lệ!',
+                        html: 'Link Video không hợp lệ.',
                         allowOutsideClick: false,
                     })
                     return false;

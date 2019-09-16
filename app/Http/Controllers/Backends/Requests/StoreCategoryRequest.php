@@ -24,10 +24,17 @@ class StoreCategoryRequest extends FormRequest
     {
         return [
             'name' => 'required|unique:categories,name',
-            // 'image' => 'required',
-            'parent_id' => 'required',
-            'featured' => 'required',
+            'image' => 'required',
             'icon' => 'required',
+        ];
+    }
+
+    public function messages(){
+        return [
+            'name.required' => 'Bạn chưa nhập tên Danh mục.',
+            'name.unique'   => 'Tên Danh mục đã tồn tại.',
+            'image.required'=> 'Bạn chưa chọn ảnh đại diện.',
+            'icon.required' => 'Bạn chưa nhập icon Danh mục.'
         ];
     }
 }

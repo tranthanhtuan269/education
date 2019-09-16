@@ -142,15 +142,15 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="price" class="control-label">Giá gốc khóa học: (₫)</label>
-                            <input type="text" class="form-control" id="courseOriginalPrice" name="price">
+                            <input type="text" class="form-control" id="courseOriginalPrice" name="price" onpaste="return false">
                         </div>
                         <div class="form-group">
                             <label for="price" class="control-label">Giá giảm khóa học: (₫)</label>
-                            <input type="text" class="form-control" id="courseDiscountPrice" name="price">
+                            <input type="text" class="form-control" id="courseDiscountPrice" name="price" onpaste="return false">
                         </div>
                         <div class="form-group">
                             <label for="approx_time" class="control-label">Thời gian dự kiến hoàn thành: (giờ)</label>
-                            <input type="number" class="form-control" id="course-approx-time" name="approx-time" min="0">
+                            <input type="number" class="form-control" id="course-approx-time" name="approx-time" min="0" onpaste="return false">
                         </div>
                         <div class="form-group">
                             <label for="category" class="control-label">Danh mục:</label>
@@ -1258,20 +1258,30 @@
             var course_name = $('#course-name').val()
             var short_description = $('#short-description').val()
             var course_description = CKEDITOR.instances['course-description'].getData()
-
             var course_will_learn = CKEDITOR.instances['course-will-learn'].getData()
-
             var course_requirement = $('#course-requirement').val()
-            var course_original_price = $('#courseOriginalPrice').val()
-            var course_discount_price = $('#courseDiscountPrice').val()
+            var original_price = $('#courseOriginalPrice').val()
+            var discount_price = $('#courseDiscountPrice').val()
             var course_approx_time = $('#course-approx-time').val()
-
             var selector = document.getElementById('course-category')
             var course_category = selector[selector.selectedIndex].value
-
             var link_intro = $('#course-intro').val()
 
             // $('#editCourse').modal('toggle')
+            original_price = Number(original_price)
+            if( discount_price != null ){
+                discount_price = Number(discount_price)
+                if( discount_price > original_price ){
+                    Swal.fire({
+                            type: 'warning',
+                            html: 'Giá giảm không thể lớn hơn giá gốc.',
+                            allowOutsideClick: false,
+                        })
+                        return false;
+                }
+            }else{
+                discount_price = original_price
+            }
             
             var url = link_intro;
             if (url != undefined || url != '') {       
@@ -1296,8 +1306,8 @@
                 description: course_description,
                 will_learn: course_will_learn,
                 requirement: course_requirement,
-                original_price: course_original_price,
-                discount_price: course_discount_price,
+                original_price: original_price,
+                discount_price: discount_price,
                 approx_time: course_approx_time,
                 category: course_category,
                 link_intro: link_intro,
