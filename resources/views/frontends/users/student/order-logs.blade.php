@@ -189,7 +189,6 @@
 
                 html_data += '<table class="table table-bordered"><thead><tr><th scope="col">Tên khóa học</th><th scope="col">Giá</th></tr></thead><tbody>';
                 var totalValue = 0;
-                console.log(courses);
                 
                 for(var i = 0; i < courses.length; i++){
                     
