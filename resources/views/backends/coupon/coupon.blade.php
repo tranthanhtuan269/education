@@ -67,8 +67,8 @@
                     </form>
                 </div>
                 <div class="modal-footer">
+                    <button class="btn btn-primary" id="btnConfirm"><b>Xác nhận</b></button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal"><b>Hủy bỏ</b></button>
-                    <button class="btn btn-success" id="btnConfirm"><b>Xác nhận</b></button>
                 </div>
             </div>
         </div>
@@ -125,8 +125,8 @@
                     </form>
                 </div>
                 <div class="modal-footer">
+                    <button class="btn btn-primary confirm-edit-coupon" id="btnConfirmEdit"><b>Xác nhận</b></button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal"><b>Hủy bỏ</b></button>
-                    <button class="btn btn-success confirm-edit-coupon" id="btnConfirmEdit"><b>Xác nhận</b></button>
                 </div>
             </div>
         </div>

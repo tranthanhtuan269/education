@@ -67,7 +67,7 @@
         </div>
     </div>
     <br>
-    <div class="text-center"><button class="btn btn-success" id="btn-confirm"><b>Xác nhận</b></button></div>
+    <div class="text-center"><button class="btn btn-primary" id="btn-confirm"><b>Xác nhận</b></button></div>
 </section>
 <script type="text/javascript">
     $(document).ready(function(){
