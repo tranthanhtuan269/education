@@ -60,8 +60,12 @@ class HomeController extends Controller
         $percent_feature_course = Setting::where('name', 'percent_feature_course')->first()->value;
         $feature_course = Course::where('status', 1)->orderBy('featured_index', 'asc')->get();
         $feature_course = $feature_course->filter(function ($value, $key) use ($percent_feature_course) {
+            $percent;
             if($value->price < $value->real_price){
-                $percent = 100 - intval($value->price/$value->real_price)*100;
+                $percent = 100 - intval(($value->price/$value->real_price)*100);
+                if($percent > intval($percent_feature_course)){
+                    $value->setAttribute('discount_percent', $percent); // thêm trường discount_percent
+                }
             }else{
                 $percent = 0;
             }
@@ -74,7 +78,8 @@ class HomeController extends Controller
         }else{
             $feature_course_limit = $feature_course_count;
         }
-        $feature_course = $feature_course->take($feature_course_limit);
+        $feature_course = $feature_course->take($feature_course_limit)->shuffle();
+        // dd($feature_course);
         
         //end finding feature courses
 
