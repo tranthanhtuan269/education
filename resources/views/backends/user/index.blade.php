@@ -103,7 +103,7 @@
                 <div class="col-sm-8">
                     <select id="role-list-ins-edit" multiple="multiple">
                         @foreach ($roles as $role)
-                            <option value="{{ $role->id }}">{{ $role->name }}</option>
+                            <option disabled value="{{ $role->id }}">{{ $role->name }}ss</option>
                         @endforeach
                     </select>
                     <script>
@@ -284,6 +284,11 @@
                         includeSelectAllIfMoreThan: 0,
                         numberDisplayed: 2,
                         enableClickableOptGroups: true,
+                        onInitialized: function(select, container) {
+                            var studentInput = $(container).find('input[value="3"]') // không cho chỉnh sửa student
+                            studentInput.prop('disabled', true)
+                            studentInput.prop('checked', true)                            
+                        },
                         onChange: function(element, checked){
                             const role_id = element.attr('value')
                             if(checked === true){

@@ -143,7 +143,8 @@
                         <div class="pull-right">
                             <ul class="unica-acc-zone db-item">
                                 @if(Auth::check())
-                                    @if ( !(count(Auth::user()->userRoles) == 1 && (Auth::user()->userRoles->first()->role_id) == 1) )
+                                    {{-- @if ( !(count(Auth::user()->userRoles) == 1 && (Auth::user()->userRoles->first()->role_id) == 1) ) --}}
+                                    @if(!Auth::user()->isAdmin())
                                         <li><a href="{{ url('user/student/course') }}" class="unica-active-course responsive-start-learning"><p class="hidden-md hidden-xs hidden-sm">Vào học</p></a></li>
                                     @else
                                         <li><a href="{{ url('admincp') }}" class="unica-admin"><p class="hidden-md hidden-xs hidden-sm">Trang quản trị</p></a></li>
@@ -175,8 +176,8 @@
                                     <li class="btn-group">
                                         <a class="db-item-circle dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)"><img class="img-responsive" src="{{ asset('frontend/'.(Auth::user()->avatar != '' ? Auth::user()->avatar : 'images/avatar.jpg')) }}" alt="avatar"><span class="caret"></span></a>                                    
                                         <ul class="dropdown-menu db-drop">
-                                            @if ( !(count(Auth::user()->userRoles) == 1 && (Auth::user()->userRoles->first()->role_id) == 1) )
-                                                @if ($check_multi_role_user == 2)
+                                            @if ( !Auth::user()->isAdmin() )
+                                                @if (Auth::user()->isTeacher())
                                                     <li><a href="{{ url('user/teacher/course') }}"><i class="fas fa-chalkboard-teacher"></i> Giảng viên</a></li>
                                                     <li><a href="{{ url('user/student/course') }}"><i class="fas fa-user-graduate"></i> Học viên</a></li>
                                                 @else                                                
