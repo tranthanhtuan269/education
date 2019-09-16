@@ -170,7 +170,14 @@
                     html_data += '<table><tbody><tr><td style="width:45%;">Họ tên: </td><td>{{ Auth::user()->name }}</td></tr><tr><td style="width:45%;">Ngày tạo:</td><td>' + created_at + '</td></tr><tr><td>Trạng thái: </td><td style="width:45%;">' + statusOrder(status) + '</td></tr></tbody></table>';
                 html_data += '<td style="width:62%;">';
                     html_data += '<table><tbody>';
-                    html_data += '<tr><td style="width:45%;">Địa chỉ: </td><td>{{ Auth::user()->address }}</td></tr>'
+                    
+                    html_data += `<tr>`
+                        html_data += `<td style="width:45%;">Địa chỉ: </td>`
+                        html_data += `<td>`
+                            html_data += `{{Auth::user()->address}}`
+                        html_data += `</td>`
+                    html_data += `</tr>`
+                    
                     html_data += '<tr><td style="width:45%;">Email: </td><td>{{ Auth::user()->email }}</td></tr>';
                     html_data += '<tr><td style="width:45%;">Số điện thoại: </td><td>{{ Auth::user()->phone }}</td></tr>';
                     html_data += '<tr><td style="width:45%;">Thanh toán: </td><td>' + payment + '</td></tr>';

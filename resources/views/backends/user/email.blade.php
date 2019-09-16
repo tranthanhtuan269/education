@@ -248,10 +248,7 @@
                         serverSide: false,
                         aaSorting: [],
                         stateSave: false,
-                        ajax: {
-                            "{{ url('/') }}/admincp/emails/getEmailAjax",
-                            dataType: 'JSON',
-                        }
+                        ajax: "{{ url('/') }}/admincp/emails/getEmailAjax",                        
                         columns: dataObject,
                         // bLengthChange: false,
                         // pageLength: 10,
