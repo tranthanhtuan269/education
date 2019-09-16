@@ -66,6 +66,13 @@ class HomeController extends Controller
             }
             return ($percent > intval($percent_feature_course)) || $value->featured == 1 ;
         })->values(); //reindex the collection
+        $feature_course_count = $feature_course->count();
+        $redunt = $feature_course_count%3;
+        if($redunt > 0){
+            $feature_course_count = $feature_course_count - $redunt;
+        }else{
+            $feature_course_count = $feature_course_count;
+        }
         $best_seller_course = Course::where('status', 1)->orderBy('sale_count', 'desc')->limit(8)->get();
         $new_course = Course::where('status', 1)->orderBy('id', 'desc')->limit(8)->get();
 
@@ -827,7 +834,7 @@ class HomeController extends Controller
         //     if($course->Lecturers()->first() && $course->Lecturers()->first()->teacher){
         //         $teacher = Teacher::find($course->Lecturers()->first()->teacher->id);
         //         if($teacher){
-        //             $teacher->student_count += $course->student_count;
+        //             $teacher-\>student_count += $course->student_count;
         //             $teacher->save();
         //         }
         //     }
@@ -835,8 +842,14 @@ class HomeController extends Controller
         // echo "done";
 
         // DuongNT - Test isTeacher
-        $user = Auth::user();
-        dd($user->isAdmin());
+        $feature_course_count = 15;
+        $redunt = $feature_course_count%3;
+        if($redunt > 0){
+            $feature_course_count = $feature_course_count - $redunt;
+        }else{
+            $feature_course_count = $feature_course_count;
+        }
+        dd($feature_course_count);
 
     }
 

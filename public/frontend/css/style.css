@@ -513,6 +513,7 @@ ul.unica-acc-zone li.special:hover a{color:#fff}
 }
 .feature-course .slick-dots {
   position: relative;
+  margin-bottom: 4em;
 }
 
 /* Begin Cropit */
@@ -1086,7 +1087,7 @@ footer .item-2 ul li{float:left}
 footer .item-2 ul li a{color:#fff;text-decoration:none;display:block;padding:10px 30px 10px 0}
 footer .item-2 .copyright{color:#fff;padding:10px 0}
 .feature-course{padding-bottom:50px;margin-top:-35px}
-.feature-course img{width:100%}
+/* .feature-course img{width:100%} */
 .feature-course .img-top{padding-bottom:15px}
 .title-module-home h2{padding-bottom:25px;font-weight:700;font-size:28px}
 .top-course{padding-bottom:35px;}
