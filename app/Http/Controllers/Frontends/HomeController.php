@@ -55,6 +55,7 @@ class HomeController extends Controller
     public function home()
     {
         $feature_category = Category::withCount('courses')->where('featured', 1)->orderBy('featured_index', 'asc')->limit(10)->get();
+        
         // Duong NT// trending = feature courses
         $percent_feature_course = Setting::where('name', 'percent_feature_course')->first()->value;
         $feature_course = Course::where('status', 1)->orderBy('featured_index', 'asc')->get();
@@ -67,12 +68,16 @@ class HomeController extends Controller
             return ($percent > intval($percent_feature_course)) || $value->featured == 1 ;
         })->values(); //reindex the collection
         $feature_course_count = $feature_course->count();
-        $redunt = $feature_course_count%3;
-        if($redunt > 0){
-            $feature_course_count = $feature_course_count - $redunt;
+        $remainder = $feature_course_count%3;
+        if($remainder > 0){
+            $feature_course_limit = $feature_course_count - $remainder;
         }else{
-            $feature_course_count = $feature_course_count;
+            $feature_course_limit = $feature_course_count;
         }
+        $feature_course = $feature_course->take($feature_course_limit);
+        
+        //end finding feature courses
+
         $best_seller_course = Course::where('status', 1)->orderBy('sale_count', 'desc')->limit(8)->get();
         $new_course = Course::where('status', 1)->orderBy('id', 'desc')->limit(8)->get();
 
@@ -842,14 +847,14 @@ class HomeController extends Controller
         // echo "done";
 
         // DuongNT - Test isTeacher
-        $feature_course_count = 15;
-        $redunt = $feature_course_count%3;
-        if($redunt > 0){
-            $feature_course_count = $feature_course_count - $redunt;
-        }else{
-            $feature_course_count = $feature_course_count;
-        }
-        dd($feature_course_count);
+        // $feature_course_count = 21;
+        // $redunt = $feature_course_count%3;
+        // if($redunt > 0){
+        //     $feature_course_count = $feature_course_count - $redunt;
+        // }else{
+        //     $feature_course_count = $feature_course_count;
+        // }
+        // dd($feature_course_count);
 
     }
 
