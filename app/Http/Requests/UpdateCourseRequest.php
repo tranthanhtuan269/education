@@ -29,8 +29,8 @@ class UpdateCourseRequest extends FormRequest
             'description'       => 'required',
             'will_learn'        => 'required',
             'requirement'       => 'required',
-            'original_price'    => 'required|numeric',
-            'discount_price'    => 'required|numeric',
+            'original_price'    => 'required|numeric|min:0',
+            'discount_price'    => 'required|numeric|min:0',
             'approx_time'       => 'required|numeric|min:0|max:999',
         ];
     }
@@ -49,8 +49,10 @@ class UpdateCourseRequest extends FormRequest
 
             'original_price.required'   => 'Bạn chưa nhập giá gốc khóa học.',
             'original_price.numeric'    => 'Giá khóa học phải là số.',
+            'original_price.min'        => 'Giá khóa học không thể <0.',
             'discount_price.required'   => 'Bạn chưa nhập giá giảm khóa học.',
             'discount_price.numeric'    => 'Giá khóa học phải là số.',
+            'discount_price.min'        => 'Giá khóa học không thể <0.',
 
             'approx_time.required'      => 'Bạn chưa nhập Thời gian dự kiến hoàn thành.',
             'approx_time.numeric'       => 'Thời gian dự kiến hoàn thành phải là số.',
