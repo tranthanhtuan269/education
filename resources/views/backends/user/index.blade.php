@@ -385,7 +385,7 @@
         $('#edit_user_modal').on('shown.bs.modal', function () {
             var id      = $('#userID_upd').val();
              getRoleList(id);
- 
+
 
         })
 

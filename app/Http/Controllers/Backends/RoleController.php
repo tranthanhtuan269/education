@@ -223,12 +223,20 @@ class RoleController extends Controller
     {
         if ($id) {
             $roles = Role::get();
-            $arr_role_selected = UserRole::where('user_id', $id)->pluck('role_id')->toArray();
-            // echo '<pre>';
-            // print_r($roles);die;
+            $arr_role_selected = UserRole::where('user_id', $id)->get()->filter(function($value, $key){
+                if(isset($value->teacher)){ //duongnt
+                    return $value->teacher->status == 1;
+                }else{
+                    return true;
+                }
+            })
+            ->pluck('role_id')
+            ->toArray();
+
             if ($roles) {
                 $html = '';
                 foreach ($roles as $value) {
+                    
                     if (in_array($value->id, $arr_role_selected)) {
                         $html .= '<option value="' . $value->id . '" selected="selected">' . $value->name . '</option>';
                     } else {
