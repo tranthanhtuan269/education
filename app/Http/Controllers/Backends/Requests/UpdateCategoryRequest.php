@@ -24,7 +24,7 @@ class UpdateCategoryRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            // 'image' => 'required',
+            'image' => 'required',
             'icon' => 'required',
         ];
     }
@@ -32,6 +32,7 @@ class UpdateCategoryRequest extends FormRequest
     public function messages(){
         return [
             'name.required' => 'Bạn chưa nhập tên Danh mục.',
+            'image.required'=> 'Bạn chưa chọn ảnh đại diện Danh mục.',
             'icon.required' => 'Bạn chưa nhập icon Danh mục.'
         ];
     }

@@ -33,7 +33,7 @@ class StoreCategoryRequest extends FormRequest
         return [
             'name.required' => 'Bạn chưa nhập tên Danh mục.',
             'name.unique'   => 'Tên Danh mục đã tồn tại.',
-            'image.required'=> 'Bạn chưa chọn ảnh đại diện.',
+            'image.required'=> 'Bạn chưa chọn ảnh đại diện Danh mục.',
             'icon.required' => 'Bạn chưa nhập icon Danh mục.'
         ];
     }

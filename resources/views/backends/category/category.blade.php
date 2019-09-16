@@ -8,10 +8,6 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-{{-- Image Upload --}}
-{{-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script> --}}
-<script src="{{ url('/') }}/frontend/js/jquery.cropit.js"></script>
-
 <section class="content-header">
     
 </section>
@@ -56,11 +52,11 @@
                 <div class="modal-body">
                     <form autocomplete="off">
                         <div class="form-group">
-                            <label>Tên Danh mục</label>
+                            <label>Tên Danh mục:</label>
                             <input type="text" class="form-control" name="name" id="categoryName_id">
                         </div>
                         <div class="form-group">
-                            <label>Danh mục cha</label>
+                            <label>Danh mục cha:</label>
                             <!-- <input type="text" class="form-control" name="categoryParent"> -->
                             <select class="form-control" name="parent_id" id="categoryParent_id">
                                 <option value="0">--</option>
@@ -70,28 +66,22 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Nổi bật</label><br>
+                            <label>Nổi bật:</label><br>
                             <label class="radio-inline"><input type="radio" name="featured" value="0">Không</label>
                             <label class="radio-inline"><input type="radio" name="featured" value="1">Có</label>
                         </div>
                         <div class="form-group">
-                            <label>Icon</label>
+                            <label>Icon:</label>
                             <input type="text" class="form-control" name="icon" id="categoryIcon_id">
                         </div>
                         <div class="form-group">
-                            <label>Ảnh đại diện</label>
-                            <input type="file" class="form-control" name="image" id="files" onchange="preview_image(event)"><br>
-                            <img id="preview_category_img" src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-image-128.png" style="max-width:570px"/>
-                        </div>
-                        <div class="image-cropit-editor">
-                            <div class="box-course-preview" id="image-cropper">
-                                <div class="text-center">
-                                    <div class="btn btn-primary select-image-btn" id="btn-cropit-upload"><i class="fa fa-picture-o fa-fw"></i> Tải lên ảnh khóa học</div>
-                                    <div class="note">(Kích thước nhỏ nhất: 640x360)</div>
-                                </div>
-                                <div class="cropit-preview text-center preview-image-course" id="cropitPreview" style="display: none"></div>
-                                <input type="range" class="cropit-image-zoom-input" id="cropit-zoom-input" style="display: none"/>
-                                <input type="file" class="cropit-image-input" style="display:none" value="" id="image-file-input"/>
+                            <label>Ảnh đại diện Danh mục: (Kích thước chuẩn: 440x190)</label>
+                            <input type="file" class="form-control" name="image" id="files" onchange="preview_image(event)" style="display:none"><br>
+                            <div class="text-center">
+                                <div class="btn btn-primary select-image-btn" id="btnViewUpload"><i class="fa fa-picture-o fa-fw"></i> Tải lên ảnh Danh mục</div>
+                            </div><br>
+                            <div class="text-center">
+                                <img id="preview_category_img" style="width:440px;height:190px"/>
                             </div>
                         </div>
                     </form>
@@ -116,11 +106,11 @@
                 <div class="modal-body">
                     <form>
                         <div class="form-group">
-                            <label>Tên Danh mục</label>
+                            <label>Tên Danh mục:</label>
                             <input type="text" class="form-control" name="name" id="editName" value="">
                         </div>
                         <div class="form-group">
-                            <label>Danh mục cha</label>
+                            <label>Danh mục cha:</label>
                             <!-- <input type="text" class="form-control" name="categoryParent"> -->
                             <select class="form-control" name="parent_id" id="editParentId">
                                 <option value="0">--</option>
@@ -130,7 +120,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Nổi bật</label><br>
+                            <label>Nổi bật:</label><br>
                             <label class="radio-inline"><input type="radio" name="editFeatured" value="0" checked>Không</label>
                             <label class="radio-inline"><input type="radio" name="editFeatured" value="1">Có</label>
                         </div>
@@ -139,10 +129,14 @@
                             <input type="text" class="form-control" name="icon" id="editIcon">
                         </div>
                         <div class="form-group">
-                            <label style="display:block">Ảnh đại diện</label>
-                            <input type="file" class="form-control" name="image" id="editImage"><br>
+                            <label style="display:block">Ảnh đại diện Danh mục: (Kích thước chuẩn: 440x190)</label>
+                            <input type="file" class="form-control" name="image" id="editImage" onchange="preview_edit_image(event)" style="display:none">
                             <div class="text-center">
-                                <img id="editCategoryImg" src="" style="width:441px;height:190px"/>
+                                <div class="btn btn-primary select-image-btn" id="btnViewEditUpload"><i class="fa fa-picture-o fa-fw"></i> Tải lên ảnh Danh mục</div>
+                            </div>
+                            <br>
+                            <div class="text-center box-preview-edit">
+                                <img id="previewEditCategoryImg" src="" style="width:440px;height:190px"/>
                             </div>
                         </div>
                     </form>
@@ -158,13 +152,35 @@
 <script type="text/javascript">
 var dataTable = null;
 var userCheckList = [];
-var curr_user_name = '';
-var curr_user_email = '';
 var current_page = 0;
 var old_search = '';
 var errorConnect = "Please check your internet connection and try again.";
 
 $(document).ready(function() {
+
+    $('#btnViewEditUpload').click(function(){
+        $('#editImage').click()
+    })
+    $('#btnViewUpload').click(function(){
+        $('#files').click()
+    })
+    var _URL = window.URL || window.webkitURL;
+    $("#editImage").change(function(e) {
+        var file, img;
+        if ((file = this.files[0])) {
+            img = new Image();
+            img.onerror = function() {
+                Swal.fire({
+                    type: 'warning',
+                    text: 'Tập tin không hợp lệ.',
+                    allowOutsideClick: false,
+                })
+                $("#editImage").val('')
+            };
+            img.src = _URL.createObjectURL(file);
+        }
+    })
+
     link_image_base64 = '';
     function handleFileSelect(evt) {
         var f = evt.target.files[0]; // FileList object
@@ -174,8 +190,11 @@ $(document).ready(function() {
             if ($.inArray(fileType, validImageTypes) < 0) {
                 Swal.fire({
                     type: 'warning',
-                    html: 'Ảnh không hợp lệ!',
+                    html: 'Tập tin không hợp lệ.',
                 })
+                $('#showAddModal #files').val('')
+                $('#showEditModal #editImage').val('')
+                // $('.box-preview-edit').css('display', 'none')
             } else {
                 var reader = new FileReader();
                 // Closure to capture the file information.
@@ -184,6 +203,7 @@ $(document).ready(function() {
                     var binaryData = e.target.result;
                     //Converting Binary Data to base 64
                     link_image_base64 = window.btoa(binaryData);
+                // $('.box-preview-edit').css('display', 'inline-block')
                     };
                 })(f);
                 // Read in the image file as a data URL.
@@ -199,6 +219,7 @@ $(document).ready(function() {
 
     if (window.File && window.FileReader && window.FileList && window.Blob) {
         document.getElementById('files').addEventListener('change', handleFileSelect, false);
+        document.getElementById('editImage').addEventListener('change', handleFileSelect, false);
     }
 
     $('#addCategory').click(function(){
@@ -215,7 +236,6 @@ $(document).ready(function() {
                 'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
             }
         });
-        
         $.ajax({
             url: baseURL+"/admincp/categories/addCategory",
             data: data,
@@ -233,68 +253,13 @@ $(document).ready(function() {
                     Swal.fire({
                         type: 'success',
                         text: response.message
+                    }).then( result => {
+                        location.reload()
                     })
-                        
                 } else {
                     Swal.fire({
                         type: 'warning',
                         text: response.message
-                    })
-                }
-            },
-            error: function (error) {
-                var obj_errors = error.responseJSON.errors;
-                var txt_errors = '';
-                for (k of Object.keys(obj_errors)) {
-                    txt_errors += obj_errors[k][0] + '</br>';
-                }
-                Swal.fire({
-                    type: 'warning',
-                    html: txt_errors,
-                })
-            }
-        });
-    });
-
-    $('#editCategory').click(function(){
-        var id      = $("input[id=userIdUpdate]").val();
-
-        var data    = {
-            id               : id,
-            name             : $('#editName').val(),
-            parent_id        : $('#editParentId').val(),
-            featured         : $('input[name="editFeatured"]:checked').val(),
-            icon             : $('#editIcon').val(),
-            // image            : link_image_base64,
-        };
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        
-        $.ajax({
-            url: baseURL+"/admincp/categories/editCategory",
-            data: data,
-            method: "POST",
-            dataType:'json',
-            beforeSend: function(r, a){
-                $('.alert-errors').addClass('d-none');
-            },
-            success: function (response) {
-                var html_data = '';
-                if(response.status == 200){
-                    clearFormCreate();
-                    $('#showEditModal').modal('toggle');
-                    dataTable.ajax.reload();
-                    Swal.fire({
-                        type: 'success',
-                        text: response.Message
-                    })
-                } else {
-                    Swal.fire({
-                        type: 'warning',
-                        text: response.Message
                     })
                 }
             },
@@ -321,16 +286,6 @@ $(document).ready(function() {
         $('select option[value="0"]').attr("selected",true);
         $('#preview_category_img').src = "";
     }
-
-    window.onbeforeunload = function() {
-        if ($('#edit_user_modal').hasClass('show') && (
-                $('#userName_upd').val() != curr_user_name ||
-                $('#userEmail_upd').val() != curr_user_email ||
-                $('#userPassword_upd').val() != 'not_change' ||
-                $('#passConfirm_upd').val() != 'not_change')) {
-            return "Bye now!";
-        }
-    };
 
     $('#edit_user_modal').on('shown.bs.modal', function() {
         // var id      = $('#userID_upd').val();
@@ -508,7 +463,7 @@ $(document).ready(function() {
 
             $("input[name='icon']").val(curr_icon);
             $("input[id=userIdUpdate]").val(id);
-            $("img[id=editCategoryImg]").attr("src", baseURL +'/frontend/images/' + curr_image);
+            $("img[id=previewEditCategoryImg]").attr("src", baseURL +'/frontend/images/' + curr_image);
         })
 
         $('.add-category').off('click')
@@ -554,18 +509,83 @@ $(document).ready(function() {
             }
             return current_page;
         }
+
+        $('#editCategory').click(function(){
+            console.log(link_image_base64)
+            var id      = $("input[id=userIdUpdate]").val();
+
+            var data    = {
+                id               : id,
+                name             : $('#editName').val(),
+                parent_id        : Number($('#editParentId').val()),
+                featured         : $('input[name="editFeatured"]:checked').val(),
+                icon             : $('#editIcon').val(),
+                image            : link_image_base64,
+            };
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: baseURL+"/admincp/categories/editCategory",
+                data: data,
+                method: "POST",
+                dataType:'json',
+                beforeSend: function(r, a){
+                    $('.alert-errors').addClass('d-none');
+                },
+                success: function (response) {
+                    var html_data = '';
+                    if(response.status == 200){
+                        clearFormCreate();
+                        // $('#showEditModal').modal('toggle');
+                        dataTable.ajax.reload();
+                        Swal.fire({
+                            type: 'success',
+                            text: response.Message
+                        }).then( result => {
+                            location.reload()
+                        })
+                    } else {
+                        Swal.fire({
+                            type: 'warning',
+                            text: response.Message
+                        })
+                    }
+                },
+                error: function (error) {
+                    var obj_errors = error.responseJSON.errors;
+                    var txt_errors = '';
+                    for (k of Object.keys(obj_errors)) {
+                        txt_errors += obj_errors[k][0] + '</br>';
+                    }
+                    Swal.fire({
+                        type: 'warning',
+                        html: txt_errors,
+                    })
+                }
+            })
+        })
     }
 });
 </script>
 
 <script type='text/javascript'>
-function preview_image(event) 
-    {
+    function preview_image(event){
         var reader = new FileReader();
         // $('input[name=image]').append('<img id="preview_category_img" src="#" max-width="570"/>');
-        reader.onload = function()
-        {
+        reader.onload = function(){
             var output = document.getElementById('preview_category_img');
+            output.src = reader.result;
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    }
+
+    function preview_edit_image(event){
+        var reader = new FileReader();
+        reader.onload = function(){
+            var output = document.getElementById('previewEditCategoryImg');
             output.src = reader.result;
         }
         reader.readAsDataURL(event.target.files[0]);

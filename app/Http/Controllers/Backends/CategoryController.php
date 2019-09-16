@@ -71,11 +71,18 @@ class CategoryController extends Controller
                 }
             }
 
+            if ($request->image != '') {
+                $img_file = $request->image;
+                $img_file = base64_decode($img_file);
+                $file_name = time() . '.png';
+                file_put_contents(public_path('/frontend/images/') . $file_name, $img_file);
+            }
+
             $category->name         = $request->name;
             $category->parent_id    = $request->parent_id;
             $category->featured     = $request->featured;
             $category->icon         = $request->icon;
-            // $category->image        = $file_name;
+            $category->image        = $file_name;
             $category->save();
     
             return \Response::json(array('status' => '200', 'Message' => 'Sửa Danh mục thành công!'));
