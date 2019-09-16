@@ -366,23 +366,25 @@
                     }
                     // totalPrice = new_totalPrice
                     // Insert into localStorage
-                    var new_cart = JSON.parse(localStorage.getItem('cart'))
-                    new_cart[numeric_cart].coupon_price = new_price
-                    new_cart[numeric_cart].coupon_code  = coupon
-                    localStorage.setItem('cart', JSON.stringify(new_cart))
+                    cart_items[numeric_cart].coupon_price = new_price
+                    cart_items[numeric_cart].coupon_code  = coupon
+                    localStorage.setItem('cart', JSON.stringify(cart_items))
                     
                     $("#initial_price"+dataChild).css('display','block')
                     $("#current_price"+dataChild).text('')
                     $("#current_price"+dataChild).append(number_format(new_price, 0, '.', '.')+' ₫')
 
                     var course_count = 1;
+                    new_totalPrice=0
                     // new_totalPrice = new_price
                     cart_items.forEach((element)=>{
-                        new_totalPrice += parseFloat($('#current_price'+element.id).text())*1000
+                        // new_totalPrice += parseFloat($('#current_price'+element.id).text())*1000
+                        new_totalPrice += element.coupon_price
                     })
 
                     // new_totalPrice = new_totalPrice - dataPrice + new_price
                     // alert(new_totalPrice)
+
                     if(new_totalPrice == totalInitialPrice){
                         $(".checkout-column .current-price span").remove()
                         $(".checkout-column .current-price").append("<span>"+number_format(new_totalPrice, 0, '.', '.')+" ₫</span>")
