@@ -870,7 +870,7 @@ ul.unica-acc-zone li.special:hover a{color:#fff}
   margin: 10px auto;
   padding: 10px 40px;
 }
-.teacher-course #add-cart{
+.teacher-course button{
   padding-top: 10px;
   padding-bottom: 10px;
   width: 100%

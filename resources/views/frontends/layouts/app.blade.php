@@ -615,7 +615,7 @@
                 
                 $.each( number_items_in_cart, function(i, obj) {                
                     
-                    $('button[data-id='+obj.id+']').remove();
+                    $('.img-mask button[data-id='+obj.id+']').remove();
                     // console.log(obj);
                     
                     
