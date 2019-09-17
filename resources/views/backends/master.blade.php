@@ -127,7 +127,7 @@
                             </a>
                         </li>
                  
-                        <li class="treeview @if ( Request::is('admincp/users*') || Request::is('admincp/permissions*') || Request::is('admincp/roles*') ) active @endif">
+                        <li class="treeview @if ( Request::is('admincp/users') || Request::is('admincp/permissions*') || Request::is('admincp/roles*') ) active @endif">
                             <a href="javascript:void(0)">
                                 <i class="fa fa-user-md"></i>
                                 <span>Tài khoản</span>
@@ -137,7 +137,7 @@
                             </a>
                             <ul class="treeview-menu">
                                 @if (Helper::checkPermissions('users.list', $list_roles)) 
-                                    <li class="@if ( Request::is('admincp/users*') ) active @endif">
+                                    <li class="@if ( Request::is('admincp/users') ) active @endif">
                                         <a href="{{ url('/') }}/admincp/users"><i class="fa fa-minus"></i> Danh sách</a>
                                     </li>
                                 @endif
@@ -157,7 +157,7 @@
                             </ul>
                         </li>
                  
-                        <li class="treeview @if ( Request::is('admincp/users*') || Request::is('admincp/permissions*') || Request::is('admincp/roles*') ) active @endif">
+                        <li class="treeview @if ( Request::is('admincp/users/email*')) active @endif">
                             <a href="javascript:void(0)">
                                 <i class="fa fa-user-md"></i>
                                 <span>Thông báo</span>
@@ -174,7 +174,7 @@
                             </ul>
                         </li>
                  
-                        <li class="treeview @if ( Request::is('admincp/teachers*') || Request::is('admincp/courses*') || Request::is('admincp/videos*') || Request::is('admincp/verify-video*')) active @endif">
+                        <li class="treeview @if ( Request::is('admincp/teachers*') || Request::is('admincp/courses*') || Request::is('admincp/videos*') || Request::is('admincp/verify-video*') || Request::is('admincp/request-delete-videos*')) active @endif">
                             <a href="javascript:void(0)">
                                 <i class="fa fa-user-md"></i>
                                 <span>Phê duyệt</span>
@@ -203,16 +203,29 @@
                             </ul>
                         </li>
                         <li class="@if ( Request::is('admincp/gifts*') ) active @endif">
-                            <a href="{{ url('/') }}/admincp/gifts"><i class="fa fa-gift"></i> Tặng quà</a>
+                            <a href="{{ url('/') }}/admincp/gifts"><i class="fa fa-gift"></i>
+                             <span>Tặng quà</span>
+                                <span class="pull-right-container">
+                            </a>
                         </li>
-                        <li class="@if ( Request::is('admincp/category*') ) active @endif">
-                            <a href="{{ url('/') }}/admincp/categories"><i class="fa fa-briefcase"></i> Danh mục</a>
+                        
+                        <li class="@if ( Request::is('admincp/categories*') ) active @endif">
+                            <a href="{{ url('/') }}/admincp/categories"><i class="fa fa-briefcase"></i>
+                                <span>Danh mục</span>
+                                <span class="pull-right-container">
+                            </a>
                         </li>
                         <li class="@if ( Request::is('admincp/feature-course*') ) active @endif">
-                            <a href="{{ url('/') }}/admincp/feature-course"><i class="fa fa-star"></i> Khóa học nổi bật</a>
+                            <a href="{{ url('/') }}/admincp/feature-course"><i class="fa fa-star"></i>
+                                <span>Khóa học nổi bật</span>
+                                <span class="pull-right-container">
+                            </a>
                         </li>
                         <li class="@if ( Request::is('admincp/create-coupon*') ) active @endif">
-                            <a href="{{ url('/') }}/admincp/create-coupon"><i class="fa fa-star"></i> Mã giảm giá</a>
+                            <a href="{{ url('/') }}/admincp/create-coupon"><i class="fa fa-star"></i>
+                                <span>Tạo Coupon</span>
+                                <span class="pull-right-container">
+                            </a>
                         </li>
                     </ul>
                 </section>
@@ -251,5 +264,18 @@
         <script type="text/javascript">
             var baseURL="<?php echo URL::to('/'); ?>";
         </script>
+        <style type="text/css">
+        .sidebar-mini:not(.sidebar-mini-expand-feature).sidebar-collapse .sidebar-menu>li:hover>a>span:not(.pull-right), .sidebar-mini:not(.sidebar-mini-expand-feature).sidebar-collapse .sidebar-menu>li:hover>.treeview-menu {
+            width:240px;
+        }
+        .sidebar-mini:not(.sidebar-mini-expand-feature).sidebar-collapse .sidebar-menu>li:hover>a>.pull-right-container {
+            position: relative !important;
+            float: right;
+            width: auto !important;
+            left: 240px !important;
+            top: -22px !important;
+            z-index: 900;
+        }
+        </style>
     </body>
 </html>

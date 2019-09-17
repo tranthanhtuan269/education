@@ -642,11 +642,18 @@
                                     //     _self.find('i').removeClass('fa-times').addClass('fa-check');
                                     //     _self.addClass('block-user').removeClass('not-block-user');
                                     // }
-
-                                    Swal.fire({
-                                        type: 'success',
-                                        text: response.message
-                                    })
+                                    if (status == 0){
+                                        Swal.fire({
+                                            type: 'success',
+                                            text: "Bạn đã bỏ chặn thành công"
+                                        })
+                                    }
+                                    else {
+                                        Swal.fire({
+                                            type: 'success',
+                                            text:"Bạn đã chặn thành công"
+                                        })
+                                    }
                                 }else{
                                     Swal.fire({
                                         type: 'warning',
