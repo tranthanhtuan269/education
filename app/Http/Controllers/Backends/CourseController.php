@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backends;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
+use App\Http\Requests\UpdateFeatureCourseRequest;
 use App\Course;
 use App\UserCourse;
 use App\Setting;
@@ -50,8 +51,8 @@ class CourseController extends Controller
         $item->description          = $request->description;
         $item->will_learn           = $request->will_learn;
         $item->requirement          = $request->requirement;
-        $item->price                = $request->price;
-        $item->real_price           = $request->price;
+        $item->price                = $request->discount_price;
+        $item->real_price           = $request->original_price;
         $item->approx_time          = $request->approx_time;
         $item->category_id          = $request->category;
         $item->link_intro           = "https://www.youtube.com/embed/" . Helper::getYouTubeVideoId($request->link_intro);
@@ -79,8 +80,10 @@ class CourseController extends Controller
 
         //tăng lượng course cho teacher trong bảng teachers
         $teacherInstance = Auth::user()->userRolesTeacher()->teacher;
-        $teacherInstance->course_count += 1;
-        $teacherInstance->save();
+        if(isset($teacherInstance)){
+            $teacherInstance->course_count += 1;
+            $teacherInstance->save();
+        }
 
         return \Response::json(array('status' => '200', 'message' => 'Tạo khóa học thành công!'));
     }
@@ -130,8 +133,8 @@ class CourseController extends Controller
                 $item->description          = $request->description;
                 $item->will_learn           = $request->will_learn;
                 $item->requirement          = $request->requirement;
-                $item->price                = $request->price;
-                $item->real_price           = $request->price;
+                $item->price                = $request->discount_price;
+                $item->real_price           = $request->original_price;
                 $item->approx_time          = $request->approx_time;
                 $item->category_id          = $request->category;
                 $item->link_intro           = $link_intro;
@@ -290,7 +293,7 @@ class CourseController extends Controller
         return view('backends.course.feature-course', compact('courses', 'percent'));
     }
 
-    public function handlingFeatureCourseAjax(Request $request){
+    public function handlingFeatureCourseAjax(UpdateFeatureCourseRequest $request){
         $course = Course::where('featured', '>', 0)->update(['featured_index' => 0,'featured' => 0]);
 
         $course1 = Course::find($request->course_1);

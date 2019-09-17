@@ -41,7 +41,7 @@
 									<ul>
 										<li>
 											<img src="{{ asset('frontend/images/ic_course.png') }}" alt="" /> 
-											<span class="special">{{ $info_teacher->course_count }} Khóa học</span>
+											<span class="special">{{ count($info_teacher->userRole->userCoursesByTeacher()->where('status', 1)) }} Khóa học</span>
 										</li>
 										<li>
 											<img src="{{ asset('frontend/images/ic_student.png') }}" alt="" /> 

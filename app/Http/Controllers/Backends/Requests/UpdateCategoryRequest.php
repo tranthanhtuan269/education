@@ -23,12 +23,17 @@ class UpdateCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required|unique:categories,name,'.$this->name,
-            // 'name' => 'required|unique:categories,name|present',
+            'name' => 'required',
             // 'image' => 'required',
-            // 'parent_id' => 'required',
-            'featured' => 'required',
             'icon' => 'required',
+        ];
+    }
+
+    public function messages(){
+        return [
+            'name.required' => 'Bạn chưa nhập tên Danh mục.',
+            // 'image.required'=> 'Bạn chưa chọn ảnh đại diện Danh mục.',
+            'icon.required' => 'Bạn chưa nhập icon Danh mục.'
         ];
     }
 }

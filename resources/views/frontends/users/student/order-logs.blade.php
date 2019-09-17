@@ -170,7 +170,14 @@
                     html_data += '<table><tbody><tr><td style="width:45%;">Họ tên: </td><td>{{ Auth::user()->name }}</td></tr><tr><td style="width:45%;">Ngày tạo:</td><td>' + created_at + '</td></tr><tr><td>Trạng thái: </td><td style="width:45%;">' + statusOrder(status) + '</td></tr></tbody></table>';
                 html_data += '<td style="width:62%;">';
                     html_data += '<table><tbody>';
-                    html_data += '<tr><td style="width:45%;">Địa chỉ: </td><td>{{ Auth::user()->address }}</td></tr>'
+                    
+                    html_data += `<tr>`
+                        html_data += `<td style="width:45%;">Địa chỉ: </td>`
+                        html_data += `<td>`
+                            html_data += `{{Auth::user()->address}}`
+                        html_data += `</td>`
+                    html_data += `</tr>`
+
                     html_data += '<tr><td style="width:45%;">Email: </td><td>{{ Auth::user()->email }}</td></tr>';
                     html_data += '<tr><td style="width:45%;">Số điện thoại: </td><td>{{ Auth::user()->phone }}</td></tr>';
                     html_data += '<tr><td style="width:45%;">Thanh toán: </td><td>' + payment + '</td></tr>';
@@ -180,15 +187,14 @@
 
                 html_data += '</tbody></table>';
 
-                html_data += '<table class="table table-bordered"><thead><tr><th scope="col">Tên khóa học</th><th scope="col">Số lượng</th><th scope="col">Giá</th></tr></thead><tbody>';
+                html_data += '<table class="table table-bordered"><thead><tr><th scope="col">Tên khóa học</th><th scope="col">Giá</th></tr></thead><tbody>';
                 var totalValue = 0;
+                
                 for(var i = 0; i < courses.length; i++){
+                    
                     html_data += '<tr>';
                     html_data += '<td>';
                     html_data += courses[i].name;
-                    html_data += '</td>';
-                    html_data += '<td>';
-                    html_data += 1;
                     html_data += '</td>';
                     html_data += '<td>';
 
@@ -199,9 +205,11 @@
 
                     totalValue += courses[i].sale > 0 ? 1 * courses[i].sale : 1 * courses[i].price;
                 }
-                html_data += '<tr><td></td><td><b>Tổng</b></td><td style="color:red; font-size:18px;">'+ numberFormat(totalValue, 0, '.', '.') +' đ</td></tr>';
+                html_data += '<tr><td><b>Tổng</b></td><td style="font-size:15px;">'+ numberFormat(totalValue, 0, '.', '.') +' đ</td></tr>';
+
                 if (coupon != '') {
-                    html_data += '<tr><td></td><td><b>Giá gốc (Coupon: ' + coupon + ')</b></td><td style="color:red; font-size:18px;">'+ numberFormat(total_price_real, 0, '.', '.') +' đ</td></tr>';
+                    html_data += '<tr><td><b>Tổng giảm giá</b></td><td style="font-size:15px;">'+ numberFormat(totalValue - total_price_real, 0, '.', '.') +' đ</td></tr>';
+                    html_data += '<tr><td><b>Tổng cộng</b></td><td style="color:red; font-size:18px;">'+ numberFormat(total_price_real, 0, '.', '.') +' đ</td></tr>';
                 }
                 html_data += '</tbody></table>';
                 

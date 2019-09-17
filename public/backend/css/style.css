@@ -372,6 +372,9 @@ ul.alert li{
 .action-field{
     text-align: center;
 }
+.action-field a{
+    cursor: pointer;
+}
 
 #holder-image-more>.holder{
     position: relative;
@@ -483,6 +486,21 @@ ul.alert li{
 }
 .gift-student-number .btn-student-number{
     margin-bottom: 4px;
+}
+
+.ui-datepicker-month, .ui-datepicker-year{
+    color: #333;
+}
+
+.coupon-course-id{
+    width: 580px;
+    display: inline-block;
+    overflow: auto;
+}
+#showEditCouponModal .sol-selection-container, #showAddCouponModal .sol-selection-container{
+    /* top: 180px !important; */
+    left: 314px !important;
+    width: 570px !important;
 }
 
 /* Absolute Center Spinner */

@@ -103,9 +103,14 @@
                 <div class="col-sm-8">
                     <select id="role-list-ins-edit" multiple="multiple">
                         @foreach ($roles as $role)
-                            <option value="{{ $role->id }}">{{ $role->name }}</option>
+                            <option disabled value="{{ $role->id }}">{{ $role->name }}ss</option>
                         @endforeach
                     </select>
+                    <script>
+                        $(document).ready(function(){
+                            
+                        })
+                    </script>
                     <div class="alert-errors d-none" role="alert" id="role_idErrorIns"></div>
                 </div>
             </div>
@@ -274,12 +279,36 @@
                 dataType:'html',
                 success: function (response) {
                     $("#role-list-ins-edit").html(response);
+                    
                     $('#role-list-ins-edit').multiselect({
                         includeSelectAllOption: true,
                         includeSelectAllIfMoreThan: 0,
                         numberDisplayed: 2,
-                        enableClickableOptGroups: true
+                        enableClickableOptGroups: true,
+                        onInitialized: function(select, container) {
+                            var studentInput = $(container).find('input[value="3"]') // không cho chỉnh sửa student
+                            studentInput.prop('disabled', true)
+                            studentInput.prop('checked', true)                            
+                        },
+                        onChange: function(element, checked){
+                            const role_id = element.attr('value')
+                            if(checked === true){
+                                if(role_id == 1){ //nếu chọn super-admin thì chọn cả teacher và student
+                                    $('#role-list-ins-edit').multiselect('select', ['2', '3'])
+                                }else if(role_id == 2){ //nếu chọn teacher thì chọn cả student
+                                    $('#role-list-ins-edit').multiselect('select', ['3'])
+                                }
+                                      
+                            }else if(checked === false){
+                                if(role_id == 3){ //nếu bỏ chọn student thì bỏ chọn cả teacher
+                                    $('#role-list-ins-edit').multiselect('deselect', ['2'])
+                                }
+                            }else{
+                                $("#role-list-ins-edit").multiselect('select', element.val());
+                            }
+                        }
                     });
+                    $('#role-list-ins-edit').multiselect('rebuild')
                  
                     $.ajax({
                         url: baseURL+"/admincp/users/getInfoByID/" + id,
@@ -326,7 +355,29 @@
             includeSelectAllOption: true,
             includeSelectAllIfMoreThan: 0,
             numberDisplayed: 2,
-            enableClickableOptGroups: true
+            enableClickableOptGroups: true,
+            onInitialized: function(select, container) {
+                var studentInput = $(container).find('input[value="3"]') // không cho chỉnh sửa student
+                studentInput.prop('disabled', true)
+                studentInput.prop('checked', true)                            
+            },
+            onChange: function(element, checked){
+                const role_id = element.attr('value')
+                if(checked === true){
+                    if(role_id == 1){ //nếu chọn super-admin thì chọn cả teacher và student
+                        $('#role-list-ins').multiselect('select', ['2', '3'])
+                    }else if(role_id == 2){ //nếu chọn teacher thì chọn cả student
+                        $('#role-list-ins').multiselect('select', ['3'])
+                    }
+                            
+                }else if(checked === false){
+                    if(role_id == 3){ //nếu bỏ chọn student thì bỏ chọn cả teacher
+                        $('#role-list-ins').multiselect('deselect', ['2'])
+                    }
+                }else{
+                    $("#role-list-ins").multiselect('select', element.val());
+                }
+            }
         });
 
 
@@ -346,7 +397,7 @@
         $('#edit_user_modal').on('shown.bs.modal', function () {
             var id      = $('#userID_upd').val();
              getRoleList(id);
- 
+
 
         })
 
@@ -542,6 +593,8 @@
                 $('#userID_upd').val(id);
                 $('#userName_upd').val(curr_user_name);
                 $('#userEmail_upd').val(curr_user_email);
+
+                getRoleList(id)
                 // $('#userPassword_upd').val("not_change");
                 // $('#passConfirm_upd').val("not_change");
                 $(".alert-errors").addClass("d-none");
@@ -818,22 +871,17 @@
                         });
                     }
                 },
-                error: function (data) {
-                    if(data.status == 422){
-                        $.each(data.responseJSON.errors, function( index, value ) {
-                            $('#' + index + 'ErrorUpd').html(value);
-                            $('#' + index + 'ErrorUpd').removeClass('d-none');
-                        });
-                    }else{
-                        if(data.status == 401){
-                          window.location.replace(baseURL);
-                        }else{
-                            Swal.fire({
-                                type: 'warning',
-                                text: errorConnect
-                            })
-                        }
+                error: function (error) {
+                    var obj_errors = error.responseJSON.errors;
+                    var txt_errors = '';
+                    for (k of Object.keys(obj_errors)) {
+                        txt_errors += obj_errors[k][0] + '</br>';
                     }
+                    Swal.fire({
+                        type: 'warning',
+                        html: txt_errors,
+                        allowOutsideClick: false,
+                    })
                 }
             });
         });

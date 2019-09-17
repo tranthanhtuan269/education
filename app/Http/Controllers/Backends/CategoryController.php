@@ -52,7 +52,8 @@ class CategoryController extends Controller
         $category->featured     = $request->featured;
         $category->icon         = $request->icon;
         // $category->slug         = \Str::slug($request->name, '-');
-        $category->image        = $file_name;;                $res = array('status' => 200, "Message" => "Đã hủy hết");
+        $category->image        = $file_name;
+        $res = array('status' => 200, "Message" => "Đã hủy hết");
 
         $category->save();
 
@@ -62,17 +63,31 @@ class CategoryController extends Controller
     public function editCategory(UpdateCategoryRequest $request)
     {
         $category = Category::find($request->id);
+        if( $category ){
+            if( $category->name != $request->name ){
+                $check = Category::where('name', $request->name);
+                if( $check ){
+                    return \Response::json(array('status' => '403', 'Message' => 'Tên Danh mục đã tồn tại.'));
+                }
+            }
 
-        $category->name         = $request->name;
-        $category->parent_id    = $request->parent_id;
-        $category->featured     = $request->featured;
-        $category->icon         = $request->icon;
-        // $category->image        = $file_name;
-        // $category->updated_at   = date('Y-m-d H:i:s');
+            if ($request->image != '') {
+                $img_file = $request->image;
+                $img_file = base64_decode($img_file);
+                $file_name = time() . '.png';
+                file_put_contents(public_path('/frontend/images/') . $file_name, $img_file);
+            }
 
-        $category->save();
-
-        return \Response::json(array('status' => '200', 'Message' => 'Sửa danh mục thành công!'));
+            $category->name         = $request->name;
+            $category->parent_id    = $request->parent_id;
+            $category->featured     = $request->featured;
+            $category->icon         = $request->icon;
+            $category->image        = $file_name;
+            $category->save();
+    
+            return \Response::json(array('status' => '200', 'Message' => 'Sửa Danh mục thành công!'));
+        }
+        return \Response::json(array('status' => '404', 'Message' => 'Danh mục không tồn tại.'));
     }
 
     public function deleteCategory(Request $request){

@@ -67,7 +67,7 @@
         </div>
     </div>
     <br>
-    <div class="text-center"><button class="btn btn-success" id="btn-confirm">Xác nhận</button></div>
+    <div class="text-center"><button class="btn btn-primary" id="btn-confirm"><b>Xác nhận</b></button></div>
 </section>
 <script type="text/javascript">
     $(document).ready(function(){
@@ -113,7 +113,17 @@
                         })
                     }
                 },
-                error: function (data) {
+                error: function (error) {
+                    var obj_errors = error.responseJSON.errors;
+                    var txt_errors = '';
+                    for (k of Object.keys(obj_errors)) {
+                        txt_errors += obj_errors[k][0] + '</br>';
+                    }
+                    Swal.fire({
+                        type: 'warning',
+                        html: txt_errors,
+                        allowOutsideClick: false,
+                    })
                 }
             });
         });
@@ -167,7 +177,21 @@
             theme: "classic",
             multiple: false
         });
+
+
+    //     document.getElementById('percentFeatureCourse').onkeydown = function(e) {
+    //         if(!((e.keyCode > 95 && e.keyCode < 106)
+    //        || (e.keyCode > 47 && e.keyCode < 58) 
+    //        || e.keyCode == 8)) {
+    //            return false;
+    //        }
+    //    }
+
+    //    $( "#percentFeatureCourse" ).change(function() {
+    //     alert( "ko dung so amn" );
+    //     });
     });
 </script>
+
 
 @endsection

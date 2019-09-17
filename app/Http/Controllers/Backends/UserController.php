@@ -135,6 +135,7 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, $id)
     {
         $user = User::find($id);
+        $user_id = $user->id;
         if ($user) {
             $user->name     = $request->name;
             $user->email    = $request->email;
@@ -145,13 +146,70 @@ class UserController extends Controller
 
             $user->updated_at = date('Y-m-d H:i:s');
 
-            UserRole::where('user_id', $id)->delete();
-            $created_at = $updated_at = date('Y-m-d H:i:s');
-            $arr_roles = [];
-            foreach ($request->role_id as $role) {
-                $arr_roles[] = ['user_id' => $id, 'role_id' => $role, 'created_at' => $created_at, 'updated_at' => $updated_at];
+            // DUONGNT
+            $all_system_role_ids   = Role::pluck('id')->toArray(); // lấy tất cả role_id trong hệ thống
+            $all_requested_role_ids  = $request->role_id; // lấy tất cả role_id được gán cho user
+            $not_assigned_role_ids = array_diff($all_system_role_ids, $all_requested_role_ids); // lấy tất cả những role_id không được gán cho user
+
+            // Xử lý những role_id được gán cho user
+            foreach ($all_requested_role_ids as $key => $role_id) {
+                $user_role = UserRole::firstOrCreate(
+                    ['user_id' => $user_id, 'role_id' => $role_id]
+                );
+                if($role_id == 2){ //Nếu được gán cho chức năng teacher 
+                    // $user_role = UserRole::where('user_id', $user_id)->where('role_id', $role_id)->first();
+                    if(isset($user_role->teacher)){ //nếu đã từng là teacher thì set status = 1 cho active
+                        $teacher   = $user_role->teacher;
+                        $teacher->status = 1; 
+                        $teacher->save();
+                    }else{                 // lần đầu được làm teacher thì tạo 1 dòng teacher
+                        $teacher = new Teacher;
+                        $teacher->user_role_id = $user_role->id;
+                        $teacher->cv = "Bạn cần cập nhật thông tin này ngay";
+                        $teacher->expert = "Bạn cần cập nhật thông tin này ngay";
+                        $teacher->rating_count = 0;
+                        $teacher->student_count = 0;
+                        $teacher->course_count = 0;
+                        $teacher->video_intro = "https://www.youtube.com/embed/fbnD3b9wgsk";
+                        $teacher->status = 1; //active
+                        $teacher->save();
+                    }
+                }
             }
-            UserRole::insert($arr_roles);
+            
+            // Xử lý những role_id chức năng bị bỏ đi của user
+            foreach ($not_assigned_role_ids as $key => $role_id) {
+                $user_role = UserRole::where('user_id', $user_id)->where('role_id', $role_id)->first();
+                if(isset($user_role)){
+                    if($role_id == 2){ //Nếu bị bỏ chức năng teacher
+                        if(isset($user_role->teacher)){
+                            $teacher = $user_role->teacher;
+                            $teacher->status = 0; // deactive chức năng teacher của 
+                            $teacher->save(); 
+                        }else{
+                            dd($user_role);
+                            return response()->json([
+                                'status' => '404',
+                                'message' => 'Không tìm thấy giảng viên để xoá'
+                            ]);
+                        }
+                    }else{                        
+                        $user_role->delete();                        
+                    }
+                }
+            }
+            // dd($user->userRoles);
+
+            
+            // dd($user->userRoles);
+            // foreach()
+            // UserRole::where('user_id', $id)->delete();
+            // $created_at = $updated_at = date('Y-m-d H:i:s');
+            // $arr_roles = [];
+            // foreach ($request->role_id as $role) {
+            //     $arr_roles[] = ['user_id' => $id, 'role_id' => $role, 'created_at' => $created_at, 'updated_at' => $updated_at];
+            // }
+            // UserRole::insert($arr_roles);
 
             $res = array('status' => "200", "Message" => "Cập nhật thông tin thành công");
 
@@ -203,10 +261,18 @@ class UserController extends Controller
             ->addColumn('role_name', function ($user) {
                 $list_role = '';
                 if (count($user->userRoles) > 0) {
-                    foreach ($user->userRoles as $key => $value) {
+                    foreach ($user->userRoles as $key => $value) {                                        
                         if ($value->role->name) {
-                            $list_role .= $value->role->name .',';
-                        }
+                            if($value->role->name != 'Teacher'){
+                                $list_role .= $value->role->name .',';
+                            }else{
+                                if($value->teacher){
+                                    if($value->teacher->status == 1){
+                                        $list_role .= $value->role->name .',';
+                                    }
+                                }
+                            }
+                        }                        
                     }
                 }
                 return substr($list_role, 0, -1);
@@ -217,7 +283,8 @@ class UserController extends Controller
             ->addColumn('rows', function ($user) {
                 return $user->id;
             })
-            ->removeColumn('id')->make(true);
+            ->removeColumn('id')
+            ->make(true);
     }
 
 
@@ -322,7 +389,9 @@ class UserController extends Controller
             ->addColumn('rows', function ($teacher) {
                 return $teacher->id;
             })
-            ->removeColumn('id')->make(true);
+            ->removeColumn('id')
+            ->rawColumns(['cv'])
+            ->make(true);
     }
 
     public function accept(Request $request)

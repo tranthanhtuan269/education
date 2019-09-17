@@ -105,7 +105,7 @@
                         </div>
                         <div class="pull-left info">
                             <p>{{ Auth::user()->name }}</p>
-                            <a href="javascript:void(0)"><i class="fa fa-circle text-success"></i> Online</a>
+                            <a href="javascript:void(0)"><i class="fa fa-circle text-success"></i> Trực tuyến</a>
                         </div>
                     </div>
                     <!-- search form -->

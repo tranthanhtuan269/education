@@ -1,15 +1,6 @@
-<?php
-    $flag = false;
-    if(Auth::check()){
-        if( count(Auth::user()->userRoles) != 2){
-            $flag = true;
-        }
-    }else{
-        $flag = true;
-    }
-    // dd(count(Auth::user()->userRoles));
-?>
-@if($flag)
+
+@if (Auth::check())
+@if(!Auth::user()->notOnlyStudent())
 <div class="become-teacher">
     <div class="container">
         <div class="row">
@@ -36,6 +27,7 @@
         </div>
     </div>
 </div>
+@endif
 @endif
 {{-- <div class="container">
     <div class="member-card">

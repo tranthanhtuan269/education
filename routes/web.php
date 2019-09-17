@@ -102,7 +102,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('categories/getCategoryAjax', 'Backends\CategoryController@getCategoryAjax');
         Route::post('categories/addCategory', 'Backends\CategoryController@addCategory');
         Route::post('categories/editCategory', 'Backends\CategoryController@editCategory');
-        Route::post('categories/delete', 'Backends\CategoryController@deleteCategory');
+        Route::delete('categories/delete', 'Backends\CategoryController@deleteCategory');
 
         // Trinhnk Feature Course
         Route::get('feature-course', 'Backends\CourseController@getFeatureCourse');
@@ -111,7 +111,9 @@ Route::group(['middleware' => 'auth'], function () {
         // Trinhnk Tạo Coupon
         Route::get('create-coupon', 'Backends\HomeController@createCoupon');
         Route::post('add-coupon', 'Backends\HomeController@addCoupon');
-
+        Route::get('coupon/getCouponAjax', 'Backends\HomeController@getCouponAjax');
+        Route::delete('coupon/delete', 'Backends\HomeController@deleteCoupon');
+        Route::post('coupon/update', 'Backends\HomeController@updateCoupon');
         // End
 
         Route::get('teachers', 'Backends\UserController@getTeacher');

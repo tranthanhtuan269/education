@@ -101,26 +101,75 @@ class HomeController extends Controller{
     }
 
     public function addCoupon(Request $request){
-        $arr_course_id = $request->course_id;
+        $arr_course_id = json_encode($request->course_id);
+        $arr_course_id = str_replace('"','',$arr_course_id);
+        $arr_course_id = str_replace('[','',$arr_course_id);
+        $arr_course_id = str_replace(']','',$arr_course_id);
+
         $coupon_code   = $request->coupon_code;
         $coupon_value  = $request->coupon_value;
         $coupon_expired= $request->coupon_expired;
 
-        foreach($arr_course_id as $course_id){
-            $check = Coupon::where('name', $coupon_code)->where('course_id', $course_id)->first();
-            // dd($check->id);
+        $check = Coupon::where('name', $coupon_code)->first();
+        if(isset($check->id)){
+            return \Response::json(array('status' => '403'));
+        }
 
-            if(!isset($check->id)){
-                $coupon = new Coupon;
-    
-                $coupon->name           = $coupon_code;
-                $coupon->value          = $coupon_value;
-                $coupon->expired        = $coupon_expired;
-                $coupon->course_id      = $course_id;
-                $coupon->status         = 1;   
-                $coupon->save();
+        $coupon = new Coupon;
+
+        $coupon->name           = $coupon_code;
+        $coupon->value          = $coupon_value;
+        $coupon->expired        = $coupon_expired;
+        $coupon->course_id      = $arr_course_id;
+        $coupon->status         = 1;   
+        $coupon->save();
+
+        return \Response::json(array('status' => '200'));
+    }
+
+    public function getCouponAjax(Request $request){
+        $coupons = Coupon::where('status', 1)->get();
+        return datatables()->collection($coupons)
+        ->addColumn('action', function ($coupon) {
+            return $coupon->id;
+        })->make(true);
+    }
+
+    public function deleteCoupon(Request $request){
+        $coupon = Coupon::find($request->coupon_id);
+
+        if($coupon){
+            $coupon->delete();
+            return response()->json(array('status' => '200'));
+        }
+    }
+
+    public function updateCoupon(Request $request){
+        $arr_course_id = json_encode($request->course_id);
+        $arr_course_id = str_replace('"','',$arr_course_id);
+        $arr_course_id = str_replace('[','',$arr_course_id);
+        $arr_course_id = str_replace(']','',$arr_course_id);
+
+        $coupon_code   = $request->coupon_code;
+        $coupon_value  = $request->coupon_value;
+        $coupon_expired= $request->coupon_expired;
+
+        
+        $coupon =Coupon::find($request->coupon_id);
+        if( $coupon->name != $coupon_code ){
+            $check = Coupon::where('name', $coupon_code)->first();
+            if(isset($check->id)){
+                return \Response::json(array('status' => '403'));
             }
         }
-        return \Response::json(array('status' => '200', 'message' => 'Success!'));
+
+        $coupon->name           = $coupon_code;
+        $coupon->value          = $coupon_value;
+        $coupon->expired        = $coupon_expired;
+        $coupon->course_id      = $arr_course_id;
+        $coupon->status         = 1;   
+        $coupon->save();
+
+        return \Response::json(array('status' => '200'));
     }
 }

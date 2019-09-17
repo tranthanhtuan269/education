@@ -23,14 +23,18 @@ class StoreCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'icon' => 'required'
+            'name' => 'required|unique:categories,name',
+            'image' => 'required',
+            'icon' => 'required',
         ];
     }
-    public function messages() {
+
+    public function messages(){
         return [
-            'name.required' => "Bạn chưa điền tên danh mục",
-            'icon.required' => "Bạn chưa điền Icon"
+            'name.required' => 'Bạn chưa nhập tên Danh mục.',
+            'name.unique'   => 'Tên Danh mục đã tồn tại.',
+            'image.required'=> 'Bạn chưa chọn ảnh đại diện Danh mục.',
+            'icon.required' => 'Bạn chưa nhập icon Danh mục.'
         ];
     }
 }
