@@ -159,7 +159,7 @@
                                         <span class="unica-sl-cart" style="display: none;"><b class="number-in-cart"></b></span>
                                     </a>
                                     @endif
-                                @else
+                                @elseif(!Auth::check())
                                     <a href="{{route('cart.show')}}" class="unica-cart">
                                         <img src="{{ asset('frontend/images/tab_cart.png') }}" alt="" style="width: 21px;" />
                                         <span class="unica-sl-cart" style="display: none;"><b class="number-in-cart"></b></span>
@@ -894,5 +894,16 @@
         $('#min-height').css('minHeight',x);
 });
 </script>
+
+{{-- Là admin thì ẩn button mua --}}
+@if (Auth::check())
+    @if (Auth::user()->isAdmin())
+    <style>
+    .box-course>a .img-course:hover .img-mask{
+        display: none;
+    }
+    </style>
+    @endif
+@endif
 </body>
 </html>

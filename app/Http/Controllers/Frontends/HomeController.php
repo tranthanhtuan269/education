@@ -70,7 +70,7 @@ class HomeController extends Controller
                 $percent = 0;
             }
             return ($percent > intval($percent_feature_course)) || $value->featured == 1 ;
-        })->values(); //reindex the collection
+        })->sortByDesc('featured')->values(); //reindex the collection
         $feature_course_count = $feature_course->count();
         $remainder = $feature_course_count%3;
         if($remainder > 0){
@@ -78,9 +78,7 @@ class HomeController extends Controller
         }else{
             $feature_course_limit = $feature_course_count;
         }
-        $feature_course = $feature_course->take($feature_course_limit)->shuffle();
-        // dd($feature_course);
-        
+        $feature_course = $feature_course->take($feature_course_limit);
         //end finding feature courses
 
         $best_seller_course = Course::where('status', 1)->orderBy('sale_count', 'desc')->limit(8)->get();
