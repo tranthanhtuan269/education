@@ -27,7 +27,6 @@
         <!-- Google Font -->
         <link rel="stylesheet" type="text/css" href="{{ asset('backend/css/jquery.toastmessage.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('backend/css/ajsr-confirm.css') }}">
-        <link rel="stylesheet" type="text/css" href="{{ asset('backend/css/style.css') }}">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
         <!-- jQuery 3 -->
         <script src="{{ asset('backend/template/bower_components/jquery/dist/jquery.min.js') }}"></script>
@@ -264,6 +263,7 @@
         <script type="text/javascript">
             var baseURL="<?php echo URL::to('/'); ?>";
         </script>
+        <link rel="stylesheet" type="text/css" href="{{ asset('backend/css/style.css') }}">
         <style type="text/css">
         .sidebar-mini:not(.sidebar-mini-expand-feature).sidebar-collapse .sidebar-menu>li:hover>a>span:not(.pull-right), .sidebar-mini:not(.sidebar-mini-expand-feature).sidebar-collapse .sidebar-menu>li:hover>.treeview-menu {
             width:240px;

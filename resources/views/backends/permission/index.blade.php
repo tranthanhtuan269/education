@@ -85,7 +85,7 @@
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="savePermission">Cập nhật</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cancelEdit">Hủy bỏ</button>
                   </div>
                 </div>
               </div>
@@ -620,6 +620,11 @@
             $('#nameErrorIns').hide();
             $('#routeErrorIns').hide(); 
             $('#groupErrorIns').hide();
+        });
+
+        $('#cancelEdit').click(function(){
+            $('#permission_nameErrorUpd').hide();
+            $('#permission_groupErrorUpd').hide();
         });
 
     });
