@@ -133,7 +133,7 @@
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="createPermission">Thêm mới</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cancelAdd">Hủy bỏ</button>
                   </div>
                 </div>
               </div>
@@ -615,6 +615,12 @@
         $('#add_permission_modal').on('hidden.bs.modal', function () {
             clearFormCreate();
         })
+
+        $('#cancelAdd').click(function(){
+            $('#nameErrorIns').hide();
+            $('#routeErrorIns').hide(); 
+            $('#groupErrorIns').hide();
+        });
 
     });
 </script>

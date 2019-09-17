@@ -28,4 +28,12 @@ class UpdatePermissionRequest extends FormRequest
             'group'              => 'required',
         ];
     }
+    public function messages(){
+        return [
+            'name.required' => 'Bạn chưa nhập tên quyền',
+            'name.min' => 'Bạn nhập chưa đủ 3 kí tự',
+            'name.max' => 'Bạn nhập quá 100 kí tự',
+            'group.required' => 'Bạn chưa chọn nhóm quyền'
+        ];
+    }
 }
