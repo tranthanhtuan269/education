@@ -410,7 +410,7 @@ $(document).ready(function(){
     dataTable = $('#coupon-table').DataTable( {
                     serverSide: false,
                     aaSorting: [],
-                    stateSave: false,
+                    stateSave: true,
                     ajax: "{{ url('/') }}/admincp/coupon/getCouponAjax",
                     columns: dataObject,
                     // bLengthChange: false,
