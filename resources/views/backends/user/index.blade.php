@@ -45,7 +45,7 @@
                     <p class="action-selected-rows">
                         <span >Hành động trên các hàng đã chọn:</span>
                         <span class="btn btn-info ml-2" id="apply-all-btn">Xóa</span>
-                        <span class="btn btn-info ml-5" data-toggle="modal" data-target="#sendMultipleEmailModal">Send Emails</span>
+                        <span class="btn btn-info ml-5" id="openMultipleEmailModal">Send Emails</span>
                     </p>  
                 @endif
             </div>
@@ -253,7 +253,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary" id="sendMultipleEmail">Send</button>                    
+                    <button class="btn btn-primary" id="sendMultipleEmail">Gửi</button>
+                    <button class="btn btn-danger" type="button" data-dismiss="modal">Đóng</button>
                 </div>
             </div>
         </div>
@@ -271,6 +272,24 @@
     var errorConnect        = "Please check your internet connection and try again.";
 
     $(document).ready(function(){
+        
+        $('#openMultipleEmailModal').click(function(){
+            let isChecked = false
+            $.each($('.check-user'), function (key, value){
+                if($(this).prop('checked') == true) {
+                    isChecked = true;
+                    return $('#sendMultipleEmailModal').modal('show')                    
+                }
+                
+            })
+            if(isChecked == false){
+                return Swal.fire({
+                    type: 'info',
+                    text: 'Bạn chưa chọn tài khoản nào!'
+                })
+            }
+        })
+
         function getRoleList($id){
             var id      = $id;
             $.ajax({
@@ -887,69 +906,83 @@
         });
 
         $('#apply-all-btn').click(function (){
-            Swal.fire({
-                type: 'warning',
-                text: 'Bạn có chắc chắn xóa tất cả?',
-                showCancelButton: true,
-            })
-            .then(function (result) {
-                if(result.value){  
-                    var $id_list = '';
-                    $.each($('.check-user'), function (key, value){
-                        if($(this).prop('checked') == true) {
-                            $id_list += $(this).attr("data-column") + ',';
-                        }
-                    });
-
-                    if ($id_list.length > 0) {
-                        var data = {
-                            id_list:$id_list,
-                            _method:'delete'
-                        };
-                        $.ajaxSetup({
-                            headers: {
-                                'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
-                            }
-                        });
-                        $.ajax({
-                            type: "POST",
-                            url: "{{ url('/') }}/admincp/users/delMultiUser",
-                            data: data,
-                            success: function (response) {
-                                var obj = $.parseJSON(response);
-                                if(obj.status == 200){
-                                    $.each($('.check-user'), function (key, value){
-                                        if($(this).prop('checked') == true) {
-                                            $(this).parent().parent().hide("slow");
-                                        }
-                                    });
-                                    dataTable.ajax.reload(); 
-                                    Swal.fire({
-                                        type: 'success',
-                                        text: obj.Message
-                                    })
-                                }
-                            },
-                            error: function (data) {
-                                if(data.status == 401){
-                                    window.location.replace(baseURL);
-                                }else{
-                                    Swal.fire({
-                                        type: 'wa',
-                                        text: errorConnect
-                                    })
-                                }
-                            }
-                        });
-                        
-                    }else{
-                        Swal.fire({
-                            type: 'warning',
-                            text: 'Cần chọn ít nhất 1 tài khoản!'
-                        })
-                    }
+            let isChecked = false;
+            $.each($('.check-user'), function (key, value){
+                if($(this).prop('checked') == true) {
+                    return isChecked = true;
+                    
+                }else{
+                    return Swal.fire({
+                        type: 'info',
+                        text: 'Bạn chưa chọn tài khoản nào!'
+                    })
                 }
-            })
+            });
+            if(isChecked){
+                Swal.fire({
+                    type: 'warning',
+                    text: 'Bạn có chắc chắn xóa tất cả?',
+                    showCancelButton: true,
+                })
+                .then(function (result) {
+                    if(result.value){  
+                        var $id_list = '';
+                        $.each($('.check-user'), function (key, value){
+                            if($(this).prop('checked') == true) {
+                                $id_list += $(this).attr("data-column") + ',';
+                            }
+                        });
+
+                        if ($id_list.length > 0) {
+                            var data = {
+                                id_list:$id_list,
+                                _method:'delete'
+                            };
+                            $.ajaxSetup({
+                                headers: {
+                                    'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
+                                }
+                            });
+                            $.ajax({
+                                type: "POST",
+                                url: "{{ url('/') }}/admincp/users/delMultiUser",
+                                data: data,
+                                success: function (response) {
+                                    var obj = $.parseJSON(response);
+                                    if(obj.status == 200){
+                                        $.each($('.check-user'), function (key, value){
+                                            if($(this).prop('checked') == true) {
+                                                $(this).parent().parent().hide("slow");
+                                            }
+                                        });
+                                        dataTable.ajax.reload(); 
+                                        Swal.fire({
+                                            type: 'success',
+                                            text: obj.Message
+                                        })
+                                    }
+                                },
+                                error: function (data) {
+                                    if(data.status == 401){
+                                        window.location.replace(baseURL);
+                                    }else{
+                                        Swal.fire({
+                                            type: 'wa',
+                                            text: errorConnect
+                                        })
+                                    }
+                                }
+                            });
+                            
+                        }else{
+                            Swal.fire({
+                                type: 'warning',
+                                text: 'Cần chọn ít nhất 1 tài khoản!'
+                            })
+                        }
+                    }
+                })
+            }
 
 
             // $.ajsrConfirm({

@@ -58,7 +58,9 @@ class HomeController extends Controller
         
         // Duong NT// trending = feature courses
         $percent_feature_course = Setting::where('name', 'percent_feature_course')->first()->value;
-        $feature_course = Course::where('status', 1)->orderBy('featured_index', 'asc')->get();
+        $feature_course = Course::where('status', 1)
+                                ->orderBy('featured_index', 'asc')
+                                ->get(['id', 'name', 'slug', 'image', 'price', 'real_price', 'featured_index', 'featured']);
         $feature_course = $feature_course->filter(function ($value, $key) use ($percent_feature_course) {
             $percent;
             if($value->price < $value->real_price){
@@ -70,7 +72,8 @@ class HomeController extends Controller
                 $percent = 0;
             }
             return ($percent > intval($percent_feature_course)) || $value->featured == 1 ;
-        })->sortByDesc('featured')->values(); //reindex the collection
+        })->sortByDesc('featured')
+        ->values(); //reindex the collection
         $feature_course_count = $feature_course->count();
         $remainder = $feature_course_count%3;
         if($remainder > 0){
