@@ -219,7 +219,6 @@ $(document).ready(function() {
 
     if (window.File && window.FileReader && window.FileList && window.Blob) {
         document.getElementById('files').addEventListener('change', handleFileSelect, false);
-        document.getElementById('editImage').addEventListener('change', handleFileSelect, false);
     }
 
     $('#addCategory').click(function(){
