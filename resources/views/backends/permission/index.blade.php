@@ -460,7 +460,7 @@
                             text: response.Message
                         })
                         dataTable.ajax.reload();
-                        location.reload();
+                        clearErrorEdit();
                     }
                 },
                 error: function (data) {
@@ -581,7 +581,7 @@
                             text: response.Message
                         })
                         dataTable.ajax.reload(); 
-                        location.reload();
+                        clearError();
                     }
                 },
                 error: function (data) {
@@ -616,15 +616,22 @@
             clearFormCreate();
         })
 
-        $('#cancelAdd').click(function(){
+        function clearError(){
             $('#nameErrorIns').hide();
             $('#routeErrorIns').hide(); 
             $('#groupErrorIns').hide();
+        }
+
+        $('#cancelAdd').click(function(){
+            clearError();
         });
 
-        $('#cancelEdit').click(function(){
+        function clearErrorEdit(){
             $('#permission_nameErrorUpd').hide();
             $('#permission_groupErrorUpd').hide();
+        }
+        $('#cancelEdit').click(function(){
+            clearErrorEdit();
         });
 
     });

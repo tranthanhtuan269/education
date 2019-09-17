@@ -25,4 +25,12 @@ class StoreRoleRequest extends FormRequest
             'name' => 'required|min:3|max:100|unique:roles,name'
         ];
     }
+    public function messages(){
+        return [
+            'name.required' => 'Bạn chưa nhập tên vai trò',
+            'name.min' => 'Bạn nhập chưa đủ 3 kí tự',
+            'name.max' => 'Bạn nhập quá 100 kí tự',
+            'name.unique' => 'Tên bị trùng'
+        ];
+    }
 }

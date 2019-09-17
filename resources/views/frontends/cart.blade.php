@@ -312,16 +312,7 @@
             var coupon = $(".cart-single-item[data-parent="+dataChild+"] input").val();
 
             var new_cart = JSON.parse(localStorage.getItem('cart'))
-            get_coupon = new_cart[numeric_cart].coupon_code
-
-            
-            if($('.coupon-input').val() == ''){
-                return Swal.fire({
-                    type:'warning',
-                    text:'Bạn chưa nhập mã giảm giá!'
-                })
-            }
-            else{
+            get_coupon = new_cart[numeric_cart].coupon_code           
             if(coupon.length < 1){
                 return Swal.fire({
                     type:"warning",
@@ -400,7 +391,6 @@
                     }
                 })
             }
-        }
         });
 
         $('#btnCartCheckOut').on('click', function(e){
