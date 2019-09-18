@@ -5,6 +5,9 @@ iframe{width:100%}
 body,h1,h2,h3,h4,h5,h6,form,input,select,ul,textarea{margin:0;padding:0}
 article,aside,details,figcaption,figure,footer,header,hgroup,menu,section{display:block}
 body{font-family:'Open Sans',sans-serif;font-size:14px; padding-right: 0 !important;}
+th {
+  text-align: center;
+}
 .modal {
     overflow-y: auto;
     z-index: 2001!important;

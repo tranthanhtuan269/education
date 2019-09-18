@@ -183,7 +183,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-primary" id="createUser">Thêm mới</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeCreateUser">Hủy bỏ</button>
           </div>
         </div>
       </div>
@@ -272,7 +272,7 @@
     var errorConnect        = "Please check your internet connection and try again.";
 
     $(document).ready(function(){
-        
+
         $('#openMultipleEmailModal').click(function(){
             let isChecked = false
             $.each($('.check-user'), function (key, value){
@@ -1107,6 +1107,7 @@
             $('#confirmpassword_Ins').val('')
             $('select[name=role_id]').val(1)
             $('.alert-errors').addClass("d-none")
+            
         }
         
         // $('#search_txt').keyup(function() {
@@ -1130,6 +1131,17 @@
 
         $('#add_user_modal').on('hidden.bs.modal', function () {
             clearFormCreate();
+        })
+
+        $('#closeCreateUser').click(function(){
+            $('option', $('#role-list-ins')).each(function(element) {
+                if($(this).attr('value') != 3){
+                    $(this).removeAttr('selected').prop('selected', false);
+                }else{
+                    $(this).prop('disabled', true)
+                }
+            });
+            $('#role-list-ins').multiselect('refresh');
         })
         
     });
