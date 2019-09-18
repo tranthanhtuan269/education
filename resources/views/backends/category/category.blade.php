@@ -501,7 +501,7 @@ $(document).ready(function() {
     }
 
     function addEventListener() {
-        $('.edit-category').off('click')
+        $('.edit-category').off()
         $('.edit-category').click(function() {
             $('#showEditModal').modal('show');
             var curr_name       = $(this).parent().parent().attr('data-name');
@@ -572,6 +572,7 @@ $(document).ready(function() {
             return current_page;
         }
 
+        $('#editCategory').off()
         $('#editCategory').click(function(){
             console.log(link_image_base64)
             var id      = $("input[id=userIdUpdate]").val();
