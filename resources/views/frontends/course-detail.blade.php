@@ -656,7 +656,7 @@
 
                             $('#create-comment-new').on('click', function (e) {
                                 var score = $('.reviews-star').attr('data-star');
-                                if($('#editor').val() == ''){
+                                if($('#editor').val().trim() == ''){
                                     Swal.fire({
                                         type: 'warning',
                                         html: 'Bạn chưa nhập nhận xét.',
@@ -677,7 +677,7 @@
                                     method: "POST",
                                     data: {
                                         course_id: {{ $info_course->id }},
-                                        content : $('#editor').val(),
+                                        content : $('#editor').val().trim(),
                                         score: score
                                     },
                                     dataType: "json"
@@ -994,7 +994,7 @@
         $('.create-reply-btn').on('click', function (e) {
             var comment_id = $(this).attr('data-id');
             var baseURL = $('base').attr('href');
-            if($("#reply-" + comment_id).val() == ''){
+            if($("#reply-" + comment_id).val().trim() == ''){
                 Swal.fire({
                     type: 'warning',
                     html: 'Bạn chưa nhập nội dung trả lời.',
