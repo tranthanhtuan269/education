@@ -17,6 +17,14 @@
 
 Auth::routes();
 
+Route::get('thay-state-video', function(){
+    $videos = \App\Video::where('created_at', null)->get();
+    foreach ($videos as $key => $video) {
+        $video->state = 1;
+        $video->save();
+    }
+});
+
 Route::get('fix-course', 'Frontends\HomeController@fixDurationCourse');
 Route::get('fix-video', 'Frontends\HomeController@fixDurationVideo');
 Route::get('fix-will-learn', 'Frontends\HomeController@fixWillLearn');
@@ -25,6 +33,7 @@ Route::get('mailable', function () {
     $order = App\Order::find(9);
     return new App\Mail\OrderCompleted($order, Auth::user() );
 });
+
 
 Route::get('/redirect', 'SocialAuthFacebookController@redirect');
 Route::get('/callback', 'SocialAuthFacebookController@callback');

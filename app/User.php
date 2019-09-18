@@ -104,7 +104,7 @@ class User extends Authenticatable
     }
 
     public function isAdmin(){
-        $user_role_admin = $this->hasMany('App\UserRole')->where('role_id', 1)->first();
+        $user_role_admin = $this->hasMany('App\UserRole')->where('role_id', \Config::get('app.admin'))->first();
         if(isset($user_role_admin)){
             return true;
         }else{
@@ -113,7 +113,7 @@ class User extends Authenticatable
     }
 
     public function isStudent(){
-        $user_role_student = $this->hasMany('App\UserRole')->where('role_id', 3)->first();
+        $user_role_student = $this->hasMany('App\UserRole')->where('role_id', \Config::get('app.student'))->first();
         if(isset($user_role_student)){
             return true;
         }else{
