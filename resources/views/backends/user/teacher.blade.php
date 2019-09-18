@@ -492,7 +492,7 @@
             $('#acceptAllApplied').click(function (){
                 Swal.fire({
                     type: 'warning',
-                    text: 'Bạn có chắc chắn duyệt tất cả?',
+                    text: 'Bạn có chắc chắn duyệt tất cả những gì bạn chọn?',
                     showCancelButton: true,
                 })
                 .then(function (result) {
@@ -551,7 +551,7 @@
             $('#inacceptAllApplied').click(function (){
                 Swal.fire({
                     type: 'warning',
-                    text: 'Bạn có chắc chắn hủy tất cả?',
+                    text: 'Bạn có chắc chắn hủy tất cả những gì bạn chọn?',
                     showCancelButton: true,
                 })
                 .then(function (result) {
