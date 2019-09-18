@@ -16,7 +16,7 @@
                 src="{{ $image }}"
                 alt="{{ $course->name }}">
             @if (isset($course->heart))
-            <i class="fa fa-heart fa-lg heart-icon" aria-hidden="true"></i>    
+            <i class="fa fa-heart fa-lg heart-icon" aria-hidden="true"></i>
             @endif
 
             @if (isset($course->setup))  
@@ -56,7 +56,7 @@
                         <i class="fas fa-stopwatch"></i> {{ $course->approx_time }} giờ
                     </span>
                     <span class="view pull-right">
-                        <i class="fa fa-eye" aria-hidden="true"></i> {!! number_format($course->view_number, 0, ',' , '.') !!}
+                        <i class="fa fa-eye" aria-hidden="true"></i> {!! number_format($course->view_count, 0, ',' , '.') !!}
                     </span>
                 </div>
 

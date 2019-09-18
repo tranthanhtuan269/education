@@ -144,7 +144,7 @@
         dataTable = $('#video-table').DataTable( {
                         serverSide: false,
                         aaSorting: [],
-                        stateSave: false,
+                        stateSave: true,
                         ajax: {
                             url: "{{ url('/') }}/admincp/videos/getVideoAjax",
                             beforeSend: function() {

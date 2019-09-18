@@ -102,7 +102,7 @@
                                             <div class="form-group">
                                                 <label>Số điện thoại</label>
                                                 <div class="form-group">
-                                                    <input type="text" id="muser-phone" class="form-control" name="phone" value="{{ Auth::user()->phone }}">
+                                                    <input type="number" id="muser-phone" class="form-control" name="phone" value="{{ Auth::user()->phone }}">
 
                                                 </div>
                                             </div>

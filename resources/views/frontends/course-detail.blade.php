@@ -572,7 +572,7 @@
                 </div>
             </div>
             <div class="reviews"  id="">
-                <h3>Nhận xét của học viên
+                <h3>Đánh giá khóa học
                     {{-- @if(Auth::check()) --}}
                         @if(\App\Helper\Helper::getUserRoleOfCourse($info_course->id))
                             @if( (int)($info_course->userRoles[0]->user_id) != (int)(Auth::user()->id) )
@@ -603,7 +603,7 @@
                     @if( (int)($info_course->userRoles[0]->user_id) != (int)(Auth::user()->id) )
                         <textarea name="content" id="editor" class="form-control" placeholder="Nội dung"></textarea>
                         <div class="btn-submit text-center mt-10 mb-20">
-                            <input class="btn btn-primary submit-question" type="submit" value="Gửi nhận xét" id="create-comment-new"/>
+                            <input class="btn btn-primary submit-question" type="submit" value="Gửi đánh giá" id="create-comment-new"/>
                         </div>
                         <script>
                             var baseURL = $('base').attr('href');
@@ -779,8 +779,11 @@
                 <button type="button" class="btn">Xem thêm</button>
             </div>
             @endif
+            <div class="facebook-comment">
+                <h3>Thảo luận</h3>
+                <div class="fb-comments" data-href="http://timtruyen.online/course/{{$info_course->slug}}" data-width="700" data-numposts="5"></div>
+            </div>
         </div>
-        <div class="fb-comments" data-href="http://timtruyen.online/course/{{$info_course->slug}}" data-width="700" data-numposts="5"></div>
     </div>
     <div class="related-course">
         <div class="container">
