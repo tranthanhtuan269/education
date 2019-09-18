@@ -420,7 +420,7 @@
                 if(!check){
                     Swal.fire({
                         type: 'warning',
-                        text: 'Bạn phải chọn ít nhất 1 email?',
+                        text: 'Bạn phải chọn ít nhất 1 email',
                         showCancelButton: true,
                     })
                     return false;
