@@ -549,9 +549,23 @@
 
             $('#inacceptAllApplied').off('click')
             $('#inacceptAllApplied').click(function (){
+                var check = false;
+                $.each($('.check-user'), function (key, value){
+                    if($(this).prop('checked') == true) {
+                        check = true;
+                    }
+                });
+                if(!check){
+                    Swal.fire({
+                        type: 'warning',
+                        text: 'Bạn phải chọn ít nhất 1 giảng viên?',
+                        showCancelButton: true,
+                    })
+                    return false;
+                }
                 Swal.fire({
                     type: 'warning',
-                    text: 'Bạn có chắc chắn hủy tất cả những gì bạn chọn?',
+                    text: 'Bạn có chắc chắn hủy tất cả những giảng viên bạn chọn?',
                     showCancelButton: true,
                 })
                 .then(function (result) {

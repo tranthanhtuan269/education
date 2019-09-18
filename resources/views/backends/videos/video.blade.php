@@ -586,9 +586,23 @@
 
             $('#inacceptAllApplied').off('click')
             $('#inacceptAllApplied').click(function (){
+                var check = false;
+                $.each($('.check-video'), function (key, value){
+                    if($(this).prop('checked') == true) {
+                        check = true;
+                    }
+                });
+                if(!check){
+                    Swal.fire({
+                        type: 'warning',
+                        text: 'Bạn phải chọn ít nhất 1 video?',
+                        showCancelButton: true,
+                    })
+                    return false;
+                }
                 Swal.fire({
                     type: 'warning',
-                    text: 'Bạn có chắc chắn hủy tất cả những gì bạn chọn?',
+                    text: 'Bạn có chắc chắn hủy tất cả những video bạn chọn?',
                     showCancelButton: true,
                 })
                 .then(function (result) {

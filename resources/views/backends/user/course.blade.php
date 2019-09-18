@@ -550,9 +550,23 @@
 
             $('#inacceptAllApplied').off('click')
             $('#inacceptAllApplied').click(function (){
+                var check = false;
+                $.each($('.check-course'), function (key, value){
+                    if($(this).prop('checked') == true) {
+                        check = true;
+                    }
+                });
+                if(!check){
+                    Swal.fire({
+                        type: 'warning',
+                        text: 'Bạn phải chọn ít nhất 1 khóa học?',
+                        showCancelButton: true,
+                    })
+                    return false;
+                }
                 Swal.fire({
                     type: 'warning',
-                    text: 'Bạn có chắc chắn hủy tất cả những gì bạn chọn?',
+                    text: 'Bạn có chắc chắn hủy tất cả những khóa học bạn chọn?',
                     showCancelButton: true,
                 })
                 .then(function (result) {
