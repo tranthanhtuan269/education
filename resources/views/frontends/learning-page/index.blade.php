@@ -142,6 +142,7 @@
                 })
                 
                 if(main_video_state != 1) { //1 nghĩa là video active
+                    $('#lnDescBtnPlay').remove()
                     Swal.fire({
                         type: 'warning',
                         text: 'Video bài giảng chưa được duyệt!',

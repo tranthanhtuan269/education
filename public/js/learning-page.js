@@ -13,13 +13,7 @@ if(localStorage.getItem('autoplay') != null){
 
 $(document).ready(function () {
     //Check browser có phải là firefox hay không để hiện thông báo
-    var isFirefox = typeof InstallTrigger !== 'undefined';
-    if(isFirefox && localStorage.getItem('autoplay')=='true'){
-        Swal.fire({
-            type : 'info',
-            html: 'Bạn đang bật tính năng tự động chạy bài giảng. <br> Từ phiên bản Firefox 66, Firefox đã ngừng hỗ trợ theo mặc định tính năng tự động chạy video/audio. Để bật tính năng này cho trình duyệt Firefox của bạn, vui lòng làm theo hướng dẫn tại <a href="https://support.mozilla.org/vi/kb/block-autoplay" target="_blank">đây.</a>'
-        })
-    }
+    
 
     // Set up the player
     var isPlayerAutoplay = false
@@ -525,6 +519,13 @@ $(document).ready(function () {
         // }
 
         alert("This Function is still in development!!")
+    }
+
+    //Tắt autoplay tên firefox
+    var isFirefox = typeof InstallTrigger !== 'undefined';
+    if(isFirefox){
+        $('#btnAutoplay').parent().parent().remove()
+        $('.btn.ln-btn-autoplay').remove()
     }
 
 
