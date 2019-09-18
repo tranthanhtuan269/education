@@ -215,7 +215,7 @@ class CourseController extends Controller
                         $course->save();
                         $res = array('status' => "200", "message" => "Duyệt thành công");
                     } else {
-                        $res = array('status' => "404", "message" => "Vẫn còn bài giảng trong khóa học chưa được duyệt, xin vui lòng kiểm tra lại tại <a href='".url('admincp/videos?search='.$course->name)."' target='_blank'>đây</a>");
+                        $res = array('status' => "404", "message" => "Vẫn còn bài giảng trong khóa học chưa được duyệt, xin vui lòng kiểm tra lại tại <a href='".url('admincp/videos?search='.$course->name)."&course_id=".$course->id."' target='_blank'>đây</a>");
                     }
 
                 } else {

@@ -53,16 +53,16 @@
         <div class="teacher-course">
             @if (Auth::check())
                 @if( (int)($course->userRoles[0]->user_id) == (int)(Auth::user()->id) )
-                    <div id="add-cart" class="btn btn-primary" disabled><b>ĐÂY LÀ KHÓA HỌC CỦA BẠN</b></div>
+                    <button id="addCart{{ $course->id }}" class="btn btn-primary" disabled><b>ĐÂY LÀ KHÓA HỌC CỦA BẠN</b></button>
                 @else
                     @if (in_array($course->id, $list_bought))
-                        <div id="add-cart" class="btn btn-primary" disabled><b>BẠN ĐÃ MUA KHÓA HỌC NÀY</b></div>
+                        <button id="addCart{{ $course->id }}" class="btn btn-primary" disabled><b>BẠN ĐÃ MUA KHÓA HỌC NÀY</b></button>
                     @else
-                        <div id="add-cart" data-id="{{ $course->id }}" class="btn btn-primary"><b>THÊM VÀO GIỎ HÀNG</b></div>
+                        <button id="addCart{{ $course->id }}" data-id="{{ $course->id }}" class="btn btn-primary"><b>THÊM VÀO GIỎ HÀNG</b></button>
                     @endif
                 @endif     
             @else
-            <div id="add-cart" data-id="{{ $course->id }}" class="btn btn-primary"><b>THÊM VÀO GIỎ HÀNG</b></div>
+            <button id="addCart{{ $course->id }}" data-id="{{ $course->id }}" class="btn btn-primary"><b>THÊM VÀO GIỎ HÀNG</b></button>
             @endif
         </div>
     </div>
@@ -71,13 +71,40 @@
 <script>
     var course_id = Number( {{ $course->id }} )
     jQuery(function () {
-        $(".teacher-course #add-cart").click( function(e){
-            e.stopPropagation()
-            e.preventDefault()
+        $("#addCart{{ $course->id }}").click( function(){
 
             $(this).html('<b>ĐÃ THÊM VÀO GIỎ HÀNG</b>').attr('disabled', true)
             
-            addCart();
+            // addCart();
+            var item = {
+                'id' : {{ $course->id }},
+                'image' : '{!! $course->image !!}',
+                'slug' : '{!! $course->slug !!}',                
+                @if(count($course->Lecturers()) > 0)
+                'lecturer' : "{!! $course->Lecturers()[0]->user->name !!}",
+                @else
+                'lecturer' : 'Nhiều giảng viên',
+                @endif
+                'name' : "{!! $course->name !!}",
+                'price' : {!! $course->price !!},
+                'real_price' : {!! $course->real_price !!},
+                'coupon_price' : {!! $course->price !!},
+                'coupon_code' : '',
+            }
+
+            if (localStorage.getItem("cart") != null) {
+                var list_item = JSON.parse(localStorage.getItem("cart"));
+                addItem(list_item, item);
+                localStorage.setItem("cart", JSON.stringify(list_item));
+            }else{
+                var list_item = [];
+                addItem(list_item, item);
+                localStorage.setItem("cart", JSON.stringify(list_item));
+            }
+
+            // var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
+            // $('.number-in-cart').text(number_items_in_cart.length);
+
             Swal.fire({
                 type: 'success',
                 text: 'Đã thêm vào giỏ hàng!'
@@ -85,49 +112,46 @@
             var number_items_in_cart = JSON.parse(localStorage.getItem('cart'));
             $('.number-in-cart').text(number_items_in_cart.length);
             $('.unica-sl-cart').css('display', 'block')
-            // console.log(number_items_in_cart.length)
         })
 
         if(localStorage.getItem('cart') != null){
             var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
 
             $.each( number_items_in_cart, function(i, obj) {
-                if(course_id == Number(obj.id)){
-                    $('.teacher-course #add-cart').html('<b>ĐÃ THÊM VÀO GIỎ HÀNG</b>').attr('disabled', true)
-                }
+                $('.teacher-course button[data-id='+obj.id+']').html('<b>ĐÃ THÊM VÀO GIỎ HÀNG</b>').attr('disabled', true)
             });
         }
     })
 
-    function addCart(){
-        var item = {
-            'id' : {!! $course->id !!},
-            'image' : '{!! $course->image !!}',
-            'slug' : '{!! $course->slug !!}',                
-            @if(count($course->Lecturers()) > 0)
-            'lecturer' : "{!! $course->Lecturers()[0]->user->name !!}",
-            @else
-            'lecturer' : 'Nhiều giảng viên',
-            @endif
-            'name' : "{!! $course->name !!}",
-            'price' : {!! $course->price !!},
-            'real_price' : {!! $course->real_price !!},
-            'coupon_price' : {!! $course->price !!},
-            'coupon_code' : '',
-        }
+    // function addCart(){
+    //     var item = {
+    //         'id' : {!! $course->id !!},
+    //         'image' : '{!! $course->image !!}',
+    //         'slug' : '{!! $course->slug !!}',                
+    //         @if(count($course->Lecturers()) > 0)
+    //         'lecturer' : "{!! $course->Lecturers()[0]->user->name !!}",
+    //         @else
+    //         'lecturer' : 'Nhiều giảng viên',
+    //         @endif
+    //         'name' : "{!! $course->name !!}",
+    //         'price' : {!! $course->price !!},
+    //         'real_price' : {!! $course->real_price !!},
+    //         'coupon_price' : {!! $course->price !!},
+    //         'coupon_code' : '',
+    //     }
 
-        if (localStorage.getItem("cart") != null) {
-            var list_item = JSON.parse(localStorage.getItem("cart"));
-            addItem(list_item, item);
-            localStorage.setItem("cart", JSON.stringify(list_item));
-        }else{
-            var list_item = [];
-            addItem(list_item, item);
-            localStorage.setItem("cart", JSON.stringify(list_item));
-        }
+    //     if (localStorage.getItem("cart") != null) {
+    //         var list_item = JSON.parse(localStorage.getItem("cart"));
+    //         addItem(list_item, item);
+    //         localStorage.setItem("cart", JSON.stringify(list_item));
+    //     }else{
+    //         var list_item = [];
+    //         addItem(list_item, item);
+    //         localStorage.setItem("cart", JSON.stringify(list_item));
+    //     }
 
-        var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
-            // alert(number_items_in_cart.length)
-        $('.number-in-cart').text(number_items_in_cart.length);
-    }
+    //     var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
+    //         // alert(number_items_in_cart.length)
+    //     $('.number-in-cart').text(number_items_in_cart.length);
+    // }
 </script>

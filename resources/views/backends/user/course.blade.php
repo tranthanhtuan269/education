@@ -29,7 +29,7 @@
                             <th scope="col">Tóm tắt</th>
                             <th scope="col">Thời lượng</th>
                             <th csope="col">Giá</th>
-                            <th scope="col">Update</th>
+                            <th scope="col">Cập nhật</th>
                             <th scope="col">Thao tác</th>
                         </tr>
                     </thead>

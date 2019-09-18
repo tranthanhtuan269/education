@@ -325,7 +325,7 @@ class HomeController extends Controller
             $arr_course_id = explode(",",$str_course_id);
     
             foreach ($arr_course_id as $key => $course_id) {
-                if( $request->course_id = $course_id ){
+                if( $request->course_id == $course_id ){
                     return \Response::json(array('status' => '200', 'coupon' => $coupon, 'coupon_value' => $coupon->value));
                 }
             }
