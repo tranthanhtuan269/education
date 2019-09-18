@@ -54,7 +54,7 @@ class HomeController extends Controller
 
     public function home()
     {
-        $feature_category = Category::withCount('courses')->where('featured', 1)->orderBy('featured_index', 'asc')->limit(10)->get();
+        $feature_category = Category::withCount('courses')->where('featured', 1)->orderBy('featured_index', 'asc')->get();
         
         // Duong NT// trending = feature courses
         $percent_feature_course = Setting::where('name', 'percent_feature_course')->first()->value;
