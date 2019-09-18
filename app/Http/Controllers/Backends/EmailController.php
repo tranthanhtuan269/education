@@ -11,6 +11,8 @@ use Response;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\CustomMail;
 use App\Http\Requests\CreateEmailRequest;
+use App\Http\Requests\UpdateEmailRequest;
+
 
 
 class EmailController extends Controller
@@ -52,10 +54,10 @@ class EmailController extends Controller
             $email->update_user_id = Auth::id();
             $email->save();
 
-            return \Response::json(array('status' => '200', 'message' => 'Email is successfully stored!'));
+            return \Response::json(array('status' => '200', 'message' => 'Tạo email thành công!'));
         
         }else{
-            return \Response::json(array('status'=> '404', 'message'=> 'Content cannot be null!'));
+            return \Response::json(array('status'=> '404', 'message'=> 'Chưa điền nội dung email!'));
         }
     }
 
@@ -76,7 +78,7 @@ class EmailController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request)
+    public function edit(UpdateEmailRequest $request)
     {
         $email = Email::find($request->id);
         if($email){
@@ -87,13 +89,13 @@ class EmailController extends Controller
 
                 $email->save();
                 
-                return \Response::json(array('status' => '200', 'message' => 'Email is successfully updated!'));
+                return \Response::json(array('status' => '200', 'message' => 'Email được đã được cập nhật'));
                 
             }else{
-                return \Response::json(array('status' => '404', 'message' => 'Content cannot be null'));
+                return \Response::json(array('status' => '404', 'message' => 'Chưa điền nội dung email'));
             }
         }else{
-            return \Response::json(array('status' => '404', 'message' => 'Cannot find the email'));
+            return \Response::json(array('status' => '404', 'message' => 'Không tìm thấy email trong hệ thống'));
         }
     }
 
