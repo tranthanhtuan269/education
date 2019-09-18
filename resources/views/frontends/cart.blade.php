@@ -363,7 +363,7 @@
                     if(response.status == 403){
                         return Swal.fire({
                             type:"warning",
-                            text:"Mã khuyến đã hết hạn sử dụng!"
+                            text:"Mã khuyến mãi đã hết hạn sử dụng!"
                         })
                     }
                     // totalPrice = new_totalPrice
