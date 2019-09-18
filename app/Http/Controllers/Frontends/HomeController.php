@@ -448,10 +448,6 @@ class HomeController extends Controller
                     }
                 }
 
-                if ($total_price > Auth::user()->coins) {
-                    return \Response::json(array('status' => '204', 'message' => 'Your balance is not enough'));
-                }
-
                 // check coupon
                 // $coupon = null;
                 // if ($request->coupon) {
@@ -535,6 +531,10 @@ class HomeController extends Controller
                         $course2->student_count += 1;
                         $course2->save();
                     }
+                }
+
+                if ($total_price > Auth::user()->coins) {
+                    return \Response::json(array('status' => '204', 'message' => 'Your balance is not enough'));
                 }
 
                 // if ($coupon) {
