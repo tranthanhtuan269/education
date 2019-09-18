@@ -124,6 +124,8 @@
             
             var main_video_id_key = {{$main_video_id_key}}
 
+            var main_video_state = {{$main_video->state}}
+
             var videoSource = {!!$video_urls!!}
 
 
@@ -136,6 +138,14 @@
                     $("#discComment" + $(this).attr('data-parent') + " p").removeClass('active');
                     return false;
                 })
+                
+                if(main_video_state != {{\Config::get('app.video_active')}}) {
+                    Swal.fire({
+                        type: 'warning',
+                        text: 'Video bài giảng chưa được duyệt!',
+                        confirmButtonText: 'Chấp nhận'
+                    })
+                }
 
                 var video_id_index = null
                 video_id_list.forEach(video_id => {

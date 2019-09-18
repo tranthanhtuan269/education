@@ -162,16 +162,16 @@ $(document).ready(function () {
     function checkIfVideoIsPlaying(){
         console.log(player.paused());
     }
-    player.on('error', function(e){
-        var mediaError = player.error() 
-        if(mediaError.code == 4){
-            return Swal.fire({
-                type: 'info',
-                text: 'Video bài giảng chưa được duyệt!'
-            })
-        }
+    // player.on('error', function(e){
+    //     var mediaError = player.error() 
+    //     if(mediaError.code == 4){
+    //         return Swal.fire({
+    //             type: 'info',
+    //             text: 'Video bài giảng chưa được duyệt!'
+    //         })
+    //     }
          
-    })
+    // })
 
     videojs('my-video').ready(function () {
         
