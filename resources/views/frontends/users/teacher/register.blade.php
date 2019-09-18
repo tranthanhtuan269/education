@@ -63,7 +63,7 @@
                                             <div class="form-group">
                                                 <label>Số điện thoại</label>
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control" name="phone" value="{{ Auth::check() ? Auth::user()->phone : '' }}">
+                                                    <input type="number" class="form-control" name="phone" value="{{ Auth::check() ? Auth::user()->phone : '' }}">
 
                                                 </div>
                                             </div>

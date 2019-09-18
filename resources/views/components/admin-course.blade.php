@@ -16,7 +16,7 @@
                 src="{{ $image }}"
                 alt="{{ $course->name }}">
             @if (isset($course->heart))
-            <i class="fa fa-heart fa-lg heart-icon" aria-hidden="true"></i>    
+            <i class="fa fa-heart fa-lg heart-icon" aria-hidden="true"></i>
             @endif
 
             @if (isset($course->setup))  
