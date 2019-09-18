@@ -94,6 +94,48 @@ class User extends Authenticatable
         return $this->hasMany('App\UserRole')->where('role_id', \Config::get('app.teacher'))->first();
     }
 
+    public function isTeacher(){
+        $user_role_teacher = $this->hasMany('App\UserRole')->where('role_id', \Config::get('app.teacher'))->first();
+        if(isset($user_role_teacher->teacher) && $user_role_teacher->teacher->status == 1){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function isAdmin(){
+        $user_role_admin = $this->hasMany('App\UserRole')->where('role_id', \Config::get('app.admin'))->first();
+        if(isset($user_role_admin)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function isStudent(){
+        $user_role_student = $this->hasMany('App\UserRole')->where('role_id', \Config::get('app.student'))->first();
+        if(isset($user_role_student)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function notOnlyStudent(){
+        $user_role_count = $this->hasMany('App\UserRole')->count();
+        if(isset($user_role_count)){
+            if($user_role_count > 1){
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
+    }
+
+    
+
     public function userRolesStudent()
     {
         return $this->hasMany('App\UserRole')->where('role_id', \Config::get('app.student'))->first();

@@ -164,7 +164,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-primary" id="create-role-btn">Thêm mới</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close-create-role-btn">Hủy bỏ</button>
           </div>
         </div>
       </div>
@@ -723,6 +723,14 @@
 
         });
         
+        $('#close-create-role-btn').click(function(){
+            $('option', $('#permission-list-ins')).each(function(element) {
+                if($(this).attr('value') != 1){
+                    $(this).removeAttr('selected').prop('selected', false);
+                }
+            });
+            $('#permission-list-ins').multiselect('refresh');
+        })
 
     });
 </script>

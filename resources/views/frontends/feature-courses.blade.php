@@ -5,7 +5,13 @@
         @foreach ($feature_course as $key => $course)
             @if ($key % 3 == 0)
                 <div class="row">
-                    <div class="col-sm-7">
+                    <div class="col-sm-7 big-course">
+                            @if (isset($course->discount_percent))
+                                <div class="discount-percent">
+                                    {{-- Được giảm giá  --}}
+                                    <span class=""> - {{$course->discount_percent}} %</span>
+                                </div>
+                            @endif
                         <a href="{{ url('/') }}/course/{{ $course->slug }}">
                             @if (strpos($feature_course[0]->image, 'unica') !== false)
                             <div class="top-feature-course" style="background-image:url({{ $course->image }}); width: 100%; height:390">
@@ -29,15 +35,21 @@
                                     </div>            
                                 </div>
                             </div>
+                            
                         </a>
                     </div>
                     <div class="col-sm-5">
                         <div class="row"></div>
                     
             @else
-                <div>
-                    <a href="{{ url('/') }}/course/{{ $course->slug }}">
-                        <div class="img-top">
+                <div class="small-course">
+                    @if (isset($course->discount_percent))
+                    <div class="discount-percent">
+                        <span class=""> - {{$course->discount_percent}} %</span>
+                    </div>
+                    @endif
+                    <a href="{{ url('/') }}/course/{{ $course->slug }}">                    
+                        <div class="img-top">                            
                             @if (strpos($course->image, 'unica') !== false)
                             <div class="top-feature-course" style="background-image:url({{ $course->image }}); width: 100%; height:187">          <div class="course-info">
                                     <h5>{{ $course->name }}</h5>
@@ -54,7 +66,7 @@
                     </a>
                 </div>
 
-                @if (($key + 1) % 3 == 0)
+                @if (($key + 1) % 3 == 0)                    
                         </div>
                     </div>
                 @endif

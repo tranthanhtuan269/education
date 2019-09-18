@@ -188,6 +188,7 @@ $(document).ready(function() {
             var fileType = f["type"];
             var validImageTypes = ["image/gif", "image/jpeg", "image/png"];
             if ($.inArray(fileType, validImageTypes) < 0) {
+                $('#files').val('');
                 Swal.fire({
                     type: 'warning',
                     html: 'Tập tin không hợp lệ.',
@@ -196,14 +197,14 @@ $(document).ready(function() {
                 $('#showEditModal #editImage').val('')
                 // $('.box-preview-edit').css('display', 'none')
             } else {
+                
                 var reader = new FileReader();
                 // Closure to capture the file information.
                 reader.onload = (function(theFile) {
                     return function(e) {
-                    var binaryData = e.target.result;
-                    //Converting Binary Data to base 64
-                    link_image_base64 = window.btoa(binaryData);
-                // $('.box-preview-edit').css('display', 'inline-block')
+                        var binaryData = e.target.result;
+                        //Converting Binary Data to base 64
+                        link_image_base64 = window.btoa(binaryData);
                     };
                 })(f);
                 // Read in the image file as a data URL.
@@ -235,7 +236,8 @@ $(document).ready(function() {
                 'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
             }
         });
-        $.ajax({
+        
+        var request = $.ajax({
             url: baseURL+"/admincp/categories/addCategory",
             data: data,
             method: "POST",
@@ -247,6 +249,7 @@ $(document).ready(function() {
                 var html_data = '';
                 if(response.status == 200){
                     clearFormCreate();
+                    $('#preview_category_img').attr('src','https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-image-128.png')
                     $('#showAddModal').modal('toggle');
                     dataTable.ajax.reload();
                     Swal.fire({
@@ -259,6 +262,64 @@ $(document).ready(function() {
                     Swal.fire({
                         type: 'warning',
                         text: response.message
+                    })
+                }
+            },
+            error: function (error) {
+                    var obj_errors = error.responseJSON.errors;
+                    var txt_errors = '';
+                    for (k of Object.keys(obj_errors)) {
+                        txt_errors += obj_errors[k][0] + '</br>';
+                    }
+                    Swal.fire({
+                        type: 'warning',
+                        html: txt_errors,
+                        allowOutsideClick: false,
+                    })
+                }
+        });
+    });
+
+    $('#editCategory').click(function(){
+        var id      = $("input[id=userIdUpdate]").val();
+        var data    = {
+            id               : id,
+            name             : $('#editName').val(),
+            parent_id        : $('#editParentId').val(),
+            featured         : $('input[name=editFeatured]').val(),
+            icon             : $('#editIcon').val(),
+            // image            : link_image_base64,
+        };
+        // alert(1);
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        
+        $.ajax({
+            url: baseURL+"/admincp/categories/editCategory",
+            data: data,
+            method: "POST",
+            dataType:'json',
+            beforeSend: function(r, a){
+                $('.alert-errors').addClass('d-none');
+            },
+            success: function (response) {
+                var html_data = '';
+                if(response.status == 200){
+                    clearFormCreate();
+                    $('#showEditModal').modal('toggle');
+                    dataTable.ajax.reload();
+                    Swal.fire({
+                        type: 'success',
+                        text: response.Message
+                    })
+                        
+                } else {
+                    Swal.fire({
+                        type: 'warning',
+                        text: response.Message
                     })
                 }
             },
@@ -440,7 +501,7 @@ $(document).ready(function() {
     }
 
     function addEventListener() {
-        $('.edit-category').off('click')
+        $('.edit-category').off()
         $('.edit-category').click(function() {
             $('#showEditModal').modal('show');
             var curr_name       = $(this).parent().parent().attr('data-name');
@@ -511,6 +572,7 @@ $(document).ready(function() {
             return current_page;
         }
 
+        $('#editCategory').off()
         $('#editCategory').click(function(){
             console.log(link_image_base64)
             var id      = $("input[id=userIdUpdate]").val();
@@ -576,11 +638,20 @@ $(document).ready(function() {
     function preview_image(event){
         var reader = new FileReader();
         // $('input[name=image]').append('<img id="preview_category_img" src="#" max-width="570"/>');
-        reader.onload = function(){
+        
+        reader.onload = function()
+        {
             var output = document.getElementById('preview_category_img');
             output.src = reader.result;
         }
-        reader.readAsDataURL(event.target.files[0]);
+        var fileInput = $('#files').val();
+        var allowedExtensions = /(\.gif|\.png|\.jpeg)$/i;
+        if (!allowedExtensions.exec(fileInput)){
+            reader.readAsDataURL(event.target.files[1]);
+        }
+        else{
+            reader.readAsDataURL(event.target.files[0]);
+        }
     }
 
     function preview_edit_image(event){

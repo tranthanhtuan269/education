@@ -71,6 +71,8 @@ class CategoryController extends Controller
                 }
             }
 
+            $file_name = $category->image;
+
             if ($request->image != '') {
                 $img_file = $request->image;
                 $img_file = base64_decode($img_file);

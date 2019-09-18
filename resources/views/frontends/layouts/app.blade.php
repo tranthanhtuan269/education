@@ -143,7 +143,8 @@
                         <div class="pull-right">
                             <ul class="unica-acc-zone db-item">
                                 @if(Auth::check())
-                                    @if ( !(count(Auth::user()->userRoles) == 1 && (Auth::user()->userRoles->first()->role_id) == 1) )
+                                    {{-- @if ( !(count(Auth::user()->userRoles) == 1 && (Auth::user()->userRoles->first()->role_id) == 1) ) --}}
+                                    @if(!Auth::user()->isAdmin())
                                         <li><a href="{{ url('user/student/course') }}" class="unica-active-course responsive-start-learning"><p class="hidden-md hidden-xs hidden-sm">Vào học</p></a></li>
                                     @else
                                         <li><a href="{{ url('admincp') }}" class="unica-admin"><p class="hidden-md hidden-xs hidden-sm">Trang quản trị</p></a></li>
@@ -151,32 +152,42 @@
                                 {{-- </li> --}}
                                 @endif
                             <li>
-                                <a href="{{route('cart.show')}}" class="unica-cart">
-
-                                    <img src="{{ asset('frontend/images/tab_cart.png') }}" alt="" style="width: 21px;" />
-                                    <span class="unica-sl-cart" style="display: none;"><b class="number-in-cart"></b></span>
-                                </a>
+                                @if (Auth::check())
+                                    @if (!Auth::user()->isAdmin())
+                                    <a href="{{route('cart.show')}}" class="unica-cart">
+                                        <img src="{{ asset('frontend/images/tab_cart.png') }}" alt="" style="width: 21px;" />
+                                        <span class="unica-sl-cart" style="display: none;"><b class="number-in-cart"></b></span>
+                                    </a>
+                                    @endif
+                                @elseif(!Auth::check())
+                                    <a href="{{route('cart.show')}}" class="unica-cart">
+                                        <img src="{{ asset('frontend/images/tab_cart.png') }}" alt="" style="width: 21px;" />
+                                        <span class="unica-sl-cart" style="display: none;"><b class="number-in-cart"></b></span>
+                                    </a>                            
+                                @endif
                                 <li>
 
                                     @if(Auth::check())
-                                    <li>
-                                        <div class="dropdown" id="btnMailBoxNav">
-                                            <a class="unica-cart unica-mail" href="/user/student/mail-box">
-                                                <img src="{{ asset('frontend/images/tab_notifications.png') }}" alt="" style="width: 21px;" />
-                                                <span class="unica-sl-notify"><b></b></span>
-                                            </a>
-                                            <ul class="dropdown-menu hidden" id="mailBoxNavDropdown" style="top:3em;">
-                                                <li class="row">
-                                                    <div class="col-xs-12 w-100">Lorem ipsum dolor sit amet conser ve</div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </li>
+                                        @if (!Auth::user()->isAdmin())
+                                        <li>
+                                            <div class="dropdown" id="btnMailBoxNav">
+                                                <a class="unica-cart unica-mail" href="/user/student/mail-box">
+                                                    <img src="{{ asset('frontend/images/tab_notifications.png') }}" alt="" style="width: 21px;" />
+                                                    <span class="unica-sl-notify"><b></b></span>
+                                                </a>
+                                                <ul class="dropdown-menu hidden" id="mailBoxNavDropdown" style="top:3em;">
+                                                    <li class="row">
+                                                        <div class="col-xs-12 w-100">Lorem ipsum dolor sit amet conser ve</div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>                                        
+                                        @endif
                                     <li class="btn-group">
                                         <a class="db-item-circle dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)"><img class="img-responsive" src="{{ asset('frontend/'.(Auth::user()->avatar != '' ? Auth::user()->avatar : 'images/avatar.jpg')) }}" alt="avatar"><span class="caret"></span></a>                                    
                                         <ul class="dropdown-menu db-drop">
-                                            @if ( !(count(Auth::user()->userRoles) == 1 && (Auth::user()->userRoles->first()->role_id) == 1) )
-                                                @if ($check_multi_role_user == 2)
+                                            @if ( !Auth::user()->isAdmin() )
+                                                @if (Auth::user()->isTeacher())
                                                     <li><a href="{{ url('user/teacher/course') }}"><i class="fas fa-chalkboard-teacher"></i> Giảng viên</a></li>
                                                     <li><a href="{{ url('user/student/course') }}"><i class="fas fa-user-graduate"></i> Học viên</a></li>
                                                 @else                                                
@@ -883,5 +894,16 @@
         $('#min-height').css('minHeight',x);
 });
 </script>
+
+{{-- Là admin thì ẩn button mua --}}
+@if (Auth::check())
+    @if (Auth::user()->isAdmin())
+    <style>
+    .box-course>a .img-course:hover .img-mask{
+        display: none;
+    }
+    </style>
+    @endif
+@endif
 </body>
 </html>

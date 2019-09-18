@@ -248,10 +248,7 @@
                         serverSide: false,
                         aaSorting: [],
                         stateSave: false,
-                        ajax: {
-                            "{{ url('/') }}/admincp/emails/getEmailAjax",
-                            dataType: 'JSON',
-                        }
+                        ajax: "{{ url('/') }}/admincp/emails/getEmailAjax",                        
                         columns: dataObject,
                         // bLengthChange: false,
                         // pageLength: 10,
@@ -488,20 +485,13 @@
             });
             var subject = $("#subject_Ins").val()
             var content = content_Ins.getData()
-            if(subject.trim() == ""){
-                Swal.fire({
-                    type: "warning",
-                    text: "Please add subject for the email!"
-                })
-                return
-            }
-            if(content_Ins == null){
-                Swal.fire({
-                    type: "warning",
-                    text: "Content cannot be empty!"
-                })
-                return
-            }
+            // if(subject.trim() == ""){
+            //     Swal.fire({
+            //         type: "warning",
+            //         text: "Please add subject for the email!"
+            //     })
+            //     return
+            // }
             var request = $.ajax({
                 method: "POST",
                 url: "store-email",
@@ -510,16 +500,28 @@
                     content : content,
                 },
                 dataType:'json',
-            })
-            request.done( function (response) {
-                $("#subject_Ins").val("")
-                content_Ins.setData("")
-                Swal.fire({
-                    text: response.message
-                })
-                if(response.status == 200){
-                    $("#createEmailModal").modal("hide")
-                    dataTable.ajax.reload();
+                success: function(response){
+                    content_Ins.setData("")
+                    Swal.fire({
+                        text: response.message
+                    })
+                    if(response.status == 200){
+                        $("#subject_Ins").val("")
+                        $("#createEmailModal").modal("hide")
+                        dataTable.ajax.reload();
+                    }
+                },
+                error: function (error) {
+                    var obj_errors = error.responseJSON.errors;
+                    var txt_errors = '';
+                    for (k of Object.keys(obj_errors)) {
+                        txt_errors += obj_errors[k][0] + '</br>';
+                    }
+                    Swal.fire({
+                        type: 'warning',
+                        html: txt_errors,
+                        allowOutsideClick: false,
+                    })
                 }
             })
         })
@@ -543,19 +545,36 @@
                     title: title,
                     content: content
                 },
-                dataType: "json"
-            })
-            request.done( function (response) {
-                $("#edit_subject_Ins").val("")
-                edit_content_Ins.setData("")
-                Swal.fire({
-                    text: response.message
-                })
-                if(response.status == 200){
-                    $("#editEmailModal").modal("hide")
-                    dataTable.ajax.reload();
+                dataType: "json",
+                success: function(response){
+                    $("#edit_subject_Ins").val("")
+                    edit_content_Ins.setData("")
+                    Swal.fire({
+                        text: response.message
+                    })
+                    if(response.status == 200){
+                        $("#editEmailModal").modal("hide")
+                        dataTable.ajax.reload();
+                    }
+                },
+                error: function (error) {
+                    var obj_errors = error.responseJSON.errors;
+                    var txt_errors = '';
+                    for (k of Object.keys(obj_errors)) {
+                        txt_errors += obj_errors[k][0] + '</br>';
+                    }
+                    Swal.fire({
+                        type: 'warning',
+                        html: txt_errors,
+                        allowOutsideClick: false,
+                    })
                 }
             })
+        })
+
+        $(".btn-secondary").click(function () {
+            $("#subject_Ins").val('');
+            content_Ins.setData("");
         })
 
     });

@@ -1,15 +1,34 @@
-<?php
-    $flag = false;
-    if(Auth::check()){
-        if( count(Auth::user()->userRoles) != 2){
-            $flag = true;
-        }
-    }else{
-        $flag = true;
-    }
-    // dd(count(Auth::user()->userRoles));
-?>
-@if($flag)
+
+@if (Auth::check())
+@if(!Auth::user()->notOnlyStudent())
+<div class="become-teacher">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="ads-teacher">
+                            <p>TRỞ THÀNH</p>
+                            <h2>GIẢNG VIÊN<br> COURDEMY</h2>
+                            {{-- <a href="{{ Auth::check() ? url('user/register-teacher') : 'javascript:void(0)' }}" title="Register Teacher" {{ Auth::check() ? '' : ' data-toggle=modal data-target=#myModalLogin data-dismiss=modal id=redirect_register_teacher' }}>ĐĂNG KÝ NGAY</a> --}}
+                            {{-- <a href="{{ Auth::check() ? url('/become-teacher') : 'javascript:void(0)' }}" title="Register Teacher" {{ Auth::check() ? '' : ' data-toggle=modal data-target=#myModalLogin data-dismiss=modal id=redirect_register_teacher' }}>ĐĂNG KÝ NGAY</a>                         --}}
+                            <a href="{{url('/become-teacher')}}" title="Register Teacher" class="register-teacher">ĐĂNG KÝ NGAY</a>                        
+                        </div>
+                    </div>
+                    <div class="col-sm-6 hidden-xs">
+                        <div class="row">
+                            <div class="col-xs-8 col-xs-offset-1">
+                                <img src="{{ asset('frontend/images/courdemy-teacher.png') }}" alt="Teacher" />  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
+@else
 <div class="become-teacher">
     <div class="container">
         <div class="row">

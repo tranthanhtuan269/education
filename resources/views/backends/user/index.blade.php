@@ -45,7 +45,7 @@
                     <p class="action-selected-rows">
                         <span >Hành động trên các hàng đã chọn:</span>
                         <span class="btn btn-info ml-2" id="apply-all-btn">Xóa</span>
-                        <span class="btn btn-info ml-5" data-toggle="modal" data-target="#sendMultipleEmailModal">Send Emails</span>
+                        <span class="btn btn-info ml-5" id="openMultipleEmailModal">Send Emails</span>
                     </p>  
                 @endif
             </div>
@@ -103,7 +103,7 @@
                 <div class="col-sm-8">
                     <select id="role-list-ins-edit" multiple="multiple">
                         @foreach ($roles as $role)
-                            <option value="{{ $role->id }}">{{ $role->name }}</option>
+                            <option disabled value="{{ $role->id }}">{{ $role->name }}ss</option>
                         @endforeach
                     </select>
                     <script>
@@ -183,7 +183,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-primary" id="createUser">Thêm mới</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeCreateUser">Hủy bỏ</button>
           </div>
         </div>
       </div>
@@ -253,7 +253,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary" id="sendMultipleEmail">Send</button>                    
+                    <button class="btn btn-primary" id="sendMultipleEmail">Gửi</button>
+                    <button class="btn btn-danger" type="button" data-dismiss="modal">Đóng</button>
                 </div>
             </div>
         </div>
@@ -271,6 +272,24 @@
     var errorConnect        = "Please check your internet connection and try again.";
 
     $(document).ready(function(){
+
+        $('#openMultipleEmailModal').click(function(){
+            let isChecked = false
+            $.each($('.check-user'), function (key, value){
+                if($(this).prop('checked') == true) {
+                    isChecked = true;
+                    return $('#sendMultipleEmailModal').modal('show')                    
+                }
+                
+            })
+            if(isChecked == false){
+                return Swal.fire({
+                    type: 'info',
+                    text: 'Bạn chưa chọn tài khoản nào!'
+                })
+            }
+        })
+
         function getRoleList($id){
             var id      = $id;
             $.ajax({
@@ -279,11 +298,17 @@
                 dataType:'html',
                 success: function (response) {
                     $("#role-list-ins-edit").html(response);
+                    
                     $('#role-list-ins-edit').multiselect({
                         includeSelectAllOption: true,
                         includeSelectAllIfMoreThan: 0,
                         numberDisplayed: 2,
                         enableClickableOptGroups: true,
+                        onInitialized: function(select, container) {
+                            var studentInput = $(container).find('input[value="3"]') // không cho chỉnh sửa student
+                            studentInput.prop('disabled', true)
+                            studentInput.prop('checked', true)                            
+                        },
                         onChange: function(element, checked){
                             const role_id = element.attr('value')
                             if(checked === true){
@@ -302,6 +327,7 @@
                             }
                         }
                     });
+                    $('#role-list-ins-edit').multiselect('rebuild')
                  
                     $.ajax({
                         url: baseURL+"/admincp/users/getInfoByID/" + id,
@@ -349,6 +375,11 @@
             includeSelectAllIfMoreThan: 0,
             numberDisplayed: 2,
             enableClickableOptGroups: true,
+            onInitialized: function(select, container) {
+                var studentInput = $(container).find('input[value="3"]') // không cho chỉnh sửa student
+                studentInput.prop('disabled', true)
+                studentInput.prop('checked', true)                            
+            },
             onChange: function(element, checked){
                 const role_id = element.attr('value')
                 if(checked === true){
@@ -581,6 +612,8 @@
                 $('#userID_upd').val(id);
                 $('#userName_upd').val(curr_user_name);
                 $('#userEmail_upd').val(curr_user_email);
+
+                getRoleList(id)
                 // $('#userPassword_upd').val("not_change");
                 // $('#passConfirm_upd').val("not_change");
                 $(".alert-errors").addClass("d-none");
@@ -628,11 +661,18 @@
                                     //     _self.find('i').removeClass('fa-times').addClass('fa-check');
                                     //     _self.addClass('block-user').removeClass('not-block-user');
                                     // }
-
-                                    Swal.fire({
-                                        type: 'success',
-                                        text: response.message
-                                    })
+                                    if (status == 0){
+                                        Swal.fire({
+                                            type: 'success',
+                                            text: "Bạn đã bỏ chặn thành công"
+                                        })
+                                    }
+                                    else {
+                                        Swal.fire({
+                                            type: 'success',
+                                            text:"Bạn đã chặn thành công"
+                                        })
+                                    }
                                 }else{
                                     Swal.fire({
                                         type: 'warning',
@@ -850,90 +890,99 @@
                         });
                     }
                 },
-                error: function (data) {
-                    if(data.status == 422){
-                        $.each(data.responseJSON.errors, function( index, value ) {
-                            $('#' + index + 'ErrorUpd').html(value);
-                            $('#' + index + 'ErrorUpd').removeClass('d-none');
-                        });
-                    }else{
-                        if(data.status == 401){
-                          window.location.replace(baseURL);
-                        }else{
-                            Swal.fire({
-                                type: 'warning',
-                                text: errorConnect
-                            })
-                        }
+                error: function (error) {
+                    var obj_errors = error.responseJSON.errors;
+                    var txt_errors = '';
+                    for (k of Object.keys(obj_errors)) {
+                        txt_errors += obj_errors[k][0] + '</br>';
                     }
+                    Swal.fire({
+                        type: 'warning',
+                        html: txt_errors,
+                        allowOutsideClick: false,
+                    })
                 }
             });
         });
 
         $('#apply-all-btn').click(function (){
-            Swal.fire({
-                type: 'warning',
-                text: 'Bạn có chắc chắn xóa tất cả?',
-                showCancelButton: true,
-            })
-            .then(function (result) {
-                if(result.value){  
-                    var $id_list = '';
-                    $.each($('.check-user'), function (key, value){
-                        if($(this).prop('checked') == true) {
-                            $id_list += $(this).attr("data-column") + ',';
-                        }
-                    });
-
-                    if ($id_list.length > 0) {
-                        var data = {
-                            id_list:$id_list,
-                            _method:'delete'
-                        };
-                        $.ajaxSetup({
-                            headers: {
-                                'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
-                            }
-                        });
-                        $.ajax({
-                            type: "POST",
-                            url: "{{ url('/') }}/admincp/users/delMultiUser",
-                            data: data,
-                            success: function (response) {
-                                var obj = $.parseJSON(response);
-                                if(obj.status == 200){
-                                    $.each($('.check-user'), function (key, value){
-                                        if($(this).prop('checked') == true) {
-                                            $(this).parent().parent().hide("slow");
-                                        }
-                                    });
-                                    dataTable.ajax.reload(); 
-                                    Swal.fire({
-                                        type: 'success',
-                                        text: obj.Message
-                                    })
-                                }
-                            },
-                            error: function (data) {
-                                if(data.status == 401){
-                                    window.location.replace(baseURL);
-                                }else{
-                                    Swal.fire({
-                                        type: 'wa',
-                                        text: errorConnect
-                                    })
-                                }
-                            }
-                        });
-                        
-                    }else{
-                        Swal.fire({
-                            type: 'warning',
-                            text: 'Cần chọn ít nhất 1 tài khoản!'
-                        })
-                    }
+            let isChecked = false;
+            $.each($('.check-user'), function (key, value){
+                if($(this).prop('checked') == true) {
+                    return isChecked = true;
+                    
+                }else{
+                    return Swal.fire({
+                        type: 'info',
+                        text: 'Bạn chưa chọn tài khoản nào!'
+                    })
                 }
-            })
+            });
+            if(isChecked){
+                Swal.fire({
+                    type: 'warning',
+                    text: 'Bạn có chắc chắn xóa tất cả?',
+                    showCancelButton: true,
+                })
+                .then(function (result) {
+                    if(result.value){  
+                        var $id_list = '';
+                        $.each($('.check-user'), function (key, value){
+                            if($(this).prop('checked') == true) {
+                                $id_list += $(this).attr("data-column") + ',';
+                            }
+                        });
+
+                        if ($id_list.length > 0) {
+                            var data = {
+                                id_list:$id_list,
+                                _method:'delete'
+                            };
+                            $.ajaxSetup({
+                                headers: {
+                                    'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
+                                }
+                            });
+                            $.ajax({
+                                type: "POST",
+                                url: "{{ url('/') }}/admincp/users/delMultiUser",
+                                data: data,
+                                success: function (response) {
+                                    var obj = $.parseJSON(response);
+                                    if(obj.status == 200){
+                                        $.each($('.check-user'), function (key, value){
+                                            if($(this).prop('checked') == true) {
+                                                $(this).parent().parent().hide("slow");
+                                            }
+                                        });
+                                        dataTable.ajax.reload(); 
+                                        Swal.fire({
+                                            type: 'success',
+                                            text: obj.Message
+                                        })
+                                    }
+                                },
+                                error: function (data) {
+                                    if(data.status == 401){
+                                        window.location.replace(baseURL);
+                                    }else{
+                                        Swal.fire({
+                                            type: 'wa',
+                                            text: errorConnect
+                                        })
+                                    }
+                                }
+                            });
+                            
+                        }else{
+                            Swal.fire({
+                                type: 'warning',
+                                text: 'Cần chọn ít nhất 1 tài khoản!'
+                            })
+                        }
+                    }
+                })
+            }
 
 
             // $.ajsrConfirm({
@@ -1058,6 +1107,7 @@
             $('#confirmpassword_Ins').val('')
             $('select[name=role_id]').val(1)
             $('.alert-errors').addClass("d-none")
+            
         }
         
         // $('#search_txt').keyup(function() {
@@ -1081,6 +1131,17 @@
 
         $('#add_user_modal').on('hidden.bs.modal', function () {
             clearFormCreate();
+        })
+
+        $('#closeCreateUser').click(function(){
+            $('option', $('#role-list-ins')).each(function(element) {
+                if($(this).attr('value') != 3){
+                    $(this).removeAttr('selected').prop('selected', false);
+                }else{
+                    $(this).prop('disabled', true)
+                }
+            });
+            $('#role-list-ins').multiselect('refresh');
         })
         
     });

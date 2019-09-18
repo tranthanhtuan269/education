@@ -85,7 +85,7 @@
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="savePermission">Cập nhật</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cancelEdit">Hủy bỏ</button>
                   </div>
                 </div>
               </div>
@@ -133,7 +133,7 @@
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="createPermission">Thêm mới</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cancelAdd">Hủy bỏ</button>
                   </div>
                 </div>
               </div>
@@ -459,6 +459,8 @@
                             type: 'success',
                             text: response.Message
                         })
+                        dataTable.ajax.reload();
+                        location.reload();
                     }
                 },
                 error: function (data) {
@@ -579,6 +581,7 @@
                             text: response.Message
                         })
                         dataTable.ajax.reload(); 
+                        location.reload();
                     }
                 },
                 error: function (data) {
@@ -612,6 +615,17 @@
         $('#add_permission_modal').on('hidden.bs.modal', function () {
             clearFormCreate();
         })
+
+        $('#cancelAdd').click(function(){
+            $('#nameErrorIns').hide();
+            $('#routeErrorIns').hide(); 
+            $('#groupErrorIns').hide();
+        });
+
+        $('#cancelEdit').click(function(){
+            $('#permission_nameErrorUpd').hide();
+            $('#permission_groupErrorUpd').hide();
+        });
 
     });
 </script>

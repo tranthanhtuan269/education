@@ -4,6 +4,10 @@ return [
     'admin' => 1,
     'teacher' => 2,
     'student' => 3,
+    'video_waiting' => 0,
+    'video_active' => 1,
+    'video_rejected' => 2,
+    'video_converting' => 3,
     
     /*
     |--------------------------------------------------------------------------

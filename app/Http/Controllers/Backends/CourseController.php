@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backends;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
+use App\Http\Requests\UpdateFeatureCourseRequest;
 use App\Course;
 use App\UserCourse;
 use App\Setting;
@@ -292,7 +293,7 @@ class CourseController extends Controller
         return view('backends.course.feature-course', compact('courses', 'percent'));
     }
 
-    public function handlingFeatureCourseAjax(Request $request){
+    public function handlingFeatureCourseAjax(UpdateFeatureCourseRequest $request){
         $course = Course::where('featured', '>', 0)->update(['featured_index' => 0,'featured' => 0]);
 
         $course1 = Course::find($request->course_1);

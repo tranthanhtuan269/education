@@ -314,19 +314,21 @@
             var new_cart = JSON.parse(localStorage.getItem('cart'))
             get_coupon = new_cart[numeric_cart].coupon_code
 
-            if(get_coupon == coupon){
+            
+            if($('.coupon-input').val() == ''){
                 return Swal.fire({
-                    type:"warning",
-                    text:"Mã khuyến mãi đã được áp dụng!"
+                    type:'warning',
+                    text:'Bạn chưa nhập mã giảm giá!'
                 })
             }
-
+            else{
             if(coupon.length < 1){
                 return Swal.fire({
                     type:"warning",
-                    text:"Chưa có mã khuyến mại!"
+                    text:"Bạn chưa nhập mã giảm giá !"
                 })
-            }else{
+            }
+            else{
                 var request = $.ajax({
                     url : "/check-coupon",
                     method: "GET",
@@ -398,6 +400,7 @@
                     }
                 })
             }
+        }
         });
 
         $('#btnCartCheckOut').on('click', function(e){

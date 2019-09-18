@@ -43,7 +43,11 @@
                                 @endphp
                                     @foreach ($lifelong_course as $course)
                                     <?php
+                                    if(isset($course->Lecturers()[0]->user->name)){
                                         $lecturers = count($course->Lecturers()) > 1 ? 'Nhiều tác giả' : count($course->Lecturers()) > 0 ? $course->Lecturers()[0]->user->name : "Courdemy";
+                                    }else{
+                                        $lecturers = "Courdemy";
+                                    }
                                         // if($course->id == 14){
                                         //     dd($course);
                                         // }

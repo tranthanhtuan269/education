@@ -124,7 +124,11 @@
             
             var main_video_id_key = {{$main_video_id_key}}
 
+            var main_video_state = {{$main_video->state}}
+
             var videoSource = {!!$video_urls!!}
+            
+            
 
 
             $(document).ready(function () {
@@ -136,6 +140,15 @@
                     $("#discComment" + $(this).attr('data-parent') + " p").removeClass('active');
                     return false;
                 })
+                
+                if(main_video_state != 1) { //1 nghĩa là video active
+                    $('#lnDescBtnPlay').remove()
+                    Swal.fire({
+                        type: 'warning',
+                        text: 'Video bài giảng chưa được duyệt!',
+                        confirmButtonText: 'Chấp nhận'
+                    })
+                }
 
                 var video_id_index = null
                 video_id_list.forEach(video_id => {

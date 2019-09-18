@@ -55,17 +55,35 @@ class HomeController extends Controller
     public function home()
     {
         $feature_category = Category::withCount('courses')->where('featured', 1)->orderBy('featured_index', 'asc')->limit(10)->get();
+        
         // Duong NT// trending = feature courses
         $percent_feature_course = Setting::where('name', 'percent_feature_course')->first()->value;
-        $feature_course = Course::where('status', 1)->orderBy('featured_index', 'asc')->get();
+        $feature_course = Course::where('status', 1)
+                                ->orderBy('featured_index', 'asc')
+                                ->get(['id', 'name', 'slug', 'image', 'price', 'real_price', 'featured_index', 'featured']);
         $feature_course = $feature_course->filter(function ($value, $key) use ($percent_feature_course) {
+            $percent;
             if($value->price < $value->real_price){
-                $percent = 100 - intval($value->price/$value->real_price)*100;
+                $percent = intval(100 - (($value->price/$value->real_price)*100));
+                if($percent > intval($percent_feature_course)){
+                    $value->setAttribute('discount_percent', $percent); // thêm trường discount_percent
+                }
             }else{
                 $percent = 0;
             }
             return ($percent > intval($percent_feature_course)) || $value->featured == 1 ;
-        })->values(); //reindex the collection
+        })->sortByDesc('featured')
+        ->values(); //reindex the collection
+        $feature_course_count = $feature_course->count();
+        $remainder = $feature_course_count%3;
+        if($remainder > 0){
+            $feature_course_limit = $feature_course_count - $remainder;
+        }else{
+            $feature_course_limit = $feature_course_count;
+        }
+        $feature_course = $feature_course->take($feature_course_limit);
+        //end finding feature courses
+
         $best_seller_course = Course::where('status', 1)->orderBy('sale_count', 'desc')->limit(8)->get();
         $new_course = Course::where('status', 1)->orderBy('id', 'desc')->limit(8)->get();
 
@@ -803,36 +821,47 @@ class HomeController extends Controller
 
     public function test(){
 
-        $courses = Course::get();
-        foreach($courses as $course){
-            if(count($course->userRoles) != 0){
-                echo(count($course->userRoles)-1).'<br>';
-                $course->student_count = (count($course->userRoles)-1);
-                $course->save();
-            }else{
-                $course->student_count = 0;
-                $course->save();
-            }
-        }
-        // $course = Course::find(1);
-        // dd($course->userRoles);
+        // $courses = Course::get();
+        // foreach($courses as $course){
+        //     if(count($course->userRoles) != 0){
+        //         echo(count($course->userRoles)-1).'<br>';
+        //         $course->student_count = (count($course->userRoles)-1);
+        //         $course->save();
+        //     }else{
+        //         $course->student_count = 0;
+        //         $course->save();
+        //     }
+        // }
+        // // $course = Course::find(1);
+        // // dd($course->userRoles);
 
-        $teachers = Teacher::get();
-        foreach($teachers as $teacher){
-            $teacher->student_count = 0;
-            $teacher->save();
-        }
+        // $teachers = Teacher::get();
+        // foreach($teachers as $teacher){
+        //     $teacher->student_count = 0;
+        //     $teacher->save();
+        // }
 
-        foreach($courses as $course){
-            if($course->Lecturers()->first() && $course->Lecturers()->first()->teacher){
-                $teacher = Teacher::find($course->Lecturers()->first()->teacher->id);
-                if($teacher){
-                    $teacher->student_count += $course->student_count;
-                    $teacher->save();
-                }
-            }
-        }
-        echo "done";
+        // foreach($courses as $course){
+        //     if($course->Lecturers()->first() && $course->Lecturers()->first()->teacher){
+        //         $teacher = Teacher::find($course->Lecturers()->first()->teacher->id);
+        //         if($teacher){
+        //             $teacher-\>student_count += $course->student_count;
+        //             $teacher->save();
+        //         }
+        //     }
+        // }
+        // echo "done";
+
+        // DuongNT - Test isTeacher
+        // $feature_course_count = 21;
+        // $redunt = $feature_course_count%3;
+        // if($redunt > 0){
+        //     $feature_course_count = $feature_course_count - $redunt;
+        // }else{
+        //     $feature_course_count = $feature_course_count;
+        // }
+        // dd($feature_course_count);
+
     }
 
     public function seeMore(Request $request)
