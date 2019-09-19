@@ -411,9 +411,23 @@
             
             $('#deleteAllApplied').off('click')
             $('#deleteAllApplied').click(function (){
+                var check = false;
+                $.each($('.check-video'), function (key, value){
+                    if($(this).prop('checked') == true) {
+                        check = true;
+                    }
+                });
+                if(!check){
+                    Swal.fire({
+                        type: 'warning',
+                        text: 'Bạn phải chọn ít nhất 1 email',
+                        showCancelButton: true,
+                    })
+                    return false;
+                }
                 Swal.fire({
                     type: 'warning',
-                    text: 'Are you sure?',
+                    text: 'Bạn có chắc chắn xóa tất cả những email bạn chọn?',
                     showCancelButton: true,
                 })
                 .then(function (result) {

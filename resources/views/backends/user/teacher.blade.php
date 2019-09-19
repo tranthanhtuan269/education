@@ -315,7 +315,7 @@
                 var message = "Bạn có chắc chắn muốn duyệt?";
                 if(_self.parent().parent().hasClass('blue-row')){
                     status = 1;
-                    message = "Bạn có chắc chắn muốn hủy?";
+                    message = "Bạn có chắc chắn muốn hủy giảng viên bạn chọn?";
                 }
                 $.ajsrConfirm({
                     message: message,
@@ -383,7 +383,7 @@
                 var id      = $(this).attr('data-id');
                 var row = $(e.currentTarget).closest("tr");
                 $.ajsrConfirm({
-                    message: "Bạn có chắc chắn muốn xóa ?",
+                    message: "Bạn có chắc chắn muốn xóa giảng viên bạn chọn?",
                     okButton: "Đồng ý",
                     onConfirm: function() {
                         $.ajaxSetup({
@@ -431,9 +431,23 @@
             
             $('#deleteAllApplied').off('click')
             $('#deleteAllApplied').click(function (){
+                var check = false;
+                $.each($('.check-user'), function (key, value){
+                    if($(this).prop('checked') == true) {
+                        check = true;
+                    }
+                });
+                if(!check){
+                    Swal.fire({
+                        type: 'warning',
+                        text: 'Bạn phải chọn ít nhất 1 giảng viên',
+                        showCancelButton: true,
+                    })
+                    return false;
+                }
                 Swal.fire({
                     type: 'warning',
-                    text: 'Bạn có chắc chắn xóa tất cả những gì bạn chọn?',
+                    text: 'Bạn có chắc chắn xóa tất cả những giảng viên bạn chọn?',
                     showCancelButton: true,
                 })
                 .then(function (result) {
@@ -490,9 +504,23 @@
 
             $('#acceptAllApplied').off('click')
             $('#acceptAllApplied').click(function (){
+                var check = false;
+                $.each($('.check-user'), function (key, value){
+                    if($(this).prop('checked') == true) {
+                        check = true;
+                    }
+                });
+                if(!check){
+                    Swal.fire({
+                        type: 'warning',
+                        text: 'Bạn phải chọn ít nhất 1 giảng viên',
+                        showCancelButton: true,
+                    })
+                    return false;
+                }
                 Swal.fire({
                     type: 'warning',
-                    text: 'Bạn có chắc chắn duyệt tất cả những gì bạn chọn?',
+                    text: 'Bạn có chắc chắn duyệt tất cả những giảng viên bạn chọn?',
                     showCancelButton: true,
                 })
                 .then(function (result) {
@@ -549,9 +577,23 @@
 
             $('#inacceptAllApplied').off('click')
             $('#inacceptAllApplied').click(function (){
+                var check = false;
+                $.each($('.check-user'), function (key, value){
+                    if($(this).prop('checked') == true) {
+                        check = true;
+                    }
+                });
+                if(!check){
+                    Swal.fire({
+                        type: 'warning',
+                        text: 'Bạn phải chọn ít nhất 1 giảng viên',
+                        showCancelButton: true,
+                    })
+                    return false;
+                }
                 Swal.fire({
                     type: 'warning',
-                    text: 'Bạn có chắc chắn hủy tất cả những gì bạn chọn?',
+                    text: 'Bạn có chắc chắn hủy tất cả những giảng viên bạn chọn?',
                     showCancelButton: true,
                 })
                 .then(function (result) {

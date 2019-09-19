@@ -290,10 +290,10 @@
                 var _self   = $(this);
                 var id      = $(this).attr('data-id');
                 var state  = 0;
-                var message = "Bạn có chắc chắn muốn duyệt?";
+                var message = "Bạn có chắc chắn muốn duyệt video bạn chọn?";
                 if(_self.parent().parent().hasClass('blue-row')){
                     state = 1;
-                    message = "Bạn có chắc chắn muốn hủy?";
+                    message = "Bạn có chắc chắn muốn hủy video bạn chọn?";
 
                     // Nếu video đã duyệt xong
                     return $.ajsrConfirm({
@@ -420,7 +420,7 @@
                 var id      = $(this).attr('data-id');
                 var row = $(e.currentTarget).closest("tr");
                 $.ajsrConfirm({
-                    message: "Bạn có chắc chắn muốn xóa ?",
+                    message: "Bạn có chắc chắn muốn xóa video bạn chọn?",
                     okButton: "Đồng ý",
                     onConfirm: function() {
                         $.ajaxSetup({
@@ -468,9 +468,23 @@
             
             $('#deleteAllApplied').off('click')
             $('#deleteAllApplied').click(function (){
+                var check = false;
+                $.each($('.check-video'), function (key, value){
+                    if($(this).prop('checked') == true) {
+                        check = true;
+                    }
+                });
+                if(!check){
+                    Swal.fire({
+                        type: 'warning',
+                        text: 'Bạn phải chọn ít nhất 1 video',
+                        showCancelButton: true,
+                    })
+                    return false;
+                }
                 Swal.fire({
                     type: 'warning',
-                    text: 'Bạn có chắc chắn xóa tất cả những gì bạn chọn?',
+                    text: 'Bạn có chắc chắn xóa tất cả những video bạn chọn?',
                     showCancelButton: true,
                 })
                 .then(function (result) {
@@ -527,9 +541,23 @@
 
             $('#acceptAllApplied').off('click')
             $('#acceptAllApplied').click(function (){
+                var check = false;
+                $.each($('.check-video'), function (key, value){
+                    if($(this).prop('checked') == true) {
+                        check = true;
+                    }
+                });
+                if(!check){
+                    Swal.fire({
+                        type: 'warning',
+                        text: 'Bạn phải chọn ít nhất 1 video',
+                        showCancelButton: true,
+                    })
+                    return false;
+                }
                 Swal.fire({
                     type: 'warning',
-                    text: 'Bạn có chắc chắn duyệt tất cả những gì bạn chọn?',
+                    text: 'Bạn có chắc chắn duyệt tất cả những video bạn chọn?',
                     showCancelButton: true,
                 })
                 .then(function (result) {
@@ -586,9 +614,23 @@
 
             $('#inacceptAllApplied').off('click')
             $('#inacceptAllApplied').click(function (){
+                var check = false;
+                $.each($('.check-video'), function (key, value){
+                    if($(this).prop('checked') == true) {
+                        check = true;
+                    }
+                });
+                if(!check){
+                    Swal.fire({
+                        type: 'warning',
+                        text: 'Bạn phải chọn ít nhất 1 video',
+                        showCancelButton: true,
+                    })
+                    return false;
+                }
                 Swal.fire({
                     type: 'warning',
-                    text: 'Bạn có chắc chắn hủy tất cả những gì bạn chọn?',
+                    text: 'Bạn có chắc chắn hủy tất cả những video bạn chọn?',
                     showCancelButton: true,
                 })
                 .then(function (result) {

@@ -313,7 +313,7 @@
                 var id      = $(this).attr('data-id');
                 // alert(id)
                 var status  = 0;
-                var message = "Bạn có chắc chắn muốn duyệt?";
+                var message = "Bạn có chắc chắn muốn duyệt khóa học bạn chọn?";
                 if(_self.parent().parent().hasClass('blue-row')){
                     status = 1;
                     message = "Bạn có chắc chắn muốn hủy?";
@@ -384,7 +384,7 @@
                 var id      = $(this).attr('data-id');
                 var row = $(e.currentTarget).closest("tr");
                 $.ajsrConfirm({
-                    message: "Bạn có chắc chắn muốn xóa ?",
+                    message: "Bạn có chắc chắn muốn xóa khóa học bạn chọn?",
                     okButton: "Đồng ý",
                     onConfirm: function() {
                         $.ajaxSetup({
@@ -432,9 +432,23 @@
             
             $('#deleteAllApplied').off('click')
             $('#deleteAllApplied').click(function (){
+                var check = false;
+                $.each($('.check-course'), function (key, value){
+                    if($(this).prop('checked') == true) {
+                        check = true;
+                    }
+                });
+                if(!check){
+                    Swal.fire({
+                        type: 'warning',
+                        text: 'Bạn phải chọn ít nhất 1 khóa học',
+                        showCancelButton: true,
+                    })
+                    return false;
+                }
                 Swal.fire({
                     type: 'warning',
-                    text: 'Bạn có chắc chắn xóa tất cả những gì bạn chọn?',
+                    text: 'Bạn có chắc chắn xóa tất cả những khóa học bạn chọn?',
                     showCancelButton: true,
                 })
                 .then(function (result) {
@@ -491,9 +505,23 @@
 
             $('#acceptAllApplied').off('click')
             $('#acceptAllApplied').click(function (){
+                var check = false;
+                $.each($('.check-course'), function (key, value){
+                    if($(this).prop('checked') == true) {
+                        check = true;
+                    }
+                });
+                if(!check){
+                    Swal.fire({
+                        type: 'warning',
+                        text: 'Bạn phải chọn ít nhất 1 khóa học',
+                        showCancelButton: true,
+                    })
+                    return false;
+                }
                 Swal.fire({
                     type: 'warning',
-                    text: 'Bạn có chắc chắn duyệt tất cả những gì bạn chọn?',
+                    text: 'Bạn có chắc chắn duyệt tất cả những khóa học bạn chọn?',
                     showCancelButton: true,
                 })
                 .then(function (result) {
@@ -550,9 +578,23 @@
 
             $('#inacceptAllApplied').off('click')
             $('#inacceptAllApplied').click(function (){
+                var check = false;
+                $.each($('.check-course'), function (key, value){
+                    if($(this).prop('checked') == true) {
+                        check = true;
+                    }
+                });
+                if(!check){
+                    Swal.fire({
+                        type: 'warning',
+                        text: 'Bạn phải chọn ít nhất 1 khóa học',
+                        showCancelButton: true,
+                    })
+                    return false;
+                }
                 Swal.fire({
                     type: 'warning',
-                    text: 'Bạn có chắc chắn hủy tất cả những gì bạn chọn?',
+                    text: 'Bạn có chắc chắn hủy tất cả những khóa học bạn chọn?',
                     showCancelButton: true,
                 })
                 .then(function (result) {
