@@ -8,6 +8,8 @@
         $main_lecturer = null;
     }
 ?>
+@if( isset($course->userRoles()->first()->teacher->status) )
+@if( $course->userRoles()->first()->teacher->status == 1 )
 <div class="col-md-3 col-sm-6">
     <div class="box-course">
         <a title="{{ $course->name }}" class="course-box-slider pop">
@@ -40,15 +42,17 @@
                     <div class="btn-add-to-cart course-{{$course->id}}">
                         @if (!in_array($course->id, $list_bought))
                             @if (Auth::check())
-                                @if( (int)($course->userRoles[0]->user_id) != (int)(Auth::user()->id) )
-                                    <button class="btn btn-success" data-id="{{ $course->id }}" data-image="{{ $course->image }}" data-lecturer="{{ $lecturers }}" data-name="{{ $course->name }}" data-price="{{ $course->price }}" data-real-price="{{ $course->real_price }}" data-slug="{{ $course->slug }}">
-                                        <span class="img">
-                                            <img src="{{asset("frontend/images/ic_add_to_card.png")}}" width="20px">
-                                        </span>
-                                        <span class="text">
-                                            Thêm vào giỏ hàng
-                                        </span>
-                                    </button>
+                                @if(isset($course->userRoles[0]->user_id))
+                                    @if( (int)($course->userRoles[0]->user_id) != (int)(Auth::user()->id) )
+                                        <button class="btn btn-success" data-id="{{ $course->id }}" data-image="{{ $course->image }}" data-lecturer="{{ $lecturers }}" data-name="{{ $course->name }}" data-price="{{ $course->price }}" data-real-price="{{ $course->real_price }}" data-slug="{{ $course->slug }}">
+                                            <span class="img">
+                                                <img src="{{asset("frontend/images/ic_add_to_card.png")}}" width="20px">
+                                            </span>
+                                            <span class="text">
+                                                Thêm vào giỏ hàng
+                                            </span>
+                                        </button>
+                                    @endif
                                 @endif
                             @else
                                 <button class="btn btn-success" data-id="{{ $course->id }}" data-image="{{ $course->image }}" data-lecturer="{{ $lecturers }}" data-name="{{ $course->name }}" data-price="{{ $course->price }}" data-real-price="{{ $course->real_price }}" data-slug="{{ $course->slug }}">
@@ -150,7 +154,8 @@
         </a>
     </div>
 </div>
-
+@endif
+@endif
 <script>
     $('.content-course .name-teacher').on('click', function (e){
         e.stopPropagation()

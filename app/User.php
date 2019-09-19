@@ -94,6 +94,15 @@ class User extends Authenticatable
         return $this->hasMany('App\UserRole')->where('role_id', \Config::get('app.teacher'))->first();
     }
 
+    public function registeredTeacher(){
+        $user_role_teacher = $this->hasMany('App\UserRole')->where('role_id', \Config::get('app.teacher'))->first();
+        if(isset($user_role_teacher->teacher)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public function isTeacher(){
         $user_role_teacher = $this->hasMany('App\UserRole')->where('role_id', \Config::get('app.teacher'))->first();
         if(isset($user_role_teacher->teacher) && $user_role_teacher->teacher->status == 1){

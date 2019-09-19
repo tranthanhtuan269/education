@@ -187,7 +187,7 @@
                                         <a class="db-item-circle dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)"><img class="img-responsive" src="{{ asset('frontend/'.(Auth::user()->avatar != '' ? Auth::user()->avatar : 'images/avatar.jpg')) }}" alt="avatar"><span class="caret"></span></a>                                    
                                         <ul class="dropdown-menu db-drop">
                                             @if ( !Auth::user()->isAdmin() )
-                                                @if (Auth::user()->isTeacher())
+                                                @if (Auth::user()->registeredTeacher())
                                                     <li><a href="{{ url('user/teacher/course') }}"><i class="fas fa-chalkboard-teacher"></i> Giảng viên</a></li>
                                                     <li><a href="{{ url('user/student/course') }}"><i class="fas fa-user-graduate"></i> Học viên</a></li>
                                                 @else                                                
@@ -419,7 +419,13 @@
                             </div>
                             <div class="col-xs-4">
                                 <p><a href="/payment-guide">Hướng dẫn thanh toán</a></p>
-                                <p><a href="/become-teacher">Đăng ký giảng viên</a></p>
+                                @if (Auth::check())
+                                    @if ( !Auth::user()->isAdmin() && !Auth::user()->registeredTeacher())
+                                        <p><a href="/become-teacher">Đăng ký giảng viên</a></p>
+                                    @endif
+                                @else
+                                    <p><a href="/become-teacher">Đăng ký giảng viên</a></p>
+                                @endif
                                 <p><a href="/affiliate">Tiếp thị liên kết</a></p>
                             </div>
                         </div>

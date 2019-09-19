@@ -2156,9 +2156,11 @@ div[data-u="slides"] div div{
 .cart-single-item .single-price{
     display: flex;
     flex-direction: column;
-    align-items: center;
+    /* align-items: center; */
     justify-content: center;
     margin-right: 5%;
+    width: 100px;
+    text-align: right;
 }
 .cart-single-item .single-price>div{
     padding-right: 5px;
@@ -2173,7 +2175,7 @@ div[data-u="slides"] div div{
 .cart-single-item .single-price>div .initial-price{
     text-decoration: line-through;
     font-weight: bold;
-    text-align: center;
+    /* text-align: center; */
     color: black;
 }
 .cart-single-item .single-price>i{

@@ -1,4 +1,4 @@
-<p>Giảng viên: {{ Auth::user()->name }} </p>
+<p>Giảng viên: {{ Auth::user()->name }} </p><br><br><br>
 <div class="navbar-header">
     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
         <span class="icon-bar"></span>

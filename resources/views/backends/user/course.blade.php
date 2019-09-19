@@ -441,8 +441,7 @@
                 if(!check){
                     Swal.fire({
                         type: 'warning',
-                        text: 'Bạn phải chọn ít nhất 1 khóa học',
-                        showCancelButton: true,
+                        text: 'Bạn phải chọn ít nhất 1 khóa học.',
                     })
                     return false;
                 }
@@ -515,7 +514,6 @@
                     Swal.fire({
                         type: 'warning',
                         text: 'Bạn phải chọn ít nhất 1 khóa học',
-                        showCancelButton: true,
                     })
                     return false;
                 }
@@ -588,7 +586,6 @@
                     Swal.fire({
                         type: 'warning',
                         text: 'Bạn phải chọn ít nhất 1 khóa học',
-                        showCancelButton: true,
                     })
                     return false;
                 }

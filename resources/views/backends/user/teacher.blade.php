@@ -440,8 +440,7 @@
                 if(!check){
                     Swal.fire({
                         type: 'warning',
-                        text: 'Bạn phải chọn ít nhất 1 giảng viên',
-                        showCancelButton: true,
+                        text: 'Bạn phải chọn ít nhất 1 giảng viên.',
                     })
                     return false;
                 }
@@ -514,7 +513,6 @@
                     Swal.fire({
                         type: 'warning',
                         text: 'Bạn phải chọn ít nhất 1 giảng viên',
-                        showCancelButton: true,
                     })
                     return false;
                 }
@@ -587,7 +585,6 @@
                     Swal.fire({
                         type: 'warning',
                         text: 'Bạn phải chọn ít nhất 1 giảng viên',
-                        showCancelButton: true,
                     })
                     return false;
                 }

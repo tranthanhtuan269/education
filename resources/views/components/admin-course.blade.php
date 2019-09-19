@@ -8,9 +8,17 @@
 ?>
 <div class="col-sm-3" id="course-{{ $course->id }}">
     <div class="box-course">
-        <button class="btn btn-primary btn-unit-course" id="btn-unit-{{ $course->id }}"><i class="fas fa-bars"></i></button>
-        <button class="btn btn-primary btn-edit-course" id="btn-edit-{{ $course->id }}"><i class="fas fa-edit"></i></button>
-        <button class="btn btn-danger btn-remove-course" id="btn-remove-{{ $course->id }}"><i class="fas fa-trash"></i></button>
+        <button class="btn btn-primary btn-unit-course" id="btn-unit-{{ $course->id }}" title="Thêm bài giảng"><i class="fas fa-bars"></i></button>
+        <button class="btn btn-primary btn-edit-course" id="btn-edit-{{ $course->id }}" title="Sửa khóa học"><i class="fas fa-edit"></i></button>
+        @if ( $course->status == 1 )
+            <button class="btn btn-danger btn-remove-course" id="btnStop{{ $course->id }}" title="Ngừng bán khóa học"><i class="fas fa-stop"></i></button>
+        @else
+            @if ( $course->status == -1 )
+                <button class="btn btn-success btn-remove-course" id="btnContinue{{ $course->id }}" title="Tiếp tục bán khóa học"><i class="fas fa-play"></i></button>
+            @else
+                <button class="btn btn-warning btn-remove-course active" title="Khóa học đang được xử lý"><i class="fas fa-pause"></i></button>
+            @endif
+        @endif
         <div class="img-course">
             <img class="img-responsive"
                 src="{{ $image }}"
@@ -521,55 +529,124 @@
             $('#editCourse-{{ $course->id }}').modal('toggle')
         })
 
-        $('#btn-remove-{{ $course->id }}').click(function(){
+        $('#btnStop{{ $course->id }}').click(function(){
             var data = {
-                id: {{ $course->id }}
+                id: {{ $course->id }},
+                user_id: {{ Auth::user()->id }}
             };
-
-            $.ajax({
-                method: "DELETE",
-                url: "{{ url('user/courses/delete') }}",
-                data: data,
-                dataType: 'json',
-                beforeSend: function() {
-                    $("#pre_ajax_loading").show();
-                },
-                complete: function() {
-                    $("#pre_ajax_loading").hide();
-                },
-                success: function (response) {
-                    if(response.status == 200){
-                        Swal.fire({
-                            type: 'success',
-                            html: response.message,
-                            allowOutsideClick: false,
-                        }).then((result) => {
-                            if (result.value) {
-                                location.reload();
+            Swal.fire({
+                    type: 'warning',
+                    text: 'Bạn có chắc chắn muốn ngừng bán khóa học này không?',
+                    showCancelButton: true,
+                })
+            .then(function (result) {
+                if(result.value){
+                    $.ajax({
+                        method: "POST",
+                        url: "{{ url('user/courses/stop-sell') }}",
+                        data: data,
+                        dataType: 'json',
+                        beforeSend: function() {
+                            $("#pre_ajax_loading").show();
+                        },
+                        complete: function() {
+                            $("#pre_ajax_loading").hide();
+                        },
+                        success: function (response) {
+                            if(response.status == 200){
+                                Swal.fire({
+                                    type: 'success',
+                                    html: response.message,
+                                    allowOutsideClick: false,
+                                }).then((result) => {
+                                    if (result.value) {
+                                        location.reload();
+                                    }
+                                });
+                            }else{
+                                Swal.fire({
+                                    type: 'warning',
+                                    html: 'Lỗi',
+                                    allowOutsideClick: false,
+                                })
                             }
-                        });
-                    }else{
-                        Swal.fire({
-                            type: 'warning',
-                            html: 'Lỗi',
-                            allowOutsideClick: false,
-                        })
-                    }
-                },
-                error: function (error) {
-                    var obj_errors = error.responseJSON.errors;
-                    // console.log(obj_errors)
-                    var txt_errors = '';
-                    for (k of Object.keys(obj_errors)) {
-                        txt_errors += obj_errors[k][0] + '</br>';
-                    }
-                    Swal.fire({
-                        type: 'warning',
-                        html: txt_errors,
-                        allowOutsideClick: false,
+                        },
+                        error: function (error) {
+                            var obj_errors = error.responseJSON.errors;
+                            // console.log(obj_errors)
+                            var txt_errors = '';
+                            for (k of Object.keys(obj_errors)) {
+                                txt_errors += obj_errors[k][0] + '</br>';
+                            }
+                            Swal.fire({
+                                type: 'warning',
+                                html: txt_errors,
+                                allowOutsideClick: false,
+                            })
+                        }
                     })
                 }
-            });
+            })
+        })
+
+        $('#btnContinue{{ $course->id }}').click(function(){
+            var data = {
+                id: {{ $course->id }},
+                user_id: {{ Auth::user()->id }}
+            };
+            Swal.fire({
+                type: 'warning',
+                text: 'Bạn có chắc chắn muốn tiếp tục bán khóa học này không?',
+                showCancelButton: true,
+            })
+            .then(function (result) {
+                if(result.value){
+                    $.ajax({
+                        method: "POST",
+                        url: "{{ url('user/courses/continue-sell') }}",
+                        data: data,
+                        dataType: 'json',
+                        beforeSend: function() {
+                            $("#pre_ajax_loading").show();
+                        },
+                        complete: function() {
+                            $("#pre_ajax_loading").hide();
+                        },
+                        success: function (response) {
+                            if(response.status == 200){
+                                Swal.fire({
+                                    type: 'success',
+                                    html: response.message,
+                                    allowOutsideClick: false,
+                                }).then((result) => {
+                                    if (result.value) {
+                                        location.reload();
+                                    }
+                                });
+                            }else{
+                                Swal.fire({
+                                    type: 'warning',
+                                    html: 'Lỗi',
+                                    allowOutsideClick: false,
+                                })
+                            }
+                        },
+                        error: function (error) {
+                            var obj_errors = error.responseJSON.errors;
+                            // console.log(obj_errors)
+                            var txt_errors = '';
+                            for (k of Object.keys(obj_errors)) {
+                                txt_errors += obj_errors[k][0] + '</br>';
+                            }
+                            Swal.fire({
+                                type: 'warning',
+                                html: txt_errors,
+                                allowOutsideClick: false,
+                            })
+                        }
+                    })
+                }
+            })
         })
 
         $('#btn-unit-{{ $course->id }}').click(function(){
