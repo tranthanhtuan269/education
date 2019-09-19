@@ -64,17 +64,19 @@
 
         <div class="teacher-course">
             @if (Auth::check())
-                @if( (int)($course->userRoles[0]->user_id) == (int)(Auth::user()->id) )
-                    <button id="addCart{{ $course->id }}" class="btn btn-primary" disabled><b>ĐÂY LÀ KHÓA HỌC CỦA BẠN</b></button>
-                @else
-                    @if (in_array($course->id, $list_bought))
-                        <button id="addCart{{ $course->id }}" class="btn btn-primary" disabled><b>BẠN ĐÃ MUA KHÓA HỌC NÀY</b></button>
+                @if (!Auth::user()->isAdmin())
+                    @if( (int)($course->userRoles[0]->user_id) == (int)(Auth::user()->id) )
+                        <button id="addCart{{ $course->id }}" class="btn btn-primary" disabled><b>ĐÂY LÀ KHÓA HỌC CỦA BẠN</b></button>
                     @else
-                        <button id="addCart{{ $course->id }}" data-id="{{ $course->id }}" class="btn btn-primary"><b>THÊM VÀO GIỎ HÀNG</b></button>
-                    @endif
-                @endif     
+                        @if (in_array($course->id, $list_bought))
+                            <button id="addCart{{ $course->id }}" class="btn btn-primary" disabled><b>BẠN ĐÃ MUA KHÓA HỌC NÀY</b></button>
+                        @else
+                            <button id="addCart{{ $course->id }}" data-id="{{ $course->id }}" class="btn btn-primary"><b>THÊM VÀO GIỎ HÀNG</b></button>
+                        @endif
+                    @endif     
+                @endif
             @else
-            <button id="addCart{{ $course->id }}" data-id="{{ $course->id }}" class="btn btn-primary"><b>THÊM VÀO GIỎ HÀNG</b></button>
+                <button id="addCart{{ $course->id }}" data-id="{{ $course->id }}" class="btn btn-primary"><b>THÊM VÀO GIỎ HÀNG</b></button>
             @endif
         </div>
     </div>

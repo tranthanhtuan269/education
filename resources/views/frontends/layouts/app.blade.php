@@ -419,7 +419,13 @@
                             </div>
                             <div class="col-xs-4">
                                 <p><a href="/payment-guide">Hướng dẫn thanh toán</a></p>
-                                <p><a href="/become-teacher">Đăng ký giảng viên</a></p>
+                                @if (Auth::check())
+                                    @if ( !Auth::user()->isAdmin() && !Auth::user()->isTeacher())
+                                        <p><a href="/become-teacher">Đăng ký giảng viên</a></p>
+                                    @endif
+                                @else
+                                    <p><a href="/become-teacher">Đăng ký giảng viên</a></p>
+                                @endif
                                 <p><a href="/affiliate">Tiếp thị liên kết</a></p>
                             </div>
                         </div>
