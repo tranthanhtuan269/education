@@ -25,23 +25,35 @@
         </ul>
         <?php 
             $will_learn = $course->will_learn;
-            if(count(explode("</li>", $will_learn)) > 3){
-                $will_learn = explode("</li>", $will_learn);
-                $will_learn = $will_learn[0]."</li>".$will_learn[1]."</li>".$will_learn[2]."</li>".$will_learn[3]."<li>...</li>";
+            $will_learn = str_replace('<li>','<br>',$will_learn);
+            $will_learn = str_replace('<p>','<br>',$will_learn);
+            $will_learn = explode("<br>", $will_learn);
+            $counter_w = count($will_learn);
+            for( $i = 0 ; $i < $counter_w ; $i++){
+                $will_learn[$i] = trim($will_learn[$i]);
+                $will_learn[$i] = strip_tags($will_learn[$i]);
             }
+            $will_learn = array_filter($will_learn);
+            $number_w = 0;
         ?>
         <div class="clearfix course-des-{{$course->id}}">
             <div class="row">
                 <div class="col-sm-12 big-des">
-                    {!! $will_learn !!}
+                    <ul style="list-style: none">
+                        @for( $i = 0 ; $i < $counter_w ; $i++)
+                            @if(isset($will_learn[$i]))
+                                <li><span><i class="fa fa-chevron-right fa-fw" aria-hidden="true"></i></span>{!!$will_learn[$i]!!}</li>
+                                <?php $number_w++ ?>
+                                @if( $number_w == 4 )
+                                    <li><span><i class="fa fa-chevron-right fa-fw" aria-hidden="true"></i></span>...</li>
+                                    @break
+                                @endif
+                            @endif
+                        @endfor
+                    </ul>
                 </div>
             </div>
         </div>
-        <script>
-            $(document).ready(function (){
-                $('.course-des-{{$course->id}} .row li').prepend('<i class="fa fa-chevron-right fa-fw" aria-hidden="true"></i>')
-            })
-        </script>
     </div>
     <div class="lp-bc-price">
         <p class="price-b">{!! number_format($course->price, 0, ',' , '.') !!}<sup>₫</sup></p>
