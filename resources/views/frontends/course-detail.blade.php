@@ -1107,10 +1107,11 @@
             var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
 
             $.each( number_items_in_cart, function(i, obj) {
-                $('.btn-add-cart button[data-id='+obj.id+']').remove();
-                $('.interactive-bar[data-i='+obj.id+']').remove();
+                $('.btn-buy-now button[data-id='+obj.id+']').remove()
+                $('.btn-add-cart button[data-id='+obj.id+']').remove()
+                $('.interactive-bar[data-i='+obj.id+']').remove()
 
-                $('.sidebar-add-cart button[id='+obj.id+']').html('<b>Đã thêm vào giỏ hàng</b>');
+                $('.sidebar-add-cart button[id='+obj.id+']').html('<b>Đã thêm vào giỏ hàng</b>')
                 $('.sidebar-add-cart button[id='+obj.id+']').attr('disabled', true)
                 
             });
