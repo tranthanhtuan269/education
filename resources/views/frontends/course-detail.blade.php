@@ -60,7 +60,9 @@
                                         {{-- <span class="interval">Còn {{ $date_to->diff($date_from)->format("%d") }} ngày tại mức giá này </span> --}}
                                     </div>
                                     <div class="col-sm-6">
+                                        @if( $info_course->price != 0 && $info_course->real_price != 0 )
                                         <span class="percent-price-off pull-right">Tiết kiệm {{ (int)(100 - ($info_course->price/$info_course->real_price)*100) }}%</span>
+                                        @endif
                                     </div>
                                     @else
                                     <div class="col-sm-6 pull-left">
@@ -127,23 +129,25 @@
                                 </div>
                                 @if (Auth::check())
                                     @if (!Auth::user()->isAdmin())
-                                        @if( (int)($info_course->userRoles[0]->user_id) != (int)(Auth::user()->id) )
-                                            @if (!in_array($info_course->id, $list_bought))
-                                            <div class="box clearfix">
-                                                <div class="btn-add-cart">
-                                                    <button type="button" id="add-cart" data-id="{{ $info_course->id }}" class="btn btn-primary btn-toh"><b>Thêm vào giỏ hàng</b></button>
+                                        @if(isset($course->userRoles[0]->user_id))
+                                            @if( (int)($info_course->userRoles[0]->user_id) != (int)(Auth::user()->id) )
+                                                @if (!in_array($info_course->id, $list_bought))
+                                                <div class="box clearfix">
+                                                    <div class="btn-add-cart">
+                                                        <button type="button" id="add-cart" data-id="{{ $info_course->id }}" class="btn btn-primary btn-toh"><b>Thêm vào giỏ hàng</b></button>
+                                                    </div>
+                                                    <div class="btn-buy-now">
+                                                        <button type="button" id="buy-now" data-id="{{ $info_course->id }}" class="btn btn-warning btn-toh"><b>Mua ngay</b></button>
+                                                    </div>
                                                 </div>
-                                                <div class="btn-buy-now">
-                                                    <button type="button" id="buy-now" data-id="{{ $info_course->id }}" class="btn btn-warning btn-toh"><b>Mua ngay</b></button>
+                                                <div class="box clearfix">
+                                                    <div class="pull-left money-back">
+                                                        (Hoàn tiền trong 30 ngày nếu không hài lòng)
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="box clearfix">
-                                                <div class="pull-left money-back">
-                                                    (Hoàn tiền trong 30 ngày nếu không hài lòng)
-                                                </div>
-                                            </div>
-                                            @endif
-                                        @endif                                    
+                                                @endif
+                                            @endif   
+                                        @endif                                 
                                     @endif
                                 @else
                                     <div class="box clearfix">
@@ -308,22 +312,33 @@
                                         ?>
                                         @if ($check_time_sale == true || $info_course->price != $info_course->real_price)                                        
                                         <div class="col-sm-6 pull-left">
-                                            <span class="sale">{!! number_format($info_course->price, 0, ',' , '.') !!}đ</span>
+                                            @if ( gettype($info_course->price) == 'integer' )
+                                                <span class="sale">{!! number_format($info_course->price, 0, ',' , '.') !!}đ</span>
+                                            @else
+                                                <span class="sale">{!! $info_course->price !!}</span>
+                                            @endif
                                             <span class="price">{!! number_format($info_course->real_price, 0, ',' , '.') !!}đ</span>
                                             {{-- <span class="interval">Còn {{ $date_to->diff($date_from)->format("%d") }} ngày tại mức giá này </span> --}}
                                         </div>
                                         <div class="col-sm-6">
+                                            @if( $info_course->price != 0 && $info_course->real_price != 0 )
                                             <span class="percent-price-off pull-right">-{{ (int)(100 - ($info_course->price/$info_course->real_price)*100) }}%</span>
+                                            @endif
                                         </div>
                                         @else
                                         <div class="col-sm-6 pull-left">
-                                            <span class="sale">{!! number_format($info_course->price, 0, ',' , '.') !!}đ</span>
+                                            @if ( gettype($info_course->price) == 'integer' )
+                                                <span class="sale">{!! number_format($info_course->price, 0, ',' , '.') !!}đ</span>
+                                            @else
+                                                <span class="sale">{!! $info_course->price !!}</span>
+                                            @endif
                                         </div>
                                         @endif
                                     </div>
                                     <div class="button-class clearfix">
                                         @if (Auth::check())
                                             @if (!Auth::user()->isAdmin())
+                                            @if(isset($course->userRoles[0]->user_id))
                                                 @if( (int)($info_course->userRoles[0]->user_id) == (int)(Auth::user()->id) )
                                                     <div class="sidebar-add-cart">
                                                         <button type="button" id="add-cart2" class="btn btn-primary button-add-to-cart" disabled><b>Đây là khóa học của bạn</b></button>
@@ -348,6 +363,7 @@
                                                         </div>
                                                     @endif
                                                 @endif
+                                            @endif
                                             @endif
                                         @else
                                             <div class="sidebar-add-cart">
@@ -574,6 +590,7 @@
                 <h3>Đánh giá khóa học
                     {{-- @if(Auth::check()) --}}
                         @if(\App\Helper\Helper::getUserRoleOfCourse($info_course->id))
+                        @if(isset($course->userRoles[0]->user_id))
                             @if( (int)($info_course->userRoles[0]->user_id) != (int)(Auth::user()->id) )
                                 <span class="reviews-star" data-star="{{ isset($ratingCourse) ? $ratingCourse->score : 0 }}">
                                     @if($ratingCourse)
@@ -593,12 +610,14 @@
                                 </span>
                             @endif
                         @endif
+                        @endif
                     {{-- @else
                     Đăng nhập để xem nhận xét của các học viên khác
                     @endif --}}
                 </h3>
                 {{-- @if(Auth::check()) --}}
                 @if(\App\Helper\Helper::getUserRoleOfCourse($info_course->id))
+                @if(isset($course->userRoles[0]->user_id))
                     @if( (int)($info_course->userRoles[0]->user_id) != (int)(Auth::user()->id) )
                         <textarea name="content" id="editor" class="form-control" placeholder="Nội dung"></textarea>
                         <div class="btn-submit text-center mt-10 mb-20">
@@ -761,6 +780,7 @@
                         </script>
                     @endif
                 @endif
+                @endif
                 {{-- @else
                 <h4>Đăng nhập để xem đánh giá</h4>
                 @endif --}}
@@ -790,6 +810,7 @@
         </div>
     </div>
     @if (Auth::check())
+    @if(isset($course->userRoles[0]->user_id))
         @if( (int)($info_course->userRoles[0]->user_id) != (int)(Auth::user()->id) )
             <div class="interactive-bar" data-i="{{ $info_course->id }}">
                 <div class="row">
@@ -816,6 +837,7 @@
                 </div>
             </div>
         @endif
+    @endif
     @else
         <div class="interactive-bar" data-i="{{ $info_course->id }}">
             <div class="row">

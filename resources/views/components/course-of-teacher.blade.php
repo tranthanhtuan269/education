@@ -3,8 +3,6 @@
     if(Auth::check() && strlen(Auth::user()->bought) > 0){
         $list_bought = \json_decode(Auth::user()->bought);
     }
-    // dd($course->userRoles[0]->user_id)
-    // dd(Auth::user()->id)
 ?>
 
 <div class="ubc-course">
@@ -56,7 +54,13 @@
         </div>
     </div>
     <div class="lp-bc-price">
-        <p class="price-b" style="float:none">{!! number_format($course->price, 0, ',' , '.') !!}<sup>₫</sup></p>
+        <p class="price-b" style="float:none">
+            @if ( gettype($course->price) == 'integer' )
+                {!! number_format($course->price, 0, ',' , '.') !!}<sup>₫</sup>
+            @else
+                {!!$course->price!!}
+            @endif
+        </p>
         @if($course->real_price != $course->price && $course->real_price != 0)
         <p class="price-s">{!! number_format($course->real_price, 0, ',' , '.') !!}<sup>₫</sup></p>
         <p class="price-o">Tiết kiệm {{(int)(100 - ($course->price/$course->real_price)*100)}}%</p>
