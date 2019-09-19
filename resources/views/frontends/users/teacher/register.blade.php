@@ -97,7 +97,7 @@
                                             <div class="form-group">
                                                 <label>Địa chỉ</label>
                                                 <div class="form-group">
-                                                    <textarea class="form-control" rows="4" cols="50" name="address">{{ Auth::check() ? Auth::user()->address : '' }}</textarea>
+                                                    <textarea class="form-control" rows="2" cols="50" name="address">{{ Auth::check() ? Auth::user()->address : '' }}</textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -105,7 +105,8 @@
                                             <div class="form-group">
                                                 <label>Chuyên môn</label>
                                                 <div class="form-group">
-                                                    <textarea class="form-control" rows="3" cols="50" name="expert"></textarea>
+                                                    <input type="text" class="form-control" name="expert" value="">
+                                                    <p id="boxCharacterCount">Số ký tự: <b><span id="count-character">0</span>/55</b>. (Tối đa 55 ký tự)</p>
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -114,16 +115,6 @@
                                                     <script src="https://cdn.ckeditor.com/ckeditor5/12.1.0/classic/ckeditor.js"></script>
                                                     <textarea id="editor-cv" class="form-control textarea-cv" rows="6" cols="50" name="cv"></textarea>
                                                     <p>Số từ: <b><span id="wordCount">0</span>/700</b> từ. (Tối thiểu 30 từ, tối đa 700 từ)</p>
-                                                    <!-- <script>
-                                                        ClassicEditor
-                                                            .create( document.querySelector( '#editor-cv' ) )
-                                                            .then( editor => {
-                                                                cv = editor;
-                                                            } )
-                                                            .catch( error => {
-                                                                console.error( error );
-                                                            } );
-                                                    </script> -->
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -165,7 +156,7 @@
                     var regex = /\s+/gi;
                     wordCount = value.trim().replace(regex, ' ').split(' ').length;
 
-                    if(wordCount > 30 && wordCount < 700) {
+                    if(wordCount >= 30 && wordCount <= 700) {
                         $('#wordCount').css("color", "green");
                     }else{
                         $('#wordCount').css("color", "red");
@@ -215,6 +206,13 @@
                     })
                     return false;
                 }
+            }
+            if($("input[name=expert]").val().length > 55){
+                Swal.fire({
+                    type: 'warning',
+                    html: 'Số ký tự của "Chuyên môn" quá dài!',
+                })
+                return false;
             }
             var url = $('#YoutubeUrl').val();
             if (url != undefined || url != '') {       
@@ -422,6 +420,19 @@
                 document.getElementById("warningVideoIntro").innerHTML = "Link video sai. Yêu cầu nhập lại!";
             }
         }
+    });
+    function characterCount(){
+        var characterCount = $("input[name=expert]").val().length;
+        $('#count-character').html(characterCount);
+        if(characterCount > 0 && characterCount <= 55){
+            $('#count-character').css("color","green");
+        }else{
+            $('#count-character').css("color","red");
+        }
+    }
+    // characterCount();
+    $("input[name=expert]").keyup(function(){
+        characterCount();
     });
 </script>
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.css">
