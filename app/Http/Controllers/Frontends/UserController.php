@@ -318,11 +318,11 @@ class UserController extends Controller
                 return $sender->name;
             })
             ->addColumn('title', function ($email) {
-                $wanted_email = Email::find($email->email_id);
+                $wanted_email = Email::withTrashed()->find($email->email_id);
                 return $wanted_email->title;
             })
             ->addColumn('content', function ($email) {
-                $wanted_email = Email::find($email->email_id);
+                $wanted_email = Email::withTrashed()->find($email->email_id);
                 return $wanted_email->content;
             })
             ->addColumn('user_email_id', function ($email) {
@@ -347,7 +347,7 @@ class UserController extends Controller
         if(isset($user) && isset($request->user_email_id)){
             $email_id = $request->email_id;
             $user_email_instance = UserEmail::find($request->user_email_id);
-            $email_template = Email::find($user_email_instance->email_id);
+            $email_template = Email::withTrashed()->find($user_email_instance->email_id);
             $email_html = ( new CustomMail($user, $email_template) )->render();
 
             $user_email_instance->viewed = 1;

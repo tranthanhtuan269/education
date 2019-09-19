@@ -75,12 +75,12 @@
     <div class="modal fade" id="createEmailModal" tabindex="-1">
         <div class="modal-content" >
             <div class="modal-header">
-                <h3>Create Email</h3>
+                <h3>Tạo email</h3>
             </div>
             @if (Helper::checkPermissions('users.email', $list_roles)) 
             <div class="modal-body">
                     <div class="form-group row">
-                        <label  class="col-sm-1 col-form-label">Subject <span class="text-danger">*</span></label>
+                        <label  class="col-sm-1 col-form-label">Chủ đề <span class="text-danger">*</span></label>
                         <div class="col-sm-11">
                             <input type="text" class="form-control" id="subject_Ins" name="subject"  value="{{ Request::old('subject') }}">
                             <div class="alert-errors d-none" role="alert" id="subjectIns">
@@ -89,7 +89,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label  class="col-sm-1 col-form-label">Content <span class="text-danger">*</span></label>
+                        <label  class="col-sm-1 col-form-label">Nội dung <span class="text-danger">*</span></label>
                         <div class="col-sm-11">
                             <textarea id="content_Ins" class="form-control" name="content">{{ Request::old('content') }}</textarea>
                             <div class="alert-errors d-none" role="alert" id="contentIns">
@@ -126,12 +126,12 @@
     <div class="modal fade" id="editEmailModal" tabindex="-1">
         <div class="modal-content" >
             <div class="modal-header">
-                <h3>Edit Email</h3>
+                <h3>Sửa email</h3>
             </div>
             @if (Helper::checkPermissions('users.email', $list_roles)) 
             <div class="modal-body">
                     <div class="form-group row">
-                        <label  class="col-sm-1 col-form-label">Subject <span class="text-danger">*</span></label>
+                        <label  class="col-sm-1 col-form-label">Chủ đề <span class="text-danger">*</span></label>
                         <div class="col-sm-11">
                             <input type="text" class="form-control" id="edit_subject_Ins" name="subject"  value="{{ Request::old('subject') }}">
                             <div class="alert-errors d-none" role="alert" id="edit_subjectIns">
@@ -140,7 +140,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label  class="col-sm-1 col-form-label">Content <span class="text-danger">*</span></label>
+                        <label  class="col-sm-1 col-form-label">Nội dung <span class="text-danger">*</span></label>
                         <div class="col-sm-11">
                             <textarea id="edit_content_Ins" class="form-control" name="content">{{ Request::old('content') }}</textarea>
                             <div class="alert-errors d-none" role="alert" id="edit_contentIns">
@@ -362,10 +362,14 @@
             $('.btn-delete').click(function(){
                 var _self   = $(this);
                 var id      = $(this).attr('data-id');
-                $.ajsrConfirm({
-                    message: "Bạn có chắc chắn muốn xóa ?",
-                    okButton: "Đồng ý",
-                    onConfirm: function() {
+                Swal.fire({
+                    type: 'warning',
+                    text: 'Bạn có chắc chắn muốn xoá?',
+                    confirmButtonText: 'Đồng ý',
+                    showCancelButton: true,
+                    cancelButtonText: 'Huỷ'
+                }).then( result => {
+                    if(result.value){
                         $.ajaxSetup({
                             headers: {
                               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -404,59 +408,73 @@
                                 }
                             }
                         });
-                    },
-                    nineCorners: false,
-                });
+                    }
+                })
             });
             
             $('#deleteAllApplied').off('click')
             $('#deleteAllApplied').click(function (){
-                Swal.fire({
-                    type: 'warning',
-                    text: 'Are you sure?',
-                    showCancelButton: true,
-                })
-                .then(function (result) {
-                    if(result.value){
-                        var email_id_list = []
-                        $.each($('.check-user'), function (key, value){
-                            if($(this).prop('checked') == true) {
-                                // id_list += $(this).attr("data-column") + ',';
-                                email_id_list.push($(this).attr("data-column"))
-                            }
-                        });
-                        console.log(email_id_list);
-                        if(email_id_list.length > 0){
-                            $.ajaxSetup({
-                                headers: {
-                                    'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
+                let isChecked = false;
+                $.each($('.check-user'), function (key, value){
+                    if($(this).prop('checked') == true) {
+                        return isChecked = true;                        
+                    }else{
+                        return Swal.fire({
+                            type: 'info',
+                            text: 'Bạn chưa chọn tài khoản nào!'
+                        })
+                    }
+                });
+
+                if(isChecked){
+                    Swal.fire({
+                        type: 'warning',
+                        text: 'Bạn có chắc chắn xoá các email đã chọn?',
+                        showCancelButton: true,
+                    })
+                    .then(function (result) {
+                        if(result.value){
+                            var email_id_list = []
+                            $.each($('.check-user'), function (key, value){
+                                if($(this).prop('checked') == true) {
+                                    // id_list += $(this).attr("data-column") + ',';
+                                    email_id_list.push($(this).attr("data-column"))
                                 }
                             });
-                            $.ajax({
-                                method: "GET",
-                                url: baseURL+"/admincp/users/delete-multiple-emails",
-                                data: {
-                                    email_id_list: email_id_list
-                                },
-                                dataType: 'json',
-                                success: function (response) {
-                                    Swal.fire({
-                                        type: 'success',
-                                        text: response.message
-                                    })
-                                    dataTable.ajax.reload(); 
-                                },
-                                error: function (response) {
-                                    Swal.fire({
-                                        type: 'warning',
-                                        text: response.message
-                                    })
-                                }
-                            })
+                            console.log(email_id_list);
+                            if(email_id_list.length > 0){
+                                $.ajaxSetup({
+                                    headers: {
+                                        'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
+                                    }
+                                });
+                                $.ajax({
+                                    method: "GET",
+                                    url: baseURL+"/admincp/users/delete-multiple-emails",
+                                    data: {
+                                        email_id_list: email_id_list
+                                    },
+                                    dataType: 'json',
+                                    success: function (response) {
+                                        Swal.fire({
+                                            type: 'success',
+                                            text: response.message
+                                        })
+                                        dataTable.ajax.reload(); 
+                                    },
+                                    error: function (response) {
+                                        Swal.fire({
+                                            type: 'warning',
+                                            text: response.message
+                                        })
+                                    }
+                                })
+                            }
+                            
                         }
-                        
-                    }
-                })
+                    })
+                }
+
             })
         }
 

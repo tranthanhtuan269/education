@@ -92,7 +92,7 @@ class AppServiceProvider extends ServiceProvider
     
                 $video = Video::find($video_id);
                 if($video){
-                    $video->status = 3;
+                    $video->state = 1;
                     $video->save();
                     // DuongNT // thêm 1 video vào lượng đã xem vào bảng user_courses
                     $unit = $video->unit;

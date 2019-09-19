@@ -122,9 +122,9 @@ class EmailController extends Controller
         if($email){
             $email->delete();
 
-            return response()->json(array('status' => '200', 'message' => 'Email is deleted!'));
+            return response()->json(array('status' => '200', 'message' => 'Email đã bị xoá!'));
         }else{
-            return response()->json(array('status'=> '404', 'message' => 'Email not found'));
+            return response()->json(array('status'=> '404', 'message' => 'Không tìm thấy email'));
         }     
     }
 
@@ -140,13 +140,13 @@ class EmailController extends Controller
         // check if emails exist
         foreach ($email_id_list as $key => $email_id) {
             if(!Email::find($email_id)){
-                return response()->json(array('status' => '400', 'message' => 'There was a problem while looking for emails'));
+                return response()->json(array('status' => '400', 'message' => 'Có email không được tìm thấy'));
             }
         }
 
         \DB::table('emails')->whereIn('id', $email_id_list)->delete();
 
-        return response()->json(array('status' => '200', 'message' => 'Emails are deleted!'));
+        return response()->json(array('status' => '200', 'message' => 'Các email đã bị xoá!'));
     }
 
     public function sendEmail(Request $request){
@@ -165,12 +165,12 @@ class EmailController extends Controller
         if(Mail::failures()){
             return Response::json([
                 'status'  => '404',
-                'message' => 'There was a problem!'
+                'message' => 'Không gửi được email!'
             ]);
         }
         return Response::json([
             'status'  => '200',
-            'message' => "Email is sent successfully!"
+            'message' => "Gửi thành công!"
         ]);
     }
 
@@ -182,7 +182,7 @@ class EmailController extends Controller
             if(!User::find($user_id)){
                 return response()->json([
                     'status' => '400', 
-                    'message' => 'There was a problem while looking for users'
+                    'message' => 'Không tìm thấy id người nhận'
                 ]);
             }
         }
@@ -201,7 +201,7 @@ class EmailController extends Controller
             if(Mail::failures()){
                 return Response::json([
                     'status'  => '404',
-                    'message' => 'There was a problem!'
+                    'message' => 'Có vấn đề!'
                 ]);
             }
 
@@ -209,7 +209,7 @@ class EmailController extends Controller
 
         return Response::json([
             'status'  => '200',
-            'message' => "Emails are sent successfully!"
+            'message' => "Gửi thành công!"
         ]);
     }
 }
