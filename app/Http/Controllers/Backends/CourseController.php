@@ -157,15 +157,34 @@ class CourseController extends Controller
     {
         if($request->id){
             $course = Course::find($request->id);
-            if($course){
-                $course->status = -1;
-                $course->save();
-
-                return response()->json(array('status' => '200', 'message' => 'Xóa khóa học thành công!'));
+            $teacher_course = $course->userRoles()->first()->user->id;
+            if( $course && $teacher_course ){
+                if( $teacher_course == $request->user_id ){
+                    $course->status = -1;
+                    $course->save();
+                    return response()->json(array('status' => '200', 'message' => 'Khóa học của bạn đã được ngừng bán.'));
+                }
             }     
         }
-        return response()->json(array('status'=> '404', 'message' => 'Không tìm thấy khóa học!'));
-        
+        return response()->json(array('status'=> '404', 'message' => 'Thao tác không thành công.'));
+    }
+
+    public function continueSell(Request $request)
+    {
+        if($request->id){
+            $course = Course::find($request->id);
+            $teacher_course = $course->userRoles()->first()->user->id;
+            if( $course && $teacher_course ){
+                if( $teacher_course == $request->user_id ){
+                    if ( $course->status == -1 ){
+                        $course->status = 1;
+                        $course->save();
+                        return response()->json(array('status' => '200', 'message' => 'Khóa học của bạn đã được tiếp tục bán.'));
+                    }
+                }
+            }     
+        }
+        return response()->json(array('status'=> '404', 'message' => 'Thao tác không thành công.'));
     }
 
     // Course

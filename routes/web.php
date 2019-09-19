@@ -289,7 +289,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::group(['prefix' => 'courses'],function () {
             Route::post('store', 'Backends\CourseController@store');
             Route::put('{id}/update', 'Backends\CourseController@update');
-            Route::delete('delete', 'Backends\CourseController@destroy');
+            Route::post('stop-sell', 'Backends\CourseController@destroy');
+            Route::post('continue-sell', 'Backends\CourseController@continueSell');
         });
 
         Route::group(['prefix' => 'units'],function () {
