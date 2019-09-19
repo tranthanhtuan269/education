@@ -8,8 +8,8 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                    <p>Đăng ký làm giảng viên</p>
-                    <br><br>
+                <p>Đăng ký làm giảng viên</p>
+                <br><br>
             </div>
         </div>
     </div>

@@ -249,7 +249,7 @@ class UserController extends Controller
                 $teacher->video_intro = $request->video_intro;
                 $teacher->save();
     
-                return \Response::json(['message' => 'Đăng ký giảng viên thành công!', 'status' => 200]);
+                return \Response::json(['message' => 'Đăng ký giảng viên thành công! Hồ sơ của bạn đang được xét duyệt.', 'status' => 200]);
             }
 
             return \Response::json(['message' => 'Bạn đang là giảng viên!', 'status' => 404]);

@@ -1,6 +1,6 @@
 
 @if( Auth::check() )
-@if( !Auth::user()->notOnlyStudent() && !Auth::user()->isAdmin() )
+@if( !Auth::user()->registeredTeacher() && !Auth::user()->isAdmin() )
 <div class="become-teacher">
     <div class="container">
         <div class="row">
