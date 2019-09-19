@@ -56,7 +56,7 @@
         </div>
     </div>
     <div class="lp-bc-price">
-        <p class="price-b">{!! number_format($course->price, 0, ',' , '.') !!}<sup>₫</sup></p>
+        <p class="price-b" style="float:none">{!! number_format($course->price, 0, ',' , '.') !!}<sup>₫</sup></p>
         @if($course->real_price != $course->price && $course->real_price != 0)
         <p class="price-s">{!! number_format($course->real_price, 0, ',' , '.') !!}<sup>₫</sup></p>
         <p class="price-o">Tiết kiệm {{(int)(100 - ($course->price/$course->real_price)*100)}}%</p>
