@@ -6,6 +6,8 @@
 <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.16/api/fnReloadAjax.js"></script>
 <!-- Include the plugin's CSS and JS: -->
 <script type="text/javascript" src="{{ url('/') }}/backend/js/bootstrap-multiselect.js"></script>
+
+<script src="https://cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script>
 <link rel="stylesheet" href="{{ url('/') }}/backend/css/bootstrap-multiselect.css" type="text/css"/>
 
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -103,7 +105,8 @@
                 <div class="col-sm-8">
                     <select id="role-list-ins-edit" multiple="multiple">
                         @foreach ($roles as $role)
-                            <option disabled value="{{ $role->id }}">{{ $role->name }}ss</option>
+                            <option value="{{ $role->id }}">{{ $role->name }}</option>                            
+                            
                         @endforeach
                     </select>
                     <script>
@@ -124,69 +127,89 @@
     </div>
 
     <div id="add_user_modal" class="modal fade" role="dialog">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title font-weight-600">Thêm tài khoản</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title font-weight-600">Thêm tài khoản</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#tab_add_admin" data-toggle="tab" aria-expanded="true">Thêm người quản trị</a></li>
+                            <li class=""><a href="#tab_add_teacher" data-toggle="tab" aria-expanded="false">Thêm Giảng viên</a></li>
+                            <li class=""><a href="#tab_add_student" data-toggle="tab" aria-expanded="false">Thêm Học Viên</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tab_add_admin">
+                                    <div class="form-group row">
+                                        <label  class="col-sm-4 col-form-label">Tên <span class="text-danger">*</span></label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="userName_Ins" name="name"  value="{{ Request::old('name') }}">
+                                            <div class="alert-errors d-none" role="alert" id="nameErrorIns">
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="userEmail_upd" class="col-sm-4 col-form-label">Email <span class="text-danger">*</span></label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="email_Ins" name="email"  value="{{ Request::old('email') }}">
+                                            <div class="alert-errors d-none" role="alert" id="emailErrorIns">
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="userPassword" class="col-sm-4 col-form-label">Mật khẩu <span class="text-danger">*</span></label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="password_Ins" name="password" value="{{ Request::old('password') }}">
+                                            <div class="alert-errors d-none" role="alert" id="passwordErrorIns">
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="passConfirm" class="col-sm-4 col-form-label">Nhập lại mật khẩu <span class="text-danger">*</span></label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="confirmpassword_Ins" name="confirmpassword" value="{{ Request::old('confirmpassword') }}">
+                                            <div class="alert-errors d-none" role="alert" id="confirmpasswordErrorIns"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="userEmail_upd" class="col-sm-4 col-form-label">Vai trò <span class="text-danger">*</span></label>
+                                        <div class="col-sm-8">
+                                            <select id="role-list-ins" multiple="multiple">
+                                                @foreach ($roles as $role)
+                                                    @if ($role->id != 2 && $role->id != 3)
+                                                    <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
+                                            <div class="alert-errors d-none" role="alert" id="role_idErrorIns"></div>
+                                        </div>
+                                    </div> 
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary" id="createUser">Thêm mới</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeCreateUser">Hủy bỏ</button>
+                                    </div>        
+                            </div>
 
-           <!--  {!! Form::open(['url' => 'user']) !!} -->
-            <div class="form-group row">
-                <label  class="col-sm-4 col-form-label">Tên <span class="text-danger">*</span></label>
-                <div class="col-sm-8">
-                    <input type="text" class="form-control" id="userName_Ins" name="name"  value="{{ Request::old('name') }}">
-                    <div class="alert-errors d-none" role="alert" id="nameErrorIns">
-                        
+                            <!-- /.tab-pane -->
+                            @include('backends.user.modals.add-teacher-modal')
+                            <!-- /.tab-pane -->
+                            @include('backends.user.modals.add-student-modal')                            
+                        <!-- /.tab-pane -->
+                        </div>
+                    <!-- /.tab-content -->
                     </div>
-                </div>
+                </div>             
+
             </div>
-            <div class="form-group row">
-                <label for="userEmail_upd" class="col-sm-4 col-form-label">Email <span class="text-danger">*</span></label>
-                <div class="col-sm-8">
-                    <input type="text" class="form-control" id="email_Ins" name="email"  value="{{ Request::old('email') }}">
-                    <div class="alert-errors d-none" role="alert" id="emailErrorIns">
-                        
-                    </div>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="userPassword" class="col-sm-4 col-form-label">Mật khẩu <span class="text-danger">*</span></label>
-                <div class="col-sm-8">
-                    <input type="text" class="form-control" id="password_Ins" name="password" value="{{ Request::old('password') }}">
-                    <div class="alert-errors d-none" role="alert" id="passwordErrorIns">
-                        
-                    </div>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="passConfirm" class="col-sm-4 col-form-label">Nhập lại mật khẩu <span class="text-danger">*</span></label>
-                <div class="col-sm-8">
-                    <input type="text" class="form-control" id="confirmpassword_Ins" name="confirmpassword" value="{{ Request::old('confirmpassword') }}">
-                    <div class="alert-errors d-none" role="alert" id="confirmpasswordErrorIns"></div>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="userEmail_upd" class="col-sm-4 col-form-label">Vai trò <span class="text-danger">*</span></label>
-                <div class="col-sm-8">
-                    <select id="role-list-ins" multiple="multiple">
-                        @foreach ($roles as $role)
-                            <option value="{{ $role->id }}">{{ $role->name }}</option>
-                        @endforeach
-                    </select>
-                    <div class="alert-errors d-none" role="alert" id="role_idErrorIns"></div>
-                </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" id="createUser">Thêm mới</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeCreateUser">Hủy bỏ</button>
-          </div>
+            
         </div>
-      </div>
     </div>
 
     <div class="modal fade" tabindex="-1" role="dialog" id="sendEmailModal">
@@ -376,9 +399,11 @@
             numberDisplayed: 2,
             enableClickableOptGroups: true,
             onInitialized: function(select, container) {
-                var studentInput = $(container).find('input[value="3"]') // không cho chỉnh sửa student
+                var studentInput = $(container).find('input[value="3"]')// không cho chỉnh sửa student
+                var teacherInput = $(container).find('input[value="2"]') // không cho chỉnh sửa teacher
                 studentInput.prop('disabled', true)
-                studentInput.prop('checked', true)                            
+                teacherInput.prop('disabled', true)
+                
             },
             onChange: function(element, checked){
                 const role_id = element.attr('value')
@@ -983,70 +1008,6 @@
                     }
                 })
             }
-
-
-            // $.ajsrConfirm({
-            //     // message: "Bạn có chắc chắn muốn xóa ?",
-            //     // okButton: "Đồng ý",
-            //     onConfirm: function() {
-            //         var $id_list = '';
-            //         $.each($('.check-user'), function (key, value){
-            //             if($(this).prop('checked') == true) {
-            //                 $id_list += $(this).attr("data-column") + ',';
-            //             }
-            //         });
-
-            //         if ($id_list.length > 0) {
-            //             var data = {
-            //                 id_list:$id_list,
-            //                 _method:'delete'
-            //             };
-            //             $.ajaxSetup({
-            //                 headers: {
-            //                     'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
-            //                 }
-            //             });
-            //             $.ajax({
-            //                 type: "POST",
-            //                 url: "{{ url('/') }}/admincp/users/delMultiUser",
-            //                 data: data,
-            //                 success: function (response) {
-            //                     var obj = $.parseJSON(response);
-            //                     if(obj.status == 200){
-            //                         $.each($('.check-user'), function (key, value){
-            //                             if($(this).prop('checked') == true) {
-            //                                 $(this).parent().parent().hide("slow");
-            //                             }
-            //                         });
-            //                         dataTable.ajax.reload(); 
-            //                         Swal.fire({
-            //                             type: 'success',
-            //                             text: obj.Message
-            //                         })
-            //                     }
-            //                 },
-            //                 error: function (data) {
-            //                     if(data.status == 401){
-            //                         window.location.replace(baseURL);
-            //                     }else{
-            //                         Swal.fire({
-            //                             type: 'wa',
-            //                             text: errorConnect
-            //                         })
-            //                     }
-            //                 }
-            //             });
-                        
-            //         }else{
-            //             Swal.fire({
-            //                 type: 'warning',
-            //                 text: 'Cần chọn ít nhất 1 tài khoản!'
-            //             })
-            //         }
-            //     },
-            //     nineCorners: false,
-            // });
-
         });
 
         $('#createUser').click(function(){
