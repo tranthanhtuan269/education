@@ -165,8 +165,6 @@ $(document).ready(function() {
                         text: 'Vui lòng chọn file ảnh!'
                     })
                 return;
-            } else {
-                $('.ajax_waiting').addClass("loading");
             }
         }else{
             Swal.fire({
