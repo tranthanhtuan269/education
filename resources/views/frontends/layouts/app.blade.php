@@ -104,22 +104,18 @@
                             <nav id="mysidebarmenu" class="amazonmenu">
                                 <ul>
                                     @foreach($category_fixed as $cat)
+                                    @if(count($cat->childrenHavingCourse) > 0)
                                         <li>
                                             <a title="{!! $cat->name !!}" href="javascript:void(0)"><i class="fas {!! $cat->icon !!}"></i> {!! $cat->name !!}</a>
                                             <ul class="issub">
-                                                {{-- <li><a href="{{ url('/') }}/category/{{ $cat->slug }}"><strong>All {!! $cat->name !!}</strong></a></li> --}}
-                                                @if(count($cat->childrenHavingCourse) > 0)
                                                     @foreach($cat->childrenHavingCourse as $children)
-                                                    @php
-                                                        // print_r($children);
-                                                    @endphp
                                                         @if($children->has('courses'))
                                                         <li><a href="{{ url('/') }}/category/{{ $children->slug }}">{!! $children->name !!}</a></li>
                                                         @endif
                                                     @endforeach
-                                                @endif
-                                            </ul>
-                                        </li>
+                                                </ul>
+                                            </li>
+                                    @endif
                                     @endforeach
                                 </ul>
                             </nav>

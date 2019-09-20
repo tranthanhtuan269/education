@@ -26,7 +26,8 @@
                             <th scope="col">Xem</th>
                             <th scope="col">Khóa học</th>
                             <th scope="col">Update</th>
-                            <th scope="col">Thao tác</th>
+                            <th scope="col">Duyệt</th>
+                            <th scope="col">Xóa</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -107,8 +108,32 @@
                 class: "updated_at-field"
             },
             { 
-                data: "action", 
-                class: "action-field"
+                data: "action",
+                class: "text-center",
+                render: function(data, type, row){
+                    var html = '';
+                    @if (Helper::checkPermissions('videos.accept-video', $list_roles)) 
+                        if(row['state'] == 1){
+                            html += '<a class="btn-accept mr-2 accept-video" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Hủy"> <i class="fa fa-times fa-fw"></i></a>';
+                        }else{
+                            html += '<a class="btn-accept mr-2 accept-video" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Duyệt"> <i class="fa fa-check fa-fw"></i></a>';
+                        }
+                    @endif
+                    return html;
+                },
+                orderable: false
+            },
+            { 
+                data: "action",
+                class: "text-center",
+                render: function(data, type, row){
+                    var html = '';
+                    @if (Helper::checkPermissions('videos.delete', $list_roles)) 
+                        html += '<a class="btn-delete" data-id="'+data+'" title="Xóa"><i class="fa fa-trash fa-fw" aria-hidden="true"></i></a>';
+                    @endif
+                    return html;
+                },
+                orderable: false
             },
         ];
 

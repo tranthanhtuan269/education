@@ -17,6 +17,10 @@
 
 Auth::routes();
 
+Route::get('test2', function(){
+    
+});
+
 Route::get('thay-state-video', function(){
     $videos = \App\Video::where('created_at', null)->get();
     foreach ($videos as $key => $video) {
