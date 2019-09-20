@@ -7,7 +7,7 @@
 <!-- Include the plugin's CSS and JS: -->
 <script type="text/javascript" src="{{ url('/') }}/backend/js/bootstrap-multiselect.js"></script>
 
-<script src="https://cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script>
+<script src="{{asset("backend/template/bower_components/ckeditor/ckeditor.js")}}"></script>
 <link rel="stylesheet" href="{{ url('/') }}/backend/css/bootstrap-multiselect.css" type="text/css"/>
 
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -105,8 +105,9 @@
                 <div class="col-sm-8">
                     <select id="role-list-ins-edit" multiple="multiple">
                         @foreach ($roles as $role)
-                            <option value="{{ $role->id }}">{{ $role->name }}</option>                            
-                            
+                            @if ($role->id != 2 && $role->id != 3)
+                                <option value="{{ $role->id }}">{{ $role->name }}</option>
+                            @endif
                         @endforeach
                     </select>
                     <script>
@@ -326,31 +327,9 @@
                         includeSelectAllOption: true,
                         includeSelectAllIfMoreThan: 0,
                         numberDisplayed: 2,
-                        enableClickableOptGroups: true,
-                        onInitialized: function(select, container) {
-                            var studentInput = $(container).find('input[value="3"]') // không cho chỉnh sửa student
-                            studentInput.prop('disabled', true)
-                            studentInput.prop('checked', true)                            
-                        },
-                        onChange: function(element, checked){
-                            const role_id = element.attr('value')
-                            if(checked === true){
-                                if(role_id == 1){ //nếu chọn super-admin thì chọn cả teacher và student
-                                    $('#role-list-ins-edit').multiselect('select', ['2', '3'])
-                                }else if(role_id == 2){ //nếu chọn teacher thì chọn cả student
-                                    $('#role-list-ins-edit').multiselect('select', ['3'])
-                                }
-                                      
-                            }else if(checked === false){
-                                if(role_id == 3){ //nếu bỏ chọn student thì bỏ chọn cả teacher
-                                    $('#role-list-ins-edit').multiselect('deselect', ['2'])
-                                }
-                            }else{
-                                $("#role-list-ins-edit").multiselect('select', element.val());
-                            }
-                        }
+                        enableClickableOptGroups: true,                        
                     });
-                    $('#role-list-ins-edit').multiselect('rebuild')
+                    // $('#role-list-ins-edit').multiselect('rebuild')
                  
                     $.ajax({
                         url: baseURL+"/admincp/users/getInfoByID/" + id,

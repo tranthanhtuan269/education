@@ -3,6 +3,16 @@
 namespace App\Http\Controllers\Backends;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreTeacherRequest;
+use App\Helper\Helper;
+use App\User;
+use App\UserRole;
+use App\Teacher;
+use Carbon\Carbon;
+use Config;
+use Hash;
+use Image;
+
 
 class TeacherController extends Controller
 {
@@ -23,11 +33,8 @@ class TeacherController extends Controller
      */
     public function create()
     {
-        //
-        return response()->json([
-            'status' => 404,
-            'message' => 'done'
-        ]);
+        
+        
     }
 
     /**
@@ -36,9 +43,47 @@ class TeacherController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreTeacherRequest $request)
     {
-        //
+        $avatar = $request->avatar;
+        $cropped_avatar = Image::make($avatar)
+        ->resize(300, 300)
+        ->save(public_path('uploads/'.time().'_avatar'.'.png'));
+
+        $user = new User;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->birthday = Helper::formatDate('d/m/Y', $request->dob, 'Y-m-d');
+        $user->phone = $request->phone;
+        $user->address = $request->address;
+        $user->gender = $request->gender;
+        $user->avatar = time().'_avatar'.'.png';
+        $user->status = 1;
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        $user_role_teacher = new UserRole;
+        $user_role_teacher->user_id = $user->id;
+        $user_role_teacher->role_id = Config::get('app.teacher');
+        $user_role_teacher->save();
+
+        $teacher = new Teacher;
+        $teacher->user_role_id = $user_role_teacher->id;
+        $teacher->cv = $request->cv;
+        $teacher->expert = $request->expert;
+        $teacher->video_intro = $request->youtube;
+        $teacher->status = Config::get('app.teacher_active');
+        $teacher->save();
+
+        $user_role_student = new UserRole;
+        $user_role_student->user_id = $user->id;
+        $user_role_student->role_id = Config::get('app.student');
+        $user_role_student->save();
+        
+        return response()->json([
+            'status' => 200,
+            'message' => 'Thêm giảng viên thành công'
+        ]);
     }
 
     /**

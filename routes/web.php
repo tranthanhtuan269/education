@@ -148,7 +148,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('users/delete-multiple-emails', 'Backends\EmailController@destroyMultiple');
         
         Route::resource('users', 'Backends\UserController');
-        Route::post('users/add-teacher', 'Backends\TeacherController@create');
+        Route::post('users/store-teacher', 'Backends\TeacherController@store');
         Route::put('users/updateSefl', 'Backends\UserController@updateSefl')->name('user.updateSefl');
         Route::post('users/info', 'Backends\UserController@infoRoleUser');
         Route::delete('users/delMultiUser', ['as' => 'delMultiUser', 'uses' => 'Backends\UserController@delMultiUser']);
