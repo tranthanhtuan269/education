@@ -11,10 +11,15 @@
         <link rel="stylesheet" href="{{ asset('backend/template/bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
         <!-- Font Awesome -->
         <link rel="stylesheet" href="{{ asset('backend/template/bower_components/font-awesome/css/font-awesome.min.css') }}">
+        <!-- bootstrap datepicker -->
+        <link rel="stylesheet" href="{{asset('backend/template/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css')}}">
         <!-- Ionicons -->
         <link rel="stylesheet" href="{{ asset('backend/template/bower_components/Ionicons/css/ionicons.min.css') }}">
         <!-- Theme style -->
         <link rel="stylesheet" href="{{ asset('backend/template/dist/css/AdminLTE.min.css') }}">
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.5/cropper.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.5/cropper.css" type="text/css"/>
         <!-- AdminLTE Skins. Choose a skin from the css/skins
             folder instead of downloading all of them to reduce the load. -->
         <link rel="stylesheet" href="{{ asset('backend/template/dist/css/skins/_all-skins.min.css') }}">
@@ -141,18 +146,18 @@
                                     </li>
                                 @endif
  
+                                
+                                @if (Helper::checkPermissions('users.list_roles', $list_roles)) 
+                                <li class="@if ( Request::is('admincp/roles*') ) active @endif">
+                                    <a href="{{ url('/') }}/admincp/roles"><i class="fa fa-minus"></i> Vai trò</a>
+                                </li>
+                                @endif
+                                
                                 @if (Helper::checkPermissions('users.list_permissions', $list_roles)) 
                                     <li class="@if ( Request::is('admincp/permissions*') ) active @endif">
                                         <a href="{{ url('/') }}/admincp/permissions"><i class="fa fa-minus"></i> Phân quyền</a>
                                     </li>
                                 @endif
-
-                                @if (Helper::checkPermissions('users.list_roles', $list_roles)) 
-                                    <li class="@if ( Request::is('admincp/roles*') ) active @endif">
-                                        <a href="{{ url('/') }}/admincp/roles"><i class="fa fa-minus"></i> Vai trò</a>
-                                    </li>
-                                @endif
-
                             </ul>
                         </li>
                  
@@ -288,4 +293,5 @@
         }
         </style>
     </body>
+    
 </html>
