@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use App\UserRole;
 use DB;
+use App\Document;
 
 class HomeController extends Controller
 {
@@ -32,20 +33,13 @@ class HomeController extends Controller
     {
         $type = trim($request->get('type'));
         if ($type == 'best-seller') {
-            $list_course = Course::where('status', 1)->orderBy('sale_count', 'desc')->paginate(16);
             $title = 'Các khoá học bán chạy';
+            $list_course = Course::listCourseSpecial(1)->paginate(16);
         } elseif ($type == 'new') {
-            $list_course = Course::where('status', 1)->orderBy('id', 'desc')->paginate(16);
+            $list_course = Course::listCourseSpecial(2)->paginate(16);
             $title = 'Các khóa học mới nhất';
         } elseif ($type == 'trendding') {
-            $limitDate = \Carbon\Carbon::now()->subDays(15);
-            $sql = "SELECT course_id, count(course_id) FROM orders JOIN order_details ON orders.id = order_details.order_id WHERE created_at > '" . $limitDate->toDateTimeString() ."' group by course_id ORDER BY count(course_id) desc;";
-            $results = DB::select($sql);
-            foreach ($results as $key => $result) {
-                $course_id_arr[] = $result->course_id;
-            }
-            $list_course = \App\Course::whereIn('id', $course_id_arr)->paginate(16);
-            
+            $list_course = Course::listCourseSpecial(3)->paginate(16);
             $title = 'Các khóa học thịnh hành';
         }
 
@@ -54,7 +48,7 @@ class HomeController extends Controller
 
     public function home()
     {
-        $feature_category = Category::withCount('courses')->where('featured', 1)->orderBy('featured_index', 'asc')->get();
+        $feature_category = Category::withCount('courses')->where('featured', 1)->where('parent_id', '<>', 0)->orderBy('featured_index', 'asc')->get();
         
         // Duong NT// feature courses
         $percent_feature_course = Setting::where('name', 'percent_feature_course')->first()->value;
@@ -187,13 +181,41 @@ class HomeController extends Controller
                         $ratingCourse = RatingCourse::where('course_id', $course->id)->where('user_id', \Auth::id())->first();
                         $related_course = Course::where('category_id', $course->category_id)->where('id','!=',$course->id)->where('status', 1)->limit(4)->get();
                         $info_course = Course::find($course->id);
-                        return view('frontends.course-detail', compact('related_course', 'info_course', 'ratingCourse'));
+
+                        $units = Unit::where('course_id', $course->id)->get();
+                        $document_count = 0;
+                        foreach( $units as $unit ){
+                            if( $unit ){
+                                $videos = Video::where('unit_id', $unit->id)->get();
+                                foreach( $videos as $video ){
+                                    if( $video ){
+                                        $document_count += Document::where('video_id', $video->id)->count();
+                                    }
+                                }
+                            }
+                        }
+                        
+                        return view('frontends.course-detail', compact('related_course', 'info_course', 'ratingCourse', 'document_count'));
                     }
                 } else {
                     if ($course) {
                         $related_course = Course::where('category_id', $course->category_id)->where('id','!=',$course->id)->where('status', 1)->limit(4)->get();
                         $info_course = Course::find($course->id);
-                        return view('frontends.course-detail', compact('related_course', 'info_course'));
+
+                        $units = Unit::where('course_id', $course->id)->get();
+                        $document_count = 0;
+                        foreach( $units as $unit ){
+                            if( $unit ){
+                                $videos = Video::where('unit_id', $unit->id)->get();
+                                foreach( $videos as $video ){
+                                    if( $video ){
+                                        $document_count += Document::where('video_id', $video->id)->count();
+                                    }
+                                }
+                            }
+                        }
+
+                        return view('frontends.course-detail', compact('related_course', 'info_course', 'document_count'));
                     }
                 }
             }else{
@@ -201,7 +223,21 @@ class HomeController extends Controller
                     $ratingCourse = RatingCourse::where('course_id', $course->id)->where('user_id', \Auth::id())->first();
                     $related_course = Course::where('category_id', $course->category_id)->where('id','!=',$course->id)->where('status', 1)->limit(4)->get();
                     $info_course = Course::find($course->id);
-                    return view('frontends.course-detail', compact('related_course', 'info_course', 'ratingCourse'));
+
+                    $units = Unit::where('course_id', $course->id)->get();
+                    $document_count = 0;
+                    foreach( $units as $unit ){
+                        if( $unit ){
+                            $videos = Video::where('unit_id', $unit->id)->get();
+                            foreach( $videos as $video ){
+                                if( $video ){
+                                    $document_count += Document::where('video_id', $video->id)->count();
+                                }
+                            }
+                        }
+                    }
+
+                    return view('frontends.course-detail', compact('related_course', 'info_course', 'ratingCourse', 'document_count'));
                 }else{
                     return Redirect('/');
                 }

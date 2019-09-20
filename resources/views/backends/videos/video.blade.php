@@ -466,220 +466,220 @@
                 });
             });
             
-            $('#deleteAllApplied').off('click')
-            $('#deleteAllApplied').click(function (){
-                var check = false;
-                $.each($('.check-video'), function (key, value){
-                    if($(this).prop('checked') == true) {
-                        check = true;
-                    }
-                });
-                if(!check){
-                    Swal.fire({
-                        type: 'warning',
-                        text: 'Bạn phải chọn ít nhất 1 video',
-                    })
-                    return false;
-                }
-                Swal.fire({
-                    type: 'warning',
-                    text: 'Bạn có chắc chắn xóa tất cả những video bạn chọn?',
-                    showCancelButton: true,
-                })
-                .then(function (result) {
-                    if(result.value){
-                        var video_id_list = []
-                        $.each($('.check-video'), function (key, value){
-                            if($(this).prop('checked') == true) {
-                                // id_list += $(this).attr("data-column") + ',';
-                                video_id_list.push($(this).attr("data-column"))
-                            }
-                        });
-                        if(video_id_list.length > 0){
-                            $.ajaxSetup({
-                                headers: {
-                                    'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
-                                }
-                            });
-                            $.ajax({
-                                method: "DELETE",
-                                url: baseURL+"/admincp/videos/delete-multiple-video",
-                                data: {
-                                    id_list: video_id_list
-                                },
-                                dataType: 'json',
-                                beforeSend: function(r, a){
-                                    current_page = dataTable.page.info().page;
-                                },
-                                success: function (response) {
-                                    Swal.fire({
-                                        type: 'success',
-                                        text: response.message
-                                    })
-                                    // dataTable.ajax.reload();
-                                    $.each($('.check-video'), function (key, value){
-                                        if($(this).prop('checked') == true) {
-                                            dataTable.row( $(this).parent().parent() ).remove().draw(true);
-                                        }
-                                    });
+            // $('#deleteAllApplied').off('click')
+            // $('#deleteAllApplied').click(function (){
+            //     var check = false;
+            //     $.each($('.check-video'), function (key, value){
+            //         if($(this).prop('checked') == true) {
+            //             check = true;
+            //         }
+            //     });
+            //     if(!check){
+            //         Swal.fire({
+            //             type: 'warning',
+            //             text: 'Bạn phải chọn ít nhất 1 video',
+            //         })
+            //         return false;
+            //     }
+            //     Swal.fire({
+            //         type: 'warning',
+            //         text: 'Bạn có chắc chắn xóa tất cả những video bạn chọn?',
+            //         showCancelButton: true,
+            //     })
+            //     .then(function (result) {
+            //         if(result.value){
+            //             var video_id_list = []
+            //             $.each($('.check-video'), function (key, value){
+            //                 if($(this).prop('checked') == true) {
+            //                     // id_list += $(this).attr("data-column") + ',';
+            //                     video_id_list.push($(this).attr("data-column"))
+            //                 }
+            //             });
+            //             if(video_id_list.length > 0){
+            //                 $.ajaxSetup({
+            //                     headers: {
+            //                         'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
+            //                     }
+            //                 });
+            //                 $.ajax({
+            //                     method: "DELETE",
+            //                     url: baseURL+"/admincp/videos/delete-multiple-video",
+            //                     data: {
+            //                         id_list: video_id_list
+            //                     },
+            //                     dataType: 'json',
+            //                     beforeSend: function(r, a){
+            //                         current_page = dataTable.page.info().page;
+            //                     },
+            //                     success: function (response) {
+            //                         Swal.fire({
+            //                             type: 'success',
+            //                             text: response.message
+            //                         })
+            //                         // dataTable.ajax.reload();
+            //                         $.each($('.check-video'), function (key, value){
+            //                             if($(this).prop('checked') == true) {
+            //                                 dataTable.row( $(this).parent().parent() ).remove().draw(true);
+            //                             }
+            //                         });
 
-                                    // dataTable.page( checkEmptyTable() ).draw( false );
-                                },
-                                error: function (response) {
-                                    Swal.fire({
-                                        type: 'warning',
-                                        text: response.message
-                                    })
-                                }
-                            })
-                        }
+            //                         // dataTable.page( checkEmptyTable() ).draw( false );
+            //                     },
+            //                     error: function (response) {
+            //                         Swal.fire({
+            //                             type: 'warning',
+            //                             text: response.message
+            //                         })
+            //                     }
+            //                 })
+            //             }
                         
-                    }
-                })
-            })
+            //         }
+            //     })
+            // })
 
-            $('#acceptAllApplied').off('click')
-            $('#acceptAllApplied').click(function (){
-                var check = false;
-                $.each($('.check-video'), function (key, value){
-                    if($(this).prop('checked') == true) {
-                        check = true;
-                    }
-                });
-                if(!check){
-                    Swal.fire({
-                        type: 'warning',
-                        text: 'Bạn phải chọn ít nhất 1 video',
-                    })
-                    return false;
-                }
-                Swal.fire({
-                    type: 'warning',
-                    text: 'Bạn có chắc chắn duyệt tất cả những video bạn chọn?',
-                    showCancelButton: true,
-                })
-                .then(function (result) {
-                    if(result.value){
-                        var video_id_list = []
-                        $.each($('.check-video'), function (key, value){
-                            if($(this).prop('checked') == true) {
-                                // id_list += $(this).attr("data-column") + ',';
-                                video_id_list.push($(this).attr("data-column"))
-                            }
-                        });
-                        if(video_id_list.length > 0){
-                            $.ajaxSetup({
-                                headers: {
-                                    'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
-                                }
-                            });
-                            $.ajax({
-                                method: "PUT",
-                                url: baseURL+"/admincp/videos/accept-multiple-video",
-                                data: {
-                                    id_list: video_id_list
-                                },
-                                dataType: 'json',
-                                beforeSend: function(r, a){
-                                    current_page = dataTable.page.info().page;
-                                },
-                                success: function (response) {
-                                    Swal.fire({
-                                        type: 'success',
-                                        text: response.message
-                                    })
-                                    // dataTable.ajax.reload();
-                                    $.each($('.check-video'), function (key, value){
-                                        if($(this).prop('checked') == true) {
-                                            $(this).parent().parent().removeClass('red-row').addClass('blue-row');
-                                            // $(this).parent().parent().addClass('red-row').removeClass('blue-row');
-                                        }
-                                    });
-                                    dataTable.page( checkEmptyTable() ).draw( false );
-                                },
-                                error: function (response) {
-                                    Swal.fire({
-                                        type: 'warning',
-                                        text: response.message
-                                    })
-                                }
-                            })
-                        }
+            // $('#acceptAllApplied').off('click')
+            // $('#acceptAllApplied').click(function (){
+            //     var check = false;
+            //     $.each($('.check-video'), function (key, value){
+            //         if($(this).prop('checked') == true) {
+            //             check = true;
+            //         }
+            //     });
+            //     if(!check){
+            //         Swal.fire({
+            //             type: 'warning',
+            //             text: 'Bạn phải chọn ít nhất 1 video',
+            //         })
+            //         return false;
+            //     }
+            //     Swal.fire({
+            //         type: 'warning',
+            //         text: 'Bạn có chắc chắn duyệt tất cả những video bạn chọn?',
+            //         showCancelButton: true,
+            //     })
+            //     .then(function (result) {
+            //         if(result.value){
+            //             var video_id_list = []
+            //             $.each($('.check-video'), function (key, value){
+            //                 if($(this).prop('checked') == true) {
+            //                     // id_list += $(this).attr("data-column") + ',';
+            //                     video_id_list.push($(this).attr("data-column"))
+            //                 }
+            //             });
+            //             if(video_id_list.length > 0){
+            //                 $.ajaxSetup({
+            //                     headers: {
+            //                         'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
+            //                     }
+            //                 });
+            //                 $.ajax({
+            //                     method: "PUT",
+            //                     url: baseURL+"/admincp/videos/accept-multiple-video",
+            //                     data: {
+            //                         id_list: video_id_list
+            //                     },
+            //                     dataType: 'json',
+            //                     beforeSend: function(r, a){
+            //                         current_page = dataTable.page.info().page;
+            //                     },
+            //                     success: function (response) {
+            //                         Swal.fire({
+            //                             type: 'success',
+            //                             text: response.message
+            //                         })
+            //                         // dataTable.ajax.reload();
+            //                         $.each($('.check-video'), function (key, value){
+            //                             if($(this).prop('checked') == true) {
+            //                                 $(this).parent().parent().removeClass('red-row').addClass('blue-row');
+            //                                 // $(this).parent().parent().addClass('red-row').removeClass('blue-row');
+            //                             }
+            //                         });
+            //                         dataTable.page( checkEmptyTable() ).draw( false );
+            //                     },
+            //                     error: function (response) {
+            //                         Swal.fire({
+            //                             type: 'warning',
+            //                             text: response.message
+            //                         })
+            //                     }
+            //                 })
+            //             }
                         
-                    }
-                })
-            })
+            //         }
+            //     })
+            // })
 
-            $('#inacceptAllApplied').off('click')
-            $('#inacceptAllApplied').click(function (){
-                var check = false;
-                $.each($('.check-video'), function (key, value){
-                    if($(this).prop('checked') == true) {
-                        check = true;
-                    }
-                });
-                if(!check){
-                    Swal.fire({
-                        type: 'warning',
-                        text: 'Bạn phải chọn ít nhất 1 video',
-                    })
-                    return false;
-                }
-                Swal.fire({
-                    type: 'warning',
-                    text: 'Bạn có chắc chắn hủy tất cả những video bạn chọn?',
-                    showCancelButton: true,
-                })
-                .then(function (result) {
-                    if(result.value){
-                        var video_id_list = []
-                        $.each($('.check-video'), function (key, value){
-                            if($(this).prop('checked') == true) {
-                                // id_list += $(this).attr("data-column") + ',';
-                                video_id_list.push($(this).attr("data-column"))
-                            }
-                        });
-                        if(video_id_list.length > 0){
-                            $.ajaxSetup({
-                                headers: {
-                                    'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
-                                }
-                            });
-                            $.ajax({
-                                method: "PUT",
-                                url: baseURL+"/admincp/videos/inaccept-multiple-video",
-                                data: {
-                                    id_list: video_id_list
-                                },
-                                dataType: 'json',
-                                beforeSend: function(r, a){
-                                    current_page = dataTable.page.info().page;
-                                },
-                                success: function (response) {
-                                    Swal.fire({
-                                        type: 'success',
-                                        text: response.message
-                                    })
-                                    $.each($('.check-video'), function (key, value){
-                                        if($(this).prop('checked') == true) {
-                                            // $(this).parent().parent().removeClass('red-row').addClass('blue-row');
-                                            $(this).parent().parent().addClass('red-row').removeClass('blue-row');
-                                        }
-                                    });
-                                    dataTable.page(checkEmptyTable()).draw( false );
-                                },
-                                error: function (response) {
-                                    Swal.fire({
-                                        type: 'warning',
-                                        text: response.message
-                                    })
-                                }
-                            })
-                        }
+            // $('#inacceptAllApplied').off('click')
+            // $('#inacceptAllApplied').click(function (){
+            //     var check = false;
+            //     $.each($('.check-video'), function (key, value){
+            //         if($(this).prop('checked') == true) {
+            //             check = true;
+            //         }
+            //     });
+            //     if(!check){
+            //         Swal.fire({
+            //             type: 'warning',
+            //             text: 'Bạn phải chọn ít nhất 1 video',
+            //         })
+            //         return false;
+            //     }
+            //     Swal.fire({
+            //         type: 'warning',
+            //         text: 'Bạn có chắc chắn hủy tất cả những video bạn chọn?',
+            //         showCancelButton: true,
+            //     })
+            //     .then(function (result) {
+            //         if(result.value){
+            //             var video_id_list = []
+            //             $.each($('.check-video'), function (key, value){
+            //                 if($(this).prop('checked') == true) {
+            //                     // id_list += $(this).attr("data-column") + ',';
+            //                     video_id_list.push($(this).attr("data-column"))
+            //                 }
+            //             });
+            //             if(video_id_list.length > 0){
+            //                 $.ajaxSetup({
+            //                     headers: {
+            //                         'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
+            //                     }
+            //                 });
+            //                 $.ajax({
+            //                     method: "PUT",
+            //                     url: baseURL+"/admincp/videos/inaccept-multiple-video",
+            //                     data: {
+            //                         id_list: video_id_list
+            //                     },
+            //                     dataType: 'json',
+            //                     beforeSend: function(r, a){
+            //                         current_page = dataTable.page.info().page;
+            //                     },
+            //                     success: function (response) {
+            //                         Swal.fire({
+            //                             type: 'success',
+            //                             text: response.message
+            //                         })
+            //                         $.each($('.check-video'), function (key, value){
+            //                             if($(this).prop('checked') == true) {
+            //                                 // $(this).parent().parent().removeClass('red-row').addClass('blue-row');
+            //                                 $(this).parent().parent().addClass('red-row').removeClass('blue-row');
+            //                             }
+            //                         });
+            //                         dataTable.page(checkEmptyTable()).draw( false );
+            //                     },
+            //                     error: function (response) {
+            //                         Swal.fire({
+            //                             type: 'warning',
+            //                             text: response.message
+            //                         })
+            //                     }
+            //                 })
+            //             }
                         
-                    }
-                })
-            })
+            //         }
+            //     })
+            // })
         }
 
         function checkEmptyTable(){

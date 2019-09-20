@@ -90,6 +90,14 @@ class Course extends Model
         }
     }
 
+    public function LecturerActive(){
+        if($this->userRoles){
+            return $this->userRoles()->where('role_id', \Config::get('app.teacher'))->get();
+        }else{
+            return [];
+        }
+    }
+
     public function units()
     {
     	return $this->hasMany('App\Unit')->orderBy('index');
@@ -144,5 +152,34 @@ class Course extends Model
     public static function delMulti($id_list){
         $checkCourse = Course::whereIn('id', $id_list);
         return ($checkCourse->delete() > 0);
+    }
+
+    public static function listCourseSpecial($order_by){
+        // $order_by = (1 Ban chay) (2 Moi nhat) (3 Ban chay)
+        if($order_by == 1){
+            return \DB::table('courses')
+            ->join('user_courses', 'user_courses.course_id', '=', 'courses.id')
+            ->join('user_roles', 'user_roles.id', '=', 'user_courses.user_role_id')
+            ->join('teachers', 'teachers.user_role_id', '=', 'user_roles.id')
+            ->where('teachers.status', 1)
+            ->where('courses.status', 1)
+            ->select('courses.image', 'courses.name', 'courses.id', 'courses.slug', 'courses.price', 'courses.real_price', 'courses.author', 'courses.duration', 'courses.star_count', 'courses.vote_count', 'courses.approx_time', 'courses.five_stars', 'courses.four_stars', 'courses.three_stars', 'courses.two_stars', 'courses.one_stars', 'teachers.id as teacherId')->orderBy('sale_count', 'desc');
+        }elseif($order_by == 2){
+            return \DB::table('courses')
+            ->join('user_courses', 'user_courses.course_id', '=', 'courses.id')
+            ->join('user_roles', 'user_roles.id', '=', 'user_courses.user_role_id')
+            ->join('teachers', 'teachers.user_role_id', '=', 'user_roles.id')
+            ->where('teachers.status', 1)
+            ->where('courses.status', 1)
+            ->select('courses.image', 'courses.name', 'courses.id', 'courses.slug', 'courses.price', 'courses.real_price', 'courses.author', 'courses.duration', 'courses.star_count', 'courses.vote_count', 'courses.approx_time', 'courses.five_stars', 'courses.four_stars', 'courses.three_stars', 'courses.two_stars', 'courses.one_stars', 'teachers.id as teacherId')->orderBy('id', 'desc');
+        }else{
+            $limitDate = \Carbon\Carbon::now()->subDays(15);
+            $sql = "SELECT course_id, count(course_id) FROM orders JOIN order_details ON orders.id = order_details.order_id WHERE created_at > '" . $limitDate->toDateTimeString() ."' group by course_id ORDER BY count(course_id) desc;";
+            $results = \DB::select($sql);
+            foreach ($results as $key => $result) {
+                $course_id_arr[] = $result->course_id;
+            }
+            return Course::whereIn('id', $course_id_arr);
+        }
     }
 }

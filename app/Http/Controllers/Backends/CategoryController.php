@@ -93,12 +93,17 @@ class CategoryController extends Controller
     }
 
     public function deleteCategory(Request $request){
-        $category = Category::where('parent_id', '=', $request->category_id)->update(['parent_id'=>1]);
-
-        $course = Course::where('category_id', '=', $request->category_id)->update(['category_id'=>1]);
+        $course = Course::where('category_id', '=', $request->category_id);
+        if( isset($course->id) ){
+            return \Response::json(array('status' => '403', 'message' => 'Bạn không thể xóa danh mục đang có khóa học.'));
+        }
+        $category = Category::where('parent_id', '=', $request->category_id);
+        if( isset($category->id) ){
+            return \Response::json(array('status' => '403', 'message' => 'Bạn không thể xóa danh mục chứa danh mục con.'));
+        }
 
         $category1 = Category::find($request->category_id);
-        if($category1){
+        if( isset($category1->id) ){
             $category1->delete();
             $res = array('status' => "200", "message" => "Xóa Danh mục thành công!");
             echo json_encode($res);die;

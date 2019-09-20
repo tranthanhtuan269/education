@@ -1,15 +1,7 @@
 <?php
-    // if($course->vote_count == 0) $course->vote_count = 0;
-    $lecturers = count($course->Lecturers()) > 1 ? 'Nhiều tác giả' : (count($course->Lecturers()) > 0 ? ($course->Lecturers()[0]->user ? $course->Lecturers()[0]->user->name : "Courdemy") : "Courdemy");
-    // dd($course->userRoles()->first()->teacher->id);
-    if (isset($course->Lecturers()->first()->teacher->id)) {
-        $main_lecturer = $course->Lecturers()->first() ? $course->Lecturers()->first()->teacher->id : 0;
-    }else{
-        $main_lecturer = null;
-    }
+    $lecturers = $course->author;
+    $main_lecturer = $course->teacherId;
 ?>
-@if( isset($course->userRoles()->first()->teacher->status) )
-@if( $course->userRoles()->first()->teacher->status == 1 )
 <div class="col-md-3 col-sm-6">
     <div class="box-course">
         <a title="{{ $course->name }}" class="course-box-slider pop">
@@ -154,8 +146,8 @@
         </a>
     </div>
 </div>
-@endif
-@endif
+{{-- @endif --}}
+{{-- @endif --}}
 <script>
     $('.content-course .name-teacher').on('click', function (e){
         e.stopPropagation()
