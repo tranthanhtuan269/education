@@ -77,7 +77,7 @@
                                     </div>
                                     <div class="col-xs-6 full-width-mobile pb-10px">
                                         <span class="box-img"><img src="{{ asset('frontend/images/ic_download.png') }}" class="icon" alt="" /></span>
-                                        <span class="special">{{ $info_course->downloadable_count	 }} Tài liệu đính kèm</span>
+                                        <span class="special">{{ $document_count }} Tài liệu đính kèm</span>
                                         
                                     </div>
                                 </div>

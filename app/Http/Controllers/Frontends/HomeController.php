@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use App\UserRole;
 use DB;
+use App\Document;
 
 class HomeController extends Controller
 {
@@ -187,13 +188,41 @@ class HomeController extends Controller
                         $ratingCourse = RatingCourse::where('course_id', $course->id)->where('user_id', \Auth::id())->first();
                         $related_course = Course::where('category_id', $course->category_id)->where('id','!=',$course->id)->where('status', 1)->limit(4)->get();
                         $info_course = Course::find($course->id);
-                        return view('frontends.course-detail', compact('related_course', 'info_course', 'ratingCourse'));
+
+                        $units = Unit::where('course_id', $course->id)->get();
+                        $document_count = 0;
+                        foreach( $units as $unit ){
+                            if( $unit ){
+                                $videos = Video::where('unit_id', $unit->id)->get();
+                                foreach( $videos as $video ){
+                                    if( $video ){
+                                        $document_count += Document::where('video_id', $video->id)->count();
+                                    }
+                                }
+                            }
+                        }
+                        
+                        return view('frontends.course-detail', compact('related_course', 'info_course', 'ratingCourse', 'document_count'));
                     }
                 } else {
                     if ($course) {
                         $related_course = Course::where('category_id', $course->category_id)->where('id','!=',$course->id)->where('status', 1)->limit(4)->get();
                         $info_course = Course::find($course->id);
-                        return view('frontends.course-detail', compact('related_course', 'info_course'));
+
+                        $units = Unit::where('course_id', $course->id)->get();
+                        $document_count = 0;
+                        foreach( $units as $unit ){
+                            if( $unit ){
+                                $videos = Video::where('unit_id', $unit->id)->get();
+                                foreach( $videos as $video ){
+                                    if( $video ){
+                                        $document_count += Document::where('video_id', $video->id)->count();
+                                    }
+                                }
+                            }
+                        }
+
+                        return view('frontends.course-detail', compact('related_course', 'info_course', 'document_count'));
                     }
                 }
             }else{
@@ -201,7 +230,21 @@ class HomeController extends Controller
                     $ratingCourse = RatingCourse::where('course_id', $course->id)->where('user_id', \Auth::id())->first();
                     $related_course = Course::where('category_id', $course->category_id)->where('id','!=',$course->id)->where('status', 1)->limit(4)->get();
                     $info_course = Course::find($course->id);
-                    return view('frontends.course-detail', compact('related_course', 'info_course', 'ratingCourse'));
+
+                    $units = Unit::where('course_id', $course->id)->get();
+                    $document_count = 0;
+                    foreach( $units as $unit ){
+                        if( $unit ){
+                            $videos = Video::where('unit_id', $unit->id)->get();
+                            foreach( $videos as $video ){
+                                if( $video ){
+                                    $document_count += Document::where('video_id', $video->id)->count();
+                                }
+                            }
+                        }
+                    }
+
+                    return view('frontends.course-detail', compact('related_course', 'info_course', 'ratingCourse', 'document_count'));
                 }else{
                     return Redirect('/');
                 }
