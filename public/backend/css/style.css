@@ -588,7 +588,7 @@ ul.alert li {
 
 #showEditCouponModal .sol-selection-container,
 #showAddCouponModal .sol-selection-container {
-    /* top: 180px !important; */
+    top: 180px !important;
     left: 314px !important;
     width: 570px !important;
 }
@@ -732,9 +732,9 @@ ul.alert li {
     top: 210px;
 }
 
-.sol-selection-container{
+/* .sol-selection-container{
     border-top-right-radius: initial; 
     top: 262px!important; 
     left: 813px; 
     width: 398px;
-}
+} */

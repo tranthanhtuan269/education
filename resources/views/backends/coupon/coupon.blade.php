@@ -576,4 +576,20 @@ var sol = $('#demonstration').searchableOptionList({
 </script>
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+<style>
+    .sol-inner-container {
+       position: absolute;
+       width: 100%;
+       top: 0px;
+    }
+    .sol-container{
+       position: relative;
+    }  
+    .sol-current-selection{
+       top:35px;
+       position: relative;
+       z-index: 0;
+       padding-bottom: 20px;
+    }
+</style>
 @endsection

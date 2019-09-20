@@ -45,7 +45,8 @@
                         
                     </tbody>
                 </table>
-            </div>
+            </div><br>
+            <div class="text-center"><button class="btn btn-primary" id="btn-gift"><b>Xác nhận tặng</b></button></div>
         </div>
         <div class="col-md-6">
             <h3><b>Chọn khóa học miễn phí</b></h3>
@@ -59,7 +60,7 @@
             </div>
         </div>
     </div>
-    <div class="text-center"><button class="btn btn-primary" id="btn-gift"><b>Xác nhận tặng</b></button></div>
+    
 </section>
 
 <script type="text/javascript">
@@ -323,24 +324,25 @@
     #student-table_wrapper #student-table_paginate{
         text-align: center;
     }
-    .sol-selection{
+    /* .sol-selection{
         position: absolute;
         z-index: 1;
         top: 35px;
         background: #fff;
-    }
+    } */
     .sol-inner-container {
        position: absolute;
        width: 100%;
        top: 0px;
-   }
-   .sol-container{
+    }
+    .sol-container{
        position: relative;
-   }  
+    }  
     .sol-current-selection{
        top:35px;
        position: relative;
        z-index: 0;
+       padding-bottom: 35px;
     }
 
 </style>
