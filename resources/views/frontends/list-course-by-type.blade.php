@@ -18,8 +18,8 @@
                             <h1>{{ $title }}</h1>
                         </div>
                         @foreach ($list_course as $course)
-                            @if(isset($course->userRoles()->first()->teacher))
-                                @if ( $course->userRoles()->first()->teacher->status == 1 )
+                            {{-- @if(isset($course->userRoles()->first()->teacher)) --}}
+                                {{-- @if ( $course->userRoles()->first()->teacher->status == 1 ) --}}
                                     @include(
                                         'components.course', 
                                         [   
@@ -27,8 +27,8 @@
                                             'list_course' => $list_bought
                                         ]
                                     )
-                                @endif
-                            @endif
+                                {{-- @endif --}}
+                            {{-- @endif --}}
                       @endforeach
                       <div class="col-xs-12 text-center">
                           <div class="u-number-page">{{ $list_course->appends(Request::all())->links() }}</div>

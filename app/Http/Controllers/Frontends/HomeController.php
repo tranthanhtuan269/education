@@ -33,20 +33,13 @@ class HomeController extends Controller
     {
         $type = trim($request->get('type'));
         if ($type == 'best-seller') {
-            $list_course = Course::where('status', 1)->orderBy('sale_count', 'desc')->paginate(16);
             $title = 'Các khoá học bán chạy';
+            $list_course = Course::listCourseSpecial(1)->paginate(16);
         } elseif ($type == 'new') {
-            $list_course = Course::where('status', 1)->orderBy('id', 'desc')->paginate(16);
+            $list_course = Course::listCourseSpecial(2)->paginate(16);
             $title = 'Các khóa học mới nhất';
         } elseif ($type == 'trendding') {
-            $limitDate = \Carbon\Carbon::now()->subDays(15);
-            $sql = "SELECT course_id, count(course_id) FROM orders JOIN order_details ON orders.id = order_details.order_id WHERE created_at > '" . $limitDate->toDateTimeString() ."' group by course_id ORDER BY count(course_id) desc;";
-            $results = DB::select($sql);
-            foreach ($results as $key => $result) {
-                $course_id_arr[] = $result->course_id;
-            }
-            $list_course = \App\Course::whereIn('id', $course_id_arr)->paginate(16);
-            
+            $list_course = Course::listCourseSpecial(3)->paginate(16);
             $title = 'Các khóa học thịnh hành';
         }
 
