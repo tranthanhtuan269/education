@@ -66,7 +66,7 @@ class CategoryController extends Controller
         if( $category ){
             if( $category->name != $request->name ){
                 $check = Category::where('name', $request->name);
-                if( $check ){
+                if( isset($check->id) ){
                     return \Response::json(array('status' => '403', 'Message' => 'Tên Danh mục đã tồn tại.'));
                 }
             }

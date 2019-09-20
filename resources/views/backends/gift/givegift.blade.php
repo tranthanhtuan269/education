@@ -20,7 +20,7 @@
 <section class="content-header">
     
 </section>
-<section class="content page">
+<section class="content page" id="giftPage">
     <h1 class="text-center font-weight-600">Tặng khóa học</h1>
     <div class="row">
         <div class="col-md-6">
@@ -312,17 +312,37 @@
     });
 </script>
 <style type="text/css">
-    .col-md-5 {
+    #student-table_wrapper .col-md-5{
         width: 100%;
     }
     
-    .col-md-7 {
+    #student-table_wrapper .col-md-7{
         text-align:center;
         width: 100%;
     }
-    #student-table_paginate{
+    #student-table_wrapper #student-table_paginate{
         text-align: center;
     }
+    .sol-selection{
+        position: absolute;
+        z-index: 1;
+        top: 35px;
+        background: #fff;
+    }
+    .sol-inner-container {
+       position: absolute;
+       width: 100%;
+       top: 0px;
+   }
+   .sol-container{
+       position: relative;
+   }  
+    .sol-current-selection{
+       top:35px;
+       position: relative;
+       z-index: 0;
+    }
+
 </style>
 
 @endsection
