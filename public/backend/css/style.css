@@ -724,10 +724,17 @@ ul.alert li {
     }
 }
 
-.sol-container.sol-active .sol-selection-container {
+/* .sol-container.sol-active .sol-selection-container {
     position: initial;
-}
+} */
 
 #showEditCouponModal .sol-selection-container {
     top: 210px;
+}
+
+.sol-selection-container{
+    border-top-right-radius: initial; 
+    top: 262px!important; 
+    left: 813px; 
+    width: 398px;
 }

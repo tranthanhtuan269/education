@@ -51,11 +51,11 @@
             <h3><b>Chọn khóa học miễn phí</b></h3>
             <br>
             <div>
-                <p><select id="demonstration" name="course[]" style="width: 400px" multiple="multiple">
+                <select id="demonstration" name="course[]" style="width: 400px" multiple="multiple">
                     @foreach ($courses as $course)
                     <option value="{{ $course->id }}">{{ $course->name }}</option>
                     @endforeach
-                </select></p>
+                </select>
             </div>
         </div>
     </div>
