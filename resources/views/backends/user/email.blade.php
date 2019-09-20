@@ -473,7 +473,7 @@
                     })
                 })
 
-            })
+            )
         }
 
         function checkEmptyTable(){
