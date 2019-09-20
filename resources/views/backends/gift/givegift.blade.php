@@ -20,7 +20,7 @@
 <section class="content-header">
     
 </section>
-<section class="content page">
+<section class="content page" id="giftPage">
     <h1 class="text-center font-weight-600">Tặng khóa học</h1>
     <div class="row">
         <div class="col-md-6">
@@ -45,21 +45,22 @@
                         
                     </tbody>
                 </table>
-            </div>
+            </div><br>
+            <div class="text-center"><button class="btn btn-primary" id="btn-gift"><b>Xác nhận tặng</b></button></div>
         </div>
         <div class="col-md-6">
             <h3><b>Chọn khóa học miễn phí</b></h3>
             <br>
             <div>
-                <p><select id="demonstration" name="course[]" style="width: 400px" multiple="multiple">
+                <select id="demonstration" name="course[]" style="width: 400px" multiple="multiple">
                     @foreach ($courses as $course)
                     <option value="{{ $course->id }}">{{ $course->name }}</option>
                     @endforeach
-                </select></p>
+                </select>
             </div>
         </div>
     </div>
-    <div class="text-center"><button class="btn btn-primary" id="btn-gift"><b>Xác nhận tặng</b></button></div>
+    
 </section>
 
 <script type="text/javascript">
@@ -119,7 +120,10 @@
                 method: "POST",
                 dataType:'json',
                 beforeSend: function(r, a){
-                   
+                    $("#pre_ajax_loading").show();
+                },
+                complete: function() {
+                    $("#pre_ajax_loading").hide();
                 },
                 success: function (response) {
                     if(response.status == 200){
@@ -311,18 +315,4 @@
         showSelectAll: true
     });
 </script>
-<style type="text/css">
-    .col-md-5 {
-        width: 100%;
-    }
-    
-    .col-md-7 {
-        text-align:center;
-        width: 100%;
-    }
-    #student-table_paginate{
-        text-align: center;
-    }
-</style>
-
 @endsection
