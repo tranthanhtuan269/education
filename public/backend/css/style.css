@@ -593,6 +593,37 @@ ul.alert li {
     width: 570px !important;
 }
 
+#student-table_wrapper .col-md-5{
+    width: 100%;
+}
+
+#student-table_wrapper .col-md-7{
+    text-align:center;
+    width: 100%;
+}
+#student-table_wrapper #student-table_paginate{
+    text-align: center;
+}
+/* .sol-selection{
+    position: absolute;
+    z-index: 1;
+    top: 35px;
+    background: #fff;
+} */
+#giftPage .sol-inner-container {
+   position: absolute;
+   width: 100%;
+   top: 0px;
+}
+#giftPage .sol-container{
+   position: relative;
+}  
+#giftPage .sol-current-selection{
+   top:35px;
+   position: relative;
+   z-index: 0;
+   padding-bottom: 50px;
+}
 
 /* Absolute Center Spinner */
 
