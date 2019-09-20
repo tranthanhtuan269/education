@@ -44,7 +44,7 @@
         </script>
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
-        <div id="ajax_waiting"></div>
+        <div class="ajax_waiting"></div>
         <div class="wrapper">
             <header class="main-header">
                 <!-- Logo -->
@@ -262,6 +262,16 @@
         <script src="{{ asset('backend/js/script.js') }}"></script>
         <script type="text/javascript">
             var baseURL="<?php echo URL::to('/'); ?>";
+            $(document).ready(function(){
+                $(document).ajaxStart(function(){
+                    // alert(1)
+                    $(".ajax_waiting").addClass("loading")
+                });
+
+                $(document).ajaxComplete(function(){
+                    $(".ajax_waiting").removeClass("loading")
+                });
+            })
         </script>
         <link rel="stylesheet" type="text/css" href="{{ asset('backend/css/style.css') }}">
         <style type="text/css">
