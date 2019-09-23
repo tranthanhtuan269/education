@@ -81,14 +81,14 @@
                                 <div class="btn btn-primary select-image-btn" id="btnViewUpload"><i class="fa fa-picture-o fa-fw"></i> Tải lên ảnh Danh mục</div>
                             </div><br>
                             <div class="text-center">
-                                <img id="preview_category_img" style="width:440px;height:190px"/>
+                                <img id="preview_category_img" style="width:300px;height:auto" src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-image-128.png"/>
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="addCategory"><b>Xác nhận</b></button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><b>Hủy bỏ</b></button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cancelAdd"><b>Hủy bỏ</b></button>
                 </div>
             </div>
         </div>
@@ -629,7 +629,7 @@ $(document).ready(function() {
                             type: 'success',
                             text: response.Message
                         }).then( result => {
-                            location.reload()
+                            // location.reload()
                         })
                     } else {
                         Swal.fire({
@@ -683,6 +683,12 @@ $(document).ready(function() {
         }
         reader.readAsDataURL(event.target.files[0]);
     }
+</script>
+
+<script type="text/javascript">
+    $('#cancelAdd').click(function(){
+        $('#preview_category_img').attr("src","https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-image-128.png");
+    })
 </script>
 
 @endsection
