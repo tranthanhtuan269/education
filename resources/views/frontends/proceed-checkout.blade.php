@@ -181,7 +181,8 @@
     </div>
 </div>
 <script>
-    var cart_items = JSON.parse(localStorage.getItem('cart'))
+    var user_id = $('button[id=cartUserId]').attr('data-user-id')
+    var cart_items = JSON.parse(localStorage.getItem('cart'+user_id))
     var total_price = 0
     $(document).ready( function () {
         showItems()

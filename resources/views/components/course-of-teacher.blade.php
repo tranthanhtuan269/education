@@ -55,11 +55,11 @@
     </div>
     <div class="lp-bc-price">
         <p class="price-b" style="float:none">
-            @if ( gettype($course->price) == 'integer' )
+            {{-- @if ( gettype($course->price) == 'integer' ) --}}
                 {!! number_format($course->price, 0, ',' , '.') !!}<sup>₫</sup>
-            @else
+            {{-- @else
                 {!!$course->price!!}
-            @endif
+            @endif --}}
         </p>
         @if($course->real_price != $course->price && $course->real_price != 0)
         <p class="price-s">{!! number_format($course->real_price, 0, ',' , '.') !!}<sup>₫</sup></p>

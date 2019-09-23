@@ -153,12 +153,14 @@
                                     <a href="{{route('cart.show')}}" class="unica-cart">
                                         <img src="{{ asset('frontend/images/tab_cart.png') }}" alt="" style="width: 21px;" />
                                         <span class="unica-sl-cart" style="display: none;"><b class="number-in-cart"></b></span>
+                                        <button id="cartUserId" style="display:none" data-user-id="{{Auth::user()->id}}"></button>
                                     </a>
                                     @endif
                                 @elseif(!Auth::check())
                                     <a href="{{route('cart.show')}}" class="unica-cart">
                                         <img src="{{ asset('frontend/images/tab_cart.png') }}" alt="" style="width: 21px;" />
                                         <span class="unica-sl-cart" style="display: none;"><b class="number-in-cart"></b></span>
+                                        <button id="cartUserId" style="display:none" data-user-id="0"></button>
                                     </a>                            
                                 @endif
                                 <li>
@@ -216,11 +218,6 @@
                                                     }
                                                 </script>
                                             @endif
-                                            <script>
-                                                $('.btn-logout-account').click(function(){
-                                                    localStorage.removeItem('cart')
-                                                })
-                                            </script>
                                         </ul>
                                     </li>
                                     @else
@@ -454,7 +451,8 @@
     </footer>
 
     <script>
-        
+        var user_id = $('button[id=cartUserId]').attr('data-user-id')
+
         $(window).scroll(function(event){
             if ($(this).scrollTop() > 0){
                 $('.unica-home-menutop').addClass('fixed');
@@ -462,14 +460,43 @@
                 $('.unica-home-menutop').removeClass('fixed');
             }
         });
-        if(localStorage.getItem('cart') == null){
-            localStorage.setItem('cart', '[]')
-        }
-        var localStoreageCart = JSON.parse(localStorage.getItem('cart'))
-        if(localStoreageCart.length >= 1){
-            $('.unica-sl-cart').css('display', 'block')
+
+        if( user_id == 0 ){
+            if(localStorage.getItem('cart'+0) == null){
+                localStorage.setItem('cart'+0, '[]')
+            }
+            var localStoreageCart = JSON.parse(localStorage.getItem('cart'+0))
+            if(localStoreageCart.length >= 1){
+                $('.unica-sl-cart').css('display', 'block')
+            }else{
+                $('.unica-sl-cart').css('display', 'none')
+            }
         }else{
-            $('.unica-sl-cart').css('display', 'none')
+            if(localStorage.getItem('cart'+user_id) == null){
+                localStorage.setItem('cart'+user_id, '[]')
+            }
+            var loginCart = JSON.parse(localStorage.getItem('cart'+user_id))
+            if( localStorage.getItem('cart'+0) != null ){
+                var noLoginCart = JSON.parse(localStorage.getItem('cart'+0))
+                noLoginCart.forEach(function(element) {
+                    var check = true
+                    loginCart.forEach(function(obj) {
+                        if(element.id == obj.id){
+                            check = false
+                        }
+                    })
+                    if(check == true){
+                        loginCart = loginCart.concat(element)
+                    }
+                })
+                localStorage.setItem('cart'+0, '[]')
+                localStorage.setItem('cart'+user_id, JSON.stringify(loginCart))
+            }
+            if(loginCart.length >= 1){
+                $('.unica-sl-cart').css('display', 'block')
+            }else{
+                $('.unica-sl-cart').css('display', 'none')
+            }
         }
 
         @if(Auth::check())
@@ -557,15 +584,16 @@
             $(".box-course .img-course .img-mask .btn-add-to-cart button").click( function(e){
                 e.stopPropagation()
                 e.preventDefault()
+                var localCart = []
+                localCart = localStorage.getItem('cart'+user_id)
+                number_items_in_cart = JSON.parse(localStorage.getItem('cart'+user_id))
 
-                if(localStorage.getItem('cart') != null){
-                    var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
-
+                if(localCart != null){
                     $.each( number_items_in_cart, function(i, obj) {
                         if( $(this).attr("data-id") == obj.id ){
                             return false
                         }
-                    });
+                    })
                 }
 
                 var item = {
@@ -580,17 +608,17 @@
                     'coupon_code' : '',
                 }
 
-                if (localStorage.getItem("cart") != null) {
-                    var list_item = JSON.parse(localStorage.getItem("cart"));
+                if (localCart != null) {
+                    var list_item = number_items_in_cart
                     addItem(list_item, item);
-                    localStorage.setItem("cart", JSON.stringify(list_item));
+                    localStorage.setItem("cart"+user_id, JSON.stringify(list_item));                        
                 }else{
                     var list_item = [];
                     addItem(list_item, item);
-                    localStorage.setItem("cart", JSON.stringify(list_item));
+                    localStorage.setItem("cart"+user_id, JSON.stringify(list_item));                        
                 }
 
-                var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
+                // var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
                 // alert(number_items_in_cart.length)
                 $('.number-in-cart').text(number_items_in_cart.length);
 
@@ -607,9 +635,9 @@
                     text: 'Đã thêm vào giỏ hàng!'
                 })
             })
-
-            if(localStorage.getItem('cart') !== null){
-                var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
+            
+            if(localStorage.getItem('cart'+user_id) !== null){
+                var number_items_in_cart = JSON.parse(localStorage.getItem('cart'+user_id))
                 var product_bought = [];
                 @if(\Auth::check())
                     @php
@@ -630,9 +658,6 @@
                 $.each( number_items_in_cart, function(i, obj) {                
                     
                     $('.img-mask button[data-id='+obj.id+']').remove();
-                    // console.log(obj);
-                    
-                    
                     // for(var k = 0; k < product_bought.length; k++){
                     //     if(obj.id == product_bought[k]){
                     //         console.log(`phantu thu ${k}`);
@@ -690,9 +715,7 @@
 
                 }
 
-
-                localStorage.setItem('cart',JSON.stringify(number_items_in_cart))
-                
+                    localStorage.setItem('cart'+user_id,JSON.stringify(number_items_in_cart))
 
                 $('.number-in-cart').text(number_items_in_cart.length);
             }else{
