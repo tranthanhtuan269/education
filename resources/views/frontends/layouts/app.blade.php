@@ -886,7 +886,7 @@
     <script>
     
     $( document ).ready(function() {
-        var x = $('body').height();
+        var x = document.body.scrollHeight;
         var y = $('header').height();
         var z = $('footer').height();
         x=x-y-z;

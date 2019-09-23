@@ -411,52 +411,66 @@
             
             $('#deleteAllApplied').off('click')
             $('#deleteAllApplied').click(function (){
-                Swal.fire({
-                    type: 'warning',
-                    text: 'Are you sure?',
-                    showCancelButton: true,
-                })
-                .then(function (result) {
-                    if(result.value){
-                        var email_id_list = []
-                        $.each($('.check-user'), function (key, value){
-                            if($(this).prop('checked') == true) {
-                                // id_list += $(this).attr("data-column") + ',';
-                                email_id_list.push($(this).attr("data-column"))
-                            }
-                        });
-                        console.log(email_id_list);
-                        if(email_id_list.length > 0){
-                            $.ajaxSetup({
-                                headers: {
-                                    'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
+                let isChecked = false;
+                $.each($('.check-user'), function (key, value){
+                    if($(this).prop('checked') == true) {
+                        return isChecked = true;
+                    }
+                });
+                if(isChecked == false){
+                    return Swal.fire({
+                            type: 'info',
+                            text: 'Bạn chưa chọn tài khoản nào!'
+                        })   
+                }
+                else{
+                    Swal.fire({
+                        type: 'warning',
+                        text: 'Bạn có chắc chắn muốn xóa?',
+                        showCancelButton: true,
+                    })
+                    .then(function (result) {
+                        if(result.value){
+                            var email_id_list = []
+                            $.each($('.check-user'), function (key, value){
+                                if($(this).prop('checked') == true) {
+                                    // id_list += $(this).attr("data-column") + ',';
+                                    email_id_list.push($(this).attr("data-column"))
                                 }
                             });
-                            $.ajax({
-                                method: "GET",
-                                url: baseURL+"/admincp/users/delete-multiple-emails",
-                                data: {
-                                    email_id_list: email_id_list
-                                },
-                                dataType: 'json',
-                                success: function (response) {
-                                    Swal.fire({
-                                        type: 'success',
-                                        text: response.message
-                                    })
-                                    dataTable.ajax.reload(); 
-                                },
-                                error: function (response) {
-                                    Swal.fire({
-                                        type: 'warning',
-                                        text: response.message
-                                    })
-                                }
-                            })
+                            console.log(email_id_list);
+                            if(email_id_list.length > 0){
+                                $.ajaxSetup({
+                                    headers: {
+                                        'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
+                                    }
+                                });
+                                $.ajax({
+                                    method: "GET",
+                                    url: baseURL+"/admincp/users/delete-multiple-emails",
+                                    data: {
+                                        email_id_list: email_id_list
+                                    },
+                                    dataType: 'json',
+                                    success: function (response) {
+                                        Swal.fire({
+                                            type: 'success',
+                                            text: response.message
+                                        })
+                                        dataTable.ajax.reload(); 
+                                    },
+                                    error: function (response) {
+                                        Swal.fire({
+                                            type: 'warning',
+                                            text: response.message
+                                        })
+                                    }
+                                })
+                            }
+                            
                         }
-                        
-                    }
-                })
+                    })
+                }
             })
         }
 

@@ -67,7 +67,7 @@
                     <div class="form-group row">
                         <div class="col-sm-1"></div>
                         <div class="col-sm-11">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal"  id="close">Đóng</button>
                         </div>
                     </div>
                 </div>
@@ -646,6 +646,10 @@
                     dataTable.ajax.reload();
                 }
             })
+        })
+
+        $('#close').click(function(){
+            $('#cv').html('');
         })
 
     });
