@@ -78,7 +78,8 @@
 </div>
 
 <script>
-    var cart_items = JSON.parse(localStorage.getItem('cart'))
+    var user_id = $('button[id=cartUserId]').attr('data-user-id')
+    var cart_items = JSON.parse(localStorage.getItem('cart'+user_id))
     var totalPrice = 0
     var totalInitialPrice = 0
     var activeCoupon = ''
@@ -90,10 +91,7 @@
         }else{
             $(".cart-page-content").addClass('active')
         }
-
-        // console.log(cart_items);
-        
-        
+        // console.log(cart_items)
         $(".cart-page-title .course-amount").append(`(${cart_items.length})`)
         cart_items.forEach((element, index) => {
             
@@ -141,7 +139,6 @@
                     
                 html += '</div>'
             html += '</div>'
-
             $(".cart-item-list").append(html)
 
             // totalPrice += element.coupon_price
@@ -187,7 +184,6 @@
                 showCancelButton: true,
             }).then( (result) =>{
                 if(result.value){
-                    cart_items = JSON.parse(localStorage.getItem('cart'))
                     var cartSingleItem = $(".cart-single-item[data-parent="+dataChild+"]")
                     cartSingleItem.fadeOut("normal", function () {
                         // your other code
@@ -219,7 +215,7 @@
                     $(".cart-page-title .course-amount").prepend(`(${cart_items.length})`)
                     $('.number-in-cart').text(cart_items.length);
 
-                    localStorage.setItem('cart', JSON.stringify(cart_items))
+                    localStorage.setItem('cart'+user_id, JSON.stringify(cart_items))
                     if(totalPrice == totalInitialPrice){
                         $('.price-group .initial-price').css('display', 'none')
                         $('.price-group .percent-off').css('display', 'none')
@@ -243,10 +239,7 @@
                         $('.cart-page-title.container').show()
                     }
                 }
-                
-                
             })
-            
         })
 
         // $('#btnCartCouponApply').on('click', function(e){
@@ -310,7 +303,7 @@
 
             var coupon = $(".cart-single-item[data-parent="+dataChild+"] input").val().trim();
 
-            var new_cart = JSON.parse(localStorage.getItem('cart'))
+            var new_cart = cart_items
             get_coupon = new_cart[numeric_cart].coupon_code
 
             // if($('.coupon-input[data-id='+dataChild+']').val() == ''){
@@ -374,7 +367,8 @@
                         // Insert into localStorage
                         cart_items[numeric_cart].coupon_price = new_price
                         cart_items[numeric_cart].coupon_code  = coupon
-                        localStorage.setItem('cart', JSON.stringify(cart_items))
+
+                        localStorage.setItem('cart'+user_id, JSON.stringify(cart_items))
                         
                         $("#initial_price"+dataChild).css('display','block')
                         $("#current_price"+dataChild).text('')
@@ -440,7 +434,7 @@
                     if(response.status == 201){
                         // remove cart in localstorage
                         cart_items = [];
-                        localStorage.setItem('cart', JSON.stringify(cart_items))
+                        localStorage.setItem('cart'+user_id, JSON.stringify(cart_items))
                         
                         return Swal.fire({
                             type:"success",

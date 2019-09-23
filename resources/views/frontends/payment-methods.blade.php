@@ -398,7 +398,8 @@
 	</div>
 
 	<script>
-		var cart_items = JSON.parse(localStorage.getItem('cart'))
+		var user_id = $('button[id=cartUserId]').attr('data-user-id')
+		var cart_items = JSON.parse(localStorage.getItem('cart'+user_id))
 		var coupon_code = localStorage.getItem('coupon')
     	var final_price = 0
     	var totalInitialPrice = 0
@@ -581,7 +582,7 @@
 						if(response.status == 201){
 							// remove cart in localstorage
 							cart_items = [];
-							localStorage.setItem('cart', JSON.stringify(cart_items))
+							localStorage.setItem('cart'+user_id, JSON.stringify(cart_items))
 							
 							return Swal.fire({
 								type:"success",
