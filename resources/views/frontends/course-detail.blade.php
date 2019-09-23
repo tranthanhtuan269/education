@@ -327,11 +327,11 @@
                                         </div>
                                         @else
                                         <div class="col-sm-6 pull-left">
-                                            @if ( gettype($info_course->price) == 'integer' )
+                                            {{-- @if ( gettype($info_course->price) == 'integer' ) --}}
                                                 <span class="sale">{!! number_format($info_course->price, 0, ',' , '.') !!}đ</span>
-                                            @else
-                                                <span class="sale">{!! $info_course->price !!}</span>
-                                            @endif
+                                            {{-- @else --}}
+                                                {{-- <span class="sale">{!! $info_course->price !!}</span> --}}
+                                            {{-- @endif --}}
                                         </div>
                                         @endif
                                     </div>
