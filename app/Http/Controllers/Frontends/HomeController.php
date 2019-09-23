@@ -50,7 +50,7 @@ class HomeController extends Controller
     {
         $feature_category = Category::withCount('courses')->where('featured', 1)->where('parent_id', '<>', 0)->orderBy('featured_index', 'asc')->get();
         
-        // Duong NT// trending = feature courses
+        // Duong NT// feature courses
         $percent_feature_course = Setting::where('name', 'percent_feature_course')->first()->value;
         $feature_course = Course::where('status', 1)
                                 ->orderBy('featured_index', 'asc')
@@ -59,13 +59,13 @@ class HomeController extends Controller
             $percent;
             if($value->price < $value->real_price){
                 $percent = intval(100 - (($value->price/$value->real_price)*100));
-                if($percent > intval($percent_feature_course)){
+                if($percent >= intval($percent_feature_course)){
                     $value->setAttribute('discount_percent', $percent); // thêm trường discount_percent
                 }
             }else{
                 $percent = 0;
             }
-            return ($percent > intval($percent_feature_course)) || $value->featured == 1 ;
+            return ($percent >= intval($percent_feature_course)) || $value->featured == 1 ;
         })->sortByDesc('featured')
         ->values(); //reindex the collection
         $feature_course_count = $feature_course->count();

@@ -87,6 +87,8 @@ class GiftController extends Controller
                                 $first_video_index  = 1;
                                 if( isset($course->units[0]->videos[0]->id) ){
                                     $first_video_id     = $course->units[0]->videos[0]->id;
+                                }else{
+                                    continue;
                                 }
                                 $user_course_videos = [];
                                 $units = $course->units;
@@ -148,6 +150,8 @@ class GiftController extends Controller
                             $first_video_index = 1;
                             if( isset($course->units[0]->videos[0]->id) ){
                                 $first_video_id = $course->units[0]->videos[0]->id;
+                            }else{
+                                continue;
                             }
                             $user_course_videos = [];
                             $units = $course->units;
