@@ -135,7 +135,7 @@
                             </div>
                             <br>
                             <div class="text-center box-preview-edit">
-                                <img id="previewEditCategoryImg" src="" style="width:440px;height:190px"/>
+                                <img id="previewEditCategoryImg" src="" style="width:300px;height:auto"/>
                             </div>
                         </div>
                         {{-- <input type="reset" id="resetEditCategory" style="display:none"> --}}
@@ -175,7 +175,8 @@ $(document).ready(function() {
                     text: 'Tập tin không hợp lệ.',
                     allowOutsideClick: false,
                 })
-                $("#editImage").val('')
+                $("#editImage").val('') 
+                
             };
             img.src = _URL.createObjectURL(file);
         }
@@ -196,6 +197,7 @@ $(document).ready(function() {
                 $('#showAddModal #files').val('')
                 $('#showEditModal #editImage').val('')
                 // $('.box-preview-edit').css('display', 'none')
+                return false;
             } else {
                 
                 var reader = new FileReader();
@@ -403,12 +405,9 @@ $(document).ready(function() {
     ];
 
     dataTable = $('#category-table').DataTable({
-        serverSide: true,
+        serverSide: false,
         aaSorting: [],
         stateSave: true,
-        search: {
-            smart: false
-        },
         ajax: baseURL + "/admincp/categories/getCategoryAjax",
         columns: dataObject,
         bLengthChange: true,
@@ -599,6 +598,11 @@ $(document).ready(function() {
         $('#editCategory').off()
         $('#editCategory').click(function(){
             // alert(link_image_base64)
+            image_base64 = $('#previewEditCategoryImg').attr('src');
+            image_base64 = image_base64.replace("data:image/png;base64,", "");
+            if(image_base64.indexOf("http") > -1) {
+                image_base64 = "";
+            }
             var id      = $("input[id=userIdUpdate]").val();
 
             var data    = {
@@ -607,14 +611,14 @@ $(document).ready(function() {
                 parent_id        : Number($('#editParentId').val()),
                 featured         : $('input[name="editFeatured"]:checked').val(),
                 icon             : $('#editIcon').val(),
-                image            : link_image_base64,
+                image            : image_base64,
             };
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            $.ajax({
+            var request =$.ajax({
                 url: baseURL+"/admincp/categories/editCategory",
                 data: data,
                 method: "POST",
@@ -664,25 +668,27 @@ $(document).ready(function() {
         // $('input[name=image]').append('<img id="preview_category_img" src="#" max-width="570"/>');
         reader.onload = function()
         {
-            var output = document.getElementById('preview_category_img');
-            output.src = reader.result;
+            var fileInput = $('#files').val();
+            var allowedExtensions = /(\.gif|\.png|\.jpeg)$/i;
+            if (allowedExtensions.exec(fileInput)){
+                var output = document.getElementById('preview_category_img');
+                output.src = reader.result;
+            }
+            
         }
-        // var fileInput = $('#files').val();
-        // var allowedExtensions = /(\.gif|\.png|\.jpeg)$/i;
-        // if (!allowedExtensions.exec(fileInput)){
-        //     reader.readAsDataURL(event.target.files[1]);
-        // }
-        // else{
-        //     reader.readAsDataURL(event.target.files[0]);
-        // }
         reader.readAsDataURL(event.target.files[0]);
     }
 
     function preview_edit_image(event){
         var reader = new FileReader();
         reader.onload = function(){
-            var output = document.getElementById('previewEditCategoryImg');
-            output.src = reader.result;
+
+            var fileInput = $('#editImage').val();
+            var allowedExtensions = /(\.gif|\.png|\.jpeg)$/i;
+            if (allowedExtensions.exec(fileInput)){
+                var output = document.getElementById('previewEditCategoryImg');
+                output.src = reader.result;
+            }
         }
         reader.readAsDataURL(event.target.files[0]);
     }

@@ -32,7 +32,7 @@ class CreateEmailRequest extends FormRequest
     public function messages() {
         return [
             'title.required' => "Bạn chưa điền chủ đề của Email",
-            'title.max' => "Bạn đã nhập quá 150 kí tự",
+            'title.max' => "Chủ đề nhập quá 150 kí tự",
             'content.required' => "Bạn chưa điền nội dung của Email",
         ];
     }
