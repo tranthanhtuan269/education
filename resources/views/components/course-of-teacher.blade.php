@@ -87,6 +87,7 @@
 </div>
 
 <script>
+    var user_id = $('button[id=cartUserId]').attr('data-user-id')
     var course_id = Number( {{ $course->id }} )
     jQuery(function () {
         $("#addCart{{ $course->id }}").click( function(){
@@ -110,66 +111,34 @@
                 'coupon_code' : '',
             }
 
-            if (localStorage.getItem("cart") != null) {
-                var list_item = JSON.parse(localStorage.getItem("cart"));
+            if (localStorage.getItem('cart'+user_id) != null) {
+                var list_item = JSON.parse(localStorage.getItem('cart'+user_id));
                 addItem(list_item, item);
-                localStorage.setItem("cart", JSON.stringify(list_item));
+                localStorage.setItem('cart'+user_id, JSON.stringify(list_item));
             }else{
                 var list_item = [];
                 addItem(list_item, item);
-                localStorage.setItem("cart", JSON.stringify(list_item));
+                localStorage.setItem('cart'+user_id, JSON.stringify(list_item));
             }
 
-            // var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
+            // var number_items_in_cart = JSON.parse(localStorage.getItem('cart'+user_id))
             // $('.number-in-cart').text(number_items_in_cart.length);
 
             Swal.fire({
                 type: 'success',
                 text: 'Đã thêm vào giỏ hàng!'
             })
-            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'));
+            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'+user_id));
             $('.number-in-cart').text(number_items_in_cart.length);
             $('.unica-sl-cart').css('display', 'block')
         })
 
-        if(localStorage.getItem('cart') != null){
-            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
+        if(localStorage.getItem('cart'+user_id) != null){
+            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'+user_id))
 
             $.each( number_items_in_cart, function(i, obj) {
                 $('.teacher-course button[data-id='+obj.id+']').html('<b>ĐÃ THÊM VÀO GIỎ HÀNG</b>').attr('disabled', true)
             });
         }
     })
-
-    // function addCart(){
-    //     var item = {
-    //         'id' : {!! $course->id !!},
-    //         'image' : '{!! $course->image !!}',
-    //         'slug' : '{!! $course->slug !!}',                
-    //         @if(count($course->Lecturers()) > 0)
-    //         'lecturer' : "{!! $course->Lecturers()[0]->user->name !!}",
-    //         @else
-    //         'lecturer' : 'Nhiều giảng viên',
-    //         @endif
-    //         'name' : "{!! $course->name !!}",
-    //         'price' : {!! $course->price !!},
-    //         'real_price' : {!! $course->real_price !!},
-    //         'coupon_price' : {!! $course->price !!},
-    //         'coupon_code' : '',
-    //     }
-
-    //     if (localStorage.getItem("cart") != null) {
-    //         var list_item = JSON.parse(localStorage.getItem("cart"));
-    //         addItem(list_item, item);
-    //         localStorage.setItem("cart", JSON.stringify(list_item));
-    //     }else{
-    //         var list_item = [];
-    //         addItem(list_item, item);
-    //         localStorage.setItem("cart", JSON.stringify(list_item));
-    //     }
-
-    //     var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
-    //         // alert(number_items_in_cart.length)
-    //     $('.number-in-cart').text(number_items_in_cart.length);
-    // }
 </script>

@@ -877,7 +877,7 @@
     </script>
 </div>
 <script type="text/javascript">
-    
+    var user_id = $('button[id=cartUserId]').attr('data-user-id')
     $(document).ready(function() { 
 
         $(".interactive-bar .buttons button:first-child").click(function(){
@@ -911,17 +911,17 @@
         //         'real_price' : {!! $info_course->real_price !!},
         //     }
 
-        //     if (localStorage.getItem("cart") != null) {
-        //         var list_item = JSON.parse(localStorage.getItem("cart"));
+        //     if (localStorage.getItem('cart'+user_id) != null) {
+        //         var list_item = JSON.parse(localStorage.getItem('cart'+user_id));
         //         addItem(list_item, item);
-        //         localStorage.setItem("cart", JSON.stringify(list_item));
+        //         localStorage.setItem('cart'+user_id, JSON.stringify(list_item));
         //     }else{
         //         var list_item = [];
         //         addItem(list_item, item);
-        //         localStorage.setItem("cart", JSON.stringify(list_item));
+        //         localStorage.setItem('cart'+user_id, JSON.stringify(list_item));
         //     }
 
-        //     var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
+        //     var number_items_in_cart = JSON.parse(localStorage.getItem('cart'+user_id))
         //         // alert(number_items_in_cart.length)
         //     $('.number-in-cart').text(number_items_in_cart.length);
         // }
@@ -1091,7 +1091,7 @@
                 type: 'success',
                 text: 'Đã thêm vào giỏ hàng!'
             })
-            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
+            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'+user_id))
             $('.number-in-cart').text(number_items_in_cart.length)
             $('.unica-sl-cart').css('display', 'block')
             $.each( number_items_in_cart, function(i, obj) {
@@ -1119,14 +1119,14 @@
             $(".btn-buy-now button").remove()
             $('.interactive-bar').remove()
 
-            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
+            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'+user_id))
             $('.number-in-cart').text(number_items_in_cart.length);
             $('.unica-sl-cart').css('display', 'block')
             
         })
 
-        if(localStorage.getItem('cart') != null){
-            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
+        if(localStorage.getItem('cart'+user_id) != null){
+            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'+user_id))
 
             $.each( number_items_in_cart, function(i, obj) {
                 $('.btn-buy-now button[data-id='+obj.id+']').remove()
@@ -1154,8 +1154,8 @@
         course_id = Number(course_id)
         var check = true
         
-        if(localStorage.getItem('cart') != null){
-            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
+        if(localStorage.getItem('cart'+user_id) != null){
+            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'+user_id))
 
             $.each( number_items_in_cart, function(i, obj) {
                 if( course_id == Number(obj.id) ){
@@ -1180,17 +1180,17 @@
                 'coupon_code' : '',
             }
     
-            if (localStorage.getItem("cart") != null) {
-                var list_item = JSON.parse(localStorage.getItem("cart"));
+            if (localStorage.getItem('cart'+user_id) != null) {
+                var list_item = JSON.parse(localStorage.getItem('cart'+user_id));
                 addItem(list_item, item);
-                localStorage.setItem("cart", JSON.stringify(list_item));
+                localStorage.setItem('cart'+user_id, JSON.stringify(list_item));
             }else{
                 var list_item = [];
                 addItem(list_item, item);
-                localStorage.setItem("cart", JSON.stringify(list_item));
+                localStorage.setItem('cart'+user_id, JSON.stringify(list_item));
             }
     
-            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
+            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'+user_id))
             $('.number-in-cart').text(number_items_in_cart.length);
         }
     }
