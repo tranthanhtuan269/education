@@ -312,11 +312,7 @@
                                         ?>
                                         @if ($check_time_sale == true || $info_course->price != $info_course->real_price)                                        
                                         <div class="col-sm-6 pull-left">
-                                            @if ( gettype($info_course->price) == 'integer' )
-                                                <span class="sale">{!! number_format($info_course->price, 0, ',' , '.') !!}đ</span>
-                                            @else
-                                                <span class="sale">{!! $info_course->price !!}</span>
-                                            @endif
+                                            <span class="sale">{!! number_format($info_course->price, 0, ',' , '.') !!}đ</span>
                                             <span class="price">{!! number_format($info_course->real_price, 0, ',' , '.') !!}đ</span>
                                             {{-- <span class="interval">Còn {{ $date_to->diff($date_from)->format("%d") }} ngày tại mức giá này </span> --}}
                                         </div>
@@ -327,11 +323,7 @@
                                         </div>
                                         @else
                                         <div class="col-sm-6 pull-left">
-                                            {{-- @if ( gettype($info_course->price) == 'integer' ) --}}
-                                                <span class="sale">{!! number_format($info_course->price, 0, ',' , '.') !!}đ</span>
-                                            {{-- @else --}}
-                                                {{-- <span class="sale">{!! $info_course->price !!}</span> --}}
-                                            {{-- @endif --}}
+                                            <span class="sale">{!! number_format($info_course->price, 0, ',' , '.') !!}đ</span>
                                         </div>
                                         @endif
                                     </div>
