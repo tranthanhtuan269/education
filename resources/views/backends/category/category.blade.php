@@ -403,7 +403,7 @@ $(document).ready(function() {
     ];
 
     dataTable = $('#category-table').DataTable({
-        serverSide: false,
+        serverSide: true,
         aaSorting: [],
         stateSave: true,
         search: {

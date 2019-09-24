@@ -178,7 +178,7 @@
         ];
 
         dataTable = $('#course-table').DataTable( {
-                        serverSide: false,
+                        serverSide: true,
                         aaSorting: [],
                         stateSave: true,
                         search: {
@@ -559,6 +559,7 @@
                                     $.each($('.check-course'), function (key, value){
                                         if($(this).prop('checked') == true) {
                                             $(this).parent().parent().removeClass('red-row').addClass('blue-row');
+                                            $(this).attr('checked', false)
                                             // $(this).parent().parent().addClass('red-row').removeClass('blue-row');
                                         }
                                     });

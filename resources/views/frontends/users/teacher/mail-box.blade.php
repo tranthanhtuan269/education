@@ -79,7 +79,7 @@
             ];
     
             dataTable = $('#mailbox-table').DataTable( {
-                            serverSide: false,
+                            serverSide: true,
                             aaSorting: [],
                             stateSave: false,
                             search: {

@@ -159,7 +159,7 @@
         ];
     
         dataTable = $('#orders-table').DataTable( {
-                        // serverSide: true,
+                        serverSide: true,
                         aaSorting: [],
                         stateSave: false,
                         search: {

@@ -34,7 +34,6 @@
                             <th scope="col">Tên</th>
                             <th scope="col">Email</th>
                             <th scope="col">Vai trò</th>
-                            <th scope="col">Ngày tạo</th>
                             <th scope="col">Status</th>
                             <th scope="col">Thao tác</th>
                         </tr>
@@ -448,9 +447,6 @@
                     return data;
                 },
             },
-            { 
-                data: "created_at",
-            },
             {
                 data: "action",
                 class: "action-field",
@@ -496,8 +492,8 @@
         ];
 
         dataTable = $('#account-table').DataTable( {
-                        serverSide: false,
-                        aaSorting: [],
+                        serverSide: true,
+                        // aaSorting: [],
                         stateSave: false,
                         search: {
                             smart: false
@@ -506,7 +502,7 @@
                         columns: dataObject,
                         // bLengthChange: false,
                         // pageLength: 10,
-                        order: [[ 4, "desc" ]],
+                        order: [[ 1, "desc" ]],
                         colReorder: {
                             fixedColumnsRight: 1,
                             fixedColumnsLeft: 1

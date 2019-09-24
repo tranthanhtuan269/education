@@ -179,7 +179,7 @@
         ];
 
         dataTable = $('#teacher-table').DataTable( {
-                        serverSide: false,
+                        serverSide: true,
                         aaSorting: [],
                         stateSave: true,
                         search: {
