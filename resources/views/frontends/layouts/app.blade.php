@@ -611,14 +611,14 @@
                 if (localCart != null) {
                     var list_item = number_items_in_cart
                     addItem(list_item, item);
-                    localStorage.setItem("cart"+user_id, JSON.stringify(list_item));                        
+                    localStorage.setItem('cart'+user_id, JSON.stringify(list_item));                        
                 }else{
                     var list_item = [];
                     addItem(list_item, item);
-                    localStorage.setItem("cart"+user_id, JSON.stringify(list_item));                        
+                    localStorage.setItem('cart'+user_id, JSON.stringify(list_item));                        
                 }
 
-                // var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
+                // var number_items_in_cart = JSON.parse(localStorage.getItem('cart'+user_id))
                 // alert(number_items_in_cart.length)
                 $('.number-in-cart').text(number_items_in_cart.length);
 

@@ -370,6 +370,7 @@ $(document).ready(function() {
         {
             data: "featured",
             class: "text-center",
+            orderable: false
         },
         {
             data: "image",

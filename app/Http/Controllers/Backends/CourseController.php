@@ -45,6 +45,7 @@ class CourseController extends Controller
         // }
 
         $item = new Course;
+        $item->author               = \Auth::user()->name;
         $item->name                 = $request->name;
         $item->image                = $img_link;
         $item->short_description    = $request->short_description;
@@ -126,7 +127,7 @@ class CourseController extends Controller
                 // }
                 $link_intro = "https://www.youtube.com/embed/" . Helper::getYouTubeVideoId($request->link_intro);
                 // echo($link_intro);
-
+                $item->author               = \Auth::user()->name;
                 $item->name                 = $request->name;
                 $item->image                = $img_link;
                 $item->short_description    = $request->short_description;
