@@ -564,6 +564,7 @@
                                         }
                                     });
                                     dataTable.page( checkEmptyTable() ).draw( false );
+                                    $('.check-user').prop('checked', false)
                                 },
                                 error: function (response) {
                                     Swal.fire({
@@ -635,6 +636,7 @@
                                         }
                                     });
                                     dataTable.page(checkEmptyTable()).draw( false );
+                                    $('.check-user').prop('checked', false)
                                 },
                                 error: function (response) {
                                     Swal.fire({
