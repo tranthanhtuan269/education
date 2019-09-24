@@ -147,73 +147,86 @@ class UserController extends Controller
             $user->updated_at = date('Y-m-d H:i:s');
 
             // DUONGNT
-            $all_system_role_ids   = Role::pluck('id')->toArray(); // lấy tất cả role_id trong hệ thống
-            $all_requested_role_ids  = $request->role_id; // lấy tất cả role_id được gán cho user
-            $not_assigned_role_ids = array_diff($all_system_role_ids, $all_requested_role_ids); // lấy tất cả những role_id không được gán cho user
+            // $all_system_role_ids   = Role::pluck('id')->toArray(); // lấy tất cả role_id trong hệ thống
+            // $all_requested_role_ids  = $request->role_id; // lấy tất cả role_id được gán cho user
+            // $not_assigned_role_ids = array_diff($all_system_role_ids, $all_requested_role_ids); // lấy tất cả những role_id không được gán cho user
 
-            // Xử lý những role_id được gán cho user
-            foreach ($all_requested_role_ids as $key => $role_id) {
-                $user_role = UserRole::firstOrCreate(
-                    ['user_id' => $user_id, 'role_id' => $role_id]
-                );
-                if($role_id == 2){ //Nếu được gán cho chức năng teacher 
-                    // $user_role = UserRole::where('user_id', $user_id)->where('role_id', $role_id)->first();
-                    if(isset($user_role->teacher)){ //nếu đã từng là teacher thì set status = 1 cho active
-                        $teacher   = $user_role->teacher;
-                        $teacher->status = 1; 
-                        $teacher->save();
-                    }else{                 // lần đầu được làm teacher thì tạo 1 dòng teacher
-                        $teacher = new Teacher;
-                        $teacher->user_role_id = $user_role->id;
-                        $teacher->cv = "Bạn cần cập nhật thông tin này ngay";
-                        $teacher->expert = "Bạn cần cập nhật thông tin này ngay";
-                        $teacher->rating_count = 0;
-                        $teacher->student_count = 0;
-                        $teacher->course_count = 0;
-                        $teacher->video_intro = "https://www.youtube.com/embed/fbnD3b9wgsk";
-                        $teacher->status = 1; //active
-                        $teacher->save();
-                    }
-                }
-            }
-            
-            // Xử lý những role_id chức năng bị bỏ đi của user
-            foreach ($not_assigned_role_ids as $key => $role_id) {
-                $user_role = UserRole::where('user_id', $user_id)->where('role_id', $role_id)->first();
-                if(isset($user_role)){
-                    if($role_id == 2){ //Nếu bị bỏ chức năng teacher
-                        if(isset($user_role->teacher)){
-                            $teacher = $user_role->teacher;
-                            $teacher->status = 0; // deactive chức năng teacher của 
-                            $teacher->save(); 
-                        }else{
-                            dd($user_role);
-                            return response()->json([
-                                'status' => '404',
-                                'message' => 'Không tìm thấy giảng viên để xoá'
-                            ]);
-                        }
-                    }else{                        
-                        $user_role->delete();                        
-                    }
-                }
-            }
-            // dd($user->userRoles);
-
-            
-            // dd($user->userRoles);
-            // foreach()
-            // UserRole::where('user_id', $id)->delete();
-            // $created_at = $updated_at = date('Y-m-d H:i:s');
-            // $arr_roles = [];
-            // foreach ($request->role_id as $role) {
-            //     $arr_roles[] = ['user_id' => $id, 'role_id' => $role, 'created_at' => $created_at, 'updated_at' => $updated_at];
+            // // Xử lý những role_id được gán cho user
+            // foreach ($all_requested_role_ids as $key => $role_id) {
+            //     $user_role = UserRole::firstOrCreate(
+            //         ['user_id' => $user_id, 'role_id' => $role_id]
+            //     );
+            //     if($role_id == 2){ //Nếu được gán cho chức năng teacher 
+            //         // $user_role = UserRole::where('user_id', $user_id)->where('role_id', $role_id)->first();
+            //         if(isset($user_role->teacher)){ //nếu đã từng là teacher thì set status = 1 cho active
+            //             $teacher   = $user_role->teacher;
+            //             $teacher->status = 1; 
+            //             $teacher->save();
+            //         }else{                 // lần đầu được làm teacher thì tạo 1 dòng teacher
+            //             $teacher = new Teacher;
+            //             $teacher->user_role_id = $user_role->id;
+            //             $teacher->cv = "Bạn cần cập nhật thông tin này ngay";
+            //             $teacher->expert = "Bạn cần cập nhật thông tin này ngay";
+            //             $teacher->rating_count = 0;
+            //             $teacher->student_count = 0;
+            //             $teacher->course_count = 0;
+            //             $teacher->video_intro = "https://www.youtube.com/embed/fbnD3b9wgsk";
+            //             $teacher->status = 1; //active
+            //             $teacher->save();
+            //         }
+            //     }
             // }
-            // UserRole::insert($arr_roles);
+            
+            // // Xử lý những role_id chức năng bị bỏ đi của user
+            // foreach ($not_assigned_role_ids as $key => $role_id) {
+            //     $user_role = UserRole::where('user_id', $user_id)->where('role_id', $role_id)->first();
+            //     if(isset($user_role)){
+            //         if($role_id == 2){ //Nếu bị bỏ chức năng teacher
+            //             if(isset($user_role->teacher)){
+            //                 $teacher = $user_role->teacher;
+            //                 $teacher->status = 0; // deactive chức năng teacher của 
+            //                 $teacher->save(); 
+            //             }else{
+            //                 dd($user_role);
+            //                 return response()->json([
+            //                     'status' => '404',
+            //                     'message' => 'Không tìm thấy giảng viên để xoá'
+            //                 ]);
+            //             }
+            //         }else{                        
+            //             $user_role->delete();                        
+            //         }
+            //     }
+            // }
 
-            $res = array('status' => "200", "Message" => "Cập nhật thông tin thành công");
 
-            $user->save();
+            //24.9.2019 DuongNT - delete những user_role không phải teacher và student (anh Ba phải thay đổi logic cho phù hợp)
+            
+            if($request->role_id){
+                UserRole::where('user_id', $id)
+                ->where('role_id', '!=', \Config::get('app.teacher'))
+                ->where('role_id', '!=', \Config::get('app.student'))
+                ->delete(); 
+    
+                $created_at = $updated_at = date('Y-m-d H:i:s');
+                $arr_roles = [];
+                foreach ($request->role_id as $role) {
+                    $arr_roles[] = ['user_id' => $id, 'role_id' => $role, 'created_at' => $created_at, 'updated_at' => $updated_at];
+                }
+                UserRole::insert($arr_roles);
+    
+                $res = array('status' => "200", "Message" => "Cập nhật thông tin thành công");
+    
+                $user->save();
+
+            }else{
+                UserRole::where('user_id', $id)
+                ->where('role_id', '!=', \Config::get('app.teacher'))
+                ->where('role_id', '!=', \Config::get('app.student'))
+                ->delete();
+
+                $res = array('status' => "200", "Message" => "Cập nhật thông tin thành công");
+            }
         } else {
             $res = array('status' => "401", "Message" => "Cập nhật thông tin không thành công!");
         }
@@ -304,14 +317,16 @@ class UserController extends Controller
     public function getInfoByID($id)
     {
         $user = User::find($id);
-        if($user->isTeacher()){
-            $teacher_info = $user->userRolesTeacher()->teacher;
-        }else{
-            $teacher_info = null;
-        }
+        
         // echo '<pre>';
         // print_r($user);die;
         if ($user) {
+            $isTeacher = $user->isTeacher();
+            if($isTeacher){
+                $teacher_info = $user->userRolesTeacher()->teacher;
+            }else{
+                $teacher_info = null;
+            }
             $res = array('status' => "200", "Message" => "Người dùng đã tồn tại!", "user" => $user, "teacher_info" => $teacher_info);
         } else {
             $res = array('status' => "401", "Message" => "Người dùng không tồn tại!", "user" => null);

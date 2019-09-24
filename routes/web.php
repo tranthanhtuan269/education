@@ -153,6 +153,11 @@ Route::group(['middleware' => 'auth'], function () {
         
         Route::post('users/store-teacher', 'Backends\TeacherController@store');
         Route::put('users/update-teacher', 'Backends\TeacherController@update');
+        Route::put('users/disable-teacher', 'Backends\TeacherController@disable');
+        Route::post('users/store-student', 'Backends\StudentController@store');
+        Route::put('users/update-student', 'Backends\StudentController@update');
+
+        
         Route::resource('users', 'Backends\UserController');
         Route::put('users/updateSefl', 'Backends\UserController@updateSefl')->name('user.updateSefl');
         Route::post('users/info', 'Backends\UserController@infoRoleUser');

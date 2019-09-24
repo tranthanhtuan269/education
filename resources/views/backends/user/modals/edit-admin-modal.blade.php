@@ -48,3 +48,8 @@
         <div class="alert-errors d-none" role="alert" id="role_idErrorIns"></div>
     </div>
 </div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-primary" id="saveUser">Cập nhật</button>
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
+</div>

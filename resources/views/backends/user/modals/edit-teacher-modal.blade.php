@@ -2,7 +2,7 @@
     <label class="col-sm-3 col-form-label">Ảnh đại diện <span class="text-danger">*</span></label>
     <div class="col-sm-8 image-cropit-editor">
         <div>
-            <img id="imageEditTch" style="height:150px;" src="">
+            <img id="imageEditTch" style="height:200px;" src="">
             <input type="file" id="editTchImgInput" style="display:none;">
         </div>
         <div style="margin-top: 0.5em">
@@ -106,35 +106,24 @@
 <div class="form-group row">
     <label  class="col-sm-3 col-form-label">Mật khẩu <span class="text-danger">*</span></label>
     <div class="col-sm-8">
-        <input  class="form-control" id="editTchPassword" name="password">                                       
+        <input type="password" class="form-control" id="editTchPassword" name="password">                                       
     </div>
 </div>
 <div class="form-group row">
     <label  class="col-sm-3 col-form-label">Nhập lại mật khẩu <span class="text-danger">*</span></label>
     <div class="col-sm-8">
-        <input  class="form-control" id="editTchCfPassword" name="confirm-password" >                                       
+        <input type="password" class="form-control" id="editTchCfPassword" name="confirm-password" >                                       
     </div>
 </div>
-<div>
-    <button type="button" class="btn btn-primary" id="saveEditTeacher">Thêm mới</button>
+<div class="modal-footer">
+    <button type="button" class="btn btn-primary" id="saveEditTeacher">Lưu giảng viên</button>
     <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeEditTeacher">Hủy bỏ</button>
 </div> 
 
 <script>
 
 $(document).ready(function(){
-    const imageEdit = document.getElementById('imageEditTch');
-    const cropperEdit = new Cropper(imageEdit, {
-        viewMode: 1,
-        aspectRatio: 1,
-        autoCropArea: 1,
-        scalable: true,
-        zoomable: true,
-        zoomOnTouch: false,
-        cropBoxResizable: false,
-        rotatable: true,
-        dragMode: 'none',
-    });
+    
 
     $('#editTchDob').datepicker({
         autoclose: true,
@@ -173,6 +162,7 @@ $(document).ready(function(){
         }
 
         reader.onloadend = function() {
+            cropperEdit.reset()
             cropperEdit.replace(reader.result)
         }
 
@@ -223,8 +213,9 @@ $(document).ready(function(){
         var editFormData = new FormData
         if(cropperEdit.getCroppedCanvas() != null){
             var avatar           = cropperEdit.getCroppedCanvas().toDataURL()
-            // console.log($("#editTchImgInput").prop('files')[0])
-             
+            console.log($("#editTchImgInput").prop('files')[0])
+            
+            // editFormData.append('ava_last_modified', 1552883815528);
             editFormData.append('avatar', avatar)
         }
 
@@ -239,7 +230,7 @@ $(document).ready(function(){
         editFormData.append('expert', expert)
         editFormData.append('youtube', youtube)
         editFormData.append('cv', cv)
-        if(password!= null){
+        if(password != ""){
             editFormData.append('password', password)
             editFormData.append('confirm_password', confirmPassword)
         }
@@ -256,9 +247,13 @@ $(document).ready(function(){
                         type:'success',
                         text: response.message
                     })
-                    dataTable.ajax.reload();                    
+                    dataTable.ajax.reload();                   
+                    $("#editTchImgInput").val("")
+                    $("#editTchPassword").val("")
+                    $("#editTchCfPassword").val("")
+                    cropperEdit.destroy()
+                    $("#edit_user_modal").modal('hide')
                 }
-                $("#add_user_modal").modal('hide')
             },
             error: error => {
                 var obj_errors = error.responseJSON.errors;

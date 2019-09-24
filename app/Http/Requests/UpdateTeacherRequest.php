@@ -31,8 +31,8 @@ class UpdateTeacherRequest extends FormRequest
             'expert'        => 'required|max:55',
             'address'       => 'max:255',
             'dob'           => 'date_format:"d/m/Y"|regex:/[0-9]{2}\/[0-9]{2}\/[0-9]{4}/|validate_dob',
-            // 'password'          => 'required|min:8|max:101',
-            // 'confirm_password'   => 'required|same:password',
+            'password'          => 'min:8|max:101',
+            'confirm_password'   => 'same:password',
             // 'video-intro'   => 'required|regex:/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/|validate_youtube_url',
         ];
     }
@@ -54,15 +54,14 @@ class UpdateTeacherRequest extends FormRequest
             'expert.required'           => 'Bạn chưa nhập Chuyên môn.',
             'expert.max'           => 'Chuyên môn phải có số kí tự nhỏ hơn 55',
 
-            'address.max'               => 'Địa chỉ quá dài.',
+            'address.max'               => 'Địa chỉ quá dài. Vui lòng nhập ít hơn 255 ký tự',
 
             'dob.date_format'      => 'Ngày sinh phải có định dạng Ngày/Tháng/Năm (Ví dụ: 31/12/1993).',
 
-            'password.required' => 'Bạn chưa nhập mật khẩu',
             'password.min' => 'Mật khẩu cần có 8 ký tự trở lên',
             'password.max' => 'Mật khẩu cần có ít hơn 100 ký tự',
             // 'confirm_password.required' => 'Vui lòng nhập lại mật khẩu',
-            // 'confirm_password.same' => 'Mật khẩu chưa khớp',
+            'confirm_password.same' => 'Mật khẩu chưa khớp',
         ];
     }
 }

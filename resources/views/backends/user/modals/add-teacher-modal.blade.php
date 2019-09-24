@@ -107,16 +107,16 @@
     <div class="form-group row">
         <label  class="col-sm-3 col-form-label">Mật khẩu <span class="text-danger">*</span></label>
         <div class="col-sm-8">
-            <input  class="form-control" id="addTchPassword" name="password">                                       
+            <input type="password" class="form-control" id="addTchPassword" name="password">                                       
         </div>
     </div>
     <div class="form-group row">
         <label  class="col-sm-3 col-form-label">Nhập lại mật khẩu <span class="text-danger">*</span></label>
         <div class="col-sm-8">
-            <input  class="form-control" id="addTchCfPassword" name="confirm-password" >                                       
+            <input type="password" class="form-control" id="addTchCfPassword" name="confirm-password" >                                       
         </div>
     </div>
-    <div>
+    <div class="modal-footer">
         <button type="button" class="btn btn-primary" id="createTeacher">Thêm mới</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeCreateTeacher">Hủy bỏ</button>
     </div> 
@@ -254,7 +254,8 @@ $(document).ready(function() {
                         type:'success',
                         text: response.message
                     })
-                    dataTable.ajax.reload();                    
+                    dataTable.ajax.reload();
+                    clearAddTeacherForm()                    
                 }
                 $("#add_user_modal").modal('hide')
             },
@@ -287,6 +288,7 @@ $(document).ready(function() {
         addTchCvEditor.setData("")
         $('#addTchPassword').val("")
         $('#addTchCfPassword').val("")
+        cropper.destroy()
     }
 })
 </script>
