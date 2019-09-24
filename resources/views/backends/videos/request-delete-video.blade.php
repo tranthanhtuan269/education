@@ -151,6 +151,9 @@
                         serverSide: false,
                         aaSorting: [],
                         stateSave: true,
+                        search: {
+                            smart: false
+                        },
                         ajax: "{{ url('/') }}/admincp/request-delete-videos/getRequestDeleteVideoAjax",
                         columns: dataObject,
                         bLengthChange: true,

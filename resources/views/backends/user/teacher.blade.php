@@ -184,6 +184,9 @@
                         serverSide: false,
                         aaSorting: [],
                         stateSave: true,
+                        search: {
+                            smart: false
+                        },
                         ajax: "{{ url('/') }}/admincp/teachers/getTeacherAjax",
                         columns: dataObject,
                         bLengthChange: true,

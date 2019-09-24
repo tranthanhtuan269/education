@@ -103,6 +103,9 @@
                             serverSide: false,
                             aaSorting: [],
                             stateSave: false,
+                            search: {
+                                smart: false
+                            },
                             ajax: "{{ url('/') }}/user/getDataOrderAjax",
                             columns: dataObject,
                             // bLengthChange: false,

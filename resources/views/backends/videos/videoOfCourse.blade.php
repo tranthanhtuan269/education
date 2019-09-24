@@ -141,6 +141,9 @@
                         serverSide: false,
                         aaSorting: [],
                         stateSave: true,
+                        search: {
+                            smart: false
+                        },
                         ajax: {
                             url: "{{ url('/') }}/admincp/videos/getVideoAjax?course_id="+ "{{ $_GET['course_id']}}",
                             beforeSend: function() {

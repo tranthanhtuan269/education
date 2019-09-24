@@ -499,6 +499,9 @@
                         serverSide: false,
                         aaSorting: [],
                         stateSave: false,
+                        search: {
+                            smart: false
+                        },
                         ajax: "{{ url('/') }}/admincp/users/getDataAjax",
                         columns: dataObject,
                         // bLengthChange: false,

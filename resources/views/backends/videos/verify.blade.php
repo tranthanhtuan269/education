@@ -182,6 +182,9 @@
                         serverSide: false,
                         aaSorting: [],
                         stateSave: true,
+                        search: {
+                            smart: false
+                        },
                         ajax: "{{ url('/') }}/admincp/get-unverified-video",
                         columns: dataObject,
                         bLengthChange: true,

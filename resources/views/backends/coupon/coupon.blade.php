@@ -411,6 +411,9 @@ $(document).ready(function(){
                     serverSide: false,
                     aaSorting: [],
                     stateSave: true,
+                    search: {
+                        smart: false
+                    },
                     ajax: "{{ url('/') }}/admincp/coupon/getCouponAjax",
                     columns: dataObject,
                     // bLengthChange: false,

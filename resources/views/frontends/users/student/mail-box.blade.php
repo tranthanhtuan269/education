@@ -82,6 +82,9 @@
                             serverSide: false,
                             aaSorting: [],
                             stateSave: false,
+                            search: {
+                                smart: false
+                            },
                             ajax: "{{ url('/') }}/user/getDataMailBoxAjax",
                             columns: dataObject,
                             // bLengthChange: false,

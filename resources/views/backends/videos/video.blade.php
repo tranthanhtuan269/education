@@ -145,6 +145,9 @@
                         serverSide: false,
                         aaSorting: [],
                         stateSave: true,
+                        search: {
+                            smart: false
+                        },
                         ajax: {
                             url: "{{ url('/') }}/admincp/videos/getVideoAjax",
                             beforeSend: function() {

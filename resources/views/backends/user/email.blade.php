@@ -248,6 +248,9 @@
                         serverSide: false,
                         aaSorting: [],
                         stateSave: false,
+                        search: {
+                            smart: false
+                        },
                         ajax: "{{ url('/') }}/admincp/emails/getEmailAjax",                        
                         columns: dataObject,
                         // bLengthChange: false,
