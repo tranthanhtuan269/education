@@ -129,7 +129,7 @@
                                 </div>
                                 @if (Auth::check())
                                     @if (!Auth::user()->isAdmin())
-                                        @if(isset($course->userRoles[0]->user_id))
+                                        @if(isset($info_course->userRoles[0]->user_id))
                                             @if( (int)($info_course->userRoles[0]->user_id) != (int)(Auth::user()->id) )
                                                 @if (!in_array($info_course->id, $list_bought))
                                                 <div class="box clearfix">
@@ -147,7 +147,7 @@
                                                 </div>
                                                 @endif
                                             @endif   
-                                        @endif                                 
+                                        @endif
                                     @endif
                                 @else
                                     <div class="box clearfix">
@@ -338,7 +338,7 @@
                                     <div class="button-class clearfix">
                                         @if (Auth::check())
                                             @if (!Auth::user()->isAdmin())
-                                            @if(isset($course->userRoles[0]->user_id))
+                                            @if(isset($info_course->userRoles[0]->user_id))
                                                 @if( (int)($info_course->userRoles[0]->user_id) == (int)(Auth::user()->id) )
                                                     <div class="sidebar-add-cart">
                                                         <button type="button" id="add-cart2" class="btn btn-primary button-add-to-cart" disabled><b>Đây là khóa học của bạn</b></button>
@@ -590,7 +590,7 @@
                 <h3>Đánh giá khóa học
                     {{-- @if(Auth::check()) --}}
                         @if(\App\Helper\Helper::getUserRoleOfCourse($info_course->id))
-                        @if(isset($course->userRoles[0]->user_id))
+                        @if(isset($info_course->userRoles[0]->user_id))
                             @if( (int)($info_course->userRoles[0]->user_id) != (int)(Auth::user()->id) )
                                 <span class="reviews-star" data-star="{{ isset($ratingCourse) ? $ratingCourse->score : 0 }}">
                                     @if($ratingCourse)
@@ -617,7 +617,7 @@
                 </h3>
                 {{-- @if(Auth::check()) --}}
                 @if(\App\Helper\Helper::getUserRoleOfCourse($info_course->id))
-                @if(isset($course->userRoles[0]->user_id))
+                @if(isset($info_course->userRoles[0]->user_id))
                     @if( (int)($info_course->userRoles[0]->user_id) != (int)(Auth::user()->id) )
                         <textarea name="content" id="editor" class="form-control" placeholder="Nội dung"></textarea>
                         <div class="btn-submit text-center mt-10 mb-20">
@@ -810,7 +810,7 @@
         </div>
     </div>
     @if (Auth::check())
-    @if(isset($course->userRoles[0]->user_id))
+    @if(isset($info_course->userRoles[0]->user_id))
         @if( (int)($info_course->userRoles[0]->user_id) != (int)(Auth::user()->id) )
             <div class="interactive-bar" data-i="{{ $info_course->id }}">
                 <div class="row">
