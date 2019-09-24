@@ -470,8 +470,10 @@ class HomeController extends Controller
     {
         if (Auth::check()) {
             $current_user = Auth::user();
+            $coins_user = Auth::user()->coins;
             $user_role_id = $current_user->userRolesStudent();
             $items = $request->items;
+            $check_coin = false;
             if ($items) {
                 // check coins
                 $total_price = 0;
@@ -480,10 +482,17 @@ class HomeController extends Controller
                         $course = Course::find($item['id']);
                         if ($course) {
                             $total_price += $course->price;
+                            if( $coins_user >= $total_price ){
+                                $check_coin = true;
+                            }else{
+                                return \Response::json(array('status' => '204', 'message' => 'Order has not been created'));
+                            }
                         }
                     }
                 }
-
+                if ($total_price > Auth::user()->coins) {
+                    return \Response::json(array('status' => '204', 'message' => 'Your balance is not enough'));
+                }
                 // check coupon
                 // $coupon = null;
                 // if ($request->coupon) {
@@ -497,122 +506,124 @@ class HomeController extends Controller
                 // $order->total_price = 0;
                 // $order->coupon = '';
                 // $order->save();
-
-                $coupon = null;
-                $coupon_value;
-                $coupon_name;
-
-                $cart = \json_decode($request->cart, true);
-
-                $total_price = 0;
-
-                $order = new Order;
-                $order->payment_id = 1; // 1 = ck
-                $order->user_id = $user_role_id->id;
-                $order->status = 1; // 1 = ok, 2 = pending, 0 = cancel
-                $order->total_price = 0;
-                $order->coupon = '';
-                $order->save();
-
-                $bought = [];
-                if (strlen($current_user->bought) > 0) {
-                    $bought = \json_decode($current_user->bought);
-                }
-
-                foreach ($items as $key => $item) {
-                    if ($item['id']) {
-                        $coupon = Coupon::where('name', $item["coupon_code"])->first();
-                        $course = Course::find($item['id']);
-                        if ($course) {
-                            if($coupon){
-                                $total_price =  $total_price + $course->price * (100 - $coupon->value) / 100;
-                            }else{
-                                $total_price += $course->price;
-                            }
-
-                            $bought[] = $item['id']; //Them vao trường đã mua của user TuanTT
-                            $video_count = $course->video_count;
-                            $units = $course->units;
-                            $first_video_index = 1;
-                            $first_video_id = $course->units[0]->videos[0]->id;
-                            $user_course_videos = [];
-                            
-                            //DuongNT - Tạo array video đã xem
-                            foreach ($units as $key => $unit) {
-                                if($unit->video_count > 0){
-                                    $unit_arr = [];
-                                    for ($k=0; $k < $unit->video_count; $k++) { 
-                                        array_push($unit_arr, 0);                                    
-                                    }
-                                    array_push($user_course_videos, $unit_arr);
-                                }
-                            }
-                            $videoJson = new VideoJson;
-                            $videoJson->videos = $user_course_videos;
-                            $videoJson->learning = 1;
-                            $videoJson->learning_id = $first_video_id;
-
-                            $videoJson = json_encode($videoJson);
-
-                            $course->userRoles()->attach($user_role_id->id, ['videos' => $videoJson]);
-                            $order->courses()->attach($item['id']);
-                        }
-
-                        // lưu vào bảng teacher của mỗi course để tăng số lượng học viên cho mỗi teacher
-                        $teacher = $course->Lecturers()->first()->teacher;
-                        if($teacher){
-                            $teacher->student_count += 1;
-                            $teacher->save();    
-                        }
-
-                        $course2 = Course::find($item['id']);
-                        $course2->student_count += 1;
-                        $course2->save();
-                    }
-                }
-
-                if ($total_price > Auth::user()->coins) {
-                    return \Response::json(array('status' => '204', 'message' => 'Your balance is not enough'));
-                }
-
-                // if ($coupon) {
-                //     $order->total_price = $total_price * (100 - $coupon->value) / 100;
-                //     $order->coupon = $coupon->name;
-                // } else {
-                //     $order->total_price = $total_price;
-                //     $order->coupon = '';
-                // }
-                // $order->save();
-                // $current_user->bought = \json_encode($bought);
-                // $current_user->coins = $current_user->coins - $total_price;
-                // $current_user->save();
-
-                if ($coupon) {
-                    // $order->total_price = $total_price * (100 - $coupon->value) / 100;
-                    $order->total_price = $total_price;
-                    $order->coupon = $coupon->name;
-                } else {
-                    $order->total_price = $total_price;
+                if( $check_coin == true ){
+                    $coupon = null;
+                    $coupon_value;
+                    $coupon_name;
+    
+                    $cart = \json_decode($request->cart, true);
+    
+                    $total_price = 0;
+    
+                    $order = new Order;
+                    $order->payment_id = 1; // 1 = ck
+                    $order->user_id = $user_role_id->id;
+                    $order->status = 1; // 1 = ok, 2 = pending, 0 = cancel
+                    $order->total_price = 0;
                     $order->coupon = '';
+                    $order->save();
+    
+                    $bought = [];
+                    if (strlen($current_user->bought) > 0) {
+                        $bought = \json_decode($current_user->bought);
+                    }
+    
+                    foreach ($items as $key => $item) {
+                        if ($item['id']) {
+                            $coupon = Coupon::where('name', $item["coupon_code"])->first();
+                            $course = Course::find($item['id']);
+                            if ($course) {
+                                if($coupon){
+                                    $expired = strtotime($coupon->expired);
+                                    $today = strtotime(date("Y-m-d"));
+                                    if($expired >= $today){
+                                        $total_price =  $total_price + $course->price * (100 - $coupon->value) / 100;
+                                    }
+                                }else{
+                                    $total_price += $course->price;
+                                }
+    
+                                $bought[] = $item['id']; //Them vao trường đã mua của user TuanTT
+                                $video_count = $course->video_count;
+                                $units = $course->units;
+                                $first_video_index = 1;
+                                $first_video_id = $course->units[0]->videos[0]->id;
+                                $user_course_videos = [];
+                                
+                                //DuongNT - Tạo array video đã xem
+                                foreach ($units as $key => $unit) {
+                                    if($unit->video_count > 0){
+                                        $unit_arr = [];
+                                        for ($k=0; $k < $unit->video_count; $k++) { 
+                                            array_push($unit_arr, 0);                                    
+                                        }
+                                        array_push($user_course_videos, $unit_arr);
+                                    }
+                                }
+                                $videoJson = new VideoJson;
+                                $videoJson->videos = $user_course_videos;
+                                $videoJson->learning = 1;
+                                $videoJson->learning_id = $first_video_id;
+    
+                                $videoJson = json_encode($videoJson);
+    
+                                $course->userRoles()->attach($user_role_id->id, ['videos' => $videoJson]);
+                                $order->courses()->attach($item['id']);
+                            }
+    
+                            // lưu vào bảng teacher của mỗi course để tăng số lượng học viên cho mỗi teacher
+                            $teacher = $course->Lecturers()->first()->teacher;
+                            if($teacher){
+                                $teacher->student_count += 1;
+                                $teacher->save();    
+                            }
+    
+                            $course2 = Course::find($item['id']);
+                            $course2->student_count += 1;
+                            $course2->save();
+                        }
+                    }
+    
+                    
+    
+                    // if ($coupon) {
+                    //     $order->total_price = $total_price * (100 - $coupon->value) / 100;
+                    //     $order->coupon = $coupon->name;
+                    // } else {
+                    //     $order->total_price = $total_price;
+                    //     $order->coupon = '';
+                    // }
+                    // $order->save();
+                    // $current_user->bought = \json_encode($bought);
+                    // $current_user->coins = $current_user->coins - $total_price;
+                    // $current_user->save();
+    
+                    if ($coupon) {
+                        // $order->total_price = $total_price * (100 - $coupon->value) / 100;
+                        $order->total_price = $total_price;
+                        $order->coupon = $coupon->name;
+                    } else {
+                        $order->total_price = $total_price;
+                        $order->coupon = '';
+                    }
+                    Mail::to($current_user)->queue(new OrderCompleted($order, $current_user));
+                    // dd($order);
+                    $order->save();
+    
+                    // Lưu vào bảng user_email
+                    $user_email  = new \App\UserEmail;
+                    $user_email->user_id = Auth::id();
+                    $user_email->email_id = \App\Email::where('title', 'Thông báo mua hàng thành công')->first()->id;
+                    $user_email->sender_user_id = 333;
+                    $user_email->save();
+    
+                    
+                    $current_user->bought = \json_encode($bought);
+                    $current_user->coins = $current_user->coins - $total_price;
+                    $current_user->save();
+    
+                    return \Response::json(array('status' => '201', 'message' => 'Order has been created'));
                 }
-                Mail::to($current_user)->queue(new OrderCompleted($order, $current_user));
-                // dd($order);
-                $order->save();
-
-                // Lưu vào bảng user_email
-                $user_email  = new \App\UserEmail;
-                $user_email->user_id = Auth::id();
-                $user_email->email_id = \App\Email::where('title', 'Thông báo mua hàng thành công')->first()->id;
-                $user_email->sender_user_id = 333;
-                $user_email->save();
-
-                
-                $current_user->bought = \json_encode($bought);
-                $current_user->coins = $current_user->coins - $total_price;
-                $current_user->save();
-
-
-                return \Response::json(array('status' => '201', 'message' => 'Order has been created'));
             }
             return \Response::json(array('status' => '204', 'message' => 'Order has not been created'));
         } else {
