@@ -113,11 +113,11 @@
                                 {{-- <div id="edit_course_id_view"></div>--}}
                                 <br>
                                 <div>
-                                    <p><select id="demonstrationEdit" name="course[]" style="width: 570px" multiple="multiple">
+                                    <select id="demonstrationEdit" name="course[]" style="width: 570px" multiple="multiple">
                                         @foreach ($courses as $course)
                                         <option value="{{ $course->id }}">{{ $course->name }}</option>
                                         @endforeach
-                                    </select></p>
+                                    </select>
                                 </div>
                             </div>
                         </div>
