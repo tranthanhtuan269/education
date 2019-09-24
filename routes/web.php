@@ -121,7 +121,9 @@ Route::group(['middleware' => 'auth'], function () {
         // Trinhnk Feature Course
         Route::get('feature-course', 'Backends\CourseController@getFeatureCourse');
         Route::post('feature-course/handling-feature-course', 'Backends\CourseController@handlingFeatureCourseAjax');
-
+        Route::get('feature-teacher', 'Backends\UserController@getFeatureTeacher');
+        Route::post('feature-teacher/handling-feature-teacher', 'Backends\UserController@handlingFeatureTeacherAjax');
+     
         // Trinhnk Tạo Coupon
         Route::get('create-coupon', 'Backends\HomeController@createCoupon');
         Route::post('add-coupon', 'Backends\HomeController@addCoupon');

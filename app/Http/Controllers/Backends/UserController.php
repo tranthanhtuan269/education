@@ -489,4 +489,25 @@ class UserController extends Controller
         $res = array('status' => "401", "Message" => 'Người dùng không tồn tại.');
         echo json_encode($res);die;
     }
+
+    public function getFeatureTeacher(){
+        $teachers = Teacher::where('status', 1)->where('course_count', '>', 0)->get();
+        return view('backends.user.feature-teacher', compact('teachers'));
+    }
+
+    public function handlingFeatureTeacherAjax(Request $request){
+        $teacher = Teacher::where('featured', '<>', 0)->update(['featured_index' => 0,'featured' => 0]);
+
+        foreach ($request->arr_teacher as $key => $teacher) {
+            # code...
+            $teacher = Teacher::find($request->arr_teacher[$key]);
+            if( isset($teacher->id) ){
+                $teacher->featured       = 1;
+                $teacher->featured_index = $key+1;
+                $teacher->save();
+            }
+        }
+
+        return \Response::json(array('status' => '200', 'message' => 'Thay đổi giảng viên tiêu biểu thành công!'));
+    }
 }

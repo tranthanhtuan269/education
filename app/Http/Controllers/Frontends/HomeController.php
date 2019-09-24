@@ -90,7 +90,7 @@ class HomeController extends Controller
         $trending_courses = \App\Course::whereIn('id', $course_id_arr)->get();
 
         // dd($trending_course);
-        $popular_teacher = Teacher::getTeacherBestVote();
+        $popular_teacher = Teacher::getFeatureTeacher();
         return view('frontends.home', compact('feature_category', 'feature_course', 'best_seller_course', 'new_course', 'popular_teacher', 'trending_courses' ));
     }
 

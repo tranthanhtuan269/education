@@ -167,31 +167,14 @@
             }
             return false;
         }
-    });
-</script>
-<script>
-    $(document).ready(function() {
+
         $('.searchable').select2({
             width: 'resolve',
             // placeholder: 'Chọn khóa học',
             theme: "classic",
             multiple: false
-        });
-
-
-    //     document.getElementById('percentFeatureCourse').onkeydown = function(e) {
-    //         if(!((e.keyCode > 95 && e.keyCode < 106)
-    //        || (e.keyCode > 47 && e.keyCode < 58) 
-    //        || e.keyCode == 8)) {
-    //            return false;
-    //        }
-    //    }
-
-    //    $( "#percentFeatureCourse" ).change(function() {
-    //     alert( "ko dung so amn" );
-    //     });
+        })
     });
 </script>
-
 
 @endsection
