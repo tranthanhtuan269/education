@@ -580,6 +580,7 @@ class HomeController extends Controller
     
                             $course2 = Course::find($item['id']);
                             $course2->student_count += 1;
+                            $course2->sale_count += 1;
                             $course2->save();
                         }
                     }
