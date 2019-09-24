@@ -286,7 +286,7 @@
         //         })
         //     }
         // });
-
+        $('.coupon-button').off()
         $('.coupon-button').on('click', function(e){
             e.stopPropagation()
             e.preventDefault()
