@@ -51,7 +51,7 @@
                     <option value="2">Nữ</option>
                     <option value="3">Khác</option>
             </select>                                       
-        </div>
+        </div> sdvds
     </div>
     <div class="form-group row">
         <label  class="col-sm-3 col-form-label">Địa chỉ <span class="text-danger">*</span></label>
