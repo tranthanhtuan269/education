@@ -93,11 +93,11 @@ class CategoryController extends Controller
     }
 
     public function deleteCategory(Request $request){
-        $course = Course::where('category_id', '=', $request->category_id);
+        $course = Course::where('category_id', '=', $request->category_id)->first();
         if( isset($course->id) ){
             return \Response::json(array('status' => '403', 'message' => 'Bạn không thể xóa danh mục đang có khóa học.'));
         }
-        $category = Category::where('parent_id', '=', $request->category_id);
+        $category = Category::where('parent_id', '=', $request->category_id)->first();
         if( isset($category->id) ){
             return \Response::json(array('status' => '403', 'message' => 'Bạn không thể xóa danh mục chứa danh mục con.'));
         }
