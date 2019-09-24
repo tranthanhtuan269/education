@@ -414,29 +414,31 @@
             
             $('#deleteAllApplied').off('click')
             $('#deleteAllApplied').click(function (){
-                var check = false;
-                $.each($('.check-video'), function (key, value){
+                let isChecked = false;
+                $.each($('.check-user'), function (key, value){
                     if($(this).prop('checked') == true) {
-                        check = true;
+                        return isChecked = true;
                     }
                 });
-                if(!check){
+                if(isChecked == false){
+                    return Swal.fire({
+                            type: 'info',
+                            text: 'Bạn chưa chọn tài khoản nào!'
+                        })   
+                }
+                else{
                     Swal.fire({
                         type: 'warning',
-                        text: 'Bạn phải chọn ít nhất 1 email.',
+                        text: 'Bạn có chắc chắn muốn xóa?',
+                        showCancelButton: true,
                     })
-                    return false;
-                }
-                Swal.fire({
-                    type: 'warning',
-                    text: 'Bạn có chắc chắn xóa tất cả những email bạn chọn?',
-                    showCancelButton: true,
-                })
-                .then(function (result) {
-                    if(result.value){
-                        var email_id_list = []
-                        $.each($('.check-user'), function (key, value){
-                            if($(this).prop('checked') == true) {
+                    .then(function (result) {
+                        if(result.value){
+                            var email_id_list = []
+                            $.each($('.check-user'), function (key, value){
+                                if($(this).prop('checked') == true) {
+                                    // id_list += $(this).attr("data-column") + ',';
+                                    email_id_list.push($(this).attr("data-column"))
                                 }
                             });
                             console.log(email_id_list);
@@ -472,8 +474,7 @@
                         }
                     })
                 }
-
-            )
+            })
         }
 
         function checkEmptyTable(){

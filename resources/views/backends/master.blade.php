@@ -292,6 +292,12 @@
             z-index: 900;
         }
         </style>
+        <script>
+            $(document).ready(function(){
+                // $('.modal').modal({backdrop: "static"});
+                $('.modal').attr('data-backdrop', 'static');
+            })
+        </script>
     </body>
     
 </html>

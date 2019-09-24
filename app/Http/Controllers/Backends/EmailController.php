@@ -54,7 +54,7 @@ class EmailController extends Controller
             $email->update_user_id = Auth::id();
             $email->save();
 
-            return \Response::json(array('status' => '200', 'message' => 'Tạo email thành công!'));
+            return \Response::json(array('status' => '200', 'message' => 'Tạo email thông báo thành công!'));
         
         }else{
             return \Response::json(array('status'=> '404', 'message'=> 'Chưa điền nội dung email!'));
@@ -89,7 +89,7 @@ class EmailController extends Controller
 
                 $email->save();
                 
-                return \Response::json(array('status' => '200', 'message' => 'Email được đã được cập nhật'));
+                return \Response::json(array('status' => '200', 'message' => 'Sửa email thông báo thành công!'));
                 
             }else{
                 return \Response::json(array('status' => '404', 'message' => 'Chưa điền nội dung email'));

@@ -13,7 +13,7 @@
                                 </div>
                             @endif
                         <a href="{{ url('/') }}/course/{{ $course->slug }}">
-                            @if (strpos($feature_course[0]->image, 'unica') !== false)
+                            @if (strpos($feature_course[0]->image, 'http') !== false)
                             <div class="top-feature-course" style="background-image:url({{ $course->image }}); width: 100%; height:390">
                             @else
                             <div class="top-feature-course" style="background-image:url({{ asset('frontend/images/'.$course->image) }}); width: 100%; height:390">
@@ -22,7 +22,7 @@
                                 <h3>{{ $course->name }}</h3>
                                     <div class="course-detail">
                                         <div class="course-info-author">
-                                            @if (strpos($course->Lecturers()[0]->user->avatar, 'unica') !== false)
+                                            @if (strpos($course->Lecturers()[0]->user->avatar, 'http') !== false)
                                             <img src="{{ $course->Lecturers()[0]->user->avatar }}" alt="">
                                             @else
                                             <img src="{{url('frontend/'.$course->Lecturers()[0]->user->avatar)}}" alt="">
@@ -50,7 +50,7 @@
                     @endif
                     <a href="{{ url('/') }}/course/{{ $course->slug }}">                    
                         <div class="img-top">                            
-                            @if (strpos($course->image, 'unica') !== false)
+                            @if (strpos($course->image, 'http') !== false)
                             <div class="top-feature-course" style="background-image:url({{ $course->image }}); width: 100%; height:187">          <div class="course-info">
                                     <h5>{{ $course->name }}</h5>
                                 </div>

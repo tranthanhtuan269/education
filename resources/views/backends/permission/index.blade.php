@@ -484,18 +484,26 @@
         });
 
         $('#apply-all-btn').click(function (){
-            $.ajsrConfirm({
-                message: "Bạn có chắc chắn muốn xóa ?",
-                okButton: "Đồng ý",
-                onConfirm: function() {
-                    var $id_list = '';
-                    $.each($('.check-permission'), function (key, value){
-                        if($(this).prop('checked') == true) {
-                            $id_list += $(this).attr("data-column") + ',';
-                        }
-                    });
-
-                    if ($id_list.length > 0) {
+            let isChecked = false;
+            
+            $.each($('.check-permission'), function (key, value){
+                if($(this).prop('checked') == true) {
+                    return isChecked = true;
+                }
+            });
+            if(isChecked == false){
+                    return Swal.fire({
+                        type: 'info',
+                        text: 'Bạn chưa chọn tài khoản nào!'
+                    })
+                
+            }
+            else{
+                $.ajsrConfirm({
+                    message: "Bạn có chắc chắn muốn xóa ?",
+                    okButton: "Đồng ý",
+                    showCancelButton: true,
+                    onConfirm: function() {
                         var $id_list = '';
                         $.each($('.check-permission'), function (key, value){
                             if($(this).prop('checked') == true) {
@@ -503,49 +511,57 @@
                             }
                         });
 
-                        if($id_list.length > 0){
-                            var data = {
-                                id_list:$id_list,
-                                _method:'delete'
-                            };
-
-                            $.ajax({
-                                type: "POST",
-                                url: "{{ url('/') }}/admincp/permissions/delMulti",
-                                data: data,
-                                success: function (response) {
-                                    var obj = $.parseJSON(response);
-                                    if(obj.status == 200){
-                                        $.each($('.check-permission'), function (key, value){
-                                            if($(this).prop('checked') == true) {
-                                                $(this).parent().parent().hide("slow");
-                                            }
-                                        });
-                                        dataTable.ajax.reload(); 
-                                        Swal.fire({
-                                            type: 'success',
-                                            text: obj.Message
-                                        })
-
-                                    }
-                                },
-                                error: function (data) {
-                                    if(data.status == 401){
-                                      window.location.replace(baseURL);
-                                    }else{
-                                        Swal.fire({
-                                            type: 'warning',
-                                            text: errorConnect
-                                        })
-                                    }
+                        if ($id_list.length > 0) {
+                            var $id_list = '';
+                            $.each($('.check-permission'), function (key, value){
+                                if($(this).prop('checked') == true) {
+                                    $id_list += $(this).attr("data-column") + ',';
                                 }
                             });
-                        }
-                    }
-                },
-                nineCorners: false,
-            });
 
+                            if($id_list.length > 0){
+                                var data = {
+                                    id_list:$id_list,
+                                    _method:'delete'
+                                };
+
+                                $.ajax({
+                                    type: "POST",
+                                    url: "{{ url('/') }}/admincp/permissions/delMulti",
+                                    data: data,
+                                    success: function (response) {
+                                        var obj = $.parseJSON(response);
+                                        if(obj.status == 200){
+                                            $.each($('.check-permission'), function (key, value){
+                                                if($(this).prop('checked') == true) {
+                                                    $(this).parent().parent().hide("slow");
+                                                }
+                                            });
+                                            dataTable.ajax.reload(); 
+                                            Swal.fire({
+                                                type: 'success',
+                                                text: obj.Message
+                                            })
+
+                                        }
+                                    },
+                                    error: function (data) {
+                                        if(data.status == 401){
+                                        window.location.replace(baseURL);
+                                        }else{
+                                            Swal.fire({
+                                                type: 'warning',
+                                                text: errorConnect
+                                            })
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                    },
+                    nineCorners: false,
+                });
+            }
         });
 
         var errorConnect = "Please check your internet connection and try again.";

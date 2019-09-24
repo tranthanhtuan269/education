@@ -301,31 +301,27 @@
                 }
             });
 
+
             var coupon = $(".cart-single-item[data-parent="+dataChild+"] input").val().trim();
 
             var new_cart = cart_items
             get_coupon = new_cart[numeric_cart].coupon_code
+            
 
-            // if($('.coupon-input[data-id='+dataChild+']').val() == ''){
-            //     return Swal.fire({
-            //         type:'warning',
-            //         text:'Bạn chưa nhập mã giảm giá!'
-            //     })
-            // }
-            // else{
-                if(coupon.length < 1){
+            if(coupon.length < 1){
+                return Swal.fire({
+                    type:"warning",
+                    text:"Bạn chưa nhập mã giảm giá !"
+                })
+            }
+            else{
+                if( get_coupon == coupon ){
                     return Swal.fire({
                         type:"warning",
-                        text:"Bạn chưa nhập mã giảm giá !"
+                        text:"Mã giảm giá đã được áp dụng !"
                     })
                 }
                 else{
-                    if( get_coupon == coupon ){
-                        return Swal.fire({
-                            type:'warning',
-                            text:'Mã giảm giá đã được áp dụng!'
-                        })
-                    }
                     var request = $.ajax({
                         url : "/check-coupon",
                         method: "GET",
@@ -346,7 +342,7 @@
                             // new_totalPrice = totalPrice - dataPrice + new_price
                             Swal.fire({
                                 type:"success",
-                                text:"Áp dụng mã giảm giá thành công!"
+                                text:"Áp dụng mã khuyến mãi thành công!"
                             })
                         }
                         if(response.status == 404){
@@ -354,50 +350,50 @@
                             $('#input-coupon').val('')
                             return Swal.fire({
                                 type:"warning",
-                                text:"Mã giảm giá không tồn tại!"
+                                text:"Mã khuyến mãi không tồn tại!"
                             })
                         }
                         if(response.status == 403){
                             return Swal.fire({
                                 type:"warning",
-                                text:"Mã giảm giá đã hết hạn sử dụng!"
+                                text:"Mã khuyến đã hết hạn sử dụng!"
                             })
                         }
+                        // totalPrice = new_totalPrice
+                        // Insert into localStorage
+                        cart_items[numeric_cart].coupon_price = new_price
+                        cart_items[numeric_cart].coupon_code  = coupon
+
+                        localStorage.setItem('cart'+user_id, JSON.stringify(cart_items))
+                        
+                        $("#initial_price"+dataChild).css('display','block')
+                        $("#current_price"+dataChild).text('')
+                        $("#current_price"+dataChild).append(number_format(new_price, 0, '.', '.')+' ₫')
+
+                        var course_count = 1;
+                        new_totalPrice=0
+                        // new_totalPrice = new_price
+                        cart_items.forEach((element)=>{
+                            // new_totalPrice += parseFloat($('#current_price'+element.id).text())*1000
+                            new_totalPrice += element.coupon_price
                         })
-                    }
-                    // totalPrice = new_totalPrice
-                    // Insert into localStorage
-                    cart_items[numeric_cart].coupon_price = new_price
-                    cart_items[numeric_cart].coupon_code  = coupon
-                    localStorage.setItem('cart', JSON.stringify(cart_items))
-                    
-                    $("#initial_price"+dataChild).css('display','block')
-                    $("#current_price"+dataChild).text('')
-                    $("#current_price"+dataChild).append(number_format(new_price, 0, '.', '.')+' ₫')
 
-                    var course_count = 1;
-                    new_totalPrice=0
-                    // new_totalPrice = new_price
-                    cart_items.forEach((element)=>{
-                        // new_totalPrice += parseFloat($('#current_price'+element.id).text())*1000
-                        new_totalPrice += element.coupon_price
+                        // new_totalPrice = new_totalPrice - dataPrice + new_price
+                        // alert(new_totalPrice)
+
+                        if(new_totalPrice == totalInitialPrice){
+                            $(".checkout-column .current-price span").remove()
+                            $(".checkout-column .current-price").append("<span>"+number_format(new_totalPrice, 0, '.', '.')+" ₫</span>")
+                        }else{
+                            $(".checkout-column .current-price span").remove()
+                            $(".checkout-column .current-price").append("<span>"+number_format(new_totalPrice, 0, '.', '.')+" ₫</span>")
+                            $(".checkout-column .initial-price span").remove()
+                            $(".checkout-column .initial-price").append("<span>"+number_format(totalInitialPrice, 0, '.', '.')+" ₫</span>")
+                            $(".checkout-column .percent-off span").remove()
+                            $(".checkout-column .percent-off").append("<span> Tiết kiệm "+Math.floor(100-(new_totalPrice/totalInitialPrice)*100)+"%</span>")
+                        }
                     })
-
-                    // new_totalPrice = new_totalPrice - dataPrice + new_price
-                    // alert(new_totalPrice)
-
-                    if(new_totalPrice == totalInitialPrice){
-                        $(".checkout-column .current-price span").remove()
-                        $(".checkout-column .current-price").append("<span>"+number_format(new_totalPrice, 0, '.', '.')+" ₫</span>")
-                    }else{
-                        $(".checkout-column .current-price span").remove()
-                        $(".checkout-column .current-price").append("<span>"+number_format(new_totalPrice, 0, '.', '.')+" ₫</span>")
-                        $(".checkout-column .initial-price span").remove()
-                        $(".checkout-column .initial-price").append("<span>"+number_format(totalInitialPrice, 0, '.', '.')+" ₫</span>")
-                        $(".checkout-column .percent-off span").remove()
-                        $(".checkout-column .percent-off").append("<span> Tiết kiệm "+Math.floor(100-(new_totalPrice/totalInitialPrice)*100)+"%</span>")
-                    }
-                })
+                }
             }
         });
 
