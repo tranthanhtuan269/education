@@ -54,7 +54,7 @@
         </div>
     </div>
     <div id="edit_user_modal" class="modal fade" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
+      <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title font-weight-600">Chỉnh sửa tài khoản</h5>
@@ -63,61 +63,24 @@
             </button>
           </div>
           <div class="modal-body">
-            <div class="form-group row">
-                <label  class="col-sm-4 col-form-label">Tên <span class="text-danger">*</span></label>
-                <div class="col-sm-8">
-                    <input type="hidden" id="userID_upd" value="">
-                    <input type="text" class="form-control" id="userName_upd" value="">
-                    <div id="nameErrorUpd" class="alert-errors d-none" role="alert">
-                      
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#tab_edit_admin" data-toggle="tab" aria-expanded="true">Sửa người quản trị</a></li>
+                        <li id="toggle_tab_edit_teacher" ><a href="#tab_edit_teacher" data-toggle="tab" aria-expanded="false">Sửa Giảng viên</a></li>
+                        <li id="toggle_tab_edit_student"><a href="#tab_edit_student" data-toggle="tab" aria-expanded="false">Sửa Học Viên</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab_edit_admin">
+                            @include('backends.user.modals.edit-admin-modal')
+                        </div> 
+                        <div class="tab-pane" id="tab_edit_teacher">
+                            @include('backends.user.modals.edit-teacher-modal')
+                        </div>  
+                        <div class="tab-pane" id="tab_edit_student">
+                            @include('backends.user.modals.edit-student-modal')
+                        </div>                        
                     </div>
                 </div>
-            </div>
-            <div class="form-group row">
-                <label  class="col-sm-4 col-form-label">Email <span class="text-danger">*</span></label>
-                <div class="col-sm-8">
-                    <input type="text" class="form-control" id="userEmail_upd" disabled>
-                    <div id="emailErrorUpd" class="alert-errors d-none" role="alert">
-                      
-                    </div>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-4 col-form-label">Mật khẩu <span class="text-danger">*</span></label>
-                <div class="col-sm-8">
-                    <input type="text" class="form-control" id="userPassword_upd" name="password" value="">
-                    <div id="passwordErrorUpd" class="alert-errors d-none" role="alert">
-                      
-                    </div>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-4 col-form-label">Nhập lại mật khẩu <span class="text-danger">*</span></label>
-                <div class="col-sm-8">
-                    <input type="text" class="form-control" id="passConfirm_upd" name="confirmpassword" value="">
-                    <div id="confirmpasswordErrorUpd" class="alert-errors d-none" role="alert">
-                      
-                    </div>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="userEmail_upd" class="col-sm-4 col-form-label">Vai trò <span class="text-danger">*</span></label>
-                <div class="col-sm-8">
-                    <select id="role-list-ins-edit" multiple="multiple">
-                        @foreach ($roles as $role)
-                            @if ($role->id != 2 && $role->id != 3)
-                                <option value="{{ $role->id }}">{{ $role->name }}</option>
-                            @endif
-                        @endforeach
-                    </select>
-                    <script>
-                        $(document).ready(function(){
-                            
-                        })
-                    </script>
-                    <div class="alert-errors d-none" role="alert" id="role_idErrorIns"></div>
-                </div>
-            </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-primary" id="saveUser">Cập nhật</button>
@@ -206,7 +169,9 @@
                         </div>
                     <!-- /.tab-content -->
                     </div>
-                </div>             
+                </div>
+                <div style="display:none;" class="modal-footer">
+                </div>          
 
             </div>
             
@@ -340,11 +305,31 @@
                             if(response.status == 200){
                                 $("#userPassword_upd").val(response.user.password);
                                 $("#passConfirm_upd").val(response.user.password);
+
+                                if(response.teacher_info != null){
+                                    $("#toggle_tab_edit_teacher").show()
+                                    $("#editTchName").val(response.user.name)
+                                    $('#editTchEmail').val(response.user.email)
+                                    $('#editTchPhone').val(response.user.phone)
+                                    $('#editTchDob').datepicker("setDate", new Date(response.user.birthday))
+                                    $('#editTchGender').val(response.user.gender)
+                                    $('#editTchAddress').val(response.user.address)
+                                    $('#editTchExpert').val(response.teacher_info.expert)
+                                    $('#editTchYoutube').val(response.teacher_info.video_intro)
+                                    editTchCvEditor.setData(response.teacher_info.cv)
+                                    $('#saveEditTeacher').attr('data-user-id', response.user.id)
+
+                                    $("#imageEditTch").attr("src", `/frontend/images/${response.user.avatar}`)
+                                    // cropperEdit.replace(`/frontend/images/${response.user.avatar}`)
+                                }else{
+                                    $("#toggle_tab_edit_teacher").hide()
+                                }
                             }else{
                                 Swal.fire({
                                     type: 'warning',
                                     text: response.Message
                                 })
+                                $("#toggle_tab_edit_teacher").hide()
                             }
                         },
                         error: function (data) {

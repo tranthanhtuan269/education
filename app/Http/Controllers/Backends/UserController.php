@@ -304,10 +304,15 @@ class UserController extends Controller
     public function getInfoByID($id)
     {
         $user = User::find($id);
+        if($user->isTeacher()){
+            $teacher_info = $user->userRolesTeacher()->teacher;
+        }else{
+            $teacher_info = null;
+        }
         // echo '<pre>';
         // print_r($user);die;
         if ($user) {
-            $res = array('status' => "200", "Message" => "Người dùng đã tồn tại!", "user" => $user);
+            $res = array('status' => "200", "Message" => "Người dùng đã tồn tại!", "user" => $user, "teacher_info" => $teacher_info);
         } else {
             $res = array('status' => "401", "Message" => "Người dùng không tồn tại!", "user" => null);
         }

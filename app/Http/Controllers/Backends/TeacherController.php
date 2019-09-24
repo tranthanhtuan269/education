@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backends;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreTeacherRequest;
+use App\Http\Requests\UpdateTeacherRequest;
 use App\Helper\Helper;
 use App\User;
 use App\UserRole;
@@ -48,7 +49,7 @@ class TeacherController extends Controller
         $avatar = $request->avatar;
         $cropped_avatar = Image::make($avatar)
         ->resize(300, 300)
-        ->save(public_path('uploads/'.time().'_avatar'.'.png'));
+        ->save(public_path('frontend/images/'.time().'_avatar'.'.png'));
 
         $user = new User;
         $user->name = $request->name;
@@ -111,13 +112,75 @@ class TeacherController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param   App\Http\Requests\UpdateTeacherRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateTeacherRequest $request)
     {
-        //
+        dd($request->all());
+        
+        $user = User::find($request->user_id);
+        if(isset($user)){
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->birthday = Helper::formatDate('d/m/Y', $request->dob, 'Y-m-d');
+            $user->phone = $request->phone;
+            $user->address = $request->address;
+            $user->gender = $request->gender;
+            if(isset($request->avatar)){
+                $user->avatar = time().'_avatar'.'.png';
+            }
+            if(isset($request->password)){
+                $user->password = Hash::make($request->password);
+            }
+            $user->save();
+        }else{
+            return response()->json([
+                'status' => '404',
+                'message' => 'Không tìm thấy tài khoản!'
+            ]);
+        }
+        
+        // $avatar = $request->avatar;
+        // $cropped_avatar = Image::make($avatar)
+        // ->resize(300, 300)
+        // ->save(public_path('frontend/images/'.time().'_avatar'.'.png'));
+
+        // $user = new User;
+        // $user->name = $request->name;
+        // $user->email = $request->email;
+        // $user->birthday = Helper::formatDate('d/m/Y', $request->dob, 'Y-m-d');
+        // $user->phone = $request->phone;
+        // $user->address = $request->address;
+        // $user->gender = $request->gender;
+        // $user->avatar = time().'_avatar'.'.png';
+        // $user->status = 1;
+        // $user->password = Hash::make($request->password);
+        // $user->save();
+
+        // $user_role_teacher = new UserRole;
+        // $user_role_teacher->user_id = $user->id;
+        // $user_role_teacher->role_id = Config::get('app.teacher');
+        // $user_role_teacher->save();
+
+        // $teacher = new Teacher;
+        // $teacher->user_role_id = $user_role_teacher->id;
+        // $teacher->cv = $request->cv;
+        // $teacher->expert = $request->expert;
+        // $teacher->video_intro = $request->youtube;
+        // $teacher->status = Config::get('app.teacher_active');
+        // $teacher->save();
+
+        // $user_role_student = new UserRole;
+        // $user_role_student->user_id = $user->id;
+        // $user_role_student->role_id = Config::get('app.student');
+        // $user_role_student->save();
+        
+        return response()->json([
+            'status' => 200,
+            'message' => 'Sửa giảng viên thành công'
+        ]);
     }
 
     /**

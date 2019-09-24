@@ -73,7 +73,7 @@
 </section>
 <section>
     <div class="modal fade" id="createEmailModal" tabindex="-1">
-        <div class="modal-content" >
+        <div class="modal-content" >`
             <div class="modal-header">
                 <h3>Tạo email</h3>
             </div>
@@ -185,7 +185,6 @@
     var errorConnect        = "Please check your internet connection and try again.";
 
     $(document).ready(function(){
-
 
         window.onbeforeunload = function() {
             if($('#edit_user_modal').hasClass('show') && ( 
@@ -592,6 +591,11 @@
             $("#subject_Ins").val('');
             content_Ins.setData("");
         })
+
+        // $('#createEmailModal').modal({
+        //     backdrop: 'static',
+        //     keyboard: false
+        // })
 
     });
 </script>
