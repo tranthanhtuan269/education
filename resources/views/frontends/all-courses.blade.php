@@ -70,7 +70,7 @@
                         <div class="row">
                         @endif
                             <?php
-                                $lecturers = count($new->Lecturers()) > 1 ? 'Nhiều tác giả' : count($new->Lecturers()) > 0 ? ($new->Lecturers()[0]->user ? $new->Lecturers()[0]->user->name : "Courdemy") : "Courdemy";
+                                // $lecturers = count($new->Lecturers()) > 1 ? 'Nhiều tác giả' : count($new->Lecturers()) > 0 ? ($new->Lecturers()[0]->user ? $new->Lecturers()[0]->user->name : "Courdemy") : "Courdemy";
                             ?>
                             @include(
                                 'components.course', 
@@ -103,7 +103,7 @@
                             <div class="row">
                             @endif
                                 <?php
-                                    $lecturers = count($feature->Lecturers()) > 1 ? 'Nhiều tác giả' : count($feature->Lecturers()) > 0 ? ($feature->Lecturers()[0]->user ? $feature->Lecturers()[0]->user->name : "Courdemy" ) : "Courdemy"; 
+                                    // $lecturers = count($feature->Lecturers()) > 1 ? 'Nhiều tác giả' : count($feature->Lecturers()) > 0 ? ($feature->Lecturers()[0]->user ? $feature->Lecturers()[0]->user->name : "Courdemy" ) : "Courdemy"; 
                                 ?>
                                 @include(
                                     'components.course', 
