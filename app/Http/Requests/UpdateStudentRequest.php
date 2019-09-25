@@ -27,7 +27,7 @@ class UpdateStudentRequest extends FormRequest
         return [
             'name'          => 'required|min:3|max:50',
             'phone'         => 'required|min:10|max:11|regex_phone:"/^[\+]?[(]?[0-9]{1,3}[)]?[-\s]?[0-9]{1,3}[-\s]?[0-9]{4,9}$/"',
-            'address'       => 'max:255',
+            'address'       => 'required|max:255',
             'dob'           => 'date_format:"d/m/Y"|regex:/[0-9]{2}\/[0-9]{2}\/[0-9]{4}/|validate_dob',
             'password'          => 'min:8|max:101',
             'confirm_password'   => 'same:password',
@@ -47,6 +47,7 @@ class UpdateStudentRequest extends FormRequest
             'phone.max'                 => 'Số điện thoại không tồn tại.',
 
             'address.max'               => 'Địa chỉ quá dài. Vui lòng nhập ít hơn 255 ký tự',
+            'address.required'  => 'Bạn chưa nhập địa chỉ',
 
             'dob.date_format'      => 'Ngày sinh phải có định dạng Ngày/Tháng/Năm (Ví dụ: 31/12/1993).',
 

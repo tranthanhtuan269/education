@@ -72,7 +72,7 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-primary" id="createStudent">Thêm mới</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeCreateTeacher">Hủy bỏ</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeCreateStudent">Hủy bỏ</button>
     </div> 
 
 <script src="{{asset('backend/template/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}"></script>
@@ -205,6 +205,9 @@ $(document).ready(function() {
         })
 
     })
+    $('#closeCreateStudent').click(function(){
+        clearAddStudentForm()
+    })
 
     function clearAddStudentForm(){
         cropperAddStu.clear()
@@ -217,6 +220,7 @@ $(document).ready(function() {
         $('#addStuPassword').val("")
         $('#addStuCfPassword').val("")
         cropperAddStu.destroy()
+        $('.cropper-container').hide()
 
     }
 })

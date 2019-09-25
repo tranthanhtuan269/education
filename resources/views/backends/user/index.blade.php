@@ -7,7 +7,6 @@
 <!-- Include the plugin's CSS and JS: -->
 <script type="text/javascript" src="{{ url('/') }}/backend/js/bootstrap-multiselect.js"></script>
 
-<script src="{{asset("backend/template/bower_components/ckeditor/ckeditor.js")}}"></script>
 <link rel="stylesheet" href="{{ url('/') }}/backend/css/bootstrap-multiselect.css" type="text/css"/>
 
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -108,7 +107,7 @@
                                     <div class="form-group row">
                                         <label  class="col-sm-4 col-form-label">Tên <span class="text-danger">*</span></label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="userName_Ins" name="name"  value="{{ Request::old('name') }}">
+                                            <input type="text" class="form-control" id="userName_Ins" name="name" autocomplete="userName_Ins" value="{{ Request::old('name') }}">
                                             <div class="alert-errors d-none" role="alert" id="nameErrorIns">
                                                 
                                             </div>
@@ -117,7 +116,7 @@
                                     <div class="form-group row">
                                         <label for="userEmail_upd" class="col-sm-4 col-form-label">Email <span class="text-danger">*</span></label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="email_Ins" name="email"  value="{{ Request::old('email') }}">
+                                            <input type="text" class="form-control" id="email_Ins" name="email" autocomplete="email_Ins"  value="{{ Request::old('email') }}">
                                             <div class="alert-errors d-none" role="alert" id="emailErrorIns">
                                                 
                                             </div>
@@ -126,7 +125,7 @@
                                     <div class="form-group row">
                                         <label for="userPassword" class="col-sm-4 col-form-label">Mật khẩu <span class="text-danger">*</span></label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="password_Ins" name="password" value="{{ Request::old('password') }}">
+                                            <input type="password" class="form-control" id="password_Ins" name="password" autocomplete="password_Ins" value="{{ Request::old('password') }}">
                                             <div class="alert-errors d-none" role="alert" id="passwordErrorIns">
                                                 
                                             </div>
@@ -135,7 +134,7 @@
                                     <div class="form-group row">
                                         <label for="passConfirm" class="col-sm-4 col-form-label">Nhập lại mật khẩu <span class="text-danger">*</span></label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="confirmpassword_Ins" name="confirmpassword" value="{{ Request::old('confirmpassword') }}">
+                                            <input type="password" class="form-control" id="confirmpassword_Ins" name="confirmpassword" autocomplete="confirmpassword_Ins" value="{{ Request::old('confirmpassword') }}">
                                             <div class="alert-errors d-none" role="alert" id="confirmpasswordErrorIns"></div>
                                         </div>
                                     </div>
@@ -289,38 +288,47 @@
     
 
     $(document).ready(function(){
+        // $("input").attr('autocomplete', "off")
 
-        // DuonwgfzNT - Khoá giảng viên
+        // DuongNT - Khoá giảng viên
         $('#btnSwitchOffTeacher').click(function(){
             var user_id = $(this).attr('data-user-id')
-            $.ajax({
-                method: 'POST',
-                url: `{{ url('/admincp/') }}/users/disable-teacher`,
-                data:{
-                    '_method': 'PUT',
-                    'user_id' : user_id
-                },
-                success: response => {
-                    if(response.status == 200){
-                        Swal.fire({
-                            type: 'success',
-                            text: response.message
-                        })
-                        // $('#tab_edit_teacher').hide()
-                        $("#toggle_tab_edit_teacher").show()
-                        $('#toggle_tab_edit_teacher').removeClass('active')
-                        $('#tab_edit_teacher').removeClass('active')
-                        $('#toggle_tab_edit_admin').addClass('active')
-                        $('#tab_edit_admin').addClass('active')
-                        $('#edit_user_modal').modal('hide')
-                        dataTable.ajax.reload();
+            Swal.fire({
+                type: 'warning',
+                text: 'Bạn có chắc chắn muốn bỏ chức năng giảng viên của tài khoản này?',
+                showCancelButton: true,
+            }).then((result)=>{
+                if(result.value){
+                    $.ajax({
+                        method: 'POST',
+                        url: `{{ url('/admincp/') }}/users/disable-teacher`,
+                        data:{
+                            '_method': 'PUT',
+                            'user_id' : user_id
+                        },
+                        success: response => {
+                            if(response.status == 200){
+                                Swal.fire({
+                                    type: 'success',
+                                    text: response.message
+                                })
+                                // $('#tab_edit_teacher').hide()
+                                $("#toggle_tab_edit_teacher").show()
+                                $('#toggle_tab_edit_teacher').removeClass('active')
+                                $('#tab_edit_teacher').removeClass('active')
+                                $('#toggle_tab_edit_admin').addClass('active')
+                                $('#tab_edit_admin').addClass('active')
+                                $('#edit_user_modal').modal('hide')
+                                dataTable.ajax.reload();
 
-                    }
-                },
-                error: error => {
-                    Swal.fire({
-                        type: 'warning',
-                        text: 'Có lỗi!'
+                            }
+                        },
+                        error: error => {
+                            Swal.fire({
+                                type: 'warning',
+                                text: 'Có lỗi!'
+                            })
+                        }
                     })
                 }
             })
@@ -328,11 +336,19 @@
 
         // DuongNT - Chuyển thành giảng viên
         $("#btnSwitchToTeacher").click(function(){ 
+            $('#toggle_tab_edit_student').fadeOut()
+            $('#toggle_tab_edit_student').removeClass('active')
+            $('#tab_edit_student').fadeOut()
+            $('#tab_edit_student').removeClass('active')
+
             $("#toggle_tab_edit_teacher").fadeIn()
             $('#toggle_tab_edit_teacher').addClass('active')
+            $('#tab_edit_teacher').fadeIn()
             $('#tab_edit_teacher').addClass('active')
+
             $('#toggle_tab_edit_admin').removeClass('active')
             $('#tab_edit_admin').removeClass('active')
+            
 
             var user_id = $(this).attr('data-user-id')
             $.ajax({
@@ -407,6 +423,8 @@
                 method: "GET",
                 dataType:'html',
                 success: function (response) {
+                    $('#userPassword_upd').val("")
+                    $('#passConfirm_upd').val("")
                     $("#role-list-ins-edit").html(response);
                     
                     $('#role-list-ins-edit').multiselect({
@@ -415,7 +433,7 @@
                         numberDisplayed: 2,
                         enableClickableOptGroups: true,                        
                     });
-                    // $('#role-list-ins-edit').multiselect('rebuild')
+                    $('#role-list-ins-edit').multiselect('rebuild')
                  
                     $.ajax({
                         url: baseURL+"/admincp/users/getInfoByID/" + id,
@@ -441,8 +459,31 @@
                                 $("#imageEditStu").removeClass('cropper-hidden')
                                 $(".cropper-container").hide()
 
+                                if(response.isStudent){
+                                    $("#toggle_tab_edit_admin").hide()
+                                    $("#toggle_tab_edit_admin").removeClass('active')
+                                    $('#tab_edit_admin').hide()
+                                    $('#tab_edit_admin').removeClass('active')
 
-                                if(response.teacher_info != null){
+                                    // $("#toggle_tab_edit_teacher").hide()
+                                    // $("#toggle_tab_edit_teacher").removeClass('active')
+                                    // $('#tab_edit_teacher').hide()
+                                    // $('#tab_edit_teacher').removeClass('active')
+
+                                    $("#toggle_tab_edit_student").show()
+                                    $("#toggle_tab_edit_student").addClass('active')
+                                    $('#tab_edit_student').show()
+                                    $('#tab_edit_student').addClass('active')
+                                }
+
+
+                                if(response.isTeacher){
+                                    $("#toggle_tab_edit_teacher").show()
+                                    $("#toggle_tab_edit_teacher").addClass('active')
+                                    $('#tab_edit_teacher').show()
+                                    $('#tab_edit_teacher').addClass('active')
+
+
                                     $("#btnSwitchOffTeacher").show()
                                     $("#btnSwitchToTeacher").hide()                                    
                                     $("#toggle_tab_edit_teacher").show()
@@ -462,11 +503,44 @@
                                     $(".cropper-container").hide()
                                     $("#imageEditTch").attr("src", `/frontend/${response.user.avatar}`)
 
+                                    //Ẩn tab student
+                                    $("#toggle_tab_edit_student").hide()
+                                    $("#toggle_tab_edit_student").removeClass('active')
+                                    $('#tab_edit_student').hide()
+                                    $('#tab_edit_student').removeClass('active')
+
                                 }else{
-                                    $("#toggle_tab_edit_teacher").hide()
                                     $("#btnSwitchOffTeacher").hide()
                                     $("#btnSwitchToTeacher").show()
+
+                                    //Ẩn tab teacher
+                                    $("#toggle_tab_edit_teacher").hide()
+                                    $("#toggle_tab_edit_teacher").removeClass('active')
+                                    $('#tab_edit_teacher').hide()
+                                    $('#tab_edit_teacher').removeClass('active')
                                 }
+
+                                if(!response.isTeacher && !response.isStudent){
+                                    $('#btnSwitchToTeacher').hide()
+                                    $('#btnSwitchOffTeacher').hide()                                    
+
+                                    $("#toggle_tab_edit_admin").show()
+                                    $("#toggle_tab_edit_admin").addClass('active')
+                                    $('#tab_edit_admin').show()
+                                    $('#tab_edit_admin').addClass('active')
+
+                                    $("#toggle_tab_edit_teacher").hide()
+                                    $("#toggle_tab_edit_teacher").removeClass('active')
+                                    $('#tab_edit_teacher').hide()
+                                    $('#tab_edit_teacher').removeClass('active')
+
+                                    $("#toggle_tab_edit_student").hide()
+                                    $("#toggle_tab_edit_student").removeClass('active')
+                                    $('#tab_edit_student').hide()
+                                    $('#tab_edit_student').removeClass('active')
+                                }
+
+                                
                             }else{
                                 Swal.fire({
                                     type: 'warning',

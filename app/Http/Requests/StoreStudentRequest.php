@@ -29,7 +29,7 @@ class StoreStudentRequest extends FormRequest
             'name'          => 'required|min:3|max:50',
             'email'         => 'required|unique:users,email|regex_email:"/^[_a-zA-Z0-9-]{2,}+(\.[_a-zA-Z0-9-]{2,}+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,3})$/"',
             'phone'         => 'required|min:10|max:11|regex_phone:"/^[\+]?[(]?[0-9]{1,3}[)]?[-\s]?[0-9]{1,3}[-\s]?[0-9]{4,9}$/"',
-            'address'       => 'max:255',
+            'address'       => 'required|max:255',
             'dob'           => 'date_format:"d/m/Y"|regex:/[0-9]{2}\/[0-9]{2}\/[0-9]{4}/|validate_dob',
             'password'          => 'required|min:8|max:101',
             'confirm_password'   => 'required|same:password',
@@ -53,15 +53,16 @@ class StoreStudentRequest extends FormRequest
             'phone.min'                 => 'Số điện thoại không tồn tại.',
             'phone.max'                 => 'Số điện thoại không tồn tại.',
 
-            'address.max'               => 'Địa chỉ quá dài. Vui lòng nhập ít hơn 255 ký tự',
+            'address.max'      => 'Địa chỉ quá dài. Vui lòng nhập ít hơn 255 ký tự',
+            'address.required' => 'Bạn chưa nhập địa chỉ',
 
             'dob.date_format'      => 'Ngày sinh phải có định dạng Ngày/Tháng/Năm (Ví dụ: 31/12/1993).',
 
             'password.required' => 'Bạn chưa nhập mật khẩu',
-            'password.min' => 'Mật khẩu cần có 8 ký tự trở lên',
-            'password.max' => 'Mật khẩu cần có ít hơn 100 ký tự',
+            'password.min'      => 'Mật khẩu cần có 8 ký tự trở lên',
+            'password.max'      => 'Mật khẩu cần có ít hơn 100 ký tự',
             'confirm_password.required' => 'Vui lòng nhập lại mật khẩu',
-            'confirm_password.same' => 'Mật khẩu chưa khớp',
+            'confirm_password.same'     => 'Mật khẩu chưa khớp',
         ];
     }
 }
