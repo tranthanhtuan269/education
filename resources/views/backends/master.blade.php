@@ -241,6 +241,9 @@
                                     <li class="@if ( Request::is('admincp/feature-teacher*') ) active @endif">
                                         <a href="{{ url('/') }}/admincp/feature-teacher"><i class="fa fa-minus"></i>Giảng viên tiêu biểu</a>
                                     </li>
+                                    <li class="@if ( Request::is('admincp/featured-category*') ) active @endif">
+                                        <a href="{{ url('/') }}/admincp/featured-category"><i class="fa fa-minus"></i>Danh mục tiêu biểu</a>
+                                    </li>
                                 @endif
                             </ul>
                         </li>
