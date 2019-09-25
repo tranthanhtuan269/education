@@ -1,6 +1,10 @@
 <?php
     $lecturers = $course->author;
-    $main_lecturer = $course->teacherId;
+    if( isset($course->teacherId) ){
+        $main_lecturer = $course->teacherId;
+    }else{
+        $main_lecturer = $course->Lecturers()->first()->user->id;
+    }
 ?>
 <div class="col-md-3 col-sm-6">
     <div class="box-course">
