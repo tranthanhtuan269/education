@@ -18,7 +18,17 @@
 Auth::routes();
 
 Route::get('test2', function(){
-    
+    $courses = \App\Course::get();
+    foreach($courses as $course){
+        if($course->author == ""){
+            if($course->Lecturers()->first()){
+                if($course->Lecturers()->first()->user){
+                    $course->author = $course->Lecturers()->first()->user->name;
+                    $course->save();
+                }
+            }
+        }
+    }
 });
 
 Route::get('thay-state-video', function(){
