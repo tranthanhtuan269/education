@@ -235,6 +235,14 @@ $(document).ready(function(){
             editFormData.append('confirm_password', confirmPassword)
         }
 
+        $.ajaxSetup(
+            {
+                headers:
+                {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
         $.ajax({
             method: 'POST',
             url: `{{ url('/admincp/') }}/users/update-teacher`,

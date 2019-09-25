@@ -165,7 +165,13 @@ $(document).ready(function() {
         formData.append('address', address)
         formData.append('password', password)
         formData.append('confirm_password', confirmPassword)
-        
+        $.ajaxSetup(
+            {
+                headers:
+                {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
 
         $.ajax({
             method: 'POST',
