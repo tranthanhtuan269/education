@@ -123,6 +123,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('feature-course/handling-feature-course', 'Backends\CourseController@handlingFeatureCourseAjax');
         Route::get('feature-teacher', 'Backends\UserController@getFeatureTeacher');
         Route::post('feature-teacher/handling-feature-teacher', 'Backends\UserController@handlingFeatureTeacherAjax');
+        Route::post('feature-teacher/auto-feature-teacher', 'Backends\UserController@autoFeatureTeacherAjax');
      
         // Trinhnk Tạo Coupon
         Route::get('create-coupon', 'Backends\HomeController@createCoupon');
