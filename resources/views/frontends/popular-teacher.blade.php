@@ -1,3 +1,4 @@
+
 <div class="container">
     <div class="popular-teacher">
         <div class="row">
@@ -6,6 +7,9 @@
             </div>
             @foreach ($popular_teacher as $teacher)
                 @if ($teacher->userRole->user)
+                    <?php
+                        $count_course = count($teacher->userRole->userCoursesByTeacher()->where('status', 1));
+                    ?>
                     @include(
                         'components.teacher', 
                         [
@@ -15,7 +19,7 @@
                             'expert' => $teacher->expert,
                             // 'rate' => $teacher->rating_score,
                             // 'rating_number' => $teacher->vote_count,
-                            'course_number' => $teacher->course_count,
+                            'course_number' => $count_course,
                             'student_number' => $teacher->student_count
                         ]
                     )                    

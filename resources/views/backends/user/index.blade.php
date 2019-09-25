@@ -46,7 +46,7 @@
                     <p class="action-selected-rows">
                         <span >Hành động trên các hàng đã chọn:</span>
                         <span class="btn btn-info ml-2" id="apply-all-btn">Xóa</span>
-                        <span class="btn btn-info ml-5" id="openMultipleEmailModal">Send Emails</span>
+                        <span class="btn btn-info ml-5" id="openMultipleEmailModal">Gửi Emails</span>
                     </p>  
                 @endif
             </div>
@@ -186,26 +186,26 @@
                 </div>
                 <div class="modal-body">
                     <div class="row my-4">
-                        <div class="col-md-2">
-                            Recipient :
+                        <div class="col-md-3">
+                            Người gửi :
                         </div>
-                        <div class="col-md-10">
+                        <div class="col-md-9">
                             <span id="recipientName"></span>
                         </div>
                     </div>
                     <div class="row my-4">
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             Email :
                         </div>
-                        <div class="col-md-10">
+                        <div class="col-md-9">
                             <span id="recipientEmail"></span>
                         </div>
                     </div>
                     <div class="row my-4">
-                        <div class="col-md-2">
-                            Email type :
+                        <div class="col-md-3">
+                            Chủ đề :
                         </div>
-                        <div class="col-md-10">
+                        <div class="col-md-9">
                             <select class="form-control" name="emailType" id="selectedTemplate">
                                 @foreach ($emailTemplates as $emailTemplate)
                                 <option value="{{$emailTemplate->id}}">{{$emailTemplate->title}}</option>
@@ -215,7 +215,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary" data-userId id="sendEmail">Send</button>
+                    <button class="btn btn-primary" data-userId id="sendEmail">Gửi</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
                 </div>
             </div>
         </div>
@@ -225,12 +226,12 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4>Send emails for multiple users</h4>
+                    <h4>Gửi email cho nhiều người dùng</h4>
                 </div>
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-2">
-                            Email type :
+                            Chủ đề :
                         </div>
                         <div class="col-md-10">
                             <select class="form-control" name="emailType" id="mulSelectedTemplate">
@@ -243,7 +244,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-primary" id="sendMultipleEmail">Gửi</button>
-                    <button class="btn btn-danger" type="button" data-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
                 </div>
             </div>
         </div>

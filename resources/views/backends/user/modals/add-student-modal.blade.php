@@ -2,7 +2,7 @@
         <label class="col-sm-3 col-form-label">Ảnh đại diện <span class="text-danger">*</span></label>
         <div class="col-sm-8 image-cropit-editor">
             <div>
-                <img id="imageStu" style="height:150px;" src="">
+                <img id="imageStu" style="height:0px;" src="">
                 <input type="file" id="addStuImgInput" style="display:none;">
             </div>
             <div style="margin-top: 0.5em">
@@ -53,7 +53,7 @@
         </div>
     </div>
     <div class="form-group row">
-        <label  class="col-sm-3 col-form-label">Địa chỉ <span class="text-danger">*</span></label>
+        <label  class="col-sm-3 col-form-label">Địa chỉ </label>
         <div class="col-sm-8">
             <input type="text" class="form-control" id="addStuAddress" name="address">                                       
         </div>
