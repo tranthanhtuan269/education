@@ -358,7 +358,7 @@
 
                                     Swal.fire({
                                         type: 'success',
-                                        text: response.message
+                                        text: "Thao tác thành công."
                                     })
                                 }else{
                                     Swal.fire({
