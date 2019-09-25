@@ -1,31 +1,31 @@
-    <div class="form-group row">
+<div class="form-group row">
         <label class="col-sm-3 col-form-label">Ảnh đại diện <span class="text-danger">*</span></label>
         <div class="col-sm-8 image-cropit-editor">
             <div>
-                <img id="imageStu" style="height:150px;" src="">
-                <input type="file" id="addStuImgInput" style="display:none;">
+                <img id="imageEditStu" style="height:150px;" src="">
+                <input type="file" id="editStuImgInput" style="display:none;">
             </div>
             <div style="margin-top: 0.5em">
-                <button id="btnSelectAddStuImage" class="btn btn-primary">Chọn ảnh</button>
+                <button id="btnSelectEditStuImage" class="btn btn-primary">Chọn ảnh</button>
             </div>
         </div>
     </div>
     <div class="form-group row">
         <label  class="col-sm-3 col-form-label">Tên <span class="text-danger">*</span></label>
         <div class="col-sm-8">
-            <input type="text" class="form-control" id="addStuName" name="name">                                       
+            <input type="text" class="form-control" id="editStuName" name="name">                                       
         </div>
     </div>
     <div class="form-group row">
         <label  class="col-sm-3 col-form-label">Email <span class="text-danger">*</span></label>
         <div class="col-sm-8">
-            <input type="text" class="form-control" id="addStuEmail" name="email">                                       
+            <input type="text" disabled class="form-control" id="editStuEmail" name="email">                                       
         </div>
     </div>
     <div class="form-group row">
         <label  class="col-sm-3 col-form-label">Sô điện thoại <span class="text-danger">*</span></label>
         <div class="col-sm-8">
-            <input type="text" class="form-control" id="addStuPhone" name="phone">                                       
+            <input type="text" class="form-control" id="editStuPhone" name="phone">                                       
         </div>
         <script>
             
@@ -38,14 +38,14 @@
                 <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                 </div>
-                <input type="text" class="form-control pull-right" id="addStuDob"  name="dob">
+                <input type="text" class="form-control pull-right" id="editStuDob"  name="dob">
             </div>                                   
         </div>
     </div>
     <div class="form-group row">
         <label  class="col-sm-3 col-form-label">Giới tính <span class="text-danger">*</span></label>
         <div class="col-sm-8">
-            <select id="addStuGender" name="gender" class="form-control">
+            <select id="editStuGender" name="gender" class="form-control">
                     <option value="1">Nam</option>
                     <option value="2">Nữ</option>
                     <option value="3">Khác</option>
@@ -55,29 +55,29 @@
     <div class="form-group row">
         <label  class="col-sm-3 col-form-label">Địa chỉ <span class="text-danger">*</span></label>
         <div class="col-sm-8">
-            <input type="text" class="form-control" id="addStuAddress" name="address">                                       
+            <input type="text" class="form-control" id="editStuAddress" name="address">                                       
         </div>
     </div>
     <div class="form-group row">
         <label  class="col-sm-3 col-form-label">Mật khẩu <span class="text-danger">*</span></label>
         <div class="col-sm-8">
-            <input type="password" class="form-control" id="addStuPassword" name="password">                                       
+            <input type="password" class="form-control" id="editStuPassword" name="password">                                       
         </div>
     </div>
     <div class="form-group row">
         <label  class="col-sm-3 col-form-label">Nhập lại mật khẩu <span class="text-danger">*</span></label>
         <div class="col-sm-8">
-            <input type="password" class="form-control" id="addStuCfPassword" name="confirm-password" >                                       
+            <input type="password" class="form-control" id="editStuCfPassword" name="confirm-password" >                                       
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-primary" id="createStudent">Thêm mới</button>
+        <button type="button" class="btn btn-primary" id="editStudent">Lưu học viên</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeCreateTeacher">Hủy bỏ</button>
     </div> 
 
 <script src="{{asset('backend/template/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}"></script>
 <script>
-$('#addStuDob').datepicker({
+$('#editStuDob').datepicker({
     autoclose: true,
     format: 'dd/mm/yyyy',
     endDate: new Date(),
@@ -86,25 +86,13 @@ $('#addStuDob').datepicker({
 })
 $(document).ready(function() {
 
-    $("#btnSelectAddStuImage").click(function(){
-        $('#addStuImgInput').click()
+    $("#btnSelectEditStuImage").click(function(){
+        $('#editStuImgInput').click()
     })
-    const imageAddStu = document.getElementById('imageStu');
-    const cropperAddStu = new Cropper(imageAddStu, {
-        viewMode: 1,
-        aspectRatio: 1,
-        autoCropArea: 1,
-        scalable: true,
-        zoomable: true,
-        zoomOnTouch: false,
-        cropBoxResizable: false,
-        rotatable: true,
-        dragMode: 'none',
-        // modal: false,
-    });
+    
 
-    $('#addStuImgInput').on('change', function(){
-        file = $("#addStuImgInput").prop('files')[0]
+    $('#editStuImgInput').on('change', function(){
+        file = $("#editStuImgInput").prop('files')[0]
         var fileType = file['type']
         var reader = new FileReader()
         
@@ -128,48 +116,52 @@ $(document).ready(function() {
         }
 
         reader.onloadend = function() {
-            cropperAddStu.replace(reader.result)
+            cropperEditStu.replace(reader.result)
         }
 
         if (file) {
             reader.readAsDataURL(file);
         } else {
-            $("#imageStu").attr('src', "")
+            $("#imageEditStu").attr('src', "")
         }
     })
         
     
-    $('#createStudent').click(function(){
-        
-        var name             = $("#addStuName").val().trim()
-        var email            = $('#addStuEmail').val().trim()
-        var phone            = $('#addStuPhone').val().trim()
-        var dob              = $('#addStuDob').val().trim()
-        var gender           = $('#addStuGender').val().trim()
-        var address          = $('#addStuAddress').val().trim()
-        var password         = $('#addStuPassword').val()
-        var confirmPassword  = $('#addStuCfPassword').val()
+    $('#editStudent').click(function(){
+        var user_id          = $(this).attr('data-user-id')
+        var name             = $("#editStuName").val().trim()
+        var email            = $('#editStuEmail').val().trim()
+        var phone            = $('#editStuPhone').val().trim()
+        var dob              = $('#editStuDob').val().trim()
+        var gender           = $('#editStuGender').val().trim()
+        var address          = $('#editStuAddress').val().trim()
+        var password         = $('#editStuPassword').val()
+        var confirmPassword  = $('#editStuCfPassword').val()
         
         var formData = new FormData
-        if(cropperAddStu.getCroppedCanvas() != null){
-            var avatar           = cropperAddStu.getCroppedCanvas().toDataURL()
-        //     console.log($("#addStuImgInput").prop('files')[0])
+        if(cropperEditStu.getCroppedCanvas() != null){
+            var avatar           = cropperEditStu.getCroppedCanvas().toDataURL()
+        //     console.log($("#editStuImgInput").prop('files')[0])
              
             formData.append('avatar', avatar)
         }
+        formData.append('user_id', user_id)
         formData.append('name', name)
         formData.append('email', email)
         formData.append('phone', phone)
         formData.append('dob', dob)
         formData.append('gender', gender)
         formData.append('address', address)
-        formData.append('password', password)
-        formData.append('confirm_password', confirmPassword)
+        formData.append('_method', 'PUT')
+        if(password != ''){
+            formData.append('password', password)
+            formData.append('confirm_password', confirmPassword)
+        }
         
 
         $.ajax({
             method: 'POST',
-            url: "{{ url('/admincp/users/store-student') }}",
+            url: "{{ url('/admincp/users/update-student') }}",
             data: formData,
             processData: false,
             contentType: false,
@@ -179,8 +171,9 @@ $(document).ready(function() {
                         type:'success',
                         text: response.message
                     })
-                    clearAddStudentForm()
-                    dataTable.ajax.reload();                    
+                    clearEditStudentForm()
+                    dataTable.ajax.reload();       
+                    $('#edit_user_modal').modal('hide')
                 }
                 $("#add_user_modal").modal('hide')
             },
@@ -200,17 +193,17 @@ $(document).ready(function() {
 
     })
 
-    function clearAddStudentForm(){
-        cropperAddStu.clear()
-        $("#addStuName").val("")
-        $('#addStuEmail').val("")
-        $('#addStuPhone').val("")
-        $('#addStuDob').val("")
-        $('#addStuGender').val("")
-        $('#addStuAddress').val("")
-        $('#addStuPassword').val("")
-        $('#addStuCfPassword').val("")
-        cropperAddStu.destroy()
+    function clearEditStudentForm(){
+        cropperEditStu.clear()
+        $("#editStuName").val("")
+        $('#editStuEmail').val("")
+        $('#editStuPhone').val("")
+        $('#editStuDob').val("")
+        $('#editStuGender').val("")
+        $('#editStuAddress').val("")
+        $('#editStuPassword').val("")
+        $('#editStuCfPassword').val("")
+        cropperEditStu.destroy()
 
     }
 })

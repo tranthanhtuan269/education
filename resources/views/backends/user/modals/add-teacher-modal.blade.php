@@ -68,7 +68,7 @@
     <div class="form-group row">
         <label  class="col-sm-3 col-form-label">Link youtube <span class="text-danger">*</span></label>
         <div class="col-sm-8">
-            <input type="text" class="form-control" id="addTchYoutube" name="expert">                                       
+            <input type="text" class="form-control" id="addTchYoutube" name="youtube">                                       
         </div>
     </div>
     <div class="form-group row">
@@ -116,7 +116,7 @@
             <input type="password" class="form-control" id="addTchCfPassword" name="confirm-password" >                                       
         </div>
     </div>
-    <div>
+    <div class="modal-footer">
         <button type="button" class="btn btn-primary" id="createTeacher">Thêm mới</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeCreateTeacher">Hủy bỏ</button>
     </div> 
@@ -254,6 +254,8 @@ $(document).ready(function() {
                         type:'success',
                         text: response.message
                     })
+                    dataTable.ajax.reload();
+                    clearAddTeacherForm()                    
                 }
                 $("#add_user_modal").modal('hide')
             },
@@ -269,7 +271,7 @@ $(document).ready(function() {
                     allowOutsideClick: false,
                 })
             }
-        })        
+        })
 
     })
 
@@ -286,6 +288,7 @@ $(document).ready(function() {
         addTchCvEditor.setData("")
         $('#addTchPassword').val("")
         $('#addTchCfPassword').val("")
+        cropper.destroy()
     }
 })
 </script>
