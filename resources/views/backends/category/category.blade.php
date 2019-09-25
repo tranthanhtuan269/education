@@ -181,13 +181,13 @@ $(document).ready(function() {
             img.src = _URL.createObjectURL(file);
         }
     })
-
+    
     link_image_base64 = '';
     function handleFileSelect(evt) {
         var f = evt.target.files[0]; // FileList object
         if (f.size > 0) {
             var fileType = f["type"];
-            var validImageTypes = ["image/gif", "image/jpeg", "image/png"];
+            var validImageTypes = ["image/gif", "image/jpeg", "image/png", "image/jpg"];
             if ($.inArray(fileType, validImageTypes) < 0) {
                 $('#files').val('');
                 Swal.fire({
@@ -262,9 +262,10 @@ $(document).ready(function() {
                     dataTable.ajax.reload();
                     Swal.fire({
                         type: 'success',
-                        text: response.message
+                        text: "Thêm mới danh mục thành công!"
                     }).then( result => {
-                        location.reload()
+                        // location.reload()
+                        dataTable.ajax.reload()
                     })
                 } else {
                     Swal.fire({
@@ -600,6 +601,9 @@ $(document).ready(function() {
             // alert(link_image_base64)
             image_base64 = $('#previewEditCategoryImg').attr('src');
             image_base64 = image_base64.replace("data:image/png;base64,", "");
+            image_base64 = image_base64.replace("data:image/jpg;base64,", "");
+            image_base64 = image_base64.replace("data:image/jpeg;base64,", "");
+            image_base64 = image_base64.replace("data:image/gif;base64,", "");
             if(image_base64.indexOf("http") > -1) {
                 image_base64 = "";
             }
@@ -637,6 +641,7 @@ $(document).ready(function() {
                             text: response.Message
                         }).then( result => {
                             // location.reload()
+                            dataTable.ajax.reload()
                         })
                     } else {
                         Swal.fire({
@@ -669,12 +674,12 @@ $(document).ready(function() {
         reader.onload = function()
         {
             var fileInput = $('#files').val();
-            var allowedExtensions = /(\.gif|\.png|\.jpeg)$/i;
-            if (allowedExtensions.exec(fileInput)){
+            var fileSize = document.getElementById('files').files[0].size;
+            var allowedExtensions = /(\.gif|\.png|\.jpeg|\.jpg)$/i;
+            if (allowedExtensions.exec(fileInput) && fileSize !=0){
                 var output = document.getElementById('preview_category_img');
                 output.src = reader.result;
             }
-            
         }
         reader.readAsDataURL(event.target.files[0]);
     }
@@ -682,10 +687,10 @@ $(document).ready(function() {
     function preview_edit_image(event){
         var reader = new FileReader();
         reader.onload = function(){
-
             var fileInput = $('#editImage').val();
-            var allowedExtensions = /(\.gif|\.png|\.jpeg)$/i;
-            if (allowedExtensions.exec(fileInput)){
+            var fileSize = document.getElementById('editImage').files[0].size;
+            var allowedExtensions = /(\.gif|\.png|\.jpeg|\.jpg)$/i;
+            if (allowedExtensions.exec(fileInput) && fileSize !=0){
                 var output = document.getElementById('previewEditCategoryImg');
                 output.src = reader.result;
             }

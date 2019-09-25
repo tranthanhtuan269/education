@@ -3,7 +3,7 @@
         <label class="col-sm-3 col-form-label">Ảnh đại diện <span class="text-danger">*</span></label>
         <div class="col-sm-8 image-cropit-editor">
             <div>
-                <img id="imageTch" style="height:150px;" src="">
+                <img id="imageTch" style="height:0px;" src="">
                 <input type="file" id="addTchImgInput" style="display:none;">
             </div>
             <div style="margin-top: 0.5em">
@@ -116,7 +116,7 @@
             <input type="password" class="form-control" id="addTchCfPassword" name="confirm-password" >                                       
         </div>
     </div>
-    <div>
+    <div style="text-align: right;">
         <button type="button" class="btn btn-primary" id="createTeacher">Thêm mới</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeCreateTeacher">Hủy bỏ</button>
     </div> 

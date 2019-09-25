@@ -25,7 +25,7 @@ class UpdateEmailRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|max:150',
+            'title' => 'required|max:150|unique:emails,title',
             'content' => 'required'
         ];
     }
@@ -33,6 +33,7 @@ class UpdateEmailRequest extends FormRequest
         return [
             'title.required' => "Bạn chưa điền chủ đề của Email",
             'title.max' => "Bạn đã nhập quá 150 kí tự",
+            'title.unique' => "Chủ đề bị trùng tên",
             'content.required' => "Bạn chưa điền nội dung của Email",
         ];
     }
