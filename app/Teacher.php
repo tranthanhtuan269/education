@@ -65,4 +65,13 @@ class Teacher extends Model
         $checkTeacher = Teacher::whereIn('id', $id_list);
         return ($checkTeacher->update(['status' => $status]) > 0);
     }
+
+    static public function getFeatureTeacher()
+    {
+        $arr_check =  Teacher::where('featured', 1)
+        ->where('featured_index','<>' ,0)
+        ->orderBy('featured_index', 'ASC');
+
+        return $arr_check->take(4)->get();
+    }
 }

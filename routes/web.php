@@ -18,7 +18,17 @@
 Auth::routes();
 
 Route::get('test2', function(){
-    
+    $courses = \App\Course::get();
+    foreach($courses as $course){
+        if($course->author == ""){
+            if($course->Lecturers()->first()){
+                if($course->Lecturers()->first()->user){
+                    $course->author = $course->Lecturers()->first()->user->name;
+                    $course->save();
+                }
+            }
+        }
+    }
 });
 
 Route::get('thay-state-video', function(){
@@ -121,7 +131,9 @@ Route::group(['middleware' => 'auth'], function () {
         // Trinhnk Feature Course
         Route::get('feature-course', 'Backends\CourseController@getFeatureCourse');
         Route::post('feature-course/handling-feature-course', 'Backends\CourseController@handlingFeatureCourseAjax');
-
+        Route::get('feature-teacher', 'Backends\UserController@getFeatureTeacher');
+        Route::post('feature-teacher/handling-feature-teacher', 'Backends\UserController@handlingFeatureTeacherAjax');
+     
         // Trinhnk Tạo Coupon
         Route::get('create-coupon', 'Backends\HomeController@createCoupon');
         Route::post('add-coupon', 'Backends\HomeController@addCoupon');
@@ -151,8 +163,14 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('users/send-multiple-emails', 'Backends\EmailController@sendMultiple');
         Route::get('users/delete-multiple-emails', 'Backends\EmailController@destroyMultiple');
         
-        Route::resource('users', 'Backends\UserController');
         Route::post('users/store-teacher', 'Backends\TeacherController@store');
+        Route::put('users/update-teacher', 'Backends\TeacherController@update');
+        Route::put('users/disable-teacher', 'Backends\TeacherController@disable');
+        Route::post('users/store-student', 'Backends\StudentController@store');
+        Route::put('users/update-student', 'Backends\StudentController@update');
+
+        
+        Route::resource('users', 'Backends\UserController');
         Route::put('users/updateSefl', 'Backends\UserController@updateSefl')->name('user.updateSefl');
         Route::post('users/info', 'Backends\UserController@infoRoleUser');
         Route::delete('users/delMultiUser', ['as' => 'delMultiUser', 'uses' => 'Backends\UserController@delMultiUser']);

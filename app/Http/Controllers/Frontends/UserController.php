@@ -246,7 +246,7 @@ class UserController extends Controller
                 $teacher->user_role_id =  $user_role->id;
                 $teacher->expert = $request->expert;
                 $teacher->cv = $request->cv;
-                $teacher->video_intro = $request->video_intro;
+                $teacher->video_intro = "https://www.youtube.com/embed/" . Helper::getYouTubeVideoId($request->video_intro);
                 $teacher->save();
     
                 return \Response::json(['message' => 'Đăng ký giảng viên thành công! Hồ sơ của bạn đang được xét duyệt.', 'status' => 200]);

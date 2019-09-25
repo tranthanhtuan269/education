@@ -129,7 +129,7 @@
                                 </div>
                                 @if (Auth::check())
                                     @if (!Auth::user()->isAdmin())
-                                        @if(isset($course->userRoles[0]->user_id))
+                                        @if(isset($info_course->userRoles[0]->user_id))
                                             @if( (int)($info_course->userRoles[0]->user_id) != (int)(Auth::user()->id) )
                                                 @if (!in_array($info_course->id, $list_bought))
                                                 <div class="box clearfix">
@@ -147,7 +147,7 @@
                                                 </div>
                                                 @endif
                                             @endif   
-                                        @endif                                 
+                                        @endif
                                     @endif
                                 @else
                                     <div class="box clearfix">
@@ -312,11 +312,7 @@
                                         ?>
                                         @if ($check_time_sale == true || $info_course->price != $info_course->real_price)                                        
                                         <div class="col-sm-6 pull-left">
-                                            @if ( gettype($info_course->price) == 'integer' )
-                                                <span class="sale">{!! number_format($info_course->price, 0, ',' , '.') !!}đ</span>
-                                            @else
-                                                <span class="sale">{!! $info_course->price !!}</span>
-                                            @endif
+                                            <span class="sale">{!! number_format($info_course->price, 0, ',' , '.') !!}đ</span>
                                             <span class="price">{!! number_format($info_course->real_price, 0, ',' , '.') !!}đ</span>
                                             {{-- <span class="interval">Còn {{ $date_to->diff($date_from)->format("%d") }} ngày tại mức giá này </span> --}}
                                         </div>
@@ -327,18 +323,14 @@
                                         </div>
                                         @else
                                         <div class="col-sm-6 pull-left">
-                                            {{-- @if ( gettype($info_course->price) == 'integer' ) --}}
-                                                <span class="sale">{!! number_format($info_course->price, 0, ',' , '.') !!}đ</span>
-                                            {{-- @else --}}
-                                                {{-- <span class="sale">{!! $info_course->price !!}</span> --}}
-                                            {{-- @endif --}}
+                                            <span class="sale">{!! number_format($info_course->price, 0, ',' , '.') !!}đ</span>
                                         </div>
                                         @endif
                                     </div>
                                     <div class="button-class clearfix">
                                         @if (Auth::check())
                                             @if (!Auth::user()->isAdmin())
-                                            @if(isset($course->userRoles[0]->user_id))
+                                            @if(isset($info_course->userRoles[0]->user_id))
                                                 @if( (int)($info_course->userRoles[0]->user_id) == (int)(Auth::user()->id) )
                                                     <div class="sidebar-add-cart">
                                                         <button type="button" id="add-cart2" class="btn btn-primary button-add-to-cart" disabled><b>Đây là khóa học của bạn</b></button>
@@ -590,7 +582,7 @@
                 <h3>Đánh giá khóa học
                     {{-- @if(Auth::check()) --}}
                         @if(\App\Helper\Helper::getUserRoleOfCourse($info_course->id))
-                        @if(isset($course->userRoles[0]->user_id))
+                        @if(isset($info_course->userRoles[0]->user_id))
                             @if( (int)($info_course->userRoles[0]->user_id) != (int)(Auth::user()->id) )
                                 <span class="reviews-star" data-star="{{ isset($ratingCourse) ? $ratingCourse->score : 0 }}">
                                     @if($ratingCourse)
@@ -617,7 +609,7 @@
                 </h3>
                 {{-- @if(Auth::check()) --}}
                 @if(\App\Helper\Helper::getUserRoleOfCourse($info_course->id))
-                @if(isset($course->userRoles[0]->user_id))
+                @if(isset($info_course->userRoles[0]->user_id))
                     @if( (int)($info_course->userRoles[0]->user_id) != (int)(Auth::user()->id) )
                         <textarea name="content" id="editor" class="form-control" placeholder="Nội dung"></textarea>
                         <div class="btn-submit text-center mt-10 mb-20">
@@ -810,7 +802,7 @@
         </div>
     </div>
     @if (Auth::check())
-    @if(isset($course->userRoles[0]->user_id))
+    @if(isset($info_course->userRoles[0]->user_id))
         @if( (int)($info_course->userRoles[0]->user_id) != (int)(Auth::user()->id) )
             <div class="interactive-bar" data-i="{{ $info_course->id }}">
                 <div class="row">
@@ -877,7 +869,7 @@
     </script>
 </div>
 <script type="text/javascript">
-    
+    var user_id = $('button[id=cartUserId]').attr('data-user-id')
     $(document).ready(function() { 
 
         $(".interactive-bar .buttons button:first-child").click(function(){
@@ -911,17 +903,17 @@
         //         'real_price' : {!! $info_course->real_price !!},
         //     }
 
-        //     if (localStorage.getItem("cart") != null) {
-        //         var list_item = JSON.parse(localStorage.getItem("cart"));
+        //     if (localStorage.getItem('cart'+user_id) != null) {
+        //         var list_item = JSON.parse(localStorage.getItem('cart'+user_id));
         //         addItem(list_item, item);
-        //         localStorage.setItem("cart", JSON.stringify(list_item));
+        //         localStorage.setItem('cart'+user_id, JSON.stringify(list_item));
         //     }else{
         //         var list_item = [];
         //         addItem(list_item, item);
-        //         localStorage.setItem("cart", JSON.stringify(list_item));
+        //         localStorage.setItem('cart'+user_id, JSON.stringify(list_item));
         //     }
 
-        //     var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
+        //     var number_items_in_cart = JSON.parse(localStorage.getItem('cart'+user_id))
         //         // alert(number_items_in_cart.length)
         //     $('.number-in-cart').text(number_items_in_cart.length);
         // }
@@ -1091,7 +1083,7 @@
                 type: 'success',
                 text: 'Đã thêm vào giỏ hàng!'
             })
-            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
+            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'+user_id))
             $('.number-in-cart').text(number_items_in_cart.length)
             $('.unica-sl-cart').css('display', 'block')
             $.each( number_items_in_cart, function(i, obj) {
@@ -1119,14 +1111,14 @@
             $(".btn-buy-now button").remove()
             $('.interactive-bar').remove()
 
-            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
+            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'+user_id))
             $('.number-in-cart').text(number_items_in_cart.length);
             $('.unica-sl-cart').css('display', 'block')
             
         })
 
-        if(localStorage.getItem('cart') != null){
-            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
+        if(localStorage.getItem('cart'+user_id) != null){
+            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'+user_id))
 
             $.each( number_items_in_cart, function(i, obj) {
                 $('.btn-buy-now button[data-id='+obj.id+']').remove()
@@ -1154,8 +1146,8 @@
         course_id = Number(course_id)
         var check = true
         
-        if(localStorage.getItem('cart') != null){
-            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
+        if(localStorage.getItem('cart'+user_id) != null){
+            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'+user_id))
 
             $.each( number_items_in_cart, function(i, obj) {
                 if( course_id == Number(obj.id) ){
@@ -1180,17 +1172,17 @@
                 'coupon_code' : '',
             }
     
-            if (localStorage.getItem("cart") != null) {
-                var list_item = JSON.parse(localStorage.getItem("cart"));
+            if (localStorage.getItem('cart'+user_id) != null) {
+                var list_item = JSON.parse(localStorage.getItem('cart'+user_id));
                 addItem(list_item, item);
-                localStorage.setItem("cart", JSON.stringify(list_item));
+                localStorage.setItem('cart'+user_id, JSON.stringify(list_item));
             }else{
                 var list_item = [];
                 addItem(list_item, item);
-                localStorage.setItem("cart", JSON.stringify(list_item));
+                localStorage.setItem('cart'+user_id, JSON.stringify(list_item));
             }
     
-            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
+            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'+user_id))
             $('.number-in-cart').text(number_items_in_cart.length);
         }
     }

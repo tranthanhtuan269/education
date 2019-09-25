@@ -26,7 +26,7 @@
         <div class="col-md-6">
             <h3><b>Số học viên được tặng khóa học</b></h3>
             <br>
-            <div class="gift-student-number">
+            <div class="gift-student-number text-center">
                 <span>Nhập số học viên: </span> &nbsp;
                 <input type="number" min="0" step="1" name="student-number"> &nbsp;
                 <button class="btn btn-success btn-student-number">Xác nhận</button>

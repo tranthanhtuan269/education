@@ -14,7 +14,7 @@
                 </div>
                 <div class="pull-right">
                     <ul class="nav nav-tabs">
-                        <li class="active" data-title=""><a data-toggle="tab" href="#best-seller">Bán chạy</a></li>
+                        <li class="active" data-title="Các khoá học bán chạy"><a data-toggle="tab" href="#best-seller">Bán chạy</a></li>
                         <li data-title="Các khóa học mới nhất"><a data-toggle="tab" href="#menu1">Mới nhất</a></li>
                         <li data-title="Các khóa học thịnh hành"><a data-toggle="tab" href="#menu2">Thịnh hành</a></li>
                     </ul>

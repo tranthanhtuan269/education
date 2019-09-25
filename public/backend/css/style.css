@@ -586,7 +586,12 @@ ul.alert li {
     overflow: auto;
 }
 
-#showEditCouponModal .sol-selection-container,
+#showEditCouponModal .sol-selection-container{
+    top: 205px !important;
+    left: 314px !important;
+    width: 570px !important;
+}
+
 #showAddCouponModal .sol-selection-container {
     top: 180px !important;
     left: 314px !important;

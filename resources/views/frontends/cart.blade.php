@@ -238,6 +238,7 @@
                     }else{
                         $('.cart-page-title.container').show()
                     }
+                    location.reload()
                 }
             })
         })
@@ -286,15 +287,14 @@
         //         })
         //     }
         // });
-
+        $('.coupon-button').off()
         $('.coupon-button').on('click', function(e){
             e.stopPropagation()
             e.preventDefault()
             var dataChild = $(this).attr("data-child")
             var dataPrice = $(this).attr("data-price")
             var new_totalPrice = 0;
-            var numeric_cart = $(this).parent().parent().parent().parent().parent().attr("data-index")
-            // alert(dataChild);return
+            var numeric_cart = $(this).attr("data-index")
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -306,8 +306,7 @@
 
             var new_cart = cart_items
             get_coupon = new_cart[numeric_cart].coupon_code
-            
-
+            // alert(new_cart[numeric_cart].coupon_code);return
             if(coupon.length < 1){
                 return Swal.fire({
                     type:"warning",
@@ -333,7 +332,7 @@
                     })
 
                     request.done((response)=>{
-                        console.log(response)
+                        // console.log(response)
                         if(response.status == 200){
                             // localStorage.setItem('coupon', coupon)
                             if(response.coupon_value != 0){
