@@ -73,7 +73,7 @@
 </section>
 <section>
     <div class="modal fade" id="createEmailModal" tabindex="-1">
-        <div class="modal-content" >
+        <div class="modal-content" >`
             <div class="modal-header">
                 <h3>Tạo email</h3>
             </div>
@@ -186,7 +186,6 @@
 
     $(document).ready(function(){
 
-
         window.onbeforeunload = function() {
             if($('#edit_user_modal').hasClass('show') && ( 
                 $('#userName_upd').val() != curr_user_name ||
@@ -245,9 +244,12 @@
         ];
 
         dataTable = $('#notification-table').DataTable( {
-                        serverSide: false,
+                        serverSide: true,
                         aaSorting: [],
                         stateSave: false,
+                        search: {
+                            smart: false
+                        },
                         ajax: "{{ url('/') }}/admincp/emails/getEmailAjax",                        
                         columns: dataObject,
                         // bLengthChange: false,
@@ -593,6 +595,11 @@
             $("#subject_Ins").val('');
             content_Ins.setData("");
         })
+
+        // $('#createEmailModal').modal({
+        //     backdrop: 'static',
+        //     keyboard: false
+        // })
 
     });
 </script>

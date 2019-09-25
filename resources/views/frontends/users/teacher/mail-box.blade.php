@@ -79,9 +79,12 @@
             ];
     
             dataTable = $('#mailbox-table').DataTable( {
-                            serverSide: false,
+                            serverSide: true,
                             aaSorting: [],
                             stateSave: false,
+                            search: {
+                                smart: false
+                            },
                             ajax: "{{ url('/') }}/user/getDataMailBoxAjax",
                             columns: dataObject,
                             // bLengthChange: false,

@@ -100,9 +100,12 @@
             ];
     
             dataTable = $('#order-table').DataTable( {
-                            serverSide: false,
+                            serverSide: true,
                             aaSorting: [],
                             stateSave: false,
+                            search: {
+                                smart: false
+                            },
                             ajax: "{{ url('/') }}/user/getDataOrderAjax",
                             columns: dataObject,
                             // bLengthChange: false,

@@ -107,6 +107,9 @@
                         serverSide: true,
                         aaSorting: [],
                         stateSave: false,
+                        search: {
+                            smart: false
+                        },
                         ajax: "{{ url('/') }}/admincp/customers/getDataAjax",
                         columns: dataObject,
                         order: [[ 5, "desc" ]],

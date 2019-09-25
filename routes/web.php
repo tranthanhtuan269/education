@@ -153,8 +153,14 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('users/send-multiple-emails', 'Backends\EmailController@sendMultiple');
         Route::get('users/delete-multiple-emails', 'Backends\EmailController@destroyMultiple');
         
-        Route::resource('users', 'Backends\UserController');
         Route::post('users/store-teacher', 'Backends\TeacherController@store');
+        Route::put('users/update-teacher', 'Backends\TeacherController@update');
+        Route::put('users/disable-teacher', 'Backends\TeacherController@disable');
+        Route::post('users/store-student', 'Backends\StudentController@store');
+        Route::put('users/update-student', 'Backends\StudentController@update');
+
+        
+        Route::resource('users', 'Backends\UserController');
         Route::put('users/updateSefl', 'Backends\UserController@updateSefl')->name('user.updateSefl');
         Route::post('users/info', 'Backends\UserController@infoRoleUser');
         Route::delete('users/delMultiUser', ['as' => 'delMultiUser', 'uses' => 'Backends\UserController@delMultiUser']);

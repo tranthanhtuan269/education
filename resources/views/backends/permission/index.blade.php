@@ -244,6 +244,9 @@
                         serverSide: true,
                         aaSorting: [],
                         stateSave: false,
+                        search: {
+                            smart: false
+                        },
                         ajax: "{{ url('/') }}/admincp/permissions/getDataAjax",
                         columns: dataObject,
                         // bLengthChange: false,

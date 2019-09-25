@@ -19,7 +19,7 @@
     dd($myvideo->unit->course->name);
 @endphp --}}
 <section class="content page">
-    <h1 class="text-center font-weight-600">Danh sách video chưa được duyệt</h1>
+    <h1 class="text-center font-weight-600">Danh sách bài giảng chưa được duyệt</h1>
     <div class="row">
         <div class="col-md-12">
             <div class="table-responsive">
@@ -179,9 +179,12 @@
         ];
 
         dataTable = $('#teacher-table').DataTable( {
-                        serverSide: false,
+                        serverSide: true,
                         aaSorting: [],
                         stateSave: true,
+                        search: {
+                            smart: false
+                        },
                         ajax: "{{ url('/') }}/admincp/get-unverified-video",
                         columns: dataObject,
                         bLengthChange: true,

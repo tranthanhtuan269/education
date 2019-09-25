@@ -196,9 +196,12 @@
             dataTable = $('#student-table').DataTable( {
                             searching: false,
                             // paging: false,
-                            serverSide: false,
+                            serverSide: true,
                             aaSorting: [],
                             stateSave: true,
+                            search: {
+                                smart: false
+                            },
                             ajax: "{{ url('/') }}/admincp/gifts/getGiftStudentAjax?number="  + $('input[name="student-number"]').val(),
                             columns: dataObject,
                             bLengthChange: true,

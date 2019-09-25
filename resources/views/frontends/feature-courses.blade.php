@@ -13,7 +13,7 @@
                                 </div>
                             @endif
                         <a href="{{ url('/') }}/course/{{ $course->slug }}">
-                            @if (strpos($feature_course[0]->image, 'http') !== false)
+                            @if (strpos($course->image, 'http') !== false)
                             <div class="top-feature-course" style="background-image:url({{ $course->image }}); width: 100%; height:390">
                             @else
                             <div class="top-feature-course" style="background-image:url({{ asset('frontend/images/'.$course->image) }}); width: 100%; height:390">

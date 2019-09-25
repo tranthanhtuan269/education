@@ -15,7 +15,7 @@
     
 </section>
 <section class="content page">
-    <h1 class="text-center font-weight-600">Danh sách video</h1>
+    <h1 class="text-center font-weight-600">Danh sách bài giảng</h1>
     <div class="row">
         <div class="col-md-12">
             <div class="table-responsive">
@@ -138,9 +138,12 @@
         ];
 
         dataTable = $('#video-table').DataTable( {
-                        serverSide: false,
+                        serverSide: true,
                         aaSorting: [],
                         stateSave: true,
+                        search: {
+                            smart: false
+                        },
                         ajax: {
                             url: "{{ url('/') }}/admincp/videos/getVideoAjax?course_id="+ "{{ $_GET['course_id']}}",
                             beforeSend: function() {

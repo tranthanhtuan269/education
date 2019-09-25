@@ -382,6 +382,9 @@
                         serverSide: true,
                         aaSorting: [],
                         stateSave: false,
+                        search: {
+                            smart: false
+                        },
                         ajax: "{{ url('/') }}/admincp/roles/getDataAjax",
                         columns: dataObject,
                         // bLengthChange: false,

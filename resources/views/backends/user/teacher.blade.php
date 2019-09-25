@@ -181,9 +181,12 @@
         ];
 
         dataTable = $('#teacher-table').DataTable( {
-                        serverSide: false,
+                        serverSide: true,
                         aaSorting: [],
                         stateSave: true,
+                        search: {
+                            smart: false
+                        },
                         ajax: "{{ url('/') }}/admincp/teachers/getTeacherAjax",
                         columns: dataObject,
                         bLengthChange: true,
@@ -559,6 +562,7 @@
                                         }
                                     });
                                     dataTable.page( checkEmptyTable() ).draw( false );
+                                    $('.check-user').prop('checked', false)
                                 },
                                 error: function (response) {
                                     Swal.fire({
@@ -630,6 +634,7 @@
                                         }
                                     });
                                     dataTable.page(checkEmptyTable()).draw( false );
+                                    $('.check-user').prop('checked', false)
                                 },
                                 error: function (response) {
                                     Swal.fire({

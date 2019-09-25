@@ -408,9 +408,12 @@ $(document).ready(function(){
     ];
 
     dataTable = $('#coupon-table').DataTable( {
-                    serverSide: false,
+                    serverSide: true,
                     aaSorting: [],
                     stateSave: true,
+                    search: {
+                        smart: false
+                    },
                     ajax: "{{ url('/') }}/admincp/coupon/getCouponAjax",
                     columns: dataObject,
                     // bLengthChange: false,
