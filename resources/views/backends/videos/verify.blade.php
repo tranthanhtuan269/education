@@ -529,6 +529,7 @@
                                             // $(this).parent().parent().addClass('red-row').removeClass('blue-row');
                                         }
                                     });
+                                    userCheckList = [];
                                     dataTable.page( checkEmptyTable() ).draw( false );
                                 },
                                 error: function (response) {
@@ -587,6 +588,7 @@
                                             $(this).parent().parent().addClass('red-row').removeClass('blue-row');
                                         }
                                     });
+                                    userCheckList = [];
                                     dataTable.page(checkEmptyTable()).draw( false );
                                 },
                                 error: function (response) {

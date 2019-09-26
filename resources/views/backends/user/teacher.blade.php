@@ -561,6 +561,7 @@
                                             // $(this).parent().parent().addClass('red-row').removeClass('blue-row');
                                         }
                                     });
+                                    userCheckList = [];
                                     dataTable.page( checkEmptyTable() ).draw( false );
                                     $('.check-user').prop('checked', false)
                                 },
@@ -633,6 +634,7 @@
                                             $(this).parent().parent().addClass('red-row').removeClass('blue-row');
                                         }
                                     });
+                                    userCheckList = [];
                                     dataTable.page(checkEmptyTable()).draw( false );
                                     $('.check-user').prop('checked', false)
                                 },
