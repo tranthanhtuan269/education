@@ -78,8 +78,10 @@ class HomeController extends Controller
         $feature_course = $feature_course->take($feature_course_limit);
         //end finding feature courses
 
-        $best_seller_course = Course::where('status', 1)->orderBy('sale_count', 'desc')->limit(8)->get();
-        $new_course = Course::where('status', 1)->orderBy('id', 'desc')->limit(8)->get();
+        // $best_seller_course = Course::where('status', 1)->orderBy('sale_count', 'desc')->limit(8)->get();listCourseHome
+        $best_seller_course = Course::listCourseHome()->orderBy('sale_count', 'desc')->limit(8)->get();
+        
+        $new_course = Course::listCourseHome()->orderBy('id', 'desc')->limit(8)->get();
 
         $limitDate = \Carbon\Carbon::now()->subDays(15);
         $sql = "SELECT course_id, count(course_id) FROM orders JOIN order_details ON orders.id = order_details.order_id WHERE created_at > '" . $limitDate->toDateTimeString() ."' group by course_id ORDER BY count(course_id) desc LIMIT 8;";
