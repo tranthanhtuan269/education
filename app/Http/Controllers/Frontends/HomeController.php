@@ -618,11 +618,14 @@ class HomeController extends Controller
                     $order->save();
     
                     // Lưu vào bảng user_email
-                    $user_email  = new \App\UserEmail;
-                    $user_email->user_id = Auth::id();
-                    $user_email->email_id = \App\Email::where('title', 'Thông báo mua hàng thành công')->first()->id;
-                    $user_email->sender_user_id = 333;
-                    $user_email->save();
+                    $alertEmail = \App\Email::where('title', 'Thông báo mua hàng thành công')->first();
+                    if($alertEmail){
+                        $user_email  = new \App\UserEmail;
+                        $user_email->user_id = Auth::id();
+                        $user_email->email_id = $alertEmail->id;
+                        $user_email->sender_user_id = 333;
+                        $user_email->save();
+                    }
     
                     
                     $current_user->bought = \json_encode($bought);
