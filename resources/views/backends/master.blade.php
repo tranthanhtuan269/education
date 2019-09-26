@@ -228,7 +228,7 @@
                                 <span class="pull-right-container">
                             </a>
                         </li>
-                        <li class="treeview @if ( Request::is('admincp/feature-*')) active @endif">
+                        <li class="treeview @if ( Request::is('admincp/feature*')) active @endif">
                             <a href="javascript:void(0)">
                                 <i class="fa fa-star"></i>
                                 <span>Cài đặt trang chủ</span>

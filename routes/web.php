@@ -96,6 +96,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('courses/delete', 'Backends\CourseController@deleteCourse');
         Route::delete('courses/delete-multiple-course', 'Backends\CourseController@deleteMultiCourse');
         Route::put('courses/activeCourse', 'Backends\CourseController@activeCourse');
+        // Sua khoa hoc
+        Route::get('courses/request-edit', 'Backends\CourseController@getRequestEditCourse');
+
 
         // Trinhnk Duyet video
         Route::get('videos', 'Backends\VideoController@getVideo');
@@ -110,7 +113,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('request-delete-videos/reject', 'Backends\VideoController@rejectRequestDeleteVideo');
         // Route::get('videos-of-course', 'Backends\VideoController@getVideoOfCourse');
         // Route::delete('request-delete-videos/accept', 'Backends\VideoController@acceptRequestDeleteVideo');
-
 
         // Trinhnk Block Users
         Route::put('users/block-user', 'Backends\UserController@blockUser');
