@@ -299,10 +299,12 @@
                     message = "Bạn có chắc chắn muốn hủy video bạn chọn?";
 
                     // Nếu video đã duyệt xong
-                    return $.ajsrConfirm({
-                        message: message,
-                        okButton: "Đồng ý",
-                        onConfirm: function() {
+                    Swal.fire({
+                        type: 'warning',
+                        text: message,
+                        showCancelButton: true,
+                    }).then(result => {
+                        if(result.value){
                             $.ajaxSetup({
                                 headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -355,14 +357,15 @@
                                     }
                                 }
                             });
-                        },
-                        nineCorners: false,
-                    });
+                        }
+                    })
                 }
-                $.ajsrConfirm({
-                    message: message,
-                    okButton: "Đồng ý",
-                    onConfirm: function() {
+                Swal.fire({
+                    type: 'warning',
+                    text: message,
+                    showCancelButton: true,
+                }).then(result => {
+                    if(result.value){
                         $.ajaxSetup({
                             headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -412,9 +415,8 @@
                                 }
                             }
                         });
-                    },
-                    nineCorners: false,
-                });
+                    }
+                })
             });
 
             $('.btn-delete').off('click')
@@ -422,10 +424,12 @@
                 var _self   = $(this);
                 var id      = $(this).attr('data-id');
                 var row = $(e.currentTarget).closest("tr");
-                $.ajsrConfirm({
-                    message: "Bạn có chắc chắn muốn xóa video bạn chọn?",
-                    okButton: "Đồng ý",
-                    onConfirm: function() {
+                Swal.fire({
+                    type: 'warning',
+                    text: 'Bạn có chắc chắn muốn xóa video bạn chọn?',
+                    showCancelButton: true,
+                }).then(result => {
+                    if(result.value){
                         $.ajaxSetup({
                             headers: {
                               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -464,9 +468,8 @@
                                 }
                             }
                         });
-                    },
-                    nineCorners: false,
-                });
+                    }
+                })
             });
             
             // $('#deleteAllApplied').off('click')

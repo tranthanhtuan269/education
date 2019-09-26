@@ -166,6 +166,8 @@ $(document).ready(function() {
     })
     var _URL = window.URL || window.webkitURL;
     $("#editImage").change(function(e) {
+        var fileInput = $('#editImage').val();
+        var allowedExtensions = /(\.gif|\.png|\.jpeg|\.jpg)$/i;
         var file, img;
         if ((file = this.files[0])) {
             img = new Image();
@@ -179,6 +181,40 @@ $(document).ready(function() {
                 
             };
             img.src = _URL.createObjectURL(file);
+        }
+        if(allowedExtensions.exec(fileInput) == null){
+            Swal.fire({
+                type: 'warning',
+                text: 'Chỉ hỗ trợ file png, jpg, jpeg',
+                allowOutsideClick: false,
+            })
+            $("#editImage").val('') 
+        }
+    })
+    $("#files").change(function(e) {
+        var fileInput = $('#files').val();
+        var allowedExtensions = /(\.gif|\.png|\.jpeg|\.jpg)$/i;
+        var file, img;
+        if ((file = this.files[0])) {
+            img = new Image();
+            img.onerror = function() {
+                Swal.fire({
+                    type: 'warning',
+                    text: 'Tập tin không hợp lệ.',
+                    allowOutsideClick: false,
+                })
+                $("#files").val('') 
+                
+            };
+            img.src = _URL.createObjectURL(file);
+        }
+        if(allowedExtensions.exec(fileInput) == null){
+            Swal.fire({
+                type: 'warning',
+                text: 'Chỉ hỗ trợ file png, jpg, jpeg',
+                allowOutsideClick: false,
+            })
+            $("#files").val('') 
         }
     })
     

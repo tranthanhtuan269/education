@@ -538,11 +538,13 @@
             $('.btn-delete').click(function(){
                 var _self   = $(this);
                 var id      = $(this).attr('data-id');
-                $.ajsrConfirm({
-                    message: "Bạn có chắc chắn muốn xóa ?",
-                    okButton: "Đồng ý",
-                    onConfirm: function() {
-                        var data    = {
+                Swal.fire({
+                    type: 'warning',
+                   text: 'Bạn có chắc chắn muốn xóa ?',
+                   showCancelButton: true,
+               }).then(result => {
+                   if(result.value){
+                    var data    = {
                             _method             : "DELETE"
                         };
                         $.ajaxSetup({
@@ -585,9 +587,8 @@
                                 }
                             }
                         });
-                    },
-                    nineCorners: false,
-                });
+                   }
+               })
             });
         }
 
@@ -670,11 +671,13 @@
                     })   
             }
             else{
-                $.ajsrConfirm({
-                    message: "Bạn có chắc chắn muốn xóa ?",
-                    okButton: "Đồng ý",
-                    onConfirm: function() {
-                        var $id_list = '';
+                Swal.fire({
+                    type: 'warning',
+                   text: 'Bạn có chắc chắn muốn xóa ?',
+                   showCancelButton: true,
+               }).then(result => {
+                   if(result.value){
+                    var $id_list = '';
                         $.each($('.check-role'), function (key, value){
                             if($(this).prop('checked') == true) {
                                 $id_list += $(this).attr("data-column") + ',';
@@ -733,18 +736,19 @@
                                 });
                             }
                         }
-                    },
-                    nineCorners: false,
-                });
+                   }
+               })
             }
         });
         $('#cancelAdd').click(function(){
+            $('#roleName_ins').val('');
             $('#nameErrorIns').hide();
         });
         $('#cancelEdit').click(function(){
             $('#roleNameErrorUpd').hide();
         });
         $('#closeAddX').click(function(){
+            $('#roleName_ins').val('');
             $('#nameErrorIns').hide();
         });
         $('#closeExitX').click(function(){

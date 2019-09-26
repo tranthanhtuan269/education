@@ -232,11 +232,13 @@
             $('.btn-delete').click(function(){
                 var _self   = $(this);
                 var id      = $(this).attr('data-id');
-                $.ajsrConfirm({
-                    message: "Bạn có chắc chắn muốn xóa ?",
-                    okButton: "Đồng ý",
-                    onConfirm: function() {
-                        var data    = {
+                Swal.fire({
+                    type: 'warning',
+                   text: 'Bạn có chắc chắn muốn xóa ?',
+                   showCancelButton: true,
+               }).then(result => {
+                   if(result.value){
+                    var data    = {
                             _method             : "DELETE"
                         };
                         $.ajaxSetup({
@@ -269,9 +271,8 @@
                                 }
                             }
                         });
-                    },
-                    nineCorners: false,
-                });
+                   }
+               })
             });
         }
 
@@ -284,10 +285,12 @@
 
 
         $('#apply-all-btn').click(function (){
-            $.ajsrConfirm({
-                message: "Bạn có chắc chắn muốn xóa ?",
-                okButton: "Đồng ý",
-                onConfirm: function() {
+            Swal.fire({
+                    type: 'warning',
+                   text: 'Bạn có chắc chắn muốn xóa ?',
+                   showCancelButton: true,
+               }).then(result => {
+                   if(result.value){
                     var $id_list = '';
                     $.each($('.check-user'), function (key, value){
                         if($(this).prop('checked') == true) {
@@ -335,10 +338,8 @@
                             });
                         }
                     }
-                },
-                nineCorners: false,
-            });
-
+                   }
+               })
         });
 
 

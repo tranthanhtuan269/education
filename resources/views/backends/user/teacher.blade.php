@@ -320,11 +320,14 @@
                     status = 1;
                     message = "Bạn có chắc chắn muốn hủy giảng viên bạn chọn?";
                 }
-                $.ajsrConfirm({
-                    message: message,
-                    okButton: "Đồng ý",
-                    onConfirm: function() {
-                        $.ajaxSetup({
+
+                Swal.fire({
+                    type: 'warning',
+                   text: message,
+                   showCancelButton: true,
+                }).then(result => {
+                   if(result.value){
+                    $.ajaxSetup({
                             headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                             }
@@ -355,11 +358,18 @@
                                         _self.find('i').removeClass('fa-times').addClass('fa-check');
                                         _self.parent().parent().addClass('red-row').removeClass('blue-row');
                                     }
-
-                                    Swal.fire({
-                                        type: 'success',
-                                        text: "Thao tác thành công."
-                                    })
+                                    if(status == 0){
+                                        Swal.fire({
+                                            type: 'success',
+                                            text: "Duyệt giảng viên thành công."
+                                        })
+                                    }
+                                    else{
+                                        Swal.fire({
+                                            type: 'success',
+                                            text: "Hủy duyệt giảng viên thành công."
+                                        })
+                                    }
                                 }else{
                                     Swal.fire({
                                         type: 'warning',
@@ -375,9 +385,8 @@
                                 }
                             }
                         });
-                    },
-                    nineCorners: false,
-                });
+                   }
+                })
             });
 
             $('.btn-delete').off('click')
@@ -385,10 +394,12 @@
                 var _self   = $(this);
                 var id      = $(this).attr('data-id');
                 var row = $(e.currentTarget).closest("tr");
-                $.ajsrConfirm({
-                    message: "Bạn có chắc chắn muốn xóa giảng viên bạn chọn?",
-                    okButton: "Đồng ý",
-                    onConfirm: function() {
+                Swal.fire({
+                    type: 'warning',
+                    text: 'Bạn có chắc chắn muốn xóa giảng viên bạn chọn?',
+                    showCancelButton: true,
+                }).then(result => {
+                    if(result.value){
                         $.ajaxSetup({
                             headers: {
                               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -427,9 +438,8 @@
                                 }
                             }
                         });
-                    },
-                    nineCorners: false,
-                });
+                    }
+                })
             });
             
             $('#deleteAllApplied').off('click')

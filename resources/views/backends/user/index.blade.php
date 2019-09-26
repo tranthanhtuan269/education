@@ -181,7 +181,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4>Send Email</h4>
+                    <h4>Gửi Email</h4>
                 </div>
                 <div class="modal-body">
                     <div class="row my-4">
@@ -215,7 +215,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-primary" data-userId id="sendEmail">Gửi</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cancelEmail">Hủy bỏ</button>
                 </div>
             </div>
         </div>
@@ -243,7 +243,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-primary" id="sendMultipleEmail">Gửi</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cancelAddEmail">Hủy bỏ</button>
                 </div>
             </div>
         </div>
@@ -838,11 +838,13 @@
                     status = 1;
                     message = "Bạn có chắc chắn muốn chặn người dùng?";
                 }
-                $.ajsrConfirm({
-                    message: message,
-                    okButton: "Đồng ý",
-                    onConfirm: function() {
-                        $.ajaxSetup({
+                Swal.fire({
+                    type: 'warning',
+                   text: message,
+                   showCancelButton: true,
+               }).then(result => {
+                   if(result.value){
+                    $.ajaxSetup({
                             headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                             }
@@ -898,9 +900,8 @@
                                 }
                             }
                         });
-                    },
-                    nineCorners: false,
-                });
+                   }
+               })
             });
             // End Block User
 
@@ -908,11 +909,13 @@
             $('.btn-delete').click(function(){
                 var _self   = $(this);
                 var id      = $(this).attr('data-id');
-                $.ajsrConfirm({
-                    message: "Bạn có chắc chắn muốn xóa ?",
-                    okButton: "Đồng ý",
-                    onConfirm: function() {
-                        var data    = {
+                Swal.fire({
+                    type: 'warning',
+                   text: 'Bạn có chắc chắn muốn xóa ?',
+                   showCancelButton: true,
+               }).then(result => {
+                   if(result.value){
+                    var data    = {
                             _method             : "DELETE"
                         };
                         $.ajaxSetup({
@@ -955,9 +958,8 @@
                                 }
                             }
                         });
-                    },
-                    nineCorners: false,
-                });
+                   }
+               })
             });
 
             $('.btn-send-email').off('click');
@@ -1300,7 +1302,12 @@
             });
             $('#role-list-ins').multiselect('refresh');
         })
-        
+        $('#cancelEmail').click(function(){
+            $('#selectedTemplate').prop('selected', false).find('option:first').prop('selected', true);
+        })
+        $('#cancelAddEmail').click(function(){
+            $('#mulSelectedTemplate').prop('selected', false).find('option:first').prop('selected', true);
+        })
     });
 </script>
 

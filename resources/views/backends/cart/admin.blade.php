@@ -361,10 +361,12 @@
             $('.btn-delete').click(function(){
                 var _self   = $(this);
                 var id      = $(this).attr('data-id');
-                $.ajsrConfirm({
-                    message: "Bạn có chắc chắn muốn xóa ?",
-                    okButton: "Đồng ý",
-                    onConfirm: function() {
+                Swal.fire({
+                    type: 'warning',
+                    text: 'Bạn có chắc chắn muốn xóa ?',
+                    showCancelButton: true,
+                }).then(result => {
+                    if(result.value){
                         var data = {
                             id:id,
                             _method:'DELETE'
@@ -393,9 +395,8 @@
                                 }
                             }
                         });
-                    },
-                    nineCorners: false,
-                });
+                    }
+                })
             });
         }
     
@@ -440,11 +441,13 @@
         });
     
         $('#apply-all-btn').click(function (){
-            $.ajsrConfirm({
-                message: "Bạn có chắc chắn muốn xóa ?",
-                okButton: "Đồng ý",
-                onConfirm: function() {
-                    var $id_list = '';
+            Swal.fire({
+                    type: 'warning',
+                    text: 'Bạn có chắc chắn muốn xóa ?',
+                    showCancelButton: true,
+                }).then(result => {
+                    if(result.value){
+                        var $id_list = '';
                     $.each($('.check-role'), function (key, value){
                         if($(this).prop('checked') == true) {
                             $id_list += $(this).attr("data-column") + ',';
@@ -491,10 +494,8 @@
                             });
                         }
                     }
-                },
-                nineCorners: false,
-            });
-    
+                    }
+                })
         });
         
         $("#datepicker_from").datepicker({
