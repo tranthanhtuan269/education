@@ -104,22 +104,18 @@
                             <nav id="mysidebarmenu" class="amazonmenu">
                                 <ul>
                                     @foreach($category_fixed as $cat)
+                                    @if(count($cat->childrenHavingCourse) > 0)
                                         <li>
                                             <a title="{!! $cat->name !!}" href="javascript:void(0)"><i class="fas {!! $cat->icon !!}"></i> {!! $cat->name !!}</a>
                                             <ul class="issub">
-                                                {{-- <li><a href="{{ url('/') }}/category/{{ $cat->slug }}"><strong>All {!! $cat->name !!}</strong></a></li> --}}
-                                                @if(count($cat->childrenHavingCourse) > 0)
                                                     @foreach($cat->childrenHavingCourse as $children)
-                                                    @php
-                                                        // print_r($children);
-                                                    @endphp
                                                         @if($children->has('courses'))
                                                         <li><a href="{{ url('/') }}/category/{{ $children->slug }}">{!! $children->name !!}</a></li>
                                                         @endif
                                                     @endforeach
-                                                @endif
-                                            </ul>
-                                        </li>
+                                                </ul>
+                                            </li>
+                                    @endif
                                     @endforeach
                                 </ul>
                             </nav>
@@ -157,12 +153,14 @@
                                     <a href="{{route('cart.show')}}" class="unica-cart">
                                         <img src="{{ asset('frontend/images/tab_cart.png') }}" alt="" style="width: 21px;" />
                                         <span class="unica-sl-cart" style="display: none;"><b class="number-in-cart"></b></span>
+                                        <button id="cartUserId" style="display:none" data-user-id="{{Auth::user()->id}}"></button>
                                     </a>
                                     @endif
-                                @else
+                                @elseif(!Auth::check())
                                     <a href="{{route('cart.show')}}" class="unica-cart">
                                         <img src="{{ asset('frontend/images/tab_cart.png') }}" alt="" style="width: 21px;" />
                                         <span class="unica-sl-cart" style="display: none;"><b class="number-in-cart"></b></span>
+                                        <button id="cartUserId" style="display:none" data-user-id="0"></button>
                                     </a>                            
                                 @endif
                                 <li>
@@ -187,7 +185,7 @@
                                         <a class="db-item-circle dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)"><img class="img-responsive" src="{{ asset('frontend/'.(Auth::user()->avatar != '' ? Auth::user()->avatar : 'images/avatar.jpg')) }}" alt="avatar"><span class="caret"></span></a>                                    
                                         <ul class="dropdown-menu db-drop">
                                             @if ( !Auth::user()->isAdmin() )
-                                                @if (Auth::user()->isTeacher())
+                                                @if (Auth::user()->registeredTeacher())
                                                     <li><a href="{{ url('user/teacher/course') }}"><i class="fas fa-chalkboard-teacher"></i> Giảng viên</a></li>
                                                     <li><a href="{{ url('user/student/course') }}"><i class="fas fa-user-graduate"></i> Học viên</a></li>
                                                 @else                                                
@@ -220,11 +218,6 @@
                                                     }
                                                 </script>
                                             @endif
-                                            <script>
-                                                $('.btn-logout-account').click(function(){
-                                                    localStorage.removeItem('cart')
-                                                })
-                                            </script>
                                         </ul>
                                     </li>
                                     @else
@@ -419,7 +412,13 @@
                             </div>
                             <div class="col-xs-4">
                                 <p><a href="/payment-guide">Hướng dẫn thanh toán</a></p>
-                                <p><a href="/become-teacher">Đăng ký giảng viên</a></p>
+                                @if (Auth::check())
+                                    @if ( !Auth::user()->isAdmin() && !Auth::user()->registeredTeacher())
+                                        <p><a href="/become-teacher">Đăng ký giảng viên</a></p>
+                                    @endif
+                                @else
+                                    <p><a href="/become-teacher">Đăng ký giảng viên</a></p>
+                                @endif
                                 <p><a href="/affiliate">Tiếp thị liên kết</a></p>
                             </div>
                         </div>
@@ -444,6 +443,7 @@
                             <li><a href="javascript:void(0)" title="job post">Job Post</a></li>
                         </ul> --}}
                         <p class="copyright">&copy; 2019, Bản quyền thuộc về courdemy.com. Bảo lưu mọi quyền!</p>
+                        <p>v2019.09.25</p>
                     </div>
                 </div>
             </div>
@@ -451,7 +451,8 @@
     </footer>
 
     <script>
-        
+        var user_id = $('button[id=cartUserId]').attr('data-user-id')
+
         $(window).scroll(function(event){
             if ($(this).scrollTop() > 0){
                 $('.unica-home-menutop').addClass('fixed');
@@ -459,14 +460,43 @@
                 $('.unica-home-menutop').removeClass('fixed');
             }
         });
-        if(localStorage.getItem('cart') == null){
-            localStorage.setItem('cart', '[]')
-        }
-        var localStoreageCart = JSON.parse(localStorage.getItem('cart'))
-        if(localStoreageCart.length >= 1){
-            $('.unica-sl-cart').css('display', 'block')
+
+        if( user_id == 0 ){
+            if(localStorage.getItem('cart'+0) == null){
+                localStorage.setItem('cart'+0, '[]')
+            }
+            var localStoreageCart = JSON.parse(localStorage.getItem('cart'+0))
+            if(localStoreageCart.length >= 1){
+                $('.unica-sl-cart').css('display', 'block')
+            }else{
+                $('.unica-sl-cart').css('display', 'none')
+            }
         }else{
-            $('.unica-sl-cart').css('display', 'none')
+            if(localStorage.getItem('cart'+user_id) == null){
+                localStorage.setItem('cart'+user_id, '[]')
+            }
+            var loginCart = JSON.parse(localStorage.getItem('cart'+user_id))
+            if( localStorage.getItem('cart'+0) != null ){
+                var noLoginCart = JSON.parse(localStorage.getItem('cart'+0))
+                noLoginCart.forEach(function(element) {
+                    var check = true
+                    loginCart.forEach(function(obj) {
+                        if(element.id == obj.id){
+                            check = false
+                        }
+                    })
+                    if(check == true){
+                        loginCart = loginCart.concat(element)
+                    }
+                })
+                localStorage.setItem('cart'+0, '[]')
+                localStorage.setItem('cart'+user_id, JSON.stringify(loginCart))
+            }
+            if(loginCart.length >= 1){
+                $('.unica-sl-cart').css('display', 'block')
+            }else{
+                $('.unica-sl-cart').css('display', 'none')
+            }
         }
 
         @if(Auth::check())
@@ -554,15 +584,16 @@
             $(".box-course .img-course .img-mask .btn-add-to-cart button").click( function(e){
                 e.stopPropagation()
                 e.preventDefault()
+                var localCart = []
+                localCart = localStorage.getItem('cart'+user_id)
+                number_items_in_cart = JSON.parse(localStorage.getItem('cart'+user_id))
 
-                if(localStorage.getItem('cart') != null){
-                    var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
-
+                if(localCart != null){
                     $.each( number_items_in_cart, function(i, obj) {
                         if( $(this).attr("data-id") == obj.id ){
                             return false
                         }
-                    });
+                    })
                 }
 
                 var item = {
@@ -577,17 +608,17 @@
                     'coupon_code' : '',
                 }
 
-                if (localStorage.getItem("cart") != null) {
-                    var list_item = JSON.parse(localStorage.getItem("cart"));
+                if (localCart != null) {
+                    var list_item = number_items_in_cart
                     addItem(list_item, item);
-                    localStorage.setItem("cart", JSON.stringify(list_item));
+                    localStorage.setItem('cart'+user_id, JSON.stringify(list_item));                        
                 }else{
                     var list_item = [];
                     addItem(list_item, item);
-                    localStorage.setItem("cart", JSON.stringify(list_item));
+                    localStorage.setItem('cart'+user_id, JSON.stringify(list_item));                        
                 }
 
-                var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
+                // var number_items_in_cart = JSON.parse(localStorage.getItem('cart'+user_id))
                 // alert(number_items_in_cart.length)
                 $('.number-in-cart').text(number_items_in_cart.length);
 
@@ -604,9 +635,9 @@
                     text: 'Đã thêm vào giỏ hàng!'
                 })
             })
-
-            if(localStorage.getItem('cart') !== null){
-                var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
+            
+            if(localStorage.getItem('cart'+user_id) !== null){
+                var number_items_in_cart = JSON.parse(localStorage.getItem('cart'+user_id))
                 var product_bought = [];
                 @if(\Auth::check())
                     @php
@@ -626,10 +657,7 @@
                 
                 $.each( number_items_in_cart, function(i, obj) {                
                     
-                    $('button[data-id='+obj.id+']').remove();
-                    // console.log(obj);
-                    
-                    
+                    $('.img-mask button[data-id='+obj.id+']').remove();
                     // for(var k = 0; k < product_bought.length; k++){
                     //     if(obj.id == product_bought[k]){
                     //         console.log(`phantu thu ${k}`);
@@ -687,9 +715,7 @@
 
                 }
 
-
-                localStorage.setItem('cart',JSON.stringify(number_items_in_cart))
-                
+                    localStorage.setItem('cart'+user_id,JSON.stringify(number_items_in_cart))
 
                 $('.number-in-cart').text(number_items_in_cart.length);
             }else{
@@ -886,7 +912,7 @@
     <script>
     
     $( document ).ready(function() {
-        var x = $('body').height();
+        var x = document.body.scrollHeight;
         var y = $('header').height();
         var z = $('footer').height();
         x=x-y-z;
@@ -894,5 +920,16 @@
         $('#min-height').css('minHeight',x);
 });
 </script>
+
+{{-- Là admin thì ẩn button mua --}}
+@if (Auth::check())
+    @if (Auth::user()->isAdmin())
+    <style>
+    .box-course>a .img-course:hover .img-mask{
+        display: none;
+    }
+    </style>
+    @endif
+@endif
 </body>
 </html>

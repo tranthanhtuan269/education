@@ -15,35 +15,25 @@
     
 </section>
 <section class="content page">
-    <h1 class="text-center font-weight-600">Danh sách video</h1>
+    <h1 class="text-center font-weight-600">Danh sách bài giảng</h1>
     <div class="row">
         <div class="col-md-12">
             <div class="table-responsive">
                 <table class="table table-bordered" id="video-table">
                     <thead class="thead-custom">
                         <tr>
-                            {{-- <th class="id-field" width="1%">
-                                <input type="checkbox" id="select-all-btn" data-check="false">
-                            </th> --}}
                             <th scope="col">Video</th>
                             <th scope="col">Xem</th>
                             <th scope="col">Khóa học</th>
-                            <th scope="col">Update</th>
-                            <th scope="col">Thao tác</th>
+                            <th scope="col">Cập nhật</th>
+                            <th scope="col">Duyệt</th>
+                            <th scope="col">Xóa</th>
                         </tr>
                     </thead>
                     <tbody>
                         
                     </tbody>
                 </table>
-                {{-- @if (Helper::checkPermissions('users.email', $list_roles)) 
-                    <p class="action-selected-rows">
-                        <span >Hành động trên các hàng đã chọn:</span>
-                        <span class="btn btn-info ml-2" id="deleteAllApplied">Xóa</span>
-                        <span class="btn btn-info ml-2" id="acceptAllApplied">Duyệt</span>
-                        <span class="btn btn-info ml-2" id="inacceptAllApplied">Hủy</span>
-                    </p>  
-                @endif --}}
             </div>
         </div>
     </div>
@@ -81,7 +71,6 @@
     var curr_user_name      = '';
     var curr_user_email     = '';
     var current_page        = 0;
-    var old_search          = '';
     var errorConnect        = "Please check your internet connection and try again.";
 
     $(document).ready(function(){
@@ -101,25 +90,10 @@
         })
 
         var dataObject = [
-            // { 
-            //     data: "rows",
-            //     class: "rows-item",
-            //     render: function(data, type, row){
-            //         return '<input type="checkbox" name="selectCol" class="check-video" value="' + data + '" data-column="' + data + '">';
-            //     },
-            //     orderable: false
-            // },
-            // { 
-            //     data: "name",
-            //     class: "video-item",
-            //     render: function(data, type, row){
-            //         return '<a class="btn-view mr-2 view-video-intro"><i class="fa fa-video-camera" aria-hidden="true"></i> Video intro</a>';
-            //     },
-            //     orderable: false
-            // },
             { 
                 data: "name",
-                class: "name-field"
+                class: "name-field",
+                orderable: false
             },
             { 
                 data: "link_video",
@@ -131,35 +105,36 @@
             },
             {
                 data: "course_name",
-                class: "course_name-field"
+                class: "course_name-field",
+                orderable: false
             },
             {
                 data: "updated_at",
-                class: "updated_at-field"
             },
             { 
-                data: "action", 
-                class: "action-field",
+                data: "action",
+                class: "text-center",
                 render: function(data, type, row){
                     var html = '';
-                    
-                    // @if (Helper::checkPermissions('videos.view', $list_roles)) 
-                    //     html += '<a class="btn-view mr-2 view-cv" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Xem"> <i class="fa fa-eye fa-fw"></i></a>';
-                    // @endif
-                    
                     @if (Helper::checkPermissions('videos.accept-video', $list_roles)) 
                         if(row['state'] == 1){
                             html += '<a class="btn-accept mr-2 accept-video" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Hủy"> <i class="fa fa-times fa-fw"></i></a>';
                         }else{
                             html += '<a class="btn-accept mr-2 accept-video" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Duyệt"> <i class="fa fa-check fa-fw"></i></a>';
                         }
-                        
                     @endif
-
+                    return html;
+                },
+                orderable: false
+            },
+            { 
+                data: "action",
+                class: "text-center",
+                render: function(data, type, row){
+                    var html = '';
                     @if (Helper::checkPermissions('videos.delete', $list_roles)) 
                         html += '<a class="btn-delete" data-id="'+data+'" title="Xóa"><i class="fa fa-trash fa-fw" aria-hidden="true"></i></a>';
                     @endif
-
                     return html;
                 },
                 orderable: false
@@ -167,9 +142,12 @@
         ];
 
         dataTable = $('#video-table').DataTable( {
-                        serverSide: false,
+                        serverSide: true,
                         aaSorting: [],
                         stateSave: true,
+                        search: {
+                            smart: false
+                        },
                         ajax: {
                             url: "{{ url('/') }}/admincp/videos/getVideoAjax",
                             beforeSend: function() {
@@ -315,10 +293,10 @@
                 var _self   = $(this);
                 var id      = $(this).attr('data-id');
                 var state  = 0;
-                var message = "Bạn có chắc chắn muốn duyệt?";
+                var message = "Bạn có chắc chắn muốn duyệt video bạn chọn?";
                 if(_self.parent().parent().hasClass('blue-row')){
                     state = 1;
-                    message = "Bạn có chắc chắn muốn hủy?";
+                    message = "Bạn có chắc chắn muốn hủy video bạn chọn?";
 
                     // Nếu video đã duyệt xong
                     return $.ajsrConfirm({
@@ -445,7 +423,7 @@
                 var id      = $(this).attr('data-id');
                 var row = $(e.currentTarget).closest("tr");
                 $.ajsrConfirm({
-                    message: "Bạn có chắc chắn muốn xóa ?",
+                    message: "Bạn có chắc chắn muốn xóa video bạn chọn?",
                     okButton: "Đồng ý",
                     onConfirm: function() {
                         $.ajaxSetup({
@@ -491,181 +469,220 @@
                 });
             });
             
-            $('#deleteAllApplied').off('click')
-            $('#deleteAllApplied').click(function (){
-                Swal.fire({
-                    type: 'warning',
-                    text: 'Bạn có chắc chắn xóa tất cả?',
-                    showCancelButton: true,
-                })
-                .then(function (result) {
-                    if(result.value){
-                        var video_id_list = []
-                        $.each($('.check-video'), function (key, value){
-                            if($(this).prop('checked') == true) {
-                                // id_list += $(this).attr("data-column") + ',';
-                                video_id_list.push($(this).attr("data-column"))
-                            }
-                        });
-                        if(video_id_list.length > 0){
-                            $.ajaxSetup({
-                                headers: {
-                                    'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
-                                }
-                            });
-                            $.ajax({
-                                method: "DELETE",
-                                url: baseURL+"/admincp/videos/delete-multiple-video",
-                                data: {
-                                    id_list: video_id_list
-                                },
-                                dataType: 'json',
-                                beforeSend: function(r, a){
-                                    current_page = dataTable.page.info().page;
-                                },
-                                success: function (response) {
-                                    Swal.fire({
-                                        type: 'success',
-                                        text: response.message
-                                    })
-                                    // dataTable.ajax.reload();
-                                    $.each($('.check-video'), function (key, value){
-                                        if($(this).prop('checked') == true) {
-                                            dataTable.row( $(this).parent().parent() ).remove().draw(true);
-                                        }
-                                    });
+            // $('#deleteAllApplied').off('click')
+            // $('#deleteAllApplied').click(function (){
+            //     var check = false;
+            //     $.each($('.check-video'), function (key, value){
+            //         if($(this).prop('checked') == true) {
+            //             check = true;
+            //         }
+            //     });
+            //     if(!check){
+            //         Swal.fire({
+            //             type: 'warning',
+            //             text: 'Bạn phải chọn ít nhất 1 video',
+            //         })
+            //         return false;
+            //     }
+            //     Swal.fire({
+            //         type: 'warning',
+            //         text: 'Bạn có chắc chắn xóa tất cả những video bạn chọn?',
+            //         showCancelButton: true,
+            //     })
+            //     .then(function (result) {
+            //         if(result.value){
+            //             var video_id_list = []
+            //             $.each($('.check-video'), function (key, value){
+            //                 if($(this).prop('checked') == true) {
+            //                     // id_list += $(this).attr("data-column") + ',';
+            //                     video_id_list.push($(this).attr("data-column"))
+            //                 }
+            //             });
+            //             if(video_id_list.length > 0){
+            //                 $.ajaxSetup({
+            //                     headers: {
+            //                         'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
+            //                     }
+            //                 });
+            //                 $.ajax({
+            //                     method: "DELETE",
+            //                     url: baseURL+"/admincp/videos/delete-multiple-video",
+            //                     data: {
+            //                         id_list: video_id_list
+            //                     },
+            //                     dataType: 'json',
+            //                     beforeSend: function(r, a){
+            //                         current_page = dataTable.page.info().page;
+            //                     },
+            //                     success: function (response) {
+            //                         Swal.fire({
+            //                             type: 'success',
+            //                             text: response.message
+            //                         })
+            //                         // dataTable.ajax.reload();
+            //                         $.each($('.check-video'), function (key, value){
+            //                             if($(this).prop('checked') == true) {
+            //                                 dataTable.row( $(this).parent().parent() ).remove().draw(true);
+            //                             }
+            //                         });
 
-                                    // dataTable.page( checkEmptyTable() ).draw( false );
-                                },
-                                error: function (response) {
-                                    Swal.fire({
-                                        type: 'warning',
-                                        text: response.message
-                                    })
-                                }
-                            })
-                        }
+            //                         // dataTable.page( checkEmptyTable() ).draw( false );
+            //                     },
+            //                     error: function (response) {
+            //                         Swal.fire({
+            //                             type: 'warning',
+            //                             text: response.message
+            //                         })
+            //                     }
+            //                 })
+            //             }
                         
-                    }
-                })
-            })
+            //         }
+            //     })
+            // })
 
-            $('#acceptAllApplied').off('click')
-            $('#acceptAllApplied').click(function (){
-                Swal.fire({
-                    type: 'warning',
-                    text: 'Bạn có chắc chắn duyệt tất cả?',
-                    showCancelButton: true,
-                })
-                .then(function (result) {
-                    if(result.value){
-                        var video_id_list = []
-                        $.each($('.check-video'), function (key, value){
-                            if($(this).prop('checked') == true) {
-                                // id_list += $(this).attr("data-column") + ',';
-                                video_id_list.push($(this).attr("data-column"))
-                            }
-                        });
-                        if(video_id_list.length > 0){
-                            $.ajaxSetup({
-                                headers: {
-                                    'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
-                                }
-                            });
-                            $.ajax({
-                                method: "PUT",
-                                url: baseURL+"/admincp/videos/accept-multiple-video",
-                                data: {
-                                    id_list: video_id_list
-                                },
-                                dataType: 'json',
-                                beforeSend: function(r, a){
-                                    current_page = dataTable.page.info().page;
-                                },
-                                success: function (response) {
-                                    Swal.fire({
-                                        type: 'success',
-                                        text: response.message
-                                    })
-                                    // dataTable.ajax.reload();
-                                    $.each($('.check-video'), function (key, value){
-                                        if($(this).prop('checked') == true) {
-                                            $(this).parent().parent().removeClass('red-row').addClass('blue-row');
-                                            // $(this).parent().parent().addClass('red-row').removeClass('blue-row');
-                                        }
-                                    });
-                                    dataTable.page( checkEmptyTable() ).draw( false );
-                                },
-                                error: function (response) {
-                                    Swal.fire({
-                                        type: 'warning',
-                                        text: response.message
-                                    })
-                                }
-                            })
-                        }
+            // $('#acceptAllApplied').off('click')
+            // $('#acceptAllApplied').click(function (){
+            //     var check = false;
+            //     $.each($('.check-video'), function (key, value){
+            //         if($(this).prop('checked') == true) {
+            //             check = true;
+            //         }
+            //     });
+            //     if(!check){
+            //         Swal.fire({
+            //             type: 'warning',
+            //             text: 'Bạn phải chọn ít nhất 1 video',
+            //         })
+            //         return false;
+            //     }
+            //     Swal.fire({
+            //         type: 'warning',
+            //         text: 'Bạn có chắc chắn duyệt tất cả những video bạn chọn?',
+            //         showCancelButton: true,
+            //     })
+            //     .then(function (result) {
+            //         if(result.value){
+            //             var video_id_list = []
+            //             $.each($('.check-video'), function (key, value){
+            //                 if($(this).prop('checked') == true) {
+            //                     // id_list += $(this).attr("data-column") + ',';
+            //                     video_id_list.push($(this).attr("data-column"))
+            //                 }
+            //             });
+            //             if(video_id_list.length > 0){
+            //                 $.ajaxSetup({
+            //                     headers: {
+            //                         'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
+            //                     }
+            //                 });
+            //                 $.ajax({
+            //                     method: "PUT",
+            //                     url: baseURL+"/admincp/videos/accept-multiple-video",
+            //                     data: {
+            //                         id_list: video_id_list
+            //                     },
+            //                     dataType: 'json',
+            //                     beforeSend: function(r, a){
+            //                         current_page = dataTable.page.info().page;
+            //                     },
+            //                     success: function (response) {
+            //                         Swal.fire({
+            //                             type: 'success',
+            //                             text: response.message
+            //                         })
+            //                         // dataTable.ajax.reload();
+            //                         $.each($('.check-video'), function (key, value){
+            //                             if($(this).prop('checked') == true) {
+            //                                 $(this).parent().parent().removeClass('red-row').addClass('blue-row');
+            //                                 // $(this).parent().parent().addClass('red-row').removeClass('blue-row');
+            //                             }
+            //                         });
+            //                         dataTable.page( checkEmptyTable() ).draw( false );
+            //                     },
+            //                     error: function (response) {
+            //                         Swal.fire({
+            //                             type: 'warning',
+            //                             text: response.message
+            //                         })
+            //                     }
+            //                 })
+            //             }
                         
-                    }
-                })
-            })
+            //         }
+            //     })
+            // })
 
-            $('#inacceptAllApplied').off('click')
-            $('#inacceptAllApplied').click(function (){
-                Swal.fire({
-                    type: 'warning',
-                    text: 'Bạn có chắc chắn hủy tất cả?',
-                    showCancelButton: true,
-                })
-                .then(function (result) {
-                    if(result.value){
-                        var video_id_list = []
-                        $.each($('.check-video'), function (key, value){
-                            if($(this).prop('checked') == true) {
-                                // id_list += $(this).attr("data-column") + ',';
-                                video_id_list.push($(this).attr("data-column"))
-                            }
-                        });
-                        if(video_id_list.length > 0){
-                            $.ajaxSetup({
-                                headers: {
-                                    'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
-                                }
-                            });
-                            $.ajax({
-                                method: "PUT",
-                                url: baseURL+"/admincp/videos/inaccept-multiple-video",
-                                data: {
-                                    id_list: video_id_list
-                                },
-                                dataType: 'json',
-                                beforeSend: function(r, a){
-                                    current_page = dataTable.page.info().page;
-                                },
-                                success: function (response) {
-                                    Swal.fire({
-                                        type: 'success',
-                                        text: response.message
-                                    })
-                                    $.each($('.check-video'), function (key, value){
-                                        if($(this).prop('checked') == true) {
-                                            // $(this).parent().parent().removeClass('red-row').addClass('blue-row');
-                                            $(this).parent().parent().addClass('red-row').removeClass('blue-row');
-                                        }
-                                    });
-                                    dataTable.page(checkEmptyTable()).draw( false );
-                                },
-                                error: function (response) {
-                                    Swal.fire({
-                                        type: 'warning',
-                                        text: response.message
-                                    })
-                                }
-                            })
-                        }
+            // $('#inacceptAllApplied').off('click')
+            // $('#inacceptAllApplied').click(function (){
+            //     var check = false;
+            //     $.each($('.check-video'), function (key, value){
+            //         if($(this).prop('checked') == true) {
+            //             check = true;
+            //         }
+            //     });
+            //     if(!check){
+            //         Swal.fire({
+            //             type: 'warning',
+            //             text: 'Bạn phải chọn ít nhất 1 video',
+            //         })
+            //         return false;
+            //     }
+            //     Swal.fire({
+            //         type: 'warning',
+            //         text: 'Bạn có chắc chắn hủy tất cả những video bạn chọn?',
+            //         showCancelButton: true,
+            //     })
+            //     .then(function (result) {
+            //         if(result.value){
+            //             var video_id_list = []
+            //             $.each($('.check-video'), function (key, value){
+            //                 if($(this).prop('checked') == true) {
+            //                     // id_list += $(this).attr("data-column") + ',';
+            //                     video_id_list.push($(this).attr("data-column"))
+            //                 }
+            //             });
+            //             if(video_id_list.length > 0){
+            //                 $.ajaxSetup({
+            //                     headers: {
+            //                         'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
+            //                     }
+            //                 });
+            //                 $.ajax({
+            //                     method: "PUT",
+            //                     url: baseURL+"/admincp/videos/inaccept-multiple-video",
+            //                     data: {
+            //                         id_list: video_id_list
+            //                     },
+            //                     dataType: 'json',
+            //                     beforeSend: function(r, a){
+            //                         current_page = dataTable.page.info().page;
+            //                     },
+            //                     success: function (response) {
+            //                         Swal.fire({
+            //                             type: 'success',
+            //                             text: response.message
+            //                         })
+            //                         $.each($('.check-video'), function (key, value){
+            //                             if($(this).prop('checked') == true) {
+            //                                 // $(this).parent().parent().removeClass('red-row').addClass('blue-row');
+            //                                 $(this).parent().parent().addClass('red-row').removeClass('blue-row');
+            //                             }
+            //                         });
+            //                         dataTable.page(checkEmptyTable()).draw( false );
+            //                     },
+            //                     error: function (response) {
+            //                         Swal.fire({
+            //                             type: 'warning',
+            //                             text: response.message
+            //                         })
+            //                     }
+            //                 })
+            //             }
                         
-                    }
-                })
-            })
+            //         }
+            //     })
+            // })
         }
 
         function checkEmptyTable(){

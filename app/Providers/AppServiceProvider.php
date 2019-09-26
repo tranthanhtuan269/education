@@ -58,6 +58,14 @@ class AppServiceProvider extends ServiceProvider
             return (Helper::handlingTime($birthday) <= Helper::handlingTime($dateCurrent) ) ? TRUE : FALSE ;
         });
 
+        Validator::extend('validate_dob', function($attribute, $value, $parameters, $validator) {
+            $data = $validator->getData();
+            $birthday = $data['dob'];
+            $birthday = Helper::formatDate('d/m/Y', $birthday, 'Y-m-d');
+            $dateCurrent = date('Y-m-d');
+            return (Helper::handlingTime($birthday) <= Helper::handlingTime($dateCurrent) ) ? TRUE : FALSE ;
+        });
+
         // Validate Youtube Url
         // Validator::extend('validate_youtube_url', function(){
 
@@ -92,7 +100,7 @@ class AppServiceProvider extends ServiceProvider
     
                 $video = Video::find($video_id);
                 if($video){
-                    $video->status = 3;
+                    $video->state = 1;
                     $video->save();
                     // DuongNT // thêm 1 video vào lượng đã xem vào bảng user_courses
                     $unit = $video->unit;

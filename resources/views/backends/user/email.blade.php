@@ -73,14 +73,14 @@
 </section>
 <section>
     <div class="modal fade" id="createEmailModal" tabindex="-1">
-        <div class="modal-content" >
+        <div class="modal-content" >`
             <div class="modal-header">
-                <h3>Create Email</h3>
+                <h3>Tạo email</h3>
             </div>
             @if (Helper::checkPermissions('users.email', $list_roles)) 
             <div class="modal-body">
                     <div class="form-group row">
-                        <label  class="col-sm-1 col-form-label">Subject <span class="text-danger">*</span></label>
+                        <label  class="col-sm-1 col-form-label">Chủ đề <span class="text-danger">*</span></label>
                         <div class="col-sm-11">
                             <input type="text" class="form-control" id="subject_Ins" name="subject"  value="{{ Request::old('subject') }}">
                             <div class="alert-errors d-none" role="alert" id="subjectIns">
@@ -89,23 +89,46 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label  class="col-sm-1 col-form-label">Content <span class="text-danger">*</span></label>
+                        <label  class="col-sm-1 col-form-label">Nội dung <span class="text-danger">*</span></label>
                         <div class="col-sm-11">
                             <textarea id="content_Ins" class="form-control" name="content">{{ Request::old('content') }}</textarea>
-                            <div class="alert-errors d-none" role="alert" id="contentIns">
+                            <div class="alert-errors d-none" role="alert" id="contentIns" name="contentIns">
                                 
                             </div>
-                            <script src="https://cdn.ckeditor.com/ckeditor5/12.1.0/classic/ckeditor.js"></script>
+                            {{-- <script src="https://cdn.ckeditor.com/ckeditor5/12.1.0/classic/ckeditor.js"></script> --}}
                             <script>
-                                var content_Ins;
-                                ClassicEditor
-                                    .create( document.querySelector( '#content_Ins' ) )
-                                    .then(editor =>{
-                                            content_Ins = editor
-                                        })
-                                    .catch( error => {
-                                        console.error( error );
-                                    } );
+                                // ClassicEditor
+                                //     .create( document.querySelector( '#content_Ins' ) )
+                                //     .then(editor =>{
+                                //             content_Ins = editor
+                                //         })
+                                //     .catch( error => {
+                                //         console.error( error );
+                                //     } );
+                                    CKEDITOR.replace( 'content_Ins', {
+                                        defaultLanguage: 'vi',
+                                        extraPlugins : 'wordcount,notification,uploadimage',
+                                        wordcount : {
+                                            showParagraphs: false,
+                                        },
+                                        filter: new CKEDITOR.htmlParser.filter({
+                                            elements: {
+                                                div: function( element ) {
+                                                    console.log(element);
+                                                    
+                                                    if(element.attributes.class == 'mediaembed') {
+                                                        return false;
+                                                    }
+                                                }
+                                            }
+                                        }),
+                                        // toolbar : [
+                                        //     { name: 'basicstyles', items: ['Styles', 'Format', 'Bold', 'Italic'] },
+                                        //     { name: 'paragraph', items: ['NumberedList', 'BulletedList'] },
+                                        // ],
+                                        // height: '5em',
+                                    });
+                                    var content_Ins = CKEDITOR.instances.content_Ins;
                             </script>
                         </div>
                     </div>
@@ -126,12 +149,12 @@
     <div class="modal fade" id="editEmailModal" tabindex="-1">
         <div class="modal-content" >
             <div class="modal-header">
-                <h3>Edit Email</h3>
+                <h3>Sửa email</h3>
             </div>
             @if (Helper::checkPermissions('users.email', $list_roles)) 
             <div class="modal-body">
                     <div class="form-group row">
-                        <label  class="col-sm-1 col-form-label">Subject <span class="text-danger">*</span></label>
+                        <label  class="col-sm-1 col-form-label">Chủ đề <span class="text-danger">*</span></label>
                         <div class="col-sm-11">
                             <input type="text" class="form-control" id="edit_subject_Ins" name="subject"  value="{{ Request::old('subject') }}">
                             <div class="alert-errors d-none" role="alert" id="edit_subjectIns">
@@ -140,22 +163,46 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label  class="col-sm-1 col-form-label">Content <span class="text-danger">*</span></label>
+                        <label  class="col-sm-1 col-form-label">Nội dung <span class="text-danger">*</span></label>
                         <div class="col-sm-11">
                             <textarea id="edit_content_Ins" class="form-control" name="content">{{ Request::old('content') }}</textarea>
                             <div class="alert-errors d-none" role="alert" id="edit_contentIns">
                                 
                             </div>
                             <script>
-                                var edit_content_Ins;
-                                ClassicEditor
-                                    .create( document.querySelector( '#edit_content_Ins' ) )
-                                    .then(editor =>{
-                                            edit_content_Ins = editor
-                                        })
-                                    .catch( error => {
-                                        console.error( error );
-                                    } );
+                                // var edit_content_Ins;
+                                // ClassicEditor
+                                //     .create( document.querySelector( '#edit_content_Ins' ) )
+                                //     .then(editor =>{
+                                //             edit_content_Ins = editor
+                                //         })
+                                //     .catch( error => {
+                                //         console.error( error );
+                                //     } );
+                                CKEDITOR.replace( 'edit_content_Ins', {
+                                    defaultLanguage: 'vi',
+                                    extraPlugins : 'wordcount,notification',
+                                    wordcount : {
+                                        showParagraphs: false,
+                                    },
+                                    filter: new CKEDITOR.htmlParser.filter({
+                                        elements: {
+                                            div: function( element ) {
+                                                console.log(element);
+                                                
+                                                if(element.attributes.class == 'mediaembed') {
+                                                    return false;
+                                                }
+                                            }
+                                        }
+                                    }),
+                                    toolbar : [
+                                        { name: 'basicstyles', items: ['Styles', 'Format', 'Bold', 'Italic'] },
+                                        { name: 'paragraph', items: ['NumberedList', 'BulletedList'] },
+                                    ],
+                                    // height: '5em',
+                                });
+                                var edit_content_Ins = CKEDITOR.instances.edit_content_Ins;
                             </script>
                         </div>
                     </div>
@@ -185,7 +232,6 @@
     var errorConnect        = "Please check your internet connection and try again.";
 
     $(document).ready(function(){
-
 
         window.onbeforeunload = function() {
             if($('#edit_user_modal').hasClass('show') && ( 
@@ -245,9 +291,12 @@
         ];
 
         dataTable = $('#notification-table').DataTable( {
-                        serverSide: false,
+                        serverSide: true,
                         aaSorting: [],
                         stateSave: false,
+                        search: {
+                            smart: false
+                        },
                         ajax: "{{ url('/') }}/admincp/emails/getEmailAjax",                        
                         columns: dataObject,
                         // bLengthChange: false,
@@ -362,10 +411,14 @@
             $('.btn-delete').click(function(){
                 var _self   = $(this);
                 var id      = $(this).attr('data-id');
-                $.ajsrConfirm({
-                    message: "Bạn có chắc chắn muốn xóa ?",
-                    okButton: "Đồng ý",
-                    onConfirm: function() {
+                Swal.fire({
+                    type: 'warning',
+                    text: 'Bạn có chắc chắn muốn xoá?',
+                    confirmButtonText: 'Đồng ý',
+                    showCancelButton: true,
+                    cancelButtonText: 'Huỷ'
+                }).then( result => {
+                    if(result.value){
                         $.ajaxSetup({
                             headers: {
                               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -404,59 +457,72 @@
                                 }
                             }
                         });
-                    },
-                    nineCorners: false,
-                });
+                    }
+                })
             });
             
             $('#deleteAllApplied').off('click')
             $('#deleteAllApplied').click(function (){
-                Swal.fire({
-                    type: 'warning',
-                    text: 'Are you sure?',
-                    showCancelButton: true,
-                })
-                .then(function (result) {
-                    if(result.value){
-                        var email_id_list = []
-                        $.each($('.check-user'), function (key, value){
-                            if($(this).prop('checked') == true) {
-                                // id_list += $(this).attr("data-column") + ',';
-                                email_id_list.push($(this).attr("data-column"))
-                            }
-                        });
-                        console.log(email_id_list);
-                        if(email_id_list.length > 0){
-                            $.ajaxSetup({
-                                headers: {
-                                    'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
+                let isChecked = false;
+                $.each($('.check-user'), function (key, value){
+                    if($(this).prop('checked') == true) {
+                        return isChecked = true;
+                    }
+                });
+                if(isChecked == false){
+                    return Swal.fire({
+                            type: 'info',
+                            text: 'Bạn chưa chọn tài khoản nào!'
+                        })   
+                }
+                else{
+                    Swal.fire({
+                        type: 'warning',
+                        text: 'Bạn có chắc chắn muốn xóa?',
+                        showCancelButton: true,
+                    })
+                    .then(function (result) {
+                        if(result.value){
+                            var email_id_list = []
+                            $.each($('.check-user'), function (key, value){
+                                if($(this).prop('checked') == true) {
+                                    // id_list += $(this).attr("data-column") + ',';
+                                    email_id_list.push($(this).attr("data-column"))
                                 }
                             });
-                            $.ajax({
-                                method: "GET",
-                                url: baseURL+"/admincp/users/delete-multiple-emails",
-                                data: {
-                                    email_id_list: email_id_list
-                                },
-                                dataType: 'json',
-                                success: function (response) {
-                                    Swal.fire({
-                                        type: 'success',
-                                        text: response.message
-                                    })
-                                    dataTable.ajax.reload(); 
-                                },
-                                error: function (response) {
-                                    Swal.fire({
-                                        type: 'warning',
-                                        text: response.message
-                                    })
-                                }
-                            })
+                            console.log(email_id_list);
+                            if(email_id_list.length > 0){
+                                $.ajaxSetup({
+                                    headers: {
+                                        'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
+                                    }
+                                });
+                                $.ajax({
+                                    method: "GET",
+                                    url: baseURL+"/admincp/users/delete-multiple-emails",
+                                    data: {
+                                        email_id_list: email_id_list
+                                    },
+                                    dataType: 'json',
+                                    success: function (response) {
+                                        Swal.fire({
+                                            type: 'success',
+                                            text: response.message
+                                        })
+                                        dataTable.ajax.reload(); 
+                                    },
+                                    error: function (response) {
+                                        Swal.fire({
+                                            type: 'warning',
+                                            text: response.message
+                                        })
+                                    }
+                                })
+                            }
+                            
                         }
-                        
-                    }
-                })
+                    })
+                }
             })
         }
 
@@ -485,20 +551,13 @@
             });
             var subject = $("#subject_Ins").val()
             var content = content_Ins.getData()
-            if(subject.trim() == ""){
-                Swal.fire({
-                    type: "warning",
-                    text: "Please add subject for the email!"
-                })
-                return
-            }
-            if(content_Ins == null){
-                Swal.fire({
-                    type: "warning",
-                    text: "Content cannot be empty!"
-                })
-                return
-            }
+            // if(subject.trim() == ""){
+            //     Swal.fire({
+            //         type: "warning",
+            //         text: "Please add subject for the email!"
+            //     })
+            //     return
+            // }
             var request = $.ajax({
                 method: "POST",
                 url: "store-email",
@@ -507,16 +566,28 @@
                     content : content,
                 },
                 dataType:'json',
-            })
-            request.done( function (response) {
-                $("#subject_Ins").val("")
-                content_Ins.setData("")
-                Swal.fire({
-                    text: response.message
-                })
-                if(response.status == 200){
-                    $("#createEmailModal").modal("hide")
-                    dataTable.ajax.reload();
+                success: function(response){
+                    content_Ins.setData("")
+                    Swal.fire({
+                        text: response.message
+                    })
+                    if(response.status == 200){
+                        $("#subject_Ins").val("")
+                        $("#createEmailModal").modal("hide")
+                        dataTable.ajax.reload();
+                    }
+                },
+                error: function (error) {
+                    var obj_errors = error.responseJSON.errors;
+                    var txt_errors = '';
+                    for (k of Object.keys(obj_errors)) {
+                        txt_errors += obj_errors[k][0] + '</br>';
+                    }
+                    Swal.fire({
+                        type: 'warning',
+                        html: txt_errors,
+                        allowOutsideClick: false,
+                    })
                 }
             })
         })
@@ -540,20 +611,42 @@
                     title: title,
                     content: content
                 },
-                dataType: "json"
-            })
-            request.done( function (response) {
-                $("#edit_subject_Ins").val("")
-                edit_content_Ins.setData("")
-                Swal.fire({
-                    text: response.message
-                })
-                if(response.status == 200){
-                    $("#editEmailModal").modal("hide")
-                    dataTable.ajax.reload();
+                dataType: "json",
+                success: function(response){
+                    $("#edit_subject_Ins").val("")
+                    edit_content_Ins.setData("")
+                    Swal.fire({
+                        text: response.message
+                    })
+                    if(response.status == 200){
+                        $("#editEmailModal").modal("hide")
+                        dataTable.ajax.reload();
+                    }
+                },
+                error: function (error) {
+                    var obj_errors = error.responseJSON.errors;
+                    var txt_errors = '';
+                    for (k of Object.keys(obj_errors)) {
+                        txt_errors += obj_errors[k][0] + '</br>';
+                    }
+                    Swal.fire({
+                        type: 'warning',
+                        html: txt_errors,
+                        allowOutsideClick: false,
+                    })
                 }
             })
         })
+
+        $(".btn-secondary").click(function () {
+            $("#subject_Ins").val('');
+            content_Ins.setData("");
+        })
+
+        // $('#createEmailModal').modal({
+        //     backdrop: 'static',
+        //     keyboard: false
+        // })
 
     });
 </script>

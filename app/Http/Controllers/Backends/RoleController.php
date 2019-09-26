@@ -236,11 +236,12 @@ class RoleController extends Controller
             if ($roles) {
                 $html = '';
                 foreach ($roles as $value) {
-                    
-                    if (in_array($value->id, $arr_role_selected)) {
-                        $html .= '<option value="' . $value->id . '" selected="selected">' . $value->name . '</option>';
-                    } else {
-                        $html .= '<option value="' . $value->id . '" >' . $value->name . '</option>';
+                    if($value->id != 2 && $value->id != 3){
+                        if (in_array($value->id, $arr_role_selected)) {
+                            $html .= '<option value="' . $value->id . '" selected="selected">' . $value->name . '</option>';
+                        } else {
+                            $html .= '<option value="' . $value->id . '" >' . $value->name . '</option>';
+                        }
                     }
                 }
                 return $html;

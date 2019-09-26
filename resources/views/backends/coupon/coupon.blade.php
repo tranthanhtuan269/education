@@ -113,11 +113,11 @@
                                 {{-- <div id="edit_course_id_view"></div>--}}
                                 <br>
                                 <div>
-                                    <p><select id="demonstrationEdit" name="course[]" style="width: 570px" multiple="multiple">
+                                    <select id="demonstrationEdit" name="course[]" style="width: 570px" multiple="multiple">
                                         @foreach ($courses as $course)
                                         <option value="{{ $course->id }}">{{ $course->name }}</option>
                                         @endforeach
-                                    </select></p>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -408,9 +408,12 @@ $(document).ready(function(){
     ];
 
     dataTable = $('#coupon-table').DataTable( {
-                    serverSide: false,
+                    serverSide: true,
                     aaSorting: [],
-                    stateSave: false,
+                    stateSave: true,
+                    search: {
+                        smart: false
+                    },
                     ajax: "{{ url('/') }}/admincp/coupon/getCouponAjax",
                     columns: dataObject,
                     // bLengthChange: false,
@@ -576,4 +579,20 @@ var sol = $('#demonstration').searchableOptionList({
 </script>
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+<style>
+    .sol-inner-container {
+       position: absolute;
+       width: 100%;
+       top: 0px;
+    }
+    .sol-container{
+       position: relative;
+    }  
+    .sol-current-selection{
+       top:35px;
+       position: relative;
+       z-index: 0;
+       padding-bottom: 20px;
+    }
+</style>
 @endsection

@@ -29,7 +29,7 @@
                             <th scope="col">Tóm tắt</th>
                             <th scope="col">Thời lượng</th>
                             <th csope="col">Giá</th>
-                            <th scope="col">Update</th>
+                            <th scope="col">Cập nhật</th>
                             <th scope="col">Thao tác</th>
                         </tr>
                     </thead>
@@ -67,7 +67,7 @@
                     <div class="form-group row">
                         <div class="col-sm-1"></div>
                         <div class="col-sm-11">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal"  id="close">Đóng</button>
                         </div>
                     </div>
                 </div>
@@ -178,9 +178,12 @@
         ];
 
         dataTable = $('#course-table').DataTable( {
-                        serverSide: false,
+                        serverSide: true,
                         aaSorting: [],
                         stateSave: true,
+                        search: {
+                            smart: false
+                        },
                         ajax: "{{ url('/') }}/admincp/courses/getCourseAjax",
                         columns: dataObject,
                         bLengthChange: true,
@@ -313,7 +316,7 @@
                 var id      = $(this).attr('data-id');
                 // alert(id)
                 var status  = 0;
-                var message = "Bạn có chắc chắn muốn duyệt?";
+                var message = "Bạn có chắc chắn muốn duyệt khóa học bạn chọn?";
                 if(_self.parent().parent().hasClass('blue-row')){
                     status = 1;
                     message = "Bạn có chắc chắn muốn hủy?";
@@ -384,7 +387,7 @@
                 var id      = $(this).attr('data-id');
                 var row = $(e.currentTarget).closest("tr");
                 $.ajsrConfirm({
-                    message: "Bạn có chắc chắn muốn xóa ?",
+                    message: "Bạn có chắc chắn muốn xóa khóa học bạn chọn?",
                     okButton: "Đồng ý",
                     onConfirm: function() {
                         $.ajaxSetup({
@@ -432,9 +435,22 @@
             
             $('#deleteAllApplied').off('click')
             $('#deleteAllApplied').click(function (){
+                var check = false;
+                $.each($('.check-course'), function (key, value){
+                    if($(this).prop('checked') == true) {
+                        check = true;
+                    }
+                });
+                if(!check){
+                    Swal.fire({
+                        type: 'warning',
+                        text: 'Bạn phải chọn ít nhất 1 khóa học.',
+                    })
+                    return false;
+                }
                 Swal.fire({
                     type: 'warning',
-                    text: 'Bạn có chắc chắn xóa tất cả?',
+                    text: 'Bạn có chắc chắn xóa tất cả những khóa học bạn chọn?',
                     showCancelButton: true,
                 })
                 .then(function (result) {
@@ -491,9 +507,22 @@
 
             $('#acceptAllApplied').off('click')
             $('#acceptAllApplied').click(function (){
+                var check = false;
+                $.each($('.check-course'), function (key, value){
+                    if($(this).prop('checked') == true) {
+                        check = true;
+                    }
+                });
+                if(!check){
+                    Swal.fire({
+                        type: 'warning',
+                        text: 'Bạn phải chọn ít nhất 1 khóa học',
+                    })
+                    return false;
+                }
                 Swal.fire({
                     type: 'warning',
-                    text: 'Bạn có chắc chắn duyệt tất cả?',
+                    text: 'Bạn có chắc chắn duyệt tất cả những khóa học bạn chọn?',
                     showCancelButton: true,
                 })
                 .then(function (result) {
@@ -530,10 +559,12 @@
                                     $.each($('.check-course'), function (key, value){
                                         if($(this).prop('checked') == true) {
                                             $(this).parent().parent().removeClass('red-row').addClass('blue-row');
+                                            $(this).attr('checked', false)
                                             // $(this).parent().parent().addClass('red-row').removeClass('blue-row');
                                         }
                                     });
                                     dataTable.page( checkEmptyTable() ).draw( false );
+                                    $('.check-user').prop('checked', false)
                                 },
                                 error: function (response) {
                                     Swal.fire({
@@ -550,9 +581,22 @@
 
             $('#inacceptAllApplied').off('click')
             $('#inacceptAllApplied').click(function (){
+                var check = false;
+                $.each($('.check-course'), function (key, value){
+                    if($(this).prop('checked') == true) {
+                        check = true;
+                    }
+                });
+                if(!check){
+                    Swal.fire({
+                        type: 'warning',
+                        text: 'Bạn phải chọn ít nhất 1 khóa học',
+                    })
+                    return false;
+                }
                 Swal.fire({
                     type: 'warning',
-                    text: 'Bạn có chắc chắn hủy tất cả?',
+                    text: 'Bạn có chắc chắn hủy tất cả những khóa học bạn chọn?',
                     showCancelButton: true,
                 })
                 .then(function (result) {
@@ -592,6 +636,7 @@
                                         }
                                     });
                                     dataTable.page(checkEmptyTable()).draw( false );
+                                    $('.check-user').prop('checked', false)
                                 },
                                 error: function (response) {
                                     Swal.fire({
@@ -646,6 +691,10 @@
                     dataTable.ajax.reload();
                 }
             })
+        })
+
+        $('#close').click(function(){
+            $('#cv').html('');
         })
 
     });

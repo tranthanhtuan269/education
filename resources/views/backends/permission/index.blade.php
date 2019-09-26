@@ -50,7 +50,7 @@
                 <div class="modal-content">
                   <div class="modal-header">
                     <h5 class="modal-title font-weight-600">Chỉnh sửa quyền</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeExitX">
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
@@ -85,7 +85,7 @@
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="savePermission">Cập nhật</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cancelEdit">Hủy bỏ</button>
                   </div>
                 </div>
               </div>
@@ -95,7 +95,7 @@
                 <div class="modal-content">
                   <div class="modal-header">
                     <h5 class="modal-title font-weight-600">Thêm mới quyền</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeAddX">
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
@@ -133,7 +133,7 @@
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="createPermission">Thêm mới</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cancelAdd">Hủy bỏ</button>
                   </div>
                 </div>
               </div>
@@ -244,6 +244,9 @@
                         serverSide: true,
                         aaSorting: [],
                         stateSave: false,
+                        search: {
+                            smart: false
+                        },
                         ajax: "{{ url('/') }}/admincp/permissions/getDataAjax",
                         columns: dataObject,
                         // bLengthChange: false,
@@ -459,6 +462,8 @@
                             type: 'success',
                             text: response.Message
                         })
+                        dataTable.ajax.reload();
+                        clearErrorEdit();
                     }
                 },
                 error: function (data) {
@@ -482,18 +487,26 @@
         });
 
         $('#apply-all-btn').click(function (){
-            $.ajsrConfirm({
-                message: "Bạn có chắc chắn muốn xóa ?",
-                okButton: "Đồng ý",
-                onConfirm: function() {
-                    var $id_list = '';
-                    $.each($('.check-permission'), function (key, value){
-                        if($(this).prop('checked') == true) {
-                            $id_list += $(this).attr("data-column") + ',';
-                        }
-                    });
-
-                    if ($id_list.length > 0) {
+            let isChecked = false;
+            
+            $.each($('.check-permission'), function (key, value){
+                if($(this).prop('checked') == true) {
+                    return isChecked = true;
+                }
+            });
+            if(isChecked == false){
+                    return Swal.fire({
+                        type: 'info',
+                        text: 'Bạn chưa chọn tài khoản nào!'
+                    })
+                
+            }
+            else{
+                $.ajsrConfirm({
+                    message: "Bạn có chắc chắn muốn xóa ?",
+                    okButton: "Đồng ý",
+                    showCancelButton: true,
+                    onConfirm: function() {
                         var $id_list = '';
                         $.each($('.check-permission'), function (key, value){
                             if($(this).prop('checked') == true) {
@@ -501,49 +514,57 @@
                             }
                         });
 
-                        if($id_list.length > 0){
-                            var data = {
-                                id_list:$id_list,
-                                _method:'delete'
-                            };
-
-                            $.ajax({
-                                type: "POST",
-                                url: "{{ url('/') }}/admincp/permissions/delMulti",
-                                data: data,
-                                success: function (response) {
-                                    var obj = $.parseJSON(response);
-                                    if(obj.status == 200){
-                                        $.each($('.check-permission'), function (key, value){
-                                            if($(this).prop('checked') == true) {
-                                                $(this).parent().parent().hide("slow");
-                                            }
-                                        });
-                                        dataTable.ajax.reload(); 
-                                        Swal.fire({
-                                            type: 'success',
-                                            text: obj.Message
-                                        })
-
-                                    }
-                                },
-                                error: function (data) {
-                                    if(data.status == 401){
-                                      window.location.replace(baseURL);
-                                    }else{
-                                        Swal.fire({
-                                            type: 'warning',
-                                            text: errorConnect
-                                        })
-                                    }
+                        if ($id_list.length > 0) {
+                            var $id_list = '';
+                            $.each($('.check-permission'), function (key, value){
+                                if($(this).prop('checked') == true) {
+                                    $id_list += $(this).attr("data-column") + ',';
                                 }
                             });
-                        }
-                    }
-                },
-                nineCorners: false,
-            });
 
+                            if($id_list.length > 0){
+                                var data = {
+                                    id_list:$id_list,
+                                    _method:'delete'
+                                };
+
+                                $.ajax({
+                                    type: "POST",
+                                    url: "{{ url('/') }}/admincp/permissions/delMulti",
+                                    data: data,
+                                    success: function (response) {
+                                        var obj = $.parseJSON(response);
+                                        if(obj.status == 200){
+                                            $.each($('.check-permission'), function (key, value){
+                                                if($(this).prop('checked') == true) {
+                                                    $(this).parent().parent().hide("slow");
+                                                }
+                                            });
+                                            dataTable.ajax.reload(); 
+                                            Swal.fire({
+                                                type: 'success',
+                                                text: obj.Message
+                                            })
+
+                                        }
+                                    },
+                                    error: function (data) {
+                                        if(data.status == 401){
+                                        window.location.replace(baseURL);
+                                        }else{
+                                            Swal.fire({
+                                                type: 'warning',
+                                                text: errorConnect
+                                            })
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                    },
+                    nineCorners: false,
+                });
+            }
         });
 
         var errorConnect = "Please check your internet connection and try again.";
@@ -579,6 +600,7 @@
                             text: response.Message
                         })
                         dataTable.ajax.reload(); 
+                        clearError();
                     }
                 },
                 error: function (data) {
@@ -613,6 +635,28 @@
             clearFormCreate();
         })
 
+        function clearError(){
+            $('#nameErrorIns').hide();
+            $('#routeErrorIns').hide(); 
+            $('#groupErrorIns').hide();
+        }
+
+        $('#cancelAdd').click(function(){
+            clearError();
+        });
+        $("#closeAddX").click(function(){
+            clearError();
+        });
+        function clearErrorEdit(){
+            $('#permission_nameErrorUpd').hide();
+            $('#permission_groupErrorUpd').hide();
+        }
+        $('#cancelEdit').click(function(){
+            clearErrorEdit();
+        });
+        $('#closeExitX').click(function(){
+            clearErrorEdit();
+        });
     });
 </script>
 

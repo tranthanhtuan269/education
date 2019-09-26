@@ -81,14 +81,14 @@
                                 <div class="btn btn-primary select-image-btn" id="btnViewUpload"><i class="fa fa-picture-o fa-fw"></i> Tải lên ảnh Danh mục</div>
                             </div><br>
                             <div class="text-center">
-                                <img id="preview_category_img" style="width:440px;height:190px"/>
+                                <img id="preview_category_img" style="width:300px;height:auto" src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-image-128.png"/>
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="addCategory"><b>Xác nhận</b></button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><b>Hủy bỏ</b></button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cancelAdd"><b>Hủy bỏ</b></button>
                 </div>
             </div>
         </div>
@@ -112,10 +112,9 @@
                         <div class="form-group">
                             <label>Danh mục cha:</label>
                             <!-- <input type="text" class="form-control" name="categoryParent"> -->
-                            <select class="form-control" name="parent_id" id="editParentId">
-                                <option value="0">--</option>
+                        <select class="form-control" name="parent_id" id="editParentId">
                                 @foreach($categories as $cat)
-                                <option value="{{$cat->id}}">{{$cat->name}}</option>
+                                    <option value="{{$cat->id}}">{{$cat->name}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -136,9 +135,10 @@
                             </div>
                             <br>
                             <div class="text-center box-preview-edit">
-                                <img id="previewEditCategoryImg" src="" style="width:440px;height:190px"/>
+                                <img id="previewEditCategoryImg" src="" style="width:300px;height:auto"/>
                             </div>
                         </div>
+                        {{-- <input type="reset" id="resetEditCategory" style="display:none"> --}}
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -175,19 +175,21 @@ $(document).ready(function() {
                     text: 'Tập tin không hợp lệ.',
                     allowOutsideClick: false,
                 })
-                $("#editImage").val('')
+                $("#editImage").val('') 
+                
             };
             img.src = _URL.createObjectURL(file);
         }
     })
-
+    
     link_image_base64 = '';
     function handleFileSelect(evt) {
         var f = evt.target.files[0]; // FileList object
         if (f.size > 0) {
             var fileType = f["type"];
-            var validImageTypes = ["image/gif", "image/jpeg", "image/png"];
+            var validImageTypes = ["image/gif", "image/jpeg", "image/png", "image/jpg"];
             if ($.inArray(fileType, validImageTypes) < 0) {
+                $('#files').val('');
                 Swal.fire({
                     type: 'warning',
                     html: 'Tập tin không hợp lệ.',
@@ -195,15 +197,16 @@ $(document).ready(function() {
                 $('#showAddModal #files').val('')
                 $('#showEditModal #editImage').val('')
                 // $('.box-preview-edit').css('display', 'none')
+                return false;
             } else {
+                
                 var reader = new FileReader();
                 // Closure to capture the file information.
                 reader.onload = (function(theFile) {
                     return function(e) {
-                    var binaryData = e.target.result;
-                    //Converting Binary Data to base 64
-                    link_image_base64 = window.btoa(binaryData);
-                // $('.box-preview-edit').css('display', 'inline-block')
+                        var binaryData = e.target.result;
+                        //Converting Binary Data to base 64
+                        link_image_base64 = window.btoa(binaryData);
                     };
                 })(f);
                 // Read in the image file as a data URL.
@@ -212,7 +215,7 @@ $(document).ready(function() {
         } else {
             Swal.fire({
                 type: 'warning',
-                html: 'Ảnh không hợp lệ!',
+                html: 'Tập tin không hợp lệ.',
             })
         }
     }
@@ -222,6 +225,12 @@ $(document).ready(function() {
     }
 
     $('#addCategory').click(function(){
+        var parent_id = $('#categoryParent_id').val()
+        var feature = 0
+        if( parent_id != 0 ){
+            feature = $('input[name=featured]:checked').val()
+        }
+
         var data    = {
             name             : $('#categoryName_id').val(),
             parent_id        : $('#categoryParent_id').val(),
@@ -235,7 +244,8 @@ $(document).ready(function() {
                 'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
             }
         });
-        $.ajax({
+        
+        var request = $.ajax({
             url: baseURL+"/admincp/categories/addCategory",
             data: data,
             method: "POST",
@@ -247,13 +257,15 @@ $(document).ready(function() {
                 var html_data = '';
                 if(response.status == 200){
                     clearFormCreate();
-                    $('#showAddModal').modal('toggle');
+                    // $('#preview_category_img').attr('src','https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-image-128.png')
+                    $('#showAddModal').modal('hide');
                     dataTable.ajax.reload();
                     Swal.fire({
                         type: 'success',
-                        text: response.message
+                        text: "Thêm mới danh mục thành công!"
                     }).then( result => {
-                        location.reload()
+                        // location.reload()
+                        dataTable.ajax.reload()
                     })
                 } else {
                     Swal.fire({
@@ -263,18 +275,76 @@ $(document).ready(function() {
                 }
             },
             error: function (error) {
-                var obj_errors = error.responseJSON.errors;
-                var txt_errors = '';
-                for (k of Object.keys(obj_errors)) {
-                    txt_errors += obj_errors[k][0] + '</br>';
+                    var obj_errors = error.responseJSON.errors;
+                    var txt_errors = '';
+                    for (k of Object.keys(obj_errors)) {
+                        txt_errors += obj_errors[k][0] + '</br>';
+                    }
+                    Swal.fire({
+                        type: 'warning',
+                        html: txt_errors,
+                        allowOutsideClick: false,
+                    })
                 }
-                Swal.fire({
-                    type: 'warning',
-                    html: txt_errors,
-                })
-            }
         });
     });
+
+    // $('#editCategory').click(function(){
+    //     var id      = $("input[id=userIdUpdate]").val();
+    //     var data    = {
+    //         id               : id,
+    //         name             : $('#editName').val(),
+    //         parent_id        : $('#editParentId').val(),
+    //         featured         : $('input[name=editFeatured]').val(),
+    //         icon             : $('#editIcon').val(),
+    //         // image            : link_image_base64,
+    //     };
+    //     // alert(1);
+    //     $.ajaxSetup({
+    //         headers: {
+    //             'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
+    //         }
+    //     });
+        
+    //     $.ajax({
+    //         url: baseURL+"/admincp/categories/editCategory",
+    //         data: data,
+    //         method: "POST",
+    //         dataType:'json',
+    //         beforeSend: function(r, a){
+    //             $('.alert-errors').addClass('d-none');
+    //         },
+    //         success: function (response) {
+    //             var html_data = '';
+    //             if(response.status == 200){
+    //                 clearFormCreate();
+    //                 $('#showEditModal').modal('toggle');
+    //                 dataTable.ajax.reload();
+    //                 Swal.fire({
+    //                     type: 'success',
+    //                     text: response.Message
+    //                 })
+                        
+    //             } else {
+    //                 Swal.fire({
+    //                     type: 'warning',
+    //                     text: response.Message
+    //                 })
+    //             }
+    //         },
+    //         error: function (error) {
+    //             var obj_errors = error.responseJSON.errors;
+    //             var txt_errors = '';
+    //             for (k of Object.keys(obj_errors)) {
+    //                 txt_errors += obj_errors[k][0] + '</br>';
+    //             }
+    //             Swal.fire({
+    //                 type: 'warning',
+    //                 html: txt_errors,
+    //             })
+    //         }
+    //     });
+    // });
 
     function clearFormCreate(){
         $('input[name=name]').val('');
@@ -301,6 +371,7 @@ $(document).ready(function() {
         {
             data: "featured",
             class: "text-center",
+            orderable: false
         },
         {
             data: "image",
@@ -440,9 +511,10 @@ $(document).ready(function() {
     }
 
     function addEventListener() {
-        $('.edit-category').off('click')
+        $('.edit-category').off()
         $('.edit-category').click(function() {
             $('#showEditModal').modal('show');
+            clearFormCreate();
             var curr_name       = $(this).parent().parent().attr('data-name');
             var curr_parent_id  = $(this).parent().parent().attr('data-parent-id');
             var curr_featured   = $(this).parent().parent().attr('data-featured');
@@ -454,6 +526,13 @@ $(document).ready(function() {
                 curr_parent_id = 0
             }
             $("select[id=editParentId]").val(curr_parent_id);
+            if( curr_parent_id == 0 ){
+                $("select[id=editParentId]").attr('disabled',true)
+                $("input[name=editFeatured]").attr('disabled', true)
+            }else{
+                $("select[id=editParentId]").attr('disabled',false)
+                $("input[name=editFeatured]").attr('disabled', false)
+            }
             if( curr_featured == 1 ){
                 $('input[name=editFeatured][value=0]').removeAttr('checked','checked');
                 $('input[name=editFeatured][value=1]').attr('checked','checked');
@@ -498,6 +577,13 @@ $(document).ready(function() {
                                 })
                                 dataTable.ajax.reload()
                             }
+                            if(response.status == '403'){
+                                Swal.fire({
+                                    type: 'warning',
+                                    text : response.message,
+                                })
+                                dataTable.ajax.reload()
+                            }
                         },
                     })                        
                 }
@@ -511,8 +597,17 @@ $(document).ready(function() {
             return current_page;
         }
 
+        $('#editCategory').off()
         $('#editCategory').click(function(){
-            console.log(link_image_base64)
+            // alert(link_image_base64)
+            image_base64 = $('#previewEditCategoryImg').attr('src');
+            image_base64 = image_base64.replace("data:image/png;base64,", "");
+            image_base64 = image_base64.replace("data:image/jpg;base64,", "");
+            image_base64 = image_base64.replace("data:image/jpeg;base64,", "");
+            image_base64 = image_base64.replace("data:image/gif;base64,", "");
+            if(image_base64.indexOf("http") > -1) {
+                image_base64 = "";
+            }
             var id      = $("input[id=userIdUpdate]").val();
 
             var data    = {
@@ -521,14 +616,14 @@ $(document).ready(function() {
                 parent_id        : Number($('#editParentId').val()),
                 featured         : $('input[name="editFeatured"]:checked').val(),
                 icon             : $('#editIcon').val(),
-                image            : link_image_base64,
+                image            : image_base64,
             };
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            $.ajax({
+            var request =$.ajax({
                 url: baseURL+"/admincp/categories/editCategory",
                 data: data,
                 method: "POST",
@@ -540,13 +635,14 @@ $(document).ready(function() {
                     var html_data = '';
                     if(response.status == 200){
                         clearFormCreate();
-                        // $('#showEditModal').modal('toggle');
+                        $('#showEditModal').modal('hide');
                         dataTable.ajax.reload();
                         Swal.fire({
                             type: 'success',
                             text: response.Message
                         }).then( result => {
-                            location.reload()
+                            // location.reload()
+                            dataTable.ajax.reload()
                         })
                     } else {
                         Swal.fire({
@@ -576,9 +672,15 @@ $(document).ready(function() {
     function preview_image(event){
         var reader = new FileReader();
         // $('input[name=image]').append('<img id="preview_category_img" src="#" max-width="570"/>');
-        reader.onload = function(){
-            var output = document.getElementById('preview_category_img');
-            output.src = reader.result;
+        reader.onload = function()
+        {
+            var fileInput = $('#files').val();
+            var fileSize = document.getElementById('files').files[0].size;
+            var allowedExtensions = /(\.gif|\.png|\.jpeg|\.jpg)$/i;
+            if (allowedExtensions.exec(fileInput) && fileSize !=0){
+                var output = document.getElementById('preview_category_img');
+                output.src = reader.result;
+            }
         }
         reader.readAsDataURL(event.target.files[0]);
     }
@@ -586,11 +688,22 @@ $(document).ready(function() {
     function preview_edit_image(event){
         var reader = new FileReader();
         reader.onload = function(){
-            var output = document.getElementById('previewEditCategoryImg');
-            output.src = reader.result;
+            var fileInput = $('#editImage').val();
+            var fileSize = document.getElementById('editImage').files[0].size;
+            var allowedExtensions = /(\.gif|\.png|\.jpeg|\.jpg)$/i;
+            if (allowedExtensions.exec(fileInput) && fileSize !=0){
+                var output = document.getElementById('previewEditCategoryImg');
+                output.src = reader.result;
+            }
         }
         reader.readAsDataURL(event.target.files[0]);
     }
+</script>
+
+<script type="text/javascript">
+    $('#cancelAdd').click(function(){
+        $('#preview_category_img').attr("src","https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-image-128.png");
+    })
 </script>
 
 @endsection

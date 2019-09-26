@@ -90,7 +90,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title font-weight-600">Chỉnh sửa vai trò</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeExitX">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -113,7 +113,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-primary" id="saveRole">Cập nhật</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cancelEdit">Hủy bỏ</button>
           </div>
         </div>
       </div>
@@ -124,7 +124,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title font-weight-600">Thêm vai trò</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeAddX">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -164,7 +164,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-primary" id="create-role-btn">Thêm mới</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
+            <button type="button" class="btn btn-secondary close-create-role-btn" data-dismiss="modal" id="cancelAdd">Hủy bỏ</button>
           </div>
         </div>
       </div>
@@ -382,6 +382,9 @@
                         serverSide: true,
                         aaSorting: [],
                         stateSave: false,
+                        search: {
+                            smart: false
+                        },
                         ajax: "{{ url('/') }}/admincp/roles/getDataAjax",
                         columns: dataObject,
                         // bLengthChange: false,
@@ -654,18 +657,23 @@
         });
 
         $('#apply-all-btn').click(function (){
-            $.ajsrConfirm({
-                message: "Bạn có chắc chắn muốn xóa ?",
-                okButton: "Đồng ý",
-                onConfirm: function() {
-                    var $id_list = '';
-                    $.each($('.check-role'), function (key, value){
-                        if($(this).prop('checked') == true) {
-                            $id_list += $(this).attr("data-column") + ',';
-                        }
-                    });
-
-                    if ($id_list.length > 0) {
+            let isChecked = false;
+            $.each($('.check-role'), function (key, value){
+                if($(this).prop('checked') == true) {
+                    return isChecked = true;
+                }
+            });
+            if(isChecked == false){
+                   return Swal.fire({
+                        type: 'info',
+                        text: 'Bạn chưa chọn tài khoản nào!'
+                    })   
+            }
+            else{
+                $.ajsrConfirm({
+                    message: "Bạn có chắc chắn muốn xóa ?",
+                    okButton: "Đồng ý",
+                    onConfirm: function() {
                         var $id_list = '';
                         $.each($('.check-role'), function (key, value){
                             if($(this).prop('checked') == true) {
@@ -673,57 +681,83 @@
                             }
                         });
 
-                        if($id_list.length > 0){
-                            var data = {
-                                id_list:$id_list,
-                                _method:'delete'
-                            };
-
-                            $.ajax({
-                                type: "POST",
-                                url:  baseURL+"/admincp/roles/delMulti",
-                                data: data,
-                                success: function (response) {
-                                    var obj = $.parseJSON(response);
-                                    if(obj.status == 200){
-                                        $.each($('.check-role'), function (key, value){
-                                            if($(this).prop('checked') == true) {
-                                                $(this).parent().parent().hide("slow");
-                                            }
-                                        });
-                                        Swal.fire({
-                                            type: 'success',
-                                            text: obj.Message
-                                        })
-
-                                        dataTable.ajax.reload(); 
-                                    } else {
-                                        Swal.fire({
-                                            type: 'warning',
-                                            text: obj.Message
-                                        })
-                                    }
-                                },
-                                error: function (data) {
-                                    if(data.status == 401){
-                                      window.location.replace(baseURL);
-                                    }else{
-                                        Swal.fire({
-                                            type: 'warning',
-                                            text: errorConnect
-                                        })
-                                    }
+                        if ($id_list.length > 0) {
+                            var $id_list = '';
+                            $.each($('.check-role'), function (key, value){
+                                if($(this).prop('checked') == true) {
+                                    $id_list += $(this).attr("data-column") + ',';
                                 }
                             });
+
+                            if($id_list.length > 0){
+                                var data = {
+                                    id_list:$id_list,
+                                    _method:'delete'
+                                };
+
+                                $.ajax({
+                                    type: "POST",
+                                    url:  baseURL+"/admincp/roles/delMulti",
+                                    data: data,
+                                    success: function (response) {
+                                        var obj = $.parseJSON(response);
+                                        if(obj.status == 200){
+                                            $.each($('.check-role'), function (key, value){
+                                                if($(this).prop('checked') == true) {
+                                                    $(this).parent().parent().hide("slow");
+                                                }
+                                            });
+                                            Swal.fire({
+                                                type: 'success',
+                                                text: obj.Message
+                                            })
+
+                                            dataTable.ajax.reload(); 
+                                        } else {
+                                            Swal.fire({
+                                                type: 'warning',
+                                                text: obj.Message
+                                            })
+                                        }
+                                    },
+                                    error: function (data) {
+                                        if(data.status == 401){
+                                        window.location.replace(baseURL);
+                                        }else{
+                                            Swal.fire({
+                                                type: 'warning',
+                                                text: errorConnect
+                                            })
+                                        }
+                                    }
+                                });
+                            }
                         }
-                    }
-                },
-                nineCorners: false,
-            });
-
+                    },
+                    nineCorners: false,
+                });
+            }
         });
-        
-
+        $('#cancelAdd').click(function(){
+            $('#nameErrorIns').hide();
+        });
+        $('#cancelEdit').click(function(){
+            $('#roleNameErrorUpd').hide();
+        });
+        $('#closeAddX').click(function(){
+            $('#nameErrorIns').hide();
+        });
+        $('#closeExitX').click(function(){
+            $('#roleNameErrorUpd').hide();
+        });
+        $('.close-create-role-btn').click(function(){
+            $('option', $('#permission-list-ins')).each(function(element) {
+                if($(this).attr('value') != 1){
+                    $(this).removeAttr('selected').prop('selected', false);
+                }
+            });
+            $('#permission-list-ins').multiselect('refresh');
+        })
     });
 </script>
 @endsection

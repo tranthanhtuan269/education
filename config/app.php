@@ -4,6 +4,12 @@ return [
     'admin' => 1,
     'teacher' => 2,
     'student' => 3,
+    'teacher_active' => 1,
+    'teacher_inactive' => 0,
+    'video_waiting' => 0,
+    'video_active' => 1,
+    'video_rejected' => 2,
+    'video_converting' => 3,
     
     /*
     |--------------------------------------------------------------------------
@@ -168,6 +174,7 @@ return [
         /*
          * Package Service Providers...
          */
+        Intervention\Image\ImageServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -235,6 +242,7 @@ return [
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         'Helper' => App\Helper\Helper::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        'Image' => Intervention\Image\Facades\Image::class
     ],
 
 ];

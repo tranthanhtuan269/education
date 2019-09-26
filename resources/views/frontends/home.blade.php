@@ -21,16 +21,18 @@
         <div class="container category-slider">
             {{-- @dd($feature_category) --}}
             @foreach ($feature_category as $feature)
-                <div class="slider-div" style='background-image: url("{{ url('/frontend/images/'.$feature->image) }}"'>
-                    <a href="{{ url('/') }}/category/{{ $feature->slug }}" class="text-center">
-                        <div class="link-parent">
-                        <!-- <a href="{{ url('/') }}/category/{{ $feature->slug }}" class="text-center"> -->
-                            <h3>{{ $feature->name }}</h3>
-                            <p>Có {{ $feature->courses->where('status', 1)->count() }} khóa học</p>
-                        <!-- </a> -->
-                        </div>
-                    </a>
-                </div>
+                @if( count($feature->courses) > 0 )
+                    <div class="slider-div" style='background-image: url("{{ url('/frontend/images/'.$feature->image) }}"'>
+                        <a href="{{ url('/') }}/category/{{ $feature->slug }}" class="text-center">
+                            <div class="link-parent">
+                            <!-- <a href="{{ url('/') }}/category/{{ $feature->slug }}" class="text-center"> -->
+                                <h3>{{ $feature->name }}</h3>
+                                <p>Có {{ $feature->courses->where('status', 1)->count() }} khóa học</p>
+                            <!-- </a> -->
+                            </div>
+                        </a>
+                    </div>
+                @endif
             @endforeach
         </div>
     {{-- </div> --}}

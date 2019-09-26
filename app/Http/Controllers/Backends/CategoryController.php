@@ -66,10 +66,12 @@ class CategoryController extends Controller
         if( $category ){
             if( $category->name != $request->name ){
                 $check = Category::where('name', $request->name);
-                if( $check ){
+                if( isset($check->id) ){
                     return \Response::json(array('status' => '403', 'Message' => 'Tên Danh mục đã tồn tại.'));
                 }
             }
+
+            $file_name = $category->image;
 
             if ($request->image != '') {
                 $img_file = $request->image;
@@ -91,15 +93,49 @@ class CategoryController extends Controller
     }
 
     public function deleteCategory(Request $request){
-        $category = Category::where('parent_id', '=', $request->category_id)->update(['parent_id'=>1]);
-
-        $course = Course::where('category_id', '=', $request->category_id)->update(['category_id'=>1]);
+        $course = Course::where('category_id', '=', $request->category_id)->first();
+        if( isset($course->id) ){
+            return \Response::json(array('status' => '403', 'message' => 'Bạn không thể xóa danh mục đang có khóa học.'));
+        }
+        $category = Category::where('parent_id', '=', $request->category_id)->first();
+        if( isset($category->id) ){
+            return \Response::json(array('status' => '403', 'message' => 'Bạn không thể xóa danh mục chứa danh mục con.'));
+        }
 
         $category1 = Category::find($request->category_id);
-        if($category1){
+        if( isset($category1->id) ){
             $category1->delete();
             $res = array('status' => "200", "message" => "Xóa Danh mục thành công!");
             echo json_encode($res);die;
         }
+    }
+
+    public function getFeaturedCategory()
+    {
+        $categories = Category::where('parent_id',0)->get();
+        return view('backends.category.featured-category',['categories'=>$categories]);
+    }
+
+    public function getFeaturedCategoryAjax()
+    {
+        $categories = Category::where('parent_id', '<>', 0)->orderBy('id', 'DESC')->get();
+        return datatables()->collection($categories)
+            ->addColumn('action', function ($category) {
+                return $category->id;
+            })->addColumn('parent-name', function ($category) {
+                return $category->parent['name'];
+            })->removeColumn('id')->make(true);
+    }
+
+    public function setFeaturedCategoryAjax(Request $request)
+    {
+        $category = Category::find($request->category_id);
+        // dd($category);
+        if( isset($category->id) ){
+            $category->featured = $request->featured;
+            $category->save();
+            return \Response::json(array('status' => '200'));
+        }
+        return \Response::json(array('status' => '404'));
     }
 }

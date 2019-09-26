@@ -159,9 +159,12 @@
         ];
     
         dataTable = $('#orders-table').DataTable( {
-                        // serverSide: true,
+                        serverSide: true,
                         aaSorting: [],
                         stateSave: false,
+                        search: {
+                            smart: false
+                        },
                         ajax: "{{ url('/') }}/admincp/cart/getDataAjax",
                         columns: dataObject,
                         // bLengthChange: false,

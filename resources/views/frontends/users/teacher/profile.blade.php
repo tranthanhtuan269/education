@@ -102,7 +102,7 @@
                                             <div class="form-group">
                                                 <label>Số điện thoại</label>
                                                 <div class="form-group">
-                                                    <input type="text" id="muser-phone" class="form-control" name="phone" value="{{ Auth::user()->phone }}">
+                                                    <input type="number" id="muser-phone" class="form-control" name="phone" value="{{ Auth::user()->phone }}">
 
                                                 </div>
                                             </div>
@@ -128,8 +128,9 @@
                                                 <label>Giới tính</label>
                                                 <div class="form-group">
                                                     <select class="form-control" name="gender">
-                                                        <option value="1" @if(Auth::user()->gender == 1) selected @endif>Nữ</option>
-                                                        <option value="2" @if(Auth::user()->gender == 2) selected @endif>Nam</option>
+                                                        <option value="1" @if(Auth::user()->gender == 1) selected @endif>Nam</option>
+                                                        <option value="2" @if(Auth::user()->gender == 2) selected @endif>Nữ</option>
+                                                        <option value="3" @if(Auth::user()->gender == 3) selected @endif>Khác</option>
                                                     </select>
                                                 </div>
                                             </div>

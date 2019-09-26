@@ -92,10 +92,10 @@ class UserController extends Controller
     public function courseStudent(Request $request)
     {
         $keyword = trim($request->get('u-keyword'));
+        // dd(Auth::user()->userRolesStudent());
         $lifelong_course = Auth::user()->userRolesStudent()->userLifelongCourse($keyword);
         // dd($li;
         
-        // dd($lifelong_course);
         return view('frontends.users.student.course', compact('lifelong_course'));
     }
 
@@ -246,10 +246,10 @@ class UserController extends Controller
                 $teacher->user_role_id =  $user_role->id;
                 $teacher->expert = $request->expert;
                 $teacher->cv = $request->cv;
-                $teacher->video_intro = $request->video_intro;
+                $teacher->video_intro = "https://www.youtube.com/embed/" . Helper::getYouTubeVideoId($request->video_intro);
                 $teacher->save();
     
-                return \Response::json(['message' => 'Đăng ký giảng viên thành công!', 'status' => 200]);
+                return \Response::json(['message' => 'Đăng ký giảng viên thành công! Hồ sơ của bạn đang được xét duyệt.', 'status' => 200]);
             }
 
             return \Response::json(['message' => 'Bạn đang là giảng viên!', 'status' => 404]);
@@ -318,11 +318,11 @@ class UserController extends Controller
                 return $sender->name;
             })
             ->addColumn('title', function ($email) {
-                $wanted_email = Email::find($email->email_id);
+                $wanted_email = Email::withTrashed()->find($email->email_id);
                 return $wanted_email->title;
             })
             ->addColumn('content', function ($email) {
-                $wanted_email = Email::find($email->email_id);
+                $wanted_email = Email::withTrashed()->find($email->email_id);
                 return $wanted_email->content;
             })
             ->addColumn('user_email_id', function ($email) {
@@ -347,7 +347,7 @@ class UserController extends Controller
         if(isset($user) && isset($request->user_email_id)){
             $email_id = $request->email_id;
             $user_email_instance = UserEmail::find($request->user_email_id);
-            $email_template = Email::find($user_email_instance->email_id);
+            $email_template = Email::withTrashed()->find($user_email_instance->email_id);
             $email_html = ( new CustomMail($user, $email_template) )->render();
 
             $user_email_instance->viewed = 1;

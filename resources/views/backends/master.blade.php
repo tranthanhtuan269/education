@@ -11,10 +11,15 @@
         <link rel="stylesheet" href="{{ asset('backend/template/bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
         <!-- Font Awesome -->
         <link rel="stylesheet" href="{{ asset('backend/template/bower_components/font-awesome/css/font-awesome.min.css') }}">
+        <!-- bootstrap datepicker -->
+        <link rel="stylesheet" href="{{asset('backend/template/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css')}}">
         <!-- Ionicons -->
         <link rel="stylesheet" href="{{ asset('backend/template/bower_components/Ionicons/css/ionicons.min.css') }}">
         <!-- Theme style -->
         <link rel="stylesheet" href="{{ asset('backend/template/dist/css/AdminLTE.min.css') }}">
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.5/cropper.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.5/cropper.css" type="text/css"/>
         <!-- AdminLTE Skins. Choose a skin from the css/skins
             folder instead of downloading all of them to reduce the load. -->
         <link rel="stylesheet" href="{{ asset('backend/template/dist/css/skins/_all-skins.min.css') }}">
@@ -27,7 +32,6 @@
         <!-- Google Font -->
         <link rel="stylesheet" type="text/css" href="{{ asset('backend/css/jquery.toastmessage.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('backend/css/ajsr-confirm.css') }}">
-        <link rel="stylesheet" type="text/css" href="{{ asset('backend/css/style.css') }}">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
         <!-- jQuery 3 -->
         <script src="{{ asset('backend/template/bower_components/jquery/dist/jquery.min.js') }}"></script>
@@ -35,6 +39,9 @@
         <script src="{{ asset('backend/js/priority.js') }}"></script>
         <script src="{{ asset('frontend/js/sweetalert2.min.js') }}"></script>
         <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/sweetalert2.min.css') }}">
+
+        {{-- CKEditor 4 --}}
+        <script src="{{asset("backend/template/bower_components/ckeditor/ckeditor.js")}}"></script>
 
         <script type="text/javascript">
             $.ajaxSetup({
@@ -45,7 +52,7 @@
         </script>
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
-        <div id="ajax_waiting"></div>
+        <div class="ajax_waiting"></div>
         <div class="wrapper">
             <header class="main-header">
                 <!-- Logo -->
@@ -127,7 +134,7 @@
                             </a>
                         </li>
                  
-                        <li class="treeview @if ( Request::is('admincp/users*') || Request::is('admincp/permissions*') || Request::is('admincp/roles*') ) active @endif">
+                        <li class="treeview @if ( Request::is('admincp/users') || Request::is('admincp/permissions*') || Request::is('admincp/roles*') ) active @endif">
                             <a href="javascript:void(0)">
                                 <i class="fa fa-user-md"></i>
                                 <span>Tài khoản</span>
@@ -137,27 +144,27 @@
                             </a>
                             <ul class="treeview-menu">
                                 @if (Helper::checkPermissions('users.list', $list_roles)) 
-                                    <li class="@if ( Request::is('admincp/users*') ) active @endif">
+                                    <li class="@if ( Request::is('admincp/users') ) active @endif">
                                         <a href="{{ url('/') }}/admincp/users"><i class="fa fa-minus"></i> Danh sách</a>
                                     </li>
                                 @endif
  
+                                
+                                @if (Helper::checkPermissions('users.list_roles', $list_roles)) 
+                                <li class="@if ( Request::is('admincp/roles*') ) active @endif">
+                                    <a href="{{ url('/') }}/admincp/roles"><i class="fa fa-minus"></i> Vai trò</a>
+                                </li>
+                                @endif
+                                
                                 @if (Helper::checkPermissions('users.list_permissions', $list_roles)) 
                                     <li class="@if ( Request::is('admincp/permissions*') ) active @endif">
                                         <a href="{{ url('/') }}/admincp/permissions"><i class="fa fa-minus"></i> Phân quyền</a>
                                     </li>
                                 @endif
-
-                                @if (Helper::checkPermissions('users.list_roles', $list_roles)) 
-                                    <li class="@if ( Request::is('admincp/roles*') ) active @endif">
-                                        <a href="{{ url('/') }}/admincp/roles"><i class="fa fa-minus"></i> Vai trò</a>
-                                    </li>
-                                @endif
-
                             </ul>
                         </li>
                  
-                        <li class="treeview @if ( Request::is('admincp/users*') || Request::is('admincp/permissions*') || Request::is('admincp/roles*') ) active @endif">
+                        <li class="treeview @if ( Request::is('admincp/users/email*')) active @endif">
                             <a href="javascript:void(0)">
                                 <i class="fa fa-user-md"></i>
                                 <span>Thông báo</span>
@@ -174,7 +181,7 @@
                             </ul>
                         </li>
                  
-                        <li class="treeview @if ( Request::is('admincp/teachers*') || Request::is('admincp/courses*') || Request::is('admincp/videos*') || Request::is('admincp/verify-video*')) active @endif">
+                        <li class="treeview @if ( Request::is('admincp/teachers*') || Request::is('admincp/courses*') || Request::is('admincp/videos*') || Request::is('admincp/verify-video*') || Request::is('admincp/request-delete-videos*')) active @endif">
                             <a href="javascript:void(0)">
                                 <i class="fa fa-user-md"></i>
                                 <span>Phê duyệt</span>
@@ -197,22 +204,51 @@
                                         <a href="{{ url('/') }}/admincp/videos"><i class="fa fa-minus"></i> Yêu cầu duyệt bài giảng</a>
                                     </li>
                                     <li class="@if ( Request::is('admincp/request-delete-videos*') ) active @endif">
-                                        <a href="{{ url('/') }}/admincp/request-delete-videos"><i class="fa fa-minus"></i> Yêu cầu xóa Video</a>
+                                        <a href="{{ url('/') }}/admincp/request-delete-videos"><i class="fa fa-minus"></i> Yêu cầu xóa bài giảng</a>
                                     </li>
                                 @endif
                             </ul>
                         </li>
                         <li class="@if ( Request::is('admincp/gifts*') ) active @endif">
-                            <a href="{{ url('/') }}/admincp/gifts"><i class="fa fa-gift"></i> Tặng quà</a>
+                            <a href="{{ url('/') }}/admincp/gifts"><i class="fa fa-gift"></i>
+                             <span>Tặng quà</span>
+                                <span class="pull-right-container">
+                            </a>
                         </li>
-                        <li class="@if ( Request::is('admincp/category*') ) active @endif">
-                            <a href="{{ url('/') }}/admincp/categories"><i class="fa fa-briefcase"></i> Danh mục</a>
-                        </li>
-                        <li class="@if ( Request::is('admincp/feature-course*') ) active @endif">
-                            <a href="{{ url('/') }}/admincp/feature-course"><i class="fa fa-star"></i> Khóa học nổi bật</a>
+                        
+                        <li class="@if ( Request::is('admincp/categories*') ) active @endif">
+                            <a href="{{ url('/') }}/admincp/categories"><i class="fa fa-briefcase"></i>
+                                <span>Danh mục</span>
+                                <span class="pull-right-container">
+                            </a>
                         </li>
                         <li class="@if ( Request::is('admincp/create-coupon*') ) active @endif">
-                            <a href="{{ url('/') }}/admincp/create-coupon"><i class="fa fa-star"></i> Mã giảm giá</a>
+                            <a href="{{ url('/') }}/admincp/create-coupon"><i class="fa fa-star"></i>
+                                <span>Tạo Coupon</span>
+                                <span class="pull-right-container">
+                            </a>
+                        </li>
+                        <li class="treeview @if ( Request::is('admincp/feature-*')) active @endif">
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-star"></i>
+                                <span>Cài đặt trang chủ</span>
+                                <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                @if (Helper::checkPermissions('users.list', $list_roles))
+                                    <li class="@if ( Request::is('admincp/feature-course*') ) active @endif">
+                                        <a href="{{ url('/') }}/admincp/feature-course"><i class="fa fa-minus"></i>Khóa học nổi bật</a>
+                                    </li>
+                                    <li class="@if ( Request::is('admincp/feature-teacher*') ) active @endif">
+                                        <a href="{{ url('/') }}/admincp/feature-teacher"><i class="fa fa-minus"></i>Giảng viên tiêu biểu</a>
+                                    </li>
+                                    <li class="@if ( Request::is('admincp/featured-category*') ) active @endif">
+                                        <a href="{{ url('/') }}/admincp/featured-category"><i class="fa fa-minus"></i>Danh mục tiêu biểu</a>
+                                    </li>
+                                @endif
+                            </ul>
                         </li>
                     </ul>
                 </section>
@@ -250,6 +286,52 @@
         <script src="{{ asset('backend/js/script.js') }}"></script>
         <script type="text/javascript">
             var baseURL="<?php echo URL::to('/'); ?>";
+            $(document).ready(function(){
+                $(document).ajaxStart(function(){
+                    // alert(1)
+                    $(".ajax_waiting").addClass("loading")
+                });
+
+                $(document).ajaxComplete(function(){
+                    $(".ajax_waiting").removeClass("loading")
+                });
+            })
+        </script>
+        <link rel="stylesheet" type="text/css" href="{{ asset('backend/css/style.css') }}">
+        <style type="text/css">
+        .sidebar-mini:not(.sidebar-mini-expand-feature).sidebar-collapse .sidebar-menu>li:hover>a>span:not(.pull-right), .sidebar-mini:not(.sidebar-mini-expand-feature).sidebar-collapse .sidebar-menu>li:hover>.treeview-menu {
+            width:240px;
+        }
+        .sidebar-mini:not(.sidebar-mini-expand-feature).sidebar-collapse .sidebar-menu>li:hover>a>.pull-right-container {
+            position: relative !important;
+            float: right;
+            width: auto !important;
+            left: 240px !important;
+            top: -22px !important;
+            z-index: 900;
+        }
+        </style>
+        <script>
+            $(document).ready(function(){
+                // $('.modal').modal({backdrop: "static"});
+                $('.modal').attr('data-backdrop', 'static');
+            })
+        </script>
+        <script> //fix ckeditor in bootstrap modal
+        $.fn.modal.Constructor.prototype.enforceFocus = function () {
+            var $modalElement = this.$element;
+            $(document).on('focusin.modal', function (e) {
+                var $parent = $(e.target.parentNode);
+                if ($modalElement[0] !== e.target && !$modalElement.has(e.target).length
+                    // add whatever conditions you need here:
+                    &&
+                    !$parent.hasClass('cke_dialog_ui_input_select') && !$parent.hasClass('cke_dialog_ui_input_text')) {
+                    $modalElement.focus()
+                }
+            })
+        };
+        
         </script>
     </body>
+    
 </html>

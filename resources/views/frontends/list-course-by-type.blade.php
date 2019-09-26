@@ -18,38 +18,17 @@
                             <h1>{{ $title }}</h1>
                         </div>
                         @foreach ($list_course as $course)
-                        <?php
-                            // dd($course->Lecturers()[0]->user);
-                            if(isset($course->Lecturers()[0]->user->name)){
-                                $lecturers_name1 = $course->Lecturers()[0]->user->name;
-                            }else{
-                                $lecturers_name1 = "Courdemy";
-                            }
-                            $lecturers = count($course->Lecturers()) > 1 ? 'Nhiều tác giả' : count($course->Lecturers()) > 0 ? $lecturers_name1 : "Courdemy";
-                        ?>
-                        @include(
-                            'components.course', 
-                            [   
-                                'course' => $course,
-                                'list_course' => $list_bought
-                                // 'id'    => $course->id,
-                                // 'slug' => $course->slug,
-                                // 'image' => url('/frontend/images/'.$course->image),
-                                // 'rawImage' => $course->image,
-                                // 'title' => $course->name,
-                                // 'author' => $lecturers,
-                                // 'star_count' => $course->star_count,
-                                // 'vote_count' => $course->vote_count,
-                                // 'time' => $course->approx_time,
-                                // 'view_number' => $course->view_count,
-                                // 'price' => $course->real_price,
-                                // 'sale' => $course->price,
-                                // 'from_sale' => $course->from_sale,
-                                // 'to_sale' => $course->to_sale,
-                                // 'bought' => $course->checkCourseNotLearning(),
-                                
-                            ]
-                        )
+                            {{-- @if(isset($course->userRoles()->first()->teacher)) --}}
+                                {{-- @if ( $course->userRoles()->first()->teacher->status == 1 ) --}}
+                                    @include(
+                                        'components.course', 
+                                        [   
+                                            'course' => $course,
+                                            'list_course' => $list_bought
+                                        ]
+                                    )
+                                {{-- @endif --}}
+                            {{-- @endif --}}
                       @endforeach
                       <div class="col-xs-12 text-center">
                           <div class="u-number-page">{{ $list_course->appends(Request::all())->links() }}</div>

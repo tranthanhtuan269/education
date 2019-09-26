@@ -181,9 +181,12 @@
         ];
 
         dataTable = $('#teacher-table').DataTable( {
-                        serverSide: false,
+                        serverSide: true,
                         aaSorting: [],
                         stateSave: true,
+                        search: {
+                            smart: false
+                        },
                         ajax: "{{ url('/') }}/admincp/teachers/getTeacherAjax",
                         columns: dataObject,
                         bLengthChange: true,
@@ -315,7 +318,7 @@
                 var message = "Bạn có chắc chắn muốn duyệt?";
                 if(_self.parent().parent().hasClass('blue-row')){
                     status = 1;
-                    message = "Bạn có chắc chắn muốn hủy?";
+                    message = "Bạn có chắc chắn muốn hủy giảng viên bạn chọn?";
                 }
                 $.ajsrConfirm({
                     message: message,
@@ -355,7 +358,7 @@
 
                                     Swal.fire({
                                         type: 'success',
-                                        text: response.message
+                                        text: "Thao tác thành công."
                                     })
                                 }else{
                                     Swal.fire({
@@ -383,7 +386,7 @@
                 var id      = $(this).attr('data-id');
                 var row = $(e.currentTarget).closest("tr");
                 $.ajsrConfirm({
-                    message: "Bạn có chắc chắn muốn xóa ?",
+                    message: "Bạn có chắc chắn muốn xóa giảng viên bạn chọn?",
                     okButton: "Đồng ý",
                     onConfirm: function() {
                         $.ajaxSetup({
@@ -431,9 +434,22 @@
             
             $('#deleteAllApplied').off('click')
             $('#deleteAllApplied').click(function (){
+                var check = false;
+                $.each($('.check-user'), function (key, value){
+                    if($(this).prop('checked') == true) {
+                        check = true;
+                    }
+                });
+                if(!check){
+                    Swal.fire({
+                        type: 'warning',
+                        text: 'Bạn phải chọn ít nhất 1 giảng viên.',
+                    })
+                    return false;
+                }
                 Swal.fire({
                     type: 'warning',
-                    text: 'Bạn có chắc chắn xóa tất cả?',
+                    text: 'Bạn có chắc chắn xóa tất cả những giảng viên bạn chọn?',
                     showCancelButton: true,
                 })
                 .then(function (result) {
@@ -490,9 +506,22 @@
 
             $('#acceptAllApplied').off('click')
             $('#acceptAllApplied').click(function (){
+                var check = false;
+                $.each($('.check-user'), function (key, value){
+                    if($(this).prop('checked') == true) {
+                        check = true;
+                    }
+                });
+                if(!check){
+                    Swal.fire({
+                        type: 'warning',
+                        text: 'Bạn phải chọn ít nhất 1 giảng viên',
+                    })
+                    return false;
+                }
                 Swal.fire({
                     type: 'warning',
-                    text: 'Bạn có chắc chắn duyệt tất cả?',
+                    text: 'Bạn có chắc chắn duyệt tất cả những giảng viên bạn chọn?',
                     showCancelButton: true,
                 })
                 .then(function (result) {
@@ -533,6 +562,7 @@
                                         }
                                     });
                                     dataTable.page( checkEmptyTable() ).draw( false );
+                                    $('.check-user').prop('checked', false)
                                 },
                                 error: function (response) {
                                     Swal.fire({
@@ -549,9 +579,22 @@
 
             $('#inacceptAllApplied').off('click')
             $('#inacceptAllApplied').click(function (){
+                var check = false;
+                $.each($('.check-user'), function (key, value){
+                    if($(this).prop('checked') == true) {
+                        check = true;
+                    }
+                });
+                if(!check){
+                    Swal.fire({
+                        type: 'warning',
+                        text: 'Bạn phải chọn ít nhất 1 giảng viên',
+                    })
+                    return false;
+                }
                 Swal.fire({
                     type: 'warning',
-                    text: 'Bạn có chắc chắn hủy tất cả?',
+                    text: 'Bạn có chắc chắn hủy tất cả những giảng viên bạn chọn?',
                     showCancelButton: true,
                 })
                 .then(function (result) {
@@ -591,6 +634,7 @@
                                         }
                                     });
                                     dataTable.page(checkEmptyTable()).draw( false );
+                                    $('.check-user').prop('checked', false)
                                 },
                                 error: function (response) {
                                     Swal.fire({

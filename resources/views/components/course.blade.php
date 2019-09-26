@@ -1,11 +1,17 @@
 <?php
-    // if($course->vote_count == 0) $course->vote_count = 0;
-    $lecturers = count($course->Lecturers()) > 1 ? 'Nhiều tác giả' : (count($course->Lecturers()) > 0 ? ($course->Lecturers()[0]->user ? $course->Lecturers()[0]->user->name : "Courdemy") : "Courdemy");
-    // dd($course->userRoles()->first()->teacher->id);
-    if (isset($course->Lecturers()->first()->teacher->id)) {
-        $main_lecturer = $course->Lecturers()->first() ? $course->Lecturers()->first()->teacher->id : 0;
+    $lecturers = $course->author;
+    $main_lecturer = 0;
+    if( isset($course->teacherId) ){
+        $main_lecturer = $course->teacherId;
     }else{
-        $main_lecturer = null;
+        $main_lecturer = $course->Lecturers()->first()->user->id;
+    }
+
+    $userId = 0;
+    if( isset($course->userRoles[0]->user_id) ){
+        $userId = $course->userRoles[0]->user_id;
+    }elseif( isset($course->userRoleId) ){
+        $userId = $course->userRoleId;
     }
 ?>
 <div class="col-md-3 col-sm-6">
@@ -39,14 +45,27 @@
                 <div class="img-mask hidden-sm">
                     <div class="btn-add-to-cart course-{{$course->id}}">
                         @if (!in_array($course->id, $list_bought))
-                            <button class="btn btn-success" data-id="{{ $course->id }}" data-image="{{ $course->image }}" data-lecturer="{{ $lecturers }}" data-name="{{ $course->name }}" data-price="{{ $course->price }}" data-real-price="{{ $course->real_price }}" data-slug="{{ $course->slug }}">
-                                <span class="img">
-                                    <img src="{{asset("frontend/images/ic_add_to_card.png")}}" width="20px">
-                                </span>
-                                <span class="text">
-                                    Thêm vào giỏ hàng
-                                </span>
-                            </button>
+                            @if (Auth::check())
+                                @if( $userId != (int)(Auth::user()->id) )
+                                    <button class="btn btn-success" data-id="{{ $course->id }}" data-image="{{ $course->image }}" data-lecturer="{{ $lecturers }}" data-name="{{ $course->name }}" data-price="{{ $course->price }}" data-real-price="{{ $course->real_price }}" data-slug="{{ $course->slug }}">
+                                        <span class="img">
+                                            <img src="{{asset("frontend/images/ic_add_to_card.png")}}" width="20px">
+                                        </span>
+                                        <span class="text">
+                                            Thêm vào giỏ hàng
+                                        </span>
+                                    </button>
+                                @endif
+                            @else
+                                <button class="btn btn-success" data-id="{{ $course->id }}" data-image="{{ $course->image }}" data-lecturer="{{ $lecturers }}" data-name="{{ $course->name }}" data-price="{{ $course->price }}" data-real-price="{{ $course->real_price }}" data-slug="{{ $course->slug }}">
+                                    <span class="img">
+                                        <img src="{{asset("frontend/images/ic_add_to_card.png")}}" width="20px">
+                                    </span>
+                                    <span class="text">
+                                        Thêm vào giỏ hàng
+                                    </span>
+                                </button>
+                            @endif
                         @endif
                     </div>                        
                 </div>               
@@ -137,7 +156,8 @@
         </a>
     </div>
 </div>
-
+{{-- @endif --}}
+{{-- @endif --}}
 <script>
     $('.content-course .name-teacher').on('click', function (e){
         e.stopPropagation()

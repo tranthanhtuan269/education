@@ -20,7 +20,9 @@ class CreateEmailsTable extends Migration
             $table->integer('status')->default(1);
             $table->integer('create_user_id');
             $table->integer('update_user_id');
+            $table->softDeletes();
             $table->timestamps();
+            
         });
     }
 

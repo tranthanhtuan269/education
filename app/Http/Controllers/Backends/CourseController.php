@@ -45,6 +45,7 @@ class CourseController extends Controller
         // }
 
         $item = new Course;
+        $item->author               = \Auth::user()->name;
         $item->name                 = $request->name;
         $item->image                = $img_link;
         $item->short_description    = $request->short_description;
@@ -126,7 +127,7 @@ class CourseController extends Controller
                 // }
                 $link_intro = "https://www.youtube.com/embed/" . Helper::getYouTubeVideoId($request->link_intro);
                 // echo($link_intro);
-
+                $item->author               = \Auth::user()->name;
                 $item->name                 = $request->name;
                 $item->image                = $img_link;
                 $item->short_description    = $request->short_description;
@@ -157,15 +158,34 @@ class CourseController extends Controller
     {
         if($request->id){
             $course = Course::find($request->id);
-            if($course){
-                $course->status = -1;
-                $course->save();
-
-                return response()->json(array('status' => '200', 'message' => 'Xóa khóa học thành công!'));
+            $teacher_course = $course->userRoles()->first()->user->id;
+            if( $course && $teacher_course ){
+                if( $teacher_course == $request->user_id ){
+                    $course->status = -1;
+                    $course->save();
+                    return response()->json(array('status' => '200', 'message' => 'Khóa học của bạn đã được ngừng bán.'));
+                }
             }     
         }
-        return response()->json(array('status'=> '404', 'message' => 'Không tìm thấy khóa học!'));
-        
+        return response()->json(array('status'=> '404', 'message' => 'Thao tác không thành công.'));
+    }
+
+    public function continueSell(Request $request)
+    {
+        if($request->id){
+            $course = Course::find($request->id);
+            $teacher_course = $course->userRoles()->first()->user->id;
+            if( $course && $teacher_course ){
+                if( $teacher_course == $request->user_id ){
+                    if ( $course->status == -1 ){
+                        $course->status = 1;
+                        $course->save();
+                        return response()->json(array('status' => '200', 'message' => 'Khóa học của bạn đã được tiếp tục bán.'));
+                    }
+                }
+            }     
+        }
+        return response()->json(array('status'=> '404', 'message' => 'Thao tác không thành công.'));
     }
 
     // Course
@@ -215,7 +235,7 @@ class CourseController extends Controller
                         $course->save();
                         $res = array('status' => "200", "message" => "Duyệt thành công");
                     } else {
-                        $res = array('status' => "404", "message" => "Vẫn còn bài giảng trong khóa học chưa được duyệt, xin vui lòng kiểm tra lại tại <a href='".url('admincp/videos?search='.$course->name)."' target='_blank'>đây</a>");
+                        $res = array('status' => "404", "message" => "Vẫn còn bài giảng trong khóa học chưa được duyệt, xin vui lòng kiểm tra lại tại <a href='".url('admincp/videos?search='.$course->name)."&course_id=".$course->id."' target='_blank'>đây</a>");
                     }
 
                 } else {

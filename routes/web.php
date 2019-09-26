@@ -17,6 +17,28 @@
 
 Auth::routes();
 
+Route::get('test2', function(){
+    $courses = \App\Course::get();
+    foreach($courses as $course){
+        if($course->author == ""){
+            if($course->Lecturers()->first()){
+                if($course->Lecturers()->first()->user){
+                    $course->author = $course->Lecturers()->first()->user->name;
+                    $course->save();
+                }
+            }
+        }
+    }
+});
+
+Route::get('thay-state-video', function(){
+    $videos = \App\Video::where('created_at', null)->get();
+    foreach ($videos as $key => $video) {
+        $video->state = 1;
+        $video->save();
+    }
+});
+
 Route::get('fix-course', 'Frontends\HomeController@fixDurationCourse');
 Route::get('fix-video', 'Frontends\HomeController@fixDurationVideo');
 Route::get('fix-will-learn', 'Frontends\HomeController@fixWillLearn');
@@ -25,6 +47,7 @@ Route::get('mailable', function () {
     $order = App\Order::find(9);
     return new App\Mail\OrderCompleted($order, Auth::user() );
 });
+
 
 Route::get('/redirect', 'SocialAuthFacebookController@redirect');
 Route::get('/callback', 'SocialAuthFacebookController@callback');
@@ -85,6 +108,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('request-delete-videos', 'Backends\VideoController@getRequestDeleteVideo');
         Route::get('request-delete-videos/getRequestDeleteVideoAjax', 'Backends\VideoController@getRequestDeleteVideoAjax');
         Route::put('request-delete-videos/reject', 'Backends\VideoController@rejectRequestDeleteVideo');
+        // Route::get('videos-of-course', 'Backends\VideoController@getVideoOfCourse');
         // Route::delete('request-delete-videos/accept', 'Backends\VideoController@acceptRequestDeleteVideo');
 
 
@@ -107,7 +131,13 @@ Route::group(['middleware' => 'auth'], function () {
         // Trinhnk Feature Course
         Route::get('feature-course', 'Backends\CourseController@getFeatureCourse');
         Route::post('feature-course/handling-feature-course', 'Backends\CourseController@handlingFeatureCourseAjax');
-
+        Route::get('feature-teacher', 'Backends\UserController@getFeatureTeacher');
+        Route::post('feature-teacher/handling-feature-teacher', 'Backends\UserController@handlingFeatureTeacherAjax');
+        Route::post('feature-teacher/auto-feature-teacher', 'Backends\UserController@autoFeatureTeacherAjax');
+        Route::get('featured-category', 'Backends\CategoryController@getFeaturedCategory');
+        Route::get('featured-category/get-featured-category-ajax', 'Backends\CategoryController@getFeaturedCategoryAjax');
+        Route::post('featured-category/set-feature-category-ajax', 'Backends\CategoryController@setFeaturedCategoryAjax');
+     
         // Trinhnk Tạo Coupon
         Route::get('create-coupon', 'Backends\HomeController@createCoupon');
         Route::post('add-coupon', 'Backends\HomeController@addCoupon');
@@ -137,10 +167,17 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('users/send-multiple-emails', 'Backends\EmailController@sendMultiple');
         Route::get('users/delete-multiple-emails', 'Backends\EmailController@destroyMultiple');
         
+        Route::post('users/store-teacher', 'Backends\TeacherController@store');
+        Route::put('users/update-teacher', 'Backends\TeacherController@update');
+        Route::put('users/disable-teacher', 'Backends\TeacherController@disable');
+        Route::post('users/store-student', 'Backends\StudentController@store');
+        Route::put('users/update-student', 'Backends\StudentController@update');
+
+        
+        Route::resource('users', 'Backends\UserController');
         Route::put('users/updateSefl', 'Backends\UserController@updateSefl')->name('user.updateSefl');
         Route::post('users/info', 'Backends\UserController@infoRoleUser');
         Route::delete('users/delMultiUser', ['as' => 'delMultiUser', 'uses' => 'Backends\UserController@delMultiUser']);
-        Route::resource('users', 'Backends\UserController');
         Route::post('users/store', 'Backends\UserController@store')->middleware('clearance-ajax');
 
         Route::get('permissions/suggest', 'Backends\PermissionController@suggestSearch')->middleware('clearance-ajax');
@@ -279,7 +316,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::group(['prefix' => 'courses'],function () {
             Route::post('store', 'Backends\CourseController@store');
             Route::put('{id}/update', 'Backends\CourseController@update');
-            Route::delete('delete', 'Backends\CourseController@destroy');
+            Route::post('stop-sell', 'Backends\CourseController@destroy');
+            Route::post('continue-sell', 'Backends\CourseController@continueSell');
         });
 
         Route::group(['prefix' => 'units'],function () {

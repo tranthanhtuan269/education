@@ -6,6 +6,7 @@
 <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.16/api/fnReloadAjax.js"></script>
 <!-- Include the plugin's CSS and JS: -->
 <script type="text/javascript" src="{{ url('/') }}/backend/js/bootstrap-multiselect.js"></script>
+
 <link rel="stylesheet" href="{{ url('/') }}/backend/css/bootstrap-multiselect.css" type="text/css"/>
 
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -32,7 +33,6 @@
                             <th scope="col">Tên</th>
                             <th scope="col">Email</th>
                             <th scope="col">Vai trò</th>
-                            <th scope="col">Ngày tạo</th>
                             <th scope="col">Status</th>
                             <th scope="col">Thao tác</th>
                         </tr>
@@ -45,14 +45,14 @@
                     <p class="action-selected-rows">
                         <span >Hành động trên các hàng đã chọn:</span>
                         <span class="btn btn-info ml-2" id="apply-all-btn">Xóa</span>
-                        <span class="btn btn-info ml-5" data-toggle="modal" data-target="#sendMultipleEmailModal">Send Emails</span>
+                        <span class="btn btn-info ml-5" id="openMultipleEmailModal">Gửi Emails</span>
                     </p>  
                 @endif
             </div>
         </div>
     </div>
     <div id="edit_user_modal" class="modal fade" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
+      <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title font-weight-600">Chỉnh sửa tài khoản</h5>
@@ -61,132 +61,120 @@
             </button>
           </div>
           <div class="modal-body">
-            <div class="form-group row">
-                <label  class="col-sm-4 col-form-label">Tên <span class="text-danger">*</span></label>
-                <div class="col-sm-8">
-                    <input type="hidden" id="userID_upd" value="">
-                    <input type="text" class="form-control" id="userName_upd" value="">
-                    <div id="nameErrorUpd" class="alert-errors d-none" role="alert">
-                      
+                <div class="nav-tabs-custom" style="margin:unset !important; box-shadow: unset !important; ">
+                    <ul class="nav nav-tabs">
+                        <li id="toggle_tab_edit_admin" class="active"><a href="#tab_edit_admin" data-toggle="tab" aria-expanded="true">Sửa người quản trị</a></li>
+                        <li id="toggle_tab_edit_teacher" ><a href="#tab_edit_teacher" data-toggle="tab" aria-expanded="false">Sửa Giảng viên</a></li>
+                        <li id="toggle_tab_edit_student"><a href="#tab_edit_student" data-toggle="tab" aria-expanded="false">Sửa Học Viên</a></li>
+                        <button class="btn bg-olive btn-flat pull-right" id="btnSwitchToTeacher" data-user-id>Chuyển thành giảng viên</button>
+                        <button class="btn bg-red btn-flat pull-right" id="btnSwitchOffTeacher" data-user-id>Khoá giảng viên</button>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab_edit_admin">
+                            @include('backends.user.modals.edit-admin-modal')
+                        </div> 
+                        <div class="tab-pane" id="tab_edit_teacher">
+                            @include('backends.user.modals.edit-teacher-modal')
+                        </div>  
+                        <div class="tab-pane" id="tab_edit_student">
+                            @include('backends.user.modals.edit-student-modal')
+                        </div>                        
                     </div>
                 </div>
-            </div>
-            <div class="form-group row">
-                <label  class="col-sm-4 col-form-label">Email <span class="text-danger">*</span></label>
-                <div class="col-sm-8">
-                    <input type="text" class="form-control" id="userEmail_upd" disabled>
-                    <div id="emailErrorUpd" class="alert-errors d-none" role="alert">
-                      
-                    </div>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-4 col-form-label">Mật khẩu <span class="text-danger">*</span></label>
-                <div class="col-sm-8">
-                    <input type="text" class="form-control" id="userPassword_upd" name="password" value="">
-                    <div id="passwordErrorUpd" class="alert-errors d-none" role="alert">
-                      
-                    </div>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-4 col-form-label">Nhập lại mật khẩu <span class="text-danger">*</span></label>
-                <div class="col-sm-8">
-                    <input type="text" class="form-control" id="passConfirm_upd" name="confirmpassword" value="">
-                    <div id="confirmpasswordErrorUpd" class="alert-errors d-none" role="alert">
-                      
-                    </div>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="userEmail_upd" class="col-sm-4 col-form-label">Vai trò <span class="text-danger">*</span></label>
-                <div class="col-sm-8">
-                    <select id="role-list-ins-edit" multiple="multiple">
-                        @foreach ($roles as $role)
-                            <option disabled value="{{ $role->id }}">{{ $role->name }}ss</option>
-                        @endforeach
-                    </select>
-                    <script>
-                        $(document).ready(function(){
-                            
-                        })
-                    </script>
-                    <div class="alert-errors d-none" role="alert" id="role_idErrorIns"></div>
-                </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" id="saveUser">Cập nhật</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
           </div>
         </div>
       </div>
     </div>
 
     <div id="add_user_modal" class="modal fade" role="dialog">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title font-weight-600">Thêm tài khoản</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title font-weight-600">Thêm tài khoản</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="nav-tabs-custom" style="margin:unset !important; box-shadow: unset !important;">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#tab_add_admin" data-toggle="tab" aria-expanded="true">Thêm người quản trị</a></li>
+                            <li class=""><a href="#tab_add_teacher" data-toggle="tab" aria-expanded="false">Thêm Giảng viên</a></li>
+                            <li class=""><a href="#tab_add_student" data-toggle="tab" aria-expanded="false">Thêm Học Viên</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tab_add_admin">
+                                    <div class="form-group row">
+                                        <label  class="col-sm-4 col-form-label">Tên <span class="text-danger">*</span></label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="userName_Ins" name="name" autocomplete="userName_Ins" value="{{ Request::old('name') }}">
+                                            <div class="alert-errors d-none" role="alert" id="nameErrorIns">
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="userEmail_upd" class="col-sm-4 col-form-label">Email <span class="text-danger">*</span></label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="email_Ins" name="email" autocomplete="email_Ins"  value="{{ Request::old('email') }}">
+                                            <div class="alert-errors d-none" role="alert" id="emailErrorIns">
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="userPassword" class="col-sm-4 col-form-label">Mật khẩu <span class="text-danger">*</span></label>
+                                        <div class="col-sm-8">
+                                            <input type="password" class="form-control" id="password_Ins" name="password" autocomplete="password_Ins" value="{{ Request::old('password') }}">
+                                            <div class="alert-errors d-none" role="alert" id="passwordErrorIns">
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="passConfirm" class="col-sm-4 col-form-label">Nhập lại mật khẩu <span class="text-danger">*</span></label>
+                                        <div class="col-sm-8">
+                                            <input type="password" class="form-control" id="confirmpassword_Ins" name="confirmpassword" autocomplete="confirmpassword_Ins" value="{{ Request::old('confirmpassword') }}">
+                                            <div class="alert-errors d-none" role="alert" id="confirmpasswordErrorIns"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="userEmail_upd" class="col-sm-4 col-form-label">Vai trò <span class="text-danger">*</span></label>
+                                        <div class="col-sm-8">
+                                            <select id="role-list-ins" multiple="multiple">
+                                                @foreach ($roles as $role)
+                                                    @if ($role->id != 2 && $role->id != 3)
+                                                    <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
+                                            <div class="alert-errors d-none" role="alert" id="role_idErrorIns"></div>
+                                        </div>
+                                    </div> 
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary" id="createUser">Thêm mới</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeCreateUser">Hủy bỏ</button>
+                                    </div>        
+                            </div>
+                            <!-- /.tab-pane -->
+                            <div class="tab-pane" id="tab_add_teacher">
+                            @include('backends.user.modals.add-teacher-modal')
+                            </div>
+                            <!-- /.tab-pane -->
+                            <div class="tab-pane" id="tab_add_student">
+                            @include('backends.user.modals.add-student-modal')                            
+                            </div>
+                        <!-- /.tab-pane -->
+                        </div>
+                    <!-- /.tab-content -->
+                    </div>
+                </div>
+                <div style="display:none;" class="modal-footer">
+                </div>          
 
-           <!--  {!! Form::open(['url' => 'user']) !!} -->
-            <div class="form-group row">
-                <label  class="col-sm-4 col-form-label">Tên <span class="text-danger">*</span></label>
-                <div class="col-sm-8">
-                    <input type="text" class="form-control" id="userName_Ins" name="name"  value="{{ Request::old('name') }}">
-                    <div class="alert-errors d-none" role="alert" id="nameErrorIns">
-                        
-                    </div>
-                </div>
             </div>
-            <div class="form-group row">
-                <label for="userEmail_upd" class="col-sm-4 col-form-label">Email <span class="text-danger">*</span></label>
-                <div class="col-sm-8">
-                    <input type="text" class="form-control" id="email_Ins" name="email"  value="{{ Request::old('email') }}">
-                    <div class="alert-errors d-none" role="alert" id="emailErrorIns">
-                        
-                    </div>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="userPassword" class="col-sm-4 col-form-label">Mật khẩu <span class="text-danger">*</span></label>
-                <div class="col-sm-8">
-                    <input type="text" class="form-control" id="password_Ins" name="password" value="{{ Request::old('password') }}">
-                    <div class="alert-errors d-none" role="alert" id="passwordErrorIns">
-                        
-                    </div>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="passConfirm" class="col-sm-4 col-form-label">Nhập lại mật khẩu <span class="text-danger">*</span></label>
-                <div class="col-sm-8">
-                    <input type="text" class="form-control" id="confirmpassword_Ins" name="confirmpassword" value="{{ Request::old('confirmpassword') }}">
-                    <div class="alert-errors d-none" role="alert" id="confirmpasswordErrorIns"></div>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="userEmail_upd" class="col-sm-4 col-form-label">Vai trò <span class="text-danger">*</span></label>
-                <div class="col-sm-8">
-                    <select id="role-list-ins" multiple="multiple">
-                        @foreach ($roles as $role)
-                            <option value="{{ $role->id }}">{{ $role->name }}</option>
-                        @endforeach
-                    </select>
-                    <div class="alert-errors d-none" role="alert" id="role_idErrorIns"></div>
-                </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" id="createUser">Thêm mới</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
-          </div>
+            
         </div>
-      </div>
     </div>
 
     <div class="modal fade" tabindex="-1" role="dialog" id="sendEmailModal">
@@ -197,26 +185,26 @@
                 </div>
                 <div class="modal-body">
                     <div class="row my-4">
-                        <div class="col-md-2">
-                            Recipient :
+                        <div class="col-md-3">
+                            Người gửi :
                         </div>
-                        <div class="col-md-10">
+                        <div class="col-md-9">
                             <span id="recipientName"></span>
                         </div>
                     </div>
                     <div class="row my-4">
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             Email :
                         </div>
-                        <div class="col-md-10">
+                        <div class="col-md-9">
                             <span id="recipientEmail"></span>
                         </div>
                     </div>
                     <div class="row my-4">
-                        <div class="col-md-2">
-                            Email type :
+                        <div class="col-md-3">
+                            Chủ đề :
                         </div>
-                        <div class="col-md-10">
+                        <div class="col-md-9">
                             <select class="form-control" name="emailType" id="selectedTemplate">
                                 @foreach ($emailTemplates as $emailTemplate)
                                 <option value="{{$emailTemplate->id}}">{{$emailTemplate->title}}</option>
@@ -226,7 +214,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary" data-userId id="sendEmail">Send</button>
+                    <button class="btn btn-primary" data-userId id="sendEmail">Gửi</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
                 </div>
             </div>
         </div>
@@ -236,12 +225,12 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4>Send emails for multiple users</h4>
+                    <h4>Gửi email cho nhiều người dùng</h4>
                 </div>
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-2">
-                            Email type :
+                            Chủ đề :
                         </div>
                         <div class="col-md-10">
                             <select class="form-control" name="emailType" id="mulSelectedTemplate">
@@ -253,7 +242,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary" id="sendMultipleEmail">Send</button>                    
+                    <button class="btn btn-primary" id="sendMultipleEmail">Gửi</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
                 </div>
             </div>
         </div>
@@ -270,7 +260,163 @@
     var old_search          = '';
     var errorConnect        = "Please check your internet connection and try again.";
 
+    const imageEdit = document.getElementById('imageEditTch');
+    const cropperEdit = new Cropper(imageEdit, {
+        viewMode: 1,
+        aspectRatio: 1,
+        autoCropArea: 1,
+        scalable: true,
+        zoomable: true,
+        zoomOnTouch: false,
+        cropBoxResizable: false,
+        rotatable: true,
+        dragMode: 'none',
+    });
+
+    const imageEditStu = document.getElementById('imageEditStu');
+    const cropperEditStu = new Cropper(imageEditStu, {
+        viewMode: 1,
+        aspectRatio: 1,
+        autoCropArea: 1,
+        scalable: true,
+        zoomable: true,
+        zoomOnTouch: false,
+        cropBoxResizable: false,
+        rotatable: true,
+        dragMode: 'none',
+        // modal: false,
+    });
+    
+
     $(document).ready(function(){
+        // $("input").attr('autocomplete', "off")
+
+        // DuongNT - Khoá giảng viên
+        $('#btnSwitchOffTeacher').click(function(){
+            var user_id = $(this).attr('data-user-id')
+            Swal.fire({
+                type: 'warning',
+                text: 'Bạn có chắc chắn muốn bỏ chức năng giảng viên của tài khoản này?',
+                showCancelButton: true,
+            }).then((result)=>{
+                if(result.value){
+                    $.ajax({
+                        method: 'POST',
+                        url: `{{ url('/admincp/') }}/users/disable-teacher`,
+                        data:{
+                            '_method': 'PUT',
+                            'user_id' : user_id
+                        },
+                        success: response => {
+                            if(response.status == 200){
+                                Swal.fire({
+                                    type: 'success',
+                                    text: response.message
+                                })
+                                // $('#tab_edit_teacher').hide()
+                                $("#toggle_tab_edit_teacher").show()
+                                $('#toggle_tab_edit_teacher').removeClass('active')
+                                $('#tab_edit_teacher').removeClass('active')
+                                $('#toggle_tab_edit_admin').addClass('active')
+                                $('#tab_edit_admin').addClass('active')
+                                $('#edit_user_modal').modal('hide')
+                                dataTable.ajax.reload();
+
+                            }
+                        },
+                        error: error => {
+                            Swal.fire({
+                                type: 'warning',
+                                text: 'Có lỗi!'
+                            })
+                        }
+                    })
+                }
+            })
+        })
+
+        // DuongNT - Chuyển thành giảng viên
+        $("#btnSwitchToTeacher").click(function(){ 
+            $('#toggle_tab_edit_student').fadeOut()
+            $('#toggle_tab_edit_student').removeClass('active')
+            $('#tab_edit_student').fadeOut()
+            $('#tab_edit_student').removeClass('active')
+
+            $("#toggle_tab_edit_teacher").fadeIn()
+            $('#toggle_tab_edit_teacher').addClass('active')
+            $('#tab_edit_teacher').fadeIn()
+            $('#tab_edit_teacher').addClass('active')
+
+            $('#toggle_tab_edit_admin').removeClass('active')
+            $('#tab_edit_admin').removeClass('active')
+            
+
+            var user_id = $(this).attr('data-user-id')
+            $.ajax({
+                url: baseURL+"/admincp/users/getInfoByID/" + user_id,
+                method: "GET",
+                dataType:'json',
+                success: function (response) {
+                    var html_data = '';
+                    if(response.status == 200){
+                        // $("#userPassword_upd").val(response.user.password);
+                        // $("#passConfirm_upd").val(response.user.password);
+
+                        $("#toggle_tab_edit_teacher").show()
+                        $("#editTchName").val(response.user.name)
+                        $('#editTchEmail').val(response.user.email)
+                        $('#editTchPhone').val(response.user.phone)
+                        $('#editTchDob').datepicker("setDate", new Date(response.user.birthday))
+                        $('#editTchGender').val(response.user.gender)
+                        $('#editTchAddress').val(response.user.address)
+                        $('#saveEditTeacher').attr('data-user-id', response.user.id)
+
+                        cropperEdit.destroy()
+                        $("#imageEditTch").removeClass('cropper-hidden')
+                        $(".cropper-container").hide()
+                        $("#imageEditTch").attr("src", `/frontend/${response.user.avatar}`)
+
+                        // $('#btnSwitchToTeacher').hide()
+                        // $('#btnSwitchOffTeacher').show()
+                        
+                    }else{
+                        Swal.fire({
+                            type: 'warning',
+                            text: response.Message
+                        })
+                        $("#toggle_tab_edit_teacher").hide()
+                    }
+                },
+                error: function (data) {
+                    if(data.status == 401){
+                    window.location.replace(baseURL);
+                    }else{
+                        Swal.fire({
+                            type: 'warning',
+                            text: errorConnect
+                        })
+                    }
+                }
+            });
+        })
+
+        $('#openMultipleEmailModal').click(function(){
+            let isChecked = false
+            $.each($('.check-user'), function (key, value){
+                if($(this).prop('checked') == true) {
+                    isChecked = true;
+                    return $('#sendMultipleEmailModal').modal('show')                    
+                }
+                
+            })
+            if(isChecked == false){
+                return Swal.fire({
+                    type: 'info',
+                    text: 'Bạn chưa chọn tài khoản nào!'
+                })
+            }
+        })
+
         function getRoleList($id){
             var id      = $id;
             $.ajax({
@@ -278,35 +424,15 @@
                 method: "GET",
                 dataType:'html',
                 success: function (response) {
+                    $('#userPassword_upd').val("")
+                    $('#passConfirm_upd').val("")
                     $("#role-list-ins-edit").html(response);
                     
                     $('#role-list-ins-edit').multiselect({
                         includeSelectAllOption: true,
                         includeSelectAllIfMoreThan: 0,
                         numberDisplayed: 2,
-                        enableClickableOptGroups: true,
-                        onInitialized: function(select, container) {
-                            var studentInput = $(container).find('input[value="3"]') // không cho chỉnh sửa student
-                            studentInput.prop('disabled', true)
-                            studentInput.prop('checked', true)                            
-                        },
-                        onChange: function(element, checked){
-                            const role_id = element.attr('value')
-                            if(checked === true){
-                                if(role_id == 1){ //nếu chọn super-admin thì chọn cả teacher và student
-                                    $('#role-list-ins-edit').multiselect('select', ['2', '3'])
-                                }else if(role_id == 2){ //nếu chọn teacher thì chọn cả student
-                                    $('#role-list-ins-edit').multiselect('select', ['3'])
-                                }
-                                      
-                            }else if(checked === false){
-                                if(role_id == 3){ //nếu bỏ chọn student thì bỏ chọn cả teacher
-                                    $('#role-list-ins-edit').multiselect('deselect', ['2'])
-                                }
-                            }else{
-                                $("#role-list-ins-edit").multiselect('select', element.val());
-                            }
-                        }
+                        enableClickableOptGroups: true,                        
                     });
                     $('#role-list-ins-edit').multiselect('rebuild')
                  
@@ -317,13 +443,111 @@
                         success: function (response) {
                             var html_data = '';
                             if(response.status == 200){
-                                $("#userPassword_upd").val(response.user.password);
-                                $("#passConfirm_upd").val(response.user.password);
+                                // $("#userPassword_upd").val(response.user.password);
+                                // $("#passConfirm_upd").val(response.user.password);
+                                $('#btnSwitchOffTeacher').attr('data-user-id', response.user.id)
+                                $('#btnSwitchToTeacher').attr('data-user-id', response.user.id)
+                                $('#editStudent').attr('data-user-id', response.user.id)
+
+                                $('#editStuName').val(response.user.name)
+                                $('#editStuEmail').val(response.user.email)
+                                $('#editStuPhone').val(response.user.phone)
+                                $('#editStuDob').datepicker("setDate", new Date(response.user.birthday))
+                                $('#editStuGender').val(response.user.gender)
+                                $('#editStuAddress').val(response.user.address)
+                                $("#imageEditStu").attr("src", `/frontend/${response.user.avatar}`)
+                                cropperEditStu.destroy()
+                                $("#imageEditStu").removeClass('cropper-hidden')
+                                $(".cropper-container").hide()
+
+                                if(response.isStudent){
+                                    $("#toggle_tab_edit_admin").hide()
+                                    $("#toggle_tab_edit_admin").removeClass('active')
+                                    $('#tab_edit_admin').hide()
+                                    $('#tab_edit_admin').removeClass('active')
+
+                                    // $("#toggle_tab_edit_teacher").hide()
+                                    // $("#toggle_tab_edit_teacher").removeClass('active')
+                                    // $('#tab_edit_teacher').hide()
+                                    // $('#tab_edit_teacher').removeClass('active')
+
+                                    $("#toggle_tab_edit_student").show()
+                                    $("#toggle_tab_edit_student").addClass('active')
+                                    $('#tab_edit_student').show()
+                                    $('#tab_edit_student').addClass('active')
+                                }
+
+
+                                if(response.isTeacher){
+                                    $("#toggle_tab_edit_teacher").show()
+                                    $("#toggle_tab_edit_teacher").addClass('active')
+                                    $('#tab_edit_teacher').show()
+                                    $('#tab_edit_teacher').addClass('active')
+
+
+                                    $("#btnSwitchOffTeacher").show()
+                                    $("#btnSwitchToTeacher").hide()                                    
+                                    $("#toggle_tab_edit_teacher").show()
+                                    $("#editTchName").val(response.user.name)
+                                    $('#editTchEmail').val(response.user.email)
+                                    $('#editTchPhone').val(response.user.phone)
+                                    $('#editTchDob').datepicker("setDate", new Date(response.user.birthday))
+                                    $('#editTchGender').val(response.user.gender)
+                                    $('#editTchAddress').val(response.user.address)
+                                    $('#editTchExpert').val(response.teacher_info.expert)
+                                    $('#editTchYoutube').val(response.teacher_info.video_intro)
+                                    editTchCvEditor.setData(response.teacher_info.cv)
+                                    $('#saveEditTeacher').attr('data-user-id', response.user.id)
+
+                                    cropperEdit.destroy()
+                                    $("#imageEditTch").removeClass('cropper-hidden')
+                                    $(".cropper-container").hide()
+                                    $("#imageEditTch").attr("src", `/frontend/${response.user.avatar}`)
+
+                                    //Ẩn tab student
+                                    $("#toggle_tab_edit_student").hide()
+                                    $("#toggle_tab_edit_student").removeClass('active')
+                                    $('#tab_edit_student').hide()
+                                    $('#tab_edit_student').removeClass('active')
+
+                                }else{
+                                    $("#btnSwitchOffTeacher").hide()
+                                    $("#btnSwitchToTeacher").show()
+
+                                    //Ẩn tab teacher
+                                    $("#toggle_tab_edit_teacher").hide()
+                                    $("#toggle_tab_edit_teacher").removeClass('active')
+                                    $('#tab_edit_teacher').hide()
+                                    $('#tab_edit_teacher').removeClass('active')
+                                }
+
+                                if(!response.isTeacher && !response.isStudent){
+                                    $('#btnSwitchToTeacher').hide()
+                                    $('#btnSwitchOffTeacher').hide()                                    
+
+                                    $("#toggle_tab_edit_admin").show()
+                                    $("#toggle_tab_edit_admin").addClass('active')
+                                    $('#tab_edit_admin').show()
+                                    $('#tab_edit_admin').addClass('active')
+
+                                    $("#toggle_tab_edit_teacher").hide()
+                                    $("#toggle_tab_edit_teacher").removeClass('active')
+                                    $('#tab_edit_teacher').hide()
+                                    $('#tab_edit_teacher').removeClass('active')
+
+                                    $("#toggle_tab_edit_student").hide()
+                                    $("#toggle_tab_edit_student").removeClass('active')
+                                    $('#tab_edit_student').hide()
+                                    $('#tab_edit_student').removeClass('active')
+                                }
+
+                                
                             }else{
                                 Swal.fire({
                                     type: 'warning',
                                     text: response.Message
                                 })
+                                $("#toggle_tab_edit_teacher").hide()
                             }
                         },
                         error: function (data) {
@@ -357,9 +581,11 @@
             numberDisplayed: 2,
             enableClickableOptGroups: true,
             onInitialized: function(select, container) {
-                var studentInput = $(container).find('input[value="3"]') // không cho chỉnh sửa student
+                var studentInput = $(container).find('input[value="3"]')// không cho chỉnh sửa student
+                var teacherInput = $(container).find('input[value="2"]') // không cho chỉnh sửa teacher
                 studentInput.prop('disabled', true)
-                studentInput.prop('checked', true)                            
+                teacherInput.prop('disabled', true)
+                
             },
             onChange: function(element, checked){
                 const role_id = element.attr('value')
@@ -425,9 +651,6 @@
                     return data;
                 },
             },
-            { 
-                data: "created_at",
-            },
             {
                 data: "action",
                 class: "action-field",
@@ -473,14 +696,17 @@
         ];
 
         dataTable = $('#account-table').DataTable( {
-                        serverSide: false,
-                        aaSorting: [],
+                        serverSide: true,
+                        // aaSorting: [],
                         stateSave: false,
+                        search: {
+                            smart: false
+                        },
                         ajax: "{{ url('/') }}/admincp/users/getDataAjax",
                         columns: dataObject,
                         // bLengthChange: false,
                         // pageLength: 10,
-                        order: [[ 4, "desc" ]],
+                        order: [[ 1, "desc" ]],
                         colReorder: {
                             fixedColumnsRight: 1,
                             fixedColumnsLeft: 1
@@ -642,11 +868,18 @@
                                     //     _self.find('i').removeClass('fa-times').addClass('fa-check');
                                     //     _self.addClass('block-user').removeClass('not-block-user');
                                     // }
-
-                                    Swal.fire({
-                                        type: 'success',
-                                        text: response.message
-                                    })
+                                    if (status == 0){
+                                        Swal.fire({
+                                            type: 'success',
+                                            text: "Bạn đã bỏ chặn thành công"
+                                        })
+                                    }
+                                    else {
+                                        Swal.fire({
+                                            type: 'success',
+                                            text:"Bạn đã chặn thành công"
+                                        })
+                                    }
                                 }else{
                                     Swal.fire({
                                         type: 'warning',
@@ -819,15 +1052,29 @@
         $('#saveUser').click(function(){
             var id = $('#userID_upd').val();
             // var name = $('#userName_upd').val();
-            var data    = {
-                // name                : name,
-                name                : $('#userName_upd').val(),
-                email               : $('#userEmail_upd').val(),
-                password            : $('#userPassword_upd').val(),
-                confirmpassword     : $('#passConfirm_upd').val(),
-                role_id             : $('#role-list-ins-edit').val(),
-                _method             : "PUT"
-            };
+            var password = $('#userPassword_upd').val()
+            var confirmpassword = $('#passConfirm_upd').val()
+            console.log(password);
+            
+            var data = {}
+            if(password != ""){
+                data    = {
+                    // name                : name,
+                    name                : $('#userName_upd').val(),
+                    email               : $('#userEmail_upd').val(),
+                    password            : password,
+                    confirmpassword     : confirmpassword,
+                    role_id             : $('#role-list-ins-edit').val(),
+                    _method             : "PUT"
+                };
+            }else{
+                data    = {
+                    name                : $('#userName_upd').val(),
+                    email               : $('#userEmail_upd').val(),
+                    role_id             : $('#role-list-ins-edit').val(),
+                    _method             : "PUT"
+                }
+            }
             $.ajaxSetup({
                 headers: {
                   'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
@@ -880,133 +1127,83 @@
         });
 
         $('#apply-all-btn').click(function (){
-            Swal.fire({
-                type: 'warning',
-                text: 'Bạn có chắc chắn xóa tất cả?',
-                showCancelButton: true,
-            })
-            .then(function (result) {
-                if(result.value){  
-                    var $id_list = '';
-                    $.each($('.check-user'), function (key, value){
-                        if($(this).prop('checked') == true) {
-                            $id_list += $(this).attr("data-column") + ',';
-                        }
-                    });
-
-                    if ($id_list.length > 0) {
-                        var data = {
-                            id_list:$id_list,
-                            _method:'delete'
-                        };
-                        $.ajaxSetup({
-                            headers: {
-                                'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
-                            }
-                        });
-                        $.ajax({
-                            type: "POST",
-                            url: "{{ url('/') }}/admincp/users/delMultiUser",
-                            data: data,
-                            success: function (response) {
-                                var obj = $.parseJSON(response);
-                                if(obj.status == 200){
-                                    $.each($('.check-user'), function (key, value){
-                                        if($(this).prop('checked') == true) {
-                                            $(this).parent().parent().hide("slow");
-                                        }
-                                    });
-                                    dataTable.ajax.reload(); 
-                                    Swal.fire({
-                                        type: 'success',
-                                        text: obj.Message
-                                    })
-                                }
-                            },
-                            error: function (data) {
-                                if(data.status == 401){
-                                    window.location.replace(baseURL);
-                                }else{
-                                    Swal.fire({
-                                        type: 'wa',
-                                        text: errorConnect
-                                    })
-                                }
-                            }
-                        });
-                        
-                    }else{
-                        Swal.fire({
-                            type: 'warning',
-                            text: 'Cần chọn ít nhất 1 tài khoản!'
-                        })
-                    }
+            let isChecked = false;
+            $.each($('.check-user'), function (key, value){
+                if($(this).prop('checked') == true) {
+                    return isChecked = true;
+                    
+                }else{
+                    return Swal.fire({
+                        type: 'info',
+                        text: 'Bạn chưa chọn tài khoản nào!'
+                    })
                 }
-            })
+            });
+            if(isChecked){
+                Swal.fire({
+                    type: 'warning',
+                    text: 'Bạn có chắc chắn xóa tất cả những gì bạn chọn?',
+                    showCancelButton: true,
+                })
+                .then(function (result) {
+                    if(result.value){  
+                        var $id_list = '';
+                        $.each($('.check-user'), function (key, value){
+                            if($(this).prop('checked') == true) {
+                                $id_list += $(this).attr("data-column") + ',';
+                            }
+                        });
 
-
-            // $.ajsrConfirm({
-            //     // message: "Bạn có chắc chắn muốn xóa ?",
-            //     // okButton: "Đồng ý",
-            //     onConfirm: function() {
-            //         var $id_list = '';
-            //         $.each($('.check-user'), function (key, value){
-            //             if($(this).prop('checked') == true) {
-            //                 $id_list += $(this).attr("data-column") + ',';
-            //             }
-            //         });
-
-            //         if ($id_list.length > 0) {
-            //             var data = {
-            //                 id_list:$id_list,
-            //                 _method:'delete'
-            //             };
-            //             $.ajaxSetup({
-            //                 headers: {
-            //                     'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
-            //                 }
-            //             });
-            //             $.ajax({
-            //                 type: "POST",
-            //                 url: "{{ url('/') }}/admincp/users/delMultiUser",
-            //                 data: data,
-            //                 success: function (response) {
-            //                     var obj = $.parseJSON(response);
-            //                     if(obj.status == 200){
-            //                         $.each($('.check-user'), function (key, value){
-            //                             if($(this).prop('checked') == true) {
-            //                                 $(this).parent().parent().hide("slow");
-            //                             }
-            //                         });
-            //                         dataTable.ajax.reload(); 
-            //                         Swal.fire({
-            //                             type: 'success',
-            //                             text: obj.Message
-            //                         })
-            //                     }
-            //                 },
-            //                 error: function (data) {
-            //                     if(data.status == 401){
-            //                         window.location.replace(baseURL);
-            //                     }else{
-            //                         Swal.fire({
-            //                             type: 'wa',
-            //                             text: errorConnect
-            //                         })
-            //                     }
-            //                 }
-            //             });
-                        
-            //         }else{
-            //             Swal.fire({
-            //                 type: 'warning',
-            //                 text: 'Cần chọn ít nhất 1 tài khoản!'
-            //             })
-            //         }
-            //     },
-            //     nineCorners: false,
-            // });
-
+                        if ($id_list.length > 0) {
+                            var data = {
+                                id_list:$id_list,
+                                _method:'delete'
+                            };
+                            $.ajaxSetup({
+                                headers: {
+                                    'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
+                                }
+                            });
+                            $.ajax({
+                                type: "POST",
+                                url: "{{ url('/') }}/admincp/users/delMultiUser",
+                                data: data,
+                                success: function (response) {
+                                    var obj = $.parseJSON(response);
+                                    if(obj.status == 200){
+                                        $.each($('.check-user'), function (key, value){
+                                            if($(this).prop('checked') == true) {
+                                                $(this).parent().parent().hide("slow");
+                                            }
+                                        });
+                                        dataTable.ajax.reload(); 
+                                        Swal.fire({
+                                            type: 'success',
+                                            text: obj.Message
+                                        })
+                                    }
+                                },
+                                error: function (data) {
+                                    if(data.status == 401){
+                                        window.location.replace(baseURL);
+                                    }else{
+                                        Swal.fire({
+                                            type: 'wa',
+                                            text: errorConnect
+                                        })
+                                    }
+                                }
+                            });
+                            
+                        }else{
+                            Swal.fire({
+                                type: 'warning',
+                                text: 'Cần chọn ít nhất 1 tài khoản!'
+                            })
+                        }
+                    }
+                })
+            }
         });
 
         $('#createUser').click(function(){
@@ -1067,6 +1264,7 @@
             $('#confirmpassword_Ins').val('')
             $('select[name=role_id]').val(1)
             $('.alert-errors').addClass("d-none")
+            
         }
         
         // $('#search_txt').keyup(function() {
@@ -1090,6 +1288,17 @@
 
         $('#add_user_modal').on('hidden.bs.modal', function () {
             clearFormCreate();
+        })
+
+        $('#closeCreateUser').click(function(){
+            $('option', $('#role-list-ins')).each(function(element) {
+                if($(this).attr('value') != 3){
+                    $(this).removeAttr('selected').prop('selected', false);
+                }else{
+                    $(this).prop('disabled', true)
+                }
+            });
+            $('#role-list-ins').multiselect('refresh');
         })
         
     });

@@ -15,6 +15,7 @@ use App\Document;
 use Illuminate\Http\Request;
 use App\Helper\Helper;
 use App\Jobs\ProcessLecture;
+use DB;
 
 class VideoController extends Controller
 {
@@ -385,29 +386,44 @@ class VideoController extends Controller
         ]);
     }
 
-    // Verify Video
     public function getVideo()
     {
+        if( isset($_GET['course_id']) ){
+            return view('backends.videos.videoOfCourse');
+        }
         return view('backends.videos.video');
     }
 
     public function getVideoAjax()
     {
-        // $videos = Video::get();
-        $videos = Video::whereIn('state',[0,1,3])->get();
-        return datatables()->collection($videos)
-            ->addColumn('course_name', function ($video) {
-                return $video->Unit->course->name;
-            })
-            // ->addColumn('teacherName', function ($video) {
-            //     return $video->unit->course->Lecturers()->first()->user->name;
-            // })
+        if( isset($_GET['course_id']) ){
+            $course_id = $_GET['course_id'];
+            $sql = "
+            SELECT videos.id, videos.name as name, videos.link_video as link_video, videos.updated_at as updated_at, courses.name as course_name, courses.id as course_id
+            FROM courses
+            JOIN units ON units.course_id = courses.id
+            JOIN videos ON videos.unit_id = units.id
+            WHERE courses.id IN (".$course_id.")
+            ";
+            $videos = \DB::select($sql);
+            return datatables()->collection(collect($videos))
+                ->addColumn('action', function ($video) {
+                    return $video->id;
+                })
+                ->removeColumn('id')->make(true);
+        }
+        $sql = "
+        SELECT videos.id, videos.name as name, videos.link_video as link_video, videos.updated_at as updated_at, courses.name as course_name
+        FROM videos
+        JOIN units ON units.id = videos.unit_id
+        JOIN courses ON courses.id = units.course_id
+        WHERE videos.state IN (0,1,3)
+        ";
+        $videos = \DB::select($sql);
+        return datatables()->collection(collect($videos))
             ->addColumn('action', function ($video) {
                 return $video->id;
             })
-        // ->addColumn('rows', function ($video) {
-        //     return $video->id;
-        // })
             ->removeColumn('id')->make(true);
     }
 
@@ -506,11 +522,13 @@ class VideoController extends Controller
                 exec('rm /usr/local/WowzaStreamingEngine-4.7.7/content/360/'.$video->link_video);
                 exec('rm /usr/local/WowzaStreamingEngine-4.7.7/content/480/'.$video->link_video);
                 exec('rm /usr/local/WowzaStreamingEngine-4.7.7/content/720/'.$video->link_video);
-
+                    // dd($video->link_video);
                 $path_video_origin = public_path('/uploads/videos/').$video->link_video;
-                if(\File::exists($path_video_origin)){
-                    unlink($path_video_origin);
-                }    
+                if( isset($video->link_video) ){
+                    if(\File::exists($path_video_origin)){
+                        unlink($path_video_origin);
+                    }    
+                }
 
                 $video->delete();
                 $res = array('status' => "200", "message" => "Xóa thành công");

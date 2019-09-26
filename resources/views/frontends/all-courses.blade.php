@@ -14,7 +14,7 @@
                 </div>
                 <div class="pull-right">
                     <ul class="nav nav-tabs">
-                        <li class="active" data-title="Các khóa học bán chạy"><a data-toggle="tab" href="#best-seller">Bán chạy</a></li>
+                        <li class="active" data-title="Các khoá học bán chạy"><a data-toggle="tab" href="#best-seller">Bán chạy</a></li>
                         <li data-title="Các khóa học mới nhất"><a data-toggle="tab" href="#menu1">Mới nhất</a></li>
                         <li data-title="Các khóa học thịnh hành"><a data-toggle="tab" href="#menu2">Thịnh hành</a></li>
                     </ul>
@@ -70,7 +70,7 @@
                         <div class="row">
                         @endif
                             <?php
-                                $lecturers = count($new->Lecturers()) > 1 ? 'Nhiều tác giả' : count($new->Lecturers()) > 0 ? ($new->Lecturers()[0]->user ? $new->Lecturers()[0]->user->name : "Courdemy") : "Courdemy";
+                                // $lecturers = count($new->Lecturers()) > 1 ? 'Nhiều tác giả' : count($new->Lecturers()) > 0 ? ($new->Lecturers()[0]->user ? $new->Lecturers()[0]->user->name : "Courdemy") : "Courdemy";
                             ?>
                             @include(
                                 'components.course', 
@@ -103,7 +103,7 @@
                             <div class="row">
                             @endif
                                 <?php
-                                    $lecturers = count($feature->Lecturers()) > 1 ? 'Nhiều tác giả' : count($feature->Lecturers()) > 0 ? ($feature->Lecturers()[0]->user ? $feature->Lecturers()[0]->user->name : "Courdemy" ) : "Courdemy"; 
+                                    // $lecturers = count($feature->Lecturers()) > 1 ? 'Nhiều tác giả' : count($feature->Lecturers()) > 0 ? ($feature->Lecturers()[0]->user ? $feature->Lecturers()[0]->user->name : "Courdemy" ) : "Courdemy"; 
                                 ?>
                                 @include(
                                     'components.course', 

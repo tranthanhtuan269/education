@@ -60,7 +60,9 @@
                                         {{-- <span class="interval">Còn {{ $date_to->diff($date_from)->format("%d") }} ngày tại mức giá này </span> --}}
                                     </div>
                                     <div class="col-sm-6">
+                                        @if( $info_course->price != 0 && $info_course->real_price != 0 )
                                         <span class="percent-price-off pull-right">Tiết kiệm {{ (int)(100 - ($info_course->price/$info_course->real_price)*100) }}%</span>
+                                        @endif
                                     </div>
                                     @else
                                     <div class="col-sm-6 pull-left">
@@ -75,7 +77,7 @@
                                     </div>
                                     <div class="col-xs-6 full-width-mobile pb-10px">
                                         <span class="box-img"><img src="{{ asset('frontend/images/ic_download.png') }}" class="icon" alt="" /></span>
-                                        <span class="special">{{ $info_course->downloadable_count	 }} Tài liệu đính kèm</span>
+                                        <span class="special">{{ $document_count }} Tài liệu đính kèm</span>
                                         
                                     </div>
                                 </div>
@@ -126,23 +128,27 @@
                                     </div>
                                 </div>
                                 @if (Auth::check())
-                                    @if( (int)($info_course->userRoles[0]->user_id) != (int)(Auth::user()->id) )
-                                        @if (!in_array($info_course->id, $list_bought))
-                                        <div class="box clearfix">
-                                            <div class="btn-add-cart">
-                                                <button type="button" id="add-cart" data-id="{{ $info_course->id }}" class="btn btn-primary btn-toh"><b>Thêm vào giỏ hàng</b></button>
-                                            </div>
-                                            <div class="btn-buy-now">
-                                                <button type="button" id="buy-now" data-id="{{ $info_course->id }}" class="btn btn-warning btn-toh"><b>Mua ngay</b></button>
-                                            </div>
-                                        </div>
-                                        <div class="box clearfix">
-                                            <div class="pull-left money-back">
-                                                (Hoàn tiền trong 30 ngày nếu không hài lòng)
-                                            </div>
-                                        </div>
+                                    @if (!Auth::user()->isAdmin())
+                                        @if(isset($info_course->userRoles[0]->user_id))
+                                            @if( (int)($info_course->userRoles[0]->user_id) != (int)(Auth::user()->id) )
+                                                @if (!in_array($info_course->id, $list_bought))
+                                                <div class="box clearfix">
+                                                    <div class="btn-add-cart">
+                                                        <button type="button" id="add-cart" data-id="{{ $info_course->id }}" class="btn btn-primary btn-toh"><b>Thêm vào giỏ hàng</b></button>
+                                                    </div>
+                                                    <div class="btn-buy-now">
+                                                        <button type="button" id="buy-now" data-id="{{ $info_course->id }}" class="btn btn-warning btn-toh"><b>Mua ngay</b></button>
+                                                    </div>
+                                                </div>
+                                                <div class="box clearfix">
+                                                    <div class="pull-left money-back">
+                                                        (Hoàn tiền trong 30 ngày nếu không hài lòng)
+                                                    </div>
+                                                </div>
+                                                @endif
+                                            @endif   
                                         @endif
-                                    @endif                                    
+                                    @endif
                                 @else
                                     <div class="box clearfix">
                                         <div class="btn-add-cart">
@@ -266,29 +272,24 @@
                             <li>
                                 <img src="{{ asset('frontend/images/features_online.png') }}" alt="" /> 
                                 <span class="txt-large">100% trực tuyến</span>
-                                {{-- <span class="txt-small">Content comming soon...</span> --}}
                             </li>
                             <li>
                                 <img src="{{ asset('frontend/images/features_deadline.png') }}" alt="" /> 
                                 <span class="txt-large">Thời gian học linh hoạt</span>
-                                {{-- <span class="txt-small">Content comming soon...</span> --}}
                             </li>
                             <li>
                                 <img src="{{ asset('frontend/images/features_level.png') }}" alt="" /> 
                                 <span class="txt-large">Cho người mới học</span>
-                                {{-- <span class="txt-small">Content comming soon...</span> --}}
                             </li>
                             @if ($info_course->approx_time != '')
                             <li>
                                 <img src="{{ asset('frontend/images/features_hour.png') }}" alt="" /> 
                                 <span class="txt-large">Khoảng {{ $info_course->approx_time }} giờ để hoàn thành</span>
-                                {{-- <span class="txt-small">Content comming soon...</span> --}}
                             </li>
                             @endif
                             <li>
                                 <img src="{{ asset('frontend/images/features_subtitle.png') }}" alt="" /> 
                                 <span class="txt-large">Tiếng Việt</span>
-                                {{-- <span class="txt-small">Content comming soon...</span> --}}
                             </li>
                         </ul>
                         <div class="info-course-sidebar hidden-md hidden-xs" style="position: relative;">
@@ -316,7 +317,9 @@
                                             {{-- <span class="interval">Còn {{ $date_to->diff($date_from)->format("%d") }} ngày tại mức giá này </span> --}}
                                         </div>
                                         <div class="col-sm-6">
+                                            @if( $info_course->price != 0 && $info_course->real_price != 0 )
                                             <span class="percent-price-off pull-right">-{{ (int)(100 - ($info_course->price/$info_course->real_price)*100) }}%</span>
+                                            @endif
                                         </div>
                                         @else
                                         <div class="col-sm-6 pull-left">
@@ -326,30 +329,34 @@
                                     </div>
                                     <div class="button-class clearfix">
                                         @if (Auth::check())
-                                            @if( (int)($info_course->userRoles[0]->user_id) == (int)(Auth::user()->id) )
-                                                <div class="sidebar-add-cart">
-                                                    <button type="button" id="add-cart2" class="btn btn-primary button-add-to-cart" disabled><b>Đây là khóa học của bạn</b></button>
-                                                </div>
-                                                <div class="sidebar-buy-now">
-                                                    <a href="/list-course?type=best-seller" class="btn btn-warning" style="width: 90%;padding: 10px 0;margin-top: 10px;text-transform: uppercase;"><b>Xem các khóa học khác</b></a>
-                                                </div>
-                                            @else 
-                                                @if (!in_array($info_course->id, $list_bought))
+                                            @if (!Auth::user()->isAdmin())
+                                            @if(isset($info_course->userRoles[0]->user_id))
+                                                @if( (int)($info_course->userRoles[0]->user_id) == (int)(Auth::user()->id) )
                                                     <div class="sidebar-add-cart">
-                                                        <button type="button" id="{{ $info_course->id }}" class="btn btn-primary button-add-to-cart"><b>Thêm vào giỏ hàng</b></button>
-                                                    </div>
-                                                    <div class="sidebar-buy-now">
-                                                        <button type="button" id="buy-now2" class="btn btn-warning"><b>Mua ngay</b></button>
-                                                    </div>
-                                                @else
-                                                    <div class="sidebar-add-cart">
-                                                        <button type="button" id="add-cart2" class="btn btn-primary button-add-to-cart" disabled><b>Bạn đã mua khóa học này</b></button>
+                                                        <button type="button" id="add-cart2" class="btn btn-primary button-add-to-cart" disabled><b>Đây là khóa học của bạn</b></button>
                                                     </div>
                                                     <div class="sidebar-buy-now">
                                                         <a href="/list-course?type=best-seller" class="btn btn-warning" style="width: 90%;padding: 10px 0;margin-top: 10px;text-transform: uppercase;"><b>Xem các khóa học khác</b></a>
                                                     </div>
+                                                @else 
+                                                    @if (!in_array($info_course->id, $list_bought))
+                                                        <div class="sidebar-add-cart">
+                                                            <button type="button" id="{{ $info_course->id }}" class="btn btn-primary button-add-to-cart"><b>Thêm vào giỏ hàng</b></button>
+                                                        </div>
+                                                        <div class="sidebar-buy-now">
+                                                            <button type="button" id="buy-now2" class="btn btn-warning"><b>Mua ngay</b></button>
+                                                        </div>
+                                                    @else
+                                                        <div class="sidebar-add-cart">
+                                                            <button type="button" id="add-cart2" class="btn btn-primary button-add-to-cart" disabled><b>Bạn đã mua khóa học này</b></button>
+                                                        </div>
+                                                        <div class="sidebar-buy-now">
+                                                            <a href="/list-course?type=best-seller" class="btn btn-warning" style="width: 90%;padding: 10px 0;margin-top: 10px;text-transform: uppercase;"><b>Xem các khóa học khác</b></a>
+                                                        </div>
+                                                    @endif
                                                 @endif
-                                            @endif                                            
+                                            @endif
+                                            @endif
                                         @else
                                             <div class="sidebar-add-cart">
                                                 <button type="button" id="{{ $info_course->id }}" class="btn btn-primary button-add-to-cart"><b>Thêm vào giỏ hàng</b></button>
@@ -572,9 +579,10 @@
                 </div>
             </div>
             <div class="reviews"  id="">
-                <h3>Nhận xét của học viên
+                <h3>Đánh giá khóa học
                     {{-- @if(Auth::check()) --}}
                         @if(\App\Helper\Helper::getUserRoleOfCourse($info_course->id))
+                        @if(isset($info_course->userRoles[0]->user_id))
                             @if( (int)($info_course->userRoles[0]->user_id) != (int)(Auth::user()->id) )
                                 <span class="reviews-star" data-star="{{ isset($ratingCourse) ? $ratingCourse->score : 0 }}">
                                     @if($ratingCourse)
@@ -594,16 +602,18 @@
                                 </span>
                             @endif
                         @endif
+                        @endif
                     {{-- @else
                     Đăng nhập để xem nhận xét của các học viên khác
                     @endif --}}
                 </h3>
                 {{-- @if(Auth::check()) --}}
                 @if(\App\Helper\Helper::getUserRoleOfCourse($info_course->id))
+                @if(isset($info_course->userRoles[0]->user_id))
                     @if( (int)($info_course->userRoles[0]->user_id) != (int)(Auth::user()->id) )
                         <textarea name="content" id="editor" class="form-control" placeholder="Nội dung"></textarea>
                         <div class="btn-submit text-center mt-10 mb-20">
-                            <input class="btn btn-primary submit-question" type="submit" value="Gửi nhận xét" id="create-comment-new"/>
+                            <input class="btn btn-primary submit-question" type="submit" value="Gửi đánh giá" id="create-comment-new"/>
                         </div>
                         <script>
                             var baseURL = $('base').attr('href');
@@ -656,7 +666,7 @@
 
                             $('#create-comment-new').on('click', function (e) {
                                 var score = $('.reviews-star').attr('data-star');
-                                if($('#editor').val() == ''){
+                                if($('#editor').val().trim() == ''){
                                     Swal.fire({
                                         type: 'warning',
                                         html: 'Bạn chưa nhập nhận xét.',
@@ -677,7 +687,7 @@
                                     method: "POST",
                                     data: {
                                         course_id: {{ $info_course->id }},
-                                        content : $('#editor').val(),
+                                        content : $('#editor').val().trim(),
                                         score: score
                                     },
                                     dataType: "json"
@@ -762,6 +772,7 @@
                         </script>
                     @endif
                 @endif
+                @endif
                 {{-- @else
                 <h4>Đăng nhập để xem đánh giá</h4>
                 @endif --}}
@@ -779,8 +790,11 @@
                 <button type="button" class="btn">Xem thêm</button>
             </div>
             @endif
+            <div class="facebook-comment">
+                <h3>Thảo luận</h3>
+                <div class="fb-comments" data-href="http://timtruyen.online/course/{{$info_course->slug}}" data-width="700" data-numposts="5"></div>
+            </div>
         </div>
-        <div class="fb-comments" data-href="http://timtruyen.online/course/{{$info_course->slug}}" data-width="700" data-numposts="5"></div>
     </div>
     <div class="related-course">
         <div class="container">
@@ -788,6 +802,7 @@
         </div>
     </div>
     @if (Auth::check())
+    @if(isset($info_course->userRoles[0]->user_id))
         @if( (int)($info_course->userRoles[0]->user_id) != (int)(Auth::user()->id) )
             <div class="interactive-bar" data-i="{{ $info_course->id }}">
                 <div class="row">
@@ -801,6 +816,7 @@
                             @endforeach
                         </div>
                     </div>
+                    @if (!Auth::user()->isAdmin())
                     @if (!in_array($info_course->id, $list_bought))
                     <div class="buttons col-xs-12 col-md-4 col-sm-5">
                         <div class="group-btn-buy-course">
@@ -809,11 +825,13 @@
                         </div>
                     </div>
                     @endif
+                    @endif
                 </div>
             </div>
         @endif
+    @endif
     @else
-    <div class="interactive-bar" data-i="{{ $info_course->id }}">
+        <div class="interactive-bar" data-i="{{ $info_course->id }}">
             <div class="row">
                 <div class="info col-xs-12 col-md-8 col-sm-7">
                     <div class="title">
@@ -825,14 +843,12 @@
                         @endforeach
                     </div>
                 </div>
-                {{-- @if (!in_array($info_course->id, $list_bought)) --}}
                 <div class="buttons col-xs-12 col-md-4 col-sm-5">
                     <div class="group-btn-buy-course">
                         <button class="btn btn-primary">Thêm vào giỏ hàng</button>
                         <button class="btn btn-warning">Mua ngay</button>
                     </div>
                 </div>
-                {{-- @endif --}}
             </div>
         </div>
     @endif
@@ -853,7 +869,7 @@
     </script>
 </div>
 <script type="text/javascript">
-    
+    var user_id = $('button[id=cartUserId]').attr('data-user-id')
     $(document).ready(function() { 
 
         $(".interactive-bar .buttons button:first-child").click(function(){
@@ -887,17 +903,17 @@
         //         'real_price' : {!! $info_course->real_price !!},
         //     }
 
-        //     if (localStorage.getItem("cart") != null) {
-        //         var list_item = JSON.parse(localStorage.getItem("cart"));
+        //     if (localStorage.getItem('cart'+user_id) != null) {
+        //         var list_item = JSON.parse(localStorage.getItem('cart'+user_id));
         //         addItem(list_item, item);
-        //         localStorage.setItem("cart", JSON.stringify(list_item));
+        //         localStorage.setItem('cart'+user_id, JSON.stringify(list_item));
         //     }else{
         //         var list_item = [];
         //         addItem(list_item, item);
-        //         localStorage.setItem("cart", JSON.stringify(list_item));
+        //         localStorage.setItem('cart'+user_id, JSON.stringify(list_item));
         //     }
 
-        //     var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
+        //     var number_items_in_cart = JSON.parse(localStorage.getItem('cart'+user_id))
         //         // alert(number_items_in_cart.length)
         //     $('.number-in-cart').text(number_items_in_cart.length);
         // }
@@ -994,7 +1010,7 @@
         $('.create-reply-btn').on('click', function (e) {
             var comment_id = $(this).attr('data-id');
             var baseURL = $('base').attr('href');
-            if($("#reply-" + comment_id).val() == ''){
+            if($("#reply-" + comment_id).val().trim() == ''){
                 Swal.fire({
                     type: 'warning',
                     html: 'Bạn chưa nhập nội dung trả lời.',
@@ -1067,7 +1083,7 @@
                 type: 'success',
                 text: 'Đã thêm vào giỏ hàng!'
             })
-            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
+            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'+user_id))
             $('.number-in-cart').text(number_items_in_cart.length)
             $('.unica-sl-cart').css('display', 'block')
             $.each( number_items_in_cart, function(i, obj) {
@@ -1095,20 +1111,21 @@
             $(".btn-buy-now button").remove()
             $('.interactive-bar').remove()
 
-            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
+            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'+user_id))
             $('.number-in-cart').text(number_items_in_cart.length);
             $('.unica-sl-cart').css('display', 'block')
             
         })
 
-        if(localStorage.getItem('cart') != null){
-            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
+        if(localStorage.getItem('cart'+user_id) != null){
+            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'+user_id))
 
             $.each( number_items_in_cart, function(i, obj) {
-                $('.btn-add-cart button[data-id='+obj.id+']').remove();
-                $('.interactive-bar[data-i='+obj.id+']').remove();
+                $('.btn-buy-now button[data-id='+obj.id+']').remove()
+                $('.btn-add-cart button[data-id='+obj.id+']').remove()
+                $('.interactive-bar[data-i='+obj.id+']').remove()
 
-                $('.sidebar-add-cart button[id='+obj.id+']').html('<b>Đã thêm vào giỏ hàng</b>');
+                $('.sidebar-add-cart button[id='+obj.id+']').html('<b>Đã thêm vào giỏ hàng</b>')
                 $('.sidebar-add-cart button[id='+obj.id+']').attr('disabled', true)
                 
             });
@@ -1129,8 +1146,8 @@
         course_id = Number(course_id)
         var check = true
         
-        if(localStorage.getItem('cart') != null){
-            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
+        if(localStorage.getItem('cart'+user_id) != null){
+            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'+user_id))
 
             $.each( number_items_in_cart, function(i, obj) {
                 if( course_id == Number(obj.id) ){
@@ -1155,17 +1172,17 @@
                 'coupon_code' : '',
             }
     
-            if (localStorage.getItem("cart") != null) {
-                var list_item = JSON.parse(localStorage.getItem("cart"));
+            if (localStorage.getItem('cart'+user_id) != null) {
+                var list_item = JSON.parse(localStorage.getItem('cart'+user_id));
                 addItem(list_item, item);
-                localStorage.setItem("cart", JSON.stringify(list_item));
+                localStorage.setItem('cart'+user_id, JSON.stringify(list_item));
             }else{
                 var list_item = [];
                 addItem(list_item, item);
-                localStorage.setItem("cart", JSON.stringify(list_item));
+                localStorage.setItem('cart'+user_id, JSON.stringify(list_item));
             }
     
-            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
+            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'+user_id))
             $('.number-in-cart').text(number_items_in_cart.length);
         }
     }

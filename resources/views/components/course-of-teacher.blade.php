@@ -3,8 +3,6 @@
     if(Auth::check() && strlen(Auth::user()->bought) > 0){
         $list_bought = \json_decode(Auth::user()->bought);
     }
-    // dd($course->userRoles[0]->user_id)
-    // dd(Auth::user()->id)
 ?>
 
 <div class="ubc-course">
@@ -25,26 +23,44 @@
         </ul>
         <?php 
             $will_learn = $course->will_learn;
-            if(count(explode("</li>", $will_learn)) > 3){
-                $will_learn = explode("</li>", $will_learn);
-                $will_learn = $will_learn[0]."</li>".$will_learn[1]."</li>".$will_learn[2]."</li>".$will_learn[3]."<li>...</li>";
+            $will_learn = str_replace('<li>','<br>',$will_learn);
+            $will_learn = str_replace('<p>','<br>',$will_learn);
+            $will_learn = explode("<br>", $will_learn);
+            $counter_w = count($will_learn);
+            for( $i = 0 ; $i < $counter_w ; $i++){
+                $will_learn[$i] = trim($will_learn[$i]);
+                $will_learn[$i] = strip_tags($will_learn[$i]);
             }
+            $will_learn = array_filter($will_learn);
+            $number_w = 0;
         ?>
         <div class="clearfix course-des-{{$course->id}}">
             <div class="row">
                 <div class="col-sm-12 big-des">
-                    {!! $will_learn !!}
+                    <ul style="list-style: none">
+                        @for( $i = 0 ; $i < $counter_w ; $i++)
+                            @if(isset($will_learn[$i]))
+                                <li><span><i class="fa fa-chevron-right fa-fw" aria-hidden="true"></i></span>{!!$will_learn[$i]!!}</li>
+                                <?php $number_w++ ?>
+                                @if( $number_w == 4 )
+                                    <li><span><i class="fa fa-chevron-right fa-fw" aria-hidden="true"></i></span>...</li>
+                                    @break
+                                @endif
+                            @endif
+                        @endfor
+                    </ul>
                 </div>
             </div>
         </div>
-        <script>
-            $(document).ready(function (){
-                $('.course-des-{{$course->id}} .row li').prepend('<i class="fa fa-chevron-right fa-fw" aria-hidden="true"></i>')
-            })
-        </script>
     </div>
     <div class="lp-bc-price">
-        <p class="price-b">{!! number_format($course->price, 0, ',' , '.') !!}<sup>₫</sup></p>
+        <p class="price-b" style="float:none">
+            {{-- @if ( gettype($course->price) == 'integer' ) --}}
+                {!! number_format($course->price, 0, ',' , '.') !!}<sup>₫</sup>
+            {{-- @else
+                {!!$course->price!!}
+            @endif --}}
+        </p>
         @if($course->real_price != $course->price && $course->real_price != 0)
         <p class="price-s">{!! number_format($course->real_price, 0, ',' , '.') !!}<sup>₫</sup></p>
         <p class="price-o">Tiết kiệm {{(int)(100 - ($course->price/$course->real_price)*100)}}%</p>
@@ -52,82 +68,77 @@
 
         <div class="teacher-course">
             @if (Auth::check())
-                @if( (int)($course->userRoles[0]->user_id) == (int)(Auth::user()->id) )
-                    <div id="add-cart" class="btn btn-primary" disabled><b>ĐÂY LÀ KHÓA HỌC CỦA BẠN</b></div>
-                @else
-                    @if (in_array($course->id, $list_bought))
-                        <div id="add-cart" class="btn btn-primary" disabled><b>BẠN ĐÃ MUA KHÓA HỌC NÀY</b></div>
+                @if (!Auth::user()->isAdmin())
+                    @if( (int)($course->userRoles[0]->user_id) == (int)(Auth::user()->id) )
+                        <button id="addCart{{ $course->id }}" class="btn btn-primary" disabled><b>ĐÂY LÀ KHÓA HỌC CỦA BẠN</b></button>
                     @else
-                        <div id="add-cart" data-id="{{ $course->id }}" class="btn btn-primary"><b>THÊM VÀO GIỎ HÀNG</b></div>
-                    @endif
-                @endif     
+                        @if (in_array($course->id, $list_bought))
+                            <button id="addCart{{ $course->id }}" class="btn btn-primary" disabled><b>BẠN ĐÃ MUA KHÓA HỌC NÀY</b></button>
+                        @else
+                            <button id="addCart{{ $course->id }}" data-id="{{ $course->id }}" class="btn btn-primary"><b>THÊM VÀO GIỎ HÀNG</b></button>
+                        @endif
+                    @endif     
+                @endif
             @else
-            <div id="add-cart" data-id="{{ $course->id }}" class="btn btn-primary"><b>THÊM VÀO GIỎ HÀNG</b></div>
+                <button id="addCart{{ $course->id }}" data-id="{{ $course->id }}" class="btn btn-primary"><b>THÊM VÀO GIỎ HÀNG</b></button>
             @endif
         </div>
     </div>
 </div>
 
 <script>
+    var user_id = $('button[id=cartUserId]').attr('data-user-id')
     var course_id = Number( {{ $course->id }} )
     jQuery(function () {
-        $(".teacher-course #add-cart").click( function(e){
-            e.stopPropagation()
-            e.preventDefault()
+        $("#addCart{{ $course->id }}").click( function(){
 
             $(this).html('<b>ĐÃ THÊM VÀO GIỎ HÀNG</b>').attr('disabled', true)
             
-            addCart();
+            // addCart();
+            var item = {
+                'id' : {{ $course->id }},
+                'image' : '{!! $course->image !!}',
+                'slug' : '{!! $course->slug !!}',                
+                @if(count($course->Lecturers()) > 0)
+                'lecturer' : "{!! $course->Lecturers()[0]->user->name !!}",
+                @else
+                'lecturer' : 'Nhiều giảng viên',
+                @endif
+                'name' : "{!! $course->name !!}",
+                'price' : {!! $course->price !!},
+                'real_price' : {!! $course->real_price !!},
+                'coupon_price' : {!! $course->price !!},
+                'coupon_code' : '',
+            }
+
+            if (localStorage.getItem('cart'+user_id) != null) {
+                var list_item = JSON.parse(localStorage.getItem('cart'+user_id));
+                addItem(list_item, item);
+                localStorage.setItem('cart'+user_id, JSON.stringify(list_item));
+            }else{
+                var list_item = [];
+                addItem(list_item, item);
+                localStorage.setItem('cart'+user_id, JSON.stringify(list_item));
+            }
+
+            // var number_items_in_cart = JSON.parse(localStorage.getItem('cart'+user_id))
+            // $('.number-in-cart').text(number_items_in_cart.length);
+
             Swal.fire({
                 type: 'success',
                 text: 'Đã thêm vào giỏ hàng!'
             })
-            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'));
+            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'+user_id));
             $('.number-in-cart').text(number_items_in_cart.length);
             $('.unica-sl-cart').css('display', 'block')
-            // console.log(number_items_in_cart.length)
         })
 
-        if(localStorage.getItem('cart') != null){
-            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
+        if(localStorage.getItem('cart'+user_id) != null){
+            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'+user_id))
 
             $.each( number_items_in_cart, function(i, obj) {
-                if(course_id == Number(obj.id)){
-                    $('.teacher-course #add-cart').html('<b>ĐÃ THÊM VÀO GIỎ HÀNG</b>').attr('disabled', true)
-                }
+                $('.teacher-course button[data-id='+obj.id+']').html('<b>ĐÃ THÊM VÀO GIỎ HÀNG</b>').attr('disabled', true)
             });
         }
     })
-
-    function addCart(){
-        var item = {
-            'id' : {!! $course->id !!},
-            'image' : '{!! $course->image !!}',
-            'slug' : '{!! $course->slug !!}',                
-            @if(count($course->Lecturers()) > 0)
-            'lecturer' : "{!! $course->Lecturers()[0]->user->name !!}",
-            @else
-            'lecturer' : 'Nhiều giảng viên',
-            @endif
-            'name' : "{!! $course->name !!}",
-            'price' : {!! $course->price !!},
-            'real_price' : {!! $course->real_price !!},
-            'coupon_price' : {!! $course->price !!},
-            'coupon_code' : '',
-        }
-
-        if (localStorage.getItem("cart") != null) {
-            var list_item = JSON.parse(localStorage.getItem("cart"));
-            addItem(list_item, item);
-            localStorage.setItem("cart", JSON.stringify(list_item));
-        }else{
-            var list_item = [];
-            addItem(list_item, item);
-            localStorage.setItem("cart", JSON.stringify(list_item));
-        }
-
-        var number_items_in_cart = JSON.parse(localStorage.getItem('cart'))
-            // alert(number_items_in_cart.length)
-        $('.number-in-cart').text(number_items_in_cart.length);
-    }
 </script>

@@ -11,7 +11,14 @@
                             <div class="title">
                                 <h1>Trở thành <br>giảng viên Courdemy</h1>
                                 <p>Courdemy là e-learning platform, là cổng kết nối các CHUYÊN GIA tới hàng triệu người dân Việt Nam. Các bài giảng trực tuyến dưới dạng video giúp học viên có thể xem được bất kỳ khi nào, bất kỳ đâu.</p>
+                                @if ( Auth::check() )
+                                    @if ( !Auth::user()->registeredTeacher() && !Auth::user()->isAdmin() )
+                                    <a href="{{ asset('/user/register-teacher') }}">ĐĂNG KÝ</a>
+                                    @endif
+                                @else
                                 <a href="{{ asset('/user/register-teacher') }}">ĐĂNG KÝ</a>
+                                @endif
+
                             </div>
                         </div>
                         <div class="col-md-5">

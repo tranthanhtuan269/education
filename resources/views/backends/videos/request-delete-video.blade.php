@@ -15,7 +15,7 @@
     
 </section>
 <section class="content page">
-    <h1 class="text-center font-weight-600">Danh sách video được yêu cầu xóa</h1>
+    <h1 class="text-center font-weight-600">Danh sách bài giảng được yêu cầu xóa</h1>
     <div class="row">
         <div class="col-md-12">
             <div class="table-responsive">
@@ -148,9 +148,12 @@
         ];
 
         dataTable = $('#video-table').DataTable( {
-                        serverSide: false,
+                        serverSide: true,
                         aaSorting: [],
                         stateSave: true,
+                        search: {
+                            smart: false
+                        },
                         ajax: "{{ url('/') }}/admincp/request-delete-videos/getRequestDeleteVideoAjax",
                         columns: dataObject,
                         bLengthChange: true,

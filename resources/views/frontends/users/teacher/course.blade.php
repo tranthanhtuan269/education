@@ -1268,19 +1268,21 @@
             var link_intro = $('#course-intro').val()
 
             // $('#editCourse').modal('toggle')
-            original_price = Number(original_price)
-            if( discount_price != null ){
-                discount_price = Number(discount_price)
-                if( discount_price > original_price ){
-                    Swal.fire({
-                            type: 'warning',
-                            html: 'Giá giảm không thể lớn hơn giá gốc.',
-                            allowOutsideClick: false,
-                        })
-                        return false;
+            if( original_price != '' ){
+                original_price = Number(original_price)
+                if( discount_price != '' ){
+                    discount_price = Number(discount_price)
+                    if( discount_price > original_price ){
+                        Swal.fire({
+                                type: 'warning',
+                                html: 'Giá giảm không thể lớn hơn giá gốc.',
+                                allowOutsideClick: false,
+                            })
+                            return false;
+                    }
+                }else{
+                    discount_price = original_price
                 }
-            }else{
-                discount_price = original_price
             }
             
             var url = link_intro;

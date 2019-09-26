@@ -31,7 +31,7 @@ class Category extends Model
 
     public function courses()
     {
-        return $this->hasMany('App\Course');
+        return $this->hasMany('App\Course')->where('status', 1);
     }
 
     public function users()
@@ -51,7 +51,9 @@ class Category extends Model
 
     public function childrenHavingCourse()
     {
-        return $this->hasMany('App\Category', 'parent_id')->has('courses');
+        return $this->hasMany('App\Category', 'parent_id')->whereHas('courses', function ($query) {
+            $query->where('status', 1);
+        });
     }
 
     public function parent()
