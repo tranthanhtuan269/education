@@ -2876,6 +2876,15 @@ div[data-u="slides"] div div{
 .remove-request{
   color:red;float:right;width:270px;margin-left:20px;
 }
+.verifing-request{
+  color:blue;float:right;width:197px;margin-left:20px;
+}
+.verified-request{
+  color:green;float:right;width:270px;margin-left:20px;
+}
+.converting-request{
+  color:orangered;float:right;width:270px;margin-left:20px;
+}
 
 .feature-course .big-course .discount-percent{
   position: absolute;

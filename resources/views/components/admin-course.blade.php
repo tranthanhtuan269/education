@@ -9,7 +9,7 @@
 <div class="col-sm-3" id="course-{{ $course->id }}">
     <div class="box-course">
         <button class="btn btn-primary btn-unit-course" id="btn-unit-{{ $course->id }}" title="Thêm bài giảng"><i class="fas fa-bars"></i></button>
-        <button class="btn btn-primary btn-edit-course" id="btn-edit-{{ $course->id }}" title="Sửa khóa học"><i class="fas fa-edit"></i></button>
+        <button class="btn btn-primary btn-edit-course" id="btn-edit-{{ $course->id }}" title="Sửa khóa học"><i class="far fa-edit"></i></button>
         @if ( $course->status == 1 )
             <button class="btn btn-danger btn-remove-course" id="btnStop{{ $course->id }}" title="Ngừng bán khóa học"><i class="fas fa-stop"></i></button>
         @else
@@ -250,8 +250,8 @@
                         <li class="ui-state-default" data-unit-id="{{ $unit->id }}" data-unit-key="{{ $key }}">
                             <i class="fas fa-sort"></i> 
                             <span class="unit-content">{{ $unit->name }}</span> 
-                            <i class="fas fa-trash remove-unit" id="remove-unit-{{ $unit->id }}" data-unit-id="{{ $unit->id }}" data-course-id="{{ $course->id }}"></i>
-                            <i class="fas fa-edit edit-unit" id="edit-unit-{{ $unit->id }}" data-unit-id="{{ $unit->id }}" data-course-id="{{ $course->id }}"></i>
+                            <i class="far fa-trash-alt remove-unit" id="remove-unit-{{ $unit->id }}" data-unit-id="{{ $unit->id }}" data-course-id="{{ $course->id }}"></i>
+                            <i class="far fa-edit edit-unit" id="edit-unit-{{ $unit->id }}" data-unit-id="{{ $unit->id }}" data-course-id="{{ $course->id }}"></i>
                             <i class="fas fa-bars list-vid-unit" id="list-vid-unit-{{ $unit->id }}" data-unit-id="{{ $unit->id }}" data-course-id="{{ $course->id }}"></i>
                         </li>                        
                         @endforeach
@@ -364,7 +364,7 @@
                 success: function (response) {
                     if(response.status == 200){
                         // console.log(response.unit.data.id);
-                        var html = '<li class="ui-state-default" data-unit-id="'+response.unit.data.id+'" data-unit-key="'+(response.unit.data.index-1)+'"><i class="fas fa-sort"></i> <span class="unit-content">Item</span> <i class="fas fa-trash remove-unit" id="remove-unit-'+response.unit.data.id+'" data-unit-id="'+response.unit.data.id+'" data-course-id="{{ $course->id }}"></i><i class="fas fa-edit edit-unit" id="edit-unit-'+response.unit.data.id+'" data-unit-id="'+response.unit.data.id+'" data-course-id="{{ $course->id }}"></i><i class="fas fa-bars list-vid-unit" id="list-vid-unit-'+response.unit.data.id+'" data-unit-id="'+response.unit.data.id+'" data-course-id="'+response.unit.data.id+'"></i></li>';
+                        var html = '<li class="ui-state-default" data-unit-id="'+response.unit.data.id+'" data-unit-key="'+(response.unit.data.index-1)+'"><i class="fas fa-sort"></i> <span class="unit-content">Item</span> <i class="far fa-trash-alt remove-unit" id="remove-unit-'+response.unit.data.id+'" data-unit-id="'+response.unit.data.id+'" data-course-id="{{ $course->id }}"></i><i class="far fa-edit edit-unit" id="edit-unit-'+response.unit.data.id+'" data-unit-id="'+response.unit.data.id+'" data-course-id="{{ $course->id }}"></i><i class="fas fa-bars list-vid-unit" id="list-vid-unit-'+response.unit.data.id+'" data-unit-id="'+response.unit.data.id+'" data-course-id="'+response.unit.data.id+'"></i></li>';
                         $("#listUnit{{ $course->id }} #sortable").append(html);
                         j("#listUnit{{ $course->id }} #sortable").sortable('refresh');
                         addEvent();
@@ -394,7 +394,7 @@
           
             $("#listUnit{{ $course->id }} .save-unit").click(function(){
                 var content = $('#unit-input').val()
-                // var html = '<i class="fas fa-sort"></i> <span class="unit-content">'+content+'</span> <i class="fas fa-trash remove-unit" id="remove-unit" data-id="{{ $course->id }}"></i><i class="fas fa-edit edit-unit" id="edit-unit" data-id="{{ $course->id }}"></i>'
+                // var html = '<i class="fas fa-sort"></i> <span class="unit-content">'+content+'</span> <i class="far fa-trash-alt remove-unit" id="remove-unit" data-id="{{ $course->id }}"></i><i class="far fa-edit edit-unit" id="edit-unit" data-id="{{ $course->id }}"></i>'
                 var parent = $(this).parent()
                 var name = parent.find('input').val()
 
@@ -418,8 +418,8 @@
                             var html = ""
                             html += '<i class="fas fa-sort"></i> '
                             html += '<span class="unit-content">'+content+'</span>'
-                            html += '<i class="fas fa-trash remove-unit" id="remove-unit-'+ unit_id +'" data-unit-id="'+ unit_id +'" data-course-id="'+ course_id +'"></i>'
-                            html += '<i class="fas fa-edit edit-unit" id="edit-unit-'+ unit_id +'" data-unit-id="'+ unit_id +'" data-course-id="'+ course_id +'"></i>'
+                            html += '<i class="far fa-trash-alt remove-unit" id="remove-unit-'+ unit_id +'" data-unit-id="'+ unit_id +'" data-course-id="'+ course_id +'"></i>'
+                            html += '<i class="far fa-edit edit-unit" id="edit-unit-'+ unit_id +'" data-unit-id="'+ unit_id +'" data-course-id="'+ course_id +'"></i>'
                             html += '<i class="fas fa-bars list-vid-unit" id="list-vid-unit-'+ unit_id +'" data-unit-id="'+ unit_id +'" data-course-id="'+ course_id +'"></i>'
 
                             parent.append(html)
