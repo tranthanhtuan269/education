@@ -34,8 +34,8 @@ class TeacherController extends Controller
      */
     public function create()
     {
-        
-        
+
+
     }
 
     /**
@@ -80,7 +80,7 @@ class TeacherController extends Controller
         $user_role_student->user_id = $user->id;
         $user_role_student->role_id = Config::get('app.student');
         $user_role_student->save();
-        
+
         return response()->json([
             'status' => 200,
             'message' => 'Thêm giảng viên thành công'
@@ -125,7 +125,7 @@ class TeacherController extends Controller
             ->resize(300, 300)
             ->save(public_path('frontend/images/'.time().'_avatar'.'.png'));
         }
-        
+
         $user = User::find($request->user_id);
         if(isset($user)){
             $user->name = $request->name;
@@ -159,7 +159,7 @@ class TeacherController extends Controller
                     $teacher->expert = $request->expert;
                     $teacher->video_intro = $request->youtube;
                     $teacher->status = Config::get('app.teacher_active');
-                    $teacher->save();                    
+                    $teacher->save();
                 }
             }else{                  // chưa có user_role là teacher
                 $user_role_teacher = new UserRole;
@@ -200,7 +200,7 @@ class TeacherController extends Controller
         // $user_role_student->user_id = $user->id;
         // $user_role_student->role_id = Config::get('app.student');
         // $user_role_student->save();
-        
+
         return response()->json([
             'status' => 200,
             'message' => 'Sửa giảng viên thành công'
@@ -227,8 +227,7 @@ class TeacherController extends Controller
                 if(isset($user_role_teacher)){
                     $teacher = $user_role_teacher->teacher;
                     if(isset($teacher)){
-                        // dd($teacher);
-                        $teacher->status = \Config::get('app.teacher_inactive');
+                        $teacher->status = \Config::get('app.teacher_blocked');
                         $teacher->save();
                         return response()->json([
                             'status' => 200,
