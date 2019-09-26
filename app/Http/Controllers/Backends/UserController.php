@@ -322,8 +322,10 @@ class UserController extends Controller
         // print_r($user);die;
         if ($user) {
             $isStudent = $user->isStudent();
+            // dd($user->isTeacher());
             $isTeacher = $user->isTeacher();
             if($isTeacher){
+                // dd($user->userRolesTeacher());
                 $teacher_info = $user->userRolesTeacher()->teacher;
             }else{
                 $teacher_info = null;

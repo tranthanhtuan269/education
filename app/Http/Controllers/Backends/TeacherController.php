@@ -227,6 +227,7 @@ class TeacherController extends Controller
                 if(isset($user_role_teacher)){
                     $teacher = $user_role_teacher->teacher;
                     if(isset($teacher)){
+                        // dd($teacher);
                         $teacher->status = \Config::get('app.teacher_inactive');
                         $teacher->save();
                         return response()->json([

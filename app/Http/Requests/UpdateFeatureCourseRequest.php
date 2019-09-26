@@ -28,7 +28,7 @@ class UpdateFeatureCourseRequest extends FormRequest
             'course_1' => 'required',
             'course_2' => 'required',
             'course_3' => 'required',
-            'percent_feature_course' => 'required|numeric|min:0|max:99'
+            'percent_feature_course' => 'required|numeric|min:1|max:99'
         ];
     }
 

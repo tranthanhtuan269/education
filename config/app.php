@@ -4,6 +4,7 @@ return [
     'admin' => 1,
     'teacher' => 2,
     'student' => 3,
+    'teacher_blocked' => 2,
     'teacher_active' => 1,
     'teacher_inactive' => 0,
     'video_waiting' => 0,
