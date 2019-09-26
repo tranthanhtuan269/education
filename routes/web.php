@@ -147,6 +147,12 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('coupon/getCouponAjax', 'Backends\HomeController@getCouponAjax');
         Route::delete('coupon/delete', 'Backends\HomeController@deleteCoupon');
         Route::post('coupon/update', 'Backends\HomeController@updateCoupon');
+
+        Route::group(['prefix' => 'comment'],function () {
+            Route::get('comment-course', 'Backends\CommentController@getAllCommentCourse');
+            Route::get('get-comment-course-ajax', 'Backends\CommentController@getAllCommentCourseAjax');
+
+        });
         // End
 
         Route::get('teachers', 'Backends\UserController@getTeacher');
