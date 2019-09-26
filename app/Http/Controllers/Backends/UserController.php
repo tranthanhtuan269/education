@@ -321,13 +321,22 @@ class UserController extends Controller
         // echo '<pre>';
         // print_r($user);die;
         if ($user) {
+            $isStudent = $user->isStudent();
             $isTeacher = $user->isTeacher();
             if($isTeacher){
                 $teacher_info = $user->userRolesTeacher()->teacher;
             }else{
                 $teacher_info = null;
             }
-            $res = array('status' => "200", "Message" => "Người dùng đã tồn tại!", "user" => $user, "teacher_info" => $teacher_info);
+
+            $res = array(
+                'status' => "200", 
+                "Message" => "Người dùng đã tồn tại!", 
+                "user" => $user, 
+                "teacher_info" => $teacher_info, 
+                "isStudent" => $isStudent, 
+                "isTeacher" => $isTeacher,
+            );
         } else {
             $res = array('status' => "401", "Message" => "Người dùng không tồn tại!", "user" => null);
         }

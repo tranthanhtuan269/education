@@ -83,22 +83,10 @@
                     showParagraphs: false,
                     maxWordCount: 700,
                 },
-                filter: new CKEDITOR.htmlParser.filter({
-                    elements: {
-                        div: function( element ) {
-                            console.log(element);
-                            
-                            if(element.attributes.class == 'mediaembed') {
-                                return false;
-                            }
-                        }
-                    }
-                }),
                 toolbar : [
                     { name: 'basicstyles', items: ['Styles', 'Format', 'Bold', 'Italic'] },
                     { name: 'paragraph', items: ['NumberedList', 'BulletedList'] },
                 ],
-                height: '5em',
             });
             var editTchCvEditor = CKEDITOR.instances.editTchCv;
     </script>
@@ -235,6 +223,14 @@ $(document).ready(function(){
             editFormData.append('confirm_password', confirmPassword)
         }
 
+        $.ajaxSetup(
+            {
+                headers:
+                {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
         $.ajax({
             method: 'POST',
             url: `{{ url('/admincp/') }}/users/update-teacher`,
@@ -270,6 +266,10 @@ $(document).ready(function(){
         })
     })
 
+    $('#closeEditTeacher').click(function(){
+        $('#editTchPassword').val("")
+        $('#editTchCfPassword').val("")
+    })
     
 })
 </script>

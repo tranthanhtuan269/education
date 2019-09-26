@@ -2,7 +2,7 @@
         <label class="col-sm-3 col-form-label">Ảnh đại diện <span class="text-danger">*</span></label>
         <div class="col-sm-8 image-cropit-editor">
             <div>
-                <img id="imageStu" style="height:150px;" src="">
+                <img id="imageStu" style="height:0px;" src="">
                 <input type="file" id="addStuImgInput" style="display:none;">
             </div>
             <div style="margin-top: 0.5em">
@@ -53,7 +53,7 @@
         </div>
     </div>
     <div class="form-group row">
-        <label  class="col-sm-3 col-form-label">Địa chỉ <span class="text-danger">*</span></label>
+        <label  class="col-sm-3 col-form-label">Địa chỉ </label>
         <div class="col-sm-8">
             <input type="text" class="form-control" id="addStuAddress" name="address">                                       
         </div>
@@ -72,7 +72,7 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-primary" id="createStudent">Thêm mới</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeCreateTeacher">Hủy bỏ</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeCreateStudent">Hủy bỏ</button>
     </div> 
 
 <script src="{{asset('backend/template/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}"></script>
@@ -165,7 +165,13 @@ $(document).ready(function() {
         formData.append('address', address)
         formData.append('password', password)
         formData.append('confirm_password', confirmPassword)
-        
+        $.ajaxSetup(
+            {
+                headers:
+                {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
 
         $.ajax({
             method: 'POST',
@@ -199,6 +205,9 @@ $(document).ready(function() {
         })
 
     })
+    $('#closeCreateStudent').click(function(){
+        clearAddStudentForm()
+    })
 
     function clearAddStudentForm(){
         cropperAddStu.clear()
@@ -211,6 +220,7 @@ $(document).ready(function() {
         $('#addStuPassword').val("")
         $('#addStuCfPassword').val("")
         cropperAddStu.destroy()
+        $('.cropper-container').hide()
 
     }
 })

@@ -90,7 +90,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title font-weight-600">Chỉnh sửa vai trò</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeExitX">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -124,7 +124,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title font-weight-600">Thêm vai trò</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeAddX">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -744,7 +744,12 @@
         $('#cancelEdit').click(function(){
             $('#roleNameErrorUpd').hide();
         });
-        
+        $('#closeAddX').click(function(){
+            $('#nameErrorIns').hide();
+        });
+        $('#closeExitX').click(function(){
+            $('#roleNameErrorUpd').hide();
+        });
         $('.close-create-role-btn').click(function(){
             $('option', $('#permission-list-ins')).each(function(element) {
                 if($(this).attr('value') != 1){

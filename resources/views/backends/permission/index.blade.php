@@ -50,7 +50,7 @@
                 <div class="modal-content">
                   <div class="modal-header">
                     <h5 class="modal-title font-weight-600">Chỉnh sửa quyền</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeExitX">
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
@@ -95,7 +95,7 @@
                 <div class="modal-content">
                   <div class="modal-header">
                     <h5 class="modal-title font-weight-600">Thêm mới quyền</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeAddX">
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
@@ -644,7 +644,9 @@
         $('#cancelAdd').click(function(){
             clearError();
         });
-
+        $("#closeAddX").click(function(){
+            clearError();
+        });
         function clearErrorEdit(){
             $('#permission_nameErrorUpd').hide();
             $('#permission_groupErrorUpd').hide();
@@ -652,7 +654,9 @@
         $('#cancelEdit').click(function(){
             clearErrorEdit();
         });
-
+        $('#closeExitX').click(function(){
+            clearErrorEdit();
+        });
     });
 </script>
 

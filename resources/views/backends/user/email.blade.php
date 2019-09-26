@@ -92,20 +92,43 @@
                         <label  class="col-sm-1 col-form-label">Nội dung <span class="text-danger">*</span></label>
                         <div class="col-sm-11">
                             <textarea id="content_Ins" class="form-control" name="content">{{ Request::old('content') }}</textarea>
-                            <div class="alert-errors d-none" role="alert" id="contentIns">
+                            <div class="alert-errors d-none" role="alert" id="contentIns" name="contentIns">
                                 
                             </div>
-                            <script src="https://cdn.ckeditor.com/ckeditor5/12.1.0/classic/ckeditor.js"></script>
+                            {{-- <script src="https://cdn.ckeditor.com/ckeditor5/12.1.0/classic/ckeditor.js"></script> --}}
                             <script>
-                                var content_Ins;
-                                ClassicEditor
-                                    .create( document.querySelector( '#content_Ins' ) )
-                                    .then(editor =>{
-                                            content_Ins = editor
-                                        })
-                                    .catch( error => {
-                                        console.error( error );
-                                    } );
+                                // ClassicEditor
+                                //     .create( document.querySelector( '#content_Ins' ) )
+                                //     .then(editor =>{
+                                //             content_Ins = editor
+                                //         })
+                                //     .catch( error => {
+                                //         console.error( error );
+                                //     } );
+                                    CKEDITOR.replace( 'content_Ins', {
+                                        defaultLanguage: 'vi',
+                                        extraPlugins : 'wordcount,notification,uploadimage',
+                                        wordcount : {
+                                            showParagraphs: false,
+                                        },
+                                        filter: new CKEDITOR.htmlParser.filter({
+                                            elements: {
+                                                div: function( element ) {
+                                                    console.log(element);
+                                                    
+                                                    if(element.attributes.class == 'mediaembed') {
+                                                        return false;
+                                                    }
+                                                }
+                                            }
+                                        }),
+                                        // toolbar : [
+                                        //     { name: 'basicstyles', items: ['Styles', 'Format', 'Bold', 'Italic'] },
+                                        //     { name: 'paragraph', items: ['NumberedList', 'BulletedList'] },
+                                        // ],
+                                        // height: '5em',
+                                    });
+                                    var content_Ins = CKEDITOR.instances.content_Ins;
                             </script>
                         </div>
                     </div>
@@ -147,15 +170,39 @@
                                 
                             </div>
                             <script>
-                                var edit_content_Ins;
-                                ClassicEditor
-                                    .create( document.querySelector( '#edit_content_Ins' ) )
-                                    .then(editor =>{
-                                            edit_content_Ins = editor
-                                        })
-                                    .catch( error => {
-                                        console.error( error );
-                                    } );
+                                // var edit_content_Ins;
+                                // ClassicEditor
+                                //     .create( document.querySelector( '#edit_content_Ins' ) )
+                                //     .then(editor =>{
+                                //             edit_content_Ins = editor
+                                //         })
+                                //     .catch( error => {
+                                //         console.error( error );
+                                //     } );
+                                CKEDITOR.replace( 'edit_content_Ins', {
+                                    defaultLanguage: 'vi',
+                                    extraPlugins : 'wordcount,notification',
+                                    wordcount : {
+                                        showParagraphs: false,
+                                    },
+                                    filter: new CKEDITOR.htmlParser.filter({
+                                        elements: {
+                                            div: function( element ) {
+                                                console.log(element);
+                                                
+                                                if(element.attributes.class == 'mediaembed') {
+                                                    return false;
+                                                }
+                                            }
+                                        }
+                                    }),
+                                    toolbar : [
+                                        { name: 'basicstyles', items: ['Styles', 'Format', 'Bold', 'Italic'] },
+                                        { name: 'paragraph', items: ['NumberedList', 'BulletedList'] },
+                                    ],
+                                    // height: '5em',
+                                });
+                                var edit_content_Ins = CKEDITOR.instances.edit_content_Ins;
                             </script>
                         </div>
                     </div>
