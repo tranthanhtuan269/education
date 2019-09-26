@@ -21,6 +21,7 @@
                             <th scope="col">Khóa học</th>
                             <th scope="col">Ngày đăng</th>
                             <th scope="col">Chi tiết</th>
+                            <th scope="col">Xóa</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -38,17 +39,32 @@ $(document).ready(function() {
     
     var dataObject = [
         {
-            data: "name",
+            data: "user_name",
         },
         {
             data: "content",
         },
         {
-            data: "image",
+            data: "course_name",
+            render: function(data, type, row){
+                if(type == "display"){
+                    var html = '';
+                    html += '<a class="red-row" href="/course/'+row.course_slug+'" target="_blank"><b>'+data+'</b></a>';
+                    return html;
+                }
+                return data;
+            },
+        },
+        {
+            data: "created_at",
+        },
+        {
+            data: "action",
             class: "text-center",
-            render: function(data, type, row) {
-                var html = baseURL +'/frontend/images/' + row.image;
-                return '<img src="'+ html +'" style="width:90px;height:40px;">'
+            render: function(data, type, row){
+                var html = '';
+                html += '<button class="btn btn-secondary" data-id="'+data+'"><i class="fa fa-eye fa-fw"></i></button>';
+                return html;
             },
             orderable: false
         },
@@ -57,17 +73,14 @@ $(document).ready(function() {
             class: "text-center",
             render: function(data, type, row){
                 var html = '';
-                    if(row['featured'] == 0){
-                        html += '<button class="btn btn-secondary btn-featured-category featured" data-id="'+data+'"><i class="fa fa-times fa-fw"></i></button>';
-                    }else{
-                        html += '<button class="btn btn-success btn-featured-category not-featured" data-id="'+data+'"><i class="fa fa-check fa-fw"></i></button>';
-                    }
+                html += '<button class="btn btn-secondary" data-id="'+data+'"><i class="fa fa-trash fa-fw"></i></button>';
                 return html;
             },
-        }
+            orderable: false
+        },
     ];
 
-    dataTable = $('#featuredCategoryTable').DataTable({
+    dataTable = $('#commentCourseAll').DataTable({
         serverSide: false,
         aaSorting: [],
         stateSave: true,
@@ -96,74 +109,23 @@ $(document).ready(function() {
         fnDrawCallback: function( oSettings ) {
             addEventListener();
         },
+        createdRow: function( row, data, dataIndex){
+            if(data['status'] == 1){
+                $(row).addClass('blue-row');
+            }else{
+                $(row).addClass('red-row');
+            }
+            
+            $(row).attr('data-description', data['description']);
+            // $(row).attr('data-video', data['video_intro']);
+        }
     });
     $('#commentCourseAll').css('width', '100%');
 
     function addEventListener(){
         $('.btn-featured-category').off('click')
         $('.btn-featured-category').click(function(){
-            var id      = $(this).attr('data-id');
-            var message = "Xác nhận chọn danh mục nổi bật.";
-            var featured  = 0
-            if($(this).hasClass('not-featured')){
-                featured  = 1;
-                message = "Xác nhận bỏ chọn danh mục nổi bật";
-            }
-    
-            Swal.fire({
-                type: 'warning',
-                text: message,
-                showCancelButton: true,
-            }).then(function (result) {
-                if(result.value){
-                    $.ajaxSetup({
-                        headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        }
-                    });
-                    $.ajax({
-                        url: baseURL+"/admincp/featured-category/set-feature-category-ajax",
-                        data: {
-                            category_id : id,
-                            featured : 1- featured
-                        },
-                        method: "POST",
-                        dataType:'json',
-                        success: function (response) {
-                            if(response.status == 200){
-                                dataTable.ajax.reload();
-                                if (status == 0){
-                                    Swal.fire({
-                                        type: 'success',
-                                        text: "Đã đổi danh mục thành nổi bật."
-                                    })
-                                }
-                                else {
-                                    Swal.fire({
-                                        type: 'success',
-                                        text:"Đã hủy danh mục nổi bật."
-                                    })
-                                }
-                            }else{
-                                Swal.fire({
-                                    type: 'warning',
-                                    text: response.message
-                                })
-                            }
-                        },
-                        error: function (data) {
-                            if(data.status == 404){
-                            window.location.replace(baseURL);
-                            }else{
-                                Swal.fire({
-                                    type: 'warning',
-                                    text: 'Lỗi! Danh mục không tồn tại.'
-                                })
-                            }
-                        }
-                    });
-                }
-            });
+            
         });
     }
 
