@@ -42,4 +42,8 @@ class TempCourse extends Model
         'link_intro',
         'status'
     ];
+
+    public function category(){
+        return $this->belongsTo('App\Category');
+    }
 }

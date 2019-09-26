@@ -98,7 +98,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('courses/activeCourse', 'Backends\CourseController@activeCourse');
         // Sua khoa hoc
         Route::get('courses/request-edit', 'Backends\CourseController@getRequestEditCourse');
-
+        Route::get('courses/get-edit-course-ajax', 'Backends\CourseController@getRequestEditCourseAjax');
+        Route::post('courses/accept-edit-course', 'Backends\CourseController@acceptEditCourse');
 
         // Trinhnk Duyet video
         Route::get('videos', 'Backends\VideoController@getVideo');

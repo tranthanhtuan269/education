@@ -381,4 +381,55 @@ class CourseController extends Controller
         
         return view('backends.course.request-edit-course');
     }
+
+    public function getRequestEditCourseAjax()
+    {
+        $courses = TempCourse::get();
+        return datatables()->collection($courses)
+            ->addColumn('action', function ($course) {
+                return $course->id;
+            })
+            ->addColumn('rows', function ($course) {
+                return $course->id;
+            })
+            ->addColumn('category', function ($course) {
+                return $course->category->name;
+            })
+            ->removeColumn('id')
+            ->make(true);
+    }
+
+    public function acceptEditCourse(Request $request)
+    {
+        $temp_course = TempCourse::find($request->id);
+        $course = Course::find($request->course_id);
+        $accept = $request->accept;
+
+        if( $temp_course ){
+            if( $accept ){
+                if( $course ){
+                $course->name                 = $temp_course->name;
+                $course->author               = $temp_course->author;
+                $course->short_description    = $temp_course->short_description;
+                $course->slug                 = $temp_course->slug;
+                $course->image                = $temp_course->image;
+                $course->description          = $temp_course->description;
+                $course->will_learn           = $temp_course->will_learn;
+                $course->requirement          = $temp_course->requirement;
+                $course->price                = $temp_course->price;
+                $course->real_price           = $temp_course->real_price;
+                $course->approx_time          = $temp_course->approx_time;
+                $course->category_id          = $temp_course->category_id;
+                $course->link_intro           = $temp_course->link_intro;
+                $course->updated_at           = date('Y-m-d H:i:s');
+                $course->save();
+                $temp_course->delete();
+                return response()->json(array('status' => '200', 'message' => 'Duyệt yêu cầu sửa khóa học thành công.'));
+                }
+            }else{
+                $temp_course->delete();
+                return response()->json(array('status' => '403', 'message' => 'Hủy yêu cầu sửa khóa học thành công.'));
+            }
+        }
+    }
 }

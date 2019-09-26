@@ -197,6 +197,9 @@
                                     <li class="@if ( Request::is('admincp/courses*') )active @endif">
                                         <a href="{{ url('/') }}/admincp/courses"><i class="fa fa-minus"></i> Yêu cầu duyệt khóa học</a>
                                     </li>
+                                    <li class="@if ( Request::is('admincp/courses/request-edit*') )active @endif">
+                                        <a href="{{ url('/') }}/admincp/courses/request-edit"><i class="fa fa-minus"></i> Yêu cầu sửa khóa học</a>
+                                    </li>
                                     <!-- <li class="@if ( Request::is('admincp/verify-video*') ) active @endif">
                                         <a href="{{ url('/') }}/admincp/verify-video"><i class="fa fa-minus"></i> Yêu cầu duyệt bài giảng</a>
                                     </li> -->
