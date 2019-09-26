@@ -78,13 +78,13 @@
 </div>
 
 <script>
-    var user_id = $('button[id=cartUserId]').attr('data-user-id')
-    var cart_items = JSON.parse(localStorage.getItem('cart'+user_id))
-    var totalPrice = 0
-    var totalInitialPrice = 0
-    var activeCoupon = ''
-    
     $(document).ready(function(){
+        var user_id = $('button[id=cartUserId]').attr('data-user-id')
+        var cart_items = JSON.parse(localStorage.getItem('cart'+user_id))
+        var totalPrice = 0
+        var totalInitialPrice = 0
+        var activeCoupon = ''
+        
         if(cart_items.length < 1){
             $(".cart-page-empty").addClass('active')
             $('.cart-page-title.container').hide()
@@ -191,6 +191,8 @@
                         cartSingleItem.remove();
                     });    
                     $.each($('.cart-single-item'), function(index, value){ $(value).attr('data-index', index)})
+
+                    cart_items = JSON.parse(localStorage.getItem('cart'+user_id))
                     cart_items.splice(cartSingleItem.attr("data-index"), 1)
                     
                     totalPrice = 0
