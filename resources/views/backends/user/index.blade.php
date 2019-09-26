@@ -44,7 +44,7 @@
                 @if (Helper::checkPermissions('users.delete', $list_roles)) 
                     <p class="action-selected-rows">
                         <span >Hành động trên các hàng đã chọn:</span>
-                        <span class="btn btn-info ml-2" id="apply-all-btn">Xóa</span>
+                        {{-- <span class="btn btn-info ml-2" id="apply-all-btn">Xóa</span> --}}
                         <span class="btn btn-info ml-5" id="openMultipleEmailModal">Gửi Emails</span>
                     </p>  
                 @endif
@@ -683,12 +683,6 @@
                         html += '<a class="btn-edit mr-2 edit-user" data-id="'+data+'" data-name="'+row.name+'" data-email="'+row.email+'" title="Sửa"> <i class="fa fa-edit fa-fw"></i></a>';
                     @endif
 
-                    @if (Helper::checkPermissions('users.delete', $list_roles)) 
-                        html += '<a class="btn-delete" data-id="'+data+'" title="Xóa"><i class="fa fa-trash fa-fw" aria-hidden="true"></i></a>';
-                    @endif
-
-                    
-
                     return html;
                 },
                 orderable: false
@@ -904,61 +898,61 @@
             });
             // End Block User
 
-            $('.btn-delete').off('click');
-            $('.btn-delete').click(function(){
-                var _self   = $(this);
-                var id      = $(this).attr('data-id');
-                $.ajsrConfirm({
-                    message: "Bạn có chắc chắn muốn xóa ?",
-                    okButton: "Đồng ý",
-                    onConfirm: function() {
-                        var data    = {
-                            _method             : "DELETE"
-                        };
-                        $.ajaxSetup({
-                            headers: {
-                              'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
-                            }
-                        });
-                        $.ajax({
-                            url: baseURL+"/admincp/users/" + id,
-                            data: data,
-                            method: "POST",
-                            dataType:'json',
-                            beforeSend: function(r, a){
-                                current_page = dataTable.page.info().page;
-                            },
-                            success: function (response) {
-                                var html_data = '';
-                                if(response.status == 200){
-                                  dataTable.page(checkEmptyTable()).draw(false);
-                                  Swal.fire({
-                                        type: 'success',
-                                        text: response.Message
-                                    })
-                                  dataTable.ajax.reload();
-                                }else{
-                                    Swal.fire({
-                                        type: 'warning',
-                                        text: response.Message
-                                    })
-                                }
-                            },
-                            error: function (data) {
-                                if(data.status == 401){
-                                  window.location.replace(baseURL);
-                                }else{
-                                    Swal.fire({
-                                        type: 'warning',
-                                        text: errorConnect
-                                    })
-                                }
-                            }
-                        });
-                    },
-                    nineCorners: false,
-                });
-            });
+            // $('.btn-delete').off('click');
+            // $('.btn-delete').click(function(){
+            //     var _self   = $(this);
+            //     var id      = $(this).attr('data-id');
+            //     $.ajsrConfirm({
+            //         message: "Bạn có chắc chắn muốn xóa ?",
+            //         okButton: "Đồng ý",
+            //         onConfirm: function() {
+            //             var data    = {
+            //                 _method             : "DELETE"
+            //             };
+            //             $.ajaxSetup({
+            //                 headers: {
+            //                   'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
+            //                 }
+            //             });
+            //             $.ajax({
+            //                 url: baseURL+"/admincp/users/" + id,
+            //                 data: data,
+            //                 method: "POST",
+            //                 dataType:'json',
+            //                 beforeSend: function(r, a){
+            //                     current_page = dataTable.page.info().page;
+            //                 },
+            //                 success: function (response) {
+            //                     var html_data = '';
+            //                     if(response.status == 200){
+            //                       dataTable.page(checkEmptyTable()).draw(false);
+            //                       Swal.fire({
+            //                             type: 'success',
+            //                             text: response.Message
+            //                         })
+            //                       dataTable.ajax.reload();
+            //                     }else{
+            //                         Swal.fire({
+            //                             type: 'warning',
+            //                             text: response.Message
+            //                         })
+            //                     }
+            //                 },
+            //                 error: function (data) {
+            //                     if(data.status == 401){
+            //                       window.location.replace(baseURL);
+            //                     }else{
+            //                         Swal.fire({
+            //                             type: 'warning',
+            //                             text: errorConnect
+            //                         })
+            //                     }
+            //                 }
+            //             });
+            //         },
+            //         nineCorners: false,
+            //     });
+            // });
 
             $('.btn-send-email').off('click');
             $('.btn-send-email').click( function () {
@@ -1126,85 +1120,85 @@
             });
         });
 
-        $('#apply-all-btn').click(function (){
-            let isChecked = false;
-            $.each($('.check-user'), function (key, value){
-                if($(this).prop('checked') == true) {
-                    return isChecked = true;
+        // $('#apply-all-btn').click(function (){
+        //     let isChecked = false;
+        //     $.each($('.check-user'), function (key, value){
+        //         if($(this).prop('checked') == true) {
+        //             return isChecked = true;
                     
-                }else{
-                    return Swal.fire({
-                        type: 'info',
-                        text: 'Bạn chưa chọn tài khoản nào!'
-                    })
-                }
-            });
-            if(isChecked){
-                Swal.fire({
-                    type: 'warning',
-                    text: 'Bạn có chắc chắn xóa tất cả những gì bạn chọn?',
-                    showCancelButton: true,
-                })
-                .then(function (result) {
-                    if(result.value){  
-                        var $id_list = '';
-                        $.each($('.check-user'), function (key, value){
-                            if($(this).prop('checked') == true) {
-                                $id_list += $(this).attr("data-column") + ',';
-                            }
-                        });
+        //         }else{
+        //             return Swal.fire({
+        //                 type: 'info',
+        //                 text: 'Bạn chưa chọn tài khoản nào!'
+        //             })
+        //         }
+        //     });
+        //     if(isChecked){
+        //         Swal.fire({
+        //             type: 'warning',
+        //             text: 'Bạn có chắc chắn xóa tất cả những gì bạn chọn?',
+        //             showCancelButton: true,
+        //         })
+        //         .then(function (result) {
+        //             if(result.value){  
+        //                 var $id_list = '';
+        //                 $.each($('.check-user'), function (key, value){
+        //                     if($(this).prop('checked') == true) {
+        //                         $id_list += $(this).attr("data-column") + ',';
+        //                     }
+        //                 });
 
-                        if ($id_list.length > 0) {
-                            var data = {
-                                id_list:$id_list,
-                                _method:'delete'
-                            };
-                            $.ajaxSetup({
-                                headers: {
-                                    'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
-                                }
-                            });
-                            $.ajax({
-                                type: "POST",
-                                url: "{{ url('/') }}/admincp/users/delMultiUser",
-                                data: data,
-                                success: function (response) {
-                                    var obj = $.parseJSON(response);
-                                    if(obj.status == 200){
-                                        $.each($('.check-user'), function (key, value){
-                                            if($(this).prop('checked') == true) {
-                                                $(this).parent().parent().hide("slow");
-                                            }
-                                        });
-                                        dataTable.ajax.reload(); 
-                                        Swal.fire({
-                                            type: 'success',
-                                            text: obj.Message
-                                        })
-                                    }
-                                },
-                                error: function (data) {
-                                    if(data.status == 401){
-                                        window.location.replace(baseURL);
-                                    }else{
-                                        Swal.fire({
-                                            type: 'wa',
-                                            text: errorConnect
-                                        })
-                                    }
-                                }
-                            });
+        //                 if ($id_list.length > 0) {
+        //                     var data = {
+        //                         id_list:$id_list,
+        //                         _method:'delete'
+        //                     };
+        //                     $.ajaxSetup({
+        //                         headers: {
+        //                             'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
+        //                         }
+        //                     });
+        //                     $.ajax({
+        //                         type: "POST",
+        //                         url: "{{ url('/') }}/admincp/users/delMultiUser",
+        //                         data: data,
+        //                         success: function (response) {
+        //                             var obj = $.parseJSON(response);
+        //                             if(obj.status == 200){
+        //                                 $.each($('.check-user'), function (key, value){
+        //                                     if($(this).prop('checked') == true) {
+        //                                         $(this).parent().parent().hide("slow");
+        //                                     }
+        //                                 });
+        //                                 dataTable.ajax.reload(); 
+        //                                 Swal.fire({
+        //                                     type: 'success',
+        //                                     text: obj.Message
+        //                                 })
+        //                             }
+        //                         },
+        //                         error: function (data) {
+        //                             if(data.status == 401){
+        //                                 window.location.replace(baseURL);
+        //                             }else{
+        //                                 Swal.fire({
+        //                                     type: 'wa',
+        //                                     text: errorConnect
+        //                                 })
+        //                             }
+        //                         }
+        //                     });
                             
-                        }else{
-                            Swal.fire({
-                                type: 'warning',
-                                text: 'Cần chọn ít nhất 1 tài khoản!'
-                            })
-                        }
-                    }
-                })
-            }
-        });
+        //                 }else{
+        //                     Swal.fire({
+        //                         type: 'warning',
+        //                         text: 'Cần chọn ít nhất 1 tài khoản!'
+        //                     })
+        //                 }
+        //             }
+        //         })
+        //     }
+        // });
 
         $('#createUser').click(function(){
             var data    = {

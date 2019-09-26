@@ -13,13 +13,14 @@
     <div class="row">
         <div class="col-md-12">
             <div class="table-responsive">
-                <table class="table table-bordered" id="featuredCategoryTable">
+                <table class="table table-bordered" id="commentCourseAll">
                     <thead class="thead-custom">
                         <tr>
                             <th scope="col">Học viên</th>
                             <th scope="col">Phản hồi</th>
                             <th scope="col">Khóa học</th>
                             <th scope="col">Ngày đăng</th>
+                            <th scope="col">Chi tiết</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -40,7 +41,7 @@ $(document).ready(function() {
             data: "name",
         },
         {
-            data: "parent-name",
+            data: "content",
         },
         {
             data: "image",
@@ -96,6 +97,7 @@ $(document).ready(function() {
             addEventListener();
         },
     });
+    $('#commentCourseAll').css('width', '100%');
 
     function addEventListener(){
         $('.btn-featured-category').off('click')
