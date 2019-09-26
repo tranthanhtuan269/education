@@ -128,8 +128,9 @@
                                                 <label>Giới tính</label>
                                                 <div class="form-group">
                                                     <select class="form-control" name="gender">
-                                                        <option value="1" @if(Auth::user()->gender == 1) selected @endif>Nữ</option>
-                                                        <option value="2" @if(Auth::user()->gender == 2) selected @endif>Nam</option>
+                                                        <option value="1" @if(Auth::user()->gender == 1) selected @endif>Nam</option>
+                                                        <option value="2" @if(Auth::user()->gender == 2) selected @endif>Nữ</option>
+                                                        <option value="3" @if(Auth::user()->gender == 3) selected @endif>Khác</option>
                                                     </select>
                                                 </div>
                                             </div>

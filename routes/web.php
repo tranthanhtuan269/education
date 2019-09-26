@@ -133,6 +133,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('feature-course/handling-feature-course', 'Backends\CourseController@handlingFeatureCourseAjax');
         Route::get('feature-teacher', 'Backends\UserController@getFeatureTeacher');
         Route::post('feature-teacher/handling-feature-teacher', 'Backends\UserController@handlingFeatureTeacherAjax');
+        Route::post('feature-teacher/auto-feature-teacher', 'Backends\UserController@autoFeatureTeacherAjax');
+        Route::get('featured-category', 'Backends\CategoryController@getFeaturedCategory');
+        Route::get('featured-category/get-featured-category-ajax', 'Backends\CategoryController@getFeaturedCategoryAjax');
+        Route::post('featured-category/set-feature-category-ajax', 'Backends\CategoryController@setFeaturedCategoryAjax');
      
         // Trinhnk Tạo Coupon
         Route::get('create-coupon', 'Backends\HomeController@createCoupon');

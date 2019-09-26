@@ -163,7 +163,7 @@ class Course extends Model
             ->join('teachers', 'teachers.user_role_id', '=', 'user_roles.id')
             ->where('teachers.status', 1)
             ->where('courses.status', 1)
-            ->select('courses.image', 'courses.name', 'courses.id', 'courses.slug', 'courses.price', 'courses.real_price', 'courses.author', 'courses.duration', 'courses.star_count', 'courses.vote_count', 'courses.approx_time', 'courses.five_stars', 'courses.four_stars', 'courses.three_stars', 'courses.two_stars', 'courses.one_stars', 'teachers.id as teacherId')->orderBy('sale_count', 'desc');
+            ->select('courses.image', 'courses.name', 'courses.id', 'courses.slug', 'courses.price', 'courses.real_price', 'courses.author', 'courses.duration', 'courses.star_count', 'courses.vote_count', 'courses.approx_time', 'courses.five_stars', 'courses.four_stars', 'courses.three_stars', 'courses.two_stars', 'courses.one_stars', 'teachers.id as teacherId', 'user_roles.user_id as userRoleId')->orderBy('sale_count', 'desc');
         }elseif($order_by == 2){
             return \DB::table('courses')
             ->join('user_courses', 'user_courses.course_id', '=', 'courses.id')
@@ -171,7 +171,7 @@ class Course extends Model
             ->join('teachers', 'teachers.user_role_id', '=', 'user_roles.id')
             ->where('teachers.status', 1)
             ->where('courses.status', 1)
-            ->select('courses.image', 'courses.name', 'courses.id', 'courses.slug', 'courses.price', 'courses.real_price', 'courses.author', 'courses.duration', 'courses.star_count', 'courses.vote_count', 'courses.approx_time', 'courses.five_stars', 'courses.four_stars', 'courses.three_stars', 'courses.two_stars', 'courses.one_stars', 'teachers.id as teacherId')->orderBy('id', 'desc');
+            ->select('courses.image', 'courses.name', 'courses.id', 'courses.slug', 'courses.price', 'courses.real_price', 'courses.author', 'courses.duration', 'courses.star_count', 'courses.vote_count', 'courses.approx_time', 'courses.five_stars', 'courses.four_stars', 'courses.three_stars', 'courses.two_stars', 'courses.one_stars', 'teachers.id as teacherId', 'user_roles.user_id as userRoleId')->orderBy('id', 'desc');
         }else{
             $limitDate = \Carbon\Carbon::now()->subDays(15);
             $sql = "SELECT course_id, count(course_id) FROM orders JOIN order_details ON orders.id = order_details.order_id WHERE created_at > '" . $limitDate->toDateTimeString() ."' group by course_id ORDER BY count(course_id) desc;";
@@ -181,5 +181,16 @@ class Course extends Model
             }
             return Course::whereIn('id', $course_id_arr);
         }
+    }
+
+    public static function listCourseCategory($cat_id){
+        return \DB::table('courses')
+        ->join('user_courses', 'user_courses.course_id', '=', 'courses.id')
+        ->join('user_roles', 'user_roles.id', '=', 'user_courses.user_role_id')
+        ->join('teachers', 'teachers.user_role_id', '=', 'user_roles.id')
+        ->where('teachers.status', 1)
+        ->where('courses.status', 1)
+        ->where('courses.category_id', $cat_id)
+        ->select('courses.image', 'courses.name', 'courses.id', 'courses.slug', 'courses.price', 'courses.real_price', 'courses.author', 'courses.duration', 'courses.star_count', 'courses.vote_count', 'courses.approx_time', 'courses.five_stars', 'courses.four_stars', 'courses.three_stars', 'courses.two_stars', 'courses.one_stars', 'teachers.id as teacherId', 'user_roles.user_id as userRoleId');
     }
 }

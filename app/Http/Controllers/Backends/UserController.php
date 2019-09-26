@@ -321,13 +321,22 @@ class UserController extends Controller
         // echo '<pre>';
         // print_r($user);die;
         if ($user) {
+            $isStudent = $user->isStudent();
             $isTeacher = $user->isTeacher();
             if($isTeacher){
                 $teacher_info = $user->userRolesTeacher()->teacher;
             }else{
                 $teacher_info = null;
             }
-            $res = array('status' => "200", "Message" => "Người dùng đã tồn tại!", "user" => $user, "teacher_info" => $teacher_info);
+
+            $res = array(
+                'status' => "200", 
+                "Message" => "Người dùng đã tồn tại!", 
+                "user" => $user, 
+                "teacher_info" => $teacher_info, 
+                "isStudent" => $isStudent, 
+                "isTeacher" => $isTeacher,
+            );
         } else {
             $res = array('status' => "401", "Message" => "Người dùng không tồn tại!", "user" => null);
         }
@@ -511,23 +520,37 @@ class UserController extends Controller
     }
 
     public function getFeatureTeacher(){
+        $auto_teacher = Teacher::where('status', 1)->where('course_count', '>', 0)->orderBy('student_count', 'DESC')->limit(4)->get();
         $teachers = Teacher::where('status', 1)->where('course_count', '>', 0)->get();
-        return view('backends.user.feature-teacher', compact('teachers'));
+        return view('backends.user.feature-teacher', compact('teachers', 'auto_teacher'));
     }
 
     public function handlingFeatureTeacherAjax(Request $request){
-        $teacher = Teacher::where('featured', '<>', 0)->update(['featured_index' => 0,'featured' => 0]);
+        $teacher = Teacher::where('featured_index', '<>', 0)->update(['featured_index' => 0,'featured' => 0]);
 
-        foreach ($request->arr_teacher as $key => $teacher) {
+        foreach ($request->arr_teacher_id as $key => $teacher_id) {
             # code...
-            $teacher = Teacher::find($request->arr_teacher[$key]);
+            $teacher = Teacher::find($teacher_id);
             if( isset($teacher->id) ){
                 $teacher->featured       = 1;
                 $teacher->featured_index = $key+1;
                 $teacher->save();
             }
         }
+        return \Response::json(array('status' => '200', 'message' => 'Thay đổi giảng viên tiêu biểu thành công!'));
+    }
 
+    public function autoFeatureTeacherAjax(Request $request){
+        $teacher = Teacher::where('featured', '<>', 0)->update(['featured' => 0]);
+
+        foreach ($request->arr_teacher_id as $key => $teacher_id) {
+            # code...
+            $teacher = Teacher::find($teacher_id);
+            if( isset($teacher->id) ){
+                $teacher->featured       = 2;
+                $teacher->save();
+            }
+        }
         return \Response::json(array('status' => '200', 'message' => 'Thay đổi giảng viên tiêu biểu thành công!'));
     }
 }

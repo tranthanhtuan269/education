@@ -14,23 +14,20 @@
     <div class="form-group row">
         <label  class="col-sm-3 col-form-label">Tên <span class="text-danger">*</span></label>
         <div class="col-sm-8">
-            <input type="text" class="form-control" id="addTchName" name="name">                                       
+            <input type="text" class="form-control" id="addTchName" name="name" autocomplete="addTchName">                                       
         </div>
     </div>
     <div class="form-group row">
         <label  class="col-sm-3 col-form-label">Email <span class="text-danger">*</span></label>
         <div class="col-sm-8">
-            <input type="text" class="form-control" id="addTchEmail" name="email">                                       
+            <input type="text" class="form-control" id="addTchEmail" name="email" autocomplete="addTchEmail">                                       
         </div>
     </div>
     <div class="form-group row">
         <label  class="col-sm-3 col-form-label">Sô điện thoại <span class="text-danger">*</span></label>
         <div class="col-sm-8">
-            <input type="text" class="form-control" id="addTchPhone" name="phone">                                       
+            <input type="text" class="form-control" id="addTchPhone" name="phone" autocomplete="addTchPhone">                                       
         </div>
-        <script>
-            
-        </script>
     </div>
     <div class="form-group row">
         <label  class="col-sm-3 col-form-label">Ngày sinh <span class="text-danger">*</span></label>
@@ -39,7 +36,7 @@
                 <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                 </div>
-                <input type="text" class="form-control pull-right" id="addTchDob"  name="dob">
+                <input type="text" class="form-control pull-right" id="addTchDob"  name="dob" autocomplete="addTchDob">
             </div>                                   
         </div>
     </div>
@@ -54,21 +51,21 @@
         </div>
     </div>
     <div class="form-group row">
-        <label  class="col-sm-3 col-form-label">Địa chỉ </label>
+        <label  class="col-sm-3 col-form-label">Địa chỉ <span class="text-danger">*</span></label>
         <div class="col-sm-8">
-            <input type="text" class="form-control" id="addTchAddress" name="address">                                       
+            <input type="text" class="form-control" id="addTchAddress" name="address" autocomplete="addTchAddress">                                       
         </div>
     </div>
     <div class="form-group row">
         <label  class="col-sm-3 col-form-label">Chuyên môn <span class="text-danger">*</span></label>
         <div class="col-sm-8">
-            <input type="text" class="form-control" id="addTchExpert" name="expert">                                       
+            <input type="text" class="form-control" id="addTchExpert" name="expert" autocomplete="addTchExpert">                                       
         </div>
     </div>
     <div class="form-group row">
         <label  class="col-sm-3 col-form-label">Link youtube <span class="text-danger">*</span></label>
         <div class="col-sm-8">
-            <input type="text" class="form-control" id="addTchYoutube" name="youtube">                                       
+            <input type="text" class="form-control" id="addTchYoutube" name="youtube" autocomplete="addTchYoutube">                                       
         </div>
     </div>
     <div class="form-group row">
@@ -84,22 +81,10 @@
                         showParagraphs: false,
                         maxWordCount: 700,
                     },
-                    filter: new CKEDITOR.htmlParser.filter({
-                        elements: {
-                            div: function( element ) {
-                                console.log(element);
-                                
-                                if(element.attributes.class == 'mediaembed') {
-                                    return false;
-                                }
-                            }
-                        }
-                    }),
                     toolbar : [
                         { name: 'basicstyles', items: ['Styles', 'Format', 'Bold', 'Italic'] },
                         { name: 'paragraph', items: ['NumberedList', 'BulletedList'] },
                     ],
-                    height: '5em',
                 });
                 var addTchCvEditor = CKEDITOR.instances.addTchCv;
         </script>
@@ -107,13 +92,13 @@
     <div class="form-group row">
         <label  class="col-sm-3 col-form-label">Mật khẩu <span class="text-danger">*</span></label>
         <div class="col-sm-8">
-            <input type="password" class="form-control" id="addTchPassword" name="password">                                       
+            <input type="password" class="form-control" id="addTchPassword" name="password" autocomplete="off">                                       
         </div>
     </div>
     <div class="form-group row">
         <label  class="col-sm-3 col-form-label">Nhập lại mật khẩu <span class="text-danger">*</span></label>
         <div class="col-sm-8">
-            <input type="password" class="form-control" id="addTchCfPassword" name="confirm-password" >                                       
+            <input type="password" class="form-control" id="addTchCfPassword" name="confirm-password" autocomplete="addTchCfPassword">                                       
         </div>
     </div>
     <div class="modal-footer">
@@ -280,6 +265,9 @@ $(document).ready(function() {
         })
 
     })
+    $('#closeCreateTeacher').click(function(){
+        clearAddTeacherForm()
+    })
 
     function clearAddTeacherForm(){
         cropper.clear()
@@ -295,6 +283,7 @@ $(document).ready(function() {
         $('#addTchPassword').val("")
         $('#addTchCfPassword').val("")
         cropper.destroy()
+        $('.cropper-container').hide()
     }
 })
 </script>

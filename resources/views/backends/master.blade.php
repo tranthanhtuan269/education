@@ -40,6 +40,9 @@
         <script src="{{ asset('frontend/js/sweetalert2.min.js') }}"></script>
         <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/sweetalert2.min.css') }}">
 
+        {{-- CKEditor 4 --}}
+        <script src="{{asset("backend/template/bower_components/ckeditor/ckeditor.js")}}"></script>
+
         <script type="text/javascript">
             $.ajaxSetup({
               headers: {
@@ -241,6 +244,9 @@
                                     <li class="@if ( Request::is('admincp/feature-teacher*') ) active @endif">
                                         <a href="{{ url('/') }}/admincp/feature-teacher"><i class="fa fa-minus"></i>Giảng viên tiêu biểu</a>
                                     </li>
+                                    <li class="@if ( Request::is('admincp/featured-category*') ) active @endif">
+                                        <a href="{{ url('/') }}/admincp/featured-category"><i class="fa fa-minus"></i>Danh mục tiêu biểu</a>
+                                    </li>
                                 @endif
                             </ul>
                         </li>
@@ -310,6 +316,21 @@
                 // $('.modal').modal({backdrop: "static"});
                 $('.modal').attr('data-backdrop', 'static');
             })
+        </script>
+        <script> //fix ckeditor in bootstrap modal
+        $.fn.modal.Constructor.prototype.enforceFocus = function () {
+            var $modalElement = this.$element;
+            $(document).on('focusin.modal', function (e) {
+                var $parent = $(e.target.parentNode);
+                if ($modalElement[0] !== e.target && !$modalElement.has(e.target).length
+                    // add whatever conditions you need here:
+                    &&
+                    !$parent.hasClass('cke_dialog_ui_input_select') && !$parent.hasClass('cke_dialog_ui_input_text')) {
+                    $modalElement.focus()
+                }
+            })
+        };
+        
         </script>
     </body>
     

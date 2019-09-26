@@ -2,7 +2,7 @@
         <label class="col-sm-3 col-form-label">Ảnh đại diện <span class="text-danger">*</span></label>
         <div class="col-sm-8 image-cropit-editor">
             <div>
-                <img id="imageEditStu" style="height:150px;" src="">
+                <img id="imageEditStu" style="height:200px;" src="">
                 <input type="file" id="editStuImgInput" style="display:none;">
             </div>
             <div style="margin-top: 0.5em">
@@ -72,7 +72,7 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-primary" id="editStudent">Lưu học viên</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeCreateTeacher">Hủy bỏ</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeEditStudent">Hủy bỏ</button>
     </div> 
 
 <script src="{{asset('backend/template/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}"></script>
@@ -197,6 +197,10 @@ $(document).ready(function() {
             }
         })
 
+    })
+
+    $('#closeEditStudent').click(function(){
+        clearEditStudentForm()
     })
 
     function clearEditStudentForm(){

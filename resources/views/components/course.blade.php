@@ -1,6 +1,18 @@
 <?php
     $lecturers = $course->author;
-    $main_lecturer = $course->teacherId;
+    $main_lecturer = 0;
+    if( isset($course->teacherId) ){
+        $main_lecturer = $course->teacherId;
+    }else{
+        $main_lecturer = $course->Lecturers()->first()->user->id;
+    }
+
+    $userId = 0;
+    if( isset($course->userRoles[0]->user_id) ){
+        $userId = $course->userRoles[0]->user_id;
+    }elseif( isset($course->userRoleId) ){
+        $userId = $course->userRoleId;
+    }
 ?>
 <div class="col-md-3 col-sm-6">
     <div class="box-course">
@@ -34,17 +46,15 @@
                     <div class="btn-add-to-cart course-{{$course->id}}">
                         @if (!in_array($course->id, $list_bought))
                             @if (Auth::check())
-                                @if(isset($course->userRoles[0]->user_id))
-                                    @if( (int)($course->userRoles[0]->user_id) != (int)(Auth::user()->id) )
-                                        <button class="btn btn-success" data-id="{{ $course->id }}" data-image="{{ $course->image }}" data-lecturer="{{ $lecturers }}" data-name="{{ $course->name }}" data-price="{{ $course->price }}" data-real-price="{{ $course->real_price }}" data-slug="{{ $course->slug }}">
-                                            <span class="img">
-                                                <img src="{{asset("frontend/images/ic_add_to_card.png")}}" width="20px">
-                                            </span>
-                                            <span class="text">
-                                                Thêm vào giỏ hàng
-                                            </span>
-                                        </button>
-                                    @endif
+                                @if( $userId != (int)(Auth::user()->id) )
+                                    <button class="btn btn-success" data-id="{{ $course->id }}" data-image="{{ $course->image }}" data-lecturer="{{ $lecturers }}" data-name="{{ $course->name }}" data-price="{{ $course->price }}" data-real-price="{{ $course->real_price }}" data-slug="{{ $course->slug }}">
+                                        <span class="img">
+                                            <img src="{{asset("frontend/images/ic_add_to_card.png")}}" width="20px">
+                                        </span>
+                                        <span class="text">
+                                            Thêm vào giỏ hàng
+                                        </span>
+                                    </button>
                                 @endif
                             @else
                                 <button class="btn btn-success" data-id="{{ $course->id }}" data-image="{{ $course->image }}" data-lecturer="{{ $lecturers }}" data-name="{{ $course->name }}" data-price="{{ $course->price }}" data-real-price="{{ $course->real_price }}" data-slug="{{ $course->slug }}">

@@ -109,4 +109,33 @@ class CategoryController extends Controller
             echo json_encode($res);die;
         }
     }
+
+    public function getFeaturedCategory()
+    {
+        $categories = Category::where('parent_id',0)->get();
+        return view('backends.category.featured-category',['categories'=>$categories]);
+    }
+
+    public function getFeaturedCategoryAjax()
+    {
+        $categories = Category::where('parent_id', '<>', 0)->orderBy('id', 'DESC')->get();
+        return datatables()->collection($categories)
+            ->addColumn('action', function ($category) {
+                return $category->id;
+            })->addColumn('parent-name', function ($category) {
+                return $category->parent['name'];
+            })->removeColumn('id')->make(true);
+    }
+
+    public function setFeaturedCategoryAjax(Request $request)
+    {
+        $category = Category::find($request->category_id);
+        // dd($category);
+        if( isset($category->id) ){
+            $category->featured = $request->featured;
+            $category->save();
+            return \Response::json(array('status' => '200'));
+        }
+        return \Response::json(array('status' => '404'));
+    }
 }
