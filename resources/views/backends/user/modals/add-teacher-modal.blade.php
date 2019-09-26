@@ -103,7 +103,7 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-primary" id="createTeacher">Thêm mới</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeCreateTeacher">Hủy bỏ</button>
     </div> 
 </div>
 
