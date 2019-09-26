@@ -248,9 +248,20 @@ class CourseController extends Controller
 
     public function accept(Request $request)
     {   
+
         if($request->course_id){
             $course = Course::find($request->course_id);
             
+            if( $request->status == 1 ){
+                if( !isset($course->units) ){
+                    return \Response::json(array('status' => '404', 'message' => 'Không thể duyệt khóa học do không có phần học.'));
+                }else{
+                    if( !isset($course->units[0]->videos) ){
+                        return \Response::json(array('status' => '404', 'message' => 'Không thể duyệt khóa học do phần học không có bài học.'));
+                    }
+                }
+            }
+
             if($course){
                 $course->status = $request->status;
                 
