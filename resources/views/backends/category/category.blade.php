@@ -181,6 +181,22 @@ $(document).ready(function() {
             img.src = _URL.createObjectURL(file);
         }
     })
+    $("#files").change(function(e) {
+        var file, img;
+        if ((file = this.files[0])) {
+            img = new Image();
+            img.onerror = function() {
+                Swal.fire({
+                    type: 'warning',
+                    text: 'Tập tin không hợp lệ.',
+                    allowOutsideClick: false,
+                })
+                $("#files").val('') 
+                
+            };
+            img.src = _URL.createObjectURL(file);
+        }
+    })
     
     link_image_base64 = '';
     function handleFileSelect(evt) {
