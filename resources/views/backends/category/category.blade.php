@@ -353,7 +353,7 @@ $(document).ready(function() {
         $('input[name=icon]').val('');
         $('input[type=file]').val('');
         $('select option[value="0"]').attr("selected",true);
-        $('#preview_category_img').src = "";
+        $('#preview_category_img').attr("src","https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-image-128.png");
     }
 
     $('#edit_user_modal').on('shown.bs.modal', function() {
