@@ -9,8 +9,8 @@
 <div class="col-sm-3" id="course-{{ $course->id }}">
     <div class="box-course">
         <button class="btn btn-primary btn-unit-course" id="btn-unit-{{ $course->id }}" title="Thêm bài giảng"><i class="fas fa-bars"></i></button>
-        <button class="btn btn-primary btn-edit-course" id="btn-edit-{{ $course->id }}" title="Sửa khóa học"><i class="far fa-edit"></i></button>
-        @if ( $course->status == 1 )
+        <button class="btn btn-primary btn-edit-course" id="btn-edit-{{ $course->id }}" title="Sửa khóa học"><i class="fas fa-edit"></i></button>
+        {{-- @if ( $course->status == 1 )
             <button class="btn btn-danger btn-remove-course" id="btnStop{{ $course->id }}" title="Ngừng bán khóa học"><i class="fas fa-stop"></i></button>
         @else
             @if ( $course->status == -1 )
@@ -18,7 +18,7 @@
             @else
                 <button class="btn btn-warning btn-remove-course active" title="Khóa học đang được xử lý"><i class="fas fa-pause"></i></button>
             @endif
-        @endif
+        @endif --}}
         <div class="img-course">
             <img class="img-responsive"
                 src="{{ $image }}"

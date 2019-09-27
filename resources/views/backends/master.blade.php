@@ -122,7 +122,28 @@
                                 <i class="fa fa-home"></i> <span>Trở lại trang chính</span>
                             </a>
                         </li>
-                 
+                        <li class="treeview @if ( Request::is('admincp/feature*')) active @endif">
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-star"></i>
+                                <span>Cài đặt trang chủ</span>
+                                <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                @if (Helper::checkPermissions('users.list', $list_roles))
+                                    <li class="@if ( Request::is('admincp/feature-course*') ) active @endif">
+                                        <a href="{{ url('/') }}/admincp/feature-course"><i class="fa fa-minus"></i>Khóa học nổi bật</a>
+                                    </li>
+                                    <li class="@if ( Request::is('admincp/feature-teacher*') ) active @endif">
+                                        <a href="{{ url('/') }}/admincp/feature-teacher"><i class="fa fa-minus"></i>Giảng viên tiêu biểu</a>
+                                    </li>
+                                    <li class="@if ( Request::is('admincp/featured-category*') ) active @endif">
+                                        <a href="{{ url('/') }}/admincp/featured-category"><i class="fa fa-minus"></i>Danh mục tiêu biểu</a>
+                                    </li>
+                                @endif
+                            </ul>
+                        </li>
                         <li class="treeview @if ( Request::is('admincp/users') || Request::is('admincp/permissions*') || Request::is('admincp/roles*') ) active @endif">
                             <a href="javascript:void(0)">
                                 <i class="fa fa-user-md"></i>
@@ -183,8 +204,11 @@
                                     <li class="@if ( Request::is('admincp/teachers*') )active @endif">
                                         <a href="{{ url('/') }}/admincp/teachers"><i class="fa fa-minus"></i> Yêu cầu làm giảng viên</a>
                                     </li>
-                                    <li class="@if ( Request::is('admincp/courses*') )active @endif">
+                                    <li class="@if ( Request::is('admincp/courses') )active @endif">
                                         <a href="{{ url('/') }}/admincp/courses"><i class="fa fa-minus"></i> Yêu cầu duyệt khóa học</a>
+                                    </li>
+                                    <li class="@if ( Request::is('admincp/courses/request-edit*') )active @endif">
+                                        <a href="{{ url('/') }}/admincp/courses/request-edit"><i class="fa fa-minus"></i> Yêu cầu sửa khóa học</a>
                                     </li>
                                     <!-- <li class="@if ( Request::is('admincp/verify-video*') ) active @endif">
                                         <a href="{{ url('/') }}/admincp/verify-video"><i class="fa fa-minus"></i> Yêu cầu duyệt bài giảng</a>
@@ -217,24 +241,18 @@
                                 <span class="pull-right-container">
                             </a>
                         </li>
-                        <li class="treeview @if ( Request::is('admincp/feature-*')) active @endif">
+                        <li class="treeview @if ( Request::is('admincp/comment*')) active @endif">
                             <a href="javascript:void(0)">
                                 <i class="fa fa-star"></i>
-                                <span>Cài đặt trang chủ</span>
+                                <span>Phản hồi</span>
                                 <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>
                                 </span>
                             </a>
                             <ul class="treeview-menu">
                                 @if (Helper::checkPermissions('users.list', $list_roles))
-                                    <li class="@if ( Request::is('admincp/feature-course*') ) active @endif">
-                                        <a href="{{ url('/') }}/admincp/feature-course"><i class="fa fa-minus"></i>Khóa học nổi bật</a>
-                                    </li>
-                                    <li class="@if ( Request::is('admincp/feature-teacher*') ) active @endif">
-                                        <a href="{{ url('/') }}/admincp/feature-teacher"><i class="fa fa-minus"></i>Giảng viên tiêu biểu</a>
-                                    </li>
-                                    <li class="@if ( Request::is('admincp/featured-category*') ) active @endif">
-                                        <a href="{{ url('/') }}/admincp/featured-category"><i class="fa fa-minus"></i>Danh mục tiêu biểu</a>
+                                    <li class="@if ( Request::is('admincp/comment/comment-course*') ) active @endif">
+                                        <a href="{{ url('/') }}/admincp/comment/comment-course"><i class="fa fa-minus"></i>Phản hồi khóa học</a>
                                     </li>
                                 @endif
                             </ul>
