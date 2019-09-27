@@ -224,7 +224,11 @@
                                 $(row).addClass('red-row');
                             }
                             $(row).attr('data-cv', data['cv']);
-                            $(row).attr('data-video', data['video_intro']);
+                            console.log(data['video_intro']);
+                            var video_intro_link = data['video_intro'];
+                            video_intro_link = video_intro_link.replace("https://youtube.com", "https://www.youtube.com")
+                            video_intro_link = video_intro_link.replace("watch?v=", "embed/")
+                            $(row).attr('data-video', video_intro_link);
                         }
                     });
 
