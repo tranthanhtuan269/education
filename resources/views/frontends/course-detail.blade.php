@@ -297,7 +297,7 @@
                             {{-- <div class="sidebar-fixed" id="sidebar-content"> --}}
                             <div id="sidebar-content">
                                 <div class="u-sm-left">
-                                    <div class="block-price">
+                                    <div class="block-price clearfix">
                                         <?php
                                         $check_time_sale = false;
                                         if ($info_course->from_sale != '' && $info_course->to_sale != '') {
