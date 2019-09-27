@@ -373,13 +373,27 @@ class VideoController extends Controller
     {
         $video = Video::find($request->video_id);
         if ($video) {
-            $video->state = 3;
+            $unit  = $video->unit;
+            $course = $unit->course;
+            $user_roles_teacher = $course->Lecturers()->first();
+            if($user_roles_teacher){
+                $user = $user_roles_teacher->user;
+                $isTeacher = $user->isTeacher();
+                if(!$isTeacher){
+                   return response()->json([
+                       'status' => 300,
+                       'message'=> 'Giảng viên chưa được duyệt. Vui lòng duyệt giảng viên trước!'
+                   ]); 
+                }
+            }
+
+            $video->state = Config::get('app.video_converting');
             $video->save();
 
             // DuongNT // thêm 1 video vào lượng đã xem vào bảng user_courses
             $unit = $video->unit;
             $course = $unit->course;
-            $user_roles = $course->userRoles()->where('role_id', 3)->get()->all();//lấy những user_role đại diện student
+            $user_roles = $course->userRoles()->where('role_id', Config::get('app.student'))->get()->all();//lấy những user_role đại diện student
             #Insert cho từng student
 
             foreach ($user_roles as $key => $user_role) {
@@ -429,7 +443,7 @@ class VideoController extends Controller
                 ->removeColumn('id')->make(true);
         }
         $sql = "
-        SELECT videos.id, videos.name as name, videos.link_video as link_video, videos.updated_at as updated_at, courses.name as course_name
+        SELECT videos.id, videos.state, videos.name, videos.link_video, videos.updated_at, courses.name as course_name
         FROM videos
         JOIN units ON units.id = videos.unit_id
         JOIN courses ON courses.id = units.course_id
@@ -449,6 +463,19 @@ class VideoController extends Controller
             $video = Video::find($request->video_id);
 
             if ($video) {
+                $unit  = $video->unit;
+                $course = $unit->course;
+                $user_roles_teacher = $course->Lecturers()->first();
+                if($user_roles_teacher){
+                    $user = $user_roles_teacher->user;
+                    $isTeacher = $user->isTeacher();
+                    if(!$isTeacher){
+                    return response()->json([
+                        'status' => 300,
+                        'message'=> 'Giảng viên chưa được duyệt. Vui lòng duyệt giảng viên trước!'
+                    ]); 
+                    }
+                }
                 if ($request->state == 3) { //state = 3 đang đợi convert trong hàng đợi
                     // convert video to multi resolution
                     $path_360 = "/usr/local/WowzaStreamingEngine-4.7.7/content/360/".$video->link_video;

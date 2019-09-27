@@ -94,7 +94,7 @@ class User extends Authenticatable
         return $this->hasMany('App\UserRole')->where('role_id', \Config::get('app.teacher'))->first();
     }
 
-    public function registeredTeacher(){
+    public function registeredTeacher(){ //là giảng viên được active và đang chờ active, loại bỏ giảng viên bị block
         $user_role_teacher = $this->hasMany('App\UserRole')->where('role_id', \Config::get('app.teacher'))->first();
         if(isset($user_role_teacher->teacher)){
             if($user_role_teacher->teacher->status == \Config::get('app.teacher_active') || $user_role_teacher->teacher->status == \Config::get('app.teacher_inactive')){
@@ -107,7 +107,7 @@ class User extends Authenticatable
         }
     }
 
-    public function isTeacher(){
+    public function isTeacher(){ //giảng viên được active
         $user_role_teacher = $this->hasMany('App\UserRole')->where('role_id', \Config::get('app.teacher'))->first();
         if(isset($user_role_teacher->teacher) && $user_role_teacher->teacher->status == 1){
             return true;
