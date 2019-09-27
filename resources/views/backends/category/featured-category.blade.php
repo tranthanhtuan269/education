@@ -133,7 +133,7 @@ $(document).ready(function() {
                         success: function (response) {
                             if(response.status == 200){
                                 dataTable.ajax.reload();
-                                if (status == 0){
+                                if (featured == 0){
                                     Swal.fire({
                                         type: 'success',
                                         text: "Đã đổi danh mục thành nổi bật."

@@ -4,11 +4,13 @@ return [
     'admin' => 1,
     'teacher' => 2,
     'student' => 3,
+    'teacher_blocked' => 2,
     'teacher_active' => 1,
     'teacher_inactive' => 0,
+    'video_rejected' => -1,
     'video_waiting' => 0,
     'video_active' => 1,
-    'video_rejected' => 2,
+    'video_waiting_to_delete' => 2,
     'video_converting' => 3,
     
     /*

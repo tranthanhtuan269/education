@@ -97,7 +97,11 @@ class User extends Authenticatable
     public function registeredTeacher(){
         $user_role_teacher = $this->hasMany('App\UserRole')->where('role_id', \Config::get('app.teacher'))->first();
         if(isset($user_role_teacher->teacher)){
-            return true;
+            if($user_role_teacher->teacher->status == \Config::get('app.teacher_active') || $user_role_teacher->teacher->status == \Config::get('app.teacher_inactive')){
+                return true;
+            }else{
+                return false;
+            }
         }else{
             return false;
         }

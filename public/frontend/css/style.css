@@ -2465,21 +2465,21 @@ div[data-u="slides"] div div{
 .btn-remove-course{
   position: absolute;
   top: 5px;
-  right: 20px;
+  right: 115px;
   z-index: 2;
 }
 
 .btn-edit-course{
   position: absolute;
   top: 5px;
-  right: 65px;
+  right: 20px;
   z-index: 2;
 }
 
 .btn-unit-course{
   position: absolute;
   top: 5px;
-  right: 115px;
+  right: 65px;
   z-index: 2;
 }
 
@@ -2875,6 +2875,15 @@ div[data-u="slides"] div div{
 
 .remove-request{
   color:red;float:right;width:270px;margin-left:20px;
+}
+.verifing-request{
+  color:blue;float:right;width:197px;margin-left:20px;
+}
+.verified-request{
+  color:green;float:right;width:270px;margin-left:20px;
+}
+.converting-request{
+  color:orangered;float:right;width:270px;margin-left:20px;
 }
 
 .feature-course .big-course .discount-percent{

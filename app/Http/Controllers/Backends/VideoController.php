@@ -16,13 +16,15 @@ use Illuminate\Http\Request;
 use App\Helper\Helper;
 use App\Jobs\ProcessLecture;
 use DB;
+use Illuminate\Http\Response;
+use Config;
 
 class VideoController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function index()
     {
@@ -32,7 +34,7 @@ class VideoController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function create()
     {
@@ -42,14 +44,14 @@ class VideoController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param StoreVideoRequest $request
+     * @return Response
      */
     public function store(StoreVideoRequest $request)
     {
         $unit = Unit::withCount('videos')->find($request->unit_id);
         if ($unit) {
-            
+
 
             $video = new Video;
             $video->name = $request->name;
@@ -80,7 +82,7 @@ class VideoController extends Controller
                         $document->size = $file->getClientSize();
                         $document->save();
 
-                        $file->move('uploads/files', $video->id.'_'.time().'_'.$file_name);                        
+                        $file->move('uploads/files', $video->id.'_'.time().'_'.$file_name);
                     }else{
                         return response()->json([
                             'status' => "401",
@@ -131,7 +133,7 @@ class VideoController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show($id)
     {
@@ -142,7 +144,7 @@ class VideoController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit(Request $request)
     {
@@ -154,7 +156,7 @@ class VideoController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(UpdateVideoRequest $request, $id)
     {
@@ -169,7 +171,7 @@ class VideoController extends Controller
                 $video->link_video = $link_video;
                 $command = config('config.path_ffprobe_exe').' -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 '.public_path("/uploads/videos/").$link_video.' 2>&1';
                 $video->duration =  exec($command, $output, $return);
-            }           
+            }
 
             $video->save();
 
@@ -187,7 +189,7 @@ class VideoController extends Controller
                         $document->size = $file->getClientSize();
                         $document->save();
 
-                        $file->move('uploads/files', $video->id.'_'.time().'_'.$file_name);                        
+                        $file->move('uploads/files', $video->id.'_'.time().'_'.$file_name);
                     }else{
                         return response()->json([
                             'status' => "401",
@@ -215,34 +217,51 @@ class VideoController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function sendRemoveVideoRequest(Request $request)
     {
         $video = Video::find($request->video_id);
 
         if ($video) {
-            if($video->state == 2){ //Đang được admin duyệt
+            // if($video->state == Config::get('app.video_active')){ //Đang được admin duyệt
+            //     return response()->json([
+	        //         'status' => '201',
+	        //         'message' => 'Yêu cầu xoá video bài giảng đang được duyệt!'
+	        //     ]);
+            // }
+            if($video->state == Config::get('app.video_rejected')){
                 return response()->json([
-	                'status' => '201',
-	                'message' => 'Yêu cầu xoá video đang được duyệt!'
-	            ]);
+                    'status' => '201',
+                    'message' => 'Video đã không được duyệt!'
+                ]);
             }
-            if($video->state!=-1){
+            if($video->state == Config::get('app.video_waiting')){  // Nếu đang chờ duyệt thì có thể xoá luôn
+                //Xoá luôn video trên server
+	            $json_video = json_decode($video->url_video, true);
+	            if (count($json_video) > 0) {
+	                foreach ($json_video as $path_video) {
+	                    if(\File::exists($path_video)) {
+	                        \File::delete($path_video);
+	                    }
+	                }
+                }
+                $video->delete();
+                return response()->json([
+                    'status' => '200',
+                    'message' => 'Xoá video bài giảng thành công!'
+                ]);
+            }
+            if($video->state == Config::get('app.video_active')){
                 $unit = $video->unit;
-                // $unit->video_count -= 1;
-                // $unit->save();
-
                 $course = $unit->course;
-                // $course->video_count -= 1;
-                // $course->save();
-                
-                $video->state = 2; //Đang được admin duyệt
+                $video->state = Config::get('app.video_waiting_to_delete'); //Đang được admin duyệt để xoá
                 $video->save();
 
-
-
-	            $json_video = json_decode($video->url_video, true);
+                return response()->json([
+	                'status' => '200',
+	                'message' => 'Yêu cầu xoá video đã được gửi!'
+	            ]);
 
                 //Xoá luôn video trên server
 	            // if (count($json_video) > 0) {
@@ -252,7 +271,7 @@ class VideoController extends Controller
 	            //         }
 	            //     }
                 // }
-                
+
                 // DuongNT // Xoá trong bảng usercourse phần tử đại diện video đã xem
                 // $unit = $video->unit;
                 // $course = $video->unit->course;
@@ -269,20 +288,17 @@ class VideoController extends Controller
                 //     $videos = json_encode($videos);
                 //     $user_course->videos = $videos;
                 //     $user_course->save();
-                // }                
+                // }
 
 	            // $video->delete();
 
-	            return response()->json([
-	                'status' => '200',
-	                'message' => 'Yêu cầu xoá video đã được gửi!'
-	            ]);
-            }else{
-                return response()->json([
-                    'status' => '404',
-                    'message' => 'Yêu cầu xoá video không được gửi thành công!',
-                ]);
+	    
             }
+        }else{
+            return response()->json([
+                'status' => '404',
+                'message' => 'Yêu cầu xoá video không được gửi thành công!',
+            ]);
         }
     }
 
@@ -302,7 +318,7 @@ class VideoController extends Controller
                     $video->index = $obj->index+1;
                     $unit = $video->unit;
                     $course = $video->unit->course;
-                    
+
                     $video->save();
                 }
             }
@@ -359,13 +375,13 @@ class VideoController extends Controller
         if ($video) {
             $video->state = 3;
             $video->save();
-            
+
             // DuongNT // thêm 1 video vào lượng đã xem vào bảng user_courses
             $unit = $video->unit;
             $course = $unit->course;
             $user_roles = $course->userRoles()->where('role_id', 3)->get()->all();//lấy những user_role đại diện student
             #Insert cho từng student
-            
+
             foreach ($user_roles as $key => $user_role) {
                 $user_course = UserCourse::where("user_role_id", $user_role->id)->where("course_id", $course->id)->first();
                 $videos = json_decode($user_course->videos);
@@ -447,11 +463,11 @@ class VideoController extends Controller
 
                     $json = '{"360": "'.$content_path_360.'", "480": "'.$content_path_480.'", "720": "'.$content_path_720.'", "1080": "'.$content_path_1080.'"}';
                     // echo json_encode($json);die;
-                    // $video->url_video = $json; 
+                    // $video->url_video = $json;
                     // $video->url_video = json_encode($json);
                     $video->url_video = $json;
                     $video->save();
-                    
+
                     dispatch(new ProcessLecture($path_720, $request->video_id, $video->link_video, 720));
                     dispatch(new ProcessLecture($path_480, $request->video_id, $video->link_video, 480));
                     dispatch(new ProcessLecture($path_360, $request->video_id, $video->link_video, 360));
@@ -467,7 +483,7 @@ class VideoController extends Controller
 
                 $video->state = $request->state;
                 $video->save();
-                
+
                 echo json_encode($res);die;
             }
         }
@@ -527,7 +543,7 @@ class VideoController extends Controller
                 if( isset($video->link_video) ){
                     if(\File::exists($path_video_origin)){
                         unlink($path_video_origin);
-                    }    
+                    }
                 }
 
                 $video->delete();

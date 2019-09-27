@@ -96,6 +96,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('courses/delete', 'Backends\CourseController@deleteCourse');
         Route::delete('courses/delete-multiple-course', 'Backends\CourseController@deleteMultiCourse');
         Route::put('courses/activeCourse', 'Backends\CourseController@activeCourse');
+        // Sua khoa hoc
+        Route::get('courses/request-edit', 'Backends\CourseController@getRequestEditCourse');
+        Route::get('courses/get-edit-course-ajax', 'Backends\CourseController@getRequestEditCourseAjax');
+        Route::post('courses/accept-edit-course', 'Backends\CourseController@acceptEditCourse');
 
         // Trinhnk Duyet video
         Route::get('videos', 'Backends\VideoController@getVideo');
@@ -110,7 +114,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('request-delete-videos/reject', 'Backends\VideoController@rejectRequestDeleteVideo');
         // Route::get('videos-of-course', 'Backends\VideoController@getVideoOfCourse');
         // Route::delete('request-delete-videos/accept', 'Backends\VideoController@acceptRequestDeleteVideo');
-
 
         // Trinhnk Block Users
         Route::put('users/block-user', 'Backends\UserController@blockUser');
@@ -144,6 +147,12 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('coupon/getCouponAjax', 'Backends\HomeController@getCouponAjax');
         Route::delete('coupon/delete', 'Backends\HomeController@deleteCoupon');
         Route::post('coupon/update', 'Backends\HomeController@updateCoupon');
+
+        Route::group(['prefix' => 'comment'],function () {
+            Route::get('comment-course', 'Backends\CommentController@getAllCommentCourse');
+            Route::get('get-comment-course-ajax', 'Backends\CommentController@getAllCommentCourseAjax');
+
+        });
         // End
 
         Route::get('teachers', 'Backends\UserController@getTeacher');

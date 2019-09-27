@@ -1,4 +1,4 @@
-@extends('frontends.layouts.app') 
+@extends('frontends.layouts.app')
 @section('content')
 <!-- Include the plugin's CSS and JS: -->
 <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap-multiselect.css') }}" type="text/css">
@@ -53,8 +53,8 @@
                                 @if (count($lifelong_course) > 0)
                                     @foreach ($lifelong_course as $course)
                                     @include(
-                                        'components.admin-course', 
-                                        [   
+                                        'components.admin-course',
+                                        [
                                             'course' => $course
                                         ]
                                     )
@@ -77,7 +77,7 @@
                                     </div>
                                 @endif
                             </div>
-                            
+
                         </div>
                         {{-- <div class="tab-pane" id="membership">
                             <p>Chưa kích hoạt khóa học với thẻ membership</p>
@@ -212,7 +212,7 @@
             <div class="modal-body">
                 <div class="row">
                     <ul id="videoSortable" class="video-holder" data-unit-id="0">
-                        
+
                     </ul>
                 </div>
             </div>
@@ -232,11 +232,11 @@
             <div class="modal-body">
                 <div class="form-group row">
                     <label class="col-sm-3" for="name">Tên bài học:</label>
-                    <input class="col-sm-9 form-control add-video-name" type="text" class="form-control">
+                    <input class="col-sm-9 form-control add-video-name" type="text" >
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-3" for="name">Mô tả:</label>
-                    <textarea class="col-sm-9 form-control add-video-description" rows="5" class="form-control" class="form-control"></textarea>
+                    <textarea class="col-sm-9 form-control add-video-description" rows="5"></textarea>
                 </div>
                 <div class="form-group row">
                     <label for="file" class="col-sm-3">Tài liệu:</label>
@@ -267,14 +267,14 @@
 
                     {{-- <input type="file" name="file-mp4-upload-off" id="file-mp4-upload-off"> --}}
                     <div class="progress">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="70"aria-valuemin="0" aria-valuemax="100" style="width:0%">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:0%">
                             <span class="sr-only">Hoàn thành 0%</span>
                         </div>
                     </div>
-                    <video class="video_player" controls="controls" src="" style="max-width:100%" class="hidden">
+                    <video class="video_player hidden" controls="controls" src="" style="max-width:100%">
                         Your browser does not support the HTML5 Video element.
                     </video>
-                </div>                                         
+                </div>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-primary save-add-video">Lưu</button>
@@ -296,11 +296,11 @@
             <div class="modal-body">
                 <div class="form-group row">
                     <label class="col-sm-3" for="name">Tên:</label>
-                    <input class="col-sm-9 form-control edit-video-name" type="text" class="form-control">
+                    <input class="col-sm-9 form-control edit-video-name" type="text">
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-3" for="name">Mô tả:</label>
-                    <textarea class="col-sm-9 form-control edit-video-description" rows="5" class="form-control" class="form-control"></textarea>
+                    <textarea class="col-sm-9 form-control edit-video-description" rows="5"></textarea>
                 </div>
                 <div class="form-group row">
                     <label for="file" class="col-sm-3">Tài liệu:</label>
@@ -329,15 +329,15 @@
                         </div>
                     </div>
                     <div class="progress">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="70"aria-valuemin="0" aria-valuemax="100" style="width:0%">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:0%">
                             <span class="sr-only">Hoàn thành 0%</span>
                         </div>
                     </div>
                     <video id="videoInEdit" controls="controls" src="" style="max-width:100%">
                         Your browser does not support the HTML5 Video element.
                     </video>
-                </div>       
-                        
+                </div>
+
             </div>
 
             <div class="modal-footer">
@@ -354,7 +354,7 @@
     $(document).ready(function(){
         document.getElementById('course-approx-time').onkeydown = function(e) {
             if(!((e.keyCode > 95 && e.keyCode < 106)
-            || (e.keyCode > 47 && e.keyCode < 58) 
+            || (e.keyCode > 47 && e.keyCode < 58)
             || (e.keyCode == 8)
             || e.keyCode == 190)) {
                 return false;
@@ -362,14 +362,14 @@
         }
         document.getElementById('courseOriginalPrice').onkeydown = function(e) {
             if(!((e.keyCode > 95 && e.keyCode < 106)
-            || (e.keyCode > 47 && e.keyCode < 58) 
+            || (e.keyCode > 47 && e.keyCode < 58)
             || e.keyCode == 8)) {
                 return false;
             }
         }
         document.getElementById('courseDiscountPrice').onkeydown = function(e) {
             if(!((e.keyCode > 95 && e.keyCode < 106)
-            || (e.keyCode > 47 && e.keyCode < 58) 
+            || (e.keyCode > 47 && e.keyCode < 58)
             || e.keyCode == 8)) {
                 return false;
             }
@@ -401,7 +401,7 @@
 
         $('#addVideoModal').on('hidden.bs.modal', function () {
             for(var i = 0; i < $('.video_player').length; i++){
-               $('.video_player')[i].pause(); 
+               $('.video_player')[i].pause();
             }
             $('#listVideo').modal({
                 backdrop: 'static',
@@ -415,23 +415,23 @@
                 keyboard: false
             });
         });
-        
+
         $("#btnEditVideoDocument").click(function(){
-            $('#editVideoDocument').click()  
+            $('#editVideoDocument').click()
         })
         //DUONG NT UPLOAD DOCUMENT
         $("#btnAddVideoDocument").click(function(){
-            $('#addVideoDocument').click()            
+            $('#addVideoDocument').click()
         })
         var inputFile = $('#addVideoDocument')
         let files = [];
         inputFile.change(function(){
-            let newFiles = []; 
+            let newFiles = [];
             for(let index = 0; index < inputFile[0].files.length; index++) {
                 let file = inputFile[0].files[index];
                 newFiles.push(file);
                 files.push(file);
-                
+
                 var filesLength = files.length
 
                 var html = ''
@@ -440,7 +440,7 @@
                     html += `<span class="pull-right btn-delete-document "><button data-index="${filesLength - 1}" class="btn btn-danger" id="btnDeleteDocument">Xoá</button></span>`
                 html += `</div>`
 
-                $('.document-field').append(html)                                                
+                $('.document-field').append(html)
             }
             $('#addVideoDocument').val("");
         })
@@ -467,12 +467,12 @@
         let editFiles = []
         editInputFile.change(function(){
             const initialEditFilesLength = $('.edit-document-field .row').length
-            let newFiles = []; 
+            let newFiles = [];
             for(let index = 0; index < editInputFile[0].files.length; index++) {
                 let file = editInputFile[0].files[index];
                 newFiles.push(file);
                 editFiles.push(file);
-                
+
                 var filesLength = editFiles.length + initialEditFilesLength
 
                 var html = ''
@@ -481,7 +481,7 @@
                     html += `<span class="pull-right btn-delete-edit-document "><button data-index="${filesLength - 1}" data-active="false" data-file-id="${file.id}" class="btn btn-danger" id="btnDeleteDocumentInEdit">Xoá</button></span>`
                 html += `</div>`
 
-                $('.edit-document-field').append(html)                                                
+                $('.edit-document-field').append(html)
             }
             $('#editVideoDocument').val("");
         })
@@ -530,18 +530,33 @@
                 success: function (response) {
                     if(response.status == '200'){
                         var html = "";
-                        
-                        for(var i = 0; i < response.videos.length; i++){
-                            if(response.videos[i].state == "2"){
-                                html += '<li style="display:flex" class="ui-state-default ui-sortable-handle"  data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'">'
-                                html += '<i class="fas fa-sort"></i> '
-                                html += '<span class="video-content">'+response.videos[i].name+'</span><span class="remove-request"> (Yêu cầu xoá đang được duyệt)</span>'
-                            }else{
-                                html += '<li class="ui-state-default ui-sortable-handle"  data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'">'
-                                html += '<i class="fas fa-sort"></i> '
-                                html += '<span class="video-content">'+response.videos[i].name+'</span>'                                
-                                html += '<i class="fas fa-trash pull-right remove-video" data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'"></i>'
-                                html += '<i class="fas fa-edit pull-right edit-video" data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'"></i>'
+
+                        for(var i = 0; i < response.videos.length; i++){                        
+                            switch(response.videos[i].state){
+                                case 2:
+                                    html += '<li style="display:flex" class="ui-state-default ui-sortable-handle"  data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'">'
+                                    html += '<i class="fas fa-sort"></i> '
+                                    html += '<span class="video-content">'+response.videos[i].name+'</span><span class="remove-request"> (Đang duyệt yêu cầu xoá)</span>'
+                                    break;
+                                case 3:
+                                    html += '<li style="display:flex" class="ui-state-default ui-sortable-handle"  data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'">'
+                                    html += '<i class="fas fa-sort"></i> '
+                                    html += '<span class="video-content">'+response.videos[i].name+'</span><span class="converting-request"> (Đang được convert)</span>'
+                                    break;
+                                case 1:
+                                    html += '<li class="ui-state-default ui-sortable-handle"  data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'">'
+                                    html += '<i class="fas fa-sort"></i> '
+                                    html += '<span class="video-content">'+response.videos[i].name+'</span>'
+                                    html += '<i class="far fa-trash-alt pull-right remove-video" data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'"></i>'
+                                    html += '<i class="far fa-edit pull-right edit-video" data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'"></i>'
+                                    break;
+                                case 0: //chờ duyệt
+                                    html += '<li style="display:flex" class="ui-state-default ui-sortable-handle"  data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'">'
+                                    html += '<i class="fas fa-sort"></i> '
+                                    html += '<span class="video-content">'+response.videos[i].name+'</span><span class="verifing-request"> (Chờ duyệt)</span>'
+                                    html += '<i class="far fa-edit pull-right edit-video" data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'"></i>'
+                                    html += '<i class="far fa-trash-alt pull-right remove-video" data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'"></i>'
+                                    break;
                             }
                             html += '</li>'
                         }
@@ -594,7 +609,7 @@
             $('#addVideoModal textarea.add-video-description').val('');
             $('#addVideoModal video').addClass('hidden');
         })
-        
+
         function addEventAndSort(){
             $(".progress-bar").html('');
             $(".progress-bar").css("width", "0%");
@@ -626,15 +641,15 @@
                         $("#editVideoModal video")[0].load();
 
                         filesEditLength = response.video.documents.length
-                        
+
                         response.video.documents.forEach( (document, index) => {
                             var html = ''
                             html += `<div class="row" data-index="${index}">`
                                 html += `<span class="pull-left">${document.title}</span>`
                                 html += `<span class="pull-right btn-delete-document "><button data-index="${index}" data-active="true" data-file-id="${document.id}" class="btn btn-danger" id="btnDeleteDocumentInEdit">Xoá</button></span>`
                             html += `</div>`
-                            $('.edit-document-field').append(html)                                                
-                            
+                            $('.edit-document-field').append(html)
+
                         });
                     }
                 },
@@ -655,7 +670,7 @@
             // let filesEdit = []
 
             // inputFileEdit.change(function(){
-            //     let newFiles = []; 
+            //     let newFiles = [];
             //     for(let index = 0; index < inputFile[0].files.length; index++) {
             //         let file = inputFile[0].files[index];
             //         newFiles.push(file);
@@ -667,11 +682,11 @@
             //             html += `<span class="pull-right btn-delete-document "><button data-index="${filesEdit.length + filesEditLength - 1}" class="btn btn-danger" id="btnDeleteDocument">Xoá</button></span>`
             //         html += `</div>`
 
-            //         $('.document-field').append(html)                                                
+            //         $('.document-field').append(html)
             //     }
             //     $('#addVideoDocument').val("");
-                
-            // }) 
+
+            // })
 
             });
             $('#video-file').on('change', function(e){
@@ -683,7 +698,7 @@
                     reader.readAsDataURL(file)
             })
             $('.save-add-video').off('click');
-            $('.save-add-video').click(function(){                
+            $('.save-add-video').click(function(){
 
                 var unit_id = $(this).attr('data-unit-id');
                 var video_name = $('.add-video-name').val()
@@ -776,7 +791,7 @@
                             $("#editVideoDocument").val("")
                             $("#videoInEdit")[0].pause()
                         }
-                        
+
                     },
                     error: function (error) {
                         $(".ajax_waiting").removeClass("loading");
@@ -799,7 +814,7 @@
             $(".remove-video").click(function(){
                 var self = $(this)
                 var video_id = $(this).attr('data-video-id')
-                
+
 
                 //DuongNT // Đánh lại index cho từng video trên DOM sau khi xoá
                 // var deleted_index = $(this).parent().attr("data-video-index")
@@ -840,12 +855,15 @@
                                         text: response.message,
                                         allowOutsideClick: false,
                                     })
+                                    $('#listVideo .modal-body #videoSortable').empty()
+                                    var unit_id = $('#listVideo').attr('data-unit-id')
+                                    getListVideoAjax(unit_id)
                                 }
                             },
                             error: function () {
                                 $(".ajax_waiting").removeClass("loading");
                             }
-                        })                        
+                        })
                     }
                 })
             });
@@ -859,7 +877,7 @@
                 placeholder: "ui-state-highlight",
                 update: function( event, ui ) {
                     // console.log($(ui.item));
-                    
+
                     old_pos = $(ui.item).attr('data-video-index');
 
                     // check key begin vs after
@@ -870,7 +888,7 @@
                             new_pos = index+1
                         }
                         if(index != $(value).attr('data-video-index')-1 ){
-                            
+
                             data.push({
                                 id: $(value).attr('data-video-id'),
                                 index: index,
@@ -879,7 +897,7 @@
                             $(value).attr('data-video-index', index+1)
                         }
                     });
-                    // end check key 
+                    // end check key
                     $.ajax({
                         method: "PUT",
                         url: "{{ url('/') }}/user/videos/sort",
@@ -1091,7 +1109,7 @@
                     return 'Audio';
                 } else {
                     return '100%';
-                } 
+                }
             }
 
         }
@@ -1100,10 +1118,10 @@
             $("#listUnit{{ $course->id }} .edit-unit").off('click')
             $("#listUnit{{ $course->id }} .remove-unit").off('click')
             $("#listUnit{{ $course->id }} .save-unit").off('click')
-          
+
             $("#listUnit{{ $course->id }} .save-unit").click(function(){
                 var content = $('#unit-input').val()
-                // var html = '<i class="fas fa-sort"></i> <span class="unit-content">'+content+'</span> <i class="fas fa-trash remove-unit" id="remove-unit" data-id="{{ $course->id }}"></i><i class="fas fa-edit edit-unit" id="edit-unit" data-id="{{ $course->id }}"></i>'
+                // var html = '<i class="fas fa-sort"></i> <span class="unit-content">'+content+'</span> <i class="far fa-trash-alt remove-unit" id="remove-unit" data-id="{{ $course->id }}"></i><i class="far fa-edit edit-unit" id="edit-unit" data-id="{{ $course->id }}"></i>'
                 var parent = $(this).parent()
                 var name = parent.find('input').val()
 
@@ -1127,8 +1145,8 @@
                             var html = ""
                             html += '<i class="fas fa-sort"></i> '
                             html += '<span class="unit-content">'+content+'</span>'
-                            html += '<i class="fas fa-trash remove-unit" id="remove-unit-'+ unit_id +'" data-unit-id="'+ unit_id +'" data-course-id="'+ course_id +'"></i>'
-                            html += '<i class="fas fa-edit edit-unit" id="edit-unit-'+ unit_id +'" data-unit-id="'+ unit_id +'" data-course-id="'+ course_id +'"></i>'
+                            html += '<i class="far fa-trash-alt remove-unit" id="remove-unit-'+ unit_id +'" data-unit-id="'+ unit_id +'" data-course-id="'+ course_id +'"></i>'
+                            html += '<i class="far fa-edit edit-unit" id="edit-unit-'+ unit_id +'" data-unit-id="'+ unit_id +'" data-course-id="'+ course_id +'"></i>'
                             html += '<i class="fas fa-bars list-vid-unit" id="list-vid-unit-'+ unit_id +'" data-unit-id="'+ unit_id +'" data-course-id="'+ course_id +'"></i>'
 
                             parent.append(html)
@@ -1214,11 +1232,11 @@
         var S2 = jQuery.noConflict();
 
         S2('#image-cropper').cropit();
-        
+
         $('#btn-cropit-upload').click(function() {
             $('#image-file-input').click();
         });
-        
+
         var _URL = window.URL || window.webkitURL;
         $("#image-file-input").change(function(e) {
             var file, img;
@@ -1250,7 +1268,7 @@
         })
 
         var link_base64;
-        
+
         S2('#save-btn').click(function(){
 
             link_base64 = S2('#image-cropper').cropit('export');
@@ -1284,9 +1302,9 @@
                     discount_price = original_price
                 }
             }
-            
+
             var url = link_intro;
-            if (url != undefined || url != '') {       
+            if (url != undefined || url != '') {
                 var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
                 var match = url.match(regExp);
                 if (match && match[2].length == 11) {

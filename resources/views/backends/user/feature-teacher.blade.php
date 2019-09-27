@@ -5,6 +5,16 @@
 <link href="{{ url('/') }}/backend/css/select2.css" rel="stylesheet" />
 <script src="{{ url('/') }}/backend/js/select2.js"></script>
 
+@php
+
+$teacher_selected = 0;
+$feature_teacher_selected = \App\Setting::where('name', 'feature_teacher_selected')->first();
+
+if($feature_teacher_selected){
+    $teacher_selected = $feature_teacher_selected->value;
+}
+
+@endphp
 <section class="content-header">
     
 </section>
@@ -12,7 +22,7 @@
     <div class="feature-teacher">
         <h1 class="text-center font-weight-600">Giảng viên tiêu biểu</h1>
         <div class="header form-check">
-            <input class="form-check-input" type="radio" name="buttonRadios" id="buttonRadios1" value="option1" checked>
+            <input class="form-check-input" type="radio" name="buttonRadios" id="buttonRadios1" value="option1" @if($teacher_selected == 0) checked @endif>
             <label class="form-check-label" for="buttonRadios1">Tự hiển thị 4 giảng viên có nhiều học viên theo học nhất</label>
         </div>
         <div class="auto-choose">
@@ -29,7 +39,7 @@
             <hr>
         </div>
         <div class="header form-check">
-            <input class="form-check-input" type="radio" name="buttonRadios" id="buttonRadios2" value="option2">
+            <input class="form-check-input" type="radio" name="buttonRadios" id="buttonRadios2" value="option2" @if($teacher_selected == 1) checked @endif>
             <label class="form-check-label" for="buttonRadios2">Chọn giảng viên tiêu biểu</label>
         </div>
         <div class="admin-choose">

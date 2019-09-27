@@ -293,7 +293,7 @@
         dataTable = $('#notification-table').DataTable( {
                         serverSide: true,
                         aaSorting: [],
-                        stateSave: false,
+                        stateSave: true,
                         search: {
                             smart: false
                         },
@@ -613,14 +613,23 @@
                 },
                 dataType: "json",
                 success: function(response){
-                    $("#edit_subject_Ins").val("")
-                    edit_content_Ins.setData("")
-                    Swal.fire({
-                        text: response.message
-                    })
+                    // $("#edit_subject_Ins").val("")
+                    // edit_content_Ins.setData("")
+                    // Swal.fire({
+                    //     text: "response.message"
+                    // })
                     if(response.status == 200){
                         $("#editEmailModal").modal("hide")
                         dataTable.ajax.reload();
+                        Swal.fire({
+                            type: 'success',
+                            text: response.message
+                        })
+                    }else {
+                        Swal.fire({
+                            type: 'warning',
+                            text: response.message
+                        })
                     }
                 },
                 error: function (error) {

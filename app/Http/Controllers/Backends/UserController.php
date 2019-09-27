@@ -322,8 +322,10 @@ class UserController extends Controller
         // print_r($user);die;
         if ($user) {
             $isStudent = $user->isStudent();
+            // dd($user->isTeacher());
             $isTeacher = $user->isTeacher();
             if($isTeacher){
+                // dd($user->userRolesTeacher());
                 $teacher_info = $user->userRolesTeacher()->teacher;
             }else{
                 $teacher_info = null;
@@ -535,6 +537,12 @@ class UserController extends Controller
                 $teacher->featured       = 1;
                 $teacher->featured_index = $key+1;
                 $teacher->save();
+
+                $setting = \App\Setting::where('name', 'feature_teacher_selected')->first();
+                if($setting){
+                    $setting->value = 1;
+                    $setting->save();
+                }
             }
         }
         return \Response::json(array('status' => '200', 'message' => 'Thay đổi giảng viên tiêu biểu thành công!'));
@@ -549,6 +557,12 @@ class UserController extends Controller
             if( isset($teacher->id) ){
                 $teacher->featured       = 2;
                 $teacher->save();
+
+                $setting = \App\Setting::where('name', 'feature_teacher_selected')->first();
+                if($setting){
+                    $setting->value = 0;
+                    $setting->save();
+                }
             }
         }
         return \Response::json(array('status' => '200', 'message' => 'Thay đổi giảng viên tiêu biểu thành công!'));
