@@ -15,6 +15,7 @@ class CreateTempCoursesTable extends Migration
     {
         Schema::create('temp_courses', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('course_id');
             $table->string('name', 255);
             $table->string('short_description', 255);
             $table->string('slug', 500);
@@ -22,33 +23,15 @@ class CreateTempCoursesTable extends Migration
             $table->integer('category_id');
             $table->integer('price')->default(0);
             $table->integer('real_price')->default(0);
-            $table->date('from_sale')->nullable();
-            $table->date('to_sale')->nullable();
-            $table->time('duration')->nullable();
+            $table->date('author')->nullable();
 
-            $table->integer('downloadable_count')->default(0);
-            $table->integer('video_count')->default(0);
-            $table->integer('student_count')->default(0);
-            $table->integer('star_count')->default(0);
-            $table->integer('vote_count')->default(0);
-            $table->integer('sale_count')->default(0);
-            $table->integer('view_count')->default(0);
-            
             $table->longText('description', 2000)->nullable();
             $table->longText('will_learn', 2000)->nullable();
             $table->longText('requirement', 2000)->nullable();
             $table->integer('level')->nullable();
             $table->integer('approx_time')->nullable();
+            $table->string('link_intro', 255)->nullable();
 
-            $table->integer('featured')->default(0);
-            $table->integer('featured_index')->default(0);
-            $table->integer('promotion')->default(0);
-            $table->integer('promotion_index')->default(0);
-            $table->integer('five_stars')->default(0);
-            $table->integer('four_stars')->default(0);
-            $table->integer('three_stars')->default(0);
-            $table->integer('two_stars')->default(0);
-            $table->integer('one_stars')->default(0);
             $table->integer('status')->default(0);
             $table->timestamps();
         });
