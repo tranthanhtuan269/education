@@ -605,7 +605,7 @@
 
             var request = $.ajax({
                 method : "PUT",
-                url : "edit-email",
+                url : "edit-email/"+id,
                 data : {
                     id : id,
                     title: title,

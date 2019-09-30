@@ -25,7 +25,7 @@ class StoreStudentRequest extends FormRequest
     public function rules()
     {
         return [
-            'avatar'        => 'required',
+            // 'avatar'        => 'required',
             'name'          => 'required|min:3|max:50',
             'email'         => 'required|unique:users,email|regex_email:"/^[_a-zA-Z0-9-]{2,}+(\.[_a-zA-Z0-9-]{2,}+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,3})$/"',
             'phone'         => 'required|min:10|max:11|regex_phone:"/^[\+]?[(]?[0-9]{1,3}[)]?[-\s]?[0-9]{1,3}[-\s]?[0-9]{4,9}$/"',
@@ -39,7 +39,7 @@ class StoreStudentRequest extends FormRequest
     public function messages()
     {
         return [
-            'avatar.required'           => 'Bạn chưa chọn ảnh đại diện',
+            // 'avatar.required'           => 'Bạn chưa chọn ảnh đại diện',
             'name.required'             => 'Bạn chưa nhập Họ tên.',
             'name.min'                  => 'Họ tên phải có ít nhất 3 ký tự.',
             'name.max'                  => 'Họ tên được phép có tối đa 50 ký tự.',

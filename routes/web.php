@@ -128,7 +128,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('categories', 'Backends\CategoryController@getCategory');
         Route::get('categories/getCategoryAjax', 'Backends\CategoryController@getCategoryAjax');
         Route::post('categories/addCategory', 'Backends\CategoryController@addCategory');
-        Route::post('categories/editCategory', 'Backends\CategoryController@editCategory');
+        Route::post('categories/editCategory/{id}', 'Backends\CategoryController@editCategory');
         Route::delete('categories/delete', 'Backends\CategoryController@deleteCategory');
 
         // Trinhnk Feature Course
@@ -170,7 +170,7 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::get('users/email', 'Backends\UserController@email');
         Route::post('users/store-email', 'Backends\EmailController@store');
-        Route::put('users/edit-email', 'Backends\EmailController@edit');
+        Route::put('users/edit-email/{id}', 'Backends\EmailController@edit');
         Route::get('users/delete-email', 'Backends\EmailController@destroy');
         Route::get('users/send-email', 'Backends\EmailController@sendEmail');
         Route::get('users/send-multiple-emails', 'Backends\EmailController@sendMultiple');

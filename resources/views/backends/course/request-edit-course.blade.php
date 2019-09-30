@@ -147,7 +147,7 @@
 
                 var message = "Bạn có chắc chắn chấp nhận yêu cầu sửa khóa học?";
                 if( accept ){
-                    message = "Bạn có chắc chắn hủy yêu cầu sửa khóa học?";
+                    message = "Bạn có chắc chắn đồng ý yêu cầu sửa khóa học?";
                 }
                 Swal.fire({
                     type: "warning",

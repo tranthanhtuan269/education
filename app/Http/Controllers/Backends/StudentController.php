@@ -46,10 +46,15 @@ class StudentController extends Controller
      */
     public function store(StoreStudentRequest $request) 
     {
-        $avatar = $request->avatar;
-        $cropped_avatar = Image::make($avatar)
-        ->resize(300, 300)
-        ->save(public_path('frontend/images/'.time().'_avatar'.'.png'));
+        $current_time=time();
+        if($request->avatar){
+            $avatar = $request->avatar;
+            $cropped_avatar = Image::make($avatar)
+            ->resize(300, 300)
+            ->save(public_path('frontend/images/'.$current_time.'_avatar'.'.png'));
+
+        }
+        
 
         $user = new User;
         $user->name = $request->name;
@@ -58,7 +63,17 @@ class StudentController extends Controller
         $user->phone = $request->phone;
         $user->address = $request->address;
         $user->gender = $request->gender;
-        $user->avatar = 'images/'.time().'_avatar'.'.png';
+        if($request->avatar){
+            $avatar = $request->avatar;
+            $cropped_avatar = Image::make($avatar)
+            ->resize(300, 300)
+            ->save(public_path('frontend/images/'.$current_time.'_avatar'.'.png'));
+
+            $user->avatar = 'images/'.$current_time.'_avatar'.'.png';
+        }
+        else{
+            $user->avatar = 'images/avatar.jpg';
+        }
         $user->status = 1;
         $user->password = Hash::make($request->password);
         $user->save();
