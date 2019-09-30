@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 <section class="content-header">
-    
+
 </section>
 <section class="content page">
     <h1 class="text-center font-weight-600">Danh sách email</h1>
@@ -22,7 +22,7 @@
         </a> --}}
         <a data-toggle="modal" data-target="#createEmailModal">
             <button class="btn btn-primary">Tạo Email thông báo</button>
-        </a>          
+        </a>
     </div>
     <div class="row">
         <div class="col-md-12">
@@ -41,7 +41,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        
+
                     </tbody>
                 </table>
 
@@ -58,14 +58,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        
+
                     </tbody>
                 </table> --}}
-                @if (Helper::checkPermissions('users.email', $list_roles)) 
+                @if (Helper::checkPermissions('users.email', $list_roles))
                     <p class="action-selected-rows">
                         <span >Hành động trên các hàng đã chọn:</span>
                         <span class="btn btn-info ml-2" id="deleteAllApplied">Xóa</span>
-                    </p>  
+                    </p>
                 @endif
             </div>
         </div>
@@ -77,14 +77,14 @@
             <div class="modal-header">
                 <h3>Tạo email</h3>
             </div>
-            @if (Helper::checkPermissions('users.email', $list_roles)) 
+            @if (Helper::checkPermissions('users.email', $list_roles))
             <div class="modal-body">
                     <div class="form-group row">
                         <label  class="col-sm-1 col-form-label">Chủ đề <span class="text-danger">*</span></label>
                         <div class="col-sm-11">
                             <input type="text" class="form-control" id="subject_Ins" name="subject"  value="{{ Request::old('subject') }}">
                             <div class="alert-errors d-none" role="alert" id="subjectIns">
-                                
+
                             </div>
                         </div>
                     </div>
@@ -93,7 +93,7 @@
                         <div class="col-sm-11">
                             <textarea id="content_Ins" class="form-control" name="content">{{ Request::old('content') }}</textarea>
                             <div class="alert-errors d-none" role="alert" id="contentIns" name="contentIns">
-                                
+
                             </div>
                             {{-- <script src="https://cdn.ckeditor.com/ckeditor5/12.1.0/classic/ckeditor.js"></script> --}}
                             <script>
@@ -107,32 +107,22 @@
                                 //     } );
                                     CKEDITOR.replace( 'content_Ins', {
                                         defaultLanguage: 'vi',
-                                        extraPlugins : 'wordcount,notification,uploadimage',
+                                        extraPlugins : 'wordcount,notification,uploadimage, justify',
                                         wordcount : {
                                             showParagraphs: false,
                                         },
-                                        filter: new CKEDITOR.htmlParser.filter({
-                                            elements: {
-                                                div: function( element ) {
-                                                    console.log(element);
-                                                    
-                                                    if(element.attributes.class == 'mediaembed') {
-                                                        return false;
-                                                    }
-                                                }
-                                            }
-                                        }),
-                                        // toolbar : [
-                                        //     { name: 'basicstyles', items: ['Styles', 'Format', 'Bold', 'Italic'] },
-                                        //     { name: 'paragraph', items: ['NumberedList', 'BulletedList'] },
-                                        // ],
-                                        // height: '5em',
+                                        filebrowserImageUploadUrl: '/backend/template/bower_components/kcfinder/upload.php?type=Images',
+                                        toolbar : [
+                                            { name: 'basicstyles', items: ['Styles', 'Format', 'Bold', 'Italic','-', 'Image', 'Link', 'Unlink'] },
+                                            { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'] },
+                                            { name: 'extra', items: ['Source']}
+                                        ],
                                     });
                                     var content_Ins = CKEDITOR.instances.content_Ins;
                             </script>
                         </div>
                     </div>
-                    
+
                 </div>
                 <div class="modal-footer">
                     <div class="form-group row">
@@ -151,14 +141,14 @@
             <div class="modal-header">
                 <h3>Sửa email</h3>
             </div>
-            @if (Helper::checkPermissions('users.email', $list_roles)) 
+            @if (Helper::checkPermissions('users.email', $list_roles))
             <div class="modal-body">
                     <div class="form-group row">
                         <label  class="col-sm-1 col-form-label">Chủ đề <span class="text-danger">*</span></label>
                         <div class="col-sm-11">
                             <input type="text" class="form-control" id="edit_subject_Ins" name="subject"  value="{{ Request::old('subject') }}">
                             <div class="alert-errors d-none" role="alert" id="edit_subjectIns">
-                                
+
                             </div>
                         </div>
                     </div>
@@ -167,7 +157,7 @@
                         <div class="col-sm-11">
                             <textarea id="edit_content_Ins" class="form-control" name="content">{{ Request::old('content') }}</textarea>
                             <div class="alert-errors d-none" role="alert" id="edit_contentIns">
-                                
+
                             </div>
                             <script>
                                 // var edit_content_Ins;
@@ -181,24 +171,14 @@
                                 //     } );
                                 CKEDITOR.replace( 'edit_content_Ins', {
                                     defaultLanguage: 'vi',
-                                    extraPlugins : 'wordcount,notification',
+                                    extraPlugins : 'wordcount,notification,uploadimage,justify',
                                     wordcount : {
                                         showParagraphs: false,
                                     },
-                                    filter: new CKEDITOR.htmlParser.filter({
-                                        elements: {
-                                            div: function( element ) {
-                                                console.log(element);
-                                                
-                                                if(element.attributes.class == 'mediaembed') {
-                                                    return false;
-                                                }
-                                            }
-                                        }
-                                    }),
                                     toolbar : [
-                                        { name: 'basicstyles', items: ['Styles', 'Format', 'Bold', 'Italic'] },
-                                        { name: 'paragraph', items: ['NumberedList', 'BulletedList'] },
+                                        { name: 'basicstyles', items: ['Styles', 'Format', 'Bold', 'Italic','-', 'Image', 'Link','Unlink'] },
+                                        { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'] },
+                                        { name: 'extra', items: ['Source']}
                                     ],
                                     // height: '5em',
                                 });
@@ -206,7 +186,7 @@
                             </script>
                         </div>
                     </div>
-                    
+
                 </div>
                 <div class="modal-footer">
                     <div class="form-group row">
@@ -234,10 +214,10 @@
     $(document).ready(function(){
 
         window.onbeforeunload = function() {
-            if($('#edit_user_modal').hasClass('show') && ( 
+            if($('#edit_user_modal').hasClass('show') && (
                 $('#userName_upd').val() != curr_user_name ||
                 $('#userEmail_upd').val() != curr_user_email ||
-                $('#userPassword_upd').val() != 'not_change' || 
+                $('#userPassword_upd').val() != 'not_change' ||
                 $('#passConfirm_upd').val() != 'not_change' )
                 ){
                 return "Bye now!";
@@ -251,7 +231,7 @@
         })
 
         var dataObject = [
-            { 
+            {
                 data: "rows",
                 class: "rows-item",
                 render: function(data, type, row){
@@ -259,28 +239,28 @@
                 },
                 orderable: false
             },
-            { 
+            {
                 data: "title",
                 class: "title-field"
             },
-            { 
+            {
                 data: "content",
                 class: "content-field"
             },
-            { 
+            {
                 data: "created_at",
             },
-            { 
-                data: "action", 
+            {
+                data: "action",
                 class: "action-field",
                 render: function(data, type, row){
                     var html = '';
-                    
-                    @if (Helper::checkPermissions('users.edit', $list_roles)) 
+
+                    @if (Helper::checkPermissions('users.edit', $list_roles))
                         html += '<a class="btn-edit mr-2 edit-email" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Sửa"> <i class="fa fa-edit"></i></a>';
                     @endif
 
-                    @if (Helper::checkPermissions('users.delete', $list_roles)) 
+                    @if (Helper::checkPermissions('users.delete', $list_roles))
                         html += '<a class="btn-delete" data-id="'+data+'" title="Xóa"><i class="fa fa-trash" aria-hidden="true"></i></a>';
                     @endif
 
@@ -297,7 +277,7 @@
                         search: {
                             smart: false
                         },
-                        ajax: "{{ url('/') }}/admincp/emails/getEmailAjax",                        
+                        ajax: "{{ url('/') }}/admincp/emails/getEmailAjax",
                         columns: dataObject,
                         // bLengthChange: false,
                         // pageLength: 10,
@@ -333,7 +313,7 @@
 
         // dataTable.search('  ').draw();
         //select all checkboxes
-        $("#select-all-btn").change(function(){  
+        $("#select-all-btn").change(function(){
             $('.page table tbody input[type="checkbox"]').prop('checked', $(this).prop("checked"));
             // save localstore
             setCheckboxChecked();
@@ -341,7 +321,7 @@
 
         $('body').on('click', '.page table tbody input[type="checkbox"]', function() {
             if(false == $(this).prop("checked")){
-                $("#select-all-btn").prop('checked', false); 
+                $("#select-all-btn").prop('checked', false);
             }
             if ($('.page table tbody input[type="checkbox"]:checked').length == $('.page table tbody input[type="checkbox"]').length ){
                 $("#select-all-btn").prop('checked', true);
@@ -460,7 +440,7 @@
                     }
                 })
             });
-            
+
             $('#deleteAllApplied').off('click')
             $('#deleteAllApplied').click(function (){
                 let isChecked = false;
@@ -473,7 +453,7 @@
                     return Swal.fire({
                             type: 'info',
                             text: 'Bạn chưa chọn tài khoản nào!'
-                        })   
+                        })
                 }
                 else{
                     Swal.fire({
@@ -509,7 +489,7 @@
                                             type: 'success',
                                             text: response.message
                                         })
-                                        dataTable.ajax.reload(); 
+                                        dataTable.ajax.reload();
                                     },
                                     error: function (response) {
                                         Swal.fire({
@@ -519,7 +499,7 @@
                                     }
                                 })
                             }
-                            
+
                         }
                     })
                 }
@@ -532,7 +512,7 @@
             }
             return current_page;
         }
-        
+
 
         function clearFormCreate(){
             $('#userName_Ins').val('')
@@ -591,7 +571,7 @@
                 }
             })
         })
-        
+
         $("#editEmail").click(function () {
             var id = $(this).attr("data-id")
             var title = $("#edit_subject_Ins").val()

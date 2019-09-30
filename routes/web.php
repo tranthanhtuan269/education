@@ -140,7 +140,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('featured-category', 'Backends\CategoryController@getFeaturedCategory');
         Route::get('featured-category/get-featured-category-ajax', 'Backends\CategoryController@getFeaturedCategoryAjax');
         Route::post('featured-category/set-feature-category-ajax', 'Backends\CategoryController@setFeaturedCategoryAjax');
-     
+
         // Trinhnk Tạo Coupon
         Route::get('create-coupon', 'Backends\HomeController@createCoupon');
         Route::post('add-coupon', 'Backends\HomeController@addCoupon');
@@ -175,14 +175,15 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('users/send-email', 'Backends\EmailController@sendEmail');
         Route::get('users/send-multiple-emails', 'Backends\EmailController@sendMultiple');
         Route::get('users/delete-multiple-emails', 'Backends\EmailController@destroyMultiple');
-        
+        Route::post('users/upload-email-photo', 'Backends\EmailController@uploadEmailPhoto')->name('upload-email-photo');
+
         Route::post('users/store-teacher', 'Backends\TeacherController@store');
         Route::put('users/update-teacher', 'Backends\TeacherController@update');
         Route::put('users/disable-teacher', 'Backends\TeacherController@disable');
         Route::post('users/store-student', 'Backends\StudentController@store');
         Route::put('users/update-student', 'Backends\StudentController@update');
 
-        
+
         Route::resource('users', 'Backends\UserController');
         Route::put('users/updateSefl', 'Backends\UserController@updateSefl')->name('user.updateSefl');
         Route::post('users/info', 'Backends\UserController@infoRoleUser');
@@ -299,16 +300,16 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('change-pass-ajax', 'Frontends\UserController@changePassAjax');
         Route::get('logout', 'Frontends\UserController@logout');
 
-       
+
         Route::get('getDataMailBoxAjax', 'Frontends\UserController@getDataMailBoxAjax');
         Route::get('getDataMailBoxNavAjax', 'Frontends\UserController@getDataMailBoxNavAjax');
         Route::get('getDataOrderAjax', 'Frontends\UserController@getDataOrderAjax');
         Route::get('getSingleEmailContentAjax', 'Frontends\UserController@getSingleEmailContentAjax');
-        
+
         Route::group(['prefix' => 'student'],function () {
-            Route::get('mail-box', 'Frontends\UserController@mailBoxStudent'); 
-            Route::get('course', 'Frontends\UserController@courseStudent'); 
-            Route::get('profile', 'Frontends\UserController@profileStudent'); 
+            Route::get('mail-box', 'Frontends\UserController@mailBoxStudent');
+            Route::get('course', 'Frontends\UserController@courseStudent');
+            Route::get('profile', 'Frontends\UserController@profileStudent');
             Route::post('profile', 'Frontends\UserController@updateProfileStudent');
             Route::get('order/{id}','Frontends\UserController@detailOrder')->where('id','[0-9]+');
             Route::get('order-logs', 'Frontends\UserController@orderLogs');
@@ -316,9 +317,9 @@ Route::group(['middleware' => 'auth'], function () {
         });
 
         Route::group(['prefix' => 'teacher'],function () {
-            Route::get('mail-box', 'Frontends\UserController@mailBoxTeacher'); 
-            Route::get('course', 'Frontends\UserController@courseTeacher'); 
-            Route::get('profile', 'Frontends\UserController@profileTeacher'); 
+            Route::get('mail-box', 'Frontends\UserController@mailBoxTeacher');
+            Route::get('course', 'Frontends\UserController@courseTeacher');
+            Route::get('profile', 'Frontends\UserController@profileTeacher');
             Route::post('profile', 'Frontends\UserController@updateProfileTeacher');
         });
 
@@ -347,8 +348,8 @@ Route::group(['middleware' => 'auth'], function () {
             Route::put('sort', 'Backends\VideoController@sort');
         });
 
-        Route::get('register-teacher', 'Frontends\UserController@registerTeacher'); 
-        Route::post('register-teacher', 'Frontends\UserController@insertRegisterTeacher'); 
+        Route::get('register-teacher', 'Frontends\UserController@registerTeacher');
+        Route::post('register-teacher', 'Frontends\UserController@insertRegisterTeacher');
     });
 
     Route::post('upload-image', 'Frontends\UserController@uploadImage');
