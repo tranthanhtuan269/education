@@ -610,6 +610,8 @@ $(document).ready(function() {
                                 Swal.fire({
                                     type: 'success',
                                     text : response.message,
+                                }).then( result =>{
+                                    location.reload()
                                 })
                                 dataTable.ajax.reload()
                             }
