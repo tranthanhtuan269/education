@@ -23,15 +23,15 @@ class CreateTempCoursesTable extends Migration
             $table->integer('category_id');
             $table->integer('price')->default(0);
             $table->integer('real_price')->default(0);
-            $table->date('author')->nullable();
-
+            $table->string('author', 255)->nullable();
+        
             $table->longText('description', 2000)->nullable();
             $table->longText('will_learn', 2000)->nullable();
             $table->longText('requirement', 2000)->nullable();
             $table->integer('level')->nullable();
             $table->integer('approx_time')->nullable();
             $table->string('link_intro', 255)->nullable();
-
+        
             $table->integer('status')->default(0);
             $table->timestamps();
         });

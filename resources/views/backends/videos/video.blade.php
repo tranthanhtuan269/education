@@ -151,7 +151,7 @@
                         ajax: {
                             url: "{{ url('/') }}/admincp/videos/getVideoAjax",
                             beforeSend: function() {
-                                // $(".ajax_waiting").addClass("loading");
+                                $(".ajax_waiting").addClass("loading");
                                 // document.getElementById("ajax_waiting").classList.add("loading");
                             }
                         },
@@ -185,10 +185,12 @@
                             checkCheckboxChecked();
                         },
                         createdRow: function( row, data, dataIndex){
+                            
                             if(data['state'] == 1){
                                 $(row).addClass('blue-row');
                             }else if(data['state'] == 3){
                                 $(row).addClass('yellow-row'); //đang convert ở background
+                                $(row).children('td').children(`a[data-id=${data.action}]`).hide()
                             }else{
                                 $(row).addClass('red-row');
                             }
@@ -322,6 +324,12 @@
                                     current_page = dataTable.page.info().page;
                                 },
                                 success: function (response) {
+                                    if(response.status == 300){
+                                        return Swal.fire({
+                                            type: 'warning',
+                                            text: response.message
+                                        })
+                                    }
                                     if(response.status == 200){
                                         if(_self.parent().parent().hasClass('blue-row')){
                                             $(_self).prop('title', 'Duyệt');

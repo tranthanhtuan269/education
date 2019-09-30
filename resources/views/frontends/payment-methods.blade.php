@@ -575,7 +575,13 @@
 							// "cart" : localStorage.getItem('cart'+user_id),
 							// "list_course_id" : list_course_id,
 						},
-						dataType: "json",                
+						dataType: "json",    
+						beforeSend: function(r, a){
+		                    $(".ajax_waiting").addClass("loading");
+		                },
+		                complete: function() {
+		                    $(".ajax_waiting").removeClass("loading");
+		                },            
 					})
 
 					request.done((response)=>{

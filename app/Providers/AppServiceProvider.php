@@ -12,6 +12,7 @@ use Auth;
 use Illuminate\Queue\Events\JobProcessed;
 use Illuminate\Queue\Events\JobProcessing;
 use App\Video;
+use App\UserCourse;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -100,7 +101,7 @@ class AppServiceProvider extends ServiceProvider
     
                 $video = Video::find($video_id);
                 if($video){
-                    $video->state = 1;
+                    $video->state = \Config::get('app.video_active');
                     $video->save();
                     // DuongNT // thêm 1 video vào lượng đã xem vào bảng user_courses
                     $unit = $video->unit;

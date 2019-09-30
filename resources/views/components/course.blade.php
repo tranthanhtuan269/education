@@ -4,7 +4,13 @@
     if( isset($course->teacherId) ){
         $main_lecturer = $course->teacherId;
     }else{
-        $main_lecturer = $course->Lecturers()->first()->user->id;
+        $lecs = $course->Lecturers()->first();
+        $main_lecturer = 1;
+        if($lecs){
+            if($lecs->user){
+                $main_lecturer = $course->Lecturers()->first()->user->id;
+            }
+        }
     }
 
     $userId = 0;
