@@ -28,7 +28,12 @@
     }    
     $video_urls = json_encode($video_urls);
 
-    // dd($main_video->id);
+    $check_course_of_user = false;
+    if( $course->userRoles[0]->user_id == Auth::user()->id ){
+        $check_course_of_user = true;
+    }
+    // dd($check_course_of_user);
+
 @endphp
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -127,7 +132,9 @@
             var main_video_state = {{$main_video->state}}
 
             var videoSource = {!!$video_urls!!}
-            
+
+            var check_course_of_user = {{ $check_course_of_user }}
+            // console.log(check_course_of_user);
             
 
 
@@ -141,13 +148,15 @@
                     return false;
                 })
                 
-                if(main_video_state != 1) { //1 nghĩa là video active
-                    $('#lnDescBtnPlay').remove()
-                    Swal.fire({
-                        type: 'warning',
-                        text: 'Video bài giảng chưa được duyệt!',
-                        confirmButtonText: 'Chấp nhận'
-                    })
+                if( check_course_of_user == 1 ){
+                    if(main_video_state != 1) { //1 nghĩa là video active
+                        $('#lnDescBtnPlay').remove()
+                        Swal.fire({
+                            type: 'warning',
+                            text: 'Video bài giảng chưa được duyệt!',
+                            confirmButtonText: 'Chấp nhận'
+                        })
+                    }
                 }
 
                 var video_id_index = null

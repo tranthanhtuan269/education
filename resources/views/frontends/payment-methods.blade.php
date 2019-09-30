@@ -572,7 +572,7 @@
 						data :{
 							"items" : cart_items,
 							"coupon" : coupon_code,
-							// "cart" : localStorage.getItem('cart'+user_id),
+							// 'cart' : localStorage.getItem('cart'+user_id),
 							// "list_course_id" : list_course_id,
 						},
 						dataType: "json",    
