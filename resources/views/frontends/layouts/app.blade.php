@@ -475,6 +475,8 @@
             if(localStorage.getItem('cart'+user_id) == null){
                 localStorage.setItem('cart'+user_id, '[]')
             }
+            
+            // Move Cart NoLogin => Cart Login
             var loginCart = JSON.parse(localStorage.getItem('cart'+user_id))
             if( localStorage.getItem('cart'+0) != null ){
                 var noLoginCart = JSON.parse(localStorage.getItem('cart'+0))
@@ -710,7 +712,7 @@
                     $(".cart-page-content").removeClass('active')
                     // $('.unica-sl-cart').remove()
                     $('.unica-sl-cart').css('display', 'none' )
-
+                    $('.cart-page-title.container').hide()
                 }else{
 
                 }
