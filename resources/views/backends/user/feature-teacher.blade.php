@@ -44,17 +44,19 @@ if($feature_teacher_selected){
         </div>
         <div class="admin-choose">
             <div class="row">
-                <div class="col-xs-12">
+                <div class="col-md-6">
                     <label>Chọn giảng viên tiêu biểu thứ nhất</label>
                     <div class=''>
                         <select class="search-teacher" name="teacher1">
                             @foreach ($teachers as $teacher)
                                 @if( isset($teacher->userRole->user->name) )
+                                    @if( count($teacher->userRole->userCoursesByTeacher()->where('status', 1)) > 0 )
                                     <option value="{{ $teacher->id }}"
                                         @if($teacher->featured_index==1)
                                             selected
                                         @endif
                                     >{{ $teacher->userRole->user->name }}</option>
+                                    @endif
                                 @endif
                             @endforeach
                         </select>
@@ -65,26 +67,32 @@ if($feature_teacher_selected){
                         <select class="search-teacher" name="teacher2">
                             @foreach ($teachers as $teacher)
                                 @if( isset($teacher->userRole->user->name) )
+                                    @if( count($teacher->userRole->userCoursesByTeacher()->where('status', 1)) > 0 )
                                     <option value="{{ $teacher->id }}"
                                         @if($teacher->featured_index==2)
                                             selected
                                         @endif
                                     >{{ $teacher->userRole->user->name }}</option>
+                                    @endif
                                 @endif
                             @endforeach
                         </select>
                     </div>
                     <br>
+                </div>
+                <div class="col-md-6">
                     <label>Chọn giảng viên tiêu biểu thứ 3</label>
                     <div class=''>
                         <select class="search-teacher" name="teacher3">
                             @foreach ($teachers as $teacher)
                                 @if( isset($teacher->userRole->user->name) )
+                                    @if( count($teacher->userRole->userCoursesByTeacher()->where('status', 1)) > 0 )
                                     <option value="{{ $teacher->id }}"
                                         @if($teacher->featured_index==3)
                                             selected
                                         @endif
                                     >{{ $teacher->userRole->user->name }}</option>
+                                    @endif
                                 @endif
                             @endforeach
                         </select>
@@ -95,11 +103,13 @@ if($feature_teacher_selected){
                         <select class="search-teacher" name="teacher4">
                             @foreach ($teachers as $teacher)
                                 @if( isset($teacher->userRole->user->name) )
+                                    @if( count($teacher->userRole->userCoursesByTeacher()->where('status', 1)) > 0 )
                                     <option value="{{ $teacher->id }}"
                                         @if($teacher->featured_index==4)
                                             selected
                                         @endif
                                     >{{ $teacher->userRole->user->name }}</option>
+                                    @endif
                                 @endif
                             @endforeach
                         </select>
@@ -117,7 +127,7 @@ if($feature_teacher_selected){
         font-size: 20px;
     }
     .feature-teacher .search-teacher{
-        width: 600px;
+        width: 300px;
     }
     .feature-teacher .listed{
         padding-left: 50px;
