@@ -81,7 +81,7 @@
             dataTable = $('#mailbox-table').DataTable( {
                             serverSide: true,
                             aaSorting: [],
-                            stateSave: false,
+                            stateSave: true,
                             search: {
                                 smart: false
                             },
@@ -101,7 +101,7 @@
                                 sInfo: "Hiển thị  _START_ - _END_ /_TOTAL_ tin nhắn",
                                 sInfoFiltered: "",
                                 sInfoEmpty: "",
-                                sZeroRecords: "Bạn chưa có tin nhắn nào",
+                                sZeroRecords: "Không tìm thấy kết quả tìm kiếm",
                                 oPaginate: {
                                     sPrevious: "Trang trước",
                                     sNext: "Trang sau",
