@@ -84,14 +84,18 @@ class HomeController extends Controller
         $new_course = Course::listCourseHome()->orderBy('id', 'desc')->limit(8)->get();
 
         $limitDate = \Carbon\Carbon::now()->subDays(15);
-        $sql = "SELECT course_id, count(course_id) FROM orders JOIN order_details ON orders.id = order_details.order_id WHERE created_at > '" . $limitDate->toDateTimeString() ."' group by course_id ORDER BY count(course_id) desc LIMIT 8;";
+        $sql = "SELECT course_id, count(course_id) FROM orders 
+        JOIN order_details ON orders.id = order_details.order_id 
+        WHERE created_at > '" . $limitDate->toDateTimeString() ."' 
+        group by course_id 
+        ORDER BY count(course_id) desc;";
+        
         $results = DB::select($sql);
         foreach ($results as $key => $result) {
             $course_id_arr[] = $result->course_id;
         }
-        $trending_courses = \App\Course::whereIn('id', $course_id_arr)->get();
-
-        // dd($trending_course);
+        $trending_courses = \App\Course::whereIn('id', $course_id_arr)->where('status', 1)->get()->take(8);
+        
         $popular_teacher = Teacher::getFeatureTeacher();
         return view('frontends.home', compact('feature_category', 'feature_course', 'best_seller_course', 'new_course', 'popular_teacher', 'trending_courses' ));
     }

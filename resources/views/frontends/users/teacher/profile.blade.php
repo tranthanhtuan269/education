@@ -205,7 +205,8 @@
                         return;
                     }
                     var regex = /\s+/gi;
-                    wordCount = value.trim().replace(regex, ' ').split(' ').length;
+                    wordCount = value.replace(/<\/p>/g, ' ').replace(/<p>/g, ' ').replace(/&nbsp;/g, ' ').trim().replace(regex, ' ').split(' ').length;
+                    // console.log(value.replace(/<\/p>/g, ' ').replace(/<p>/g, ' ').replace(/&nbsp;/g, ' ').trim().replace(regex, ' '), wordCount)
                     
                     if(wordCount > 30 && wordCount < 700){
                         $('#wordCount').css("color","green");

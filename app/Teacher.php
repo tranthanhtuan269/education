@@ -71,10 +71,11 @@ class Teacher extends Model
         $arr_check =  Teacher::where('featured', 1);
         if( isset($arr_check->first()->id) ){
             $arr_check->where('featured_index','<>' ,0)
-            ->orderBy('featured_index', 'ASC');
+                      ->where('status', 1)
+                      ->orderBy('featured_index', 'ASC');
         }else{
-            $arr_check = Teacher::where('featured', 2)
-            ->orderBy('student_count', 'DESC');
+            $arr_check = Teacher::where('status', 1)
+                        ->orderBy('student_count', 'DESC');
         }
         return $arr_check->take(4)->get();
     }

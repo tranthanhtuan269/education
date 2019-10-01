@@ -50,6 +50,7 @@ class CreateCoursesTable extends Migration
             $table->integer('three_stars')->default(0);
             $table->integer('two_stars')->default(0);
             $table->integer('one_stars')->default(0);
+            $table->string('link_intro', 255)->nullable();
             $table->integer('status')->default(0);
             $table->timestamps();
         });
