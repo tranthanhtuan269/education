@@ -425,22 +425,28 @@
         })
         var inputFile = $('#addVideoDocument')
         let files = [];
+        var fileNameList = "; "
         inputFile.change(function(){
-            let newFiles = [];
             for(let index = 0; index < inputFile[0].files.length; index++) {
                 let file = inputFile[0].files[index];
-                newFiles.push(file);
-                files.push(file);
+                if(fileNameList.indexOf("; " + file.name + "; ") >= 0){
 
-                var filesLength = files.length
+                }else{
+                    console.log(fileNameList);
+                    fileNameList += file.name + "; "
+                    console.log(fileNameList);
+                    files.push(file);
 
-                var html = ''
-                html += `<div class="row" data-index="${filesLength - 1}">`
-                    html += `<span class="pull-left">${file.name}</span>`
-                    html += `<span class="pull-right btn-delete-document "><button data-index="${filesLength - 1}" class="btn btn-danger" id="btnDeleteDocument">Xoá</button></span>`
-                html += `</div>`
+                    var filesLength = files.length
 
-                $('.document-field').append(html)
+                    var html = ''
+                    html += `<div class="row" data-index="${filesLength - 1}">`
+                        html += `<span class="pull-left">${file.name}</span>`
+                        html += `<span class="pull-right btn-delete-document "><button data-index="${filesLength - 1}" class="btn btn-danger" id="btnDeleteDocument">Xoá</button></span>`
+                    html += `</div>`
+
+                    $('.document-field').append(html)
+                }
             }
             $('#addVideoDocument').val("");
         })
@@ -448,6 +454,10 @@
 
         $(document).on('click', '#btnDeleteDocument', function(){
             var indexToRemove = $(this).attr("data-index")
+            console.log(fileNameList);
+            if(files[indexToRemove] != undefined){
+                fileNameList = fileNameList.replace("; " + files[indexToRemove].name, "");
+            }
             files.splice(indexToRemove,1)
             $(this).parent().parent().remove()
 
@@ -465,23 +475,30 @@
         //DuongNT - Edit Video Document
         var editInputFile = $("#editVideoDocument")
         let editFiles = []
+        var fileNameListEdit = "; "
         editInputFile.change(function(){
-            const initialEditFilesLength = $('.edit-document-field .row').length
-            let newFiles = [];
+            // const initialEditFilesLength = $('.edit-document-field .row').length
             for(let index = 0; index < editInputFile[0].files.length; index++) {
                 let file = editInputFile[0].files[index];
-                newFiles.push(file);
-                editFiles.push(file);
+                if(fileNameListEdit.indexOf("; " + file.name + "; ") >= 0){
 
-                var filesLength = editFiles.length + initialEditFilesLength
+                }else{
+                    console.log(fileNameListEdit);
+                    fileNameListEdit += file.name + "; "
+                    console.log(fileNameListEdit);
+                    editFiles.push(file);
 
-                var html = ''
-                html += `<div class="row" data-index="${filesLength - 1}">`
-                    html += `<span class="pull-left">${file.name}</span>`
-                    html += `<span class="pull-right btn-delete-edit-document "><button data-index="${filesLength - 1}" data-active="false" data-file-id="${file.id}" class="btn btn-danger" id="btnDeleteDocumentInEdit">Xoá</button></span>`
-                html += `</div>`
+                    // var filesLength = editFiles.length + initialEditFilesLength
+                    var filesLength = editFiles.length
 
-                $('.edit-document-field').append(html)
+                    var html = ''
+                    html += `<div class="row" data-index="${filesLength - 1}">`
+                        html += `<span class="pull-left">${file.name}</span>`
+                        html += `<span class="pull-right btn-delete-edit-document "><button data-index="${filesLength - 1}" data-active="false" data-file-id="${file.id}" class="btn btn-danger" id="btnDeleteDocumentInEdit">Xoá</button></span>`
+                    html += `</div>`
+
+                    $('.edit-document-field').append(html)
+                }
             }
             $('#editVideoDocument').val("");
         })
@@ -496,9 +513,22 @@
             }).then( (result) => {
                 if(result.value){
                     var indexToRemove = $(this).attr("data-index")
+                    var name = $(this).parent().parent().find('.pull-left').text()
+                    console.log(name)
                     var fileId = $(this).attr('data-file-id')
                     var isActive = $(this).attr('data-active') //kiểm tra tài liệu có trong database hay không
+                    console.log(fileNameListEdit);
+                    if(editFiles[indexToRemove] != undefined){
+                        fileNameListEdit = fileNameListEdit.replace("; " + 
+                            editFiles[indexToRemove].name, "");
+                    }else{
+                        fileNameListEdit = fileNameListEdit.replace("; " + 
+                            name, "");
+
+                    }
                     editFiles.splice(indexToRemove,1)
+                    console.log(fileNameListEdit);
+
                     $(this).parent().parent().remove()
                     if (isActive) {
                         activeFileToDelete.push(fileId)
@@ -643,6 +673,10 @@
                         filesEditLength = response.video.documents.length
 
                         response.video.documents.forEach( (document, index) => {
+                            console.log(fileNameListEdit);
+                            fileNameListEdit += document.title + "; "
+                            console.log(fileNameListEdit);
+
                             var html = ''
                             html += `<div class="row" data-index="${index}">`
                                 html += `<span class="pull-left">${document.title}</span>`
