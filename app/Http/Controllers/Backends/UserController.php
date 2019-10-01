@@ -87,7 +87,7 @@ class UserController extends Controller
 
         }
         UserRole::insert($arr_roles);
-        
+
         $res = array('status' => "200", "Message" => "Thêm mới thông tin thành công");
         echo json_encode($res);
 
@@ -156,11 +156,11 @@ class UserController extends Controller
             //     $user_role = UserRole::firstOrCreate(
             //         ['user_id' => $user_id, 'role_id' => $role_id]
             //     );
-            //     if($role_id == 2){ //Nếu được gán cho chức năng teacher 
+            //     if($role_id == 2){ //Nếu được gán cho chức năng teacher
             //         // $user_role = UserRole::where('user_id', $user_id)->where('role_id', $role_id)->first();
             //         if(isset($user_role->teacher)){ //nếu đã từng là teacher thì set status = 1 cho active
             //             $teacher   = $user_role->teacher;
-            //             $teacher->status = 1; 
+            //             $teacher->status = 1;
             //             $teacher->save();
             //         }else{                 // lần đầu được làm teacher thì tạo 1 dòng teacher
             //             $teacher = new Teacher;
@@ -176,7 +176,7 @@ class UserController extends Controller
             //         }
             //     }
             // }
-            
+
             // // Xử lý những role_id chức năng bị bỏ đi của user
             // foreach ($not_assigned_role_ids as $key => $role_id) {
             //     $user_role = UserRole::where('user_id', $user_id)->where('role_id', $role_id)->first();
@@ -184,8 +184,8 @@ class UserController extends Controller
             //         if($role_id == 2){ //Nếu bị bỏ chức năng teacher
             //             if(isset($user_role->teacher)){
             //                 $teacher = $user_role->teacher;
-            //                 $teacher->status = 0; // deactive chức năng teacher của 
-            //                 $teacher->save(); 
+            //                 $teacher->status = 0; // deactive chức năng teacher của
+            //                 $teacher->save();
             //             }else{
             //                 dd($user_role);
             //                 return response()->json([
@@ -193,30 +193,30 @@ class UserController extends Controller
             //                     'message' => 'Không tìm thấy giảng viên để xoá'
             //                 ]);
             //             }
-            //         }else{                        
-            //             $user_role->delete();                        
+            //         }else{
+            //             $user_role->delete();
             //         }
             //     }
             // }
 
 
             //24.9.2019 DuongNT - delete những user_role không phải teacher và student (anh Ba phải thay đổi logic cho phù hợp)
-            
+
             if($request->role_id){
                 UserRole::where('user_id', $id)
                 ->where('role_id', '!=', \Config::get('app.teacher'))
                 ->where('role_id', '!=', \Config::get('app.student'))
-                ->delete(); 
-    
+                ->delete();
+
                 $created_at = $updated_at = date('Y-m-d H:i:s');
                 $arr_roles = [];
                 foreach ($request->role_id as $role) {
                     $arr_roles[] = ['user_id' => $id, 'role_id' => $role, 'created_at' => $created_at, 'updated_at' => $updated_at];
                 }
                 UserRole::insert($arr_roles);
-    
+
                 $res = array('status' => "200", "Message" => "Cập nhật thông tin thành công");
-    
+
                 $user->save();
 
             }else{
@@ -274,7 +274,7 @@ class UserController extends Controller
             ->addColumn('role_name', function ($user) {
                 $list_role = '';
                 if (count($user->userRoles) > 0) {
-                    foreach ($user->userRoles as $key => $value) {                                        
+                    foreach ($user->userRoles as $key => $value) {
                         if ($value->role->name) {
                             if($value->role->name != 'Teacher'){
                                 $list_role .= $value->role->name .',';
@@ -285,7 +285,7 @@ class UserController extends Controller
                                     }
                                 }
                             }
-                        }                        
+                        }
                     }
                 }
                 return substr($list_role, 0, -1);
@@ -317,7 +317,7 @@ class UserController extends Controller
     public function getInfoByID($id)
     {
         $user = User::find($id);
-        
+
         // echo '<pre>';
         // print_r($user);die;
         if ($user) {
@@ -332,11 +332,11 @@ class UserController extends Controller
             }
 
             $res = array(
-                'status' => "200", 
-                "Message" => "Người dùng đã tồn tại!", 
-                "user" => $user, 
-                "teacher_info" => $teacher_info, 
-                "isStudent" => $isStudent, 
+                'status' => "200",
+                "Message" => "Người dùng đã tồn tại!",
+                "user" => $user,
+                "teacher_info" => $teacher_info,
+                "isStudent" => $isStudent,
                 "isTeacher" => $isTeacher,
             );
         } else {
@@ -429,14 +429,14 @@ class UserController extends Controller
     {
         if($request->teacherId){
             $teacher = Teacher::find($request->teacherId);
-            
+
             if($teacher){
                 $teacher->status = $request->status;
                 $teacher->save();
                 if($request->status == 1){
                     $res = array('status' => "200", "Message" => "Duyệt thành công");
                 }else{
-                    $teacher->userRole->courses()->update(['courses.status' => 0]);        
+                    $teacher->userRole->courses()->update(['courses.status' => 0]);
                     $res = array('status' => "200", "Message" => "Hủy thành công");
                 }
                 echo json_encode($res);die;
@@ -503,7 +503,7 @@ class UserController extends Controller
     }
 
     public function blockUser(Request $request)
-    {   
+    {
         if($request->user_id){
             $user = User::find($request->user_id);
             if($user){

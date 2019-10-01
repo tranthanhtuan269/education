@@ -12,6 +12,7 @@ use App\Tag;
 use App\Teacher;
 use App\User;
 use App\Unit;
+use App\Email;
 use App\Video;
 use App\Setting;
 use App\Mail\OrderCompleted;
@@ -49,7 +50,7 @@ class HomeController extends Controller
     public function home()
     {
         $feature_category = Category::withCount('courses')->where('featured', 1)->where('parent_id', '<>', 0)->orderBy('featured_index', 'asc')->get();
-        
+
         // Duong NT// feature courses
         $percent_feature_course = Setting::where('name', 'percent_feature_course')->first()->value;
         $feature_course = Course::where('status', 1)
@@ -80,22 +81,22 @@ class HomeController extends Controller
 
         // $best_seller_course = Course::where('status', 1)->orderBy('sale_count', 'desc')->limit(8)->get();listCourseHome
         $best_seller_course = Course::listCourseHome()->orderBy('sale_count', 'desc')->limit(8)->get();
-        
+
         $new_course = Course::listCourseHome()->orderBy('id', 'desc')->limit(8)->get();
 
         $limitDate = \Carbon\Carbon::now()->subDays(15);
-        $sql = "SELECT course_id, count(course_id) FROM orders 
-        JOIN order_details ON orders.id = order_details.order_id 
-        WHERE created_at > '" . $limitDate->toDateTimeString() ."' 
-        group by course_id 
+        $sql = "SELECT course_id, count(course_id) FROM orders
+        JOIN order_details ON orders.id = order_details.order_id
+        WHERE created_at > '" . $limitDate->toDateTimeString() ."'
+        group by course_id
         ORDER BY count(course_id) desc;";
-        
+
         $results = DB::select($sql);
         foreach ($results as $key => $result) {
             $course_id_arr[] = $result->course_id;
         }
         $trending_courses = \App\Course::whereIn('id', $course_id_arr)->where('status', 1)->get()->take(8);
-        
+
         $popular_teacher = Teacher::getFeatureTeacher();
         return view('frontends.home', compact('feature_category', 'feature_course', 'best_seller_course', 'new_course', 'popular_teacher', 'trending_courses' ));
     }
@@ -104,7 +105,7 @@ class HomeController extends Controller
     {
         $keyword = $request->get('keyword');
         $results = [];
-        
+
         if ($keyword != '') {
             $keyword = trim($request->get('keyword'));
             $arr_course_id = User::join('user_roles', 'user_roles.user_id', '=', 'users.id')
@@ -128,18 +129,18 @@ class HomeController extends Controller
         $cat_id = Category::where('slug', $cat)->value('id');
 
         if ($cat_id) {
-            
+
             $category = Category::where('slug', $cat)->first();
-            
+
             $tags = Tag::where('category_id', $cat_id)->get();
 
             // $feature_course = Course::where('status', 1)->where('category_id', $cat_id)->where('featured', 1)->orderBy('featured_index', 'asc')->limit(8)->get();
             // $feature_course = Course::listCourseCategory(1)->limit(8)->get();
-            
+
             // $best_seller_course = Course::where('status', 1)->where('category_id', $cat_id)->orderBy('sale_count', 'desc')->limit(8)->get();
             $best_seller_course = Course::listCourseCategory($cat_id)->orderBy('sale_count', 'desc')->limit(8)->get();
             // $best_seller_course = Course::listCourseCategory(3);
-            
+
             // $new_course = Course::where('status', 1)->where('category_id', $cat_id)->orderBy('id', 'desc')->limit(8)->get();
             $new_course = Course::listCourseCategory($cat_id)->orderBy('id', 'desc')->limit(8)->get();
 
@@ -150,12 +151,12 @@ class HomeController extends Controller
                 $course_id_arr[] = $result->course_id;
             }
             $trending_courses = \App\Course::whereIn('id', $course_id_arr)->where('category_id', $cat_id)->get();
-            
+
             // $popular_teacher = Teacher::getTeacherBestVote();
 
             $popular_teacher = Teacher::getTeacherBestVote($cat_id);
 
-            
+
             // $filtered_teachers = $popular_teacher->filter(function ($teacher, $key) use ($cat_id){
             //     $courses = $teacher->courses->where('category_id', $cat_id);
 
@@ -185,7 +186,7 @@ class HomeController extends Controller
                     $course->view_count = $course->view_count + 1;
                     $course->save();
                 }
-                
+
                 if (\Auth::check()) {
                     if ($course) {
                         $ratingCourse = RatingCourse::where('course_id', $course->id)->where('user_id', \Auth::id())->first();
@@ -204,7 +205,7 @@ class HomeController extends Controller
                                 }
                             }
                         }
-                        
+
                         return view('frontends.course-detail', compact('related_course', 'info_course', 'ratingCourse', 'document_count'));
                     }
                 } else {
@@ -369,7 +370,7 @@ class HomeController extends Controller
             }
             $str_course_id = $coupon->course_id;
             $arr_course_id = explode(",",$str_course_id);
-    
+
             foreach ($arr_course_id as $key => $course_id) {
                 if( $request->course_id == $course_id ){
                     return \Response::json(array('status' => '200', 'coupon' => $coupon, 'coupon_value' => $coupon->value));
@@ -419,13 +420,13 @@ class HomeController extends Controller
     //                         $first_video_index = 1;
     //                         $first_video_id = $course->units[0]->videos[0]->id;
     //                         $user_course_videos = [];
-                            
+
     //                         //DuongNT - Tạo array video đã xem
     //                         foreach ($units as $key => $unit) {
     //                             if($unit->video_count > 0){
     //                                 $unit_arr = [];
-    //                                 for ($k=0; $k < $unit->video_count; $k++) { 
-    //                                     array_push($unit_arr, 0);                                    
+    //                                 for ($k=0; $k < $unit->video_count; $k++) {
+    //                                     array_push($unit_arr, 0);
     //                                 }
     //                                 array_push($user_course_videos, $unit_arr);
     //                             }
@@ -520,11 +521,11 @@ class HomeController extends Controller
                     $coupon = null;
                     $coupon_value;
                     $coupon_name;
-    
+
                     $cart = \json_decode($request->cart, true);
-    
+
                     $total_price = 0;
-    
+
                     $order = new Order;
                     $order->payment_id = 1; // 1 = ck
                     $order->user_id = $user_role_id->id;
@@ -532,12 +533,12 @@ class HomeController extends Controller
                     $order->total_price = 0;
                     $order->coupon = '';
                     $order->save();
-    
+
                     $bought = [];
                     if (strlen($current_user->bought) > 0) {
                         $bought = \json_decode($current_user->bought);
                     }
-    
+
                     foreach ($items as $key => $item) {
                         if ($item['id']) {
                             $coupon = Coupon::where('name', $item["coupon_code"])->first();
@@ -552,20 +553,20 @@ class HomeController extends Controller
                                 }else{
                                     $total_price += $course->price;
                                 }
-    
+
                                 $bought[] = $item['id']; //Them vao trường đã mua của user TuanTT
                                 $video_count = $course->video_count;
                                 $units = $course->units;
                                 $first_video_index = 1;
                                 $first_video_id = $course->units[0]->videos[0]->id;
                                 $user_course_videos = [];
-                                
+
                                 //DuongNT - Tạo array video đã xem
                                 foreach ($units as $key => $unit) {
                                     if($unit->video_count > 0){
                                         $unit_arr = [];
-                                        for ($k=0; $k < $unit->video_count; $k++) { 
-                                            array_push($unit_arr, 0);                                    
+                                        for ($k=0; $k < $unit->video_count; $k++) {
+                                            array_push($unit_arr, 0);
                                         }
                                         array_push($user_course_videos, $unit_arr);
                                     }
@@ -574,29 +575,29 @@ class HomeController extends Controller
                                 $videoJson->videos = $user_course_videos;
                                 $videoJson->learning = 1;
                                 $videoJson->learning_id = $first_video_id;
-    
+
                                 $videoJson = json_encode($videoJson);
-    
+
                                 $course->userRoles()->attach($user_role_id->id, ['videos' => $videoJson]);
                                 $order->courses()->attach($item['id']);
                             }
-    
+
                             // lưu vào bảng teacher của mỗi course để tăng số lượng học viên cho mỗi teacher
                             $teacher = $course->Lecturers()->first()->teacher;
                             if($teacher){
                                 $teacher->student_count += 1;
-                                $teacher->save();    
+                                $teacher->save();
                             }
-    
+
                             $course2 = Course::find($item['id']);
                             $course2->student_count += 1;
                             $course2->sale_count += 1;
                             $course2->save();
                         }
                     }
-    
-                    
-    
+
+
+
                     // if ($coupon) {
                     //     $order->total_price = $total_price * (100 - $coupon->value) / 100;
                     //     $order->coupon = $coupon->name;
@@ -608,7 +609,7 @@ class HomeController extends Controller
                     // $current_user->bought = \json_encode($bought);
                     // $current_user->coins = $current_user->coins - $total_price;
                     // $current_user->save();
-    
+
                     if ($coupon) {
                         // $order->total_price = $total_price * (100 - $coupon->value) / 100;
                         $order->total_price = $total_price;
@@ -620,9 +621,9 @@ class HomeController extends Controller
                     Mail::to($current_user)->queue(new OrderCompleted($order, $current_user));
                     // dd($order);
                     $order->save();
-    
+
                     // Lưu vào bảng user_email
-                    $alertEmail = \App\Email::where('title', 'Thông báo mua hàng thành công')->first();
+                    $alertEmail = Email::where('title', '=', 'Thông báo mua hàng thành công')->first();
                     if($alertEmail){
                         $user_email  = new \App\UserEmail;
                         $user_email->user_id = Auth::id();
@@ -630,12 +631,12 @@ class HomeController extends Controller
                         $user_email->sender_user_id = 333;
                         $user_email->save();
                     }
-    
-                    
+
+
                     $current_user->bought = \json_encode($bought);
                     $current_user->coins = $current_user->coins - $total_price;
                     $current_user->save();
-    
+
                     return \Response::json(array('status' => '201', 'message' => 'Order has been created'));
                 }
             }
@@ -746,36 +747,36 @@ class HomeController extends Controller
 
     public function clone(){
         // dd(\App\Category2::where('parent_id', 0)->get());
-        // create curl resource 
-        $ch = curl_init(); 
+        // create curl resource
+        $ch = curl_init();
 
-        // set url 
-        curl_setopt($ch, CURLOPT_URL, "https://unica.vn/course/ngoai-ngu"); 
+        // set url
+        curl_setopt($ch, CURLOPT_URL, "https://unica.vn/course/ngoai-ngu");
 
-        //return the transfer as a string 
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+        //return the transfer as a string
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
-        // $output contains the output string 
-        $output = curl_exec($ch); 
+        // $output contains the output string
+        $output = curl_exec($ch);
 
-        // close curl resource to free up system resources 
+        // close curl resource to free up system resources
         curl_close($ch);
 
         echo $output;
 
-        
+
     }
-    
+
     // thêm banner cho category
     public function themBannerChoCategory(){
         $categories = Category::get();
         $cateArr = [
-            ['Thiết kế', 0, 'fa-palette', 'banner_cat_design.png'], 
-            ['Công nghệ', 0, 'fa-wrench', 'banner_cat_technology.png'], 
+            ['Thiết kế', 0, 'fa-palette', 'banner_cat_design.png'],
+            ['Công nghệ', 0, 'fa-wrench', 'banner_cat_technology.png'],
             ['Sức khoẻ, lối sống', 0, 'fa-book-medical', 'banner_cat_health.png'],
-            ['Nuôi dạy con', 0, 'fa-baby', 'banner_cat_kid.png'], 
+            ['Nuôi dạy con', 0, 'fa-baby', 'banner_cat_kid.png'],
             ['Ngôn ngữ', 0, 'fa-language', 'banner_cat_language.png'],
-            ['Lối sống', 0, 'fa-tshirt', 'banner_cat_lifestyle.png'], 
+            ['Lối sống', 0, 'fa-tshirt', 'banner_cat_lifestyle.png'],
             ['Marketing', 0, 'fa-store', 'banner_cat_marketing.png'],
             ['Hôn nhân', 0, 'fa-home', 'banner_cat_marriage.png'],
             ['Phong cách sống', 0, 'fa-users', 'banner_cat_personal.png'],
@@ -833,7 +834,7 @@ class HomeController extends Controller
         //     $video->save();
         // }
         // Mail::to(Auth::user())->queue(new OrderCompleted());
-        
+
         // return response()->json([
         //     'message'=> 'done',
         // ]);
@@ -879,7 +880,7 @@ class HomeController extends Controller
             $course->will_learn = preg_replace('!\s+!', ' ', $course->will_learn);
             $course->save();
         }
-        echo "done";   
+        echo "done";
     }
 
     public function test(){
