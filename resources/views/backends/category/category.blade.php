@@ -443,14 +443,14 @@ $(document).ready(function() {
     ];
 
     dataTable = $('#category-table').DataTable({
-        serverSide: false,
+        serverSide: true,
         aaSorting: [],
         stateSave: true,
         ajax: baseURL + "/admincp/categories/getCategoryAjax",
         columns: dataObject,
         bLengthChange: true,
         pageLength: 10,
-        // order: [[ 4, "desc" ]],
+        order: [[ 0, "DESC" ]],
         colReorder: {
             fixedColumnsRight: 1,
             fixedColumnsLeft: 1
@@ -674,13 +674,12 @@ $(document).ready(function() {
                     if(response.status == 200){
                         clearFormCreate();
                         $('#showEditModal').modal('hide');
-                        dataTable.ajax.reload();
-                        Swal.fire({
++                        Swal.fire({
                             type: 'success',
                             text: response.Message
                         }).then( result => {
-                            // location.reload()
-                            dataTable.ajax.reload()
+                            location.reload()
+                            // dataTable.ajax.reload()
                         })
                     } else {
                         Swal.fire({

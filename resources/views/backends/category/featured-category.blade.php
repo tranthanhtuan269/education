@@ -70,7 +70,7 @@ $(document).ready(function() {
     ];
 
     dataTable = $('#featuredCategoryTable').DataTable({
-        serverSide: false,
+        serverSide: true,
         aaSorting: [],
         stateSave: true,
         ajax: baseURL + "/admincp/featured-category/get-featured-category-ajax",
