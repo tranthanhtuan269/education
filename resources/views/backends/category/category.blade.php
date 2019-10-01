@@ -610,6 +610,8 @@ $(document).ready(function() {
                                 Swal.fire({
                                     type: 'success',
                                     text : response.message,
+                                }).then( result =>{
+                                    location.reload()
                                 })
                                 dataTable.ajax.reload()
                             }
@@ -660,7 +662,7 @@ $(document).ready(function() {
                 }
             });
             var request =$.ajax({
-                url: baseURL+"/admincp/categories/editCategory",
+                url: baseURL+"/admincp/categories/editCategory/"+id,
                 data: data,
                 method: "POST",
                 dataType:'json',

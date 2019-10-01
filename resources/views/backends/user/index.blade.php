@@ -349,7 +349,9 @@
 
             $('#toggle_tab_edit_admin').removeClass('active')
             $('#tab_edit_admin').removeClass('active')
-            
+            $('#editTchExpert').val('')
+            $('#editTchYoutube').val('')
+            editTchCvEditor.setData()
 
             var user_id = $(this).attr('data-user-id')
             $.ajax({

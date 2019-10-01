@@ -179,7 +179,7 @@ class Course extends Model
             foreach ($results as $key => $result) {
                 $course_id_arr[] = $result->course_id;
             }
-            return Course::whereIn('id', $course_id_arr);
+            return Course::whereIn('id', $course_id_arr)->where('status', 1);
         }
     }
 

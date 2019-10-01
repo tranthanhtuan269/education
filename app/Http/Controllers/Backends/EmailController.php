@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\CustomMail;
 use App\Http\Requests\CreateEmailRequest;
 use App\Http\Requests\UpdateEmailRequest;
+use Intervention\Image\ImageManager;
+
 
 
 
@@ -55,7 +57,7 @@ class EmailController extends Controller
             $email->save();
 
             return \Response::json(array('status' => '200', 'message' => 'Tạo email thông báo thành công!'));
-        
+
         }else{
             return \Response::json(array('status'=> '404', 'message'=> 'Chưa điền nội dung email!'));
         }
@@ -83,12 +85,12 @@ class EmailController extends Controller
         $email = Email::find($request->id);
         if($email){
             
-                if($email->title != $request->title){
-                    $check = Email::Where('title',$request->title)->first();
-                    if(isset($check->id)){
-                        return \Response::json(array('status' => '403', 'message' => 'Tên chủ đề bị trùng!'));
-                    }
-                }
+                // if($email->title != $request->title){
+                //     $check = Email::Where('title',$request->title)->first();
+                //     if(isset($check->id)){
+                //         return \Response::json(array('status' => '403', 'message' => 'Tên chủ đề bị trùng!'));
+                //     }
+                // }
                 $email->title = $request->title;
                 $email->content = $request->content;
                 $email->update_user_id = Auth::id();
@@ -130,7 +132,7 @@ class EmailController extends Controller
             return response()->json(array('status' => '200', 'message' => 'Email đã được xóa!'));
         }else{
             return response()->json(array('status'=> '404', 'message' => 'Không tìm thấy email!'));
-        }     
+        }
     }
 
     /**
@@ -155,7 +157,7 @@ class EmailController extends Controller
     }
 
     public function sendEmail(Request $request){
-        
+
         $user = User::find($request->user_id);
         $email = Email::find($request->template_id);
         $email_template = new CustomMail($user, $email);
@@ -175,7 +177,7 @@ class EmailController extends Controller
         }
         return Response::json([
             'status'  => '200',
-            'message' => "Email đã được gửi thành công!"        
+            'message' => "Email đã được gửi thành công!"
         ]);
     }
 
@@ -192,10 +194,10 @@ class EmailController extends Controller
             }
         }
         $user_list = User::whereIn('id', $user_id_list)->get();
-        
+
         foreach ($user_list as $key => $user) {
             Mail::to($user_list)->queue(new CustomMail($user, $email));
-            
+
             // Mail::send('backends.emails.discount-not', ['userName' => $user->name, 'mailContent' => $email->content], function ($message){
             //     $message->to('tungduong@gmail.com');
             //     $message->subject('asdasd');
@@ -216,5 +218,29 @@ class EmailController extends Controller
             'status'  => '200',
             'message' => "Email đã được gửi thành công!"
         ]);
+    }
+
+    public function uploadEmailPhoto(Request $request){
+        $file = $request->file('upload');
+        if(isset($file)){
+            $mimeType = $file->getMimeType();
+            $file_name = time().'_'.$file->getClientOriginalName();
+            if(strpos($mimeType, 'image') !== false){
+                $manager = new ImageManager(array('driver' => 'imagick'));
+                $image = $manager->make($file);
+                $image->save(public_path('backend/images/'.$file_name));
+                // dd('true');
+                return response()->json([
+                    'fileName' => baseName($file_name),
+                    'uploaded' => 1,
+                    'url'      => url('backend/images/'.$file_name)
+                ]);
+            }else{
+                return response()->json([
+                    'status' => 400,
+                    'message' => 'Không phải file ảnh!',
+                ]);
+            }
+        }
     }
 }

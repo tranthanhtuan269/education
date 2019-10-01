@@ -132,7 +132,8 @@ $(document).ready(function() {
                         dataType:'json',
                         success: function (response) {
                             if(response.status == 200){
-                                dataTable.ajax.reload();
+                                // dataTable.ajax.reload();
+                                history.go(0);
                                 if (featured == 0){
                                     Swal.fire({
                                         type: 'success',

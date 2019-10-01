@@ -18,7 +18,7 @@
     </div>
 </div>
 <div class="form-group row">
-    <label class="col-sm-4 col-form-label">Mật khẩu <span class="text-danger">*</span></label>
+    <label class="col-sm-4 col-form-label">Mật khẩu </label>
     <div class="col-sm-8">
         <input type="password" class="form-control" id="userPassword_upd" name="password" value="">
         <div id="passwordErrorUpd" class="alert-errors d-none" role="alert">
@@ -27,7 +27,7 @@
     </div>
 </div>
 <div class="form-group row">
-    <label class="col-sm-4 col-form-label">Nhập lại mật khẩu <span class="text-danger">*</span></label>
+    <label class="col-sm-4 col-form-label">Nhập lại mật khẩu </label>
     <div class="col-sm-8">
         <input type="password" class="form-control" id="passConfirm_upd" name="confirmpassword" value="">
         <div id="confirmpasswordErrorUpd" class="alert-errors d-none" role="alert">

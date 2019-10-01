@@ -443,7 +443,7 @@
                             <li><a href="javascript:void(0)" title="job post">Job Post</a></li>
                         </ul> --}}
                         <p class="copyright">&copy; 2019, Bản quyền thuộc về courdemy.com. Bảo lưu mọi quyền!</p>
-                        <p>v2019.09.26</p>
+                        <p>v2019.09.30</p>
                     </div>
                 </div>
             </div>
@@ -475,6 +475,8 @@
             if(localStorage.getItem('cart'+user_id) == null){
                 localStorage.setItem('cart'+user_id, '[]')
             }
+            
+            // Move Cart NoLogin => Cart Login
             var loginCart = JSON.parse(localStorage.getItem('cart'+user_id))
             if( localStorage.getItem('cart'+0) != null ){
                 var noLoginCart = JSON.parse(localStorage.getItem('cart'+0))
@@ -710,7 +712,7 @@
                     $(".cart-page-content").removeClass('active')
                     // $('.unica-sl-cart').remove()
                     $('.unica-sl-cart').css('display', 'none' )
-
+                    $('.cart-page-title.container').hide()
                 }else{
 
                 }
