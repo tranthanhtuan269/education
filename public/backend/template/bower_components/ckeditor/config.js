@@ -24,11 +24,17 @@ CKEDITOR.editorConfig = function( config ) {
 		{ name: 'styles' },
 		{ name: 'colors' },
 		{ name: 'about' }
-	];
+    ];
+    config.filebrowserBrowseUrl = '/backend/template/bower_components/kcfinder/browse.php';
+    config.filebrowserUploadUrl = '/backend/template/bower_components/kcfinder/upload.php';
+    config.filebrowserImageBrowseUrl = '/backend/template/bower_components/kcfinder/browse.php?type=Images';
+    config.filebrowserImageUploadUrl = '/backend/template/bower_components/kcfinder/upload.php?type=Images';
 
 	// Remove some buttons provided by the standard plugins, which are
 	// not needed in the Standard(s) toolbar.
-	config.removeButtons = 'Underline,Subscript,Superscript';
+    // config.removeButtons = 'Underline,Subscript,Superscript';
+	config.removeButtons = 'Subscript,Superscript';
+
 
 	// Set the most common block elements.
 	config.format_tags = 'p;h1;h2;h3;pre';
