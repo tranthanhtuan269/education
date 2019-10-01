@@ -84,21 +84,21 @@ class EmailController extends Controller
     {
         $email = Email::find($request->id);
         if($email){
-
-                if($email->title != $request->title){
-                    $check = Email::Where('title',$request->title)->first();
-                    if(isset($check->id)){
-                        return \Response::json(array('status' => '403', 'message' => 'Tên chủ đề bị trùng!'));
-                    }
-                }
+            
+                // if($email->title != $request->title){
+                //     $check = Email::Where('title',$request->title)->first();
+                //     if(isset($check->id)){
+                //         return \Response::json(array('status' => '403', 'message' => 'Tên chủ đề bị trùng!'));
+                //     }
+                // }
                 $email->title = $request->title;
                 $email->content = $request->content;
                 $email->update_user_id = Auth::id();
 
                 $email->save();
-
+                
                 return \Response::json(array('status' => '200', 'message' => 'Sửa email thông báo thành công!'));
-            if($request->content != ''){
+            if($request->content != ''){   
                 return \Response::json(array('status' => '404', 'message' => 'Chưa điền nội dung email'));
 
             }

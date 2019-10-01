@@ -53,7 +53,7 @@
         </div>
     </div>
     <div class="form-group row">
-        <label  class="col-sm-3 col-form-label">Địa chỉ </label>
+        <label  class="col-sm-3 col-form-label">Địa chỉ <span class="text-danger">*</span></label>
         <div class="col-sm-8">
             <input type="text" class="form-control" id="addStuAddress" name="address">                                       
         </div>

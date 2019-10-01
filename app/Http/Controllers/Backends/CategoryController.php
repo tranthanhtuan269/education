@@ -60,16 +60,16 @@ class CategoryController extends Controller
         return \Response::json(array('status' => '200', 'Message' => 'Thêm mới danh mục thành công!'));
     }
 
-    public function editCategory(UpdateCategoryRequest $request)
+    public function editCategory(UpdateCategoryRequest $request, $id)
     {
         $category = Category::find($request->id);
         if( $category ){
-            if( $category->name != $request->name ){
-                $check = Category::where('name', $request->name)->first();
-                if( isset($check->id) ){
-                    return \Response::json(array('status' => '403', 'Message' => 'Tên Danh mục đã tồn tại.'));
-                }
-            }
+            // if( $category->name != $request->name ){
+            //     $check = Category::where('name', $request->name)->where('id', '!=',$request->id)->first();
+            //     if( isset($check->id) ){
+            //         return \Response::json(array('status' => '403', 'Message' => 'Tên Danh mục đã tồn tại.'));
+            //     }
+            // }
 
             $file_name = $category->image;
 

@@ -660,7 +660,7 @@ $(document).ready(function() {
                 }
             });
             var request =$.ajax({
-                url: baseURL+"/admincp/categories/editCategory",
+                url: baseURL+"/admincp/categories/editCategory/"+id,
                 data: data,
                 method: "POST",
                 dataType:'json',

@@ -23,7 +23,7 @@ class UpdateCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
+            'name' => 'required|unique:categories,name,'.$this->id,
             // 'image' => 'required',
             'icon' => 'required',
         ];
@@ -32,6 +32,7 @@ class UpdateCategoryRequest extends FormRequest
     public function messages(){
         return [
             'name.required' => 'Bạn chưa nhập tên Danh mục.',
+            'name.unique' => 'Bị trùng tện',
             // 'image.required'=> 'Bạn chưa chọn ảnh đại diện Danh mục.',
             'icon.required' => 'Bạn chưa nhập icon Danh mục.'
         ];
