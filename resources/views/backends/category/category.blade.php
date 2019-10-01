@@ -295,7 +295,6 @@ $(document).ready(function() {
                     clearFormCreate();
                     // $('#preview_category_img').attr('src','https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-image-128.png')
                     $('#showAddModal').modal('hide');
-                    dataTable.ajax.reload();
                     Swal.fire({
                         type: 'success',
                         text: "Thêm mới danh mục thành công!"
@@ -613,14 +612,12 @@ $(document).ready(function() {
                                 }).then( result =>{
                                     location.reload()
                                 })
-                                dataTable.ajax.reload()
                             }
                             if(response.status == '403'){
                                 Swal.fire({
                                     type: 'warning',
                                     text : response.message,
                                 })
-                                dataTable.ajax.reload()
                             }
                         },
                     })                        

@@ -2751,6 +2751,9 @@ div[data-u="slides"] div div{
 .will-learn-class ul{
   padding: 0 20px;
 }
+.menutop-side{
+  height: 61px;
+}
 
 /* Absolute Center Spinner */
 .loading {
