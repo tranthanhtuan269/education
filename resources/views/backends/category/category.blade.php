@@ -300,8 +300,8 @@ $(document).ready(function() {
                         type: 'success',
                         text: "Thêm mới danh mục thành công!"
                     }).then( result => {
-                        // location.reload()
-                        dataTable.ajax.reload()
+                        location.reload()
+                        // dataTable.ajax.reload()
                     })
                 } else {
                     Swal.fire({

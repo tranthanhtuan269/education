@@ -20,7 +20,7 @@
                             <th scope="col">Phản hồi</th>
                             <th scope="col">Khóa học</th>
                             <th scope="col">Ngày đăng</th>
-                            <th scope="col">Chi tiết</th>
+                            {{-- <th scope="col">Duyệt</th> --}}
                             <th scope="col">Xóa</th>
                         </tr>
                     </thead>
@@ -43,13 +43,22 @@ $(document).ready(function() {
         },
         {
             data: "content",
+            // render: function(data, type, row){
+            //     var html = '';
+            //     html += '<p>'+data+'</p>';
+            //     html += '<div class="row-action">'
+            //         html += '<span class="edit-comment-course>Sửa nhanh </span>'
+            //         html += '<span class="reply-comment-course>Trả lời </span>'
+            //     html += '</div>'
+            //     return html;
+            // },
         },
         {
             data: "course_name",
             render: function(data, type, row){
                 if(type == "display"){
                     var html = '';
-                    html += '<a class="red-row" href="/course/'+row.course_slug+'" target="_blank"><b>'+data+'</b></a>';
+                    html += '<a class="" href="/course/'+row.course_slug+'" target="_blank"><b>'+data+'</b></a>';
                     return html;
                 }
                 return data;
@@ -58,22 +67,26 @@ $(document).ready(function() {
         {
             data: "created_at",
         },
+        // {
+        //     data: "action",
+        //     class: "text-center",
+        //     render: function(data, type, row){
+        //         var html = '';
+        //         if(row.state == 0){
+        //             html += '<a class="btn-block block-user" data-id="'+data+'" title="Chưa duyệt""><i class="fa fa-times fa-fw"></i></a>';
+        //         }else{
+                    
+        //             html += '<a class="btn-block not-block-user" data-id="'+data+'" title="Đã duyệt"><i class="fa fa-check fa-fw"></i></a>';
+        //         }
+        //         return html;
+        //     },
+        // },
         {
             data: "action",
             class: "text-center",
             render: function(data, type, row){
                 var html = '';
-                html += '<button class="btn btn-secondary" data-id="'+data+'"><i class="fa fa-eye fa-fw"></i></button>';
-                return html;
-            },
-            orderable: false
-        },
-        {
-            data: "action",
-            class: "text-center",
-            render: function(data, type, row){
-                var html = '';
-                html += '<button class="btn btn-secondary" data-id="'+data+'"><i class="fa fa-trash fa-fw"></i></button>';
+                html += '<a class="btn btn-danger delete-comment"" data-id="'+data+'"><i class="fa fa-trash fa-fw"></i></a>';
                 return html;
             },
             orderable: false
@@ -109,23 +122,61 @@ $(document).ready(function() {
         fnDrawCallback: function( oSettings ) {
             addEventListener();
         },
-        createdRow: function( row, data, dataIndex){
-            if(data['status'] == 1){
-                $(row).addClass('blue-row');
-            }else{
-                $(row).addClass('red-row');
-            }
-            
-            $(row).attr('data-description', data['description']);
-            // $(row).attr('data-video', data['video_intro']);
-        }
     });
     $('#commentCourseAll').css('width', '100%');
 
     function addEventListener(){
-        $('.btn-featured-category').off('click')
-        $('.btn-featured-category').click(function(){
-            
+
+        $('.delete-comment').off('click')
+        $('.delete-comment').click(function(){
+            var id      = $(this).attr('data-id');
+
+            Swal.fire({
+                type: 'warning',
+                text: 'Bạn có chắc chắn muốn xóa vĩnh viễn bình luận này?',
+                showCancelButton: true,
+            }).then((result)=>{
+                if(result.value){
+                    $.ajaxSetup({
+                        headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    $.ajax({
+                        url: baseURL+"/admincp/comment/delete-comment-course",
+                        data: {
+                            id : id,
+                        },
+                        method: "DELETE",
+                        dataType:'json',
+                        success: function (response) {
+                            if(response.status == 200){
+                                dataTable.ajax.reload();
+                                Swal.fire({
+                                    type: 'success',
+                                    text: response.message
+                                })
+                            }else{
+                                Swal.fire({
+                                    type: 'warning',
+                                    text: response.message
+                                })
+                            }
+                            
+                        },
+                        error: function (data) {
+                            if(data.status == 401){
+                            window.location.replace(baseURL);
+                            }else{
+                                Swal.fire({
+                                    type: 'warning',
+                                    text: errorConnect
+                                })
+                            }
+                        }
+                    });
+                }
+            })
         });
     }
 
