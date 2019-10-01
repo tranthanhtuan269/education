@@ -66,6 +66,7 @@ $(document).ready(function() {
                     }
                 return html;
             },
+            orderable: false
         }
     ];
 
@@ -132,18 +133,22 @@ $(document).ready(function() {
                         dataType:'json',
                         success: function (response) {
                             if(response.status == 200){
-                                // dataTable.ajax.reload();
-                                history.go(0);
                                 if (featured == 0){
                                     Swal.fire({
                                         type: 'success',
                                         text: "Đã đổi danh mục thành nổi bật."
+                                    }).then( result => {
+                                    location.reload()
+                                    // dataTable.ajax.reload()
                                     })
                                 }
                                 else {
                                     Swal.fire({
                                         type: 'success',
                                         text:"Đã hủy danh mục nổi bật."
+                                    }).then( result => {
+                                    location.reload()
+                                    // dataTable.ajax.reload()
                                     })
                                 }
                             }else{

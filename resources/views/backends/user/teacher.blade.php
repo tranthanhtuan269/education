@@ -566,7 +566,7 @@
                                 success: function (response) {
                                     Swal.fire({
                                         type: 'success',
-                                        text: response.message
+                                        text: "Duyệt giảng viên thành công"
                                     })
                                     // dataTable.ajax.reload();
                                     $.each($('.check-user'), function (key, value){
@@ -640,7 +640,7 @@
                                 success: function (response) {
                                     Swal.fire({
                                         type: 'success',
-                                        text: response.message
+                                        text: "Hủy giảng viên thành công"
                                     })
                                     $.each($('.check-user'), function (key, value){
                                         if($(this).prop('checked') == true) {
