@@ -1,4 +1,7 @@
 @extends('frontends.layouts.app')
+@section('title')
+Courdemy - Học online cùng những chuyên gia hàng đầu Việt Nam
+@stop
 @section('content')
 @php
     // dd($feature_category);
