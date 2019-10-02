@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <title>@yield('title')</title>
+        <title>Courdemy Admin</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.7 -->
@@ -153,27 +153,27 @@
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                @if (Helper::checkPermissions('users.list', $list_roles)) 
+                                @if (Helper::checkPermissions('users.list', $list_roles))
                                     <li class="@if ( Request::is('admincp/users') ) active @endif">
                                         <a href="{{ url('/') }}/admincp/users"><i class="fa fa-minus"></i> Danh sách</a>
                                     </li>
                                 @endif
- 
-                                
-                                @if (Helper::checkPermissions('users.list_roles', $list_roles)) 
+
+
+                                @if (Helper::checkPermissions('users.list_roles', $list_roles))
                                 <li class="@if ( Request::is('admincp/roles*') ) active @endif">
                                     <a href="{{ url('/') }}/admincp/roles"><i class="fa fa-minus"></i> Vai trò</a>
                                 </li>
                                 @endif
-                                
-                                @if (Helper::checkPermissions('users.list_permissions', $list_roles)) 
+
+                                @if (Helper::checkPermissions('users.list_permissions', $list_roles))
                                     <li class="@if ( Request::is('admincp/permissions*') ) active @endif">
                                         <a href="{{ url('/') }}/admincp/permissions"><i class="fa fa-minus"></i> Phân quyền</a>
                                     </li>
                                 @endif
                             </ul>
                         </li>
-                 
+
                         <li class="treeview @if ( Request::is('admincp/users/email*')) active @endif">
                             <a href="javascript:void(0)">
                                 <i class="fa fa-user-md"></i>
@@ -183,14 +183,14 @@
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                @if (Helper::checkPermissions('users.list', $list_roles)) 
+                                @if (Helper::checkPermissions('users.list', $list_roles))
                                     <li class="@if ( Request::is('admincp/users/email*') ) active @endif">
                                         <a href="{{ url('/') }}/admincp/users/email"><i class="fa fa-minus"></i> Emails</a>
                                     </li>
                                 @endif
                             </ul>
                         </li>
-                 
+
                         <li class="treeview @if ( Request::is('admincp/teachers*') || Request::is('admincp/courses*') || Request::is('admincp/videos*') || Request::is('admincp/verify-video*') || Request::is('admincp/request-delete-videos*')) active @endif">
                             <a href="javascript:void(0)">
                                 <i class="fa fa-user-md"></i>
@@ -200,7 +200,7 @@
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                @if (Helper::checkPermissions('users.list', $list_roles)) 
+                                @if (Helper::checkPermissions('users.list', $list_roles))
                                     <li class="@if ( Request::is('admincp/teachers*') )active @endif">
                                         <a href="{{ url('/') }}/admincp/teachers"><i class="fa fa-minus"></i> Yêu cầu làm giảng viên</a>
                                     </li>
@@ -228,7 +228,7 @@
                                 <span class="pull-right-container">
                             </a>
                         </li>
-                        
+
                         <li class="@if ( Request::is('admincp/categories*') ) active @endif">
                             <a href="{{ url('/') }}/admincp/categories"><i class="fa fa-briefcase"></i>
                                 <span>Danh mục</span>
@@ -285,7 +285,7 @@
         <!-- FastClick -->
         <script src="{{ asset('backend/template/bower_components/fastclick/lib/fastclick.js') }}"></script>
         <!-- AdminLTE App -->
-        <script src="{{ asset('backend/template/dist/js/adminlte.min.js') }}"></script>  
+        <script src="{{ asset('backend/template/dist/js/adminlte.min.js') }}"></script>
         <!-- AdminLTE for demo purposes -->
         <script src="{{ asset('backend/template/dist/js/demo.js') }}"></script>
         <script src="{{ asset('backend/js/ajsr-jq-confirm.min.js') }}"></script>
@@ -337,8 +337,8 @@
                 }
             })
         };
-        
+
         </script>
     </body>
-    
+
 </html>

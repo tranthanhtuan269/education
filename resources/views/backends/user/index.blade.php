@@ -14,7 +14,7 @@
 
 <section class="content-header">
     <h1 class="text-center font-weight-600">Danh sách tài khoản</h1>
-    @if (Helper::checkPermissions('users.add', $list_roles)) 
+    @if (Helper::checkPermissions('users.add', $list_roles))
         <div class="add-item text-center">
             <a id="create_user" data-toggle="modal" data-target="#add_user_modal" class="btn btn-success btn-sm" title="Thêm tài khoản"><i class="fa fa-plus"></i> Thêm tài khoản</a>
         </div>
@@ -38,15 +38,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        
+
                     </tbody>
                 </table>
-                @if (Helper::checkPermissions('users.delete', $list_roles)) 
+                @if (Helper::checkPermissions('users.delete', $list_roles))
                     <p class="action-selected-rows">
                         <span >Hành động trên các hàng đã chọn:</span>
                         {{-- <span class="btn btn-info ml-2" id="apply-all-btn">Xóa</span> --}}
                         <span class="btn btn-info ml-5" id="openMultipleEmailModal">Gửi Emails</span>
-                    </p>  
+                    </p>
                 @endif
             </div>
         </div>
@@ -72,13 +72,13 @@
                     <div class="tab-content">
                         <div class="tab-pane active" id="tab_edit_admin">
                             @include('backends.user.modals.edit-admin-modal')
-                        </div> 
+                        </div>
                         <div class="tab-pane" id="tab_edit_teacher">
                             @include('backends.user.modals.edit-teacher-modal')
-                        </div>  
+                        </div>
                         <div class="tab-pane" id="tab_edit_student">
                             @include('backends.user.modals.edit-student-modal')
-                        </div>                        
+                        </div>
                     </div>
                 </div>
           </div>
@@ -109,7 +109,7 @@
                                         <div class="col-sm-8">
                                             <input type="text" class="form-control" id="userName_Ins" name="name" autocomplete="userName_Ins" value="{{ Request::old('name') }}">
                                             <div class="alert-errors d-none" role="alert" id="nameErrorIns">
-                                                
+
                                             </div>
                                         </div>
                                     </div>
@@ -118,7 +118,7 @@
                                         <div class="col-sm-8">
                                             <input type="text" class="form-control" id="email_Ins" name="email" autocomplete="email_Ins"  value="{{ Request::old('email') }}">
                                             <div class="alert-errors d-none" role="alert" id="emailErrorIns">
-                                                
+
                                             </div>
                                         </div>
                                     </div>
@@ -127,7 +127,7 @@
                                         <div class="col-sm-8">
                                             <input type="password" class="form-control" id="password_Ins" name="password" autocomplete="password_Ins" value="{{ Request::old('password') }}">
                                             <div class="alert-errors d-none" role="alert" id="passwordErrorIns">
-                                                
+
                                             </div>
                                         </div>
                                     </div>
@@ -150,11 +150,11 @@
                                             </select>
                                             <div class="alert-errors d-none" role="alert" id="role_idErrorIns"></div>
                                         </div>
-                                    </div> 
+                                    </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-primary" id="createUser">Thêm mới</button>
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeCreateUser">Hủy bỏ</button>
-                                    </div>        
+                                    </div>
                             </div>
                             <!-- /.tab-pane -->
                             <div class="tab-pane" id="tab_add_teacher">
@@ -162,7 +162,7 @@
                             </div>
                             <!-- /.tab-pane -->
                             <div class="tab-pane" id="tab_add_student">
-                            @include('backends.user.modals.add-student-modal')                            
+                            @include('backends.user.modals.add-student-modal')
                             </div>
                         <!-- /.tab-pane -->
                         </div>
@@ -170,10 +170,10 @@
                     </div>
                 </div>
                 <div style="display:none;" class="modal-footer">
-                </div>          
+                </div>
 
             </div>
-            
+
         </div>
     </div>
 
@@ -220,7 +220,7 @@
             </div>
         </div>
     </div>
-    
+
     <div id="sendMultipleEmailModal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -286,7 +286,7 @@
         dragMode: 'none',
         // modal: false,
     });
-    
+
 
     $(document).ready(function(){
         // $("input").attr('autocomplete', "off")
@@ -336,7 +336,7 @@
         })
 
         // DuongNT - Chuyển thành giảng viên
-        $("#btnSwitchToTeacher").click(function(){ 
+        $("#btnSwitchToTeacher").click(function(){
             $('#toggle_tab_edit_student').fadeOut()
             $('#toggle_tab_edit_student').removeClass('active')
             $('#tab_edit_student').fadeOut()
@@ -380,7 +380,7 @@
 
                         // $('#btnSwitchToTeacher').hide()
                         // $('#btnSwitchOffTeacher').show()
-                        
+
                     }else{
                         Swal.fire({
                             type: 'warning',
@@ -407,9 +407,9 @@
             $.each($('.check-user'), function (key, value){
                 if($(this).prop('checked') == true) {
                     isChecked = true;
-                    return $('#sendMultipleEmailModal').modal('show')                    
+                    return $('#sendMultipleEmailModal').modal('show')
                 }
-                
+
             })
             if(isChecked == false){
                 return Swal.fire({
@@ -429,15 +429,15 @@
                     $('#userPassword_upd').val("")
                     $('#passConfirm_upd').val("")
                     $("#role-list-ins-edit").html(response);
-                    
+
                     $('#role-list-ins-edit').multiselect({
                         includeSelectAllOption: true,
                         includeSelectAllIfMoreThan: 0,
                         numberDisplayed: 2,
-                        enableClickableOptGroups: true,                        
+                        enableClickableOptGroups: true,
                     });
                     $('#role-list-ins-edit').multiselect('rebuild')
-                 
+
                     $.ajax({
                         url: baseURL+"/admincp/users/getInfoByID/" + id,
                         method: "GET",
@@ -488,7 +488,7 @@
 
 
                                     $("#btnSwitchOffTeacher").show()
-                                    $("#btnSwitchToTeacher").hide()                                    
+                                    $("#btnSwitchToTeacher").hide()
                                     $("#toggle_tab_edit_teacher").show()
                                     $("#editTchName").val(response.user.name)
                                     $('#editTchEmail').val(response.user.email)
@@ -525,7 +525,7 @@
 
                                 if(!response.isTeacher && !response.isStudent){
                                     $('#btnSwitchToTeacher').hide()
-                                    $('#btnSwitchOffTeacher').hide()                                    
+                                    $('#btnSwitchOffTeacher').hide()
 
                                     $("#toggle_tab_edit_admin").show()
                                     $("#toggle_tab_edit_admin").addClass('active')
@@ -543,7 +543,7 @@
                                     $('#tab_edit_student').removeClass('active')
                                 }
 
-                                
+
                             }else{
                                 Swal.fire({
                                     type: 'warning',
@@ -576,7 +576,7 @@
                 }
             });
         }
-        
+
         $('#role-list-ins').multiselect({
             includeSelectAllOption: true,
             includeSelectAllIfMoreThan: 0,
@@ -587,7 +587,7 @@
                 var teacherInput = $(container).find('input[value="2"]') // không cho chỉnh sửa teacher
                 studentInput.prop('disabled', true)
                 teacherInput.prop('disabled', true)
-                
+
             },
             onChange: function(element, checked){
                 const role_id = element.attr('value')
@@ -597,7 +597,7 @@
                     }else if(role_id == 2){ //nếu chọn teacher thì chọn cả student
                         $('#role-list-ins').multiselect('select', ['3'])
                     }
-                            
+
                 }else if(checked === false){
                     if(role_id == 3){ //nếu bỏ chọn student thì bỏ chọn cả teacher
                         $('#role-list-ins').multiselect('deselect', ['2'])
@@ -610,10 +610,10 @@
 
 
         window.onbeforeunload = function() {
-            if($('#edit_user_modal').hasClass('show') && ( 
+            if($('#edit_user_modal').hasClass('show') && (
                 $('#userName_upd').val() != curr_user_name ||
                 $('#userEmail_upd').val() != curr_user_email ||
-                $('#userPassword_upd').val() != 'not_change' || 
+                $('#userPassword_upd').val() != 'not_change' ||
                 $('#passConfirm_upd').val() != 'not_change' )
                 ){
                 return "Bye now!";
@@ -630,7 +630,7 @@
         })
 
         var dataObject = [
-            { 
+            {
                 data: "rows",
                 class: "rows-item",
                 render: function(data, type, row){
@@ -638,15 +638,15 @@
                 },
                 orderable: false
             },
-            { 
+            {
                 data: "name",
                 class: "name-field"
             },
-            { 
+            {
                 data: "email",
                 class: "email-field"
             },
-            { 
+            {
                 data: "role_name",
                 class: "role_name-field",
                 render: function(data, type, row){
@@ -659,29 +659,29 @@
                 render: function(data, type, row){
                     var html = '';
 
-                    @if (Helper::checkPermissions('users.block-user', $list_roles)) 
+                    @if (Helper::checkPermissions('users.block-user', $list_roles))
                         if(row['status'] == 0){
                             html += '<a class="btn-block block-user" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Block"><i class="fa fa-times fa-fw"></i></a>';
                         }else{
-                            
+
                             html += '<a class="btn-block not-block-user" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Unblock"><i class="fa fa-check fa-fw"></i></a>';
                         }
-                        
+
                     @endif
                     return html;
                 },
                 orderable: false
             },
-            { 
-                data: "action", 
+            {
+                data: "action",
                 class: "action-field",
                 render: function(data, type, row){
                     var html = '';
-                    @if (Helper::checkPermissions('users.edit', $list_roles)) 
+                    @if (Helper::checkPermissions('users.edit', $list_roles))
                         html += '<a class="btn-send-email" data-toggle="modal" data-target="#sendEmailModal" data-id="'+data+'" data-name="'+row.name+'" data-email="'+row.email+'" title="Gửi"><i class="fa fa-envelope-square fa-fw" aria-hidden="true"></i></a>';
                     @endif
 
-                    @if (Helper::checkPermissions('users.edit', $list_roles)) 
+                    @if (Helper::checkPermissions('users.edit', $list_roles))
                         html += '<a class="btn-edit mr-2 edit-user" data-id="'+data+'" data-name="'+row.name+'" data-email="'+row.email+'" title="Sửa"> <i class="fa fa-edit fa-fw"></i></a>';
                     @endif
 
@@ -742,7 +742,7 @@
         // dataTable.search("").draw();
 
         //select all checkboxes
-        $("#select-all-btn").change(function(){  
+        $("#select-all-btn").change(function(){
             $('.page table tbody input[type="checkbox"]').prop('checked', $(this).prop("checked"));
             // save localstore
             setCheckboxChecked();
@@ -750,7 +750,7 @@
 
         $('body').on('click', '.page table tbody input[type="checkbox"]', function() {
             if(false == $(this).prop("checked")){
-                $("#select-all-btn").prop('checked', false); 
+                $("#select-all-btn").prop('checked', false);
             }
             if ($('.page table tbody input[type="checkbox"]:checked').length == $('.page table tbody input[type="checkbox"]').length ){
                 $("#select-all-btn").prop('checked', true);
@@ -972,7 +972,7 @@
             $('#sendEmail').click( function () {
                 var userId = $(this).attr('data-userid')
                 var templateId = $("#selectedTemplate").val()
-                
+
                 $.ajaxSetup({
                     headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -987,7 +987,7 @@
                         template_id : templateId
                     }
                 })
-                
+
                 request.done(function (response) {
                     Swal.fire({
                         text: response.message
@@ -1052,7 +1052,7 @@
             var password = $('#userPassword_upd').val()
             var confirmpassword = $('#passConfirm_upd').val()
             console.log(password);
-            
+
             var data = {}
             if(password != ""){
                 data    = {
@@ -1128,7 +1128,7 @@
         //     $.each($('.check-user'), function (key, value){
         //         if($(this).prop('checked') == true) {
         //             return isChecked = true;
-                    
+
         //         }else{
         //             return Swal.fire({
         //                 type: 'info',
@@ -1143,7 +1143,7 @@
         //             showCancelButton: true,
         //         })
         //         .then(function (result) {
-        //             if(result.value){  
+        //             if(result.value){
         //                 var $id_list = '';
         //                 $.each($('.check-user'), function (key, value){
         //                     if($(this).prop('checked') == true) {
@@ -1173,7 +1173,7 @@
         //                                         $(this).parent().parent().hide("slow");
         //                                     }
         //                                 });
-        //                                 dataTable.ajax.reload(); 
+        //                                 dataTable.ajax.reload();
         //                                 Swal.fire({
         //                                     type: 'success',
         //                                     text: obj.Message
@@ -1191,7 +1191,7 @@
         //                             }
         //                         }
         //                     });
-                            
+
         //                 }else{
         //                     Swal.fire({
         //                         type: 'warning',
@@ -1217,7 +1217,7 @@
                   'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            
+
             $.ajax({
                 url: baseURL+"/admincp/users",
                 data: data,
@@ -1235,7 +1235,7 @@
                             type: 'success',
                             text: response.Message
                         })
-                        dataTable.ajax.reload(); 
+                        dataTable.ajax.reload();
                     } else {
                         Swal.fire({
                             type: 'warning',
@@ -1261,9 +1261,9 @@
             $('#confirmpassword_Ins').val('')
             $('select[name=role_id]').val(1)
             $('.alert-errors').addClass("d-none")
-            
+
         }
-        
+
         // $('#search_txt').keyup(function() {
         //     if($('#search_txt').val().length <= 0){
         //         dataTable.search("").draw();

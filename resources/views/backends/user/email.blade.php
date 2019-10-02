@@ -547,14 +547,23 @@
                 },
                 dataType:'json',
                 success: function(response){
-                    content_Ins.setData("")
-                    Swal.fire({
-                        text: response.message
-                    })
+
                     if(response.status == 200){
+                        content_Ins.setData("")
+                        Swal.fire({
+                            type: 'success',
+                            text: response.message
+                        })
                         $("#subject_Ins").val("")
                         $("#createEmailModal").modal("hide")
                         dataTable.ajax.reload();
+                    }
+
+                    if(response.status == 400){
+                        Swal.fire({
+                            type: 'warning',
+                            text: response.message
+                        })
                     }
                 },
                 error: function (error) {

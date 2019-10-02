@@ -18,7 +18,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <h4 class="panel-title">
-                                    
+
                                         <span>{{ $value_unit->name }}</span>
                                     <!-- <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $key_unit }}" class="accordion-toggle @if ($key_unit != 0) collapsed in @endif" aria-expanded="true"><span>Section {{ $key_unit + 1 }}:&nbsp; {{ $value_unit->name }}</span></a> -->
                                 </h4>
@@ -41,12 +41,12 @@
                                             <a href="/learning-page/{{$info_course->id}}/lecture/{{$value_video->id}}">
                                                 <i class="fa fa-play-circle" aria-hidden="true"></i>
                                                 <!-- <span>Lecture {{ $value_video->index }}: &nbsp;{{ $value_video->name }}</span>  -->
-                                                <span>{{ $value_video->name }}</span> 
+                                                <span>{{ $value_video->name }}</span>
                                             </a>
                                             @else
                                                 <i class="fa fa-play-circle" aria-hidden="true"></i>
                                                 <!-- <span>Lecture {{ $value_video->index }}: &nbsp;{{ $value_video->name }}</span>  -->
-                                                <span>{{ $value_video->name }}</span> 
+                                                <span>{{ $value_video->name }}</span>
                                             @endif
                                         </div>
                                     </div>
@@ -54,7 +54,15 @@
                                         @if(App\Helper\Helper::getUserRoleOfCourse($info_course->id))
                                         <a class="btn-preview btn-success" href="/learning-page/{{$info_course->id}}/lecture/{{$value_video->id}}">Xem</a>
                                         @else
+                                            @if (Auth::check())
+                                                @if (Auth::user()->isAdmin())
+                                                {{-- khong hien gi ca --}}
+                                                @else
+                                                <i class="fas fa-lock fa-fw" aria-hidden="true"></i>
+                                                @endif
+                                            @else
                                             <i class="fas fa-lock fa-fw" aria-hidden="true"></i>
+                                            @endif
                                         @endif
                                         {{-- @if ($value_video->state == 1)
                                         <div class="link">
@@ -62,6 +70,12 @@
                                             <a class="btn-preview" href="javascript:void(0)" onclick="preview_freetrial(24337);">Free Trial</a>
                                         </div>
                                         @endif --}}
+                                        @if (Auth::check())
+                                            @if (Auth::user()->isAdmin())
+                                            <a class="btn-preview btn-success" href="/learning-page/{{$info_course->id}}/lecture/{{$value_video->id}}">Xem</a>
+                                            @endif
+                                        @else
+                                        @endif
                                     </div>
                                     <div class="col-xs-3 col-md-2">
                                         <div class="time">{{ App\Helper::convertSecondToTimeFormat($value_video->duration) }}</div>
