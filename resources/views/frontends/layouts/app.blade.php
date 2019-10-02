@@ -48,6 +48,10 @@
     <meta property="og:url" content="@yield('fb_og_url', '')"/>
 </head>
 <body>
+    {{-- Facebook Share  --}}
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v4.0&appId=2474435149283816&autoLogAppEvents=1"></script>
+
     <div class="ajax_waiting"></div>
         <div id="fb-root"></div>
         <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v4.0&appId=2474435149283816&autoLogAppEvents=1"></script>
