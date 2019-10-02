@@ -36,7 +36,7 @@
                         @endif
                         >
                             <div class="fb-share-button" data-href="/{{$info_course->image}}"  data-layout="button"></div>
-                            <a class="btn btn-default btn-xs" href="https://www.facebook.com/sharer/sharer.php?u=
+                            <a class="btn btn-default btn-xs" data-src="{{$info_course->image}}" href="https://www.facebook.com/sharer/sharer.php?u=
                             <?php
                             echo urlencode(url()->current());
                             ?>
