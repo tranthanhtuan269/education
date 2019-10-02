@@ -14,11 +14,11 @@
 @stop
 @if (strpos($info_course->image, 'http') !== false)
     @section('fb_og_image_alt')
-    http://45.56.82.249/frontend/images/{{ $info_course->name }}
+    {{ $info_course->name }}
     @stop
 @else
     @section('fb_og_image_alt')
-    {{ $info_course->name }}
+    http://45.56.82.249/frontend/images/{{ $info_course->name }}
     @stop
 @endif
 @section('fb_og_type')
