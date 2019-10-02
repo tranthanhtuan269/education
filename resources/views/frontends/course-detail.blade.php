@@ -1,4 +1,7 @@
 @extends('frontends.layouts.app')
+@section('title')
+{{ $info_course->name }}
+@stop
 @section('content')
 <?php
     $percent_temp = 100;
@@ -32,7 +35,12 @@
                         style="padding-top: 40px"
                         @endif
                         >
-                            <a class="btn btn-default btn-xs" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(url()->current()); ?>" target="_blank">
+                            <div class="fb-share-button" data-href="/{{$info_course->image}}"  data-layout="button"></div>
+                            <a class="btn btn-default btn-xs" href="https://www.facebook.com/sharer/sharer.php?u=
+                            <?php
+                            echo urlencode(url()->current());
+                            ?>
+                            " target="_blank">
                                 <i class="fas fa-share-alt"></i> Chia sẻ
                             </a>
                         </div>
