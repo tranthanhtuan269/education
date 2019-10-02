@@ -593,7 +593,7 @@ $(document).ready(function() {
 
             Swal.fire({
                 type: 'warning',
-                text : 'Xóa danh mục sẽ ảnh hưởng tới khóa học và các danh mục con. Bạn có chắc chắn muốn xóa?',
+                text : 'Bạn có chắc chắn muốn xóa?',
                 showCancelButton: true,
             }).then( result => {
                 if(result.value){
