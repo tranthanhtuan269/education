@@ -40,11 +40,12 @@
     <base href="{{ url('/') }}">
 
     {{-- Facebook Share --}}
-    <meta name="og:title" content="@yield('fb_og_title', '')"/>
-    <meta name="og:image" content="@yield('fb_og_image', '')"/>
-    <meta name="og:description" content="@yield('fb_og_description', '')"/>
-    <meta name="og:image:atl" content="@yield('fb_og_image_alt', '')"/>
-
+    <meta property="og:title" content="@yield('fb_og_title', '')"/>
+    <meta property="og:image" content="@yield('fb_og_image', '')"/>
+    <meta property="og:description" content="@yield('fb_og_description', '')"/>
+    <meta property="og:image:atl" content="@yield('fb_og_image_alt', '')"/>
+    <meta property="og:type" content="@yield('fb_og_type', '')"/>
+    <meta property="og:url" content="@yield('fb_og_url', '')"/>
 </head>
 <body>
     <div class="ajax_waiting"></div>

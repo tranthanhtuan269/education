@@ -1,4 +1,8 @@
 @extends('frontends.layouts.app')
+@section('title')
+{{ $info_course->name }}
+@stop
+{{-- Facebook Share --}}
 @section('fb_og_title')
 {{ $info_course->name }}
 @stop
@@ -11,6 +15,13 @@
 @section('fb_og_image_alt')
 {{ $info_course->name }}
 @stop
+@section('fb_og_type')
+website
+@stop
+@section('fb_og_url')
+/course/{{ $info_course->slug }}
+@stop
+
 @section('content')
 <?php
     $percent_temp = 100;
