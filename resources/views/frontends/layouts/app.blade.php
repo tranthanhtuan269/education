@@ -38,6 +38,8 @@
     <meta name="copyright" content="Edu">
     <meta name="author" content="Edu"/>
     <base href="{{ url('/') }}">
+    <meta property="og:image" content="@yield('course_image', '')"/>
+
 </head>
 <body>
     <div class="ajax_waiting"></div>

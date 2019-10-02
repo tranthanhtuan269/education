@@ -2,12 +2,9 @@
 @section('title')
 {{ $info_course->name }}
 @stop
-<meta property="og:title" content="{{ $info_course->name }}"/>
-<meta property="og:type" content="Giáo dục"/>
-<meta property="og:url" content="http://www.imdb.com/title/tt0117500/"/>
-<meta property="og:image" content="{{ $info_course->image }}"/>
-<meta property="og:site_name" content="Courdemy"/>
-<meta property="og:description" content="{{ $info_course->short_description }}"/>
+@section('course_image')
+{{ $info_course->image }}
+@stop
 @section('content')
 <?php
     $percent_temp = 100;
