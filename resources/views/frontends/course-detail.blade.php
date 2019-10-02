@@ -61,12 +61,12 @@ http://45.56.82.249/course/{{ $info_course->slug }}
                         style="padding-top: 40px"
                         @endif
                         >
-                            <div class="fb-share-button" data-layout="button"></div>
+                            <div class="fb-share-button" data-layout="button" style="display:none"></div>
                             <a class="btn btn-default btn-xs" data-src="{{$info_course->image}}" href="https://www.facebook.com/sharer/sharer.php?u=
                             <?php
                             echo urlencode(url()->current());
                             ?>
-                            ,'facebook-share-dialog','width=250,height=250'" target="_blank">
+                            " target="_blank">
                                 <i class="fas fa-share-alt"></i> Chia sẻ
                             </a>
                         </div>
