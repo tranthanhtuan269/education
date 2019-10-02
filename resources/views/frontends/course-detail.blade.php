@@ -12,14 +12,20 @@
 @section('fb_og_description')
 {{ $info_course->short_description }}
 @stop
-@section('fb_og_image_alt')
-{{ $info_course->name }}
-@stop
+@if (strpos($info_course->image, 'http') !== false)
+    @section('fb_og_image_alt')
+    http://45.56.82.249/frontend/images/{{ $info_course->name }}
+    @stop
+@else
+    @section('fb_og_image_alt')
+    {{ $info_course->name }}
+    @stop
+@endif
 @section('fb_og_type')
 website
 @stop
 @section('fb_og_url')
-/course/{{ $info_course->slug }}
+http://45.56.82.249/course/{{ $info_course->slug }}
 @stop
 
 @section('content')
@@ -55,11 +61,7 @@ website
                         style="padding-top: 40px"
                         @endif
                         >
-                            <div class="fb-share-button" data-href="https://www.facebook.com/sharer/sharer.php?u=
-                            <?php
-                            echo urlencode(url()->current());
-                            ?>
-                            "  data-layout="button"></div>
+                            <div class="fb-share-button" data-layout="button"></div>
                             <a class="btn btn-default btn-xs" data-src="{{$info_course->image}}" href="https://www.facebook.com/sharer/sharer.php?u=
                             <?php
                             echo urlencode(url()->current());
