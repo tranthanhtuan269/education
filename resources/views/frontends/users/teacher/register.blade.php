@@ -184,7 +184,8 @@
 
         var link_base64;
 
-        $("#save-profile").click(function() {
+        $("#save-profile").off('click')
+        $("#save-profile").on('click',function() {
             link_base64 = $('#image-cropper').cropit('export');
             // Validate Birthday
             if (!validationDate($('#datepicker').val())) {
