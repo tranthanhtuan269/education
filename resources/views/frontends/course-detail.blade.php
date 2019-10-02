@@ -66,7 +66,7 @@ http://45.56.82.249/course/{{ $info_course->slug }}
                             <?php
                             echo urlencode(url()->current());
                             ?>
-                            " target="_blank">
+                            ,'facebook-share-dialog','width=250,height=250'" target="_blank">
                                 <i class="fas fa-share-alt"></i> Chia sẻ
                             </a>
                         </div>
