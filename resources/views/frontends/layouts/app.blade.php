@@ -38,7 +38,12 @@
     <meta name="copyright" content="Edu">
     <meta name="author" content="Edu"/>
     <base href="{{ url('/') }}">
-    <meta name="og:image" content="@yield('course_image', '')"/>
+
+    {{-- Facebook Share --}}
+    <meta name="og:title" content="@yield('fb_og_title', '')"/>
+    <meta name="og:image" content="@yield('fb_og_image', '')"/>
+    <meta name="og:description" content="@yield('fb_og_description', '')"/>
+    <meta name="og:image:atl" content="@yield('fb_og_image_alt', '')"/>
 
 </head>
 <body>

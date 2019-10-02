@@ -1,9 +1,15 @@
 @extends('frontends.layouts.app')
-@section('title')
+@section('fb_og_title')
 {{ $info_course->name }}
 @stop
-@section('course_image')
+@section('fb_og_image')
 {{ $info_course->image }}
+@stop
+@section('fb_og_description')
+{{ $info_course->short_description }}
+@stop
+@section('fb_og_image_alt')
+{{ $info_course->name }}
 @stop
 @section('content')
 <?php
