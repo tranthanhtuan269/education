@@ -6,21 +6,21 @@
 @section('fb_og_title')
 {{ $info_course->name }}
 @stop
-@section('fb_og_image')
-{{ $info_course->image }}
-@stop
+@if (strpos($info_course->image, 'http') !== false)
+    @section('fb_og_image')
+    {{ $info_course->image }}
+    @stop
+@else
+    @section('fb_og_image')
+    http://45.56.82.249/frontend/images/{{ $info_course->image }}
+    @stop
+@endif
 @section('fb_og_description')
 {{ $info_course->short_description }}
 @stop
-@if (strpos($info_course->image, 'http') !== false)
-    @section('fb_og_image_alt')
-    {{ $info_course->name }}
-    @stop
-@else
-    @section('fb_og_image_alt')
-    http://45.56.82.249/frontend/images/{{ $info_course->name }}
-    @stop
-@endif
+@section('fb_og_image_alt')
+{{ $info_course->name }}
+@stop
 @section('fb_og_type')
 website
 @stop
@@ -61,7 +61,6 @@ http://45.56.82.249/course/{{ $info_course->slug }}
                         style="padding-top: 40px"
                         @endif
                         >
-                            <div class="fb-share-button" data-layout="button_count" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Chia sẻ</a></div>
                             <div class="fb-share-button" data-layout="button"></div>
                             <a class="btn btn-default btn-xs" data-src="{{$info_course->image}}" href="https://www.facebook.com/sharer/sharer.php?u=
                             <?php
