@@ -92,7 +92,7 @@
                 </div>
             </div>
         </div>
-        <div class="unica-home-menutop hidden-xs">
+        <div class="unica-home-menutop hidden-xs fixed">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-3 col-sm-4 cate-md">
@@ -377,6 +377,7 @@
                 </div>
             </div>
         </div>
+        <div class="menutop-side"></div>
     </header>
     <!-- <div class="hidden-xs" style="margin-top: 63px;"></div> -->
     <!-- <div class="hidden-md hidden-sm hidden-lg" style="margin-top: 45px;"></div> -->
@@ -453,13 +454,13 @@
     <script>
         var user_id = $('button[id=cartUserId]').attr('data-user-id')
 
-        $(window).scroll(function(event){
-            if ($(this).scrollTop() > 0){
-                $('.unica-home-menutop').addClass('fixed');
-            } else {
-                $('.unica-home-menutop').removeClass('fixed');
-            }
-        });
+        // $(window).scroll(function(event){
+        //     if ($(this).scrollTop() > 0){
+        //         $('.unica-home-menutop').addClass('fixed');
+        //     } else {
+        //         $('.unica-home-menutop').removeClass('fixed');
+        //     }
+        // });
 
         if( user_id == 0 ){
             if(localStorage.getItem('cart'+0) == null){

@@ -295,13 +295,12 @@ $(document).ready(function() {
                     clearFormCreate();
                     // $('#preview_category_img').attr('src','https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-image-128.png')
                     $('#showAddModal').modal('hide');
-                    dataTable.ajax.reload();
                     Swal.fire({
                         type: 'success',
                         text: "Thêm mới danh mục thành công!"
                     }).then( result => {
-                        // location.reload()
-                        dataTable.ajax.reload()
+                        location.reload()
+                        // dataTable.ajax.reload()
                     })
                 } else {
                     Swal.fire({
@@ -443,14 +442,14 @@ $(document).ready(function() {
     ];
 
     dataTable = $('#category-table').DataTable({
-        serverSide: false,
+        serverSide: true,
         aaSorting: [],
         stateSave: true,
         ajax: baseURL + "/admincp/categories/getCategoryAjax",
         columns: dataObject,
         bLengthChange: true,
         pageLength: 10,
-        // order: [[ 4, "desc" ]],
+        order: [[ 0, "DESC" ]],
         colReorder: {
             fixedColumnsRight: 1,
             fixedColumnsLeft: 1
@@ -613,14 +612,12 @@ $(document).ready(function() {
                                 }).then( result =>{
                                     location.reload()
                                 })
-                                dataTable.ajax.reload()
                             }
                             if(response.status == '403'){
                                 Swal.fire({
                                     type: 'warning',
                                     text : response.message,
                                 })
-                                dataTable.ajax.reload()
                             }
                         },
                     })                        
@@ -674,13 +671,12 @@ $(document).ready(function() {
                     if(response.status == 200){
                         clearFormCreate();
                         $('#showEditModal').modal('hide');
-                        dataTable.ajax.reload();
-                        Swal.fire({
++                        Swal.fire({
                             type: 'success',
                             text: response.Message
                         }).then( result => {
-                            // location.reload()
-                            dataTable.ajax.reload()
+                            location.reload()
+                            // dataTable.ajax.reload()
                         })
                     } else {
                         Swal.fire({
