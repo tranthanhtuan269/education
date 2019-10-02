@@ -2,6 +2,32 @@
 @section('title')
 {{ $info_course->name }}
 @stop
+{{-- Facebook Share --}}
+@section('fb_og_title')
+{{ $info_course->name }}
+@stop
+@if (strpos($info_course->image, 'http') !== false)
+    @section('fb_og_image')
+    {{ $info_course->image }}
+    @stop
+@else
+    @section('fb_og_image')
+    http://45.56.82.249/frontend/images/{{ $info_course->image }}
+    @stop
+@endif
+@section('fb_og_description')
+{{ $info_course->short_description }}
+@stop
+@section('fb_og_image_alt')
+{{ $info_course->name }}
+@stop
+@section('fb_og_type')
+website
+@stop
+@section('fb_og_url')
+http://45.56.82.249/course/{{ $info_course->slug }}
+@stop
+
 @section('content')
 <?php
     $percent_temp = 100;
@@ -35,12 +61,12 @@
                         style="padding-top: 40px"
                         @endif
                         >
-                            <div class="fb-share-button" data-href="/{{$info_course->image}}"  data-layout="button"></div>
-                            <a class="btn btn-default btn-xs" href="https://www.facebook.com/sharer/sharer.php?u=
+                            <div class="fb-share-button" data-layout="button"></div>
+                            <a class="btn btn-default btn-xs" data-src="{{$info_course->image}}" href="https://www.facebook.com/sharer/sharer.php?u=
                             <?php
                             echo urlencode(url()->current());
                             ?>
-                            " target="_blank">
+                            ,'facebook-share-dialog','width=250,height=250'" target="_blank">
                                 <i class="fas fa-share-alt"></i> Chia sẻ
                             </a>
                         </div>
