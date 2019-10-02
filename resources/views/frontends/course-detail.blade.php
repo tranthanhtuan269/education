@@ -2,6 +2,12 @@
 @section('title')
 {{ $info_course->name }}
 @stop
+<meta property="og:title" content="{{ $info_course->name }}"/>
+<meta property="og:type" content="Giáo dục"/>
+<meta property="og:url" content="http://www.imdb.com/title/tt0117500/"/>
+<meta property="og:image" content="{{ $info_course->image }}"/>
+<meta property="og:site_name" content="Courdemy"/>
+<meta property="og:description" content="{{ $info_course->short_description }}"/>
 @section('content')
 <?php
     $percent_temp = 100;
@@ -35,7 +41,11 @@
                         style="padding-top: 40px"
                         @endif
                         >
-                            <div class="fb-share-button" data-href="/{{$info_course->image}}"  data-layout="button"></div>
+                            <div class="fb-share-button" data-href="https://www.facebook.com/sharer/sharer.php?u=
+                            <?php
+                            echo urlencode(url()->current());
+                            ?>
+                            "  data-layout="button"></div>
                             <a class="btn btn-default btn-xs" data-src="{{$info_course->image}}" href="https://www.facebook.com/sharer/sharer.php?u=
                             <?php
                             echo urlencode(url()->current());
