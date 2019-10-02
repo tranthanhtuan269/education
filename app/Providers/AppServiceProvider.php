@@ -93,11 +93,14 @@ class AppServiceProvider extends ServiceProvider
             // $event->connectionName
             // $event->job
             if($event->job->resolveName() == "App\Jobs\ProcessLecture"){
+                Log::info('Job ready: ' . $event->job->resolveName());
+                Log::info('Job started: ' . $event->job->resolveName());
                 $job = $event->job->payload();
     
                 $payload = json_decode( $event->job->getRawBody() );
                 $data = unserialize( $payload->data->command );
                 $video_id = $data->video_id;
+                Log::info('video id: ' . $data->video_id);
     
                 $video = Video::find($video_id);
                 if($video){

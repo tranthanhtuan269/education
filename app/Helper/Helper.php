@@ -100,7 +100,7 @@ class Helper
     public static function convertVideoToMultiResolution($video, $resolution, $path_video){
         $t=time();
         $input = public_path('/uploads/videos/').$video;
-        $output = $path_video;
+        $output = public_path('/uploads/videos_output/').$resolution.'/'.$video;
         // $output = "/usr/local/WowzaStreamingEngine-4.7.7/content/".$video;
         $block_txt = public_path('/uploads/block_'.$t.'.txt');
 
@@ -108,9 +108,8 @@ class Helper
         $avcodec = '-c:v libx264 -strict -2';
         $time = '-ss ' . "00:00:00";
         $bitrate = '-vf scale='.$resolution.':-2';
-		
+        
         $command = config('config.path_ffmpeg_exe') .' -i '.$input.' '.$time.' '.$avcodec.' '.$bitrate.' '.$output.' 1> '.$block_txt.' 2>&1';
-        // echo $command;die;
         exec($command);
     }
     

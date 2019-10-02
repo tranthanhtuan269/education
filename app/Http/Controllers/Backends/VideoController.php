@@ -429,7 +429,7 @@ class VideoController extends Controller
         if( isset($_GET['course_id']) ){
             $course_id = $_GET['course_id'];
             $sql = "
-            SELECT videos.id, videos.name as name, videos.link_video as link_video, videos.updated_at as updated_at, courses.name as course_name, courses.id as course_id
+            SELECT videos.id, videos.name as name, videos.link_video as link_video, videos.updated_at as updated_at, courses.name as course_name, courses.id as course_id, videos.state
             FROM courses
             JOIN units ON units.course_id = courses.id
             JOIN videos ON videos.unit_id = units.id
