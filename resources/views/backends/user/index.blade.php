@@ -692,9 +692,9 @@
         ];
 
         dataTable = $('#account-table').DataTable( {
-                        serverSide: true,
+                        serverSide: false,
                         // aaSorting: [],
-                        stateSave: false,
+                        stateSave: true,
                         search: {
                             smart: false
                         },

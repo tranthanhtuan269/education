@@ -95,6 +95,9 @@ $(document).ready(function() {
 
     dataTable = $('#commentCourseAll').DataTable({
         serverSide: false,
+        search: {
+            smart: false
+        },
         aaSorting: [],
         stateSave: true,
         ajax: baseURL + "/admincp/comment/get-comment-course-ajax",

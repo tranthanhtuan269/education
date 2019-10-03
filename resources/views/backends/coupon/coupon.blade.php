@@ -408,7 +408,7 @@ $(document).ready(function(){
     ];
 
     dataTable = $('#coupon-table').DataTable( {
-                    serverSide: true,
+                    serverSide: false,
                     aaSorting: [],
                     stateSave: true,
                     search: {

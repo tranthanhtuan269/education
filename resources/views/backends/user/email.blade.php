@@ -282,7 +282,7 @@
         ];
 
         dataTable = $('#notification-table').DataTable( {
-                        serverSide: true,
+                        serverSide: false,
                         aaSorting: [],
                         stateSave: true,
                         search: {

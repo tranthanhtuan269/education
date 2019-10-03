@@ -442,7 +442,10 @@ $(document).ready(function() {
     ];
 
     dataTable = $('#category-table').DataTable({
-        serverSide: true,
+        serverSide: false,
+        search: {
+            smart: false
+        },
         aaSorting: [],
         stateSave: true,
         ajax: baseURL + "/admincp/categories/getCategoryAjax",

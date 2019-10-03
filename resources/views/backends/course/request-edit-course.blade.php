@@ -101,7 +101,7 @@
         ];
 
         dataTable = $('#course-table').DataTable( {
-                        serverSide: true,
+                        serverSide: false,
                         aaSorting: [],
                         stateSave: true,
                         search: {
