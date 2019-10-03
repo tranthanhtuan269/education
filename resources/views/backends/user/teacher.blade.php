@@ -138,7 +138,7 @@
                 render: function(data, type, row){
                 if(type == "display"){
                     var html = '';
-                    html += '<a class="" href="/teacher/'+row.action+'" target="_blank"><b>'+data+'</b></a>';
+                    html += '<a class="color-white" href="/teacher/'+row.action+'" target="_blank"><b>'+data+'</b></a>';
                     return html;
                 }
                 return data;

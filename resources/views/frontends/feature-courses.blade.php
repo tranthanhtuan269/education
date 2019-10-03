@@ -12,7 +12,7 @@
                                     <span class=""> - {{$course->discount_percent}} %</span>
                                 </div>
                             @endif
-                        <a href="{{ url('/') }}/course/{{ $course->slug }}">
+                        <a href="{{ url('/') }}/course/{{ $course->id }}/{{ $course->slug }}">
                             @if (strpos($course->image, 'http') !== false)
                             <div class="top-feature-course" style="background-image:url({{ $course->image }}); width: 100%; height:390">
                             @else
@@ -48,7 +48,7 @@
                         <span class=""> - {{$course->discount_percent}} %</span>
                     </div>
                     @endif
-                    <a href="{{ url('/') }}/course/{{ $course->slug }}">                    
+                    <a href="{{ url('/') }}/course/{{ $course->id }}/{{ $course->slug }}">                    
                         <div class="img-top">                            
                             @if (strpos($course->image, 'http') !== false)
                             <div class="top-feature-course" style="background-image:url({{ $course->image }}); width: 100%; height:187">          <div class="course-info">

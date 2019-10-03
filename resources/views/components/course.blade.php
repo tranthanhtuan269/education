@@ -76,7 +76,7 @@
                     </div>                        
                 </div>               
              </div>
-        <a href="{{ url('/') }}/course/{{ $course->slug }}" title="{{ $course->name }}" class="course-box-slider pop">
+        <a href="{{ url('/') }}/course/{{ $course->id }}/{{ $course->slug }}" title="{{ $course->name }}" class="course-box-slider pop">
             
             <div class="content-course">
                 <h3 class="title-course">{{ $course->name }}</h3>

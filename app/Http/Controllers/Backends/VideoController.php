@@ -472,7 +472,7 @@ class VideoController extends Controller
                     if(!$isTeacher){
                     return response()->json([
                         'status' => 300,
-                        'message'=> 'Giảng viên chưa được duyệt. Vui lòng duyệt giảng viên trước!'
+                        "message"=> "Giảng viên chưa được duyệt. Vui lòng kiểm tra tại <a href='".url('admincp/teachers?teacher_id='.$user_roles_teacher->teacher->id)."' target='_blank'>đây</a>!"
                     ]); 
                     }
                 }

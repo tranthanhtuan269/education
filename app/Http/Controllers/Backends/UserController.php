@@ -398,11 +398,36 @@ class UserController extends Controller
     }
 
     public function getTeacher(){
+        if( isset($_GET['teacher_id']) ){
+            return view('backends.user.teacher-of-course');
+        }
         return view('backends.user.teacher');
     }
 
     public function getTeacherAjax()
     {
+        if( isset($_GET['teacher_id']) ){
+            $teacher_id = $_GET['teacher_id'];
+            $teachers = Teacher::where('id', $teacher_id)->get();
+            return datatables()->collection($teachers)
+                ->addColumn('name', function ($teacher) {
+                    if(isset($teacher->userRole)){
+                        if($teacher->userRole->user){
+                            return $teacher->userRole->user->name;
+                        }
+                        return "";
+                    }
+                    return "";
+                })
+                ->addColumn('action', function ($teacher) {
+                    return $teacher->id;
+                })
+                ->addColumn('rows', function ($teacher) {
+                    return $teacher->id;
+                })
+                ->removeColumn('id')
+                ->make(true);
+        }
         $teachers = Teacher::where('status', '!=', \Config::get('app.teacher_blocked'))->orderBy('updated_at', 'desc')->get();
         return datatables()->collection($teachers)
             ->addColumn('name', function ($teacher) {

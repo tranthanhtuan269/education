@@ -135,7 +135,7 @@
                 render: function(data, type, row){
                     if(type == "display"){
                         var html = '';
-                        html += '<a class="" href="/course/'+row.slug+'" target="_blank" style="color:#FFF"><b>'+data+'</b></a>';
+                        html += '<a class="color-white" href="/course/'+row.action+'/'+row.slug+'" target="_blank"><b>'+data+'</b></a>';
                         return html;
                     }
                     return data;
@@ -160,22 +160,10 @@
                 data:"real_price",
                 class: "real_price-field",
                 render: function(data, type, row){
-                    
-                    var html = '';
-                    var price = data / 1000;
-                        html += '<div style="float: right"><b>'
-                            if( data >= 1000 ){
-                                html += price.toFixed(3)+"đ";
-                            }else{
-                                html += data+"đ";
-                            }
-                        html += '</b></div>'
-                        
-                    return html;
                     if(type == "display"){
                         var html = '';
                         html += '<div style="float: right"><b>'
-                            html += numberFormat(row.total_price, 0, '.', '.') + ' đ';
+                            html += numberFormat(row.real_price, 0, '.', '.') + ' đ';
                         html += '</b></div>'
                         return html;
                     }
