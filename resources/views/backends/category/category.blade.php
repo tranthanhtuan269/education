@@ -52,7 +52,7 @@
                 <div class="modal-body">
                     <form autocomplete="off">
                         <div class="form-group">
-                            <label>Tên Danh mục:</label>
+                            <label>Tên Danh mục: (Tối đa 25 ký tự)</label>
                             <input type="text" class="form-control" name="name" id="categoryName_id">
                         </div>
                         <div class="form-group">
@@ -106,7 +106,7 @@
                 <div class="modal-body">
                     <form>
                         <div class="form-group">
-                            <label>Tên Danh mục:</label>
+                            <label>Tên Danh mục: (Tối đa 25 ký tự)</label>
                             <input type="text" class="form-control" name="name" id="editName" value="">
                         </div>
                         <div class="form-group">
@@ -442,7 +442,10 @@ $(document).ready(function() {
     ];
 
     dataTable = $('#category-table').DataTable({
-        serverSide: true,
+        serverSide: false,
+        search: {
+            smart: false
+        },
         aaSorting: [],
         stateSave: true,
         search: {
@@ -465,6 +468,7 @@ $(document).ready(function() {
             sInfoFiltered: "",
             sInfoEmpty: "",
             sZeroRecords: "Không tìm thấy kết quả tìm kiếm",
+            sEmptyTable: "Chưa có danh mục",
             oPaginate: {
                 sPrevious: "Trang trước",
                 sNext: "Trang sau",

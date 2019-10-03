@@ -138,7 +138,7 @@
         ];
 
         dataTable = $('#video-table').DataTable( {
-                        serverSide: true,
+                        serverSide: false,
                         aaSorting: [],
                         stateSave: true,
                         search: {
@@ -390,7 +390,7 @@
                                 }else{
                                     Swal.fire({
                                         type: 'warning',
-                                        text: response.message
+                                        html: response.message
                                     })
                                 }
                             },

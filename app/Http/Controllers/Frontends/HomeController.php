@@ -178,9 +178,10 @@ class HomeController extends Controller
         return abort(404);
     }
 
-    public function showCourse($course)
+    public function showCourse($id,$slug)
     {
-        $course = Course::where('slug', $course)->first();
+        $course = Course::where('id', $id)->first();
+        // dd($course);
         if($course){
             if($course->status == 1){
                 if ($course) {
@@ -231,7 +232,7 @@ class HomeController extends Controller
                     }
                 }
             }else{
-                if(\Auth::check() && Auth::user()->userRolesTeacher()->userCoursesByTeacher()->where('id', $course->id)->first() != null){
+                if( (\Auth::check() && \Auth::user()->isAdmin()) || (\Auth::check() && Auth::user()->userRolesTeacher()->userCoursesByTeacher()->where('id', $course->id)->first() != null )){
                     $ratingCourse = RatingCourse::where('course_id', $course->id)->where('user_id', \Auth::id())->first();
                     $related_course = Course::where('category_id', $course->category_id)->where('id','!=',$course->id)->where('status', 1)->limit(4)->get();
                     $info_course = Course::find($course->id);

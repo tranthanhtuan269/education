@@ -22,13 +22,14 @@
                 <table class="table table-bordered" id="course-table">
                     <thead class="thead-custom">
                         <tr>
-                            <th class="id-field" width="1%">
+                            {{-- <th class="id-field" width="1%">
                                 <input type="checkbox" id="select-all-btn" data-check="false">
-                            </th>
+                            </th> --}}
                             <th scope="col">Tên khóa học</th>
                             <th scope="col">Tóm tắt</th>
-                            <th scope="col">Thời lượng</th>
-                            <th csope="col">Giá</th>
+                            {{-- <th scope="col">Thời lượng</th> --}}
+                            <th csope="col">Giá gốc</th>
+                            <th csope="col">Giá giảm</th>
                             <th scope="col">Cập nhật</th>
                             <th scope="col">Thao tác</th>
                         </tr>
@@ -37,14 +38,14 @@
                         
                     </tbody>
                 </table>
-                @if (Helper::checkPermissions('users.email', $list_roles)) 
-                    <p class="action-selected-rows">
-                        <span >Hành động trên các hàng đã chọn:</span>
+                {{-- @if (Helper::checkPermissions('users.email', $list_roles))  --}}
+                    {{-- <p class="action-selected-rows"> --}}
+                        {{-- <span >Hành động trên các hàng đã chọn:</span> --}}
                         {{-- <span class="btn btn-info ml-2" id="deleteAllApplied">Xóa</span> --}}
-                        <span class="btn btn-info ml-2" id="acceptAllApplied">Duyệt</span>
-                        <span class="btn btn-info ml-2" id="inacceptAllApplied">Hủy</span>
-                    </p>  
-                @endif
+                        {{-- <span class="btn btn-info ml-2" id="acceptAllApplied">Duyệt</span> --}}
+                        {{-- <span class="btn btn-info ml-2" id="inacceptAllApplied">Hủy</span> --}}
+                    {{-- </p>   --}}
+                {{-- @endif --}}
             </div>
         </div>
     </div>
@@ -121,21 +122,21 @@
         })
 
         var dataObject = [
-            { 
-                data: "rows",
-                class: "rows-item",
-                render: function(data, type, row){
-                    return '<input type="checkbox" name="selectCol" class="check-course" value="' + data + '" data-column="' + data + '">';
-                },
-                orderable: false
-            },
+            // { 
+            //     data: "rows",
+            //     class: "rows-item",
+            //     render: function(data, type, row){
+            //         return '<input type="checkbox" name="selectCol" class="check-course" value="' + data + '" data-column="' + data + '">';
+            //     },
+            //     orderable: false
+            // },
             { 
                 data: "name",
                 class: "name-field",
                 render: function(data, type, row){
                     if(type == "display"){
                         var html = '';
-                        html += '<a class="" href="/course/'+row.slug+'" target="_blank" style="color:#FFF"><b>'+data+'</b></a>';
+                        html += '<a class="color-white" href="/course/'+row.action+'/'+row.slug+'" target="_blank"><b>'+data+'</b></a>';
                         return html;
                     }
                     return data;
@@ -145,40 +146,41 @@
                 data: "short_description",
                 class: "short_description-field"
             },
-            { 
-                data: "duration",
-                class: "text-center",
-                render: function(data, type, row){
-                    var html = '';
-                    var h = Math.floor(data/3600);
-                    var m = Math.floor((data - h*3600)/60);
-                    html += h+" giờ "+m+" phút";
-                    return html;
-                }
-            },
+            // { 
+            //     data: "duration",
+            //     class: "text-center",
+            //     render: function(data, type, row){
+            //         var html = '';
+            //         var h = Math.floor(data/3600);
+            //         var m = Math.floor((data - h*3600)/60);
+            //         html += h+" giờ "+m+" phút";
+            //         return html;
+            //     }
+            // },
             {
                 data:"real_price",
-                class: "real_price-field",
                 render: function(data, type, row){
-                    
-                    var html = '';
-                    var price = data / 1000;
-                        html += '<div style="float: right"><b>'
-                            if( data >= 1000 ){
-                                html += price.toFixed(3)+"đ";
-                            }else{
-                                html += data+"đ";
-                            }
-                        html += '</b></div>'
-                        
-                    return html;
                     if(type == "display"){
                         var html = '';
                         html += '<div style="float: right"><b>'
-                            html += numberFormat(row.total_price, 0, '.', '.') + ' đ';
+                            html += numberFormat(data, 0, '.', '.') + ' đ';
                         html += '</b></div>'
                         return html;
                     }
+                    return data;
+                }
+            },
+            {
+                data:"price",
+                render: function(data, type, row){
+                    if(type == "display"){
+                        var html = '';
+                        html += '<div style="float: right"><b>'
+                            html += numberFormat(data, 0, '.', '.') + ' đ';
+                        html += '</b></div>'
+                        return html;
+                    }
+                    return data;
                 }
             },
             {
@@ -214,7 +216,7 @@
         ];
 
         dataTable = $('#course-table').DataTable( {
-                        serverSide: true,
+                        serverSide: false,
                         aaSorting: [],
                         stateSave: true,
                         search: {
@@ -237,6 +239,7 @@
                             sInfoFiltered: "",
                             sInfoEmpty: "",
                             sZeroRecords: "Không tìm thấy kết quả tìm kiếm",
+                            sEmptyTable: "Chưa có khóa học",
                             oPaginate: {
                                 sPrevious: "Trang trước",
                                 sNext: "Trang sau",

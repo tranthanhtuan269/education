@@ -100,7 +100,7 @@
             ];
     
             dataTable = $('#order-table').DataTable( {
-                            serverSide: true,
+                            serverSide: false,
                             aaSorting: [],
                             stateSave: true,
                             search: {
@@ -123,6 +123,7 @@
                                 sInfoFiltered: "",
                                 sInfoEmpty: "",
                                 sZeroRecords: "Không tìm thấy kết quả tìm kiếm",
+                                sEmptyTable: "Bạn chưa có đơn hàng",                                
                                 oPaginate: {
                                     sPrevious: "Trang trước",
                                     sNext: "Trang sau",

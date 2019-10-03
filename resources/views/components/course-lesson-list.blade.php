@@ -10,7 +10,7 @@
     <div class="content">
         <div class="panel-group" id="accordion">
             @foreach ($info_course->units->sortBy('index') as $key_unit => $value_unit)
-            <div class="panel panel-default">
+            <div class="panel panel-default event-click">
                 <!-- phần -->
                 {{-- <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $key_unit }}" class="accordion-toggle @if ($key_unit != 0) collapsed in @endif" aria-expanded="true"> --}}
                 <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $key_unit }}" class="accordion-toggle @if ($key_unit != 0) collapsed in @endif" aria-expanded="true" style="cursor: pointer;">
@@ -115,3 +115,8 @@
     </div> --}}
     {{-- @endif --}}
 </div>
+<script>
+    $('#accordion .event-click').click(function(){
+        $("#sidebar-content").addClass('sidebar-unfix').css('top', 0);
+    })
+</script>

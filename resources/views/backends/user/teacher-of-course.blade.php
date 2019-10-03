@@ -28,76 +28,19 @@
                             <th scope="col">Tên giảng viên</th>
                             <th scope="col">Chuyên môn</th>
                             <th scope="col">Video giới thiệu</th>
-                            <th scope="col">Created at</th>
-                            <th scope="col">Thao tác</th>
+                            <th scope="col">Cập nhật</th>
+                            <th scope="col">Duyệt</th>
                         </tr>
                     </thead>
                     <tbody>
 
                     </tbody>
                 </table>
-                @if (Helper::checkPermissions('users.email', $list_roles))
-                    <p class="action-selected-rows">
-                        <span >Hành động trên các hàng đã chọn:</span>
-                        {{-- <span class="btn btn-info ml-2" id="deleteAllApplied">Xóa</span> --}}
-                        <span class="btn btn-info ml-2" id="acceptAllApplied">Duyệt</span>
-                        <span class="btn btn-info ml-2" id="inacceptAllApplied">Hủy</span>
-                    </p>
-                @endif
             </div>
         </div>
     </div>
 </section>
-<section>
-    <div class="modal fade" id="showCVModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content" >
-                <div class="modal-header">
-                    <h3>CV</h3>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="form-group col-sm-12" id="cv">
 
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="form-group row">
-                        <div class="col-sm-1"></div>
-                        <div class="col-sm-11">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="showVideoIntroModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content" >
-                <div class="modal-header">
-                    <h3>Video Intro</h3>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="form-group  col-sm-12 text-center">
-                            <iframe id="video-intro" src="" frameborder="0" width="545" height="280" allowscriptaccess="always" allowfullscreen="true"></iframe>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="form-group row">
-                        <div class="col-sm-1"></div>
-                        <div class="col-sm-11">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 <script type="text/javascript">
     var dataTable           = null;
     var userCheckList       = [];
@@ -164,11 +107,6 @@
                 class: "action-field",
                 render: function(data, type, row){
                     var html = '';
-
-                    @if (Helper::checkPermissions('users.view', $list_roles))
-                        html += '<a class="btn-view mr-2 view-cv" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Xem"> <i class="fa fa-eye fa-fw"></i></a>';
-                    @endif
-
                     @if (Helper::checkPermissions('users.accept-teacher', $list_roles))
                         if(row['status'] == 1){
                             html += '<a class="btn-accept mr-2 accept-user" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Hủy"> <i class="fa fa-times fa-fw"></i></a>';
@@ -177,11 +115,6 @@
                         }
 
                     @endif
-
-                    // @if (Helper::checkPermissions('users.delete', $list_roles))
-                    //     html += '<a class="btn-delete" data-id="'+data+'" title="Xóa"><i class="fa fa-trash fa-fw" aria-hidden="true"></i></a>';
-                    // @endif
-
                     return html;
                 },
                 orderable: false
@@ -195,7 +128,7 @@
                         search: {
                             smart: false
                         },
-                        ajax: "{{ url('/') }}/admincp/teachers/getTeacherAjax",
+                        ajax: "{{ url('/') }}/admincp/teachers/getTeacherAjax?teacher_id="+ "{{ $_GET['teacher_id']}}",
                         columns: dataObject,
                         bLengthChange: true,
                         pageLength: 10,
@@ -212,7 +145,6 @@
                             sInfoFiltered: "",
                             sInfoEmpty: "",
                             sZeroRecords: "Không tìm thấy kết quả tìm kiếm",
-                            sEmptyTable: "Chưa có yêu cầu",
                             oPaginate: {
                                 sPrevious: "Trang trước",
                                 sNext: "Trang sau",
@@ -242,13 +174,6 @@
                     });
 
         $('#teacher-table').css('width', '100%');
-
-        //select all checkboxes
-        $("#select-all-btn").change(function(){
-            $('.page table tbody input[type="checkbox"]').prop('checked', $(this).prop("checked"));
-            // save localstore
-            setCheckboxChecked();
-        });
 
         $('body').on('click', '.page table tbody input[type="checkbox"]', function() {
             if(false == $(this).prop("checked")){
@@ -307,14 +232,6 @@
         })
 
         function addEventListener(){
-            $('.view-cv').off('click')
-            $('.view-cv').click(function(){
-                var curr_cv = $(this).parent().parent().attr('data-cv')
-
-                $('#showCVModal').modal('show');
-                $("#cv").html(curr_cv)
-            })
-
             $('.view-video-intro').off('click')
             $('.view-video-intro').click(function(){
                 var curr_video_intro = $(this).parent().parent().attr('data-video')
@@ -454,225 +371,6 @@
                     }
                 })
             });
-
-            $('#deleteAllApplied').off('click')
-            $('#deleteAllApplied').click(function (){
-                var check = false;
-                $.each($('.check-user'), function (key, value){
-                    if($(this).prop('checked') == true) {
-                        check = true;
-                    }
-                });
-                if(!check){
-                    Swal.fire({
-                        type: 'warning',
-                        text: 'Bạn phải chọn ít nhất 1 giảng viên.',
-                    })
-                    return false;
-                }
-                Swal.fire({
-                    type: 'warning',
-                    text: 'Bạn có chắc chắn xóa tất cả những giảng viên bạn chọn?',
-                    showCancelButton: true,
-                })
-                .then(function (result) {
-                    if(result.value){
-                        var teacher_id_list = []
-                        $.each($('.check-user'), function (key, value){
-                            if($(this).prop('checked') == true) {
-                                // id_list += $(this).attr("data-column") + ',';
-                                teacher_id_list.push($(this).attr("data-column"))
-                            }
-                        });
-                        if(teacher_id_list.length > 0){
-                            $.ajaxSetup({
-                                headers: {
-                                    'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
-                                }
-                            });
-                            $.ajax({
-                                method: "DELETE",
-                                url: baseURL+"/admincp/teachers/delete-multiple-teacher",
-                                data: {
-                                    id_list: teacher_id_list
-                                },
-                                dataType: 'json',
-                                beforeSend: function(r, a){
-                                    current_page = dataTable.page.info().page;
-                                },
-                                success: function (response) {
-                                    Swal.fire({
-                                        type: 'success',
-                                        text: response.message
-                                    })
-                                    // dataTable.ajax.reload();
-                                    $.each($('.check-user'), function (key, value){
-                                        if($(this).prop('checked') == true) {
-                                            dataTable.row( $(this).parent().parent() ).remove().draw(true);
-                                        }
-                                    });
-
-                                    // dataTable.page( checkEmptyTable() ).draw( false );
-                                },
-                                error: function (response) {
-                                    Swal.fire({
-                                        type: 'warning',
-                                        text: response.message
-                                    })
-                                }
-                            })
-                        }
-
-                    }
-                })
-            })
-
-            $('#acceptAllApplied').off('click')
-            $('#acceptAllApplied').click(function (){
-                var check = false;
-                $.each($('.check-user'), function (key, value){
-                    if($(this).prop('checked') == true) {
-                        check = true;
-                    }
-                });
-                if(!check){
-                    Swal.fire({
-                        type: 'warning',
-                        text: 'Bạn phải chọn ít nhất 1 giảng viên',
-                    })
-                    return false;
-                }
-                Swal.fire({
-                    type: 'warning',
-                    text: 'Bạn có chắc chắn duyệt tất cả những giảng viên bạn chọn?',
-                    showCancelButton: true,
-                })
-                .then(function (result) {
-                    if(result.value){
-                        var teacher_id_list = []
-                        $.each($('.check-user'), function (key, value){
-                            if($(this).prop('checked') == true) {
-                                // id_list += $(this).attr("data-column") + ',';
-                                teacher_id_list.push($(this).attr("data-column"))
-                            }
-                        });
-                        if(teacher_id_list.length > 0){
-                            $.ajaxSetup({
-                                headers: {
-                                    'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
-                                }
-                            });
-                            $.ajax({
-                                method: "PUT",
-                                url: baseURL+"/admincp/teachers/accept-multiple-teacher",
-                                data: {
-                                    id_list: teacher_id_list
-                                },
-                                dataType: 'json',
-                                beforeSend: function(r, a){
-                                    current_page = dataTable.page.info().page;
-                                },
-                                success: function (response) {
-                                    Swal.fire({
-                                        type: 'success',
-                                        text: "Duyệt giảng viên thành công"
-                                    })
-                                    // dataTable.ajax.reload();
-                                    $.each($('.check-user'), function (key, value){
-                                        if($(this).prop('checked') == true) {
-                                            $(this).parent().parent().removeClass('red-row').addClass('blue-row');
-                                            // $(this).parent().parent().addClass('red-row').removeClass('blue-row');
-                                        }
-                                    });
-                                    userCheckList = [];
-                                    dataTable.page( checkEmptyTable() ).draw( false );
-                                    $('.check-user').prop('checked', false)
-                                },
-                                error: function (response) {
-                                    Swal.fire({
-                                        type: 'warning',
-                                        text: response.message
-                                    })
-                                }
-                            })
-                        }
-
-                    }
-                })
-            })
-
-            $('#inacceptAllApplied').off('click')
-            $('#inacceptAllApplied').click(function (){
-                var check = false;
-                $.each($('.check-user'), function (key, value){
-                    if($(this).prop('checked') == true) {
-                        check = true;
-                    }
-                });
-                if(!check){
-                    Swal.fire({
-                        type: 'warning',
-                        text: 'Bạn phải chọn ít nhất 1 giảng viên',
-                    })
-                    return false;
-                }
-                Swal.fire({
-                    type: 'warning',
-                    text: 'Bạn có chắc chắn hủy tất cả những giảng viên bạn chọn?',
-                    showCancelButton: true,
-                })
-                .then(function (result) {
-                    if(result.value){
-                        var teacher_id_list = []
-                        $.each($('.check-user'), function (key, value){
-                            if($(this).prop('checked') == true) {
-                                // id_list += $(this).attr("data-column") + ',';
-                                teacher_id_list.push($(this).attr("data-column"))
-                            }
-                        });
-                        if(teacher_id_list.length > 0){
-                            $.ajaxSetup({
-                                headers: {
-                                    'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
-                                }
-                            });
-                            $.ajax({
-                                method: "PUT",
-                                url: baseURL+"/admincp/teachers/inaccept-multiple-teacher",
-                                data: {
-                                    id_list: teacher_id_list
-                                },
-                                dataType: 'json',
-                                beforeSend: function(r, a){
-                                    current_page = dataTable.page.info().page;
-                                },
-                                success: function (response) {
-                                    Swal.fire({
-                                        type: 'success',
-                                        text: "Hủy giảng viên thành công"
-                                    })
-                                    $.each($('.check-user'), function (key, value){
-                                        if($(this).prop('checked') == true) {
-                                            // $(this).parent().parent().removeClass('red-row').addClass('blue-row');
-                                            $(this).parent().parent().addClass('red-row').removeClass('blue-row');
-                                        }
-                                    });
-                                    userCheckList = [];
-                                    dataTable.page(checkEmptyTable()).draw( false );
-                                    $('.check-user').prop('checked', false)
-                                },
-                                error: function (response) {
-                                    Swal.fire({
-                                        type: 'warning',
-                                        text: response.message
-                                    })
-                                }
-                            })
-                        }
-
-                    }
-                })
-            })
         }
 
         function checkEmptyTable(){
@@ -681,41 +379,6 @@
             }
             return current_page;
         }
-
-        $("#editEmail").click(function () {
-            var id = $(this).attr("data-id")
-            var title = $("#edit_subject_Ins").val()
-            var content = edit_content_Ins.getData()
-
-            $.ajaxSetup({
-                headers: {
-                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            var request = $.ajax({
-                method : "PUT",
-                url : "edit-email",
-                data : {
-                    id : id,
-                    title: title,
-                    content: content
-                },
-                dataType: "json"
-            })
-            request.done( function (response) {
-                $("#edit_subject_Ins").val("")
-                edit_content_Ins.setData("")
-                Swal.fire({
-                    text: response.message
-                })
-                if(response.status == 200){
-                    $("#editEmailModal").modal("hide")
-                    dataTable.ajax.reload();
-                }
-            })
-        })
-
     });
 </script>
 

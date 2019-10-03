@@ -71,7 +71,10 @@ $(document).ready(function() {
     ];
 
     dataTable = $('#featuredCategoryTable').DataTable({
-        serverSide: true,
+        serverSide: false,
+        search: {
+            smart: false
+        },
         aaSorting: [],
         stateSave: true,
         ajax: baseURL + "/admincp/featured-category/get-featured-category-ajax",
@@ -90,6 +93,7 @@ $(document).ready(function() {
             sInfoFiltered: "",
             sInfoEmpty: "",
             sZeroRecords: "Không tìm thấy kết quả tìm kiếm",
+            sEmptyTable: "Chưa có danh mục",            
             oPaginate: {
                 sPrevious: "Trang trước",
                 sNext: "Trang sau",

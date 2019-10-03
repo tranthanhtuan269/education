@@ -196,7 +196,7 @@
             dataTable = $('#student-table').DataTable( {
                             searching: false,
                             // paging: false,
-                            serverSide: true,
+                            serverSide: false,
                             aaSorting: [],
                             stateSave: true,
                             search: {

@@ -148,7 +148,7 @@
         ];
 
         dataTable = $('#video-table').DataTable( {
-                        serverSide: true,
+                        serverSide: false,
                         aaSorting: [],
                         stateSave: true,
                         search: {
@@ -171,6 +171,7 @@
                             sInfoFiltered: "",
                             sInfoEmpty: "",
                             sZeroRecords: "Không tìm thấy kết quả tìm kiếm",
+                            sEmptyTable: "Chưa có bài giảng được yêu cầu xóa",
                             oPaginate: {
                                 sPrevious: "Trang trước",
                                 sNext: "Trang sau",
