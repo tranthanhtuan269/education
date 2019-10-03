@@ -25,7 +25,7 @@ class UpdateEmailRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|max:150',
+            'title' => 'required|max:150|unique:emails,title,'.$this->id,
             'content' => 'required'
         ];
     }

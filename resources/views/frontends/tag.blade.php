@@ -16,8 +16,8 @@
                     <p style="font-size: 16px;font-weight: bold;border-bottom: 1px solid #d7d7d7;margin-bottom: 10px;padding-bottom: 5px;">
                         Tag : <a title="{!! $tag->name !!}" href="{{ url('/') }}/tags/{{ $tag->slug }}"><i class="fas {!! $tag->icon !!}"></i> {!! $tag->name !!}</a>
                     </p>
-                       
-                      
+
+
                   </div>
               </section>
           </div>
@@ -37,7 +37,7 @@
                             $lecturers = count($result->Lecturers()) > 1 ? 'Nhiều tác giả' : count($result->Lecturers()) > 0 ? $result->Lecturers()[0]->user->name : "Courdemy";
                         ?>
                         @include(
-                            'components.course', 
+                            'components.course',
                             [
                                 'course' => $result,
                                 'list_course' => $list_bought

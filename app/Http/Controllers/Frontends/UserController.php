@@ -37,12 +37,12 @@ class UserController extends Controller
 
         //     return response()->json(['message' => 'The email or password is incorrect', 'status' => 404]);
         // }
-            
+
         $user = User::where('email', $email)->first();
-        
+
         if( !isset($user) ) {
             return response()->json(['message' => 'Địa chỉ Email không chính xác.', 'status' => 404]);
-        } else {    
+        } else {
             if ( \Hash::check($password, $user->password) ) {
                 if ($user->status == 0) {
                     return response()->json(['message' => 'Tài khoản của bạn đang bị khóa.', 'status' => 404]);
@@ -50,11 +50,11 @@ class UserController extends Controller
                     Auth::login($user, $request->get('remember'));
                     return response()->json(['message' => 'Ok', 'status' => 200]);
                 }
-            } else { 
-                return response()->json(['message' => 'Mật khẩu không chính xác.', 'status' => 404]);         
+            } else {
+                return response()->json(['message' => 'Mật khẩu không chính xác.', 'status' => 404]);
             }
         }
-        
+
     }
 
     public function logout()
@@ -95,7 +95,7 @@ class UserController extends Controller
         // dd(Auth::user()->userRolesStudent());
         $lifelong_course = Auth::user()->userRolesStudent()->userLifelongCourse($keyword);
         // dd($li;
-        
+
         return view('frontends.users.student.course', compact('lifelong_course'));
     }
 
@@ -200,7 +200,7 @@ class UserController extends Controller
     {
         return view('frontends.users.teacher.register');
     }
-    
+
     public function insertRegisterTeacher(InsertTeacherRequest $request)
     {
         if (Auth::check()) {
@@ -211,13 +211,13 @@ class UserController extends Controller
                 $user->phone = $request->phone;
                 $user->gender = $request->gender;
                 $user->address = $request->address;
-    
+
                 if (isset($request->birthday)) {
                     $user->birthday = Helper::formatDate('d/m/Y', $request->birthday, 'Y-m-d');
                 } else {
                     $user->birthday = null;
                 }
-    
+
                 if ($request->link_base64 != '') {
                     // Xóa avatar cũ nếu có
                     if (Auth::user()->avatar && strlen(Auth::user()->avatar) > 0) {
@@ -225,7 +225,7 @@ class UserController extends Controller
                             unlink(public_path('frontend/' . Auth::user()->avatar));
                         }
                     }
-    
+
                     $img_file = $request->link_base64;
                     list($type, $img_file) = explode(';', $img_file);
                     list(, $img_file) = explode(',', $img_file);
@@ -234,21 +234,21 @@ class UserController extends Controller
                     file_put_contents(public_path('/frontend/images/') . $file_name, $img_file);
                     $user->avatar = 'images/' . $file_name;
                 }
-    
+
                 $user->save();
-    
+
                 $user_role = new UserRole;
                 $user_role->user_id =  $user->id;
                 $user_role->role_id = \Config::get('app.teacher');
                 $user_role->save();
-    
+
                 $teacher = new Teacher;
                 $teacher->user_role_id =  $user_role->id;
                 $teacher->expert = $request->expert;
                 $teacher->cv = $request->cv;
                 $teacher->video_intro = "https://www.youtube.com/embed/" . Helper::getYouTubeVideoId($request->video_intro);
                 $teacher->save();
-    
+
                 return \Response::json(['message' => 'Đăng ký giảng viên thành công! Hồ sơ của bạn đang được xét duyệt.', 'status' => 200]);
             }
 
@@ -318,12 +318,10 @@ class UserController extends Controller
                 return $sender->name;
             })
             ->addColumn('title', function ($email) {
-                $wanted_email = Email::withTrashed()->find($email->email_id);
-                return $wanted_email->title;
+                return $email->title;
             })
             ->addColumn('content', function ($email) {
-                $wanted_email = Email::withTrashed()->find($email->email_id);
-                return $wanted_email->content;
+                return $email->content;
             })
             ->addColumn('user_email_id', function ($email) {
                 return $email->id;
@@ -343,11 +341,19 @@ class UserController extends Controller
 
     public function getSingleEmailContentAjax(Request $request){
         $user = Auth::user();
-        
+
         if(isset($user) && isset($request->user_email_id)){
-            $email_id = $request->email_id;
             $user_email_instance = UserEmail::find($request->user_email_id);
-            $email_template = Email::withTrashed()->find($user_email_instance->email_id);
+
+            //fake 1 email để thoả mãn CustomEmail
+            $email_template = new Email;
+            $email_template->title = $user_email_instance->title;
+            $email_template->content = $user_email_instance->content;
+            $email_template->status = 1;
+            $email_template->create_user_id = $user_email_instance->sender_user_id;
+            $email_template->update_user_id = $user_email_instance->sender_user_id;
+
+
             $email_html = ( new CustomMail($user, $email_template) )->render();
 
             $user_email_instance->viewed = 1;
@@ -369,7 +375,7 @@ class UserController extends Controller
         $unread_user_emails = $user->user_emails->where('viewed', 0);
         $unread_emails = Email::whereIn('id', $unread_user_emails->pluck('email_id'))->get();
         $number_unread_emails = count($unread_user_emails);
-        
+
         return response()->json([
             'status' => '200',
             'message' => 'Success',
@@ -428,7 +434,7 @@ class UserController extends Controller
             }else{
                 $user->google_id = $request->google_id;
                 $user->save();
-                
+
                 Auth::login($user);
                 return \Response::json(array('status' => '200'));
             }
@@ -441,14 +447,14 @@ class UserController extends Controller
             $user->password = bcrypt(trim($request->google_id));
             $user->status   = 1;
             $user->save();
-    
+
             $user_role = new UserRole();
             $user_role->user_id = $user->id;
             $user_role->role_id = \Config::get('app.student');
             $user_role->save();
-    
+
             Auth::login($user);
-    
+
             $user_role->save();
             return \Response::json(array('status' => '201'));
         }
@@ -457,12 +463,12 @@ class UserController extends Controller
         // if($check != ''){
         //     $email = $request->email;
         //     $google_id = $request->google_id;
-                
+
         //     $user = User::where('email', $email)->first();
-            
+
         //     if( !isset($user) ) {
         //         return response()->json(['message' => 'Email is incorrect.', 'status' => 404]);
-        //     } else {    
+        //     } else {
         //         if ( \Hash::check($google_id, $user->google_id) ) {
         //             if ($user->status == 0) {
         //                 return response()->json(['message' => 'This account has been locked.', 'status' => 404]);
@@ -470,8 +476,8 @@ class UserController extends Controller
         //                 Auth::login($user, $request->get('remember'));
         //                 return response()->json(['message' => 'Ok', 'status' => 200]);
         //             }
-        //         } else { 
-        //             return response()->json(['message' => 'Password is incorrect.', 'status' => 404]);         
+        //         } else {
+        //             return response()->json(['message' => 'Password is incorrect.', 'status' => 404]);
         //         }
         //     }
         //     return \Response::json(array('status' => '200'));

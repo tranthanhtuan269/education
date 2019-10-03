@@ -48,42 +48,14 @@ class EmailController extends Controller
     public function store(CreateEmailRequest $request)
     {
         //
-        $title = $request->title;
-        $old_email = Email::where('title', $title)->first();
-        if($old_email){
-            return response()->json([
-                'status' => 400,
-                'message'=> 'Chủ đề bị trùng tên'
-            ]);
-        }
-
-        $old_deleted_email = Email::onlyTrashed()->where('title', $title)->first(); //check có email như vậy đã bị xoá trong hệ thống chưa
-        if(isset($old_deleted_email)){
-            $old_deleted_email->restore();
-            $old_deleted_email->content = $request->content;
-            $old_deleted_email->status  = 1;
-            $old_deleted_email->create_user_id = Auth::id();
-            $old_deleted_email->update_user_id = Auth::id();
-            $old_deleted_email->save();
-            $old_deleted_email->created_at = $old_deleted_email->updated_at;
-            $old_deleted_email->save();
-
-            return response()->json([
-                'status' => 200,
-                'message'=> 'Tạo email thông báo thành công!'
-            ]);
-        }
-
         $email = new Email;
         $email->title = $request->title;
         $email->content = $request->content;
-        $email->status  = 1;
         $email->create_user_id = Auth::id();
         $email->update_user_id = Auth::id();
         $email->save();
 
         return \Response::json(array('status' => '200', 'message' => 'Tạo email thông báo thành công!'));
-
     }
 
     /**
@@ -107,33 +79,6 @@ class EmailController extends Controller
     {
         $email = Email::find($request->id);
         if($email){
-                $title = $request->title;
-                $old_email = Email::where('title', $title)->first();
-                if($old_email){
-                    return response()->json([
-                        'status' => 400,
-                        'message'=> 'Chủ đề bị trùng tên'
-                    ]);
-                }
-                $old_deleted_email = Email::onlyTrashed()->where('title', $title)->first(); //check có email như vậy đã bị xoá trong hệ thống chưa
-                if(isset($old_deleted_email)){
-                    $old_deleted_email->restore();
-                    $old_deleted_email->content = $request->content;
-                    $old_deleted_email->status  = 1;
-                    $old_deleted_email->create_user_id = Auth::id();
-                    $old_deleted_email->update_user_id = Auth::id();
-                    $old_deleted_email->save();
-                    $old_deleted_email->created_at = $old_deleted_email->updated_at;
-                    $old_deleted_email->save();
-
-                    $email->delete();
-
-                    return response()->json([
-                        'status' => 200,
-                        'message'=> 'Sửa email thành công!'
-                    ]);
-                }
-
                 $email->title = $request->title;
                 $email->content = $request->content;
                 $email->update_user_id = Auth::id();

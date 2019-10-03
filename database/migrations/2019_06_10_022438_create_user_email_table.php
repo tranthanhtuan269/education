@@ -18,6 +18,8 @@ class CreateUserEmailTable extends Migration
             $table->integer('user_id');
             $table->integer('email_id');
             $table->integer('sender_user_id');
+            $table->string('title');
+            $table->longText('content');
             $table->boolean('viewed')->default(false);
             $table->timestamps();
         });

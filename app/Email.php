@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Email extends Model
 {
-    use SoftDeletes;
+    // use SoftDeletes;
     protected $fillable = [
-        'title', 
+        'title',
         'content',
         'status',
         'create_user_id',

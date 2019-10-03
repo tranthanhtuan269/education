@@ -241,7 +241,14 @@
             },
             {
                 data: "title",
-                class: "title-field"
+                class: "title-field",
+                render: (data, type, row) => {
+                    if(row.action == {{\Config::get('app.email_order_complete')}}){
+                        return `<p>${row.title} <br> <span style="color: red">(Email hệ thống)<span><p>`
+                    }else{
+                        return row.title
+                    }
+                }
             },
             {
                 data: "content",
@@ -257,12 +264,16 @@
                     var html = '';
 
                     @if (Helper::checkPermissions('users.edit', $list_roles))
-                        html += '<a class="btn-edit mr-2 edit-email" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Sửa"> <i class="fa fa-edit"></i></a>';
+                        html += `<a class="btn-edit mr-2 edit-email" data-id="${data}" data-title="${row.title}" data-content="${row.content}" data-status="${row.status}" title="Sửa"> <i class="fa fa-edit"></i></a>`;
                     @endif
 
                     @if (Helper::checkPermissions('users.delete', $list_roles))
-                        html += '<a class="btn-delete" data-id="'+data+'" title="Xóa"><i class="fa fa-trash" aria-hidden="true"></i></a>';
-                    @endif
+                        if(row.action == 1){
+                            html += ``
+                        }else{
+                            html += `<a class="btn-delete" data-id="${data}" title="Xóa"><i class="fa fa-trash" aria-hidden="true"></i></a>`;
+                        }
+                        @endif
 
                     return html;
                 },
@@ -379,6 +390,13 @@
                 var id       = $(this).attr('data-id')
                 var curr_title   = $(this).attr('data-title')
                 var curr_content = $(this).attr('data-content')
+                var curr_status = $(this).attr('data-status')
+                if(curr_status == {{ \Config::get('app.email_system_status')}}){
+                    $("#edit_subject_Ins").prop('disabled', 'true')
+                }else{
+                    $("#edit_subject_Ins").prop('disabled', 'false')
+                }
+
 
                 $('#editEmailModal').modal('show');
                 $('#editEmail').attr("data-id", id)

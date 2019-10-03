@@ -43,4 +43,12 @@ class CustomMail extends Mailable
                         'mailContent' => $this->email->content,
                     ]);
     }
+
+    public function getUser(){
+        return $this->user;
+    }
+
+    public function getEmail(){
+        return $this->email;
+    }
 }

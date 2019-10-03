@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 <section class="content-header">
-    
+
 </section>
 <section class="content page">
     <h1 class="text-center font-weight-600">Danh sách giảng viên</h1>
@@ -33,16 +33,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        
+
                     </tbody>
                 </table>
-                @if (Helper::checkPermissions('users.email', $list_roles)) 
+                @if (Helper::checkPermissions('users.email', $list_roles))
                     <p class="action-selected-rows">
                         <span >Hành động trên các hàng đã chọn:</span>
                         {{-- <span class="btn btn-info ml-2" id="deleteAllApplied">Xóa</span> --}}
                         <span class="btn btn-info ml-2" id="acceptAllApplied">Duyệt</span>
                         <span class="btn btn-info ml-2" id="inacceptAllApplied">Hủy</span>
-                    </p>  
+                    </p>
                 @endif
             </div>
         </div>
@@ -58,7 +58,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="form-group col-sm-12" id="cv">
-                            
+
                         </div>
                     </div>
                 </div>
@@ -109,10 +109,10 @@
 
     $(document).ready(function(){
         window.onbeforeunload = function() {
-            if($('#edit_user_modal').hasClass('show') && ( 
+            if($('#edit_user_modal').hasClass('show') && (
                 $('#userName_upd').val() != curr_user_name ||
                 $('#userEmail_upd').val() != curr_user_email ||
-                $('#userPassword_upd').val() != 'not_change' || 
+                $('#userPassword_upd').val() != 'not_change' ||
                 $('#passConfirm_upd').val() != 'not_change' )
                 ){
                 return "Bye now!";
@@ -124,7 +124,7 @@
         })
 
         var dataObject = [
-            { 
+            {
                 data: "rows",
                 class: "rows-item",
                 render: function(data, type, row){
@@ -132,15 +132,15 @@
                 },
                 orderable: false
             },
-            { 
+            {
                 data: "name",
                 class: "name-field"
             },
-            { 
+            {
                 data: "expert",
                 class: "expert-field"
             },
-            { 
+            {
                 data: "video_intro",
                 class: "video-item",
                 render: function(data, type, row){
@@ -151,26 +151,26 @@
             {
                 data: "created_at"
             },
-            { 
-                data: "action", 
+            {
+                data: "action",
                 class: "action-field",
                 render: function(data, type, row){
                     var html = '';
-                    
-                    @if (Helper::checkPermissions('users.view', $list_roles)) 
+
+                    @if (Helper::checkPermissions('users.view', $list_roles))
                         html += '<a class="btn-view mr-2 view-cv" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Xem"> <i class="fa fa-eye fa-fw"></i></a>';
                     @endif
-                    
-                    @if (Helper::checkPermissions('users.accept-teacher', $list_roles)) 
+
+                    @if (Helper::checkPermissions('users.accept-teacher', $list_roles))
                         if(row['status'] == 1){
                             html += '<a class="btn-accept mr-2 accept-user" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Hủy"> <i class="fa fa-times fa-fw"></i></a>';
                         }else{
                             html += '<a class="btn-accept mr-2 accept-user" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Duyệt"> <i class="fa fa-check fa-fw"></i></a>';
                         }
-                        
+
                     @endif
 
-                    // @if (Helper::checkPermissions('users.delete', $list_roles)) 
+                    // @if (Helper::checkPermissions('users.delete', $list_roles))
                     //     html += '<a class="btn-delete" data-id="'+data+'" title="Xóa"><i class="fa fa-trash fa-fw" aria-hidden="true"></i></a>';
                     // @endif
 
@@ -235,7 +235,7 @@
         $('#teacher-table').css('width', '100%');
 
         //select all checkboxes
-        $("#select-all-btn").change(function(){  
+        $("#select-all-btn").change(function(){
             $('.page table tbody input[type="checkbox"]').prop('checked', $(this).prop("checked"));
             // save localstore
             setCheckboxChecked();
@@ -243,7 +243,7 @@
 
         $('body').on('click', '.page table tbody input[type="checkbox"]', function() {
             if(false == $(this).prop("checked")){
-                $("#select-all-btn").prop('checked', false); 
+                $("#select-all-btn").prop('checked', false);
             }
             if ($('.page table tbody input[type="checkbox"]:checked').length == $('.page table tbody input[type="checkbox"]').length ){
                 $("#select-all-btn").prop('checked', true);
@@ -321,7 +321,7 @@
                 var status  = 0;
                 var message = "Bạn có chắc chắn muốn duyệt?";
                 if(_self.parent().parent().hasClass('blue-row')){
-                    status = 1;
+                    status = 3;
                     message = "Bạn có chắc chắn muốn hủy giảng viên bạn chọn?";
                 }
 
@@ -445,7 +445,7 @@
                     }
                 })
             });
-            
+
             $('#deleteAllApplied').off('click')
             $('#deleteAllApplied').click(function (){
                 var check = false;
@@ -513,7 +513,7 @@
                                 }
                             })
                         }
-                        
+
                     }
                 })
             })
@@ -587,7 +587,7 @@
                                 }
                             })
                         }
-                        
+
                     }
                 })
             })
@@ -660,7 +660,7 @@
                                 }
                             })
                         }
-                        
+
                     }
                 })
             })
@@ -672,7 +672,7 @@
             }
             return current_page;
         }
-        
+
         $("#editEmail").click(function () {
             var id = $(this).attr("data-id")
             var title = $("#edit_subject_Ins").val()
