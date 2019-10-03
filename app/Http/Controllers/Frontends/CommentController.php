@@ -35,6 +35,7 @@ class CommentController extends Controller
             $commentVideo->user_role_id = Helper::getUserRoleOfCourse($courseId)->user_role_id;
             $commentVideo->video_id = $request->videoId;
             $commentVideo->content = $request->content;
+            $commentVideo->state = 1;
             if (isset($request->parentId)) {
                 $commentVideo->parent_id = $request->parentId;
             }
@@ -251,7 +252,7 @@ class CommentController extends Controller
         $rating_count = $request->score - $ratingTeacher->score;
         $ratingTeacher->score = $request->score;
         $ratingTeacher->save();
-        
+
         $teacher = Teacher::where('user_role_id', $request->teacher_id)->first();
         $teacher->rating_count += $rating_count;
         // echo $teacher->rating_count.'--'.$teacher->vote_count;die;

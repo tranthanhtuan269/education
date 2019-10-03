@@ -55,52 +55,81 @@ class VideoPlayerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($courseId, $videoId)
-    {   
+    {
         $course = Course::find($courseId);
         $main_video = Video::where('id', $videoId)->first();
         $units = Unit::where('course_id', $courseId)->get();
         $notes = Note::where('video_id', $videoId)->where('user_id', Auth::id())->orderBy('created_at', 'desc')->get();
         $files = Document::where('video_id', $videoId)->orderBy('created_at', 'desc')->get();
         $user_role_course_instance = Helper::getUserRoleOfCourse($courseId);
-        
+
         if($user_role_course_instance == null) abort(403, 'Unauthorized action.');
 
         $user_role_id = $user_role_course_instance->user_role_id;
+        if(Auth::user()->isAdmin()){
+            $comments_video = CommentVideo::where(
+                function($q) use ($user_role_id){
+                    $q->where('state', 1)
+                    ->orWhere(function($q2) use ($user_role_id){
+                        $q2->where('user_role_id', $user_role_id);
+                    });
+                }
+            )
+            ->where('video_id', $videoId)
+            ->where('parent_id', 0)
+            ->orderBy('created_at', 'desc')
+            ->get();
 
-        $comments_video = CommentVideo::where(
-            function($q) use ($user_role_id){
-                $q->where('state', 1)
-                ->orWhere(function($q2) use ($user_role_id){
-                    $q2->where('user_role_id', $user_role_id);
-                });
-           }
-        )
-        
-        ->where('video_id', $videoId)
-        ->where('parent_id', 0)
-        ->orderBy('created_at', 'desc')
-        ->get();
-        $sub_comments_video = CommentVideo::where(
-            function($q) use ($user_role_id){
-                $q->where('state', 1)
-                ->orWhere(function($q2) use ($user_role_id){
-                    $q2->where('user_role_id', $user_role_id);
-                });
-           }
-        )
-        ->where('video_id', $videoId)
-        ->where('parent_id', "!=", 0)
-        ->orderBy('created_at', 'asc')
-        ->get();
+            $sub_comments_video = CommentVideo::where(
+                function($q) use ($user_role_id){
+                    $q->where('state', 1)
+                    ->orWhere(function($q2) use ($user_role_id){
+                        $q2->where('user_role_id', $user_role_id);
+                    });
+               }
+            )
+            ->where('video_id', $videoId)
+            ->where('parent_id', "!=", 0)
+            ->orderBy('created_at', 'asc')
+            ->get();
 
-        // $main_video_id = $main_video->unit->course->id; 
+        }else{
+            $comments_video = CommentVideo::where(
+                function($q) use ($user_role_id){
+                    $q->where('state', 1)
+                    ->orWhere(function($q2) use ($user_role_id){
+                        $q2->where('user_role_id', $user_role_id);
+                    });
+               }
+            )
+
+            ->where('video_id', $videoId)
+            ->where('parent_id', 0)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+            $sub_comments_video = CommentVideo::where(
+                function($q) use ($user_role_id){
+                    $q->where('state', 1)
+                    ->orWhere(function($q2) use ($user_role_id){
+                        $q2->where('user_role_id', $user_role_id);
+                    });
+               }
+            )
+            ->where('video_id', $videoId)
+            ->where('parent_id', "!=", 0)
+            ->orderBy('created_at', 'asc')
+            ->get();
+        }
+
+        // $main_video_id = $main_video->unit->course->id;
         $video_id_list = [];
         foreach ($units as $unit) {
             foreach ($unit->videos as $key => $video) {
                 array_push($video_id_list, $video->id);
             }
         }
-        
+
         $main_video_id_key = null;
         foreach ($video_id_list as $key => $value) {
             if($value == $videoId){
@@ -161,7 +190,7 @@ class VideoPlayerController extends Controller
                 }else{
                     $videoObj->videos[0][$video->index-1] = 1;
                 }
-                
+
                 $videoObj->learning = $video->index;
                 $videoObj->learning_id = $video->id;
 
@@ -188,9 +217,9 @@ class VideoPlayerController extends Controller
                     array_push($video_list, $video);
                 }
             }
-            return \Response::json(array('status' => '200', 'message' => 'Success', 'videoList' =>  fractal($video_list, new VideoPlayerLectureListTransformer())->toArray()  ));   
+            return \Response::json(array('status' => '200', 'message' => 'Success', 'videoList' =>  fractal($video_list, new VideoPlayerLectureListTransformer())->toArray()  ));
         }else{
-            return \Response::json(array('status' => '404', 'message' => 'Nothing'));            
+            return \Response::json(array('status' => '404', 'message' => 'Nothing'));
         }
     }
 
@@ -204,6 +233,6 @@ class VideoPlayerController extends Controller
     {
         //
 
-        
+
     }
 }
