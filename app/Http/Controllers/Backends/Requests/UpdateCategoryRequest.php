@@ -32,7 +32,7 @@ class UpdateCategoryRequest extends FormRequest
     public function messages(){
         return [
             'name.required' => 'Bạn chưa nhập tên Danh mục.',
-            'name.max'      => 'Tên danh mục qua dài.',
+            'name.max'      => 'Tên danh mục quá dài.',
             'name.unique'   => 'Tên danh mục không thể trùng nhau',
             // 'image.required'=> 'Bạn chưa chọn ảnh đại diện Danh mục.',
             'icon.required' => 'Bạn chưa nhập icon Danh mục.'

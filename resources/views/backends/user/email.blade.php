@@ -305,6 +305,7 @@
                             sInfoFiltered: "",
                             sInfoEmpty: "",
                             sZeroRecords: "Không tìm thấy kết quả tìm kiếm",
+                            sEmptyTable: "Chưa có email",
                             oPaginate: {
                                 sPrevious: "Trang trước",
                                 sNext: "Trang sau",

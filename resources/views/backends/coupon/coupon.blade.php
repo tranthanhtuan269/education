@@ -431,6 +431,7 @@ $(document).ready(function(){
                         sInfoFiltered: "",
                         sInfoEmpty: "",
                         sZeroRecords: "Không tìm thấy kết quả tìm kiếm",
+                        sEmptyTable: "Chưa có mã giảm giá",
                         oPaginate: {
                             sPrevious: "Trang trước",
                             sNext: "Trang sau",

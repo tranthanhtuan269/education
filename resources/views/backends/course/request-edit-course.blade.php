@@ -15,7 +15,7 @@
     
 </section>
 <section class="content page">
-    <h1 class="text-center font-weight-600">Danh sách khóa học</h1>
+    <h1 class="text-center font-weight-600">Các khóa học được yêu cầu sửa</h1>
     <div class="row">
         <div class="col-md-12">
             <div class="table-responsive">
@@ -124,6 +124,7 @@
                             sInfoFiltered: "",
                             sInfoEmpty: "",
                             sZeroRecords: "Không tìm thấy kết quả tìm kiếm",
+                            sEmptyTable: "Chưa có khóa học được yêu cầu sửa",
                             oPaginate: {
                                 sPrevious: "Trang trước",
                                 sNext: "Trang sau",

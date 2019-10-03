@@ -212,6 +212,7 @@
                             sInfoFiltered: "",
                             sInfoEmpty: "",
                             sZeroRecords: "Không tìm thấy kết quả tìm kiếm",
+                            sEmptyTable: "Chưa có yêu cầu",
                             oPaginate: {
                                 sPrevious: "Trang trước",
                                 sNext: "Trang sau",

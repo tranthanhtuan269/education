@@ -104,6 +104,7 @@
                                 sInfoFiltered: "",
                                 sInfoEmpty: "",
                                 sZeroRecords: "Không tìm thấy kết quả tìm kiếm",
+                                sEmptyTable: "Bạn chưa có Email",
                                 oPaginate: {
                                     sPrevious: "Trang trước",
                                     sNext: "Trang sau",
