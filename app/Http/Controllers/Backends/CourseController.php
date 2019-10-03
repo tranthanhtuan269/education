@@ -256,7 +256,7 @@ class CourseController extends Controller
                 if( !isset($course->units) ){
                     return \Response::json(array('status' => '404', 'message' => 'Không thể duyệt khóa học do không có phần học.'));
                 }else{
-                    if( !isset($course->units[0]->videos) ){
+                    if( !($course->units[0]->videos->first()) ){
                         return \Response::json(array('status' => '404', 'message' => 'Không thể duyệt khóa học do phần học không có bài học.'));
                     }
                 }

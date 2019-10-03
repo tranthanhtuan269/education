@@ -18,22 +18,15 @@
 Auth::routes();
 
 Route::get('test2', function(){
-    $video = "1567751820_BR6QrACI7lF1BWgOHmrciTGY6O0LZd26MQgF6zSq.mp4";
-    $resolution = 360;
-    $t=time();
-    $input = public_path('/uploads/videos/').$video;
-    $output = public_path('/uploads/videos_output/360/').$video;
-    // $output = "/usr/local/WowzaStreamingEngine-4.7.7/content/".$video;
-    $block_txt = public_path('/uploads/block_'.$t.'.txt');
+    $courses = \App\Course::all();
+    foreach ($courses as $key => $course) {
+        # code...
+        // dd($course->real_price + 100000);
 
-    $format = 'mp4';
-    $avcodec = '-c:v libx264 -strict -2';
-    $time = '-ss ' . "00:00:00";
-    $bitrate = '-vf scale='.$resolution.':-2';
-    
-    $command = config('config.path_ffmpeg_exe') .' -i '.$input.' '.$time.' '.$avcodec.' '.$bitrate.' '.$output.' 1> '.$block_txt.' 2>&1';
-    // echo $command;die;
-    exec($command);
+        $course->real_price = intval($course->price) + 100000;
+        $course->save();
+    }
+    echo 'done!';
 });
 
 Route::get('thay-state-video', function(){
