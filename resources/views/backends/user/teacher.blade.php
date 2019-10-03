@@ -134,7 +134,15 @@
             },
             {
                 data: "name",
-                class: "name-field"
+                class: "name-field",
+                render: function(data, type, row){
+                if(type == "display"){
+                    var html = '';
+                    html += '<a class="" href="/teacher/'+row.action+'" target="_blank"><b>'+data+'</b></a>';
+                    return html;
+                }
+                return data;
+            },
             },
             {
                 data: "expert",
