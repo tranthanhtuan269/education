@@ -12,7 +12,12 @@ return [
     'video_active' => 1,
     'video_waiting_to_delete' => 2,
     'video_converting' => 3,
-    
+
+
+    'email_order_complete' => 1,
+
+    'email_system_status' => 10,    // email hệ thống không cho xoá và sửa tên
+
     /*
     |--------------------------------------------------------------------------
     | Application Name

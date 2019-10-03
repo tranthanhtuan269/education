@@ -303,7 +303,7 @@ class UserController extends Controller
 
     public function getEmailAjax()
     {
-        $emails = Email::where('status', 1)->get();
+        $emails = Email::where('status', 1)->orWhere('status', \Config::get('app.email_system_status'))->get();
         return datatables()->collection($emails)
             ->addColumn('action', function ($mail) {
                 return $mail->id;
@@ -403,7 +403,7 @@ class UserController extends Controller
 
     public function getTeacherAjax()
     {
-        $teachers = Teacher::orderBy('updated_at', 'desc')->get();
+        $teachers = Teacher::where('status', '!=', \Config::get('app.teacher_blocked'))->orderBy('updated_at', 'desc')->get();
         return datatables()->collection($teachers)
             ->addColumn('name', function ($teacher) {
                 if(isset($teacher->userRole)){

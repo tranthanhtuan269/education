@@ -22,6 +22,7 @@ use Illuminate\Http\Request;
 use App\UserRole;
 use DB;
 use App\Document;
+use Config;
 
 class HomeController extends Controller
 {
@@ -57,7 +58,7 @@ class HomeController extends Controller
                                 ->orderBy('featured_index', 'asc')
                                 ->get(['id', 'name', 'slug', 'image', 'price', 'real_price', 'featured_index', 'featured']);
         $feature_course = $feature_course->filter(function ($value, $key) use ($percent_feature_course) {
-            $percent;
+            $percent = null;
             if($value->price < $value->real_price){
                 $percent = intval(100 - (($value->price/$value->real_price)*100));
                 if($percent >= intval($percent_feature_course)){
@@ -519,8 +520,8 @@ class HomeController extends Controller
                 // $order->save();
                 if( $check_coin == true ){
                     $coupon = null;
-                    $coupon_value;
-                    $coupon_name;
+                    $coupon_value = null;
+                    $coupon_name = null;
 
                     $cart = \json_decode($request->cart, true);
 
@@ -623,12 +624,14 @@ class HomeController extends Controller
                     $order->save();
 
                     // Lưu vào bảng user_email
-                    $alertEmail = Email::where('title', '=', 'Thông báo mua hàng thành công')->first();
+                    $alertEmail = Email::find(Config::get('app.email_order_complete'));
                     if($alertEmail){
                         $user_email  = new \App\UserEmail;
                         $user_email->user_id = Auth::id();
                         $user_email->email_id = $alertEmail->id;
                         $user_email->sender_user_id = 333;
+                        $user_email->content = $alertEmail->content;
+                        $user_email->title = $alertEmail->title;
                         $user_email->save();
                     }
 

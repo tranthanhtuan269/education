@@ -1,4 +1,4 @@
-@extends('frontends.layouts.app') 
+@extends('frontends.layouts.app')
 @section('content')
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.16/datatables.min.css"/>
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.16/datatables.min.js"></script>
@@ -46,12 +46,12 @@
     <div id="myModalContentMailBox" class="modal fade" role="dialog" >
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">				
+                <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title"></h4>
                 </div>
                 <div class="modal-body">
-                                
+
                 </div>
             </div>
         </div>
@@ -60,24 +60,26 @@
         var dataTable           = null;
         $(document).ready(function(){
             var dataObject = [
-                { 
+                {
                     data: "sender",
                 },
-                { 
+                {
                     data: "title",
-                    render: function(data, type, row){
-                        return '<a href="javascript:void(0)" class="content-mailbox" title="Detail" data-useremailid="'+row.user_email_id+'" data-value="'+ row.content +'">' + row.title + '</a>';
+                    render: (data, type, row) => {
+                        return `<a href="javascript:void(0)" class="content-mailbox" title="Detail" data-useremailid="${row.user_email_id}" data-value="${row.content}">${row.title}</a>`;
                     },
                 },
-                { 
-                    data: "content",
-                    class: "hide"
+                {
+                    class: "hide",
+                    render: (data, type, row) => {
+                        return row.content
+                    }
                 },
-                { 
+                {
                     data: "created_at",
                 },
             ];
-    
+
             dataTable = $('#mailbox-table').DataTable( {
                             serverSide: true,
                             aaSorting: [],
@@ -122,11 +124,11 @@
                             //     oPaginate: {
                             //         sPrevious: "Trang trước",
                             //         sNext: "Trang sau",
-    
+
                             //     },
                             // },
                             fnServerParams: function ( aoData ) {
-    
+
                             },
                             fnDrawCallback: function( oSettings ) {
                                 // addEventListener();
@@ -134,7 +136,7 @@
                             }
                         });
             $('body').on('click', '.content-mailbox', function() {
-                $('#myModalContentMailBox h4.modal-title').html( $(this).text() );                
+                $('#myModalContentMailBox h4.modal-title').html( $(this).text() );
 
                 var user_email_id = $(this).attr('data-useremailid')
                 var self = $(this)
@@ -153,7 +155,7 @@
                     },
                     dataType: 'json',
                     success: function (response) {
-                        $('#myModalContentMailBox .modal-body').html(response.email_html); 
+                        $('#myModalContentMailBox .modal-body').html(response.email_html);
                         $('#myModalContentMailBox').modal('show');
                         if(self.parent().parent().attr('style').length > 0){
                             var note_number = parseInt($('.unica-sl-notify b').text())
@@ -174,7 +176,7 @@
                 })
 
             });
-    
+
         });
     </script>
 @endsection

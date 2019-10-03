@@ -22,7 +22,7 @@ class EmailsTableSeeder extends Seeder
             $email->create_user_id = 1;
             $email->update_user_id = 1;
             $email->save();
-            
+
             $data = \DB::table('user_roles')->limit(5)->get();
             $arr = [];
             foreach($data as $value) {
@@ -30,6 +30,8 @@ class EmailsTableSeeder extends Seeder
                 $user_email->user_id = $value->id;
                 $user_email->email_id = $email->id;
                 $user_email->sender_user_id =1;
+                $user_email->title = $value->title;
+                $user_email->content = $value->content;
                 $user_email->save();
             }
         }
