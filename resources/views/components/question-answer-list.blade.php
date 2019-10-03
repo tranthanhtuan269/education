@@ -9,7 +9,7 @@
         @endif
         <div class="info-account">
             <p class="interval">{{ $comment->created_at }}</p>
-            @if ($comment->userRole->user->name)
+            @if ($comment->userRole->user)
             <p class="name">{{ $comment->userRole->user->name }}</p>
             @else
             <p class="name">Học viên Courdemy</p>
@@ -70,7 +70,7 @@
                         @endif
                         <div class="info-account">
                             <p class="interval">{{ $reply->created_at }}</p>
-                            @if ($comment->userRole->user->name)
+                            @if ($comment->userRole->user)
                             <p class="name">{{ $reply->userRole->user->name }}</p>
                             @else
                             <p class="name">Học viên Courdemy</p>
