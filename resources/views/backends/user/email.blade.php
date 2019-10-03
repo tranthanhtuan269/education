@@ -288,7 +288,12 @@
                         search: {
                             smart: false
                         },
-                        ajax: "{{ url('/') }}/admincp/emails/getEmailAjax",
+                        ajax: {
+                            url: "{{ url('/') }}/admincp/emails/getEmailAjax",
+                            beforeSend: function() {
+                                $(".ajax_waiting").addClass("loading");
+                            }
+                        }, 
                         columns: dataObject,
                         // bLengthChange: false,
                         // pageLength: 10,
@@ -470,7 +475,7 @@
                 if(isChecked == false){
                     return Swal.fire({
                             type: 'info',
-                            text: 'Bạn chưa chọn tài khoản nào!'
+                            text: 'Bạn chưa chọn chủ đề nào!'
                         })
                 }
                 else{

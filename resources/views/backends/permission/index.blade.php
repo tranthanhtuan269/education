@@ -498,7 +498,7 @@
             if(isChecked == false){
                     return Swal.fire({
                         type: 'info',
-                        text: 'Bạn chưa chọn tài khoản nào!'
+                        text: 'Bạn chưa chọn tên quyền nào!'
                     })
                 
             }
