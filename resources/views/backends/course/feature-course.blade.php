@@ -92,12 +92,7 @@
             });
 
             $.ajax({
-                url:{
-                    url: baseURL+"/admincp/feature-course/handling-feature-course",
-                    beforeSend: function() {
-                        $(".ajax_waiting").addClass("loading");
-                    }
-                }, 
+                url: baseURL+"/admincp/feature-course/handling-feature-course",
                 data: {
                     course_1 : course_1,
                     course_2 : course_2,
