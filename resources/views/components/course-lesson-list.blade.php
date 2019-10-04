@@ -32,57 +32,59 @@
                 <div id="collapse{{ $key_unit }}" class="panel-collapse collapse  @if ($key_unit == 0) in @endif" aria-expanded="true">
                     <div class="panel-body">
                         @foreach ($value_unit->videos->sortBy('index') as $key_video => $value_video)
-                        <div class="col">
-                            <div class="container-fluid">
-                                <div class="row">
-                                    <div class="col-xs-5 col-md-8">
-                                        <div class="title">
-                                            @if(App\Helper\Helper::getUserRoleOfCourse($info_course->id))
-                                            <a href="/learning-page/{{$info_course->id}}/lecture/{{$value_video->id}}">
-                                                <i class="fa fa-play-circle" aria-hidden="true"></i>
-                                                <!-- <span>Lecture {{ $value_video->index }}: &nbsp;{{ $value_video->name }}</span>  -->
-                                                <span>{{ $value_video->name }}</span>
-                                            </a>
-                                            @else
-                                                <i class="fa fa-play-circle" aria-hidden="true"></i>
-                                                <!-- <span>Lecture {{ $value_video->index }}: &nbsp;{{ $value_video->name }}</span>  -->
-                                                <span>{{ $value_video->name }}</span>
-                                            @endif
+                            @if( $value_video->state == 1 )
+                            <div class="col">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-xs-5 col-md-8">
+                                            <div class="title">
+                                                @if(App\Helper\Helper::getUserRoleOfCourse($info_course->id))
+                                                <a href="/learning-page/{{$info_course->id}}/lecture/{{$value_video->id}}">
+                                                    <i class="fa fa-play-circle" aria-hidden="true"></i>
+                                                    <!-- <span>Lecture {{ $value_video->index }}: &nbsp;{{ $value_video->name }}</span>  -->
+                                                    <span>{{ $value_video->name }}</span>
+                                                </a>
+                                                @else
+                                                    <i class="fa fa-play-circle" aria-hidden="true"></i>
+                                                    <!-- <span>Lecture {{ $value_video->index }}: &nbsp;{{ $value_video->name }}</span>  -->
+                                                    <span>{{ $value_video->name }}</span>
+                                                @endif
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-xs-4 col-md-2 text-center">
-                                        @if(App\Helper\Helper::getUserRoleOfCourse($info_course->id))
-                                        <a class="btn-preview btn-success" href="/learning-page/{{$info_course->id}}/lecture/{{$value_video->id}}">Xem</a>
-                                        @else
-                                            @if (Auth::check())
-                                                @if (Auth::user()->isAdmin())
-                                                {{-- khong hien gi ca --}}
+                                        <div class="col-xs-4 col-md-2 text-center">
+                                            @if(App\Helper\Helper::getUserRoleOfCourse($info_course->id))
+                                            <a class="btn-preview btn-success" href="/learning-page/{{$info_course->id}}/lecture/{{$value_video->id}}">Xem</a>
+                                            @else
+                                                @if (Auth::check())
+                                                    @if (Auth::user()->isAdmin())
+                                                    {{-- khong hien gi ca --}}
+                                                    @else
+                                                    <i class="fas fa-lock fa-fw" aria-hidden="true"></i>
+                                                    @endif
                                                 @else
                                                 <i class="fas fa-lock fa-fw" aria-hidden="true"></i>
                                                 @endif
+                                            @endif
+                                            {{-- @if ($value_video->state == 1)
+                                            <div class="link">
+                                                &nbsp;
+                                                <a class="btn-preview" href="javascript:void(0)" onclick="preview_freetrial(24337);">Free Trial</a>
+                                            </div>
+                                            @endif --}}
+                                            @if (Auth::check())
+                                                @if (Auth::user()->isAdmin())
+                                                <a class="btn-preview btn-success" href="/learning-page/{{$info_course->id}}/lecture/{{$value_video->id}}">Xem</a>
+                                                @endif
                                             @else
-                                            <i class="fas fa-lock fa-fw" aria-hidden="true"></i>
                                             @endif
-                                        @endif
-                                        {{-- @if ($value_video->state == 1)
-                                        <div class="link">
-                                            &nbsp;
-                                            <a class="btn-preview" href="javascript:void(0)" onclick="preview_freetrial(24337);">Free Trial</a>
                                         </div>
-                                        @endif --}}
-                                        @if (Auth::check())
-                                            @if (Auth::user()->isAdmin())
-                                            <a class="btn-preview btn-success" href="/learning-page/{{$info_course->id}}/lecture/{{$value_video->id}}">Xem</a>
-                                            @endif
-                                        @else
-                                        @endif
-                                    </div>
-                                    <div class="col-xs-3 col-md-2">
-                                        <div class="time">{{ App\Helper::convertSecondToTimeFormat($value_video->duration) }}</div>
+                                        <div class="col-xs-3 col-md-2">
+                                            <div class="time">{{ App\Helper::convertSecondToTimeFormat($value_video->duration) }}</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                            @endif
                         @endforeach
                     </div>
                 </div>
