@@ -53,7 +53,35 @@
                                         </div>
                                         <div class="col-xs-4 col-md-2 text-center">
                                             @if(App\Helper\Helper::getUserRoleOfCourse($info_course->id))
-                                            <a class="btn-preview btn-success" href="/learning-page/{{$info_course->id}}/lecture/{{$value_video->id}}">Xem</a>
+                                            <a class="btn-preview btn-success" id="view-from-course-detail{{$value_video->id}}" style="cursor:pointer" >Xem</a>
+                                            <script>
+                                                $(document).ready(function(){
+                                                    $("#view-from-course-detail{{$value_video->id}}").off('click')
+                                                    $("#view-from-course-detail{{$value_video->id}}").click(function(){
+                                                        var learning_id = {{$value_video->id}}
+                                                        var course_id = {{$info_course->id}}
+                                                        $.ajaxSetup({
+                                                            headers:{
+                                                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                                            }
+                                                        });
+                                                        const request = $.ajax({
+                                                            method: 'POST',
+                                                            url: "/user-course/update-watched",
+                                                            data: {
+                                                                'video_id': learning_id
+                                                            },
+                                                            dataType: "json",
+                                                            success: function () {
+                                                                window.location.href = ("/learning-page/"+ course_id +"/lecture/"+ learning_id)
+                                                            },
+                                                            error: function () {
+
+                                                            }
+                                                        });
+                                                    })
+                                                })
+                                            </script>
                                             @else
                                                 @if (Auth::check())
                                                     @if (Auth::user()->isAdmin())

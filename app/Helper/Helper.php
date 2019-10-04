@@ -20,14 +20,7 @@ class Helper
             $user_role_list = Auth::user()->userRoles;
             $course = \App\Course::find($course_id);
             $lecturer_user_role = $course->Lecturers()->first();
-            if(Auth::user()->isAdmin()){
-                $demanding_user_course = new UserCourse;
-                $demanding_user_course->user_role_id = $lecturer_user_role->id;
-                $demanding_user_course->course_id = $course_id;
-                $demanding_user_course->videos = null;
-                $demanding_user_course->status = 1;
-                return $demanding_user_course;
-            }
+
             $demanding_user_course = null;
 
             foreach ($user_role_list as $key => $user_role) {
