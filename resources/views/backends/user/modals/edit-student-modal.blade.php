@@ -176,9 +176,10 @@ $(document).ready(function() {
                     Swal.fire({
                         type:'success',
                         text: response.message
+                    }).then( result => {
+                        location.reload()
                     })
-                    clearEditStudentForm()
-                    dataTable.ajax.reload();       
+                    clearEditStudentForm()      
                     $('#edit_user_modal').modal('hide')
                 }
                 $("#add_user_modal").modal('hide')

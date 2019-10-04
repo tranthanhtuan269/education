@@ -402,8 +402,9 @@
                                     Swal.fire({
                                         type: 'success',
                                         text: response.Message
+                                    }).then( result => {
+                                        location.reload()
                                     })
-                                    dataTable.ajax.reload();
                                 }else{
                                     Swal.fire({
                                         type: 'warning',
@@ -462,9 +463,9 @@
                         Swal.fire({
                             type: 'success',
                             text: response.Message
+                        }).then( result => {
+                            location.reload()
                         })
-                        dataTable.ajax.reload();
-                        clearErrorEdit();
                     }
                 },
                 error: function (data) {
@@ -498,7 +499,7 @@
             if(isChecked == false){
                     return Swal.fire({
                         type: 'info',
-                        text: 'Bạn chưa chọn tài khoản nào!'
+                        text: 'Bạn chưa chọn tên quyền nào!'
                     })
                 
             }
@@ -542,12 +543,12 @@
                                                     $(this).parent().parent().hide("slow");
                                                 }
                                             });
-                                            dataTable.ajax.reload(); 
                                             Swal.fire({
                                                 type: 'success',
                                                 text: obj.Message
+                                            }).then( result => {
+                                                location.reload()
                                             })
-
                                         }
                                     },
                                     error: function (data) {

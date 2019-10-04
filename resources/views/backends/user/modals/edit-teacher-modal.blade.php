@@ -242,8 +242,9 @@ $(document).ready(function(){
                     Swal.fire({
                         type:'success',
                         text: response.message
-                    })
-                    dataTable.ajax.reload();                   
+                    }).then( result => {
+                        location.reload()
+                    })                 
                     $("#editTchImgInput").val("")
                     $("#editTchPassword").val("")
                     $("#editTchCfPassword").val("")

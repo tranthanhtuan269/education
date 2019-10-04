@@ -268,12 +268,12 @@
                 url: "{{ url('user/register-teacher') }}",
                 data: data,
                 dataType: 'json',
-                // beforeSend: function() {
-                //     $("#pre_ajax_loading").show();
-                // },
-                // complete: function() {
-                //     $("#pre_ajax_loading").hide();
-                // },
+                beforeSend: function() {
+                    $(".ajax_waiting").addClass("loading");
+                },
+                complete: function() {
+                    $(".ajax_waiting").removeClass("loading");
+                },
                 success: function(response) {
                     if (response.status == 200) {
                         Swal.fire({
