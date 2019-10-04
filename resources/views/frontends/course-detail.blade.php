@@ -1195,7 +1195,7 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                 'image' : '{!! $info_course->image !!}',
                 'slug' : '{!! $info_course->slug !!}',                
                 @if(count($info_course->Lecturers()) > 0)
-                'lecturer' : "{!! $info_course->Lecturers()[0]->user->name !!}",
+                'lecturer' : "@if($info_course->Lecturers()[0]->user){!! $info_course->Lecturers()[0]->user->name !!}@else Courdemy @endif",
                 @else
                 'lecturer' : 'Nhiều giảng viên',
                 @endif
