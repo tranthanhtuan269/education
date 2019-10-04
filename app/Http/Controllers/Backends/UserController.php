@@ -456,18 +456,25 @@ class UserController extends Controller
             $teacher = Teacher::find($request->teacherId);
 
             if($teacher){
+                if($request->status == 1){
+                    $res = array('status' => "200", "message" => "Duyệt thành công");
+                }else{
+                    if( $teacher->featured != 0 ){
+                        return response()->json([
+                            'status' => '302',
+                            'message' => 'Không thể hủy giảng viên tiêu biểu.'
+                        ]);
+                    }else{
+                        $teacher->userRole->courses()->update(['courses.status' => 0]);
+                        $res = array('status' => "200", "message" => "Hủy thành công");
+                    }
+                }
                 $teacher->status = $request->status;
                 $teacher->save();
-                if($request->status == 1){
-                    $res = array('status' => "200", "Message" => "Duyệt thành công");
-                }else{
-                    $teacher->userRole->courses()->update(['courses.status' => 0]);
-                    $res = array('status' => "200", "Message" => "Hủy thành công");
-                }
                 echo json_encode($res);die;
             }
         }
-        $res = array('status' => "401", "Message" => 'Người dùng không tồn tại.');
+        $res = array('status' => "404", "message" => 'Người dùng không tồn tại.');
         echo json_encode($res);die;
     }
 
