@@ -31,7 +31,7 @@
             <i class="fa fa-cog fa-lg setting-icon" aria-hidden="true"></i>
             @endif
         </div>
-        <a href="{{ url('/') }}/course/{{ $course->slug }}" title="{{ $course->name }}" class="pop">            
+        <a href="{{ url('/') }}/course/{{ $course->id }}/{{ $course->slug }}" title="{{ $course->name }}" class="pop">            
             <div class="content-course">
                 <h3 class="title-course">{{ $course->name }}</h3>
                 <div class="clearfix" style="line-height:1.7">

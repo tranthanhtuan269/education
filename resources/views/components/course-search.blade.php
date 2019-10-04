@@ -5,7 +5,6 @@
 ?>
 <div class="col-md-3 col-sm-6">
     <div class="box-course course-search">
-        <!-- <a href="{{ url('/') }}/course/{{ $course->slug }}" title="{{ $course->name }}" class="course-box-slider pop"> -->
         <div class="course-box-slider pop">
         <div class="img-course">
             <a href="{{ url('/') }}/course/{{ $course->id }}/{{ $course->slug }}" title="{{ $course->name }}">

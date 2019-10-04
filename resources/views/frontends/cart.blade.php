@@ -99,14 +99,14 @@
             html += '<div class="cart-single-item" data-parent="'+element.id+'" data-index="'+index+'">'
                 html += '<div class="image">'
                 if(element.image.indexOf('unica') !== -1){
-                    html += '<a href="/course/'+element.slug+'"><img src="'+element.image+'" width="250rem" alt=""></a>'
+                    html += '<a href="/course/'+element.id+'/'+element.slug+'"><img src="'+element.image+'" width="250rem" alt=""></a>'
                 }else{
-                    html += '<a href="/course/'+element.slug+'"><img src="/frontend/images/'+element.image+'" width="250rem" alt=""></a>'
+                    html += '<a href="/course/'+element.id+'/'+element.slug+'"><img src="/frontend/images/'+element.image+'" width="250rem" alt=""></a>'
                 }
                 html += '</div>'
                 html += '<div class="course-info">'
 
-                    html += '<a href="/course/'+element.slug+'"><div class="course-name">'+element.name+'</div></a>'
+                    html += '<a href="/course/'+element.id+'/'+element.slug+'"><div class="course-name">'+element.name+'</div></a>'
                     html += '<div class="lecturer-info">'+element.lecturer+'</div>'
                     html += '<div class="coupon">'
                         // html += '<div class="coupon-code-label"><b>Mã giảm giá:<b></div>'

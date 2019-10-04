@@ -87,7 +87,7 @@
                 <p>{{$main_video->name}}</p>
             </div> --}}
             <div class="lecture-subtitle">
-                <a href="{{ url("/course/{$course->slug}") }}">
+                <a href="{{ url("/course/{$course->id}/{$course->slug}") }}">
                     <p>TRỞ VỀ TRANG KHOÁ HỌC</p>
                 </a>
             </div>

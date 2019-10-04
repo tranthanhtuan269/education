@@ -31,6 +31,9 @@
                         <div class="col-xs-12">
                             <h2>{{ $results->total() }} kết quả được tìm thấy</h2>
                         </div>
+                        <?php 
+                        // dd($results[4]->Lecturers()->first()); 
+                        ?>
                         @foreach ($results as $result)
                         <?php
                             $lecturers = count($result->Lecturers()) > 1 ? 'Nhiều tác giả' : (count($result->Lecturers()) > 0 && isset($result->Lecturers()[0]->user)) ? $result->Lecturers()[0]->user->name : "Courdemy";
