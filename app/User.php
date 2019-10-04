@@ -50,7 +50,7 @@ class User extends Authenticatable
         return \DB::table('users')->leftJoin('roles','roles.id', '=','users.role_id')
                 ->select(
                         'users.id as id',
-                        'users.name as name', 
+                        'users.name as name',
                         'users.email as email',
                         'roles.name as role_name'
                         )
@@ -58,7 +58,7 @@ class User extends Authenticatable
         // $query = \DB::table('users')->leftJoin('roles','roles.id', '=','users.role_id')
         //         ->select(
         //                 'users.id as id',
-        //                 'users.name as name', 
+        //                 'users.name as name',
         //                 'users.email as email',
         //                 'roles.name as role_name'
         //                 )->get();
@@ -77,7 +77,7 @@ class User extends Authenticatable
 
     public static function resetPassword($user){
         $str_rand = str_random(10);
-        
+
         \DB::table('users')
             ->where('id', $user)
             ->update(['password' => Hash::make($str_rand)]);
@@ -147,7 +147,7 @@ class User extends Authenticatable
         }
     }
 
-    
+
 
     public function userRolesStudent()
     {
