@@ -100,7 +100,7 @@
                 'id' : {{ $course->id }},
                 'image' : '{!! $course->image !!}',
                 'slug' : '{!! $course->slug !!}',                
-                @if(count($course->Lecturers()) > 0)
+                @if(count($course->Lecturers()) > 0 && isset($course->Lecturers()[0]->user))
                 'lecturer' : "{!! $course->Lecturers()[0]->user->name !!}",
                 @else
                 'lecturer' : 'Nhiều giảng viên',

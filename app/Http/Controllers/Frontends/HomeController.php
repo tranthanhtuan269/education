@@ -118,8 +118,9 @@ class HomeController extends Controller
                 ->where('teachers.status', 1)
                 ->where('courses.status', 1)
                 ->where('users.name', 'LIKE', "%$keyword%")
+                ->where('courses.name', 'LIKE', "%$keyword%")
                 ->pluck('course_id');
-            $results = Course::where('status', 1)->where('name', 'LIKE', "%$keyword%")->orwhereIn('id', $arr_course_id)->paginate(8);
+            $results = Course::whereIn('id', $arr_course_id)->paginate(8);
         }
 
         return view('frontends.search', compact('results'));
