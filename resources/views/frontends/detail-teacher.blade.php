@@ -11,6 +11,7 @@
 				<div class="item">
 					<div class="frame clearfix frame-top">
 						<div class="avatar pull-left">
+							@if($info_teacher->userRole->user)
 							@if (strpos($info_teacher->userRole->user->avatar, 'unica') !== false)
 							<img src="{{ $info_teacher->userRole->user->avatar }}" alt="" />
 							@else
@@ -20,6 +21,7 @@
 								<p class="name">{{ $info_teacher->userRole->user->name }}</p>
 								<p class="expret">{{ $info_teacher->expert }}</p>
 							</div>
+							@endif
 						</div>
 						<div class="network pull-right network-teacher">
 							<a class="btn btn-default btn-xs" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(url()->current()); ?>" target="_blank">
