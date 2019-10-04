@@ -1,4 +1,4 @@
-@if (count($best_seller_course) > 0 || count($new_course) > 0 ||  count($feature_course) > 0)
+@if (count($best_seller_course) > 0 || count($new_course) > 0 ||  count($trending_courses) > 0)
 <?php
     $list_bought = [];
     if(Auth::check() && strlen(Auth::user()->bought) > 0){
@@ -40,23 +40,25 @@
             <div class="col-sm-12">
                 <div class="tab-content">
                     <div id="best-seller" class="tab-pane fade in active">
-                        @foreach ($best_seller_course as $key => $best_seller)
-                        @if($key%4 == 0)
-                        <div class="row">
-                        @endif
-                            @include(
-                                'components.course', 
-                                [   
-                                    'course' => $best_seller,
-                                    'list_course' => $list_bought
-                                ]
-                            )
-                        @if($key%4 == 3)
-                        </div>
-                        @endif
-                        @endforeach
-                        @if($key%4 < 3)
-                        </div>
+                        @if( count($best_seller_course) > 0 )
+                            @foreach ($best_seller_course as $key => $best_seller)
+                            @if($key%4 == 0)
+                            <div class="row">
+                            @endif
+                                @include(
+                                    'components.course', 
+                                    [   
+                                        'course' => $best_seller,
+                                        'list_course' => $list_bought
+                                    ]
+                                )
+                            @if($key%4 == 3)
+                            </div>
+                            @endif
+                            @endforeach
+                            @if($key%4 < 3)
+                            </div>
+                            @endif
                         @endif
                         @if (Request::is('/') || Request::is('home'))
                             <div class="col-sm-12 text-center">
@@ -65,27 +67,29 @@
                         @endif
                     </div>
                     <div id="menu1" class="tab-pane fade">
-                        @foreach ($new_course as $key => $new)
-                        @if($key%4 == 0)
-                        <div class="row">
-                        @endif
-                            <?php
-                                // $lecturers = count($new->Lecturers()) > 1 ? 'Nhiều tác giả' : count($new->Lecturers()) > 0 ? ($new->Lecturers()[0]->user ? $new->Lecturers()[0]->user->name : "Courdemy") : "Courdemy";
-                            ?>
-                            @include(
-                                'components.course', 
-                                [   
-                                    'course' => $new,
-                                    'list_course' => $list_bought
-                                ]
-                            )
-                        @if($key%4 == 3)
-                        </div>
-                        @endif
-                        @endforeach
-                        @if($key%4 < 3)
-                        </div>
-                        @endif
+                        @if( count($best_seller_course) > 0 )
+                            @foreach ($new_course as $key => $new)
+                            @if($key%4 == 0)
+                            <div class="row">
+                            @endif
+                                <?php
+                                    // $lecturers = count($new->Lecturers()) > 1 ? 'Nhiều tác giả' : count($new->Lecturers()) > 0 ? ($new->Lecturers()[0]->user ? $new->Lecturers()[0]->user->name : "Courdemy") : "Courdemy";
+                                ?>
+                                @include(
+                                    'components.course', 
+                                    [   
+                                        'course' => $new,
+                                        'list_course' => $list_bought
+                                    ]
+                                )
+                            @if($key%4 == 3)
+                            </div>
+                            @endif
+                            @endforeach
+                            @if($key%4 < 3)
+                            </div>
+                            @endif
+                            @endif
                         @if (Request::is('/') || Request::is('home'))
                         <div class="col-sm-12 text-center">
                             <a href="{{ url('list-course?type=new') }}" class="btn btn-default btn-seeall">Tất cả</a>
