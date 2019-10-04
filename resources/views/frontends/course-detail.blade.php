@@ -487,7 +487,7 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                     <h3>Thông tin giảng viên</h3>
                 </div>
                 @foreach ($info_course->Lecturers() as $lecturer)
-                @if($lecturer->teacher)
+                @if($lecturer->teacher && $lecturer->user)
                 <div class="col-xs-12">
                     <div class="row">
                         <div class="col-sm-3 avatar-center">
