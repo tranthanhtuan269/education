@@ -414,7 +414,12 @@ $(document).ready(function(){
                     search: {
                         smart: false
                     },
-                    ajax: "{{ url('/') }}/admincp/coupon/getCouponAjax",
+                    ajax:{
+                        url: "{{ url('/') }}/admincp/coupon/getCouponAjax",
+                        beforeSend: function() {
+                            $(".ajax_waiting").addClass("loading");
+                        }
+                    },  
                     columns: dataObject,
                     // bLengthChange: false,
                     // pageLength: 10,

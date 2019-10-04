@@ -231,22 +231,17 @@ class TeacherController extends Controller
     }
 
     public function disable(Request $request){
-        $user_id = $request->user_id;
-        if(isset($user_id)){
-            $user = User::find($request->user_id);
-            if(isset($user)){
-                $user_role_teacher = $user->userRolesTeacher();
-                if(isset($user_role_teacher)){
-                    $teacher = $user_role_teacher->teacher;
-                    if(isset($teacher)){
-                        $teacher->status = \Config::get('app.teacher_blocked');
-                        $teacher->save();
-                        return response()->json([
-                            'status' => 200,
-                            'message' => 'Tắt chức năng giảng viên thành công!'
-                        ]);
-                    }
-                }
+        $teacher_id = $request->teacher_id;
+        if(isset($teacher_id)){
+            $teacher = Teacher::find($teacher_id);
+            if(isset($teacher)){
+                $teacher->status = \Config::get('app.teacher_blocked');
+                $teacher->save();
+
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'Tắt chức năng giảng viên thành công!'
+                ]);
             }
         }else{
             return response()->json([

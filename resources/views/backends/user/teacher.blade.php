@@ -171,7 +171,7 @@
 
                     @if (Helper::checkPermissions('users.accept-teacher', $list_roles))
                         if(row['status'] == 1){
-                            html += '<a class="btn-accept mr-2 accept-user" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Hủy"> <i class="fa fa-times fa-fw"></i></a>';
+                            html += '<a class="btn-accept mr-2 disable-user" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Hủy"> <i class="fa fa-times fa-fw"></i></a>';
                         }else{
                             html += '<a class="btn-accept mr-2 accept-user" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Duyệt"> <i class="fa fa-check fa-fw"></i></a>';
                         }
@@ -323,8 +323,49 @@
                 $("#video-intro").attr('src', curr_video_intro)
             })
 
-            $('.btn-accept').off('click')
-            $('.btn-accept').click(function(){
+            $('.btn-accept.disable-user').off('click')
+            $('.btn-accept.disable-user').click(function(){
+                var teacher_id = $(this).attr('data-id')
+                Swal.fire({
+                    type: 'warning',
+                    text: 'Bạn có chắc chắn không?',
+                    showCancelButton: true
+                }).then( result => {
+                    if(result.value){
+                        $.ajaxSetup({
+                            headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
+                        $.ajax({
+                            url: baseURL+"/admincp/teachers/disable",
+                            method: 'PUT',
+                            data: {
+                                teacher_id : teacher_id
+                            },
+                            dataType: 'json',
+                            success: (response) => {
+                                if(response.status == 200) {
+                                    Swal.fire({
+                                        type : 'success',
+                                        text : response.message
+                                    })
+                                    dataTable.ajax.reload()
+                                }
+                            },
+                            error : (error) => {
+                                Swal.fire({
+                                    text: 'Có lỗi'
+                                })
+                                dataTable.ajax.reload()
+                            }
+                        })
+                    }
+                })
+            })
+
+            $('.btn-accept.accept-user').off('click')
+            $('.btn-accept.accept-user').click(function(){
                 var _self   = $(this);
                 var id      = $(this).attr('data-id');
                 var status  = 0;

@@ -292,7 +292,7 @@ class VideoController extends Controller
 
 	            // $video->delete();
 
-	    
+
             }
         }else{
             return response()->json([
@@ -383,7 +383,7 @@ class VideoController extends Controller
                    return response()->json([
                        'status' => 300,
                        'message'=> 'Giảng viên chưa được duyệt. Vui lòng duyệt giảng viên trước!'
-                   ]); 
+                   ]);
                 }
             }
 
@@ -473,7 +473,7 @@ class VideoController extends Controller
                     return response()->json([
                         'status' => 300,
                         "message"=> "Giảng viên chưa được duyệt. Vui lòng kiểm tra tại <a href='".url('admincp/teachers?teacher_id='.$user_roles_teacher->teacher->id)."' target='_blank'>đây</a>!"
-                    ]); 
+                    ]);
                     }
                 }
                 if ($request->state == 3) { //state = 3 đang đợi convert trong hàng đợi
@@ -655,5 +655,20 @@ class VideoController extends Controller
             'status' => 404,
             'message' => 'Video is not found!',
         ]);
+    }
+
+    public function disable(Request $request){
+        if($request->video_id){
+            $video = Video::find($request->video_id);
+            if($video){
+                $video->state = \Config::get('app.video_waiting');
+                $video->save();
+
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'Huỷ duyệt thành công'
+                ]);
+            }
+        }
     }
 }

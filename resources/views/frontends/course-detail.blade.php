@@ -820,7 +820,7 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                 </div>
             </div>
             @if(count($info_course->comments) > 3)
-            <div class="col-sm-12 btn-see-more" data-skip="3" data-take="3">
+            <div class="col-sm-12 btn-see-more" data-skip="1" data-take="1">
                 <button type="button" class="btn">Xem thêm</button>
             </div>
             @endif

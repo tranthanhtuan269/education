@@ -107,7 +107,12 @@
                         search: {
                             smart: false
                         },
-                        ajax: "{{ url('/') }}/admincp/courses/get-edit-course-ajax",
+                        ajax:{
+                            url: "{{ url('/') }}/admincp/courses/get-edit-course-ajax",
+                            beforeSend: function() {
+                                $(".ajax_waiting").addClass("loading");
+                            }
+                        }, 
                         columns: dataObject,
                         bLengthChange: true,
                         pageLength: 10,

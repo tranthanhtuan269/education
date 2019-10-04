@@ -100,7 +100,12 @@ $(document).ready(function() {
         },
         aaSorting: [],
         stateSave: true,
-        ajax: baseURL + "/admincp/comment/get-comment-course-ajax",
+        ajax:{
+            url: baseURL + "/admincp/comment/get-comment-course-ajax",
+            beforeSend: function() {
+                $(".ajax_waiting").addClass("loading");
+            }
+        }, 
         columns: dataObject,
         bLengthChange: true,
         pageLength: 10,
@@ -155,10 +160,12 @@ $(document).ready(function() {
                         dataType:'json',
                         success: function (response) {
                             if(response.status == 200){
-                                dataTable.ajax.reload();
+                                // dataTable.ajax.reload();
                                 Swal.fire({
                                     type: 'success',
                                     text: response.message
+                                }).then(result =>{
+                                    location.reload()
                                 })
                             }else{
                                 Swal.fire({
