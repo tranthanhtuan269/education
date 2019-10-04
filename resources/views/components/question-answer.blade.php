@@ -42,6 +42,10 @@
                 <i class="fas fa-thumbs-down"></i>
                 <span>Không thích</span>
             </button>
+            <button type="button" class="btn btn-default btn-reply">
+                <i class="fas fa-flag"></i>
+                <span>Báo cáo</span>
+            </button>
         </div>
         <div id="reply-textbox-{{ $comment->id }}" class="reply-textbox hide">
             <textarea name="reply-{{ $comment->id }}" id="reply-{{ $comment->id }}" class="form-control" placeholder="Nội dung"></textarea>
