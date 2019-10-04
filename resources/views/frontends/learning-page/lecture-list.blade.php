@@ -32,7 +32,7 @@
                         @foreach ($videos_arr as $video)
                             @php
                                 $video_done_in_this_units = 0;
-                                $list_video_done_in_unit = $video_done_units[($unit->index)-1];
+                                $list_video_done_in_unit = video_done_units[($unit->index)-1];
                                 if( isset( array_count_values($list_video_done_in_unit)[1] ) ){
                                     $video_done_in_this_units += array_count_values($list_video_done_in_unit)[1];
                                 }
@@ -60,25 +60,27 @@
                                     @php
                                         $list_video_done_in_unit = $video_done_units[($unit->index)-1];                  
                                     @endphp
-                                    @if ($list_video_done_in_unit[$video->index-1] == 1)
-                                    <span class="ln-btn-complete" id="lnBtnComplete{{$video->id}}" data-child="{{$key2+1}}">
-                                        <button >
-                                            <span class="fa-stack">
-                                                <i class="fas fa-circle fa-stack-2x" style="color: #44b900;"></i>
-                                                <i class="fas fa-check fa-stack-1x" style="color: #ffffff;"></i>
-                                            </span>
-                                        </button>
-                                    </span>
-                                    @elseif($list_video_done_in_unit[$video->index-1] == 0)
-                                    <span class="ln-btn-complete" id="lnBtnNotComplete{{$video->id}}" data-child="{{$key2+1}}">
-                                        <button class="ln-btn-complete " >
-                                            <span class="fa-stack">
-                                                <i class="fas fa-circle fa-stack-2x" style="color: rgb(200, 201, 202);"></i>
-                                                <i class="fas fa-check fa-stack-1x" style="color: rgb(200, 201, 202)"></i>                         
-                                            </span>
-                                        </button>
-                                    </span>
-                                    @endif                                    
+                                    @if($list_video_done_in_unit[$video->index-1])
+                                        @if ($list_video_done_in_unit[$video->index-1] == 1)
+                                        <span class="ln-btn-complete" id="lnBtnComplete{{$video->id}}" data-child="{{$key2+1}}">
+                                            <button >
+                                                <span class="fa-stack">
+                                                    <i class="fas fa-circle fa-stack-2x" style="color: #44b900;"></i>
+                                                    <i class="fas fa-check fa-stack-1x" style="color: #ffffff;"></i>
+                                                </span>
+                                            </button>
+                                        </span>
+                                        @elseif($list_video_done_in_unit[$video->index-1] == 0)
+                                        <span class="ln-btn-complete" id="lnBtnNotComplete{{$video->id}}" data-child="{{$key2+1}}">
+                                            <button class="ln-btn-complete " >
+                                                <span class="fa-stack">
+                                                    <i class="fas fa-circle fa-stack-2x" style="color: rgb(200, 201, 202);"></i>
+                                                    <i class="fas fa-check fa-stack-1x" style="color: rgb(200, 201, 202)"></i>                         
+                                                </span>
+                                            </button>
+                                        </span>
+                                        @endif  
+                                    @endif                                  
                                 @endif
                             </a>
                         </li>
