@@ -1031,6 +1031,7 @@
                         dataType : 'json',
                         success : function (response) {
                             Swal.fire({
+                                type: 'success',
                                 text: response.message
                             })
                             if(response.status == "200"){
@@ -1038,8 +1039,10 @@
                             }
                         },
                         error : function (response) {
+                            $("#sendMultipleEmailModal").modal("hide")
                             Swal.fire({
-                                text: response.message
+                                type: 'warning',
+                                text: 'Có lỗi.'
                             })
                         }
                     })
