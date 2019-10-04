@@ -77,7 +77,12 @@ $(document).ready(function() {
         },
         aaSorting: [],
         stateSave: true,
-        ajax: baseURL + "/admincp/featured-category/get-featured-category-ajax",
+        ajax:{
+            url: baseURL + "/admincp/featured-category/get-featured-category-ajax",
+            beforeSend: function() {
+                $(".ajax_waiting").addClass("loading");
+            }
+        }, 
         columns: dataObject,
         bLengthChange: true,
         pageLength: 10,

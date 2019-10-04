@@ -451,7 +451,12 @@ $(document).ready(function() {
         search: {
             smart: false
         },
-        ajax: baseURL + "/admincp/categories/getCategoryAjax",
+        ajax:{
+            url: baseURL + "/admincp/categories/getCategoryAjax",
+            beforeSend: function() {
+                $(".ajax_waiting").addClass("loading");
+            }
+        }, 
         columns: dataObject,
         bLengthChange: true,
         pageLength: 10,

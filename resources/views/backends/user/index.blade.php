@@ -698,7 +698,12 @@
                         search: {
                             smart: false
                         },
-                        ajax: "{{ url('/') }}/admincp/users/getDataAjax",
+                        ajax:{
+                            url: "{{ url('/') }}/admincp/users/getDataAjax",
+                            beforeSend: function() {
+                                $(".ajax_waiting").addClass("loading");
+                            }
+                        }, 
                         columns: dataObject,
                         // bLengthChange: false,
                         // pageLength: 10,

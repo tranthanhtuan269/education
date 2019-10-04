@@ -222,7 +222,12 @@
                         search: {
                             smart: false
                         },
-                        ajax: "{{ url('/') }}/admincp/courses/getCourseAjax",
+                        ajax:{
+                            url: "{{ url('/') }}/admincp/courses/getCourseAjax",
+                            beforeSend: function() {
+                                $(".ajax_waiting").addClass("loading");
+                            }
+                        }, 
                         columns: dataObject,
                         bLengthChange: true,
                         pageLength: 10,

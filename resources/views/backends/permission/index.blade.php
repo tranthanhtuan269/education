@@ -247,7 +247,12 @@
                         search: {
                             smart: false
                         },
-                        ajax: "{{ url('/') }}/admincp/permissions/getDataAjax",
+                        ajax:{
+                            url: "{{ url('/') }}/admincp/permissions/getDataAjax",
+                            beforeSend: function() {
+                                $(".ajax_waiting").addClass("loading");
+                            }
+                        }, 
                         columns: dataObject,
                         // bLengthChange: false,
                         // pageLength: 10,

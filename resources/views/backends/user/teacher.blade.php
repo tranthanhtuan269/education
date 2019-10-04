@@ -195,7 +195,12 @@
                         search: {
                             smart: false
                         },
-                        ajax: "{{ url('/') }}/admincp/teachers/getTeacherAjax",
+                        ajax:{
+                            url: "{{ url('/') }}/admincp/teachers/getTeacherAjax",
+                            beforeSend: function() {
+                                $(".ajax_waiting").addClass("loading");
+                            }
+                        }, 
                         columns: dataObject,
                         bLengthChange: true,
                         pageLength: 10,

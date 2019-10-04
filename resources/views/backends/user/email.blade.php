@@ -288,7 +288,12 @@
                         search: {
                             smart: false
                         },
-                        ajax: "{{ url('/') }}/admincp/emails/getEmailAjax",
+                        ajax:{
+                            url: "{{ url('/') }}/admincp/emails/getEmailAjax",
+                            beforeSend: function() {
+                                $(".ajax_waiting").addClass("loading");
+                            }
+                        }, 
                         columns: dataObject,
                         // bLengthChange: false,
                         // pageLength: 10,

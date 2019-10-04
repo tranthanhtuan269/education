@@ -271,7 +271,7 @@
             includeSelectAllOption: true,
             includeSelectAllIfMoreThan: 0,
             numberDisplayed: 2,
-            enableClickableOptGroups: true
+            // enableClickableOptGroups: true
         });
 
 
@@ -385,7 +385,12 @@
                         search: {
                             smart: false
                         },
-                        ajax: "{{ url('/') }}/admincp/roles/getDataAjax",
+                        ajax:{
+                            url: "{{ url('/') }}/admincp/roles/getDataAjax",
+                            beforeSend: function() {
+                                $(".ajax_waiting").addClass("loading");
+                            }
+                        }, 
                         columns: dataObject,
                         // bLengthChange: false,
                         // pageLength: 25,
@@ -501,7 +506,7 @@
                         includeSelectAllOption: true,
                         includeSelectAllIfMoreThan: 0,
                         numberDisplayed: 2,
-                        enableClickableOptGroups: true
+                        // enableClickableOptGroups: true
                     });
 
                     $('#edit_role_modal').modal('show');
