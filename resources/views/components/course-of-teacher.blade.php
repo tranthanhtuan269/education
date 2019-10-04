@@ -7,8 +7,9 @@
 
 <div class="ubc-course">
     <div class="img-ubc-course">
-    <a href="/course/{{$course->slug}}">
-        @if(filter_var($course->image, FILTER_VALIDATE_URL))
+    <a href="/course/{{$course->id}}/{{$course->slug}}">
+        {{-- @if(filter_var($course->image, FILTER_VALIDATE_URL)) --}}
+        @if (strpos($course->image, 'http') !== false)
             <img class="img-responsive" src="{{$course->image}}" alt="{{$course->name}}">
         @else
             <img class="img-responsive" src="{{ asset('frontend/images/'.$course->image)}}" alt="{{$course->name}}">
@@ -16,7 +17,7 @@
     </a>
     </div>
     <div class="des-ubc-course">
-        <p><a href="/course/{{$course->slug}}">{{$course->name}}</a></p>
+        <p><a href="/course/{{$course->id}}/{{$course->slug}}">{{$course->name}}</a></p>
         <ul class="mini-des">
             <li><i class="fa fa-list-alt fa-fw" aria-hidden="true"></i> {{$course->video_count}} bài giảng</li>
             <li><i class="far fa-clock fa-fw" aria-hidden="true"></i> {{ intval($course->duration / 3600) }} giờ {{ intval($course->duration % 60 ) }} phút</li>

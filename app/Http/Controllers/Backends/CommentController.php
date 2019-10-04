@@ -34,4 +34,28 @@ class CommentController extends Controller
             })
             ->removeColumn('id')->make(true);
     }
+
+    public function deleteCommentCourse(Request $request)
+    {
+        $comment = CommentCourse::find($request->id);
+
+        if( $comment ){
+            if( $comment->parent_id != 0 ){
+                $comment->delete();
+                return \Response::json(['message' => 'Xóa phản hồi khóa học thành công.', 'status' => 200]);
+            }else{
+                $child_comments = CommentCourse::where('parent_id', $comment->id)->get();
+                
+                if( $child_comments ){
+                    foreach( $child_comments as $child_comment ){
+                        $child_comment->delete();
+                    }
+                    $comment->delete();
+                    return \Response::json(['message' => 'Xóa phản hồi khóa học thành công.', 'status' => 200]);
+                }
+                return \Response::json(['message' => 'Xóa phản hồi khóa học thành công.', 'status' => 200]);
+            }
+        }
+        return \Response::json(['message' => 'Không tìm thấy.', 'status' => 404]);
+    }
 }

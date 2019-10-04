@@ -29,35 +29,20 @@
                     @if (count($results) > 0)
                     <div class="row">
                         <div class="col-xs-12">
-                            {{-- <h2>{{ $results->total() }} kết quả được tìm thấy</h2> --}}
-                            <h2>{{ count($results) }} kết quả được tìm thấy</h2>
+                            <h2>{{ $results->total() }} kết quả được tìm thấy</h2>
                         </div>
-                        <?php dd($results[4]->Lecturers()->first()); ?>
+                        <?php 
+                        // dd($results[4]->Lecturers()->first()); 
+                        ?>
                         @foreach ($results as $result)
                         <?php
-                            // $lecturers = count($result->Lecturers()) > 1 ? 'Nhiều tác giả' : count($result->Lecturers()) > 0 ? $result->Lecturers()[0]->user->name : "Courdemy";
+                            $lecturers = count($result->Lecturers()) > 1 ? 'Nhiều tác giả' : (count($result->Lecturers()) > 0 && isset($result->Lecturers()[0]->user)) ? $result->Lecturers()[0]->user->name : "Courdemy";
                         ?>
                         @include(
                             'components.course-search', 
                             [
                                 'course' => $result,
                                 'list_course' => $list_bought
-                                // 'id' => $result->id,
-                                // 'slug' => $result->slug,
-                                // 'rawImage' => $result->image,
-                                // 'image' => url('/frontend/images/'.$result->image),
-                                // 'title' => $result->name,
-                                // 'author' => $lecturers,
-                                // 'star_count' => $result->star_count,
-                                // 'vote_count' => $result->vote_count,
-                                // 'time' => $result->approx_time,
-                                // 'view_number' => $result->view_count,
-                                // 'price' => $result->real_price,
-                                // 'sale' => $result->price,
-                                // 'from_sale' => $result->from_sale,
-                                // 'to_sale' => $result->to_sale,
-                                // 'bought' => $result->checkCourseNotLearning(),
-
                             ]
                         )
                         @endforeach

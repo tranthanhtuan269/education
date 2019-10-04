@@ -1,17 +1,13 @@
 <?php
     // if($course->vote_count == 0) $course->vote_count = 1;
     $random_name = ['Steve Rogers', 'Natasha Romanoff', 'Tony Stark', 'Peter Quill', "Bruce Banner", "Stephen Strange"];
-    // $lecturers = count($course->Lecturers()) > 1 ? 'Nhiều tác giả' : (count($course->Lecturers()) > 0 ? $course->Lecturers()->first()->user->name : "Courdemy");
-    // dd($course->Lecturers()->first()->user->name);
-    $lecturers = count($course->Lecturers()) > 0 ? $course->Lecturers()->first()->user->name : "Courdemy";
-
+    $lecturers = count($course->Lecturers()) > 1 ? 'Nhiều tác giả' : ((count($course->Lecturers()) > 0 && isset($course->Lecturers()->first()->user)) ? $course->Lecturers()->first()->user->name : "Courdemy");
 ?>
 <div class="col-md-3 col-sm-6">
     <div class="box-course course-search">
-        <!-- <a href="{{ url('/') }}/course/{{ $course->slug }}" title="{{ $course->name }}" class="course-box-slider pop"> -->
         <div class="course-box-slider pop">
         <div class="img-course">
-            <a href="{{ url('/') }}/course/{{ $course->slug }}" title="{{ $course->name }}">
+            <a href="{{ url('/') }}/course/{{ $course->id }}/{{ $course->slug }}" title="{{ $course->name }}">
                 @if (strpos($course->image, 'unica') !== false)
             	<img class="img-responsive"
                     src="{{ $course->image }}"
@@ -66,7 +62,7 @@
              </div>
                     
             <div class="content-course">
-                <a href="{{ url('/') }}/course/{{ $course->slug }}" title="{{ $course->name }}">
+                <a href="{{ url('/') }}/course/{{ $course->id }}/{{ $course->slug }}" title="{{ $course->name }}">
                     <h3 class="title-course">{{ $course->name }}</h3>
                 </a>
                 <div class="clearfix" style="line-height:1.7">
@@ -80,7 +76,7 @@
                                     @if ($course->Lecturers()->count() > 1)
                                     Nhiều tác giả
                                     @else    
-                                    <a href="{{ url('/') }}/teacher/{{ $course->Lecturers()->first()->teacher->id }}" title="{{ $course->Lecturers()->first()->user->name }}">
+                                    <a href="{{ url('/') }}/teacher/{{ $course->Lecturers()->first()->teacher->id }}" title="@if($course->Lecturers()->first()->user){{ $course->Lecturers()->first()->user->name }}@endif">
                                         {{ $lecturers }}
                                     </a>
                                     @endif

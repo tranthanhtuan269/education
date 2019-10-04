@@ -149,7 +149,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::group(['prefix' => 'comment'],function () {
             Route::get('comment-course', 'Backends\CommentController@getAllCommentCourse');
             Route::get('get-comment-course-ajax', 'Backends\CommentController@getAllCommentCourseAjax');
-
+            Route::delete('delete-comment-course', 'Backends\CommentController@deleteCommentCourse');
         });
         // End
 

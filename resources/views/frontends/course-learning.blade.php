@@ -284,13 +284,13 @@
 							<div class="one-course">
 								<div class="row">
 									<div class="col-xs-6">
-										<a href="/course/{{$related_course->slug}}">
+										<a href="/course/{{$related_course->id}}/{{$related_course->slug}}">
 											{{-- <img src="{{ asset("frontend/images/".$related_course->image)}}" alt="Courses" title="Courses"> --}}
 											<img src="{{ $related_course->image}}" alt="Courses" title="Courses">
 										</a>
 									</div>
 									<div class="col-xs-6">
-										<div class="title"><a href="/course/{{$related_course->slug}}">{{$related_course->name}}</a></div>
+										<div class="title"><a href="/course/{{$related_course->id}}/{{$related_course->slug}}">{{$related_course->name}}</a></div>
 										{{-- <div class="teacher">with {{$info_course->Lecturers()->first()->user->name}}</div> --}}
 										{{-- <div class="teacher">with {{$related_course->Lecturers()->first()->user->name}}</div> --}}
 										<span class="time">{{$related_course->duration}}</span>

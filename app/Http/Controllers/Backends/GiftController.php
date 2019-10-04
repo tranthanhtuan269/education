@@ -22,8 +22,6 @@ class GiftController extends Controller
 
     public function getGiftStudent()
     {
-        // $data = User::inRandomOrder()->limit(10)->get();
-        // dd($data);
         return view('backends.gift.givegift');
     }
 
@@ -32,9 +30,10 @@ class GiftController extends Controller
         $users = User::leftJoin('user_roles', 'user_roles.user_id', '=', 'users.id')
                       ->select('users.name', 'user_roles.id')
                       ->where('user_roles.role_id', \Config::get('app.student'))
+                      ->where('users.status', 1)
                       ->inRandomOrder()
                       ->limit($request->number)
-                      ->get();;
+                      ->get();
         return datatables()->collection($users)
             ->addColumn('id', function ($user) {
                 return $user->id;
@@ -215,7 +214,7 @@ class GiftController extends Controller
         Gift::insert($data);
         UserCourse::insert($data_user_courses);
         // Course::insert($data_student_count);
-        return \Response::json(array('status' => '200', 'message' => 'Has been succeeded!'));
+        return \Response::json(array('status' => '200', 'message' => 'Tặng khóa học thành công!'));
     }
 }
 

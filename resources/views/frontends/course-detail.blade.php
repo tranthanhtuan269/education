@@ -25,7 +25,7 @@
 website
 @stop
 @section('fb_og_url')
-http://45.56.82.249/course/{{ $info_course->slug }}
+http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
 @stop
 
 @section('content')
@@ -826,7 +826,7 @@ http://45.56.82.249/course/{{ $info_course->slug }}
             @endif
             <div class="facebook-comment">
                 <h3>Thảo luận</h3>
-                <div class="fb-comments" data-href="http://timtruyen.online/course/{{$info_course->slug}}" data-width="700" data-numposts="5"></div>
+                <div class="fb-comments" data-href="http://timtruyen.online/course/{{ $info_course->id }}/{{$info_course->slug}}" data-width="700" data-numposts="5"></div>
             </div>
         </div>
     </div>
