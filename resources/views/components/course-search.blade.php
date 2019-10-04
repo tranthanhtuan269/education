@@ -77,7 +77,7 @@
                                     @if ($course->Lecturers()->count() > 1)
                                     Nhiều tác giả
                                     @else    
-                                    <a href="{{ url('/') }}/teacher/{{ $course->Lecturers()->first()->teacher->id }}" title="{{ $course->Lecturers()->first()->user->name }}">
+                                    <a href="{{ url('/') }}/teacher/{{ $course->Lecturers()->first()->teacher->id }}" title="@if($course->Lecturers()->first()->user){{ $course->Lecturers()->first()->user->name }}@endif">
                                         {{ $lecturers }}
                                     </a>
                                     @endif
