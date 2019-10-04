@@ -39,6 +39,30 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="showVideoIntroModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content" >
+                <div class="modal-header">
+                    <h3>Video Intro</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group  col-sm-12 text-center">
+                            <iframe id="video-intro" src="" frameborder="0" width="545" height="280" allowscriptaccess="always" allowfullscreen="true"></iframe>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="form-group row">
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm-11">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 
 <script type="text/javascript">
