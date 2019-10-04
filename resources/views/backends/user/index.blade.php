@@ -1025,7 +1025,7 @@
                                 text: response.message
                             })
                             if(response.status == "200"){
-                                $("#sendEmailModal").modal("hide")
+                                $("#sendMultipleEmailModal").modal("hide")
                             }
                         },
                         error : function (response) {

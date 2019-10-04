@@ -18,7 +18,16 @@ class Helper
         if(Auth::check()){
             $user_id = Auth::user()->id;
             $user_role_list = Auth::user()->userRoles;
-
+            $course = \App\Course::find($course_id);
+            $lecturer_user_role = $course->Lecturers()->first();
+            if(Auth::user()->isAdmin()){
+                $demanding_user_course = new UserCourse;
+                $demanding_user_course->user_role_id = $lecturer_user_role->id;
+                $demanding_user_course->course_id = $course_id;
+                $demanding_user_course->videos = null;
+                $demanding_user_course->status = 1;
+                return $demanding_user_course;
+            }
             $demanding_user_course = null;
 
             foreach ($user_role_list as $key => $user_role) {
@@ -34,7 +43,6 @@ class Helper
         }else{
             $demanding_user_course = null;
         }
-
         return $demanding_user_course;
     }
 
@@ -67,11 +75,11 @@ class Helper
     public static function checkPermissions($permission, $list_roles){
 	    if (in_array($permission, $list_roles) || in_array('super-admin', $list_roles)) {
 	     	return true;
-		}  
+		}
 
 		return false;
     }
-    
+
     public static function getUserRoleOfTeacher($teacher_id)
     {
         if(Auth::check()){
@@ -108,11 +116,11 @@ class Helper
         $avcodec = '-c:v libx264 -strict -2';
         $time = '-ss ' . "00:00:00";
         $bitrate = '-vf scale='.$resolution.':-2';
-        
+
         $command = config('config.path_ffmpeg_exe') .' -i '.$input.' '.$time.' '.$avcodec.' '.$bitrate.' '.$output.' 1> '.$block_txt.' 2>&1';
         exec($command);
     }
-    
+
     public static function getYouTubeVideoId($url)
     {
         preg_match('/(http(s|):|)\/\/(www\.|)yout(.*?)\/(embed\/|watch.*?v=|)([a-z_A-Z0-9\-]{11})/i', $url, $results);
