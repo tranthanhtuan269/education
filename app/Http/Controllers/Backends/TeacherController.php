@@ -235,13 +235,20 @@ class TeacherController extends Controller
         if(isset($teacher_id)){
             $teacher = Teacher::find($teacher_id);
             if(isset($teacher)){
-                $teacher->status = \Config::get('app.teacher_blocked');
-                $teacher->save();
-
-                return response()->json([
-                    'status' => 200,
-                    'message' => 'Tắt chức năng giảng viên thành công!'
-                ]);
+                
+                if( $teacher->featured != 0 ){
+                    return response()->json([
+                        'status' => '302',
+                        'message' => 'Không thể hủy giảng viên tiêu biểu.'
+                    ]);
+                }else{
+                    $teacher->status = \Config::get('app.teacher_blocked');
+                    $teacher->save();
+                    return response()->json([
+                        'status' => 200,
+                        'message' => 'Tắt chức năng giảng viên thành công!'
+                    ]);
+                }
             }
         }else{
             return response()->json([

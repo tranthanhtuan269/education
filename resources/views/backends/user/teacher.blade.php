@@ -41,7 +41,7 @@
                         <span >Hành động trên các hàng đã chọn:</span>
                         {{-- <span class="btn btn-info ml-2" id="deleteAllApplied">Xóa</span> --}}
                         <span class="btn btn-info ml-2" id="acceptAllApplied">Duyệt</span>
-                        <span class="btn btn-info ml-2" id="inacceptAllApplied">Hủy</span>
+                        {{-- <span class="btn btn-info ml-2" id="inacceptAllApplied">Hủy</span> --}}
                     </p>
                 @endif
             </div>
@@ -356,6 +356,11 @@
                                         text : response.message
                                     })
                                     dataTable.ajax.reload()
+                                }else{
+                                    Swal.fire({
+                                        type : 'warning',
+                                        text : response.message
+                                    })
                                 }
                             },
                             error : (error) => {
