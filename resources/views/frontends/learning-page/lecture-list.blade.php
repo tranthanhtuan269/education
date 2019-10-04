@@ -32,7 +32,7 @@
                         @foreach ($videos_arr as $video)
                             @php
                                 $video_done_in_this_units = 0;
-                                $list_video_done_in_unit = $units[($unit->index)-1];
+                                $list_video_done_in_unit = $video_done_units[($unit->index)-1];
                                 if( isset( array_count_values($list_video_done_in_unit)[1] ) ){
                                     $video_done_in_this_units += array_count_values($list_video_done_in_unit)[1];
                                 }
@@ -58,7 +58,7 @@
                                 <span class="ln-lect-list-lect-duration">{{ App\Helper::convertSecondToTimeFormat($video->duration) }}</span>                                
                                 @if ($isStudent)
                                     @php
-                                        $list_video_done_in_unit = $units[($unit->index)-1];                  
+                                        $list_video_done_in_unit = $video_done_units[($unit->index)-1];                  
                                     @endphp
                                     @if ($list_video_done_in_unit[$video->index-1] == 1)
                                     <span class="ln-btn-complete" id="lnBtnComplete{{$video->id}}" data-child="{{$key2+1}}">
@@ -78,7 +78,7 @@
                                             </span>
                                         </button>
                                     </span>
-                                    @endif  
+                                    @endif                                    
                                 @endif
                             </a>
                         </li>
