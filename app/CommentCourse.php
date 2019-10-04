@@ -27,7 +27,12 @@ class CommentCourse extends Model
     }
 
     public function children(){
-    	return $this->hasMany('App\CommentCourse', 'parent_id');
+        $arr_comment_id = \DB::table('comment_courses')
+                        ->join('user_roles', 'user_roles.id', '=', 'comment_courses.user_role_id')
+                        ->join('users', 'users.id', '=', 'user_roles.user_id')
+                        ->where('users.status', 1)
+                        ->pluck('comment_courses.id');
+    	return $this->hasMany('App\CommentCourse', 'parent_id')->whereIn('id', $arr_comment_id);
     }
 
     public function like(){

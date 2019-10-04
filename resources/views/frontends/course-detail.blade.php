@@ -970,7 +970,7 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
             // console.log(current_skip)
             // console.log(current_take)
             request.done(function( data ) {
-                if(data == '' || {{ $info_course->comments()->count() }} <= current_skip + current_take){
+                if(data == '' || {{ $info_course->commentOfStudentBought()->count() }} <= current_skip + current_take){
                     $('.btn-see-more').hide();
                 }
                 $('.btn-see-more').attr('data-skip', current_skip + current_take);
