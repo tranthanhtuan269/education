@@ -12,15 +12,15 @@
 					<div class="frame clearfix frame-top">
 						<div class="avatar pull-left">
 							@if($info_teacher->userRole->user)
-							@if (strpos($info_teacher->userRole->user->avatar, 'unica') !== false)
-							<img src="{{ $info_teacher->userRole->user->avatar }}" alt="" />
-							@else
-							<img src="{{ url('frontend/'.$info_teacher->userRole->user->avatar) }}" alt="" />
-							@endif
-							<div class="info">
-								<p class="name">{{ $info_teacher->userRole->user->name }}</p>
-								<p class="expret">{{ $info_teacher->expert }}</p>
-							</div>
+								@if (strpos($info_teacher->userRole->user->avatar, 'unica') !== false)
+								<img src="{{ $info_teacher->userRole->user->avatar }}" alt="" />
+								@else
+								<img src="{{ url('frontend/'.$info_teacher->userRole->user->avatar) }}" alt="" />
+								@endif
+								<div class="info">
+									<p class="name">{{ $info_teacher->userRole->user->name }}</p>
+									<p class="expret">{{ $info_teacher->expert }}</p>
+								</div>
 							@endif
 						</div>
 						<div class="network pull-right network-teacher">
