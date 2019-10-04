@@ -60,7 +60,7 @@
                                     @php
                                         $list_video_done_in_unit = $video_done_units[($unit->index)-1];                  
                                     @endphp
-                                    @if(count($list_video_done_in_unit) >= ($video->index-2))
+                                    @if(count($list_video_done_in_unit) > ($video->index-2))
                                         @if ($list_video_done_in_unit[$video->index-1] == 1)
                                         <span class="ln-btn-complete" id="lnBtnComplete{{$video->id}}" data-child="{{$key2+1}}">
                                             <button >
