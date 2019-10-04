@@ -129,7 +129,9 @@
                 render: function(data, type, row){
                     var html = '';
                     @if (Helper::checkPermissions('videos.delete', $list_roles)) 
+                        if (row['state'] == 0){
                         html += '<a class="btn-delete" data-id="'+data+'" title="Xóa"><i class="fa fa-trash fa-fw" aria-hidden="true"></i></a>';
+                        }
                     @endif
                     return html;
                 },

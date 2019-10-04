@@ -575,6 +575,19 @@ class VideoController extends Controller
                 }
 
                 $video->delete();
+
+                $unit = $video->unit;
+                if($unit){
+                    $unit->video_count = $unit->video_count -1;
+                    $unit->save();
+                    if($course){
+                        $course = $unit->course;
+                        $course->video_count = $course->video_count -1;
+                        $course->save();
+                    }
+                }
+
+
                 $res = array('status' => "200", "message" => "Xóa thành công");
                 echo json_encode($res);die;
             }
