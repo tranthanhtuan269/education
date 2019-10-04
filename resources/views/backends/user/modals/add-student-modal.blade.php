@@ -1,5 +1,5 @@
     <div class="form-group row">
-        <label class="col-sm-3 col-form-label">Ảnh đại diện <span class="text-danger">*</span></label>
+        <label class="col-sm-3 col-form-label">Ảnh đại diện </label>
         <div class="col-sm-8 image-cropit-editor">
             <div>
                 <img id="imageStu" style="height:0px;" src="">
@@ -211,11 +211,13 @@ $(document).ready(function() {
 
     function clearAddStudentForm(){
         cropperAddStu.clear()
+        $('#addStuImgInput').val("")
+        
         $("#addStuName").val("")
         $('#addStuEmail').val("")
         $('#addStuPhone').val("")
         $('#addStuDob').val("")
-        $('#addStuGender').val("")
+        // $('#addStuGender').val("")
         $('#addStuAddress').val("")
         $('#addStuPassword').val("")
         $('#addStuCfPassword').val("")
