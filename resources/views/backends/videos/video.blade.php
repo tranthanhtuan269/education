@@ -27,7 +27,7 @@
                             <th scope="col">Khóa học</th>
                             <th scope="col">Cập nhật</th>
                             <th scope="col">Duyệt</th>
-                            <th scope="col">Xóa</th>
+                            {{-- <th scope="col">Xóa</th> --}}
                         </tr>
                     </thead>
                     <tbody>
@@ -127,18 +127,18 @@
                 },
                 orderable: false
             },
-            {
-                data: "action",
-                class: "text-center",
-                render: function(data, type, row){
-                    var html = '';
-                    @if (Helper::checkPermissions('videos.delete', $list_roles))
-                        html += '<a class="btn-delete" data-id="'+data+'" title="Xóa"><i class="fa fa-trash fa-fw" aria-hidden="true"></i></a>';
-                    @endif
-                    return html;
-                },
-                orderable: false
-            },
+            // {
+            //     data: "action",
+            //     class: "text-center",
+            //     render: function(data, type, row){
+            //         var html = '';
+            //         @if (Helper::checkPermissions('videos.delete', $list_roles))
+            //             html += '<a class="btn-delete" data-id="'+data+'" title="Xóa"><i class="fa fa-trash fa-fw" aria-hidden="true"></i></a>';
+            //         @endif
+            //         return html;
+            //     },
+            //     orderable: false
+            // },
         ];
 
         dataTable = $('#video-table').DataTable( {
