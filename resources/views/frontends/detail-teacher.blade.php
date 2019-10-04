@@ -11,23 +11,27 @@
 				<div class="item">
 					<div class="frame clearfix frame-top">
 						<div class="avatar pull-left">
-							@if (strpos($info_teacher->userRole->user->avatar, 'unica') !== false)
-							<img src="{{ $info_teacher->userRole->user->avatar }}" alt="" />
-							@else
-							<img src="{{ url('frontend/'.$info_teacher->userRole->user->avatar) }}" alt="" />
+							@if($info_teacher->userRole->user)
+								@if (strpos($info_teacher->userRole->user->avatar, 'unica') !== false)
+								<img src="{{ $info_teacher->userRole->user->avatar }}" alt="" />
+								@else
+								<img src="{{ url('frontend/'.$info_teacher->userRole->user->avatar) }}" alt="" />
+								@endif
+								<div class="info">
+									<p class="name">{{ $info_teacher->userRole->user->name }}</p>
+									<p class="expret">{{ $info_teacher->expert }}</p>
+								</div>
 							@endif
-							<div class="info">
-								<p class="name">{{ $info_teacher->userRole->user->name }}</p>
-								<p class="expret">{{ $info_teacher->expert }}</p>
-							</div>
 						</div>
 						<div class="network pull-right network-teacher">
 							<a class="btn btn-default btn-xs" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(url()->current()); ?>" target="_blank">
 								<i class="fas fa-share-alt fa-fw"></i> Chia sẻ Facebook
 							</a>
+							@if($info_teacher->userRole->user)
 							<a  class="btn btn-default btn-xs" href="{{ $info_teacher->userRole->user->facebook }}" target="_blank">
 								<i class="fab fa-facebook-square fa-fw"></i>Facebook Giảng viên
 							</a>
+							@endif
 						</div>
 					</div>
 					<div class="frame_2 frame_2-top">
@@ -73,7 +77,9 @@
 	<div class="row">
 		<div class="col-xs-12 clearfix title-module-home">
 			<div class="pull-left">
-			<h3>Khóa học của giảng viên {{$info_teacher->userRole->user->name}}</h3>
+				@if($info_teacher->userRole->user)
+				<h3>Khóa học của giảng viên {{$info_teacher->userRole->user->name}}</h3>
+				@endif
 			</div>
 		</div><br><br>
 		<div class="col-sm-12">

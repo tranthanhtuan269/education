@@ -487,7 +487,7 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                     <h3>Thông tin giảng viên</h3>
                 </div>
                 @foreach ($info_course->Lecturers() as $lecturer)
-                @if($lecturer->teacher)
+                @if($lecturer->teacher && $lecturer->user)
                 <div class="col-xs-12">
                     <div class="row">
                         <div class="col-sm-3 avatar-center">
@@ -1195,7 +1195,7 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                 'image' : '{!! $info_course->image !!}',
                 'slug' : '{!! $info_course->slug !!}',                
                 @if(count($info_course->Lecturers()) > 0)
-                'lecturer' : "{!! $info_course->Lecturers()[0]->user->name !!}",
+                'lecturer' : "@if($info_course->Lecturers()[0]->user){!! $info_course->Lecturers()[0]->user->name !!}@else Courdemy @endif",
                 @else
                 'lecturer' : 'Nhiều giảng viên',
                 @endif

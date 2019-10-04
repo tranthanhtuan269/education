@@ -41,14 +41,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        
+
                     </tbody>
                 </table>
                 @if (Helper::checkPermissions('users.delete_roles', $list_roles))
                     <p class="action-selected-rows">
                         <span >Hành động trên các hàng đã chọn:</span>
                         <span class="btn btn-info ml-2" id="apply-all-btn">Xóa</span>
-                    </p> 
+                    </p>
                 @endif
             </div>
             <div id="edit_permission_modal" class="modal fade" tabindex="-1" role="dialog">
@@ -100,7 +100,7 @@
                 <div class="col-sm-8">
                     <input type="hidden" id="roleID_upd" value="">
                     <input type="text" class="form-control" id="roleName_upd">
-                    <div class="alert-errors" role="alert" id="roleNameErrorUpd"></div>
+                    <div class="alert-errors" role="alert" id="nameErrorUpd"></div>
                 </div>
             </div>
             <div class="form-group row">
@@ -108,7 +108,11 @@
                 <div class="col-sm-8" id="permistion-group">
                     <select id="permission-list" multiple="multiple">
                     </select>
+                    <div class="alert-errors" role="alert" id="permissionErrorUpd"></div>
                 </div>
+                <div class="col-sm-4"></div>
+                <div class="col-sm-8 alert-errors" role="alert" id="permissionErrorUpd"></div>
+
             </div>
           </div>
           <div class="modal-footer">
@@ -134,7 +138,7 @@
                 <div class="col-sm-8">
                     <input type="text" class="form-control" id="roleName_ins" >
                     <div class="alert-errors" role="alert" id="nameErrorIns">
-                      
+
                     </div>
                 </div>
             </div>
@@ -159,6 +163,9 @@
                         echo $html;
                     ?>
                     </select>
+                    <div class="alert-errors" role="alert" id="permissionErrorIns">
+
+                    </div>
                 </div>
             </div>
           </div>
@@ -200,12 +207,12 @@
     var current_page            = 0;
     var old_search              = '';
     var errorConnect            = "Please check your internet connection and try again.";
-    
+
     $(document).ready(function(){
 
         function clearFormCreate(){
             $('#roleName_ins').val('')
-            $('input[type=checkbox]').prop('checked',false); 
+            $('input[type=checkbox]').prop('checked',false);
             $('.multiselect-selected-text').html('None selected');
             $('.alert-danger').hide();
         }
@@ -216,12 +223,22 @@
 
         $('#create-role-btn').click(function(){
             var name = $('#roleName_ins').val();
+            var permission = $('#permission-list-ins').val().toString() + ','
             name = name.replace(/\s\s+/g, ' ');
-            var data    = {
-                name                : name,
-                permission          : $('#permission-list-ins').val().toString() + ',',
-                _method             : "POST"
-            };
+            if(permission !== ','){
+                var data    = {
+                    name                : name,
+                    permission          : $('#permission-list-ins').val().toString() + ',',
+                    _method             : "POST"
+                };
+            }else{
+                var data    = {
+                    name                : name,
+                    _method             : "POST"
+                };
+            }
+            console.log(data);
+
             $.ajaxSetup({
                 headers: {
                   'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
@@ -278,7 +295,7 @@
         window.onbeforeunload = function() {
             new_permission_list    = $('#permission-list').val().toString() + ',';
 
-            if($('#edit_role_modal').hasClass('show') && ( 
+            if($('#edit_role_modal').hasClass('show') && (
                 $('#roleName_upd').val() != curr_role_name ||
                 new_permission_list != curr_permission_list)
                 ){
@@ -332,11 +349,11 @@
                     console.log('Error:', data);
                 }
             });
-           
+
         });
 
         var dataObject = [
-            // { 
+            // {
             //     data: "all",
             //     class: "all-role",
             //     render: function(data, type, row){
@@ -344,7 +361,7 @@
             //     },
             //     orderable: false
             // },
-            { 
+            {
                 data: "rows",
                 class: "rows-item",
                 render: function(data, type, row){
@@ -352,21 +369,21 @@
                 },
                 orderable: false
             },
-            { 
+            {
                 data: "name",
                 class: "name-field"
             },
-            { 
-                data: "action", 
+            {
+                data: "action",
                 class: "action-field",
                 render: function(data, type, row){
                     var html = '';
-                    
+
                     @if (Helper::checkPermissions('users.edit_roles', $list_roles))
                         html += '<span class="mr-2 btn-edit" data-id="'+data+'" data-name="'+row.name+'" title="Sửa"><i class="fa fa-edit"></i></a></span>';
                     @endif
 
-                    @if (Helper::checkPermissions('users.delete_roles', $list_roles)) 
+                    @if (Helper::checkPermissions('users.delete_roles', $list_roles))
                         html += '<span class="btn-delete" data-id="'+data+'" title="Xóa"><i class="fa fa-trash" aria-hidden="true"></i></span>';
                     @endif
 
@@ -421,13 +438,13 @@
         //         scrollTop: $("#role-table").offset().top},
         //         'slow');
         // } );
-        
+
         $('#role-table').css('width', '100%');
 
         dataTable.search('').draw();
 
         //select all checkboxes
-        $("#select-all-btn").change(function(){  
+        $("#select-all-btn").change(function(){
             $('#role-table tbody input[type="checkbox"]').prop('checked', $(this).prop("checked"));
             // save localstore
             setCheckboxChecked();
@@ -435,7 +452,7 @@
 
         $('body').on('click', '#role-table tbody input[type="checkbox"]', function() {
             if(false == $(this).prop("checked")){
-                $("#select-all-btn").prop('checked', false); 
+                $("#select-all-btn").prop('checked', false);
             }
             if ($('#role-table tbody input[type="checkbox"]:checked').length == $('#role-table tbody input[type="checkbox"]').length ){
                 $("#select-all-btn").prop('checked', true);
@@ -603,11 +620,20 @@
 
             var name = $('#roleName_upd').val();
             name = name.replace(/\s\s+/g, ' ');
-            var data    = {
-                name                : name,
-                permission          : $('#permission-list').val().toString() + ',',
-                _method             : "PUT"
-            };
+            var permission = $('#permission-list').val().toString() + ','
+
+            if(permission !== ','){
+                var data    = {
+                    name                : name,
+                    permission          : $('#permission-list').val().toString() + ',',
+                    _method             : "PUT"
+                };
+            }else{
+                var data    = {
+                    name                : name,
+                    _method             : "PUT"
+                };
+            }
             $.ajaxSetup({
                 headers: {
                   'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
@@ -640,8 +666,11 @@
                 error: function (data) {
                     if(data.status == 422){
                         $.each(data.responseJSON.errors, function( index, value ) {
-                            $('#roleNameErrorUpd').html(value);
-                            $('#roleNameErrorUpd').show();
+                            console.log(`#${index}ErrorUpd`);
+                            console.log(value);
+
+                            $(`#${index}ErrorUpd`).html(value);
+                            $(`#${index}ErrorUpd`).show();
                         });
                     }else{
                         if(data.status == 401){
@@ -668,7 +697,7 @@
                    return Swal.fire({
                         type: 'info',
                         text: 'Bạn chưa chọn tài khoản nào!'
-                    })   
+                    })
             }
             else{
                 Swal.fire({
@@ -715,7 +744,7 @@
                                                 text: obj.Message
                                             })
 
-                                            dataTable.ajax.reload(); 
+                                            dataTable.ajax.reload();
                                         } else {
                                             Swal.fire({
                                                 type: 'warning',
