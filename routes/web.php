@@ -18,15 +18,12 @@
 Auth::routes();
 
 Route::get('test2', function(){
-    $courses = \App\Course::all();
-    foreach ($courses as $key => $course) {
-        # code...
-        // dd($course->real_price + 100000);
-
-        $course->real_price = intval($course->price) + 100000;
-        $course->save();
-    }
-    echo 'done!';
+    $arr_products = \App\User::find(430)->products;
+    $arr_products = str_replace('[','',$arr_products);
+    $arr_products = str_replace(']','',$arr_products);
+    $arr_products = explode(",",$arr_products);
+    $check = array_search(678, $arr_products);
+    dd($check);
 });
 
 Route::get('thay-state-video', function(){
