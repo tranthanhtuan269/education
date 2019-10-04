@@ -407,12 +407,12 @@ class VideoController extends Controller
 
             return response()->json([
                 'status' => 200,
-                'message' => 'Video is verified!',
+                'message' => 'Bài giảng đã được duyệt!',
             ]);
         }
         return response()->json([
             'status' => 404,
-            'message' => 'Video is not found!',
+            'message' => 'Không tìm thấy bài giảng!',
         ]);
     }
 
@@ -500,7 +500,7 @@ class VideoController extends Controller
                     dispatch(new ProcessLecture($path_480, $request->video_id, $video->link_video, 480));
                     dispatch(new ProcessLecture($path_360, $request->video_id, $video->link_video, 360));
 
-                    $res = array('status' => "200", "message" => "Duyệt thành công");
+                    $res = array('status' => "200", "message" => "Bài giảng đang được convert");
                 } else {
                     // BaTV - Nếu hủy bất kỳ video nào trong khóa học đó =>  Khóa học tương ứng sẽ hủy theo
                     $course = $video->unit->course;
