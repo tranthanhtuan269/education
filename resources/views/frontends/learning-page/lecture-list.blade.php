@@ -32,7 +32,7 @@
                         @foreach ($videos_arr as $video)
                             @php
                                 $video_done_in_this_units = 0;
-                                $list_video_done_in_unit = video_done_units[($unit->index)-1];
+                                $list_video_done_in_unit = $video_done_units[($unit->index)-1];
                                 if( isset( array_count_values($list_video_done_in_unit)[1] ) ){
                                     $video_done_in_this_units += array_count_values($list_video_done_in_unit)[1];
                                 }
