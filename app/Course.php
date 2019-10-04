@@ -118,11 +118,24 @@ class Course extends Model
         //     return $this->hasMany('App\CommentCourse')->orderBy('created_at', 'desc');
         // }
         // return $this->hasMany('App\CommentCourse')->where('state', 1);
-        return $this->hasMany('App\CommentCourse')->orderBy('created_at', 'desc');
+
+        // return $this->hasMany('App\CommentCourse')->orderBy('created_at', 'desc');
+        $arr_comment_id = \DB::table('comment_courses')
+                        ->join('user_roles', 'user_roles.id', '=', 'comment_courses.user_role_id')
+                        ->join('users', 'users.id', '=', 'user_roles.user_id')
+                        ->where('users.status', 1)
+                        ->pluck('comment_courses.id');
+
+        return $this->hasMany('App\CommentCourse')->whereIn('id', $arr_comment_id)->orderBy('created_at', 'desc');
+
     }
 
     public function takeComment($from, $take){
         return $this->comments()->where('parent_id', 0)->skip($from)->take($take)->get();
+    }
+
+    public function commentOfStudentBought(){
+        return $this->comments()->where('parent_id', 0)->get();
     }
     
     public function videos()
