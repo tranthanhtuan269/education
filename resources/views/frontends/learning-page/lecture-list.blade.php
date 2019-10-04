@@ -57,34 +57,30 @@
                                 <span class="ln-lect-list-lect-title">{{ $video->name }}</span>
                                 <span class="ln-lect-list-lect-duration">{{ App\Helper::convertSecondToTimeFormat($video->duration) }}</span>                                
                                 @if ($isStudent)
-                                    @dd($units)
                                     @php
-                                        $list_video_done_in_unit = $units[($unit->index)-1];                  
+                                        $list_video_done_in_unit = $video_done_units[($unit->index)-1];                  
                                     @endphp
-                                    {{ count($list_video_done_in_unit) }} - {{ $video->index }}
-                                    @if(count($list_video_done_in_unit) > $video->index-1)
-                                        @if($list_video_done_in_unit[$video->index-1])
-                                            @if ($list_video_done_in_unit[$video->index-1] == 1)
-                                            <span class="ln-btn-complete" id="lnBtnComplete{{$video->id}}" data-child="{{$key2+1}}">
-                                                <button >
-                                                    <span class="fa-stack">
-                                                        <i class="fas fa-circle fa-stack-2x" style="color: #44b900;"></i>
-                                                        <i class="fas fa-check fa-stack-1x" style="color: #ffffff;"></i>
-                                                    </span>
-                                                </button>
-                                            </span>
-                                            @elseif($list_video_done_in_unit[$video->index-1] == 0)
-                                            <span class="ln-btn-complete" id="lnBtnNotComplete{{$video->id}}" data-child="{{$key2+1}}">
-                                                <button class="ln-btn-complete " >
-                                                    <span class="fa-stack">
-                                                        <i class="fas fa-circle fa-stack-2x" style="color: rgb(200, 201, 202);"></i>
-                                                        <i class="fas fa-check fa-stack-1x" style="color: rgb(200, 201, 202)"></i>                         
-                                                    </span>
-                                                </button>
-                                            </span>
-                                            @endif  
-                                        @endif 
-                                    @endif                                 
+                                    @if(isset($list_video_done_in_unit[$video->index-1]))
+                                        @if ($list_video_done_in_unit[$video->index-1] == 1)
+                                        <span class="ln-btn-complete" id="lnBtnComplete{{$video->id}}" data-child="{{$key2+1}}">
+                                            <button >
+                                                <span class="fa-stack">
+                                                    <i class="fas fa-circle fa-stack-2x" style="color: #44b900;"></i>
+                                                    <i class="fas fa-check fa-stack-1x" style="color: #ffffff;"></i>
+                                                </span>
+                                            </button>
+                                        </span>
+                                        @elseif($list_video_done_in_unit[$video->index-1] == 0)
+                                        <span class="ln-btn-complete" id="lnBtnNotComplete{{$video->id}}" data-child="{{$key2+1}}">
+                                            <button class="ln-btn-complete " >
+                                                <span class="fa-stack">
+                                                    <i class="fas fa-circle fa-stack-2x" style="color: rgb(200, 201, 202);"></i>
+                                                    <i class="fas fa-check fa-stack-1x" style="color: rgb(200, 201, 202)"></i>                         
+                                                </span>
+                                            </button>
+                                        </span>
+                                        @endif  
+                                    @endif                                  
                                 @endif
                             </a>
                         </li>
