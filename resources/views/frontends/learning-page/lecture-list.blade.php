@@ -58,7 +58,7 @@
                                 <span class="ln-lect-list-lect-duration">{{ App\Helper::convertSecondToTimeFormat($video->duration) }}</span>                                
                                 @if ($isStudent)
                                     @php
-                                        $list_video_done_in_unit = $video_done_units[($unit->index)-1];                  
+                                        $list_video_done_in_unit = $units[($unit->index)-1];                  
                                     @endphp
                                     {{ count($list_video_done_in_unit) }} - {{ $video->index }}
                                     @if(count($list_video_done_in_unit) > $video->index-1)
