@@ -1,7 +1,10 @@
 <?php
     // if($course->vote_count == 0) $course->vote_count = 1;
     $random_name = ['Steve Rogers', 'Natasha Romanoff', 'Tony Stark', 'Peter Quill', "Bruce Banner", "Stephen Strange"];
-    $lecturers = count($course->Lecturers()) > 1 ? 'Nhiều tác giả' : (count($course->Lecturers()) > 0 ? $course->Lecturers()->first()->user->name : "Courdemy");
+    // $lecturers = count($course->Lecturers()) > 1 ? 'Nhiều tác giả' : (count($course->Lecturers()) > 0 ? $course->Lecturers()->first()->user->name : "Courdemy");
+    // dd($course->Lecturers()->first()->user->name);
+    $lecturers = count($course->Lecturers()) > 0 ? $course->Lecturers()->first()->user->name : "Courdemy";
+
 ?>
 <div class="col-md-3 col-sm-6">
     <div class="box-course course-search">

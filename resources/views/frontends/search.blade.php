@@ -29,11 +29,13 @@
                     @if (count($results) > 0)
                     <div class="row">
                         <div class="col-xs-12">
-                            <h2>{{ $results->total() }} kết quả được tìm thấy</h2>
+                            {{-- <h2>{{ $results->total() }} kết quả được tìm thấy</h2> --}}
+                            <h2>{{ count($results) }} kết quả được tìm thấy</h2>
                         </div>
+                        <?php dd($results[4]->Lecturers()->first()); ?>
                         @foreach ($results as $result)
                         <?php
-                            $lecturers = count($result->Lecturers()) > 1 ? 'Nhiều tác giả' : count($result->Lecturers()) > 0 ? $result->Lecturers()[0]->user->name : "Courdemy";
+                            // $lecturers = count($result->Lecturers()) > 1 ? 'Nhiều tác giả' : count($result->Lecturers()) > 0 ? $result->Lecturers()[0]->user->name : "Courdemy";
                         ?>
                         @include(
                             'components.course-search', 
