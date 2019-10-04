@@ -282,7 +282,7 @@
         ];
 
         dataTable = $('#notification-table').DataTable( {
-                        serverSide: true,
+                        serverSide: false,
                         aaSorting: [],
                         stateSave: true,
                         search: {
@@ -443,8 +443,9 @@
                                   Swal.fire({
                                       type: 'success',
                                       text: response.message
-                                  })
-                                  dataTable.ajax.reload();
+                                  }).then( result => {
+                                        location.reload()
+                                    })
                                 }else{
                                   Swal.fire({
                                       type: 'warning',
@@ -511,8 +512,9 @@
                                         Swal.fire({
                                             type: 'success',
                                             text: response.message
+                                        }).then( result => {
+                                            location.reload()
                                         })
-                                        dataTable.ajax.reload();
                                     },
                                     error: function (response) {
                                         Swal.fire({
@@ -632,10 +634,11 @@
                     // })
                     if(response.status == 200){
                         $("#editEmailModal").modal("hide")
-                        dataTable.ajax.reload();
                         Swal.fire({
                             type: 'success',
                             text: response.message
+                        }).then( result => {
+                            location.reload()
                         })
                     }else {
                         Swal.fire({

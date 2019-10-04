@@ -241,9 +241,9 @@
         ];
 
         dataTable = $('#permission-table').DataTable( {
-                        serverSide: true,
+                        serverSide: false,
                         aaSorting: [],
-                        stateSave: false,
+                        stateSave: true,
                         search: {
                             smart: false
                         },
@@ -402,8 +402,9 @@
                                     Swal.fire({
                                         type: 'success',
                                         text: response.Message
+                                    }).then( result => {
+                                        location.reload()
                                     })
-                                    dataTable.ajax.reload();
                                 }else{
                                     Swal.fire({
                                         type: 'warning',
@@ -462,9 +463,9 @@
                         Swal.fire({
                             type: 'success',
                             text: response.Message
+                        }).then( result => {
+                            location.reload()
                         })
-                        dataTable.ajax.reload();
-                        clearErrorEdit();
                     }
                 },
                 error: function (data) {
@@ -542,12 +543,12 @@
                                                     $(this).parent().parent().hide("slow");
                                                 }
                                             });
-                                            dataTable.ajax.reload(); 
                                             Swal.fire({
                                                 type: 'success',
                                                 text: obj.Message
+                                            }).then( result => {
+                                                location.reload()
                                             })
-
                                         }
                                     },
                                     error: function (data) {

@@ -692,9 +692,9 @@
         ];
 
         dataTable = $('#account-table').DataTable( {
-                        serverSide: true,
+                        serverSide: false,
                         // aaSorting: [],
-                        stateSave: false,
+                        stateSave: true,
                         search: {
                             smart: false
                         },
@@ -863,7 +863,7 @@
                             },
                             success: function (response) {
                                 if(response.status == 200){
-                                    dataTable.ajax.reload();
+                                    // dataTable.ajax.reload();
                                     // if(_self.parent().parent()){
                                     //     _self.find('i').removeClass('fa-check').addClass('fa-times');
                                     //     _self.removeClass('not-block-user').addClass('block-user');
@@ -875,12 +875,16 @@
                                         Swal.fire({
                                             type: 'success',
                                             text: "Bạn đã bỏ chặn thành công"
+                                        }).then( result => {
+                                            location.reload()
                                         })
                                     }
                                     else {
                                         Swal.fire({
                                             type: 'success',
                                             text:"Bạn đã chặn thành công"
+                                        }).then( result => {
+                                            location.reload()
                                         })
                                     }
                                 }else{
