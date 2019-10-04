@@ -107,6 +107,15 @@ class User extends Authenticatable
         }
     }
 
+    public function notRegisteredTeacher(){
+        $user_role_teacher = $this->hasMany('App\UserRole')->where('role_id', \Config::get('app.teacher'))->first();
+        if( !$user_role_teacher ){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public function isTeacher(){ //giảng viên được active
         $user_role_teacher = $this->hasMany('App\UserRole')->where('role_id', \Config::get('app.teacher'))->first();
         if(isset($user_role_teacher->teacher) && $user_role_teacher->teacher->status == 1){
