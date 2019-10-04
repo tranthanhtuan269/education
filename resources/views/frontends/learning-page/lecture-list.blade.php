@@ -57,6 +57,7 @@
                                 <span class="ln-lect-list-lect-title">{{ $video->name }}</span>
                                 <span class="ln-lect-list-lect-duration">{{ App\Helper::convertSecondToTimeFormat($video->duration) }}</span>                                
                                 @if ($isStudent)
+                                    @dd($units)
                                     @php
                                         $list_video_done_in_unit = $units[($unit->index)-1];                  
                                     @endphp
