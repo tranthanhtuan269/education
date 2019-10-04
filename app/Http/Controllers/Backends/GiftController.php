@@ -81,6 +81,19 @@ class GiftController extends Controller
                             ];
 
                             $course = Course::find($course_id);
+
+                            //Không tặng khóa học cho chính tác giả
+                            $products = [];
+                            $arr_products = \App\User::find($user_id)->products;
+                            $arr_products = str_replace('[','',$arr_products);
+                            $arr_products = str_replace(']','',$arr_products);
+                            $arr_products = explode(",",$arr_products);
+                            $check = array_search($course->id, $arr_products);
+                            if ($check){
+                                continue;
+                            }
+                            // End 
+
                             if ($course) {
                                 $video_count        = $course->video_count;
                                 $first_video_index  = 1;
@@ -143,6 +156,18 @@ class GiftController extends Controller
                         $user_id = UserRole::find($student)->user_id;
                         $course_id = $arr_new_gift_course_id[$random_keys];
                         $course = Course::find($course_id);
+
+                        //Không tặng khóa học cho chính tác giả
+                        $products = [];
+                        $arr_products = \App\User::find($user_id)->products;
+                        $arr_products = str_replace('[','',$arr_products);
+                        $arr_products = str_replace(']','',$arr_products);
+                        $arr_products = explode(",",$arr_products);
+                        $check = array_search($course->id, $arr_products);
+                        if ($check){
+                            continue;
+                        }
+                        // End 
 
                         if ($course) {
                             $video_count = $course->video_count;
