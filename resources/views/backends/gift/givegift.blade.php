@@ -202,7 +202,12 @@
                             search: {
                                 smart: false
                             },
-                            ajax: "{{ url('/') }}/admincp/gifts/getGiftStudentAjax?number="  + $('input[name="student-number"]').val(),
+                            ajax:{
+                                url: "{{ url('/') }}/admincp/gifts/getGiftStudentAjax?number="  + $('input[name="student-number"]').val(),
+                                beforeSend: function() {
+                                    $(".ajax_waiting").addClass("loading");
+                                }
+                            },  
                             columns: dataObject,
                             bLengthChange: true,
                             pageLength: 10,

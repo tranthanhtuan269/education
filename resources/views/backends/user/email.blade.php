@@ -288,6 +288,7 @@
                         search: {
                             smart: false
                         },
+
                         ajax: {
                             url: "{{ url('/') }}/admincp/emails/getEmailAjax",
                             beforeSend: function() {

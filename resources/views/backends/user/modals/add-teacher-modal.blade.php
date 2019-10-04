@@ -1,6 +1,6 @@
 <div class="tab-pane" id="tab_add_teacher">
     <div class="form-group row">
-        <label class="col-sm-3 col-form-label">Ảnh đại diện <span class="text-danger">*</span></label>
+        <label class="col-sm-3 col-form-label">Ảnh đại diện </label>
         <div class="col-sm-8 image-cropit-editor">
             <div>
                 <img id="imageTch" style="height:0px;" src="">
@@ -271,11 +271,13 @@ $(document).ready(function() {
 
     function clearAddTeacherForm(){
         cropper.clear()
+        $('#imageTch').attr('src','')
+        $('#addTchImgInput').val('')
         $("#addTchName").val("")
         $('#addTchEmail').val("")
         $('#addTchPhone').val("")
         $('#addTchDob').val("")
-        $('#addTchGender').val("")
+        // $('#addTchGender').val("")
         $('#addTchAddress').val("")
         $('#addTchExpert').val("")
         $('#addTchYoutube').val("")

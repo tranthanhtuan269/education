@@ -703,7 +703,7 @@
                             beforeSend: function() {
                                 $(".ajax_waiting").addClass("loading");
                             }
-                        },
+                        }, 
                         columns: dataObject,
                         // bLengthChange: false,
                         // pageLength: 10,

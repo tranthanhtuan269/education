@@ -288,7 +288,7 @@
             includeSelectAllOption: true,
             includeSelectAllIfMoreThan: 0,
             numberDisplayed: 2,
-            enableClickableOptGroups: true
+            // enableClickableOptGroups: true
         });
 
 
@@ -402,7 +402,12 @@
                         search: {
                             smart: false
                         },
-                        ajax: "{{ url('/') }}/admincp/roles/getDataAjax",
+                        ajax:{
+                            url: "{{ url('/') }}/admincp/roles/getDataAjax",
+                            beforeSend: function() {
+                                $(".ajax_waiting").addClass("loading");
+                            }
+                        }, 
                         columns: dataObject,
                         // bLengthChange: false,
                         // pageLength: 25,
@@ -518,7 +523,7 @@
                         includeSelectAllOption: true,
                         includeSelectAllIfMoreThan: 0,
                         numberDisplayed: 2,
-                        enableClickableOptGroups: true
+                        // enableClickableOptGroups: true
                     });
 
                     $('#edit_role_modal').modal('show');
@@ -584,8 +589,9 @@
                                   Swal.fire({
                                         type: 'success',
                                         text: response.Message
+                                    }).then(result => {
+                                        location.reload()
                                     })
-                                  dataTable.ajax.reload();
                                 }else{
                                     Swal.fire({
                                         type: 'warning',
@@ -656,6 +662,8 @@
                       Swal.fire({
                             type: 'success',
                             text: response.Message
+                        }).then(result => {
+                            location.reload()
                         })
                     }else{
                         $('#roleNameErrorUpd').html(response.Message);
@@ -742,9 +750,10 @@
                                             Swal.fire({
                                                 type: 'success',
                                                 text: obj.Message
-                                            })
 
-                                            dataTable.ajax.reload();
+                                            }).then(result => {
+                                                location.reload()
+                                            })
                                         } else {
                                             Swal.fire({
                                                 type: 'warning',

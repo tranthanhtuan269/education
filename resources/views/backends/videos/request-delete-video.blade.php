@@ -154,7 +154,12 @@
                         search: {
                             smart: false
                         },
-                        ajax: "{{ url('/') }}/admincp/request-delete-videos/getRequestDeleteVideoAjax",
+                        ajax:{
+                            url: "{{ url('/') }}/admincp/request-delete-videos/getRequestDeleteVideoAjax",
+                            beforeSend: function() {
+                                $(".ajax_waiting").addClass("loading");
+                            }
+                        }, 
                         columns: dataObject,
                         bLengthChange: true,
                         pageLength: 10,
