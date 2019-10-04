@@ -77,7 +77,9 @@
 	<div class="row">
 		<div class="col-xs-12 clearfix title-module-home">
 			<div class="pull-left">
-			<h3>Khóa học của giảng viên {{$info_teacher->userRole->user->name}}</h3>
+				@if($info_teacher->userRole->user)
+				<h3>Khóa học của giảng viên {{$info_teacher->userRole->user->name}}</h3>
+				@endif
 			</div>
 		</div><br><br>
 		<div class="col-sm-12">
