@@ -80,6 +80,15 @@
                                             </button>
                                         </span>
                                         @endif 
+                                    @else
+                                        <span class="ln-btn-complete" id="lnBtnNotComplete{{$video->id}}" data-child="{{$key2+1}}">
+                                            <button class="ln-btn-complete " >
+                                                <span class="fa-stack">
+                                                    <i class="fas fa-circle fa-stack-2x" style="color: rgb(200, 201, 202);"></i>
+                                                    <i class="fas fa-check fa-stack-1x" style="color: rgb(200, 201, 202)"></i>                         
+                                                </span>
+                                            </button>
+                                        </span>
                                     @endif                                  
                                 @endif
                             </a>
