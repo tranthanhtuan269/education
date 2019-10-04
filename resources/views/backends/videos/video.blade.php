@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 <section class="content-header">
-    
+
 </section>
 <section class="content page">
     <h1 class="text-center font-weight-600">Danh sách bài giảng</h1>
@@ -31,7 +31,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        
+
                     </tbody>
                 </table>
             </div>
@@ -75,10 +75,10 @@
 
     $(document).ready(function(){
         window.onbeforeunload = function() {
-            if($('#edit_user_modal').hasClass('show') && ( 
+            if($('#edit_user_modal').hasClass('show') && (
                 $('#userName_upd').val() != curr_user_name ||
                 $('#userEmail_upd').val() != curr_user_email ||
-                $('#userPassword_upd').val() != 'not_change' || 
+                $('#userPassword_upd').val() != 'not_change' ||
                 $('#passConfirm_upd').val() != 'not_change' )
                 ){
                 return "Bye now!";
@@ -90,12 +90,12 @@
         })
 
         var dataObject = [
-            { 
+            {
                 data: "name",
                 class: "name-field",
                 orderable: false
             },
-            { 
+            {
                 data: "link_video",
                 class: "video-item",
                 render: function(data, type, row){
@@ -111,14 +111,14 @@
             {
                 data: "updated_at",
             },
-            { 
+            {
                 data: "action",
                 class: "text-center",
                 render: function(data, type, row){
                     var html = '';
-                    @if (Helper::checkPermissions('videos.accept-video', $list_roles)) 
+                    @if (Helper::checkPermissions('videos.accept-video', $list_roles))
                         if(row['state'] == 1){
-                            html += '<a class="btn-accept mr-2 accept-video" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Hủy"> <i class="fa fa-times fa-fw"></i></a>';
+                            html += '<a class="btn-accept mr-2 disable-video" data-id="'+data+'" title="Hủy"> <i class="fa fa-times fa-fw"></i></a>';
                         }else{
                             html += '<a class="btn-accept mr-2 accept-video" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Duyệt"> <i class="fa fa-check fa-fw"></i></a>';
                         }
@@ -127,12 +127,12 @@
                 },
                 orderable: false
             },
-            { 
+            {
                 data: "action",
                 class: "text-center",
                 render: function(data, type, row){
                     var html = '';
-                    @if (Helper::checkPermissions('videos.delete', $list_roles)) 
+                    @if (Helper::checkPermissions('videos.delete', $list_roles))
                         html += '<a class="btn-delete" data-id="'+data+'" title="Xóa"><i class="fa fa-trash fa-fw" aria-hidden="true"></i></a>';
                     @endif
                     return html;
@@ -185,7 +185,7 @@
                             checkCheckboxChecked();
                         },
                         createdRow: function( row, data, dataIndex){
-                            
+
                             if(data['state'] == 1){
                                 $(row).addClass('blue-row');
                             }else if(data['state'] == 3){
@@ -198,7 +198,7 @@
                             $(row).attr('data-video', data['link_video']);
                         }
                     });
-                    
+
         var search = "{{ Request::get('search') }}";
 
         if ( search != '') {
@@ -210,7 +210,7 @@
         $('#video-table').css('width', '100%');
 
         //select all checkboxes
-        $("#select-all-btn").change(function(){  
+        $("#select-all-btn").change(function(){
             $('.page table tbody input[type="checkbox"]').prop('checked', $(this).prop("checked"));
             // save localstore
             setCheckboxChecked();
@@ -218,7 +218,7 @@
 
         $('body').on('click', '.page table tbody input[type="checkbox"]', function() {
             if(false == $(this).prop("checked")){
-                $("#select-all-btn").prop('checked', false); 
+                $("#select-all-btn").prop('checked', false);
             }
             if ($('.page table tbody input[type="checkbox"]:checked').length == $('.page table tbody input[type="checkbox"]').length ){
                 $("#select-all-btn").prop('checked', true);
@@ -289,9 +289,50 @@
                 // $("#video-view").attr('src', curr_video_intro)
                 $("#video-view").attr('src', `http://45.56.82.249/uploads/videos/${curr_video_intro}`)
             })
+            $('.btn-accept.disable-video').off('click')
+            $('.btn-accept.disable-video').click(function(){
+                var video_id = $(this).attr('data-id')
+                Swal.fire({
+                    type: 'warning',
+                    text: 'Bạn có chắc chắn không?',
+                    showCancelButton: true
+                }).then( result => {
+                    if(result.value){
+                        $.ajaxSetup({
+                            headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
+                        $.ajax({
+                            url: baseURL+"/admincp/videos/disable",
+                            method: 'PUT',
+                            data: {
+                                video_id : video_id
+                            },
+                            dataType: 'json',
+                            success: (response) => {
+                                if(response.status == 200) {
+                                    Swal.fire({
+                                        type : 'success',
+                                        text : response.message
+                                    })
+                                    dataTable.ajax.reload()
+                                }
+                            },
+                            error : (error) => {
+                                Swal.fire({
+                                    text: 'Có lỗi'
+                                })
+                                dataTable.ajax.reload()
+                            }
+                        })
+                    }
+                })
+            })
 
-            $('.btn-accept').off('click')
-            $('.btn-accept').click(function(){
+
+            $('.btn-accept.accept-video').off('click')
+            $('.btn-accept.accept-video').click(function(){
                 var _self   = $(this);
                 var id      = $(this).attr('data-id');
                 var state  = 0;
@@ -479,7 +520,7 @@
                     }
                 })
             });
-            
+
             // $('#deleteAllApplied').off('click')
             // $('#deleteAllApplied').click(function (){
             //     var check = false;
@@ -547,7 +588,7 @@
             //                     }
             //                 })
             //             }
-                        
+
             //         }
             //     })
             // })
@@ -619,7 +660,7 @@
             //                     }
             //                 })
             //             }
-                        
+
             //         }
             //     })
             // })
@@ -690,7 +731,7 @@
             //                     }
             //                 })
             //             }
-                        
+
             //         }
             //     })
             // })
@@ -702,7 +743,7 @@
             }
             return current_page;
         }
-        
+
         $("#editEmail").click(function () {
             var id = $(this).attr("data-id")
             var title = $("#edit_subject_Ins").val()

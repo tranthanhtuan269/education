@@ -103,6 +103,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('videos', 'Backends\VideoController@getVideo');
         Route::get('videos/getVideoAjax', 'Backends\VideoController@getVideoAjax');
         Route::put('videos/accept', 'Backends\VideoController@accept');
+        Route::put('videos/disable', 'Backends\VideoController@disable');
         Route::put('videos/accept-multiple-video', 'Backends\VideoController@acceptMultiVideo');
         Route::put('videos/inaccept-multiple-video', 'Backends\VideoController@inacceptMultiVideo');
         Route::delete('videos/delete', 'Backends\VideoController@deleteVideo');
@@ -156,6 +157,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('teachers', 'Backends\UserController@getTeacher');
         Route::get('teachers/getTeacherAjax', 'Backends\UserController@getTeacherAjax');
         Route::put('teachers/accept', 'Backends\UserController@accept');
+        Route::put('teachers/disable', 'Backends\TeacherController@disable');
         Route::put('teachers/accept-multiple-teacher', 'Backends\UserController@acceptMultiTeacher');
         Route::put('teachers/inaccept-multiple-teacher', 'Backends\UserController@inacceptMultiTeacher');
         Route::delete('teachers/delete', 'Backends\UserController@deleteTeacher');

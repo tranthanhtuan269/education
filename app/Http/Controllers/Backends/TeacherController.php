@@ -241,6 +241,8 @@ class TeacherController extends Controller
                     if(isset($teacher)){
                         $teacher->status = \Config::get('app.teacher_blocked');
                         $teacher->save();
+                        dd($teacher);
+                        // dd(\App\Teacher::find(336));
                         return response()->json([
                             'status' => 200,
                             'message' => 'Tắt chức năng giảng viên thành công!'
