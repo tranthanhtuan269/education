@@ -448,6 +448,9 @@ $(document).ready(function() {
         },
         aaSorting: [],
         stateSave: true,
+        search: {
+            smart: false
+        },
         ajax: baseURL + "/admincp/categories/getCategoryAjax",
         columns: dataObject,
         bLengthChange: true,

@@ -11,8 +11,8 @@
                 <div class="btn-submit">
                     <button class="btn">Hỏi một câu hỏi hoặc chia sẻ ý kiến của bạn</button>
                 </div>
-                <script>  
-                            
+                <script>
+
                     CKEDITOR.replace( 'discussEditor', {
                         toolbar : [
                             { name: 'basicstyles', items: [ 'Bold', 'Italic'] },
@@ -39,14 +39,14 @@
                                 // echo($comment_user_role_id);
                                 // echo($comment_video->created_at)
                             @endphp
-                            <p>{{$comment_video->userRole->user->name}} - {{ $comment_user_role_id == 3 ? "Học viên" : ($comment_user_role_id == 2 ? "Giảng viên" : "Tiếp thị viên") }}    
+                            <p>{{$comment_video->userRole->user->name}} - {{ $comment_user_role_id == 3 ? "Học viên" : ($comment_user_role_id == 2 ? "Giảng viên" : "Tiếp thị viên") }}
                             </p>
                         @if ( ($momentNow->diff($comment_video->created_at, 'months')) <= 1  )
                             <span style="font-size: 0.9em;"><i>
                                     {{\Carbon\Carbon::now()->subSeconds($momentNow->diff($comment_video->created_at))->locale('vi_VN')->diffForHumans()}}
-                            </i></span>                    
+                            </i></span>
                         @else
-                            <span style="font-size: 0.9em;"><i>{{ $comment_video->created_at->format("d F Y") }}</i></span>                        
+                            <span style="font-size: 0.9em;"><i>{{ $comment_video->created_at->format("d F Y") }}</i></span>
                         @endif
                         </div>
                         <div class="ln-disc-post-short-content" id="discComment{{$comment_video->id}}">
@@ -54,7 +54,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 {{-- Sub-comments --}}
                 <div id="discWrapper{{$comment_video->id}}" data-parent="{{$comment_video->id}}" class="ln-disc-comment-wrapper collapse">
                     @foreach ($sub_comments_video as $sub_comment_video)
@@ -68,15 +68,15 @@
                                         @php
                                             $sub_comment_user_role_id = $sub_comment_video->userRole->role_id;
                                         @endphp
-                                    <p>{{$sub_comment_video->userRole->user->name}} - 
+                                    <p>{{$sub_comment_video->userRole->user->name}} -
                                         {{ $sub_comment_user_role_id == 3 ? "Học viên" : ($sub_comment_user_role_id == 2 ? "Giảng viên" : "Tiếp thị viên") }}
                                     </p>
                                     @if ( ($momentNow->diff($sub_comment_video->created_at, 'months')) <= 1  )
                                         <span style="font-size: 0.75em;"><i>
                                                 {{\Carbon\Carbon::now()->subSeconds($momentNow->diff($sub_comment_video->created_at))->locale('vi_VN')->diffForHumans()}}
-                                        </i></span>                    
+                                        </i></span>
                                     @else
-                                        <span style="font-size: 0.75em;"><i>{{ $sub_comment_video->created_at->format("d F Y") }}</i></span>                        
+                                        <span style="font-size: 0.75em;"><i>{{ $sub_comment_video->created_at->format("d F Y") }}</i></span>
                                     @endif
                                 </div>
                                 <div class="ln-disc-comment-content">
@@ -86,10 +86,10 @@
                                     <a><strong>Reply</strong></a>
                                 </div> --}}
                             </div>
-                        </div>                            
+                        </div>
                         @endif
                     @endforeach
-                    
+
                     <div class="ln-disc-comment-input input-group" id="discSubCommentInput{{$comment_video->id}}" data-parent="{{$comment_video->id}}">
                         <input data-child="{{$comment_video->id}}"  type="text" class="form-control" placeholder="Bình luận...">
                         <span class="input-group-btn">
@@ -97,16 +97,16 @@
                         </span>
                     </div>
                 </div>
-            </div>         
+            </div>
 
             @endforeach
-                
+
         </div>
     </div>
 </div>
 
-<script >
-    
+<script>
+
     $(document).on("click", ".ln-disc-input-bar .btn-submit button", function () {
         addComment()
     })
@@ -126,9 +126,9 @@
             Swal.fire({
                 type: "warning",
                 text:" Nội dung không được trống!"
-            })         
+            })
             // Swal.fire('Any fool can use a computer')
-    
+
         }else{
             var request = $.ajax({
                 url: "{{ url('comments/store') }}",
@@ -180,7 +180,7 @@
                                 html += '</div>';
                             html += '</div>';
                         html += '</div>';
-                        
+
                         html += '<div id="discWrapper'+ id +'" data-parent="'+ id +'" class="ln-disc-comment-wrapper collapse">';
                             html += '<div class="ln-disc-comment-input input-group" id="#discSubCommentInput'+ id +'" data-parent="'+id+'">';
                                 html += '<input id="input-'+ id +'" data-child="'+ id +'" type="text" class="form-control" placeholder="Bình luận...">';
@@ -190,18 +190,18 @@
                             html += '</div>';
                         html += '</div>';
                     html += '</div>';
-                    
+
 
                     $('.ln-disc-post-list').prepend(html);
                     discussEditor.setData("")
                 }
             });
         }
-        
-        
+
+
         request.fail(function( jqXHR, textStatus ) {
             return false;
-        });        
+        });
     }
 
     function addSubComment(parentId){
@@ -226,11 +226,11 @@
                 },
                 dataType: "json",
             })
-            
+
             request.done(function( response ) {
                 if(response.status == 200){
                     // console.log(response);
-                    
+
                     var avatar = response.commentVideo.data.avatar
                     var username = response.commentVideo.data.username
                     var userType = response.commentVideo.data.userType
@@ -260,7 +260,7 @@
                     $('input[data-child="'+parentId+'"]').val("")
                 }
             });
-            
+
             request.fail(function( jqXHR, textStatus ) {
                 return false;
             });

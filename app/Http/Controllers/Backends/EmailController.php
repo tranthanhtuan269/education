@@ -155,6 +155,8 @@ class EmailController extends Controller
         $user_email->user_id = $request->user_id;
         $user_email->email_id = $request->template_id;
         $user_email->sender_user_id = Auth::id();
+        $user_email->title = $email_template->getEmail()->title;
+        $user_email->content = $email_template->getEmail()->content;
         $user_email->save();
 
         if(Mail::failures()){
@@ -184,14 +186,16 @@ class EmailController extends Controller
         $user_list = User::whereIn('id', $user_id_list)->get();
 
         foreach ($user_list as $key => $user) {
-            Mail::to($user_list)->queue(new CustomMail($user, $email));
+            $email_template = new CustomMail($user, $email);
+            Mail::to($user)->queue($email_template);
+            $user_email  = new UserEmail;
+            $user_email->user_id = $user->id;
+            $user_email->email_id = $email_template->getEmail()->id;
+            $user_email->sender_user_id = Auth::id();
+            $user_email->title = $email_template->getEmail()->title;
+            $user_email->content = $email_template->getEmail()->content;
+            $user_email->save();
 
-            // Mail::send('backends.emails.discount-not', ['userName' => $user->name, 'mailContent' => $email->content], function ($message){
-            //     $message->to('tungduong@gmail.com');
-            //     $message->subject('asdasd');
-            // });
-
-            // Mail::send()
 
             if(Mail::failures()){
                 return Response::json([
