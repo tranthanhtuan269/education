@@ -567,8 +567,9 @@
                                   Swal.fire({
                                         type: 'success',
                                         text: response.Message
+                                    }).then(result => {
+                                        location.reload()
                                     })
-                                  dataTable.ajax.reload();
                                 }else{
                                     Swal.fire({
                                         type: 'warning',
@@ -630,6 +631,8 @@
                       Swal.fire({
                             type: 'success',
                             text: response.Message
+                        }).then(result => {
+                            location.reload()
                         })
                     }else{
                         $('#roleNameErrorUpd').html(response.Message);
@@ -713,9 +716,9 @@
                                             Swal.fire({
                                                 type: 'success',
                                                 text: obj.Message
-                                            })
-
-                                            dataTable.ajax.reload(); 
+                                            }).then(result => {
+                                                location.reload()
+                                            }) 
                                         } else {
                                             Swal.fire({
                                                 type: 'warning',
