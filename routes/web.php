@@ -18,12 +18,9 @@
 Auth::routes();
 
 Route::get('test2', function(){
-    $arr_products = \App\User::find(430)->products;
-    $arr_products = str_replace('[','',$arr_products);
-    $arr_products = str_replace(']','',$arr_products);
-    $arr_products = explode(",",$arr_products);
-    $check = array_search(678, $arr_products);
-    dd($check);
+    // select units.name, courses.name from courses join units on courses.id = units.course_id join videos on videos.unit_id = units.id where courses.id = 743
+    
+    dd(\App\Helper\Helper::getJSONVideoOfCourse(743));
 });
 
 Route::get('thay-state-video', function(){

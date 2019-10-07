@@ -567,17 +567,8 @@ class HomeController extends Controller
                                 $user_course_videos = [];
 
                                 //DuongNT - Tạo array video đã xem
-                                foreach ($units as $key => $unit) {
-                                    if($unit->video_count > 0){
-                                        $unit_arr = [];
-                                        for ($k=0; $k < $unit->video_count; $k++) {
-                                            array_push($unit_arr, 0);
-                                        }
-                                        array_push($user_course_videos, $unit_arr);
-                                    }
-                                }
                                 $videoJson = new VideoJson;
-                                $videoJson->videos = $user_course_videos;
+                                $videoJson->videos = Helper::getJSONVideoOfCourse($course->id);
                                 $videoJson->learning = 1;
                                 $videoJson->learning_id = $first_video_id;
 
@@ -600,8 +591,6 @@ class HomeController extends Controller
                             $course2->save();
                         }
                     }
-
-
 
                     // if ($coupon) {
                     //     $order->total_price = $total_price * (100 - $coupon->value) / 100;
