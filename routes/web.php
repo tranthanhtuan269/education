@@ -18,12 +18,9 @@
 Auth::routes();
 
 Route::get('test2', function(){
-    $arr_products = \App\User::find(430)->products;
-    $arr_products = str_replace('[','',$arr_products);
-    $arr_products = str_replace(']','',$arr_products);
-    $arr_products = explode(",",$arr_products);
-    $check = array_search(678, $arr_products);
-    dd($check);
+    $arr_products = \App\CommentCourse::where('course_id','1')->where('state','0')->get();
+    // $arr_products[25]->state=0;
+    dd($arr_products);
 });
 
 Route::get('thay-state-video', function(){
@@ -288,6 +285,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('reports/store', 'Frontends\ReportController@store')->name('reportsVideo.store');
     Route::post('user-course/update-watched', 'Frontends\VideoPlayerController@updateWatched');
     Route::get('user/logout', 'Frontends\UserController@logout')->name('logout');
+
+    Route::post('comments/report','Frontends\CommentController@reportComment');
 
     // Route::get('cart/payment/checkout-step', 'Frontends\HomeController@showMethodSelector');
     Route::get('cart/payment/method-selector', 'Frontends\HomeController@showMethodSelector');

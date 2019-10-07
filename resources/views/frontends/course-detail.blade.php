@@ -1013,6 +1013,23 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
             dataType: "json"
         });
     }
+    function reportComment(id){
+        var baseURL = $('base').attr('href');
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        var request = $.ajax({
+            url: baseURL + '/comments/report',
+            method: "POST",
+            data: {
+                comment_id: id
+            },
+            dataType: "json"
+        });
+    }
 
     function addEventToButton(){
         $('.btn-default.btn-reply').off('click');
@@ -1040,6 +1057,11 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
             $(this).removeClass('btn-default').addClass('btn-primary');
             $(this).parent().find('.btn-like').addClass('btn-default').removeClass('btn-primary');
         });
+
+        $('.btn-default.btn-reportcomment').on('click',function(e){
+            alert(1)
+            reportComment($(this).attr('data-comment-id'));
+        })
 
         $('.create-reply-btn').on('click', function (e) {
             var comment_id = $(this).attr('data-id');

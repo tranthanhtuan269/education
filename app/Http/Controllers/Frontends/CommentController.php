@@ -212,6 +212,19 @@ class CommentController extends Controller
         return \Response::json(array('status' => '404', 'message' => 'Comment không tồn tại!'));
     }
 
+    public function reportComment(Request $request)
+    {
+        dd($request->comment_id);
+        $comment = CommentCourse::find($request->id);
+        
+        if ($comment) {
+                $CommentCourse->state = 0;
+                $CommentCourse->save();
+            return \Response::json(array('status' => '200', 'message' => 'Report thành công!'));
+        }
+        return \Response::json(array('status' => '404', 'message' => 'Comment không tồn tại!'));
+    }
+
     public function storeReply(Request $request)
     {
         $comment = CommentCourse::find($request->parent_id);
