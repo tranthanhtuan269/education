@@ -69,9 +69,11 @@ $(document).ready(function () {
     clickToPlay()
 
     player.on('ended', function(){
-        alert(1);
         if(isAutoplay == 'true'){
+            alert(1);
             $("#btnContinue").click()
+        }else{
+            alert(2);
         }
     })
     $('.vjs-fullscreen-control.vjs-control.vjs-button').on('click', function () {
