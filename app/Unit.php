@@ -18,6 +18,6 @@ class Unit extends Model
 
     public function videos()
     {
-        return $this->hasMany('App\Video');
+        return $this->hasMany('App\Video')->orderBy('index', 'desc');
     }
 }
