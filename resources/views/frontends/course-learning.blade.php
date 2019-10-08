@@ -1,7 +1,7 @@
 @extends('frontends.layouts.app')
 @php
 	$user_role_course_instance_video = json_decode($user_role_course_instance->videos);
-	$video_count = ($info_course->video_count);
+	$video_count = ($info_course->all_videos());
 	$video_done_array = $user_role_course_instance_video->videos;
 	// dd($video_done_array);
 	$video_done_units = $user_role_course_instance_video->videos;

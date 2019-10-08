@@ -149,18 +149,15 @@ class GiftController extends Controller
                                 $current_user->bought = \json_encode($bought);
                                 $current_user->save();
 
-                                $alertEmail = Email::find(Config::get('app.email_order_complete'));
-                                if($alertEmail){
-                                    //Them thong bao he thong
-                                    $user_email  = new \App\UserEmail;
-                                    $user_email->user_id = $current_user->id;
-                                    $user_email->email_id = $alertEmail->id;
-                                    $user_email->sender_user_id = 333;
-                                    $user_email->content = $alertEmail->content;
-                                    $user_email->title = $alertEmail->title;
-                                    $user_email->save();
-                                }
-                                
+                                //Them thong bao he thong
+                                $user_email  = new \App\UserEmail;
+                                $user_email->user_id = $current_user->id;
+                                $user_email->email_id = 1;
+                                $user_email->sender_user_id = 333;
+                                $user_email->content = "Chúc mừng bạn vừa nhận được một khóa học miễn phí từ Courdemy. Click vào <a href='".$course_link."'> đây </a> để xem chi tiết khóa học.";
+                                $user_email->title = "Chúc mừng bạn vừa nhận được một khóa học miễn phí từ Courdemy";
+                                $user_email->save();
+
                                 //Gui Email
                                 dispatch(new SendEmailJob($course_link, $course_name, $email));
                             }                         
@@ -234,6 +231,15 @@ class GiftController extends Controller
                         $course_name = $course->name;
                         $current_user= User::find($user_id);
                         $email = $current_user->email;
+
+                        //Them thong bao he thong
+                        $user_email  = new \App\UserEmail;
+                        $user_email->user_id = $current_user->id;
+                        $user_email->email_id = 1;
+                        $user_email->sender_user_id = 333;
+                        $user_email->content = "Chúc mừng bạn vừa nhận được một khóa học miễn phí từ Courdemy. Click vào <a href='".$course_link."'> đây </a> để xem chi tiết khóa học.";
+                        $user_email->title = "Chúc mừng bạn vừa nhận được một khóa học miễn phí từ Courdemy";
+                        $user_email->save();
 
                         // add to bought of user 
                         $bought = [];

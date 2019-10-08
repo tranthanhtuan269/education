@@ -539,9 +539,10 @@
                     
                     $(".unica-sl-notify b").text(response.number_unread_emails)
 
-                    if(response.unread_emails.length >= 1){
+                    if(response.number_unread_emails >= 1){
                         // $(".unica-sl-notify").remove()
                         $('.unica-sl-notify').css('display', 'block' )
+                        $('.unica-sl-notify').show()
                     }
                     // console.log(response.number_unread_emails)
 
