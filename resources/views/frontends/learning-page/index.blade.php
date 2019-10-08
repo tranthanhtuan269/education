@@ -5,7 +5,7 @@
     
     $user_role_course_instance_video = json_decode($user_role_course_instance->videos);
     // dd($user_role_course_instance_video);
-    $video_count = 0;
+    $video_count = $course->count_videos;
     if($user_role_course_instance_video){
         $isStudent = true;
     }else{
@@ -17,7 +17,6 @@
         foreach ($video_done_units as $key => $unit) {
             if(isset(array_count_values($unit)[1])){
                 $video_done_count += array_count_values($unit)[1];
-                $video_count += count($unit);
             }
         }
         // dd($video_done_count);
