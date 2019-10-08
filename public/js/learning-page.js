@@ -69,8 +69,7 @@ $(document).ready(function () {
     clickToPlay()
 
     player.on('ended', function(){
-        if(isAutoplay == 'true' || isAutoplay == true){
-            console.log(isAutoplay == 'true' || isAutoplay == true);
+        if(localStorage.getItem('autoplay') == "true" || localStorage.getItem('autoplay') == true){
             $("#btnContinue").click()
         }
     })
