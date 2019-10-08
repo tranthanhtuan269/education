@@ -1013,23 +1013,6 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
             dataType: "json"
         });
     }
-    function reportComment(id){
-        var baseURL = $('base').attr('href');
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        var request = $.ajax({
-            url: baseURL + '/comments/report',
-            method: "POST",
-            data: {
-                comment_id: id
-            },
-            dataType: "json"
-        });
-    }
 
     function addEventToButton(){
         $('.btn-default.btn-reply').off('click');
@@ -1058,9 +1041,33 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
             $(this).parent().find('.btn-like').addClass('btn-default').removeClass('btn-primary');
         });
 
+        $('.btn-default.btn-reportcomment').off('click');
         $('.btn-default.btn-reportcomment').on('click',function(e){
-            alert(1)
-            reportComment($(this).attr('data-comment-id'));
+            var id = $(this).attr('data-comment-id');
+            var baseURL = $('base').attr('href');
+            // $(this).removeClass('btn-default').addClass('btn-primary');
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            var request = $.ajax({
+                url: baseURL + '/comments/report',
+                method: "POST",
+                data: {
+                    comment_id: id
+                },
+                dataType: "json"
+            });
+            Swal.fire({
+                type: 'success',
+                text: 'Report thành công!',
+            })
+            // $('.btn-default.btn-reportcomment data-comment-id="id"').prop('disabled', true);
+            // function disable(id){
+            //     $(".btn-default.btn-reportcomment"+id).prop("disabled",true);
+            // }
         })
 
         $('.create-reply-btn').on('click', function (e) {

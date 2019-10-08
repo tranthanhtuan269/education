@@ -214,12 +214,11 @@ class CommentController extends Controller
 
     public function reportComment(Request $request)
     {
-        dd($request->comment_id);
-        $comment = CommentCourse::find($request->id);
-        
+       
+        $comment = CommentCourse::find( $request->comment_id);
         if ($comment) {
-                $CommentCourse->state = 0;
-                $CommentCourse->save();
+                $comment->state = 0;
+                $comment->save();
             return \Response::json(array('status' => '200', 'message' => 'Report thành công!'));
         }
         return \Response::json(array('status' => '404', 'message' => 'Comment không tồn tại!'));
