@@ -39,7 +39,7 @@
                                         <div class="col-xs-5 col-md-8">
                                             <div class="title">
                                                 @if(App\Helper\Helper::getUserRoleOfCourse($info_course->id))
-                                                <a href="/learning-page/{{$info_course->id}}/lecture/{{$value_video->id}}">
+                                                <a href="javascript:void(0)" class="click-link-video" data-course="{{$info_course->id}}" data-video="{{$value_video->id}}">
                                                     <i class="fa fa-play-circle" aria-hidden="true"></i>
                                                     <!-- <span>Lecture {{ $value_video->index }}: &nbsp;{{ $value_video->name }}</span>  -->
                                                     <span>{{ $value_video->name }}</span>
@@ -146,6 +146,11 @@
     {{-- @endif --}}
 </div>
 <script>
+    $('.click-link-video').click(function(){
+         // href="/learning-page/{{$info_course->id}}/lecture/{{$value_video->id}}"
+         alert('1');
+    });
+
     $('#accordion .event-click').click(function(){
         $("#sidebar-content").addClass('sidebar-unfix').css('top', 0);
     })
