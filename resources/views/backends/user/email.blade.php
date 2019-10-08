@@ -111,9 +111,9 @@
                                         wordcount : {
                                             showParagraphs: false,
                                         },
-                                        filebrowserImageUploadUrl: '/backend/template/bower_components/kcfinder/upload.php?type=Images',
+                                        // filebrowserImageUploadUrl: '/backend/template/bower_components/kcfinder/upload.php?type=Images',
                                         toolbar : [
-                                            { name: 'basicstyles', items: ['Styles', 'Format', 'Bold', 'Italic','-', 'Image', 'Link', 'Unlink'] },
+                                            { name: 'basicstyles', items: ['Styles', 'Format', 'Bold', 'Italic','-'/*, 'Image', 'Link', 'Unlink'*/] },
                                             { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'] },
                                             { name: 'extra', items: ['Source']}
                                         ],
@@ -176,7 +176,7 @@
                                         showParagraphs: false,
                                     },
                                     toolbar : [
-                                        { name: 'basicstyles', items: ['Styles', 'Format', 'Bold', 'Italic','-', 'Image', 'Link','Unlink'] },
+                                        { name: 'basicstyles', items: ['Styles', 'Format', 'Bold', 'Italic','-'/*, 'Image', 'Link','Unlink'*/] },
                                         { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'] },
                                         { name: 'extra', items: ['Source']}
                                     ],
