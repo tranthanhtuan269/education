@@ -225,12 +225,7 @@ if($feature_teacher_selected){
             });
 
             $.ajax({
-                url:{
-                    url: baseURL+"/admincp/feature-teacher/auto-feature-teacher",
-                    beforeSend: function() {
-                        $(".ajax_waiting").addClass("loading");
-                    }
-                }, 
+                url: baseURL+"/admincp/feature-teacher/auto-feature-teacher",
                 data: {
                     arr_teacher_id : arr_teacher_id
                 },
