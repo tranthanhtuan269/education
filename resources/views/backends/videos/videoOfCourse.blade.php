@@ -382,8 +382,11 @@
                                     }
 
                                     if(_self.parent().parent().hasClass('red-row')){
-                                        _self.find('i').remove();
-                                        _self.parent().parent().removeClass('red-row').addClass('yellow-row');
+                                        _self.find('i').removeClass('fa-times').addClass('fa-check');
+                                        _self.parent().parent().addClass('red-row').removeClass('blue-row');
+                                    }else{
+                                        _self.find('i').removeClass('fa-check').addClass('fa-times');
+                                        _self.parent().parent().removeClass('red-row').addClass('blue-row');
                                     }
 
                                     Swal.fire({
