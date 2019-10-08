@@ -11,7 +11,7 @@
         </div> --}}
         @if ($isStudent)
         <div class="ln-desc-achv">
-            <p>Đã hoàn thành 222 {{$video_done_count}} trên {{$video_count}} bài học</p>
+            <p>Đã hoàn thành {{$video_done_count}} trên {{$video_count}} bài học</p>
             <div class="ln-progress-bar">
                 <div class="progress lecture-progress" style="width: 30vw">
                     <div class="progress-bar progress-bar-success" role="progressbar" style="width: {{$video_done_percent}}%" aria-valuenow="{{$video_done_percent}}" aria-valuemin="0" aria-valuemax="100"></div>
