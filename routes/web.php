@@ -18,12 +18,12 @@
 Auth::routes();
 
 Route::get('test2', function(){
-    $arr_products = \App\User::find(430)->products;
-    $arr_products = str_replace('[','',$arr_products);
-    $arr_products = str_replace(']','',$arr_products);
-    $arr_products = explode(",",$arr_products);
-    $check = array_search(678, $arr_products);
-    dd($check);
+    // $comments = \DB::table('comment_courses')
+        // ->join('user_roles', 'comment_courses.user_role_id', '=', 'user_roles.id')
+        // ->join('users', 'user_roles.user_id', '=', 'users.id')
+        // $comment = \DB::table('comment_courses')->where('id', '1')->get();
+        $child_comments = \DB::table('comment_courses')->where('parent_id', '1')->get();
+    dd($child_comments);
 });
 
 Route::get('thay-state-video', function(){
@@ -148,6 +148,10 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('comment-course', 'Backends\CommentController@getAllCommentCourse');
             Route::get('get-comment-course-ajax', 'Backends\CommentController@getAllCommentCourseAjax');
             Route::delete('delete-comment-course', 'Backends\CommentController@deleteCommentCourse');
+
+            Route::get('comment-report', 'Backends\CommentController@getAllCommentReport');
+            Route::get('get-comment-report-ajax', 'Backends\CommentController@getAllCommentReportAjax');
+            Route::delete('delete-comment-report', 'Backends\CommentController@deleteReportCourse');
         });
         // End
 

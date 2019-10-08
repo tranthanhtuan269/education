@@ -58,4 +58,50 @@ class CommentController extends Controller
         }
         return \Response::json(['message' => 'Không tìm thấy.', 'status' => 404]);
     }
+
+    public function getAllCommentReport()
+    {
+        return view('backends.comments.comment-report.all');
+
+    }
+
+    public function getAllCommentReportAjax(Request $request)
+    {
+        $comments = \DB::table('comment_courses')
+        ->join('user_roles', 'comment_courses.user_role_id', '=', 'user_roles.id')
+        ->join('users', 'user_roles.user_id', '=', 'users.id')
+        ->join('courses', 'comment_courses.course_id', '=', 'courses.id')
+        ->where('comment_courses.state', 0)
+        ->select('comment_courses.content', 'comment_courses.created_at', 'comment_courses.id', 'users.name as user_name', 'courses.name as course_name', 'courses.slug as as course_slug')
+        ->get();
+        return datatables()->collection($comments)
+            ->addColumn('action', function ($comment) {
+                return $comment->id;
+            })
+            ->removeColumn('id')->make(true);
+    }
+
+    public function deleteReportCourse(Request $request)
+    {
+        $comment = CommentCourse::find($request->id);
+
+        if( $comment ){
+            if( $comment->parent_id != 0 ){
+                $comment->delete();
+                return \Response::json(['message' => 'Xóa phản hồi comment thành công.', 'status' => 200]);
+            }else{
+                $child_comments = CommentCourse::where('parent_id', $comment->id)->get();
+                
+                if( $child_comments ){
+                    foreach( $child_comments as $child_comment ){
+                        $child_comment->delete();
+                    }
+                    $comment->delete();
+                    return \Response::json(['message' => 'Xóa phản hồi comment thành công.', 'status' => 200]);
+                }
+                return \Response::json(['message' => 'Xóa phản hồi comment thành công.', 'status' => 200]);
+            }
+        }
+        return \Response::json(['message' => 'Không tìm thấy comment.', 'status' => 404]);
+    }
 }
