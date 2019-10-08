@@ -12,6 +12,7 @@ use App\UserRole;
 // use App\Jobs\SendGiftEmail;
 use App\Jobs\SendEmailJob;
 use App\Email;
+use Config;
 
 class GiftController extends Controller
 {
@@ -29,7 +30,7 @@ class GiftController extends Controller
     public function getGiftStudentAjax(Request $request)
     {
         $users = User::leftJoin('user_roles', 'user_roles.user_id', '=', 'users.id')
-                      ->select('users.name', 'user_roles.id')
+                      ->select('users.email', 'user_roles.id')
                       ->where('user_roles.role_id', \Config::get('app.student'))
                       ->where('users.status', 1)
                       ->inRandomOrder()
@@ -149,15 +150,17 @@ class GiftController extends Controller
                                 $current_user->save();
 
                                 $alertEmail = Email::find(Config::get('app.email_order_complete'));
-                                //Them thong bao he thong
-                                $user_email  = new \App\UserEmail;
-                                $user_email->user_id = $current_user->id;
-                                $user_email->email_id = $alertEmail->id;
-                                $user_email->sender_user_id = 333;
-                                $user_email->content = $alertEmail->content;
-                                $user_email->title = $alertEmail->title;
-                                $user_email->save();
-
+                                if($alertEmail){
+                                    //Them thong bao he thong
+                                    $user_email  = new \App\UserEmail;
+                                    $user_email->user_id = $current_user->id;
+                                    $user_email->email_id = $alertEmail->id;
+                                    $user_email->sender_user_id = 333;
+                                    $user_email->content = $alertEmail->content;
+                                    $user_email->title = $alertEmail->title;
+                                    $user_email->save();
+                                }
+                                
                                 //Gui Email
                                 dispatch(new SendEmailJob($course_link, $course_name, $email));
                             }                         

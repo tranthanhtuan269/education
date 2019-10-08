@@ -14,7 +14,7 @@ return [
     'video_converting' => 3,
 
 
-    'email_order_complete' => 1,
+    'email_order_complete' => 2,
 
     'email_system_status' => 10,    // email hệ thống không cho xoá và sửa tên
 

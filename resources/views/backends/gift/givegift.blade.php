@@ -38,7 +38,7 @@
                         <tr>
                             <th scope="col">STT</th>
                             <th scope="col">ID</th>
-                            <th scope="col">Tên</th>
+                            <th scope="col">Email</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -164,7 +164,7 @@
                 class:"user-role-id"
             },
             { 
-                data:"name", 
+                data:"email", 
             },
             // { 
             //     data:"course_id", 
