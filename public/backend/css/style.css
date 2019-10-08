@@ -779,6 +779,7 @@ ul.alert li {
     width: 398px;
 } */
 
-.inaccept-video{
+.inaccept-video,
+.btn-inaccept{
     color: #000;
 }
