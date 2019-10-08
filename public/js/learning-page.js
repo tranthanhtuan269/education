@@ -180,15 +180,18 @@ $(document).ready(function () {
     $(document).on('click',"#btnAutoplay", function(){
         if(localStorage.getItem('autoplay') == "true"){
             localStorage.setItem('autoplay', false)
+            isAutoplay = false;
             $("#btnAutoplay").removeClass("fa-toggle-on")
             $("#btnAutoplay").addClass("fa-toggle-off")
             // alert(1)
         }else if(localStorage.getItem('autoplay') == "false"){
             localStorage.setItem('autoplay', true)
+            isAutoplay = true;
             $("#btnAutoplay").removeClass("fa-toggle-off")
             $("#btnAutoplay").addClass("fa-toggle-on")
         }else{
             localStorage.setItem('autoplay', true)
+            isAutoplay = true;
             $("#btnAutoplay").removeClass("fa-toggle-off")
             $("#btnAutoplay").addClass("fa-toggle-on")
         }
