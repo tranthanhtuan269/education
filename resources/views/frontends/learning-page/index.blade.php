@@ -184,7 +184,11 @@
                     });
                     request.done(function(){
                         // alert("/learning-page/"+course_id+"/lecture/"+video_id_list[video_id_index + 1]+"")
-                        window.location.href = ("/learning-page/"+course_id+"/lecture/"+video_id_list[video_id_index + 1]+"")
+                        if (typeof video_id_list[video_id_index + 1] != "undefined") {
+                            window.location.href = ("/learning-page/"+course_id+"/lecture/"+video_id_list[video_id_index + 1]+"")
+                        }else{
+                            $('.vjs-paused').click();
+                        }
                     })
                 })
             })
