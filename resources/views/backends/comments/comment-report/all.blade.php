@@ -9,7 +9,7 @@
     
 </section>
 <section class="content page">
-    <h1 class="text-center font-weight-600">Phản hồi Comments</h1>
+    <h1 class="text-center font-weight-600">Báo cáo Comments</h1>
     <div class="row">
         <div class="col-md-12">
             <div class="table-responsive">
@@ -17,9 +17,10 @@
                     <thead class="thead-custom">
                         <tr>
                             <th scope="col">Người đăng</th>
-                            <th scope="col">Phản hồi</th>
+                            <th scope="col">Comment</th>
                             <th scope="col">Khóa học</th>
                             <th scope="col">Ngày đăng</th>
+                            <th scope="col">Thao tác</th>
                             <th scope="col">Xóa</th>
                         </tr>
                     </thead>
@@ -56,6 +57,16 @@ $(document).ready(function() {
         },
         {
             data: "created_at",
+        },
+        {
+            data: "action",
+            class: "text-center",
+            render: function(data, type, row){
+                var html = '';
+                html += '<a class="btn-accept cancel-comment" data-id="'+data+'" title="Hủy"> <i class="fa fa-times fa-fw"></i></a>';
+                return html;
+            },
+            orderable: false
         },
         {
             data: "action",
@@ -111,6 +122,62 @@ $(document).ready(function() {
     $('#commentReportAll').css('width', '100%');
 
     function addEventListener(){
+
+        $('.btn-accept.cancel-comment').off('click')
+        $('.btn-accept.cancel-comment').click(function(){
+            var id      = $(this).attr('data-id');
+            var state  = 1;
+            Swal.fire({
+                type: 'warning',
+                text: 'Bạn có chắc chắn muốn hủy báo cáo comment?',
+                showCancelButton: true,
+            }).then(result => {
+                if(result.value){
+                $.ajaxSetup({
+                        headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    $.ajax({
+                        url: baseURL+"/admincp/comment/cancel-comment",
+                        data: {
+                            comment_id : id,
+                            state : state
+                        },
+                        method: "PUT",
+                        dataType:'json',
+                        beforeSend: function(r, a){
+                            current_page = dataTable.page.info().page;
+                        },
+                        success: function (response) {
+                            if(response.status == 200){
+                                Swal.fire({
+                                    type: 'success',
+                                    text: "Bạn đã hủy báo cáo thành công"
+                                }).then( result => {
+                                    location.reload()
+                                })
+                            }else{
+                                Swal.fire({
+                                    type: 'warning',
+                                    text: response.message
+                                })
+                            }
+                        },
+                        error: function (data) {
+                            if(data.status == 401){
+                            window.location.replace(baseURL);
+                            }else{
+                                Swal.fire({
+                                    type: 'warning',
+                                    text: errorConnect
+                                })
+                            }
+                        }
+                    });
+                }
+            })
+        });
 
         $('.delete-comment').off('click')
         $('.delete-comment').click(function(){

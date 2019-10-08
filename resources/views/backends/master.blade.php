@@ -255,7 +255,7 @@
                                         <a href="{{ url('/') }}/admincp/comment/comment-course"><i class="fa fa-minus"></i>Phản hồi khóa học</a>
                                     </li>
                                     <li class="@if ( Request::is('admincp/comment/comment-report*') ) active @endif">
-                                        <a href="{{ url('/') }}/admincp/comment/comment-report"><i class="fa fa-minus"></i>Phản hồi comments</a>
+                                        <a href="{{ url('/') }}/admincp/comment/comment-report"><i class="fa fa-minus"></i>Báo cáo comments</a>
                                     </li>
                                 @endif
                             </ul>

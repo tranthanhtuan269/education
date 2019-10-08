@@ -152,6 +152,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('comment-report', 'Backends\CommentController@getAllCommentReport');
             Route::get('get-comment-report-ajax', 'Backends\CommentController@getAllCommentReportAjax');
             Route::delete('delete-comment-report', 'Backends\CommentController@deleteReportCourse');
+            Route::put('cancel-comment', 'Backends\CommentController@cancelComment');
         });
         // End
 

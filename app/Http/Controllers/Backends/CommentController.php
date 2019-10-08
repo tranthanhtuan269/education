@@ -104,4 +104,15 @@ class CommentController extends Controller
         }
         return \Response::json(['message' => 'Không tìm thấy comment.', 'status' => 404]);
     }
+
+    public function cancelComment(Request $request)
+    {
+        $comment = CommentCourse::find($request->comment_id);
+        if($comment){
+            $comment->state = $request->state;
+            $comment->save();
+            return \Response::json(array('status' => '200', 'message' => 'Thêm like thành công!'));
+        }
+        return \Response::json(array('status' => '404', 'message' => 'Comment không tồn tại!'));
+    }
 }
