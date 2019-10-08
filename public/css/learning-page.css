@@ -465,6 +465,7 @@ body{
     text-align: center;
     width: 100vw;
     height: 90vh;
+    top: 0;
 }
 .vjs-custom-big-play-button .btn{
     z-index: 2;
