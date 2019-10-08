@@ -17,7 +17,7 @@
         foreach ($video_done_units as $key => $unit) {
             if(isset(array_count_values($unit)[1])){
                 $video_done_count += array_count_values($unit)[1];
-                $video_count++;
+                $video_count += count($unit);
             }
         }
         // dd($video_done_count);
