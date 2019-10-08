@@ -17,8 +17,8 @@
         foreach ($video_done_units as $key => $unit) {
             if(isset(array_count_values($unit)[1])){
                 $video_done_count += array_count_values($unit)[1];
+                $video_count++;
             }
-            $video_count++;
         }
         // dd($video_done_count);
         $video_done_percent = (int)(($video_done_count/(int)$video_count)*100);
