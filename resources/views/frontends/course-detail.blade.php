@@ -130,7 +130,7 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                                 <div class="row box clearfix">
                                     <div class="col-xs-6 full-width-mobile pb-10px">
                                         <span class="box-img"><img src="{{ asset('frontend/images/ic_course.png') }}" class="icon" alt="" /></span>
-                                        <span class="special">{{ $info_course->video_count }} Videos</span>
+                                        <span class="special">{{ $info_course->all_videos() }} Videos</span>
                                     </div>
                                     <div class="col-xs-6 full-width-mobile pb-10px">
                                         <span class="box-img"><img src="{{ asset('frontend/images/ic_student.png') }}" class="icon" alt="" /></span>
