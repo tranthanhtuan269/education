@@ -147,8 +147,8 @@ Route::group(['middleware' => 'auth'], function () {
             Route::delete('delete-comment-course', 'Backends\CommentController@deleteCommentCourse');
 
             Route::get('comment-video', 'Backends\CommentController@getAllCommentVideo');
-            Route::get('get-comment-video-ajax', 'Backends\CommentController@getAllCommentCourseAjax');
-            Route::delete('delete-comment-video', 'Backends\CommentController@deleteCommentCourse');
+            Route::get('get-comment-video-ajax', 'Backends\CommentController@getAllCommentVideoAjax');
+            Route::delete('delete-comment-video', 'Backends\CommentController@deleteCommentVideo');
         });
         // End
 
