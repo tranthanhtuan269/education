@@ -115,10 +115,8 @@
                     @if (Helper::checkPermissions('videos.accept-video', $list_roles)) 
                         if(row['state'] == 1){
                             html += '<a class="btn-inaccept mr-2 inaccept-video" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Hủy"> <i class="fa fa-times fa-fw"></i></a>';
-                        }else if(row['state'] == 0){
-                            html += '<a class="btn-accept mr-2 accept-video" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Duyệt"> <i class="fa fa-check fa-fw"></i></a>';
                         }else{
-                            html += '';
+                            html += '<a class="btn-accept mr-2 accept-video" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Duyệt"> <i class="fa fa-check fa-fw"></i></a>';
                         }
                     @endif
                     return html;
