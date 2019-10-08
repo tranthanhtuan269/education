@@ -11,6 +11,7 @@ use App\UserCourse;
 use App\UserRole;
 // use App\Jobs\SendGiftEmail;
 use App\Jobs\SendEmailJob;
+use App\Email;
 
 class GiftController extends Controller
 {
