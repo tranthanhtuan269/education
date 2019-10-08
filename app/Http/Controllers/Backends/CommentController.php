@@ -95,7 +95,7 @@ class CommentController extends Controller
                 $comment->delete();
                 return \Response::json(['message' => 'Xóa phản hồi bài giảng thành công.', 'status' => 200]);
             }else{
-                $child_comments = CommentCourse::where('parent_id', $comment->id)->get();
+                $child_comments = CommentVideo::where('parent_id', $comment->id)->get();
                 
                 if( $child_comments ){
                     foreach( $child_comments as $child_comment ){
