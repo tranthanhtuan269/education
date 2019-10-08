@@ -143,12 +143,12 @@ class Course extends Model
     	return $this->belongsToMany('App\Video');
     }
 
-    public function count_videos()
+    public function all_videos()
     {
         $units = $this->units;
         $total = 0;
         foreach($units as $unit){
-            $total += count($unit->videos());
+            $total += count($unit->videos);
         }
         return $total;
     }

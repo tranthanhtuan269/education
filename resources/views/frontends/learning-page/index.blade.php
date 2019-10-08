@@ -5,7 +5,7 @@
     
     $user_role_course_instance_video = json_decode($user_role_course_instance->videos);
     // dd($user_role_course_instance_video);
-    $video_count = $course->count_videos;
+    $video_count = $course->all_videos();
     if($user_role_course_instance_video){
         $isStudent = true;
     }else{
