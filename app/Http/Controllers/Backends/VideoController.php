@@ -583,6 +583,9 @@ class VideoController extends Controller
                     $course = $unit->course;
                     if($course){
                         $course->video_count = $course->video_count -1;
+                        if($course->all_videos() == 0){
+                            $course->status = 0;
+                        }
                         $course->save();
                     }
                 }

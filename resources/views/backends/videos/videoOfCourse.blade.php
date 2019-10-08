@@ -114,7 +114,7 @@
                     var html = '';
                     @if (Helper::checkPermissions('videos.accept-video', $list_roles)) 
                         if(row['state'] == 1){
-                            html += '<a class="btn-accept mr-2 accept-video" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Hủy"> <i class="fa fa-times fa-fw"></i></a>';
+                            html += '<a class="btn-inaccept mr-2 inaccept-video" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Hủy"> <i class="fa fa-times fa-fw"></i></a>';
                         }else{
                             html += '<a class="btn-accept mr-2 accept-video" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Duyệt"> <i class="fa fa-check fa-fw"></i></a>';
                         }
@@ -382,6 +382,71 @@
                                     if(_self.parent().parent().hasClass('red-row')){
                                         _self.find('i').remove();
                                         _self.parent().parent().removeClass('red-row').addClass('yellow-row');
+                                    }
+
+                                    Swal.fire({
+                                        type: 'success',
+                                        text: response.message
+                                    })
+
+                                }else{
+                                    Swal.fire({
+                                        type: 'warning',
+                                        html: response.message
+                                    })
+                                }
+                            },
+                            error: function (data) {
+                                if(data.status == 401){
+                                window.location.replace(baseURL);
+                                }else{
+                                $().toastmessage('showErrorToast', errorConnect);
+                                }
+                            }
+                        });
+                    }
+                })
+            });
+
+            $('.btn-inaccept').off('click')
+            $('.btn-inaccept').click(function(){
+                var _self   = $(this);
+                var id      = $(this).attr('data-id');
+                var state  = 0;
+                var message = "Bạn có chắc chắn muốn hủy duyệt?";
+                Swal.fire({
+                    type: 'warning',
+                    text: message,
+                    showCancelButton: true,
+                }).then(result => {
+                    if(result.value){
+                        $.ajaxSetup({
+                            headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
+                        $.ajax({
+                            url: baseURL+"/admincp/videos/accept",
+                            data: {
+                                video_id : id,
+                                state : 4
+                            },
+                            method: "PUT",
+                            dataType:'json',
+                            beforeSend: function(r, a){
+                                current_page = dataTable.page.info().page;
+                            },
+                            success: function (response) {
+                                if(response.status == 200){
+                                    if(_self.parent().parent().hasClass('blue-row')){
+                                        $(_self).prop('title', 'Duyệt');
+                                    } else {
+                                        $(_self).prop('title', 'Hủy');
+                                    }
+
+                                    if(_self.parent().parent().hasClass('blue-row')){
+                                        _self.find('i').remove();
+                                        _self.parent().parent().removeClass('blue-row').addClass('red-row');
                                     }
 
                                     Swal.fire({
