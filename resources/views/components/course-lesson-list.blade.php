@@ -147,8 +147,27 @@
 </div>
 <script>
     $('.click-link-video').click(function(){
-         // href="/learning-page/{{$info_course->id}}/lecture/{{$value_video->id}}"
-         alert('1');
+        var learning_id = $(this).attr('data-video')
+        var course_id = $(this).attr('data-course')
+        $.ajaxSetup({
+            headers:{
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        const request = $.ajax({
+            method: 'POST',
+            url: "/user-course/update-watched",
+            data: {
+                'video_id': learning_id
+            },
+            dataType: "json",
+            success: function () {
+                window.location.href = ("/learning-page/"+ course_id +"/lecture/"+ learning_id)
+            },
+            error: function () {
+
+            }
+        });
     });
 
     $('#accordion .event-click').click(function(){
