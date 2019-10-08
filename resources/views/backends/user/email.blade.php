@@ -114,8 +114,7 @@
                                         // filebrowserImageUploadUrl: '/backend/template/bower_components/kcfinder/upload.php?type=Images',
                                         toolbar : [
                                             { name: 'basicstyles', items: ['Styles', 'Format', 'Bold', 'Italic','-'/*, 'Image', 'Link', 'Unlink'*/] },
-                                            { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'] },
-                                            { name: 'extra', items: ['Source']}
+                                            { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'] }
                                         ],
                                     });
                                     var content_Ins = CKEDITOR.instances.content_Ins;
@@ -177,8 +176,7 @@
                                     },
                                     toolbar : [
                                         { name: 'basicstyles', items: ['Styles', 'Format', 'Bold', 'Italic','-'/*, 'Image', 'Link','Unlink'*/] },
-                                        { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'] },
-                                        { name: 'extra', items: ['Source']}
+                                        { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'] }
                                     ],
                                     // height: '5em',
                                 });
