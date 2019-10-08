@@ -135,7 +135,7 @@ class GiftController extends Controller
                                     'status'       => 1,
                                 ];
 
-                                $course_link = url('course/'.$course->slug);
+                                $course_link = url('course/'.$course->id.'/'.$course->slug);
                                 $course_name = $course->name;
                                 $current_user= User::find($user_id);
                                 $email = $current_user->email;
@@ -227,7 +227,7 @@ class GiftController extends Controller
                             'updated_at'   => $updated_at,
                         ];
 
-                        $course_link = url('course/'.$course->slug);
+                        $course_link = url('course/'.$course->id.'/'.$course->slug);
                         $course_name = $course->name;
                         $current_user= User::find($user_id);
                         $email = $current_user->email;
