@@ -69,6 +69,7 @@ $(document).ready(function () {
     clickToPlay()
 
     player.on('ended', function(){
+        alert(1);
         if(isAutoplay == 'true'){
             $("#btnContinue").click()
         }
