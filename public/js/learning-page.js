@@ -70,6 +70,7 @@ $(document).ready(function () {
 
     player.on('ended', function(){
         if(isAutoplay == 'true' || isAutoplay == true){
+            console.log(isAutoplay == 'true' || isAutoplay == true);
             $("#btnContinue").click()
         }
     })
