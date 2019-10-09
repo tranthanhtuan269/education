@@ -195,7 +195,7 @@ class HomeController extends Controller
                 if (\Auth::check()) {
                     if ($course) {
                         $ratingCourse = RatingCourse::where('course_id', $course->id)->where('user_id', \Auth::id())->first();
-                        $related_course = Course::where('category_id', $course->category_id)->where('id','!=',$course->id)->where('status', 1)->limit(4)->get();
+                        $related_course = Course::listCourseCategoryNotMe($course->category_id, $course->id)->limit(4)->get();
                         $info_course = Course::find($course->id);
 
                         $units = Unit::where('course_id', $course->id)->get();
@@ -215,7 +215,7 @@ class HomeController extends Controller
                     }
                 } else {
                     if ($course) {
-                        $related_course = Course::where('category_id', $course->category_id)->where('id','!=',$course->id)->where('status', 1)->limit(4)->get();
+                        $related_course = Course::listCourseCategoryNotMe($course->category_id, $course->id)->limit(4)->get();
                         $info_course = Course::find($course->id);
 
                         $units = Unit::where('course_id', $course->id)->get();
@@ -237,7 +237,7 @@ class HomeController extends Controller
             }else{
                 if( (\Auth::check() && \Auth::user()->isAdmin()) || (\Auth::check() && Auth::user()->userRolesTeacher()->userCoursesByTeacher()->where('id', $course->id)->first() != null )){
                     $ratingCourse = RatingCourse::where('course_id', $course->id)->where('user_id', \Auth::id())->first();
-                    $related_course = Course::where('category_id', $course->category_id)->where('id','!=',$course->id)->where('status', 1)->limit(4)->get();
+                    $related_course = Course::listCourseCategoryNotMe($course->category_id, $course->id)->limit(4)->get();
                     $info_course = Course::find($course->id);
 
                     $units = Unit::where('course_id', $course->id)->get();
