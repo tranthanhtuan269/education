@@ -553,20 +553,9 @@ class VideoController extends Controller
         if ($request->video_id) {
             $video = Video::find($request->video_id);
             if ($video) {
-                // $json_video = json_decode($video->url_video, true);
-
-                // if (count($json_video) > 0) {
-                //     foreach ($json_video as $path_video) {
-                //         if(\File::exists($path_video)) {
-                //             \File::delete($path_video);
-                //         }
-                //     }
-                // }
-                // echo 'rm /usr/local/WowzaStreamingEngine-4.7.7/content/360/'.$video->link_video;die;
                 exec('rm /usr/local/WowzaStreamingEngine-4.7.7/content/360/'.$video->link_video);
                 exec('rm /usr/local/WowzaStreamingEngine-4.7.7/content/480/'.$video->link_video);
                 exec('rm /usr/local/WowzaStreamingEngine-4.7.7/content/720/'.$video->link_video);
-                    // dd($video->link_video);
                 $path_video_origin = public_path('/uploads/videos/').$video->link_video;
                 if( isset($video->link_video) ){
                     if(\File::exists($path_video_origin)){
