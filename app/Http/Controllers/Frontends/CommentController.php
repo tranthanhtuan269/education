@@ -216,6 +216,18 @@ class CommentController extends Controller
     {
         $comment = CommentCourse::find($request->parent_id);
         if ($comment) {
+            if(Auth::user()->isAdmin()){
+                $commentCourse = new CommentCourse;
+                $commentCourse->content = $request->content;
+                $commentCourse->user_role_id = Auth::user()->userRolesAdmin()->id;
+                $commentCourse->course_id = $comment->course_id;
+                $commentCourse->parent_id = (int) $request->parent_id;
+                $commentCourse->score = 0;
+                $commentCourse->state = 0;
+                $commentCourse->save();
+                
+                return \Response::json(array('status' => '200', 'message' => 'Cập nhật thông tin thành công!', 'commentCourse' => fractal($commentCourse, new CommentCourseTransformer())->toArray()));
+            }
             $commentCourse = new CommentCourse;
             $commentCourse->content = $request->content;
             $commentCourse->user_role_id = Auth::user()->userRolesStudent()->id;
