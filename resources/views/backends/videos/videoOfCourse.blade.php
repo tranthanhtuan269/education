@@ -373,19 +373,7 @@
                             },
                             success: function (response) {
                                 if(response.status == 200){
-                                    if(_self.parent().parent().hasClass('blue-row')){
-                                        $(_self).prop('title', 'Duyệt');
-                                    } else {
-                                        $(_self).prop('title', 'Hủy');
-                                    }
-
-                                    if(_self.parent().parent().hasClass('red-row')){
-                                        _self.find('i').removeClass('fa-times').addClass('fa-check');
-                                        _self.parent().parent().addClass('red-row').removeClass('blue-row');
-                                    }else{
-                                        _self.find('i').removeClass('fa-check').addClass('fa-times');
-                                        _self.parent().parent().removeClass('red-row').addClass('blue-row');
-                                    }
+                                    dataTable.ajax.reload(); 
 
                                     Swal.fire({
                                         type: 'success',
@@ -441,15 +429,7 @@
                             },
                             success: function (response) {
                                 if(response.status == 200){
-                                    if(_self.parent().parent().hasClass('blue-row')){
-                                        $(_self).prop('title', 'Duyệt');
-                                    } else {
-                                        $(_self).prop('title', 'Hủy');
-                                    }
-
-                                    if(_self.parent().parent().hasClass('blue-row')){
-                                        _self.parent().parent().removeClass('blue-row').addClass('red-row');
-                                    }
+                                    dataTable.ajax.reload();
 
                                     Swal.fire({
                                         type: 'success',
