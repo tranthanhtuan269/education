@@ -90,7 +90,7 @@ class Teacher extends Model
         ->where('teachers.status', 1)
         ->where('users.status', 1)
         ->where('courses.status', 1)
-        ->groupBy('users.id', 'users.name', 'teachers.student_count')
+        ->groupBy('users.id', 'users.name', 'teachers.student_count', 'teachers.featured_index')
         ->select('users.id as id', 'users.name as name');
     }
 }
