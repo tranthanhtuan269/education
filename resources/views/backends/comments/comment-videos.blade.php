@@ -20,7 +20,7 @@
                             <th scope="col">Phản hồi</th>
                             <th scope="col">Bài giảng</th>
                             <th scope="col">Ngày đăng</th>
-                            <th scope="col">Ẩn</th>
+                            <th scope="col">Xóa</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -33,7 +33,7 @@
 </section>
 <style>
     .video-name{
-        width: 350px;
+        width: 250px;
     }
     .created-at{
         width: 45px;
@@ -50,6 +50,10 @@ $(document).ready(function() {
         },
         {
             data: "content",
+            render: function(data, type, row){
+                return $("<div/>").html(data).text();
+            },
+            orderable: false
         },
         {
             data: "video_name",
