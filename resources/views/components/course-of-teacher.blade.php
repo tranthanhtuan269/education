@@ -19,7 +19,7 @@
     <div class="des-ubc-course">
         <p><a href="/course/{{$course->id}}/{{$course->slug}}">{{$course->name}}</a></p>
         <ul class="mini-des">
-            <li><i class="fa fa-list-alt fa-fw" aria-hidden="true"></i> {{$course->video_count}} bài giảng</li>
+            <li><i class="fa fa-list-alt fa-fw" aria-hidden="true"></i> {{$course->all_videos()}} bài giảng</li>
             <li><i class="far fa-clock fa-fw" aria-hidden="true"></i> {{ intval($course->duration / 3600) }} giờ {{ intval($course->duration % 60 ) }} phút</li>
         </ul>
         <?php 
