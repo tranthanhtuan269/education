@@ -5,7 +5,7 @@
     $user_role_course_instance_video = json_decode($user_role_course_instance->videos);
     $learningId = $user_role_course_instance_video->learning_id;
     $video_done_units = $user_role_course_instance_video->videos;
-    $video_count = \App\Course::find($courseId)->all_videos();
+    $video_count = \App\Course::find($courseId)->all_videos() == 0 ? 1 : \App\Course::find($courseId)->all_videos();
     $video_done_count = 0;
     // dd(json_decode($user_role_course_instance_video->videos));
     $list_units = $user_role_course_instance_video->videos;
