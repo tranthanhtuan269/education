@@ -88,7 +88,6 @@ class Teacher extends Model
         ->join('teachers', 'teachers.user_role_id', '=', 'user_roles.id')
         ->join('users', 'users.id', '=','user_roles.user_id')
         ->where('teachers.status', 1)
-        ->where('teachers.featured_index', 1)
         ->where('users.status', 1)
         ->where('courses.status', 1)
         ->groupBy('users.id', 'users.name', 'teachers.student_count')
