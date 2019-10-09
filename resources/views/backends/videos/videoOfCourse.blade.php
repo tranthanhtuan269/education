@@ -114,9 +114,9 @@
                     var html = '';
                     @if (Helper::checkPermissions('videos.accept-video', $list_roles)) 
                         if(row['state'] == 0){
-                            html += '<a class="btn-accept mr-2 inaccept-video" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Duyệt"> <i class="fa fa-check fa-fw"></i></a>';
+                            html += '<a class="btn-inaccept mr-2 inaccept-video" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Hủy"> <i class="fa fa-times fa-fw"></i></a>';
                         }else{
-                            html += '<a class="btn-inaccept mr-2 accept-video" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Hủy"> <i class="fa fa-times fa-fw"></i></a>';
+                            html += '<a class="btn-accept mr-2 accept-video" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Duyệt"> <i class="fa fa-check fa-fw"></i></a>';
                         }
                     @endif
                     return html;
@@ -313,16 +313,16 @@
                                 success: function (response) {
                                     if(response.status == 200){
                                         if(_self.parent().parent().hasClass('blue-row')){
-                                            $(_self).prop('title', 'Hủy');
-                                        } else {
                                             $(_self).prop('title', 'Duyệt');
+                                        } else {
+                                            $(_self).prop('title', 'Hủy');
                                         }
 
                                         if(_self.parent().parent().hasClass('red-row')){
-                                            _self.find('i').removeClass('fa-times').addClass('fa-check');
+                                            _self.find('i').removeClass('fa-check').addClass('fa-times');
                                             _self.parent().parent().removeClass('red-row').addClass('blue-row');
                                         }else{
-                                            _self.find('i').removeClass('fa-check').addClass('fa-times');
+                                            _self.find('i').removeClass('fa-times').addClass('fa-check');
                                             _self.parent().parent().addClass('red-row').removeClass('blue-row');
                                         }
 
@@ -374,9 +374,9 @@
                             success: function (response) {
                                 if(response.status == 200){
                                     if(_self.parent().parent().hasClass('blue-row')){
-                                        $(_self).prop('title', 'Hủy');
-                                    } else {
                                         $(_self).prop('title', 'Duyệt');
+                                    } else {
+                                        $(_self).prop('title', 'Hủy');
                                     }
 
                                     if(_self.parent().parent().hasClass('red-row')){
@@ -442,17 +442,13 @@
                             success: function (response) {
                                 if(response.status == 200){
                                     if(_self.parent().parent().hasClass('blue-row')){
-                                        $(_self).prop('title', 'Hủy');
-                                    } else {
                                         $(_self).prop('title', 'Duyệt');
+                                    } else {
+                                        $(_self).prop('title', 'Hủy');
                                     }
 
-                                    if(_self.parent().parent().hasClass('red-row')){
-                                        _self.find('i').removeClass('fa-times').addClass('fa-check');
-                                        _self.parent().parent().addClass('red-row').removeClass('blue-row');
-                                    }else{
-                                        _self.find('i').removeClass('fa-check').addClass('fa-times');
-                                        _self.parent().parent().removeClass('red-row').addClass('blue-row');
+                                    if(_self.parent().parent().hasClass('blue-row')){
+                                        _self.parent().parent().removeClass('blue-row').addClass('red-row');
                                     }
 
                                     Swal.fire({
