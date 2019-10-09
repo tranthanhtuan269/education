@@ -197,7 +197,7 @@
                             $(row).attr('data-video', data['link_video']);
                         }
                     });
-                    
+              dataTable.ajax.reload();      
         var search = "{{ Request::get('search') }}";
 
         if ( search != '') {
