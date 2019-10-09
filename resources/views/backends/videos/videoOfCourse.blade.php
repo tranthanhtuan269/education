@@ -357,7 +357,7 @@
                             url: baseURL+"/admincp/videos/accept",
                             data: {
                                 video_id : id,
-                                state : 1
+                                state : 0
                             },
                             method: "PUT",
                             dataType:'json',

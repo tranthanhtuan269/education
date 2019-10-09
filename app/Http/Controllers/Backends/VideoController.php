@@ -503,6 +503,7 @@ class VideoController extends Controller
                     $res = array('status' => "200", "message" => "Bài giảng đang được convert");
                 } else {
                     // BaTV - Nếu hủy bất kỳ video nào trong khóa học đó =>  Khóa học tương ứng sẽ hủy theo
+
                     $course = $video->unit->course;
                     $course->status = 0;
                     $course->save();
