@@ -219,88 +219,88 @@ class VideoController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function sendRemoveVideoRequest(Request $request)
-    {
-        $video = Video::find($request->video_id);
+    // public function sendRemoveVideoRequest(Request $request)
+    // {
+    //     $video = Video::find($request->video_id);
 
-        if ($video) {
-            // if($video->state == Config::get('app.video_active')){ //Đang được admin duyệt
-            //     return response()->json([
-	        //         'status' => '201',
-	        //         'message' => 'Yêu cầu xoá video bài giảng đang được duyệt!'
-	        //     ]);
-            // }
-            if($video->state == Config::get('app.video_rejected')){
-                return response()->json([
-                    'status' => '201',
-                    'message' => 'Video đã không được duyệt!'
-                ]);
-            }
-            if($video->state == Config::get('app.video_waiting')){  // Nếu đang chờ duyệt thì có thể xoá luôn
-                //Xoá luôn video trên server
-	            $json_video = json_decode($video->url_video, true);
-	            if (count($json_video) > 0) {
-	                foreach ($json_video as $path_video) {
-	                    if(\File::exists($path_video)) {
-	                        \File::delete($path_video);
-	                    }
-	                }
-                }
-                $video->delete();
-                return response()->json([
-                    'status' => '200',
-                    'message' => 'Xoá video bài giảng thành công!'
-                ]);
-            }
-            if($video->state == Config::get('app.video_active')){
-                $unit = $video->unit;
-                $course = $unit->course;
-                $video->state = Config::get('app.video_waiting_to_delete'); //Đang được admin duyệt để xoá
-                $video->save();
+    //     if ($video) {
+    //         // if($video->state == Config::get('app.video_active')){ //Đang được admin duyệt
+    //         //     return response()->json([
+	//         //         'status' => '201',
+	//         //         'message' => 'Yêu cầu xoá video bài giảng đang được duyệt!'
+	//         //     ]);
+    //         // }
+    //         if($video->state == Config::get('app.video_rejected')){
+    //             return response()->json([
+    //                 'status' => '201',
+    //                 'message' => 'Video đã không được duyệt!'
+    //             ]);
+    //         }
+    //         if($video->state == Config::get('app.video_waiting')){  // Nếu đang chờ duyệt thì có thể xoá luôn
+    //             //Xoá luôn video trên server
+	//             $json_video = json_decode($video->url_video, true);
+	//             if (count($json_video) > 0) {
+	//                 foreach ($json_video as $path_video) {
+	//                     if(\File::exists($path_video)) {
+	//                         \File::delete($path_video);
+	//                     }
+	//                 }
+    //             }
+    //             $video->delete();
+    //             return response()->json([
+    //                 'status' => '200',
+    //                 'message' => 'Xoá video bài giảng thành công!'
+    //             ]);
+    //         }
+    //         if($video->state == Config::get('app.video_active')){
+    //             $unit = $video->unit;
+    //             $course = $unit->course;
+    //             $video->state = Config::get('app.video_waiting_to_delete'); //Đang được admin duyệt để xoá
+    //             $video->save();
 
-                return response()->json([
-	                'status' => '200',
-	                'message' => 'Yêu cầu xoá video đã được gửi!'
-	            ]);
+    //             return response()->json([
+	//                 'status' => '200',
+	//                 'message' => 'Yêu cầu xoá video đã được gửi!'
+	//             ]);
 
-                //Xoá luôn video trên server
-	            // if (count($json_video) > 0) {
-	            //     foreach ($json_video as $path_video) {
-	            //         if(\File::exists($path_video)) {
-	            //             \File::delete($path_video);
-	            //         }
-	            //     }
-                // }
+    //             //Xoá luôn video trên server
+	//             // if (count($json_video) > 0) {
+	//             //     foreach ($json_video as $path_video) {
+	//             //         if(\File::exists($path_video)) {
+	//             //             \File::delete($path_video);
+	//             //         }
+	//             //     }
+    //             // }
 
-                // DuongNT // Xoá trong bảng usercourse phần tử đại diện video đã xem
-                // $unit = $video->unit;
-                // $course = $video->unit->course;
-                // $user_roles = $course->userRoles()->get()->all();
-                // $user_roles = \array_filter($user_roles, function($user_role){
-                //     return $user_role->role_id == 3; //lấy những user_role đại diện student
-                // });
-                // foreach ($user_roles as $key => $user_role) {
-                //     $user_course = UserCourse::where("user_role_id", $user_role->id)->where("course_id", $course->id)->first();
-                //     $videos = json_decode($user_course->videos);
-                //     $unit_arr = $videos->{'videos'}[ ($unit->index) - 1 ];
-                //     array_splice($unit_arr, ($video->index - 1), 1);
-                //     $videos->{'videos'}[ ($unit->index) - 1 ] = $unit_arr;
-                //     $videos = json_encode($videos);
-                //     $user_course->videos = $videos;
-                //     $user_course->save();
-                // }
+    //             // DuongNT // Xoá trong bảng usercourse phần tử đại diện video đã xem
+    //             // $unit = $video->unit;
+    //             // $course = $video->unit->course;
+    //             // $user_roles = $course->userRoles()->get()->all();
+    //             // $user_roles = \array_filter($user_roles, function($user_role){
+    //             //     return $user_role->role_id == 3; //lấy những user_role đại diện student
+    //             // });
+    //             // foreach ($user_roles as $key => $user_role) {
+    //             //     $user_course = UserCourse::where("user_role_id", $user_role->id)->where("course_id", $course->id)->first();
+    //             //     $videos = json_decode($user_course->videos);
+    //             //     $unit_arr = $videos->{'videos'}[ ($unit->index) - 1 ];
+    //             //     array_splice($unit_arr, ($video->index - 1), 1);
+    //             //     $videos->{'videos'}[ ($unit->index) - 1 ] = $unit_arr;
+    //             //     $videos = json_encode($videos);
+    //             //     $user_course->videos = $videos;
+    //             //     $user_course->save();
+    //             // }
 
-	            // $video->delete();
+	//             // $video->delete();
 
 
-            }
-        }else{
-            return response()->json([
-                'status' => '404',
-                'message' => 'Yêu cầu xoá video không được gửi thành công!',
-            ]);
-        }
-    }
+    //         }
+    //     }else{
+    //         return response()->json([
+    //             'status' => '404',
+    //             'message' => 'Yêu cầu xoá video không được gửi thành công!',
+    //         ]);
+    //     }
+    // }
 
     public function sort(Request $request)
     {

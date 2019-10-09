@@ -206,7 +206,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <div class="btn btn-primary pull-right btn-add-video" id="addVideoBtn" ><i class="fas fa-plus"></i> Thêm bài học</div>
+                <div class="btn btn-primary pull-right btn-add-video" id="addVideoBtn" ><i class="fas fa-plus fa-fw"></i>Thêm bài học</div>
                 <h4 class="modal-title">Danh sách bài học</h4>
             </div>
             <div class="modal-body">
@@ -566,7 +566,7 @@
                                 case 2:
                                     html += '<li style="display:flex" class="ui-state-default ui-sortable-handle"  data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'">'
                                     html += '<i class="fas fa-sort"></i> '
-                                    html += '<span class="video-content">'+response.videos[i].name+'</span><span class="remove-request"> (Đang duyệt yêu cầu xoá)</span>'
+                                    // html += '<span class="video-content">'+response.videos[i].name+'</span><span class="remove-request"> (Đang duyệt yêu cầu xoá)</span>'
                                     break;
                                 case 3:
                                     html += '<li style="display:flex" class="ui-state-default ui-sortable-handle"  data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'">'
@@ -577,7 +577,7 @@
                                     html += '<li class="ui-state-default ui-sortable-handle"  data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'">'
                                     html += '<i class="fas fa-sort"></i> '
                                     html += '<span class="video-content">'+response.videos[i].name+'</span>'
-                                    html += '<i class="far fa-trash-alt pull-right remove-video" data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'"></i>'
+                                    // html += '<i class="far fa-trash-alt pull-right remove-video" data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'"></i>'
                                     html += '<i class="far fa-edit pull-right edit-video" data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'"></i>'
                                     break;
                                 case 0: //chờ duyệt
@@ -585,7 +585,7 @@
                                     html += '<i class="fas fa-sort"></i> '
                                     html += '<span class="video-content">'+response.videos[i].name+'</span><span class="verifing-request"> (Chờ duyệt)</span>'
                                     html += '<i class="far fa-edit pull-right edit-video" data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'"></i>'
-                                    html += '<i class="far fa-trash-alt pull-right remove-video" data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'"></i>'
+                                    // html += '<i class="far fa-trash-alt pull-right remove-video" data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'"></i>'
                                     break;
                             }
                             html += '</li>'
@@ -850,63 +850,64 @@
                 })
             })
 
-            $(".remove-video").off('click');
-            $(".remove-video").click(function(){
-                var self = $(this)
-                var video_id = $(this).attr('data-video-id')
+            // $(".remove-video").off('click');
+            // $(".remove-video").click(function(){
+            //     var self = $(this)
+            //     var video_id = $(this).attr('data-video-id')
 
 
-                //DuongNT // Đánh lại index cho từng video trên DOM sau khi xoá
-                // var deleted_index = $(this).parent().attr("data-video-index")
-                // $.each($( "#videoSortable li" ), function( index, value ) {
-                //     if(index >= (deleted_index-1)){
-                //         $(value).attr("data-video-index", index)
-                //     }
-                // })
-                // console.log(self.parent().children('i.edit-video'));
-                // self.parent().children('i.edit-video').remove()
+            //     //DuongNT // Đánh lại index cho từng video trên DOM sau khi xoá
+            //     // var deleted_index = $(this).parent().attr("data-video-index")
+            //     // $.each($( "#videoSortable li" ), function( index, value ) {
+            //     //     if(index >= (deleted_index-1)){
+            //     //         $(value).attr("data-video-index", index)
+            //     //     }
+            //     // })
+            //     // console.log(self.parent().children('i.edit-video'));
+            //     // self.parent().children('i.edit-video').remove()
 
-                Swal.fire({
-                    type: 'warning',
-                    text : 'Bạn có chắc chắn muốn xoá bài giảng này?',
-                    showCancelButton: true,
-                }).then( result => {
-                    if(result.value){
-                        $.ajax({
-                            method: 'DELETE',
-                            url: "{{ url('/') }}/user/units/video/remove",
-                            data: {
-                                video_id : video_id
-                            },
-                            dataType: 'json',
-                            beforeSend: function() {
-                                $(".ajax_waiting").addClass("loading");
-                            },
-                            success: function (response) {
-                                $(".ajax_waiting").removeClass("loading");
-                                if(response.status == '200'){
-                                    $('#listVideo .modal-body #videoSortable').empty()
-                                    var unit_id = $('#listVideo').attr('data-unit-id')
-                                    getListVideoAjax(unit_id)
-                                }
-                                if(response.status == '201'){
-                                    return Swal.fire({
-                                        type: 'info',
-                                        text: response.message,
-                                        allowOutsideClick: false,
-                                    })
-                                    $('#listVideo .modal-body #videoSortable').empty()
-                                    var unit_id = $('#listVideo').attr('data-unit-id')
-                                    getListVideoAjax(unit_id)
-                                }
-                            },
-                            error: function () {
-                                $(".ajax_waiting").removeClass("loading");
-                            }
-                        })
-                    }
-                })
-            });
+            //     Swal.fire({
+            //         type: 'warning',
+            //         text : 'Bạn có chắc chắn muốn xoá bài giảng này?',
+            //         showCancelButton: true,
+            //     }).then( result => {
+            //         if(result.value){
+            //             $.ajax({
+            //                 method: 'DELETE',
+            //                 url: "{{ url('/') }}/user/units/video/remove",
+            //                 data: {
+            //                     video_id : video_id
+            //                 },
+            //                 dataType: 'json',
+            //                 beforeSend: function() {
+            //                     $(".ajax_waiting").addClass("loading");
+            //                 },
+            //                 success: function (response) {
+            //                     $(".ajax_waiting").removeClass("loading");
+            //                     if(response.status == '200'){
+            //                         $('#listVideo .modal-body #videoSortable').empty()
+            //                         var unit_id = $('#listVideo').attr('data-unit-id')
+            //                         getListVideoAjax(unit_id)
+            //                     }
+            //                     if(response.status == '201'){
+            //                         return Swal.fire({
+            //                             type: 'info',
+            //                             text: response.message,
+            //                             allowOutsideClick: false,
+            //                         })
+            //                         $('#listVideo .modal-body #videoSortable').empty()
+            //                         var unit_id = $('#listVideo').attr('data-unit-id')
+            //                         getListVideoAjax(unit_id)
+            //                     }
+            //                 },
+            //                 error: function () {
+            //                     $(".ajax_waiting").removeClass("loading");
+            //                 }
+            //             })
+            //         }
+            //     })
+            // });
+
             $('.cancel-edit-video').on('click', function(){
                 $('#videoInEdit')[0].pause()
             })
