@@ -186,6 +186,9 @@ class VideoPlayerController extends Controller
             // dd($user_course);
             if($user_course){
                 $videos = $user_course->videos;
+                if($videos == null){
+                    return \Response::json(array('status' => '200', 'message' => 'Cập nhật thông tin thành công!'));
+                }
                 $videoObj = \json_decode($videos);
                 $videoObj->videos = $videoObj->videos;
                 if(is_array($videoObj->videos[$unit->index-1])){
