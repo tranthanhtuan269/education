@@ -51,6 +51,7 @@ $(document).ready(function() {
         },
         {
             data: "content",
+            orderable: false
             // render: function(data, type, row){
             //     var html = '';
             //     html += '<p>'+data+'</p>';
@@ -67,7 +68,7 @@ $(document).ready(function() {
             render: function(data, type, row){
                 if(type == "display"){
                     var html = '';
-                    html += '<a class="" href="/course/'+row.action+'/'+row.course_slug+'" target="_blank"><b>'+data+'</b></a>';
+                    html += '<a class="" href="/course/'+row.course_id+'/'+row.course_slug+'" target="_blank"><b>'+data+'</b></a>';
                     return html;
                 }
                 return data;
