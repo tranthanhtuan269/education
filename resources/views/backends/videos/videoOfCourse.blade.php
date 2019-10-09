@@ -113,10 +113,12 @@
                 render: function(data, type, row){
                     var html = '';
                     @if (Helper::checkPermissions('videos.accept-video', $list_roles)) 
+                        console.log(row);
                         if(row['state'] == 0){
+                            html += '<a class="btn-accept mr-2 inaccept-video" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Duyệt"> <i class="fa fa-check fa-fw"></i></a>';
+                        }
+                        if(row['state'] == 1){
                             html += '<a class="btn-inaccept mr-2 inaccept-video" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Hủy"> <i class="fa fa-times fa-fw"></i></a>';
-                        }else{
-                            html += '<a class="btn-accept mr-2 accept-video" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Duyệt"> <i class="fa fa-check fa-fw"></i></a>';
                         }
                     @endif
                     return html;
@@ -129,8 +131,8 @@
                 render: function(data, type, row){
                     var html = '';
                     @if (Helper::checkPermissions('videos.delete', $list_roles)) 
-                        if (row['state'] == 0){
-                        html += '<a class="btn-delete" data-id="'+data+'" title="Xóa"><i class="fa fa-trash fa-fw" aria-hidden="true"></i></a>';
+                        if (row['state'] == 3){
+                            html += '<a class="btn-delete" data-id="'+data+'" title="Xóa"><i class="fa fa-trash fa-fw" aria-hidden="true"></i></a>';
                         }
                     @endif
                     return html;
@@ -283,72 +285,7 @@
                 var id      = $(this).attr('data-id');
                 var state  = 0;
                 var message = "Bạn có chắc chắn muốn duyệt?";
-                if(_self.parent().parent().hasClass('blue-row')){
-                    state = 1;
-                    message = "Bạn có chắc chắn muốn hủy?";
-
-                    // Nếu video đã duyệt xong
-                    Swal.fire({
-                        type: 'warning',
-                        text: message,
-                        showCancelButton: true,
-                    }).then(result => {
-                        if(result.value){
-                            $.ajaxSetup({
-                                headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                                }
-                            });
-                            $.ajax({
-                                url: baseURL+"/admincp/videos/accept",
-                                data: {
-                                    video_id : id,
-                                    state : 0
-                                },
-                                method: "PUT",
-                                dataType:'json',
-                                beforeSend: function(r, a){
-                                    current_page = dataTable.page.info().page;
-                                },
-                                success: function (response) {
-                                    if(response.status == 200){
-                                        if(_self.parent().parent().hasClass('blue-row')){
-                                            $(_self).prop('title', 'Duyệt');
-                                        } else {
-                                            $(_self).prop('title', 'Hủy');
-                                        }
-
-                                        if(_self.parent().parent().hasClass('red-row')){
-                                            _self.find('i').removeClass('fa-check').addClass('fa-times');
-                                            _self.parent().parent().removeClass('red-row').addClass('blue-row');
-                                        }else{
-                                            _self.find('i').removeClass('fa-times').addClass('fa-check');
-                                            _self.parent().parent().addClass('red-row').removeClass('blue-row');
-                                        }
-
-                                        Swal.fire({
-                                            type: 'success',
-                                            text: response.message
-                                        })
-
-                                    }else{
-                                        Swal.fire({
-                                            type: 'warning',
-                                            text: response.message
-                                        })
-                                    }
-                                },
-                                error: function (data) {
-                                    if(data.status == 401){
-                                    window.location.replace(baseURL);
-                                    }else{
-                                    $().toastmessage('showErrorToast', errorConnect);
-                                    }
-                                }
-                            });
-                        }
-                    })
-                }
+              
                 Swal.fire({
                     type: 'warning',
                     text: message,
@@ -420,7 +357,7 @@
                             url: baseURL+"/admincp/videos/accept",
                             data: {
                                 video_id : id,
-                                state : 4
+                                state : 0
                             },
                             method: "PUT",
                             dataType:'json',
