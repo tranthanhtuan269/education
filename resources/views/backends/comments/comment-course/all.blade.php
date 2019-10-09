@@ -32,6 +32,14 @@
         </div>
     </div>
 </section>
+<style>
+    .course-name{
+        width: 250px;
+    }
+    .created-at{
+        width: 45px;
+    }
+</style>
 <script type="text/javascript">
 var dataTable = null;
 
@@ -55,6 +63,7 @@ $(document).ready(function() {
         },
         {
             data: "course_name",
+            class: "course-name",
             render: function(data, type, row){
                 if(type == "display"){
                     var html = '';
@@ -66,6 +75,7 @@ $(document).ready(function() {
         },
         {
             data: "created_at",
+            class: "created-at"
         },
         // {
         //     data: "action",
