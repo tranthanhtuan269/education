@@ -130,9 +130,8 @@
                 class: "text-center",
                 render: function(data, type, row){
                     var html = '';
-                    html += '<a class="btn-delete" data-id="'+data+'" title="Xóa"><i class="fa fa-trash fa-fw" aria-hidden="true"></i></a>';
                     @if (Helper::checkPermissions('videos.delete', $list_roles)) 
-                        if (row['state'] == 3 || row['state'] == 0){
+                        if (row['state'] == 3){
                             html += '<a class="btn-delete" data-id="'+data+'" title="Xóa"><i class="fa fa-trash fa-fw" aria-hidden="true"></i></a>';
                         }
                     @endif
@@ -196,8 +195,7 @@
                             // $(row).attr('data-cv', data['cv']);
                             $(row).attr('data-video', data['link_video']);
                         }
-                    });
-              dataTable.ajax.reload();      
+                    });    
         var search = "{{ Request::get('search') }}";
 
         if ( search != '') {
