@@ -75,6 +75,6 @@ class Category extends Model
         // ->where('courses.category_id', $cat_id)
         // ->where('categories.featured', 1)
         ->groupBy('categories.id', 'categories.image', 'categories.slug', 'categories.name')
-        ->select('categories.id', 'categories.image', 'categories.slug', 'categories.name', \DB::raw('count(categories.id) as category_count'));
+        ->select('categories.id', 'categories.image', 'categories.slug', 'categories.name', \DB::raw('count(categories.id) as course_count'));
     }
 }

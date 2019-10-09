@@ -30,7 +30,7 @@ Courdemy - Học online cùng những chuyên gia hàng đầu Việt Nam
                             <div class="link-parent">
                             <!-- <a href="{{ url('/') }}/category/{{ $feature->slug }}" class="text-center"> -->
                                 <h3>{{ $feature->name }}</h3>
-                                <p>Có {{ $feature->courses->where('status', 1)->count() }} khóa học</p>
+                                <p>Có {{ $feature->course_count }} khóa học</p>
                             <!-- </a> -->
                             </div>
                         </a>
