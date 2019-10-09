@@ -18,15 +18,7 @@
 Auth::routes();
 
 Route::get('test2', function(){
-    $courses = \App\Course::get();
-    // dd($courses);
-    foreach($courses as $course){
-        if($course->all_videos() == 0){
-            // echo $course->id . "</br>";
-            $course->status = 0;
-            $course->save();
-        }
-    }
+    dd(\App\Category::getCoursesOfCategory(14));
 });
 
 Route::get('thay-state-video', function(){

@@ -50,7 +50,7 @@ class HomeController extends Controller
 
     public function home()
     {
-        $feature_category = Category::withCount('courses')->where('featured', 1)->where('parent_id', '<>', 0)->orderBy('featured_index', 'asc')->get();
+        $feature_category = Category::getCoursesOfCategory()->get();
 
         // Duong NT// feature courses
         $percent_feature_course = Setting::where('name', 'percent_feature_course')->first()->value;
