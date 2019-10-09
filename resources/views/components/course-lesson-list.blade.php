@@ -3,7 +3,7 @@
         <h3 class="pull-left">Bài học</h3>
         <ul class="pull-right">
             {{-- <li>Expand all</li> --}}
-            <li>{{ $info_course->video_count }} bài học</li>
+            <li>{{ $info_course->all_videos() }} bài học</li>
             <li>{{ intval($info_course->duration / 3600) }} giờ {{ intval($info_course->duration % 60 ) }} phút</li>
         </ul>
     </div>
