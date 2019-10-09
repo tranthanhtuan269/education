@@ -116,8 +116,7 @@
                 class: "text-center",
                 render: function(data, type, row){
                     var html = '';
-                    @if (Helper::checkPermissions('videos.accept-video', $list_roles)) 
-                        console.log(row);
+                    @if (Helper::checkPermissions('videos.accept-video', $list_roles))
                         if(row['state'] == 0){
                             html += '<a class="btn-accept mr-2 inaccept-video" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Duyệt"> <i class="fa fa-check fa-fw"></i></a>';
                         }
@@ -156,7 +155,6 @@
                             url: "{{ url('/') }}/admincp/videos/getVideoAjax",
                             beforeSend: function() {
                                 $(".ajax_waiting").addClass("loading");
-                                // document.getElementById("ajax_waiting").classList.add("loading");
                             }
                         },
                         columns: dataObject,

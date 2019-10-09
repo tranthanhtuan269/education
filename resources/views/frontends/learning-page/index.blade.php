@@ -20,7 +20,7 @@
             }
         }
         // dd($video_done_count);
-        $video_done_percent = (int)(($video_done_count/(int)$video_count)*100);
+        $video_done_percent = (int)(($video_done_count/((int)$video_count) == 0 ? 1 : (int)$video_count) *100);
     }
     $video_urls = json_decode($main_video->url_video, true);
     // $urls = [];
