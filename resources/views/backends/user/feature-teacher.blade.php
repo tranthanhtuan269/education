@@ -30,7 +30,7 @@ if($feature_teacher_selected){
                 <div class="col-xs-12">
                     <div class="listed">
                         @foreach ($auto_teacher as $key=>$teacher)
-                    <div id="autoTeacher{{$key}}" data-id="{{$teacher->id}}"><b>- {{$teacher->userRole->user->name}}</b></div>
+                    <div id="autoTeacher{{$key}}" data-id="{{$teacher->id}}"><b>- {{$teacher->name}}</b></div>
                         @endforeach
                     </div>
                 </div>
@@ -49,14 +49,12 @@ if($feature_teacher_selected){
                     <div class=''>
                         <select class="search-teacher" name="teacher1">
                             @foreach ($teachers as $teacher)
-                                @if( isset($teacher->userRole->user->name) )
-                                    @if( count($teacher->userRole->userCoursesByTeacher()->where('status', 1)) > 0 )
+                                @if( isset($teacher->name) )
                                     <option value="{{ $teacher->id }}"
                                         @if($teacher->featured_index==1)
                                             selected
                                         @endif
-                                    >{{ $teacher->userRole->user->name }}</option>
-                                    @endif
+                                    >{{ $teacher->name }}</option>
                                 @endif
                             @endforeach
                         </select>
@@ -66,14 +64,12 @@ if($feature_teacher_selected){
                     <div class=''>
                         <select class="search-teacher" name="teacher2">
                             @foreach ($teachers as $teacher)
-                                @if( isset($teacher->userRole->user->name) )
-                                    @if( count($teacher->userRole->userCoursesByTeacher()->where('status', 1)) > 0 )
+                                @if( isset($teacher->name) )
                                     <option value="{{ $teacher->id }}"
                                         @if($teacher->featured_index==2)
                                             selected
                                         @endif
-                                    >{{ $teacher->userRole->user->name }}</option>
-                                    @endif
+                                    >{{ $teacher->name }}</option>
                                 @endif
                             @endforeach
                         </select>
@@ -85,14 +81,12 @@ if($feature_teacher_selected){
                     <div class=''>
                         <select class="search-teacher" name="teacher3">
                             @foreach ($teachers as $teacher)
-                                @if( isset($teacher->userRole->user->name) )
-                                    @if( count($teacher->userRole->userCoursesByTeacher()->where('status', 1)) > 0 )
+                                @if( isset($teacher->name) )
                                     <option value="{{ $teacher->id }}"
                                         @if($teacher->featured_index==3)
                                             selected
                                         @endif
-                                    >{{ $teacher->userRole->user->name }}</option>
-                                    @endif
+                                    >{{ $teacher->name }}</option>
                                 @endif
                             @endforeach
                         </select>
@@ -102,14 +96,12 @@ if($feature_teacher_selected){
                     <div class=''>
                         <select class="search-teacher" name="teacher4">
                             @foreach ($teachers as $teacher)
-                                @if( isset($teacher->userRole->user->name) )
-                                    @if( count($teacher->userRole->userCoursesByTeacher()->where('status', 1)) > 0 )
+                                @if( isset($teacher->name) )
                                     <option value="{{ $teacher->id }}"
                                         @if($teacher->featured_index==4)
                                             selected
                                         @endif
-                                    >{{ $teacher->userRole->user->name }}</option>
-                                    @endif
+                                    >{{ $teacher->name }}</option>
                                 @endif
                             @endforeach
                         </select>

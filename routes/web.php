@@ -18,7 +18,7 @@
 Auth::routes();
 
 Route::get('test2', function(){
-    dd(\App\Category::getCoursesOfCategory(14));
+    dd(\App\Teacher::getFeatureTeacherForAdmin());
 });
 
 Route::get('thay-state-video', function(){

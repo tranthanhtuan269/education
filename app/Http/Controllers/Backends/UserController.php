@@ -554,8 +554,8 @@ class UserController extends Controller
     }
 
     public function getFeatureTeacher(){
-        $auto_teacher = Teacher::where('status', 1)->where('course_count', '>', 0)->orderBy('student_count', 'DESC')->limit(4)->get();
-        $teachers = Teacher::where('status', 1)->where('course_count', '>', 0)->get();
+        $auto_teacher = Teacher::getFeatureTeacherForAdmin()->limit(4)->get();
+        $teachers = Teacher::getFeatureTeacherForAdmin()->get();
         return view('backends.user.feature-teacher', compact('teachers', 'auto_teacher'));
     }
 

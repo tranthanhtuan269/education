@@ -66,7 +66,7 @@ class Teacher extends Model
         return ($checkTeacher->update(['status' => $status]) > 0);
     }
 
-    static public function getFeatureTeacher()
+    public static function getFeatureTeacher()
     {
         $arr_check =  Teacher::where('featured', 1);
         if( isset($arr_check->first()->id) ){
@@ -78,5 +78,21 @@ class Teacher extends Model
                         ->orderBy('student_count', 'DESC');
         }
         return $arr_check->take(4)->get();
+    }
+
+    public static function getFeatureTeacherForAdmin()
+    {
+        return \DB::table('courses')
+        ->join('user_courses', 'user_courses.course_id', '=', 'courses.id')
+        ->join('user_roles', 'user_roles.id', '=', 'user_courses.user_role_id')
+        ->join('teachers', 'teachers.user_role_id', '=', 'user_roles.id')
+        ->join('users', 'users.id', '=','user_roles.user_id')
+        ->where('teachers.status', 1)
+        ->where('teachers.featured_index', 1)
+        ->where('users.status', 1)
+        ->where('courses.status', 1)
+        ->orderBy('teachers.student_count', 'DESC')
+        ->groupBy('users.id', 'users.name', 'teachers.student_count')
+        ->select('users.id as id', 'users.name as name');
     }
 }
