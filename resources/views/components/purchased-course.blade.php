@@ -5,7 +5,7 @@
     $user_role_course_instance_video = json_decode($user_role_course_instance->videos);
     $learningId = $user_role_course_instance_video->learning_id;
     $video_done_units = $user_role_course_instance_video->videos;
-    $video_count = \App\Course::find($courseId)->all_videos() == 0 ? 1 : \App\Course::find($courseId)->all_videos();
+    $video_count = \App\Course::find($courseId)->all_videos();
     $video_done_count = 0;
     // dd(json_decode($user_role_course_instance_video->videos));
     $list_units = $user_role_course_instance_video->videos;
@@ -27,7 +27,11 @@
     //     // }
 
     // }
-    $video_done_percent = (int)(($video_done_count/ (int) $video_count)*100);
+    if($video_count == 0){
+      $video_done_percent = 100;  
+    }else{
+      $video_done_percent = (int)(($video_done_count/ (int) $video_count)*100);
+    }
 ?>
 <div class="col-md-3 col-sm-6">
     <div class="box-course">
