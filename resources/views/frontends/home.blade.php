@@ -24,7 +24,7 @@ Courdemy - Học online cùng những chuyên gia hàng đầu Việt Nam
         <div class="container category-slider">
             {{-- @dd($feature_category) --}}
             @foreach ($feature_category as $feature)
-                @if( count($feature->courses) > 0 )
+                @if( $feature->course_count > 0 )
                     <div class="slider-div" style='background-image: url("{{ url('/frontend/images/'.$feature->image) }}"'>
                         <a href="{{ url('/') }}/category/{{ $feature->slug }}" class="text-center">
                             <div class="link-parent">
