@@ -555,6 +555,7 @@ class UserController extends Controller
 
     public function getFeatureTeacher(){
         $auto_teacher = Teacher::getFeatureTeacherForAdmin()->limit(4)->get();
+        dd($auto_teacher);
         $teachers = Teacher::getFeatureTeacherForAdmin()->get();
         return view('backends.user.feature-teacher', compact('teachers', 'auto_teacher'));
     }
