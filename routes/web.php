@@ -111,6 +111,13 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('request-delete-videos', 'Backends\VideoController@getRequestDeleteVideo');
         Route::get('request-delete-videos/getRequestDeleteVideoAjax', 'Backends\VideoController@getRequestDeleteVideoAjax');
         Route::put('request-delete-videos/reject', 'Backends\VideoController@rejectRequestDeleteVideo');
+
+        Route::get('request-edit-videos', 'Backends\VideoController@getRequestEditVideo');
+        Route::get('request-edit-videos-ajax', 'Backends\VideoController@getRequestEditVideoAjax');
+        Route::put('accept-edit-video', 'Backends\VideoController@acceptEditVideo');
+        Route::put('reject-edit-video', 'Backends\VideoController@rejectEditVideo');
+
+        // Route::put('request-delete-videos/reject', 'Backends\VideoController@rejectRequestDeleteVideo');
         // Route::get('videos-of-course', 'Backends\VideoController@getVideoOfCourse');
         // Route::delete('request-delete-videos/accept', 'Backends\VideoController@acceptRequestDeleteVideo');
 
@@ -343,6 +350,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::post('video/store', 'Backends\VideoController@store');
             Route::post('video/edit', 'Backends\VideoController@edit');
             Route::put('video/{id}/update', 'Backends\VideoController@update');
+            Route::put('video/{id}/request-update', 'Backends\VideoController@requestUpdate');
             Route::delete('video/remove', 'Backends\VideoController@sendRemoveVideoRequest');
             Route::delete('delete', 'Backends\UnitController@destroy');
         });

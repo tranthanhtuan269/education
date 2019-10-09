@@ -341,7 +341,7 @@
             </div>
 
             <div class="modal-footer">
-                <button class="btn btn-primary save-edit-video">Lưu</button>
+                <button class="btn btn-primary save-edit-video request-edit-video">Lưu</button>
                 <button type="button" class="btn btn-default cancel-edit-video" data-dismiss="modal">Đóng</button>
             </div>
         </div>
@@ -794,8 +794,64 @@
                 })
             })
 
-            $('.save-edit-video').off('click');
-            $('.save-edit-video').on('click', function () {
+            // $('.save-edit-video').off('click');
+            // $('.save-edit-video').on('click', function () {
+            //     var video_id = $('#editVideoModal').attr('data-video-id');
+            //     var video_name = $('.edit-video-name').val()
+            //     var video_description = $('.edit-video-description').val()
+            //     var link_video = $('#fileName').val()
+
+            //     var formData = new FormData()
+
+            //     formData.append('_method', 'PUT')
+            //     formData.append('name', video_name)
+            //     formData.append('description', video_description)
+            //     formData.append('link_video', link_video)
+            //     formData.append('active_file_to_delete', activeFileToDelete)
+
+            //     editFiles.forEach((file, index) => {
+            //         formData.append(`document${index}`, file)
+            //     });
+
+            //     $.ajax({
+            //         method: 'POST',
+            //         url: "{{ url('/') }}/user/units/video/"+ video_id + "/update",
+            //         data: formData,
+            //         processData: false,
+            //         contentType: false,
+            //         beforeSend: function() {
+            //             $(".ajax_waiting").addClass("loading");
+            //         },
+            //         success: function (response) {
+            //             $(".ajax_waiting").removeClass("loading");
+            //             if(response.status == '200'){
+            //                 $('#editVideoModal').modal('hide')
+            //                 // $('#listVideo').modal('toggle')
+            //                 editFiles = []
+            //                 $("#editVideoDocument").val("")
+            //                 $("#videoInEdit")[0].pause()
+            //             }
+
+            //         },
+            //         error: function (error) {
+            //             $(".ajax_waiting").removeClass("loading");
+            //             var obj_errors = error.responseJSON.errors;
+            //             var txt_errors = '';
+            //             for (k of Object.keys(obj_errors)) {
+            //                 txt_errors += obj_errors[k][0] + '</br>';
+            //             }
+            //             Swal.fire({
+            //                 type: 'warning',
+            //                 html: txt_errors,
+            //                 allowOutsideClick: false,
+            //             })
+            //             $("#videoInEdit")[0].pause()
+            //         }
+            //     })
+            // })
+
+            $('.request-edit-video').off('click');
+            $('.request-edit-video').on('click', function () {
                 var video_id = $('#editVideoModal').attr('data-video-id');
                 var video_name = $('.edit-video-name').val()
                 var video_description = $('.edit-video-description').val()
@@ -815,7 +871,7 @@
 
                 $.ajax({
                     method: 'POST',
-                    url: "{{ url('/') }}/user/units/video/"+ video_id + "/update",
+                    url: "{{ url('/') }}/user/units/video/"+ video_id + "/request-update",
                     data: formData,
                     processData: false,
                     contentType: false,
@@ -830,6 +886,11 @@
                             editFiles = []
                             $("#editVideoDocument").val("")
                             $("#videoInEdit")[0].pause()
+                            Swal.fire({
+                                type: 'success',
+                                html: response.message,
+                                allowOutsideClick: false,
+                            })
                         }
 
                     },

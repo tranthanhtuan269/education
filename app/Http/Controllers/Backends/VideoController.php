@@ -18,6 +18,8 @@ use App\Jobs\ProcessLecture;
 use DB;
 use Illuminate\Http\Response;
 use Config;
+use App\TempVideo;
+use App\TempDocument;
 
 class VideoController extends Controller
 {
@@ -211,6 +213,60 @@ class VideoController extends Controller
             return \Response::json(array('status' => '200', 'message' => 'Sửa Video thành công!', 'video' => $video));
         }
         return \Response::json(array('status' => '404', 'message' => 'Sửa Video không thành công!'));
+    }
+
+    public function requestUpdate(UpdateVideoRequest $request, $id)
+    {
+        $video = Video::find($id);
+        if($video){
+
+            $replace_temp = TempVideo::where('video_id', $id)->first();
+            if( $replace_temp ){
+                $replace_temp->delete();
+            }
+
+            $temp_video = new TempVideo;
+            $temp_video->video_id  = $id;
+            $temp_video->name      = $request->name;
+
+            if ($request->link_video != '') {
+                $link_video = $request->link_video.'.mp4';
+                $temp_video->link_video = $link_video;
+                $command = config('config.path_ffprobe_exe').' -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 '.public_path("/uploads/videos/").$link_video.' 2>&1';
+                $temp_video->duration =  exec($command, $output, $return);
+            }
+
+            $temp_video->description = $request->description;
+            $temp_video->unit_id     = $video->unit_id;
+
+            //DuongNT upload file
+            if($request->file()){
+                foreach ($request->file() as $key => $file) {
+                    if($file->isValid()){
+                        $file_name = $file->getClientOriginalName();
+                        $file_name = str_replace(" ", "_", $file->getClientOriginalName());
+
+                        $document = new TempDocument;
+                        $document->title = $file->getClientOriginalName();
+                        $document->video_id = $video->id;
+                        $document->url_document = $video->id.'_'.time().'_'.$file_name;
+                        $document->size = $file->getClientSize();
+                        $document->save();
+                        $file->move('uploads/files', $video->id.'_'.time().'_'.$file_name);
+                    }else{
+                        return response()->json([
+                            'status' => "401",
+                            'message' => "File bị lỗi khi upload!"
+                        ]);
+                    }
+                }
+            }
+
+            $temp_video->save();
+
+            return \Response::json(array('status' => '200', 'message' => 'Gửi yêu cầu sửa video thành công!', 'video' => $video));
+        }
+        return \Response::json(array('status' => '404', 'message' => 'Không thành công!'));
     }
 
     /**
@@ -676,5 +732,70 @@ class VideoController extends Controller
                 ]);
             }
         }
+    }
+
+    // Request Edit Video
+    public function getRequestEditVideo()
+    {
+        return view('backends.videos.request-edit-video');
+    }
+
+    public function getRequestEditVideoAjax()
+    {
+        $videos = TempVideo::all();
+        return datatables()->collection($videos)
+            ->addColumn('course_name', function ($video) {
+                return $video->Unit->course->name;
+            })
+            ->addColumn('teacherName', function ($video) {
+                if(isset($video->unit->course->Lecturers()->first()->user)){
+                    return $video->unit->course->Lecturers()->first()->user->name;
+                }
+                return "";
+            })
+            ->addColumn('action', function ($video) {
+                return $video->id;
+            })
+            ->addColumn('reject', function ($video) {
+                return $video->id;
+            })
+            ->removeColumn('id')->make(true);
+    }
+
+    public function acceptEditVideo(Request $request)
+    {
+        $temp_video = TempVideo::find($request->temp_video_id);
+        if ($temp_video) {
+            $video = Video::find($temp_video->video_id);
+            dd($video);
+        }
+    }
+
+    public function rejectEditVideo(Request $request)
+    {
+        $temp_video = TempVideo::find($request->temp_video_id);
+        if ($temp_video) {
+            $documents = TempDocument::where('video_id', $temp_video->video_id)->get();
+            if ( $documents->count() > 0 ){
+                foreach ($documents as $key => $document) {
+                    unlink(public_path('uploads/files/'.$document->url_document));
+                    $document->delete();
+                }
+            }
+
+            if ( $temp_video->link_video ){
+                unlink(public_path('uploads/videos/'.$temp_video->link_video));
+            }
+            $temp_video->delete();
+
+            return response()->json([
+                'status' => 200,
+                'message' => 'Đã hủy yêu cầu sửa bài giảng.',
+            ]);
+        }
+        return response()->json([
+            'status' => 404,
+            'message' => 'Không thành công.',
+        ]);
     }
 }
