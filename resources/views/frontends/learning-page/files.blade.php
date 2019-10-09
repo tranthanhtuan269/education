@@ -14,7 +14,7 @@
             @foreach ($files as $file)
                 <div class="ln-files-wrapper">
                     <div>
-                    <a href="{{$file->url_document}}" target="_blank">
+                    <a href="/uploads/files/{{$file->url_document}}" target="_blank">
                             <p>
                                 <i class="fas fa-link"></i>&nbsp;
                                 {{$file->title}}

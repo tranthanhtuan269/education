@@ -18,9 +18,15 @@
 Auth::routes();
 
 Route::get('test2', function(){
-    // select units.name, courses.name from courses join units on courses.id = units.course_id join videos on videos.unit_id = units.id where courses.id = 743
-    
-    dd(\App\Helper\Helper::getJSONVideoOfCourse(743));
+    $courses = \App\Course::get();
+    // dd($courses);
+    foreach($courses as $course){
+        if($course->all_videos() == 0){
+            // echo $course->id . "</br>";
+            $course->status = 0;
+            $course->save();
+        }
+    }
 });
 
 Route::get('thay-state-video', function(){

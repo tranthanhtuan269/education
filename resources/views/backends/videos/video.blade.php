@@ -117,10 +117,11 @@
                 render: function(data, type, row){
                     var html = '';
                     @if (Helper::checkPermissions('videos.accept-video', $list_roles))
+                        if(row['state'] == 0){
+                            html += '<a class="btn-accept mr-2 inaccept-video" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Duyệt"> <i class="fa fa-check fa-fw"></i></a>';
+                        }
                         if(row['state'] == 1){
-                            html += '<a class="btn-accept mr-2 disable-video" data-id="'+data+'" title="Hủy"> <i class="fa fa-times fa-fw"></i></a>';
-                        }else{
-                            html += '<a class="btn-accept mr-2 accept-video" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Duyệt"> <i class="fa fa-check fa-fw"></i></a>';
+                            html += '<a class="btn-inaccept mr-2 inaccept-video" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Hủy"> <i class="fa fa-times fa-fw"></i></a>';
                         }
                     @endif
                     return html;
@@ -132,8 +133,8 @@
                 class: "text-center",
                 render: function(data, type, row){
                     var html = '';
-                    @if (Helper::checkPermissions('videos.delete', $list_roles))
-                        if (row['state'] == 0){
+                    @if (Helper::checkPermissions('videos.delete', $list_roles)) 
+                        if (row['state'] == 3){
                             html += '<a class="btn-delete" data-id="'+data+'" title="Xóa"><i class="fa fa-trash fa-fw" aria-hidden="true"></i></a>';
                         }
                     @endif
@@ -154,7 +155,6 @@
                             url: "{{ url('/') }}/admincp/videos/getVideoAjax",
                             beforeSend: function() {
                                 $(".ajax_waiting").addClass("loading");
-                                // document.getElementById("ajax_waiting").classList.add("loading");
                             }
                         },
                         columns: dataObject,
@@ -275,142 +275,21 @@
         })
 
         function addEventListener(){
-            // $('.view-cv').off('click')
-            // $('.view-cv').click(function(){
-            //     var curr_cv = $(this).parent().parent().attr('data-cv')
-
-            //     $('#showCVModal').modal('show');
-            //     $("#cv").html(curr_cv)
-            // })
-
             $('.view-video').off('click')
             $('.view-video').click(function(){
                 var curr_video_intro = $(this).parent().parent().attr('data-video')
 
                 $('#showVideoIntroModal').modal('show');
-                // $("#video-view").attr('src', curr_video_intro)
                 $("#video-view").attr('src', `http://45.56.82.249/uploads/videos/${curr_video_intro}`)
             })
-            $('.btn-accept.disable-video').off('click')
-            $('.btn-accept.disable-video').click(function(){
-                var video_id = $(this).attr('data-id')
-                Swal.fire({
-                    type: 'warning',
-                    text: 'Bạn có chắc chắn không?',
-                    showCancelButton: true
-                }).then( result => {
-                    if(result.value){
-                        $.ajaxSetup({
-                            headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            }
-                        });
-                        $.ajax({
-                            url: baseURL+"/admincp/videos/disable",
-                            method: 'PUT',
-                            data: {
-                                video_id : video_id
-                            },
-                            dataType: 'json',
-                            success: (response) => {
-                                if(response.status == 200) {
-                                    Swal.fire({
-                                        type : 'success',
-                                        text : response.message
-                                    })
-                                    dataTable.ajax.reload()
-                                }
-                            },
-                            error : (error) => {
-                                Swal.fire({
-                                    text: 'Có lỗi'
-                                })
-                                dataTable.ajax.reload()
-                            }
-                        })
-                    }
-                })
-            })
 
-
-            $('.btn-accept.accept-video').off('click')
-            $('.btn-accept.accept-video').click(function(){
+            $('.btn-accept').off('click')
+            $('.btn-accept').click(function(){
                 var _self   = $(this);
                 var id      = $(this).attr('data-id');
                 var state  = 0;
-                var message = "Bạn có chắc chắn muốn duyệt video bạn chọn?";
-                if(_self.parent().parent().hasClass('blue-row')){
-                    state = 1;
-                    message = "Bạn có chắc chắn muốn hủy video bạn chọn?";
-
-                    // Nếu video đã duyệt xong
-                    Swal.fire({
-                        type: 'warning',
-                        text: message,
-                        showCancelButton: true,
-                    }).then(result => {
-                        if(result.value){
-                            $.ajaxSetup({
-                                headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                                }
-                            });
-                            $.ajax({
-                                url: baseURL+"/admincp/videos/accept",
-                                data: {
-                                    video_id : id,
-                                    state : 0
-                                },
-                                method: "PUT",
-                                dataType:'json',
-                                beforeSend: function(r, a){
-                                    current_page = dataTable.page.info().page;
-                                },
-                                success: function (response) {
-                                    if(response.status == 300){
-                                        return Swal.fire({
-                                            type: 'warning',
-                                            text: response.message
-                                        })
-                                    }
-                                    if(response.status == 200){
-                                        if(_self.parent().parent().hasClass('blue-row')){
-                                            $(_self).prop('title', 'Duyệt');
-                                        } else {
-                                            $(_self).prop('title', 'Hủy');
-                                        }
-
-                                        if(_self.parent().parent().hasClass('red-row')){
-                                            _self.find('i').removeClass('fa-check').addClass('fa-times');
-                                            _self.parent().parent().removeClass('red-row').addClass('blue-row');
-                                        }else{
-                                            _self.find('i').removeClass('fa-times').addClass('fa-check');
-                                            _self.parent().parent().addClass('red-row').removeClass('blue-row');
-                                        }
-
-                                        Swal.fire({
-                                            type: 'success',
-                                            text: response.message
-                                        })
-
-                                    }else{
-                                        Swal.fire({
-                                            type: 'warning',
-                                            text: response.message
-                                        })
-                                    }
-                                },
-                                error: function (data) {
-                                    if(data.status == 401){
-                                    window.location.replace(baseURL);
-                                    }else{
-                                    $().toastmessage('showErrorToast', errorConnect);
-                                    }
-                                }
-                            });
-                        }
-                    })
-                }
+                var message = "Bạn có chắc chắn muốn duyệt?";
+              
                 Swal.fire({
                     type: 'warning',
                     text: message,
@@ -435,16 +314,63 @@
                             },
                             success: function (response) {
                                 if(response.status == 200){
-                                    if(_self.parent().parent().hasClass('blue-row')){
-                                        $(_self).prop('title', 'Duyệt');
-                                    } else {
-                                        $(_self).prop('title', 'Hủy');
-                                    }
+                                    dataTable.ajax.reload(); 
 
-                                    if(_self.parent().parent().hasClass('red-row')){
-                                        _self.find('i').remove();
-                                        _self.parent().parent().removeClass('red-row').addClass('yellow-row');
-                                    }
+                                    Swal.fire({
+                                        type: 'success',
+                                        text: response.message
+                                    })
+
+                                }else{
+                                    Swal.fire({
+                                        type: 'warning',
+                                        html: response.message
+                                    })
+                                }
+                            },
+                            error: function (data) {
+                                if(data.status == 401){
+                                window.location.replace(baseURL);
+                                }else{
+                                $().toastmessage('showErrorToast', errorConnect);
+                                }
+                            }
+                        });
+                    }
+                })
+            });
+
+            $('.btn-inaccept').off('click')
+            $('.btn-inaccept').click(function(){
+                var _self   = $(this);
+                var id      = $(this).attr('data-id');
+                var state  = 0;
+                var message = "Bạn có chắc chắn muốn hủy duyệt?";
+                Swal.fire({
+                    type: 'warning',
+                    text: message,
+                    showCancelButton: true,
+                }).then(result => {
+                    if(result.value){
+                        $.ajaxSetup({
+                            headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
+                        $.ajax({
+                            url: baseURL+"/admincp/videos/accept",
+                            data: {
+                                video_id : id,
+                                state : 0
+                            },
+                            method: "PUT",
+                            dataType:'json',
+                            beforeSend: function(r, a){
+                                current_page = dataTable.page.info().page;
+                            },
+                            success: function (response) {
+                                if(response.status == 200){
+                                    dataTable.ajax.reload();
 
                                     Swal.fire({
                                         type: 'success',
@@ -522,221 +448,6 @@
                     }
                 })
             });
-
-            // $('#deleteAllApplied').off('click')
-            // $('#deleteAllApplied').click(function (){
-            //     var check = false;
-            //     $.each($('.check-video'), function (key, value){
-            //         if($(this).prop('checked') == true) {
-            //             check = true;
-            //         }
-            //     });
-            //     if(!check){
-            //         Swal.fire({
-            //             type: 'warning',
-            //             text: 'Bạn phải chọn ít nhất 1 video',
-            //         })
-            //         return false;
-            //     }
-            //     Swal.fire({
-            //         type: 'warning',
-            //         text: 'Bạn có chắc chắn xóa tất cả những video bạn chọn?',
-            //         showCancelButton: true,
-            //     })
-            //     .then(function (result) {
-            //         if(result.value){
-            //             var video_id_list = []
-            //             $.each($('.check-video'), function (key, value){
-            //                 if($(this).prop('checked') == true) {
-            //                     // id_list += $(this).attr("data-column") + ',';
-            //                     video_id_list.push($(this).attr("data-column"))
-            //                 }
-            //             });
-            //             if(video_id_list.length > 0){
-            //                 $.ajaxSetup({
-            //                     headers: {
-            //                         'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
-            //                     }
-            //                 });
-            //                 $.ajax({
-            //                     method: "DELETE",
-            //                     url: baseURL+"/admincp/videos/delete-multiple-video",
-            //                     data: {
-            //                         id_list: video_id_list
-            //                     },
-            //                     dataType: 'json',
-            //                     beforeSend: function(r, a){
-            //                         current_page = dataTable.page.info().page;
-            //                     },
-            //                     success: function (response) {
-            //                         Swal.fire({
-            //                             type: 'success',
-            //                             text: response.message
-            //                         })
-            //                         // dataTable.ajax.reload();
-            //                         $.each($('.check-video'), function (key, value){
-            //                             if($(this).prop('checked') == true) {
-            //                                 dataTable.row( $(this).parent().parent() ).remove().draw(true);
-            //                             }
-            //                         });
-
-            //                         // dataTable.page( checkEmptyTable() ).draw( false );
-            //                     },
-            //                     error: function (response) {
-            //                         Swal.fire({
-            //                             type: 'warning',
-            //                             text: response.message
-            //                         })
-            //                     }
-            //                 })
-            //             }
-
-            //         }
-            //     })
-            // })
-
-            // $('#acceptAllApplied').off('click')
-            // $('#acceptAllApplied').click(function (){
-            //     var check = false;
-            //     $.each($('.check-video'), function (key, value){
-            //         if($(this).prop('checked') == true) {
-            //             check = true;
-            //         }
-            //     });
-            //     if(!check){
-            //         Swal.fire({
-            //             type: 'warning',
-            //             text: 'Bạn phải chọn ít nhất 1 video',
-            //         })
-            //         return false;
-            //     }
-            //     Swal.fire({
-            //         type: 'warning',
-            //         text: 'Bạn có chắc chắn duyệt tất cả những video bạn chọn?',
-            //         showCancelButton: true,
-            //     })
-            //     .then(function (result) {
-            //         if(result.value){
-            //             var video_id_list = []
-            //             $.each($('.check-video'), function (key, value){
-            //                 if($(this).prop('checked') == true) {
-            //                     // id_list += $(this).attr("data-column") + ',';
-            //                     video_id_list.push($(this).attr("data-column"))
-            //                 }
-            //             });
-            //             if(video_id_list.length > 0){
-            //                 $.ajaxSetup({
-            //                     headers: {
-            //                         'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
-            //                     }
-            //                 });
-            //                 $.ajax({
-            //                     method: "PUT",
-            //                     url: baseURL+"/admincp/videos/accept-multiple-video",
-            //                     data: {
-            //                         id_list: video_id_list
-            //                     },
-            //                     dataType: 'json',
-            //                     beforeSend: function(r, a){
-            //                         current_page = dataTable.page.info().page;
-            //                     },
-            //                     success: function (response) {
-            //                         Swal.fire({
-            //                             type: 'success',
-            //                             text: response.message
-            //                         })
-            //                         // dataTable.ajax.reload();
-            //                         $.each($('.check-video'), function (key, value){
-            //                             if($(this).prop('checked') == true) {
-            //                                 $(this).parent().parent().removeClass('red-row').addClass('blue-row');
-            //                                 // $(this).parent().parent().addClass('red-row').removeClass('blue-row');
-            //                             }
-            //                         });
-            //                         dataTable.page( checkEmptyTable() ).draw( false );
-            //                     },
-            //                     error: function (response) {
-            //                         Swal.fire({
-            //                             type: 'warning',
-            //                             text: response.message
-            //                         })
-            //                     }
-            //                 })
-            //             }
-
-            //         }
-            //     })
-            // })
-
-            // $('#inacceptAllApplied').off('click')
-            // $('#inacceptAllApplied').click(function (){
-            //     var check = false;
-            //     $.each($('.check-video'), function (key, value){
-            //         if($(this).prop('checked') == true) {
-            //             check = true;
-            //         }
-            //     });
-            //     if(!check){
-            //         Swal.fire({
-            //             type: 'warning',
-            //             text: 'Bạn phải chọn ít nhất 1 video',
-            //         })
-            //         return false;
-            //     }
-            //     Swal.fire({
-            //         type: 'warning',
-            //         text: 'Bạn có chắc chắn hủy tất cả những video bạn chọn?',
-            //         showCancelButton: true,
-            //     })
-            //     .then(function (result) {
-            //         if(result.value){
-            //             var video_id_list = []
-            //             $.each($('.check-video'), function (key, value){
-            //                 if($(this).prop('checked') == true) {
-            //                     // id_list += $(this).attr("data-column") + ',';
-            //                     video_id_list.push($(this).attr("data-column"))
-            //                 }
-            //             });
-            //             if(video_id_list.length > 0){
-            //                 $.ajaxSetup({
-            //                     headers: {
-            //                         'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
-            //                     }
-            //                 });
-            //                 $.ajax({
-            //                     method: "PUT",
-            //                     url: baseURL+"/admincp/videos/inaccept-multiple-video",
-            //                     data: {
-            //                         id_list: video_id_list
-            //                     },
-            //                     dataType: 'json',
-            //                     beforeSend: function(r, a){
-            //                         current_page = dataTable.page.info().page;
-            //                     },
-            //                     success: function (response) {
-            //                         Swal.fire({
-            //                             type: 'success',
-            //                             text: response.message
-            //                         })
-            //                         $.each($('.check-video'), function (key, value){
-            //                             if($(this).prop('checked') == true) {
-            //                                 // $(this).parent().parent().removeClass('red-row').addClass('blue-row');
-            //                                 $(this).parent().parent().addClass('red-row').removeClass('blue-row');
-            //                             }
-            //                         });
-            //                         dataTable.page(checkEmptyTable()).draw( false );
-            //                     },
-            //                     error: function (response) {
-            //                         Swal.fire({
-            //                             type: 'warning',
-            //                             text: response.message
-            //                         })
-            //                     }
-            //                 })
-            //             }
-
-            //         }
-            //     })
-            // })
         }
 
         function checkEmptyTable(){
@@ -745,41 +456,6 @@
             }
             return current_page;
         }
-
-        $("#editEmail").click(function () {
-            var id = $(this).attr("data-id")
-            var title = $("#edit_subject_Ins").val()
-            var content = edit_content_Ins.getData()
-
-            $.ajaxSetup({
-                headers: {
-                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            var request = $.ajax({
-                method : "PUT",
-                url : "edit-email",
-                data : {
-                    id : id,
-                    title: title,
-                    content: content
-                },
-                dataType: "json"
-            })
-            request.done( function (response) {
-                $("#edit_subject_Ins").val("")
-                edit_content_Ins.setData("")
-                Swal.fire({
-                    text: response.message
-                })
-                if(response.status == 200){
-                    $("#editEmailModal").modal("hide")
-                    dataTable.ajax.reload();
-                }
-            })
-        })
-
     });
 </script>
 

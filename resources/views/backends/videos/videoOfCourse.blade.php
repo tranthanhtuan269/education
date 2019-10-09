@@ -195,8 +195,7 @@
                             // $(row).attr('data-cv', data['cv']);
                             $(row).attr('data-video', data['link_video']);
                         }
-                    });
-                    
+                    });    
         var search = "{{ Request::get('search') }}";
 
         if ( search != '') {
