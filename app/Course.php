@@ -196,7 +196,7 @@ class Course extends Model
             ->join('users', 'users.id', '=','user_roles.user_id')
             ->where('teachers.status', 1)
             ->where('courses.status', 1)
-            ->select('courses.image', 'courses.name', 'courses.id', 'courses.slug', 'courses.price', 'courses.real_price', 'courses.duration', 'courses.star_count', 'courses.vote_count', 'courses.approx_time', 'courses.five_stars', 'courses.four_stars', 'courses.three_stars', 'courses.two_stars', 'courses.one_stars', 'teachers.id as teacherId', 'user_roles.user_id as userRoleId', 'users.name as author')->orderBy('id', 'desc');
+            ->select('courses.image', 'courses.name', 'courses.featured_index as featured_index', 'courses.id', 'courses.slug', 'courses.price', 'courses.real_price', 'courses.duration', 'courses.star_count', 'courses.vote_count', 'courses.approx_time', 'courses.five_stars', 'courses.four_stars', 'courses.three_stars', 'courses.two_stars', 'courses.one_stars', 'teachers.id as teacherId', 'user_roles.user_id as userRoleId', 'users.name as author')->orderBy('id', 'desc');
         }else{
             $limitDate = \Carbon\Carbon::now()->subDays(15);
             $sql = "SELECT course_id, count(course_id) FROM orders JOIN order_details ON orders.id = order_details.order_id WHERE created_at > '" . $limitDate->toDateTimeString() ."' group by course_id ORDER BY count(course_id) desc;";
