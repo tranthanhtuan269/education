@@ -122,7 +122,7 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        if( discussEditor.getData().trim().length > 0){
+        if( discussEditor.getData().trim().length == 0){
             Swal.fire({
                 type: "warning",
                 text:" Nội dung không được trống!"
