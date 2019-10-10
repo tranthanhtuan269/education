@@ -80,7 +80,7 @@
         <base href="{{ url('/') }}">
     </head>
     <body>
-
+        <div class="ajax_waiting"></div>
         {{-- TOP BAR --}}
         <div class="learning-top">
             {{-- <div class="lecture-title">
@@ -136,10 +136,17 @@
 
             var check_course_of_user = {{ $check_course_of_user }}
             // console.log(check_course_of_user);
-            
-
 
             $(document).ready(function () {
+                $(document).ajaxStart(function(){
+                    // alert(1)
+                    $(".ajax_waiting").addClass("loading")
+                });
+
+                $(document).ajaxComplete(function(){
+                    $(".ajax_waiting").removeClass("loading")
+                });
+            
                 $('.ln-disc-comment-wrapper').on('shown.bs.collapse', function () {
                     $("#discComment" + $(this).attr('data-parent') + " p").addClass('active');
                     return false;
