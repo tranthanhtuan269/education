@@ -217,7 +217,7 @@ class CommentController extends Controller
        
         $comment = CommentCourse::find( $request->comment_id);
         if ($comment) {
-                $comment->state = 0;
+                $comment->state = 1;
                 $comment->save();
             return \Response::json(array('status' => '200', 'message' => 'Report thành công!'));
         }

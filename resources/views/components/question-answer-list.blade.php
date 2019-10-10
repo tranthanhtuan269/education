@@ -51,7 +51,7 @@
             </button>
             <button type="button" class="btn btn-default" data-comment-id="{{ $comment->id }}">
                 <i class="fas fa-flag"></i>
-                <span>Báo cáo</span>
+                <span>Báo vi phạm</span>
             </button>
         </div>
         <div id="reply-textbox-{{ $comment->id }}" class="reply-textbox hide">
@@ -107,7 +107,7 @@
                     </button>
                     <button type="button" class="btn btn-default" data-comment-id="{{ $comment->id }}">
                         <i class="fas fa-flag"></i>
-                        <span>Báo cáo</span>
+                        <span>Báo vi phạm</span>
                     </button>
                 </div>
                 @endif
