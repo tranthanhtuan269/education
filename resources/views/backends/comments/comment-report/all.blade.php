@@ -128,7 +128,7 @@ $(document).ready(function() {
         $('.btn-accept.cancel-comment').off('click')
         $('.btn-accept.cancel-comment').click(function(){
             var id      = $(this).attr('data-id');
-            var state  = 1;
+            var state  = 0;
             Swal.fire({
                 type: 'warning',
                 text: 'Bạn có chắc chắn muốn hủy báo cáo comment?',
