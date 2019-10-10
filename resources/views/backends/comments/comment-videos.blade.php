@@ -9,18 +9,17 @@
     
 </section>
 <section class="content page">
-    <h1 class="text-center font-weight-600">Phản hồi khóa học</h1>
+    <h1 class="text-center font-weight-600">Phản hồi bài giảng</h1>
     <div class="row">
         <div class="col-md-12">
             <div class="table-responsive">
-                <table class="table table-bordered" id="commentCourseAll">
+                <table class="table table-bordered" id="commentVideoAll">
                     <thead class="thead-custom">
                         <tr>
                             <th scope="col">Học viên</th>
                             <th scope="col">Phản hồi</th>
-                            <th scope="col">Khóa học</th>
+                            <th scope="col">Bài giảng</th>
                             <th scope="col">Ngày đăng</th>
-                            {{-- <th scope="col">Duyệt</th> --}}
                             <th scope="col">Xóa</th>
                         </tr>
                     </thead>
@@ -33,7 +32,7 @@
     </div>
 </section>
 <style>
-    .course-name{
+    .video-name{
         width: 250px;
     }
     .created-at{
@@ -51,47 +50,27 @@ $(document).ready(function() {
         },
         {
             data: "content",
+            render: function(data, type, row){
+                return $("<div/>").html(data).text();
+            },
             orderable: false
-            // render: function(data, type, row){
-            //     var html = '';
-            //     html += '<p>'+data+'</p>';
-            //     html += '<div class="row-action">'
-            //         html += '<span class="edit-comment-course>Sửa nhanh </span>'
-            //         html += '<span class="reply-comment-course>Trả lời </span>'
-            //     html += '</div>'
-            //     return html;
-            // },
         },
         {
-            data: "course_name",
-            class: "course-name",
-            render: function(data, type, row){
-                if(type == "display"){
-                    var html = '';
-                    html += '<a class="" href="/course/'+row.course_id+'/'+row.course_slug+'" target="_blank"><b>'+data+'</b></a>';
-                    return html;
-                }
-                return data;
-            },
+            data: "video_name",
+            class: "video-name"
+            // render: function(data, type, row){
+            //     if(type == "display"){
+            //         var html = '';
+            //         html += '<a class="" href="/learning-page/'+row.course_id+'/lecture/'+row.action+'" target="_blank"><b>'+data+'</b></a>';
+            //         return html;
+            //     }
+            //     return data;
+            // },
         },
         {
             data: "created_at",
             class: "created-at"
         },
-        // {
-        //     data: "action",
-        //     class: "text-center",
-        //     render: function(data, type, row){
-        //         var html = '';
-        //         if(row.state == 0){
-        //             html += '<a class="btn-block block-user" data-id="'+data+'" title="Chưa duyệt""><i class="fa fa-times fa-fw"></i></a>';
-        //         }else{
-                    
-        //             html += '<a class="btn-block not-block-user" data-id="'+data+'" title="Đã duyệt"><i class="fa fa-check fa-fw"></i></a>';
-        //         }
-        //         return html;
-        //     },
-        // },
         {
             data: "action",
             class: "text-center",
@@ -104,7 +83,7 @@ $(document).ready(function() {
         },
     ];
 
-    dataTable = $('#commentCourseAll').DataTable({
+    dataTable = $('#commentVideoAll').DataTable({
         serverSide: false,
         search: {
             smart: false
@@ -112,7 +91,7 @@ $(document).ready(function() {
         aaSorting: [],
         stateSave: true,
         ajax:{
-            url: baseURL + "/admincp/comment/get-comment-course-ajax",
+            url: baseURL + "/admincp/comment/get-comment-video-ajax",
             beforeSend: function() {
                 $(".ajax_waiting").addClass("loading");
             }
@@ -143,7 +122,7 @@ $(document).ready(function() {
             addEventListener();
         },
     });
-    $('#commentCourseAll').css('width', '100%');
+    $('#commentVideoAll').css('width', '100%');
 
     function addEventListener(){
 
@@ -163,7 +142,7 @@ $(document).ready(function() {
                         }
                     });
                     $.ajax({
-                        url: baseURL+"/admincp/comment/delete-comment-course",
+                        url: baseURL+"/admincp/comment/delete-comment-video",
                         data: {
                             id : id,
                         },

@@ -156,11 +156,14 @@ class User extends Authenticatable
         }
     }
 
-
-
     public function userRolesStudent()
     {
         return $this->hasMany('App\UserRole')->where('role_id', \Config::get('app.student'))->first();
+    }
+
+    public function userRolesAdmin()
+    {
+        return $this->hasMany('App\UserRole')->where('role_id', \Config::get('app.admin'))->first();
     }
 
     public function user_emails()

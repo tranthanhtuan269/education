@@ -130,7 +130,7 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                                 <div class="row box clearfix">
                                     <div class="col-xs-6 full-width-mobile pb-10px">
                                         <span class="box-img"><img src="{{ asset('frontend/images/ic_course.png') }}" class="icon" alt="" /></span>
-                                        <span class="special">{{ $info_course->video_count }} Videos</span>
+                                        <span class="special">{{ $info_course->all_videos() }} Videos</span>
                                     </div>
                                     <div class="col-xs-6 full-width-mobile pb-10px">
                                         <span class="box-img"><img src="{{ asset('frontend/images/ic_student.png') }}" class="icon" alt="" /></span>
@@ -410,7 +410,7 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                                     <div class="block-ulti">
                                         <ul style="margin-left: 0">
                                             <li><i class="far fa-clock fa-fw" aria-hidden="true"></i> Thời lượng: <b>{{ intval($info_course->duration / 3600) }} giờ {{ intval($info_course->duration % 60 ) }} phút</b></li>
-                                            <li><i class="far fa-play-circle fa-fw" aria-hidden="true"></i> Bài giảng: <b>{{ $info_course->video_count }} Videos</b></li>
+                                            <li><i class="far fa-play-circle fa-fw" aria-hidden="true"></i> Bài giảng: <b>{{ $info_course->all_videos() }} Videos</b></li>
                                             <li><i class="fas fa-user-graduate fa-fw" aria-hidden="true"></i> <b>{{ number_format($info_course->student_count, 0, ',' , '.') }} Học viên</b> theo học</li>                                        
                                         </ul>
                                         <div class="clearfix"></div>
@@ -819,8 +819,8 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                     ?>
                 </div>
             </div>
-            @if(count($info_course->comments) > 3)
-            <div class="col-sm-12 btn-see-more" data-skip="1" data-take="1">
+            @if( $info_course->commentOfStudentBought()->count() > 3)
+            <div class="col-sm-12 btn-see-more" data-skip="3" data-take="3">
                 <button type="button" class="btn">Xem thêm</button>
             </div>
             @endif
@@ -1040,6 +1040,61 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
             $(this).removeClass('btn-default').addClass('btn-primary');
             $(this).parent().find('.btn-like').addClass('btn-default').removeClass('btn-primary');
         });
+
+        $('.btn-default.btn-reportcomment').off('click');
+        $('.btn-default.btn-reportcomment').on('click',function(e){
+            var id = $(this).attr('data-comment-id');
+            var baseURL = $('base').attr('href');
+            Swal.fire({
+                type: 'warning',
+                text: 'Bạn có chắc chắn muốn báo cáo comment này!',
+                showCancelButton: true,
+            }).then(result =>{
+                if(result.value){
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    var request = $.ajax({
+                        url: baseURL + '/comments/report',
+                        method: "POST",
+                        data: {
+                            comment_id: id
+                        },
+                        dataType: "json",
+                        success: function (response) {
+                            if(response.status == 200){
+                                Swal.fire({
+                                    type: 'success',
+                                    text: 'Báo cáo thành công!',
+                                })
+                            }
+                            else{
+                                Swal.fire({
+                                    type: 'warning',
+                                    text: response.message
+                                })
+                            }
+                        },
+                        error: function (data) {
+                            if(data.status == 401){
+                            window.location.replace(baseURL);
+                            }else{
+                                Swal.fire({
+                                    type: 'warning',
+                                    text: errorConnect
+                                })
+                            }
+                        }
+                    });
+                }
+            })
+            // $('.btn-default.btn-reportcomment data-comment-id="id"').prop('disabled', true);
+            // function disable(id){
+            //     $(".btn-default.btn-reportcomment"+id).prop("disabled",true);
+            // }
+        })
 
         $('.create-reply-btn').on('click', function (e) {
             var comment_id = $(this).attr('data-id');

@@ -12,9 +12,9 @@ return [
     'video_active' => 1,
     'video_waiting_to_delete' => 2,
     'video_converting' => 3,
+    'video_request_edit' => 4,
 
-
-    'email_order_complete' => 1,
+    'email_order_complete' => 2,
 
     'email_system_status' => 10,    // email hệ thống không cho xoá và sửa tên
 

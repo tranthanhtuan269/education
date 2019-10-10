@@ -3,7 +3,7 @@
         <h3 class="pull-left">Bài học</h3>
         <ul class="pull-right">
             {{-- <li>Expand all</li> --}}
-            <li>{{ $info_course->video_count }} bài học</li>
+            <li>{{ $info_course->all_videos() }} bài học</li>
             <li>{{ intval($info_course->duration / 3600) }} giờ {{ intval($info_course->duration % 60 ) }} phút</li>
         </ul>
     </div>
@@ -32,14 +32,14 @@
                 <div id="collapse{{ $key_unit }}" class="panel-collapse collapse  @if ($key_unit == 0) in @endif" aria-expanded="true">
                     <div class="panel-body">
                         @foreach ($value_unit->videos->sortBy('index') as $key_video => $value_video)
-                            @if( $value_video->state == 1 )
+                            @if( $value_video->state == 1  || $value_video->state == 2 )
                             <div class="col">
                                 <div class="container-fluid">
                                     <div class="row">
                                         <div class="col-xs-5 col-md-8">
                                             <div class="title">
                                                 @if(App\Helper\Helper::getUserRoleOfCourse($info_course->id))
-                                                <a href="/learning-page/{{$info_course->id}}/lecture/{{$value_video->id}}">
+                                                <a href="javascript:void(0)" class="click-link-video" data-course="{{$info_course->id}}" data-video="{{$value_video->id}}">
                                                     <i class="fa fa-play-circle" aria-hidden="true"></i>
                                                     <!-- <span>Lecture {{ $value_video->index }}: &nbsp;{{ $value_video->name }}</span>  -->
                                                     <span>{{ $value_video->name }}</span>
@@ -99,12 +99,12 @@
                                                 <a class="btn-preview" href="javascript:void(0)" onclick="preview_freetrial(24337);">Free Trial</a>
                                             </div>
                                             @endif --}}
-                                            @if (Auth::check())
+                                            {{-- @if (Auth::check())
                                                 @if (Auth::user()->isAdmin())
                                                 <a class="btn-preview btn-success" href="/learning-page/{{$info_course->id}}/lecture/{{$value_video->id}}">Xem</a>
                                                 @endif
                                             @else
-                                            @endif
+                                            @endif --}}
                                         </div>
                                         <div class="col-xs-3 col-md-2">
                                             <div class="time">{{ App\Helper::convertSecondToTimeFormat($value_video->duration) }}</div>
@@ -146,6 +146,30 @@
     {{-- @endif --}}
 </div>
 <script>
+    $('.click-link-video').click(function(){
+        var learning_id = $(this).attr('data-video')
+        var course_id = $(this).attr('data-course')
+        $.ajaxSetup({
+            headers:{
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        const request = $.ajax({
+            method: 'POST',
+            url: "/user-course/update-watched",
+            data: {
+                'video_id': learning_id
+            },
+            dataType: "json",
+            success: function () {
+                window.location.href = ("/learning-page/"+ course_id +"/lecture/"+ learning_id)
+            },
+            error: function () {
+
+            }
+        });
+    });
+
     $('#accordion .event-click').click(function(){
         $("#sidebar-content").addClass('sidebar-unfix').css('top', 0);
     })

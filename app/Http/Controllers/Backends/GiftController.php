@@ -11,12 +11,14 @@ use App\UserCourse;
 use App\UserRole;
 // use App\Jobs\SendGiftEmail;
 use App\Jobs\SendEmailJob;
+use App\Email;
+use Config;
 
 class GiftController extends Controller
 {
     public function getGiveGift()
     {
-        $courses = Course::where('status', 1)->get();
+        $courses = Course::listCourseSpecial(2)->get();
         return view('backends.gift.givegift', compact('courses'));
     }
 
@@ -28,7 +30,7 @@ class GiftController extends Controller
     public function getGiftStudentAjax(Request $request)
     {
         $users = User::leftJoin('user_roles', 'user_roles.user_id', '=', 'users.id')
-                      ->select('users.name', 'user_roles.id')
+                      ->select('users.email', 'user_roles.id')
                       ->where('user_roles.role_id', \Config::get('app.student'))
                       ->where('users.status', 1)
                       ->inRandomOrder()
@@ -133,7 +135,7 @@ class GiftController extends Controller
                                     'status'       => 1,
                                 ];
 
-                                $course_link = url('course/'.$course->slug);
+                                $course_link = url('course/'.$course->id.'/'.$course->slug);
                                 $course_name = $course->name;
                                 $current_user= User::find($user_id);
                                 $email = $current_user->email;
@@ -146,6 +148,15 @@ class GiftController extends Controller
                                 $bought[] = $course->id;
                                 $current_user->bought = \json_encode($bought);
                                 $current_user->save();
+
+                                //Them thong bao he thong
+                                $user_email  = new \App\UserEmail;
+                                $user_email->user_id = $current_user->id;
+                                $user_email->email_id = 1;
+                                $user_email->sender_user_id = 333;
+                                $user_email->content = "Chúc mừng bạn vừa nhận được một khóa học miễn phí từ Courdemy. Click vào <a href='".$course_link."'> đây </a> để xem chi tiết khóa học.";
+                                $user_email->title = "Chúc mừng bạn vừa nhận được một khóa học miễn phí từ Courdemy";
+                                $user_email->save();
 
                                 //Gui Email
                                 dispatch(new SendEmailJob($course_link, $course_name, $email));
@@ -216,10 +227,19 @@ class GiftController extends Controller
                             'updated_at'   => $updated_at,
                         ];
 
-                        $course_link = url('course/'.$course->slug);
+                        $course_link = url('course/'.$course->id.'/'.$course->slug);
                         $course_name = $course->name;
                         $current_user= User::find($user_id);
                         $email = $current_user->email;
+
+                        //Them thong bao he thong
+                        $user_email  = new \App\UserEmail;
+                        $user_email->user_id = $current_user->id;
+                        $user_email->email_id = 1;
+                        $user_email->sender_user_id = 333;
+                        $user_email->content = "Chúc mừng bạn vừa nhận được một khóa học miễn phí từ Courdemy. Click vào <a href='".$course_link."'> đây </a> để xem chi tiết khóa học.";
+                        $user_email->title = "Chúc mừng bạn vừa nhận được một khóa học miễn phí từ Courdemy";
+                        $user_email->save();
 
                         // add to bought of user 
                         $bought = [];

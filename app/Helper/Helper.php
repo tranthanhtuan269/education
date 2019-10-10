@@ -17,6 +17,9 @@ class Helper
     {
         if(Auth::check()){
             $user_id = Auth::user()->id;
+            if(Auth::user()->isAdmin()){
+                return Auth::user()->userRolesAdmin();
+            }
             $user_role_list = Auth::user()->userRoles;
             $course = \App\Course::find($course_id);
             $lecturer_user_role = $course->Lecturers()->first();
@@ -124,5 +127,26 @@ class Helper
     public static function moveElementInArray(&$a, $oldpos, $newpos) {
         if ($oldpos==$newpos) {return;}
         array_splice($a,max($newpos,0),0,array_splice($a,max($oldpos,0),1));
+    }
+
+    public static function getJSONVideoOfCourse($id){
+        $course = \App\Course::find($id);
+        $units = $course->units;
+        $array = "[";
+        $list_units = "";
+        foreach($units as $unit){
+            $videos = $unit->videos;
+            $list_units = "[";
+            $list_videos = "";
+            foreach($videos as $video){
+                $list_videos .= "0,";
+            }
+            $list_units .= rtrim($list_videos, ',');
+            $list_units .= "],";
+            $array .= $list_units;
+        }
+        $array = rtrim($array, ',');
+        $array .= "]";
+        return \json_decode($array);
     }
 }

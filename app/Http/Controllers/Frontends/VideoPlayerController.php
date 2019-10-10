@@ -63,6 +63,7 @@ class VideoPlayerController extends Controller
         $files = Document::where('video_id', $videoId)->orderBy('created_at', 'desc')->get();
         $user_role_course_instance = Helper::getUserRoleOfCourse($courseId);
 
+        // dd($user_role_course_instance);
         if($user_role_course_instance == null) abort(403, 'Unauthorized action.');
 
         $user_role_id = $user_role_course_instance->user_role_id;
@@ -177,14 +178,19 @@ class VideoPlayerController extends Controller
     // DuongNT // đổi 0 thành 1 ở vị trí video vừa click trong array video đã xem
     public function updateWatched(Request $request ){
         $video = Video::find($request->video_id);
-        $unit = $video->unit;
+        // dd($video);
         if($video){
+            $unit = $video->unit;
             $course = $video->unit->course;
             $user_course = Helper::getUserRoleOfCourse($course->id);
+            // dd($user_course);
             if($user_course){
                 $videos = $user_course->videos;
+                if($videos == null){
+                    return \Response::json(array('status' => '200', 'message' => 'Cập nhật thông tin thành công!'));
+                }
                 $videoObj = \json_decode($videos);
-                // dd($videoObj->videos);
+                $videoObj->videos = $videoObj->videos;
                 if(is_array($videoObj->videos[$unit->index-1])){
                     $videoObj->videos[$unit->index-1][$video->index-1] = 1;
                 }else{

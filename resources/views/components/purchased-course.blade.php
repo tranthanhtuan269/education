@@ -1,19 +1,37 @@
 <?php
     if($vote_count == 0) $vote_count = 1;
+
     $user_role_course_instance = App\Helper\Helper::getUserRoleOfCourse($courseId);
     $user_role_course_instance_video = json_decode($user_role_course_instance->videos);
     $learningId = $user_role_course_instance_video->learning_id;
     $video_done_units = $user_role_course_instance_video->videos;
+    $video_count = \App\Course::find($courseId)->all_videos();
     $video_done_count = 0;
-    if(!is_array($video_done_units[0])){
-        $video_done_units = array($video_done_units);
-    }
-    foreach ($video_done_units as $key => $unit) {
-        if(isset(array_count_values($unit)[1])){
-            $video_done_count += array_count_values($unit)[1];
+    // dd(json_decode($user_role_course_instance_video->videos));
+    $list_units = $user_role_course_instance_video->videos;
+    foreach($list_units as $units){
+        foreach($units as $unit){
+            if($unit == 1){
+                $video_done_count++;
+            }
         }
     }
-    $video_done_percent = (int)(($video_done_count/ (int) $video_count)*100);
+    // dd($video_done_count);
+    
+    // if(!is_array($video_done_units[0])){
+    //     $video_done_units = array($video_done_units);
+    // }
+    // foreach ($video_done_units as $key => $unit) {
+    //     // if(isset(array_count_values($unit)[1])){
+    //     //     $video_done_count += array_count_values($unit)[1];
+    //     // }
+
+    // }
+    if($video_count == 0){
+      $video_done_percent = 100;  
+    }else{
+      $video_done_percent = (int)(($video_done_count/ (int) $video_count)*100);
+    }
 ?>
 <div class="col-md-3 col-sm-6">
     <div class="box-course">

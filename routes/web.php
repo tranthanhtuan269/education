@@ -18,12 +18,9 @@
 Auth::routes();
 
 Route::get('test2', function(){
-    // $comments = \DB::table('comment_courses')
-        // ->join('user_roles', 'comment_courses.user_role_id', '=', 'user_roles.id')
-        // ->join('users', 'user_roles.user_id', '=', 'users.id')
-        // $comment = \DB::table('comment_courses')->where('id', '1')->get();
-        $child_comments = \DB::table('comment_courses')->where('parent_id', '1')->get();
-    dd($child_comments);
+    $arr_products = \App\CommentCourse::where('course_id','1')->where('state','0')->get();
+    // $arr_products[25]->state=0;
+    dd($arr_products);
 });
 
 Route::get('thay-state-video', function(){
@@ -108,6 +105,13 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('request-delete-videos', 'Backends\VideoController@getRequestDeleteVideo');
         Route::get('request-delete-videos/getRequestDeleteVideoAjax', 'Backends\VideoController@getRequestDeleteVideoAjax');
         Route::put('request-delete-videos/reject', 'Backends\VideoController@rejectRequestDeleteVideo');
+
+        Route::get('request-edit-videos', 'Backends\VideoController@getRequestEditVideo');
+        Route::get('request-edit-videos-ajax', 'Backends\VideoController@getRequestEditVideoAjax');
+        Route::put('accept-edit-video', 'Backends\VideoController@acceptEditVideo');
+        Route::put('reject-edit-video', 'Backends\VideoController@rejectEditVideo');
+
+        // Route::put('request-delete-videos/reject', 'Backends\VideoController@rejectRequestDeleteVideo');
         // Route::get('videos-of-course', 'Backends\VideoController@getVideoOfCourse');
         // Route::delete('request-delete-videos/accept', 'Backends\VideoController@acceptRequestDeleteVideo');
 
@@ -149,6 +153,9 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('get-comment-course-ajax', 'Backends\CommentController@getAllCommentCourseAjax');
             Route::delete('delete-comment-course', 'Backends\CommentController@deleteCommentCourse');
 
+            Route::get('comment-video', 'Backends\CommentController@getAllCommentVideo');
+            Route::get('get-comment-video-ajax', 'Backends\CommentController@getAllCommentVideoAjax');
+            Route::delete('delete-comment-video', 'Backends\CommentController@deleteCommentVideo');
             Route::get('comment-report', 'Backends\CommentController@getAllCommentReport');
             Route::get('get-comment-report-ajax', 'Backends\CommentController@getAllCommentReportAjax');
             Route::delete('delete-comment-report', 'Backends\CommentController@deleteReportCourse');
@@ -294,6 +301,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('user-course/update-watched', 'Frontends\VideoPlayerController@updateWatched');
     Route::get('user/logout', 'Frontends\UserController@logout')->name('logout');
 
+    Route::post('comments/report','Frontends\CommentController@reportComment');
+
     // Route::get('cart/payment/checkout-step', 'Frontends\HomeController@showMethodSelector');
     Route::get('cart/payment/method-selector', 'Frontends\HomeController@showMethodSelector');
     Route::get('cart/payment/getFinalPrice', 'Frontends\HomeController@getFinalPrice');
@@ -341,6 +350,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::post('video/store', 'Backends\VideoController@store');
             Route::post('video/edit', 'Backends\VideoController@edit');
             Route::put('video/{id}/update', 'Backends\VideoController@update');
+            Route::put('video/{id}/request-update', 'Backends\VideoController@requestUpdate');
             Route::delete('video/remove', 'Backends\VideoController@sendRemoveVideoRequest');
             Route::delete('delete', 'Backends\UnitController@destroy');
         });

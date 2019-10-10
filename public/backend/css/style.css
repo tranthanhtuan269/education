@@ -778,3 +778,8 @@ ul.alert li {
     left: 813px; 
     width: 398px;
 } */
+
+.inaccept-video,
+.btn-inaccept{
+    color: #000;
+}

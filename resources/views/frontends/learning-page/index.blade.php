@@ -4,7 +4,8 @@
 
     
     $user_role_course_instance_video = json_decode($user_role_course_instance->videos);
-    $video_count = $course->video_count;
+    // dd($user_role_course_instance_video);
+    $video_count = $course->all_videos();
     if($user_role_course_instance_video){
         $isStudent = true;
     }else{
@@ -19,7 +20,7 @@
             }
         }
         // dd($video_done_count);
-        $video_done_percent = (int)(($video_done_count/(int)$video_count)*100);
+        $video_done_percent = (int)(($video_done_count/((int)$video_count == 0 ? 1 : (int)$video_count)) *100);
     }
     $video_urls = json_decode($main_video->url_video, true);
     // $urls = [];
@@ -79,7 +80,7 @@
         <base href="{{ url('/') }}">
     </head>
     <body>
-
+        <div class="ajax_waiting"></div>
         {{-- TOP BAR --}}
         <div class="learning-top">
             {{-- <div class="lecture-title">
@@ -135,10 +136,17 @@
 
             var check_course_of_user = {{ $check_course_of_user }}
             // console.log(check_course_of_user);
-            
-
 
             $(document).ready(function () {
+                $(document).ajaxStart(function(){
+                    // alert(1)
+                    $(".ajax_waiting").addClass("loading")
+                });
+
+                $(document).ajaxComplete(function(){
+                    $(".ajax_waiting").removeClass("loading")
+                });
+            
                 $('.ln-disc-comment-wrapper').on('shown.bs.collapse', function () {
                     $("#discComment" + $(this).attr('data-parent') + " p").addClass('active');
                     return false;
@@ -183,7 +191,12 @@
                     });
                     request.done(function(){
                         // alert("/learning-page/"+course_id+"/lecture/"+video_id_list[video_id_index + 1]+"")
-                        window.location.href = ("/learning-page/"+course_id+"/lecture/"+video_id_list[video_id_index + 1]+"")
+                        if (typeof video_id_list[video_id_index + 1] != "undefined") {
+                            window.location.href = ("/learning-page/"+course_id+"/lecture/"+video_id_list[video_id_index + 1]+"")
+                        }else{
+                            localStorage.setItem('autoplay', false)
+                            location.reload();
+                        }
                     })
                 })
             })

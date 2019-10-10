@@ -60,4 +60,21 @@ class Category extends Model
     {
         return $this->hasOne('App\Category', 'id', 'parent_id');
     }
+
+    public static function getCoursesOfCategory(){
+        return \DB::table('categories')
+        ->join('courses', 'courses.category_id', '=', 'categories.id')
+        ->join('user_courses', 'user_courses.course_id', '=', 'courses.id')
+        ->join('user_roles', 'user_roles.id', '=', 'user_courses.user_role_id')
+        ->join('teachers', 'teachers.user_role_id', '=', 'user_roles.id')
+        ->join('users', 'users.id', '=','user_roles.user_id')
+        ->where('teachers.status', 1)
+        ->where('courses.status', 1)
+        ->where('categories.parent_id', '<>', 0)
+        ->orderBy('categories.featured_index', 'asc')
+        // ->where('courses.category_id', $cat_id)
+        // ->where('categories.featured', 1)
+        ->groupBy('categories.id', 'categories.image', 'categories.slug', 'categories.name')
+        ->select('categories.id', 'categories.image', 'categories.slug', 'categories.name', \DB::raw('count(categories.id) as course_count'));
+    }
 }

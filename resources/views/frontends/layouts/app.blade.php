@@ -470,6 +470,21 @@
         //     }
         // });
 
+        function updateIndicator() {
+             if(!navigator.onLine) { // true|false
+               Swal.fire({
+                   type: 'error',
+                   text: "Vui lòng kiểm tra kết nối internet của bạn và thử lại.",
+               }).then((result) => {
+                   window.location.href = "/";
+               })
+             }
+       }
+
+       window.addEventListener('online',  updateIndicator);
+       window.addEventListener('offline', updateIndicator);
+       updateIndicator();
+
         if( user_id == 0 ){
             if(localStorage.getItem('cart'+0) == null){
                 localStorage.setItem('cart'+0, '[]')
@@ -539,9 +554,10 @@
                     
                     $(".unica-sl-notify b").text(response.number_unread_emails)
 
-                    if(response.unread_emails.length >= 1){
+                    if(response.number_unread_emails >= 1){
                         // $(".unica-sl-notify").remove()
                         $('.unica-sl-notify').css('display', 'block' )
+                        $('.unica-sl-notify').show()
                     }
                     // console.log(response.number_unread_emails)
 

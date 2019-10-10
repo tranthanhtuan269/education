@@ -1,6 +1,3 @@
-@php
-    // dd(($video_done_array));
-@endphp
 <div class="learning-lecture-list active">
     
     <div class="learning-lecture-list-searchbar">
@@ -15,6 +12,9 @@
     </div>
     
     <div class="learning-lecture-list-body">
+        @php
+        $units = $units->sortBy('index');
+        @endphp
         @foreach ($units as $key => $unit)
         @php
         $string = "Expanding the VueJs Application";
@@ -28,10 +28,10 @@
                     <p class="ln-lect-list-sect-counter">
                         @php
                             $videos_arr = $unit->videos->sortBy('index');
+                            $video_done_in_this_units = 0;
                         @endphp
                         @foreach ($videos_arr as $video)
                             @php
-                                $video_done_in_this_units = 0;
                                 $list_video_done_in_unit = $video_done_units[($unit->index)-1];
                                 if( isset( array_count_values($list_video_done_in_unit)[1] ) ){
                                     $video_done_in_this_units += array_count_values($list_video_done_in_unit)[1];
@@ -39,7 +39,7 @@
                             @endphp                       
                         @endforeach
                         <span id="videoDoneOneSect{{$key+1}}">{{$video_done_in_this_units}}</span>
-                        / {{$unit->video_count}}
+                        / {{count($unit->videos)}}
                     </p>                
                 @endif
                 </div>

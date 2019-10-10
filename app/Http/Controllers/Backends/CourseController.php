@@ -278,11 +278,18 @@ class CourseController extends Controller
                                                 ->select('units.id')
                                                 ->where('courses.id', $request->course_id)
                                                 ->count();
-                    
+                    $count_course_convert = Course::join('units', 'units.course_id', '=', 'courses.id')
+                                                ->join('videos', 'videos.unit_id', '=', 'units.id')
+                                                ->select('units.id')
+                                                ->where('courses.id', $request->course_id)
+                                                ->where('videos.state', 3)
+                                                ->count();
                     if ($count_course_active == $count_course_pending) {
                         $course->save();
                         $res = array('status' => "200", "message" => "Duyệt thành công");
-                    } else {
+                    } else if($count_course_convert > 0){
+                        $res = array('status' => "404", "message" => "Các bài giảng đang convert, vui lòng quay lại phê duyệt khi convert thành công. Xem chi tiết tại <a href='".url('admincp/videos?search='.$course->name)."&course_id=".$course->id."' target='_blank'>đây</a>.");
+                    } else{
                         $res = array('status' => "404", "message" => "Vẫn còn bài giảng trong khóa học chưa được duyệt, xin vui lòng kiểm tra lại tại <a href='".url('admincp/videos?search='.$course->name)."&course_id=".$course->id."' target='_blank'>đây</a>");
                     }
 
@@ -356,7 +363,7 @@ class CourseController extends Controller
     }
 
     public function getFeatureCourse(){
-        $courses = Course::where('status', 1)->get();
+        $courses = Course::listCourseSpecial(2)->get();
         $percent = Setting::where('name', 'percent_feature_course')->first()->value;
         return view('backends.course.feature-course', compact('courses', 'percent'));
     }

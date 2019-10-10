@@ -1255,13 +1255,17 @@
                         })
                     }
                 },
-                error: function (data) {
-                    if(data.status == 422){
-                        $.each(data.responseJSON.errors, function( index, value ) {
-                            $('#'+index+'ErrorIns').html(value);
-                            $('#'+index+'ErrorIns').removeClass('d-none');
-                        });
+                error: error => {
+                    var obj_errors = error.responseJSON.errors;
+                    var txt_errors = '';
+                    for (k of Object.keys(obj_errors)) {
+                        txt_errors += obj_errors[k][0] + '</br>';
                     }
+                    Swal.fire({
+                        type: 'warning',
+                        html: txt_errors,
+                        allowOutsideClick: false,
+                    })
                 }
             });
         });

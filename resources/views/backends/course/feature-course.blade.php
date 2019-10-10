@@ -12,7 +12,11 @@
 
 <!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
 <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
-
+<?php 
+    $featured_courses = $courses;
+    // $featured_courses->pluck('id');
+    // dd($featured_courses->pluck('id'));
+?>
 <section class="content-header">
     
 </section>
@@ -22,40 +26,52 @@
         <div class="col-xs-12">
             <p><b>Chọn khóa học nổi bật nhất</b></p>
             <div class=''>
-                <select multiple class="searchable" name="searchable1" style="width: 50%">
-                @foreach ($courses as $course)
-                <option
-                @if($course->featured_index==1)
-                selected
-                @endif
-                value="{{ $course->id }}">{{ $course->name }}</option>
-                @endforeach
+                <select multiple class="searchable" name="searchable1" onchange="selection1(this)" style="width: 50%" id="selection1">
+                    @foreach ($featured_courses as $course)
+                        <option
+                            @if($course->featured_index==1)
+                            selected
+                            @endif
+                            @if($course->featured == 1 && $course->featured_index != 1)
+                            disabled
+                            @endif
+                            value="{{ $course->id }}">{{ $course->name }}
+                        </option>
+                    @endforeach
                 </select>
             </div>
             <br>
             <p><b>Chọn khóa học nổi bật thứ 2</b></p>
             <div class=''>
-                <select multiple class="searchable" name="searchable2" style="width: 50%">
-                @foreach ($courses as $course)
-                <option
-                @if($course->featured_index==2)
-                selected
-                @endif
-                value="{{ $course->id }}">{{ $course->name }}</option>
-                @endforeach
+                <select multiple class="searchable" name="searchable2" onchange="selection2(this)" style="width: 50%" id="selection2">
+                    @foreach ($featured_courses as $course)
+                        <option
+                            @if($course->featured_index==2)
+                            selected
+                            @endif
+                            @if($course->featured == 1 && $course->featured_index != 2)
+                            disabled
+                            @endif
+                            value="{{ $course->id }}">{{ $course->name }}
+                        </option>
+                    @endforeach
                 </select>
             </div>
             <br>
             <p><b>Chọn khóa học nổi bật thứ 3</b></p>
             <div class=''>
-                <select multiple class="searchable" name="searchable3" style="width: 50%">
-                @foreach ($courses as $course)
-                <option
-                @if($course->featured_index==3)
-                selected
-                @endif
-                value="{{ $course->id }}">{{ $course->name }}</option>
-                @endforeach
+                <select multiple class="searchable" name="searchable3" onchange="selection3(this)" style="width: 50%" id="selection3">
+                    @foreach ($featured_courses as $course)
+                        <option
+                            @if($course->featured_index==3)
+                            selected
+                            @endif
+                            @if($course->featured == 1 && $course->featured_index != 3)
+                            disabled
+                            @endif
+                            value="{{ $course->id }}">{{ $course->name }}
+                        </option>
+                    @endforeach
                 </select>
             </div>
             <br>
@@ -70,7 +86,80 @@
     <div class="text-center"><button class="btn btn-primary" id="btn-confirm"><b>Xác nhận</b></button></div>
 </section>
 <script type="text/javascript">
+    function selection1(selectObject) {
+        var new_value = selectObject.value;
+        var old_value = $('select[name=searchable1]').attr('data-value')
+
+        $('#selection1 option[value="'+new_value+'"]').attr('selected', true)
+        $('select[name=searchable1]').attr('data-value', new_value)
+
+        $('#selection2 option[value="'+new_value+'"]').attr('disabled', true)
+        $('#selection2 option[value="'+old_value+'"]').attr('disabled', false)
+
+        $('#selection3 option[value="'+new_value+'"]').attr('disabled', true)
+        $('#selection3 option[value="'+old_value+'"]').attr('disabled', false)
+
+        $('.searchable').select2({
+            width: 'resolve',
+            theme: "classic",
+            multiple: false
+        })
+    }
+
+    function selection2(selectObject) {
+        var new_value = selectObject.value;
+        var old_value = $('select[name=searchable2]').attr('data-value')
+
+        $('#selection2 option[value="'+new_value+'"]').attr('selected', true)
+        $('select[name=searchable2]').attr('data-value', new_value)
+
+        $('#selection1 option[value="'+new_value+'"]').attr('disabled', true)
+        $('#selection1 option[value="'+old_value+'"]').attr('disabled', false)
+
+        $('#selection3 option[value="'+new_value+'"]').attr('disabled', true)
+        $('#selection3 option[value="'+old_value+'"]').attr('disabled', false)
+
+        $('.searchable').select2({
+            width: 'resolve',
+            theme: "classic",
+            multiple: false
+        })
+    }
+
+    function selection3(selectObject) {
+        var new_value = selectObject.value;
+        var old_value = $('select[name=searchable3]').attr('data-value')
+
+        $('#selection3 option[value="'+new_value+'"]').attr('selected', true)
+        $('select[name=searchable3]').attr('data-value', new_value)
+
+        $('#selection1 option[value="'+new_value+'"]').attr('disabled', true)
+        $('#selection1 option[value="'+old_value+'"]').attr('disabled', false)
+
+        $('#selection2 option[value="'+new_value+'"]').attr('disabled', true)
+        $('#selection2 option[value="'+old_value+'"]').attr('disabled', false)
+
+        $('.searchable').select2({
+            width: 'resolve',
+            theme: "classic",
+            multiple: false
+        })
+    }
+
+
     $(document).ready(function(){
+
+        // Set Value Select
+        var e = document.getElementById("selection1");
+        var value = e.options[e.selectedIndex].value
+        $('select[name=searchable1]').attr('data-value', value)
+        var e = document.getElementById("selection2");
+        var value = e.options[e.selectedIndex].value
+        $('select[name=searchable2]').attr('data-value', value)
+        var e = document.getElementById("selection3");
+        var value = e.options[e.selectedIndex].value
+        $('select[name=searchable3]').attr('data-value', value)
+        
         $("#btn-confirm").click(function(){
             var course_1 = $('select[name=searchable1]').children("option:selected").val();
             var course_2 = $('select[name=searchable2]').children("option:selected").val();

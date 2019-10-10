@@ -50,7 +50,7 @@ class HomeController extends Controller
 
     public function home()
     {
-        $feature_category = Category::withCount('courses')->where('featured', 1)->where('parent_id', '<>', 0)->orderBy('featured_index', 'asc')->get();
+        $feature_category = Category::getCoursesOfCategory()->get();
 
         // Duong NT// feature courses
         $percent_feature_course = Setting::where('name', 'percent_feature_course')->first()->value;
@@ -195,7 +195,7 @@ class HomeController extends Controller
                 if (\Auth::check()) {
                     if ($course) {
                         $ratingCourse = RatingCourse::where('course_id', $course->id)->where('user_id', \Auth::id())->first();
-                        $related_course = Course::where('category_id', $course->category_id)->where('id','!=',$course->id)->where('status', 1)->limit(4)->get();
+                        $related_course = Course::listCourseCategoryNotMe($course->category_id, $course->id)->limit(4)->get();
                         $info_course = Course::find($course->id);
 
                         $units = Unit::where('course_id', $course->id)->get();
@@ -215,7 +215,7 @@ class HomeController extends Controller
                     }
                 } else {
                     if ($course) {
-                        $related_course = Course::where('category_id', $course->category_id)->where('id','!=',$course->id)->where('status', 1)->limit(4)->get();
+                        $related_course = Course::listCourseCategoryNotMe($course->category_id, $course->id)->limit(4)->get();
                         $info_course = Course::find($course->id);
 
                         $units = Unit::where('course_id', $course->id)->get();
@@ -237,7 +237,7 @@ class HomeController extends Controller
             }else{
                 if( (\Auth::check() && \Auth::user()->isAdmin()) || (\Auth::check() && Auth::user()->userRolesTeacher()->userCoursesByTeacher()->where('id', $course->id)->first() != null )){
                     $ratingCourse = RatingCourse::where('course_id', $course->id)->where('user_id', \Auth::id())->first();
-                    $related_course = Course::where('category_id', $course->category_id)->where('id','!=',$course->id)->where('status', 1)->limit(4)->get();
+                    $related_course = Course::listCourseCategoryNotMe($course->category_id, $course->id)->limit(4)->get();
                     $info_course = Course::find($course->id);
 
                     $units = Unit::where('course_id', $course->id)->get();
@@ -567,17 +567,8 @@ class HomeController extends Controller
                                 $user_course_videos = [];
 
                                 //DuongNT - Tạo array video đã xem
-                                foreach ($units as $key => $unit) {
-                                    if($unit->video_count > 0){
-                                        $unit_arr = [];
-                                        for ($k=0; $k < $unit->video_count; $k++) {
-                                            array_push($unit_arr, 0);
-                                        }
-                                        array_push($user_course_videos, $unit_arr);
-                                    }
-                                }
                                 $videoJson = new VideoJson;
-                                $videoJson->videos = $user_course_videos;
+                                $videoJson->videos = Helper::getJSONVideoOfCourse($course->id);
                                 $videoJson->learning = 1;
                                 $videoJson->learning_id = $first_video_id;
 
@@ -600,8 +591,6 @@ class HomeController extends Controller
                             $course2->save();
                         }
                     }
-
-
 
                     // if ($coupon) {
                     //     $order->total_price = $total_price * (100 - $coupon->value) / 100;
