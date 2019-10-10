@@ -99,7 +99,7 @@ class CommentController extends Controller
         ->join('users', 'user_roles.user_id', '=', 'users.id')
         ->join('courses', 'comment_courses.course_id', '=', 'courses.id')
         ->where('comment_courses.state', 0)
-        ->select('comment_courses.content', 'comment_courses.created_at', 'comment_courses.id', 'users.name as user_name', 'courses.name as course_name','courses.id as course_id', 'courses.slug as as course_slug')
+        ->select('comment_courses.content', 'comment_courses.created_at', 'comment_courses.id', 'users.name as user_name', 'courses.name as course_name','courses.id as course_id', 'courses.slug as course_slug')
         ->get();
         return datatables()->collection($comments)
             ->addColumn('action', function ($comment) {
