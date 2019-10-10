@@ -99,12 +99,12 @@
                                                 <a class="btn-preview" href="javascript:void(0)" onclick="preview_freetrial(24337);">Free Trial</a>
                                             </div>
                                             @endif --}}
-                                            @if (Auth::check())
+                                            {{-- @if (Auth::check())
                                                 @if (Auth::user()->isAdmin())
                                                 <a class="btn-preview btn-success" href="/learning-page/{{$info_course->id}}/lecture/{{$value_video->id}}">Xem</a>
                                                 @endif
                                             @else
-                                            @endif
+                                            @endif --}}
                                         </div>
                                         <div class="col-xs-3 col-md-2">
                                             <div class="time">{{ App\Helper::convertSecondToTimeFormat($value_video->duration) }}</div>

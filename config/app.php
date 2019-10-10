@@ -12,7 +12,7 @@ return [
     'video_active' => 1,
     'video_waiting_to_delete' => 2,
     'video_converting' => 3,
-
+    'video_request_edit' => 4,
 
     'email_order_complete' => 2,
 

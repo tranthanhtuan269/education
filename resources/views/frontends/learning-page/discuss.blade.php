@@ -122,7 +122,7 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        if( discussEditor.getData() == ""){
+        if( discussEditor.getData().trim().length == 0){
             Swal.fire({
                 type: "warning",
                 text:" Nội dung không được trống!"
@@ -210,7 +210,7 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        if($('input[data-child="'+parentId+'"]').val() == ""){
+        if($('input[data-child="'+parentId+'"]').val().trim() == ""){
             Swal.fire({
                 text:"Nội dung không được để trống!"
             })
