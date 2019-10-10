@@ -1041,6 +1041,61 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
             $(this).parent().find('.btn-like').addClass('btn-default').removeClass('btn-primary');
         });
 
+        $('.btn-default.btn-reportcomment').off('click');
+        $('.btn-default.btn-reportcomment').on('click',function(e){
+            var id = $(this).attr('data-comment-id');
+            var baseURL = $('base').attr('href');
+            Swal.fire({
+                type: 'warning',
+                text: 'Bạn có chắc chắn muốn báo cáo comment này!',
+                showCancelButton: true,
+            }).then(result =>{
+                if(result.value){
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    var request = $.ajax({
+                        url: baseURL + '/comments/report',
+                        method: "POST",
+                        data: {
+                            comment_id: id
+                        },
+                        dataType: "json",
+                        success: function (response) {
+                            if(response.status == 200){
+                                Swal.fire({
+                                    type: 'success',
+                                    text: 'Báo cáo thành công!',
+                                })
+                            }
+                            else{
+                                Swal.fire({
+                                    type: 'warning',
+                                    text: response.message
+                                })
+                            }
+                        },
+                        error: function (data) {
+                            if(data.status == 401){
+                            window.location.replace(baseURL);
+                            }else{
+                                Swal.fire({
+                                    type: 'warning',
+                                    text: errorConnect
+                                })
+                            }
+                        }
+                    });
+                }
+            })
+            // $('.btn-default.btn-reportcomment data-comment-id="id"').prop('disabled', true);
+            // function disable(id){
+            //     $(".btn-default.btn-reportcomment"+id).prop("disabled",true);
+            // }
+        })
+
         $('.create-reply-btn').on('click', function (e) {
             var comment_id = $(this).attr('data-id');
             var baseURL = $('base').attr('href');
