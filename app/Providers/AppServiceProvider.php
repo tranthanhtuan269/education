@@ -131,6 +131,8 @@ class AppServiceProvider extends ServiceProvider
             if($event->job->resolveName() == "App\Jobs\ProcessLectureEdit"){
                 Log::info('Job ready: ' . $event->job->resolveName());
                 Log::info('Job started: ' . $event->job->resolveName());
+                Log::info('Job payload: ' . $event->job->payload());
+                Log::info('Job getRawBody: ' . $event->job->getRawBody());
                 $job = $event->job->payload();
     
                 $payload = json_decode( $event->job->getRawBody() );
