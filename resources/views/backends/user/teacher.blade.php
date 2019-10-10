@@ -628,11 +628,12 @@
                                         type: 'success',
                                         text: "Duyệt giảng viên thành công"
                                     })
-                                    // dataTable.ajax.reload();
+                                    dataTable.ajax.reload();
                                     $.each($('.check-user'), function (key, value){
                                         if($(this).prop('checked') == true) {
                                             $(this).parent().parent().removeClass('red-row').addClass('blue-row');
                                             // $(this).parent().parent().addClass('red-row').removeClass('blue-row');
+                                            $(this).find('i').removeClass('fa-check').addClass('fa-times');
                                         }
                                     });
                                     userCheckList = [];
@@ -698,6 +699,7 @@
                                     current_page = dataTable.page.info().page;
                                 },
                                 success: function (response) {
+                                    dataTable.ajax.reload()
                                     Swal.fire({
                                         type: 'success',
                                         text: "Hủy giảng viên thành công"
@@ -706,6 +708,7 @@
                                         if($(this).prop('checked') == true) {
                                             // $(this).parent().parent().removeClass('red-row').addClass('blue-row');
                                             $(this).parent().parent().addClass('red-row').removeClass('blue-row');
+                                            $(this).find('i').removeClass('fa-times').addClass('fa-check');
                                         }
                                     });
                                     userCheckList = [];
