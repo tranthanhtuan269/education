@@ -483,9 +483,9 @@
                 if(fileNameListEdit.indexOf("; " + file.name + "; ") >= 0){
 
                 }else{
-                    console.log(fileNameListEdit);
+                    // console.log(fileNameListEdit);
                     fileNameListEdit += file.name + "; "
-                    console.log(fileNameListEdit);
+                    // console.log(fileNameListEdit);
                     editFiles.push(file);
 
                     // var filesLength = editFiles.length + initialEditFilesLength
@@ -517,7 +517,7 @@
                     console.log(name)
                     var fileId = $(this).attr('data-file-id')
                     var isActive = $(this).attr('data-active') //kiểm tra tài liệu có trong database hay không
-                    console.log(fileNameListEdit);
+                    // console.log(fileNameListEdit);
                     if(editFiles[indexToRemove] != undefined){
                         fileNameListEdit = fileNameListEdit.replace("; " + 
                             editFiles[indexToRemove].name, "");
@@ -527,7 +527,7 @@
 
                     }
                     editFiles.splice(indexToRemove,1)
-                    console.log(fileNameListEdit);
+                    // console.log(fileNameListEdit);
 
                     $(this).parent().parent().remove()
                     if (isActive) {
@@ -673,9 +673,9 @@
                         filesEditLength = response.video.documents.length
 
                         response.video.documents.forEach( (document, index) => {
-                            console.log(fileNameListEdit);
+                            // console.log(fileNameListEdit);
                             fileNameListEdit += document.title + "; "
-                            console.log(fileNameListEdit);
+                            // console.log(fileNameListEdit);
 
                             var html = ''
                             html += `<div class="row" data-index="${index}">`
@@ -869,6 +869,7 @@
                     formData.append(`document${index}`, file)
                 });
 
+                // console.log(activeFileToDelete);return;
                 $.ajax({
                     method: 'POST',
                     url: "{{ url('/') }}/user/units/video/"+ video_id + "/request-update",

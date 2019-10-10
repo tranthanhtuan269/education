@@ -262,6 +262,9 @@ class VideoController extends Controller
                 }
             }
 
+            if($request->active_file_to_delete){
+                $temp_video->files_delete = $request->active_file_to_delete;
+            }
             $temp_video->save();
 
             return \Response::json(array('status' => '200', 'message' => 'Gửi yêu cầu sửa video thành công!', 'video' => $video));
@@ -767,8 +770,83 @@ class VideoController extends Controller
         $temp_video = TempVideo::find($request->temp_video_id);
         if ($temp_video) {
             $video = Video::find($temp_video->video_id);
-            dd($video);
+
+            if ($video){
+                $video->name        = $temp_video->name;
+                $video->link_video  = $temp_video->link_video;
+                $video->duration    = $temp_video->duration;
+                $video->description = $temp_video->description;
+                $video->updated_at  = date('Y-m-d H:i:s');
+
+                $temp_documents = TempDocument::where('video_id', $temp_video->video_id)->get();
+                if ( $temp_documents->count() > 0 ){
+                    foreach ($temp_documents as $key => $temp_document) {
+                        $document = new Document;
+                        $document->title        = $temp_document->title;
+                        $document->video_id     = $temp_document->video_id;
+                        $document->url_document = $temp_document->url_document;
+                        $document->size         = $temp_document->size;
+                        $document->created_at   = $temp_document->created_at;
+
+                        $document->save();
+                        $temp_document->delete();
+                    }
+                }
+
+                if($temp_video->files_delete){
+                    $document_ids = explode(",", $temp_video->files_delete);
+                    foreach ($document_ids as $key => $id) {
+                        $document = Document::find($id);
+                        unlink(public_path('uploads/files/'.$document->url_document));
+                        $document->delete();
+                    }
+                }
+
+                if ($temp_video->link_video){
+                    // convert video to multi resolution
+                    $path_360 = "/usr/local/WowzaStreamingEngine-4.7.7/content/360/".$video->link_video;
+                    $path_480 = "/usr/local/WowzaStreamingEngine-4.7.7/content/480/".$video->link_video;
+                    $path_720 = "/usr/local/WowzaStreamingEngine-4.7.7/content/720/".$video->link_video;
+                    $path_1080 = "/usr/local/WowzaStreamingEngine-4.7.7/content/1080/".$video->link_video;
+        
+                    $content_path_360 = "vod/_definst_/360/".$video->link_video;
+                    $content_path_480 = "vod/_definst_/480/".$video->link_video;
+                    $content_path_720 = "vod/_definst_/720/".$video->link_video;
+                    $content_path_1080 = "vod/_definst_/1080/".$video->link_video;
+        
+                    $json = '{"360": "'.$content_path_360.'", "480": "'.$content_path_480.'", "720": "'.$content_path_720.'", "1080": "'.$content_path_1080.'"}';
+                    // echo json_encode($json);die;
+                    // $video->url_video = $json;
+                    // $video->url_video = json_encode($json);
+                    $video->url_video = $json;
+                    $video->state      = 3;
+                    $video->save();
+                    $temp_video->delete();
+                    
+                    dispatch(new ProcessLecture($path_1080, $request->video_id, $video->link_video, 1080));
+                    dispatch(new ProcessLecture($path_720, $request->video_id, $video->link_video, 720));
+                    dispatch(new ProcessLecture($path_480, $request->video_id, $video->link_video, 480));
+                    dispatch(new ProcessLecture($path_360, $request->video_id, $video->link_video, 360));
+
+                    return response()->json([
+                        'status' => 200,
+                        'message' => 'Bài giảng đã được sửa và đang được convert.',
+                    ]);
+                }
+
+                $video->save();
+                $temp_video->delete();
+    
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'Bài giảng đã được sửa.',
+                ]);
+            }
         }
+        return response()->json([
+            'status' => 404,
+            'message' => 'Không thành công.',
+        ]);
     }
 
     public function rejectEditVideo(Request $request)
