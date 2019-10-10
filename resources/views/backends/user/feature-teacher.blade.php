@@ -265,10 +265,10 @@ if($feature_teacher_selected){
 
         $("#confirmChooseTeacher").click(function(){
 
-            var teacher_id1 = $('select[name=teacher1]').children("option:selected").val();
-            var teacher_id2 = $('select[name=teacher2]').children("option:selected").val();
-            var teacher_id3 = $('select[name=teacher3]').children("option:selected").val();
-            var teacher_id4 = $('select[name=teacher4]').children("option:selected").val();
+            var teacher_id1 = $('select[name=searchTeacher1]').children("option:selected").val();
+            var teacher_id2 = $('select[name=searchTeacher2]').children("option:selected").val();
+            var teacher_id3 = $('select[name=searchTeacher3]').children("option:selected").val();
+            var teacher_id4 = $('select[name=searchTeacher4]').children("option:selected").val();
             
             if (teacher_id1 == teacher_id2 || teacher_id1 == teacher_id3 || teacher_id1 == teacher_id4 || teacher_id2 == teacher_id3 || teacher_id2 == teacher_id4 || teacher_id3 == teacher_id4) {
                 Swal.fire({
