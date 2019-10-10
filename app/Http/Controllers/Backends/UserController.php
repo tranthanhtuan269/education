@@ -565,7 +565,7 @@ class UserController extends Controller
         foreach ($request->arr_teacher_id as $key => $teacher_id) {
             # code...
             $teacher = Teacher::find($teacher_id);
-            if( isset($teacher->id) ){
+            if( isset($teacher) ){
                 $teacher->featured       = 1;
                 $teacher->featured_index = $key+1;
                 $teacher->save();
