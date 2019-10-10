@@ -73,7 +73,7 @@ class Category extends Model
         ->where('categories.parent_id', '<>', 0)
         ->orderBy('categories.featured_index', 'asc')
         // ->where('courses.category_id', $cat_id)
-        // ->where('categories.featured', 1)
+        ->where('categories.featured', 1)
         ->groupBy('categories.id', 'categories.image', 'categories.slug', 'categories.name')
         ->select('categories.id', 'categories.image', 'categories.slug', 'categories.name', \DB::raw('count(categories.id) as course_count'));
     }
