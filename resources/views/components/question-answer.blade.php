@@ -44,7 +44,7 @@
             </button>
             <button type="button" class="btn btn-default btn-reportcomment" data-comment-id="{{ $comment->id }}">
                 <i class="fas fa-flag"></i>
-                <span>Báo cáo</span>
+                <span>Báo vi phạm</span>
             </button>
             <?php 
             // dd($comment->id) 
