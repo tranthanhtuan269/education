@@ -797,8 +797,10 @@ class VideoController extends Controller
                     $document_ids = explode(",", $temp_video->files_delete);
                     foreach ($document_ids as $key => $id) {
                         $document = Document::find($id);
-                        unlink(public_path('uploads/files/'.$document->url_document));
-                        $document->delete();
+                        if($document){
+                            unlink(public_path('uploads/files/'.$document->url_document));
+                            $document->delete();
+                        }
                     }
                 }
 
