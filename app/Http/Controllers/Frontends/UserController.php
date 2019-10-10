@@ -184,6 +184,9 @@ class UserController extends Controller
 
             $user->save();
 
+            // update course info
+            
+
             $teacher = Auth::user()->userRolesTeacher()->teacher;
             $teacher->expert = $request->expert;
             $teacher->cv = $request->cv;

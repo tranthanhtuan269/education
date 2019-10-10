@@ -18,14 +18,8 @@
 Auth::routes();
 
 Route::get('test2', function(){
-    $comments = \DB::table('comment_courses')
-        ->join('user_roles', 'comment_courses.user_role_id', '=', 'user_roles.id')
-        ->join('users', 'user_roles.user_id', '=', 'users.id')
-        ->join('courses', 'comment_courses.course_id', '=', 'courses.id')
-        ->where('comment_courses.state', 0)
-        ->select('comment_courses.content', 'comment_courses.created_at', 'comment_courses.id', 'users.name as user_name', 'courses.name as course_name','courses.id as course_id', 'courses.slug as course_slug')
-        ->get();
-    dd($comments);
+    $courses = \App\Course::get();
+    dd($courses);
 });
 
 Route::get('thay-state-video', function(){

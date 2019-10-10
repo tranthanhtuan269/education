@@ -243,4 +243,8 @@ class Course extends Model
         ->where('courses.status', 1)
         ->select('courses.image', 'courses.name', 'courses.id', 'courses.slug', 'courses.price', 'courses.real_price', 'courses.duration', 'courses.star_count', 'courses.vote_count', 'courses.approx_time', 'courses.five_stars', 'courses.four_stars', 'courses.three_stars', 'courses.two_stars', 'courses.one_stars', 'teachers.id as teacherId', 'user_roles.user_id as userRoleId', 'users.name as author');
     }
+
+    public static function getCourseOfTeacher($user_id){
+
+    }
 }
