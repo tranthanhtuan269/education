@@ -20,7 +20,7 @@
                             <th scope="col">Comment</th>
                             <th scope="col">Khóa học</th>
                             <th scope="col">Ngày đăng</th>
-                            <th scope="col">Thao tác</th>
+                            <th scope="col">Hủy</th>
                             <th scope="col">Xóa</th>
                         </tr>
                     </thead>
