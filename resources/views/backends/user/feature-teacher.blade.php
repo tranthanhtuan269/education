@@ -47,12 +47,15 @@ if($feature_teacher_selected){
                 <div class="col-md-6">
                     <label>Chọn giảng viên tiêu biểu thứ nhất</label>
                     <div class=''>
-                        <select class="search-teacher" name="teacher1">
+                        <select class="search-teacher" name="searchTeacher1" onchange="selectionTeacher1(this)" id="selectionTeacher1">
                             @foreach ($teachers as $teacher)
                                 @if( isset($teacher->name) )
                                     <option value="{{ $teacher->id }}"
                                         @if($teacher->featured_index==1)
                                             selected
+                                        @endif
+                                        @if($teacher->featured == 1 && $teacher->featured_index != 1)
+                                            disabled
                                         @endif
                                     >{{ $teacher->name }}</option>
                                 @endif
@@ -62,12 +65,15 @@ if($feature_teacher_selected){
                     <br>
                     <label>Chọn giảng viên tiêu biểu thứ 2</label>
                     <div class=''>
-                        <select class="search-teacher" name="teacher2">
+                        <select class="search-teacher" name="searchTeacher2" onchange="selectionTeacher2(this)" id="selectionTeacher2">
                             @foreach ($teachers as $teacher)
                                 @if( isset($teacher->name) )
                                     <option value="{{ $teacher->id }}"
                                         @if($teacher->featured_index==2)
                                             selected
+                                        @endif
+                                        @if($teacher->featured == 1 && $teacher->featured_index != 2)
+                                            disabled
                                         @endif
                                     >{{ $teacher->name }}</option>
                                 @endif
@@ -79,12 +85,15 @@ if($feature_teacher_selected){
                 <div class="col-md-6">
                     <label>Chọn giảng viên tiêu biểu thứ 3</label>
                     <div class=''>
-                        <select class="search-teacher" name="teacher3">
+                        <select class="search-teacher" name="searchTeacher3" onchange="selectionTeacher3(this)" id="selectionTeacher3">
                             @foreach ($teachers as $teacher)
                                 @if( isset($teacher->name) )
                                     <option value="{{ $teacher->id }}"
                                         @if($teacher->featured_index==3)
                                             selected
+                                        @endif
+                                        @if($teacher->featured == 1 && $teacher->featured_index != 3)
+                                            disabled
                                         @endif
                                     >{{ $teacher->name }}</option>
                                 @endif
@@ -94,12 +103,15 @@ if($feature_teacher_selected){
                     <br>
                     <label>Chọn giảng viên tiêu biểu thứ 4</label>
                     <div class=''>
-                        <select class="search-teacher" name="teacher4">
+                        <select class="search-teacher" name="searchTeacher4" onchange="selectionTeacher4(this)" id="selectionTeacher4">
                             @foreach ($teachers as $teacher)
                                 @if( isset($teacher->name) )
                                     <option value="{{ $teacher->id }}"
                                         @if($teacher->featured_index==4)
                                             selected
+                                        @endif
+                                        @if($teacher->featured == 1 && $teacher->featured_index != 4)
+                                            disabled
                                         @endif
                                     >{{ $teacher->name }}</option>
                                 @endif
@@ -126,7 +138,113 @@ if($feature_teacher_selected){
     }
 </style>
 <script type="text/javascript">
+
+    function selectionTeacher1(selectObject) {
+        var new_value = selectObject.value;
+        var old_value = $('select[name=searchTeacher1]').attr('data-value')
+
+        $('#selectionTeacher1 option[value="'+new_value+'"]').attr('selected', true)
+        $('select[name=searchTeacher1]').attr('data-value', new_value)
+
+        $('#selectionTeacher2 option[value="'+new_value+'"]').attr('disabled', true)
+        $('#selectionTeacher2 option[value="'+old_value+'"]').attr('disabled', false)
+
+        $('#selectionTeacher3 option[value="'+new_value+'"]').attr('disabled', true)
+        $('#selectionTeacher3 option[value="'+old_value+'"]').attr('disabled', false)
+
+        $('#selectionTeacher4 option[value="'+new_value+'"]').attr('disabled', true)
+        $('#selectionTeacher4 option[value="'+old_value+'"]').attr('disabled', false)
+
+        $('.searchable').select2({
+            width: 'resolve',
+            theme: "classic",
+            multiple: false
+        })
+    }
+
+    function selectionTeacher2(selectObject) {
+        var new_value = selectObject.value;
+        var old_value = $('select[name=searchTeacher2]').attr('data-value')
+
+        $('#selectionTeacher2 option[value="'+new_value+'"]').attr('selected', true)
+        $('select[name=searchTeacher2]').attr('data-value', new_value)
+
+        $('#selectionTeacher1 option[value="'+new_value+'"]').attr('disabled', true)
+        $('#selectionTeacher1 option[value="'+old_value+'"]').attr('disabled', false)
+
+        $('#selectionTeacher3 option[value="'+new_value+'"]').attr('disabled', true)
+        $('#selectionTeacher3 option[value="'+old_value+'"]').attr('disabled', false)
+
+        $('#selectionTeacher4 option[value="'+new_value+'"]').attr('disabled', true)
+        $('#selectionTeacher4 option[value="'+old_value+'"]').attr('disabled', false)
+
+        $('.searchable').select2({
+            width: 'resolve',
+            theme: "classic",
+            multiple: false
+        })
+    }
+
+    function selectionTeacher3(selectObject) {
+        var new_value = selectObject.value;
+        var old_value = $('select[name=searchTeacher3]').attr('data-value')
+
+        $('#selectionTeacher3 option[value="'+new_value+'"]').attr('selected', true)
+        $('select[name=searchTeacher3]').attr('data-value', new_value)
+
+        $('#selectionTeacher2 option[value="'+new_value+'"]').attr('disabled', true)
+        $('#selectionTeacher2 option[value="'+old_value+'"]').attr('disabled', false)
+
+        $('#selectionTeacher1 option[value="'+new_value+'"]').attr('disabled', true)
+        $('#selectionTeacher1 option[value="'+old_value+'"]').attr('disabled', false)
+
+        $('#selectionTeacher4 option[value="'+new_value+'"]').attr('disabled', true)
+        $('#selectionTeacher4 option[value="'+old_value+'"]').attr('disabled', false)
+
+        $('.searchable').select2({
+            width: 'resolve',
+            theme: "classic",
+            multiple: false
+        })
+    }
+
+    function selectionTeacher4(selectObject) {
+        var new_value = selectObject.value;
+        var old_value = $('select[name=searchTeacher4]').attr('data-value')
+
+        $('#selectionTeacher4 option[value="'+new_value+'"]').attr('selected', true)
+        $('select[name=searchTeacher4]').attr('data-value', new_value)
+
+        $('#selectionTeacher2 option[value="'+new_value+'"]').attr('disabled', true)
+        $('#selectionTeacher2 option[value="'+old_value+'"]').attr('disabled', false)
+
+        $('#selectionTeacher3 option[value="'+new_value+'"]').attr('disabled', true)
+        $('#selectionTeacher3 option[value="'+old_value+'"]').attr('disabled', false)
+
+        $('#selectionTeacher1 option[value="'+new_value+'"]').attr('disabled', true)
+        $('#selectionTeacher1 option[value="'+old_value+'"]').attr('disabled', false)
+
+        $('.searchable').select2({
+            width: 'resolve',
+            theme: "classic",
+            multiple: false
+        })
+    }
+
     $(document).ready(function(){
+        // Set Value Select
+        var e = document.getElementById("selectionTeacher1");
+        var value = e.options[e.selectedIndex].value
+        $('select[name=searchTeacher1]').attr('data-value', value)
+        var e = document.getElementById("selectionTeacher2");
+        var value = e.options[e.selectedIndex].value
+        $('select[name=searchTeacher2]').attr('data-value', value)
+        var e = document.getElementById("selectionTeacher3");
+        var value = e.options[e.selectedIndex].value
+        $('select[name=searchTeacher3]').attr('data-value', value)
+        var e = document.getElementById("selectionTeacher4");
+        var value = e.options[e.selectedIndex].value
+        $('select[name=searchTeacher4]').attr('data-value', value)
 
         if( $('#buttonRadios1').attr('checked') == 'checked' ){
             $('.admin-choose').hide()
