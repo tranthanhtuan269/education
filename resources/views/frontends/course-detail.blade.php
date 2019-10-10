@@ -419,39 +419,28 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                             </div>                    
                         </div>
                         <script>
-                            
-                            $(window).scroll(function() {
-                                // $('#benefit-course').position().top
-                                // $('#benifit-first').height()
-                                // var margin_obj = 20;
-                                // $('#sidebar-content').height()
-                                // $('.instructors').position().top
+                            $(document).ready(function() { 
                                 var block_on = $('#benefit-course').position().top + $('#benifit-first').height() + 62 //Padding
                                 var block_below = $('.instructors').position().top - $('#sidebar-content').height() - 32 - 60 //Padding
-                                // console.log($('.instructors').position().top)
-                                // console.log($('#sidebar-content').height() + 32)
-                                // console.log($("#benefit-course").scrollTop())
-                            // var barHeight = $(".interactive-bar").outerHeight()
-                            if ($(window).scrollTop() >= block_on - 40) {
-                                //    $(".sidebar-content").css("margin-bottom", barHeight)
-                                //    $("#button").css("bottom", "-26")
-                                //    console.log(block_below);
-                                
-                                // $(".sidebar-content").show();
-                                if($(window).scrollTop() <= block_below - 40){
-                                    document.getElementById("sidebar-content").classList.add("sidebar-fixed");
-                                    $("#sidebar-content").removeClass('sidebar-unfix').css('top', '');
-                                }else{
-                                    document.getElementById("sidebar-content").classList.remove("sidebar-fixed");
-                                    $("#sidebar-content").addClass('sidebar-unfix').css('top', block_below - block_on + 20);
-                                    // document.getElementById("sidebar-content").css("margin-top", "1365px");
+                                if( block_on >= block_below + 20 ){
+                                    $('#sidebar-content').hide()
                                 }
-                            } else {
-                                document.getElementById("sidebar-content").classList.remove("sidebar-fixed");
-                                // $(".sidebar-content").hide();
-                                // $(".sidebar-content").css("position", "static !important")
-                            }
-                            });
+                                $(window).scroll(function() {
+                                    var block_on = $('#benefit-course').position().top + $('#benifit-first').height() + 62 //Padding
+                                    var block_below = $('.instructors').position().top - $('#sidebar-content').height() - 32 - 60 //Padding
+                                    if ($(window).scrollTop() >= block_on - 40) {
+                                        if($(window).scrollTop() <= block_below - 40){
+                                            document.getElementById("sidebar-content").classList.add("sidebar-fixed");
+                                            $("#sidebar-content").removeClass('sidebar-unfix').css('top', '');
+                                        }else{
+                                            document.getElementById("sidebar-content").classList.remove("sidebar-fixed");
+                                            $("#sidebar-content").addClass('sidebar-unfix').css('top', block_below - block_on + 20);
+                                        }
+                                    } else {
+                                        document.getElementById("sidebar-content").classList.remove("sidebar-fixed");
+                                    }
+                                });
+                            })
                         </script>
                     </div>
                 </div>
