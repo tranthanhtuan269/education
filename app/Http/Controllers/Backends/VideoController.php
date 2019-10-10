@@ -15,6 +15,7 @@ use App\Document;
 use Illuminate\Http\Request;
 use App\Helper\Helper;
 use App\Jobs\ProcessLecture;
+use App\Jobs\ProcessLectureEdit;
 use DB;
 use Illuminate\Http\Response;
 use Config;
@@ -224,6 +225,8 @@ class VideoController extends Controller
             if( $replace_temp ){
                 $replace_temp->delete();
             }
+
+            $documents = TempDocument::where('video_id', $video->id)->delete();
 
             $temp_video = new TempVideo;
             $temp_video->video_id  = $id;
@@ -793,16 +796,18 @@ class VideoController extends Controller
                     }
                 }
 
-                if($temp_video->files_delete){
-                    $document_ids = explode(",", $temp_video->files_delete);
-                    foreach ($document_ids as $key => $id) {
-                        $document = Document::find($id);
-                        if($document){
-                            unlink(public_path('uploads/files/'.$document->url_document));
-                            $document->delete();
-                        }
-                    }
-                }
+                // if($temp_video->files_delete){
+                //     $document_ids = explode(",", $temp_video->files_delete);
+                //     foreach ($document_ids as $key => $id) {
+                //         $document = Document::find($id);
+                //         if($document){
+                //             if (file_exists(public_path('uploads/files/'.$old->url_document))) {
+                //                 unlink(public_path('uploads/files/'.$old->url_document));
+                //             }
+                //             $document->delete();
+                //         }
+                //     }
+                // }
 
                 if ($temp_video->link_video){
                     // convert video to multi resolution
@@ -820,15 +825,17 @@ class VideoController extends Controller
                     // echo json_encode($json);die;
                     // $video->url_video = $json;
                     // $video->url_video = json_encode($json);
-                    $video->url_video = $json;
+                    $temp_video->url_video = $json;
+                    $temp_video->save();
+                    
                     $video->state      = 3;
                     $video->save();
-                    $temp_video->delete();
+                    // $temp_video->delete();
                     
-                    dispatch(new ProcessLecture($path_1080, $request->video_id, $video->link_video, 1080));
-                    dispatch(new ProcessLecture($path_720, $request->video_id, $video->link_video, 720));
-                    dispatch(new ProcessLecture($path_480, $request->video_id, $video->link_video, 480));
-                    dispatch(new ProcessLecture($path_360, $request->video_id, $video->link_video, 360));
+                    dispatch(new ProcessLectureEdit($path_1080, $temp_video->id, $request->video_id, $video->link_video, 1080));
+                    dispatch(new ProcessLectureEdit($path_720, $temp_video->id, $request->video_id, $video->link_video, 720));
+                    dispatch(new ProcessLectureEdit($path_480, $temp_video->id, $request->video_id, $video->link_video, 480));
+                    dispatch(new ProcessLectureEdit($path_360, $temp_video->id, $request->video_id, $video->link_video, 360));
 
                     return response()->json([
                         'status' => 200,
