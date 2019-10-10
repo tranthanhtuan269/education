@@ -17,6 +17,9 @@ class Helper
     {
         if(Auth::check()){
             $user_id = Auth::user()->id;
+            if(Auth::user()->isAdmin()){
+                return Auth::user()->isAdmin();
+            }
             $user_role_list = Auth::user()->userRoles;
             $course = \App\Course::find($course_id);
             $lecturer_user_role = $course->Lecturers()->first();
