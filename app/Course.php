@@ -244,7 +244,13 @@ class Course extends Model
         ->select('courses.image', 'courses.name', 'courses.id', 'courses.slug', 'courses.price', 'courses.real_price', 'courses.duration', 'courses.star_count', 'courses.vote_count', 'courses.approx_time', 'courses.five_stars', 'courses.four_stars', 'courses.three_stars', 'courses.two_stars', 'courses.one_stars', 'teachers.id as teacherId', 'user_roles.user_id as userRoleId', 'users.name as author');
     }
 
-    public static function getCourseOfTeacher($user_id){
-
+    public static function getCourseOfTeacher($user_id, $user_name){
+        return \DB::table('courses')
+        ->join('user_courses', 'user_courses.course_id', '=', 'courses.id')
+        ->join('user_roles', 'user_roles.id', '=', 'user_courses.user_role_id')
+        ->join('teachers', 'teachers.user_role_id', '=', 'user_roles.id')
+        ->join('users', 'users.id', '=','user_roles.user_id')
+        ->where('users.id', $user_id)
+        ->update(['courses.author' => $user_name]);
     }
 }

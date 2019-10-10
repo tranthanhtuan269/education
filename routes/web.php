@@ -18,7 +18,7 @@
 Auth::routes();
 
 Route::get('test2', function(){
-    $courses = \App\Course::get();
+    $courses = \App\Course::getCourseOfTeacher(364,"aaaaaa");
     dd($courses);
 });
 

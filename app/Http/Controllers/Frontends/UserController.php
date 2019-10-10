@@ -11,6 +11,7 @@ use App\Http\Controllers\Frontends\Requests\UpdateProfileUserRequest;
 use App\Http\Controllers\Frontends\Requests\InsertTeacherRequest;
 use App\User;
 use App\Email;
+use App\Course;
 use App\Teacher;
 use App\Category;
 use App\UserRole;
@@ -185,7 +186,7 @@ class UserController extends Controller
             $user->save();
 
             // update course info
-            
+            Course::getCourseOfTeacher(Auth::user()->id, $request->name);
 
             $teacher = Auth::user()->userRolesTeacher()->teacher;
             $teacher->expert = $request->expert;
