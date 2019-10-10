@@ -239,7 +239,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <div class="btn btn-primary pull-right" id="add-unit-btn"><i class="fas fa-plus"></i>Thêm phần học</div>
+                <div class="btn btn-primary pull-right" id="add-unit-btn"><i class="fas fa-plus fa-fw"></i>Thêm phần học</div>
                 <h4 class="modal-title" id="exampleModalLabel">Danh sách các phần</h4>
             </div>
             <div class="modal-body">
