@@ -470,17 +470,6 @@
         //     }
         // });
 
-        function updateIndicator() {
-             if(!navigator.onLine) { // true|false
-               Swal.fire({
-                   type: 'error',
-                   text: "Vui lòng kiểm tra kết nối internet của bạn và thử lại.",
-               }).then((result) => {
-                   window.location.href = "/";
-               })
-             }
-       }
-
         if( user_id == 0 ){
             if(localStorage.getItem('cart'+0) == null){
                 localStorage.setItem('cart'+0, '[]')
@@ -524,6 +513,16 @@
         @if(Auth::check())
         $(document).ready( function () {
 
+            function updateIndicator() {
+                if(!navigator.onLine) { // true|false
+                Swal.fire({
+                    type: 'error',
+                    text: "Vui lòng kiểm tra kết nối internet của bạn và thử lại.",
+                }).then((result) => {
+                    window.location.href = "/";
+                })
+                }
+            }
 
             window.addEventListener('online',  updateIndicator);
             window.addEventListener('offline', updateIndicator);

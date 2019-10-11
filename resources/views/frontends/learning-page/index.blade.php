@@ -137,20 +137,19 @@
             var check_course_of_user = {{ $check_course_of_user }}
             // console.log(check_course_of_user);
 
-            function updateIndicator() {
-                if(!navigator.onLine) { // true|false
-                    Swal.fire({
-                        type: 'error',
-                        text: "Vui lòng kiểm tra kết nối internet của bạn và thử lại.",
-                    }).then((result) => {
-                        window.location.href = "/";
-                    })
-                }
-            }
-
-            
-
             $(document).ready(function () {
+
+                function updateIndicator() {
+                    if(!navigator.onLine) { // true|false
+                        Swal.fire({
+                            type: 'error',
+                            text: "Vui lòng kiểm tra kết nối internet của bạn và thử lại.",
+                        }).then((result) => {
+                            window.location.href = "/";
+                        })
+                    }
+                }
+                
                 window.addEventListener('online',  updateIndicator);
                 window.addEventListener('offline', updateIndicator);
                 updateIndicator();

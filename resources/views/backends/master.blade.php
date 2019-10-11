@@ -49,17 +49,6 @@
                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
               }
             });
-
-            function updateIndicator() {
-                if(!navigator.onLine) { // true|false
-                    Swal.fire({
-                       type: 'error',
-                       text: "Vui lòng kiểm tra kết nối internet của bạn và thử lại.",
-                    }).then((result) => {
-                       window.location.href = "/";
-                    })
-                }
-            }
         </script>
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
@@ -346,6 +335,17 @@
         </style>
         <script>
             $(document).ready(function(){
+
+                function updateIndicator() {
+                    if(!navigator.onLine) { // true|false
+                        Swal.fire({
+                        type: 'error',
+                        text: "Vui lòng kiểm tra kết nối internet của bạn và thử lại.",
+                        }).then((result) => {
+                        window.location.href = "/";
+                        })
+                    }
+                }
 
                 window.addEventListener('online',  updateIndicator);
                 window.addEventListener('offline', updateIndicator);
