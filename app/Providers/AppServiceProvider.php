@@ -174,6 +174,7 @@ class AppServiceProvider extends ServiceProvider
                             $newDoc->save();
                         }
                     }
+                    $videoTemp->delete();
                 }
             }
 
