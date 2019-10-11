@@ -839,7 +839,7 @@ class VideoController extends Controller
                     $temp_video->url_video = $json;
                     $temp_video->save();
                     
-                    $video->state      = 3;
+                    // $video->state      = 3;
                     $video->save();
                     // $temp_video->delete();
                     
