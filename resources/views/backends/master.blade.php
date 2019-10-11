@@ -240,22 +240,9 @@
                                 @endif
                             </ul>
                         </li>
-                        <li class="@if ( Request::is('admincp/gifts*') ) active @endif">
-                            <a href="{{ url('/') }}/admincp/gifts"><i class="fa fa-gift"></i>
-                             <span>Tặng quà</span>
-                                <span class="pull-right-container">
-                            </a>
-                        </li>
-
                         <li class="@if ( Request::is('admincp/categories*') ) active @endif">
                             <a href="{{ url('/') }}/admincp/categories"><i class="fa fa-briefcase"></i>
                                 <span>Danh mục</span>
-                                <span class="pull-right-container">
-                            </a>
-                        </li>
-                        <li class="@if ( Request::is('admincp/create-coupon*') ) active @endif">
-                            <a href="{{ url('/') }}/admincp/create-coupon"><i class="fa fa-star"></i>
-                                <span>Tạo Coupon</span>
                                 <span class="pull-right-container">
                             </a>
                         </li>
@@ -277,6 +264,25 @@
                                     </li>
                                     <li class="@if ( Request::is('admincp/comment/comment-video*') ) active @endif">
                                         <a href="{{ url('/') }}/admincp/comment/comment-video"><i class="fa fa-minus"></i>Phản hồi bài giảng</a>
+                                    </li>
+                                @endif
+                            </ul>
+                        </li>
+                        <li class="treeview @if ( Request::is('admincp/gifts*') || Request::is('admincp/create-coupon*') ) active @endif">
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-star"></i>
+                                <span>Khuyến mãi</span>
+                                <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                @if (Helper::checkPermissions('users.list', $list_roles))
+                                    <li class="@if ( Request::is('admincp/create-coupon*') ) active @endif">
+                                        <a href="{{ url('/') }}/admincp/create-coupon"><i class="fa fa-minus"></i>Mã giảm giá</a>
+                                    </li>
+                                    <li class="@if ( Request::is('admincp/gifts*') ) active @endif">
+                                        <a href="{{ url('/') }}/admincp/gifts"><i class="fa fa-minus"></i>Tặng quà</a>
                                     </li>
                                 @endif
                             </ul>

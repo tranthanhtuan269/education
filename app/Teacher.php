@@ -75,6 +75,11 @@ class Teacher extends Model
                       ->orderBy('featured_index', 'ASC');
         }else{
             $arr_check = Teacher::where('status', 1)
+                        ->whereHas('userRole', function ($query) {
+                            $query->whereHas('user', function ($query) {
+                                $query->where('status', 1);
+                            });
+                        })
                         ->orderBy('student_count', 'DESC');
         }
         return $arr_check->take(4)->get();
