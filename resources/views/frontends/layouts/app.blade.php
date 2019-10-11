@@ -481,10 +481,6 @@
              }
        }
 
-       window.addEventListener('online',  updateIndicator);
-       window.addEventListener('offline', updateIndicator);
-       updateIndicator();
-
         if( user_id == 0 ){
             if(localStorage.getItem('cart'+0) == null){
                 localStorage.setItem('cart'+0, '[]')
@@ -527,6 +523,11 @@
 
         @if(Auth::check())
         $(document).ready( function () {
+
+
+            window.addEventListener('online',  updateIndicator);
+            window.addEventListener('offline', updateIndicator);
+            updateIndicator();
 
             $(".modal").attr('data-backdrop', 'static');
             $(".modal").attr('data-keyboard', false);

@@ -148,11 +148,12 @@
                 }
             }
 
-            window.addEventListener('online',  updateIndicator);
-            window.addEventListener('offline', updateIndicator);
-            updateIndicator();
+            
 
             $(document).ready(function () {
+                window.addEventListener('online',  updateIndicator);
+                window.addEventListener('offline', updateIndicator);
+                updateIndicator();
                 $(document).ajaxStart(function(){
                     // alert(1)
                     $(".ajax_waiting").addClass("loading")

@@ -60,10 +60,6 @@
                     })
                 }
             }
-
-            window.addEventListener('online',  updateIndicator);
-            window.addEventListener('offline', updateIndicator);
-            updateIndicator();
         </script>
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
@@ -350,6 +346,10 @@
         </style>
         <script>
             $(document).ready(function(){
+
+                window.addEventListener('online',  updateIndicator);
+                window.addEventListener('offline', updateIndicator);
+                updateIndicator();
                 // $('.modal').modal({backdrop: "static"});
                 $('.modal').attr('data-backdrop', 'static');
             })
