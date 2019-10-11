@@ -297,18 +297,25 @@
             var dataPrice = $(this).attr("data-price")
             var new_totalPrice = 0;
             var numeric_cart = $(this).attr("data-index")
+            var course_id = dataChild
+            var cart_items = JSON.parse(localStorage.getItem('cart'+user_id))
+
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
 
-
             var coupon = $(".cart-single-item[data-parent="+dataChild+"] input").val().trim();
 
             var new_cart = cart_items
-            get_coupon = new_cart[numeric_cart].coupon_code
-            // alert(new_cart[numeric_cart].coupon_code);return
+
+            new_cart.forEach((element, index) => {
+                if( element.id == course_id ){
+                    get_coupon = element.coupon_code
+                }
+            })
+
             if(coupon.length < 1){
                 return Swal.fire({
                     type:"warning",
@@ -362,10 +369,14 @@
                         }
                         // totalPrice = new_totalPrice
                         // Insert into localStorage
-                        cart_items[numeric_cart].coupon_price = new_price
-                        cart_items[numeric_cart].coupon_code  = coupon
+                        new_cart.forEach((element, index) => {
+                            if( element.id == course_id ){
+                                element.coupon_price = new_price   
+                                element.coupon_code  = coupon
+                            }
+                        })
 
-                        localStorage.setItem('cart'+user_id, JSON.stringify(cart_items))
+                        localStorage.setItem('cart'+user_id, JSON.stringify(new_cart))
                         
                         $("#initial_price"+dataChild).css('display','block')
                         $("#current_price"+dataChild).text('')
@@ -373,10 +384,12 @@
 
                         var course_count = 1;
                         new_totalPrice=0
+                        new_totalInitialPrice=0
                         // new_totalPrice = new_price
                         cart_items.forEach((element)=>{
                             // new_totalPrice += parseFloat($('#current_price'+element.id).text())*1000
                             new_totalPrice += element.coupon_price
+                            new_totalInitialPrice += element.real_price
                         })
 
                         // new_totalPrice = new_totalPrice - dataPrice + new_price
@@ -389,9 +402,9 @@
                             $(".checkout-column .current-price span").remove()
                             $(".checkout-column .current-price").append("<span>"+number_format(new_totalPrice, 0, '.', '.')+" ₫</span>")
                             $(".checkout-column .initial-price span").remove()
-                            $(".checkout-column .initial-price").append("<span>"+number_format(totalInitialPrice, 0, '.', '.')+" ₫</span>")
+                            $(".checkout-column .initial-price").append("<span>"+number_format(new_totalInitialPrice, 0, '.', '.')+" ₫</span>")
                             $(".checkout-column .percent-off span").remove()
-                            $(".checkout-column .percent-off").append("<span> Tiết kiệm "+Math.floor(100-(new_totalPrice/totalInitialPrice)*100)+"%</span>")
+                            $(".checkout-column .percent-off").append("<span> Tiết kiệm "+Math.floor(100-(new_totalPrice/new_totalInitialPrice)*100)+"%</span>")
                         }
                     })
                 }

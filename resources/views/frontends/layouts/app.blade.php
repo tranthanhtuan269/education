@@ -611,6 +611,11 @@
             $(".box-course .img-course .img-mask .btn-add-to-cart button").click( function(e){
                 e.stopPropagation()
                 e.preventDefault()
+
+                if(localStorage.getItem('cart'+user_id) == null){
+                    localStorage.setItem('cart'+user_id, '[]')
+                }
+
                 var localCart = []
                 localCart = localStorage.getItem('cart'+user_id)
                 number_items_in_cart = JSON.parse(localStorage.getItem('cart'+user_id))

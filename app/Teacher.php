@@ -82,7 +82,7 @@ class Teacher extends Model
                         })
                         ->orderBy('student_count', 'DESC');
         }
-        return $arr_check->take(4)->get();
+        return $arr_check->get();
     }
 
     public static function getFeatureTeacherForAdmin()

@@ -1,4 +1,6 @@
-
+<?php
+    $check_count = 0;
+?>
 <div class="container">
     <div class="popular-teacher">
         <div class="row">
@@ -10,19 +12,25 @@
                     <?php
                         $count_course = count($teacher->userRole->userCoursesByTeacher()->where('status', 1));
                     ?>
-                    @include(
-                        'components.teacher', 
-                        [
-                            'id' => $teacher->id,
-                            'image' => $teacher->userRole->user->avatar,
-                            'name' => $teacher->userRole->user->name,
-                            'expert' => $teacher->expert,
-                            // 'rate' => $teacher->rating_score,
-                            // 'rating_number' => $teacher->vote_count,
-                            'course_number' => $count_course,
-                            'student_number' => $teacher->student_count
-                        ]
-                    )                    
+                    @if( $count_course > 0 )
+                        @include(
+                            'components.teacher', 
+                            [
+                                'id' => $teacher->id,
+                                'image' => $teacher->userRole->user->avatar,
+                                'name' => $teacher->userRole->user->name,
+                                'expert' => $teacher->expert,
+                                // 'rate' => $teacher->rating_score,
+                                // 'rating_number' => $teacher->vote_count,
+                                'course_number' => $count_course,
+                                'student_number' => $teacher->student_count
+                            ]
+                        )
+                    <?php $check_count++; ?>
+                    @endif
+                    @if ( $check_count == 4 )
+                        @break;
+                    @endif
                 @endif
 
             @endforeach

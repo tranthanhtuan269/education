@@ -252,17 +252,17 @@ class CourseController extends Controller
         if($request->course_id){
             $course = Course::find($request->course_id);
             
-            if( $request->status == 1 ){
-                if( !isset($course->units[0]) ){
-                    return \Response::json(array('status' => '404', 'message' => 'Không thể duyệt khóa học do không có phần học.'));
-                }else{
-                    if( !($course->units[0]->videos->first()) ){
-                        return \Response::json(array('status' => '404', 'message' => 'Không thể duyệt khóa học do phần học không có bài học.'));
+            if($course){
+                if( $request->status == 1 ){
+                    if( !isset($course->units[0]) ){
+                        return \Response::json(array('status' => '404', 'message' => 'Không thể duyệt khóa học do không có phần học.'));
+                    }else{
+                        if( !($course->units[0]->videos->first()) ){
+                            return \Response::json(array('status' => '404', 'message' => 'Không thể duyệt khóa học do phần học không có bài học.'));
+                        }
                     }
                 }
-            }
-
-            if($course){
+                
                 $course->status = $request->status;
                 
                 if($request->status == 1){
@@ -294,6 +294,11 @@ class CourseController extends Controller
                     }
 
                 } else {
+                    // dd($course->userRoles->first()->teacher->featured);
+                    if( $course->userRoles->first()->teacher->featured == 1 ){
+                        return \Response::json(array('status' => '301', 'message' => 'Không thể hủy khóa học của giảng viên tiêu biểu.'));
+                    }
+
                     $course->save();
                     $res = array('status' => "200", "message" => "Hủy thành công");
                 }
