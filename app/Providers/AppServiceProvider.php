@@ -163,6 +163,19 @@ class AppServiceProvider extends ServiceProvider
                                 $old->delete();
                             }
                         }
+
+                        if($videoTemp->files_delete){
+                            $document_ids = explode(",", $videoTemp->files_delete);
+                            foreach ($document_ids as $key => $id) {
+                                $document = Document::find($id);
+                                if($document){
+                                    if (file_exists(public_path('uploads/files/'.$old->url_document))) {
+                                        unlink(public_path('uploads/files/'.$old->url_document));
+                                    }
+                                    $document->delete();
+                                }
+                            }
+                        }
     
                         foreach($documents as $document){
                             // remove old document 

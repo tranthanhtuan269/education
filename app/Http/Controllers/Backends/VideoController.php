@@ -852,6 +852,19 @@ class VideoController extends Controller
                         'status' => 200,
                         'message' => 'Bài giảng đã được sửa và đang được convert.',
                     ]);
+                }else{
+                    if($temp_video->files_delete){
+                        $document_ids = explode(",", $temp_video->files_delete);
+                        foreach ($document_ids as $key => $id) {
+                            $document = Document::find($id);
+                            if($document){
+                                if (file_exists(public_path('uploads/files/'.$old->url_document))) {
+                                    unlink(public_path('uploads/files/'.$old->url_document));
+                                }
+                                $document->delete();
+                            }
+                        }
+                    }
                 }
 
                 $video->save();
