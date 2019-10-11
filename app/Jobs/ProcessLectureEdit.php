@@ -40,19 +40,6 @@ class ProcessLectureEdit implements ShouldQueue
      */
     public function handle()
     {
-        Helper::convertVideoToMultiResolution($this->video, $this->resolution, $this->path_video);
-
-        // BaTV - Kiểm tra xem video đó còn tồn tại ko, nếu ko xóa luôn các độ phân giải trong video đó
-        $check_video = TempVideo::find($this->video_id);
-        
-        if (!$check_video) {
-            $path_video = $this->path_video;
-            
-            if(\File::exists($path_video)) {
-                \File::delete($path_video);
-            }
-         
-        }
-        
+        Helper::convertVideoToMultiResolution($this->video, $this->resolution, $this->path_video);        
     }
 }

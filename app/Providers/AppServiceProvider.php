@@ -131,64 +131,50 @@ class AppServiceProvider extends ServiceProvider
             if($event->job->resolveName() == "App\Jobs\ProcessLectureEdit"){
                 Log::info('Job ready: ' . $event->job->resolveName());
                 Log::info('Job started: ' . $event->job->resolveName());
-                Log::info('Job payload: ' . $event->job->payload());
-                Log::info('Job getRawBody: ' . $event->job->getRawBody());
                 $job = $event->job->payload();
     
                 $payload = json_decode( $event->job->getRawBody() );
                 $data = unserialize( $payload->data->command );
-                $video_id = $data->video_id;
-                Log::info('video id: ' . $data->video_id);
-    
-                $video = Video::find($video_id);
-                $tempVideo = TempVideo::find($video_id);
-                if($video){
-                    $video->name = $tempVideo->name;
-                    $video->url_video = $tempVideo->url_video;
-                    $video->link_video = $tempVideo->link_video;
-                    $video->duration = $tempVideo->duration;
-                    $video->state = \Config::get('app.video_active');
-                    $video->save();
-
-                    $documents = TempDocument::where('video_id', $video->id)->get();
-                    
-                    $oldDocs = Document::where('video_id', $video->id)->get();
-                    foreach($oldDocs as $old){
-                        if($old){
-                            if (file_exists(public_path('uploads/files/'.$old->url_document))) {
-                                \unlink(public_path('uploads/files/'.$old->url_document));
+                $temp_video_id = $data->video_temp_id;
+                Log::info('video_temp_id: ' . $data->video_temp_id);
+                $videoTemp = TempVideo::find($temp_video_id);
+                if($videoTemp){
+                    Log::info('videoTemp existed');
+                    $video_id = $videoTemp->video_id;
+                    $video = Video::find($video_id);
+                    if($video){
+                        Log::info('video existed');
+                        $video->name = $videoTemp->name;
+                        $video->url_video = $videoTemp->url_video;
+                        $video->link_video = $videoTemp->link_video;
+                        $video->duration = $videoTemp->duration;
+                        $video->state = \Config::get('app.video_active');
+                        $video->save();
+                        Log::info('video saved');
+                        
+                        $documents = TempDocument::where('video_id', $video->id)->get();
+                        
+                        $oldDocs = Document::where('video_id', $video->id)->get();
+                        foreach($oldDocs as $old){
+                            if($old){
+                                if (file_exists(public_path('uploads/files/'.$old->url_document))) {
+                                    \unlink(public_path('uploads/files/'.$old->url_document));
+                                }
+                                $old->delete();
                             }
-                            $old->delete();
+                        }
+    
+                        foreach($documents as $document){
+                            // remove old document 
+                            $newDoc = new Document;
+                            $newDoc->title = $document->title;
+                            $newDoc->video_id = $document->video_id;
+                            $newDoc->url_document = $document->url_document;
+                            $newDoc->size = $document->size;
+                            $newDoc->save();
                         }
                     }
-
-                    foreach($documents as $document){
-                        // remove old document 
-                        $newDoc = new Document;
-                        $newDoc->title = $document->title;
-                        $newDoc->video_id = $document->video_id;
-                        $newDoc->url_document = $document->url_document;
-                        $newDoc->size = $document->size;
-                        $newDoc->save();
-                    }
-
-                    // // DuongNT // thêm 1 video vào lượng đã xem vào bảng user_courses
-                    // $unit = $video->unit;
-                    // $course = $unit->course;
-                    // $user_roles = $course->userRoles()->where('role_id', 3)->get()->all();//lấy những user_role đại diện student
-                    // #Insert cho từng student
-                    // foreach ($user_roles as $key => $user_role) {
-                    //     $user_course = UserCourse::where("user_role_id", $user_role->id)->where("course_id", $course->id)->first();
-                    //     $videos = json_decode($user_course->videos);
-                    //     array_push($videos->{'videos'}[($unit->index) - 1 ], 0);
-                    //     $videos = json_encode($videos);
-                    //     $user_course->videos = $videos;
-                    //     $user_course->save();
-                    // }
                 }
-    
-                
-                $json_data = \json_encode($data->video_id);
             }
 
             
