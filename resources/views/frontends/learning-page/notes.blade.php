@@ -48,7 +48,12 @@
         </div>
     </div>
 </div>
-
+<style>
+    .cke_top, .cke_contents, .cke_bottom{
+        display: block;
+        overflow: hidden;
+    }
+</style>
 <script>
     $(".ln-notes-input-bar .btn-submit>button:first-child").click(function () {
         addNotes()
