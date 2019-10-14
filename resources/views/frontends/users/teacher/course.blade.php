@@ -563,30 +563,38 @@
 
                         for(var i = 0; i < response.videos.length; i++){                        
                             switch(response.videos[i].state){
-                                case 2:
+                                case 0: // Pending
                                     html += '<li style="display:flex" class="ui-state-default ui-sortable-handle"  data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'">'
                                     html += '<i class="fas fa-sort"></i> '
-                                    html += '<span class="video-content">'+response.videos[i].name+'</span><span class="remove-request"> (Đang duyệt yêu cầu xoá)</span>'
+                                    html += '<span class="video-content">'+response.videos[i].name+'</span><span class="verifing-request"> (Chờ duyệt)</span>'
+                                    // html += '<i class="far fa-edit pull-right edit-video" data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'"></i>'
+                                    html += '<i class="far fa-trash-alt pull-right remove-video" data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'" title="Xóa bài giảng"></i>'
                                     break;
-                                case 3:
+                                case 1: // Approved
+                                    html += '<li class="ui-state-default ui-sortable-handle"  data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'">'
+                                    html += '<i class="fas fa-sort"></i> '
+                                    html += '<span class="video-content">'+response.videos[i].name+'</span>'
+                                    html += '<i class="far fa-trash-alt pull-right remove-video" data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'" title="Xóa bài giảng"></i>'
+                                    html += '<i class="far fa-edit pull-right edit-video" data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'" title="Sửa bài giảng"></i>'
+                                    break;
+                                case 2: // Waiting to delete
+                                    html += '<li style="display:flex" class="ui-state-default ui-sortable-handle"  data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'">'
+                                    html += '<i class="fas fa-sort"></i> '
+                                    html += '<span class="video-content">'+response.videos[i].name+'</span><span class="remove-request"> (Đã gửi yêu cầu xoá)</span>'
+                                    break;
+                                case 3: // Converting
                                     html += '<li style="display:flex" class="ui-state-default ui-sortable-handle"  data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'">'
                                     html += '<i class="fas fa-sort"></i> '
                                     html += '<span class="video-content">'+response.videos[i].name+'</span><span class="converting-request"> (Đang được convert)</span>'
                                     break;
-                                case 1:
-                                    html += '<li class="ui-state-default ui-sortable-handle"  data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'">'
-                                    html += '<i class="fas fa-sort"></i> '
-                                    html += '<span class="video-content">'+response.videos[i].name+'</span>'
-                                    html += '<i class="far fa-trash-alt pull-right remove-video" data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'"></i>'
-                                    html += '<i class="far fa-edit pull-right edit-video" data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'"></i>'
-                                    break;
-                                case 0: //chờ duyệt
+                                case 4: // Request Edit
                                     html += '<li style="display:flex" class="ui-state-default ui-sortable-handle"  data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'">'
                                     html += '<i class="fas fa-sort"></i> '
-                                    html += '<span class="video-content">'+response.videos[i].name+'</span><span class="verifing-request"> (Chờ duyệt)</span>'
-                                    html += '<i class="far fa-edit pull-right edit-video" data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'"></i>'
-                                    html += '<i class="far fa-trash-alt pull-right remove-video" data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'"></i>'
+                                    html += '<span class="video-content">'+response.videos[i].name+'</span><span class="edit-request"> (Đã gửi yêu cầu sửa)</span>'
+                                    html += '<i class="far fa-edit pull-right edit-video" data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'" title="Sửa bài giảng"></i>'
+                                    html += '<i class="fas fa-eraser pull-right edit-video remove-request-update" data-video-id="'+response.videos[i].id+'" data-unit-id="'+unit_id+'" data-video-index="'+response.videos[i].index+'" title="Hủy yêu cầu sửa"></i>'
                                     break;
+                                    
                             }
                             html += '</li>'
                         }
@@ -908,6 +916,52 @@
                             allowOutsideClick: false,
                         })
                         $("#videoInEdit")[0].pause()
+                    }
+                })
+            })
+
+            $('.remove-request-update').off('click');
+            $('.remove-request-update').on('click', function () {
+                var self = $(this)
+                var video_id = $(this).attr('data-video-id')
+                Swal.fire({
+                    type: 'warning',
+                    text : 'Xác nhận hủy yêu cầu sửa.',
+                    showCancelButton: true,
+                }).then( result => {
+                    if(result.value){
+                        $.ajax({
+                            method: 'PUT',
+                            url: "{{ url('/') }}/user/units/video/remove-request-update",
+                            data: {
+                                video_id : video_id
+                            },
+                            dataType: 'json',
+                            beforeSend: function() {
+                                $(".ajax_waiting").addClass("loading");
+                            },
+                            success: function (response) {
+                                $(".ajax_waiting").removeClass("loading");
+                                if(response.status == '200'){
+                                    Swal.fire({
+                                        type: 'success',
+                                        text: response.message,
+                                        allowOutsideClick: false,
+                                    })
+                                    $('#listVideo .modal-body #videoSortable').empty()
+                                    var unit_id = $('#listVideo').attr('data-unit-id')
+                                    getListVideoAjax(unit_id)
+                                }else{
+                                    Swal.fire({
+                                        type: 'warning',
+                                        text: response.message,
+                                    })
+                                }
+                            },
+                            error: function () {
+                                $(".ajax_waiting").removeClass("loading");
+                            }
+                        })
                     }
                 })
             })

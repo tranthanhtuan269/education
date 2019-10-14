@@ -17,6 +17,14 @@
 
 Auth::routes();
 
+Route::get('trinhnk', function(){
+    $courses_id = \App\Course::get()->pluck('id');
+    foreach ( $courses_id as $course_id ){
+        \App\Helper\Helper::reSortIndexVideoOfCourse($course_id);
+    }
+    dd('done');
+});
+
 Route::get('test2', function(){
     dd(App\Helper\Helper::reBuildJsonWhenCreateOrDeleteLecture(743, 12094, 0));
 });
@@ -103,11 +111,18 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('request-delete-videos', 'Backends\VideoController@getRequestDeleteVideo');
         Route::get('request-delete-videos/getRequestDeleteVideoAjax', 'Backends\VideoController@getRequestDeleteVideoAjax');
         Route::put('request-delete-videos/reject', 'Backends\VideoController@rejectRequestDeleteVideo');
+        Route::put('request-delete-videos/delete', 'Backends\VideoController@acceptRequestDeleteVideo');
 
         Route::get('request-edit-videos', 'Backends\VideoController@getRequestEditVideo');
         Route::get('request-edit-videos-ajax', 'Backends\VideoController@getRequestEditVideoAjax');
         Route::put('accept-edit-video', 'Backends\VideoController@acceptEditVideo');
         Route::put('reject-edit-video', 'Backends\VideoController@rejectEditVideo');
+
+        // Delete Videos in Trash
+        Route::get('video-in-trash', 'Backends\VideoController@getVideoInTrash');
+        Route::get('get-videos-in-trash-ajax', 'Backends\VideoController@getVideoInTrashAjax');
+        Route::put('delete-video-in-trash', 'Backends\VideoController@deleteVideoInTrash');
+        Route::put('delete-multi-video-in-trash', 'Backends\VideoController@deleteMultiVideoInTrash');
 
         // Route::put('request-delete-videos/reject', 'Backends\VideoController@rejectRequestDeleteVideo');
         // Route::get('videos-of-course', 'Backends\VideoController@getVideoOfCourse');
@@ -349,6 +364,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::post('video/edit', 'Backends\VideoController@edit');
             Route::put('video/{id}/update', 'Backends\VideoController@update');
             Route::put('video/{id}/request-update', 'Backends\VideoController@requestUpdate');
+            Route::put('video/remove-request-update', 'Backends\VideoController@removeRequestUpdate');
             Route::delete('video/remove', 'Backends\VideoController@sendRemoveVideoRequest');
             Route::delete('delete', 'Backends\UnitController@destroy');
         });

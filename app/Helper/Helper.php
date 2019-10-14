@@ -213,7 +213,7 @@ class Helper
             $units = $course->units;
             if(count($units) > 0){
                 foreach($units as $unit){
-                    $videos = $unit->videos->index(); 
+                    $videos = $unit->videos; 
                     if(count($videos) > 0){
                         foreach($videos as $key => $video){
                             $video->index = $key + 1;
@@ -226,6 +226,8 @@ class Helper
     }
 
     public static function reBuildJsonWhenCreateOrDeleteLecture($course_id, $video_id, $flag = 1){
+        // Sap xep lai index video
+        // Helper::reSortIndexVideoOfCourse($course_id);
         // $flag = 0 when delete, = 1 when create
         // when create new
         // Lấy tất cả các UserCourse của khóa học này
@@ -257,5 +259,8 @@ class Helper
                 }
             }
         }
+        // Sap xep lai index video
+        Helper::reSortIndexVideoOfCourse($course_id);
     }
+
 }
