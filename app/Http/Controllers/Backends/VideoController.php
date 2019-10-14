@@ -1012,6 +1012,73 @@ class VideoController extends Controller
             ->addColumn('action', function ($video) {
                 return $video->id;
             })
+            ->addColumn('rows', function ($video) {
+                return $video->id;
+            })
             ->removeColumn('id')->make(true);
+    }
+
+    public function deleteVideoInTrash(Request $request)
+    {
+        $video = Video::find($request->video_id);
+
+        // Xoa documents
+        $documents = Document::where('video_id', $video->id)->get();
+        if ( $documents->count() > 0 ){
+            foreach ($documents as $key => $document) {
+                if (file_exists(public_path('uploads/files/'.$document->url_document))) {
+                    unlink(public_path('uploads/files/'.$document->url_document));
+                }
+                $document->delete();
+            }
+        }
+        //Xoá luôn video
+        $path_video = public_path('uploads/videos/'.$video->link_video);
+        if(\File::exists($path_video)) {
+            \File::delete($path_video);
+        }
+        exec('rm /usr/local/WowzaStreamingEngine-4.7.7/content/360/'.$video->link_video);
+        exec('rm /usr/local/WowzaStreamingEngine-4.7.7/content/480/'.$video->link_video);
+        exec('rm /usr/local/WowzaStreamingEngine-4.7.7/content/720/'.$video->link_video);
+
+        $video->delete();
+        return response()->json([
+            'status' => '200',
+            'message' => 'Xoá video bài giảng thành công.'
+        ]);
+    }
+
+    public function deleteMultiVideoInTrash(Request $request)
+    {
+        $video_id_list = $request->video_id_list;
+        foreach ($video_id_list as $key => $video_id) {
+            $video = Video::find($video_id);
+            if ( $video ){
+                // Xoa documents
+                $documents = Document::where('video_id', $video->id)->get();
+                if ( $documents->count() > 0 ){
+                    foreach ($documents as $key => $document) {
+                        if (file_exists(public_path('uploads/files/'.$document->url_document))) {
+                            unlink(public_path('uploads/files/'.$document->url_document));
+                        }
+                        $document->delete();
+                    }
+                }
+                //Xoá luôn video
+                $path_video = public_path('uploads/videos/'.$video->link_video);
+                if(\File::exists($path_video)) {
+                    \File::delete($path_video);
+                }
+                exec('rm /usr/local/WowzaStreamingEngine-4.7.7/content/360/'.$video->link_video);
+                exec('rm /usr/local/WowzaStreamingEngine-4.7.7/content/480/'.$video->link_video);
+                exec('rm /usr/local/WowzaStreamingEngine-4.7.7/content/720/'.$video->link_video);
+
+                $video->delete();
+            }
+        }
+        return response()->json([
+            'status' => '200',
+            'message' => 'Xoá video bài giảng thành công.'
+        ]);
     }
 }

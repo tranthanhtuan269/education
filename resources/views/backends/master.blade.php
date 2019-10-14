@@ -231,7 +231,7 @@
                                 <span class="pull-right-container">
                             </a>
                         </li>
-                        <li class="treeview @if ( Request::is('admincp/videos*') || Request::is('admincp/request-edit-videos*') || Request::is('admincp/request-delete-videos*') ) active @endif">
+                        <li class="treeview @if ( Request::is('admincp/videos*') || Request::is('admincp/request-edit-videos*') || Request::is('admincp/request-delete-videos*') || Request::is('admincp/video-in-trash*') ) active @endif">
                             <a href="javascript:void(0)">
                                 <i class="fa fa-star"></i>
                                 <span>Bài giảng</span>
@@ -250,8 +250,8 @@
                                     <li class="@if ( Request::is('admincp/request-delete-videos*') ) active @endif">
                                         <a href="{{ url('/') }}/admincp/request-delete-videos"><i class="fa fa-minus"></i>Yêu cầu xóa</a>
                                     </li>
-                                    <li class="@if ( Request::is('admincp/videos-in-trash*') ) active @endif">
-                                        <a href="{{ url('/') }}/admincp/videos-in-trash"><i class="fa fa-minus"></i>Thùng rác</a>
+                                    <li class="@if ( Request::is('admincp/video-in-trash*') ) active @endif">
+                                        <a href="{{ url('/') }}/admincp/video-in-trash"><i class="fa fa-minus"></i>Thùng rác</a>
                                     </li>
                                 @endif
                             </ul>

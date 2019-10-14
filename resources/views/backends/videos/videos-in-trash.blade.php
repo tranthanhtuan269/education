@@ -30,6 +30,12 @@
                         
                     </tbody>
                 </table>
+                @if (Helper::checkPermissions('users.email', $list_roles))
+                    <p class="action-selected-rows">
+                        <span >Xóa những bài giảng đã chọn:</span>
+                        <span class="btn btn-info ml-2" id="deleteAllApplied">Xóa</span>
+                    </p>
+                @endif
             </div>
         </div>
     </div>
@@ -130,7 +136,7 @@
                 class: "action-field",
                 render: function(data, type, row){
                     var html = '';
-                        html += '<a class="btn btn-danger btn-accept-edit" data-id="'+data+'" title="Xóa"><i class="fa fa-trash fa-fw"></i></a>';
+                        html += '<a class="btn btn-danger btn-delete-in-trash" data-id="'+data+'" title="Xóa"><i class="fa fa-trash fa-fw"></i></a>';
 
                     return html;
                 },
@@ -263,14 +269,13 @@
                 $("#video-view").attr('src', `/uploads/videos/${curr_video_intro}`)
             })
 
-            $('.btn-accept-edit').off('click')
-            $('.btn-accept-edit').click(function(e){
-                var _self   = $(this);
-                var id      = $(this).attr('data-id');
+            $('.btn-delete-in-trash').off('click')
+            $('.btn-delete-in-trash').click(function(e){
+                var video_id      = $(this).attr('data-id');
                 var row = $(e.currentTarget).closest("tr");
                 Swal.fire({
                     type: 'warning',
-                    text: 'Xác nhận sửa bài giảng.',
+                    text: 'Xác nhận xóa bài giảng.',
                     showCancelButton: true,
                 }).then(result => {
                     if(result.value){
@@ -280,9 +285,9 @@
                             }
                         });
                         $.ajax({
-                            url: baseURL+"/admincp/accept-edit-video",
+                            url: baseURL+"/admincp/delete-video-in-trash",
                             data: {
-                                temp_video_id : id
+                                video_id : video_id
                             },
                             method: "PUT",
                             dataType:'json',
@@ -376,6 +381,68 @@
             }
             return current_page;
         }
+
+        $('#deleteAllApplied').off('click')
+        $('#deleteAllApplied').click(function(){
+            let isChecked = false;
+            $.each($('.check-user'), function (key, value){
+                if($(this).prop('checked') == true) {
+                    return isChecked = true;
+                }
+            });
+            if(isChecked == false){
+                return Swal.fire({
+                        type: 'info',
+                        text: 'Bạn chưa chọn chủ đề nào!'
+                    })
+            }
+            Swal.fire({
+                type: 'warning',
+                text: 'Bạn có chắc chắn muốn xóa?',
+                showCancelButton: true,
+            })
+            .then(function (result) {
+                if(result.value){
+                    var video_id_list = []
+                    $.each($('.check-user'), function (key, value){
+                        if($(this).prop('checked') == true) {
+                            // id_list += $(this).attr("data-column") + ',';
+                            video_id_list.push($(this).attr("data-column"))
+                        }
+                    });
+                    // console.log(video_id_list);
+                    if(video_id_list.length > 0){
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
+                        $.ajax({
+                            method: "PUT",
+                            url: baseURL+"/admincp/delete-multi-video-in-trash",
+                            data: {
+                                video_id_list: video_id_list
+                            },
+                            dataType: 'json',
+                            success: function (response) {
+                                Swal.fire({
+                                    type: 'success',
+                                    text: response.message
+                                })
+                                dataTable.ajax.reload(); 
+                            },
+                            error: function (response) {
+                                Swal.fire({
+                                    type: 'warning',
+                                    text: response.message
+                                })
+                            }
+                        })
+                    }
+
+                }
+            })
+        })
     });
 </script>
 
