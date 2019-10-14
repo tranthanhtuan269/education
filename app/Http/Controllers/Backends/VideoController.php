@@ -294,14 +294,14 @@ class VideoController extends Controller
                     }
                 }
 
-                $remove_videos = TempVideo::where('video_id', $request->video_id)->get();
+                $remove_videos = TempVideo::where('video_id', $request->video_id)->first();
                 if ( $remove_videos->count() > 0 ){
-                    if ( $temp_video->link_video ){
-                        if (file_exists(public_path('uploads/files/'.$temp_video->url_document))) {
-                            unlink(public_path('uploads/videos/'.$temp_video->link_video));
+                    if ( $remove_videos->link_video ){
+                        if (file_exists(public_path('uploads/files/'.$remove_videos->url_document))) {
+                            unlink(public_path('uploads/videos/'.$remove_videos->link_video));
                         }
                     }
-                    $temp_video->delete();
+                    $remove_videos->delete();
                 }
 
                 $video->state = Config::get('app.video_active');

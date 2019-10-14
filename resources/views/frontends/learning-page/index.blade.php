@@ -53,7 +53,9 @@
             
             $user_role_course_instance_video = json_decode($user_role_course_instance->videos);
             // dd($user_role_course_instance_video);
-            $video_count = $course->all_videos();
+            // $video_count = $course->all_videos();
+            $video_count = $course->countVideoCanLearn();
+
             if($user_role_course_instance_video){
                 $isStudent = true;
             }else{

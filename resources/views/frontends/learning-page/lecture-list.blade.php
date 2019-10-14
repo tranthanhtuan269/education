@@ -27,7 +27,7 @@
                 @if ($isStudent)
                     <p class="ln-lect-list-sect-counter">
                         @php
-                            $videos_arr = $unit->videos->sortBy('index');
+                            $videos_arr = $unit->videos->sortBy('index')->whereIn('state', [1,2,4]);
                             $video_done_in_this_units = 0;
                         @endphp
                         @foreach ($videos_arr as $video)
@@ -38,8 +38,10 @@
                                 }
                             @endphp                       
                         @endforeach
-                        <span id="videoDoneOneSect{{$key+1}}">{{$video_done_in_this_units/count($unit->videos)}}</span>
-                        / {{count($unit->videos)}}
+                        {{-- <span id="videoDoneOneSect{{$key+1}}">{{$video_done_in_this_units/count($unit->videos)}}</span>
+                        / {{count($unit->videos)}} --}}
+                        <span id="videoDoneOneSect{{$key+1}}">{{$video_done_in_this_units/count($unit->videos->whereIn('state', [1,2,4]))}}</span>
+                        / {{count($unit->videos->whereIn('state', [1,2,4]))}}
                     </p>                
                 @endif
                 </div>
@@ -49,7 +51,7 @@
             </div>
             <div id="sectionBody{{ $key+1 }}" class="ln-lect-list-body collapse">
                 <ul>
-                    @foreach($unit->videos->sortBy('index') as $key2 => $video)
+                    @foreach($unit->videos->sortBy('index')->whereIn('state', [1,2,4]) as $key2 => $video)
                         <li class="video-list-item" id="listItem{{$video->id}}" data-parent="{{$video->id}}" data-isstudent="{{$isStudent}}">
                             {{-- <a href="{{ route('videoplayer.show', ['courseId' => $unit->course_id, 'videoId' => $video->id]) }}"> --}}
                             <a href="learning-page/{{$unit->course_id}}/lecture/{{$video->id}}">
