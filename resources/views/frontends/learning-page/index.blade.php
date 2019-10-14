@@ -35,7 +35,7 @@
         
         <!-- Styles -->
         <link rel="stylesheet" href="{{asset('/css/learning-page.css')}}">
-        <link href="https://vjs.zencdn.net/7.5.4/video-js.css" rel="stylesheet">
+        <link href="https://vjs.zencdn.net/7.6.5/video-js.css" rel="stylesheet">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         
@@ -222,7 +222,7 @@
         </script>
         
 
-        <script src='https://vjs.zencdn.net/7.5.4/video.js'></script>
+        <script src='https://vjs.zencdn.net/7.6.5/video.js'></script>
         <script src="https://unpkg.com/silvermine-videojs-quality-selector/dist/js/silvermine-videojs-quality-selector.min.js"></script>           
         {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-hls/5.15.0/videojs-contrib-hls.js"></script> --}}
         <?php
