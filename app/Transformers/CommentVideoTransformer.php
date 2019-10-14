@@ -15,16 +15,20 @@ class CommentVideoTransformer extends TransformerAbstract
      */
     public function transform(CommentVideo $commentVideo)
     {
-        switch($commentVideo->userRole->role_id){
-            case 1:
-                $userType = 'Người quản trị';
-            case 2:
-                $userType = 'Giảng viên';
-                break;
-            case 3:
-                $userType = 'Học viên';
-                break;
+        $userType = 'Học viên';
+        if($commentVideo->userRole){
+            switch($commentVideo->userRole->role_id){
+                case 1:
+                    $userType = 'Người quản trị';
+                case 2:
+                    $userType = 'Giảng viên';
+                    break;
+                case 3:
+                    $userType = 'Học viên';
+                    break;
+            }
         }
+        
         
         return [
             'id' => $commentVideo->id,

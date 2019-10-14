@@ -1,41 +1,3 @@
-@php 
-    $momentNow = new MomentPHP\MomentPHP();
-    $isStudent;
-
-    
-    $user_role_course_instance_video = json_decode($user_role_course_instance->videos);
-    // dd($user_role_course_instance_video);
-    $video_count = $course->all_videos();
-    if($user_role_course_instance_video){
-        $isStudent = true;
-    }else{
-        $isStudent = false;
-    }
-    if($isStudent){
-        $video_done_units = $user_role_course_instance_video->videos;
-        $video_done_count = 0;
-        foreach ($video_done_units as $key => $unit) {
-            if(isset(array_count_values($unit)[1])){
-                $video_done_count += array_count_values($unit)[1];
-            }
-        }
-        // dd($video_done_count);
-        $video_done_percent = (int)(($video_done_count/((int)$video_count == 0 ? 1 : (int)$video_count)) *100);
-    }
-    $video_urls = json_decode($main_video->url_video, true);
-    // $urls = [];
-    foreach ($video_urls as $key => $video_url) {
-        $video_urls[$key] = \App\Helper::createSecurityTokenForVideoLink(\Auth::id(), $main_video->id, $video_url);
-    }    
-    $video_urls = json_encode($video_urls);
-
-    $check_course_of_user = false;
-    if( $course->userRoles[0]->user_id == Auth::user()->id ){
-        $check_course_of_user = true;
-    }
-    // dd($check_course_of_user);
-
-@endphp
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
@@ -80,6 +42,46 @@
         <base href="{{ url('/') }}">
     </head>
     <body>
+        <?php
+        
+            if(!isset($main_video)){
+                echo "Khóa học đang trong quá trình sửa chữa! Xin quý khách vui lòng trở lại sau!";
+            }else{
+            $momentNow = new MomentPHP\MomentPHP();
+            $isStudent;
+
+            
+            $user_role_course_instance_video = json_decode($user_role_course_instance->videos);
+            // dd($user_role_course_instance_video);
+            $video_count = $course->all_videos();
+            if($user_role_course_instance_video){
+                $isStudent = true;
+            }else{
+                $isStudent = false;
+            }
+            if($isStudent){
+                $video_done_units = $user_role_course_instance_video->videos;
+                $video_done_count = 0;
+                foreach ($video_done_units as $key => $unit) {
+                    if(isset(array_count_values($unit)[1])){
+                        $video_done_count += array_count_values($unit)[1];
+                    }
+                }
+                // dd($video_done_count);
+                $video_done_percent = (int)(($video_done_count/((int)$video_count == 0 ? 1 : (int)$video_count)) *100);
+            }
+            $video_urls = json_decode($main_video->url_video, true);
+            // $urls = [];
+            foreach ($video_urls as $key => $video_url) {
+                $video_urls[$key] = \App\Helper::createSecurityTokenForVideoLink(\Auth::id(), $main_video->id, $video_url);
+            }    
+            $video_urls = json_encode($video_urls);
+
+            $check_course_of_user = false;
+            if( $course->userRoles[0]->user_id == Auth::user()->id ){
+                $check_course_of_user = true;
+            }
+        ?>
         <div class="ajax_waiting"></div>
         {{-- TOP BAR --}}
         <div class="learning-top">
@@ -93,6 +95,7 @@
                 </a>
             </div>
         </div>
+
 
         {{-- DESCRIPTION PANEL --}}
         @include('frontends.learning-page.description')
@@ -217,8 +220,13 @@
             })
             
         </script>
+        
+
         <script src='https://vjs.zencdn.net/7.5.4/video.js'></script>
         <script src="https://unpkg.com/silvermine-videojs-quality-selector/dist/js/silvermine-videojs-quality-selector.min.js"></script>           
         {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-hls/5.15.0/videojs-contrib-hls.js"></script> --}}
+        <?php
+        }
+        ?>
     </body>
 </html>
