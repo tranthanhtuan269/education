@@ -84,7 +84,7 @@ class TeacherController extends Controller
         $teacher->user_role_id = $user_role_teacher->id;
         $teacher->cv = $request->cv;
         $teacher->expert = $request->expert;
-        $teacher->video_intro = $request->youtube;
+        $teacher->video_intro = "https://www.youtube.com/embed/" . Helper::getYouTubeVideoId($request->youtube);
         $teacher->status = Config::get('app.teacher_active');
         $teacher->save();
 
@@ -160,7 +160,7 @@ class TeacherController extends Controller
                 if($teacher){
                     $teacher->cv = $request->cv;
                     $teacher->expert = $request->expert;
-                    $teacher->video_intro = $request->youtube;
+                    $teacher->video_intro = "https://www.youtube.com/embed/" . Helper::getYouTubeVideoId($request->youtube);
                     $teacher->status = \Config::get('app.teacher_active');
                     $teacher->save();
                 }
@@ -169,7 +169,7 @@ class TeacherController extends Controller
                     $teacher->user_role_id = $user_role_teacher->id;
                     $teacher->cv = $request->cv;
                     $teacher->expert = $request->expert;
-                    $teacher->video_intro = $request->youtube;
+                    $teacher->video_intro = "https://www.youtube.com/embed/" . Helper::getYouTubeVideoId($request->youtube);
                     $teacher->status = Config::get('app.teacher_active');
                     $teacher->save();
                 }
@@ -183,7 +183,7 @@ class TeacherController extends Controller
                 $teacher->user_role_id = $user_role_teacher->id;
                 $teacher->cv = $request->cv;
                 $teacher->expert = $request->expert;
-                $teacher->video_intro = $request->youtube;
+                $teacher->video_intro = "https://www.youtube.com/embed/" . Helper::getYouTubeVideoId($request->youtube);
                 $teacher->status = Config::get('app.teacher_active');
                 $teacher->save();
             }
