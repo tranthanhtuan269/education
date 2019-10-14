@@ -35,7 +35,6 @@
                                 $list_video_done_in_unit = $video_done_units[($unit->index)-1];
                                 if( isset( array_count_values($list_video_done_in_unit)[1] ) ){
                                     $video_done_in_this_units += array_count_values($list_video_done_in_unit)[1];
-                                    // $video_done_in_this_units += array_count_values($list_video_done_in_unit)[1];
                                 }
                             @endphp                       
                         @endforeach

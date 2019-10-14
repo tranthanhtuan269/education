@@ -32,7 +32,7 @@ class CommentController extends Controller
         if ($video) {
             $courseId = $video->unit->course->id;
             $commentVideo = new CommentVideo;
-            $commentVideo->user_role_id = Helper::getUserRoleOfCourse($courseId)->id;
+            $commentVideo->user_role_id = Helper::getUserRoleOfComment($courseId);
             $commentVideo->video_id = $request->videoId;
             $commentVideo->content = $request->content;
             $commentVideo->state = 1;
@@ -112,7 +112,7 @@ class CommentController extends Controller
                     $commentCourse->content = $request->review_text;
                 }
                 $commentCourse->course_id = $request->course_id;
-                $commentCourse->user_role_id = Helper::getUserRoleOfCourse($request->course_id)->id;
+                $commentCourse->user_role_id = Helper::getUserRoleOfCourse($request->course_id)->user_role_id;
                 if (isset($request->parentId)) {
                     $commentCourse->parent_id = $request->parentId;
                 }
@@ -179,7 +179,7 @@ class CommentController extends Controller
                 }
                 $course->star_count += ($request->score - $currentRating->score);
 
-                $commentCourse = CommentCourse::where('course_id', $request->course_id)->where('user_role_id', Helper::getUserRoleOfCourse($request->course_id)->id)->first();
+                $commentCourse = CommentCourse::where('course_id', $request->course_id)->where('user_role_id', Helper::getUserRoleOfCourse($request->course_id)->user_role_id)->first();
                 $commentCourse->score = $request->score;
                 $commentCourse->save();
 

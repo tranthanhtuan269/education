@@ -13,6 +13,30 @@ class Helper
         return (!empty($time)) ? \Carbon\Carbon::createFromFormat($format_time, $time)->format($format) : '';
     }
 
+    public static function getUserRoleOfComment($course_id){
+        if(Auth::check()){
+            $user_id = Auth::user()->id;
+            if(Auth::user()->isAdmin()){
+                return Auth::user()->userRolesAdmin()->id;
+            }
+            $user_role_list = Auth::user()->userRoles;
+            $demanding_user_course = null;
+            foreach ($user_role_list as $key => $user_role) {
+                $user_course_item = UserCourse::where('course_id', $course_id)
+                    ->where('user_role_id', $user_role->id)
+                    ->first();
+
+                if (!empty($user_course_item)) {
+                    $demanding_user_course = $user_course_item->user_role_id;
+                    break;
+                }
+            }
+        }else{
+            $demanding_user_course = null;
+        }
+        return $demanding_user_course;
+    }
+
     public static function getUserRoleOfCourse($course_id)
     {
         if(Auth::check()){
@@ -21,6 +45,7 @@ class Helper
                 return Auth::user()->userRolesAdmin();
             }
             $user_role_list = Auth::user()->userRoles;
+            // dd($user_role_list);
             $course = \App\Course::find($course_id);
             $lecturer_user_role = $course->Lecturers()->first();
 
@@ -30,6 +55,7 @@ class Helper
                 $user_course_item = UserCourse::where('course_id', $course_id)
                     ->where('user_role_id', $user_role->id)
                     ->first();
+                    // dd($user_course_item);
 
                 if (!empty($user_course_item)) {
                     $demanding_user_course = $user_course_item;
