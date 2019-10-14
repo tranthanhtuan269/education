@@ -804,32 +804,9 @@ class VideoController extends Controller
             if ( $video->state == Config::get('app.video_waiting_to_delete') ){
 
                 // Sap xep lai user_courses->videos
-                $course = 0;
-                $unit = 0;
-                // $video = 0;
-                $unit = $video->unit;
                 $course = $video->unit->course;
-
-                $user_roles = $course->userRoles()->where('role_id', 3)->get();
-                foreach ($user_roles as $key => $user_role) {
-                    $user_course = UserCourse::where("user_role_id", $user_role->id)->where("course_id", $course->id)->first();
-                    $videos = json_decode($user_course->videos);
-                    $unit_arr = $videos->{'videos'}[($unit->index)-1];
-                    // Dua bai dang hoc ve bai dau tien cua khoa hoc
-                    if ( $videos->learning == $video->index ){
-                        $videos->learning = 1;
-                        $videos_of_unit = $video->unit->course->units[0]->videos;
-                        $videos->learning_id = $videos_of_unit->first()->id;
-                    }
-                    // Loai bo video khoi user_courses
-                    array_splice($unit_arr, $video->index-1, 1);
-                    $videos->{'videos'}[($unit->index)-1] = $unit_arr;
-                    $videos = json_encode($videos);
-                    $user_course->videos = $videos;
-                    $user_course->save();
-                }
-
-                dd(1);
+                Helper::reBuildJsonWhenCreateOrDeleteLecture($course->id, $video->id, $flag = 0);
+                
                 $video->state       = Config::get('app.video_in_trash');
                 $video->updated_at  = date('Y-m-d H:i:s');
                 $video->save();
@@ -1018,5 +995,23 @@ class VideoController extends Controller
             'status' => 404,
             'message' => 'Không thành công.',
         ]);
+    }
+
+    public function getVideoInTrash()
+    {
+        return view('backends.videos.videos-in-trash');
+    }
+
+    public function getVideoInTrashAjax()
+    {
+        $videos = Video::where('state', 5)->get();
+        return datatables()->collection($videos)
+            ->addColumn('course_name', function ($video) {
+                return $video->Unit->course->name;
+            })
+            ->addColumn('action', function ($video) {
+                return $video->id;
+            })
+            ->removeColumn('id')->make(true);
     }
 }

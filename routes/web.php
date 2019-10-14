@@ -20,7 +20,7 @@ Auth::routes();
 Route::get('trinhnk', function(){
     $video = \App\Video::find(100);
     $arr_videos = $video->unit->videos;
-    dd( $arr_videos[count($arr_videos)-2]->id );
+    dd($arr_videos[count($arr_videos)-2]->id );
 });
 
 Route::get('test2', function(){
@@ -113,6 +113,12 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::get('request-edit-videos', 'Backends\VideoController@getRequestEditVideo');
         Route::get('request-edit-videos-ajax', 'Backends\VideoController@getRequestEditVideoAjax');
+        Route::put('accept-edit-video', 'Backends\VideoController@acceptEditVideo');
+        Route::put('reject-edit-video', 'Backends\VideoController@rejectEditVideo');
+
+        // Delete Videos in Trash
+        Route::get('videos-in-trash', 'Backends\VideoController@getVideoInTrash');
+        Route::get('get-videos-in-trash-ajax', 'Backends\VideoController@getVideoInTrashAjax');
         Route::put('accept-edit-video', 'Backends\VideoController@acceptEditVideo');
         Route::put('reject-edit-video', 'Backends\VideoController@rejectEditVideo');
 

@@ -191,7 +191,7 @@
                             </ul>
                         </li>
 
-                        <li class="treeview @if ( Request::is('admincp/teachers*') || Request::is('admincp/courses*') || Request::is('admincp/videos*') || Request::is('admincp/verify-video*') || Request::is('admincp/request-delete-videos*') || Request::is('admincp/request-edit-videos*')) active @endif">
+                        <li class="treeview @if ( Request::is('admincp/teachers*') || Request::is('admincp/courses*') || Request::is('admincp/verify-video*') ) active @endif">
                             <a href="javascript:void(0)">
                                 <i class="fa fa-user-md"></i>
                                 <span>Phê duyệt</span>
@@ -210,18 +210,18 @@
                                     <li class="@if ( Request::is('admincp/courses/request-edit*') )active @endif">
                                         <a href="{{ url('/') }}/admincp/courses/request-edit"><i class="fa fa-minus"></i> Yêu cầu sửa khóa học</a>
                                     </li>
-                                    <!-- <li class="@if ( Request::is('admincp/verify-video*') ) active @endif">
+                                    {{-- <li class="@if ( Request::is('admincp/verify-video*') ) active @endif">
                                         <a href="{{ url('/') }}/admincp/verify-video"><i class="fa fa-minus"></i> Yêu cầu duyệt bài giảng</a>
-                                    </li> -->
-                                    <li class="@if ( Request::is('admincp/videos*') ) active @endif">
+                                    </li> --}}
+                                    {{-- <li class="@if ( Request::is('admincp/videos*') ) active @endif">
                                         <a href="{{ url('/') }}/admincp/videos"><i class="fa fa-minus"></i> Yêu cầu duyệt bài giảng</a>
-                                    </li>
-                                    <li class="@if ( Request::is('admincp/request-delete-videos*') ) active @endif">
+                                    </li> --}}
+                                    {{-- <li class="@if ( Request::is('admincp/request-delete-videos*') ) active @endif">
                                         <a href="{{ url('/') }}/admincp/request-delete-videos"><i class="fa fa-minus"></i> Yêu cầu xóa bài giảng</a>
-                                    </li>
-                                    <li class="@if ( Request::is('admincp/request-edit-videos*') ) active @endif">
+                                    </li> --}}
+                                    {{-- <li class="@if ( Request::is('admincp/request-edit-videos*') ) active @endif">
                                         <a href="{{ url('/') }}/admincp/request-edit-videos"><i class="fa fa-minus"></i> Yêu cầu sửa bài giảng</a>
-                                    </li>
+                                    </li> --}}
                                 @endif
                             </ul>
                         </li>
@@ -230,6 +230,31 @@
                                 <span>Danh mục</span>
                                 <span class="pull-right-container">
                             </a>
+                        </li>
+                        <li class="treeview @if ( Request::is('admincp/videos*') || Request::is('admincp/request-edit-videos*') || Request::is('admincp/request-delete-videos*') ) active @endif">
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-star"></i>
+                                <span>Bài giảng</span>
+                                <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                @if (Helper::checkPermissions('users.list', $list_roles))
+                                    <li class="@if ( Request::is('admincp/videos*') ) active @endif">
+                                        <a href="{{ url('/') }}/admincp/videos"><i class="fa fa-minus"></i>Yêu cầu duyệt</a>
+                                    </li>
+                                    <li class="@if ( Request::is('admincp/request-edit-videos*') ) active @endif">
+                                        <a href="{{ url('/') }}/admincp/request-edit-videos"><i class="fa fa-minus"></i>Yêu cầu sửa</a>
+                                    </li>
+                                    <li class="@if ( Request::is('admincp/request-delete-videos*') ) active @endif">
+                                        <a href="{{ url('/') }}/admincp/request-delete-videos"><i class="fa fa-minus"></i>Yêu cầu xóa</a>
+                                    </li>
+                                    <li class="@if ( Request::is('admincp/videos-in-trash*') ) active @endif">
+                                        <a href="{{ url('/') }}/admincp/videos-in-trash"><i class="fa fa-minus"></i>Thùng rác</a>
+                                    </li>
+                                @endif
+                            </ul>
                         </li>
                         <li class="treeview @if ( Request::is('admincp/comment*')) active @endif">
                             <a href="javascript:void(0)">
