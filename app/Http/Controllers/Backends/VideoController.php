@@ -268,11 +268,48 @@ class VideoController extends Controller
             if($request->active_file_to_delete){
                 $temp_video->files_delete = $request->active_file_to_delete;
             }
+
+            $video->state = Config::get('app.video_request_edit');
+            $video->save();
             $temp_video->save();
 
-            return \Response::json(array('status' => '200', 'message' => 'Gửi yêu cầu sửa video thành công!', 'video' => $video));
+            return \Response::json(array('status' => '200', 'message' => 'Gửi yêu cầu sửa video thành công.', 'video' => $video));
         }
-        return \Response::json(array('status' => '404', 'message' => 'Không thành công!'));
+        return \Response::json(array('status' => '404', 'message' => 'Thao tác không thành công!'));
+    }
+
+    public function removeRequestUpdate(Request $request)
+    {
+        $video  = Video::find($request->video_id);
+        if ( $video ){
+            if ( $video->state == Config::get('app.video_request_edit') ){
+
+                $remove_documents = TempDocument::where('video_id', $request->video_id)->get();
+                if ( $remove_documents->count() > 0 ){
+                    foreach ($remove_documents as $key => $document) {
+                        if (file_exists(public_path('uploads/files/'.$document->url_document))) {
+                            unlink(public_path('uploads/files/'.$document->url_document));
+                        }
+                        $document->delete();
+                    }
+                }
+
+                $remove_videos = TempVideo::where('video_id', $request->video_id)->get();
+                if ( $remove_videos->count() > 0 ){
+                    if ( $temp_video->link_video ){
+                        if (file_exists(public_path('uploads/files/'.$temp_video->url_document))) {
+                            unlink(public_path('uploads/videos/'.$temp_video->link_video));
+                        }
+                    }
+                    $temp_video->delete();
+                }
+
+                $video->state = Config::get('app.video_active');
+                $video->save();
+                return \Response::json(array('status' => '200', 'message' => 'Hủy yêu cầu thành công.'));
+            }
+        }
+        return \Response::json(array('status' => '404', 'message' => 'Thao tác không thành công.'));
     }
 
     /**
@@ -292,37 +329,60 @@ class VideoController extends Controller
 	        //         'message' => 'Yêu cầu xoá video bài giảng đang được duyệt!'
 	        //     ]);
             // }
-            if($video->state == Config::get('app.video_rejected')){
-                return response()->json([
-                    'status' => '201',
-                    'message' => 'Video đã không được duyệt!'
-                ]);
-            }
+            // if($video->state == Config::get('app.video_rejected')){
+            //     return response()->json([
+            //         'status' => '201',
+            //         'message' => 'Video đã không được duyệt!'
+            //     ]);
+            // }
+            // if($video->state == Config::get('app.video_waiting')){  // Nếu đang chờ duyệt thì có thể xoá luôn
+            //     //Xoá luôn video trên server
+	        //     $json_video = json_decode($video->url_video, true);
+	        //     if (count($json_video) > 0) {
+	        //         foreach ($json_video as $path_video) {
+	        //             if(\File::exists($path_video)) {
+	        //                 \File::delete($path_video);
+	        //             }
+	        //         }
+            //     }
+            //     $video->delete();
+            //     return response()->json([
+            //         'status' => '200',
+            //         'message' => 'Xoá video bài giảng thành công!'
+            //     ]);
+            // }
             if($video->state == Config::get('app.video_waiting')){  // Nếu đang chờ duyệt thì có thể xoá luôn
+                // Xoa documents
+                $documents = Document::where('video_id', $video->id)->get();
+                if ( $documents->count() > 0 ){
+                    foreach ($documents as $key => $document) {
+                        if (file_exists(public_path('uploads/files/'.$document->url_document))) {
+                            unlink(public_path('uploads/files/'.$document->url_document));
+                        }
+                        $document->delete();
+                    }
+                }
                 //Xoá luôn video trên server
-	            $json_video = json_decode($video->url_video, true);
-	            if (count($json_video) > 0) {
-	                foreach ($json_video as $path_video) {
-	                    if(\File::exists($path_video)) {
-	                        \File::delete($path_video);
-	                    }
-	                }
+                $path_video = public_path('uploads/videos/'.$video->link_video);
+                if(\File::exists($path_video)) {
+                    \File::delete($path_video);
                 }
                 $video->delete();
                 return response()->json([
                     'status' => '200',
-                    'message' => 'Xoá video bài giảng thành công!'
+                    'message' => 'Xoá video bài giảng thành công.'
                 ]);
             }
+
             if($video->state == Config::get('app.video_active')){
-                $unit = $video->unit;
-                $course = $unit->course;
+                // $unit = $video->unit;
+                // $course = $unit->course;
                 $video->state = Config::get('app.video_waiting_to_delete'); //Đang được admin duyệt để xoá
                 $video->save();
 
                 return response()->json([
 	                'status' => '200',
-	                'message' => 'Yêu cầu xoá video đã được gửi!'
+	                'message' => 'Yêu cầu xoá video đã được gửi.'
 	            ]);
 
                 //Xoá luôn video trên server
@@ -359,7 +419,7 @@ class VideoController extends Controller
         }else{
             return response()->json([
                 'status' => '404',
-                'message' => 'Yêu cầu xoá video không được gửi thành công!',
+                'message' => 'Thao tác không thành công.',
             ]);
         }
     }
@@ -718,21 +778,71 @@ class VideoController extends Controller
 
     public function rejectRequestDeleteVideo(Request $request)
     {
-        // echo 1;die;
         $video = Video::find($request->video_id);
         if ($video) {
-            $video->state       = 1;
-            $video->updated_at  = date('Y-m-d H:i:s');
-            $video->save();
-
-            return response()->json([
-                'status' => 200,
-                'message' => 'Đã hủy yêu cầu xóa Video!',
-            ]);
+            if ( $video->state == Config::get('app.video_waiting_to_delete') ){
+                $video->state       = Config::get('app.video_active');
+                $video->updated_at  = date('Y-m-d H:i:s');
+                $video->save();
+    
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'Đã hủy yêu cầu xóa bài giảng.',
+                ]);
+            }
         }
         return response()->json([
             'status' => 404,
-            'message' => 'Video is not found!',
+            'message' => 'Thao tác không thành công.',
+        ]);
+    }
+
+    public function acceptRequestDeleteVideo(Request $request)
+    {
+        $video = Video::find($request->video_id);
+        if ($video) {
+            if ( $video->state == Config::get('app.video_waiting_to_delete') ){
+
+                // Sap xep lai user_courses->videos
+                $course = 0;
+                $unit = 0;
+                // $video = 0;
+                $unit = $video->unit;
+                $course = $video->unit->course;
+
+                $user_roles = $course->userRoles()->where('role_id', 3)->get();
+                foreach ($user_roles as $key => $user_role) {
+                    $user_course = UserCourse::where("user_role_id", $user_role->id)->where("course_id", $course->id)->first();
+                    $videos = json_decode($user_course->videos);
+                    $unit_arr = $videos->{'videos'}[($unit->index)-1];
+                    // Dua bai dang hoc ve bai dau tien cua khoa hoc
+                    if ( $videos->learning == $video->index ){
+                        $videos->learning = 1;
+                        $videos_of_unit = $video->unit->course->units[0]->videos;
+                        $videos->learning_id = $videos_of_unit->first()->id;
+                    }
+                    // Loai bo video khoi user_courses
+                    array_splice($unit_arr, $video->index-1, 1);
+                    $videos->{'videos'}[($unit->index)-1] = $unit_arr;
+                    $videos = json_encode($videos);
+                    $user_course->videos = $videos;
+                    $user_course->save();
+                }
+
+                dd(1);
+                $video->state       = Config::get('app.video_in_trash');
+                $video->updated_at  = date('Y-m-d H:i:s');
+                $video->save();
+
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'Đã đưa bài giảng vào thùng rác.',
+                ]);
+            }
+        }
+        return response()->json([
+            'status' => 404,
+            'message' => 'Thao tác không thành công.',
         ]);
     }
 

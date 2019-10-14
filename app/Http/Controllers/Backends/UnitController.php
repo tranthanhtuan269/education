@@ -21,7 +21,7 @@ class UnitController extends Controller
 
     public function getVideos($id){
         $videos = Video::where('unit_id', $id)
-                ->whereIn('state',[0,1,2,3])
+                ->whereIn('state',[0,1,2,3,4])
                 ->orderBy('index', 'asc')
                 ->get()
                 ->toArray();

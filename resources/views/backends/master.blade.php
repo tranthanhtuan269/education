@@ -191,7 +191,7 @@
                             </ul>
                         </li>
 
-                        <li class="treeview @if ( Request::is('admincp/teachers*') || Request::is('admincp/courses*') || Request::is('admincp/videos*') || Request::is('admincp/verify-video*') || Request::is('admincp/request-delete-videos*')) active @endif">
+                        <li class="treeview @if ( Request::is('admincp/teachers*') || Request::is('admincp/courses*') || Request::is('admincp/videos*') || Request::is('admincp/verify-video*') || Request::is('admincp/request-delete-videos*') || Request::is('admincp/request-edit-videos*')) active @endif">
                             <a href="javascript:void(0)">
                                 <i class="fa fa-user-md"></i>
                                 <span>Phê duyệt</span>

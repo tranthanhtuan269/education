@@ -29,6 +29,7 @@
                             <th scope="col">Xem</th>
                             <th scope="col">Khóa học</th>
                             <th scope="col">Giảng viên</th>
+                            <th scope="col">Ngày gửi</th>
                             <th scope="col">Xác nhận xóa</th>
                             <th scope="col">Hủy yêu cầu</th>
                         </tr>
@@ -73,6 +74,21 @@
         </div>
     </div>
 </section>
+<style>
+    .name-video{
+        width: 250px;
+    }
+    .course-name-field{
+        width: 250px;
+    }
+    .delete-video, .reject-field{
+        width: 60px;
+        text-align: center;
+    }
+    .created-at{
+        width: 60px;
+    }
+</style>
 <script type="text/javascript">
     var dataTable           = null;
     var userCheckList       = [];
@@ -101,7 +117,7 @@
         var dataObject = [
             { 
                 data: "name",
-                // class: "name-field"
+                class: "name-video"
             },
             { 
                 data: "link_video",
@@ -113,15 +129,19 @@
             },
             {
                 data: "course_name",
-                // class: "course_name-field"
+                class: "course-name-field"
             },
             {
                 data: "teacherName",
                 // class: "teacher_name-field"
             },
+            {
+                data: "updated_at",
+                class: "created-at"
+            },
             { 
                 data: "action", 
-                class: "action-field",
+                class: "delete-video",
                 render: function(data, type, row){
                     var html = '';
                     @if (Helper::checkPermissions('videos.delete', $list_roles)) 
@@ -134,7 +154,7 @@
             },
             { 
                 data: "reject", 
-                class: "action-field",
+                class: "reject-field",
                 render: function(data, type, row){
                     var html = '';
                     @if (Helper::checkPermissions('videos.delete', $list_roles)) 
@@ -163,7 +183,7 @@
                         columns: dataObject,
                         bLengthChange: true,
                         pageLength: 10,
-                        order: [[ 4, "asc" ]],
+                        order: [[ 4, "desc" ]],
                         colReorder: {
                             fixedColumnsRight: 1,
                             fixedColumnsLeft: 1
@@ -188,7 +208,7 @@
                         },
                         fnDrawCallback: function( oSettings ) {
                             addEventListener();
-                            checkCheckboxChecked();
+                            // checkCheckboxChecked();
                         },
                         createdRow: function( row, data, dataIndex){
                             if(data['state'] == 2){
@@ -223,45 +243,45 @@
         //     setCheckboxChecked();
         // });
 
-        function setCheckboxChecked(){
-            userCheckList = [];
-            $.each($('.check-video'), function( index, value ) {
-                if($(this).prop('checked')){
-                    userCheckList.push($(this).val());
-                }
-            });
-        }
+        // function setCheckboxChecked(){
+        //     userCheckList = [];
+        //     $.each($('.check-video'), function( index, value ) {
+        //         if($(this).prop('checked')){
+        //             userCheckList.push($(this).val());
+        //         }
+        //     });
+        // }
 
-        function checkCheckboxChecked(){
-            var count_row = 0;
-            var listUser = $('.check-video');
-            if(listUser.length > 0){
-                $.each(listUser, function( index, value ) {
-                    if(containsObject($(this).val(), userCheckList)){
-                        $(this).prop('checked', 'true');
-                        count_row++;
-                    }
-                });
+        // function checkCheckboxChecked(){
+        //     var count_row = 0;
+        //     var listUser = $('.check-video');
+        //     if(listUser.length > 0){
+        //         $.each(listUser, function( index, value ) {
+        //             if(containsObject($(this).val(), userCheckList)){
+        //                 $(this).prop('checked', 'true');
+        //                 count_row++;
+        //             }
+        //         });
 
-                if(count_row == listUser.length){
-                    $('#select-all-btn').prop('checked', true);
-                }else{
-                    $('#select-all-btn').prop('checked', false);
-                }
-            }else{
-                $('#select-all-btn').prop('checked', false);
-            }
-        }
+        //         if(count_row == listUser.length){
+        //             $('#select-all-btn').prop('checked', true);
+        //         }else{
+        //             $('#select-all-btn').prop('checked', false);
+        //         }
+        //     }else{
+        //         $('#select-all-btn').prop('checked', false);
+        //     }
+        // }
 
-        function containsObject(obj, list) {
-            var i;
-            for (i = 0; i < list.length; i++) {
-                if (list[i] === obj) {
-                    return true;
-                }
-            }
-            return false;
-        }
+        // function containsObject(obj, list) {
+        //     var i;
+        //     for (i = 0; i < list.length; i++) {
+        //         if (list[i] === obj) {
+        //             return true;
+        //         }
+        //     }
+        //     return false;
+        // }
 
         $('#showVideoIntroModal').on('hide.bs.modal', function () {
             $("#video-view").attr('src', '')
@@ -274,7 +294,7 @@
 
                 $('#showVideoIntroModal').modal('show');
                 // $("#video-view").attr('src', `http://education.local/uploads/videos/${curr_video_intro}`)
-                $("#video-view").attr('src', `http://45.56.82.249/uploads/videos/${curr_video_intro}`)
+                $("#video-view").attr('src', `/uploads/videos/${curr_video_intro}`)
             })
 
             $('.btn-delete').off('click')
@@ -294,11 +314,11 @@
                             }
                         });
                         $.ajax({
-                            url: baseURL+"/admincp/videos/delete",
+                            url: baseURL+"/admincp/request-delete-videos/delete",
                             data: {
                                 video_id : id
                             },
-                            method: "DELETE",
+                            method: "PUT",
                             dataType:'json',
                             beforeSend: function(r, a){
                                 current_page = dataTable.page.info().page;

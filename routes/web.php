@@ -17,6 +17,12 @@
 
 Auth::routes();
 
+Route::get('trinhnk', function(){
+    $video = \App\Video::find(100);
+    $arr_videos = $video->unit->videos;
+    dd( $arr_videos[count($arr_videos)-2]->id );
+});
+
 Route::get('test2', function(){
 
     $job = '{"displayName":"App\\Jobs\\ProcessLectureEdit","job":"Illuminate\\Queue\\CallQueuedHandler@call","maxTries":null,"delay":null,"timeout":null,"timeoutAt":null,"data":{"commandName":"App\\Jobs\\ProcessLectureEdit","command":"O:27:\"App\\Jobs\\ProcessLectureEdit\":12:{s:5:\"video\";s:55:\"1570700334_K5M97BhtGzRANEvYfg80JcozAwuxJOOaRijn84Ro.mp4\";s:8:\"video_id\";N;s:10:\"resolution\";i:360;s:10:\"path_video\";s:105:\"\/usr\/local\/WowzaStreamingEngine-4.7.7\/content\/360\/1570700334_K5M97BhtGzRANEvYfg80JcozAwuxJOOaRijn84Ro.mp4\";s:13:\"video_temp_id\";i:49;s:6:\"\u0000*\u0000job\";N;s:10:\"connection\";N;s:5:\"queue\";N;s:15:\"chainConnection\";N;s:10:\"chainQueue\";N;s:5:\"delay\";N;s:7:\"chained\";a:0:{}}"}}';
@@ -161,6 +167,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('request-delete-videos', 'Backends\VideoController@getRequestDeleteVideo');
         Route::get('request-delete-videos/getRequestDeleteVideoAjax', 'Backends\VideoController@getRequestDeleteVideoAjax');
         Route::put('request-delete-videos/reject', 'Backends\VideoController@rejectRequestDeleteVideo');
+        Route::put('request-delete-videos/delete', 'Backends\VideoController@acceptRequestDeleteVideo');
 
         Route::get('request-edit-videos', 'Backends\VideoController@getRequestEditVideo');
         Route::get('request-edit-videos-ajax', 'Backends\VideoController@getRequestEditVideoAjax');
@@ -407,6 +414,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::post('video/edit', 'Backends\VideoController@edit');
             Route::put('video/{id}/update', 'Backends\VideoController@update');
             Route::put('video/{id}/request-update', 'Backends\VideoController@requestUpdate');
+            Route::put('video/remove-request-update', 'Backends\VideoController@removeRequestUpdate');
             Route::delete('video/remove', 'Backends\VideoController@sendRemoveVideoRequest');
             Route::delete('delete', 'Backends\UnitController@destroy');
         });

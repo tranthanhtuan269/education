@@ -9,10 +9,11 @@ return [
     'teacher_inactive' => 0,
     'video_rejected' => -1,
     'video_waiting' => 0,
-    'video_active' => 1,
-    'video_waiting_to_delete' => 2,
+    'video_active' => 1, // Can Learn
+    'video_waiting_to_delete' => 2, // Can Learn
     'video_converting' => 3,
-    'video_request_edit' => 4,
+    'video_request_edit' => 4, // Can Learn
+    'video_in_trash' => 5,
 
     'email_order_complete' => 2,
 
