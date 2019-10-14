@@ -2,9 +2,12 @@
 
 namespace App\Helper;
 
-use App\UserCourse;
 use Auth;
 use DateTime;
+use App\Video;
+use App\Course;
+use App\VideoJson;
+use App\UserCourse;
 
 class Helper
 {
@@ -174,5 +177,67 @@ class Helper
         $array = rtrim($array, ',');
         $array .= "]";
         return \json_decode($array);
+    }
+
+    public static function getVideoFirst($course_id){
+        $course = Course::find($course_id);
+        if($course){
+            $units = $course->units;
+            if(count($units) > 0){
+                foreach($units as $unit){
+                    if(count($unit->videos) > 0){
+                        return $unit->videos[0]->id;
+                    }
+                }
+            }
+            return -1;
+        }
+        return -1;
+    }
+
+    public static function buildJsonForCheckout($course_id){
+        // when checkout
+        $course = Course::find($course_id);
+        if($course){
+            $videoJson = new VideoJson;
+            $videoJson->videos = Helper::getJSONVideoOfCourse($course->id);
+            $videoJson->learning = 1;
+            $videoJson->learning_id = Helper::getVideoFirst($course->id);
+            return json_encode($videoJson);
+        }
+    }
+
+    public static function reBuildJsonWhenCreateOrDeleteLecture($course_id, $video_id, $flag = 1){
+        // $flag = 0 when delete, = 1 when create
+        // when create new
+        // Lấy tất cả các UserCourse của khóa học này
+        $userCourses = UserCourse::where('course_id', $course_id)->get();
+        // Giả sử bài học được tạo mới ở Unit số  2 và ở vị trí số  3
+        foreach($userCourses as $userCourse){
+            // Nếu user là teacher then $userCourse->videos = null => bỏ qua
+            // Nếu user là học viên then 
+            if($userCourse->videos){
+                $videosJson = \json_decode($userCourse->videos);
+                
+
+                $video = Video::find($video_id);
+                if($video){
+                    $videoIndex = $video->index;
+                    $unitIndex = $video->unit->index;
+
+                    foreach($videosJson->videos as $key=>$videoJson){
+                        if($unitIndex == $key + 1){
+                            if($flag == 1){
+                                array_splice($videosJson->videos[$key], $videoIndex-1, 0, 0 );
+                            }else{
+                                array_splice($videosJson->videos[$key], $videoIndex-1, 1);
+                            }
+                            $userCourse->videos = \json_encode($videosJson);
+                            $userCourse->save();
+                        }
+                    }
+                }
+            }
+        }
     }
 }

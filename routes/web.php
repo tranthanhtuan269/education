@@ -18,11 +18,7 @@
 Auth::routes();
 
 Route::get('test2', function(){
-
-    $commentCourses = \App\CommentVideo::get();
-    foreach($commentCourses as $comment){
-        $comment->delete();
-    }
+    dd(App\Helper\Helper::reBuildJsonWhenCreateOrDeleteLecture(743, 12094, 0));
 });
 
 Route::get('thay-state-video', function(){
