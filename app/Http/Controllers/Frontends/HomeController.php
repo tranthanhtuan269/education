@@ -23,6 +23,7 @@ use App\UserRole;
 use DB;
 use App\Document;
 use Config;
+use App\VideoJson;
 
 class HomeController extends Controller
 {
@@ -50,6 +51,8 @@ class HomeController extends Controller
 
     public function home()
     {
+        $video = new VideoJson;
+
         $feature_category = Category::getCoursesOfCategory()->get();
 
         // Duong NT// feature courses
@@ -560,21 +563,9 @@ class HomeController extends Controller
                                 }
 
                                 $bought[] = $item['id']; //Them vao trường đã mua của user TuanTT
-                                $video_count = $course->video_count;
-                                $units = $course->units;
-                                $first_video_index = 1;
-                                $first_video_id = $course->units[0]->videos[0]->id;
-                                $user_course_videos = [];
+                                
 
-                                //DuongNT - Tạo array video đã xem
-                                $videoJson = new VideoJson;
-                                $videoJson->videos = Helper::getJSONVideoOfCourse($course->id);
-                                $videoJson->learning = 1;
-                                $videoJson->learning_id = $first_video_id;
-
-                                $videoJson = json_encode($videoJson);
-
-                                $course->userRoles()->attach($user_role_id->id, ['videos' => $videoJson]);
+                                $course->userRoles()->attach($user_role_id->id, ['videos' => Helper::buildJsonForCheckout($course->id)]);
                                 $order->courses()->attach($item['id']);
                             }
 
@@ -956,9 +947,4 @@ class HomeController extends Controller
     public function affiliatePage(){
         return view('frontends.footer-page.affiliate');
     }
-}
-
-class VideoJson
-{
-    public $videos, $learning, $learning_id;
 }

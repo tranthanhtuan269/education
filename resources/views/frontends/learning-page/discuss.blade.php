@@ -26,7 +26,6 @@
         </div>
         <div class="ln-disc-post-list">
             @foreach ($comments_video as $comment_video)
-
             <div class="ln-disc-post-wrapper">
                 <div data-toggle="collapse" data-target="#discWrapper{{$comment_video->id}}">
                     <div class="ln-disc-post-left">

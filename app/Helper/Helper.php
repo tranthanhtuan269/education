@@ -2,15 +2,42 @@
 
 namespace App\Helper;
 
-use App\UserCourse;
 use Auth;
 use DateTime;
+use App\Video;
+use App\Course;
+use App\VideoJson;
+use App\UserCourse;
 
 class Helper
 {
     public static function formatDate($format_time, $time, $format)
     {
         return (!empty($time)) ? \Carbon\Carbon::createFromFormat($format_time, $time)->format($format) : '';
+    }
+
+    public static function getUserRoleOfComment($course_id){
+        if(Auth::check()){
+            $user_id = Auth::user()->id;
+            if(Auth::user()->isAdmin()){
+                return Auth::user()->userRolesAdmin()->id;
+            }
+            $user_role_list = Auth::user()->userRoles;
+            $demanding_user_course = null;
+            foreach ($user_role_list as $key => $user_role) {
+                $user_course_item = UserCourse::where('course_id', $course_id)
+                    ->where('user_role_id', $user_role->id)
+                    ->first();
+
+                if (!empty($user_course_item)) {
+                    $demanding_user_course = $user_course_item->user_role_id;
+                    break;
+                }
+            }
+        }else{
+            $demanding_user_course = null;
+        }
+        return $demanding_user_course;
     }
 
     public static function getUserRoleOfCourse($course_id)
@@ -21,6 +48,7 @@ class Helper
                 return Auth::user()->userRolesAdmin();
             }
             $user_role_list = Auth::user()->userRoles;
+            // dd($user_role_list);
             $course = \App\Course::find($course_id);
             $lecturer_user_role = $course->Lecturers()->first();
 
@@ -30,6 +58,7 @@ class Helper
                 $user_course_item = UserCourse::where('course_id', $course_id)
                     ->where('user_role_id', $user_role->id)
                     ->first();
+                    // dd($user_course_item);
 
                 if (!empty($user_course_item)) {
                     $demanding_user_course = $user_course_item;
@@ -148,5 +177,67 @@ class Helper
         $array = rtrim($array, ',');
         $array .= "]";
         return \json_decode($array);
+    }
+
+    public static function getVideoFirst($course_id){
+        $course = Course::find($course_id);
+        if($course){
+            $units = $course->units;
+            if(count($units) > 0){
+                foreach($units as $unit){
+                    if(count($unit->videos) > 0){
+                        return $unit->videos[0]->id;
+                    }
+                }
+            }
+            return -1;
+        }
+        return -1;
+    }
+
+    public static function buildJsonForCheckout($course_id){
+        // when checkout
+        $course = Course::find($course_id);
+        if($course){
+            $videoJson = new VideoJson;
+            $videoJson->videos = Helper::getJSONVideoOfCourse($course->id);
+            $videoJson->learning = 1;
+            $videoJson->learning_id = Helper::getVideoFirst($course->id);
+            return json_encode($videoJson);
+        }
+    }
+
+    public static function reBuildJsonWhenCreateOrDeleteLecture($course_id, $video_id, $flag = 1){
+        // $flag = 0 when delete, = 1 when create
+        // when create new
+        // Lấy tất cả các UserCourse của khóa học này
+        $userCourses = UserCourse::where('course_id', $course_id)->get();
+        // Giả sử bài học được tạo mới ở Unit số  2 và ở vị trí số  3
+        foreach($userCourses as $userCourse){
+            // Nếu user là teacher then $userCourse->videos = null => bỏ qua
+            // Nếu user là học viên then 
+            if($userCourse->videos){
+                $videosJson = \json_decode($userCourse->videos);
+                
+
+                $video = Video::find($video_id);
+                if($video){
+                    $videoIndex = $video->index;
+                    $unitIndex = $video->unit->index;
+
+                    foreach($videosJson->videos as $key=>$videoJson){
+                        if($unitIndex == $key + 1){
+                            if($flag == 1){
+                                array_splice($videosJson->videos[$key], $videoIndex-1, 0, 0 );
+                            }else{
+                                array_splice($videosJson->videos[$key], $videoIndex-1, 1);
+                            }
+                            $userCourse->videos = \json_encode($videosJson);
+                            $userCourse->save();
+                        }
+                    }
+                }
+            }
+        }
     }
 }

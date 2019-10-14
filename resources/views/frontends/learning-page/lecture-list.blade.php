@@ -38,7 +38,7 @@
                                 }
                             @endphp                       
                         @endforeach
-                        <span id="videoDoneOneSect{{$key+1}}">{{$video_done_in_this_units}}</span>
+                        <span id="videoDoneOneSect{{$key+1}}">{{$video_done_in_this_units/count($unit->videos)}}</span>
                         / {{count($unit->videos)}}
                     </p>                
                 @endif

@@ -70,8 +70,7 @@ class VideoPlayerController extends Controller
         if(Auth::user()->isAdmin()){
             $comments_video = CommentVideo::where(
                 function($q) use ($user_role_id){
-                    $q->where('state', 1)
-                    ->orWhere(function($q2) use ($user_role_id){
+                    $q->where(function($q2) use ($user_role_id){
                         $q2->where('user_role_id', $user_role_id);
                     });
                 }
@@ -80,11 +79,11 @@ class VideoPlayerController extends Controller
             ->where('parent_id', 0)
             ->orderBy('created_at', 'desc')
             ->get();
+            
 
             $sub_comments_video = CommentVideo::where(
                 function($q) use ($user_role_id){
-                    $q->where('state', 1)
-                    ->orWhere(function($q2) use ($user_role_id){
+                    $q->where(function($q2) use ($user_role_id){
                         $q2->where('user_role_id', $user_role_id);
                     });
                }
@@ -108,6 +107,10 @@ class VideoPlayerController extends Controller
             ->where('parent_id', 0)
             ->orderBy('created_at', 'desc')
             ->get();
+            // dd($comments_video);
+            // foreach($comments_video as $comment_video){
+            //     $comment_video->delete();
+            // }
 
             $sub_comments_video = CommentVideo::where(
                 function($q) use ($user_role_id){
