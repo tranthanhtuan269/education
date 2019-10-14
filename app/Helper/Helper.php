@@ -207,6 +207,24 @@ class Helper
         }
     }
 
+    public static function reSortIndexVideoOfCourse($course_id){
+        $course = Course::find($course_id);
+        if($course){
+            $units = $course->units;
+            if(count($units) > 0){
+                foreach($units as $unit){
+                    $videos = $unit->videos->index(); 
+                    if(count($videos) > 0){
+                        foreach($videos as $key => $video){
+                            $video->index = $key + 1;
+                            $video->save();
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     public static function reBuildJsonWhenCreateOrDeleteLecture($course_id, $video_id, $flag = 1){
         // $flag = 0 when delete, = 1 when create
         // when create new
