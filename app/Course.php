@@ -152,6 +152,16 @@ class Course extends Model
         }
         return $total;
     }
+
+    public function countVideoCanLearn()
+    {
+        $units = $this->units;
+        $total = 0;
+        foreach($units as $unit){
+            $total += count($unit->videos->whereIn('state', [1,2,4]));
+        }
+        return $total;
+    }
     
     public function checkCourseNotLearning(){
 
