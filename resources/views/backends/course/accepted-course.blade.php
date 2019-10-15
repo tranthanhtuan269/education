@@ -10,10 +10,14 @@
 </section>
 <section class="content page">
     <h1 class="text-center font-weight-600">Yêu cầu duyệt khóa học</h1>
+    <div class="comment">
+        <div class="stop-sell"><button class="btn btn-success"></button> Khoá học đang được bán</div>
+        <div class="stop-sell"><button class="btn btn-warning"></button> Khóa học đã ngừng bán </div>
+    </div>
     <div class="row">
         <div class="col-md-12">
             <div class="table-responsive">
-                <table class="table table-bordered" id="requestAcceptCourseTable">
+                <table class="table table-bordered" id="acceptedCourseTable">
                     <thead class="thead-custom">
                         <tr>
                             <th scope="col">Tên khóa học</th>
@@ -23,8 +27,7 @@
                             <th csope="col">Giá gốc</th>
                             <th csope="col">Giá giảm</th>
                             <th scope="col">Cập nhật</th>
-                            <th scope="col">Duyệt</th>
-                            <th scope="col">Xóa</th>
+                            <th scope="col">Ngừng bán</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -36,6 +39,9 @@
     </div>
 </section>
 <style>
+    .comment{
+        margin-left: 40%;
+    }
     .name-field{
         width: 180px;
     }
@@ -138,19 +144,12 @@
                 render: function(data, type, row){
                     var html = '';
                     @if (Helper::checkPermissions('courses.accept-course', $list_roles))
-                        html += '<a class="btn-accept mr-2 accept-course" data-id="'+data+'" title="Duyệt"> <i class="fa fa-check fa-fw"></i></a>';
-                    @endif
-                    return html;
-                },
-                orderable: false
-            },
-            {
-                data: "action",
-                class: "action-field",
-                render: function(data, type, row){
-                    var html = '';
-                    @if (Helper::checkPermissions('courses.delete', $list_roles)) 
-                        html += '<a class="btn-delete delete-course" data-id="'+data+'" title="Xóa"><i class="fa fa-trash fa-fw" aria-hidden="true"></i></a>';
+                    if ( row.status == 1 ){
+                        html += '<a class="color-white stop-selling-course" data-id="'+data+'" data-status="1" title="Ngừng bán khóa học"> <i class="fa fa-times fa-fw"></i></a>';
+                    }
+                    if ( row.status == -1 ){
+                        html += '<a class="color-white stop-selling-course" data-id="'+data+'" data-status="-1" title="Tiếp tục bán khóa học"> <i class="fa fa-check fa-fw"></i></a>';
+                    }
                     @endif
                     return html;
                 },
@@ -158,7 +157,7 @@
             },
         ];
 
-        dataTable = $('#requestAcceptCourseTable').DataTable( {
+        dataTable = $('#acceptedCourseTable').DataTable( {
                         serverSide: false,
                         aaSorting: [],
                         stateSave: true,
@@ -166,7 +165,7 @@
                             smart: false
                         },
                         ajax:{
-                            url: "{{ url('/') }}/admincp/courses/get-request-accept-ajax",
+                            url: "{{ url('/') }}/admincp/courses/get-accepted-courses-ajax",
                             beforeSend: function() {
                                 $(".ajax_waiting").addClass("loading");
                             }
@@ -198,20 +197,32 @@
                             addEventListener();
                         },
                         createdRow: function( row, data, dataIndex){
-                            $(row).addClass('btn-danger');
+                            if ( data.status == 1 ){
+                                $(row).addClass('btn-success');
+                            }else{
+                                $(row).addClass('btn-warning');                                
+                            }
                         }
                     });
         
-        $('#requestAcceptCourseTable').css('width', '100%');
+        $('#acceptedCourseTable').css('width', '100%');
 
         function addEventListener(){
 
-            $('.accept-course').off('click')
-            $('.accept-course').click(function(){
-                var id      = $(this).attr('data-id');
+            $('.stop-selling-course').off('click')
+            $('.stop-selling-course').click(function(){
+                var id      = $(this).attr('data-id')
+                var status  = $(this).attr('data-status')
+                if ( status == 1 ){
+                    var message = 'Bạn có chắc chắn muốn ngừng bán khóa học này?'
+                }else if ( status == -1 ){
+                    var message = 'Bạn có chắc chắn muốn tiếp tục bán khóa học này?'
+                }else{
+                    return
+                }
                 Swal.fire({
                     type: 'warning',
-                    text: 'Bạn có chắc chắn muốn duyệt khóa học này?',
+                    text: message,
                     showCancelButton: true,
                }).then(result => {
                     if(result.value){
@@ -221,10 +232,10 @@
                             }
                         });
                         $.ajax({
-                            url: baseURL+"/admincp/courses/accept",
+                            url: baseURL+"/admincp/courses/stop-selling-course",
                             data: {
                                 course_id : id,
-                                status : 1
+                                status : status
                             },
                             method: "PUT",
                             dataType:'json',
@@ -233,11 +244,11 @@
                             },
                             success: function (response) {
                                 if(response.status == 200){
+                                    dataTable.ajax.reload()
                                     Swal.fire({
                                         type: 'success',
                                         text: response.message
                                     })
-                                    dataTable.ajax.reload()
                                 }else{
                                     Swal.fire({
                                         type: 'warning',
@@ -256,63 +267,10 @@
                    }
                })
             });
-
-            $('.delete-course').off('click')
-            $('.delete-course').click(function(e){
-                var _self   = $(this);
-                var id      = $(this).attr('data-id');
-                var row = $(e.currentTarget).closest("tr");
-                Swal.fire({
-                    type: 'warning',
-                   text: 'Bạn có chắc chắn muốn xóa khóa học này?',
-                   showCancelButton: true,
-               }).then(result => {
-                   if(result.value){
-                    $.ajaxSetup({
-                            headers: {
-                              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            }
-                        });
-                        $.ajax({
-                            url: baseURL+"/admincp/courses/delete",
-                            data: {
-                                course_id : id
-                            },
-                            method: "PUT",
-                            dataType:'json',
-                            beforeSend: function(r, a){
-                                current_page = dataTable.page.info().page;
-                            },
-                            success: function (response) {
-                                if(response.status == 200){
-                                    Swal.fire({
-                                        type: 'success',
-                                        text: response.message
-                                    })
-                                    dataTable.row( row ).remove().draw(true);
-                                    dataTable.page( checkEmptyTable() ).draw( false );
-                                }else{
-                                  Swal.fire({
-                                      type: 'warning',
-                                      text: response.message
-                                  })
-                                }
-                            },
-                            error: function (data) {
-                                if(data.status == 401){
-                                  window.location.replace(baseURL);
-                                }else{
-                                 $().toastmessage('showErrorToast', errorConnect);
-                                }
-                            }
-                        });
-                   }
-               })
-            });
         }
 
         function checkEmptyTable(){
-            if ($('#requestAcceptCourseTable tr').length <= 1 && current_page > 0) {
+            if ($('#acceptedCourseTable tr').length <= 1 && current_page > 0) {
                 current_page = current_page - 1;
             }
             return current_page;

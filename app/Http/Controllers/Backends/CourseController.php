@@ -12,7 +12,7 @@ use App\Setting;
 use Auth;
 use App\Helper\Helper;
 use App\TempCourse;
-
+use Config;
 
 class CourseController extends Controller
 {
@@ -228,7 +228,7 @@ class CourseController extends Controller
     // Course
     public function getCourse(){
         
-        return view('backends.user.course');
+        return view('backends.course.course');
     }
 
     public function getCourseAjax()
@@ -500,7 +500,7 @@ class CourseController extends Controller
 
     public function getRequestAcceptCourseAjax()
     {
-        $courses = Course::where('status', 0)->get();
+        $courses = Course::where('status', Config::get('app.course_waiting'))->get();
         return datatables()->collection($courses)
             ->addColumn('action', function ($course) {
                 return $course->id;
@@ -521,5 +521,54 @@ class CourseController extends Controller
             })
             ->removeColumn('id')
             ->make(true);
+    }
+
+    public function getAcceptedCourse()
+    {
+        return view('backends.course.accepted-course');
+    }
+
+    public function getAcceptedCourseAjax()
+    {
+        $courses = Course::whereIn('status', [Config::get('app.course_active'), Config::get('app.course_stop_selling')])->get();
+        return datatables()->collection($courses)
+            ->addColumn('action', function ($course) {
+                return $course->id;
+            })
+            ->addColumn('rows', function ($course) {
+                return $course->id;
+            })
+            ->addColumn('category', function ($course) {
+                return $course->category->name;
+            })
+            ->addColumn('teacher', function ($course) {
+                if ( $course->userRoles()->count() > 0 ){
+                    if ( $course->userRoles()->first()->user ){
+                        return $course->userRoles()->first()->user->name;
+                    }
+                }
+                return 'Giảng viên Courdemy';
+            })
+            ->removeColumn('id')
+            ->make(true);
+    }
+
+    public function stopSellingCourse(Request $request)
+    {
+        $course = Course::find($request->course_id);
+        if ( $course ){
+            if ( $course->status == Config::get('app.course_active') ){
+                $course->status = Config::get('app.course_stop_selling');
+                $course->save();
+                return response()->json(array('status' => '200', 'message' => 'Khóa học của bạn đã được ngừng bán.'));
+            }
+            if ( $course->status == Config::get('app.course_stop_selling') ){
+                $course->status = Config::get('app.course_active');
+                $course->save();
+                return response()->json(array('status' => '200', 'message' => 'Khóa học của bạn đã được tiếp tục bán.'));
+            }
+            return response()->json(array('status' => '404', 'message' => 'Thao tác không thành công.'));
+        }
+        return response()->json(array('status' => '404', 'message' => 'Thao tác không thành công.'));
     }
 }
