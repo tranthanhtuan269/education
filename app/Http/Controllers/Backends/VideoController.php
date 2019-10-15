@@ -873,11 +873,6 @@ class VideoController extends Controller
             $video = Video::find($temp_video->video_id);
 
             if ($video){
-                $video->name        = $temp_video->name;
-                $video->link_video  = $temp_video->link_video;
-                $video->duration    = $temp_video->duration;
-                $video->description = $temp_video->description;
-                $video->updated_at  = date('Y-m-d H:i:s');
 
                 $temp_documents = TempDocument::where('video_id', $temp_video->video_id)->get();
                 if ( $temp_documents->count() > 0 ){
@@ -952,15 +947,19 @@ class VideoController extends Controller
                             }
                         }
                     }
-                }
 
-                $video->save();
-                $temp_video->delete();
+                    $video->name        = $temp_video->name;
+                    $video->duration    = $temp_video->duration;
+                    $video->description = $temp_video->description;
+                    $video->updated_at  = date('Y-m-d H:i:s');
+                    $video->save();
+                    $temp_video->delete();
+                    return response()->json([
+                        'status' => 200,
+                        'message' => 'Bài giảng đã được sửa.',
+                    ]);
+                }
     
-                return response()->json([
-                    'status' => 200,
-                    'message' => 'Bài giảng đã được sửa.',
-                ]);
             }
         }
         return response()->json([
