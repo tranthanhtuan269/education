@@ -256,7 +256,7 @@
                                 @endif
                             </ul>
                         </li>
-                        <li class="treeview @if ( Request::is('admincp/videos*') || Request::is('admincp/request-edit-videos*') || Request::is('admincp/request-delete-videos*') || Request::is('admincp/video-in-trash*') ) active @endif">
+                        <li class="treeview @if ( Request::is('admincp/videos*') || Request::is('admincp/request-accept-videos*') || Request::is('admincp/request-edit-videos*') || Request::is('admincp/request-delete-videos*') || Request::is('admincp/video-in-trash*') ) active @endif">
                             <a href="javascript:void(0)">
                                 <i class="fa fa-star"></i>
                                 <span>Bài giảng</span>
@@ -266,16 +266,19 @@
                             </a>
                             <ul class="treeview-menu">
                                 @if (Helper::checkPermissions('users.list', $list_roles))
-                                    <li class="@if ( Request::is('admincp/videos*') ) active @endif">
-                                        <a href="{{ url('/') }}/admincp/videos"><i class="fa fa-minus"></i>Yêu cầu duyệt</a>
+                                    <li class="@if ( Request::is('admincp/videos') ) active @endif">
+                                        <a href="{{ url('/') }}/admincp/videos"><i class="fa fa-minus"></i>Tất cả</a>
                                     </li>
-                                    <li class="@if ( Request::is('admincp/request-edit-videos*') ) active @endif">
+                                    <li class="@if ( Request::is('admincp/request-accept-videos') ) active @endif">
+                                        <a href="{{ url('/') }}/admincp/request-accept-videos"><i class="fa fa-minus"></i>Yêu cầu duyệt</a>
+                                    </li>
+                                    <li class="@if ( Request::is('admincp/request-edit-videos') ) active @endif">
                                         <a href="{{ url('/') }}/admincp/request-edit-videos"><i class="fa fa-minus"></i>Yêu cầu sửa</a>
                                     </li>
-                                    <li class="@if ( Request::is('admincp/request-delete-videos*') ) active @endif">
+                                    <li class="@if ( Request::is('admincp/request-delete-videos') ) active @endif">
                                         <a href="{{ url('/') }}/admincp/request-delete-videos"><i class="fa fa-minus"></i>Yêu cầu xóa</a>
                                     </li>
-                                    <li class="@if ( Request::is('admincp/video-in-trash*') ) active @endif">
+                                    <li class="@if ( Request::is('admincp/video-in-trash') ) active @endif">
                                         <a href="{{ url('/') }}/admincp/video-in-trash"><i class="fa fa-minus"></i>Thùng rác</a>
                                     </li>
                                 @endif

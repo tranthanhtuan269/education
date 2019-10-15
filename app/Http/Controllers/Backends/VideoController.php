@@ -1083,4 +1083,25 @@ class VideoController extends Controller
             'message' => 'Xoá video bài giảng thành công.'
         ]);
     }
+
+    public function getRequestAcceptVideo()
+    {
+        return view('backends.videos.request-accept-video');
+    }
+
+    public function getRequestAcceptVideoAjax()
+    {
+        $sql = "SELECT videos.id, videos.state, videos.name, videos.link_video, videos.updated_at, courses.name as course_name, courses.id as course_id, courses.slug as course_slug
+        FROM videos
+        JOIN units ON units.id = videos.unit_id
+        JOIN courses ON courses.id = units.course_id
+        WHERE videos.state = 0
+        ";
+        $videos = \DB::select($sql);
+        return datatables()->collection(collect($videos))
+            ->addColumn('action', function ($video) {
+                return $video->id;
+            })
+            ->removeColumn('id')->make(true);
+    }
 }

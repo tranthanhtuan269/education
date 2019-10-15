@@ -111,11 +111,19 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('videos/inaccept-multiple-video', 'Backends\VideoController@inacceptMultiVideo');
         Route::delete('videos/delete', 'Backends\VideoController@deleteVideo');
         Route::delete('videos/delete-multiple-video', 'Backends\VideoController@deleteMultiVideo');
+
+        // Request Accept Video 
+        Route::get('request-accept-videos', 'Backends\VideoController@getRequestAcceptVideo');
+        Route::get('get-request-accept-videos', 'Backends\VideoController@getRequestAcceptVideoAjax');
+
+
+        // Request Delete Videos 
         Route::get('request-delete-videos', 'Backends\VideoController@getRequestDeleteVideo');
         Route::get('request-delete-videos/getRequestDeleteVideoAjax', 'Backends\VideoController@getRequestDeleteVideoAjax');
         Route::put('request-delete-videos/reject', 'Backends\VideoController@rejectRequestDeleteVideo');
         Route::put('request-delete-videos/delete', 'Backends\VideoController@acceptRequestDeleteVideo');
 
+        // Edit Videos 
         Route::get('request-edit-videos', 'Backends\VideoController@getRequestEditVideo');
         Route::get('request-edit-videos-ajax', 'Backends\VideoController@getRequestEditVideoAjax');
         Route::put('accept-edit-video', 'Backends\VideoController@acceptEditVideo');
