@@ -455,4 +455,34 @@ class CourseController extends Controller
             }
         }
     }
+
+    public function getRequestAccept()
+    {
+        return view('backends.course.request-accept-course');
+    }
+
+    public function getRequestAcceptCourseAjax()
+    {
+        $courses = Course::where('status', 0)->get();
+        return datatables()->collection($courses)
+            ->addColumn('action', function ($course) {
+                return $course->id;
+            })
+            ->addColumn('rows', function ($course) {
+                return $course->id;
+            })
+            ->addColumn('category', function ($course) {
+                return $course->category->name;
+            })
+            ->addColumn('teacher', function ($course) {
+                if ( $course->userRoles()->count() > 0 ){
+                    if ( $course->userRoles()->first()->user ){
+                        return $course->userRoles()->first()->user->name;
+                    }
+                }
+                return 'Giảng viên Courdemy';
+            })
+            ->removeColumn('id')
+            ->make(true);
+    }
 }
