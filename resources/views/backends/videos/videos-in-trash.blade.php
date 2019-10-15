@@ -33,7 +33,7 @@
                 @if (Helper::checkPermissions('users.email', $list_roles))
                     <p class="action-selected-rows">
                         <span >Xóa những bài giảng đã chọn:</span>
-                        <span class="btn btn-info ml-2" id="deleteAllApplied">Xóa</span>
+                        <span class="btn btn-info ml-2" id="deleteAllApplied"><b>Xóa</b></span>
                     </p>
                 @endif
             </div>
