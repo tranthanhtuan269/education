@@ -18,7 +18,13 @@
 Auth::routes();
 
 Route::get('trinhnk', function(){
-    $course = \App\Course::find(1);
+    $courses = \App\Course::where('status', 0)
+            ->whereHas('userRole', function ($query) {
+                $query->whereHas('user', function ($query) {
+                    $query->where('status', 1);
+                });
+            });
+    dd($courses);
     if ( $course ){
         if ( $course->status == 0 ){
             $units = $course->units;
@@ -57,6 +63,7 @@ Route::get('trinhnk', function(){
             $course->delete();
         }
     }
+    dd('done');
 });
 
 Route::get('test2', function(){
