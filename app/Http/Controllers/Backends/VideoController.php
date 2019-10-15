@@ -942,8 +942,8 @@ class VideoController extends Controller
                         foreach ($document_ids as $key => $id) {
                             $document = Document::find($id);
                             if($document){
-                                if (file_exists(public_path('uploads/files/'.$old->url_document))) {
-                                    unlink(public_path('uploads/files/'.$old->url_document));
+                                if (file_exists(public_path('uploads/files/'.$document->url_document))) {
+                                    unlink(public_path('uploads/files/'.$document->url_document));
                                 }
                                 $document->delete();
                             }
