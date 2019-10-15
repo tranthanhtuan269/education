@@ -67,7 +67,7 @@
                         <li id="toggle_tab_edit_teacher" ><a href="#tab_edit_teacher" data-toggle="tab" aria-expanded="false">Sửa Giảng viên</a></li>
                         <li id="toggle_tab_edit_student"><a href="#tab_edit_student" data-toggle="tab" aria-expanded="false">Sửa Học Viên</a></li>
                         <button class="btn bg-olive btn-flat pull-right" id="btnSwitchToTeacher" data-user-id>Chuyển thành giảng viên</button>
-                        <button class="btn bg-red btn-flat pull-right" id="btnSwitchOffTeacher" data-user-id>Khoá giảng viên</button>
+                        <button class="btn bg-red btn-flat pull-right" id="btnSwitchOffTeacher" data-user-id data-teacher-id>Khoá giảng viên</button>
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="tab_edit_admin">
@@ -293,7 +293,7 @@
 
         // DuongNT - Khoá giảng viên
         $('#btnSwitchOffTeacher').click(function(){
-            var user_id = $(this).attr('data-user-id')
+            var teacher_id = $(this).attr('data-teacher-id')
             Swal.fire({
                 type: 'warning',
                 text: 'Bạn có chắc chắn muốn bỏ chức năng giảng viên của tài khoản này?',
@@ -305,7 +305,7 @@
                         url: `{{ url('/admincp/') }}/users/disable-teacher`,
                         data:{
                             '_method': 'PUT',
-                            'user_id' : user_id
+                            'teacher_id' : teacher_id
                         },
                         success: response => {
                             if(response.status == 200){
@@ -448,9 +448,10 @@
                                 // $("#userPassword_upd").val(response.user.password);
                                 // $("#passConfirm_upd").val(response.user.password);
                                 $('#btnSwitchOffTeacher').attr('data-user-id', response.user.id)
+                                
                                 $('#btnSwitchToTeacher').attr('data-user-id', response.user.id)
                                 $('#editStudent').attr('data-user-id', response.user.id)
-
+                                
                                 $('#editStuName').val(response.user.name)
                                 $('#editStuEmail').val(response.user.email)
                                 $('#editStuPhone').val(response.user.phone)
@@ -461,32 +462,33 @@
                                 cropperEditStu.destroy()
                                 $("#imageEditStu").removeClass('cropper-hidden')
                                 $(".cropper-container").hide()
-
+                                
                                 if(response.isStudent){
                                     $("#toggle_tab_edit_admin").hide()
                                     $("#toggle_tab_edit_admin").removeClass('active')
                                     $('#tab_edit_admin').hide()
                                     $('#tab_edit_admin').removeClass('active')
-
+                                    
                                     // $("#toggle_tab_edit_teacher").hide()
                                     // $("#toggle_tab_edit_teacher").removeClass('active')
                                     // $('#tab_edit_teacher').hide()
                                     // $('#tab_edit_teacher').removeClass('active')
-
+                                    
                                     $("#toggle_tab_edit_student").show()
                                     $("#toggle_tab_edit_student").addClass('active')
                                     $('#tab_edit_student').show()
                                     $('#tab_edit_student').addClass('active')
                                 }
 
-
+                                
                                 if(response.isTeacher){
                                     $("#toggle_tab_edit_teacher").show()
                                     $("#toggle_tab_edit_teacher").addClass('active')
                                     $('#tab_edit_teacher').show()
                                     $('#tab_edit_teacher').addClass('active')
-
-
+                                    
+                                    
+                                    $('#btnSwitchOffTeacher').attr('data-teacher-id', response.teacher_info.id)
                                     $("#btnSwitchOffTeacher").show()
                                     $("#btnSwitchToTeacher").hide()
                                     $("#toggle_tab_edit_teacher").show()
