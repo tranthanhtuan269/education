@@ -9,7 +9,7 @@
 </section>
 
 <section class="content page">
-    <h1 class="text-center font-weight-600">Các bài giảng được yêu cầu sửa</h1>
+    <h1 class="text-center font-weight-600">Yêu cầu sửa bài giảng</h1>
     <div class="row">
         <div class="col-md-12">
             <div class="table-responsive">
