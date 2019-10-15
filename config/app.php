@@ -15,6 +15,10 @@ return [
     'video_request_edit' => 4, // Can Learn
     'video_in_trash' => 5,
 
+    'course_waiting' => 0,
+    'course_active' => 1,
+    'course_request_edit' => 4,
+
     'email_order_complete' => 2,
 
     'email_system_status' => 10,    // email hệ thống không cho xoá và sửa tên
