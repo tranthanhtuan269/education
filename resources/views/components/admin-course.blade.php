@@ -17,7 +17,7 @@
             @if ( $course_status == 0 )
                 <button class="btn btn-warning btn-status-course active" title="Khóa học đang được xét duyệt"><i class="fas fa-dollar-sign fa-fw"></i></button>
             @endif
-            @if ( $course_status == 2 )
+            @if ( $course_status == -1 )
                 <button class="btn btn-secondary btn-status-course active" title="Khóa học đã ngừng bán"><i class="fas fa-dollar-sign fa-fw"></i></button>
             @endif
         @endif

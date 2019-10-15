@@ -9,7 +9,7 @@
     
 </section>
 <section class="content page">
-    <h1 class="text-center font-weight-600">Yêu cầu duyệt khóa học</h1>
+    <h1 class="text-center font-weight-600">Các khóa học đã duyệt</h1>
     <div class="comment">
         <div class="stop-sell"><button class="btn btn-success"></button> Khoá học đang được bán</div>
         <div class="stop-sell"><button class="btn btn-warning"></button> Khóa học đã ngừng bán </div>
