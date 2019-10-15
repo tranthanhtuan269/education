@@ -25,7 +25,7 @@
                             {{-- <th class="id-field" width="1%">
                                 <input type="checkbox" id="select-all-btn" data-check="false">
                             </th> --}}
-                            <th scope="col">Video</th>
+                            <th scope="col">Bài giảng</th>
                             <th scope="col">Xem</th>
                             <th scope="col">Khóa học</th>
                             <th scope="col">Giảng viên</th>

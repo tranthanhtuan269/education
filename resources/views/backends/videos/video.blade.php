@@ -22,7 +22,7 @@
                 <table class="table table-bordered" id="video-table">
                     <thead class="thead-custom">
                         <tr>
-                            <th scope="col">Video</th>
+                            <th scope="col">Bài giảng</th>
                             <th scope="col">Xem</th>
                             <th scope="col">Khóa học</th>
                             <th scope="col">Cập nhật</th>

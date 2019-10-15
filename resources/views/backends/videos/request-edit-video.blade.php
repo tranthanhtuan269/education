@@ -16,7 +16,7 @@
                 <table class="table table-bordered" id="editVideoTable">
                     <thead class="thead-custom">
                         <tr>
-                            <th scope="col">Video</th>
+                            <th scope="col">Bài giảng</th>
                             <th scope="col">Xem</th>
                             <th scope="col">Khóa học</th>
                             <th scope="col">Giảng viên</th>
