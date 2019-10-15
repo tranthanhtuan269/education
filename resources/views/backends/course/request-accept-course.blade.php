@@ -37,7 +37,7 @@
 </section>
 <style>
     .name-field{
-        /* width: 200px; */
+        width: 180px;
     }
     .short-description-field{
         /* width: 300px; */
@@ -46,7 +46,10 @@
         width: 60px;
     }
     .updated-field{
-        width: 60px;
+        width: 45px;
+    }
+    .action-field{
+        width: 40px;
     }
 </style>
 <script type="text/javascript">
@@ -107,7 +110,8 @@
                         return html;
                     }
                     return data;
-                }
+                },
+                orderable: false
             },
             {
                 data:"price",
@@ -121,7 +125,8 @@
                         return html;
                     }
                     return data;
-                }
+                },
+                orderable: false
             },
             {
                 data: "updated_at",
@@ -169,7 +174,7 @@
                         columns: dataObject,
                         bLengthChange: true,
                         pageLength: 10,
-                        order: [[ 4, "desc" ]],
+                        order: [[ 6, "desc" ]],
                         colReorder: {
                             fixedColumnsRight: 1,
                             fixedColumnsLeft: 1
@@ -252,14 +257,14 @@
                })
             });
 
-            $('.btn-delete').off('click')
-            $('.btn-delete').click(function(e){
+            $('.delete-course').off('click')
+            $('.delete-course').click(function(e){
                 var _self   = $(this);
                 var id      = $(this).attr('data-id');
                 var row = $(e.currentTarget).closest("tr");
                 Swal.fire({
                     type: 'warning',
-                   text: 'Bạn có chắc chắn muốn xóa khóa học bạn chọn?',
+                   text: 'Bạn có chắc chắn muốn xóa khóa học này?',
                    showCancelButton: true,
                }).then(result => {
                    if(result.value){
@@ -273,7 +278,7 @@
                             data: {
                                 course_id : id
                             },
-                            method: "DELETE",
+                            method: "PUT",
                             dataType:'json',
                             beforeSend: function(r, a){
                                 current_page = dataTable.page.info().page;

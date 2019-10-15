@@ -5,20 +5,22 @@
     }
     $image = url('/frontend/images/'.$course->image);
     $lecturers = count($course->Lecturers()) > 1 ? 'Nhiều tác giả' : count($course->Lecturers()) > 0 ? $course->Lecturers()[0]->user->name : "Courdemy";
+    $course_status = $course->status;
 ?>
 <div class="col-sm-3" id="course-{{ $course->id }}">
     <div class="box-course">
-        <button class="btn btn-primary btn-unit-course" id="btn-unit-{{ $course->id }}" title="Thêm bài giảng"><i class="fas fa-bars"></i></button>
-        <button class="btn btn-primary btn-edit-course" id="btn-edit-{{ $course->id }}" title="Sửa khóa học"><i class="fas fa-edit"></i></button>
-        {{-- @if ( $course->status == 1 )
-            <button class="btn btn-danger btn-remove-course" id="btnStop{{ $course->id }}" title="Ngừng bán khóa học"><i class="fas fa-stop"></i></button>
+        <button class="btn btn-primary btn-unit-course" id="btn-unit-{{ $course->id }}" title="Thêm bài giảng"><i class="fas fa-bars fa-fw"></i></button>
+        <button class="btn btn-primary btn-edit-course" id="btn-edit-{{ $course->id }}" title="Sửa khóa học"><i class="fas fa-edit fa-fw"></i></button>
+        @if ( $course_status == 1 )
+            <button class="btn btn-success btn-status-course active" title="Khóa học đang được bán"><i class="fas fa-dollar-sign fa-fw"></i></button>
         @else
-            @if ( $course->status == -1 )
-                <button class="btn btn-success btn-remove-course" id="btnContinue{{ $course->id }}" title="Tiếp tục bán khóa học"><i class="fas fa-play"></i></button>
-            @else
-                <button class="btn btn-warning btn-remove-course active" title="Khóa học đang được xử lý"><i class="fas fa-pause"></i></button>
+            @if ( $course_status == 0 )
+                <button class="btn btn-warning btn-status-course active" title="Khóa học đang được xét duyệt"><i class="fas fa-dollar-sign fa-fw"></i></button>
             @endif
-        @endif --}}
+            @if ( $course_status == 2 )
+                <button class="btn btn-secondary btn-status-course active" title="Khóa học đã ngừng bán"><i class="fas fa-dollar-sign fa-fw"></i></button>
+            @endif
+        @endif
         <div class="img-course">
             <img class="img-responsive"
                 src="{{ $image }}"

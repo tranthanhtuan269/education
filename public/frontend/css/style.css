@@ -2462,24 +2462,24 @@ div[data-u="slides"] div div{
   display: none;
 }
 
-.btn-remove-course{
-  position: absolute;
-  top: 5px;
-  right: 115px;
-  z-index: 2;
-}
-
-.btn-edit-course{
+.btn-status-course{
   position: absolute;
   top: 5px;
   right: 20px;
   z-index: 2;
 }
 
+.btn-edit-course{
+  position: absolute;
+  top: 5px;
+  right: 70px;
+  z-index: 2;
+}
+
 .btn-unit-course{
   position: absolute;
   top: 5px;
-  right: 65px;
+  right: 120px;
   z-index: 2;
 }
 

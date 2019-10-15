@@ -340,17 +340,54 @@ class CourseController extends Controller
     }
 
     public function deleteCourse(Request $request)
-    {
-        if($request->course_id){
-            $course = Course::find($request->course_id);
-            if($course){
+    {   
+        $course = Course::find($request->course_id);
+        if ( $course ){
+            if ( $course->status == 0 ){
+                $units = $course->units;
+                if ( $units ){
+                    if ( $units->count() > 0 ){
+                        foreach ( $units as $unit ){
+                            $videos = $unit->videos;
+                            if ( $videos ){
+                                if ( $videos->count() > 0 ){
+                                    foreach ( $videos as $video ){
+                                        $documents = \App\Document::where('video_id', $video->id)->get();
+                                        if ( $documents ){
+                                            if ( $documents->count() > 0 ){
+                                                foreach ( $documents as $document ){
+                                                    if (file_exists(public_path('uploads/files/'.$document->url_document))) {
+                                                        unlink(public_path('uploads/files/'.$document->url_document));
+                                                    }
+                                                    $document->delete();
+                                                }
+                                            }
+                                        }
+                                        if ( $video->link_video ){
+                                            if(\File::exists(public_path('uploads/videos/'.$video->link_video))) {
+                                                \File::delete(public_path('uploads/videos/'.$video->link_video));
+                                            }
+                                        }
+                                        $video->delete();
+                                    }
+                                }
+                            }
+                            $unit->delete();
+                        }
+                    }
+                }
+                $user_course = \App\UserCourse::where('course_id', $course->id)->delete();
                 $course->delete();
-                $res = array('status' => "200", "message" => "Xóa thành công");
-                echo json_encode($res);die;
+                return response()->json([
+                    'status' => '200',
+                    'message' => 'Xóa khóa học thành công.'
+                ]);
             }
         }
-        $res = array('status' => "401", "message" => 'Người dùng không tồn tại.');
-        echo json_encode($res);die;
+        return response()->json([
+            'status' => '404',
+            'message' => 'Thao tác không thành công.'
+        ]);
     }
 
     public function deleteMultiCourse(Request $request)
