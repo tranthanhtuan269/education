@@ -18,52 +18,7 @@
 Auth::routes();
 
 Route::get('trinhnk', function(){
-    $courses = \App\Course::where('status', 0)
-            ->whereHas('userRole', function ($query) {
-                $query->whereHas('user', function ($query) {
-                    $query->where('status', 1);
-                });
-            });
-    dd($courses);
-    if ( $course ){
-        if ( $course->status == 0 ){
-            $units = $course->units;
-            if ( $units ){
-                if ( $units->count() > 0 ){
-                    foreach ( $units as $unit ){
-                        $videos = $unit->videos;
-                        if ( $videos ){
-                            if ( $videos->count() > 0 ){
-                                foreach ( $videos as $video ){
-                                    $documents = \App\Document::where('video_id', $video->id)->get();
-                                    if ( $documents ){
-                                        if ( $documents->count() > 0 ){
-                                            foreach ( $documents as $document ){
-                                                if (file_exists(public_path('uploads/files/'.$document->url_document))) {
-                                                    unlink(public_path('uploads/files/'.$document->url_document));
-                                                }
-                                                $document->delete();
-                                            }
-                                        }
-                                    }
-                                    if ( $video->link_video ){
-                                        if(\File::exists(public_path('uploads/videos/'.$video->link_video))) {
-                                            \File::delete(public_path('uploads/videos/'.$video->link_video));
-                                        }
-                                    }
-                                    $video->delete();
-                                }
-                            }
-                        }
-                        $unit->delete();
-                    }
-                }
-            }
-            $user_course = \App\UserCourse::where('course_id', $course->id)->delete();
-            $course->delete();
-        }
-    }
-    dd('done');
+
 });
 
 Route::get('test2', function(){
@@ -138,11 +93,14 @@ Route::group(['middleware' => 'auth'], function () {
         // Duyet khoa hoc
         Route::get('courses/request-accept', 'Backends\CourseController@getRequestAccept');
         Route::get('courses/get-request-accept-ajax', 'Backends\CourseController@getRequestAcceptCourseAjax');
-
         // Sua khoa hoc
         Route::get('courses/request-edit', 'Backends\CourseController@getRequestEditCourse');
         Route::get('courses/get-edit-course-ajax', 'Backends\CourseController@getRequestEditCourseAjax');
         Route::post('courses/accept-edit-course', 'Backends\CourseController@acceptEditCourse');
+        // Khoa hoc da duyet
+        Route::get('courses/accepted-courses', 'Backends\CourseController@getAcceptedCourse');
+        Route::get('courses/get-accepted-courses-ajax', 'Backends\CourseController@getAcceptedCourseAjax');
+        Route::put('courses/stop-selling-course', 'Backends\CourseController@stopSellingCourse');
 
         // Trinhnk Duyet video
         Route::get('videos', 'Backends\VideoController@getVideo');

@@ -17,6 +17,7 @@ return [
 
     'course_waiting' => 0,
     'course_active' => 1,
+    'course_stop_selling' => -1,
     'course_request_edit' => 4,
 
     'email_order_complete' => 2,

@@ -244,6 +244,9 @@
                                     <li class="@if ( Request::is('admincp/courses') ) active @endif">
                                         <a href="{{ url('/') }}/admincp/courses"><i class="fa fa-minus"></i>Tất cả</a>
                                     </li>
+                                    <li class="@if ( Request::is('admincp/courses/accepted-courses') ) active @endif">
+                                        <a href="{{ url('/') }}/admincp/courses/accepted-courses"><i class="fa fa-minus"></i>Đã duyệt</a>
+                                    </li>
                                     <li class="@if ( Request::is('admincp/courses/request-accept') ) active @endif">
                                         <a href="{{ url('/') }}/admincp/courses/request-accept"><i class="fa fa-minus"></i>Yêu cầu duyệt</a>
                                     </li>
