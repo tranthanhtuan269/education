@@ -262,12 +262,12 @@
                 var _self   = $(this);
                 var id      = $(this).attr('data-id');
                 var row = $(e.currentTarget).closest("tr");
-                Swal.fire({
-                    type: 'warning',
-                   text: 'Bạn có chắc chắn muốn xóa khóa học này?',
-                   showCancelButton: true,
-               }).then(result => {
-                   if(result.value){
+            //     Swal.fire({
+            //         type: 'warning',
+            //        text: 'Bạn có chắc chắn muốn xóa khóa học này?',
+            //        showCancelButton: true,
+            //    }).then(result => {
+            //        if(result.value){
                     $.ajaxSetup({
                             headers: {
                               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -285,10 +285,10 @@
                             },
                             success: function (response) {
                                 if(response.status == 200){
-                                    Swal.fire({
-                                        type: 'success',
-                                        text: response.message
-                                    })
+                                    // Swal.fire({
+                                    //     type: 'success',
+                                    //     text: response.message
+                                    // })
                                     dataTable.row( row ).remove().draw(true);
                                     dataTable.page( checkEmptyTable() ).draw( false );
                                 }else{
@@ -306,8 +306,8 @@
                                 }
                             }
                         });
-                   }
-               })
+            //        }
+            //    })
             });
         }
 
