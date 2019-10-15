@@ -69,10 +69,10 @@ class Teacher extends Model
     public static function getFeatureTeacher()
     {
         $arr_check =  Teacher::where('featured', 1);
-        if( isset($arr_check->first()->id) ){
+        if( $arr_check->count() > 0 ){
             $arr_check->where('featured_index','<>' ,0)
-                      ->where('status', 1)
-                      ->orderBy('featured_index', 'ASC');
+                    ->where('status', 1)
+                    ->orderBy('featured_index', 'ASC');
         }else{
             $arr_check = Teacher::where('status', 1)
                         ->whereHas('userRole', function ($query) {
