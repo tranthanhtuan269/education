@@ -295,13 +295,15 @@ class VideoController extends Controller
                 }
 
                 $remove_videos = TempVideo::where('video_id', $request->video_id)->first();
-                if ( $remove_videos->count() > 0 ){
+                if ( $remove_videos ){
                     if ( $remove_videos->link_video ){
                         if (file_exists(public_path('uploads/files/'.$remove_videos->url_document))) {
                             unlink(public_path('uploads/videos/'.$remove_videos->link_video));
                         }
                     }
                     $remove_videos->delete();
+                }else{
+                    return \Response::json(array('status' => '404', 'message' => 'Thao tác không thành công.'));
                 }
 
                 $video->state = Config::get('app.video_active');
@@ -951,7 +953,8 @@ class VideoController extends Controller
                     $video->name        = $temp_video->name;
                     $video->duration    = $temp_video->duration;
                     $video->description = $temp_video->description;
-                    $video->updated_at  = date('Y-m-d H:i:s');
+                    // $video->updated_at  = date('Y-m-d H:i:s');
+                    $video->state = \Config::get('app.video_active');
                     $video->save();
                     $temp_video->delete();
                     return response()->json([

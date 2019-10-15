@@ -103,7 +103,11 @@
                 data: "link_video",
                 class: "video-item",
                 render: function(data, type, row){
+                    if( data != null ){
                     return '<a class="btn-view mr-2 view-video"><i class="fa fa-video-camera fa-fw" aria-hidden="true"></i></a>';
+                    }else{
+                        return '<i class="fa fa-video-camera fa-fw" aria-hidden="true" style="color:gray"></i>';
+                    }
                 },
                 orderable: false
             },
