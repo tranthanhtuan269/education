@@ -565,6 +565,11 @@ class CourseController extends Controller
         $course = Course::find($request->course_id);
         if ( $course ){
             if ( $course->status == Config::get('app.course_active') ){
+                if ( $course->userRoles->first()->teacher ){
+                    if( $course->userRoles->first()->teacher->featured == 1 ){
+                        return \Response::json(array('status' => '404', 'message' => 'Không thể ngừng bán khóa học của giảng viên tiêu biểu.'));
+                    }
+                }
                 if ( $course->featured == 1 ){
                     return response()->json(array('status' => '404', 'message' => 'Không thể ngừng bán khóa học nổi bật.'));
                 }else{
