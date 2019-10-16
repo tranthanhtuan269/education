@@ -58,6 +58,7 @@ class HomeController extends Controller
         // Duong NT// feature courses
         $percent_feature_course = Setting::where('name', 'percent_feature_course')->first()->value;
         $feature_course = Course::where('status', 1)
+                                ->orderBy('featured', 'desc')
                                 ->orderBy('featured_index', 'asc')
                                 ->get(['id', 'name', 'slug', 'image', 'price', 'real_price', 'featured_index', 'featured']);
         $feature_course = $feature_course->filter(function ($value, $key) use ($percent_feature_course) {
