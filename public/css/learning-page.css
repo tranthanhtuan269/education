@@ -340,7 +340,9 @@ body{
     margin-bottom: 0;
     margin-top: 5px;
     font-weight: bold;
-    
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .ln-lect-list-body{
     font-size: 12px;
