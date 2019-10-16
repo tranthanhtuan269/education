@@ -116,7 +116,6 @@
 
 
     function addComment(){
-        $(this).attr('disabled', true)
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -139,6 +138,12 @@
                     type : "discussionComment",
                 },
                 dataType: "json",
+                beforeSend: function() {
+                    $('.btn').attr('disabled', 'disabled')
+                },
+                complete: function() {
+                    $('.btn').attr('disabled', false)
+                },
                 error: function (error) {
                     var obj_errors = error.responseJSON.errors;
                     var txt_errors = '';
@@ -195,13 +200,11 @@
                     $('.ln-disc-post-list').prepend(html);
                     discussEditor.setData("")
                 }
-                $(this).attr('disabled', false)
             });
         }
 
 
         request.fail(function( jqXHR, textStatus ) {
-            $(this).attr('disabled', false)
             return false;
         });
     }

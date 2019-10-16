@@ -77,7 +77,7 @@
                                                 <button class="ln-btn-complete " >
                                                     <span class="fa-stack">
                                                         <i class="fas fa-circle fa-stack-2x" style="color: rgb(200, 201, 202);"></i>
-                                                        <i class="fas fa-check fa-stack-1x" style="color: rgb(200, 201, 202)"></i>                         
+                                                        <i class="fas fa-check fa-stack-1x" style="color: rgb(200, 201, 202)" data-parent="{{$video->id}}" data-isstudent="{{$isStudent}}"></i>                         
                                                     </span>
                                                 </button>
                                             </span>

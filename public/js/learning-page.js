@@ -231,7 +231,8 @@ $(document).ready(function () {
     $("#btnCloseNotes").click(function (){
         toggleNotes()
     })
-    $(".video-list-item").click(function (e) {
+
+    $(".video-list-item, .fa-stack-1x").click(function (e) {
         e.stopImmediatePropagation()
         e.stopPropagation()
         e.preventDefault()

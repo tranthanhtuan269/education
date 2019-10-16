@@ -83,6 +83,12 @@
                     content: noteEditor.getData(),
                     timeTick: currentTime
                 },
+                beforeSend: function() {
+                    $('.btn').attr('disabled', 'disabled')
+                },
+                complete: function() {
+                    $('.btn').attr('disabled', false)
+                },
                 dataType: "json",
                 error: function (error) {
                     var obj_errors = error.responseJSON.errors;
