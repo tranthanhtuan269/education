@@ -329,7 +329,7 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                         <div class="info-course-sidebar hidden-md hidden-xs" style="position: relative;">
                             {{-- <div class="sidebar-content" style="position: fixed; top: 75px; width: 376.66px"> --}}
                             {{-- <div class="sidebar-fixed" id="sidebar-content"> --}}
-                            <div id="sidebar-content">
+                            <div id="sidebar-content" style="display:none">
                                 <div class="u-sm-left">
                                     <div class="block-price clearfix">
                                         <?php
@@ -422,8 +422,8 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                             $(document).ready(function() { 
                                 var block_on = $('#benefit-course').position().top + $('#benifit-first').height() + 62 //Padding
                                 var block_below = $('.instructors').position().top - $('#sidebar-content').height() - 32 - 60 //Padding
-                                if( block_on >= block_below + 20 ){
-                                    $('#sidebar-content').hide()
+                                if( block_on < block_below + 20 ){
+                                    $('#sidebar-content').css('display', 'block')
                                 }
                                 $(window).scroll(function() {
                                     var block_on = $('#benefit-course').position().top + $('#benifit-first').height() + 62 //Padding
