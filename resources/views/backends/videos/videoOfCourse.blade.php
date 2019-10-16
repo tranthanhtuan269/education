@@ -65,6 +65,18 @@
         </div>
     </div>
 </section>
+<style>
+    .comment{
+        margin-left: 40%;
+    }
+    .updated-field{
+        width: 45px;
+    }
+    .video-item, .action-field{
+        width: 40px;
+        text-align: center;
+    }
+</style>
 <script type="text/javascript">
     var dataTable           = null;
     var userCheckList       = [];
@@ -105,20 +117,17 @@
             },
             {
                 data: "updated_at",
-                class: "updated_at-field"
+                class: "updated-field"
             },
             { 
                 data: "action",
-                class: "text-center",
+                class: "action-field",
                 render: function(data, type, row){
                     var html = '';
                     @if (Helper::checkPermissions('videos.accept-video', $list_roles)) 
                         console.log(row);
                         if(row['state'] == 0){
-                            html += '<a class="btn-accept mr-2 inaccept-video" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Duyệt"> <i class="fa fa-check fa-fw"></i></a>';
-                        }
-                        if(row['state'] == 1){
-                            html += '<a class="btn-inaccept mr-2 inaccept-video" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Hủy"> <i class="fa fa-times fa-fw"></i></a>';
+                            html += '<a class="btn-accept mr-2 accept-video" data-id="'+data+'" title="Duyệt bài giảng"> <i class="fa fa-check fa-fw"></i></a>';
                         }
                     @endif
                     return html;
@@ -127,12 +136,12 @@
             },
             { 
                 data: "action",
-                class: "text-center",
+                class: "action-field",
                 render: function(data, type, row){
                     var html = '';
                     @if (Helper::checkPermissions('videos.delete', $list_roles)) 
-                        if (row['state'] == 3){
-                            html += '<a class="btn-delete" data-id="'+data+'" title="Xóa"><i class="fa fa-trash fa-fw" aria-hidden="true"></i></a>';
+                        if (row['state'] == 0){
+                            html += '<a class="delete-video" data-id="'+data+'" title="Xóa bài giảng"><i class="fa fa-trash fa-fw"></i></a>';
                         }
                     @endif
                     return html;
@@ -182,15 +191,16 @@
                         },
                         fnDrawCallback: function( oSettings ) {
                             addEventListener();
-                            checkCheckboxChecked();
                         },
                         createdRow: function( row, data, dataIndex){
-                            if(data['state'] == 1){
-                                $(row).addClass('blue-row');
-                            }else if(data['state'] == 3){
-                                $(row).addClass('yellow-row'); //đang convert ở background
-                            }else{
-                                $(row).addClass('red-row');
+                            if ( data['state'] == 0 ){
+                                $(row).addClass('btn-danger');
+                            }
+                            if ( data['state'] == 1 || data['state'] == 2 || data['state'] == 4 ){
+                                $(row).addClass('btn-success');
+                            }
+                            if ( data['state'] == 3 ){
+                                $(row).addClass('btn-warning');
                             }
                             // $(row).attr('data-cv', data['cv']);
                             $(row).attr('data-video', data['link_video']);
@@ -206,65 +216,6 @@
 
         $('#video-table').css('width', '100%');
 
-        //select all checkboxes
-        $("#select-all-btn").change(function(){  
-            $('.page table tbody input[type="checkbox"]').prop('checked', $(this).prop("checked"));
-            // save localstore
-            setCheckboxChecked();
-        });
-
-        $('body').on('click', '.page table tbody input[type="checkbox"]', function() {
-            if(false == $(this).prop("checked")){
-                $("#select-all-btn").prop('checked', false); 
-            }
-            if ($('.page table tbody input[type="checkbox"]:checked').length == $('.page table tbody input[type="checkbox"]').length ){
-                $("#select-all-btn").prop('checked', true);
-            }
-
-            // save localstore
-            setCheckboxChecked();
-        });
-
-        function setCheckboxChecked(){
-            userCheckList = [];
-            $.each($('.check-video'), function( index, value ) {
-                if($(this).prop('checked')){
-                    userCheckList.push($(this).val());
-                }
-            });
-        }
-
-        function checkCheckboxChecked(){
-            var count_row = 0;
-            var listUser = $('.check-video');
-            if(listUser.length > 0){
-                $.each(listUser, function( index, value ) {
-                    if(containsObject($(this).val(), userCheckList)){
-                        $(this).prop('checked', 'true');
-                        count_row++;
-                    }
-                });
-
-                if(count_row == listUser.length){
-                    $('#select-all-btn').prop('checked', true);
-                }else{
-                    $('#select-all-btn').prop('checked', false);
-                }
-            }else{
-                $('#select-all-btn').prop('checked', false);
-            }
-        }
-
-        function containsObject(obj, list) {
-            var i;
-            for (i = 0; i < list.length; i++) {
-                if (list[i] === obj) {
-                    return true;
-                }
-            }
-            return false;
-        }
-
         $('#showVideoIntroModal').on('hide.bs.modal', function () {
             $("#video-view").attr('src', '')
         })
@@ -278,16 +229,14 @@
                 $("#video-view").attr('src', `http://45.56.82.249/uploads/videos/${curr_video_intro}`)
             })
 
-            $('.btn-accept').off('click')
-            $('.btn-accept').click(function(){
+            $('.accept-video').off('click')
+            $('.accept-video').click(function(){
                 var _self   = $(this);
                 var id      = $(this).attr('data-id');
-                var state  = 0;
-                var message = "Bạn có chắc chắn muốn duyệt?";
               
                 Swal.fire({
                     type: 'warning',
-                    text: message,
+                    text: 'Bạn có chắc chắn muốn duyệt bài giảng này?',
                     showCancelButton: true,
                 }).then(result => {
                     if(result.value){
@@ -333,72 +282,16 @@
                         });
                     }
                 })
-            });
+            })
 
-            $('.btn-inaccept').off('click')
-            $('.btn-inaccept').click(function(){
-                var _self   = $(this);
-                var id      = $(this).attr('data-id');
-                var state  = 0;
-                var message = "Bạn có chắc chắn muốn hủy duyệt?";
-                Swal.fire({
-                    type: 'warning',
-                    text: message,
-                    showCancelButton: true,
-                }).then(result => {
-                    if(result.value){
-                        $.ajaxSetup({
-                            headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            }
-                        });
-                        $.ajax({
-                            url: baseURL+"/admincp/videos/accept",
-                            data: {
-                                video_id : id,
-                                state : 0
-                            },
-                            method: "PUT",
-                            dataType:'json',
-                            beforeSend: function(r, a){
-                                current_page = dataTable.page.info().page;
-                            },
-                            success: function (response) {
-                                if(response.status == 200){
-                                    dataTable.ajax.reload();
-
-                                    Swal.fire({
-                                        type: 'success',
-                                        text: response.message
-                                    })
-
-                                }else{
-                                    Swal.fire({
-                                        type: 'warning',
-                                        html: response.message
-                                    })
-                                }
-                            },
-                            error: function (data) {
-                                if(data.status == 401){
-                                window.location.replace(baseURL);
-                                }else{
-                                $().toastmessage('showErrorToast', errorConnect);
-                                }
-                            }
-                        });
-                    }
-                })
-            });
-
-            $('.btn-delete').off('click')
-            $('.btn-delete').click(function(e){
+            $('.delete-video').off('click')
+            $('.delete-video').click(function(e){
                 var _self   = $(this);
                 var id      = $(this).attr('data-id');
                 var row = $(e.currentTarget).closest("tr");
                 Swal.fire({
                     type: 'warning',
-                    text: 'Bạn có chắc chắn muốn xóa ?',
+                    text: 'Bạn có chắc chắn muốn xóa video?',
                     showCancelButton: true,
                 }).then(result => {
                     if(result.value){
@@ -408,7 +301,7 @@
                             }
                         });
                         $.ajax({
-                            url: baseURL+"/admincp/videos/delete",
+                            url: baseURL+"/admincp/delete-request-accept-video",
                             data: {
                                 video_id : id
                             },
@@ -442,7 +335,7 @@
                         });
                     }
                 })
-            });
+            })
         }
 
         function checkEmptyTable(){

@@ -571,7 +571,7 @@ class VideoController extends Controller
         FROM videos
         JOIN units ON units.id = videos.unit_id
         JOIN courses ON courses.id = units.course_id
-        WHERE videos.state IN (0,1,3)
+        WHERE videos.state IN (0,1,2,3,4)
         ";
         $videos = \DB::select($sql);
         return datatables()->collection(collect($videos))
