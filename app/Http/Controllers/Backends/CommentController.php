@@ -142,4 +142,28 @@ class CommentController extends Controller
         }
         return \Response::json(array('status' => '404', 'message' => 'Comment không tồn tại!'));
     }
+
+    public function deleteCommentVideo(Request $request)
+    {
+       $comment = CommentVideo::find($request->id);
+
+       if( $comment ){
+           if( $comment->parent_id != 0 ){
+               $comment->delete();
+               return \Response::json(['message' => 'Xóa phản hồi bài giảng thành công.', 'status' => 200]);
+           }else{
+               $child_comments = CommentVideo::where('parent_id', $comment->id)->get();
+               
+               if( $child_comments ){
+                   foreach( $child_comments as $child_comment ){
+                       $child_comment->delete();
+                   }
+                   $comment->delete();
+                   return \Response::json(['message' => 'Xóa phản hồi bài giảng thành công.', 'status' => 200]);
+               }
+               return \Response::json(['message' => 'Xóa phản hồi bài giảng thành công.', 'status' => 200]);
+           }
+       }
+       return \Response::json(['message' => 'Không tìm thấy.', 'status' => 404]);
+   }
 }
