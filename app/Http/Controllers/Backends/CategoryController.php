@@ -118,7 +118,12 @@ class CategoryController extends Controller
 
     public function getFeaturedCategoryAjax()
     {
-        $categories = Category::where('parent_id', '<>', 0)->orderBy('id', 'DESC')->get();
+        $categories = Category::where('parent_id', '<>', 0)
+                    ->whereHas('courses', function ($query) {
+                        $query->where('status', 1);
+                    })
+                    ->orderBy('id', 'DESC')
+                    ->get();
         return datatables()->collection($categories)
             ->addColumn('action', function ($category) {
                 return $category->id;

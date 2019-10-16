@@ -86,7 +86,7 @@ $(document).ready(function() {
         columns: dataObject,
         bLengthChange: true,
         pageLength: 10,
-        order: [[ 0, "DESC" ]],
+        // order: [[ 0, "DESC" ]],
         colReorder: {
             fixedColumnsRight: 1,
             fixedColumnsLeft: 1
