@@ -307,9 +307,9 @@ $(document).ready(function () {
 
         $("video").bind("click", function () {
             if ($(".vjs-play-control").hasClass("vjs-paused")) {
-                $(".vjs-custom-big-play-button").fadeIn()
-            } else {
                 $(".vjs-custom-big-play-button").fadeOut()
+            } else {
+                $(".vjs-custom-big-play-button").fadeIn()
             }
         })
     }
