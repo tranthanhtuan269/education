@@ -223,6 +223,12 @@
                     type : "discussionComment",
                     parentId : parentId,
                 },
+                beforeSend: function() {
+                    $(".ajax_waiting").addClass("loading");
+                },
+                complete: function() {
+                    $(".ajax_waiting").removeClass("loading");
+                },
                 dataType: "json",
                 error: function (error) {
                     var obj_errors = error.responseJSON.errors;
