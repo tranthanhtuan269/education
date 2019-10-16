@@ -52,6 +52,7 @@
     .cke_top, .cke_contents, .cke_bottom{
         display: block;
         overflow: hidden;
+        width: auto;
     }
 </style>
 <script>

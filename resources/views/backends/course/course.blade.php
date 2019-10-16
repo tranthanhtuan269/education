@@ -37,7 +37,7 @@
                             <th csope="col">Giá giảm</th>
                             <th scope="col">Cập nhật</th>
                             <th scope="col">Mô tả</th>
-                            <th scope="col">Thao tác</th>
+                            {{-- <th scope="col">Thao tác</th> --}}
                         </tr>
                     </thead>
                     <tbody>
@@ -227,32 +227,32 @@
                 },
                 orderable: false
             },
-            {
-                data: "action",
-                class: "action-field",
-                render: function(data, type, row){
-                    var html = '';
+            // {
+            //     data: "action",
+            //     class: "action-field",
+            //     render: function(data, type, row){
+            //         var html = '';
                     
-                    // @if (Helper::checkPermissions('courses.view', $list_roles)) 
-                        // html += '<a class="btn-view mr-2 view-description" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Xem"> <i class="fa fa-eye fa-fw"></i></a>';
-                    // @endif
+            //         // @if (Helper::checkPermissions('courses.view', $list_roles)) 
+            //             // html += '<a class="btn-view mr-2 view-description" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Xem"> <i class="fa fa-eye fa-fw"></i></a>';
+            //         // @endif
                     
-                    @if (Helper::checkPermissions('courses.accept-course', $list_roles)) 
-                        if(row['status'] == 1){
-                            html += '<a class="btn-accept mr-2 accept-course" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Hủy"> <i class="fa fa-times fa-fw"></i></a>';
-                        }else{
-                            html += '<a class="btn-accept mr-2 accept-course" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Duyệt"> <i class="fa fa-check fa-fw"></i></a>';
-                        }
-                    @endif
+            //         @if (Helper::checkPermissions('courses.accept-course', $list_roles)) 
+            //             if(row['status'] == 1){
+            //                 html += '<a class="btn-accept mr-2 accept-course" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Hủy"> <i class="fa fa-times fa-fw"></i></a>';
+            //             }else{
+            //                 html += '<a class="btn-accept mr-2 accept-course" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Duyệt"> <i class="fa fa-check fa-fw"></i></a>';
+            //             }
+            //         @endif
 
-                    // @if (Helper::checkPermissions('courses.delete', $list_roles)) 
-                    //     html += '<a class="btn-delete" data-id="'+data+'" title="Xóa"><i class="fa fa-trash fa-fw" aria-hidden="true"></i></a>';
-                    // @endif
+            //         // @if (Helper::checkPermissions('courses.delete', $list_roles)) 
+            //         //     html += '<a class="btn-delete" data-id="'+data+'" title="Xóa"><i class="fa fa-trash fa-fw" aria-hidden="true"></i></a>';
+            //         // @endif
 
-                    return '';
-                },
-                orderable: false
-            },
+            //         return '';
+            //     },
+            //     orderable: false
+            // },
         ];
 
         dataTable = $('#course-table').DataTable( {
