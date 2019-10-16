@@ -224,10 +224,10 @@
                     parentId : parentId,
                 },
                 beforeSend: function() {
-                    $(".ajax_waiting").addClass("loading");
+                    $('.btn-default').attr('disabled', 'disabled')
                 },
                 complete: function() {
-                    $(".ajax_waiting").removeClass("loading");
+                    $('.btn-default').attr('disabled', false)
                 },
                 dataType: "json",
                 error: function (error) {
