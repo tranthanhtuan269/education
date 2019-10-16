@@ -115,7 +115,7 @@
                 data: "link_video",
                 class: "text-center",
                 render: function(data, type, row){
-                    return '<a class="btn-view mr-2 view-video"><i class="fa fa-video-camera fa-fw" aria-hidden="true"></i></a>';
+                    return '<a class="btn-view mr-2 view-video"><i class="fa fa-video-camera fa-fw" aria-hidden="true" title="Xem video"></i></a>';
                 },
                 orderable: false
             },
@@ -205,12 +205,14 @@
                         },
                         createdRow: function( row, data, dataIndex){
 
-                            if(data['state'] == 1){
+                            if( data['state'] == 1 || data['state'] == 2 || data['state'] == 4 ){
                                 $(row).addClass('btn-success');
-                            }else if(data['state'] == 3){
+                            }
+                            if(data['state'] == 3){
                                 $(row).addClass('btn-warning'); //đang convert ở background
                                 $(row).children('td').children(`a[data-id=${data.action}]`).hide()
-                            }else{
+                            }
+                            if( data['state'] == 0 ){
                                 $(row).addClass('btn-danger');
                             }
                             // $(row).attr('data-cv', data['cv']);

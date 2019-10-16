@@ -324,7 +324,7 @@
                         });
                     }
                 })
-            });
+            })
         }
 
         function checkEmptyTable(){

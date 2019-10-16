@@ -271,12 +271,13 @@ class CourseController extends Controller
                                                 ->join('videos', 'videos.unit_id', '=', 'units.id')
                                                 ->select('units.id')
                                                 ->where('courses.id', $request->course_id)
-                                                ->where('videos.state', 1)
+                                                ->whereIn('videos.state', [1,2,4])
                                                 ->count();
                     $count_course_pending = Course::join('units', 'units.course_id', '=', 'courses.id')
                                                 ->join('videos', 'videos.unit_id', '=', 'units.id')
                                                 ->select('units.id')
                                                 ->where('courses.id', $request->course_id)
+                                                ->whereIn('videos.state', [0,1,2,3,4])
                                                 ->count();
                     $count_course_convert = Course::join('units', 'units.course_id', '=', 'courses.id')
                                                 ->join('videos', 'videos.unit_id', '=', 'units.id')
@@ -284,13 +285,19 @@ class CourseController extends Controller
                                                 ->where('courses.id', $request->course_id)
                                                 ->where('videos.state', 3)
                                                 ->count();
+                    $count_course_request = Course::join('units', 'units.course_id', '=', 'courses.id')
+                                                ->join('videos', 'videos.unit_id', '=', 'units.id')
+                                                ->select('units.id')
+                                                ->where('courses.id', $request->course_id)
+                                                ->where('videos.state', 0)
+                                                ->count();
                     if ($count_course_active == $count_course_pending) {
                         $course->save();
                         $res = array('status' => "200", "message" => "Duyệt thành công");
-                    } else if($count_course_convert > 0){
-                        $res = array('status' => "404", "message" => "Các bài giảng đang convert, vui lòng quay lại phê duyệt khi convert thành công. Xem chi tiết tại <a href='".url('admincp/videos?search='.$course->name)."&course_id=".$course->id."' target='_blank'>đây</a>.");
+                    } else if($count_course_request > 0){
+                        $res = array('status' => "404", "message" => "Vẫn còn bài giảng trong khóa học chưa được duyệt, xin vui lòng kiểm tra lại tại <a href='".url('admincp/videos?course_id='.$course->id)."' target='_blank'>đây</a>");
                     } else{
-                        $res = array('status' => "404", "message" => "Vẫn còn bài giảng trong khóa học chưa được duyệt, xin vui lòng kiểm tra lại tại <a href='".url('admincp/videos?search='.$course->name)."&course_id=".$course->id."' target='_blank'>đây</a>");
+                        $res = array('status' => "404", "message" => "Các bài giảng đang convert, vui lòng quay lại phê duyệt sau khi convert thành công. Xem chi tiết tại <a href='".url('admincp/videos?course_id='.$course->id)."' target='_blank'>đây</a>.");
                     }
 
                 } else {
@@ -307,7 +314,7 @@ class CourseController extends Controller
             }
         }
         
-        $res = array('status' => "401", "message" => 'Người dùng không tồn tại.');
+        $res = array('status' => "401", "message" => 'Thao tác không thành công.');
         echo json_encode($res);die;
     }
 
