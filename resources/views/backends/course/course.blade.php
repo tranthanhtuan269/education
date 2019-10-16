@@ -16,6 +16,11 @@
 </section>
 <section class="content page">
     <h1 class="text-center font-weight-600">Danh sách khóa học</h1>
+    <div class="comment">
+        <div class=""><button class="btn btn-success"></button> Khoá học đang được bán</div>
+        <div class=""><button class="btn btn-warning"></button> Khóa học đã ngừng bán </div>
+        <div class=""><button class="btn btn-danger"></button> Khoá học chưa được duyệt</div>
+    </div>
     <div class="row">
         <div class="col-md-12">
             <div class="table-responsive">
@@ -31,6 +36,7 @@
                             <th csope="col">Giá gốc</th>
                             <th csope="col">Giá giảm</th>
                             <th scope="col">Cập nhật</th>
+                            <th scope="col">Mô tả</th>
                             <th scope="col">Thao tác</th>
                         </tr>
                     </thead>
@@ -96,6 +102,26 @@
         </div>
     </div> -->
 </section>
+<style>
+    .comment{
+        margin-left: 40%;
+    }
+    .name-field{
+        width: 220px;
+    }
+    .short-description-field{
+        /* width: 300px; */
+    }
+    .price-field{
+        width: 50px;
+    }
+    .updated-field{
+        width: 45px;
+    }
+    .action-field{
+        width: 40px;
+    }
+</style>
 <script type="text/javascript">
     var dataTable           = null;
     var userCheckList       = [];
@@ -159,6 +185,7 @@
             // },
             {
                 data:"real_price",
+                class: "price-field",
                 render: function(data, type, row){
                     if(type == "display"){
                         var html = '';
@@ -172,6 +199,7 @@
             },
             {
                 data:"price",
+                class: "price-field",
                 render: function(data, type, row){
                     if(type == "display"){
                         var html = '';
@@ -184,7 +212,20 @@
                 }
             },
             {
-                data: "updated_at"
+                data: "updated_at",
+                class: "updated-field",
+            },
+            {
+                data: "action",
+                class: "action-field",
+                render: function(data, type, row){
+                    var html = '';
+                    @if (Helper::checkPermissions('courses.view', $list_roles)) 
+                        html += '<a class="btn-view mr-2 view-description" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Xem"> <i class="fa fa-eye fa-fw"></i></a>';
+                    @endif
+                    return html;
+                },
+                orderable: false
             },
             {
                 data: "action",
@@ -192,9 +233,9 @@
                 render: function(data, type, row){
                     var html = '';
                     
-                    @if (Helper::checkPermissions('courses.view', $list_roles)) 
-                        html += '<a class="btn-view mr-2 view-description" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Xem"> <i class="fa fa-eye fa-fw"></i></a>';
-                    @endif
+                    // @if (Helper::checkPermissions('courses.view', $list_roles)) 
+                        // html += '<a class="btn-view mr-2 view-description" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Xem"> <i class="fa fa-eye fa-fw"></i></a>';
+                    // @endif
                     
                     @if (Helper::checkPermissions('courses.accept-course', $list_roles)) 
                         if(row['status'] == 1){
@@ -202,14 +243,13 @@
                         }else{
                             html += '<a class="btn-accept mr-2 accept-course" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Duyệt"> <i class="fa fa-check fa-fw"></i></a>';
                         }
-                        
                     @endif
 
                     // @if (Helper::checkPermissions('courses.delete', $list_roles)) 
                     //     html += '<a class="btn-delete" data-id="'+data+'" title="Xóa"><i class="fa fa-trash fa-fw" aria-hidden="true"></i></a>';
                     // @endif
 
-                    return html;
+                    return '';
                 },
                 orderable: false
             },
@@ -231,7 +271,7 @@
                         columns: dataObject,
                         bLengthChange: true,
                         pageLength: 10,
-                        order: [[ 5, "desc" ]],
+                        order: [[ 4, "desc" ]],
                         colReorder: {
                             fixedColumnsRight: 1,
                             fixedColumnsLeft: 1
@@ -261,9 +301,13 @@
                         },
                         createdRow: function( row, data, dataIndex){
                             if(data['status'] == 1){
-                                $(row).addClass('blue-row');
-                            }else{
-                                $(row).addClass('red-row');
+                                $(row).addClass('btn-success');
+                            }
+                            if(data['status'] == 0){
+                                $(row).addClass('btn-danger');
+                            }
+                            if(data['status'] == -1){
+                                $(row).addClass('btn-warning');
                             }
                             
                             $(row).attr('data-description', data['description']);

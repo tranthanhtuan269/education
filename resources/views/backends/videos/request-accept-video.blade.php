@@ -4,27 +4,16 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.16/datatables.min.css"/>
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.16/datatables.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.16/api/fnReloadAjax.js"></script>
-<!-- Include the plugin's CSS and JS: -->
-<script type="text/javascript" src="{{ url('/') }}/backend/js/bootstrap-multiselect.js"></script>
-<link rel="stylesheet" href="{{ url('/') }}/backend/css/bootstrap-multiselect.css" type="text/css"/>
-
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 <section class="content-header">
 
 </section>
 <section class="content page">
-    <h1 class="text-center font-weight-600">Danh sách bài giảng</h1>
-    <div class="comment">
-        <div class="lecturer-status"><button class="btn btn-success"></button> Bài giảng đã được duyệt</div>
-        <div class="lecturer-status"><button class="btn btn-warning"></button> Bài giảng đang convert </div>
-        <div class="lecturer-status"><button class="btn btn-danger"></button> Bài giảng chưa được duyệt </div>
-    </div>
+    <h1 class="text-center font-weight-600">Yêu cầu duyệt bài giảng</h1>
     <div class="row">
         <div class="col-md-12">
             <div class="table-responsive">
-                <table class="table table-bordered" id="video-table">
+                <table class="table table-bordered" id="requestAcceptVideoTable">
                     <thead class="thead-custom">
                         <tr>
                             <th scope="col">Bài giảng</th>
@@ -71,10 +60,7 @@
     </div>
 </section>
 <style>
-    .comment{
-        margin-left: 40%;
-    }
-    .updated-field{
+    .updated-time{
         width: 45px;
     }
     .action-field{
@@ -109,7 +95,6 @@
             {
                 data: "name",
                 class: "name-field",
-                orderable: false
             },
             {
                 data: "link_video",
@@ -121,12 +106,18 @@
             },
             {
                 data: "course_name",
-                class: "course_name-field",
-                orderable: false
+                render: function(data, type, row){
+                    if(type == "display"){
+                        var html = '';
+                        html += '<a class="color-white" href="/course/'+row.course_id+'/'+row.course_slug+'" target="_blank"><b>'+data+'</b></a>';
+                        return html;
+                    }
+                    return data;
+                }
             },
             {
                 data: "updated_at",
-                class: "updated-field"
+                class: "updated-time"
             },
             {
                 data: "action",
@@ -135,13 +126,10 @@
                     var html = '';
                     @if (Helper::checkPermissions('videos.accept-video', $list_roles))
                         if(row['state'] == 0){
-                            html += '<a class="btn-accept mr-2 inaccept-video" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Duyệt"> <i class="fa fa-check fa-fw"></i></a>';
-                        }
-                        if(row['state'] == 1){
-                            html += '<a class="btn-inaccept mr-2 inaccept-video" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Hủy"> <i class="fa fa-times fa-fw"></i></a>';
+                            html += '<a class="btn-accept mr-2 accept-video" data-id="'+data+'" title="Duyệt bài giảng"><i class="fa fa-check fa-fw"></i></a>';
                         }
                     @endif
-                    return '';
+                    return html;
                 },
                 orderable: false
             },
@@ -151,17 +139,17 @@
                 render: function(data, type, row){
                     var html = '';
                     @if (Helper::checkPermissions('videos.delete', $list_roles)) 
-                        if (row['state'] == 3){
-                            html += '<a class="btn-delete" data-id="'+data+'" title="Xóa"><i class="fa fa-trash fa-fw" aria-hidden="true"></i></a>';
+                        if (row['state'] == 0){
+                            html += '<a class="btn-delete mr-2 delete-video" data-id="'+data+'" title="Xóa bài giảng"><i class="fa fa-trash fa-fw"></i></a>';
                         }
                     @endif
-                    return '';
+                    return html;
                 },
                 orderable: false
             },
         ];
 
-        dataTable = $('#video-table').DataTable( {
+        dataTable = $('#requestAcceptVideoTable').DataTable( {
                         serverSide: false,
                         aaSorting: [],
                         stateSave: true,
@@ -169,7 +157,7 @@
                             smart: false
                         },
                         ajax: {
-                            url: "{{ url('/') }}/admincp/videos/getVideoAjax",
+                            url: "{{ url('/') }}/admincp/get-request-accept-videos",
                             beforeSend: function() {
                                 $(".ajax_waiting").addClass("loading");
                             }
@@ -201,19 +189,12 @@
                         },
                         fnDrawCallback: function( oSettings ) {
                             addEventListener();
-                            checkCheckboxChecked();
                         },
                         createdRow: function( row, data, dataIndex){
 
-                            if(data['state'] == 1){
-                                $(row).addClass('btn-success');
-                            }else if(data['state'] == 3){
-                                $(row).addClass('btn-warning'); //đang convert ở background
-                                $(row).children('td').children(`a[data-id=${data.action}]`).hide()
-                            }else{
+                            if(data['state'] == 0){
                                 $(row).addClass('btn-danger');
                             }
-                            // $(row).attr('data-cv', data['cv']);
                             $(row).attr('data-video', data['link_video']);
                         }
                     });
@@ -226,70 +207,7 @@
             dataTable.search( "" ).draw();
         }
 
-        $('#video-table').css('width', '100%');
-
-        //select all checkboxes
-        $("#select-all-btn").change(function(){
-            $('.page table tbody input[type="checkbox"]').prop('checked', $(this).prop("checked"));
-            // save localstore
-            setCheckboxChecked();
-        });
-
-        $('body').on('click', '.page table tbody input[type="checkbox"]', function() {
-            if(false == $(this).prop("checked")){
-                $("#select-all-btn").prop('checked', false);
-            }
-            if ($('.page table tbody input[type="checkbox"]:checked').length == $('.page table tbody input[type="checkbox"]').length ){
-                $("#select-all-btn").prop('checked', true);
-            }
-
-            // save localstore
-            setCheckboxChecked();
-        });
-
-        function setCheckboxChecked(){
-            userCheckList = [];
-            $.each($('.check-video'), function( index, value ) {
-                if($(this).prop('checked')){
-                    userCheckList.push($(this).val());
-                }
-            });
-        }
-
-        function checkCheckboxChecked(){
-            var count_row = 0;
-            var listUser = $('.check-video');
-            if(listUser.length > 0){
-                $.each(listUser, function( index, value ) {
-                    if(containsObject($(this).val(), userCheckList)){
-                        $(this).prop('checked', 'true');
-                        count_row++;
-                    }
-                });
-
-                if(count_row == listUser.length){
-                    $('#select-all-btn').prop('checked', true);
-                }else{
-                    $('#select-all-btn').prop('checked', false);
-                }
-            }else{
-                $('#select-all-btn').prop('checked', false);
-            }
-        }
-
-        function containsObject(obj, list) {
-            var i;
-            for (i = 0; i < list.length; i++) {
-                if (list[i] === obj) {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        $('#showVideoIntroModal').on('hide.bs.modal', function () {
-            $("#video-view").attr('src', '')
-        })
+        $('#requestAcceptVideoTable').css('width', '100%');
 
         function addEventListener(){
             $('.view-video').off('click')
@@ -300,16 +218,14 @@
                 $("#video-view").attr('src', `http://45.56.82.249/uploads/videos/${curr_video_intro}`)
             })
 
-            $('.btn-accept').off('click')
-            $('.btn-accept').click(function(){
+            $('.accept-video').off('click')
+            $('.accept-video').click(function(){
                 var _self   = $(this);
                 var id      = $(this).attr('data-id');
-                var state  = 0;
-                var message = "Bạn có chắc chắn muốn duyệt?";
               
                 Swal.fire({
                     type: 'warning',
-                    text: message,
+                    text: 'Bạn có chắc chắn muốn duyệt bài giảng này?',
                     showCancelButton: true,
                 }).then(result => {
                     if(result.value){
@@ -355,72 +271,16 @@
                         });
                     }
                 })
-            });
+            })
 
-            $('.btn-inaccept').off('click')
-            $('.btn-inaccept').click(function(){
-                var _self   = $(this);
-                var id      = $(this).attr('data-id');
-                var state  = 0;
-                var message = "Bạn có chắc chắn muốn hủy duyệt?";
-                Swal.fire({
-                    type: 'warning',
-                    text: message,
-                    showCancelButton: true,
-                }).then(result => {
-                    if(result.value){
-                        $.ajaxSetup({
-                            headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            }
-                        });
-                        $.ajax({
-                            url: baseURL+"/admincp/videos/accept",
-                            data: {
-                                video_id : id,
-                                state : 0
-                            },
-                            method: "PUT",
-                            dataType:'json',
-                            beforeSend: function(r, a){
-                                current_page = dataTable.page.info().page;
-                            },
-                            success: function (response) {
-                                if(response.status == 200){
-                                    dataTable.ajax.reload();
-
-                                    Swal.fire({
-                                        type: 'success',
-                                        text: response.message
-                                    })
-
-                                }else{
-                                    Swal.fire({
-                                        type: 'warning',
-                                        html: response.message
-                                    })
-                                }
-                            },
-                            error: function (data) {
-                                if(data.status == 401){
-                                window.location.replace(baseURL);
-                                }else{
-                                $().toastmessage('showErrorToast', errorConnect);
-                                }
-                            }
-                        });
-                    }
-                })
-            });
-
-            $('.btn-delete').off('click')
-            $('.btn-delete').click(function(e){
+            $('.delete-video').off('click')
+            $('.delete-video').click(function(e){
                 var _self   = $(this);
                 var id      = $(this).attr('data-id');
                 var row = $(e.currentTarget).closest("tr");
                 Swal.fire({
                     type: 'warning',
-                    text: 'Bạn có chắc chắn muốn xóa video bạn chọn?',
+                    text: 'Bạn có chắc chắn muốn xóa video?',
                     showCancelButton: true,
                 }).then(result => {
                     if(result.value){
@@ -430,7 +290,7 @@
                             }
                         });
                         $.ajax({
-                            url: baseURL+"/admincp/videos/delete",
+                            url: baseURL+"/admincp/delete-request-accept-video",
                             data: {
                                 video_id : id
                             },
@@ -468,7 +328,7 @@
         }
 
         function checkEmptyTable(){
-            if ($('#video-table tr').length <= 1 && current_page > 0) {
+            if ($('#requestAcceptVideoTable tr').length <= 1 && current_page > 0) {
                 current_page = current_page - 1;
             }
             return current_page;

@@ -592,12 +592,19 @@ class VideoController extends Controller
                 $user_roles_teacher = $course->Lecturers()->first();
                 if($user_roles_teacher){
                     $user = $user_roles_teacher->user;
-                    $isTeacher = $user->isTeacher();
-                    if(!$isTeacher){
-                    return response()->json([
-                        'status' => 300,
-                        "message"=> "Giảng viên chưa được duyệt. Vui lòng kiểm tra tại <a href='".url('admincp/teachers?teacher_id='.$user_roles_teacher->teacher->id)."' target='_blank'>đây</a>!"
-                    ]);
+                    if ( $user ){
+                        $isTeacher = $user->isTeacher();
+                        if(!$isTeacher){
+                            return response()->json([
+                                'status' => 300,
+                                "message"=> "Giảng viên chưa được duyệt. Vui lòng kiểm tra tại <a href='".url('admincp/teachers?teacher_id='.$user_roles_teacher->teacher->id)."' target='_blank'>đây</a>!"
+                            ]);
+                        }
+                    }else{
+                        return response()->json([
+                            'status' => 301,
+                            "message"=> "Giảng viên đã bị xóa hoặc đang được cập nhật."
+                        ]);
                     }
                 }
                 if ($request->state == 3) { //state = 3 đang đợi convert trong hàng đợi
@@ -624,7 +631,7 @@ class VideoController extends Controller
                     dispatch(new ProcessLecture($path_480, $request->video_id, $video->link_video, 480));
                     dispatch(new ProcessLecture($path_360, $request->video_id, $video->link_video, 360));
 
-                    $res = array('status' => "200", "message" => "Bài giảng đang được convert");
+                    $res = array('status' => "200", "message" => "Duyệt thành công. Bài giảng đang được convert");
                 } else {
                     // BaTV - Nếu hủy bất kỳ video nào trong khóa học đó =>  Khóa học tương ứng sẽ hủy theo
 
@@ -806,8 +813,13 @@ class VideoController extends Controller
             if ( $video->state == Config::get('app.video_waiting_to_delete') ){
 
                 // Sap xep lai user_courses->videos
-                $course = $video->unit->course;
-                Helper::reBuildJsonWhenCreateOrDeleteLecture($course->id, $video->id, $flag = 0);
+                $unit = $video->unit;
+                if ( $unit ){
+                    $course = $unit->course;
+                    if ( $course ){
+                        Helper::reBuildJsonWhenCreateOrDeleteLecture($course->id, $video->id, $flag = 0);
+                    }
+                }
                 
                 $video->state       = Config::get('app.video_in_trash');
                 $video->updated_at  = date('Y-m-d H:i:s');
@@ -1082,5 +1094,70 @@ class VideoController extends Controller
             'status' => '200',
             'message' => 'Xoá video bài giảng thành công.'
         ]);
+    }
+
+    public function getRequestAcceptVideo()
+    {
+        return view('backends.videos.request-accept-video');
+    }
+
+    public function getRequestAcceptVideoAjax()
+    {
+        $sql = "SELECT videos.id, videos.state, videos.name, videos.link_video, videos.updated_at, courses.name as course_name, courses.id as course_id, courses.slug as course_slug
+        FROM videos
+        JOIN units ON units.id = videos.unit_id
+        JOIN courses ON courses.id = units.course_id
+        WHERE videos.state = 0
+        ";
+        $videos = \DB::select($sql);
+        return datatables()->collection(collect($videos))
+            ->addColumn('action', function ($video) {
+                return $video->id;
+            })
+            ->removeColumn('id')->make(true);
+    }
+
+    public function deleteRequestAcceptVideo(Request $request)
+    {
+        $video = Video::find($request->video_id);
+        if ($video) {
+            if ( $video->state == 0 ){
+
+                // Delete documents
+                $documents = Document::where('video_id', $video->id)->get();
+                if ( $documents->count() > 0 ){
+                    foreach ($documents as $key => $document) {
+                        if (file_exists(public_path('uploads/files/'.$document->url_document))) {
+                            unlink(public_path('uploads/files/'.$document->url_document));
+                        }
+                        $document->delete();
+                    }
+                }
+
+                // Delete Video
+                if( isset($video->link_video) ){
+                    $path_video_origin = public_path('/uploads/videos/').$video->link_video;
+                    if(\File::exists($path_video_origin)){
+                        unlink($path_video_origin);
+                    }
+                }
+                
+                // Resort UserCourse
+                $unit = $video->unit;
+                if ( $unit ){
+                    $course = $unit->course;
+                    if ( $course ){
+                        Helper::reBuildJsonWhenCreateOrDeleteLecture($course->id, $video->id, $flag = 0);
+                    }
+                }
+
+                $video->delete();
+
+                $res = array('status' => "200", "message" => "Xóa bài giảng thành công.");
+                echo json_encode($res);die;
+            }
+        }
+        $res = array('status' => "404", "message" => 'Thao tác không thành công.');
+        echo json_encode($res);die;
     }
 }
