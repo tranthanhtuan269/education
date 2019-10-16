@@ -565,9 +565,13 @@ class CourseController extends Controller
         $course = Course::find($request->course_id);
         if ( $course ){
             if ( $course->status == Config::get('app.course_active') ){
-                $course->status = Config::get('app.course_stop_selling');
-                $course->save();
-                return response()->json(array('status' => '200', 'message' => 'Khóa học của bạn đã được ngừng bán.'));
+                if ( $course->featured == 1 ){
+                    return response()->json(array('status' => '404', 'message' => 'Không thể ngừng bán khóa học nổi bật.'));
+                }else{
+                    $course->status = Config::get('app.course_stop_selling');
+                    $course->save();
+                    return response()->json(array('status' => '200', 'message' => 'Khóa học của bạn đã được ngừng bán.'));
+                }
             }
             if ( $course->status == Config::get('app.course_stop_selling') ){
                 $course->status = Config::get('app.course_active');
