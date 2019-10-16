@@ -116,6 +116,7 @@
 
 
     function addComment(){
+        $(this).attr('disabled', true)
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -194,11 +195,13 @@
                     $('.ln-disc-post-list').prepend(html);
                     discussEditor.setData("")
                 }
+                $(this).attr('disabled', false)
             });
         }
 
 
         request.fail(function( jqXHR, textStatus ) {
+            $(this).attr('disabled', false)
             return false;
         });
     }
