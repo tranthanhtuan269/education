@@ -987,18 +987,28 @@ class VideoController extends Controller
     {
         $temp_video = TempVideo::find($request->temp_video_id);
         if ($temp_video) {
+
+            // Delete temp_documents
             $documents = TempDocument::where('video_id', $temp_video->video_id)->get();
             if ( $documents->count() > 0 ){
                 foreach ($documents as $key => $document) {
-                    unlink(public_path('uploads/files/'.$document->url_document));
+                    if (file_exists(public_path('uploads/files/'.$document->url_document))) {
+                        unlink(public_path('uploads/files/'.$document->url_document));
+                    }
                     $document->delete();
                 }
             }
 
+            //Delete temp_videos
             if ( $temp_video->link_video ){
-                unlink(public_path('uploads/videos/'.$temp_video->link_video));
+                if (file_exists(public_path('uploads/files/'.$temp_video->url_document))) {
+                    unlink(public_path('uploads/videos/'.$temp_video->link_video));
+                }
             }
             $temp_video->delete();
+            $video = Video::find($temp_video->video_id);
+            $video->state = Config::get('app.video_active');
+            $video->save();
 
             return response()->json([
                 'status' => 200,
@@ -1007,9 +1017,10 @@ class VideoController extends Controller
         }
         return response()->json([
             'status' => 404,
-            'message' => 'Không thành công.',
+            'message' => 'Thao tác không thành công.',
         ]);
     }
+    
 
     public function getVideoInTrash()
     {
