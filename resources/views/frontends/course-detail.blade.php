@@ -419,28 +419,6 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                             </div>                    
                         </div>
                         <script>
-                            $(document).load(function() {
-                                var block_on = $('#benefit-course').position().top + $('#benifit-first').height() + 62 //Padding
-                                var block_below = $('.instructors').position().top - $('#sidebar-content').height() - 32 - 60 //Padding
-                                if( block_on >= block_below + 20 ){
-                                    $('#sidebar-content').hide()
-                                }
-                                $(window).scroll(function() {
-                                    var block_on = $('#benefit-course').position().top + $('#benifit-first').height() + 62 //Padding
-                                    var block_below = $('.instructors').position().top - $('#sidebar-content').height() - 32 - 60 //Padding
-                                    if ($(window).scrollTop() >= block_on - 40) {
-                                        if($(window).scrollTop() <= block_below - 40){
-                                            document.getElementById("sidebar-content").classList.add("sidebar-fixed");
-                                            $("#sidebar-content").removeClass('sidebar-unfix').css('top', '');
-                                        }else{
-                                            document.getElementById("sidebar-content").classList.remove("sidebar-fixed");
-                                            $("#sidebar-content").addClass('sidebar-unfix').css('top', block_below - block_on + 20);
-                                        }
-                                    } else {
-                                        document.getElementById("sidebar-content").classList.remove("sidebar-fixed");
-                                    }
-                                });
-                            });
                             $(document).ready(function() { 
                                 var block_on = $('#benefit-course').position().top + $('#benifit-first').height() + 62 //Padding
                                 var block_below = $('.instructors').position().top - $('#sidebar-content').height() - 32 - 60 //Padding
