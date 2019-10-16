@@ -16,6 +16,11 @@
 </section>
 <section class="content page">
     <h1 class="text-center font-weight-600">Danh sách bài giảng</h1>
+    <div class="comment">
+        <div class="lecturer-status"><button class="btn btn-success"></button> Bài giảng đã được duyệt</div>
+        <div class="lecturer-status"><button class="btn btn-warning"></button> Bài giảng đang convert </div>
+        <div class="lecturer-status"><button class="btn btn-danger"></button> Bài giảng chưa được duyệt </div>
+    </div>
     <div class="row">
         <div class="col-md-12">
             <div class="table-responsive">
@@ -65,6 +70,17 @@
         </div>
     </div>
 </section>
+<style>
+    .comment{
+        margin-left: 40%;
+    }
+    .updated-field{
+        width: 45px;
+    }
+    .action-field{
+        width: 40px;
+    }
+</style>
 <script type="text/javascript">
     var dataTable           = null;
     var userCheckList       = [];
@@ -97,7 +113,7 @@
             },
             {
                 data: "link_video",
-                class: "video-item",
+                class: "text-center",
                 render: function(data, type, row){
                     return '<a class="btn-view mr-2 view-video"><i class="fa fa-video-camera fa-fw" aria-hidden="true"></i></a>';
                 },
@@ -110,10 +126,11 @@
             },
             {
                 data: "updated_at",
+                class: "updated-field"
             },
             {
                 data: "action",
-                class: "text-center",
+                class: "action-field",
                 render: function(data, type, row){
                     var html = '';
                     @if (Helper::checkPermissions('videos.accept-video', $list_roles))
@@ -124,13 +141,13 @@
                             html += '<a class="btn-inaccept mr-2 inaccept-video" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Hủy"> <i class="fa fa-times fa-fw"></i></a>';
                         }
                     @endif
-                    return html;
+                    return '';
                 },
                 orderable: false
             },
             {
                 data: "action",
-                class: "text-center",
+                class: "action-field",
                 render: function(data, type, row){
                     var html = '';
                     @if (Helper::checkPermissions('videos.delete', $list_roles)) 
@@ -138,7 +155,7 @@
                             html += '<a class="btn-delete" data-id="'+data+'" title="Xóa"><i class="fa fa-trash fa-fw" aria-hidden="true"></i></a>';
                         }
                     @endif
-                    return html;
+                    return '';
                 },
                 orderable: false
             },
@@ -189,12 +206,12 @@
                         createdRow: function( row, data, dataIndex){
 
                             if(data['state'] == 1){
-                                $(row).addClass('blue-row');
+                                $(row).addClass('btn-success');
                             }else if(data['state'] == 3){
-                                $(row).addClass('yellow-row'); //đang convert ở background
+                                $(row).addClass('btn-warning'); //đang convert ở background
                                 $(row).children('td').children(`a[data-id=${data.action}]`).hide()
                             }else{
-                                $(row).addClass('red-row');
+                                $(row).addClass('btn-danger');
                             }
                             // $(row).attr('data-cv', data['cv']);
                             $(row).attr('data-video', data['link_video']);

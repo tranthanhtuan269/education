@@ -835,7 +835,9 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                         </div>
                         <div class="lecturer">
                             @foreach ($info_course->Lecturers() as $lecturer)
-                            <p>{{$lecturer->user->name}}</p>              
+                                @if ( $lecturer->user ) 
+                                <p>{{$lecturer->user->name}}</p> 
+                                @endif             
                             @endforeach
                         </div>
                     </div>
@@ -917,7 +919,7 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
         //         'image' : '{!! $info_course->image !!}',
         //         'slug' : '{!! $info_course->slug !!}',                
         //         @if(count($info_course->Lecturers()) > 0)
-        //         'lecturer' : "{!! $info_course->Lecturers()[0]->user->name !!}",
+                // 'lecturer' : " $info_course->Lecturers()[0]->user->name ",
         //         @else
         //         'lecturer' : 'Nhiều giảng viên',
         //         @endif

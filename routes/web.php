@@ -115,7 +115,7 @@ Route::group(['middleware' => 'auth'], function () {
         // Request Accept Video 
         Route::get('request-accept-videos', 'Backends\VideoController@getRequestAcceptVideo');
         Route::get('get-request-accept-videos', 'Backends\VideoController@getRequestAcceptVideoAjax');
-
+        Route::delete('delete-request-accept-video', 'Backends\VideoController@deleteRequestAcceptVideo');
 
         // Request Delete Videos 
         Route::get('request-delete-videos', 'Backends\VideoController@getRequestDeleteVideo');

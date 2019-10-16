@@ -242,7 +242,7 @@
                             <ul class="treeview-menu">
                                 @if (Helper::checkPermissions('users.list', $list_roles))
                                     <li class="@if ( Request::is('admincp/courses') ) active @endif">
-                                        <a href="{{ url('/') }}/admincp/courses"><i class="fa fa-minus"></i>Tất cả</a>
+                                        <a href="{{ url('/') }}/admincp/courses"><i class="fa fa-minus"></i>Danh sách</a>
                                     </li>
                                     <li class="@if ( Request::is('admincp/courses/accepted-courses') ) active @endif">
                                         <a href="{{ url('/') }}/admincp/courses/accepted-courses"><i class="fa fa-minus"></i>Đã duyệt</a>
@@ -267,7 +267,7 @@
                             <ul class="treeview-menu">
                                 @if (Helper::checkPermissions('users.list', $list_roles))
                                     <li class="@if ( Request::is('admincp/videos') ) active @endif">
-                                        <a href="{{ url('/') }}/admincp/videos"><i class="fa fa-minus"></i>Tất cả</a>
+                                        <a href="{{ url('/') }}/admincp/videos"><i class="fa fa-minus"></i>Danh sách</a>
                                     </li>
                                     <li class="@if ( Request::is('admincp/request-accept-videos') ) active @endif">
                                         <a href="{{ url('/') }}/admincp/request-accept-videos"><i class="fa fa-minus"></i>Yêu cầu duyệt</a>
