@@ -177,7 +177,7 @@
                 })
                 
                 if( check_course_of_user == 1 ){
-                    if(main_video_state != 1) { //1 nghĩa là video active
+                    if( main_video_state != 1 || main_video_state != 2 || main_video_state != 4 ) { //1 nghĩa là video active, 2 la 
                         $('#lnDescBtnPlay').remove()
                         Swal.fire({
                             type: 'warning',
