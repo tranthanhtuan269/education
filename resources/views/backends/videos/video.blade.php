@@ -31,8 +31,8 @@
                             <th scope="col">Xem</th>
                             <th scope="col">Khóa học</th>
                             <th scope="col">Cập nhật</th>
-                            <th scope="col">Duyệt</th>
-                            <th scope="col">Xóa</th>
+                            {{-- <th scope="col">Duyệt</th> --}}
+                            {{-- <th scope="col">Xóa</th> --}}
                         </tr>
                     </thead>
                     <tbody>
@@ -128,37 +128,37 @@
                 data: "updated_at",
                 class: "updated-field"
             },
-            {
-                data: "action",
-                class: "action-field",
-                render: function(data, type, row){
-                    var html = '';
-                    @if (Helper::checkPermissions('videos.accept-video', $list_roles))
-                        if(row['state'] == 0){
-                            html += '<a class="btn-accept mr-2 inaccept-video" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Duyệt"> <i class="fa fa-check fa-fw"></i></a>';
-                        }
-                        if(row['state'] == 1){
-                            html += '<a class="btn-inaccept mr-2 inaccept-video" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Hủy"> <i class="fa fa-times fa-fw"></i></a>';
-                        }
-                    @endif
-                    return '';
-                },
-                orderable: false
-            },
-            {
-                data: "action",
-                class: "action-field",
-                render: function(data, type, row){
-                    var html = '';
-                    @if (Helper::checkPermissions('videos.delete', $list_roles)) 
-                        if (row['state'] == 3){
-                            html += '<a class="btn-delete" data-id="'+data+'" title="Xóa"><i class="fa fa-trash fa-fw" aria-hidden="true"></i></a>';
-                        }
-                    @endif
-                    return '';
-                },
-                orderable: false
-            },
+            // {
+            //     data: "action",
+            //     class: "action-field",
+            //     render: function(data, type, row){
+            //         var html = '';
+            //         @if (Helper::checkPermissions('videos.accept-video', $list_roles))
+            //             if(row['state'] == 0){
+            //                 html += '<a class="btn-accept mr-2 inaccept-video" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Duyệt"> <i class="fa fa-check fa-fw"></i></a>';
+            //             }
+            //             if(row['state'] == 1){
+            //                 html += '<a class="btn-inaccept mr-2 inaccept-video" data-id="'+data+'" data-title="'+row.title+'" data-content="'+row.content+'" title="Hủy"> <i class="fa fa-times fa-fw"></i></a>';
+            //             }
+            //         @endif
+            //         return '';
+            //     },
+            //     orderable: false
+            // },
+            // {
+            //     data: "action",
+            //     class: "action-field",
+            //     render: function(data, type, row){
+            //         var html = '';
+            //         @if (Helper::checkPermissions('videos.delete', $list_roles)) 
+            //             if (row['state'] == 3){
+            //                 html += '<a class="btn-delete" data-id="'+data+'" title="Xóa"><i class="fa fa-trash fa-fw" aria-hidden="true"></i></a>';
+            //             }
+            //         @endif
+            //         return '';
+            //     },
+            //     orderable: false
+            // },
         ];
 
         dataTable = $('#video-table').DataTable( {
