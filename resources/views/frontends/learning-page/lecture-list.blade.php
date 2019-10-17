@@ -68,7 +68,7 @@
                                                 <button >
                                                     <span class="fa-stack">
                                                         <i class="fas fa-circle fa-stack-2x" style="color: #44b900;"></i>
-                                                        <i class="fas fa-check fa-stack-1x" style="color: #ffffff;"></i>
+                                                        <i class="fas fa-check fa-stack-1x" style="color: #ffffff;" data-parent="{{$video->id}}" data-isstudent="{{$isStudent}}"></i>
                                                     </span>
                                                 </button>
                                             </span>
@@ -109,93 +109,43 @@
         
         // Search Lecture List
         $("#btnSearchSidebar").click(function (){
-            // alert()
-            var courseId = {{$course->id}}
-            var request = $.ajax({
-                method: "GET",
-                url: "/learning-page/search-lecture-list",
-                data: {
-                    courseId : courseId,
-                    content : $(".learning-lecture-list-searchbar input").val().trim(),
-                    type: String,
-                }
-                
-            })
-            request.done( function (response){
-                if(response.videoList){
-                    $(".learning-lecture-list-body").empty()
-                    response.videoList.data.forEach( function(element, index) {
-                        
-                        var html = ''
-                        html += '<div class="ln-list-found">'
-                            html += '<ul>'
-                                html += '<li>'
-                                    html += '<a href="/learning-page/'+courseId+'/lecture/'+element.id+'">'
-                                        html += '<span class="ln-found-title-icon"><span><i class="fas fa-play-circle"></i></span></span>'
-                                        html += '<span class="ln-found-title">'+element.index+'. '+element.name+'</span>'
-                                        html += '<span class="ln-found-duration">'+element.duration+'</span>'
-                                    html += '</a>'
-                                    html += '<div>'
-                                        html += '<span class="ln-found-sect-number">Section '+element.unitIndex+': </span>'
-                                        html += '<span class="ln-found-sect-name">'+element.unitName+'</span>'
-                                    html += '</div>'
-                                html += '</li>'
-                            html += '</ul>            '
-                        html += '</div>'
-                        $(".learning-lecture-list-body").append(html)
-                    });                    
-                }
-            })
-        })
-        
-        $(".learning-lecture-list-searchbar input").keyup(function(){
-
-            var courseId = {{$course->id}}
-            var request = $.ajax({
-                method: "GET",
-                url: "/learning-page/search-lecture-list",
-                data: {
-                    courseId : courseId,
-                    content : $(".learning-lecture-list-searchbar input").val().trim(),
-                    type: String,
-                }
-                
-            })
-            request.done( function (response){
-                if($(".learning-lecture-list-searchbar input").val().trim() != ""){
-                    if(response.videoList){
-                        $(".learning-lecture-list-body").empty()
-                        response.videoList.data.forEach( function(element, index) {
-                            
-                            var html = ''
-                            html += '<div class="ln-list-found">'
-                                html += '<ul>'
-                                    html += '<li>'
-                                        html += '<a href="/learning-page/'+courseId+'/lecture/'+element.id+'">'
-                                            html += '<span class="ln-found-title-icon"><span><i class="fas fa-play-circle"></i></span></span>'
-                                            html += '<span class="ln-found-title">'+element.index+'. '+element.name+'</span>'
-                                            html += '<span class="ln-found-duration">'+element.duration+'</span>'
-                                        html += '</a>'
-                                        html += '<div>'
-                                            html += '<span class="ln-found-sect-number">Section '+element.unitIndex+': </span>'
-                                            html += '<span class="ln-found-sect-name">'+element.unitName+'</span>'
-                                        html += '</div>'
-                                    html += '</li>'
-                                html += '</ul>            '
-                            html += '</div>'
-                            $(".learning-lecture-list-body").append(html)
-                        });                    
+            $('.video-list-item').show();
+            var string = $(".learning-lecture-list-searchbar input").val().trim();
+            localStorage.setItem("searchString", string);
+            if(string.length > 0){
+                $('.ln-lect-list-sect-counter').hide();
+                $(".ln-lect-list-lect-title").each(function( index ) {
+                    if(!$( this ).text().toLowerCase().includes(string.toLowerCase())){
+                        $(this).parent().parent().hide();
                     }
-                }else{
-                    $(".learning-lecture-list-body").empty()
-                    initialLectureList.forEach( function (element, index){
-                        $(".learning-lecture-list-body").append(element)
-                    })
-                }
-                
-            })
-        })
-        
+                });
+            }else{
+                $('.ln-lect-list-sect-counter').show();
+            }
+        });
+
+        var searchString = localStorage.getItem("searchString");
+
+        if(searchString != undefined){
+            $(".learning-lecture-list-searchbar input").val(searchString);
+            $("#btnSearchSidebar").click();    
+        }
+
+        $(".learning-lecture-list-searchbar input").keyup(function(){
+            $('.video-list-item').show();
+            var string = $(".learning-lecture-list-searchbar input").val().trim();
+            localStorage.setItem("searchString", string);
+            if(string.length > 0){
+                $('.ln-lect-list-sect-counter').hide();
+                $(".ln-lect-list-lect-title").each(function( index ) {
+                    if(!$( this ).text().toLowerCase().includes(string.toLowerCase())){
+                        $(this).parent().parent().hide();
+                    }
+                });
+            }else{
+                $('.ln-lect-list-sect-counter').show();
+            }
+        });
     })
 </script>
 

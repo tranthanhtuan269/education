@@ -73,7 +73,16 @@ $(document).ready(function () {
             $("#btnContinue").click()
         }
     })
-    $('.vjs-fullscreen-control.vjs-control.vjs-button').on('click', function () {
+    // $('.vjs-fullscreen-control.vjs-control.vjs-button').on('click', function () {
+    //     var isFullscreen = player.isFullscreen()
+    //     if(isFullscreen){
+    //         $('.group-btn-utilities div').hide()
+    //     }else{
+    //         $('.group-btn-utilities div').show()
+    //     }
+    // })
+
+    player.on('fullscreenchange', function(){
         var isFullscreen = player.isFullscreen()
         if(isFullscreen){
             $('.group-btn-utilities div').hide()
