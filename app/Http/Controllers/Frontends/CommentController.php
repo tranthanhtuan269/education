@@ -26,6 +26,19 @@ class CommentController extends Controller
         $this->middleware('auth');
     }
 
+    public function getDiscussion(Request $request)
+    {
+        if($request->video_id){
+            $comment_videos = CommentVideo::where('video_id', $request->video_id)->get();
+            return \Response::json(array('status' => '200', 'message' => 'Lấy thảo luận thành công!', 'commentVideo' => fractal()
+            ->collection($comment_videos)
+            ->parseIncludes(['children'])
+            ->transformWith(new CommentVideoTransformer)
+            ->toArray()));
+        }
+        return \Response::json(array('status' => '404', 'message' => 'Khóa học không tồn tại!'));
+    }
+
     public function storeCommentVideo(StoreDiscussionRequest $request)
     {
         $video = Video::find($request->videoId);
