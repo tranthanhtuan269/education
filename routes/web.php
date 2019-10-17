@@ -18,7 +18,17 @@
 Auth::routes();
 
 Route::get('trinhnk', function(){
-
+    $course = \App\Course::find(1);
+    $video_count = 0;
+    if($course){
+        $units = $course->units;
+        if(count($units) > 0){
+            foreach($units as $unit){
+                $video_count += count($unit->videos);
+            }
+        }
+    }
+    dd($video_count);
 });
 
 Route::get('test2', function(){

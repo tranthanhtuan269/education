@@ -818,7 +818,7 @@ class VideoController extends Controller
                     $course = $unit->course;
                     if ( $course ){
                         $user_courses = $course->userCourses;
-                        dd($user_courses[2]->videos);
+                        // dd($user_courses[2]->videos);
                         Helper::reBuildJsonWhenCreateOrDeleteLecture($course->id, $video->id, $flag = 0);
                     }
                 }
