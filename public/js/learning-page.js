@@ -285,12 +285,24 @@ $(document).ready(function () {
         //btn continue
         $("#lnDescBtnPlay").click(function () {
             player.play()
+            var isFullscreen = player.isFullscreen()
+            if(isFullscreen){
+                $('.group-btn-utilities div').hide()
+            }else{
+                $('.group-btn-utilities div').show()
+            }
             $(".learning-desc-panel").fadeOut()
         })
 
         //big play button
         $(".vjs-custom-big-play-button").click(function () {
             player.play()
+            var isFullscreen = player.isFullscreen()
+            if(isFullscreen){
+                $('.group-btn-utilities div').hide()
+            }else{
+                $('.group-btn-utilities div').show()
+            }
             $(".vjs-custom-big-play-button").fadeOut()
         })
     }
