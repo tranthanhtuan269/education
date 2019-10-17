@@ -29,7 +29,7 @@ class CommentController extends Controller
     public function getDiscussion(Request $request)
     {
         if($request->video_id){
-            $comment_videos = CommentVideo::where('video_id', $request->video_id)->get();
+            $comment_videos = CommentVideo::where('video_id', $request->video_id)->where('parent_id', 0)->get();
             return \Response::json(array('status' => '200', 'message' => 'Lấy thảo luận thành công!', 'commentVideo' => fractal()
             ->collection($comment_videos)
             ->parseIncludes(['children'])
