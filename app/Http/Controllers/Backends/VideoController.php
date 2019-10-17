@@ -817,10 +817,12 @@ class VideoController extends Controller
                 if ( $unit ){
                     $course = $unit->course;
                     if ( $course ){
+                        $user_courses = $course->userCourses;
+                        dd($user_courses[2]->videos);
                         Helper::reBuildJsonWhenCreateOrDeleteLecture($course->id, $video->id, $flag = 0);
                     }
                 }
-                
+                // dd('out');
                 $video->state       = Config::get('app.video_in_trash');
                 $video->updated_at  = date('Y-m-d H:i:s');
                 $video->save();
@@ -1154,13 +1156,13 @@ class VideoController extends Controller
                 }
                 
                 // Resort UserCourse
-                $unit = $video->unit;
-                if ( $unit ){
-                    $course = $unit->course;
-                    if ( $course ){
-                        Helper::reBuildJsonWhenCreateOrDeleteLecture($course->id, $video->id, $flag = 0);
-                    }
-                }
+                // $unit = $video->unit;
+                // if ( $unit ){
+                //     $course = $unit->course;
+                //     if ( $course ){
+                //         Helper::reBuildJsonWhenCreateOrDeleteLecture($course->id, $video->id, $flag = 0);
+                //     }
+                // }
 
                 $video->delete();
 

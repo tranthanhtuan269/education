@@ -227,7 +227,7 @@ class Helper
 
     public static function reBuildJsonWhenCreateOrDeleteLecture($course_id, $video_id, $flag = 1){
         // Sap xep lai index video
-        // Helper::reSortIndexVideoOfCourse($course_id);
+        Helper::reSortIndexVideoOfCourse($course_id);
         // $flag = 0 when delete, = 1 when create
         // when create new
         // Lấy tất cả các UserCourse của khóa học này
@@ -238,6 +238,7 @@ class Helper
             // Nếu user là học viên then 
             if($userCourse->videos){
                 $videosJson = \json_decode($userCourse->videos);
+                $videoLearning = $videosJson->learning;
                 
 
                 $video = Video::find($video_id);
@@ -251,7 +252,25 @@ class Helper
                                 array_splice($videosJson->videos[$key], $videoIndex-1, 0, 0 );
                             }else{
                                 array_splice($videosJson->videos[$key], $videoIndex-1, 1);
+                                $video->index = -1;
+                                $video->save();
                             }
+
+                            if($videoLearning < $videoIndex){
+                                if($flag == 1){
+                                    $videosJson->learning += 1;
+                                }else{
+                                    $videosJson->learning -= 1;
+                                }
+                            }elseif($videoLearning == $videoIndex){
+                                if($flag == 1){
+                                    $videosJson->learning += 1;
+                                }else{
+                                    $videosJson->learning = 1;
+                                    $videosJson->learning_id = Helper::getVideoFirst($course_id);
+                                }
+                            }
+
                             $userCourse->videos = \json_encode($videosJson);
                             $userCourse->save();
                         }
