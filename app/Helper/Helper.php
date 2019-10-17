@@ -39,7 +39,7 @@ class Helper
         }
         return $demanding_user_course;
     }
-
+    
     public static function getUserRoleOfCourse($course_id)
     {
         if(Auth::check()){
@@ -245,7 +245,7 @@ class Helper
                 if($video){
                     $videoIndex = $video->index;
                     $unitIndex = $video->unit->index;
-
+                    // dd($videosJson);
                     foreach($videosJson->videos as $key=>$videoJson){
                         if($unitIndex == $key + 1){
                             if($flag == 1){
@@ -253,7 +253,7 @@ class Helper
                             }else{
                                 array_splice($videosJson->videos[$key], $videoIndex-1, 1);
                                 $video->index = -1;
-                                $video->state       = Config::get('app.video_in_trash');
+                                $video->state = 5;
                                 $video->save();
                             }
 
