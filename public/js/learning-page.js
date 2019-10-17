@@ -312,6 +312,13 @@ $(document).ready(function () {
             } else {
                 $(".vjs-custom-big-play-button").fadeIn()
             }
+
+            var isFullscreen = player.isFullscreen()
+            if(isFullscreen){
+                $('.group-btn-utilities div').hide()
+            }else{
+                $('.group-btn-utilities div').show()
+            }
         })
     }
 
