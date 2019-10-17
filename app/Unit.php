@@ -20,4 +20,9 @@ class Unit extends Model
     {
         return $this->hasMany('App\Video')->whereIn('state', [1,2,4])->orderBy('index', 'asc');
     }
+
+    public function videosNoState()
+    {
+        return $this->hasMany('App\Video')->orderBy('index', 'asc');
+    }
 }
