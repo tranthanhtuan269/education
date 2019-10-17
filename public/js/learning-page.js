@@ -73,7 +73,16 @@ $(document).ready(function () {
             $("#btnContinue").click()
         }
     })
-    $('.vjs-fullscreen-control.vjs-control.vjs-button').on('click', function () {
+    // $('.vjs-fullscreen-control.vjs-control.vjs-button').on('click', function () {
+    //     var isFullscreen = player.isFullscreen()
+    //     if(isFullscreen){
+    //         $('.group-btn-utilities div').hide()
+    //     }else{
+    //         $('.group-btn-utilities div').show()
+    //     }
+    // })
+
+    player.on('fullscreenchange', function(){
         var isFullscreen = player.isFullscreen()
         if(isFullscreen){
             $('.group-btn-utilities div').hide()
@@ -285,24 +294,12 @@ $(document).ready(function () {
         //btn continue
         $("#lnDescBtnPlay").click(function () {
             player.play()
-            var isFullscreen = player.isFullscreen()
-            if(isFullscreen){
-                $('.group-btn-utilities div').hide()
-            }else{
-                $('.group-btn-utilities div').show()
-            }
             $(".learning-desc-panel").fadeOut()
         })
 
         //big play button
         $(".vjs-custom-big-play-button").click(function () {
             player.play()
-            var isFullscreen = player.isFullscreen()
-            if(isFullscreen){
-                $('.group-btn-utilities div').hide()
-            }else{
-                $('.group-btn-utilities div').show()
-            }
             $(".vjs-custom-big-play-button").fadeOut()
         })
     }
@@ -323,13 +320,6 @@ $(document).ready(function () {
                 $(".vjs-custom-big-play-button").fadeOut()
             } else {
                 $(".vjs-custom-big-play-button").fadeIn()
-            }
-
-            var isFullscreen = player.isFullscreen()
-            if(isFullscreen){
-                $('.group-btn-utilities div').hide()
-            }else{
-                $('.group-btn-utilities div').show()
             }
         })
     }
