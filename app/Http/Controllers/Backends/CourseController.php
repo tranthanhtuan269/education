@@ -261,7 +261,7 @@ class CourseController extends Controller
                     $units = $course->units;
                     if(count($units) > 0){
                         foreach($units as $unit){
-                            $video_count += count($unit->videos);
+                            $video_count += count($unit->videosNoState);
                         }
                     }
                     if( $video_count == 0 ){
