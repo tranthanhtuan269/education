@@ -253,6 +253,7 @@ class Helper
                             }else{
                                 array_splice($videosJson->videos[$key], $videoIndex-1, 1);
                                 $video->index = -1;
+                                $video->state       = Config::get('app.video_in_trash');
                                 $video->save();
                             }
 
