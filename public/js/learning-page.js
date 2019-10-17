@@ -371,6 +371,95 @@ $(document).ready(function () {
     function toggleDiscussion(){
         if(!$(".learning-discussion").hasClass('active')){
             // activeRightBar()
+            var video_id = $("body").attr("data-video-id");
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            const request = $.ajax({
+                method: 'GET',
+                url: "/videos/getDiscussion",
+                data: {
+                    'video_id': video_id
+                },
+                dataType: "json",
+                success: function (response) {
+                    if(response.status == 200){
+                        console.log(response.commentVideo.data)
+
+                        var html = '';
+                        $.each(response.commentVideo.data, function( index, value ) {
+                            var id = value.id
+                            var avatar = (value.avatar == null) ? 'images/avatar.jpg' : value.avatar;
+                            var username = value.username
+                            var userType = value.userType
+                            var createdAt = value.created_at
+                            var children = value.children
+                            var content = value.content
+
+                            html += '<div class="ln-disc-post-wrapper">';
+                                html += '<div data-toggle="collapse" data-target="#discWrapper'+ id +'">';
+                                    html += '<div class="ln-disc-post-left">';
+                                        html += '<img src="frontend/'+ avatar +'" width="60px" alt="">';
+                                    html += '</div>';
+                                    html += '<div class="ln-disc-post-right">';
+                                        html += '<div class="ln-disc-post-username">';
+                                        html += '<p>'+ username +' - ';
+                                        html += userType;
+                                        html += '</p>';
+                                        html += '<span style="font-size: 0.9em;"><em>Vừa xong</em></span>';
+                                        html += '</div>';
+                                        html += '<div class="ln-disc-post-short-content" id="discComment'+ id +'">';
+                                            html += '<p>'+ content +'</p>';
+                                        html += '</div>';
+                                    html += '</div>';
+                                html += '</div>';
+
+                                html += '<div id="discWrapper'+ id +'" data-parent="'+ id +'" class="ln-disc-comment-wrapper collapse">';
+                                    
+                                    $.each(children.data, function( indexChild, valueChild ) {
+                                        var avatarChild = (valueChild.avatar == null) ? 'images/avatar.jpg' : valueChild.avatar;
+                                        var usernameChild = valueChild.username
+                                        var userTypeChild = valueChild.userType
+                                        var createdAtChild = valueChild.created_at
+                                        var contentChild = valueChild.content
+
+                                        html += '<div class="ln-disc-comment">';
+                                            html += '<div class="ln-disc-comment-left">';
+                                                html += '<img src="frontend/'+ avatarChild +'" width="40px" alt="">';
+                                            html += '</div>';
+                                            html += '<div class="ln-disc-comment-right">';
+                                                html += '<div class="ln-disc-comment-username">';
+                                                    html += '<p>'+ usernameChild +' - '+ userTypeChild +'</p>';
+                                                    html += '<span style="font-size: 0.75em;"><em>Vừa xong</em></span>';
+                                                html += '</div>';
+                                                html += '<div class="ln-disc-comment-content">';
+                                                    html += '<p>'+ contentChild +'</p>';
+                                                html += '</div>';
+                                            html += '</div>';
+                                        html += '</div>';
+                                    });
+
+                                    html += '<div class="ln-disc-comment-input input-group" id="#discSubCommentInput'+ id +'" data-parent="'+id+'">';
+                                        html += '<input id="input-'+ id +'" data-child="'+ id +'" type="text" class="form-control" placeholder="Bình luận...">';
+                                        html += '<span class="input-group-btn">';
+                                            html += '<button data-child="'+ id +'" class="btn btn-default" type="button">Gửi</button>';
+                                        html += '</span>';
+                                    html += '</div>';
+                                html += '</div>';
+                            html += '</div>';
+                        });
+
+                        $('.ln-disc-post-list').prepend(html);
+                        discussEditor.setData("")
+                    }
+                },
+                error: function () {
+
+                }
+            });
 
             $(".learning-discussion").addClass("active")
             $(".learning-notes").removeClass("active")

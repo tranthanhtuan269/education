@@ -22,7 +22,8 @@ Route::get('trinhnk', function(){
 });
 
 Route::get('test2', function(){
-    dd(App\Helper\Helper::reBuildJsonWhenCreateOrDeleteLecture(743, 12094, 0));
+    $comment_videos = \App\CommentVideo::where('video_id', 51)->get();
+    echo \Response::json(array('status' => '200', 'message' => 'Lấy thảo luận thành công!', 'commentVideo' => fractal($comment_videos, new \App\Transformers\CommentVideoTransformer())->toArray()));die;
 });
 
 Route::get('thay-state-video', function(){
@@ -309,6 +310,7 @@ Route::get('affiliate', 'Frontends\HomeController@affiliatePage');
 
 
 Route::group(['middleware' => 'auth'], function () {
+    Route::get('/videos/getDiscussion', 'Frontends\CommentController@getDiscussion')->name('videos.getDiscussion');
     Route::get('/learning-page/{courseId}/lecture/{videoId}', 'Frontends\VideoPlayerController@show')->name('videoplayer.show');
     Route::get('/learning-page/search-lecture-list', 'Frontends\VideoPlayerController@searchLectureList')->name('videoplayer.search');
 
