@@ -68,7 +68,7 @@
                                                 <button >
                                                     <span class="fa-stack">
                                                         <i class="fas fa-circle fa-stack-2x" style="color: #44b900;"></i>
-                                                        <i class="fas fa-check fa-stack-1x" style="color: #ffffff;"></i>
+                                                        <i class="fas fa-check fa-stack-1x" style="color: #ffffff;" data-parent="{{$video->id}}" data-isstudent="{{$isStudent}}"></i>
                                                     </span>
                                                 </button>
                                             </span>
