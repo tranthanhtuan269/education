@@ -82,6 +82,11 @@ class Course extends Model
         return $this->belongsToMany('App\UserRole', 'user_courses');
     }
 
+    public function userCourses()
+    {
+        return $this->hasMany('App\UserCourse');
+    }
+
     public function Lecturers(){
         if($this->userRoles){
             return $this->userRoles()->where('role_id', \Config::get('app.teacher'))->get();
