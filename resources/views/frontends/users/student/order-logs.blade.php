@@ -63,7 +63,7 @@
                 { 
                     data: "code",
                     render: function(data, type, row){
-                        return '<a href="javascript:void(0)" class="detail-order"  title="Detail" data-id="'+row.id+'" data-course="'+row.course+'" data-coupon="'+row.coupon+'"  data-payment="'+row.payment+'"  data-status="'+row.status+'" data-total-price-real="'+ row.total_price +'" data-create="'+ row.created_at +'">' + row.code + '</a>';
+                        return '<a href="javascript:void(0)" class="detail-order"  title="Detail" data-id="'+row.id+'" data-course="'+row.content+'" data-coupon="'+row.coupon+'"  data-payment="'+row.payment+'"  data-status="'+row.status+'" data-total-price-real="'+ row.total_price +'" data-create="'+ row.created_at +'">' + row.code + '</a>';
                     },
                     orderable: false,
                 },
@@ -164,7 +164,7 @@
                 var total_price_real = $(this).attr('data-total-price-real');
                 var coupon           = $(this).attr('data-coupon');
                 var courses          = $(this).attr('data-course');
-                var courses          = JSON.parse(courses);
+                courses              = JSON.parse(courses);
 
                 $('#show-detail-order .modal-title').html('Chi tiết đơn hàng #DH_' + id)
                 var html_data = '<table class="table"><thead><tr><th scope="col">Thông tin chung</th><th scope="col">Thông tin thanh toán</th></tr></thead><tbody>';

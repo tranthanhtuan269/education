@@ -97,6 +97,7 @@ class HomeController extends Controller
         ORDER BY count(course_id) desc;";
 
         $results = DB::select($sql);
+        $course_id_arr = [];
         foreach ($results as $key => $result) {
             $course_id_arr[] = $result->course_id;
         }
@@ -634,7 +635,11 @@ class HomeController extends Controller
                     }
                     Mail::to($current_user)->queue(new OrderCompleted($order, $current_user));
                     // dd($order);
+                    $order->content = $order->courses;
+
                     $order->save();
+
+
 
                     // Lưu vào bảng user_email
                     $alertEmail = Email::find(Config::get('app.email_order_complete'));
