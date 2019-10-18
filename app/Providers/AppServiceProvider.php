@@ -110,6 +110,8 @@ class AppServiceProvider extends ServiceProvider
                     $video->state = \Config::get('app.video_active');
                     $video->save();
                 }
+
+                Helper::reSortIndexVideoOfCourse($video->unit->course->id);
                 
                 $json_data = \json_encode($data->video_id);
             }
