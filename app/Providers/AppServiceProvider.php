@@ -82,5 +82,100 @@ class AppServiceProvider extends ServiceProvider
             return (\Hash::check($password_old, Auth::user()->password)) ? TRUE : FALSE ;
         });
 
+        Queue::before(function (JobProcessing $event) {
+            // $event->connectionName
+            // $event->job
+            // $event->job->payload()
+            $job = $event->job;
+            Log::info('Job ready: ' . $event->job->resolveName());
+            Log::info('Job started: ' . $event->job->resolveName());
+
+        });
+
+        Queue::after(function (JobProcessed $event) {
+            // $event->connectionName
+            // $event->job
+            if($event->job->resolveName() == "App\Jobs\ProcessLecture"){
+                Log::info('Job ready: ' . $event->job->resolveName());
+                Log::info('Job started: ' . $event->job->resolveName());
+                $job = $event->job->payload();
+    
+                $payload = json_decode( $event->job->getRawBody() );
+                $data = unserialize( $payload->data->command );
+                $video_id = $data->video_id;
+                Log::info('video id: 18/10 ' . $data->video_id);
+    
+                $video = Video::find($video_id);
+                if($video){
+                    $video->state = \Config::get('app.video_active');
+                    $video->save();
+                }
+                
+                $json_data = \json_encode($data->video_id);
+            }
+
+            if($event->job->resolveName() == "App\Jobs\ProcessLectureEdit"){
+                Log::info('Job ready: ' . $event->job->resolveName());
+                Log::info('Job started: ' . $event->job->resolveName());
+                $job = $event->job->payload();
+    
+                $payload = json_decode( $event->job->getRawBody() );
+                $data = unserialize( $payload->data->command );
+                $temp_video_id = $data->video_temp_id;
+                Log::info('video_temp_id: ' . $data->video_temp_id);
+                $videoTemp = TempVideo::find($temp_video_id);
+                if($videoTemp){
+                    Log::info('videoTemp existed');
+                    $video_id = $videoTemp->video_id;
+                    $video = Video::find($video_id);
+                    if($video){
+                        Log::info('video existed');
+                        $video->name = $videoTemp->name;
+                        $video->url_video = $videoTemp->url_video;
+                        $video->link_video = $videoTemp->link_video;
+                        $video->duration = $videoTemp->duration;
+                        $video->state = \Config::get('app.video_active');
+                        $video->save();
+                        Log::info('video saved');
+                        
+                        $documents = TempDocument::where('video_id', $video->id)->get();
+                        
+                        $oldDocs = Document::where('video_id', $video->id)->get();
+                        foreach($oldDocs as $old){
+                            if($old){
+                                if (file_exists(public_path('uploads/files/'.$old->url_document))) {
+                                    \unlink(public_path('uploads/files/'.$old->url_document));
+                                }
+                                $old->delete();
+                            }
+                        }
+
+                        if($videoTemp->files_delete){
+                            $document_ids = explode(",", $videoTemp->files_delete);
+                            foreach ($document_ids as $key => $id) {
+                                $document = Document::find($id);
+                                if($document){
+                                    if (file_exists(public_path('uploads/files/'.$old->url_document))) {
+                                        unlink(public_path('uploads/files/'.$old->url_document));
+                                    }
+                                    $document->delete();
+                                }
+                            }
+                        }
+    
+                        foreach($documents as $document){
+                            // remove old document 
+                            $newDoc = new Document;
+                            $newDoc->title = $document->title;
+                            $newDoc->video_id = $document->video_id;
+                            $newDoc->url_document = $document->url_document;
+                            $newDoc->size = $document->size;
+                            $newDoc->save();
+                        }
+                    }
+                    $videoTemp->delete();
+                }
+            }
+        });
     }
 }
