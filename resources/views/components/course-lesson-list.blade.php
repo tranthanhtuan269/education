@@ -1,10 +1,18 @@
+<?php
+    $course_duration = 0;
+    foreach ( $info_course->units as $value_unit ){
+        foreach ($value_unit->videosLessonList as $value_video){
+            $course_duration += $value_video->duration;
+        }
+    }
+?>
 <div class="u-list-course" id="u-list-course" data-course-id="{{$info_course->id}}">
     <div class="top clearfix">
         <h3 class="pull-left">Bài học</h3>
         <ul class="pull-right">
             {{-- <li>Expand all</li> --}}
             <li>{{ $info_course->all_videos() }} bài học</li>
-            <li>{{ intval($info_course->duration / 3600) }} giờ {{ intval($info_course->duration % 60 ) }} phút</li>
+            <li>{{ intval($course_duration / 3600) }} giờ {{ intval($course_duration / 60 ) }} phút</li>
         </ul>
     </div>
     <div class="content">
@@ -31,8 +39,8 @@
                 <!-- bài -->
                 <div id="collapse{{ $key_unit }}" class="panel-collapse collapse  @if ($key_unit == 0) in @endif" aria-expanded="true">
                     <div class="panel-body">
-                        @foreach ($value_unit->videos->sortBy('index') as $key_video => $value_video)
-                            @if( $value_video->state == 1  || $value_video->state == 2 || $value_video->state == 4 )
+                        @foreach ($value_unit->videosLessonList->sortBy('index') as $key_video => $value_video)
+                            @if ( $value_video->state == 1 || $value_video->state == 2 || $value_video->state == 4 )
                             <div class="col">
                                 <div class="container-fluid">
                                     <div class="row">
@@ -112,6 +120,33 @@
                                     </div>
                                 </div>
                             </div>
+                            @endif
+                            @if ( $value_video->state == 0 || $value_video->state == 3 )
+                                @if(App\Helper\Helper::getUserRoleOfCourse($info_course->id))
+                                <div class="col">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-xs-5 col-md-8">
+                                                <div class="title">
+                                                    <i class="fa fa-play-circle" aria-hidden="true"></i>
+                                                    <span>{{ $value_video->name }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-md-2 text-center">
+                                                @if ( $value_video->state == 0 )
+                                                <div>Đang xét duyệt</div>
+                                                @endif
+                                                @if ( $value_video->state == 3 )
+                                                <div class="btn-warning">Đang convert</div>
+                                                @endif
+                                            </div>
+                                            <div class="col-xs-3 col-md-2">
+                                                <div class="time">{{ App\Helper::convertSecondToTimeFormat($value_video->duration) }}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @endif
                             @endif
                         @endforeach
                     </div>
