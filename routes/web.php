@@ -302,6 +302,7 @@ Route::get('course/{id}/{slug}', ['as'  => 'course', 'uses' =>'Frontends\HomeCon
 Route::get('learning/{course}', ['as'  => 'course', 'uses' =>'Frontends\HomeController@courseLearning']);
 Route::get('teacher/{teacher}', ['as'  => 'teacher', 'uses' =>'Frontends\HomeController@showTeacher']);
 Route::get('list-course', ['uses' =>'Frontends\HomeController@listCourse']);
+Route::get('list-course-category', ['uses' =>'Frontends\HomeController@listCourseCategory']);
 
 Route::get('cart', ['uses' =>'Frontends\HomeController@cart'])->name('cart.show');
 Route::get('check-coupon', ['uses' =>'Frontends\HomeController@checkCoupon'])->name('coupon.check');

@@ -133,12 +133,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-xs-4 col-md-2 text-center">
-                                                @if ( $value_video->state == 0 )
                                                 <div>Đang xét duyệt</div>
-                                                @endif
-                                                @if ( $value_video->state == 3 )
-                                                <div class="btn-warning">Đang convert</div>
-                                                @endif
                                             </div>
                                             <div class="col-xs-3 col-md-2">
                                                 <div class="time">{{ App\Helper::convertSecondToTimeFormat($value_video->duration) }}</div>
