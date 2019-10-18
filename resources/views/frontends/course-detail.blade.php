@@ -424,6 +424,7 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                                 var block_below = $('.instructors').position().top - $('#sidebar-content').height() - 32 - 60 //Padding
                                 if( block_on < block_below + 20 ){
                                     $('#sidebar-content').css('display', 'block')
+                                    $('#benefit-course').css('min-height', '660px')
                                 }
                                 $(window).scroll(function() {
                                     var block_on = $('#benefit-course').position().top + $('#benifit-first').height() + 62 //Padding

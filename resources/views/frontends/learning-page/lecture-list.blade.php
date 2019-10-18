@@ -135,6 +135,8 @@
             $('.video-list-item').show();
             var string = $(".learning-lecture-list-searchbar input").val().trim();
             localStorage.setItem("searchString", string);
+
+            $('.collapse').collapse('show');
             if(string.length > 0){
                 $('.ln-lect-list-sect-counter').hide();
                 $(".ln-lect-list-lect-title").each(function( index ) {

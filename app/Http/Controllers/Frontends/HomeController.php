@@ -976,4 +976,27 @@ class HomeController extends Controller
     public function affiliatePage(){
         return view('frontends.footer-page.affiliate');
     }
+    public function deleteCourse($course){
+        $deleteCourse = \App\Course::find($course);
+        if($deleteCourse){
+            if($deleteCourse->units){
+                foreach($deleteCourse->units as $unit){
+                    if($unit->videos){
+                        foreach($unit->videos as $video){
+                            $video->delete();
+                            \App\TempVideo::where("video_id", $video->id)->delete();
+                            \App\TempDocument::where("video_id", $video->id)->delete();
+                            \App\Document::where("video_id", $video->id)->delete();
+                        }
+                    }
+                    $unit->delete();
+                }
+            }
+            \App\TempCourse::where("course_id", $deleteCourse->id)->delete();
+            // CourseTag::where("course_id", $course->id)->delete();
+            // \App\OrderCourse::where("course_id", $deleteCourse->id)->delete();
+            \App\UserCourse::where("course_id", $deleteCourse)->delete();
+            $deleteCourse->delete();
+        }
+    }
 }
