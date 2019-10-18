@@ -25,4 +25,9 @@ class Unit extends Model
     {
         return $this->hasMany('App\Video')->orderBy('index', 'asc');
     }
+
+    public function videosLessonList()
+    {
+        return $this->hasMany('App\Video')->whereIn('state', [0,1,2,3,4])->orderBy('index', 'asc');
+    }
 }

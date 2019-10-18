@@ -17,18 +17,34 @@
 
 Auth::routes();
 
-Route::get('trinhnk', function(){
-    $course = \App\Course::find(1);
-    $video_count = 0;
-    if($course){
-        $units = $course->units;
-        if(count($units) > 0){
-            foreach($units as $unit){
-                $video_count += count($unit->videos);
+Route::get('trinhnk', function( $course_id = 647){
+    if(Auth::check()){
+        $user_id = Auth::user()->id;
+        if(Auth::user()->isAdmin()){
+            return Auth::user()->userRolesAdmin();
+        }
+        $user_role_list = Auth::user()->userRoles;
+        // dd($user_role_list);
+        $course = \App\Course::find($course_id);
+        $lecturer_user_role = $course->Lecturers()->first();
+
+        $demanding_user_course = null;
+
+        foreach ($user_role_list as $key => $user_role) {
+            $user_course_item = UserCourse::where('course_id', $course_id)
+                ->where('user_role_id', $user_role->id)
+                ->first();
+                // dd($user_course_item);
+
+            if (!empty($user_course_item)) {
+                $demanding_user_course = $user_course_item;
+                break;
             }
         }
+    }else{
+        $demanding_user_course = null;
     }
-    dd($video_count);
+    return $demanding_user_course;
 });
 
 Route::get('test2', function(){
