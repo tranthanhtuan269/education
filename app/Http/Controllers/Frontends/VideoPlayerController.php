@@ -180,7 +180,7 @@ class VideoPlayerController extends Controller
 
     // DuongNT // đổi 0 thành 1 ở vị trí video vừa click trong array video đã xem
     public function updateWatched(Request $request){
-        $video = Video::whereIn('status', [1,2,4])->find($request->video_id);
+        $video = Video::whereIn('state', [1,2,4])->find($request->video_id);
         // dd($video);
         if($video){
             $unit = $video->unit;
