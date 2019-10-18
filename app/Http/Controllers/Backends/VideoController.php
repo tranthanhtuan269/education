@@ -923,10 +923,10 @@ class VideoController extends Controller
 
                 if ($temp_video->link_video){
                     // convert video to multi resolution
-                    $path_360 = "/usr/local/WowzaStreamingEngine-4.7.7/content/360/".$video->link_video;
-                    $path_480 = "/usr/local/WowzaStreamingEngine-4.7.7/content/480/".$video->link_video;
-                    $path_720 = "/usr/local/WowzaStreamingEngine-4.7.7/content/720/".$video->link_video;
-                    $path_1080 = "/usr/local/WowzaStreamingEngine-4.7.7/content/1080/".$video->link_video;
+                    $path_360 = "/usr/local/WowzaStreamingEngine-4.7.7/content/360/".$temp_video->link_video;
+                    $path_480 = "/usr/local/WowzaStreamingEngine-4.7.7/content/480/".$temp_video->link_video;
+                    $path_720 = "/usr/local/WowzaStreamingEngine-4.7.7/content/720/".$temp_video->link_video;
+                    $path_1080 = "/usr/local/WowzaStreamingEngine-4.7.7/content/1080/".$temp_video->link_video;
         
                     $content_path_360 = "vod/_definst_/360/".$video->link_video;
                     $content_path_480 = "vod/_definst_/480/".$video->link_video;
