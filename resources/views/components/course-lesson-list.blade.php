@@ -1,7 +1,7 @@
 <?php
     $course_duration = 0;
     foreach ( $info_course->units as $value_unit ){
-        foreach ($value_unit->videosLessonList as $value_video){
+        foreach ($value_unit->timeLessonActive as $value_video){
             $course_duration += $value_video->duration;
         }
     }
