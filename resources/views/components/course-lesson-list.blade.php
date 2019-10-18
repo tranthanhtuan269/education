@@ -12,7 +12,7 @@
         <ul class="pull-right">
             {{-- <li>Expand all</li> --}}
             <li>{{ $info_course->all_videos() }} bài học</li>
-            <li>{{ intval($course_duration / 3600) }} giờ {{ intval($course_duration / 60 ) }} phút</li>
+            <li>{{ intval($course_duration / 3600) }} giờ {{ intval(($course_duration % 3600) / 60 ) }} phút</li>
         </ul>
     </div>
     <div class="content">
