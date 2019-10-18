@@ -432,9 +432,9 @@
                 if(fileNameList.indexOf("; " + file.name + "; ") >= 0){
 
                 }else{
-                    console.log(fileNameList);
+                    // console.log(fileNameList);
                     fileNameList += file.name + "; "
-                    console.log(fileNameList);
+                    // console.log(fileNameList);
                     files.push(file);
 
                     var filesLength = files.length
@@ -636,6 +636,9 @@
             //     keyboard: false
             // });
             $('#addVideoModal .document-field').empty()
+            $('#addVideoDocument').val("");
+            files = [];
+            fileNameList = "; "
 
             $('#listVideo').modal('toggle')
             $('#addVideoModal').modal({
