@@ -17,7 +17,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Queue\Events\JobProcessed;
 use Illuminate\Queue\Events\JobProcessing;
 
-class AppServiceProvider extends ServiceProvider
+class AppServiceProvider2 extends ServiceProvider
 {
     /**
      * Register any application services.

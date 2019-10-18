@@ -607,15 +607,14 @@ class VideoController extends Controller
                         ]);
                     }
                 }
-                // // Sap xep lai user_courses->videos
-                // $unit = $video->unit;
-                // if ( $unit ){
-                //     $course = $unit->course;
-                //     if ( $course ){
-                //         $user_courses = $course->userCourses;
-                //         Helper::reBuildJsonWhenCreateOrDeleteLecture($course->id, $video->id, 1);
-                //     }
-                // }
+                // Sap xep lai user_courses->videos
+                $unit = $video->unit;
+                if ( $unit ){
+                    $course = $unit->course;
+                    if ( $course ){
+                        Helper::reBuildJsonWhenCreateOrDeleteLecture($course->id, $video->id);
+                    }
+                }
                 if ($request->state == 3) { //state = 3 đang đợi convert trong hàng đợi
                     // convert video to multi resolution
                     $path_360 = "/usr/local/WowzaStreamingEngine-4.7.7/content/360/".$video->link_video;
