@@ -520,14 +520,14 @@ class VideoController extends Controller
             $user_roles = $course->userRoles()->where('role_id', Config::get('app.student'))->get()->all();//lấy những user_role đại diện student
             #Insert cho từng student
 
-            foreach ($user_roles as $key => $user_role) {
-                $user_course = UserCourse::where("user_role_id", $user_role->id)->where("course_id", $course->id)->first();
-                $videos = json_decode($user_course->videos);
-                array_push($videos->{'videos'}[($unit->index) - 1 ], 0);
-                $videos = json_encode($videos);
-                $user_course->videos = $videos;
-                $user_course->save();
-            }
+            // foreach ($user_roles as $key => $user_role) {
+            //     $user_course = UserCourse::where("user_role_id", $user_role->id)->where("course_id", $course->id)->first();
+            //     $videos = json_decode($user_course->videos);
+            //     array_push($videos->{'videos'}[($unit->index) - 1 ], 0);
+            //     $videos = json_encode($videos);
+            //     $user_course->videos = $videos;
+            //     $user_course->save();
+            // }
 
             return response()->json([
                 'status' => 200,
@@ -607,15 +607,14 @@ class VideoController extends Controller
                         ]);
                     }
                 }
-                // // Sap xep lai user_courses->videos
-                // $unit = $video->unit;
-                // if ( $unit ){
-                //     $course = $unit->course;
-                //     if ( $course ){
-                //         $user_courses = $course->userCourses;
-                //         Helper::reBuildJsonWhenCreateOrDeleteLecture($course->id, $video->id, 1);
-                //     }
-                // }
+                // Sap xep lai user_courses->videos
+                $unit = $video->unit;
+                if ( $unit ){
+                    $course = $unit->course;
+                    if ( $course ){
+                        Helper::reBuildJsonWhenCreateOrDeleteLecture($course->id, $video->id);
+                    }
+                }
                 if ($request->state == 3) { //state = 3 đang đợi convert trong hàng đợi
                     // convert video to multi resolution
                     $path_360 = "/usr/local/WowzaStreamingEngine-4.7.7/content/360/".$video->link_video;

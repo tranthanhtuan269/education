@@ -17,7 +17,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Queue\Events\JobProcessed;
 use Illuminate\Queue\Events\JobProcessing;
 
-class AppServiceProvider extends ServiceProvider
+class AppServiceProvider2 extends ServiceProvider
 {
     /**
      * Register any application services.
@@ -103,27 +103,13 @@ class AppServiceProvider extends ServiceProvider
                 $payload = json_decode( $event->job->getRawBody() );
                 $data = unserialize( $payload->data->command );
                 $video_id = $data->video_id;
-                Log::info('video id: ' . $data->video_id);
+                Log::info('video id: 18/10 ' . $data->video_id);
     
                 $video = Video::find($video_id);
                 if($video){
                     $video->state = \Config::get('app.video_active');
                     $video->save();
-                    // DuongNT // thêm 1 video vào lượng đã xem vào bảng user_courses
-                    $unit = $video->unit;
-                    $course = $unit->course;
-                    $user_roles = $course->userRoles()->where('role_id', 3)->get()->all();//lấy những user_role đại diện student
-                    #Insert cho từng student
-                    foreach ($user_roles as $key => $user_role) {
-                        $user_course = UserCourse::where("user_role_id", $user_role->id)->where("course_id", $course->id)->first();
-                        $videos = json_decode($user_course->videos);
-                        array_push($videos->{'videos'}[($unit->index) - 1 ], 0);
-                        $videos = json_encode($videos);
-                        $user_course->videos = $videos;
-                        $user_course->save();
-                    }
                 }
-    
                 
                 $json_data = \json_encode($data->video_id);
             }
@@ -190,13 +176,6 @@ class AppServiceProvider extends ServiceProvider
                     $videoTemp->delete();
                 }
             }
-
-            
-            // $job = unserialize($job);
-            // $job = \json_encode($job);
-            // Log::notice('Job done: ' . $event->job->payload());
-            // exec("echo ".$json_data." >> /home/gnoud/Desktop/afterlog.txt");
         });
-
     }
 }
