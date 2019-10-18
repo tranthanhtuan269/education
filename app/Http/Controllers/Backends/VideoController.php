@@ -54,8 +54,6 @@ class VideoController extends Controller
     {
         $unit = Unit::withCount('videos')->find($request->unit_id);
         if ($unit) {
-
-
             $video = new Video;
             $video->name = $request->name;
             $video->unit_id = $request->unit_id;
@@ -647,6 +645,8 @@ class VideoController extends Controller
 
                 $video->state = $request->state;
                 $video->save();
+
+                Helper::reSortIndexVideoOfCourse($course->id);
 
                 echo json_encode($res);die;
             }
