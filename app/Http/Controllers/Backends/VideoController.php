@@ -608,12 +608,8 @@ class VideoController extends Controller
                     }
                 }
                 // Sap xep lai user_courses->videos
-                $unit = $video->unit;
-                if ( $unit ){
-                    $course = $unit->course;
-                    if ( $course ){
-                        Helper::reBuildJsonWhenCreateOrDeleteLecture($course->id, $video->id);
-                    }
+                if ( $course ){
+                    Helper::reBuildJsonWhenCreateOrDeleteLecture($course->id, $video->id, 1);
                 }
                 if ($request->state == 3) { //state = 3 đang đợi convert trong hàng đợi
                     // convert video to multi resolution

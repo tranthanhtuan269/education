@@ -245,7 +245,6 @@ class Helper
                 if($video){
                     $videoIndex = $video->index;
                     $unitIndex = $video->unit->index;
-                    // dd($videosJson);
                     foreach($videosJson->videos as $key=>$videoJson){
                         if($unitIndex == $key + 1){
                             if($flag == 1){

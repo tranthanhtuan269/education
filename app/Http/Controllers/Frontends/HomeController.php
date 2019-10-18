@@ -132,6 +132,34 @@ class HomeController extends Controller
         return view('frontends.search', compact('results'));
     }
 
+    public function listCourseCategory(Request $request)
+    {
+        $type = trim($request->get('type'));
+        $cat_id = $request->cat_id;
+        $category = Category::find($cat_id);
+        $cat_name = $category->name;
+        $cat_icon = $category->icon;
+        if ($type == 'best-seller') {
+            $title = 'Các khoá học bán chạy';
+            $list_course = Course::listCourseCategory($cat_id)->orderBy('sale_count', 'desc')->paginate(16);
+        } elseif ($type == 'new') {
+            $list_course = Course::listCourseCategory($cat_id)->orderBy('id', 'desc')->paginate(16);
+            $title = 'Các khóa học mới nhất';
+        } elseif ($type == 'trendding') {
+            $limitDate = \Carbon\Carbon::now()->subDays(15);
+            $sql = "SELECT course_id, count(course_id) FROM orders JOIN order_details ON orders.id = order_details.order_id WHERE created_at > '" . $limitDate->toDateTimeString() ."' group by course_id ORDER BY count(course_id) desc LIMIT 8;";
+            $results = DB::select($sql);
+            foreach ($results as $key => $result) {
+                $course_id_arr[] = $result->course_id;
+            }
+            $list_course = \App\Course::whereIn('id', $course_id_arr)->where('category_id', $cat_id)->get();
+            // $list_course = Course::listCourseSpecial(3)->paginate(16);
+            $title = 'Các khóa học thịnh hành';
+        }
+
+        return view('frontends.list-course-category-by-type', compact('list_course', 'title', 'cat_name', 'cat_icon'));
+    }
+
     public function showCategory($cat)
     {
         $cat_id = Category::where('slug', $cat)->value('id');
