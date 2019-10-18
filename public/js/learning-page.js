@@ -267,7 +267,12 @@ $(document).ready(function () {
                 dataType: "json",
             });
             request.done(function(){
-                window.location.href = ("/learning-page/"+ course_id +"/lecture/"+ video_id)
+                var string = $(".learning-lecture-list-searchbar input").val().trim();
+                if(string.length > 0){
+                    window.location.href = ("/learning-page/"+ course_id +"/lecture/"+ video_id + "?search=" + string)
+                }else{
+                    window.location.href = ("/learning-page/"+ course_id +"/lecture/"+ video_id)
+                }
             })
         }else{
             window.location.href = ("/learning-page/"+ course_id +"/lecture/"+ video_id)
