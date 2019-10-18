@@ -944,10 +944,10 @@ class VideoController extends Controller
                     $video->save();
                     // $temp_video->delete();
                     
-                    dispatch(new ProcessLectureEdit($path_1080, $temp_video->id, $request->video_id, $video->link_video, 1080));
-                    dispatch(new ProcessLectureEdit($path_720, $temp_video->id, $request->video_id, $video->link_video, 720));
-                    dispatch(new ProcessLectureEdit($path_480, $temp_video->id, $request->video_id, $video->link_video, 480));
-                    dispatch(new ProcessLectureEdit($path_360, $temp_video->id, $request->video_id, $video->link_video, 360));
+                    dispatch(new ProcessLectureEdit($path_1080, $temp_video->id, $request->video_id, $temp_video->link_video, 1080));
+                    dispatch(new ProcessLectureEdit($path_720, $temp_video->id, $request->video_id, $temp_video->link_video, 720));
+                    dispatch(new ProcessLectureEdit($path_480, $temp_video->id, $request->video_id, $temp_video->link_video, 480));
+                    dispatch(new ProcessLectureEdit($path_360, $temp_video->id, $request->video_id, $temp_video->link_video, 360));
 
                     return response()->json([
                         'status' => 200,

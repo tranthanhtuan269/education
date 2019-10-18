@@ -455,7 +455,11 @@
                                 $('#editStuName').val(response.user.name)
                                 $('#editStuEmail').val(response.user.email)
                                 $('#editStuPhone').val(response.user.phone)
-                                $('#editStuDob').datepicker("setDate", new Date(response.user.birthday))
+                                if ( response.user.birthday ){
+                                        $('#editStuDob').datepicker("setDate", new Date(response.user.birthday))
+                                    }else{
+                                        $('#editStuDob').datepicker("setDate", "")
+                                    }
                                 $('#editStuGender').val(response.user.gender)
                                 $('#editStuAddress').val(response.user.address)
                                 $("#imageEditStu").attr("src", `/frontend/${response.user.avatar}`)
