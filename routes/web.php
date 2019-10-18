@@ -50,7 +50,7 @@ Route::get('trinhnk', function( $course_id = 647){
 Route::get('delete/{course}', 'Frontends\HomeController@deleteCourse');
 
 Route::get('test2', function(){
-    \App\Helper\Helper::reSortIndexVideoOfCourse($video->unit->course->id);
+    \App\Helper\Helper::reSortIndexVideoOfCourse(783);
 });
 
 Route::get('thay-state-video', function(){
