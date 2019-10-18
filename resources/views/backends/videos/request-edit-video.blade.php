@@ -176,7 +176,7 @@
                             sInfoFiltered: "",
                             sInfoEmpty: "",
                             sZeroRecords: "Không tìm thấy kết quả tìm kiếm",
-                            sEmptyTable: "Chưa có bài giảng được yêu cầu xóa",
+                            sEmptyTable: "Chưa có yêu cầu sửa bài giảng",
                             oPaginate: {
                                 sPrevious: "Trang trước",
                                 sNext: "Trang sau",
