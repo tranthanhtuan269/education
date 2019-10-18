@@ -133,16 +133,16 @@
                             @if($key%4 < 3)
                             </div>
                             @endif
-                        @endif
-                        @if (Request::is('/') || Request::is('home'))
-                        <div class="col-sm-12 text-center">
-                            <a href="{{ url('list-course?type=trendding') }}" class="btn btn-default btn-seeall">Tất cả</a>
-                        </div>
-                        @endif
-                        @if ( Request::is('category/*') && $key == 7 )
-                        <div class="col-sm-12 text-center">
-                            <a href="{{ url('list-course-category?type=trendding&cat_id='.$category->id.'') }}" class="btn btn-default btn-seeall">Tất cả</a>
-                        </div>
+                            @if (Request::is('/') || Request::is('home'))
+                            <div class="col-sm-12 text-center">
+                                <a href="{{ url('list-course?type=trendding') }}" class="btn btn-default btn-seeall">Tất cả</a>
+                            </div>
+                            @endif
+                            @if ( Request::is('category/*') && $key == 7 )
+                            <div class="col-sm-12 text-center">
+                                <a href="{{ url('list-course-category?type=trendding&cat_id='.$category->id.'') }}" class="btn btn-default btn-seeall">Tất cả</a>
+                            </div>
+                            @endif
                         @endif
                     </div>
                 </div>
