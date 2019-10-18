@@ -8,6 +8,7 @@ use Auth;
 
 class CommentVideoTransformer extends TransformerAbstract
 {
+    protected $availableIncludes = ['children'];
     /**
      * A Fractal transformer.
      *
@@ -15,6 +16,23 @@ class CommentVideoTransformer extends TransformerAbstract
      */
     public function transform(CommentVideo $commentVideo)
     {
+        return [
+            'id' => $commentVideo->id,
+            'parentId' => $commentVideo->parent_id,
+            'username' => $commentVideo->userRole->user->name,
+            'avatar' => $commentVideo->userRole->user->avatar,
+            'userType' => $this->getUserType($commentVideo),
+            'content' => $commentVideo->content,
+            'created_at' => $commentVideo->created_at->format('Y-m-d H:i:s')
+        ];
+    }
+
+    public function includeChildren(CommentVideo $commentVideo)
+    {
+        return $this->collection($commentVideo->children, new CommentVideoTransformer);
+    }
+
+    public function getUserType($commentVideo){
         $userType = 'Học viên';
         if($commentVideo->userRole){
             switch($commentVideo->userRole->role_id){
@@ -28,16 +46,6 @@ class CommentVideoTransformer extends TransformerAbstract
                     break;
             }
         }
-        
-        
-        return [
-            'id' => $commentVideo->id,
-            'parentId' => $commentVideo->parent_id,
-            'username' => Auth::user()->name,
-            'avatar' => Auth::user()->avatar,
-            'userType' => $userType,
-            'content' => $commentVideo->content,
-            'created_at' => $commentVideo->created_at->format('Y-m-d H:i:s')
-        ];
+        return $userType;
     }
 }

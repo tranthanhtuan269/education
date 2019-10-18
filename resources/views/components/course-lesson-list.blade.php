@@ -1,4 +1,4 @@
-<div class="u-list-course" id="u-list-course">
+<div class="u-list-course" id="u-list-course" data-course-id="{{$info_course->id}}">
     <div class="top clearfix">
         <h3 class="pull-left">Bài học</h3>
         <ul class="pull-right">
