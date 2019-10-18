@@ -452,7 +452,7 @@
                             <li><a href="javascript:void(0)" title="job post">Job Post</a></li>
                         </ul> --}}
                         <p class="copyright">&copy; 2019, Bản quyền thuộc về courdemy.com. Bảo lưu mọi quyền!</p>
-                        <p>v2019.10.15</p>
+                        <p>v2019.10.17</p>
                     </div>
                 </div>
             </div>
