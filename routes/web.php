@@ -47,6 +47,8 @@ Route::get('trinhnk', function( $course_id = 647){
     return $demanding_user_course;
 });
 
+Route::get('delete/{course}', 'Frontends\HomeController@deleteCourse');
+
 Route::get('test2', function(){
     $comment_videos = \App\CommentVideo::where('video_id', 51)->get();
     echo \Response::json(array('status' => '200', 'message' => 'Lấy thảo luận thành công!', 'commentVideo' => fractal($comment_videos, new \App\Transformers\CommentVideoTransformer())->toArray()));die;
