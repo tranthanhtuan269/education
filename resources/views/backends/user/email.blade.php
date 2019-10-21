@@ -243,6 +243,7 @@
                 render: (data, type, row) => {
                     if(
                         row.action == {{\Config::get('app.email_order_complete')}} || 
+                        row.action == {{\Config::get('app.email_inactive_video')}} || 
                         row.action == {{\Config::get('app.email_released_course')}} || 
                         row.action == {{\Config::get('app.email_convert_video_completed')}}){
                         return `<p>${row.title} <br> <span style="color: red">(Email hệ thống)<span><p>`

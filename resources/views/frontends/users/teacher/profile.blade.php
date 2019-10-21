@@ -140,6 +140,13 @@
                                                     <textarea class="form-control" rows="2" cols="50" name="address">{{ Auth::user()->address }}</textarea>
                                                 </div>
                                             </div>
+                                            <div class="form-group">
+                                                <label>Facebook</label>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" name="facebook" id="FacebookUrl" value="@if(Auth::user()){{Auth::user()->facebook}}@endif">
+                                                    <br><p id="warningFacebookIntro"></p>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="col-md-6 col-sm-6">
                                             <div class="form-group">
@@ -300,6 +307,7 @@
                         address: $('textarea[name=address]').val().trim(),
                         expert: $('input[name=expert]').val().trim(),
                         video_intro : $('input[name=video-intro]').val().trim(),
+                        facebook : $('input[name=facebook]').val().trim(),
                         cv : cv.getData(),
                     };
             } else {
@@ -311,6 +319,7 @@
                         address: $('textarea[name=address]').val().trim(),
                         expert: $('input[name=expert]').val().trim(),
                         video_intro : $('input[name=video-intro]').val().trim(),
+                        facebook : $('input[name=facebook]').val().trim(),
                         cv : cv.getData(),
                     };
             }

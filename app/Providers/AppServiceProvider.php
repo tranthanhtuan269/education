@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Auth;
 use Mail;
+use Config;
 use Validator;
 use App\Video;
 use App\Document;
@@ -119,7 +120,7 @@ class AppServiceProvider extends ServiceProvider
                 if ( $course ){
                     if ($course->userRoles->first()){
                         $current_user = $course->userRoles->first()->user;
-                        Mail::to($current_user)->queue(new ConvertVideoCompleted($video, $current_user));
+                        // Mail::to($current_user)->queue(new ConvertVideoCompleted($video, $current_user));
                         // Lưu vào bảng user_email
                         $alertEmail = \App\Email::find(Config::get('app.email_convert_video_completed'));
                         if($alertEmail){
@@ -200,7 +201,7 @@ class AppServiceProvider extends ServiceProvider
                 if ( $course ){
                     if ($course->userRoles->first()){
                         $current_user = $course->userRoles->first()->user;
-                        Mail::to($current_user)->queue(new ConvertVideoCompleted($video, $current_user));
+                        // Mail::to($current_user)->queue(new ConvertVideoCompleted($video, $current_user));
                         // Lưu vào bảng user_email
                         $alertEmail = \App\Email::find(Config::get('app.email_convert_video_completed'));
                         if($alertEmail){

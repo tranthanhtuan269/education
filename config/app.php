@@ -23,6 +23,7 @@ return [
     'email_order_complete' => 2,
     'email_released_course' => 3,
     'email_convert_video_completed' => 4,
+    'email_inactive_video' => 5,
 
     'email_system_status' => 10,    // email hệ thống không cho xoá và sửa tên
 
