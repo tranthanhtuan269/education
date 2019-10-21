@@ -1140,6 +1140,7 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
 
                     $('.reply-hold-' + comment_id).prepend(html);
                     $("#reply-" + comment_id).val("")
+                    $('.reply-textbox').addClass('hide')
                 }
             });
 
