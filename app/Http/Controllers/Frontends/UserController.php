@@ -183,6 +183,8 @@ class UserController extends Controller
                 $user->avatar = 'images/' . $file_name;
             }
 
+            $user->facebook = $request->facebook;
+
             $user->save();
 
             // update course info

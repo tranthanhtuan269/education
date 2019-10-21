@@ -21,7 +21,7 @@
     {{-- <div>{!!$mailContent!!}</div> --}}
     <div class="container">
         <div class="modal-header text-center">
-            <h4 class="modal-title" style="color: #00B7F1">Video cuar bạn đã được duyệt thành công</h4>
+            <h4 class="modal-title" style="color: #00B7F1">Video của bạn đã được duyệt thành công</h4>
         </div>
         <div class="modal-body">
             <p>Cám ơn bạn đã mua khoá học trên Courdemy!</p>
