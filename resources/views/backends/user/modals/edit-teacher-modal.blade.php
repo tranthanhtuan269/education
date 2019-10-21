@@ -71,6 +71,12 @@
     </div>
 </div>
 <div class="form-group row">
+    <label  class="col-sm-3 col-form-label">Facebook </label>
+    <div class="col-sm-8">
+        <input type="text" class="form-control" id="editTchFacebook" name="youtube">                                       
+    </div>
+</div>
+<div class="form-group row">
     <label  class="col-sm-3 col-form-label">CV <span class="text-danger">*</span></label>
     <div class="col-sm-8">
         <textarea type="text" class="form-control" id="editTchCv" name="editTchCv"></textarea>                                    
@@ -173,6 +179,7 @@ $(document).ready(function(){
         var address          = $('#editTchAddress').val().trim()
         var expert           = $('#editTchExpert').val().trim()
         var youtube          = $('#editTchYoutube').val().trim()
+        var facebook         = $('#editTchFacebook').val().trim()
         var cv               = editTchCvEditor.getData()
         var password         = $('#editTchPassword').val()
         var confirmPassword  = $('#editTchCfPassword').val()
@@ -217,6 +224,7 @@ $(document).ready(function(){
         editFormData.append('address', address)
         editFormData.append('expert', expert)
         editFormData.append('youtube', youtube)
+        editFormData.append('facebook', facebook)
         editFormData.append('cv', cv)
         if(password != ""){
             editFormData.append('password', password)
