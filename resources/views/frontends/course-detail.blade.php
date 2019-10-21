@@ -603,7 +603,7 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                 </div>
             </div>
             <div class="reviews"  id="">
-                @if ( !$ratingCourse )
+                @if ( !isset($ratingCourse) )
                 <h3>Đánh giá khóa học
                     {{-- @if(Auth::check()) --}}
                         @if(\App\Helper\Helper::getUserRoleOfCourse($info_course->id))
