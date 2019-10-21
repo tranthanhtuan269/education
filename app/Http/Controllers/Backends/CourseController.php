@@ -13,6 +13,7 @@ use Auth;
 use App\Helper\Helper;
 use App\TempCourse;
 use Config;
+use Mail;
 
 class CourseController extends Controller
 {
@@ -299,6 +300,21 @@ class CourseController extends Controller
                                                 ->count();
                     if ($count_course_active == $count_course_pending) {
                         $course->save();
+                        if ($course->userRoles->first()){
+                            $current_user = $course->userRoles->first()->user;
+                            Mail::to($current_user)->queue(new ReleasedCourse($course, $current_user));
+                            // Lưu vào bảng user_email
+                            $alertEmail = \App\Email::find(Config::get('app.email_released_course'));
+                            if($alertEmail){
+                                $user_email  = new \App\UserEmail;
+                                $user_email->user_id = $current_user->id;
+                                $user_email->email_id = $alertEmail->id;
+                                $user_email->sender_user_id = 333;
+                                $user_email->content = $alertEmail->content;
+                                $user_email->title = $alertEmail->title;
+                                $user_email->save();
+                            }
+                        }
                         $res = array('status' => "200", "message" => "Duyệt thành công");
                     } else if($count_course_request > 0){
                         $res = array('status' => "404", "message" => "Vẫn còn bài giảng trong khóa học chưa được duyệt, xin vui lòng kiểm tra lại tại <a href='".url('admincp/videos?course_id='.$course->id)."' target='_blank'>đây</a>");
