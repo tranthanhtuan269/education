@@ -41,7 +41,7 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
     if(Auth::check() && strlen(Auth::user()->bought) > 0){
         $list_bought = \json_decode(Auth::user()->bought);
     }
-    // dd(intval($info_course->star_count) / intval($info_course->vote_count))
+    // dd($ratingCourse)
 ?>
 <div class="detail-course">
     <img class="background bg-category" src="{{ asset('frontend/images/banner_profile_teacher.png') }}">
@@ -112,7 +112,7 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                                     <div class="col-xs-6 full-width-mobile pb-10px">
                                         <span class="box-img"><img src="{{ asset('frontend/images/ic_download.png') }}" class="icon" alt="" /></span>
                                         <span class="special">{{ $document_count }} Tài liệu đính kèm</span>
-                                        
+                                        $ratingCourse
                                     </div>
                                 </div>
                                 <div class="row box clearfix">
@@ -603,6 +603,7 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                 </div>
             </div>
             <div class="reviews"  id="">
+                @if ( !$ratingCourse )
                 <h3>Đánh giá khóa học
                     {{-- @if(Auth::check()) --}}
                         @if(\App\Helper\Helper::getUserRoleOfCourse($info_course->id))
@@ -632,170 +633,173 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                     @endif --}}
                 </h3>
                 {{-- @if(Auth::check()) --}}
-                @if(\App\Helper\Helper::getUserRoleOfCourse($info_course->id))
-                @if(isset($info_course->userRoles[0]->user_id))
-                    @if( (int)($info_course->userRoles[0]->user_id) != (int)(Auth::user()->id) )
-                        <textarea name="content" id="editor" class="form-control" placeholder="Nội dung"></textarea>
-                        <div class="btn-submit text-center mt-10 mb-20">
-                            <input class="btn btn-primary submit-question" type="submit" value="Gửi đánh giá" id="create-comment-new"/>
-                        </div>
-                        <script>
-                            var baseURL = $('base').attr('href');
+                    @if(\App\Helper\Helper::getUserRoleOfCourse($info_course->id))
+                        @if(isset($info_course->userRoles[0]->user_id))
+                            @if( (int)($info_course->userRoles[0]->user_id) != (int)(Auth::user()->id) )
+                                <textarea name="content" id="editor" class="form-control" placeholder="Nội dung"></textarea>
+                                <div class="btn-submit text-center mt-10 mb-20">
+                                    <input class="btn btn-primary submit-question" type="submit" value="Gửi đánh giá" id="create-comment-new"/>
+                                </div>
+                                <script>
+                                    var baseURL = $('base').attr('href');
 
-                            function hideStar(){
-                                for(var j = 0; j <= 5; j++){
-                                    $('#star-' + j).removeClass('fa').addClass('far');
-                                }
-                            }
-
-                            function showStar(i){
-                                for(var j = 1; j <= i; j++){
-                                    $('#star-' + j).addClass('fa').removeClass('far');
-                                }
-                            }
-
-                            $('.review-star').mouseenter(function(){
-                                switch($(this).attr('data-id')){
-                                    case "1":
-                                        hideStar();showStar(1);
-                                        break;
-                                    case "2":
-                                        hideStar();showStar(2);
-                                        break;
-                                    case "3":
-                                        hideStar();showStar(3);
-                                        break;
-                                    case "4":
-                                        hideStar();showStar(4);
-                                        break;
-                                    case "5":
-                                        hideStar();showStar(5);
-                                        break;
-                                }
-                            }).mouseleave(function(){
-                                hideStar();
-                            }).click(function(){
-                                console.log($(this));
-                                hideStar();showStar($(this).attr('data-id'))
-                                $('.review-star').off( "mouseenter")
-                                $('.review-star').off( "mouseleave")
-                                $('.reviews-star').attr('data-star', $(this).attr('data-id'))
-                            });
-
-                            $.ajaxSetup({
-                                headers: {
-                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                                }
-                            });
-
-                            $('#create-comment-new').on('click', function (e) {
-                                var score = $('.reviews-star').attr('data-star');
-                                if($('#editor').val().trim() == ''){
-                                    Swal.fire({
-                                        type: 'warning',
-                                        html: 'Bạn chưa nhập nhận xét.',
-                                    })
-                                    return false;
-                                }
-
-                                if($('.reviews-star').attr("data-star") == 0){
-                                    Swal.fire({
-                                        type: 'warning',
-                                        html: 'Bạn chưa nhập sao.',
-                                    })
-                                    return false;
-                                }
-
-                                var request = $.ajax({
-                                    url: baseURL + '/reviews/store',
-                                    method: "POST",
-                                    data: {
-                                        course_id: {{ $info_course->id }},
-                                        content : $('#editor').val().trim(),
-                                        score: score
-                                    },
-                                    dataType: "json"
-                                });
-
-                                request.done(function( data ) {
-                                    if(data.status == 201){
-                                        var html = "";
-                                        var htmlRate = $('.reviews-star').html();
-                                        var avt = "images/avatar.jpg";
-                                        if(data.commentCourse.data.avatar != null && data.commentCourse.data.avatar.length > 0){
-                                            avt = data.commentCourse.data.avatar;
+                                    function hideStar(){
+                                        for(var j = 0; j <= 5; j++){
+                                            $('#star-' + j).removeClass('fa').addClass('far');
                                         }
-                                        html += '<div class="box clearfix">';
-                                            html += '<div class="col-sm-3">';
-                                                html += '<img class="avatar" src="'+baseURL + '/frontend/' + avt +'" alt="">';
-                                                html += '<div class="info-account">';
-                                                    html += '<p class="interval">' + data.commentCourse.data.created_at +'</p>';
-                                                    html += '<p class="name">' + data.commentCourse.data.username +'</p>';
-                                                html += '</div>';
-                                            html += '</div>';
-                                            html += '<div class="col-sm-9">';
-                                                html += htmlRate;
+                                    }
 
-                                                html += '<p class="comment">';
-                                                    html += data.commentCourse.data.content;
-                                                html += '</p>';
-                                                html += '<div class="btn-action">';
-                                                    html += '<button type="button" class="btn btn-default btn-reply" data-comment-id="'+data.commentCourse.data.id+'">';
-                                                        html += '<i class="fas fa-comment"></i>';
-                                                        html += '<span>Reply</span>';
-                                                    html += '</button>';
-                                                    html += '<button type="button" class="btn btn-default btn-like" data-comment-id="'+data.commentCourse.data.id+'">';
-                                                        html += '<i class="fas fa-thumbs-up"></i>';
-                                                        html += '<span>Like</span>';
-                                                    html += '</button>';
-                                                    html += '<button type="button" class="btn btn-default btn-dislike" data-comment-id="'+data.commentCourse.data.id+'">';
-                                                        html += '<i class="fas fa-thumbs-down"></i>';
-                                                        html += '<span>Dislike</span>';
-                                                    html += '</button>';
-                                                html += '</div>';
-                                                html += '<div id="reply-textbox-'+data.commentCourse.data.id+'" class="reply-textbox hide">';
-                                                    html += '<textarea name="reply-'+data.commentCourse.data.id+'" id="reply-'+data.commentCourse.data.id+'" class="form-control" placeholder="Nội dung"></textarea>';
-                                                    html += '<div class="btn-submit text-center mt-10 mb-20">';
-                                                        html += '<input class="btn btn-primary create-reply-btn" type="submit" value="Gửi trả lời" id="create-reply-'+data.commentCourse.data.id+'" data-id="'+data.commentCourse.data.id+'"/>';
-                                                    html += '</div>';
-                                                html += '</div>';
-                                                html += '<div class="reply-hold-'+data.commentCourse.data.id+'"></div>';
-                                            html += '</div>';
-                                            html += '<div class="col-sm-12">';
-                                                html += '<hr>';
-                                            html += '</div>';
-                                        html += '</div>';
-                                        $('#review-box').prepend(html);
-                                        
-                                        addEventToButton();
+                                    function showStar(i){
+                                        for(var j = 1; j <= i; j++){
+                                            $('#star-' + j).addClass('fa').removeClass('far');
+                                        }
+                                    }
 
-                                        // change vote 
-                                        var rate_arr = [];
-                                        $(".item-progress").each(function( index ) {
-                                            rate_arr[$( this ).attr('data-rate')] = $(this).attr('data-vote'); 
+                                    $('.review-star').mouseenter(function(){
+                                        switch($(this).attr('data-id')){
+                                            case "1":
+                                                hideStar();showStar(1);
+                                                break;
+                                            case "2":
+                                                hideStar();showStar(2);
+                                                break;
+                                            case "3":
+                                                hideStar();showStar(3);
+                                                break;
+                                            case "4":
+                                                hideStar();showStar(4);
+                                                break;
+                                            case "5":
+                                                hideStar();showStar(5);
+                                                break;
+                                        }
+                                    }).mouseleave(function(){
+                                        hideStar();
+                                    }).click(function(){
+                                        console.log($(this));
+                                        hideStar();showStar($(this).attr('data-id'))
+                                        $('.review-star').off( "mouseenter")
+                                        $('.review-star').off( "mouseleave")
+                                        $('.reviews-star').attr('data-star', $(this).attr('data-id'))
+                                    });
+
+                                    $.ajaxSetup({
+                                        headers: {
+                                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                        }
+                                    });
+
+                                    $('#create-comment-new').on('click', function (e) {
+                                        var score = $('.reviews-star').attr('data-star');
+                                        if($('#editor').val().trim() == ''){
+                                            Swal.fire({
+                                                type: 'warning',
+                                                html: 'Bạn chưa nhập nhận xét.',
+                                            })
+                                            return false;
+                                        }
+
+                                        if($('.reviews-star').attr("data-star") == 0){
+                                            Swal.fire({
+                                                type: 'warning',
+                                                html: 'Bạn chưa nhập sao.',
+                                            })
+                                            return false;
+                                        }
+
+                                        var request = $.ajax({
+                                            url: baseURL + '/reviews/store',
+                                            method: "POST",
+                                            data: {
+                                                course_id: {{ $info_course->id }},
+                                                content : $('#editor').val().trim(),
+                                                score: score
+                                            },
+                                            dataType: "json"
                                         });
 
-                                        // console.log(rate_arr[$( this ).attr('data-rate')]);
-                                        location.reload();
-                                    }else if(data.status == 200){
-                                        Swal.fire({
-                                            type: 'warning',
-                                            text: data.message
-                                        })
-                                    }
-                                });
-                                request.fail(function( jqXHR, textStatus ) {
-                                    // alert( "Request failed: " + textStatus );
-                                    Swal.fire({
-                                        type: 'warning',
-                                        html: 'Có lỗi! Nhấn tải lại trang và thử lại!',
-                                    })
-                                    return false;
-                                });
-                            });
-                        </script>
+                                        request.done(function( data ) {
+                                            if(data.status == 201){
+                                                var html = "";
+                                                var htmlRate = $('.reviews-star').html();
+                                                var avt = "images/avatar.jpg";
+                                                if(data.commentCourse.data.avatar != null && data.commentCourse.data.avatar.length > 0){
+                                                    avt = data.commentCourse.data.avatar;
+                                                }
+                                                html += '<div class="box clearfix">';
+                                                    html += '<div class="col-sm-3">';
+                                                        html += '<img class="avatar" src="'+baseURL + '/frontend/' + avt +'" alt="">';
+                                                        html += '<div class="info-account">';
+                                                            html += '<p class="interval">' + data.commentCourse.data.created_at +'</p>';
+                                                            html += '<p class="name">' + data.commentCourse.data.username +'</p>';
+                                                        html += '</div>';
+                                                    html += '</div>';
+                                                    html += '<div class="col-sm-9">';
+                                                        html += htmlRate;
+
+                                                        html += '<p class="comment">';
+                                                            html += data.commentCourse.data.content;
+                                                        html += '</p>';
+                                                        html += '<div class="btn-action">';
+                                                            html += '<button type="button" class="btn btn-default btn-reply" data-comment-id="'+data.commentCourse.data.id+'">';
+                                                                html += '<i class="fas fa-comment"></i>';
+                                                                html += '<span>Reply</span>';
+                                                            html += '</button>';
+                                                            html += '<button type="button" class="btn btn-default btn-like" data-comment-id="'+data.commentCourse.data.id+'">';
+                                                                html += '<i class="fas fa-thumbs-up"></i>';
+                                                                html += '<span>Like</span>';
+                                                            html += '</button>';
+                                                            html += '<button type="button" class="btn btn-default btn-dislike" data-comment-id="'+data.commentCourse.data.id+'">';
+                                                                html += '<i class="fas fa-thumbs-down"></i>';
+                                                                html += '<span>Dislike</span>';
+                                                            html += '</button>';
+                                                        html += '</div>';
+                                                        html += '<div id="reply-textbox-'+data.commentCourse.data.id+'" class="reply-textbox hide">';
+                                                            html += '<textarea name="reply-'+data.commentCourse.data.id+'" id="reply-'+data.commentCourse.data.id+'" class="form-control" placeholder="Nội dung"></textarea>';
+                                                            html += '<div class="btn-submit text-center mt-10 mb-20">';
+                                                                html += '<input class="btn btn-primary create-reply-btn" type="submit" value="Gửi trả lời" id="create-reply-'+data.commentCourse.data.id+'" data-id="'+data.commentCourse.data.id+'"/>';
+                                                            html += '</div>';
+                                                        html += '</div>';
+                                                        html += '<div class="reply-hold-'+data.commentCourse.data.id+'"></div>';
+                                                    html += '</div>';
+                                                    html += '<div class="col-sm-12">';
+                                                        html += '<hr>';
+                                                    html += '</div>';
+                                                html += '</div>';
+                                                $('#review-box').prepend(html);
+                                                
+                                                addEventToButton();
+
+                                                // change vote 
+                                                var rate_arr = [];
+                                                $(".item-progress").each(function( index ) {
+                                                    rate_arr[$( this ).attr('data-rate')] = $(this).attr('data-vote'); 
+                                                });
+
+                                                // console.log(rate_arr[$( this ).attr('data-rate')]);
+                                                location.reload();
+                                            }else if(data.status == 200){
+                                                Swal.fire({
+                                                    type: 'warning',
+                                                    text: data.message
+                                                })
+                                            }
+                                        });
+                                        request.fail(function( jqXHR, textStatus ) {
+                                            // alert( "Request failed: " + textStatus );
+                                            Swal.fire({
+                                                type: 'warning',
+                                                html: 'Có lỗi! Nhấn tải lại trang và thử lại!',
+                                            })
+                                            return false;
+                                        });
+                                    });
+                                </script>
+                            @endif
+                        @endif
                     @endif
-                @endif
+                @else
+                    <h3>Bạn đã đánh giá khóa học này</h3>
                 @endif
                 {{-- @else
                 <h4>Đăng nhập để xem đánh giá</h4>
