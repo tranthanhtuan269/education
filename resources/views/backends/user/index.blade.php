@@ -504,6 +504,7 @@
                                     $('#editTchAddress').val(response.user.address)
                                     $('#editTchExpert').val(response.teacher_info.expert)
                                     $('#editTchYoutube').val(response.teacher_info.video_intro)
+                                    $('#editTchFacebook').val(response.user.facebook)
                                     editTchCvEditor.setData(response.teacher_info.cv)
                                     $('#saveEditTeacher').attr('data-user-id', response.user.id)
 

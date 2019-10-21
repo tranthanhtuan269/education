@@ -61,6 +61,7 @@ class TeacherController extends Controller
         $user->phone = $request->phone;
         $user->address = $request->address;
         $user->gender = $request->gender;
+        $user->facebook = $request->facebook;
         if($request->avatar){
             $avatar = $request->avatar;
             $cropped_avatar = Image::make($avatar)
@@ -145,6 +146,7 @@ class TeacherController extends Controller
             $user->phone = $request->phone;
             $user->address = $request->address;
             $user->gender = $request->gender;
+            $user->facebook = $request->facebook;
             if(isset($request->avatar)){
                 $user->avatar = 'images/'.time().'_avatar'.'.png';
             }

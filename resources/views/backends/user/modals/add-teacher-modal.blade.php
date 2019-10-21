@@ -69,6 +69,12 @@
         </div>
     </div>
     <div class="form-group row">
+        <label  class="col-sm-3 col-form-label">Facebook </label>
+        <div class="col-sm-8">
+            <input type="text" class="form-control" id="addTchFacebook" name="youtube" autocomplete="addTchFacebook">                                       
+        </div>
+    </div>
+    <div class="form-group row">
         <label  class="col-sm-3 col-form-label">CV <span class="text-danger">*</span></label>
         <div class="col-sm-8">
             <textarea type="text" class="form-control" id="addTchCv" name="addTchCv"></textarea>                                    
@@ -181,6 +187,7 @@ $(document).ready(function() {
         var address          = $('#addTchAddress').val().trim()
         var expert           = $('#addTchExpert').val().trim()
         var youtube          = $('#addTchYoutube').val().trim()
+        var facebook         = $('#addTchFacebook').val().trim()
         var cv               = addTchCvEditor.getData()
         var password         = $('#addTchPassword').val()
         var confirmPassword  = $('#addTchCfPassword').val()
@@ -222,6 +229,7 @@ $(document).ready(function() {
         formData.append('address', address)
         formData.append('expert', expert)
         formData.append('youtube', youtube)
+        formData.append('facebook', facebook)
         formData.append('cv', cv)
         formData.append('password', password)
         formData.append('confirm_password', confirmPassword)
@@ -281,6 +289,7 @@ $(document).ready(function() {
         $('#addTchAddress').val("")
         $('#addTchExpert').val("")
         $('#addTchYoutube').val("")
+        $('#addTchFacebook').val("")
         addTchCvEditor.setData("")
         $('#addTchPassword').val("")
         $('#addTchCfPassword').val("")
