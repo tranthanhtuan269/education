@@ -457,7 +457,7 @@ $(document).ready(function () {
                             html += '</div>';
                         });
 
-                        $('.ln-disc-post-list').prepend(html);
+                        $('.ln-disc-post-list').html(html);
                         discussEditor.setData("")
                     }
                 },

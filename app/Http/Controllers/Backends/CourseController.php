@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backends;
 
 use Illuminate\Http\Request;
+use App\Mail\ReleasedCourse;
 use App\Http\Requests\StoreCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
 use App\Http\Requests\UpdateFeatureCourseRequest;
