@@ -39,17 +39,24 @@
                                 <br>
                                 <label>Nhập ngày hết hạn của Coupon</label>
                                 <input type="text" class="form-control" id="coupon_expired" pattern="\d{1,2}/\d{1,2}/\d{4}" value="" autocomplete="off" onkeydown="return false">
+                                <script src="{{asset('backend/template/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}"></script>
                                 <script>
-                                    $(function() {
-                                    $( "#coupon_expired" ).datepicker({
-                                            changeMonth: true,
-                                            changeYear: true,
-                                            yearRange: "2019:2050",
-                                            dateFormat: 'yy-mm-dd',
-                                            minDate: new Date(),
-                                        }	
-                                    );
-                                    });
+                                $('#coupon_expired').datepicker({
+                                    autoclose: true,
+                                    format: 'yyyy-mm-dd',
+                                    startDate: new Date(),
+                                    assumeNearbyYear: true
+                                })
+                                    // $(function() {
+                                    // $( "#coupon_expired" ).datepicker({
+                                    //         changeMonth: true,
+                                    //         changeYear: true,
+                                    //         yearRange: "2019:2050",
+                                    //         dateFormat: 'yy-mm-dd',
+                                    //         minDate: new Date(),
+                                    //     }	
+                                    // );
+                                    // });
                                 </script>
                             </div>
                             <div class="col-md-8">
@@ -94,17 +101,14 @@
                                 <br>
                                 <label>Nhập ngày hết hạn của Coupon</label>
                                 <input type="text" class="form-control" id="editCouponExpired" name="expired" pattern="\d{1,2}/\d{1,2}/\d{4}" value="" autocomplete="off" onkeydown="return false">
+                                <script src="{{asset('backend/template/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}"></script>
                                 <script>
-                                    $(function() {
-                                    $( "#editCouponExpired" ).datepicker({
-                                            changeMonth: true,
-                                            changeYear: true,
-                                            yearRange: "2019:2050",
-                                            dateFormat: 'yy-mm-dd',
-                                            minDate: new Date(),
-                                        }	
-                                    );
-                                    });
+                                    $('#editCouponExpired').datepicker({
+                                        autoclose: true,
+                                        format: 'yyyy-mm-dd',
+                                        startDate: new Date(),
+                                        assumeNearbyYear: true
+                                    })
                                 </script>
                             </div>
                             <div class="col-md-8">
