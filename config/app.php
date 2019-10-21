@@ -24,6 +24,10 @@ return [
     'email_released_course' => 3,
     'email_convert_video_completed' => 4,
     'email_inactive_video' => 5,
+    'email_accept_teacher' => 6,
+    'email_unaccept_teacher' => 7,
+    'email_active_user' => 8,
+    'email_inactive_user' => 9,
 
     'email_system_status' => 10,    // email hệ thống không cho xoá và sửa tên
 

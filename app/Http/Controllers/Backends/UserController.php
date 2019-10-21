@@ -8,6 +8,7 @@ use App\Http\Controllers\Backends\Requests\UpdateUserRequest;
 use Response;
 use App\Role;
 use App\User;
+use Config;
 use App\Email;
 use App\Teacher;
 use App\UserRole;
@@ -457,6 +458,17 @@ class UserController extends Controller
 
             if($teacher){
                 if($request->status == 1){
+                    $current_user = $teacher->userRole->user;
+                    $alertEmail = \App\Email::find(Config::get('app.email_accept_teacher'));
+                    if($alertEmail){
+                        $user_email  = new \App\UserEmail;
+                        $user_email->user_id = $current_user->id;
+                        $user_email->email_id = $alertEmail->id;
+                        $user_email->sender_user_id = 333;
+                        $user_email->content = $alertEmail->content;
+                        $user_email->title = $alertEmail->title;
+                        $user_email->save();
+                    }
                     $res = array('status' => "200", "message" => "Duyệt thành công");
                 }else{
                     if( $teacher->featured != 0 ){
@@ -465,12 +477,24 @@ class UserController extends Controller
                             'message' => 'Không thể hủy giảng viên tiêu biểu.'
                         ]);
                     }else{
+                        $current_user = $teacher->userRole->user;
+                        $alertEmail = \App\Email::find(Config::get('app.email_unaccept_teacher'));
+                        if($alertEmail){
+                            $user_email  = new \App\UserEmail;
+                            $user_email->user_id = $current_user->id;
+                            $user_email->email_id = $alertEmail->id;
+                            $user_email->sender_user_id = 333;
+                            $user_email->content = $alertEmail->content;
+                            $user_email->title = $alertEmail->title;
+                            $user_email->save();
+                        }
                         $teacher->userRole->courses()->update(['courses.status' => 0]);
                         $res = array('status' => "200", "message" => "Hủy thành công");
                     }
                 }
                 $teacher->status = $request->status;
                 $teacher->save();
+
                 echo json_encode($res);die;
             }
         }
@@ -543,9 +567,31 @@ class UserController extends Controller
                 $user->save();
                 if($request->status == 1){
                     $res = array('status' => "200", "Message" => "Bỏ chặn người dùng thành công");
+                    $alertEmail = \App\Email::find(Config::get('app.email_active_user'));
+                    if($alertEmail){
+                        $user_email  = new \App\UserEmail;
+                        $user_email->user_id = $user->id;
+                        $user_email->email_id = $alertEmail->id;
+                        $user_email->sender_user_id = 333;
+                        $user_email->content = $alertEmail->content;
+                        $user_email->title = $alertEmail->title;
+                        $user_email->save();
+                    }
                 }else{
+                    $alertEmail = \App\Email::find(Config::get('app.email_inactive_user'));
+                    if($alertEmail){
+                        $user_email  = new \App\UserEmail;
+                        $user_email->user_id = $user->id;
+                        $user_email->email_id = $alertEmail->id;
+                        $user_email->sender_user_id = 333;
+                        $user_email->content = $alertEmail->content;
+                        $user_email->title = $alertEmail->title;
+                        $user_email->save();
+                    }
                     $res = array('status' => "200", "Message" => "Chặn người dùng thành công");
                 }
+
+                
                 echo json_encode($res);die;
             }
         }
