@@ -50,8 +50,8 @@ Route::get('trinhnk', function( $course_id = 647){
 Route::get('delete/{course}', 'Frontends\HomeController@deleteCourse');
 
 Route::get('test2', function(){
-    $order = \App\Order::find(42);
-    dd($order->courses[0]->pivot->percent);
+    $teacher = \App\Teacher::find(1);
+    dd($teacher->userRole->user);
 });
 
 Route::get('thay-state-video', function(){

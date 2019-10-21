@@ -28,7 +28,7 @@
                             <th scope="col">Tên giảng viên</th>
                             <th scope="col">Chuyên môn</th>
                             <th scope="col">Video giới thiệu</th>
-                            <th scope="col">Created at</th>
+                            <th scope="col">Ngày tạo</th>
                             <th scope="col">Thao tác</th>
                         </tr>
                     </thead>
