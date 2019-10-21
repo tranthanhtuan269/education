@@ -581,24 +581,26 @@ class HomeController extends Controller
                         if ($item['id']) {
                             $coupon = Coupon::where('name', $item["coupon_code"])->first();
                             $course = Course::find($item['id']);
+                            $coupon_value = 0;
                             if ($course) {
                                 if($coupon){
                                     $expired = strtotime($coupon->expired);
                                     $today = strtotime(date("Y-m-d"));
+                                    $coupon_value = $coupon->value;
                                     if($expired >= $today){
                                         $total_price =  $total_price + $course->price * (100 - $coupon->value) / 100;
                                     }
                                 }else{
                                     $total_price += $course->price;
                                 }
-
+                                
                                 $bought[] = $item['id']; //Them vao trường đã mua của user TuanTT
                                 
-
+                                // dd($coupon_value);
                                 $course->userRoles()->attach($user_role_id->id, ['videos' => Helper::buildJsonForCheckout($course->id)]);
-                                $order->courses()->attach($item['id']);
+                                $order->courses()->attach($item['id'], ['coupon'=>$item["coupon_code"],'percent'=>$coupon_value]);
                             }
-
+                            
                             // lưu vào bảng teacher của mỗi course để tăng số lượng học viên cho mỗi teacher
                             $teacher = $course->Lecturers()->first()->teacher;
                             if($teacher){
@@ -634,8 +636,21 @@ class HomeController extends Controller
                         $order->coupon = '';
                     }
                     Mail::to($current_user)->queue(new OrderCompleted($order, $current_user));
-                    // dd($order);
-                    $order->content = $order->courses;
+                    // dd($order->courses[0]->pivot->coupon);
+                    
+                    $order_content = [];
+                    foreach ( $order->courses as $course ){
+                        $orderCourseObj = new OrderCourseObj;
+                        $orderCourseObj->id = $course->id;
+                        $orderCourseObj->name = $course->name;
+                        $orderCourseObj->price = $course->price;
+                        $orderCourseObj->sale = $course->price * (100 - $course->pivot->percent) / 100;
+                        $orderCourseObj->coupon = $course->pivot->coupon;
+                        $orderCourseObj->coupon_value = $course->pivot->percent;
+                        $order_content[] = $orderCourseObj;
+                    }
+
+                    $order->content = json_encode($order_content);
 
                     $order->save();
 
@@ -1004,4 +1019,8 @@ class HomeController extends Controller
             $deleteCourse->delete();
         }
     }
+}
+
+class OrderCourseObj{
+    public $id, $name, $price, $sale, $coupon, $coupon_value;
 }

@@ -402,7 +402,7 @@ class UserController extends Controller
 
         return datatables()->collection($order_logs)
             ->addColumn('code', function ($order) {
-                return '#Order_' . $order->id;
+                return '#DH_' . $order->id;
             })
             ->addColumn('payment', function ($order) {
                 return  $order->payment->name;
