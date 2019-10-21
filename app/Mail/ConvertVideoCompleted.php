@@ -9,7 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Video;
 use App\User;
 
-class OrderCompleted extends Mailable
+class ConvertVideoCompleted extends Mailable
 {
     use Queueable, SerializesModels;
 

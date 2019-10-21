@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Auth;
+use Mail;
 use Validator;
 use App\Video;
 use App\Document;
@@ -10,6 +11,7 @@ use App\TempVideo;
 use App\UserCourse;
 use App\TempDocument;
 use App\Helper\Helper;
+use App\Mail\ConvertVideoCompleted;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\Schema;
@@ -95,7 +97,8 @@ class AppServiceProvider extends ServiceProvider
         Queue::after(function (JobProcessed $event) {
             // $event->connectionName
             // $event->job
-            if($event->job->resolveName() == "App\Jobs\ProcessLecture"){
+
+            if($event->job->resolveName() == "App\Jobs\ProcessLecture1080"){
                 Log::info('Job ready: ' . $event->job->resolveName());
                 Log::info('Job started: ' . $event->job->resolveName());
                 $job = $event->job->payload();
@@ -103,7 +106,6 @@ class AppServiceProvider extends ServiceProvider
                 $payload = json_decode( $event->job->getRawBody() );
                 $data = unserialize( $payload->data->command );
                 $video_id = $data->video_id;
-                Log::info('video id: 18/10 ' . $data->video_id);
     
                 $video = Video::find($video_id);
                 if($video){
@@ -112,11 +114,28 @@ class AppServiceProvider extends ServiceProvider
                 }
 
                 Helper::reSortIndexVideoOfCourse($video->unit->course->id);
-                
-                $json_data = \json_encode($data->video_id);
+
+                $course = $video->unit->course;
+                if ( $course ){
+                    if ($course->userRoles->first()){
+                        $current_user = $course->userRoles->first()->user;
+                        Mail::to($current_user)->queue(new ConvertVideoCompleted($video, $current_user));
+                        // Lưu vào bảng user_email
+                        $alertEmail = \App\Email::find(Config::get('app.email_convert_video_completed'));
+                        if($alertEmail){
+                            $user_email  = new \App\UserEmail;
+                            $user_email->user_id = $current_user->id;
+                            $user_email->email_id = $alertEmail->id;
+                            $user_email->sender_user_id = 333;
+                            $user_email->content = $alertEmail->content;
+                            $user_email->title = $alertEmail->title;
+                            $user_email->save();
+                        }
+                    }
+                }      
             }
 
-            if($event->job->resolveName() == "App\Jobs\ProcessLectureEdit"){
+            if($event->job->resolveName() == "App\Jobs\ProcessLectureEdit1080"){
                 Log::info('Job ready: ' . $event->job->resolveName());
                 Log::info('Job started: ' . $event->job->resolveName());
                 $job = $event->job->payload();
@@ -177,6 +196,24 @@ class AppServiceProvider extends ServiceProvider
                     }
                     $videoTemp->delete();
                 }
+                $course = $video->unit->course;
+                if ( $course ){
+                    if ($course->userRoles->first()){
+                        $current_user = $course->userRoles->first()->user;
+                        Mail::to($current_user)->queue(new ConvertVideoCompleted($video, $current_user));
+                        // Lưu vào bảng user_email
+                        $alertEmail = \App\Email::find(Config::get('app.email_convert_video_completed'));
+                        if($alertEmail){
+                            $user_email  = new \App\UserEmail;
+                            $user_email->user_id = $current_user->id;
+                            $user_email->email_id = $alertEmail->id;
+                            $user_email->sender_user_id = 333;
+                            $user_email->content = $alertEmail->content;
+                            $user_email->title = $alertEmail->title;
+                            $user_email->save();
+                        }
+                    }
+                }  
             }
         });
     }

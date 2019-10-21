@@ -15,7 +15,9 @@ use App\Document;
 use Illuminate\Http\Request;
 use App\Helper\Helper;
 use App\Jobs\ProcessLecture;
+use App\Jobs\ProcessLecture1080;
 use App\Jobs\ProcessLectureEdit;
+use App\Jobs\ProcessLectureEdit1080;
 use DB;
 use Illuminate\Http\Response;
 use Config;
@@ -628,10 +630,10 @@ class VideoController extends Controller
                     $video->url_video = $json;
                     $video->save();
 
-                    dispatch(new ProcessLecture($path_1080, $request->video_id, $video->link_video, 1080));
-                    dispatch(new ProcessLecture($path_720, $request->video_id, $video->link_video, 720));
-                    dispatch(new ProcessLecture($path_480, $request->video_id, $video->link_video, 480));
                     dispatch(new ProcessLecture($path_360, $request->video_id, $video->link_video, 360));
+                    dispatch(new ProcessLecture($path_480, $request->video_id, $video->link_video, 480));
+                    dispatch(new ProcessLecture($path_720, $request->video_id, $video->link_video, 720));
+                    dispatch(new ProcessLecture1080($path_1080, $request->video_id, $video->link_video, 1080));
 
                     $res = array('status' => "200", "message" => "Duyệt thành công. Bài giảng đang được convert");
                 } else {
@@ -944,10 +946,10 @@ class VideoController extends Controller
                     $video->save();
                     // $temp_video->delete();
                     
-                    dispatch(new ProcessLectureEdit($path_1080, $temp_video->id, $request->video_id, $temp_video->link_video, 1080));
-                    dispatch(new ProcessLectureEdit($path_720, $temp_video->id, $request->video_id, $temp_video->link_video, 720));
-                    dispatch(new ProcessLectureEdit($path_480, $temp_video->id, $request->video_id, $temp_video->link_video, 480));
                     dispatch(new ProcessLectureEdit($path_360, $temp_video->id, $request->video_id, $temp_video->link_video, 360));
+                    dispatch(new ProcessLectureEdit($path_480, $temp_video->id, $request->video_id, $temp_video->link_video, 480));
+                    dispatch(new ProcessLectureEdit($path_720, $temp_video->id, $request->video_id, $temp_video->link_video, 720));
+                    dispatch(new ProcessLectureEdit1080($path_1080, $temp_video->id, $request->video_id, $temp_video->link_video, 1080));
 
                     return response()->json([
                         'status' => 200,
