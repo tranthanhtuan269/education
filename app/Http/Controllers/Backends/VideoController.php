@@ -1171,6 +1171,22 @@ class VideoController extends Controller
 
                 $video->delete();
 
+                if($video->unit->course){
+                    $course = $video->unit->course;
+                    $current_user = $course->userRoles->first()->user;
+                    // Lưu vào bảng user_email
+                    $alertEmail = \App\Email::find(Config::get('app.email_inactive_video'));
+                    if($alertEmail){
+                        $user_email  = new \App\UserEmail;
+                        $user_email->user_id = $current_user->id;
+                        $user_email->email_id = $alertEmail->id;
+                        $user_email->sender_user_id = 333;
+                        $user_email->content = $alertEmail->content;
+                        $user_email->title = $alertEmail->title;
+                        $user_email->save();
+                    }
+                }
+
                 $res = array('status' => "200", "message" => "Xóa bài giảng thành công.");
                 echo json_encode($res);die;
             }
