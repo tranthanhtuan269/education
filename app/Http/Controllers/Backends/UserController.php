@@ -390,7 +390,7 @@ class UserController extends Controller
     }
 
     public function email(){
-        $emails = Email::get();
+        $emails = Email::where('id', '>', 4)->get();
         // dd($emails);
         $roles = Role::get();
         $users = User::select('id', 'name', 'email')->get();
