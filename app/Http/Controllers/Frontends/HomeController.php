@@ -644,6 +644,7 @@ class HomeController extends Controller
                         $orderCourseObj->id = $course->id;
                         $orderCourseObj->name = $course->name;
                         $orderCourseObj->price = $course->price;
+                        $orderCourseObj->real_price = $course->real_price;
                         $orderCourseObj->sale = $course->price * (100 - $course->pivot->percent) / 100;
                         $orderCourseObj->coupon = $course->pivot->coupon;
                         $orderCourseObj->coupon_value = $course->pivot->percent;
@@ -1022,5 +1023,5 @@ class HomeController extends Controller
 }
 
 class OrderCourseObj{
-    public $id, $name, $price, $sale, $coupon, $coupon_value;
+    public $id, $name, $price, $real_price, $sale, $coupon, $coupon_value;
 }
