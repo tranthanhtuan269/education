@@ -112,7 +112,6 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                                     <div class="col-xs-6 full-width-mobile pb-10px">
                                         <span class="box-img"><img src="{{ asset('frontend/images/ic_download.png') }}" class="icon" alt="" /></span>
                                         <span class="special">{{ $document_count }} Tài liệu đính kèm</span>
-                                        $ratingCourse
                                     </div>
                                 </div>
                                 <div class="row box clearfix">
