@@ -191,8 +191,9 @@
 
                 html_data += '</tbody></table>';
 
-                html_data += '<table class="table table-bordered"><thead><tr><th scope="col">Tên khóa học</th><th scope="col" style="text-align:right;">Giá</th></tr></thead><tbody>';
+                html_data += '<table class="table table-bordered"><thead><tr><th scope="col">Tên khóa học</th><th scope="col" style="text-align:right;">Giá gốc</th><th scope="col" style="text-align:right;">Giảm giá</th><th scope="col" style="text-align:right;">Giá thanh toán</th></tr></thead><tbody>';
                 var totalValue = 0;
+                var total_payment = 0;
                 
                 for(var i = 0; i < courses.length; i++){
                     
@@ -200,20 +201,30 @@
                     html_data += '<td>';
                     html_data += courses[i].name;
                     html_data += '</td>';
+
                     html_data += '<td style="font-size:15px; text-align:right;">';
-
-                    html_data += courses[i].sale > 0 ? numberFormat(courses[i].sale, 0, '.', '.') : numberFormat(courses[i].price, 0, '.', '.') + ' đ';
-
+                    html_data += numberFormat(courses[i].price, 0, '.', '.') + ' đ';
                     html_data += '</td>';
+
+                    html_data += '<td style="font-size:15px; text-align:right;">';
+                    if( courses[i].coupon ){
+                        html_data += courses[i].coupon+'('+courses[i].coupon_value+'%)';
+                    }
+                    html_data += '</td>';
+
+                    html_data += '<td style="font-size:15px; text-align:right;"><b>';
+                    html_data += numberFormat(courses[i].sale, 0, '.', '.') + ' đ';
+                    html_data += '</b></td>';
                     html_data += '</tr>';
 
-                    totalValue += courses[i].sale > 0 ? 1 * courses[i].sale : 1 * courses[i].price;
+                    totalValue += courses[i].price > 0 ? 1 * courses[i].price : 1 * courses[i].price;
+                    total_payment += courses[i].sale;
                 }
-                html_data += '<tr><td><b>Tổng</b></td><td style="font-size:15px; text-align:right;">'+ numberFormat(totalValue, 0, '.', '.') +' đ</td></tr>';
+                html_data += '<tr><td><b>Tổng</b></td><td style="font-size:15px; text-align:right;">'+ numberFormat(totalValue, 0, '.', '.') +' đ</td><td style="font-size:15px; text-align:right;"></td><td style="font-size:15px; text-align:right;"><b>'+ numberFormat(total_payment, 0, '.', '.') +' đ</b></td></tr>';
 
                 if (coupon != '') {
-                    html_data += '<tr><td><b>Tổng giảm giá</b></td><td style="font-size:15px; text-align:right;">'+ numberFormat(totalValue - total_price_real, 0, '.', '.') +' đ</td></tr>';
-                    html_data += '<tr><td><b>Tổng cộng</b></td><td style="color:red; font-size:18px; text-align:right;">'+ numberFormat(total_price_real, 0, '.', '.') +' đ</td></tr>';
+                    // html_data += '<tr><td><b>Tổng giảm giá</b></td><td style="font-size:15px; text-align:right;">'+ numberFormat(totalValue - total_price_real, 0, '.', '.') +' đ</td></tr>';
+                    // html_data += '<tr><td><b>Tổng cộng</b></td><td style="color:red; font-size:18px; text-align:right;">'+ numberFormat(total_price_real, 0, '.', '.') +' đ</td><td style="color:red; font-size:18px; text-align:right;">'+ numberFormat(total_price_real, 0, '.', '.') +' đ</td><td style="color:red; font-size:18px; text-align:right;">'+ numberFormat(total_price_real, 0, '.', '.') +' đ</td></tr>';
                 }
                 html_data += '</tbody></table>';
                 
