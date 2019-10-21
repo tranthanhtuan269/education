@@ -7,12 +7,16 @@
     $video_done_units = $user_role_course_instance_video->videos;
     $video_count = \App\Course::find($courseId)->all_videos();
     $video_done_count = 0;
-    // dd(json_decode($user_role_course_instance_video->videos));
     $list_units = $user_role_course_instance_video->videos;
+
+    $check = false;
     foreach($list_units as $units){
-        foreach($units as $unit){
-            if($unit == 1){
-                $video_done_count++;
+        if ( gettype($units) == 'array' ){
+            $check = true;
+            foreach($units as $unit){
+                if($unit == 1){
+                    $video_done_count++;
+                }
             }
         }
     }
@@ -33,6 +37,7 @@
       $video_done_percent = (int)(($video_done_count/ (int) $video_count)*100);
     }
 ?>
+@if ( $check == true )
 <div class="col-md-3 col-sm-6">
     <div class="box-course">
         <div class="purchase_course">
@@ -108,3 +113,4 @@
         </div>
     </div>
 </div>
+@endif
