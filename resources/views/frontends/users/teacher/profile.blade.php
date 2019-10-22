@@ -299,7 +299,7 @@
             function validate_url(url){
                 if (/^(https?:\/\/)?((w{3}\.)?)facebook.com\/.*/i.test(url)){
                     return true;
-                }else{false}
+                }else{ return false }
             }
             if ( facebook_url != '' ){
                 validate_url(facebook_url)
