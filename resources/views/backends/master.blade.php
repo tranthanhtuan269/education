@@ -278,9 +278,9 @@
                                     <li class="@if ( Request::is('admincp/request-delete-videos') ) active @endif">
                                         <a href="{{ url('/') }}/admincp/request-delete-videos"><i class="fa fa-minus"></i>Yêu cầu xóa</a>
                                     </li>
-                                    <li class="@if ( Request::is('admincp/video-in-trash') ) active @endif">
+                                    {{-- <li class="@if ( Request::is('admincp/video-in-trash') ) active @endif">
                                         <a href="{{ url('/') }}/admincp/video-in-trash"><i class="fa fa-minus"></i>Thùng rác</a>
-                                    </li>
+                                    </li> --}}
                                 @endif
                             </ul>
                         </li>
