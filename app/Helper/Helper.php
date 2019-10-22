@@ -288,7 +288,7 @@ class Helper
     }
 
     // Hàm cắt chuỗi thông minh ^-^
-    public static function smartStr($string, $length = 55, $character = '...') {
+    public static function smartStr($string, $length = 60, $character = '...') {
         $limit = abs((int)$length);
 
         if(strlen($string) > $limit) {
