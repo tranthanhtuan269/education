@@ -658,34 +658,6 @@ class VideoController extends Controller
         echo json_encode($res);die;
     }
 
-    public function acceptMultiVideo(Request $request)
-    {
-        if (isset($request) && $request->input('id_list')) {
-            $id_list = $request->input('id_list');
-
-            if (Video::acceptMulti($id_list, 1)) {
-                $res = array('status' => 200, "message" => "Đã duyệt hết");
-            } else {
-                $res = array('status' => "204", "message" => "Có lỗi trong quá trình xủ lý !");
-            }
-            echo json_encode($res);
-        }
-    }
-
-    public function inacceptMultiVideo(Request $request)
-    {
-        if (isset($request) && $request->input('id_list')) {
-            $id_list = $request->input('id_list');
-
-            if (Video::acceptMulti($id_list, 0)) {
-                $res = array('status' => 200, "message" => "Đã hủy hết");
-            } else {
-                $res = array('status' => "204", "message" => "Có lỗi trong quá trình xủ lý !");
-            }
-            echo json_encode($res);
-        }
-    }
-
     public function deleteVideo(Request $request)
     {
         if ($request->video_id) {
@@ -737,33 +709,6 @@ class VideoController extends Controller
         echo json_encode($res);die;
     }
 
-    public function deleteMultiVideo(Request $request)
-    {
-        if (isset($request) && $request->input('id_list')) {
-            $id_list = $request->input('id_list');
-
-            if (Video::delMulti($id_list)) {
-                $res = array('status' => 200, "message" => "Đã xóa hết");
-            } else {
-                $res = array('status' => "204", "message" => "Có lỗi trong quá trình xủ lý !");
-            }
-            echo json_encode($res);
-        }
-    }
-
-    public function testVideo(){
-        $video = Video::find(1);
-
-        $path_360 = "/usr/local/WowzaStreamingEngine-4.7.7/content/360/".$video->link_video;
-
-        // dispatch(new ProcessLecture($path_360, $video->id, $video->link_video, 360));
-        ProcessLecture::dispatch($path_360, $video->id, $video->link_video, 360);
-
-        return response()->json([
-            'message'=>'done'
-        ]);
-    }
-
     public function getRequestDeleteVideo()
     {
         return view('backends.videos.request-delete-video');
@@ -799,6 +744,7 @@ class VideoController extends Controller
                 $video->state       = Config::get('app.video_active');
                 $video->updated_at  = date('Y-m-d H:i:s');
                 $video->save();
+                \App\Helper\Helper::addAlert($video->unit->course->Lecturers()[0]->user, "app.email_unaccept_request_delete_video");
     
                 return response()->json([
                     'status' => 200,
@@ -825,12 +771,13 @@ class VideoController extends Controller
                     if ( $course ){
                         $user_courses = $course->userCourses;
                         Helper::reBuildJsonWhenCreateOrDeleteLecture($course->id, $video->id, 0);
+                        \App\Helper\Helper::addAlert($course->Lecturers()[0]->user, "app.email_accept_request_delete_video");
                     }
                 }
-                // dd('out');
                 $video->state       = Config::get('app.video_in_trash');
                 $video->updated_at  = date('Y-m-d H:i:s');
                 $video->save();
+
 
                 return response()->json([
                     'status' => 200,
@@ -1017,6 +964,8 @@ class VideoController extends Controller
             $video->state = Config::get('app.video_active');
             $video->save();
 
+            \App\Helper\Helper::addAlert($video->unit->course->Lecturers()[0]->user, "app.email_unaccept_request_edit_video");
+
             return response()->json([
                 'status' => 200,
                 'message' => 'Đã hủy yêu cầu sửa bài giảng.',
@@ -1181,18 +1130,7 @@ class VideoController extends Controller
 
                 if($video->unit->course){
                     $course = $video->unit->course;
-                    $current_user = $course->userRoles->first()->user;
-                    // Lưu vào bảng user_email
-                    $alertEmail = \App\Email::find(Config::get('app.email_inactive_video'));
-                    if($alertEmail){
-                        $user_email  = new \App\UserEmail;
-                        $user_email->user_id = $current_user->id;
-                        $user_email->email_id = $alertEmail->id;
-                        $user_email->sender_user_id = 333;
-                        $user_email->content = $alertEmail->content;
-                        $user_email->title = $alertEmail->title;
-                        $user_email->save();
-                    }
+                    \App\Helper\Helper::addAlert($course->Lecturers()[0]->user, "app.email_inactive_video");
                 }
 
                 $res = array('status' => "200", "message" => "Xóa bài giảng thành công.");

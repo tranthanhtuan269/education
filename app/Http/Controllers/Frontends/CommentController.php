@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers\Frontends;
 
-use App\CommentCourse;
-use App\CommentLike;
-use App\CommentVideo;
+use Auth;
+use App\Video;
 use App\Course;
 use App\Teacher;
-use App\Helper\Helper;
+use App\CommentLike;
+use App\CommentVideo;
 use App\RatingCourse;
+use App\CommentCourse;
+use App\Helper\Helper;
 use App\RatingTeacher;
-use App\Transformers\CommentCourseTransformer;
-use App\Transformers\CommentVideoTransformer;
-use App\Video;
-use Auth;
 use Illuminate\Http\Request;
+use App\Transformers\CommentVideoTransformer;
 use App\Http\Requests\StoreDiscussionRequest;
+use App\Transformers\CommentCourseTransformer;
 
 class CommentController extends Controller
 {
@@ -51,6 +51,11 @@ class CommentController extends Controller
             $commentVideo->state = 1;
             if (isset($request->parentId)) {
                 $commentVideo->parent_id = $request->parentId;
+                if($request->parentId != 0){
+                    \App\Helper\Helper::addAlert($video->unit->course->Lecturers()[0]->user, "app.email_save_comment");
+                }else{
+                    \App\Helper\Helper::addAlert($commentVideo->userRole->user, "app.email_save_comment");
+                }
             }
             $commentVideo->save();
             return \Response::json(array('status' => '200', 'message' => 'Cập nhật thông tin thành công!', 'commentVideo' => fractal($commentVideo, new CommentVideoTransformer())->toArray()));
@@ -109,6 +114,8 @@ class CommentController extends Controller
                 $course->star_count += $request->score;
                 $course->vote_count += 1;
                 $course->save();
+
+                \App\Helper\Helper::addAlert($course->Lecturers()[0]->user, "app.email_vote_course");
                 return \Response::json(array('status' => '201', 'message' => 'Cập nhật thông tin thành công!', 'commentCourse' => fractal($commentCourse, new CommentCourseTransformer())->toArray(), 'course' => $course));
             }else{
                 return \Response::json(array('status' => '200', 'message' => 'Bạn chỉ được gửi nhận xét một lần cho mỗi khóa học!'));
@@ -254,7 +261,8 @@ class CommentController extends Controller
                 $commentCourse->score = 0;
                 $commentCourse->state = 0;
                 $commentCourse->save();
-                
+                \App\Helper\Helper::addAlert($comment->userRole->user, "app.email_reply_comment");
+
                 return \Response::json(array('status' => '200', 'message' => 'Cập nhật thông tin thành công!', 'commentCourse' => fractal($commentCourse, new CommentCourseTransformer())->toArray()));
             }
             $commentCourse = new CommentCourse;
@@ -265,6 +273,8 @@ class CommentController extends Controller
             $commentCourse->score = 0;
             $commentCourse->state = 0;
             $commentCourse->save();
+
+            \App\Helper\Helper::addAlert($comment->userRole->user, "app.email_reply_comment");
 
             return \Response::json(array('status' => '200', 'message' => 'Cập nhật thông tin thành công!', 'commentCourse' => fractal($commentCourse, new CommentCourseTransformer())->toArray()));
         }

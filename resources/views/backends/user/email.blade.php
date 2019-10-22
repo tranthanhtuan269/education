@@ -243,9 +243,26 @@
                 render: (data, type, row) => {
                     if(
                         row.action == {{\Config::get('app.email_order_complete')}} || 
-                        row.action == {{\Config::get('app.email_inactive_video')}} || 
                         row.action == {{\Config::get('app.email_released_course')}} || 
-                        row.action == {{\Config::get('app.email_convert_video_completed')}}){
+                        row.action == {{\Config::get('app.email_convert_video_completed')}} || 
+                        row.action == {{\Config::get('app.email_inactive_video')}} || 
+                        row.action == {{\Config::get('app.email_accept_teacher')}} || 
+                        row.action == {{\Config::get('app.email_unaccept_teacher')}} || 
+                        row.action == {{\Config::get('app.email_active_user')}} || 
+                        row.action == {{\Config::get('app.email_inactive_user')}} || 
+                        row.action == {{\Config::get('app.email_reply_comment')}} || 
+                        row.action == {{\Config::get('app.email_vote_course')}} || 
+                        row.action == {{\Config::get('app.email_save_comment')}} || 
+                        row.action == {{\Config::get('app.email_stop_selling')}} || 
+                        row.action == {{\Config::get('app.email_start_selling')}} || 
+                        row.action == {{\Config::get('app.email_remove_request_accept_course')}} || 
+                        row.action == {{\Config::get('app.email_accept_request_edit_course')}} || 
+                        row.action == {{\Config::get('app.email_remove_request_edit_course')}} || 
+                        row.action == {{\Config::get('app.email_accept_request_edit_video')}} || 
+                        row.action == {{\Config::get('app.email_unaccept_request_edit_video')}} || 
+                        row.action == {{\Config::get('app.email_accept_request_delete_video')}} || 
+                        row.action == {{\Config::get('app.email_unaccept_request_delete_video')}}
+                        ){
                         return `<p>${row.title} <br> <span style="color: red">(Email hệ thống)<span><p>`
                     }else{
                         return row.title

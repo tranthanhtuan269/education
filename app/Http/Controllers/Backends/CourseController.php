@@ -301,20 +301,8 @@ class CourseController extends Controller
                                                 ->count();
                     if ($count_course_active == $count_course_pending) {
                         $course->save();
-                        if ($course->userRoles->first()){
-                            $current_user = $course->userRoles->first()->user;
-                            Mail::to($current_user)->queue(new ReleasedCourse($course, $current_user));
-                            // Lưu vào bảng user_email
-                            $alertEmail = \App\Email::find(Config::get('app.email_released_course'));
-                            if($alertEmail){
-                                $user_email  = new \App\UserEmail;
-                                $user_email->user_id = $current_user->id;
-                                $user_email->email_id = $alertEmail->id;
-                                $user_email->sender_user_id = 333;
-                                $user_email->content = $alertEmail->content;
-                                $user_email->title = $alertEmail->title;
-                                $user_email->save();
-                            }
+                        if (count($course->Lecturers()) > 0){
+                            \App\Helper\Helper::addAlert($course->Lecturers()[0]->user, "app.email_released_course");
                         }
                         $res = array('status' => "200", "message" => "Duyệt thành công");
                     } else if($count_course_request > 0){
@@ -339,34 +327,6 @@ class CourseController extends Controller
         
         $res = array('status' => "401", "message" => 'Thao tác không thành công.');
         echo json_encode($res);die;
-    }
-
-    public function acceptMultiCourse(Request $request)
-    {
-        if (isset($request) && $request->input('id_list')) {
-            $id_list = $request->input('id_list');
-
-            if (Course::acceptMulti($id_list, 1)) {
-                $res = array('status' => 200, "message" => "Đã duyệt hết");
-            } else {
-                $res = array('status' => "204", "message" => "Có lỗi trong quá trình xủ lý !");
-            }
-            echo json_encode($res);
-        }
-    }
-
-    public function inacceptMultiCourse(Request $request)
-    {
-        if (isset($request) && $request->input('id_list')) {
-            $id_list = $request->input('id_list');
-
-            if (Course::acceptMulti($id_list, 0)) {
-                $res = array('status' => 200, "message" => "Đã hủy hết");
-            } else {
-                $res = array('status' => "204", "message" => "Có lỗi trong quá trình xủ lý !");
-            }
-            echo json_encode($res);
-        }
     }
 
     public function deleteCourse(Request $request)
@@ -406,6 +366,9 @@ class CourseController extends Controller
                         }
                     }
                 }
+                // add alert
+                \App\Helper\Helper::addAlert($course->Lecturers()[0]->user, "app.email_remove_request_accept_course");
+
                 $user_course = \App\UserCourse::where('course_id', $course->id)->delete();
                 $course->delete();
                 return response()->json([
@@ -418,20 +381,6 @@ class CourseController extends Controller
             'status' => '404',
             'message' => 'Thao tác không thành công.'
         ]);
-    }
-
-    public function deleteMultiCourse(Request $request)
-    {
-        if (isset($request) && $request->input('id_list')) {
-            $id_list = $request->input('id_list');
-
-            if (Course::delMulti($id_list)) {
-                $res = array('status' => 200, "message" => "Đã xóa hết");
-            } else {
-                $res = array('status' => "204", "message" => "Có lỗi trong quá trình xủ lý !");
-            }
-            echo json_encode($res);
-        }
     }
 
     public function getFeatureCourse(){
@@ -512,11 +461,13 @@ class CourseController extends Controller
                 $course->category_id          = $temp_course->category_id;
                 $course->link_intro           = $temp_course->link_intro;
                 $course->updated_at           = date('Y-m-d H:i:s');
+                \App\Helper\Helper::addAlert($course->Lecturers()[0]->user, "app.email_accept_edit_course_request");
                 $course->save();
                 $temp_course->delete();
                 return response()->json(array('status' => '200', 'message' => 'Duyệt yêu cầu sửa khóa học thành công.'));
                 }
             }else{
+                \App\Helper\Helper::addAlert($course->Lecturers()[0]->user, "app.email_remove_request_edit_course");
                 $temp_course->delete();
                 return response()->json(array('status' => '403', 'message' => 'Hủy yêu cầu sửa khóa học thành công.'));
             }
@@ -598,12 +549,14 @@ class CourseController extends Controller
                 }else{
                     $course->status = Config::get('app.course_stop_selling');
                     $course->save();
+                    \App\Helper\Helper::addAlert($course->Lecturers()[0]->user, "app.email_stop_selling");
                     return response()->json(array('status' => '200', 'message' => 'Khóa học của bạn đã được ngừng bán.'));
                 }
             }
             if ( $course->status == Config::get('app.course_stop_selling') ){
                 $course->status = Config::get('app.course_active');
                 $course->save();
+                \App\Helper\Helper::addAlert($course->Lecturers()[0]->user, "app.email_start_selling");
                 return response()->json(array('status' => '200', 'message' => 'Khóa học của bạn đã được tiếp tục bán.'));
             }
             return response()->json(array('status' => '404', 'message' => 'Thao tác không thành công.'));

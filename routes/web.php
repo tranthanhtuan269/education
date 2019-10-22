@@ -50,8 +50,8 @@ Route::get('trinhnk', function( $course_id = 647){
 Route::get('delete/{course}', 'Frontends\HomeController@deleteCourse');
 
 Route::get('test2', function(){
-    $teacher = \App\Teacher::find(1);
-    dd($teacher->userRole->user);
+    $course = \App\Course::find(758);
+    \App\Helper\Helper::addAlert($course->Lecturers()[0]->user, "app.email_reply_comment");
 });
 
 Route::get('thay-state-video', function(){

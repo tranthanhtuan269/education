@@ -3,10 +3,13 @@
 namespace App\Helper;
 
 use Auth;
+use Config;
 use DateTime;
+use App\Email;
 use App\Video;
 use App\Course;
 use App\VideoJson;
+use App\UserEmail;
 use App\UserCourse;
 
 class Helper
@@ -295,4 +298,17 @@ class Helper
         return $string;
     }
 
+    // send alert to user
+    public static function addAlert($userToSend, $emailKey){
+        $alertEmail = Email::find(Config::get($emailKey));
+        if($alertEmail){
+            $user_email  = new UserEmail;
+            $user_email->user_id = $userToSend->id;
+            $user_email->email_id = $alertEmail->id;
+            $user_email->sender_user_id = 333;
+            $user_email->content = $alertEmail->content;
+            $user_email->title = $alertEmail->title;
+            $user_email->save();
+        }
+    }
 }
