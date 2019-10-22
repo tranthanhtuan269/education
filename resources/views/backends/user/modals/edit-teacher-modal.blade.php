@@ -196,6 +196,23 @@ $(document).ready(function(){
                 return false;
             }
         }
+
+        facebook_url = $('#editTchFacebook').val().trim()
+        function validate_url(url){
+            if (/^(https?:\/\/)?((w{3}\.)?)facebook.com\/.*/i.test(url)){
+                return true;
+            }else{ return false }
+        }
+        if ( facebook_url != '' ){
+            validate_url(facebook_url)
+            if( !validate_url(facebook_url) ){
+                Swal.fire({
+                    type: 'warning',
+                    html: 'Link Facebook không hợp lệ!',
+                })
+                return false;
+            }
+        }
         
         var wordCount = editTchCvEditor.wordCount.wordCount
         if(wordCount < 30){
