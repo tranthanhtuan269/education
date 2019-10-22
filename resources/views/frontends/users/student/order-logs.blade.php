@@ -32,7 +32,8 @@
                                             <th scope="col">Tổng giá trị đơn hàng</th>
                                             <th scope="col">Tổng giá trị ẩn</th>
                                             <th scope="col">Trạng thái</th>
-                                            <th scope="col">Được tạo mới</th>
+                                            <th scope="col">Hình thức thanh toán</th>
+                                            <th scope="col">Ngày tạo</th>
                                         </tr>
                                     </thead>
                                     <tbody></tbody>
@@ -62,6 +63,7 @@
             var dataObject = [
                 { 
                     data: "code",
+                    class: "text-center",
                     render: function(data, type, row){
                         return '<a href="javascript:void(0)" class="detail-order"  title="Detail" data-id="'+row.id+'" data-course="'+row.content+'" data-coupon="'+row.coupon+'"  data-payment="'+row.payment+'"  data-status="'+row.status+'" data-total-price-real="'+ row.total_price +'" data-create="'+ row.created_at +'">' + row.code + '</a>';
                     },
@@ -71,7 +73,10 @@
                     data: "total_price",
                     render: function(data, type, row){
                         if(type == "display"){
-                            return numberFormat(row.total_price, 0, '.', '.') + ' đ';
+                            var html = '<div style="text-align: right">';
+                                html += numberFormat(row.total_price, 0, '.', '.') + ' đ';
+                                html += '</div>'
+                            return html;
                         }
                         return data;
                     },
@@ -89,10 +94,17 @@
                     orderable: false,
                 },
                 { 
+                    data: "payment",
+                    class: "text-center",
+                },
+                { 
                     data: "id",
                     render: function(data, type, row){
                         if(type == "display"){
-                            return row.created_at;
+                            var html = '<div style="text-align: right">';
+                                html += row.created_at;
+                                html += '</div>';
+                            return html;
                         }
                         return data;
                     },
