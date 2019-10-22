@@ -94,6 +94,8 @@ class TeacherController extends Controller
         $user_role_student->role_id = Config::get('app.student');
         $user_role_student->save();
 
+        \App\Helper\Helper::addAlert($user, "app.email_active_user");
+
         return response()->json([
             'status' => 200,
             'message' => 'Thêm giảng viên thành công'
