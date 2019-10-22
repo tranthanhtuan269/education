@@ -238,6 +238,23 @@
                 }
             }
 
+            facebook_url = $('input[name=facebook]').val().trim()
+            function validate_url(url){
+                if (/^(https?:\/\/)?((w{3}\.)?)facebook.com\/.*/i.test(url)){
+                    return true;
+                }else{false}
+            }
+            if ( facebook_url != '' ){
+                validate_url(facebook_url)
+                if( !validate_url(facebook_url) ){
+                    Swal.fire({
+                        type: 'warning',
+                        html: 'Link Facebook không hợp lệ!',
+                    })
+                    return false;
+                }
+            }
+
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
