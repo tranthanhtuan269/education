@@ -101,6 +101,13 @@
                                                     <textarea class="form-control" rows="2" cols="50" name="address">{{ Auth::check() ? Auth::user()->address : '' }}</textarea>
                                                 </div>
                                             </div>
+                                            <div class="form-group">
+                                                <label>Facebook</label>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" name="facebook" id="FacebookUrl" value="@if(Auth::user()){{Auth::user()->facebook}}@endif">
+                                                    <br><p id="warningFacebookIntro"></p>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="col-md-6 col-sm-6">
                                             <div class="form-group">
@@ -245,6 +252,7 @@
                     birthday: $('input[name=birthday]').val().trim(),
                     gender: $('select[name=gender]').val(),
                     address: $('textarea[name=address]').val().trim(),
+                    facebook: $('input[name=facebook]').val().trim(),
                     expert: $('input[name=expert]').val().trim(),
                     video_intro: $('input[name=video-intro]').val().trim(),
                     cv: cv.getData(),
@@ -256,6 +264,7 @@
                     phone: $('input[name=phone]').val().trim(),
                     gender: $('select[name=gender]').val(),
                     address: $('textarea[name=address]').val().trim(),
+                    facebook: $('textarea[name=facebook]').val().trim(),
                     expert: $('input[name=expert]').val().trim(),
                     video_intro: $('input[name=video-intro]').val().trim(),
                     cv: cv.getData(),
