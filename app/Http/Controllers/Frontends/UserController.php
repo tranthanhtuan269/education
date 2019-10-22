@@ -217,6 +217,7 @@ class UserController extends Controller
                 $user->phone = $request->phone;
                 $user->gender = $request->gender;
                 $user->address = $request->address;
+                $user->facebook = $request->facebook;
 
                 if (isset($request->birthday)) {
                     $user->birthday = Helper::formatDate('d/m/Y', $request->birthday, 'Y-m-d');

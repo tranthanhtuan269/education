@@ -205,7 +205,13 @@
             .create( document.querySelector( '#editor-cv' ) )
             .then(editor => {
                 cv = editor;
+                wordCounter(cv)
+
                 editor.model.document.on('change', () => {
+                    wordCounter(cv)
+                })
+
+                function wordCounter(cv){
                     var value = cv.getData();
                     if (value.length == 0) {
                         $('#wordCount').html(0);
@@ -222,7 +228,7 @@
                     }
                     $('#boxWordsCount').css('display', 'block')
                     $('#wordCount').html(wordCount);
-                } );
+                }
             } )
             .catch( error => {
                 console.error( error );
@@ -486,6 +492,8 @@
             }
         }
     });
+    
+    characterCount()
 
     function characterCount(){
         var characterCount = $("input[name=expert]").val().length;

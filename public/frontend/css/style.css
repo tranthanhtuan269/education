@@ -2712,8 +2712,8 @@ div[data-u="slides"] div div{
 }
 
 .ck-editor__editable_inline {
-  min-height: 220px !important;
-  max-height: 300px;
+  min-height: 270px !important;
+  max-height: 320px;
 }
 #wordCount{
   color:red
