@@ -1039,7 +1039,15 @@ class VideoController extends Controller
         $videos = Video::where('state', 5)->get();
         return datatables()->collection($videos)
             ->addColumn('course_name', function ($video) {
-                return $video->Unit->course->name;
+                if ( $video->unit ){
+                    if ( $video->unit->course ){
+                        return $video->Unit->course->name;
+                    }else{
+                        return '';
+                    }
+                }else{
+                    return '';
+                }
             })
             ->addColumn('action', function ($video) {
                 return $video->id;
