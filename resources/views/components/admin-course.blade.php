@@ -6,6 +6,14 @@
     $image = url('/frontend/images/'.$course->image);
     $lecturers = count($course->Lecturers()) > 1 ? 'Nhiều tác giả' : count($course->Lecturers()) > 0 ? $course->Lecturers()[0]->user->name : "Courdemy";
     $course_status = $course->status;
+    $teacher_id = 0;
+    $lecs = $course->Lecturers()->first();
+    if($lecs){
+        if($lecs->user){
+            $teacher_id = $lecs->teacher->id;
+        }
+    }
+    // dd(Auth::user());
 ?>
 <div class="col-sm-3" id="course-{{ $course->id }}">
     <div class="box-course">
@@ -37,7 +45,7 @@
             <div class="content-course">
                 <h3 class="title-course">{{ \Helper::smartStr($course->name) }}</h3>
                 <div class="clearfix" style="line-height:1.7">
-                    <span class="name-teacher pull-left">
+                <span class="name-teacher pull-left" data-teacher-id="{{$teacher_id}}">
                         {{ $lecturers }}
                     </span>
                     <br>
@@ -819,4 +827,11 @@
             return;
         })
     });
+
+    $('.content-course .name-teacher').on('click', function (e){
+        e.stopPropagation()
+        e.preventDefault()
+        var teacherId = $(this).attr('data-teacher-id')
+        window.location.href = `/teacher/${teacherId}`
+    })
 </script>
