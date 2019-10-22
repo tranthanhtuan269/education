@@ -61,7 +61,7 @@
              </div>
 
             <div class="content-course">
-                <h3 class="title-course">{{ $title }}</h3>
+                <h3 class="title-course">{{ \Helper::smartStr($course->name) }}</h3>
                 <div class="clearfix">
                     <span class="name-teacher pull-left">
                         {{ $author }}

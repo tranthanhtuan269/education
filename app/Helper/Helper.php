@@ -284,4 +284,15 @@ class Helper
         Helper::reSortIndexVideoOfCourse($course_id);
     }
 
+    // Hàm cắt chuỗi thông minh ^-^
+    public static function smartStr($string, $length = 55, $character = '...') {
+        $limit = abs((int)$length);
+
+        if(strlen($string) > $limit) {
+           $string = preg_replace("/^(.{1,$limit})(\s.*|$)/s", '\1'.$character, $string);
+        }
+       
+        return $string;
+    }
+
 }

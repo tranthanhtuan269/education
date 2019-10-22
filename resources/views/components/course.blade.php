@@ -19,6 +19,8 @@
     }elseif( isset($course->userRoleId) ){
         $userId = $course->userRoleId;
     }
+
+    
 ?>
 <div class="col-md-3 col-sm-6">
     <div class="box-course">
@@ -79,7 +81,7 @@
         <a href="{{ url('/') }}/course/{{ $course->id }}/{{ $course->slug }}" title="{{ $course->name }}" class="course-box-slider pop">
             
             <div class="content-course">
-                <h3 class="title-course">{{ $course->name }}</h3>
+                <h3 class="title-course">{{ \Helper::smartStr($course->name) }}</h3>
                 <div class="clearfix" style="line-height:1.7">
                     <span class="name-teacher pull-left" data-teacher-id="{{$main_lecturer}}" >
                         {{ $lecturers }}

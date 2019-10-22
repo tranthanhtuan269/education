@@ -63,7 +63,7 @@
                     
             <div class="content-course">
                 <a href="{{ url('/') }}/course/{{ $course->id }}/{{ $course->slug }}" title="{{ $course->name }}">
-                    <h3 class="title-course">{{ $course->name }}</h3>
+                    <h3 class="title-course">{{ \Helper::smartStr($course->name) }}</h3>
                 </a>
                 <div class="clearfix" style="line-height:1.7">
                     <div>
