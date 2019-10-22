@@ -834,7 +834,7 @@ class VideoController extends Controller
 
                 return response()->json([
                     'status' => 200,
-                    'message' => 'Đã đưa bài giảng vào thùng rác.',
+                    'message' => 'Xóa bài giảng thành công.',
                 ]);
             }
         }
