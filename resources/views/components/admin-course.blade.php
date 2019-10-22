@@ -731,7 +731,7 @@
             var course_approx_time = $('#course-approx-time-{{$course->id}}').val()
             var selector = document.getElementById('course-category{{$course->id}}')
             var course_category = selector[selector.selectedIndex].value
-            var link_intro = $('#course-intro-{{$course->id}}').val()
+            var link_intro = $('#course-intro-{{$course->id}}').val().trim()
 
             // $('#editCourse-{{$course->id}}').modal('toggle')
             if( original_price != '' ){
@@ -752,6 +752,15 @@
             }
 
             var url = link_intro;
+            if ( url == '' ){
+                Swal.fire({
+                    type: 'warning',
+                    html: 'Bạn chưa nhập link video!',
+                    allowOutsideClick: false,
+                })
+                $(this).attr('disabled', false)
+                return false;
+            }
             if (url != undefined || url != '') {       
                 var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
                 var match = url.match(regExp);

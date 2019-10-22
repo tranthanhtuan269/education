@@ -224,7 +224,16 @@
                 })
                 return false;
             }
-            var url = $('#YoutubeUrl').val();
+            var url = $('#YoutubeUrl').val().trim();
+            if ( url == '' ){
+                Swal.fire({
+                    type: 'warning',
+                    html: 'Bạn chưa nhập link video!',
+                    allowOutsideClick: false,
+                })
+                $(this).attr('disabled', false)
+                return false;
+            }
             if (url != undefined || url != '') {       
                 var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
                 var match = url.match(regExp);

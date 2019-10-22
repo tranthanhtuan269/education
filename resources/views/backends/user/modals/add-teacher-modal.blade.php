@@ -192,7 +192,15 @@ $(document).ready(function() {
         var password         = $('#addTchPassword').val()
         var confirmPassword  = $('#addTchCfPassword').val()
         
-
+        if ( youtube == '' ){
+            Swal.fire({
+                type: 'warning',
+                html: 'Bạn chưa nhập link video!',
+                allowOutsideClick: false,
+            })
+            $(this).attr('disabled', false)
+            return false;
+        }
         if (youtube != undefined || youtube != '') {
             var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
             var match = youtube.match(regExp);

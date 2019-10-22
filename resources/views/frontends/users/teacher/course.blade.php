@@ -1443,7 +1443,7 @@
             var course_approx_time = $('#course-approx-time').val()
             var selector = document.getElementById('course-category')
             var course_category = selector[selector.selectedIndex].value
-            var link_intro = $('#course-intro').val()
+            var link_intro = $('#course-intro').val().trim()
 
             // $('#editCourse').modal('toggle')
             if( original_price != '' ){
@@ -1463,6 +1463,15 @@
                 }
             }
 
+            if ( link_intro == '' ){
+                Swal.fire({
+                    type: 'warning',
+                    html: 'Bạn chưa nhập link video!',
+                    allowOutsideClick: false,
+                })
+                $(this).attr('disabled', false)
+                return false;
+            }
             var url = link_intro;
             if (url != undefined || url != '') {
                 var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
