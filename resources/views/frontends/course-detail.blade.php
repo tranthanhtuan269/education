@@ -42,6 +42,12 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
         $list_bought = \json_decode(Auth::user()->bought);
     }
     // dd($ratingCourse)
+    $course_duration = 0;
+    foreach ( $info_course->units as $value_unit ){
+        foreach ($value_unit->timeLessonActive as $value_video){
+            $course_duration += $value_video->duration;
+        }
+    }
 ?>
 <div class="detail-course">
     <img class="background bg-category" src="{{ asset('frontend/images/banner_profile_teacher.png') }}">
@@ -107,7 +113,7 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                                 <div class="row box clearfix">
                                     <div class="col-xs-6 full-width-mobile pb-10px">
                                         <span class="box-img"><img src="{{ asset('frontend/images/ic_duration.png') }}" class="icon" alt="" /></span>
-                                        <span class="special">Tổng số giờ học: {{ intval($info_course->duration / 3600) }} giờ {{ intval($info_course->duration % 60 ) }} phút</span>
+                                        <span class="special">Tổng số giờ học: {{ intval($course_duration / 3600) }} giờ {{ intval(($course_duration % 3600) / 60 ) }} phút</span>
                                     </div>
                                     <div class="col-xs-6 full-width-mobile pb-10px">
                                         <span class="box-img"><img src="{{ asset('frontend/images/ic_download.png') }}" class="icon" alt="" /></span>
