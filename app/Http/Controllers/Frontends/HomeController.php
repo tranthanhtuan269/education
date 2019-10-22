@@ -528,9 +528,20 @@ class HomeController extends Controller
                 $total_price = 0;
                 foreach ($items as $item) {
                     if ($item['id']) {
+                        $coupon = Coupon::where('name', $item["coupon_code"])->first();
                         $course = Course::find($item['id']);
                         if ($course) {
-                            $total_price += $course->price;
+                            if($coupon){
+                                $expired = strtotime($coupon->expired);
+                                $today = strtotime(date("Y-m-d"));
+                                $coupon_value = $coupon->value;
+                                if($expired >= $today){
+                                    $total_price =  $total_price + $course->price * (100 - $coupon->value) / 100;
+                                }
+                            }else{
+                                $total_price += $course->price;
+                            }
+
                             if( $coins_user >= $total_price ){
                                 $check_coin = true;
                             }else{
@@ -539,9 +550,9 @@ class HomeController extends Controller
                         }
                     }
                 }
-                if ($total_price > Auth::user()->coins) {
-                    return \Response::json(array('status' => '204', 'message' => 'Your balance is not enough'));
-                }
+                // if ($total_price > Auth::user()->coins) {
+                //     return \Response::json(array('status' => '204', 'message' => 'Your balance is not enough'));
+                // }
                 // check coupon
                 // $coupon = null;
                 // if ($request->coupon) {
