@@ -37,12 +37,12 @@ class HomeController extends Controller
         $type = trim($request->get('type'));
         if ($type == 'best-seller') {
             $title = 'Các khoá học bán chạy';
-            $list_course = Course::listCourseSpecial(1)->paginate(16);
+            $list_course = Course::listCourseSpecial(1)->paginate(\Config::get('app.pagging_item_number'));
         } elseif ($type == 'new') {
-            $list_course = Course::listCourseSpecial(2)->paginate(16);
+            $list_course = Course::listCourseSpecial(2)->paginate(\Config::get('app.pagging_item_number'));
             $title = 'Các khóa học mới nhất';
         } elseif ($type == 'trendding') {
-            $list_course = Course::listCourseSpecial(3)->paginate(16);
+            $list_course = Course::listCourseSpecial(3)->paginate(\Config::get('app.pagging_item_number'));
             $title = 'Các khóa học thịnh hành';
         }
 
@@ -85,9 +85,9 @@ class HomeController extends Controller
         //end finding feature courses
 
         // $best_seller_course = Course::where('status', 1)->orderBy('sale_count', 'desc')->limit(8)->get();listCourseHome
-        $best_seller_course = Course::listCourseHome()->orderBy('sale_count', 'desc')->limit(8)->get();
+        $best_seller_course = Course::listCourseHome()->orderBy('sale_count', 'desc')->limit(\Config::get('app.pagging_item_number'))->get();
 
-        $new_course = Course::listCourseHome()->orderBy('id', 'desc')->limit(8)->get();
+        $new_course = Course::listCourseHome()->orderBy('id', 'desc')->limit(\Config::get('app.pagging_item_number'))->get();
 
         $limitDate = \Carbon\Carbon::now()->subDays(15);
         $sql = "SELECT course_id, count(course_id) FROM orders
@@ -101,7 +101,7 @@ class HomeController extends Controller
         foreach ($results as $key => $result) {
             $course_id_arr[] = $result->course_id;
         }
-        $trending_courses = \App\Course::whereIn('id', $course_id_arr)->where('status', 1)->get()->take(8);
+        $trending_courses = \App\Course::whereIn('id', $course_id_arr)->where('status', 1)->get()->take(\Config::get('app.pagging_item_number'));
 
         $popular_teacher = Teacher::getFeatureTeacher();
         return view('frontends.home', compact('feature_category', 'feature_course', 'best_seller_course', 'new_course', 'popular_teacher', 'trending_courses' ));
@@ -127,7 +127,7 @@ class HomeController extends Controller
                     $query->orwhere('courses.name', 'LIKE', "%$keyword%");
                 })
                 ->pluck('course_id');
-            $results = Course::whereIn('id', $arr_course_id)->paginate(16);
+            $results = Course::whereIn('id', $arr_course_id)->paginate(\Config::get('app.pagging_item_number'));
         }
 
         return view('frontends.search', compact('results'));
@@ -142,13 +142,13 @@ class HomeController extends Controller
         $cat_icon = $category->icon;
         if ($type == 'best-seller') {
             $title = 'Các khoá học bán chạy';
-            $list_course = Course::listCourseCategory($cat_id)->orderBy('sale_count', 'desc')->paginate(16);
+            $list_course = Course::listCourseCategory($cat_id)->orderBy('sale_count', 'desc')->paginate(\Config::get('app.pagging_item_number'));
         } elseif ($type == 'new') {
-            $list_course = Course::listCourseCategory($cat_id)->orderBy('id', 'desc')->paginate(16);
+            $list_course = Course::listCourseCategory($cat_id)->orderBy('id', 'desc')->paginate(\Config::get('app.pagging_item_number'));
             $title = 'Các khóa học mới nhất';
         } elseif ($type == 'trendding') {
             $limitDate = \Carbon\Carbon::now()->subDays(15);
-            $sql = "SELECT course_id, count(course_id) FROM orders JOIN order_details ON orders.id = order_details.order_id WHERE created_at > '" . $limitDate->toDateTimeString() ."' group by course_id ORDER BY count(course_id) desc LIMIT 8;";
+            $sql = "SELECT course_id, count(course_id) FROM orders JOIN order_details ON orders.id = order_details.order_id WHERE created_at > '" . $limitDate->toDateTimeString() ."' group by course_id ORDER BY count(course_id) desc LIMIT " .\Config::get('app.pagging_item_number').";";
             $results = DB::select($sql);
             foreach ($results as $key => $result) {
                 $course_id_arr[] = $result->course_id;
@@ -170,19 +170,11 @@ class HomeController extends Controller
             $category = Category::where('slug', $cat)->first();
 
             $tags = Tag::where('category_id', $cat_id)->get();
-
-            // $feature_course = Course::where('status', 1)->where('category_id', $cat_id)->where('featured', 1)->orderBy('featured_index', 'asc')->limit(8)->get();
-            // $feature_course = Course::listCourseCategory(1)->limit(8)->get();
-
-            // $best_seller_course = Course::where('status', 1)->where('category_id', $cat_id)->orderBy('sale_count', 'desc')->limit(8)->get();
-            $best_seller_course = Course::listCourseCategory($cat_id)->orderBy('sale_count', 'desc')->limit(8)->get();
-            // $best_seller_course = Course::listCourseCategory(3);
-
-            // $new_course = Course::where('status', 1)->where('category_id', $cat_id)->orderBy('id', 'desc')->limit(8)->get();
-            $new_course = Course::listCourseCategory($cat_id)->orderBy('id', 'desc')->limit(8)->get();
+            $best_seller_course = Course::listCourseCategory($cat_id)->orderBy('sale_count', 'desc')->limit(\Config::get('app.pagging_item_number'))->get();
+            $new_course = Course::listCourseCategory($cat_id)->orderBy('id', 'desc')->limit(\Config::get('app.pagging_item_number'))->get();
 
             $limitDate = \Carbon\Carbon::now()->subDays(15);
-            $sql = "SELECT course_id, count(course_id) FROM orders JOIN order_details ON orders.id = order_details.order_id WHERE created_at > '" . $limitDate->toDateTimeString() ."' group by course_id ORDER BY count(course_id) desc LIMIT 8;";
+            $sql = "SELECT course_id, count(course_id) FROM orders JOIN order_details ON orders.id = order_details.order_id WHERE created_at > '" . $limitDate->toDateTimeString() ."' group by course_id ORDER BY count(course_id) desc LIMIT ".\Config::get('app.pagging_item_number').";";
             $results = DB::select($sql);
             foreach ($results as $key => $result) {
                 $course_id_arr[] = $result->course_id;
@@ -322,18 +314,6 @@ class HomeController extends Controller
     public function memberCard()
     {
         return view('frontends.member-card');
-    }
-
-    public function courseCategory()
-    {
-        $category = Category::get();
-        $feature_category = Category::where('featured', 1)->orderBy('featured_index', 'asc')->limit(10)->get();
-        $feature_course = Course::where('status', 1)->where('featured', 1)->orderBy('featured_index', 'asc')->limit(8)->get();
-        $best_seller_course = Course::where('status', 1)->orderBy('sale_count', 'desc')->limit(8)->get();
-        $new_course = Course::where('status', 1)->orderBy('id', 'desc')->limit(8)->get();
-        $popular_teacher = Teacher::get();
-
-        return view('frontends.course-category', compact('category', 'feature_category', 'feature_course', 'best_seller_course', 'new_course'));
     }
 
     public function detailTeacher()

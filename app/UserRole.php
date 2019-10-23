@@ -68,10 +68,10 @@ class UserRole extends Model
     {
         if ($keyword != '') {
             // return $this->belongsToMany('App\Course', 'user_courses')->where('name', 'LIKE', "%$keyword%")->where('courses.status', '!=', -1)->paginate(4);
-            return $this->belongsToMany('App\Course', 'user_courses')->where('name', 'LIKE', "%$keyword%")->paginate(8);
+            return $this->belongsToMany('App\Course', 'user_courses')->where('name', 'LIKE', "%$keyword%")->paginate(\Config::get('app.pagging_item_number'));
         }
         // return $this->belongsToMany('App\Course', 'user_courses')->where('courses.status', '!=', -1)->paginate(4);
-        return $this->belongsToMany('App\Course', 'user_courses')->paginate(8);
+        return $this->belongsToMany('App\Course', 'user_courses')->paginate(\Config::get('app.pagging_item_number'));
     }
     
 }

@@ -43,6 +43,7 @@ return [
 
     'email_system_status' => 10,    // email hệ thống không cho xoá và sửa tên
 
+    'pagging_item_number' => 16,
     /*
     |--------------------------------------------------------------------------
     | Application Name

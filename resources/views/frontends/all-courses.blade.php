@@ -65,7 +65,7 @@
                                 <a href="{{ url('list-course?type=best-seller') }}" class="btn btn-default btn-seeall">Tất cả</a>
                             </div>
                         @endif
-                        @if ( Request::is('category/*') && $key == 7 )
+                        @if ( Request::is('category/*') && $key+1 == \Config::get('app.pagging_item_number') )
                             <div class="col-sm-12 text-center">
                                 <a href="{{ url('list-course-category?type=best-seller&cat_id='.$category->id.'') }}" class="btn btn-default btn-seeall">Tất cả</a>
                             </div>
@@ -100,7 +100,7 @@
                             <a href="{{ url('list-course?type=new') }}" class="btn btn-default btn-seeall">Tất cả</a>
                         </div>
                         @endif
-                        @if ( Request::is('category/*') && $key == 7 )
+                        @if ( Request::is('category/*') && $key+1 == \Config::get('app.pagging_item_number') )
                         <div class="col-sm-12 text-center">
                             <a href="{{ url('list-course-category?type=new&cat_id='.$category->id.'') }}" class="btn btn-default btn-seeall">Tất cả</a>
                         </div>
@@ -138,7 +138,7 @@
                                 <a href="{{ url('list-course?type=trendding') }}" class="btn btn-default btn-seeall">Tất cả</a>
                             </div>
                             @endif
-                            @if ( Request::is('category/*') && $key == 7 )
+                            @if ( Request::is('category/*') && $key+1 == \Config::get('app.pagging_item_number') )
                             <div class="col-sm-12 text-center">
                                 <a href="{{ url('list-course-category?type=trendding&cat_id='.$category->id.'') }}" class="btn btn-default btn-seeall">Tất cả</a>
                             </div>
