@@ -142,6 +142,10 @@ nav .pagination li a img{width:35px;position:relative;top:-6px}
     bottom: 2;
 }
 
+.teacher-course .add-to-cart{
+  margin-bottom: 10px;
+}
+
 .box-course .content-course .time-view{padding:6px 0}
 .box-course .content-course .price-course .price{font-size:15px;position:relative;color:#888}
 .box-course .content-course .price-course sup{font-size: 13px}
