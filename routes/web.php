@@ -194,6 +194,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('featured-category/get-featured-category-ajax', 'Backends\CategoryController@getFeaturedCategoryAjax');
         Route::post('featured-category/set-feature-category-ajax', 'Backends\CategoryController@setFeaturedCategoryAjax');
 
+        // Title Homepage
+        Route::get('title-homepage', 'Backends\HomeController@getTitleHomepage');
+        Route::post('set-title-homepage', 'Backends\HomeController@setTitleHomepage');
+
         // Trinhnk Tạo Coupon
         Route::get('create-coupon', 'Backends\HomeController@createCoupon');
         Route::post('add-coupon', 'Backends\HomeController@addCoupon');

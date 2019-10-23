@@ -16,6 +16,7 @@ use Validator;
 use Cache;
 use App\Course;
 use App\Coupon;
+use App\Setting;
 
 class HomeController extends Controller{
 
@@ -171,5 +172,22 @@ class HomeController extends Controller{
         $coupon->save();
 
         return \Response::json(array('status' => '200'));
+    }
+
+    public function getTitleHomepage()
+    {
+        $title = Setting::where('name', 'set-title-homepage')->first()->value;
+        return view('backends.settings.set-title-homepage', compact('title'));
+    }
+
+    public function setTitleHomepage(Request $request)
+    {
+        $title_homepage = Setting::where('name', 'set-title-homepage')->first();
+        $value = $request->title;
+
+        $title_homepage->value = $value;
+        $title_homepage->save();
+        
+        return \Response::json(array('status' => '200', 'message' => 'Thay đổi tiêu đề trang chủ thành công!'));
     }
 }

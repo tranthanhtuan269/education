@@ -906,9 +906,7 @@ ul.unica-acc-zone li.special:hover a{color:#fff}
 }
 
 /* Become Teacher */
-.courdemy-teacher{
-  /* font-family: proxima-nova,"Helvetica Neue",Helvetica,sans-serif; */
-}
+
 .courdemy-teacher .banner-top{
   width: 100%;
   height: 40vw;
@@ -1454,9 +1452,7 @@ div[data-u="slides"] div div{
   padding: 10px 10px 0px 10px;
   margin: 10px 0px;
 }
-.dz-default.dz-message{
-  /* display: none; */
-}
+
 .box-user .dropzone{
     min-height: auto !important;
 }
