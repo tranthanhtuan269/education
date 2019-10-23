@@ -287,7 +287,6 @@ Route::post('/registerAjax', 'Frontends\UserController@registerAjax');
 Route::get('/', 'Frontends\HomeController@home')->name('home');
 Route::get('/home', 'Frontends\HomeController@home')->name('home');
 Route::get('/member-card', 'Frontends\HomeController@memberCard')->name('member-card');
-Route::get('/course-category', 'Frontends\HomeController@courseCategory')->name('course-category');
 Route::get('/detail-teacher', 'Frontends\HomeController@detailTeacher')->name('detail-teacher');
 
 Route::get('/course-learning', 'Frontends\HomeController@courseLearning');
