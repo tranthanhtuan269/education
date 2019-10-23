@@ -122,7 +122,7 @@
                                 <i class="fa fa-home"></i> <span>Trở lại trang chính</span>
                             </a>
                         </li>
-                        <li class="treeview @if ( Request::is('admincp/feature*')) active @endif">
+                        <li class="treeview @if ( Request::is('admincp/feature*') || Request::is('admincp/title-homepage') ) active @endif">
                             <a href="javascript:void(0)">
                                 <i class="fa fa-star"></i>
                                 <span>Cài đặt trang chủ</span>
@@ -132,6 +132,9 @@
                             </a>
                             <ul class="treeview-menu">
                                 @if (Helper::checkPermissions('users.list', $list_roles))
+                                    <li class="@if ( Request::is('admincp/title-homepage*') ) active @endif">
+                                        <a href="{{ url('/') }}/admincp/title-homepage"><i class="fa fa-minus"></i>Tiêu đề trang chủ</a>
+                                    </li>
                                     <li class="@if ( Request::is('admincp/feature-course*') ) active @endif">
                                         <a href="{{ url('/') }}/admincp/feature-course"><i class="fa fa-minus"></i>Khóa học nổi bật</a>
                                     </li>
