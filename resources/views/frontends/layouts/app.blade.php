@@ -143,28 +143,25 @@
                         </form>
                     </div>
                     <div class="col-lg-4 col-sm-4 cate-sm">
-                        <?php //echo $check_course_of_the_user;die; ?>
                         <div class="pull-right">
                             <ul class="unica-acc-zone db-item">
                                 @if(Auth::check())
-                                    {{-- @if ( !(count(Auth::user()->userRoles) == 1 && (Auth::user()->userRoles->first()->role_id) == 1) ) --}}
                                     @if(!Auth::user()->isAdmin())
                                         <li><a href="{{ url('user/student/course') }}" class="unica-active-course responsive-start-learning"><p class="hidden-md hidden-xs hidden-sm">Vào học</p></a></li>
                                     @else
                                         <li><a href="{{ url('admincp') }}" class="unica-admin"><p class="hidden-md hidden-xs hidden-sm">Trang quản trị</p></a></li>
                                     @endif
-                                {{-- </li> --}}
                                 @endif
                             <li>
                                 @if (Auth::check())
-                                    @if (!Auth::user()->isAdmin() && !\Request::is('cart'))
+                                    @if (!Auth::user()->isAdmin())
                                     <a href="{{route('cart.show')}}" class="unica-cart">
                                         <img src="{{ asset('frontend/images/tab_cart.png') }}" alt="" style="width: 21px;" />
                                         <span class="unica-sl-cart" style="display: none;"><b class="number-in-cart"></b></span>
                                         <button id="cartUserId" style="display:none" data-user-id="{{Auth::user()->id}}"></button>
                                     </a>
                                     @endif
-                                @elseif(!Auth::check() && !\Request::is('cart'))
+                                @elseif(!Auth::check())
                                     <a href="{{route('cart.show')}}" class="unica-cart">
                                         <img src="{{ asset('frontend/images/tab_cart.png') }}" alt="" style="width: 21px;" />
                                         <span class="unica-sl-cart" style="display: none;"><b class="number-in-cart"></b></span>
