@@ -25,6 +25,7 @@ class UpdateCategoryRequest extends FormRequest
         return [
             'name' => 'required|max:25|unique:categories,name,'.$this->id,
             // 'image' => 'required',
+            'description' => 'required|max:250',
             'icon' => 'required',
         ];
     }
@@ -32,10 +33,12 @@ class UpdateCategoryRequest extends FormRequest
     public function messages(){
         return [
             'name.required' => 'Bạn chưa nhập tên Danh mục.',
-            'name.max'      => 'Tên danh mục quá dài.',
-            'name.unique'   => 'Tên danh mục không thể trùng nhau',
+            'name.max'      => 'Tên Danh mục quá dài.',
+            'name.unique'   => 'Tên Danh mục không thể trùng nhau',
             // 'image.required'=> 'Bạn chưa chọn ảnh đại diện Danh mục.',
-            'icon.required' => 'Bạn chưa nhập icon Danh mục.'
+            'description.required' => 'Bạn chưa nhập mô tả cho Danh mục.',
+            'icon.required' => 'Bạn chưa nhập icon Danh mục.',
+            'description.max' => 'Mô tả quá dài. Yêu cầu <250 ký tự.',
         ];
     }
 }

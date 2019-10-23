@@ -714,6 +714,10 @@ ul.unica-acc-zone li.special:hover a{color:#fff}
 .background-page .highlight .title i{
   text-shadow: 0px 0px 10px rgba(0,0,0,0.5);
 }
+.background-page .highlight .cat-des{
+  color: #fff;
+  text-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+}
 
 /* .top-checkout .bg-checkout{position:relative} */
 .top-checkout .fixed-title{position:relative}

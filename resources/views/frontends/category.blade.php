@@ -13,6 +13,7 @@
 					<i class="fas {{$category->icon}} fa-4x fa-fw"></i>
 					<h1>{{ $category->name }}</h1>
 				</div>
+				<p class="cat-des">{{ $category->description }}</p>
 				{{-- @if (count($tags) > 0)
 				<div class="slider">
 					@foreach ($tags as $key => $tag)
@@ -72,7 +73,7 @@
 
 @if ($tags->count() > 0)
 <div class="container category-tag" style="margin-bottom: 2em;" style="display: inline-block;">
-	<div class="row" style="margin-left: 1em">
+	{{-- <div class="row" style="margin-left: 1em"> --}}
 		<span style="font-size: large"><strong>Tags: &nbsp;</strong></span>
 		<span>
 			@foreach ($tags as $tag)
@@ -83,7 +84,7 @@
 			</a>
 			@endforeach
 		</span>
-	</div>
+	{{-- </div> --}}
 </div>
 @endif
 @include('frontends.popular-teacher')

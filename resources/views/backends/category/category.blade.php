@@ -66,6 +66,12 @@
                             </select>
                         </div>
                         <div class="form-group">
+                            <label>Địa chỉ</label>
+                            <div class="form-group">
+                                <textarea class="form-control" rows="2" cols="50" name="address"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label>Nổi bật:</label><br>
                             <label class="radio-inline"><input type="radio" name="featured" value="0">Không</label>
                             <label class="radio-inline"><input type="radio" name="featured" value="1">Có</label>
@@ -117,6 +123,12 @@
                                     <option value="{{$cat->id}}">{{$cat->name}}</option>
                                 @endforeach
                             </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Mô tả</label>
+                            <div class="form-group">
+                                <textarea class="form-control" rows="2" cols="50" name="description">{{$cat->description}}</textarea>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label>Nổi bật:</label><br>
@@ -268,11 +280,12 @@ $(document).ready(function() {
         }
 
         var data    = {
-            name             : $('#categoryName_id').val(),
+            name             : $('#categoryName_id').val().trim(),
             parent_id        : $('#categoryParent_id').val(),
             featured         : $('input[name=featured]:checked').val(),
-            icon             : $('#categoryIcon_id').val(),
+            icon             : $('#categoryIcon_id').val().trim(),
             image            : link_image_base64,
+            description      : $('textarea[name=description]').val().trim(),
         };
 
         $.ajaxSetup({
@@ -389,6 +402,7 @@ $(document).ready(function() {
         $('input[type=file]').val('');
         $('select option[value="0"]').attr("selected",true);
         $('#preview_category_img').attr("src","https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-image-128.png");
+        $('textarea[name=description]').val('');
     }
 
     $('#edit_user_modal').on('shown.bs.modal', function() {
@@ -493,6 +507,7 @@ $(document).ready(function() {
             $(row).attr('data-featured', data['featured']);
             $(row).attr('data-icon', data['icon']);
             $(row).attr('data-image', data['image']);
+            $(row).attr('data-description', data['description']);
         }
     });
 
@@ -568,6 +583,7 @@ $(document).ready(function() {
             var curr_icon       = $(this).parent().parent().attr('data-icon');
             var curr_image      = $(this).parent().parent().attr('data-image');
             var id              = $(this).attr('data-id');
+            var description     = $(this).parent().parent().attr('data-description');
             $("input[name='name']").val(curr_name);
             if( !curr_parent_id ){
                 curr_parent_id = 0
@@ -591,6 +607,7 @@ $(document).ready(function() {
             $("input[name='icon']").val(curr_icon);
             $("input[id=userIdUpdate]").val(id);
             $("img[id=previewEditCategoryImg]").attr("src", baseURL +'/frontend/images/' + curr_image);
+            $("textarea[name=description]").val(description)
         })
 
         $('.add-category').off('click')
@@ -659,11 +676,12 @@ $(document).ready(function() {
 
             var data    = {
                 id               : id,
-                name             : $('#editName').val(),
+                name             : $('#editName').val().trim(),
                 parent_id        : Number($('#editParentId').val()),
                 featured         : $('input[name="editFeatured"]:checked').val(),
-                icon             : $('#editIcon').val(),
+                icon             : $('#editIcon').val().trim(),
                 image            : image_base64,
+                description      : $('textarea[name=description]').val().trim(),
             };
             $.ajaxSetup({
                 headers: {
