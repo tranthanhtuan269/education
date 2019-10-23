@@ -192,23 +192,14 @@ $(document).ready(function() {
         var password         = $('#addTchPassword').val()
         var confirmPassword  = $('#addTchCfPassword').val()
         
-        if ( youtube == '' ){
-            Swal.fire({
-                type: 'warning',
-                html: 'Bạn chưa nhập link video!',
-                allowOutsideClick: false,
-            })
-            $(this).attr('disabled', false)
-            return false;
-        }
-        if (youtube != undefined || youtube != '') {
+        if ( youtube != '') {
             var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
             var match = youtube.match(regExp);
             if (match && match[2].length == 11) {
             }else{
                 Swal.fire({
                     type: 'warning',
-                    html: 'Link Video không hợp lệ!',
+                    html: 'Link Youtube không hợp lệ!',
                 })
                 return false;
             }
@@ -232,11 +223,13 @@ $(document).ready(function() {
         }
         
         var wordCount = addTchCvEditor.wordCount.wordCount
-        if(wordCount < 30){
-            return Swal.fire({
-                type : 'warning',
-                text : 'CV phải có ít nhất 30 từ',                
-            })
+        if ( wordCount > 0 ){
+            if(wordCount < 30){
+                return Swal.fire({
+                    type : 'warning',
+                    text : 'CV phải có ít nhất 30 từ',                
+                })
+            }
         }
 
         var formData = new FormData

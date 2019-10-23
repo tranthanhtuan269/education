@@ -752,26 +752,19 @@
             }
 
             var url = link_intro;
-            if ( url == '' ){
-                Swal.fire({
-                    type: 'warning',
-                    html: 'Bạn chưa nhập link video!',
-                    allowOutsideClick: false,
-                })
-                $(this).attr('disabled', false)
-                return false;
-            }
-            if (url != undefined || url != '') {       
-                var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
-                var match = url.match(regExp);
-                if (match && match[2].length == 11) {
-                }else{
-                    Swal.fire({
-                        type: 'warning',
-                        html: 'Link Video không hợp lệ.',
-                        allowOutsideClick: false,
-                    })
-                    return false;
+            if ( url != '' ){
+                if (url != undefined ) {       
+                    var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
+                    var match = url.match(regExp);
+                    if (match && match[2].length == 11) {
+                    }else{
+                        Swal.fire({
+                            type: 'warning',
+                            html: 'Link Video không hợp lệ.',
+                            allowOutsideClick: false,
+                        })
+                        return false;
+                    }
                 }
             }
 

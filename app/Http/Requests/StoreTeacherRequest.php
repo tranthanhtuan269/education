@@ -26,16 +26,16 @@ class StoreTeacherRequest extends FormRequest
     {
         return [
             // 'avatar'        => 'required',
-            'name'          => 'required|min:3|max:50',
-            'email'         => 'required|unique:users,email|regex_email:"/^[_a-zA-Z0-9-]{2,}+(\.[_a-zA-Z0-9-]{2,}+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,3})$/"',
-            'phone'         => 'required|min:10|max:11|regex_phone:"/^[\+]?[(]?[0-9]{1,3}[)]?[-\s]?[0-9]{1,3}[-\s]?[0-9]{4,9}$/"',
-            'cv'            => 'required',
-            'expert'        => 'required|max:55',
-            'address'       => 'required|max:255',
-            'dob'           => 'date_format:"d/m/Y"|regex:/[0-9]{2}\/[0-9]{2}\/[0-9]{4}/|validate_dob',
+            'name'              => 'required|min:3|max:50',
+            'email'             => 'required|unique:users,email|regex_email:"/^[_a-zA-Z0-9-]{2,}+(\.[_a-zA-Z0-9-]{2,}+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,3})$/"',
+            'phone'             => 'required|min:10|max:11|regex_phone:"/^[\+]?[(]?[0-9]{1,3}[)]?[-\s]?[0-9]{1,3}[-\s]?[0-9]{4,9}$/"',
+            'cv'                => 'required',
+            'expert'            => 'required|max:55',
+            'address'           => 'required|max:255',
+            'dob'               => 'date_format:"d/m/Y"|regex:/[0-9]{2}\/[0-9]{2}\/[0-9]{4}/|validate_dob',
             'password'          => 'required|min:8|max:101',
-            'confirm_password'   => 'required|same:password',
-            // 'video-intro'   => 'required|regex:/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/|validate_youtube_url',
+            'confirm_password'  => 'required|same:password',
+            'youtube'           => 'required',
         ];
     }
 
@@ -64,6 +64,7 @@ class StoreTeacherRequest extends FormRequest
             'address.max'               => 'Địa chỉ quá dài. Vui lòng nhập ít hơn 255 ký tự',
             'address.required'  => 'Bạn chưa nhập địa chỉ',
 
+            'youtube.required'  => 'Bạn chưa nhập Link youtube',
 
             'dob.date_format'      => 'Ngày sinh phải có định dạng Ngày/Tháng/Năm (Ví dụ: 31/12/1993).',
 

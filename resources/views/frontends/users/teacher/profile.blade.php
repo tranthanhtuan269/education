@@ -281,26 +281,20 @@
                 })
                 return false;
             }
+            
             var url = $('#YoutubeUrl').val().trim();
-            if ( url == '' ){
-                Swal.fire({
-                    type: 'warning',
-                    html: 'Bạn chưa nhập link video!',
-                    allowOutsideClick: false,
-                })
-                $(this).attr('disabled', false)
-                return false;
-            }
-            if (url != undefined || url != '') {       
-                var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
-                var match = url.match(regExp);
-                if (match && match[2].length == 11) {
-                }else{
-                    Swal.fire({
-                        type: 'warning',
-                        html: 'Link Video không hợp lệ!',
-                    })
-                    return false;
+            if ( url != '' ){
+                if (url != undefined || url != '') {       
+                    var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
+                    var match = url.match(regExp);
+                    if (match && match[2].length == 11) {
+                    }else{
+                        Swal.fire({
+                            type: 'warning',
+                            html: 'Link Video không hợp lệ!',
+                        })
+                        return false;
+                    }
                 }
             }
 
@@ -504,18 +498,23 @@
 </script>
 <script>
     $("input[name=video-intro]").keyup(function(){
-        var url = $('#YoutubeUrl').val();
-        if (url != undefined || url != '') {       
-            var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
-            var match = url.match(regExp);
-            if (match && match[2].length == 11) {
-                $('#warningVideoIntro').css("color","green");
-                document.getElementById("warningVideoIntro").innerHTML = "Link được chấp nhận.";
-                // $('#videoObject').attr('src', 'https://www.youtube.com/embed/' + match[2] + '?autoplay=1&enablejsapi=1');
-            }else{
-                $('#warningVideoIntro').css("color","red");
-                document.getElementById("warningVideoIntro").innerHTML = "Link video sai. Yêu cầu nhập lại!";
+        var url = $('#YoutubeUrl').val().trim()
+        if ( url == '' ){
+            document.getElementById("warningVideoIntro").innerHTML = ""
+        }else{
+            if (url != undefined ) {       
+                var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
+                var match = url.match(regExp);
+                if (match && match[2].length == 11) {
+                    $('#warningVideoIntro').css("color","green");
+                    document.getElementById("warningVideoIntro").innerHTML = "Link được chấp nhận.";
+                    // $('#videoObject').attr('src', 'https://www.youtube.com/embed/' + match[2] + '?autoplay=1&enablejsapi=1');
+                }else{
+                    $('#warningVideoIntro').css("color","red");
+                    document.getElementById("warningVideoIntro").innerHTML = "Link video sai. Yêu cầu nhập lại!";
+                }
             }
+
         }
     });
 
