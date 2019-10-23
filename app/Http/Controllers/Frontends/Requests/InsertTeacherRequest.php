@@ -28,7 +28,7 @@ class InsertTeacherRequest extends FormRequest
             'expert'        => 'required',
             'address'       => 'max:255',
             'birthday'      => 'date_format:"d/m/Y"|regex:/[0-9]{2}\/[0-9]{2}\/[0-9]{4}/|validate_birthday',
-            // 'video-intro'   => 'required|regex:/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/|validate_youtube_url',
+            'video_intro'   => 'required',
         ];
     }
 
@@ -39,18 +39,20 @@ class InsertTeacherRequest extends FormRequest
             'name.min'                  => 'Họ tên phải có ít nhất 3 ký tự.',
             'name.max'                  => 'Họ tên được phép có tối đa 50 ký tự.',
 
-            'phone.required'            => 'Bạn chưa nhập số điện thoại.',
+            'phone.required'            => 'Bạn chưa nhập Số điện thoại.',
             'phone.regex_phone'         => 'Số điện thoại không tồn tại.',
             'phone.min'                 => 'Số điện thoại không tồn tại.',
             'phone.max'                 => 'Số điện thoại không tồn tại.',
 
-            'cv.required'               => 'Bạn chưa nhập CV.',
-
-            'expert.required'           => 'Bạn chưa nhập Chuyên môn.',
+            'birthday.date_format'      => 'Ngày sinh phải có định dạng Ngày/Tháng/Năm (Ví dụ: 31/12/1993).',
 
             'address.max'               => 'Địa chỉ quá dài.',
 
-            'birthday.date_format'      => 'Ngày sinh phải có định dạng Ngày/Tháng/Năm (Ví dụ: 31/12/1993).'
+            'expert.required'           => 'Bạn chưa nhập Chuyên môn.',
+
+            'cv.required'               => 'Bạn chưa nhập CV.',
+
+            'video_intro.required'      => 'Bạn chưa nhập Video giới thiệu.'
         ];
     }
 }

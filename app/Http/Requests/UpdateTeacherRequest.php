@@ -33,7 +33,7 @@ class UpdateTeacherRequest extends FormRequest
             'dob'           => 'date_format:"d/m/Y"|regex:/[0-9]{2}\/[0-9]{2}\/[0-9]{4}/|validate_dob',
             'password'          => 'min:8|max:101',
             'confirm_password'   => 'same:password',
-            // 'video-intro'   => 'required|regex:/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/|validate_youtube_url',
+            'youtube'           => 'required',
         ];
     }
 
@@ -56,6 +56,8 @@ class UpdateTeacherRequest extends FormRequest
 
             'address.max'               => 'Địa chỉ quá dài. Vui lòng nhập ít hơn 255 ký tự',
             'address.required'  => 'Bạn chưa nhập địa chỉ',
+
+            'youtube.required'  => 'Bạn chưa nhập Link youtube',
 
             'dob.date_format'      => 'Ngày sinh phải có định dạng Ngày/Tháng/Năm (Ví dụ: 31/12/1993).',
 

@@ -24,7 +24,7 @@ class UpdateCourseRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'              => 'required|max:255',
+            'name'              => 'required|min:3|max:255',
             'short_description' => 'required|max:255',
             'description'       => 'required',
             'will_learn'        => 'required',
@@ -32,6 +32,7 @@ class UpdateCourseRequest extends FormRequest
             'original_price'    => 'required|numeric|min:0',
             'discount_price'    => 'numeric|min:0',
             'approx_time'       => 'required|numeric|min:0|max:999',
+            'link_intro'        => 'required',
         ];
     }
 
@@ -39,27 +40,31 @@ class UpdateCourseRequest extends FormRequest
     {
         return [
             'name.required'             => 'Bạn chưa nhập tên khóa học.',
+            'name.min'                  => 'Tên khóa học quá ngắn.',
             'name.max'                  => 'Tên khóa học quá dài.',
 
             'short_description.required'=> 'Bạn chưa nhập Tóm tắt.',
             'short_description.max'     => 'Tóm tắt quá dài.',
+            
             'description.required'      => 'Bạn chưa nhập Mô tả.',
+            
+            'requirement.required'      => 'Bạn chưa nhập Yêu cầu của khóa học.',
 
-            'will_learn.required'       => 'Bạn chưa nhập Học viên sẽ học được gì.',
+            'link_intro.required'       => 'Bạn chưa nhập Video giới thiệu.',
 
-            'original_price.required'   => 'Bạn chưa nhập giá gốc khóa học.',
+            'original_price.required'   => 'Bạn chưa nhập Giá gốc khóa học.',
             'original_price.numeric'    => 'Giá khóa học phải là số.',
             'original_price.min'        => 'Giá khóa học không thể <0.',
             // 'discount_price.required'   => 'Bạn chưa nhập giá giảm khóa học.',
             'discount_price.numeric'    => 'Giá khóa học phải là số.',
             'discount_price.min'        => 'Giá khóa học không thể <0.',
-
+            
             'approx_time.required'      => 'Bạn chưa nhập Thời gian dự kiến hoàn thành.',
             'approx_time.numeric'       => 'Thời gian dự kiến hoàn thành phải là số.',
             'approx_time.min'           => 'Thời gian dự kiến hoàn thành không thể <0.',
             'approx_time.numeric'       => 'Thời gian dự kiến hoàn thành quá lớn.',
-
-            'requirement.required'      => 'Bạn chưa nhập Yêu cầu của khóa học.'
+            
+            'will_learn.required'       => 'Bạn chưa nhập Học viên sẽ học được gì.',
         ];
     }
 }
