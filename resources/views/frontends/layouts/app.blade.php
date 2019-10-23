@@ -147,13 +147,13 @@
                             <ul class="unica-acc-zone db-item">
                                 @if(Auth::check())
                                     @if(!Auth::user()->isAdmin())
-                                        <li><a href="{{ url('user/student/course') }}" class="unica-active-course responsive-start-learning"><p class="hidden-md hidden-xs hidden-sm">Vào học</p></a></li>
+                                        <li style="float:left"><a href="{{ url('user/student/course') }}" class="unica-active-course responsive-start-learning"><p class="hidden-md hidden-xs hidden-sm">Vào học</p></a></li>
                                     @else
-                                        <li><a href="{{ url('admincp') }}" class="unica-admin"><p class="hidden-md hidden-xs hidden-sm">Trang quản trị</p></a></li>
+                                        <li style="float:left"><a href="{{ url('admincp') }}" class="unica-admin"><p class="hidden-md hidden-xs hidden-sm">Trang quản trị</p></a></li>
                                     @endif
                                 @endif
-                            <li>
                                 @if (Auth::check())
+                                <li style="float:left">
                                     @if (!Auth::user()->isAdmin())
                                     <a href="{{route('cart.show')}}" class="unica-cart">
                                         <img src="{{ asset('frontend/images/tab_cart.png') }}" alt="" style="width: 21px;" />
@@ -161,18 +161,20 @@
                                         <button id="cartUserId" style="display:none" data-user-id="{{Auth::user()->id}}"></button>
                                     </a>
                                     @endif
+                                </li>
                                 @elseif(!Auth::check())
+                                <li style="float:left">
                                     <a href="{{route('cart.show')}}" class="unica-cart">
                                         <img src="{{ asset('frontend/images/tab_cart.png') }}" alt="" style="width: 21px;" />
                                         <span class="unica-sl-cart" style="display: none;"><b class="number-in-cart"></b></span>
                                         <button id="cartUserId" style="display:none" data-user-id="0"></button>
                                     </a>                            
+                                </li>
                                 @endif
-                                <li>
 
                                     @if(Auth::check())
                                         @if (!Auth::user()->isAdmin())
-                                        <li>
+                                        <li style="float:left">
                                             <div class="dropdown" id="btnMailBoxNav">
                                                 <a class="unica-cart unica-mail" href="/user/student/mail-box">
                                                     <img src="{{ asset('frontend/images/tab_notifications.png') }}" alt="" style="width: 21px;" />
@@ -186,7 +188,7 @@
                                             </div>
                                         </li>                                        
                                         @endif
-                                    <li class="btn-group">
+                                    <li class="btn-group" style="float:left">
                                         <a class="db-item-circle dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)"><img class="img-responsive" src="{{ asset('frontend/'.(Auth::user()->avatar != '' ? Auth::user()->avatar : 'images/avatar.jpg')) }}" alt="avatar"><span class="caret"></span></a>                                    
                                         <ul class="dropdown-menu db-drop">
                                             @if ( !Auth::user()->isAdmin() )
