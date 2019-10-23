@@ -184,10 +184,11 @@ class HomeController extends Controller{
     {
         $title_homepage = Setting::where('name', 'set-title-homepage')->first();
         $value = $request->title;
+        if ( $title_homepage ){
+            $title_homepage->value = $value;
+            $title_homepage->save();
+        }
 
-        $title_homepage->value = $value;
-        $title_homepage->save();
-        
         return \Response::json(array('status' => '200', 'message' => 'Thay đổi tiêu đề trang chủ thành công!'));
     }
 }

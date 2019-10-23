@@ -104,7 +104,11 @@ class HomeController extends Controller
         $trending_courses = \App\Course::whereIn('id', $course_id_arr)->where('status', 1)->get()->take(\Config::get('app.pagging_item_number'));
 
         $popular_teacher = Teacher::getFeatureTeacher();
-        $title_homepage = Setting::where('name', 'set-title-homepage')->first()->value;
+        $title_homepage = ''; 
+        $title_homepage_setting = Setting::where('name', 'set-title-homepage');
+        if ( $title_homepage_setting ){
+            $title_homepage =  $title_homepage_setting->first()->value;
+        }
         return view('frontends.home', compact('feature_category', 'feature_course', 'best_seller_course', 'new_course', 'popular_teacher', 'trending_courses', 'title_homepage' ));
     }
 
