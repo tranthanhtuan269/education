@@ -157,14 +157,14 @@
                                 @endif
                             <li>
                                 @if (Auth::check())
-                                    @if (!Auth::user()->isAdmin())
+                                    @if (!Auth::user()->isAdmin() && !\Request::is('cart'))
                                     <a href="{{route('cart.show')}}" class="unica-cart">
                                         <img src="{{ asset('frontend/images/tab_cart.png') }}" alt="" style="width: 21px;" />
                                         <span class="unica-sl-cart" style="display: none;"><b class="number-in-cart"></b></span>
                                         <button id="cartUserId" style="display:none" data-user-id="{{Auth::user()->id}}"></button>
                                     </a>
                                     @endif
-                                @elseif(!Auth::check())
+                                @elseif(!Auth::check() && !\Request::is('cart'))
                                     <a href="{{route('cart.show')}}" class="unica-cart">
                                         <img src="{{ asset('frontend/images/tab_cart.png') }}" alt="" style="width: 21px;" />
                                         <span class="unica-sl-cart" style="display: none;"><b class="number-in-cart"></b></span>
