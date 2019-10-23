@@ -50,6 +50,7 @@ class CategoryController extends Controller
         $category->name         = $request->name;
         $category->parent_id    = $request->parent_id;
         $category->featured     = $request->featured;
+        $category->description  = $request->description;
         $category->icon         = $request->icon;
         // $category->slug         = \Str::slug($request->name, '-');
         $category->image        = $file_name;
@@ -83,6 +84,7 @@ class CategoryController extends Controller
             $category->name         = $request->name;
             $category->parent_id    = $request->parent_id;
             $category->featured     = $request->featured;
+            $category->description  = $request->description;
             $category->icon         = $request->icon;
             $category->image        = $file_name;
             $category->save();

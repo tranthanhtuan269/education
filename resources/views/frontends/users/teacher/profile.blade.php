@@ -135,7 +135,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label>Địa chỉ</label>
+                                                <label>Mô tả</label>
                                                 <div class="form-group">
                                                     <textarea class="form-control" rows="2" cols="50" name="address">{{ Auth::user()->address }}</textarea>
                                                 </div>

@@ -25,6 +25,7 @@ class StoreCategoryRequest extends FormRequest
         return [
             'name' => 'required|max:25|unique:categories,name',
             'image' => 'required',
+            'description' => 'required|max:250',
             'icon' => 'required',
         ];
     }
@@ -35,7 +36,9 @@ class StoreCategoryRequest extends FormRequest
             'name.max'      => 'Tên danh mục quá dài.',
             'name.unique'   => 'Tên Danh mục đã tồn tại.',
             'image.required'=> 'Bạn chưa chọn ảnh đại diện Danh mục.',
-            'icon.required' => 'Bạn chưa nhập icon Danh mục.'
+            'icon.required' => 'Bạn chưa nhập icon Danh mục.',
+            'description.required' => 'Bạn chưa nhập mô tả cho Danh mục.',
+            'description.max' => 'Mô tả quá dài. Yêu cầu <250 ký tự.',
         ];
     }
 }

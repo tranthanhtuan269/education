@@ -26,7 +26,7 @@ class Category extends Model
 
 
     protected $fillable = [
-        'name', 'parent_id', 'featured', 'featured_index', 'course_count','slug', 'image'
+        'name', 'parent_id', 'featured', 'featured_index', 'course_count','slug', 'image', 'description'
     ];
 
     public function courses()
