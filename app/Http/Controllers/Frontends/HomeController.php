@@ -127,7 +127,7 @@ class HomeController extends Controller
                     $query->orwhere('courses.name', 'LIKE', "%$keyword%");
                 })
                 ->pluck('course_id');
-            $results = Course::whereIn('id', $arr_course_id)->paginate(8);
+            $results = Course::whereIn('id', $arr_course_id)->paginate(16);
         }
 
         return view('frontends.search', compact('results'));
