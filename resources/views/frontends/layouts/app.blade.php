@@ -143,17 +143,14 @@
                         </form>
                     </div>
                     <div class="col-lg-4 col-sm-4 cate-sm">
-                        <?php //echo $check_course_of_the_user;die; ?>
                         <div class="pull-right">
                             <ul class="unica-acc-zone db-item">
                                 @if(Auth::check())
-                                    {{-- @if ( !(count(Auth::user()->userRoles) == 1 && (Auth::user()->userRoles->first()->role_id) == 1) ) --}}
                                     @if(!Auth::user()->isAdmin())
                                         <li><a href="{{ url('user/student/course') }}" class="unica-active-course responsive-start-learning"><p class="hidden-md hidden-xs hidden-sm">Vào học</p></a></li>
                                     @else
                                         <li><a href="{{ url('admincp') }}" class="unica-admin"><p class="hidden-md hidden-xs hidden-sm">Trang quản trị</p></a></li>
                                     @endif
-                                {{-- </li> --}}
                                 @endif
                             <li>
                                 @if (Auth::check())
@@ -452,7 +449,7 @@
                             <li><a href="javascript:void(0)" title="job post">Job Post</a></li>
                         </ul> --}}
                         <p class="copyright">&copy; 2019, Bản quyền thuộc về courdemy.com. Bảo lưu mọi quyền!</p>
-                        <p>v2019.10.17</p>
+                        <p>v2019.10.22</p>
                     </div>
                 </div>
             </div>
