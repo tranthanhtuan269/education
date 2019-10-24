@@ -61,7 +61,9 @@
              </div>
 
             <div class="content-course">
-                <h3 class="title-course">{{ \Helper::smartStr($course->name) }}</h3>
+                <a href="{{ url('/') }}/course/{{ $course->id }}/{{ $course->slug }}">
+                    <h3 class="title-course">{{ \Helper::smartStr($course->name) }}</h3>
+                </a>
                 <div class="clearfix">
                     <span class="name-teacher pull-left">
                         {{ $author }}
