@@ -63,20 +63,72 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                             </div>
                         </div>
                         <div class="network pull-right network-reponsive"
-                        @if( strlen($info_course->short_description) >= 200)
-                        style="padding-top: 40px"
+                        @if( strlen($info_course->short_description) >= 200 )
+                            style="padding-top: 58px"
+                        @endif
+                        @if( strlen($info_course->name) >= 65)
+                            @if ( strlen($info_course->short_description) >= 200 )
+                                style="padding-top: 108px"
+                            @else
+                                style="padding-top: 78px"
+                            @endif
                         @endif
                         >
-                            <div class="fb-share-button" data-layout="button" style="display:none"></div>
-                            <a class="btn btn-default btn-xs" data-src="{{$info_course->image}}" href="https://www.facebook.com/sharer/sharer.php?u=
+                            <a class="btn btn-facebook-share btn-xs" data-src="{{$info_course->image}}" href="https://www.facebook.com/sharer/sharer.php?u=
                             <?php
                             echo urlencode(url()->current());
                             ?>
-                            " target="_blank">
-                                <i class="fas fa-share-alt"></i> Chia sẻ
-                            </a>
+                            " target="_blank"><b>
+                                    <i class="fab fa-facebook-square fa-fw fa-lg"></i> Chia sẻ
+                            </b></a>
                         </div>
                     </div>
+                    <div class="clearfix"></div>
+                    <div class="top-box-course-detail">
+                        <div class="teacher-of-course">
+                        @foreach ($info_course->Lecturers() as $lecturer)
+                            @if($lecturer->teacher && $lecturer->user)
+                            <a href="{{ url('/') }}/teacher/{{ $lecturer->teacher->id }}" title="{{ $lecturer->user->name }}" >
+                                @if(filter_var($lecturer->user->avatar, FILTER_VALIDATE_URL))
+                                    <img class="avatar" alt="{{ $lecturer->user->name }}" src="{{ $lecturer->user->avatar }}">
+                                @else
+                                    <img class="avatar" alt="{{ $lecturer->user->name }}" src="{{ asset('frontend/'.$lecturer->user->avatar) }}">
+                                @endif
+                            </a>
+                            <p class="name"><a href="{{ url('/') }}/teacher/{{ $lecturer->teacher->id }}" title="{{ $lecturer->user->name }}" ><b>{{ $lecturer->user->name }}</b></a></p>
+                            @endif
+                        @endforeach
+                        </div>
+                        <div class="vote-of-course">
+                            <div class="col-xs-12 full-width-mobile pb-10px">
+                                @if ($initial_vote_count == 0)
+                                    @include(
+                                        'components.vote', 
+                                        [
+                                            'rate' => intval($info_course->star_count) / intval($info_course->vote_count),
+                                            'rating_number' => $initial_vote_count,
+                                            'rating_txt' => true
+                                        ]
+                                    )    
+                                @else
+                                    @include(
+                                        'components.vote', 
+                                        [
+                                            'rate' => intval($info_course->star_count) / intval($info_course->vote_count),
+                                            'rating_number' => $info_course->vote_count,
+                                            'rating_txt' => true
+                                        ]
+                                    )
+                                    
+                                @endif
+                            </div>
+                        </div>
+                        <div class="student-of-course">
+                            <i class="fas fa-user-graduate fa-fw fa-lg"></i>
+                            <span class="special">{{ number_format($info_course->student_count, 0, ',' , '.') }} Học viên</span>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
                     <div class="frame_2">
                         <div class="row">
                             <div class="col-sm-6">
@@ -138,32 +190,8 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                                         <span class="special">{{ $info_course->all_videos() }} Videos</span>
                                     </div>
                                     <div class="col-xs-6 full-width-mobile pb-10px">
-                                        <span class="box-img"><img src="{{ asset('frontend/images/ic_student.png') }}" class="icon" alt="" /></span>
-                                        <span class="special">{{ number_format($info_course->student_count, 0, ',' , '.') }} Học viên</span>
-                                    </div>
-                                </div>
-                                <div class="row box clearfix">
-                                    <div class="col-xs-12 full-width-mobile pb-10px">
-                                        @if ($initial_vote_count == 0)
-                                            @include(
-                                                'components.vote', 
-                                                [
-                                                    'rate' => intval($info_course->star_count) / intval($info_course->vote_count),
-                                                    'rating_number' => $initial_vote_count,
-                                                    'rating_txt' => true
-                                                ]
-                                            )    
-                                        @else
-                                            @include(
-                                                'components.vote', 
-                                                [
-                                                    'rate' => intval($info_course->star_count) / intval($info_course->vote_count),
-                                                    'rating_number' => $info_course->vote_count,
-                                                    'rating_txt' => true
-                                                ]
-                                            )
-                                            
-                                        @endif
+                                        <span class="box-img"><img src="{{ asset('frontend/images/features_deadline.png') }}" class="icon" alt="" style="width:30px" /></span>
+                                        <span class="special">Thời gian học linh hoạt</span>
                                     </div>
                                 </div>
                                 @if (Auth::check())
@@ -181,7 +209,7 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                                                 </div>
                                                 <div class="box clearfix">
                                                     <div class="pull-left money-back">
-                                                        (Hoàn tiền trong 30 ngày nếu không hài lòng)
+                                                        {{-- (Hoàn tiền trong 30 ngày nếu không hài lòng) --}}
                                                     </div>
                                                 </div>
                                                 @endif
@@ -199,7 +227,7 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                                     </div>
                                     <div class="box clearfix">
                                         <div class="pull-left money-back">
-                                            (Hoàn tiền trong 30 ngày nếu không hài lòng)
+                                            {{-- (Hoàn tiền trong 30 ngày nếu không hài lòng) --}}
                                         </div>
                                     </div>
                                 @endif
@@ -265,11 +293,6 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                                 </div>
                             </div>
                         </div>
-                        <script>
-                            $(document).ready(function (){
-                                // $('.knowledge .row li').prepend("<span><img src='/frontend/images/ic_check.png' width:'100%'></span>")
-                            })
-                        </script>
                         <style type="text/css">
                             .knowledge ul {
                                 /* columns: 2; */
@@ -305,6 +328,367 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                             </div>
                             @endif --}}
                         </div>
+                        @if (count($info_course->tags) > 0)
+                        <div class="skill clearfix my-30px">
+                                <div class="col-xs-12">
+                                    <h3>Các mục liên quan</h3>
+                                    <ul class="row row-centered">
+                                        @foreach ($info_course->tags as $key => $tag)
+                                        <?php
+                                        if($key == 4){
+                                            break;
+                                        } 
+                                        ?>
+                                        <div class="col-md-3 col-sm-4 col-xs-6 full-width-480p col-centered">
+                                        <a href="/tags/{{$tag->slug}}">
+                                            <li class="css-course-tag">{{ $tag->name }}</li>
+                                        </a>
+                                        </div>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+                        @endif
+                        @if (count($info_course->Lecturers()) >= 1)
+                        <div class="instructors">
+                            <div class="row" id="box_instructors">
+                                <div class="col-sm-12">
+                                    <h3>Thông tin giảng viên</h3>
+                                </div>
+                                @foreach ($info_course->Lecturers() as $lecturer)
+                                @if($lecturer->teacher && $lecturer->user)
+                                <div class="col-xs-12">
+                                    <div class="row">
+                                        <div class="col-sm-3 avatar-center">
+                                            <a href="{{ url('/') }}/teacher/{{ $lecturer->teacher->id }}" title="{{ $lecturer->user->name }}" >
+                                                @if(filter_var($lecturer->user->avatar, FILTER_VALIDATE_URL))
+                                                    <img class="avatar" alt="{{ $lecturer->user->name }}" src="{{ $lecturer->user->avatar }}">
+                                                @else
+                                                    <img class="avatar" alt="{{ $lecturer->user->name }}" src="{{ asset('frontend/'.$lecturer->user->avatar) }}">
+                                                @endif
+                                            </a><br><br>
+                                            <div class="detail-info">
+                                                <p class="name"><a href="{{ url('/') }}/teacher/{{ $lecturer->teacher->id }}" title="{{ $lecturer->user->name }}" >{{ $lecturer->user->name }}</a></p>
+                                                <p class="expret">{{ $lecturer->teacher->expert }}</p>
+                                                <div class="frame clearfix">
+                                                    <div class="">
+                                                        <img src="{{ asset('frontend/images/ic_course.png') }}" alt="" /> 
+                                                        <?php
+                                                        $count_teacher_course = count($lecturer->teacher->userRole->userCoursesByTeacher()->where('status', 1))
+                                                        ?>
+                                                        <span class="special">{{ $count_teacher_course }} Khóa học</span>
+                                                    </div>
+                                                    <div class="">
+                                                        <img src="{{ asset('frontend/images/ic_student.png') }}" alt="" /> 
+                                                        <span class="special">{{ $lecturer->teacher->student_count }} Học viên</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <div class="info-teacher-right">
+                                                {{-- <p class="name"><a href="{{ url('/') }}/teacher/{{ $lecturer->teacher->id }}" title="{{ $lecturer->user->name }}" >{{ $lecturer->user->name }}</a></p>
+                                                <div class="expert-teacher">{{$lecturer->teacher->expert}}</div> --}}
+                                                <div class="cv-teacher">
+                                                    {!! $lecturer->teacher->cv !!}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @else
+                                <div>
+                                    Thông tin giảng viên đang được cập nhật.
+                                </div>
+                                @endif
+                                @endforeach
+                            </div>
+                        </div>
+                        @endif
+                        <div class="course-learning-review" id="box_reviews">
+                            <div class="feedback clearfix">
+                                <div class="col-sm-4 student-rating">
+                                    <h3>Đánh giá của học viên</h3>
+                                    <p class="number">
+                                        {{ number_format(intval($info_course->star_count) / intval($info_course->vote_count), 1, ',' , '.') }}
+                                    </p>
+                                    <p class="star">
+                                        @include(
+                                            'components.vote', 
+                                            [
+                                                'rate' => intval($info_course->star_count) / intval($info_course->vote_count),
+                                            ]
+                                        )
+                                    </p>
+                                    <p>Đánh giá khóa học</p>
+                                </div>
+                                <div class="col-sm-8 rating-process">
+                                    <div class="row">
+                                        <?php $tmp_percent_vote = 0; ?>
+                                        @for ($i = 5; $i <10; $i++)
+                                        <?php
+                                            if ($i == 5) {
+                                                $count_star = $info_course->five_stars;
+                                                $percent_vote = number_format(($count_star / $info_course->vote_count)*100, 0, ',' , '.');
+                                            } elseif ($i == 6) {
+                                                $count_star = $info_course->four_stars;
+                                                $percent_vote = number_format(($count_star / $info_course->vote_count)*100, 0, ',' , '.');
+                                            } elseif ($i == 7) {
+                                                $count_star = $info_course->three_stars;
+                                                $percent_vote = number_format(($count_star / $info_course->vote_count)*100, 0, ',' , '.');
+                                            } elseif ($i == 8) {
+                                                $count_star = $info_course->two_stars;
+                                                $percent_vote = number_format(($count_star / $info_course->vote_count)*100, 0, ',' , '.');
+                                            } else{
+                                                $count_star = $info_course->one_stars;
+                                                $percent_vote = $percent_temp;
+                                            }
+                
+                                            $percent_temp -= (int)$percent_vote;
+                                        ?>
+                                        <div class="item-progress" id="rate-{{ 10 - $i }}" data-rate="{{ 10 - $i }}" data-vote="{{ $count_star }}" data-percent="{{ (int)$percent_vote }}">
+                                            <div class="col-sm-8">
+                                                <div class="progress">
+                                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ $percent_vote }}"
+                                                        aria-valuemin="0" aria-valuemax="100" style="width:{{ $percent_vote }}%"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                @include(
+                                                    'components.vote', 
+                                                    [
+                                                        'rate' => 10 - $i,
+                                                    ]
+                                                )
+                                                <span class="percent-rating">{{ $percent_vote }}%</span>
+                                            </div>
+                                        </div>
+                                        @endfor
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="reviews"  id="">
+                                @if ( !isset($ratingCourse) )
+                                <h3>Đánh giá khóa học
+                                    {{-- @if(Auth::check()) --}}
+                                        @if(\App\Helper\Helper::getUserRoleOfCourse($info_course->id))
+                                        @if(isset($info_course->userRoles[0]->user_id))
+                                            @if( (int)($info_course->userRoles[0]->user_id) != (int)(Auth::user()->id) )
+                                                <span class="reviews-star" data-star="{{ isset($ratingCourse) ? $ratingCourse->score : 0 }}">
+                                                    @if($ratingCourse)
+                                                    @include(
+                                                        'components.vote', 
+                                                        [
+                                                            'rate' => $ratingCourse->score,
+                                                        ]
+                                                    )
+                                                    @else
+                                                    <i id="star-1" class="far fa-star review-star" data-id="1"></i>
+                                                    <i id="star-2" class="far fa-star review-star" data-id="2"></i>
+                                                    <i id="star-3" class="far fa-star review-star" data-id="3"></i>
+                                                    <i id="star-4" class="far fa-star review-star" data-id="4"></i>
+                                                    <i id="star-5" class="far fa-star review-star" data-id="5"></i>
+                                                    @endif
+                                                </span>
+                                            @endif
+                                        @endif
+                                        @endif
+                                    {{-- @else
+                                    Đăng nhập để xem nhận xét của các học viên khác
+                                    @endif --}}
+                                </h3>
+                                {{-- @if(Auth::check()) --}}
+                                    @if(\App\Helper\Helper::getUserRoleOfCourse($info_course->id))
+                                        @if(isset($info_course->userRoles[0]->user_id))
+                                            @if( (int)($info_course->userRoles[0]->user_id) != (int)(Auth::user()->id) )
+                                                <textarea name="content" id="editor" class="form-control" placeholder="Nội dung"></textarea>
+                                                <div class="btn-submit text-center mt-10 mb-20">
+                                                    <input class="btn btn-primary submit-question" type="submit" value="Gửi đánh giá" id="create-comment-new"/>
+                                                </div>
+                                                <script>
+                                                    var baseURL = $('base').attr('href');
+                
+                                                    function hideStar(){
+                                                        for(var j = 0; j <= 5; j++){
+                                                            $('#star-' + j).removeClass('fa').addClass('far');
+                                                        }
+                                                    }
+                
+                                                    function showStar(i){
+                                                        for(var j = 1; j <= i; j++){
+                                                            $('#star-' + j).addClass('fa').removeClass('far');
+                                                        }
+                                                    }
+                
+                                                    $('.review-star').mouseenter(function(){
+                                                        switch($(this).attr('data-id')){
+                                                            case "1":
+                                                                hideStar();showStar(1);
+                                                                break;
+                                                            case "2":
+                                                                hideStar();showStar(2);
+                                                                break;
+                                                            case "3":
+                                                                hideStar();showStar(3);
+                                                                break;
+                                                            case "4":
+                                                                hideStar();showStar(4);
+                                                                break;
+                                                            case "5":
+                                                                hideStar();showStar(5);
+                                                                break;
+                                                        }
+                                                    }).mouseleave(function(){
+                                                        hideStar();
+                                                    }).click(function(){
+                                                        console.log($(this));
+                                                        hideStar();showStar($(this).attr('data-id'))
+                                                        $('.review-star').off( "mouseenter")
+                                                        $('.review-star').off( "mouseleave")
+                                                        $('.reviews-star').attr('data-star', $(this).attr('data-id'))
+                                                    });
+                
+                                                    $.ajaxSetup({
+                                                        headers: {
+                                                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                                        }
+                                                    });
+                
+                                                    $('#create-comment-new').on('click', function (e) {
+                                                        var score = $('.reviews-star').attr('data-star');
+                                                        if($('#editor').val().trim() == ''){
+                                                            Swal.fire({
+                                                                type: 'warning',
+                                                                html: 'Bạn chưa nhập nhận xét.',
+                                                            })
+                                                            return false;
+                                                        }
+                
+                                                        if($('.reviews-star').attr("data-star") == 0){
+                                                            Swal.fire({
+                                                                type: 'warning',
+                                                                html: 'Bạn chưa nhập sao.',
+                                                            })
+                                                            return false;
+                                                        }
+                
+                                                        var request = $.ajax({
+                                                            url: baseURL + '/reviews/store',
+                                                            method: "POST",
+                                                            data: {
+                                                                course_id: {{ $info_course->id }},
+                                                                content : $('#editor').val().trim(),
+                                                                score: score
+                                                            },
+                                                            dataType: "json"
+                                                        });
+                
+                                                        request.done(function( data ) {
+                                                            if(data.status == 201){
+                                                                var html = "";
+                                                                var htmlRate = $('.reviews-star').html();
+                                                                var avt = "images/avatar.jpg";
+                                                                if(data.commentCourse.data.avatar != null && data.commentCourse.data.avatar.length > 0){
+                                                                    avt = data.commentCourse.data.avatar;
+                                                                }
+                                                                html += '<div class="box clearfix">';
+                                                                    html += '<div class="col-sm-3">';
+                                                                        html += '<img class="avatar" src="'+baseURL + '/frontend/' + avt +'" alt="">';
+                                                                        html += '<div class="info-account">';
+                                                                            html += '<p class="interval">' + data.commentCourse.data.created_at +'</p>';
+                                                                            html += '<p class="name">' + data.commentCourse.data.username +'</p>';
+                                                                        html += '</div>';
+                                                                    html += '</div>';
+                                                                    html += '<div class="col-sm-9">';
+                                                                        html += htmlRate;
+                
+                                                                        html += '<p class="comment">';
+                                                                            html += data.commentCourse.data.content;
+                                                                        html += '</p>';
+                                                                        html += '<div class="btn-action">';
+                                                                            html += '<button type="button" class="btn btn-default btn-reply" data-comment-id="'+data.commentCourse.data.id+'">';
+                                                                                html += '<i class="fas fa-comment"></i>';
+                                                                                html += '<span>Reply</span>';
+                                                                            html += '</button>';
+                                                                            html += '<button type="button" class="btn btn-default btn-like" data-comment-id="'+data.commentCourse.data.id+'">';
+                                                                                html += '<i class="fas fa-thumbs-up"></i>';
+                                                                                html += '<span>Like</span>';
+                                                                            html += '</button>';
+                                                                            html += '<button type="button" class="btn btn-default btn-dislike" data-comment-id="'+data.commentCourse.data.id+'">';
+                                                                                html += '<i class="fas fa-thumbs-down"></i>';
+                                                                                html += '<span>Dislike</span>';
+                                                                            html += '</button>';
+                                                                        html += '</div>';
+                                                                        html += '<div id="reply-textbox-'+data.commentCourse.data.id+'" class="reply-textbox hide">';
+                                                                            html += '<textarea name="reply-'+data.commentCourse.data.id+'" id="reply-'+data.commentCourse.data.id+'" class="form-control" placeholder="Nội dung"></textarea>';
+                                                                            html += '<div class="btn-submit text-center mt-10 mb-20">';
+                                                                                html += '<input class="btn btn-primary create-reply-btn" type="submit" value="Gửi trả lời" id="create-reply-'+data.commentCourse.data.id+'" data-id="'+data.commentCourse.data.id+'"/>';
+                                                                            html += '</div>';
+                                                                        html += '</div>';
+                                                                        html += '<div class="reply-hold-'+data.commentCourse.data.id+'"></div>';
+                                                                    html += '</div>';
+                                                                    html += '<div class="col-sm-12">';
+                                                                        html += '<hr>';
+                                                                    html += '</div>';
+                                                                html += '</div>';
+                                                                $('#review-box').prepend(html);
+                                                                
+                                                                addEventToButton();
+                
+                                                                // change vote 
+                                                                var rate_arr = [];
+                                                                $(".item-progress").each(function( index ) {
+                                                                    rate_arr[$( this ).attr('data-rate')] = $(this).attr('data-vote'); 
+                                                                });
+                
+                                                                // console.log(rate_arr[$( this ).attr('data-rate')]);
+                                                                location.reload();
+                                                            }else if(data.status == 200){
+                                                                Swal.fire({
+                                                                    type: 'warning',
+                                                                    text: data.message
+                                                                })
+                                                            }
+                                                        });
+                                                        request.fail(function( jqXHR, textStatus ) {
+                                                            // alert( "Request failed: " + textStatus );
+                                                            Swal.fire({
+                                                                type: 'warning',
+                                                                html: 'Có lỗi! Nhấn tải lại trang và thử lại!',
+                                                            })
+                                                            return false;
+                                                        });
+                                                    });
+                                                </script>
+                                            @endif
+                                        @endif
+                                    @endif
+                                @else
+                                    <h3>Bạn đã đánh giá khóa học này</h3>
+                                @endif
+                                {{-- @else
+                                <h4>Đăng nhập để xem đánh giá</h4>
+                                @endif --}}
+                                <div id="review-box">
+                                    @foreach($info_course->takeComment(0, 3) as $comment)
+                                        @include('components.question-answer', ['comment' => $comment])
+                                    @endforeach
+                                    <?php 
+                                    // dd($info_course->takeComment()->first());
+                                    ?>
+                                </div>
+                            </div>
+                            @if( $info_course->commentOfStudentBought()->count() > 3)
+                            <div class="col-sm-12 btn-see-more" data-skip="3" data-take="3">
+                                <button type="button" class="btn">Xem thêm</button>
+                            </div>
+                            @endif
+                            <div class="facebook-comment">
+                                <h3>Thảo luận</h3>
+                                <div class="fb-comments" data-href="http://timtruyen.online/course/{{ $info_course->id }}/{{$info_course->slug}}" data-width="700" data-numposts="5"></div>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-12 hidden-xs">
                         <ul class="others fixed" id="benifit-first">
@@ -332,9 +716,7 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                             </li>
                         </ul>
                         <div class="info-course-sidebar hidden-md hidden-xs" style="position: relative;">
-                            {{-- <div class="sidebar-content" style="position: fixed; top: 75px; width: 376.66px"> --}}
-                            {{-- <div class="sidebar-fixed" id="sidebar-content"> --}}
-                            <div id="sidebar-content" style="display:none">
+                            <div id="sidebar-content">
                                 <div class="u-sm-left">
                                     <div class="block-price clearfix">
                                         <?php
@@ -407,7 +789,7 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                                     </div>
                                     <div class="clearfix">
                                         <div class="text-center money-back">
-                                            (Hoàn tiền trong 30 ngày nếu không hài lòng)
+                                            {{-- (Hoàn tiền trong 30 ngày nếu không hài lòng) --}}
                                         </div>
                                     </div>
                                 </div>
@@ -425,15 +807,15 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                         </div>
                         <script>
                             $(document).ready(function() { 
-                                var block_on = $('#benefit-course').position().top + $('#benifit-first').height() + 62 //Padding
-                                var block_below = $('.instructors').position().top - $('#sidebar-content').height() - 32 - 60 //Padding
-                                if( block_on < block_below + 20 ){
-                                    $('#sidebar-content').css('display', 'block')
-                                    $('#benefit-course').css('min-height', '660px')
-                                }
+                                // var block_on = $('#benefit-course').position().top + $('#benifit-first').height() + 62 //Padding
+                                // var block_below = $('.related-course').position().top - $('#sidebar-content').height() - 32 - 60 //Padding
+                                // if( block_on < block_below + 20 ){
+                                //     $('#sidebar-content').css('display', 'block')
+                                //     $('#benefit-course').css('min-height', '660px')
+                                // }
                                 $(window).scroll(function() {
                                     var block_on = $('#benefit-course').position().top + $('#benifit-first').height() + 62 //Padding
-                                    var block_below = $('.instructors').position().top - $('#sidebar-content').height() - 32 - 60 //Padding
+                                    var block_below = $('.related-course').position().top - $('#sidebar-content').height() - 20 - 62 //Padding
                                     if ($(window).scrollTop() >= block_on - 40) {
                                         if($(window).scrollTop() <= block_below - 40){
                                             document.getElementById("sidebar-content").classList.add("sidebar-fixed");
@@ -451,383 +833,12 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                     </div>
                 </div>
             </div>
-            @if (count($info_course->tags) > 0)
-            <div class="skill clearfix my-30px">
-                    <div class="col-xs-12">
-                        <h3>Các mục liên quan</h3>
-                        <ul class="row row-centered">
-                            @foreach ($info_course->tags as $key => $tag)
-                            <?php
-                            if($key == 4){
-                                break;
-                            } 
-                            ?>
-                            <div class="col-md-3 col-sm-4 col-xs-6 full-width-480p col-centered">
-                            <a href="/tags/{{$tag->slug}}">
-                                <li class="css-course-tag">{{ $tag->name }}</li>
-                            </a>
-                            </div>
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
-            @endif
+            
         </div>
     </div>
-    @if (count($info_course->Lecturers()) >= 1)
-    <div class="instructors">
-        <div class="container">
-            <div class="row" id="box_instructors">
-                <div class="col-sm-12">
-                    <h3>Thông tin giảng viên</h3>
-                </div>
-                @foreach ($info_course->Lecturers() as $lecturer)
-                @if($lecturer->teacher && $lecturer->user)
-                <div class="col-xs-12">
-                    <div class="row">
-                        <div class="col-sm-3 avatar-center">
-                            <a href="{{ url('/') }}/teacher/{{ $lecturer->teacher->id }}" title="{{ $lecturer->user->name }}" >
-                                @if(filter_var($lecturer->user->avatar, FILTER_VALIDATE_URL))
-                                    <img class="avatar" alt="{{ $lecturer->user->name }}" src="{{ $lecturer->user->avatar }}">
-                                @else
-                                    <img class="avatar" alt="{{ $lecturer->user->name }}" src="{{ asset('frontend/'.$lecturer->user->avatar) }}">
-                                @endif
-                            </a><br><br>
-                            <div class="detail-info">
-                                <p class="name"><a href="{{ url('/') }}/teacher/{{ $lecturer->teacher->id }}" title="{{ $lecturer->user->name }}" >{{ $lecturer->user->name }}</a></p>
-                                <p class="expret">{{ $lecturer->teacher->expert }}</p>
-                                <div class="frame clearfix">
-                                    <div class="pull-left">
-                                        <img src="{{ asset('frontend/images/ic_course.png') }}" alt="" /> 
-                                        <?php
-                                        $count_teacher_course = count($lecturer->teacher->userRole->userCoursesByTeacher()->where('status', 1))
-                                        ?>
-                                        <span class="special">{{ $count_teacher_course }} Khóa học</span>
-                                    </div>
-                                    {{-- <div class="pull-right">
-                                        @include(
-                                            'components.vote', 
-                                            [
-                                                'rate' => $lecturer->teacher->rating_score,
-                                                'rating_number' => $lecturer->teacher->vote_count,
-                                                'rating_txt' => true,
-                                            ]
-                                        )
-                                    </div> --}}
-                                    <div class="pull-right">
-                                        <img src="{{ asset('frontend/images/ic_student.png') }}" alt="" /> 
-                                        <span class="special">{{ $lecturer->teacher->student_count }} Học viên</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        {{-- <div class="col-sm-3">
-                        </div> --}}
-                        <div class="col-sm-9">
-                            <div class="info-teacher-right">
-                                {{-- <p class="name"><a href="{{ url('/') }}/teacher/{{ $lecturer->teacher->id }}" title="{{ $lecturer->user->name }}" >{{ $lecturer->user->name }}</a></p>
-                                <div class="expert-teacher">{{$lecturer->teacher->expert}}</div> --}}
-                                <div class="cv-teacher">
-                                    {!! $lecturer->teacher->cv !!}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @else
-                <div>
-                    Thông tin giảng viên đang được cập nhật.
-                </div>
-                @endif
-                @endforeach
-            </div>
-        </div>
-    </div>
-    @endif
+    
     <div class="container">
-        <div class="course-learning-review" id="box_reviews">
-            <div class="feedback clearfix">
-                <div class="col-sm-4 student-rating">
-                    <h3>Đánh giá của học viên</h3>
-                    <p class="number">
-                        {{ number_format(intval($info_course->star_count) / intval($info_course->vote_count), 1, ',' , '.') }}
-                    </p>
-                    <p class="star">
-                        @include(
-                            'components.vote', 
-                            [
-                                'rate' => intval($info_course->star_count) / intval($info_course->vote_count),
-                            ]
-                        )
-                    </p>
-                    <p>Đánh giá khóa học</p>
-                </div>
-                <div class="col-sm-8 rating-process">
-                    <div class="row">
-                        <?php $tmp_percent_vote = 0; ?>
-                        @for ($i = 5; $i <10; $i++)
-                        <?php
-                            if ($i == 5) {
-                                $count_star = $info_course->five_stars;
-                                $percent_vote = number_format(($count_star / $info_course->vote_count)*100, 0, ',' , '.');
-                            } elseif ($i == 6) {
-                                $count_star = $info_course->four_stars;
-                                $percent_vote = number_format(($count_star / $info_course->vote_count)*100, 0, ',' , '.');
-                            } elseif ($i == 7) {
-                                $count_star = $info_course->three_stars;
-                                $percent_vote = number_format(($count_star / $info_course->vote_count)*100, 0, ',' , '.');
-                            } elseif ($i == 8) {
-                                $count_star = $info_course->two_stars;
-                                $percent_vote = number_format(($count_star / $info_course->vote_count)*100, 0, ',' , '.');
-                            } else{
-                                $count_star = $info_course->one_stars;
-                                $percent_vote = $percent_temp;
-                            }
-
-                            $percent_temp -= (int)$percent_vote;
-                        ?>
-                        <div class="item-progress" id="rate-{{ 10 - $i }}" data-rate="{{ 10 - $i }}" data-vote="{{ $count_star }}" data-percent="{{ (int)$percent_vote }}">
-                            <div class="col-sm-9">
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ $percent_vote }}"
-                                        aria-valuemin="0" aria-valuemax="100" style="width:{{ $percent_vote }}%"></div>
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                @include(
-                                    'components.vote', 
-                                    [
-                                        'rate' => 10 - $i,
-                                    ]
-                                )
-                                <span class="percent-rating">{{ $percent_vote }}%</span>
-                            </div>
-                        </div>
-                        @endfor
-                    </div>
-                </div>
-            </div>
-            <div class="reviews"  id="">
-                @if ( !isset($ratingCourse) )
-                <h3>Đánh giá khóa học
-                    {{-- @if(Auth::check()) --}}
-                        @if(\App\Helper\Helper::getUserRoleOfCourse($info_course->id))
-                        @if(isset($info_course->userRoles[0]->user_id))
-                            @if( (int)($info_course->userRoles[0]->user_id) != (int)(Auth::user()->id) )
-                                <span class="reviews-star" data-star="{{ isset($ratingCourse) ? $ratingCourse->score : 0 }}">
-                                    @if($ratingCourse)
-                                    @include(
-                                        'components.vote', 
-                                        [
-                                            'rate' => $ratingCourse->score,
-                                        ]
-                                    )
-                                    @else
-                                    <i id="star-1" class="far fa-star review-star" data-id="1"></i>
-                                    <i id="star-2" class="far fa-star review-star" data-id="2"></i>
-                                    <i id="star-3" class="far fa-star review-star" data-id="3"></i>
-                                    <i id="star-4" class="far fa-star review-star" data-id="4"></i>
-                                    <i id="star-5" class="far fa-star review-star" data-id="5"></i>
-                                    @endif
-                                </span>
-                            @endif
-                        @endif
-                        @endif
-                    {{-- @else
-                    Đăng nhập để xem nhận xét của các học viên khác
-                    @endif --}}
-                </h3>
-                {{-- @if(Auth::check()) --}}
-                    @if(\App\Helper\Helper::getUserRoleOfCourse($info_course->id))
-                        @if(isset($info_course->userRoles[0]->user_id))
-                            @if( (int)($info_course->userRoles[0]->user_id) != (int)(Auth::user()->id) )
-                                <textarea name="content" id="editor" class="form-control" placeholder="Nội dung"></textarea>
-                                <div class="btn-submit text-center mt-10 mb-20">
-                                    <input class="btn btn-primary submit-question" type="submit" value="Gửi đánh giá" id="create-comment-new"/>
-                                </div>
-                                <script>
-                                    var baseURL = $('base').attr('href');
-
-                                    function hideStar(){
-                                        for(var j = 0; j <= 5; j++){
-                                            $('#star-' + j).removeClass('fa').addClass('far');
-                                        }
-                                    }
-
-                                    function showStar(i){
-                                        for(var j = 1; j <= i; j++){
-                                            $('#star-' + j).addClass('fa').removeClass('far');
-                                        }
-                                    }
-
-                                    $('.review-star').mouseenter(function(){
-                                        switch($(this).attr('data-id')){
-                                            case "1":
-                                                hideStar();showStar(1);
-                                                break;
-                                            case "2":
-                                                hideStar();showStar(2);
-                                                break;
-                                            case "3":
-                                                hideStar();showStar(3);
-                                                break;
-                                            case "4":
-                                                hideStar();showStar(4);
-                                                break;
-                                            case "5":
-                                                hideStar();showStar(5);
-                                                break;
-                                        }
-                                    }).mouseleave(function(){
-                                        hideStar();
-                                    }).click(function(){
-                                        console.log($(this));
-                                        hideStar();showStar($(this).attr('data-id'))
-                                        $('.review-star').off( "mouseenter")
-                                        $('.review-star').off( "mouseleave")
-                                        $('.reviews-star').attr('data-star', $(this).attr('data-id'))
-                                    });
-
-                                    $.ajaxSetup({
-                                        headers: {
-                                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                                        }
-                                    });
-
-                                    $('#create-comment-new').on('click', function (e) {
-                                        var score = $('.reviews-star').attr('data-star');
-                                        if($('#editor').val().trim() == ''){
-                                            Swal.fire({
-                                                type: 'warning',
-                                                html: 'Bạn chưa nhập nhận xét.',
-                                            })
-                                            return false;
-                                        }
-
-                                        if($('.reviews-star').attr("data-star") == 0){
-                                            Swal.fire({
-                                                type: 'warning',
-                                                html: 'Bạn chưa nhập sao.',
-                                            })
-                                            return false;
-                                        }
-
-                                        var request = $.ajax({
-                                            url: baseURL + '/reviews/store',
-                                            method: "POST",
-                                            data: {
-                                                course_id: {{ $info_course->id }},
-                                                content : $('#editor').val().trim(),
-                                                score: score
-                                            },
-                                            dataType: "json"
-                                        });
-
-                                        request.done(function( data ) {
-                                            if(data.status == 201){
-                                                var html = "";
-                                                var htmlRate = $('.reviews-star').html();
-                                                var avt = "images/avatar.jpg";
-                                                if(data.commentCourse.data.avatar != null && data.commentCourse.data.avatar.length > 0){
-                                                    avt = data.commentCourse.data.avatar;
-                                                }
-                                                html += '<div class="box clearfix">';
-                                                    html += '<div class="col-sm-3">';
-                                                        html += '<img class="avatar" src="'+baseURL + '/frontend/' + avt +'" alt="">';
-                                                        html += '<div class="info-account">';
-                                                            html += '<p class="interval">' + data.commentCourse.data.created_at +'</p>';
-                                                            html += '<p class="name">' + data.commentCourse.data.username +'</p>';
-                                                        html += '</div>';
-                                                    html += '</div>';
-                                                    html += '<div class="col-sm-9">';
-                                                        html += htmlRate;
-
-                                                        html += '<p class="comment">';
-                                                            html += data.commentCourse.data.content;
-                                                        html += '</p>';
-                                                        html += '<div class="btn-action">';
-                                                            html += '<button type="button" class="btn btn-default btn-reply" data-comment-id="'+data.commentCourse.data.id+'">';
-                                                                html += '<i class="fas fa-comment"></i>';
-                                                                html += '<span>Reply</span>';
-                                                            html += '</button>';
-                                                            html += '<button type="button" class="btn btn-default btn-like" data-comment-id="'+data.commentCourse.data.id+'">';
-                                                                html += '<i class="fas fa-thumbs-up"></i>';
-                                                                html += '<span>Like</span>';
-                                                            html += '</button>';
-                                                            html += '<button type="button" class="btn btn-default btn-dislike" data-comment-id="'+data.commentCourse.data.id+'">';
-                                                                html += '<i class="fas fa-thumbs-down"></i>';
-                                                                html += '<span>Dislike</span>';
-                                                            html += '</button>';
-                                                        html += '</div>';
-                                                        html += '<div id="reply-textbox-'+data.commentCourse.data.id+'" class="reply-textbox hide">';
-                                                            html += '<textarea name="reply-'+data.commentCourse.data.id+'" id="reply-'+data.commentCourse.data.id+'" class="form-control" placeholder="Nội dung"></textarea>';
-                                                            html += '<div class="btn-submit text-center mt-10 mb-20">';
-                                                                html += '<input class="btn btn-primary create-reply-btn" type="submit" value="Gửi trả lời" id="create-reply-'+data.commentCourse.data.id+'" data-id="'+data.commentCourse.data.id+'"/>';
-                                                            html += '</div>';
-                                                        html += '</div>';
-                                                        html += '<div class="reply-hold-'+data.commentCourse.data.id+'"></div>';
-                                                    html += '</div>';
-                                                    html += '<div class="col-sm-12">';
-                                                        html += '<hr>';
-                                                    html += '</div>';
-                                                html += '</div>';
-                                                $('#review-box').prepend(html);
-                                                
-                                                addEventToButton();
-
-                                                // change vote 
-                                                var rate_arr = [];
-                                                $(".item-progress").each(function( index ) {
-                                                    rate_arr[$( this ).attr('data-rate')] = $(this).attr('data-vote'); 
-                                                });
-
-                                                // console.log(rate_arr[$( this ).attr('data-rate')]);
-                                                location.reload();
-                                            }else if(data.status == 200){
-                                                Swal.fire({
-                                                    type: 'warning',
-                                                    text: data.message
-                                                })
-                                            }
-                                        });
-                                        request.fail(function( jqXHR, textStatus ) {
-                                            // alert( "Request failed: " + textStatus );
-                                            Swal.fire({
-                                                type: 'warning',
-                                                html: 'Có lỗi! Nhấn tải lại trang và thử lại!',
-                                            })
-                                            return false;
-                                        });
-                                    });
-                                </script>
-                            @endif
-                        @endif
-                    @endif
-                @else
-                    <h3>Bạn đã đánh giá khóa học này</h3>
-                @endif
-                {{-- @else
-                <h4>Đăng nhập để xem đánh giá</h4>
-                @endif --}}
-                <div id="review-box">
-                    @foreach($info_course->takeComment(0, 3) as $comment)
-                        @include('components.question-answer', ['comment' => $comment])
-                    @endforeach
-                    <?php 
-                    // dd($info_course->takeComment()->first());
-                    ?>
-                </div>
-            </div>
-            @if( $info_course->commentOfStudentBought()->count() > 3)
-            <div class="col-sm-12 btn-see-more" data-skip="3" data-take="3">
-                <button type="button" class="btn">Xem thêm</button>
-            </div>
-            @endif
-            <div class="facebook-comment">
-                <h3>Thảo luận</h3>
-                <div class="fb-comments" data-href="http://timtruyen.online/course/{{ $info_course->id }}/{{$info_course->slug}}" data-width="700" data-numposts="5"></div>
-            </div>
-        </div>
+        
     </div>
     <div class="related-course">
         <div class="container">

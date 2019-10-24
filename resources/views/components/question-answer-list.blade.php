@@ -35,7 +35,7 @@
         <div class="comment">
             {!! $comment->content !!}
         </div>
-        @if(Auth::check())
+        @if( Auth::check() && \App\Helper\Helper::getUserRoleOfCourse($course->id) )
         <div class="btn-action">
             <button type="button" class="btn btn-default btn-reply" data-comment-id="{{ $comment->id }}">
                 <i class="fas fa-comment"></i>

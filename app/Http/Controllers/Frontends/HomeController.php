@@ -971,7 +971,7 @@ class HomeController extends Controller
                     $end = true;
                 }
                 $commentCourses = $course->takeComment($request->skip, $request->take);
-                return view('components.question-answer-list', ['comments' => $commentCourses, 'end' => $end]);
+                return view('components.question-answer-list', ['comments' => $commentCourses, 'end' => $end, 'course'=>$course]);
             }
             return '';
         }

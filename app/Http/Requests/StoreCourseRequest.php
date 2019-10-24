@@ -25,12 +25,12 @@ class StoreCourseRequest extends FormRequest
     {
         return [
             'image'             => 'required',
-            'name'              => 'required|min:3|max:255',
-            'short_description' => 'required|max:255',
-            'description'       => 'required',
-            'will_learn'        => 'required',
-            'requirement'       => 'required',
-            'original_price'    => 'required|numeric|min:0',
+            'name'              => 'required|min:3|max:120',
+            'short_description' => 'required|max:250',
+            'description'       => 'required|max:2000',
+            'will_learn'        => 'required|max:1000',
+            'requirement'       => 'required|max:150',
+            'original_price'    => 'required|numeric|min:0|max:10000000',
             'discount_price'    => 'numeric|min:0',
             'approx_time'       => 'required|numeric|min:0|max:999',
             'link_intro'        => 'required',
@@ -44,20 +44,23 @@ class StoreCourseRequest extends FormRequest
 
             'name.required'             => 'Bạn chưa nhập Tên khóa học.',
             'name.min'                  => 'Tên khóa học quá ngắn.',
-            'name.max'                  => 'Tên khóa học quá dài.',
+            'name.max'                  => 'Tên khóa học quá dài. Yêu cầu < 120 ký tự.',
 
             'short_description.required'=> 'Bạn chưa nhập Tóm tắt.',
-            'short_description.max'     => 'Tóm tắt quá dài.',
+            'short_description.max'     => 'Tóm tắt quá dài. Yêu cầu < 250 ký tự',
 
             'description.required'      => 'Bạn chưa nhập Mô tả.',
+            'description.max'           => 'Mô tả quá dài. Yêu cầu < 2000 ký tự.',
             
             'requirement.required'      => 'Bạn chưa nhập Yêu cầu của khóa học.',
+            'requirement.max'           => 'Yêu cầu của khóa học quá dài .Yêu cầu  < 150 ký tự.',
 
             'link_intro.required'       => 'Bạn chưa nhập Video giới thiệu.',
 
             'original_price.required'   => 'Bạn chưa nhập Giá gốc khóa học.',
             'original_price.numeric'    => 'Giá khóa học phải là số.',
             'original_price.min'        => 'Giá khóa học không thể <0.',
+            'original_price.max'        => 'Giá khóa học quá lớn.',
             // 'discount_price.required'   => 'Bạn chưa nhập giá giảm khóa học.',
             'discount_price.numeric'    => 'Giá khóa học phải là số.',
             'discount_price.min'        => 'Giá khóa học không thể <0.',
@@ -67,7 +70,8 @@ class StoreCourseRequest extends FormRequest
             'approx_time.min'           => 'Thời gian dự kiến hoàn thành không thể <0.',
             'approx_time.numeric'       => 'Thời gian dự kiến hoàn thành quá lớn.',
 
-            'will_learn.required'       => 'Bạn chưa nhập Học viên sẽ học được gì.'
+            'will_learn.required'       => 'Bạn chưa nhập Học viên sẽ học được gì.',
+            'will_learn.mãx'            => 'Phần Học viên sẽ học được quá dài. Yêu cầu < 1000 ký tự.',
         ];
     }
 }
