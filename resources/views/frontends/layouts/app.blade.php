@@ -155,7 +155,10 @@
                                 @if (Auth::check())
                                 <li style="float:left">
                                     @if (!Auth::user()->isAdmin())
-                                    <a href="{{route('cart.show')}}" class="unica-cart">
+                                    <a href="{{route('cart.show')}}" class="unica-cart"
+                                    @if (\Request::is('cart'))
+                                    style="display:none
+                                    @endif>
                                         <img src="{{ asset('frontend/images/tab_cart.png') }}" alt="" style="width: 21px;" />
                                         <span class="unica-sl-cart" style="display: none;"><b class="number-in-cart"></b></span>
                                         <button id="cartUserId" style="display:none" data-user-id="{{Auth::user()->id}}"></button>
@@ -164,7 +167,11 @@
                                 </li>
                                 @elseif(!Auth::check())
                                 <li style="float:left">
-                                    <a href="{{route('cart.show')}}" class="unica-cart">
+                                    <a href="{{route('cart.show')}}" class="unica-cart"
+                                    @if (\Request::is('cart'))
+                                    style="display:none
+                                    @endif>
+                                    >
                                         <img src="{{ asset('frontend/images/tab_cart.png') }}" alt="" style="width: 21px;" />
                                         <span class="unica-sl-cart" style="display: none;"><b class="number-in-cart"></b></span>
                                         <button id="cartUserId" style="display:none" data-user-id="0"></button>
