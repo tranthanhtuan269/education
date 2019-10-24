@@ -44,7 +44,7 @@
                                 <li><span><i class="fa fa-chevron-right fa-fw" aria-hidden="true"></i></span>{!!$will_learn[$i]!!}</li>
                                 <?php $number_w++ ?>
                                 @if( $number_w == 4 )
-                                    <li><span><i class="fa fa-chevron-right fa-fw" aria-hidden="true"></i></span>...</li>
+                                    {{-- <li><span><i class="fa fa-chevron-right fa-fw" aria-hidden="true"></i></span>...</li> --}}
                                     @break
                                 @endif
                             @endif

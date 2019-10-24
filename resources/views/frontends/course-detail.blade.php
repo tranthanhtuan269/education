@@ -64,13 +64,13 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                         </div>
                         <div class="network pull-right network-reponsive"
                         @if( strlen($info_course->short_description) >= 200 )
-                            style="padding-top: 58px"
+                            style="padding-top: 43px"
                         @endif
                         @if( strlen($info_course->name) >= 65)
                             @if ( strlen($info_course->short_description) >= 200 )
-                                style="padding-top: 108px"
+                                style="padding-top: 93px"
                             @else
-                                style="padding-top: 78px"
+                                style="padding-top: 63px"
                             @endif
                         @endif
                         >
@@ -305,7 +305,7 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                                 margin-left: 10px;
                                 display: inline-flex;
                                 width: 48%;
-                                min-height: 50px;
+                                min-height: 30px;
                             }
                         </style>
                         <div class="lessons clearfix" id="box_content">

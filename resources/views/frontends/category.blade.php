@@ -1,4 +1,7 @@
 @extends('frontends.layouts.app')
+@section('title')
+{{ $category->name }}
+@stop
 @section('content')
 <div class="background-page">
 	{{-- <img class="bg-category" src="{{ asset('frontend/images/banner_profile_teacher.png') }}"> --}}
@@ -8,8 +11,15 @@
 	<div class='container-fuild'>
 		<img class="bg-category" src="{{ asset('frontend/images/banner_profile_teacher.png') }}">
 		<div class="container fixed-title">
-			<div class="highlight">
-				<div class="row title">
+			<div class="highlight"
+			@if( strlen($category->description) >= 1 )
+			style="top: -170px"
+			@endif
+			@if( strlen($category->description) >= 130 )
+			style="top: -190px"
+			@endif
+			>
+				<div class="title">
 					<i class="fas {{$category->icon}} fa-4x fa-fw"></i>
 					<h1>{{ $category->name }}</h1>
 				</div>

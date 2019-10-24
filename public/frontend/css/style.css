@@ -61,7 +61,7 @@ div[data-u="slides"] div div{
 #config-slider h2{
   font-size: 22px;
 }
-.detail-course .related-course,.detail-course .feedback,.course-recommend{padding:50px 0}
+.detail-course .related-course,.detail-course .feedback,.course-recommend{padding-top:50px}
 .detail-course .instructors{padding: 30px 0}
 .notifications.alert-danger{background:linear-gradient(to right,#F4A111,#fe7202);margin-bottom:0;color:#fff;border:0;border-radius:0}
 .notifications.alert-danger img{width:20px}
@@ -1178,7 +1178,7 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
   font-style: italic;
   font-family: 'Palanquin Dark', sans-serif;
 } */
-.background-page .highlight{position: absolute;top:-22vh;left:10vw}
+.background-page .highlight{position: absolute;top:-150px;left:10vw;right:10vw}
 /* .background-page .highlight .title{margin-bottom:20px;font-size:25px} */
 .background-page .highlight .thumbnail-img h4{font-size:22px;padding-bottom:5px;text-transform:uppercase}
 .background-page .highlight .thumbnail-img{display:block;position:relative;color:#fff}
@@ -1227,7 +1227,7 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
 .lp-bc-price .price-o {    font-size: 14px;    background: #f26522;    border-radius: 3px;    padding: 5px;    color: #fff;    display: inline-block;    margin: 10px 0;}
 .lp-bc-price a {    background: #ff0000;    padding: 10px 20px;    text-transform: uppercase;    font-size: 16px;    text-align: center;    color: #fff;    display: inline-block;    width: 100%;    border-radius: 3px;}
 .network .btn{padding:5px 22px;margin:0 5px;border-radius:6px}
-.detail-course{margin-bottom:80px}
+/* .detail-course{margin-bottom:80px} */
 /* .detail-course .frame .network{padding-top:25px} */
 .detail-course .frame .network .btn span{position:relative;top:-2px}
 .detail-course .frame .network img{position:relative;top:3px}
@@ -1510,6 +1510,11 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
     font-weight: 600;
     font-size: 28px;
     margin: 0 5px 20px 5px;   
+}
+
+.category-tag{
+  text-align: justify;
+  text-justify: inter-word;
 }
 
 /* USER */
