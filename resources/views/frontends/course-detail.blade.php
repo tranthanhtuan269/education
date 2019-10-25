@@ -482,10 +482,9 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                             </div>
                             <div class="reviews"  id="">
                                 @if ( !isset($ratingCourse) )
-                                <h4 style="display:inline-block">Đánh giá của bạn: </h4>
-                                <h3 style="display:inline-block">
-                                    {{-- @if(Auth::check()) --}}
-                                        @if(\App\Helper\Helper::getUserRoleOfCourse($info_course->id))
+                                    @if(\App\Helper\Helper::getUserRoleOfCourse($info_course->id))
+                                        <h4 style="display:inline-block">Đánh giá của bạn: </h4>
+                                        <h3 style="display:inline-block">
                                         @if(isset($info_course->userRoles[0]->user_id))
                                             @if( (int)($info_course->userRoles[0]->user_id) != (int)(Auth::user()->id) )
                                                 <span class="reviews-star" data-star="{{ isset($ratingCourse) ? $ratingCourse->score : 0 }}">
@@ -506,12 +505,8 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                                                 </span>
                                             @endif
                                         @endif
-                                        @endif
-                                    {{-- @else
-                                    Đăng nhập để xem nhận xét của các học viên khác
-                                    @endif --}}
-                                </h3>
-                                {{-- @if(Auth::check()) --}}
+                                        </h3>
+                                    @endif
                                     @if(\App\Helper\Helper::getUserRoleOfCourse($info_course->id))
                                         @if(isset($info_course->userRoles[0]->user_id))
                                             @if( (int)($info_course->userRoles[0]->user_id) != (int)(Auth::user()->id) )
@@ -680,9 +675,6 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                                 @else
                                     <div class="alert alert-success" role="alert"><b>Bạn đã đánh giá khóa học này rồi!</b></div>
                                 @endif
-                                {{-- @else
-                                <h4>Đăng nhập để xem đánh giá</h4>
-                                @endif --}}
                                 <div id="review-box">
                                     @foreach($info_course->takeComment(0, 3) as $comment)
                                         @include('components.question-answer', ['comment' => $comment])
