@@ -673,7 +673,7 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                                         @endif
                                     @endif
                                 @else
-                                    <div class="alert alert-success" role="alert"><b>Bạn đã đánh giá khóa học này rồi!</b></div>
+                                    <div class="alert alert-success text-center" role="alert"><b>Bạn đã đánh giá khóa học này rồi!</b></div>
                                 @endif
                                 <div id="review-box">
                                     @foreach($info_course->takeComment(0, 3) as $comment)
