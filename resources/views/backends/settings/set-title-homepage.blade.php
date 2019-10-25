@@ -24,6 +24,14 @@
     $(document).ready(function(){
         $("#btn-confirm").click(function(){
             var title = $('#titleHomepage').val()
+
+            if ( title.length > 100 ){
+                Swal.fire({
+                    type: 'warning',
+                    text: 'Tiêu đề quá dài. Yêu cầu <= 100 ký tự.',
+                })
+                return
+            }
             
             $.ajaxSetup({
                 headers: {

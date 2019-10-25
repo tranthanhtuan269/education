@@ -200,7 +200,7 @@
         });
     });
 
-    $('#accordion .event-click').click(function(){
-        $("#sidebar-content").addClass('sidebar-unfix').css('top', 0);
-    })
+    // $('#accordion .event-click').click(function(){
+    //     $("#sidebar-content").addClass('sidebar-unfix').css('top', 0);
+    // })
 </script>

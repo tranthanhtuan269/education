@@ -24,12 +24,16 @@
 							@endif
 						</div>
 						<div class="network pull-right network-teacher">
-							<a class="btn btn-default btn-xs" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(url()->current()); ?>" target="_blank">
-								<i class="fas fa-share-alt fa-fw"></i> Chia sẻ Facebook
+							<a class="btn btn-facebook-share btn-xs" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(url()->current()); ?>" target="_blank">
+								<b>
+									<i class="fas fa-share-alt-square fa-fw fa-lg"></i> Chia sẻ Facebook
+								</b>
 							</a>
 							@if($info_teacher->userRole->user)
-							<a  class="btn btn-default btn-xs" href="{{ $info_teacher->userRole->user->facebook }}" target="_blank">
-								<i class="fab fa-facebook-square fa-fw"></i>Facebook Giảng viên
+							<a  class="btn btn-facebook-share btn-xs" href="{{ $info_teacher->userRole->user->facebook }}" target="_blank">
+								<b>
+									<i class="fab fa-facebook-square fa-fw fa-lg"></i> Facebook Giảng viên
+								</b>
 							</a>
 							@endif
 						</div>

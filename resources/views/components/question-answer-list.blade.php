@@ -1,7 +1,7 @@
 @foreach($comments as $comment)
 <div class="box clearfix">
     @if($comment->userRole && $comment->userRole->user)
-    <div class="col-sm-3">
+    <div class="col-sm-4">
         @if($comment->userRole->user)
             <img class="avatar" src="{{ url('/') }}/frontend/{{ $comment->userRole->user->avatar }}" alt="" />
         @else
@@ -17,7 +17,7 @@
         </div>
     </div>
     @else
-    <div class="col-sm-3">
+    <div class="col-sm-4">
         <img class="avatar" src="{{ url('/') }}/frontend/images/avatar.jpg" alt="" />
         <div class="info-account">
             <p class="interval">{{ $comment->created_at }}</p>
@@ -25,7 +25,7 @@
         </div>
     </div>
     @endif
-    <div class="col-sm-9">
+    <div class="col-sm-8">
         @include(
             'components.vote', 
             [

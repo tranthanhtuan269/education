@@ -61,7 +61,7 @@ div[data-u="slides"] div div{
 #config-slider h2{
   font-size: 22px;
 }
-.detail-course .related-course,.detail-course .feedback,.course-recommend{padding-top:50px}
+.detail-course .related-course,.detail-course .feedback,.course-recommend{padding-top:0px}
 .detail-course .instructors{padding: 30px 0}
 .notifications.alert-danger{background:linear-gradient(to right,#F4A111,#fe7202);margin-bottom:0;color:#fff;border:0;border-radius:0}
 .notifications.alert-danger img{width:20px}
@@ -1334,8 +1334,9 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
 .detail-course .feedback .percent-rating{padding-left:10px}
 .detail-course .feedback .student-rating{text-align:center}
 .detail-course .feedback .student-rating h3{padding-bottom:6px}
-.detail-course .feedback .student-rating .number{font-size:32px;color:#FF8F00;font-weight:600}
-.detail-course .feedback .student-rating .star{font-size:26px;padding-bottom:5px}
+.detail-course .feedback .student-rating .number{font-size:72px;color:#FF8F00;font-weight:600;margin-top: -25px;}
+.detail-course .feedback .student-rating .star{font-size:26px;padding-bottom:5px;margin-top: -25px;}
+.detail-course .feedback .student-rating .course-vote-count{margin-top:-15px}
 .detail-course .top-course #best-seller .info{margin:0}
 .detail-course .info-course-sidebar{
   margin-top: 20px;
@@ -1393,12 +1394,12 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
   margin: 10px;
 }
 
-.detail-course .btn-facebook-share{
+.btn-facebook-share{
   color:#4267b2;
   font-size:14px;
   background-color:#fff;
 }
-.detail-course .btn-facebook-share:hover{
+.btn-facebook-share:hover{
   color: #365899;
 }
 .detail-course .top-box-course-detail{
@@ -1469,6 +1470,9 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
   box-shadow: 0px 0px 20px 0px rgba(204,204,204,1);
   margin-bottom: 10px;
 }
+.detail-course .info #box_content, .detail-course .info .instructors, .detail-course .info #box_reviews .reviews{
+  margin-top: 20px;
+}
 .detail-course .instructors .info-teacher-right{
   padding-right: 10px;
 }
@@ -1477,7 +1481,7 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
 .reviews .info-account{padding-top:13px}
 .reviews .info-account .interval{color:#29C2F3;font-size:13px}
 .reviews .box hr{margin:25px 0;border-top:1px solid #ccc}
-.reviews .box .btn-action button{padding:2px 25px}
+.reviews .box .btn-action button{padding:2px 15px}
 .reviews .box .comment{padding:8px 0}
 .reviews .box .comment-reply{border:1px solid #ccc;background:#E7E7E7;padding:20px;margin:20px 0}
 .btn-see-more{text-align:center}
@@ -2554,8 +2558,8 @@ div[data-u="slides"] div div{
   border-radius: 50%;
   z-index: 1;
 }
-.category-slider .slick-prev{left: 10px;}
-.category-slider .slick-next{right: 7px;}
+.category-slider .slick-prev{left: 15px;}
+.category-slider .slick-next{right: 15px;}
 .category-slider .slick-next:hover, .category-slider .slick-next:focus, .category-slider .slick-prev:hover, .category-slider .slick-prev:focus{
   z-index: 1;
   background: #ffffff;

@@ -1,5 +1,5 @@
 <div class="box clearfix">
-    <div class="col-sm-3">
+    <div class="col-sm-4">
         @if($comment->userRole && $comment->userRole->user != null)
             @if(strlen($comment->userRole->user->avatar) > 0)
             <img class="avatar" src="{{ url('/frontend/') }}/{{ $comment->userRole->user->avatar }}" alt="" />
@@ -18,7 +18,7 @@
         </div>
         @endif
     </div>
-    <div class="col-sm-9">
+    <div class="col-sm-8">
         @include(
             'components.vote', 
             [

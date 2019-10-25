@@ -160,7 +160,9 @@
                                     style="display:none
                                     @endif>
                                         <img src="{{ asset('frontend/images/tab_cart.png') }}" alt="" style="width: 21px;" />
+                                        @if (!\Request::is('cart'))
                                         <span class="unica-sl-cart" style="display: none;"><b class="number-in-cart"></b></span>
+                                        @endif
                                         <button id="cartUserId" style="display:none" data-user-id="{{Auth::user()->id}}"></button>
                                     </a>
                                     @endif
@@ -169,11 +171,13 @@
                                 <li style="float:left">
                                     <a href="{{route('cart.show')}}" class="unica-cart"
                                     @if (\Request::is('cart'))
-                                    style="display:none
-                                    @endif>
+                                    style="display:none"
+                                    @endif
                                     >
                                         <img src="{{ asset('frontend/images/tab_cart.png') }}" alt="" style="width: 21px;" />
+                                        @if (!\Request::is('cart'))
                                         <span class="unica-sl-cart" style="display: none;"><b class="number-in-cart"></b></span>
+                                        @endif
                                         <button id="cartUserId" style="display:none" data-user-id="0"></button>
                                     </a>                            
                                 </li>

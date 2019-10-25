@@ -279,17 +279,29 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                                     $will_learn[$i] = strip_tags($will_learn[$i]);
                                 }
                                 $will_learn = array_filter($will_learn);
-                                    // dd($will_learn);
                             ?>
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <ul>
-                                        @for( $i = 0 ; $i < $counter_w ; $i++)
-                                        @if(isset($will_learn[$i]))
-                                        <li><span><img src='/frontend/images/ic_check.png' width:'100%'></span>{!!$will_learn[$i]!!}</li>
-                                        @endif
-                                        @endfor
-                                    </ul>
+                                    <div>
+                                        <?php
+                                            $counter_i = 0;
+                                            for( $i = 0 ; $i < $counter_w ; $i++){
+                                                if(isset($will_learn[$i])){        
+                                                    $counter_i++;
+                                                    if ( $counter_i % 2 == 1 ){
+                                                        echo '<div class="row">';
+                                                    }
+                                                    echo '<div class="col-md-6"><img src="/frontend/images/ic_check.png" width:"100%"><div class="will-learn-s">' . $will_learn[$i] . '</div></div>';
+                                                    if ( $counter_i % 2 == 0 ){
+                                                        echo '</div>';
+                                                    }
+                                                }
+                                            }
+                                            if ( $counter_i % 2 == 1 ){
+                                                echo '</div>';
+                                            }
+                                        ?>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -301,11 +313,12 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                                 /* height: 30px; */
                                 /* list-style-image: url('/frontend/images/ic_check.png'); */
                             }
-                            .knowledge ul li{
-                                margin-left: 10px;
+                            .knowledge .will-learn-s{
+                                /* margin-left: 10px; */
                                 display: inline-flex;
-                                width: 48%;
+                                width: 88%;
                                 min-height: 30px;
+                                margin-bottom: 10px;
                             }
                         </style>
                         <div class="lessons clearfix" id="box_content">
@@ -359,7 +372,7 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                                 @if($lecturer->teacher && $lecturer->user)
                                 <div class="col-xs-12">
                                     <div class="row">
-                                        <div class="col-sm-3 avatar-center">
+                                        <div class="col-sm-4 avatar-center">
                                             <a href="{{ url('/') }}/teacher/{{ $lecturer->teacher->id }}" title="{{ $lecturer->user->name }}" >
                                                 @if(filter_var($lecturer->user->avatar, FILTER_VALIDATE_URL))
                                                     <img class="avatar" alt="{{ $lecturer->user->name }}" src="{{ $lecturer->user->avatar }}">
@@ -385,7 +398,7 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-9">
+                                        <div class="col-sm-8">
                                             <div class="info-teacher-right">
                                                 {{-- <p class="name"><a href="{{ url('/') }}/teacher/{{ $lecturer->teacher->id }}" title="{{ $lecturer->user->name }}" >{{ $lecturer->user->name }}</a></p>
                                                 <div class="expert-teacher">{{$lecturer->teacher->expert}}</div> --}}
@@ -407,11 +420,11 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                         @endif
                         <div class="course-learning-review" id="box_reviews">
                             <div class="feedback clearfix">
+                                <h3>Đánh giá học viên</h3>
                                 <div class="col-sm-4 student-rating">
-                                    <h3>Đánh giá của học viên</h3>
-                                    <p class="number">
-                                        {{ number_format(intval($info_course->star_count) / intval($info_course->vote_count), 1, ',' , '.') }}
-                                    </p>
+                                    <div class="number">
+                                        {{ number_format(intval($info_course->star_count) / intval($info_course->vote_count), 1, '.' , '.') }}
+                                    </div>
                                     <p class="star">
                                         @include(
                                             'components.vote', 
@@ -420,7 +433,7 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                                             ]
                                         )
                                     </p>
-                                    <p>Đánh giá khóa học</p>
+                                    <p class="course-vote-count">{{$info_course->vote_count}} đánh giá</p>
                                 </div>
                                 <div class="col-sm-8 rating-process">
                                     <div class="row">
@@ -469,7 +482,8 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                             </div>
                             <div class="reviews"  id="">
                                 @if ( !isset($ratingCourse) )
-                                <h3>Đánh giá khóa học
+                                <h4 style="display:inline-block">Đánh giá của bạn: </h4>
+                                <h3 style="display:inline-block">
                                     {{-- @if(Auth::check()) --}}
                                         @if(\App\Helper\Helper::getUserRoleOfCourse($info_course->id))
                                         @if(isset($info_course->userRoles[0]->user_id))
@@ -592,14 +606,14 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                                                                     avt = data.commentCourse.data.avatar;
                                                                 }
                                                                 html += '<div class="box clearfix">';
-                                                                    html += '<div class="col-sm-3">';
+                                                                    html += '<div class="col-sm-4">';
                                                                         html += '<img class="avatar" src="'+baseURL + '/frontend/' + avt +'" alt="">';
                                                                         html += '<div class="info-account">';
                                                                             html += '<p class="interval">' + data.commentCourse.data.created_at +'</p>';
                                                                             html += '<p class="name">' + data.commentCourse.data.username +'</p>';
                                                                         html += '</div>';
                                                                     html += '</div>';
-                                                                    html += '<div class="col-sm-9">';
+                                                                    html += '<div class="col-sm-8">';
                                                                         html += htmlRate;
                 
                                                                         html += '<p class="comment">';
@@ -664,7 +678,7 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                                         @endif
                                     @endif
                                 @else
-                                    <h3>Bạn đã đánh giá khóa học này</h3>
+                                    <div class="alert alert-success" role="alert"><b>Bạn đã đánh giá khóa học này rồi!</b></div>
                                 @endif
                                 {{-- @else
                                 <h4>Đăng nhập để xem đánh giá</h4>
@@ -813,6 +827,19 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                                 //     $('#sidebar-content').css('display', 'block')
                                 //     $('#benefit-course').css('min-height', '660px')
                                 // }
+                                var block_on = $('#benefit-course').position().top + $('#benifit-first').height() + 62 //Padding
+                                var block_below = $('.related-course').position().top - $('#sidebar-content').height() - 20 - 62 //Padding
+                                if ($(window).scrollTop() >= block_on - 40) {
+                                    if($(window).scrollTop() <= block_below - 40){
+                                        document.getElementById("sidebar-content").classList.add("sidebar-fixed");
+                                        $("#sidebar-content").removeClass('sidebar-unfix').css('top', '');
+                                    }else{
+                                        document.getElementById("sidebar-content").classList.remove("sidebar-fixed");
+                                        $("#sidebar-content").addClass('sidebar-unfix').css('top', block_below - block_on + 20);
+                                    }
+                                } else {
+                                    document.getElementById("sidebar-content").classList.remove("sidebar-fixed");
+                                }
                                 $(window).scroll(function() {
                                     var block_on = $('#benefit-course').position().top + $('#benifit-first').height() + 62 //Padding
                                     var block_below = $('.related-course').position().top - $('#sidebar-content').height() - 20 - 62 //Padding
