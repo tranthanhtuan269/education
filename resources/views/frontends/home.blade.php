@@ -8,7 +8,9 @@ Courdemy - Học online cùng những chuyên gia hàng đầu Việt Nam
 @endphp
 <div class="banner hidden-xs">
     <div class="container">
-        <div class="title-homepage">{!!$title_homepage!!}</div>
+        <div class="title-homepage">
+            <div class="content">{!!$title_homepage!!}</div>
+        </div>
     </div>
     <div class="container category-slider">
         @foreach ($feature_category as $feature)
