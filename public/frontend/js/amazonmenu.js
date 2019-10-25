@@ -7,8 +7,8 @@ document.createElement("nav") // for IE
 var amazonmenu = {
 
 	defaults: {
-		animateduration: 10,
-		showhidedelay: [100, 100],
+		animateduration: 200,
+		showhidedelay: [100, 200],
 		hidemenuonclick: true
 	},
 
