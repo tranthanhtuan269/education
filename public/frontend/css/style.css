@@ -1476,6 +1476,11 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
 .detail-course .instructors .info-teacher-right{
   padding-right: 10px;
 }
+.detail-course #benefit-course .desc ul {
+  line-height: 2;
+  list-style: unset;
+  margin-left: 18px;
+}
 
 .reviews img.avatar{vertical-align:middle;width:60px;height:60px;border-radius:50%;float:left;margin-right:15px}
 .reviews .info-account{padding-top:13px}
