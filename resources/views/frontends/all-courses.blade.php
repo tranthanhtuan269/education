@@ -151,25 +151,3 @@
     </div>
 </div>
 @endif
-<script>
-    $( document ).ready(function() {
-        $('#ban-chay, #moi-nhat, #thinh-hanh').click(function(){
-            if($($(this).attr("href")).find('.row').length == 0){
-                var x = document.body.scrollHeight;
-                var y = $('header').height();
-                var z = $('footer').height();
-                x=x-y-z - (2880 - 2190);
-                document.getElementById("min-height").style.minHeight = x;
-                $('#min-height').css('minHeight',x); 
-            }else{
-                var x = document.body.scrollHeight;
-                var y = $('header').height();
-                var z = $('footer').height();
-                x=x-y-z;
-                document.getElementById("min-height").style.minHeight = x;
-                $('#min-height').css('minHeight',x); 
-            }
-            
-        })
-    })
-</script>

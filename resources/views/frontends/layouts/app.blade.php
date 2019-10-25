@@ -954,13 +954,15 @@
     <script>
     
     $( document ).ready(function() {
-        var x = document.body.scrollHeight;
-        var y = $('header').height();
-        var z = $('footer').height();
-        x=x-y-z;
-        // document.getElementById("min-height").style.minHeight = x;
-        $('#min-height').css('minHeight',x);
-});
+        if(document.body.scrollHeight < 1000){
+            var x = document.body.scrollHeight;
+            var y = $('header').height();
+            var z = $('footer').height();
+            x=x-y-z;
+            // document.getElementById("min-height").style.minHeight = x;
+            $('#min-height').css('minHeight',x);
+        }
+    });
 </script>
 
 {{-- Là admin thì ẩn button mua --}}
