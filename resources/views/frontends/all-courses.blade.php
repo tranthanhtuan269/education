@@ -14,9 +14,9 @@
                 </div>
                 <div class="pull-right">
                     <ul class="nav nav-tabs">
-                        <li class="active" data-title="Các khoá học bán chạy"><a data-toggle="tab" href="#best-seller">Bán chạy</a></li>
-                        <li data-title="Các khóa học mới nhất"><a data-toggle="tab" href="#menu1">Mới nhất</a></li>
-                        <li data-title="Các khóa học thịnh hành"><a data-toggle="tab" href="#menu2">Thịnh hành</a></li>
+                        <li class="active" data-title="Các khoá học bán chạy"><a data-toggle="tab" href="#best-seller" id="ban-chay">Bán chạy</a></li>
+                        <li data-title="Các khóa học mới nhất"><a data-toggle="tab" href="#menu1" id="moi-nhat">Mới nhất</a></li>
+                        <li data-title="Các khóa học thịnh hành"><a data-toggle="tab" href="#menu2" id="thinh-hanh">Thịnh hành</a></li>
                     </ul>
                     <script>
                         $(document).ready(function(){
@@ -151,3 +151,25 @@
     </div>
 </div>
 @endif
+<script>
+    $( document ).ready(function() {
+        $('#ban-chay, #moi-nhat, #thinh-hanh').click(function(){
+            if($($(this).attr("href")).find('.row').length == 0){
+                var x = document.body.scrollHeight;
+                var y = $('header').height();
+                var z = $('footer').height();
+                x=x-y-z - (2880 - 2190);
+                document.getElementById("min-height").style.minHeight = x;
+                $('#min-height').css('minHeight',x); 
+            }else{
+                var x = document.body.scrollHeight;
+                var y = $('header').height();
+                var z = $('footer').height();
+                x=x-y-z;
+                document.getElementById("min-height").style.minHeight = x;
+                $('#min-height').css('minHeight',x); 
+            }
+            
+        })
+    })
+</script>
