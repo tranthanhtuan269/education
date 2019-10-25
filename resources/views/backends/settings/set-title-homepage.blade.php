@@ -10,7 +10,11 @@
             <div class="">
                 <form>
                     <div class="form-group">
-                        <textarea name="" id="titleHomepage" rows="3" style="width: 100%;font-size: 16px">{{$title}}</textarea><br>
+                        {{-- <textarea name="" id="titleHomepage" rows="3" style="width: 100%;font-size: 16px">{{$title}}</textarea><br> --}}
+                    </div>
+                    <div class="form-group">
+                        <script src="https://cdn.ckeditor.com/ckeditor5/12.1.0/classic/ckeditor.js"></script>
+                        <textarea id="titleHomepage" class="form-control" rows="6" cols="50" name="cv">{{$title}}</textarea>
                     </div>
                 </form>
             </div>
@@ -21,9 +25,16 @@
     <div class="text-center"><button class="btn btn-primary" id="btn-confirm"><b>Xác nhận</b></button></div>
 </section>
 <script type="text/javascript">
+    CKEDITOR.replace( 'titleHomepage',{
+            height: '300px',
+            toolbar : [
+                { name: 'basicstyles', items: [ 'Bold', 'Italic', 'NumberedList', 'BulletedList'] },
+            ],
+        } )
     $(document).ready(function(){
         $("#btn-confirm").click(function(){
-            var title = $('#titleHomepage').val()
+            // var title = $('#titleHomepage').val()
+            var title = CKEDITOR.instances['titleHomepage'].getData();
 
             if ( title.length > 100 ){
                 Swal.fire({

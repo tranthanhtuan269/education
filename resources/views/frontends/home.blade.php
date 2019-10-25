@@ -7,7 +7,9 @@ Courdemy - Học online cùng những chuyên gia hàng đầu Việt Nam
     // dd($feature_category);
 @endphp
 <div class="banner hidden-xs">
-<h1 class="title-homepage">{{$title_homepage}}</h1>
+    <div class="container">
+        <h1 class="title-homepage">{!!$title_homepage!!}</h1>
+    </div>
     <div class="container category-slider">
         @foreach ($feature_category as $feature)
             @if( $feature->course_count > 0 )
