@@ -36,10 +36,10 @@
             // var title = $('#titleHomepage').val()
             var title = CKEDITOR.instances['titleHomepage'].getData();
 
-            if ( title.length > 100 ){
+            if ( title.length > 150 ){
                 Swal.fire({
                     type: 'warning',
-                    text: 'Tiêu đề quá dài. Yêu cầu <= 100 ký tự.',
+                    text: 'Tiêu đề quá dài. Yêu cầu <= 150 ký tự.',
                 })
                 return
             }
