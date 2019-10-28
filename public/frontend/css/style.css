@@ -701,19 +701,18 @@ ul.unica-acc-zone li.special:hover a{color:#fff}
 .background-page .highlight .title{
   color: #fff;
   font-weight: bold;
-  /* padding-left: 50px; */
   font-size: 20px;
-  display: inline-flex;
+  display: table;
 }
 .background-page .highlight .title h1{
   font-family:proxima-nova,"Helvetica Neue",Helvetica,sans-serif;
   color:#fff;
   font-weight: bold;
-  /* padding-left: 50px; */
-  /* text-transform: uppercase; */
-  padding-top: 25px;
   padding-left: 10px;
   text-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+  font-size: 26px;
+  display: table-cell;
+  vertical-align: middle;
 }
 .background-page .highlight .title i{
   text-shadow: 0px 0px 10px rgba(0,0,0,0.5);
@@ -1181,8 +1180,15 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
 .item-slider{cursor:pointer;}
 .cat-item-slider{margin-top:33px;color:#fff}
 .demo-aaaa{position:relative;display:block;bottom:80px}
-.bg-category{height: auto; width: 100%}
-.background-page .fixed-title{position: relative;}
+.bg-category{
+  height: 225px; 
+  width: 100%;
+  background-image: url(/frontend/images/banner_profile_teacher.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+.background-page .fixed-title{position: relative;height: 225px;display: table;padding-left:10vw;padding-right:10vw;}
 .background-page .slider img{width:100%}
 .background-page .slider .item{padding-bottom:10px; height: 149px;}
 /* .background-page .highlight .title p{
@@ -1191,7 +1197,7 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
   font-style: italic;
   font-family: 'Palanquin Dark', sans-serif;
 } */
-.background-page .highlight{position: absolute;top:-150px;left:10vw;right:10vw}
+.background-page .highlight{display: table-cell;vertical-align: middle;}
 /* .background-page .highlight .title{margin-bottom:20px;font-size:25px} */
 .background-page .highlight .thumbnail-img h4{font-size:22px;padding-bottom:5px;text-transform:uppercase}
 .background-page .highlight .thumbnail-img{display:block;position:relative;color:#fff}
@@ -1255,6 +1261,7 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
   width: 65vw;
   font-family: proxima-nova,"Helvetica Neue",Helvetica,sans-serif;
   text-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+  font-size:26px;
 }
 .detail-course .frame .info .expert{width: 65vw;}
 .detail-course .background{position:absolute}

@@ -58,7 +58,7 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                     <div class="frame clearfix pb-40px">
                         <div class="pull-left">
                             <div class="info">
-                                <h1 class="name" style="font-size:26px">{{ $info_course->name }}</h1>
+                                <h1 class="name">{{ $info_course->name }}</h1>
                                 <p class="expert" id="tomTat">{{ $info_course->short_description }}</p>
                             </div>
                         </div>

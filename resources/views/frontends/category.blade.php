@@ -8,16 +8,16 @@
 	{{-- <div class="hightlight">
 		<h1 style='font-family:proxima-nova,"Helvetica Neue",Helvetica,sans-serif'>{{ $category->name }}</h1>
 	</div> --}}
-	<div class='container-fuild'>
-		<img class="bg-category" src="{{ asset('frontend/images/banner_profile_teacher.png') }}">
+	<div class="container-fuild bg-category">
+		{{-- <img class="bg-category" src="{{ asset('frontend/images/banner_profile_teacher.png') }}"> --}}
 		<div class="container fixed-title">
 			<div class="highlight"
-			@if( strlen($category->description) >= 1 )
+			{{-- @if( strlen($category->description) >= 1 )
 			style="top: -170px"
 			@endif
 			@if( strlen($category->description) >= 130 )
 			style="top: -190px"
-			@endif
+			@endif --}}
 			>
 				<div class="title">
 					<i class="fas {{$category->icon}} fa-4x fa-fw"></i>

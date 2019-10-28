@@ -28,8 +28,12 @@
     .box-news-mini img { width: 15%; }
     .blog-big-slide img { max-height: 400px; }
     .u-blog-sm-box img { max-height: 194px; }
-    .unica-main-banner { /*height: 491px !important;*/  background-size: cover;}
+    .unica-main-banner {  background-size: cover;}
     .u-bread .container { width: 1600px; }
+    .bg-category{height: 300px;}
+    .background-page .fixed-title {
+        height: 300px;
+    }
 }
 
 @media (min-width:1366px) and (max-width:1600px) {
