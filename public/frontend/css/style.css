@@ -1534,11 +1534,6 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
     margin: 0 5px 20px 5px;   
 }
 
-.category-tag{
-  text-align: justify;
-  text-justify: inter-word;
-}
-
 /* USER */
 .u-dashboard-main { background: #f2f3f5; margin-bottom:  10px; }
 .u-dashboard-top  { padding: 50px 0 0 0;  background-repeat: no-repeat; background-size: cover; width: 100%; height: auto;  background-position: center;}
