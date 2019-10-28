@@ -343,6 +343,8 @@ Route::get('affiliate', 'Frontends\HomeController@affiliatePage');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/videos/getDiscussion', 'Frontends\CommentController@getDiscussion')->name('videos.getDiscussion');
+    Route::get('/learning-page/{courseId}', 'Frontends\VideoPlayerController@show')->name('videoplayer.show');
+    Route::get('/learning-page/{courseId}/{slug}', 'Frontends\VideoPlayerController@show')->name('videoplayer.show');
     Route::get('/learning-page/{courseId}/lecture/{videoId}', 'Frontends\VideoPlayerController@show')->name('videoplayer.show');
     Route::get('/learning-page/search-lecture-list', 'Frontends\VideoPlayerController@searchLectureList')->name('videoplayer.search');
 
@@ -357,6 +359,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('notes/store', 'Frontends\NoteController@store')->name('notesVideo.store');
     Route::post('reports/store', 'Frontends\ReportController@store')->name('reportsVideo.store');
     Route::post('user-course/update-watched', 'Frontends\VideoPlayerController@updateWatched');
+    Route::post('user-course/update-not-watched', 'Frontends\VideoPlayerController@updateNotWatched');
     Route::get('user/logout', 'Frontends\UserController@logout')->name('logout');
 
     Route::post('comments/report','Frontends\CommentController@reportComment');

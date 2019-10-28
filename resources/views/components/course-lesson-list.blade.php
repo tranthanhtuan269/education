@@ -68,6 +68,7 @@
                                                     $("#view-from-course-detail{{$value_video->id}}").click(function(){
                                                         var learning_id = {{$value_video->id}}
                                                         var course_id = {{$info_course->id}}
+                                                        var course_slug = "{{$info_course->slug}}"
                                                         $.ajaxSetup({
                                                             headers:{
                                                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -81,7 +82,7 @@
                                                             },
                                                             dataType: "json",
                                                             success: function () {
-                                                                window.location.href = ("/learning-page/"+ course_id +"/lecture/"+ learning_id)
+                                                                window.location.href = ("/learning-page/"+ course_id +"/"+ course_slug)
                                                             },
                                                             error: function () {
 

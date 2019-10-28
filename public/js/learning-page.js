@@ -63,10 +63,13 @@ $(document).ready(function () {
     }
     var player = videojs('my-video', options)
 
-    prePlay(360);
-    initializePlayerControlBar()
-    toggleBigPlayButton()
-    clickToPlay()
+    initPlay();
+    function initPlay(){
+        prePlay(360);
+        initializePlayerControlBar()
+        toggleBigPlayButton()
+        clickToPlay()
+    }
 
     player.on('ended', function(){
         if(localStorage.getItem('autoplay') == "true" || localStorage.getItem('autoplay') == true){
@@ -245,9 +248,13 @@ $(document).ready(function () {
         e.stopImmediatePropagation()
         e.stopPropagation()
         e.preventDefault()
+
         var video_id = $(this).attr("data-parent")
         var section_dom = $(this).parent()
         var isStudent = $(this).attr("data-isstudent")
+        var video_name = $(this).attr("data-name")
+        var video_info = "Phần " + $(this).attr("data-unit") + ", Bài " + $(this).attr("data-video")
+
         section_dom.each(function (index, value){
             // alert(index)
         })
@@ -266,13 +273,21 @@ $(document).ready(function () {
                 },
                 dataType: "json",
             });
-            request.done(function(){
-                var string = $(".learning-lecture-list-searchbar input").val().trim();
-                if(string.length > 0){
-                    window.location.href = ("/learning-page/"+ course_id +"/lecture/"+ video_id + "?search=" + string)
-                }else{
-                    window.location.href = ("/learning-page/"+ course_id +"/lecture/"+ video_id)
+            request.done(function(data){
+                $video_urls = JSON.parse(data.video_url);
+                initPlay();
+                // $video_urls = json_decode($main_video->url_video, true);
+                if(data.update_viewed == 1){
+                    $("#viewed_count").html(parseInt($("#viewed_count").html()) + 1)
+                    $(".progress-bar-success").css('width', parseInt($("#viewed_count").html() / $("#videos_count").html() * 100) + "%");
                 }
+                $('.video-list-item').removeClass('video-selected')
+                $('#listItem'+ video_id).addClass('video-selected')
+                $('#listItem'+ video_id).find('.fa-stack-2x').css('color', '#44b900');
+                $('#listItem'+ video_id).find('.fa-stack-1x').css('color', '#ffffff');
+
+                $('.ln-desc-title').html('<p>' + video_name + '</p>');
+                $('.ln-desc-subtitle').html('<p>' + video_info + '</p>');
             })
         }else{
             window.location.href = ("/learning-page/"+ course_id +"/lecture/"+ video_id)

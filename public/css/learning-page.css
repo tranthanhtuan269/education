@@ -355,12 +355,16 @@ body{
     /* padding: 15px 2rem; */
     padding: 0.5rem 1rem;
 }
-.ln-lect-list-body li a:hover{
+.ln-lect-list-body li:hover a{
     text-decoration: none;
+}
+.ln-lect-list-body li:hover a span{
+    text-decoration: none;
+    color:#fff;
 }
 .ln-lect-list-body li:hover{
     cursor: pointer;
-    background: #f2f3f5;
+    background: #4986ff;
 }
 .ln-lect-list-body li .active{
     background-color: lightblue;

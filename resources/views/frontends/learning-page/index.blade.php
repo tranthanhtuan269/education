@@ -130,13 +130,13 @@
             var course_id = {{$course->id}}
             // var main_video_id = {{$main_video->id}}
             var video_id_list = {{json_encode($video_id_list)}}
-
+            
             var main_video_id = {{$main_video->id}}
             
             var main_video_id_key = {{$main_video_id_key}}
-
+            
             var main_video_state = {{$main_video->state}}
-
+            
             var videoSource = {!!$video_urls!!}
 
             var check_course_of_user = {{ $check_course_of_user }}
