@@ -100,7 +100,7 @@ nav .pagination li a img{width:35px;position:relative;top:-6px}
 } */
 .box-course{
   padding-bottom:30px;
-  margin:0 5px 0 5px;
+  /* margin:0 5px 0 5px; */
 }
 .box-course .content-course{border:1px solid #cccccca6;border-radius:0 0 10px 10px;padding:15px}
 .box-course .content-course h3.title-course{font-size:16px;font-weight:600;line-height:26px;min-height:52px}
@@ -1489,7 +1489,7 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
   -webkit-box-shadow: 0px 0px 20px 0px rgba(204,204,204,1);
   -moz-box-shadow: 0px 0px 20px 0px rgba(204,204,204,1);
   box-shadow: 0px 0px 20px 0px rgba(204,204,204,1);
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 .detail-course .info .knowledge{
   line-height: 2;
@@ -1499,7 +1499,7 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
   -webkit-box-shadow: 0px 0px 20px 0px rgba(204,204,204,1);
   -moz-box-shadow: 0px 0px 20px 0px rgba(204,204,204,1);
   box-shadow: 0px 0px 20px 0px rgba(204,204,204,1);
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 .detail-course .info #box_content, .detail-course .info .instructors, .detail-course .info #box_reviews{
   line-height: 2;
@@ -1509,7 +1509,7 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
   -webkit-box-shadow: 0px 0px 20px 0px rgba(204,204,204,1);
   -moz-box-shadow: 0px 0px 20px 0px rgba(204,204,204,1);
   box-shadow: 0px 0px 20px 0px rgba(204,204,204,1);
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 .detail-course .info #box_content, .detail-course .info .instructors, .detail-course .info #box_reviews .reviews{
   margin-top: 20px;
