@@ -44,7 +44,6 @@
 								<div class="desc scrollbar">
 									{!! $info_teacher->cv !!}
 								</div>
-								<!-- <div class="see-more text-center">Show full biography</div> -->
 								<div class="info-others clearfix">
 									<ul>
 										<li>

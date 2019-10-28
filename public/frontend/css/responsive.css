@@ -40,6 +40,9 @@
     .detail-teacher .bg-detail-teacher{
         height: 300px;
     }
+    .bg-course-detail{
+        height: 300px;
+    }
 }
 
 @media (min-width:1366px) and (max-width:1599px) {
@@ -1418,14 +1421,14 @@
     .background-page .bg-category{
         width: 100%;
     }
-    .network-reponsive{
-        padding-top: 23px;
-    }
     .pb-40px{
         padding-bottom: 25px;
     }
     .pb-10px{
         padding-bottom: 10px;
+    }
+    .mb-25px{
+        margin-bottom: 25px;
     }
     .row-centered{
         text-align: center;
