@@ -50,20 +50,20 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
     }
 ?>
 <div class="detail-course">
-    <img class="background bg-category" src="{{ asset('frontend/images/banner_profile_teacher.png') }}">
+    <img class="background bg-course-detail" src="{{ asset('frontend/images/banner_profile_teacher.png') }}">
     <div class="container">
         <div class="row">
             <div class="item clearfix">
                 <div class="col-sm-12">
-                    <div class="frame clearfix pb-40px">
-                        <div class="pull-left">
+                    <div class="frame clearfix mb-25px" id="boxTitleCourse">
+                        <div class="col-md-9 title-reponsive">
                             <div class="info">
-                                <h1 class="name" style="font-size:26px">{{ $info_course->name }}</h1>
+                                <h1 class="name">{{ $info_course->name }}</h1>
                                 <p class="expert" id="tomTat">{{ $info_course->short_description }}</p>
                             </div>
                         </div>
-                        <div class="network pull-right network-reponsive"
-                        @if( strlen($info_course->short_description) >= 200 )
+                        <div class="network network-reponsive col-md-3"
+                        {{-- @if( strlen($info_course->short_description) >= 200 )
                             style="padding-top: 43px"
                         @endif
                         @if( strlen($info_course->name) >= 65)
@@ -72,8 +72,9 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                             @else
                                 style="padding-top: 63px"
                             @endif
-                        @endif
+                        @endif --}}
                         >
+                        <div class="pull-right"">
                             <a class="btn btn-facebook-share btn-xs" data-src="{{$info_course->image}}" href="https://www.facebook.com/sharer/sharer.php?u=
                             <?php
                             echo urlencode(url()->current());
@@ -82,7 +83,12 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                                     <i class="fab fa-facebook-square fa-fw fa-lg"></i> Chia sẻ
                             </b></a>
                         </div>
+                        </div>
                     </div>
+                    <script>
+                        btn_share_pd_top = document.getElementById('boxTitleCourse').offsetHeight/2 - 33/2
+                        $('.btn-facebook-share').css('margin-top', btn_share_pd_top)
+                    </script>
                     <div class="clearfix"></div>
                     <div class="top-box-course-detail">
                         <div class="teacher-of-course">

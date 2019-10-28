@@ -63,8 +63,10 @@
             @endif --}}
         </p>
         @if($course->real_price != $course->price && $course->real_price != 0)
-        <p class="price-s">{!! number_format($course->real_price, 0, ',' , '.') !!}<sup>₫</sup></p>
-        <p class="price-o">Tiết kiệm {{(int)(100 - ($course->price/$course->real_price)*100)}}%</p>
+        <div class="">
+            <span class="price-s">{!! number_format($course->real_price, 0, ',' , '.') !!}<sup>₫</sup></span>
+            <span class="price-o">Tiết kiệm {{(int)(100 - ($course->price/$course->real_price)*100)}}%</span>
+        </div>
         @endif
 
         <div class="teacher-course">

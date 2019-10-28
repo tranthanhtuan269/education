@@ -28,7 +28,7 @@
     CKEDITOR.replace( 'titleHomepage',{
             height: '300px',
             toolbar : [
-                { name: 'basicstyles', items: [ 'Bold', 'Italic', 'NumberedList', 'BulletedList'] },
+                { name: 'basicstyles', items: [ 'Bold', 'Italic' ] },
             ],
         } )
     $(document).ready(function(){
