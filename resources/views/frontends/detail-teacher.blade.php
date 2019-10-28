@@ -4,7 +4,7 @@
 @extends('frontends.layouts.app')
 @section('content')
 <div class="detail-teacher">
-	<img class="background bg-category" src="{{ asset('frontend/images/banner_profile_teacher.png') }}">
+	<img class="background bg-detail-teacher" src="{{ asset('frontend/images/banner_profile_teacher.png') }}">
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-12">

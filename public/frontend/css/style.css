@@ -1203,6 +1203,10 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
 .background-page .highlight .thumbnail-img{display:block;position:relative;color:#fff}
 .background-page .highlight .thumbnail-img .explore{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}
 .detail-teacher{margin-bottom:80px}
+.detail-teacher .bg-detail-teacher{
+  height: 225px;
+  width: 100%;
+}
 .detail-teacher .frame .rating{
   padding: 12px 0;
 }
@@ -1219,7 +1223,7 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
 .detail-teacher .frame .network .btn span{position:relative;top:-2px}
 .detail-teacher .frame .network img{position:relative;top:3px}
 .detail-teacher .frame{position:relative;top:30px}
-.detail-teacher .frame_2{background:#fff;padding:50px 30px 30px;box-shadow:inset 0 0 5px #ccc}
+.detail-teacher .frame_2{background:#fff;padding:50px 30px 30px;box-shadow:inset 0 0 5px #ccc;border-radius: 2px;}
 .detail-teacher .frame_2 iframe{height:280px}
 .detail-teacher .frame_2 .desc{height:220px;overflow:auto;border:2px solid #cccccc;padding:5px 0px 5px 5px;border-radius: 5px;}
 .detail-teacher .frame_2 .desc p{line-height: 2;padding-bottom: 0.7em;}
