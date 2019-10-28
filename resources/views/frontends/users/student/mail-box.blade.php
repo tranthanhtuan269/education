@@ -136,6 +136,8 @@
                                 // checkCheckboxChecked();
                             }
                         });
+            $('#mailbox-table').css('width', '100%')
+
             $('body').on('click', '.content-mailbox', function() {
                 $('#myModalContentMailBox h4.modal-title').html( $(this).text() );
 

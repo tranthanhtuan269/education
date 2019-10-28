@@ -31,7 +31,7 @@
                                             <th scope="col">Mã</th>
                                             <th scope="col">Tổng giá trị đơn hàng</th>
                                             <th scope="col">Tổng giá trị ẩn</th>
-                                            <th scope="col">Trạng thái</th>
+                                            {{-- <th scope="col">Trạng thái</th> --}}
                                             <th scope="col">Hình thức thanh toán</th>
                                             <th scope="col">Ngày tạo</th>
                                         </tr>
@@ -85,14 +85,14 @@
                     data: "total_price",
                     class: "hide"
                 },
-                { 
-                    data: "status",
-                    render: function(data, type, row){
-                        return statusOrder(row.status);
-                    },
-                    class: "text-center",
-                    orderable: false,
-                },
+                // { 
+                //     data: "status",
+                //     render: function(data, type, row){
+                //         return statusOrder(row.status);
+                //     },
+                //     class: "text-center",
+                //     orderable: false,
+                // },
                 { 
                     data: "payment",
                     class: "text-center",
@@ -167,6 +167,7 @@
                                 // checkCheckboxChecked();
                             }
                         });
+            $('#order-table').css('width', '100%')
 
             $('body').on('click', '.detail-order', function() {
                 var id               = $(this).attr('data-id');
@@ -203,7 +204,7 @@
 
                 html_data += '</tbody></table>';
 
-                html_data += '<table class="table table-bordered"><thead><tr><th scope="col">Tên khóa học</th><th scope="col" style="text-align:right;">Giá gốc</th><th scope="col" style="text-align:right;">Chiết khấu</th><th scope="col" style="text-align:right;">Giá thanh toán</th></tr></thead><tbody>';
+                html_data += '<table class="table table-bordered"><thead><tr><th scope="col">Tên khóa học</th><th scope="col">Giá gốc</th><th scope="col">Chiết khấu</th><th scope="col">Giá thanh toán</th></tr></thead><tbody>';
                 var totalValue = 0;
                 var total_payment = 0;
                 var total_discount = 0;
