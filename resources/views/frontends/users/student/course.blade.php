@@ -23,7 +23,7 @@
                     <div class="tab-content">
                         <div class="tab-pane active" id="buyed">
                             <div class="row">
-                                <div class="col-sm-6">
+                                <div class="col-sm-6 col-sm-offset-3">
                                     <form action="" method="get">
                                         <div class="form-inline box-search-course">
                                             <div class="form-group box-input">
