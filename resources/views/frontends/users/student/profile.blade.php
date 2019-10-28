@@ -30,7 +30,7 @@
                                 <div class="modal-content">
                                     <div class="modal-header">	
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <div class="modal-title"><b>Thay đổi mật khẩu</b></div>
+                                        <div class="modal-title modal-header-title"><b>Thay đổi mật khẩu</b></div>
                                     </div>
                                     <div class="modal-body">
                                         <p class="change-password-notice">Thay đổi mật khẩu của bạn tại đây</p>
@@ -54,7 +54,7 @@
                                                 </div>			
                                             </div>
                                             <div class="form-group">
-                                                <input type="button" class="btn btn-danger btn-block btn-lg" value="Đổi mật khẩu" onclick="changePassAjax()">
+                                                <input type="button" class="btn btn-danger btn-block btn-lg" value="Cập nhật" onclick="changePassAjax()">
                                             </div>
                                             <input id="resetStudentChangePass" type="reset" value="Reset the form" style="display:none">
                                         </form>				

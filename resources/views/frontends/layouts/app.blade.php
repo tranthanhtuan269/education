@@ -444,7 +444,6 @@
                     </div>
                     <div class="col-sm-4 hidden-xs">
                         <div class="img-fanpage">
-                            <!-- <img src="{{ asset('frontend/images/fanpage.png') }}" alt="fanpage" id="img-fanpage" /> -->
                             <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Ftopthuthuat.vn%2F&tabs=timeline&width=300&height=200&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="300" height="200" style="overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
                         </div>
                     </div>

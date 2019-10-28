@@ -1,29 +1,23 @@
 @extends('frontends.layouts.app')
 @section('content')
-
+@section('title')
+Trở thành giảng viên Courdemy
+@stop
 <div class="courdemy-teacher">
     <div class="container-fluid">
         <div class="banner-top">
             <div class="row">
                 <div class="container">
-                    <div class="row">
-                        <div class="col-md-7">
-                            <div class="title">
-                                <h1>Trở thành <br>giảng viên Courdemy</h1>
-                                <p>Courdemy là e-learning platform, là cổng kết nối các CHUYÊN GIA tới hàng triệu người dân Việt Nam. Các bài giảng trực tuyến dưới dạng video giúp học viên có thể xem được bất kỳ khi nào, bất kỳ đâu.</p>
-                                @if ( Auth::check() )
-                                    @if ( Auth::user()->notRegisteredTeacher() && !Auth::user()->isAdmin() )
-                                    <a href="{{ asset('/user/register-teacher') }}">ĐĂNG KÝ</a>
-                                    @endif
-                                @else
-                                <a href="{{ asset('/user/register-teacher') }}">ĐĂNG KÝ</a>
-                                @endif
-
-                            </div>
-                        </div>
-                        <div class="col-md-5">
-                            <img src="{{ asset('/frontend/images/teacher_shadow.png') }}" alt="Courdemy Teacher">
-                        </div>
+                    <div class="title">
+                        <h1>Trở thành <br>giảng viên Courdemy</h1>
+                        <p>Courdemy là e-learning platform, là cổng kết nối các CHUYÊN GIA tới hàng triệu người dân Việt Nam. Các bài giảng trực tuyến dưới dạng video giúp học viên có thể xem được bất kỳ khi nào, bất kỳ đâu.</p>
+                        @if ( Auth::check() )
+                            @if ( Auth::user()->notRegisteredTeacher() && !Auth::user()->isAdmin() )
+                            <a href="{{ asset('/user/register-teacher') }}">ĐĂNG KÝ</a>
+                            @endif
+                        @else
+                        <a href="{{ asset('/user/register-teacher') }}">ĐĂNG KÝ</a>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -75,31 +69,35 @@
     <div class="container-fluid">
         <div class="statistic">
             <div class="container">
-                <div class="title text-center">Thống kê của Courdemy</div>
-                <hr>
-                <div class="statistic-number text-center">
-                    <ul>
-                        <li>
-                            <div class="number">30 triệu</div>
-                            <div class="type">Học viên</div>
-                        </li>
-                        <li>
-                            <div class="number">50+</div>
-                            <div class="type">Ngôn ngữ</div>
-                        </li>
-                        <li>
-                            <div class="number">190.000</div>
-                            <div class="type">Khóa học</div>
-                        </li>
-                        <li>
-                            <div class="number">190+</div>
-                            <div class="type">Quốc gia</div>
-                        </li>
-                        <li>
-                            <div class="number">42.000</div>
-                            <div class="type">Nhân viên</div>
-                        </li>
-                    </ul>
+                <div class="box-statistic">
+                    <div class="details">
+                        <div class="title text-center">Thống kê của Courdemy</div>
+                        <hr>
+                        <div class="statistic-number text-center">
+                            <ul>
+                                <li>
+                                    <div class="number">30 triệu</div>
+                                    <div class="type">Học viên</div>
+                                </li>
+                                <li>
+                                    <div class="number">50+</div>
+                                    <div class="type">Ngôn ngữ</div>
+                                </li>
+                                <li>
+                                    <div class="number">190.000</div>
+                                    <div class="type">Khóa học</div>
+                                </li>
+                                <li>
+                                    <div class="number">190+</div>
+                                    <div class="type">Quốc gia</div>
+                                </li>
+                                <li>
+                                    <div class="number">42.000</div>
+                                    <div class="type">Nhân viên</div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
