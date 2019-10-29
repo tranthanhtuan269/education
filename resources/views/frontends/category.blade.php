@@ -1,6 +1,6 @@
 @extends('frontends.layouts.app')
 @section('title')
-{{ $category->name }}
+Danh mục: {{ $category->name }}
 @stop
 @section('content')
 <div class="background-page">

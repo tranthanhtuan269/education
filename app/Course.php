@@ -268,4 +268,19 @@ class Course extends Model
         ->where('users.id', $user_id)
         ->update(['courses.author' => $user_name]);
     }
+
+    public static function totalDuration($course)
+    {
+        $course_duration = 0;
+        foreach ( $course->units as $value_unit ){
+            foreach ($value_unit->timeLessonActive as $value_video){
+                $course_duration += $value_video->duration;
+            }
+        }
+        if ( $course->duration != $course_duration ){
+            $course->duration = $course_duration;
+            $course->save();
+        }
+        return $course_duration;
+    }
 }

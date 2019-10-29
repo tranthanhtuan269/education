@@ -36,18 +36,18 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
         $info_course->vote_count = 1;
         $percent_temp = 0;
     }
-    // dd($info_course->Lecturers()->first());
     $list_bought = [];
     if(Auth::check() && strlen(Auth::user()->bought) > 0){
         $list_bought = \json_decode(Auth::user()->bought);
     }
     // dd($ratingCourse)
-    $course_duration = 0;
-    foreach ( $info_course->units as $value_unit ){
-        foreach ($value_unit->timeLessonActive as $value_video){
-            $course_duration += $value_video->duration;
-        }
-    }
+    // $course_duration = 0;
+    // foreach ( $info_course->units as $value_unit ){
+    //     foreach ($value_unit->timeLessonActive as $value_video){
+    //         $course_duration += $value_video->duration;
+    //     }
+    // }
+    $course_duration = $info_course->totalDuration($info_course);    
 ?>
 <div class="detail-course">
     <img class="background bg-course-detail" src="{{ asset('frontend/images/banner_profile_teacher.png') }}">
@@ -439,7 +439,7 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                                             ]
                                         )
                                     </p>
-                                    <p class="course-vote-count">{{$info_course->vote_count}} đánh giá</p>
+                                    <p class="course-vote-count">{{$initial_vote_count}} đánh giá</p>
                                 </div>
                                 <div class="col-sm-8 rating-process">
                                     <div class="row">
@@ -808,7 +808,7 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                                 <div class="u-sm-right">
                                     <div class="block-ulti">
                                         <ul style="margin-left: 0">
-                                            <li><i class="far fa-clock fa-fw" aria-hidden="true"></i> Thời lượng: <b>{{ intval($info_course->duration / 3600) }} giờ {{ intval($info_course->duration % 60 ) }} phút</b></li>
+                                            <li><i class="far fa-clock fa-fw" aria-hidden="true"></i> Thời lượng: <b>{{ intval($course_duration / 3600) }} giờ {{ intval(($course_duration % 3600 ) / 60) }} phút</b></li>
                                             <li><i class="far fa-play-circle fa-fw" aria-hidden="true"></i> Bài giảng: <b>{{ $info_course->all_videos() }} Videos</b></li>
                                             <li><i class="fas fa-user-graduate fa-fw" aria-hidden="true"></i> <b>{{ number_format($info_course->student_count, 0, ',' , '.') }} Học viên</b> theo học</li>                                        
                                         </ul>
