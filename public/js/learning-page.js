@@ -71,6 +71,15 @@ $(document).ready(function () {
         clickToPlay()
     }
 
+    updateLink();
+
+    function updateLink(){
+        player = videojs('my-video', options);
+        prePlay(360);
+        player.load();
+        player.play();
+    }
+
     player.on('ended', function(){
         if(localStorage.getItem('autoplay') == "true" || localStorage.getItem('autoplay') == true){
             $("#btnContinue").click()
@@ -112,17 +121,17 @@ $(document).ready(function () {
     function prePlay(autoSelected){
         var source = []
 
-        for(var key in videoSource){
+        for(var key in window.videoSource){
             if(key == autoSelected){
                 source.push({
-                    src: videoSource[key],
+                    src: window.videoSource[key],
                     type: 'application/x-mpegURL',
                     label: key,
                     selected: true,
                 })
             }else{
                 source.push({
-                    src: videoSource[key],
+                    src: window.videoSource[key],
                     type: 'application/x-mpegURL',
                     label: key
                 })
@@ -274,8 +283,9 @@ $(document).ready(function () {
                 dataType: "json",
             });
             request.done(function(data){
-                $video_urls = JSON.parse(data.video_url);
-                initPlay();
+                window.videoSource = JSON.parse(data.video_url);
+                updateLink();
+
                 // $video_urls = json_decode($main_video->url_video, true);
                 if(data.update_viewed == 1){
                     $("#viewed_count").html(parseInt($("#viewed_count").html()) + 1)

@@ -215,7 +215,14 @@ class VideoPlayerController extends Controller
                 $videoData = \json_encode($videoObj);
                 $user_course->videos = $videoData;
                 $user_course->save();
-                return \Response::json(array('status' => '200', 'message' => 'Cập nhật thông tin thành công!', 'update_viewed' => $update_viewed, 'video_url' => $video->url_video));
+
+                $video_urls = json_decode($video->url_video, true);
+                foreach ($video_urls as $key => $video_url) {
+                    $video_urls[$key] = \App\Helper::createSecurityTokenForVideoLink(\Auth::id(), $video->id, $video_url);
+                }    
+                $video_list = json_encode($video_urls);
+
+                return \Response::json(array('status' => '200', 'message' => 'Cập nhật thông tin thành công!', 'update_viewed' => $update_viewed, 'video_url' => $video_list));
             }
         }
 

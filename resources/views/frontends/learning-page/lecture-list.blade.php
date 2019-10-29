@@ -159,8 +159,6 @@
                 window.location.replace("{{ url('/') }}/learning-page/{{ $main_video->unit->course->id }}/lecture/{{ $main_video->id }}?search=" + string);
             }
         })
-
-        $('.collapse').collapse('show');
     })
 </script>
 

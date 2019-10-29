@@ -137,7 +137,7 @@
             
             var main_video_state = {{$main_video->state}}
             
-            var videoSource = {!!$video_urls!!}
+            window.videoSource = {!!$video_urls!!}
 
             var check_course_of_user = {{ $check_course_of_user }}
             // console.log(check_course_of_user);
