@@ -3,6 +3,7 @@
     if(Auth::check() && strlen(Auth::user()->bought) > 0){
         $list_bought = \json_decode(Auth::user()->bought);
     }
+    $course_duration = $course->totalDuration($course);
 ?>
 
 <div class="ubc-course">
@@ -20,7 +21,7 @@
         <p><a href="/course/{{$course->id}}/{{$course->slug}}">{{$course->name}}</a></p>
         <ul class="mini-des">
             <li><i class="fa fa-list-alt fa-fw" aria-hidden="true"></i> {{$course->all_videos()}} bài giảng</li>
-            <li><i class="far fa-clock fa-fw" aria-hidden="true"></i> {{ intval($course->duration / 3600) }} giờ {{ intval($course->duration % 60 ) }} phút</li>
+            <li><i class="far fa-clock fa-fw" aria-hidden="true"></i> {{ intval($course_duration / 3600) }} giờ {{ intval(($course_duration % 3600 ) / 60) }} phút</li>
         </ul>
         <?php 
             $will_learn = $course->will_learn;

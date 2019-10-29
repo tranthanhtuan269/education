@@ -17,34 +17,19 @@
 
 Auth::routes();
 
-Route::get('trinhnk', function( $course_id = 647){
-    if(Auth::check()){
-        $user_id = Auth::user()->id;
-        if(Auth::user()->isAdmin()){
-            return Auth::user()->userRolesAdmin();
-        }
-        $user_role_list = Auth::user()->userRoles;
-        // dd($user_role_list);
-        $course = \App\Course::find($course_id);
-        $lecturer_user_role = $course->Lecturers()->first();
-
-        $demanding_user_course = null;
-
-        foreach ($user_role_list as $key => $user_role) {
-            $user_course_item = UserCourse::where('course_id', $course_id)
-                ->where('user_role_id', $user_role->id)
-                ->first();
-                // dd($user_course_item);
-
-            if (!empty($user_course_item)) {
-                $demanding_user_course = $user_course_item;
-                break;
+Route::get('trinhnk', function( ){
+    $courses = \App\Course::get();
+    foreach ( $courses as $course ){
+        $course_duration = 0;
+        foreach ( $course->units as $value_unit ){
+            foreach ($value_unit->timeLessonActive as $value_video){
+                $course_duration += $value_video->duration;
             }
         }
-    }else{
-        $demanding_user_course = null;
+        $course->duration = $course_duration;
+        $course->save();
     }
-    return $demanding_user_course;
+    dd('done');
 });
 
 Route::get('delete/{course}', 'Frontends\HomeController@deleteCourse');

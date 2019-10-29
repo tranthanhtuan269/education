@@ -1,10 +1,13 @@
 <?php
-    $course_duration = 0;
-    foreach ( $info_course->units as $value_unit ){
-        foreach ($value_unit->timeLessonActive as $value_video){
-            $course_duration += $value_video->duration;
-        }
-    }
+    // $course_duration = 0;
+    // foreach ( $info_course->units as $value_unit ){
+    //     foreach ($value_unit->timeLessonActive as $value_video){
+    //         $course_duration += $value_video->duration;
+    //     }
+    // }
+    // dd($course_duration);
+    // dd($info_course->totalDuration($info_course));
+    $course_duration = $info_course->totalDuration($info_course);
 ?>
 <div class="u-list-course" id="u-list-course" data-course-id="{{$info_course->id}}">
     <div class="top clearfix">
