@@ -1714,11 +1714,11 @@
         border: 1px solid #636363;
         padding: 18px 30px;
     }
-    .bg-category{
+    /* .bg-category{
         position: absolute;
         width: auto;
         right: 0;
-    }
+    } */
     .background-page .highlight{
         margin-top: 80px;
         margin-bottom: 80px;

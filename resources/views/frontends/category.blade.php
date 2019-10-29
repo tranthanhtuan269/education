@@ -16,7 +16,7 @@
 		</div>
 	</div>
 </div>
-
+<div class="clearfix"></div>
 @include('frontends.all-courses')
 
 @if ($tags->count() > 0)
