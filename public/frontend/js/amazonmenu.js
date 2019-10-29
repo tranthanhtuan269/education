@@ -8,7 +8,7 @@ var amazonmenu = {
 
 	defaults: {
 		animateduration: 200,
-		showhidedelay: [100, 200],
+		showhidedelay: [200, 200],
 		hidemenuonclick: true
 	},
 
@@ -30,6 +30,16 @@ var amazonmenu = {
 				}, this.setting.showhidedelay[0])
 		}
 		else{
+			// $li.data().showhidetimer = setTimeout(function(){
+			// 	$li.removeClass('selected')
+			// 	$li.data('$submenu').stop(true, true).fadeOut(setting.animateduration)
+			// 	var $subuls = $li.data('$submenu').find('.issub').css({display: 'none'})
+			// 	if ($subuls.length > 0){
+			// 		$subuls.data('$parentli').removeClass('selected')
+			// 	}
+			// }, this.setting.showhidedelay[1])
+
+			//Css menu theo y chi My
 			$li.data().showhidetimer = setTimeout(function(){
 				$li.removeClass('selected')
 				$li.data('$submenu').stop(true, true).fadeOut(setting.animateduration)
@@ -37,7 +47,7 @@ var amazonmenu = {
 				if ($subuls.length > 0){
 					$subuls.data('$parentli').removeClass('selected')
 				}
-			}, this.setting.showhidedelay[1])
+			}, 0)
 		}
 	},
 
