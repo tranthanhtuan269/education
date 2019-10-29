@@ -148,7 +148,7 @@ class UnitController extends Controller
     public function destroy(Request $request){
         $unit = Unit::find($request->id);
         if($unit){
-            // BaTV - Xoá tất cả video với các định dạng trong Unit đó
+            // BaTV - Xóa tất cả video với các định dạng trong Unit đó
             $arr_video_id = Video::where('unit_id', $request->id)->pluck('id')->toArray();
             $arr_video = Video::where('unit_id', $request->id)->pluck('url_video');
 
@@ -171,10 +171,10 @@ class UnitController extends Controller
             }else{
                 return response()->json([
                     'status' => '201',
-                    'message' => 'Phần học vẫn còn bài học, không thể xoá!'
+                    'message' => 'Phần học vẫn còn bài học, không thể xóa!'
                 ]);
             }
-            //DuongNT // Xoá array đại diện cho unit này trong array video của user_course đại diện mõi student
+            //DuongNT // Xóa array đại diện cho unit này trong array video của user_course đại diện mõi student
             $course = $unit->course;
             $user_roles = $course->userRoles()->where('role_id', 3)->get();
             foreach ($user_roles as $key => $user_role) {

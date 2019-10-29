@@ -141,7 +141,7 @@ class EmailController extends Controller
 
         \DB::table('emails')->whereIn('id', $email_id_list)->delete();
 
-        return response()->json(array('status' => '200', 'message' => 'Các email đã bị xoá!'));
+        return response()->json(array('status' => '200', 'message' => 'Các email đã bị xóa!'));
     }
 
     public function sendEmail(Request $request){

@@ -419,17 +419,17 @@
                             <img src="{{ asset('frontend/images/footer_logo.png') }}">    
                         </div>
                         <div class="row">
-                            <div class="col-xs-4" style="color:#fff">
+                            <div class="col-sm-4 col-xs-offset-3" style="color:#fff">
                                 <p><i class="fas fa-location-arrow fa-fw"></i> 48 Tố Hữu, Hà Nội</p>
                                 <p><i class="fas fa-phone fa-fw"></i> 0918273645</p>
                                 <p><i class="fas fa-envelope fa-fw"></i> cskh@courdemy.com</p>
                             </div>
-                            <div class="col-xs-4">
+                            <div class="col-sm-4 col-xs-6">
                                 <p><a href="/about">Giới thiệu Courdemy</a></p>
                                 <p><a href="/faq">Câu hỏi thường gặp</a></p>
                                 <p><a href="/terms-of-service">Điều khoản dịch vụ</a></p>
                             </div>
-                            <div class="col-xs-4">
+                            <div class="col-sm-4 col-xs-6">
                                 <p><a href="/payment-guide">Hướng dẫn thanh toán</a></p>
                                 @if (Auth::check())
                                     @if ( !Auth::user()->isAdmin() && !Auth::user()->registeredTeacher())

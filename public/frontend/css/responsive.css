@@ -264,8 +264,6 @@
     .unica-be-teacher-txt p { font-size: 14px; }
     .unica-be-teacher-txt h4 { font-size: 32px; }
     .unica-top-teacher h4 { font-size: 18px; text-transform: none; }
-    .name-teacher { font-size: 16px; margin: 10px 0; }
-    .des-teacher { margin: 10px 5px; }
     .img-teacher { margin-top: 10px; }
     .slick-prev:before, .slick-next:before { font-size: 20px !important; color: #606060 !important; }
     .box-teacher > button.slick-prev.slick-arrow { left: -15px; }
@@ -1035,8 +1033,8 @@
     .unica-be-teacher-txt p { font-size: 14px; }
     .unica-be-teacher-txt h4 { font-size: 32px; }
     .unica-top-teacher h4 { font-size: 18px; text-transform: none; }
-    .name-teacher { font-size: 16px; margin: 10px 0; }
-    .des-teacher { margin: 10px 5px; }
+    .name-teacher { font-size: 16px; }
+    .des-teacher { margin: 10px 5px 0 5px;}
     .img-teacher { margin-top: 10px; }
     .slick-prev:before, .slick-next:before { font-size: 20px !important; color: #606060 !important; }
     .box-teacher > button.slick-prev.slick-arrow { left: -15px; }
@@ -2013,6 +2011,16 @@
     }
     .frame_2-top{
         margin-top: 50px;
+    }
+    .star-rate i {
+        font-size: 14px;
+        margin: 0;
+    }
+    .box-course .content-course .time{
+        font-size: 12px;
+    }
+    .box-course .content-course .price-course {
+        padding-top: 0;
     }
 }
 

@@ -76,9 +76,9 @@
 <div class="partner">
     <div class="container">
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-6 col-md-offset-3">
                 <h2>Đào tạo nâng cao <br> đội ngũ nhân viên của bạn?</h2>
-                <p>Chúng tôi cung cấp giải pháp tiết kiệm, linh hoạt và hiệu quả <br> cho chương trình đạo tạo của bạn </p>
+                <p>Chúng tôi cung cấp giải pháp tiết kiệm, linh hoạt và hiệu quả cho chương trình đạo tạo của bạn </p>
             </div>
         </div>
         <div class="partner-img clearfix">
