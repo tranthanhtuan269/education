@@ -1,4 +1,7 @@
 @extends('frontends.layouts.app')
+@section('title')
+{{ $cat_name }} - {{ $title }}
+@stop
 @section('content')
 <?php
     $list_bought = [];
@@ -8,12 +11,15 @@
 ?>
 <div class="background-page">
     <div class='container-fuild'>
-        <img class="bg-category" src="{{ asset('frontend/images/banner_profile_teacher.png') }}">
-        <div class="container fixed-title">
-            <div class="highlight">
-                <div class="row title">
-                    <i class="fas {{$cat_icon}} fa-4x fa-fw"></i>
-                    <h1>{{ $cat_name }}</h1>
+        <div class="bg-category">
+            {{-- <img class="bg-category" src="{{ asset('frontend/images/banner_profile_teacher.png') }}"> --}}
+            <div class="container fixed-title">
+                <div class="highlight">
+                    <div class="title">
+                        <i class="fas {{$cat_icon}} fa-4x fa-fw"></i>
+                        <h1>{{ $cat_name }}</h1>
+                    </div>
+                    <p class="cat-des">{{ $cat_des }}</p>
                 </div>
             </div>
         </div>
@@ -29,7 +35,7 @@
                         @if (count($list_course) > 0)
                         <div class="row">
                             <div class="col-xs-12">
-                                <h1>{{ $title }}</h1>
+                                <h2>{{ $title }}</h2>
                             </div>
                             @foreach ($list_course as $course)
                                 @include(
@@ -45,7 +51,7 @@
                             </div>
                         </div>
                         @else
-                        <h1>Không có danh sách khóa học</h1>
+                        <h2>Không có danh sách khóa học</h2>
                         @endif
                     </section>
               </div>

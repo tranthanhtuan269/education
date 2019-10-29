@@ -1551,7 +1551,7 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
 
 /*-List-Course-*/
 .box-search,.box-list-course-by-type{
-    padding: 30px 0;
+    padding-bottom: 30px;
 }
 .box-search  h2 {
     line-height: 32px;
@@ -1559,10 +1559,10 @@ footer .item-2 .copyright{color:#fff;padding:10px 0}
     font-size: 20px;
     margin: 0 5px 20px 5px;
 }
-.box-list-course-by-type h1{
-    font-weight: 600;
-    font-size: 28px;
-    margin: 0 5px 20px 5px;   
+.box-list-course-by-type h2{
+  padding-bottom: 25px;
+  font-weight: 700;
+  font-size: 28px; 
 }
 
 /* USER */
