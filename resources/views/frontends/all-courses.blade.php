@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col-sm-12 clearfix title-module-home">
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-6 hidden-xs">
                         <div id="allCoursesTitle">
                             <h2></h2>
                         </div>
