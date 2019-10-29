@@ -16,7 +16,7 @@
                         </div>
                     </div>
                     <div class="col-sm-6">
-                        <div class="pull-right">
+                        <div class="responsive-topcourse pull-right">
                             <ul class="nav nav-tabs">
                                 <li class="active" data-title="Các khóa học bán chạy"><a data-toggle="tab" href="#best-seller" id="ban-chay">Bán chạy</a></li>
                                 <li data-title="Các khóa học mới nhất"><a data-toggle="tab" href="#menu1" id="moi-nhat">Mới nhất</a></li>
@@ -155,4 +155,17 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function(){
+        var full_width = $('.responsive-topcourse').width()
+        if ( full_width < 768 ){
+            var menu1_width = $('#ban-chay').parent().width()
+            var menu2_width = $('#moi-nhat').parent().width()
+            var menu3_width = $('#thinh-hanh').parent().width()
+            var menu_margin_right = ( full_width - menu1_width - menu2_width - menu3_width )/2
+            $('#ban-chay').parent().css('margin-right', menu_margin_right)
+            $('#moi-nhat').parent().css('margin-right', menu_margin_right)
+        }
+    })
+</script>
 @endif

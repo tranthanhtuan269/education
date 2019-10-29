@@ -2082,7 +2082,17 @@
         margin: 0;
     }
     .top-course .nav.nav-tabs li a, .top-course .nav.nav-tabs li.active a {
-        padding: 12px 15px;
+        padding: 12px 20px;
+        margin: 0;
+    }
+    .popular-teacher .info .des-teacher{
+        margin-bottom: 0;
+    }
+    .background-page .fixed-title{
+        margin-right: 50px;
+    }
+    .responsive-topcourse{
+        width: 100%;
     }
 }
 
@@ -2112,10 +2122,10 @@
     }
 }
 @media (width: 375px){
-    .top-course .nav.nav-tabs li a{
+    /* .top-course .nav.nav-tabs li a{
         margin: 0 9px;
         padding: 10px 20px;
-    }
+    } */
 }
 @media all and (max-width: 330px) {
     .img-course{
