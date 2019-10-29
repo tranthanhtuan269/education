@@ -253,6 +253,10 @@ $(document).ready(function () {
         toggleNotes()
     })
 
+    $('.ln-lect-list-header').click(function(){
+        $('.ln-lect-list-body').removeClass('in')
+    })
+
     $(".video-list-item, .fa-stack-1x").click(function (e) {
         e.stopImmediatePropagation()
         e.stopPropagation()
