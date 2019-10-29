@@ -1203,7 +1203,8 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
 
             $(this).remove();
             $(".btn-buy-now button").remove()
-            $('.interactive-bar').remove()
+            // $('.interactive-bar ').remove()
+            $('.interactive-bar .buttons button ').remove()
             
             addCart()
             Swal.fire({
@@ -1236,7 +1237,9 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
             })
             $(".btn-add-cart button").remove()
             $(".btn-buy-now button").remove()
-            $('.interactive-bar').remove()
+            // $('.interactive-bar').remove()
+            $('.interactive-bar .buttons button').remove()
+            
 
             var number_items_in_cart = JSON.parse(localStorage.getItem('cart'+user_id))
             $('.number-in-cart').text(number_items_in_cart.length);
@@ -1250,7 +1253,8 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
             $.each( number_items_in_cart, function(i, obj) {
                 $('.btn-buy-now button[data-id='+obj.id+']').remove()
                 $('.btn-add-cart button[data-id='+obj.id+']').remove()
-                $('.interactive-bar[data-i='+obj.id+']').remove()
+                // $('.interactive-bar[data-i='+obj.id+']').remove()
+                $('.interactive-bar[data-i='+obj.id+'] .buttons button').remove()
 
                 $('.sidebar-add-cart button[id='+obj.id+']').html('<b>Đã thêm vào giỏ hàng</b>')
                 $('.sidebar-add-cart button[id='+obj.id+']').attr('disabled', true)
