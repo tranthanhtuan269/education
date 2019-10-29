@@ -4,6 +4,7 @@
         $list_bought = \json_decode(Auth::user()->bought);
     }
 ?>
+@if ( count($related_course) > 0 )
 <div class="top-course">
     <div class="row" id="box_related_course">
         <div class="col-xs-12 clearfix title-module-home">
@@ -51,3 +52,4 @@
         </div>
     </div>
 </div>
+@endif

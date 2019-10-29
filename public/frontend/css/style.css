@@ -62,7 +62,7 @@ div[data-u="slides"] div div{
   font-size: 22px;
 }
 .detail-course .related-course,.detail-course .feedback,.course-recommend{padding-top:0px}
-.detail-course .related-course h3 {padding:15px 0}
+.detail-course .related-course .title-module-home h3 {padding:15px 0}
 .detail-course .instructors{padding: 30px 0}
 .notifications.alert-danger{background:linear-gradient(to right,#F4A111,#fe7202);margin-bottom:0;color:#fff;border:0;border-radius:0}
 .notifications.alert-danger img{width:20px}
