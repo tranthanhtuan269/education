@@ -419,7 +419,7 @@
                             <img src="{{ asset('frontend/images/footer_logo.png') }}">    
                         </div>
                         <div class="row">
-                            <div class="col-sm-4 col-xs-offset-3" style="color:#fff">
+                            <div class="col-sm-4" style="color:#fff">
                                 <p><i class="fas fa-location-arrow fa-fw"></i> 48 Tố Hữu, Hà Nội</p>
                                 <p><i class="fas fa-phone fa-fw"></i> 0918273645</p>
                                 <p><i class="fas fa-envelope fa-fw"></i> cskh@courdemy.com</p>
