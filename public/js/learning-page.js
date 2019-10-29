@@ -77,7 +77,8 @@ $(document).ready(function () {
         player = videojs('my-video', options);
         prePlay(360);
         player.load();
-        player.play();
+        player.pause();
+        $(".learning-desc-panel").fadeIn()
     }
 
     player.on('ended', function(){
@@ -263,6 +264,8 @@ $(document).ready(function () {
         e.preventDefault()
 
         var video_id = $(this).attr("data-parent")
+        localStorage.setItem("indexCurrentVideo", video_id);
+
         var section_dom = $(this).parent()
         var isStudent = $(this).attr("data-isstudent")
         var video_name = $(this).attr("data-name")
@@ -297,8 +300,8 @@ $(document).ready(function () {
                 }
                 $('.video-list-item').removeClass('video-selected')
                 $('#listItem'+ video_id).addClass('video-selected')
-                $('#listItem'+ video_id).find('.fa-stack-2x').css('color', '#44b900');
-                $('#listItem'+ video_id).find('.fa-stack-1x').css('color', '#ffffff');
+                $('#listItem'+ video_id + ' .fa-stack-2x').addClass('video_viewed').removeClass('video_not_viewed');
+                $('#listItem'+ video_id + ' .fa-stack-1x').addClass('video_viewed').removeClass('video_not_viewed');
 
                 $('.ln-desc-title').html('<p>' + video_name + '</p>');
                 $('.ln-desc-subtitle').html('<p>' + video_info + '</p>');
@@ -308,8 +311,146 @@ $(document).ready(function () {
         }
     })
 
+    $('#lnDescBtnNext').on('click', function(e){
+        e.preventDefault()
+        e.stopPropagation()
+        var current_video_id = localStorage.getItem("indexCurrentVideo");
+        var video_id_index = null
+        video_id_list.forEach(video_id => {
+            if(video_id == localStorage.getItem("indexCurrentVideo")){
+                video_id_index = video_id_list.indexOf(video_id)
+                return 
+            }
+        });
 
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        var request = $.ajax({
+            method: 'POST',
+            url: "/user-course/update-watched",
+            data: {
+                'video_id' : video_id_list[video_id_index + 1]
+            },
+            dataType: "json",
+        });
+        request.done(function(data){
+            window.videoSource = JSON.parse(data.video_url);
+            updateLink();
 
+            var video_info = "Phần " + $('#listItem'+ video_id_list[video_id_index + 1]).attr("data-unit") + ", Bài " + $('#listItem'+ video_id_list[video_id_index + 1]).attr("data-video")
+
+            // $video_urls = json_decode($main_video->url_video, true);
+            if(data.update_viewed == 1){
+                $("#viewed_count").html(parseInt($("#viewed_count").html()) + 1)
+                $(".progress-bar-success").css('width', parseInt($("#viewed_count").html() / $("#videos_count").html() * 100) + "%");
+            }
+            $('.video-list-item').removeClass('video-selected')
+            $('#listItem'+ video_id_list[video_id_index + 1]).addClass('video-selected')
+            $('#listItem'+ video_id_list[video_id_index + 1] + ' .fa-stack-2x').addClass('video_viewed').removeClass('video_not_viewed');
+            $('#listItem'+ video_id_list[video_id_index + 1] + ' .fa-stack-1x').addClass('video_viewed').removeClass('video_not_viewed');
+
+            $('.ln-desc-title').html('<p>' + $('#listItem'+ video_id_list[video_id_index + 1]).attr('data-name') + '</p>');
+            $('.ln-desc-subtitle').html('<p>' + video_info + '</p>');
+            localStorage.setItem("indexCurrentVideo", video_id_list[video_id_index + 1])
+        })
+    })
+
+    $('#lnDescBtnPrevious').on('click', function(e){
+        e.preventDefault()
+        e.stopPropagation()
+        var current_video_id = localStorage.getItem("indexCurrentVideo");
+        var video_id_index = null
+        video_id_list.forEach(video_id => {
+            if(video_id == localStorage.getItem("indexCurrentVideo")){
+                video_id_index = video_id_list.indexOf(video_id)
+                return 
+            }
+        });
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        var request = $.ajax({
+            method: 'POST',
+            url: "/user-course/update-watched",
+            data: {
+                'video_id' : video_id_list[video_id_index - 1]
+            },
+            dataType: "json",
+        });
+        request.done(function(data){
+            window.videoSource = JSON.parse(data.video_url);
+            updateLink();
+
+            var video_info = "Phần " + $('#listItem'+ video_id_list[video_id_index - 1]).attr("data-unit") + ", Bài " + $('#listItem'+ video_id_list[video_id_index - 1]).attr("data-video")
+
+            // $video_urls = json_decode($main_video->url_video, true);
+            if(data.update_viewed == 1){
+                $("#viewed_count").html(parseInt($("#viewed_count").html()) - 1)
+                $(".progress-bar-success").css('width', parseInt($("#viewed_count").html() / $("#videos_count").html() * 100) + "%");
+            }
+            $('.video-list-item').removeClass('video-selected')
+            $('#listItem'+ video_id_list[video_id_index - 1]).addClass('video-selected')
+            $('#listItem'+ video_id_list[video_id_index - 1] + ' .fa-stack-2x').addClass('video_viewed').removeClass('video_not_viewed');
+            $('#listItem'+ video_id_list[video_id_index - 1] + ' .fa-stack-1x').addClass('video_viewed').removeClass('video_not_viewed');
+
+            $('.ln-desc-title').html('<p>' + $('#listItem'+ video_id_list[video_id_index - 1]).attr('data-name') + '</p>');
+            $('.ln-desc-subtitle').html('<p>' + video_info + '</p>');
+            localStorage.setItem("indexCurrentVideo", video_id_list[video_id_index - 1])
+        })
+    })
+
+    $('#btnContinue').click(function (e) {
+        e.preventDefault()
+        e.stopPropagation()
+        var current_video_id = localStorage.getItem("indexCurrentVideo");
+        var video_id_index = null
+        video_id_list.forEach(video_id => {
+            if(video_id == localStorage.getItem("indexCurrentVideo")){
+                video_id_index = video_id_list.indexOf(video_id)
+                return 
+            }
+        });
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        var request = $.ajax({
+            method: 'POST',
+            url: "/user-course/update-watched",
+            data: {
+                'video_id' : video_id_list[video_id_index + 1]
+            },
+            dataType: "json",
+        });
+        request.done(function(data){
+            window.videoSource = JSON.parse(data.video_url);
+            updateLink();
+
+            var video_info = "Phần " + $('#listItem'+ video_id_list[video_id_index + 1]).attr("data-unit") + ", Bài " + $('#listItem'+ video_id_list[video_id_index + 1]).attr("data-video")
+
+            // $video_urls = json_decode($main_video->url_video, true);
+            if(data.update_viewed == 1){
+                $("#viewed_count").html(parseInt($("#viewed_count").html()) + 1)
+                $(".progress-bar-success").css('width', parseInt($("#viewed_count").html() / $("#videos_count").html() * 100) + "%");
+            }
+            $('.video-list-item').removeClass('video-selected')
+            $('#listItem'+ video_id_list[video_id_index + 1]).addClass('video-selected')
+            $('#listItem'+ video_id_list[video_id_index + 1] + ' .fa-stack-2x').addClass('video_viewed').removeClass('video_not_viewed');
+            $('#listItem'+ video_id_list[video_id_index + 1] + ' .fa-stack-1x').addClass('video_viewed').removeClass('video_not_viewed');
+
+            $('.ln-desc-title').html('<p>' + $('#listItem'+ video_id_list[video_id_index + 1]).attr('data-name') + '</p>');
+            $('.ln-desc-subtitle').html('<p>' + video_info + '</p>');
+            localStorage.setItem("indexCurrentVideo", video_id_list[video_id_index + 1])
+        })
+    })
 
     function seekTime(secs) {
         var seekingTime   = player.currentTime() + secs
@@ -664,7 +805,10 @@ $(document).ready(function () {
         $('.btn.ln-btn-autoplay').remove()
     }
 
-
+    if($('.video-selected .fa-stack-1x').hasClass('video_not_viewed')){
+        $('#lnDescBtnNotViewed').hide();
+        $('#lnDescBtnViewed').show();
+    }
 
 });
 

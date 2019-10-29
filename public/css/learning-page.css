@@ -868,3 +868,19 @@ body{
     font-size: 11px;
     color: #686F7A;
 }
+
+.fa-stack-2x.video_viewed{
+    color: rgb(68, 185, 0);
+}
+
+.fa-stack-1x.video_viewed{
+    color: rgb(255, 255, 255);
+}
+
+.fa-stack-2x.video_not_viewed{
+    color: rgb(200, 201, 202);
+}
+
+.fa-stack-1x.video_not_viewed{
+    color: rgb(200, 201, 202);
+}

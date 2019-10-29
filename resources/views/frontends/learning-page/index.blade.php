@@ -142,6 +142,8 @@
             var check_course_of_user = {{ $check_course_of_user }}
             // console.log(check_course_of_user);
 
+            localStorage.setItem("indexCurrentVideo", {{$main_video->id}});
+
             $(document).ready(function () {
 
                 function updateIndicator() {
@@ -194,31 +196,6 @@
                         return 
                     }
                 });
-
-                $('#btnContinue').click(function () {
-                    $.ajaxSetup({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        }
-                    });
-                    var request = $.ajax({
-                        method: 'POST',
-                        url: "/user-course/update-watched",
-                        data: {
-                            'video_id' : video_id_list[video_id_index + 1]
-                        },
-                        dataType: "json",
-                    });
-                    request.done(function(){
-                        // alert("/learning-page/"+course_id+"/lecture/"+video_id_list[video_id_index + 1]+"")
-                        if (typeof video_id_list[video_id_index + 1] != "undefined") {
-                            window.location.href = ("/learning-page/"+course_id+"/lecture/"+video_id_list[video_id_index + 1]+"")
-                        }else{
-                            localStorage.setItem('autoplay', false)
-                            location.reload();
-                        }
-                    })
-                })
             })
             
         </script>

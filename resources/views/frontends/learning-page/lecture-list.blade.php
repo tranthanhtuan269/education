@@ -75,8 +75,8 @@
                                             <span class="ln-btn-complete" id="lnBtnComplete{{$video->id}}" data-child="{{$key2+1}}">
                                                 <button >
                                                     <span class="fa-stack">
-                                                        <i class="fas fa-circle fa-stack-2x" style="color: #44b900;"></i>
-                                                        <i class="fas fa-check fa-stack-1x" style="color: #ffffff;" data-parent="{{$video->id}}" data-isstudent="{{$isStudent}}" data-name="{{ $video->name }}" data-unit="{{ ($unit->index) }}" data-video="{{ ($video->index) }}"></i>
+                                                        <i class="fas fa-circle fa-stack-2x video_viewed"></i>
+                                                        <i class="fas fa-check fa-stack-1x video_viewed" data-parent="{{$video->id}}" data-isstudent="{{$isStudent}}" data-name="{{ $video->name }}" data-unit="{{ ($unit->index) }}" data-video="{{ ($video->index) }}"></i>
                                                     </span>
                                                 </button>
                                             </span>
@@ -84,8 +84,8 @@
                                             <span class="ln-btn-complete" id="lnBtnNotComplete{{$video->id}}" data-child="{{$key2+1}}">
                                                 <button>
                                                     <span class="fa-stack">
-                                                        <i class="fas fa-circle fa-stack-2x" style="color: rgb(200, 201, 202);"></i>
-                                                        <i class="fas fa-check fa-stack-1x" style="color: rgb(200, 201, 202)" data-parent="{{$video->id}}" data-isstudent="{{$isStudent}}" data-name="{{ $video->name }}" data-unit="{{ ($unit->index) }}" data-video="{{ ($video->index) }}"></i>                         
+                                                        <i class="fas fa-circle fa-stack-2x video_not_viewed"></i>
+                                                        <i class="fas fa-check fa-stack-1x video_not_viewed" data-parent="{{$video->id}}" data-isstudent="{{$isStudent}}" data-name="{{ $video->name }}" data-unit="{{ ($unit->index) }}" data-video="{{ ($video->index) }}"></i>                         
                                                     </span>
                                                 </button>
                                             </span>
@@ -114,8 +114,8 @@
                                             <span class="ln-btn-complete" id="lnBtnComplete{{$video->id}}" data-child="{{$key2+1}}">
                                                 <button >
                                                     <span class="fa-stack">
-                                                        <i class="fas fa-circle fa-stack-2x" style="color: #44b900;"></i>
-                                                        <i class="fas fa-check fa-stack-1x" style="color: #ffffff;" data-parent="{{$video->id}}" data-isstudent="{{$isStudent}}" data-name="{{ $video->name }}" data-unit="{{ ($unit->index) }}" data-video="{{ ($video->index) }}"></i>
+                                                        <i class="fas fa-circle fa-stack-2x video_viewed"></i>
+                                                        <i class="fas fa-check fa-stack-1x video_viewed" data-parent="{{$video->id}}" data-isstudent="{{$isStudent}}" data-name="{{ $video->name }}" data-unit="{{ ($unit->index) }}" data-video="{{ ($video->index) }}"></i>
                                                     </span>
                                                 </button>
                                             </span>
@@ -123,8 +123,8 @@
                                             <span class="ln-btn-complete" id="lnBtnNotComplete{{$video->id}}" data-child="{{$key2+1}}">
                                                 <button>
                                                     <span class="fa-stack">
-                                                        <i class="fas fa-circle fa-stack-2x" style="color: rgb(200, 201, 202);"></i>
-                                                        <i class="fas fa-check fa-stack-1x" style="color: rgb(200, 201, 202)" data-parent="{{$video->id}}" data-isstudent="{{$isStudent}}" data-name="{{ $video->name }}" data-unit="{{ ($unit->index) }}" data-video="{{ ($video->index) }}"></i>                         
+                                                        <i class="fas fa-circle fa-stack-2x video_not_viewed"></i>
+                                                        <i class="fas fa-check fa-stack-1x video_not_viewed" data-parent="{{$video->id}}" data-isstudent="{{$isStudent}}" data-name="{{ $video->name }}" data-unit="{{ ($unit->index) }}" data-video="{{ ($video->index) }}"></i>                         
                                                     </span>
                                                 </button>
                                             </span>
@@ -149,14 +149,51 @@
         
         // Search Lecture List
         $("#btnSearchSidebar").click(function (){
+            $('.video-list-item').show();
             var string = $(".learning-lecture-list-searchbar input").val().trim();
-            window.location.replace("{{ url('/') }}/learning-page/{{ $main_video->unit->course->id }}/lecture/{{ $main_video->id }}?search=" + string);
+            localStorage.setItem("searchString", string);
+            if(string.length > 0){
+                $('.ln-lect-list-sect-counter').hide();
+                $(".ln-lect-list-lect-title").each(function( index ) {
+                    if(!$( this ).text().toLowerCase().includes(string.toLowerCase())){
+                        $(this).parent().parent().hide();
+                    }
+                });
+            }else{
+                $('.ln-lect-list-sect-counter').show();
+            }
+            $('.ln-lect-list-body').addClass('in')
+        });
+
+        var searchString = localStorage.getItem("searchString");
+
+        if(searchString != undefined){
+            $(".learning-lecture-list-searchbar input").val(searchString);
+            $("#btnSearchSidebar").click(); 
+            $('.ln-lect-list-body').addClass('in')   
+        }
+
+        $(".learning-lecture-list-searchbar input").keyup(function(){
+            $('.video-list-item').show();
+            var string = $(".learning-lecture-list-searchbar input").val().trim();
+            localStorage.setItem("searchString", string);
+            if(string.length > 0){
+                $('.ln-lect-list-sect-counter').hide();
+                $(".ln-lect-list-lect-title").each(function( index ) {
+                    if(!$( this ).text().toLowerCase().includes(string.toLowerCase())){
+                        $(this).parent().parent().hide();
+                    }
+                });
+            }else{
+                $('.ln-lect-list-sect-counter').show();
+            }
+            $('.ln-lect-list-body').addClass('in')
         });
 
         document.addEventListener("keydown", function(event) {
             if(event.which == 13){
-                var string = $(".learning-lecture-list-searchbar input").val().trim();
-                window.location.replace("{{ url('/') }}/learning-page/{{ $main_video->unit->course->id }}/lecture/{{ $main_video->id }}?search=" + string);
+                $("#btnSearchSidebar").click();
+                $('.ln-lect-list-body').addClass('in')
             }
         })
     })
