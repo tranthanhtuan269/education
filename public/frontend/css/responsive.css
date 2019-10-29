@@ -67,7 +67,7 @@
     .box-slider .slick-prev:before, .box-slider .slick-next:before { font-size: 30px; }
     .unica-box-course-f .slick-prev:before, .unica-box-course-f .slick-next:before { font-size: 30px !important; color: #606060 !important;  }
 
-    .cate-sm { padding: 0; }
+    /* .cate-sm { padding: 0; } */
 
     .box-slider .slick-prev { left: -15px; }
     .unica-box-course-f .slick-prev { left: -25px; }
@@ -833,7 +833,7 @@
     .box-slider .slick-prev:before, .box-slider .slick-next:before { font-size: 30px; }
     .unica-box-course-f .slick-prev:before, .unica-box-course-f .slick-next:before { font-size: 30px !important; color: #606060 !important;  }
 
-    .cate-sm { padding: 0; }
+    /* .cate-sm { padding: 0; } */
 
     .box-slider .slick-prev { left: -15px; }
     .unica-box-course-f .slick-prev { left: -25px; }
