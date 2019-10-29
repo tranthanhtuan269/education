@@ -140,11 +140,12 @@ class HomeController extends Controller
 
     public function listCourseCategory(Request $request)
     {
-        $type = trim($request->get('type'));
-        $cat_id = $request->cat_id;
-        $category = Category::find($cat_id);
-        $cat_name = $category->name;
-        $cat_icon = $category->icon;
+        $type       = trim($request->get('type'));
+        $cat_id     = $request->cat_id;
+        $category   = Category::find($cat_id);
+        $cat_name   = $category->name;
+        $cat_icon   = $category->icon;
+        $cat_des    = $category->description;
         if ($type == 'best-seller') {
             $title = 'Các khóa học bán chạy';
             $list_course = Course::listCourseCategory($cat_id)->orderBy('sale_count', 'desc')->paginate(\Config::get('app.pagging_item_number'));
@@ -163,7 +164,7 @@ class HomeController extends Controller
             $title = 'Các khóa học thịnh hành';
         }
 
-        return view('frontends.list-course-category-by-type', compact('list_course', 'title', 'cat_name', 'cat_icon'));
+        return view('frontends.list-course-category-by-type', compact('list_course', 'title', 'cat_name', 'cat_icon', 'cat_des'));
     }
 
     public function showCategory($cat)
