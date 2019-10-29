@@ -120,7 +120,7 @@ nav .pagination li a img{width:35px;position:relative;top:-6px}
 	/* display: flex; */
 	border-radius:10px 10px 0 0;
 }
-.box-course>a .img-course:hover .img-mask{
+.box-course a .img-course:hover .img-mask{
 	display: flex;
 	background: linear-gradient(to top, rgba(20,23,28,0.9) 0, rgba(20,23,28,0.738) 19%, rgba(20,23,28,0.541) 34%, rgba(20,23,28,0.382) 47%, rgba(20,23,28,0.278) 56.5%, rgba(20,23,28,0.194) 65%, rgba(20,23,28,0.126) 73%, rgba(20,23,28,0.075) 80.2%, rgba(20,23,28,0) 100%) !important;
 }
