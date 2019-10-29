@@ -191,7 +191,7 @@ class UserController extends Controller
             //                 dd($user_role);
             //                 return response()->json([
             //                     'status' => '404',
-            //                     'message' => 'Không tìm thấy giảng viên để xoá'
+            //                     'message' => 'Không tìm thấy giảng viên để xóa'
             //                 ]);
             //             }
             //         }else{

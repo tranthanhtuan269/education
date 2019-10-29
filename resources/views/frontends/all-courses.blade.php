@@ -9,33 +9,38 @@
     <div class="top-course">
         <div class="row">
             <div class="col-sm-12 clearfix title-module-home">
-                <div class="pull-left" id="allCoursesTitle">
-                    <h2></h2>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div id="allCoursesTitle">
+                            <h2></h2>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="pull-right">
+                            <ul class="nav nav-tabs">
+                                <li class="active" data-title="Các khóa học bán chạy"><a data-toggle="tab" href="#best-seller" id="ban-chay">Bán chạy</a></li>
+                                <li data-title="Các khóa học mới nhất"><a data-toggle="tab" href="#menu1" id="moi-nhat">Mới nhất</a></li>
+                                <li data-title="Các khóa học thịnh hành"><a data-toggle="tab" href="#menu2" id="thinh-hanh">Thịnh hành</a></li>
+                            </ul>
+                            <script>
+                                $(document).ready(function(){
+                                    switchAllCoursesTitle()
+                                    $(document).on('click', '.nav.nav-tabs li', function(){
+                                        switchAllCoursesTitle()
+                                    })
+                                })
+                                function switchAllCoursesTitle(){
+                                    $('.nav.nav-tabs li').each(function(index, element){
+                                        if($(this).hasClass('active')){
+                                            var title = $(this).attr('data-title')
+                                            $('#allCoursesTitle h2').text(title)
+                                        }                       
+                                    })
+                                }
+                            </script>
+                        </div>
+                    </div>
                 </div>
-                <div class="pull-right">
-                    <ul class="nav nav-tabs">
-                        <li class="active" data-title="Các khoá học bán chạy"><a data-toggle="tab" href="#best-seller" id="ban-chay">Bán chạy</a></li>
-                        <li data-title="Các khóa học mới nhất"><a data-toggle="tab" href="#menu1" id="moi-nhat">Mới nhất</a></li>
-                        <li data-title="Các khóa học thịnh hành"><a data-toggle="tab" href="#menu2" id="thinh-hanh">Thịnh hành</a></li>
-                    </ul>
-                    <script>
-                        $(document).ready(function(){
-                            switchAllCoursesTitle()
-                            $(document).on('click', '.nav.nav-tabs li', function(){
-                                switchAllCoursesTitle()
-                            })
-                        })
-                        function switchAllCoursesTitle(){
-                            $('.nav.nav-tabs li').each(function(index, element){
-                                if($(this).hasClass('active')){
-                                    var title = $(this).attr('data-title')
-                                    $('#allCoursesTitle h2').text(title)
-                                }                       
-                            })
-                        }
-                    </script>
-                </div>
-                <br>
             </div>
             <div class="col-sm-12">
                 <div class="tab-content">

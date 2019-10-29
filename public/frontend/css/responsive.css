@@ -234,8 +234,8 @@
     .price-a { font-size: 18px;margin-left: 5px; margin-bottom: 4px; }
     .price-b ,.price-c { font-size: 13px; }
     .price-b { float: right; margin: 7px 0px 7px 4px; }
-    .img-course {        height: 87px;    overflow: hidden;    min-width: 87px;    width: 87px;    float: left;  border-radius: 10px 0 }
-    .img-course img {         max-width: none;    width: auto;    height: 87px;    margin-left: -34px; border-radius: 0  }
+    /* .img-course {        height: 87px;    overflow: hidden;    min-width: 87px;    width: 87px;    float: left;  border-radius: 10px 0 } */
+    /* .img-course img {         max-width: none;    width: auto;    height: 87px;    margin-left: -34px; border-radius: 0  } */
     .des-gv { display: none; }
     .price-c { display: none; }
     .title-course-f a  { margin: 7px 0px; }
@@ -264,8 +264,6 @@
     .unica-be-teacher-txt p { font-size: 14px; }
     .unica-be-teacher-txt h4 { font-size: 32px; }
     .unica-top-teacher h4 { font-size: 18px; text-transform: none; }
-    .name-teacher { font-size: 16px; margin: 10px 0; }
-    .des-teacher { margin: 10px 5px; }
     .img-teacher { margin-top: 10px; }
     .slick-prev:before, .slick-next:before { font-size: 20px !important; color: #606060 !important; }
     .box-teacher > button.slick-prev.slick-arrow { left: -15px; }
@@ -775,10 +773,10 @@
 	.top-course .nav.nav-tabs li a,.top-course .nav.nav-tabs li.active a{
         padding: 10px 10px;
     }
-    .img-course{
+    /* .img-course{
         min-width: 50px;
         width: 70px;
-    }
+    } */
 }@media (max-width: 768px){
     .box-ulti-group img { width: 30%; height: 120px; }
     .img-group{width: 100%;height: 150px;}
@@ -1005,7 +1003,7 @@
     .price-a { font-size: 18px;margin-left: 5px; margin-bottom: 4px; }
     .price-b ,.price-c { font-size: 13px; }
     .price-b { float: right; margin: 7px 0px 7px 4px; }
-    .img-course {        height: 87px;    overflow: hidden;    min-width: 87px;    width: 87px;    float: left;  border-radius: 10px 0 }
+    .img-course {        height: 87px;    overflow: hidden;    min-width: 87px;    width: 87px;    float: left; }
     .img-course img {         max-width: none;    width: auto;    height: 87px;    margin-left: -34px; border-radius: 0  }
     .des-gv { display: none; }
     .price-c { display: none; }
@@ -1035,8 +1033,8 @@
     .unica-be-teacher-txt p { font-size: 14px; }
     .unica-be-teacher-txt h4 { font-size: 32px; }
     .unica-top-teacher h4 { font-size: 18px; text-transform: none; }
-    .name-teacher { font-size: 16px; margin: 10px 0; }
-    .des-teacher { margin: 10px 5px; }
+    .name-teacher { font-size: 16px; }
+    .des-teacher { margin: 10px 5px 0 5px;}
     .img-teacher { margin-top: 10px; }
     .slick-prev:before, .slick-next:before { font-size: 20px !important; color: #606060 !important; }
     .box-teacher > button.slick-prev.slick-arrow { left: -15px; }
@@ -2013,6 +2011,68 @@
     }
     .frame_2-top{
         margin-top: 50px;
+    }
+    .star-rate i {
+        font-size: 14px;
+        margin: 0;
+    }
+    .box-course .content-course .time{
+        font-size: 12px;
+    }
+    .box-course .content-course .price-course {
+        padding-top: 0;
+    }
+    .box-info-course{
+        display: inline-block;
+        color: #333;
+        background: #f5f5f5;
+        border-radius: 10px;
+        width: 100%;
+    }
+    .box-info-course:hover{
+        -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+        -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+        transition: all .5s;
+    }
+    .box-info-course .img-course .img-responsive{
+        margin-left: 0;
+        height: 100% !important;
+        border-radius: 10px 0 10px 0 !important;
+    }
+    .box-info-course .content-course .price-course .sale{
+        float: right;
+    }
+    .box-info-course .content-course .price-course .price{
+        padding-left: 50px;
+    }
+    .box-course .content-course{
+        padding: 3px;
+    }
+    .feature-course .big-course{
+        padding-bottom: 15px;
+    }
+    .feature-course .course-info .course-detail{
+        height: 110px;
+        padding-top: 20px;
+        text-align: center;
+    }
+    .feature-course .top-feature-course .course-detail .course-info-price{
+        margin-left: 0px;
+    }
+    .feature-course .top-feature-course .course-info-author .info-author-name{
+        margin-top: 25px;
+    }
+    .feature-course .top-feature-course .course-info-author .info-author-name, .feature-course .top-feature-course .course-info-author .info-author-name b, .feature-course .top-feature-course .course-detail .course-info-price b{
+        display: block;
+    }.title-homepage .content{
+        width: 100%;
+    }
+    .menutop-side{
+        display: none;
+    }
+    .banner{
+        margin-bottom: 8em;
     }
 }
 

@@ -1,28 +1,22 @@
 <div class="col-md-3 col-sm-6">
     <div class="info">
-        <a href="{{ url('/') }}/teacher/{{ $id }}" title="{{ $name }}" class="course-box-slider pop">
-            <div class="avatar text-center">
+        <div class="avatar text-center">
+            <a href="{{ url('/') }}/teacher/{{ $id }}" title="{{ $name }}">
                 @if (strpos($image, 'unica') !== false)
                     <img class="" src="{{ $image }}">
                 @else
                     <img class="" src="{{ url('frontend/'.$teacher->userRole->user->avatar) }}">
                 @endif
-                @php
-                    // print_r($teacher->userRole->courses->count());
-                @endphp
-            </div>
-            <h3 class="name-teacher text-center text-center">{!! $name !!}</h3>
-        </a>
-        <div class="des-teacher text-center" title="{!! $expert !!}">{{ $expert }}</div>
-        <div class="star-teacher text-center">
-            {{-- @include(
-                'components.vote', 
-                [
-                    'rate' => $rate,
-                    'rating_number' => $rating_number
-                ]
-            ) --}}
+            </a>
         </div>
+        <div class="name-teacher text-center">
+            <a href="{{ url('/') }}/teacher/{{ $id }}" title="{{ $name }}">
+                <span>
+                    {!! $name !!}
+                </span>
+            </a>
+        </div>
+        <div class="des-teacher text-center" title="{!! $expert !!}">{{ $expert }}</div>
         <div class="clearfix">
             <span class="number-course"><i class="fas fa-book"></i> {!! number_format($course_number, 0, ',' , '.') !!} khóa học</span>
             <span class="pull-right number-student">

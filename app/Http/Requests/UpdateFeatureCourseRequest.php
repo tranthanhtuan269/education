@@ -34,9 +34,9 @@ class UpdateFeatureCourseRequest extends FormRequest
 
     public function messages(){
         return [
-            'course_1.required'               => 'Vui lòng chọn khoá học nổi bật',
-            'course_2.required'               => 'Vui lòng chọn khoá học nổi bật',
-            'course_3.required'               => 'Vui lòng chọn khoá học nổi bật',
+            'course_1.required'               => 'Vui lòng chọn khóa học nổi bật',
+            'course_2.required'               => 'Vui lòng chọn khóa học nổi bật',
+            'course_3.required'               => 'Vui lòng chọn khóa học nổi bật',
             'percent_feature_course.required' => 'Vui lòng nhập phần trăm giảm giá',
             'percent_feature_course.numeric'  => 'Phần trăm giảm giá phải là số',
             'percent_feature_course.min'      => 'Phần trăm giảm giá phải lớn hơn 0',

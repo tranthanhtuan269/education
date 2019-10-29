@@ -6,7 +6,7 @@ Courdemy - Học online cùng những chuyên gia hàng đầu Việt Nam
 @php
     // dd($feature_category);
 @endphp
-<div class="banner hidden-xs">
+<div class="banner">
     <div class="container">
         <div class="title-homepage">
             <div class="content">{!!$title_homepage!!}</div>

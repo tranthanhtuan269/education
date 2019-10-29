@@ -36,7 +36,7 @@ class HomeController extends Controller
     {
         $type = trim($request->get('type'));
         if ($type == 'best-seller') {
-            $title = 'Các khoá học bán chạy';
+            $title = 'Các khóa học bán chạy';
             $list_course = Course::listCourseSpecial(1)->paginate(\Config::get('app.pagging_item_number'));
         } elseif ($type == 'new') {
             $list_course = Course::listCourseSpecial(2)->paginate(\Config::get('app.pagging_item_number'));
@@ -146,7 +146,7 @@ class HomeController extends Controller
         $cat_name = $category->name;
         $cat_icon = $category->icon;
         if ($type == 'best-seller') {
-            $title = 'Các khoá học bán chạy';
+            $title = 'Các khóa học bán chạy';
             $list_course = Course::listCourseCategory($cat_id)->orderBy('sale_count', 'desc')->paginate(\Config::get('app.pagging_item_number'));
         } elseif ($type == 'new') {
             $list_course = Course::listCourseCategory($cat_id)->orderBy('id', 'desc')->paginate(\Config::get('app.pagging_item_number'));

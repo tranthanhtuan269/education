@@ -328,7 +328,7 @@ class VideoController extends Controller
             // if($video->state == Config::get('app.video_active')){ //Đang được admin duyệt
             //     return response()->json([
 	        //         'status' => '201',
-	        //         'message' => 'Yêu cầu xoá video bài giảng đang được duyệt!'
+	        //         'message' => 'Yêu cầu xóa video bài giảng đang được duyệt!'
 	        //     ]);
             // }
             // if($video->state == Config::get('app.video_rejected')){
@@ -337,8 +337,8 @@ class VideoController extends Controller
             //         'message' => 'Video đã không được duyệt!'
             //     ]);
             // }
-            // if($video->state == Config::get('app.video_waiting')){  // Nếu đang chờ duyệt thì có thể xoá luôn
-            //     //Xoá luôn video trên server
+            // if($video->state == Config::get('app.video_waiting')){  // Nếu đang chờ duyệt thì có thể xóa luôn
+            //     //Xóa luôn video trên server
 	        //     $json_video = json_decode($video->url_video, true);
 	        //     if (count($json_video) > 0) {
 	        //         foreach ($json_video as $path_video) {
@@ -350,10 +350,10 @@ class VideoController extends Controller
             //     $video->delete();
             //     return response()->json([
             //         'status' => '200',
-            //         'message' => 'Xoá video bài giảng thành công!'
+            //         'message' => 'Xóa video bài giảng thành công!'
             //     ]);
             // }
-            if($video->state == Config::get('app.video_waiting')){  // Nếu đang chờ duyệt thì có thể xoá luôn
+            if($video->state == Config::get('app.video_waiting')){  // Nếu đang chờ duyệt thì có thể xóa luôn
                 // Xoa documents
                 $documents = Document::where('video_id', $video->id)->get();
                 if ( $documents->count() > 0 ){
@@ -364,7 +364,7 @@ class VideoController extends Controller
                         $document->delete();
                     }
                 }
-                //Xoá luôn video trên server
+                //Xóa luôn video trên server
                 $path_video = public_path('uploads/videos/'.$video->link_video);
                 if(\File::exists($path_video)) {
                     \File::delete($path_video);
@@ -372,22 +372,22 @@ class VideoController extends Controller
                 $video->delete();
                 return response()->json([
                     'status' => '200',
-                    'message' => 'Xoá video bài giảng thành công.'
+                    'message' => 'Xóa video bài giảng thành công.'
                 ]);
             }
 
             if($video->state == Config::get('app.video_active')){
                 // $unit = $video->unit;
                 // $course = $unit->course;
-                $video->state = Config::get('app.video_waiting_to_delete'); //Đang được admin duyệt để xoá
+                $video->state = Config::get('app.video_waiting_to_delete'); //Đang được admin duyệt để xóa
                 $video->save();
 
                 return response()->json([
 	                'status' => '200',
-	                'message' => 'Yêu cầu xoá video đã được gửi.'
+	                'message' => 'Yêu cầu xóa video đã được gửi.'
 	            ]);
 
-                //Xoá luôn video trên server
+                //Xóa luôn video trên server
 	            // if (count($json_video) > 0) {
 	            //     foreach ($json_video as $path_video) {
 	            //         if(\File::exists($path_video)) {
@@ -396,7 +396,7 @@ class VideoController extends Controller
 	            //     }
                 // }
 
-                // DuongNT // Xoá trong bảng usercourse phần tử đại diện video đã xem
+                // DuongNT // Xóa trong bảng usercourse phần tử đại diện video đã xem
                 // $unit = $video->unit;
                 // $course = $video->unit->course;
                 // $user_roles = $course->userRoles()->get()->all();
@@ -1021,7 +1021,7 @@ class VideoController extends Controller
                 $document->delete();
             }
         }
-        //Xoá luôn video
+        //Xóa luôn video
         $path_video = public_path('uploads/videos/'.$video->link_video);
         if(\File::exists($path_video)) {
             \File::delete($path_video);
@@ -1033,7 +1033,7 @@ class VideoController extends Controller
         $video->delete();
         return response()->json([
             'status' => '200',
-            'message' => 'Xoá video bài giảng thành công.'
+            'message' => 'Xóa video bài giảng thành công.'
         ]);
     }
 
@@ -1053,7 +1053,7 @@ class VideoController extends Controller
                         $document->delete();
                     }
                 }
-                //Xoá luôn video
+                //Xóa luôn video
                 $path_video = public_path('uploads/videos/'.$video->link_video);
                 if(\File::exists($path_video)) {
                     \File::delete($path_video);
@@ -1067,7 +1067,7 @@ class VideoController extends Controller
         }
         return response()->json([
             'status' => '200',
-            'message' => 'Xoá video bài giảng thành công.'
+            'message' => 'Xóa video bài giảng thành công.'
         ]);
     }
 
