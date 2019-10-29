@@ -2074,6 +2074,16 @@
     .banner{
         margin-bottom: 8em;
     }
+    .become-teacher .ads-teacher {
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
+    .become-teacher {
+        margin: 0;
+    }
+    .top-course .nav.nav-tabs li a, .top-course .nav.nav-tabs li.active a {
+        padding: 12px 15px;
+    }
 }
 
 @media all and (max-width: 380px) {
