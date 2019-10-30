@@ -313,7 +313,7 @@ class Helper
     }
 
     // send alert to user
-    public static function addAlertCustomize($userToSend, $content = null, $title = null){
+    public static function addAlertCustomize($userToSend, $title = null, $content = null){
         $user_email  = new UserEmail;
         $user_email->user_id = $userToSend->id;
         $user_email->email_id = 0;
