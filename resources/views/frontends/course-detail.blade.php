@@ -85,10 +85,6 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                         </div>
                         </div>
                     </div>
-                    <script>
-                        btn_share_pd_top = document.getElementById('boxTitleCourse').offsetHeight/2 - 33/2
-                        $('.btn-facebook-share').css('margin-top', btn_share_pd_top)
-                    </script>
                     <div class="clearfix"></div>
                     <div class="top-box-course-detail">
                         <div class="teacher-of-course">
@@ -1317,5 +1313,8 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
             $('.number-in-cart').text(number_items_in_cart.length);
         }
     }
+    $(document).ready(function() {
+        $('.detail-course .frame .network-reponsive').css('margin-top',($('.detail-course .frame .info').height() - $('.detail-course .frame .network-reponsive').height())/2)
+    })
 </script>
 @endsection
