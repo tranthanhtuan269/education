@@ -953,7 +953,7 @@
     <script>
     
     $( document ).ready(function() {
-        if(document.body.scrollHeight < 1000){
+        if(document.body.scrollHeight <= 1080){
             var x = document.body.scrollHeight;
             var y = $('header').height();
             var z = $('footer').height();

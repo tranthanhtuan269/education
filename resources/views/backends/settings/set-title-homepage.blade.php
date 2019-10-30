@@ -34,7 +34,7 @@
     $(document).ready(function(){
         $("#btn-confirm").click(function(){
             // var title = $('#titleHomepage').val()
-            var title = CKEDITOR.instances['titleHomepage'].getData();
+            var title = CKEDITOR.instances['titleHomepage'].getData().trim();
 
             if ( title.length > 150 ){
                 Swal.fire({

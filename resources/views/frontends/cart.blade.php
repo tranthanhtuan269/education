@@ -1,12 +1,18 @@
 @extends('frontends.layouts.app')
+@section('title')
+Giỏ hàng của tôi
+@stop
 @section('content')
-<div class="cart-banner jumbotron">
-    <div class="container" style="display:flex;">
-        <div class="col-sm-offset-1">
+<div class="cart-banner">
+    <div class="container">
+        {{-- <div class="col-sm-offset-1">
             <img src="/frontend/images/ic_cart.png" alt="image cart" style="width: 6em !important;">
-        </div>
+        </div> --}}
         <div class="cart-banner-title">
-            <div>GIỎ HÀNG <br>CỦA TÔI</div>
+            <div class="box-cart-title">
+                <i class="fas fa-shopping-cart fa-fw fa-3x"></i>
+                <h1>Giỏ hàng<br>của tôi</h1>
+            </div>
         </div>
     </div>
 </div>
@@ -64,7 +70,7 @@
     </div>
     <div class="cart-page-empty">
         <div class="container text-center">
-            <img src="/frontend/images/tab_cart.png" alt="" style="width: 10vw;">
+            <img src="/frontend/images/tab_cart.png" alt="" style="width: 135px;">
             <div>
                 Giỏ hàng trống. Hãy xem thêm các khóa học khác!
             </div>
@@ -472,6 +478,9 @@
                 })
             }
         }
+
+        // Vertical center Cart empty
+        $('.cart-page-empty').css('margin-top', (document.body.scrollHeight - $('header').height() - $('footer').height() - $('.cart-banner').height() - $('.cart-page-empty').height())/2)
     })
     
 </script>
