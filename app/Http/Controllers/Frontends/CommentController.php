@@ -62,9 +62,9 @@ class CommentController extends Controller
             if (isset($request->parentId)) {
                 $commentVideo->parent_id = $request->parentId;
                 if($request->parentId != 0){
-                    \App\Helper\Helper::addAlert($video->unit->course->Lecturers()[0]->user, "app.email_save_comment");
+                    \App\Helper\Helper::addAlertCustomize($video->unit->course->Lecturers()[0]->user, "Bài giảng " . $video->name . " có một thảo luận mới", "Bài giảng <a href='" . url('/') . "/learning-page/" . $video->unit->course->id . "/lecture/" . $video->id . "'>" . $video->name . "</a> vừa có một thảo luận mới");
                 }else{
-                    \App\Helper\Helper::addAlert($commentVideo->userRole->user, "app.email_save_comment");
+                    \App\Helper\Helper::addAlertCustomize($commentVideo->parent()->userRole->user, "Bài giảng " . $video->name . " có một thảo luận mới", "Bài giảng <a href='" . url('/') . "/learning-page/" . $video->unit->course->id . "/lecture/" . $video->id . "'>" . $video->name . "</a> vừa có một thảo luận mới");
                 }
             }
             $commentVideo->save();
@@ -125,7 +125,7 @@ class CommentController extends Controller
                 $course->vote_count += 1;
                 $course->save();
 
-                \App\Helper\Helper::addAlert($course->Lecturers()[0]->user, "app.email_vote_course");
+                \App\Helper\Helper::addAlertCustomize($course->Lecturers()[0]->user, "Khóa học " . $course->name . " vừa có một đánh giá mới", "Khóa học <a href='" . url('/') . "/course/" . $course->id . "/" . $course->slug . "'>" . $course->name . "</a> vừa có một học viên đánh giá");
                 return \Response::json(array('status' => '201', 'message' => 'Cập nhật thông tin thành công!', 'commentCourse' => fractal($commentCourse, new CommentCourseTransformer())->toArray(), 'course' => $course));
             }else{
                 return \Response::json(array('status' => '200', 'message' => 'Bạn chỉ được gửi nhận xét một lần cho mỗi khóa học!'));
@@ -271,7 +271,7 @@ class CommentController extends Controller
                 $commentCourse->score = 0;
                 $commentCourse->state = 0;
                 $commentCourse->save();
-                \App\Helper\Helper::addAlert($comment->userRole->user, "app.email_reply_comment");
+                \App\Helper\Helper::addAlertCustomize($comment->userRole->user, "Khóa học " . $comment->course->name . " vừa có một đánh giá mới", "Đánh giá của bạn tại khóa học <a href='" . url('/') . "/course/" . $comment->course->id . "/" . $comment->course->slug . "'>" . $comment->course->name . "</a> vừa có một trả lời");
 
                 return \Response::json(array('status' => '200', 'message' => 'Cập nhật thông tin thành công!', 'commentCourse' => fractal($commentCourse, new CommentCourseTransformer())->toArray()));
             }
@@ -284,7 +284,7 @@ class CommentController extends Controller
             $commentCourse->state = 0;
             $commentCourse->save();
 
-            \App\Helper\Helper::addAlert($comment->userRole->user, "app.email_reply_comment");
+            \App\Helper\Helper::addAlertCustomize($comment->userRole->user, "Khóa học " . $comment->course->name . " vừa có một đánh giá mới", "Đánh giá của bạn tại khóa học <a href='" . url('/') . "/course/" . $comment->course->id . "/" . $comment->course->slug . "'>" . $comment->course->name . "</a> vừa có một trả lời");
 
             return \Response::json(array('status' => '200', 'message' => 'Cập nhật thông tin thành công!', 'commentCourse' => fractal($commentCourse, new CommentCourseTransformer())->toArray()));
         }
