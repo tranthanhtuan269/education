@@ -12,7 +12,7 @@
     <br>
     <div style="line-height: 2">{!!$mailContent!!}</div>
     <br>
-    <p style="padding-left:15px">Trân trọng!</p>
+    <p>Trân trọng!</p>
     <p><b>Courdemy Team</b></p>
 </body>
 </html>
