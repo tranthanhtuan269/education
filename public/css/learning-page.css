@@ -95,16 +95,17 @@ body{
 }
 .lecture-subtitle{
     float: right;
-    margin-right: 5em;
+    margin-right: 1em;
+    margin-top:1em;
     display: inline-flex;
 }
 .lecture-subtitle a:hover{
     text-decoration: none;
 }
 .lecture-subtitle p{
-    text-decoration: none;
+    text-decoration: underline;
     color: #ffffff;
-    font-size: 1.5vw;
+    font-size: 1vw;
 }
 
 .learning-lecture-list{
@@ -355,12 +356,16 @@ body{
     /* padding: 15px 2rem; */
     padding: 0.5rem 1rem;
 }
-.ln-lect-list-body li a:hover{
+.ln-lect-list-body li:hover a{
     text-decoration: none;
+}
+.ln-lect-list-body li:hover a span{
+    text-decoration: none;
+    color:#fff;
 }
 .ln-lect-list-body li:hover{
     cursor: pointer;
-    background: #f2f3f5;
+    background: #4986ff;
 }
 .ln-lect-list-body li .active{
     background-color: lightblue;
@@ -862,4 +867,20 @@ body{
 .ln-list-found div{
     font-size: 11px;
     color: #686F7A;
+}
+
+.fa-stack-2x.video_viewed{
+    color: rgb(68, 185, 0);
+}
+
+.fa-stack-1x.video_viewed{
+    color: rgb(255, 255, 255);
+}
+
+.fa-stack-2x.video_not_viewed{
+    color: rgb(200, 201, 202);
+}
+
+.fa-stack-1x.video_not_viewed{
+    color: rgb(200, 201, 202);
 }

@@ -77,7 +77,7 @@
                 </div>
                 @if (isset($btn_start_learning))
                 <div class="text-center">
-                    <div data-courseid="{{$courseId}}" data-learningid="{{$learningId}}" class="btn btn-primary btn-sm btn-start-learning">Tiếp tục học</div>
+                    <div data-courseid="{{$courseId}}" data-courseslug="{{$course->slug}}" data-learningid="{{$learningId}}" class="btn btn-primary btn-sm btn-start-learning">Tiếp tục học</div>
                     <script>
                         $(document).ready(function () {
                             $('.btn.btn-primary.btn-sm.btn-start-learning').click(function (e) {
@@ -85,6 +85,7 @@
                               e.preventDefault()
 
                               const course_id = $(this).attr('data-courseid')
+                              const course_slug = $(this).attr('data-courseslug')
                               const learning_id = $(this).attr('data-learningid')
                               
                               $.ajaxSetup({
@@ -100,7 +101,7 @@
                                   },
                                   dataType: "json",
                                   success: function () {
-                                      window.location.href = ("/learning-page/"+ course_id +"/lecture/"+ learning_id)
+                                      window.location.href = ("/learning-page/"+ course_id +"/"+ course_slug)
                                   },
                                   error: function () {
   

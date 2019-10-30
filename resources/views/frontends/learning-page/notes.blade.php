@@ -79,7 +79,7 @@
                 url: "{{ url('notes/store') }}",
                 method: "POST",
                 data: {
-                    videoId: {{ $main_video->id }},
+                    videoId: localStorage.getItem("indexCurrentVideo"),
                     content: noteEditor.getData(),
                     timeTick: currentTime
                 },
