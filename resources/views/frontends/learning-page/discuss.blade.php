@@ -133,7 +133,7 @@
                 url: "{{ url('comments/store') }}",
                 method: "POST",
                 data: {
-                    videoId: {{ $main_video->id }},
+                    videoId: localStorage.getItem("indexCurrentVideo"),
                     content: discussEditor.getData(),
                     type : "discussionComment",
                 },
@@ -224,7 +224,7 @@
                 url: "{{ url('comments/store') }}",
                 method: "POST",
                 data: {
-                    videoId: {{ $main_video->id }},
+                    videoId: localStorage.getItem("indexCurrentVideo"),
                     content: $('input[data-child="'+parentId+'"]').val(),
                     type : "discussionComment",
                     parentId : parentId,

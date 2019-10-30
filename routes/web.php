@@ -342,6 +342,8 @@ Route::get('affiliate', 'Frontends\HomeController@affiliatePage');
 
 
 Route::group(['middleware' => 'auth'], function () {
+    Route::get('/videos/getNote', 'Frontends\NoteController@getNote')->name('videos.getNote');
+    Route::get('/videos/getDocument', 'Frontends\CommentController@getDocument')->name('videos.getDocument');
     Route::get('/videos/getDiscussion', 'Frontends\CommentController@getDiscussion')->name('videos.getDiscussion');
     Route::get('/learning-page/{courseId}', 'Frontends\VideoPlayerController@show')->name('videoplayer.show');
     Route::get('/learning-page/{courseId}/{slug}', 'Frontends\VideoPlayerController@show')->name('videoplayer.show');

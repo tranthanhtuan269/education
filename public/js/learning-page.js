@@ -7,7 +7,7 @@ let isAutoplay;
 if(localStorage.getItem('autoplay') != null){
     isAutoplay = localStorage.getItem('autoplay')
 }else{
-    localStorage.setItem('autoplay', 'false')
+    localStorage.setItem('autoplay', false)
     isAutoplay = localStorage.getItem('autoplay')
 }
 
@@ -15,19 +15,19 @@ $(document).ready(function () {
     //Check browser có phải là firefox hay không để hiện thông báo
     
 
-    // Set up the player
-    var isPlayerAutoplay = false
-    if(isAutoplay == null){
-        $(".ln-btn-autoplay").prepend("<i class='fas fa-toggle-off'></i>")
-    }else if(isAutoplay == "true"){
-        isPlayerAutoplay = true
-        $(".ln-btn-autoplay").prepend("<i class='fas fa-toggle-on'></i>")
-        $(".learning-desc-panel").hide()
-
-    }else if(isAutoplay == "false"){
-        isPlayerAutoplay = false
-        $(".ln-btn-autoplay").prepend("<i class='fas fa-toggle-off'></i>")
+    var options = {
+        controls: true,
+        preload: 'auto',
+        autoplay : isAutoplay,
+        controlBar: {
+            volumePanel: { inline: false }
+        },
+        playbackRates: [0.5, 1, 1.5, 2]
     }
+    var player = videojs('my-video', options)
+
+    // Set up the player
+    settingView();
 
 
     $(".ln-btn-autoplay").click(function () {
@@ -52,17 +52,6 @@ $(document).ready(function () {
         }
     })
 
-    var options = {
-        controls: true,
-        preload: 'auto',
-        autoplay : isPlayerAutoplay,
-        controlBar: {
-            volumePanel: { inline: false }
-        },
-        playbackRates: [0.5, 1, 1.5, 2]
-    }
-    var player = videojs('my-video', options)
-
     initPlay();
     function initPlay(){
         prePlay(360);
@@ -78,6 +67,7 @@ $(document).ready(function () {
         prePlay(360);
         player.load();
         player.pause();
+        settingView();
         $(".learning-desc-panel").fadeIn()
     }
 
@@ -139,6 +129,7 @@ $(document).ready(function () {
             }
         }
         player.src(source)
+        player.pause()
     }
 
 	function MeasureConnectionSpeed() {
@@ -263,6 +254,7 @@ $(document).ready(function () {
         e.stopPropagation()
         e.preventDefault()
 
+        $(".vjs-custom-big-play-button").fadeOut()
         var video_id = $(this).attr("data-parent")
         localStorage.setItem("indexCurrentVideo", video_id);
 
@@ -305,6 +297,10 @@ $(document).ready(function () {
 
                 $('.ln-desc-title').html('<p>' + video_name + '</p>');
                 $('.ln-desc-subtitle').html('<p>' + video_info + '</p>');
+
+                player.pause();
+
+                settingView();
             })
         }else{
             window.location.href = ("/learning-page/"+ course_id +"/lecture/"+ video_id)
@@ -408,6 +404,7 @@ $(document).ready(function () {
     $('#btnContinue').click(function (e) {
         e.preventDefault()
         e.stopPropagation()
+        $(".vjs-custom-big-play-button").fadeOut()
         var current_video_id = localStorage.getItem("indexCurrentVideo");
         var video_id_index = null
         video_id_list.forEach(video_id => {
@@ -449,8 +446,27 @@ $(document).ready(function () {
             $('.ln-desc-title').html('<p>' + $('#listItem'+ video_id_list[video_id_index + 1]).attr('data-name') + '</p>');
             $('.ln-desc-subtitle').html('<p>' + video_info + '</p>');
             localStorage.setItem("indexCurrentVideo", video_id_list[video_id_index + 1])
+            
+            settingView();
         })
     })
+
+    function settingView(){
+        if(isAutoplay == null){
+            isAutoplay = false;
+            player.pause();
+            $(".ln-btn-autoplay").html("<i class='fas fa-toggle-off'></i><span>&nbsp;Tự động chạy</span>")
+        }else if(isAutoplay == "true"){
+            player.play();
+            $(".ln-btn-autoplay").html("<i class='fas fa-toggle-on'></i><span>&nbsp;Tự động chạy</span>")
+            $(".learning-desc-panel").hide()
+            $(".vjs-custom-big-play-button").fadeOut()
+            $(".learning-desc-panel").fadeOut()
+        }else if(isAutoplay == "false"){
+            player.pause();
+            $(".ln-btn-autoplay").html("<i class='fas fa-toggle-off'></i><span>&nbsp;Tự động chạy</span>")
+        }
+    }
 
     function seekTime(secs) {
         var seekingTime   = player.currentTime() + secs
@@ -546,7 +562,7 @@ $(document).ready(function () {
     function toggleDiscussion(){
         if(!$(".learning-discussion").hasClass('active')){
             // activeRightBar()
-            var video_id = $("body").attr("data-video-id");
+            var video_id = localStorage.getItem("indexCurrentVideo");
 
             $.ajaxSetup({
                 headers: {
@@ -654,6 +670,7 @@ $(document).ready(function () {
             $(".learning-notes").removeClass("active")
             $(".learning-discussion").removeClass("active")
             $(".learning-lecture-list").removeClass('active')
+            loadDocumentOfCurrentVideo();
         } else {
             unActiveRightBar()
             $(".learning-files").removeClass("active")
@@ -663,6 +680,7 @@ $(document).ready(function () {
 
     function toggleNotes() {
         if(!$(".learning-notes").hasClass('active')){
+            loadNoteOfCurrentVideo()
             player.pause()
             // activeRightBar()
             $(".learning-notes").addClass("active")
@@ -672,8 +690,96 @@ $(document).ready(function () {
         } else {
             unActiveRightBar()
             $(".learning-notes").removeClass("active")
-
         }
+    }
+
+    function loadDocumentOfCurrentVideo(){
+        var currentVideo = localStorage.getItem("indexCurrentVideo");
+        // get note of video
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        request = $.ajax({
+            method: 'GET',
+            url: "/videos/getDocument",
+            data: {
+                'video_id': currentVideo
+            },
+            dataType: "json",
+            success: function (response) {
+                if(response.status == 200){
+                    console.log(response)
+                    var html = '';
+                    $.each(response.documentVideos, function( index, value ) {
+                        var title = value.title
+                        var url_document = value.url_document
+                        html += '<div class="ln-files-wrapper">';
+                        html += '<div>';
+                        html += '<a href="/uploads/files/'+url_document+'" target="_blank">';
+                        html += '<p>';
+                        html += '<i class="fas fa-link"></i>&nbsp;';
+                        html += title;
+                        html += '</p>';
+                        html += '</a>';
+                        html += '</div>';
+                        html += '</div>';
+                        
+                    });
+
+                    $('.ln-files-list').html(html);
+                }
+            },
+            error: function () {
+
+            }
+        });
+    }
+
+
+    function loadNoteOfCurrentVideo(){
+        var currentVideo = localStorage.getItem("indexCurrentVideo");
+        // get note of video
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        request = $.ajax({
+            method: 'GET',
+            url: "/videos/getNote",
+            data: {
+                'video_id': currentVideo
+            },
+            dataType: "json",
+            success: function (response) {
+                if(response.status == 200){
+                    var html = '';
+                    $.each(response.noteVideo.data, function( index, value ) {
+                        var content = value.content
+                        var created_at = value.created_at
+                        var time_tick = value.timeTick
+
+                        html += '<div class="ln-notes-wrapper">';
+                        html += '<div>';
+                        html += '<p></p><p>'+content+'</p>';
+                        html += '<p></p>';
+                        html += '<div>';
+                        html += '<span style="font-size: smaller;"><strong>'+time_tick+'</strong></span>';
+                        html += '<span style="font-size: smaller;"><i>'+created_at+'</i></span>';
+                        html += '</div>';
+                        html += '</div>';
+                        html += '</div>';
+                    });
+
+                    $('.ln-notes-list').html(html);
+                }
+            },
+            error: function () {
+
+            }
+        });
     }
 
     function activeRightBar(){
