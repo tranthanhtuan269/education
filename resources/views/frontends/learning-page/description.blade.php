@@ -1,3 +1,11 @@
+<?php 
+$i = 0;
+foreach ($notes as $key => $note) {
+    # code...
+    $i++;
+}
+// dd($i);
+?>
 <div class="learning-desc-panel ">
     <div class="learning-desc-panel-body align-items-center leftbarActive">
         <div class="ln-desc-title">
@@ -64,8 +72,8 @@
                     <span>&nbsp;Máy chủ video</span>
                 </div> --}}
                 <div class="btn ln-btn-note" data-toggle='tooltip' data-placement='top' title='Ghi chú'>
-                    <i class="fas fa-sticky-note"></i>
-                    <span>&nbsp;Ghi chú</span>
+                <i class="fas fa-sticky-note"></i><span class="note-count">{{$notes->count()}}</span>
+                    <span class="note">&nbsp;Ghi chú</span>
                 </div>
                 <div class="btn ln-btn-discuss" data-toggle='tooltip' data-placement='top' title='Thảo luận'>
                     <i class="fas fa-comments"></i>
@@ -88,6 +96,21 @@
         </div>
     </div>
 </div>
+<style>
+    .ln-btn-note .note-count{
+        background-color: #FF8F00;
+        border-radius: 50%;
+        font-size: 10px;
+        position: absolute;
+        top: -2px;
+        font-weight: bold;
+        width: 15px;
+        height: 15px;
+    }
+    .ln-btn-note .note{
+        margin-left: 10px;
+    }
+</style>
 <script>
     $(document).ready(function (){
         $('#lnDescBtnNotViewed').on('click', function(e){
