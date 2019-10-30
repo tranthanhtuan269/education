@@ -8,10 +8,11 @@
 </head>
 <body>
     {{-- <h3 style="color: orange">{{$mailSubject}}</h3> --}}
-    <h3>Chào {{$userName}},</h3>
-    <div>{!!$mailContent!!}</div>
-    
-    <p>Cảm ơn bạn,</p>
-    <p>Courdemy</p>
+    <div>Xin chào <b>{{$userName}}</b></div>
+    <br>
+    <div style="line-height: 2">{!!$mailContent!!}</div>
+    <br>
+    <p style="padding-left:15px">Trân trọng!</p>
+    <p><b>Courdemy Team</b></p>
 </body>
 </html>
