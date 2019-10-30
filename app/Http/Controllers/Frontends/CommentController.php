@@ -6,6 +6,7 @@ use Auth;
 use App\Video;
 use App\Course;
 use App\Teacher;
+use App\Document;
 use App\CommentLike;
 use App\CommentVideo;
 use App\RatingCourse;
@@ -35,6 +36,15 @@ class CommentController extends Controller
             ->parseIncludes(['children'])
             ->transformWith(new CommentVideoTransformer)
             ->toArray()));
+        }
+        return \Response::json(array('status' => '404', 'message' => 'Khóa học không tồn tại!'));
+    }
+
+    public function getDocument(Request $request)
+    {
+        if($request->video_id){
+            $document_videos = Document::where('video_id', $request->video_id)->get();
+            return \Response::json(array('status' => '200', 'message' => 'Lấy thảo luận thành công!', 'documentVideos' => $document_videos->toArray()));
         }
         return \Response::json(array('status' => '404', 'message' => 'Khóa học không tồn tại!'));
     }

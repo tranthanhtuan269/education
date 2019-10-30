@@ -11,7 +11,7 @@
         </div> --}}
         @if ($isStudent)
         <div class="ln-desc-achv">
-            <p>Đã hoàn thành {{$video_done_count}} trên {{$video_count}} bài học</p>
+            <p>Đã hoàn thành <strong id="viewed_count">{{$video_done_count}}</strong> trên <strong id="videos_count">{{$video_count}}</strong> bài học</p>
             <div class="ln-progress-bar">
                 <div class="progress lecture-progress" style="width: 30vw">
                     <div class="progress-bar progress-bar-success" role="progressbar" style="width: {{$video_done_percent}}%" aria-valuenow="{{$video_done_percent}}" aria-valuemin="0" aria-valuemax="100"></div>
@@ -39,6 +39,8 @@
         <br>
         <div class="ln-desc-btn-play">
             <button class="btn btn-warning" id="lnDescBtnPlay" title='Chạy bài giảng'><i class="fas fa-play-circle"></i> Chạy bài giảng</button>
+            <button class="btn btn-warning" id="lnDescBtnNotViewed" title='Chưa xem'><i class="fas fa-eye-slash"></i> Đánh dấu chưa xem</button>
+            <button class="btn btn-warning" id="lnDescBtnViewed" title='Đã xem' style="display:none"><i class="fas fa-eye"></i> Đánh dấu đã xem</button>
         </div>
     </div>
 
@@ -88,17 +90,10 @@
 </div>
 <script>
     $(document).ready(function (){
-        
-        $('#lnDescBtnNext').on('click', function(e){
+        $('#lnDescBtnNotViewed').on('click', function(e){
             e.preventDefault()
             e.stopPropagation()
-            var video_id_index = null
-            video_id_list.forEach(video_id => {
-                if(video_id == {{$main_video->id}}){
-                    video_id_index = video_id_list.indexOf(video_id)
-                    return 
-                }
-            });
+            var video_id_index = localStorage.getItem("indexCurrentVideo")
 
             $.ajaxSetup({
                 headers: {
@@ -107,28 +102,28 @@
             });
             var request = $.ajax({
                 method: 'POST',
-                url: "/user-course/update-watched",
+                url: "/user-course/update-not-watched",
                 data: {
-                    'video_id' : video_id_list[video_id_index + 1]
+                    'video_id' : video_id_index
                 },
                 dataType: "json",
             });
             request.done(function(){
-                // alert("/learning-page/"+course_id+"/lecture/"+video_id_list[video_id_index + 1]+"")
-                window.location.href = ("/learning-page/"+course_id+"/lecture/"+video_id_list[video_id_index + 1]+"")
+                $("#viewed_count").html(parseInt($("#viewed_count").html()) - 1)
+                $(".progress-bar-success").css('width', parseInt($("#viewed_count").html() / $("#videos_count").html() * 100) + "%");
+                $('#lnDescBtnViewed').show()
+                $('#lnDescBtnNotViewed').hide()
+                $('#lnBtnComplete' + video_id_index + ' .fa-stack-2x').addClass('video_not_viewed').removeClass('video_viewed');
+                $('#lnBtnComplete' + video_id_index + ' .fa-stack-1x').addClass('video_not_viewed').removeClass('video_viewed');
+                $('#lnBtnComplete' + video_id_index).attr('id', 'lnBtnNotComplete'+ video_id_index);
             })
         })
 
-        $('#lnDescBtnPrevious').on('click', function(e){
+        $('#lnDescBtnViewed').on('click', function(e){
             e.preventDefault()
             e.stopPropagation()
-            var video_id_index = null
-            video_id_list.forEach(video_id => {
-                if(video_id == {{$main_video->id}}){
-                    video_id_index = video_id_list.indexOf(video_id)
-                    return 
-                }
-            });
+            var sefl = this;
+            var video_id_index = localStorage.getItem("indexCurrentVideo")
 
             $.ajaxSetup({
                 headers: {
@@ -139,13 +134,18 @@
                 method: 'POST',
                 url: "/user-course/update-watched",
                 data: {
-                    'video_id' : video_id_list[video_id_index - 1]
+                    'video_id' : video_id_index
                 },
                 dataType: "json",
             });
             request.done(function(){
-                // alert("/learning-page/"+course_id+"/lecture/"+video_id_list[video_id_index + 1]+"")
-                window.location.href = ("/learning-page/"+course_id+"/lecture/"+video_id_list[video_id_index - 1 ]+"")
+                $("#viewed_count").html(parseInt($("#viewed_count").html()) + 1)
+                $(".progress-bar-success").css('width', parseInt($("#viewed_count").html() / $("#videos_count").html() * 100) + "%");
+                $('#lnDescBtnViewed').hide()
+                $('#lnDescBtnNotViewed').show()
+                $('#lnBtnNotComplete' + video_id_index).find('.fa-stack-2x').removeClass('video_not_viewed').addClass('video_viewed');
+                $('#lnBtnNotComplete' + video_id_index).find('.fa-stack-1x').removeClass('video_not_viewed').addClass('video_viewed');
+                $('#lnBtnNotComplete' + video_id_index).attr('id', 'lnBtnComplete'+ video_id_index);
             })
         })
     })
