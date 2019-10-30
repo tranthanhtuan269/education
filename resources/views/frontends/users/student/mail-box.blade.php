@@ -65,6 +65,7 @@
                 },
                 {
                     data: "title",
+                    type: "html",
                     render: (data, type, row) => {
                         return `<a href="javascript:void(0)" class="content-mailbox" title="Detail" data-useremailid="${row.user_email_id}" data-value="${row.content}">${row.title}</a>`;
                     },
