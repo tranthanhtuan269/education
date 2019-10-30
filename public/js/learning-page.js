@@ -7,7 +7,7 @@ let isAutoplay;
 if(localStorage.getItem('autoplay') != null){
     isAutoplay = localStorage.getItem('autoplay')
 }else{
-    localStorage.setItem('autoplay', false)
+    localStorage.setItem('autoplay', 'false')
     isAutoplay = localStorage.getItem('autoplay')
 }
 
@@ -15,19 +15,19 @@ $(document).ready(function () {
     //Check browser có phải là firefox hay không để hiện thông báo
     
 
-    var options = {
-        controls: true,
-        preload: 'auto',
-        autoplay : isAutoplay,
-        controlBar: {
-            volumePanel: { inline: false }
-        },
-        playbackRates: [0.5, 1, 1.5, 2]
-    }
-    var player = videojs('my-video', options)
-
     // Set up the player
-    settingView();
+    var isPlayerAutoplay = false
+    if(isAutoplay == null){
+        $(".ln-btn-autoplay").prepend("<i class='fas fa-toggle-off'></i>")
+    }else if(isAutoplay == "true"){
+        isPlayerAutoplay = true
+        $(".ln-btn-autoplay").prepend("<i class='fas fa-toggle-on'></i>")
+        $(".learning-desc-panel").hide()
+
+    }else if(isAutoplay == "false"){
+        isPlayerAutoplay = false
+        $(".ln-btn-autoplay").prepend("<i class='fas fa-toggle-off'></i>")
+    }
 
 
     $(".ln-btn-autoplay").click(function () {
@@ -52,6 +52,17 @@ $(document).ready(function () {
         }
     })
 
+    var options = {
+        controls: true,
+        preload: 'auto',
+        autoplay : isPlayerAutoplay,
+        controlBar: {
+            volumePanel: { inline: false }
+        },
+        playbackRates: [0.5, 1, 1.5, 2]
+    }
+    var player = videojs('my-video', options)
+
     initPlay();
     function initPlay(){
         prePlay(360);
@@ -67,7 +78,6 @@ $(document).ready(function () {
         prePlay(360);
         player.load();
         player.pause();
-        settingView();
         $(".learning-desc-panel").fadeIn()
     }
 
@@ -129,7 +139,6 @@ $(document).ready(function () {
             }
         }
         player.src(source)
-        player.pause()
     }
 
 	function MeasureConnectionSpeed() {
@@ -191,13 +200,13 @@ $(document).ready(function () {
         
     });
     $(document).on('click',"#btnAutoplay", function(){
-        if(localStorage.getItem('autoplay') == "true"){
+        if(localStorage.getItem('autoplay') == true){
             localStorage.setItem('autoplay', false)
             isAutoplay = false;
             $("#btnAutoplay").removeClass("fa-toggle-on")
             $("#btnAutoplay").addClass("fa-toggle-off")
             // alert(1)
-        }else if(localStorage.getItem('autoplay') == "false"){
+        }else if(localStorage.getItem('autoplay') == false){
             localStorage.setItem('autoplay', true)
             isAutoplay = true;
             $("#btnAutoplay").removeClass("fa-toggle-off")
@@ -297,10 +306,6 @@ $(document).ready(function () {
 
                 $('.ln-desc-title').html('<p>' + video_name + '</p>');
                 $('.ln-desc-subtitle').html('<p>' + video_info + '</p>');
-
-                player.pause();
-
-                settingView();
             })
         }else{
             window.location.href = ("/learning-page/"+ course_id +"/lecture/"+ video_id)
@@ -446,27 +451,8 @@ $(document).ready(function () {
             $('.ln-desc-title').html('<p>' + $('#listItem'+ video_id_list[video_id_index + 1]).attr('data-name') + '</p>');
             $('.ln-desc-subtitle').html('<p>' + video_info + '</p>');
             localStorage.setItem("indexCurrentVideo", video_id_list[video_id_index + 1])
-            
-            settingView();
         })
     })
-
-    function settingView(){
-        if(isAutoplay == null){
-            isAutoplay = false;
-            player.pause();
-            $(".ln-btn-autoplay").html("<i class='fas fa-toggle-off'></i><span>&nbsp;Tự động chạy</span>")
-        }else if(isAutoplay == "true"){
-            player.play();
-            $(".ln-btn-autoplay").html("<i class='fas fa-toggle-on'></i><span>&nbsp;Tự động chạy</span>")
-            $(".learning-desc-panel").hide()
-            $(".vjs-custom-big-play-button").fadeOut()
-            $(".learning-desc-panel").fadeOut()
-        }else if(isAutoplay == "false"){
-            player.pause();
-            $(".ln-btn-autoplay").html("<i class='fas fa-toggle-off'></i><span>&nbsp;Tự động chạy</span>")
-        }
-    }
 
     function seekTime(secs) {
         var seekingTime   = player.currentTime() + secs
