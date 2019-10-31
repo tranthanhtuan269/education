@@ -348,6 +348,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('reports/store', 'Frontends\ReportController@store')->name('reportsVideo.store');
     Route::post('user-course/update-watched', 'Frontends\VideoPlayerController@updateWatched');
     Route::post('user-course/update-not-watched', 'Frontends\VideoPlayerController@updateNotWatched');
+    Route::get('user-course/get-info-course', 'Frontends\VideoPlayerController@getInfoCourse');
     Route::get('user/logout', 'Frontends\UserController@logout')->name('logout');
 
     Route::post('comments/report','Frontends\CommentController@reportComment');

@@ -47,8 +47,10 @@ foreach ($notes as $key => $note) {
         <br>
         <div class="ln-desc-btn-play">
             <button class="btn btn-warning" id="lnDescBtnPlay" title='Chạy bài giảng'><i class="fas fa-play-circle"></i> Chạy bài giảng</button>
+            @if(!(Auth::user()->isAdmin() || $main_video->unit->course->Lecturers()[0]->user->id == Auth::user()->id))
             <button class="btn btn-warning" id="lnDescBtnNotViewed" title='Chưa xem'><i class="fas fa-eye-slash"></i> Đánh dấu chưa xem</button>
             <button class="btn btn-warning" id="lnDescBtnViewed" title='Đã xem' style="display:none"><i class="fas fa-eye"></i> Đánh dấu đã xem</button>
+            @endif
         </div>
     </div>
 
