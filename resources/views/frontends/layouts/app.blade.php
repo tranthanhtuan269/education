@@ -67,8 +67,78 @@
     </div> --}}
 
     <header>
+        @if (\App\Helper::isMobile())
+            <div id="menu-container">
+                <ul class="menu-list accordion">
+                    @foreach($category_fixed as $cat)
+                        @if(count($cat->childrenHavingCourse) > 0)
+                            <li class="toggle accordion-toggle"> 
+                                <span class="icon-plus"></span>
+                                <a class="menu-link" title="{!! $cat->name !!}" href="javascript:void(0)"><i class="fas {!! $cat->icon !!}"></i> {!! $cat->name !!}</a>
+                            </li>
+                            <ul class="menu-submenu accordion-content">
+                                @foreach($cat->childrenHavingCourse as $children)
+                                    @if($children->has('courses'))
+                                    <li><a class="head" href="{{ url('/') }}/category/{{ $children->slug }}">{!! $children->name !!}</a></li>
+                                    @endif
+                                @endforeach
+                            </ul>
+    
+                        @endif
+                    @endforeach
+                </ul>
+                <script>
+                    $(function() {
+                        function slideMenu() {
+                            var activeState = $("#menu-container .menu-list").hasClass("active");
+                            $("#menu-container .menu-list").animate({left: activeState ? "0%" : "-100%"}, 400);
+                        }
+                        $("#menu-wrapper").click(function(event) {
+                            event.stopPropagation();
+                            $("#hamburger-menu").toggleClass("open");
+                            $("#menu-container .menu-list").toggleClass("active");
+                            slideMenu();
+    
+                            $("body").toggleClass("overflow-hidden");
+                        });
+    
+                        $(".menu-list").find(".accordion-toggle").click(function() {
+                            $(this).next().toggleClass("open").slideToggle("fast");
+                            $(this).toggleClass("active-tab").find(".menu-link").toggleClass("active");
+    
+                            $(".menu-list .accordion-content").not($(this).next()).slideUp("fast").removeClass("open");
+                            $(".menu-list .accordion-toggle").not(jQuery(this)).removeClass("active-tab").find(".menu-link").removeClass("active");
+                        });
+                    });
+                </script>
+            </div>
+        @else
+            <nav id="mysidebarmenu" class="amazonmenu">
+                <ul>
+                    @foreach($category_fixed as $cat)
+                        @if(count($cat->childrenHavingCourse) > 0)
+                            <li>
+                                <a title="{!! $cat->name !!}" href="javascript:void(0)"><i class="fas {!! $cat->icon !!}"></i> {!! $cat->name !!}</a>
+                                <ul class="issub">
+                                        @foreach($cat->childrenHavingCourse as $children)
+                                            @if($children->has('courses'))
+                                            <li><a href="{{ url('/') }}/category/{{ $children->slug }}">{!! $children->name !!}</a></li>
+                                            @endif
+                                        @endforeach
+                                    </ul>
+                                </li>
+                        @endif
+                    @endforeach
+                </ul>
+            </nav>
+        @endif
+
         <div class="sm-mobile-menu hidden-lg hidden-md hidden-sm">
-            <div class="sm-navi-btn offcanvas-toggle js-offcanvas-has-events" data-toggle="offcanvas" data-target="#js-bootstrap-offcanvas"><i class="fa fa-bars" aria-hidden="true"></i></div>
+            <div class="sm-navi-btn offcanvas-toggle js-offcanvas-has-events" data-toggle="offcanvas" data-target="#js-bootstrap-offcanvas">
+                <div id="menu-wrapper">
+                    <div id="hamburger-menu"><i class="fa fa-bars" aria-hidden="true"></i></div>
+                </div>
+            </div>
             <div class="c_header__search-wrapper pull-left">
                 <button class="c_header__mobile-bt mobile-bt--search udi udi-search" data-toggle="collapse" data-target="#searchpanel">
                     <!-- <i class="ion-ios-search-strong"></i> -->
