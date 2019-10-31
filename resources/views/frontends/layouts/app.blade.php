@@ -199,6 +199,7 @@
                                             </div>
                                         </li>                                         --}}
                                         <li class="btn-group" style="float:left">
+                                            @if ( Auth::user()->registeredTeacher() )
                                             <a class="unica-cart unica-mail dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)">
                                                 <img src="{{ asset('frontend/images/tab_notifications.png') }}" alt="" style="width: 21px;" />
                                                 <span class="unica-sl-notify"><b></b></span>
@@ -211,6 +212,12 @@
                                                     <img src="{{ asset('frontend/images/tab_notifications.png') }}" alt="" style="width: 21px;" />
                                                     <span style="margin-left: 10px">Giảng viên</span></a></li>
                                             </ul>
+                                            @else
+                                            <a class="unica-cart unica-mail" href="/user/student/mail-box">
+                                                <img src="{{ asset('frontend/images/tab_notifications.png') }}" alt="" style="width: 21px;" />
+                                                <span class="unica-sl-notify"><b></b></span>
+                                            </a>
+                                            @endif
                                         </li>
                                         @endif
                                     <li class="btn-group" style="float:left">

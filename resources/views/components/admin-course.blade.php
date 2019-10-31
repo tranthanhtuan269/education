@@ -26,7 +26,7 @@
                 <button class="btn btn-warning btn-status-course active" title="Khóa học đang được xét duyệt"><i class="fas fa-dollar-sign fa-fw"></i></button>
             @endif
             @if ( $course_status == -1 )
-                <button class="btn btn-secondary btn-status-course active" title="Khóa học đã ngừng bán"><i class="fas fa-dollar-sign fa-fw"></i></button>
+                <button class="btn btn-danger btn-status-course active" title="Khóa học bị đã ngừng bán"><i class="fas fa-dollar-sign fa-fw"></i></button>
             @endif
         @endif
         <div class="img-course">
@@ -41,7 +41,7 @@
             <i class="fa fa-cog fa-lg setting-icon" aria-hidden="true"></i>
             @endif
         </div>
-        <a href="{{ url('/') }}/course/{{ $course->id }}/{{ $course->slug }}" title="{{ $course->name }}" class="pop">            
+        {{-- <a href="{{ url('/') }}/course/{{ $course->id }}/{{ $course->slug }}" title="{{ $course->name }}" class="pop">            
             <div class="content-course">
                 <h3 class="title-course">{{ \Helper::smartStr($course->name) }}</h3>
                 <div class="clearfix" style="line-height:1.7">
@@ -77,17 +77,79 @@
                         <i class="fa fa-eye" aria-hidden="true"></i> {!! number_format($course->view_count, 0, ',' , '.') !!}
                     </span>
                 </div>
-
-                <?php
-                    $check_time_sale = false;
-                    if ($course->from_sale != '' && $course->to_sale != '') {
-                        $course->start_sale = strtotime($course->from_sale.' 00:00:00');
-                        $course->end_sale = strtotime($course->to_sale.' 23:59:59');
-                        if (time() >= $course->start_sale && time() <= $end_sale) {
-                            $check_time_sale = true;
-                        }
-                    }
-                ?>
+            </div>
+        </a> --}}
+        <a href="{{ url('/') }}/course/{{ $course->id }}/{{ $course->slug }}" title="{{ $course->name }}" class="teacher-course">
+            <div class="content-course">
+                <h3 class="title-course">{{ \Helper::smartStr($course->name) }}</h3>
+                <div class="clearfix" style="line-height:1.7">
+                    <span class="name-teacher pull-left" data-teacher-id="{{$teacher_id}}" title="{{ $lecturers }}">
+                        {{ $lecturers }}
+                        {{-- {{ $course->author }} --}}
+                    </span>
+                    <br>
+                    <span class="pull-left" title="Đánh giá">
+                        {{-- @php
+                            echo($course->vote_count);
+                        @endphp --}}
+                        @if($course->vote_count == 0)
+                            @include(
+                                'components.vote', 
+                                [
+                                    'rate' => 0,
+                                    'rating_number' => $course->vote_count,
+                                ]
+                            )
+                        @else
+                            @include(
+                                'components.vote', 
+                                [
+                                    'rate' => intval($course->star_count) / intval($course->vote_count),
+                                    'rating_number' => $course->vote_count,
+                                ]
+                            )
+                        @endif
+                    </span>
+                    <span class="time pull-right" title="Tổng thời lượng">
+                        <i class="fas fa-stopwatch"></i> {{ intval($course->duration / 3600) }}h {{ intval(($course->duration % 3600) / 60) }}m
+                    </span>
+                </div>
+                @if (isset($setup))  
+                <div class="progress">
+                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                        60%
+                    </div>
+                </div>
+                @endif
+                <div class="price-course pull-right">
+                    @if ($course->real_price != 0)
+                        @if ($course->price == $course->real_price)
+                            <span class="sale" title="Giá bán">
+                                <b>{!! number_format($course->real_price, 0, ',' , '.') !!}</b><sup>₫</sup>
+                            </span> 
+                        @else
+                            <span class="price line-through" title="Giá gốc">
+                                {!! number_format($course->real_price, 0, ',' , '.') !!}<sup>₫</sup>
+                            </span>
+                            {{-- @if ($course->real_price != $course->price) --}}
+                            <span class="sale" title="Giá bán">
+                                &nbsp;<b>{!! number_format((float)$course->price, 0, ',' , '.') !!}</b><sup>₫</sup>
+                            </span>                        
+                            {{-- @endif --}}
+                            
+                        @endif
+                    @else
+                        <span class="sale">
+                            &nbsp;<b>{!! number_format((float)$course->price, 0, ',' , '.') !!}</b><sup>₫</sup>
+                        </span> 
+                    @endif
+                </div>
+                <div class="clearfix"></div>
+                {{-- @if (isset($btn_start_learning))  
+                <div class="text-center">
+                    <a href="{{ url('coming-soon') }}" class="btn btn-primary btn-sm btn-start-learning">Vào học</a>
+                </div>
+                @endif --}}
             </div>
         </a>
     </div>
@@ -98,7 +160,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="exampleModalLabel">Chỉnh sửa khóa học <b>{{ $course->name }}</b></h4>
+                <h3 class="modal-title" id="exampleModalLabel">Chỉnh sửa khóa học: <b>{{ $course->name }}</b></h3>
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -168,7 +230,7 @@
                             <input type="text" class="form-control" id="courseOriginalPrice{{$course->id}}" name="price-{{$course->id}}" value="{{$course->real_price}}" onpaste="return false">
                         </div>
                         <div class="form-group">
-                            <label for="price" class="control-label">Giá giảm khóa học: (₫)</label>
+                            <label for="price" class="control-label">Giá sau khi giảm: (₫)</label>
                             <input type="text" class="form-control" id="courseDiscountPrice{{$course->id}}" name="price-{{$course->id}}"
                             @if ( $course->real_price == $course->price )
                                 value=""
@@ -250,7 +312,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <div class="btn btn-primary pull-right" id="add-unit-btn"><i class="fas fa-plus fa-fw"></i>Thêm phần học</div>
-                <h4 class="modal-title" id="exampleModalLabel">Danh sách các phần</h4>
+                <h3 class="modal-title" id="exampleModalLabel">Danh sách phần học</h3>
             </div>
             <div class="modal-body">
                 <div class="row">

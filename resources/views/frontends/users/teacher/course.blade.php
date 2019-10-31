@@ -33,7 +33,7 @@
                     <div class="tab-content">
                         <div class="tab-pane active" id="buyed">
                             <div class="row">
-                                <div class="col-sm-6">
+                                <div class="col-sm-6 col-sm-offset-3">
                                     <form action="" method="get">
                                         <div class="form-inline box-search-course">
                                             <div class="form-group box-input">
@@ -45,8 +45,8 @@
                                         </div>
                                     </form>
                                 </div>
-                                <div class="col-sm-6">
-                                    <div class="pull-right"><button class="btn btn-primary" id="create-course-btn"><i class="fas fa-book fa-fw"></i>Tạo khóa học</button></div>
+                                <div class="col-sm-2">
+                                    <div class=""><button class="btn btn-primary" id="create-course-btn"><i class="fas fa-book fa-fw"></i>Tạo khóa học</button></div>
                                 </div>
                             </div>
                             <div class="row">
@@ -94,7 +94,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="exampleModalLabel">Tạo khóa học mới</h4>
+                <h3 class="modal-title" id="exampleModalLabel">Tạo khóa học mới</h3>
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -145,7 +145,7 @@
                             <input type="text" class="form-control" id="courseOriginalPrice" name="price" onpaste="return false">
                         </div>
                         <div class="form-group">
-                            <label for="price" class="control-label">Giá giảm khóa học: (₫)</label>
+                            <label for="price" class="control-label">Giá sau khi giảm: (₫)</label>
                             <input type="text" class="form-control" id="courseDiscountPrice" name="price" onpaste="return false">
                         </div>
                         <div class="form-group">
@@ -207,7 +207,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <div class="btn btn-primary pull-right btn-add-video" id="addVideoBtn" ><i class="fas fa-plus fa-fw"></i>Thêm bài học</div>
-                <h4 class="modal-title">Danh sách bài học</h4>
+                <h3 class="modal-title">Danh sách bài học</h3>
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -1453,7 +1453,7 @@
                     if( discount_price > original_price ){
                         Swal.fire({
                                 type: 'warning',
-                                html: 'Giá giảm không thể lớn hơn giá gốc.',
+                                html: 'Giá sau khi giảm không thể lớn hơn giá gốc.',
                                 allowOutsideClick: false,
                             })
                             return false;
