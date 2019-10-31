@@ -26,6 +26,7 @@ $(document).ready(function () {
     }
 
     saveInfoCurrentCourse($('body').attr('data-video-id'))
+    checkShowHideNextPrev($('body').attr('data-video-id'))
 
     // Set up the player
     var isPlayerAutoplay = false
@@ -1035,10 +1036,16 @@ function checkShowHideNextPrev(current_video_id){
     });
     if(video_id_index == 0){
         $('.lnDescBtnPreviousLink').hide();
+        $('.lnDescBtnNextLink').show();
+        $('#btnContinue').show();
     }else if(video_id_index == video_id_list.length - 1){
+        $('.lnDescBtnPreviousLink').show();
         $('.lnDescBtnNextLink').hide();
+        $('#btnContinue').hide();
     }else{
         $('.lnDescBtnPreviousLink').show();
         $('.lnDescBtnNextLink').show();
+        $('#btnContinue').show();
     }
+    alert(video_id_index);
 }
