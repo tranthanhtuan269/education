@@ -484,7 +484,7 @@
         <div class="item-1">
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-8 col-xs-12">
+                    <div class="col-md-8 col-sm-7 col-xs-12">
                         <div class="img-logo">
                             <img src="{{ asset('frontend/images/footer_logo.png') }}">    
                         </div>
@@ -512,9 +512,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-4 hidden-xs">
+                    <div class="col-md-4 col-sm-5 col-xs-12">
                         <div class="img-fanpage">
-                            <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Ftopthuthuat.vn%2F&tabs=timeline&width=300&height=200&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="300" height="200" style="overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
+                            <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Ftopthuthuat.vn%2F&tabs=timeline&width=300&height=200&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="100%" height="200" style="overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
                         </div>
                     </div>
                 </div>

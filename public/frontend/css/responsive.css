@@ -4659,6 +4659,22 @@
 }
 
 @media all and (max-width: 768px) {
+    .img-ubc-course{
+        width: 30%;
+
+    }
+    .des-ubc-course{
+        width: 66%;
+    }
+    .lp-bc-price{
+        width: 40%;
+    }
+    .detail-teacher .background {
+        left: 0;
+    }
+    .detail-teacher .frame .network-teacher{
+        padding-top: 0;
+    }
     .member-card-offer .img .offer-dollar .dollar {
         font-size: 70px
     }
@@ -4756,9 +4772,6 @@
     .detail-teacher .frame .network {
         padding-top: 10px;
     }
-    .detail-teacher .frame .network-teacher {
-        padding-top: 50px;
-    }
     .responsive-start-learning {
         border: 1px solid #636363;
         padding: 18px 30px;
@@ -4785,9 +4798,42 @@
     .group-btn-buy-course {
         padding-left: 5vw;
     }
+    .unica-home-menutop .db-item .button-sign-up {
+        width: auto;
+    }
+    .network .btn {
+        padding: 5px 0px;
+    }
+
+    .detail-teacher .frame{
+        top: 0;
+    }
+    .detail-teacher .frame .avatar{
+        width: 100%;
+    }
 }
 
 @media all and (max-width: 767px) {
+
+    .des-ubc-course p {
+        margin: 10px 0 15px 0;
+    }
+    .ubc-course{
+        margin-top: 10px;
+    }
+    .img-ubc-course a .img-responsive{
+        height: auto;
+    }
+    .img-ubc-course{
+        width: 100%;
+
+    }
+    .des-ubc-course{
+        width: 100%;
+    }
+    .lp-bc-price{
+        width: auto;
+    }
     .member-card-info .padding-form {
         padding-bottom: 0;
     }
