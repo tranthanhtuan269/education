@@ -312,10 +312,44 @@ class UserController extends Controller
         return view('frontends.users.teacher.mail-box');
     }
 
-    public function getDataMailBoxAjax()
+    public function getDataMailBoxStudentAjax()
     {
         $user = Auth::user();
-        $emails = $user->user_emails;
+        $emails = $user->user_emails->where('teacher', '<>', true);
+        // dd($emails);
+
+        return datatables()->collection($emails)
+            ->addColumn('sender', function ($email) {
+                $sender_user_id = $email->sender_user_id;
+                $sender = User::find($sender_user_id);
+                return $sender->name;
+            })
+            ->addColumn('title', function ($email) {
+                return $email->title;
+            })
+            ->addColumn('content', function ($email) {
+                return $email->content;
+            })
+            ->addColumn('user_email_id', function ($email) {
+                return $email->id;
+            })
+            ->setRowAttr([
+                'style' => function ($email) {
+                    if($email->viewed == 0){
+                        return 'background-color: #F2F3F6; font-weight: 600;';
+                    }else if($email->viewed == 1){
+                        return '';
+                    }
+                }
+            ])
+            // ->removeColumn('id')
+            ->make(true);
+    }
+
+    public function getDataMailBoxTeacherAjax()
+    {
+        $user = Auth::user();
+        $emails = $user->user_emails->where('teacher', true);
         // dd($emails);
 
         return datatables()->collection($emails)

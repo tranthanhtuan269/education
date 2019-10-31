@@ -88,7 +88,7 @@
                             search: {
                                 smart: false
                             },
-                            ajax: "{{ url('/') }}/user/getDataMailBoxAjax",
+                            ajax: "{{ url('/') }}/user/getDataMailBoxStudentAjax",
                             columns: dataObject,
                             // bLengthChange: false,
                             // pageLength: 10,

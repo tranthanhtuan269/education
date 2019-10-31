@@ -361,7 +361,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('logout', 'Frontends\UserController@logout');
 
 
-        Route::get('getDataMailBoxAjax', 'Frontends\UserController@getDataMailBoxAjax');
+        Route::get('getDataMailBoxStudentAjax', 'Frontends\UserController@getDataMailBoxStudentAjax');
+        Route::get('getDataMailBoxTeacherAjax', 'Frontends\UserController@getDataMailBoxTeacherAjax');
         Route::get('getDataMailBoxNavAjax', 'Frontends\UserController@getDataMailBoxNavAjax');
         Route::get('getDataOrderAjax', 'Frontends\UserController@getDataOrderAjax');
         Route::get('getSingleEmailContentAjax', 'Frontends\UserController@getSingleEmailContentAjax');
