@@ -129,11 +129,15 @@
             // Swal.fire('Any fool can use a computer')
 
         }else{
+            var infoVideoJson = localStorage.getItem("currentVideo");
+            var infoVideo = JSON.parse(infoVideoJson)
+            var idCurrentVideo = infoVideo.idCurrentVideo
+
             var request = $.ajax({
                 url: "{{ url('comments/store') }}",
                 method: "POST",
                 data: {
-                    videoId: localStorage.getItem("indexCurrentVideo"),
+                    videoId: idCurrentVideo,
                     content: discussEditor.getData(),
                     type : "discussionComment",
                 },
@@ -222,11 +226,15 @@
                 text:"Nội dung không được để trống!"
             })
         }else{
+            var infoVideoJson = localStorage.getItem("currentVideo");
+            var infoVideo = JSON.parse(infoVideoJson)
+            var idCurrentVideo = infoVideo.idCurrentVideo
+
             var request = $.ajax({
                 url: "{{ url('comments/store') }}",
                 method: "POST",
                 data: {
-                    videoId: localStorage.getItem("indexCurrentVideo"),
+                    videoId: idCurrentVideo,
                     content: $('input[data-child="'+parentId+'"]').val(),
                     type : "discussionComment",
                     parentId : parentId,

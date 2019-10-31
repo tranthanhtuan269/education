@@ -55,16 +55,12 @@ foreach ($notes as $key => $note) {
     <div class="ln-desc-bottom leftBarActive" >
         <div class="ln-desc-btm-center">
             <div class="ln-desc-btm-group-track">
-                @if (($main_video_id_key) > 0)
-                <a>
+                <a class="lnDescBtnPreviousLink">
                     <button class="btn" id="lnDescBtnPrevious" data-toggle='tooltip' data-placement='top' title='Bài trước'><i class="fas fa-step-backward"></i></button>
                 </a>
-                @endif
-                @if (($main_video_id_key) < (count($video_id_list) - 1) )
-                <a >
+                <a class="lnDescBtnNextLink">
                     <button class="btn" id="lnDescBtnNext" data-toggle='tooltip' data-placement='top' title='Bài sau'><i class="fas fa-step-forward"></i></button>
                 </a>
-                @endif
             </div>
             <div class="ln-desc-group-btn-utilities">
                 {{-- <div class="btn ln-btn-server" data-toggle='tooltip' data-placement='top' title='Servers'>
@@ -101,8 +97,12 @@ foreach ($notes as $key => $note) {
         $('#lnDescBtnNotViewed').on('click', function(e){
             e.preventDefault()
             e.stopPropagation()
-            var video_id_index = localStorage.getItem("indexCurrentVideo")
-            console.log('#lnBtnComplete' + video_id_index + ' .fa-stack-2x');
+
+            var infoVideoJson = localStorage.getItem("currentVideo");
+            var infoVideo = JSON.parse(infoVideoJson)
+            var idCurrentVideo = infoVideo.idCurrentVideo
+
+            console.log('#lnBtnComplete' + idCurrentVideo + ' .fa-stack-2x');
 
             $.ajaxSetup({
                 headers: {
@@ -113,7 +113,7 @@ foreach ($notes as $key => $note) {
                 method: 'POST',
                 url: "/user-course/update-not-watched",
                 data: {
-                    'video_id' : video_id_index
+                    'video_id' : idCurrentVideo
                 },
                 dataType: "json",
             });
@@ -122,9 +122,9 @@ foreach ($notes as $key => $note) {
                 $(".progress-bar-success").css('width', parseInt($("#viewed_count").html() / $("#videos_count").html() * 100) + "%");
                 $('#lnDescBtnViewed').show()
                 $('#lnDescBtnNotViewed').hide()
-                $('#lnBtnComplete' + video_id_index + ' .fa-stack-2x').addClass('video_not_viewed').removeClass('video_viewed');
-                $('#lnBtnComplete' + video_id_index + ' .fa-stack-1x').addClass('video_not_viewed').removeClass('video_viewed');
-                $('#videoDoneOneSect' + $('#listItem' + video_id_index).attr('data-unit')).html(parseInt($('#videoDoneOneSect' + $('#listItem' + video_id_index).attr('data-unit')).html()) - 1);
+                $('#lnBtnComplete' + idCurrentVideo + ' .fa-stack-2x').addClass('video_not_viewed').removeClass('video_viewed');
+                $('#lnBtnComplete' + idCurrentVideo + ' .fa-stack-1x').addClass('video_not_viewed').removeClass('video_viewed');
+                $('#videoDoneOneSect' + $('#listItem' + idCurrentVideo).attr('data-unit')).html(parseInt($('#videoDoneOneSect' + $('#listItem' + idCurrentVideo).attr('data-unit')).html()) - 1);
             })
         })
 
@@ -132,7 +132,10 @@ foreach ($notes as $key => $note) {
             e.preventDefault()
             e.stopPropagation()
             var sefl = this;
-            var video_id_index = localStorage.getItem("indexCurrentVideo")
+
+            var infoVideoJson = localStorage.getItem("currentVideo");
+            var infoVideo = JSON.parse(infoVideoJson)
+            var idCurrentVideo = infoVideo.idCurrentVideo
 
             $.ajaxSetup({
                 headers: {
@@ -143,7 +146,7 @@ foreach ($notes as $key => $note) {
                 method: 'POST',
                 url: "/user-course/update-watched",
                 data: {
-                    'video_id' : video_id_index
+                    'video_id' : idCurrentVideo
                 },
                 dataType: "json",
             });
@@ -152,9 +155,9 @@ foreach ($notes as $key => $note) {
                 $(".progress-bar-success").css('width', parseInt($("#viewed_count").html() / $("#videos_count").html() * 100) + "%");
                 $('#lnDescBtnViewed').hide()
                 $('#lnDescBtnNotViewed').show()
-                $('#lnBtnComplete' + video_id_index).find('.fa-stack-2x').removeClass('video_not_viewed').addClass('video_viewed');
-                $('#lnBtnComplete' + video_id_index).find('.fa-stack-1x').removeClass('video_not_viewed').addClass('video_viewed');
-                $('#videoDoneOneSect' + $('#listItem' + video_id_index).attr('data-unit')).html(parseInt($('#videoDoneOneSect' + $('#listItem' + video_id_index).attr('data-unit')).html()) + 1);
+                $('#lnBtnComplete' + idCurrentVideo).find('.fa-stack-2x').removeClass('video_not_viewed').addClass('video_viewed');
+                $('#lnBtnComplete' + idCurrentVideo).find('.fa-stack-1x').removeClass('video_not_viewed').addClass('video_viewed');
+                $('#videoDoneOneSect' + $('#listItem' + idCurrentVideo).attr('data-unit')).html(parseInt($('#videoDoneOneSect' + $('#listItem' + idCurrentVideo).attr('data-unit')).html()) + 1);
             })
         })
     })

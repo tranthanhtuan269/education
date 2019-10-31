@@ -142,8 +142,6 @@
             var check_course_of_user = {{ $check_course_of_user }}
             // console.log(check_course_of_user);
 
-            localStorage.setItem("indexCurrentVideo", {{$main_video->id}});
-
             $(document).ready(function () {
 
                 function updateIndicator() {
