@@ -81,12 +81,12 @@
                 <div class="content-course">
                     <h3 class="title-course">{{ \Helper::smartStr($course->name) }}</h3>
                     <div class="clearfix" style="line-height:1.7">
-                        <span class="name-teacher pull-left" data-teacher-id="{{$main_lecturer}}" >
+                        <span class="name-teacher pull-left" data-teacher-id="{{$main_lecturer}}" title="{{ $lecturers }}">
                             {{ $lecturers }}
                             {{-- {{ $course->author }} --}}
                         </span>
                         <br>
-                        <span class="pull-left">
+                        <span class="pull-left" title="Đánh giá">
                             {{-- @php
                                 echo($course->vote_count);
                             @endphp --}}
@@ -108,7 +108,7 @@
                                 )
                             @endif
                         </span>
-                        <span class="time pull-right">
+                        <span class="time pull-right" title="Tổng thời lượng">
                             <i class="fas fa-stopwatch"></i> {{ intval($course->duration / 3600) }}h {{ intval(($course->duration % 3600) / 60) }}m
                         </span>
                     </div>
@@ -131,15 +131,15 @@
                     <div class="price-course pull-right">
                         @if ($course->real_price != 0)
                             @if ($course->price == $course->real_price)
-                                <span class="sale">
+                                <span class="sale" title="Giá bán">
                                     <b>{!! number_format($course->real_price, 0, ',' , '.') !!}</b><sup>₫</sup>
                                 </span> 
                             @else
-                                <span class="price line-through">
+                                <span class="price line-through" title="Giá gốc">
                                     {!! number_format($course->real_price, 0, ',' , '.') !!}<sup>₫</sup>
                                 </span>
                                 {{-- @if ($course->real_price != $course->price) --}}
-                                <span class="sale">
+                                <span class="sale" title="Giá bán">
                                     &nbsp;<b>{!! number_format((float)$course->price, 0, ',' , '.') !!}</b><sup>₫</sup>
                                 </span>                        
                                 {{-- @endif --}}
