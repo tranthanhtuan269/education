@@ -62,9 +62,9 @@ class CommentController extends Controller
             if (isset($request->parentId)) {
                 $commentVideo->parent_id = $request->parentId;
                 if($request->parentId != 0){
-                    \App\Helper\Helper::addAlertCustomize($video->unit->course->Lecturers()[0]->user, "Bài giảng " . $video->name . " có một thảo luận mới", "Bài giảng <a href='" . url('/') . "/learning-page/" . $video->unit->course->id . "/lecture/" . $video->id . "'>" . $video->name . "</a> vừa có một thảo luận mới");
+                    \App\Helper\Helper::addAlertCustomize($video->unit->course->Lecturers()[0]->user, "Bài giảng " . $video->name . " có một thảo luận mới", "Bài giảng <a href='" . url('/') . "/learning-page/" . $video->unit->course->id . "/lecture/" . $video->id . "'>" . $video->name . "</a> vừa có một thảo luận mới", true);
                 }else{
-                    \App\Helper\Helper::addAlertCustomize($commentVideo->parent()->userRole->user, "Bài giảng " . $video->name . " có một thảo luận mới", "Bài giảng <a href='" . url('/') . "/learning-page/" . $video->unit->course->id . "/lecture/" . $video->id . "'>" . $video->name . "</a> vừa có một thảo luận mới");
+                    \App\Helper\Helper::addAlertCustomize($commentVideo->parent()->userRole->user, "Bài giảng " . $video->name . " có một thảo luận mới", "Bài giảng <a href='" . url('/') . "/learning-page/" . $video->unit->course->id . "/lecture/" . $video->id . "'>" . $video->name . "</a> vừa có một thảo luận mới", true);
                 }
             }
             $commentVideo->save();
@@ -128,7 +128,7 @@ class CommentController extends Controller
                 $course->vote_count += 1;
                 $course->save();
 
-                \App\Helper\Helper::addAlertCustomize($course->Lecturers()[0]->user, "Khóa học " . $course->name . " vừa có một đánh giá mới", "Khóa học <a href='" . url('/') . "/course/" . $course->id . "/" . $course->slug . "'>" . $course->name . "</a> vừa có một học viên đánh giá");
+                \App\Helper\Helper::addAlertCustomize($course->Lecturers()[0]->user, "Khóa học " . $course->name . " vừa có một đánh giá mới", "Khóa học <a href='" . url('/') . "/course/" . $course->id . "/" . $course->slug . "'>" . $course->name . "</a> vừa có một học viên đánh giá", true);
                 return \Response::json(array('status' => '201', 'message' => 'Cập nhật thông tin thành công!', 'commentCourse' => fractal($commentCourse, new CommentCourseTransformer())->toArray(), 'course' => $course));
             }else{
                 return \Response::json(array('status' => '200', 'message' => 'Bạn chỉ được gửi nhận xét một lần cho mỗi khóa học!'));

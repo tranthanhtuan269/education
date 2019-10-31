@@ -467,6 +467,7 @@ class UserController extends Controller
                         $user_email->sender_user_id = 333;
                         $user_email->content = $alertEmail->content;
                         $user_email->title = $alertEmail->title;
+                        $user_email->teacher = true;
                         $user_email->save();
                     }
                     $res = array('status' => "200", "message" => "Duyệt thành công");
@@ -486,6 +487,7 @@ class UserController extends Controller
                             $user_email->sender_user_id = 333;
                             $user_email->content = $alertEmail->content;
                             $user_email->title = $alertEmail->title;
+                            $user_email->teacher = true;
                             $user_email->save();
                         }
                         $teacher->userRole->courses()->update(['courses.status' => 0]);
