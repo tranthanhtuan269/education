@@ -334,6 +334,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/learning-page/{courseId}/{slug}', 'Frontends\VideoPlayerController@show')->name('videoplayer.show');
     Route::get('/learning-page/{courseId}/lecture/{videoId}', 'Frontends\VideoPlayerController@show')->name('videoplayer.show');
     Route::get('/learning-page/search-lecture-list', 'Frontends\VideoPlayerController@searchLectureList')->name('videoplayer.search');
+    Route::post('/videos/get-note-count', 'Frontends\VideoPlayerController@getNoteCount');
 
     Route::post('comment/comment-course', 'Frontends\CommentController@commentCourse');
     Route::post('reviews/store', 'Frontends\CommentController@storeCommentCourse');

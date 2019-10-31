@@ -1,3 +1,11 @@
+<?php 
+$i = 0;
+foreach ($notes as $key => $note) {
+    # code...
+    $i++;
+}
+// dd($i);
+?>
 <div class="learning-desc-panel ">
     <div class="learning-desc-panel-body align-items-center leftbarActive">
         <div class="ln-desc-title">
@@ -64,16 +72,16 @@
                     <span>&nbsp;Máy chủ video</span>
                 </div> --}}
                 <div class="btn ln-btn-note" data-toggle='tooltip' data-placement='top' title='Ghi chú'>
-                    <i class="fas fa-sticky-note"></i>
-                    <span>&nbsp;Ghi chú</span>
+                <i class="fas fa-sticky-note"></i><span class="note-count"></span>
+                    <span class="note">Ghi chú</span>
                 </div>
                 <div class="btn ln-btn-discuss" data-toggle='tooltip' data-placement='top' title='Thảo luận'>
-                    <i class="fas fa-comments"></i>
-                    <span>&nbsp;Thảo luận</span>
+                    <i class="fas fa-comments"></i><span class="comment-count"></span>
+                    <span class="comment">&nbsp;Thảo luận</span>
                 </div>
                 <div class="btn ln-btn-file" data-toggle='tooltip' data-placement='top' title='Tài liệu'>
-                    <i class="fas fa-file-alt"></i>
-                    <span>&nbsp;Tài liệu</span>
+                    <i class="fas fa-file-alt"></i><span class="document-count"></span>
+                    <span class="document">&nbsp;Tài liệu</span>
                 </div>
             </div>
             <div class="ln-desc-group-btn-utilities-2" data-toggle='tooltip' data-placement='top' title='Tự động chạy'>
