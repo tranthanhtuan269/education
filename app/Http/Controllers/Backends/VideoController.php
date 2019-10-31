@@ -744,7 +744,7 @@ class VideoController extends Controller
                 $video->state       = Config::get('app.video_active');
                 $video->updated_at  = date('Y-m-d H:i:s');
                 $video->save();
-                \App\Helper\Helper::addAlert($video->unit->course->Lecturers()[0]->user, "app.email_unaccept_request_delete_video");
+                \App\Helper\Helper::addAlertCustomize($video->unit->course->Lecturers()[0]->user, "Bài giảng " . $video->name . "đã bị hủy yêu cầu xóa", "Xin lỗi bạn! Bài giảng <a href='" . url('/') . "/learning-page/" . $course->id . "/lecture/" . $video->id . "'>" . $video->name . "</a> đã bị hủy yêu cầu xóa");
     
                 return response()->json([
                     'status' => 200,
@@ -771,7 +771,7 @@ class VideoController extends Controller
                     if ( $course ){
                         $user_courses = $course->userCourses;
                         Helper::reBuildJsonWhenCreateOrDeleteLecture($course->id, $video->id, 0);
-                        \App\Helper\Helper::addAlert($course->Lecturers()[0]->user, "app.email_accept_request_delete_video");
+                        \App\Helper\Helper::addAlertCustomize($course->Lecturers()[0]->user, "Bài giảng " . $video->name . "đã được duyệt yêu cầu xóa", "Chúc mừng bạn! Bài giảng <strong>" . $video->name . "</strong> đã được duyệt yêu cầu xóa");
                     }
                 }
                 $video->state       = Config::get('app.video_in_trash');
@@ -964,7 +964,7 @@ class VideoController extends Controller
             $video->state = Config::get('app.video_active');
             $video->save();
 
-            \App\Helper\Helper::addAlert($video->unit->course->Lecturers()[0]->user, "app.email_unaccept_request_edit_video");
+            \App\Helper\Helper::addAlertCustomize($video->unit->course->Lecturers()[0]->user, "Bài giảng " . $video->name . "đã bị hủy yêu cầu sửa", "Xin lỗi bạn! Bài giảng <a href='" . url('/') . "/learning-page/" . $course->id . "/lecture/" . $video->id . "'>" . $video->name . "</a> đã bị hủy yêu cầu sửa");
 
             return response()->json([
                 'status' => 200,
@@ -1130,7 +1130,7 @@ class VideoController extends Controller
 
                 if($video->unit->course){
                     $course = $video->unit->course;
-                    \App\Helper\Helper::addAlert($course->Lecturers()[0]->user, "app.email_inactive_video");
+                    \App\Helper\Helper::addAlertCustomize($course->Lecturers()[0]->user, "Bài giảng " . $video->name . "đã được duyệt yêu cầu xóa", "Chúc mừng bạn! Bài giảng <strong>" . $video->name . "</strong> đã được duyệt yêu cầu xóa");
                 }
 
                 $res = array('status' => "200", "message" => "Xóa bài giảng thành công.");

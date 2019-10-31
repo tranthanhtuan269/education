@@ -15,6 +15,16 @@ $(document).ready(function () {
     //Check browser có phải là firefox hay không để hiện thông báo
     
 
+    var options = {
+        controls: true,
+        preload: 'auto',
+        autoplay : false,
+        controlBar: {
+            volumePanel: { inline: false }
+        },
+        playbackRates: [0.5, 1, 1.5, 2]
+    }
+
     // Set up the player
     var isPlayerAutoplay = false
     if(isAutoplay == null){
@@ -35,34 +45,27 @@ $(document).ready(function () {
     $(".ln-btn-autoplay").click(function () {
         if(localStorage.getItem('autoplay') == "true"){
             localStorage.setItem('autoplay', false)
+            options.autoplay = false;
             $(".ln-btn-autoplay .fa-toggle-on").remove()
             $(".vjs-subtitle-control.btn.vjs-control.vjs-button button .fa-toggle-on").remove()
             $(".vjs-subtitle-control.btn.vjs-control.vjs-button button").prepend("<i class='fas fa-toggle-off' id='btnAutoplay'></i>")
             $(".ln-btn-autoplay").prepend("<i class='fas fa-toggle-off'></i>")
         }else if(localStorage.getItem('autoplay') == "false"){
             localStorage.setItem('autoplay', true)
+            options.autoplay = true;
             $(".ln-btn-autoplay .fa-toggle-off").remove()
             $(".vjs-subtitle-control.btn.vjs-control.vjs-button button .fa-toggle-off").remove()
             $(".vjs-subtitle-control.btn.vjs-control.vjs-button button").prepend("<i class='fas fa-toggle-on' id='btnAutoplay'></i>")
             $(".ln-btn-autoplay").prepend("<i class='fas fa-toggle-on'></i>")
         }else{
             localStorage.setItem('autoplay', true)
+            options.autoplay = true;
             $(".ln-btn-autoplay .fa-toggle-off").remove()
             $(".vjs-subtitle-control.btn.vjs-control.vjs-button button .fa-toggle-off").remove()
             $(".vjs-subtitle-control.btn.vjs-control.vjs-button button").prepend("<i class='fas fa-toggle-on' id='btnAutoplay'></i>")
             $(".ln-btn-autoplay").prepend("<i class='fas fa-toggle-on'></i>")
         }
     })
-
-    var options = {
-        controls: true,
-        preload: 'auto',
-        autoplay : isPlayerAutoplay,
-        controlBar: {
-            volumePanel: { inline: false }
-        },
-        playbackRates: [0.5, 1, 1.5, 2]
-    }
     var player = videojs('my-video', options)
 
     initPlay();
@@ -79,9 +82,18 @@ $(document).ready(function () {
         player = videojs('my-video', options);
         prePlay(360);
         player.load();
-        player.pause();
+        // player.pause();
         $(".learning-desc-panel").fadeIn()
     }
+
+    player.on('loadeddata', function(){
+        if(localStorage.getItem('autoplay') == "true"){
+            $(".learning-desc-panel").hide()
+            player.play();
+        }else{
+            player.pause();
+        }
+    })
 
     player.on('ended', function(){
         if(localStorage.getItem('autoplay') == "true" || localStorage.getItem('autoplay') == true){
@@ -202,19 +214,18 @@ $(document).ready(function () {
         
     });
     $(document).on('click',"#btnAutoplay", function(){
-        if(localStorage.getItem('autoplay') == true){
-            localStorage.setItem('autoplay', false)
+        if(localStorage.getItem('autoplay') == 'true'){
+            localStorage.setItem('autoplay', 'false')
             isAutoplay = false;
             $("#btnAutoplay").removeClass("fa-toggle-on")
             $("#btnAutoplay").addClass("fa-toggle-off")
-            // alert(1)
-        }else if(localStorage.getItem('autoplay') == false){
-            localStorage.setItem('autoplay', true)
+        }else if(localStorage.getItem('autoplay') == 'false'){
+            localStorage.setItem('autoplay', 'true')
             isAutoplay = true;
             $("#btnAutoplay").removeClass("fa-toggle-off")
             $("#btnAutoplay").addClass("fa-toggle-on")
         }else{
-            localStorage.setItem('autoplay', true)
+            localStorage.setItem('autoplay', 'true')
             isAutoplay = true;
             $("#btnAutoplay").removeClass("fa-toggle-off")
             $("#btnAutoplay").addClass("fa-toggle-on")
@@ -267,6 +278,7 @@ $(document).ready(function () {
 
         $(".vjs-custom-big-play-button").fadeOut()
         var video_id = $(this).attr("data-parent")
+        console.log('#listItem'+ video_id + ' .fa-stack-2x')
         localStorage.setItem("indexCurrentVideo", video_id);
 
         var section_dom = $(this).parent()
@@ -290,7 +302,7 @@ $(document).ready(function () {
                 data: {
                     'video_id' : video_id
                 },
-                dataType: "json",
+                dataType: "json"
             });
             request.done(function(data){
                 window.videoSource = JSON.parse(data.video_url);
@@ -303,9 +315,18 @@ $(document).ready(function () {
                 }
                 $('.video-list-item').removeClass('video-selected')
                 $('#listItem'+ video_id).addClass('video-selected')
-                $('#listItem'+ video_id + ' .fa-stack-2x').addClass('video_viewed').removeClass('video_not_viewed');
-                $('#listItem'+ video_id + ' .fa-stack-1x').addClass('video_viewed').removeClass('video_not_viewed');
 
+                if($('#listItem'+ video_id + ' .fa-stack-2x').hasClass('video_viewed')){
+                    $('#lnDescBtnViewed').hide()
+                    $('#lnDescBtnNotViewed').show()
+                }else{
+                    $('#listItem'+ video_id + ' .fa-stack-2x').addClass('video_viewed').removeClass('video_not_viewed');
+                    $('#listItem'+ video_id + ' .fa-stack-1x').addClass('video_viewed').removeClass('video_not_viewed');
+                    $('#videoDoneOneSect' + $('#listItem' + video_id).attr('data-unit')).html(parseInt($('#videoDoneOneSect' + $('#listItem' + video_id).attr('data-unit')).html()) + 1);
+                    
+                    $('#lnDescBtnViewed').hide()
+                    $('#lnDescBtnNotViewed').show()
+                }
                 $('.ln-desc-title').html('<p>' + video_name + '</p>');
                 $('.ln-desc-subtitle').html('<p>' + video_info + '</p>');
 
@@ -368,7 +389,6 @@ $(document).ready(function () {
     $('#lnDescBtnPrevious').on('click', function(e){
         e.preventDefault()
         e.stopPropagation()
-        var current_video_id = localStorage.getItem("indexCurrentVideo");
         var video_id_index = null
         video_id_list.forEach(video_id => {
             if(video_id == localStorage.getItem("indexCurrentVideo")){
@@ -706,23 +726,25 @@ $(document).ready(function () {
             dataType: "json",
             success: function (response) {
                 if(response.status == 200){
-                    console.log(response)
                     var html = '';
-                    $.each(response.documentVideos, function( index, value ) {
-                        var title = value.title
-                        var url_document = value.url_document
-                        html += '<div class="ln-files-wrapper">';
-                        html += '<div>';
-                        html += '<a href="/uploads/files/'+url_document+'" target="_blank">';
-                        html += '<p>';
-                        html += '<i class="fas fa-link"></i>&nbsp;';
-                        html += title;
-                        html += '</p>';
-                        html += '</a>';
-                        html += '</div>';
-                        html += '</div>';
-                        
-                    });
+                    if(response.documentVideos.length > 0){
+                        $.each(response.documentVideos, function( index, value ) {
+                            var title = value.title
+                            var url_document = value.url_document
+                            html += '<div class="ln-files-wrapper">';
+                            html += '<div>';
+                            html += '<a href="/uploads/files/'+url_document+'" target="_blank">';
+                            html += '<p>';
+                            html += '<i class="fas fa-link"></i>&nbsp;';
+                            html += title;
+                            html += '</p>';
+                            html += '</a>';
+                            html += '</div>';
+                            html += '</div>';
+                        });
+                    }else{
+                        html = '<div class="text-center">Bài giảng này không có tài liệu nào!</div>';              
+                    }
 
                     $('.ln-files-list').html(html);
                 }
