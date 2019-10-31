@@ -81,7 +81,7 @@
                                                 </button>
                                             </span>
                                             @elseif($list_video_done_in_unit[$video->index-1] == 0)
-                                            <span class="ln-btn-complete" id="lnBtnNotComplete{{$video->id}}" data-child="{{$key2+1}}">
+                                            <span class="ln-btn-complete" id="lnBtnComplete{{$video->id}}" data-child="{{$key2+1}}">
                                                 <button>
                                                     <span class="fa-stack">
                                                         <i class="fas fa-circle fa-stack-2x video_not_viewed"></i>
@@ -120,7 +120,7 @@
                                                 </button>
                                             </span>
                                             @elseif($list_video_done_in_unit[$video->index-1] == 0)
-                                            <span class="ln-btn-complete" id="lnBtnNotComplete{{$video->id}}" data-child="{{$key2+1}}">
+                                            <span class="ln-btn-complete" id="lnBtnComplete{{$video->id}}" data-child="{{$key2+1}}">
                                                 <button>
                                                     <span class="fa-stack">
                                                         <i class="fas fa-circle fa-stack-2x video_not_viewed"></i>

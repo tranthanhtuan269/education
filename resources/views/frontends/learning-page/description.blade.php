@@ -94,6 +94,7 @@
             e.preventDefault()
             e.stopPropagation()
             var video_id_index = localStorage.getItem("indexCurrentVideo")
+            console.log('#lnBtnComplete' + video_id_index + ' .fa-stack-2x');
 
             $.ajaxSetup({
                 headers: {
@@ -115,7 +116,7 @@
                 $('#lnDescBtnNotViewed').hide()
                 $('#lnBtnComplete' + video_id_index + ' .fa-stack-2x').addClass('video_not_viewed').removeClass('video_viewed');
                 $('#lnBtnComplete' + video_id_index + ' .fa-stack-1x').addClass('video_not_viewed').removeClass('video_viewed');
-                $('#lnBtnComplete' + video_id_index).attr('id', 'lnBtnNotComplete'+ video_id_index);
+                $('#videoDoneOneSect' + $('#listItem' + video_id_index).attr('data-unit')).html(parseInt($('#videoDoneOneSect' + $('#listItem' + video_id_index).attr('data-unit')).html()) - 1);
             })
         })
 
@@ -143,9 +144,9 @@
                 $(".progress-bar-success").css('width', parseInt($("#viewed_count").html() / $("#videos_count").html() * 100) + "%");
                 $('#lnDescBtnViewed').hide()
                 $('#lnDescBtnNotViewed').show()
-                $('#lnBtnNotComplete' + video_id_index).find('.fa-stack-2x').removeClass('video_not_viewed').addClass('video_viewed');
-                $('#lnBtnNotComplete' + video_id_index).find('.fa-stack-1x').removeClass('video_not_viewed').addClass('video_viewed');
-                $('#lnBtnNotComplete' + video_id_index).attr('id', 'lnBtnComplete'+ video_id_index);
+                $('#lnBtnComplete' + video_id_index).find('.fa-stack-2x').removeClass('video_not_viewed').addClass('video_viewed');
+                $('#lnBtnComplete' + video_id_index).find('.fa-stack-1x').removeClass('video_not_viewed').addClass('video_viewed');
+                $('#videoDoneOneSect' + $('#listItem' + video_id_index).attr('data-unit')).html(parseInt($('#videoDoneOneSect' + $('#listItem' + video_id_index).attr('data-unit')).html()) + 1);
             })
         })
     })
