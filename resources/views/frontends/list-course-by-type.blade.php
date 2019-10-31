@@ -1,4 +1,7 @@
 @extends('frontends.layouts.app')
+@section('title')
+{{ $title }}
+@stop
 @section('content')
 <?php
     $list_bought = [];
@@ -14,8 +17,9 @@
                   <section>
                     @if (count($list_course) > 0)
                     <div class="row">
+                        <br>
                         <div class="col-xs-12">
-                            <h1>{{ $title }}</h1>
+                            <h2>{{ $title }}</h2>
                         </div>
                         @foreach ($list_course as $course)
                             {{-- @if(isset($course->userRoles()->first()->teacher)) --}}
