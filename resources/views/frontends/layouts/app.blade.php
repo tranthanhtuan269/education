@@ -185,7 +185,7 @@
 
                                     @if(Auth::check())
                                         @if (!Auth::user()->isAdmin())
-                                        <li style="float:left">
+                                        {{-- <li style="float:left">
                                             <div class="dropdown" id="btnMailBoxNav">
                                                 <a class="unica-cart unica-mail" href="/user/student/mail-box">
                                                     <img src="{{ asset('frontend/images/tab_notifications.png') }}" alt="" style="width: 21px;" />
@@ -197,7 +197,21 @@
                                                     </li>
                                                 </ul>
                                             </div>
-                                        </li>                                        
+                                        </li>                                         --}}
+                                        <li class="btn-group" style="float:left">
+                                            <a class="unica-cart unica-mail dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)">
+                                                <img src="{{ asset('frontend/images/tab_notifications.png') }}" alt="" style="width: 21px;" />
+                                                <span class="unica-sl-notify"><b></b></span>
+                                            </a>                                    
+                                            <ul class="dropdown-menu db-drop">
+                                                <li><a href="/user/student/mail-box" style="display:flex;">
+                                                    <img src="{{ asset('frontend/images/tab_notifications.png') }}" alt="" style="width: 21px;" />
+                                                    <span style="margin-left: 10px">Học viên</span></a></li>
+                                                <li><a href="/user/teacher/mail-box" style="display:flex">
+                                                    <img src="{{ asset('frontend/images/tab_notifications.png') }}" alt="" style="width: 21px;" />
+                                                    <span style="margin-left: 10px">Giảng viên</span></a></li>
+                                            </ul>
+                                        </li>
                                         @endif
                                     <li class="btn-group" style="float:left">
                                         <a class="db-item-circle dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)"><img class="img-responsive" src="{{ asset('frontend/'.(Auth::user()->avatar != '' ? Auth::user()->avatar : 'images/avatar.jpg')) }}" alt="avatar"><span class="caret"></span></a>                                    
