@@ -73,7 +73,7 @@ foreach ($notes as $key => $note) {
                 </div> --}}
                 <div class="btn ln-btn-note" data-toggle='tooltip' data-placement='top' title='Ghi chú'>
                 <i class="fas fa-sticky-note"></i><span class="note-count"></span>
-                    <span class="note">&nbsp;Ghi chú</span>
+                    <span class="note">Ghi chú</span>
                 </div>
                 <div class="btn ln-btn-discuss" data-toggle='tooltip' data-placement='top' title='Thảo luận'>
                     <i class="fas fa-comments"></i><span class="comment-count"></span>
@@ -96,25 +96,6 @@ foreach ($notes as $key => $note) {
         </div>
     </div>
 </div>
-<style>
-    .ln-btn-note .note-count, .ln-btn-file .document-count ,.ln-btn-discuss .comment-count{
-        background-color: #FF8F00;
-        border-radius: 50%;
-        font-size: 10px;
-        position: absolute;
-        top: -2px;
-        left: 20px;
-        font-weight: bold;
-        width: 15px;
-        height: 15px;
-    }
-    .ln-btn-note .note, .ln-btn-file .document .ln-btn-discuss .comment{
-        padding-left: 5px;
-    }
-    .ln-btn-note, .ln-btn-discuss, .ln-btn-file{
-        position: relative;
-    }
-</style>
 <script>
     $(document).ready(function (){
         $('#lnDescBtnNotViewed').on('click', function(e){

@@ -885,6 +885,27 @@ body{
     color: rgb(200, 201, 202);
 }
 
+.ln-btn-note .note-count, .ln-btn-file .document-count, .ln-btn-discuss .comment-count{
+    background-color: #FF8F00;
+    border-radius: 50%;
+    font-size: 10px;
+    position: absolute;
+    top: -2px;
+    left: 20px;
+    font-weight: bold;
+    width: 15px;
+    height: 15px;
+}
+.ln-btn-note .note, .ln-btn-file .document .ln-btn-discuss .comment{
+    padding-left: 5px;
+}
+.ln-btn-note, .ln-btn-discuss, .ln-btn-file{
+    position: relative;
+}
+.ln-btn-file .document{
+    margin-left: 5px;
+}
+
 /* Absolute Center Spinner */
 .loading {
     position: fixed;

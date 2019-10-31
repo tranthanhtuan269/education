@@ -331,6 +331,8 @@ $(document).ready(function () {
                 $('.ln-desc-subtitle').html('<p>' + video_info + '</p>');
 
                 $('.ln-btn-note .note-count').text(data.count_note)
+
+                getNoteCount()
             })
         }else{
             window.location.href = ("/learning-page/"+ course_id +"/lecture/"+ video_id)
@@ -383,6 +385,8 @@ $(document).ready(function () {
             localStorage.setItem("indexCurrentVideo", video_id_list[video_id_index + 1])
 
             $('.ln-btn-note .note-count').text(data.count_note)
+
+            getNoteCount()
         })
     })
 
@@ -431,6 +435,8 @@ $(document).ready(function () {
             localStorage.setItem("indexCurrentVideo", video_id_list[video_id_index - 1])
 
             $('.ln-btn-note .note-count').text(data.count_note)
+
+            getNoteCount()
         })
     })
 
@@ -870,9 +876,9 @@ $(document).ready(function () {
 
         //Three utility buttons in the middle
         var groupBtnUtilities = "<div class='group-btn-utilities'></div>"
-        var btnNote = "<div class='btn ln-btn-note' id='btnNote' data-toggle='tooltip' data-placement='top' title='Ghi chú'><i class='fas fa-sticky-note'></i><span>&nbsp;&nbsp;Ghi chú</span></div>"
-        var btnDiscuss = "<div class='btn ln-btn-discuss' id='btnDiscuss' data-toggle='tooltip' data-placement='top' title='Thảo luận'><i class='fas fa-comments'></i><span>&nbsp;&nbsp;Thảo luận</span></div>"
-        var btnFile = "<div class='btn ln-btn-file' id='btnFile' data-toggle='tooltip' data-placement='top' title='Tài liệu'><i class='fas fa-file-alt'></i><span>&nbsp;&nbsp;Tài liệu</span></div>"
+        var btnNote = "<div class='btn ln-btn-note' id='btnNote' data-toggle='tooltip' data-placement='top' title='Ghi chú'><i class='fas fa-sticky-note'></i><span class='note-count'></span><span>&nbsp;&nbsp;Ghi chú</span></div>"
+        var btnDiscuss = "<div class='btn ln-btn-discuss' id='btnDiscuss' data-toggle='tooltip' data-placement='top' title='Thảo luận'><i class='fas fa-comments'></i><span class='comment-count'></span><span>&nbsp;&nbsp;Thảo luận</span></div>"
+        var btnFile = "<div class='btn ln-btn-file' id='btnFile' data-toggle='tooltip' data-placement='top' title='Tài liệu'><i class='fas fa-file-alt'></i><span class='document-count'></span><span>&nbsp;&nbsp;&nbsp;Tài liệu</span></div>"
 
         $(".group-player-time").after(groupBtnUtilities)
         $(".group-btn-utilities").append(btnNote)
@@ -933,7 +939,7 @@ $(document).ready(function () {
         $('#lnDescBtnNotViewed').hide();
         $('#lnDescBtnViewed').show();
     }
-
+    getNoteCount();
 });
 
 function convertSecondToTimeFormat(time) {
@@ -947,4 +953,29 @@ function convertSecondToTimeFormat(time) {
     sec_min += "" + min + ":" + (sec < 10 ? "0" : "");
     sec_min += "" + Math.floor(sec);
     return sec_min;
+}
+
+function getNoteCount(){
+    var currentVideo = localStorage.getItem("indexCurrentVideo");
+    // get note of video
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    })
+    $.ajax({
+        method: 'POST',
+        url: "/videos/get-note-count",
+        data: {
+            'video_id': currentVideo
+        },
+        dataType: 'json',
+        success: function (response) {
+            if(response.status == 200){
+                $('.ln-btn-note .note-count').text(response.note_count)
+                $('.ln-btn-file .document-count').text(response.document_count)                
+                $('.ln-btn-discuss .comment-count').text(response.comment_count)
+            }
+        },
+    })  
 }
