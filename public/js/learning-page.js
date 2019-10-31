@@ -29,6 +29,8 @@ $(document).ready(function () {
         $(".ln-btn-autoplay").prepend("<i class='fas fa-toggle-off'></i>")
     }
 
+    
+
 
     $(".ln-btn-autoplay").click(function () {
         if(localStorage.getItem('autoplay') == "true"){
@@ -306,6 +308,8 @@ $(document).ready(function () {
 
                 $('.ln-desc-title').html('<p>' + video_name + '</p>');
                 $('.ln-desc-subtitle').html('<p>' + video_info + '</p>');
+
+                $('.ln-btn-note .note-count').text(data.count_note)
             })
         }else{
             window.location.href = ("/learning-page/"+ course_id +"/lecture/"+ video_id)
@@ -356,6 +360,8 @@ $(document).ready(function () {
             $('.ln-desc-title').html('<p>' + $('#listItem'+ video_id_list[video_id_index + 1]).attr('data-name') + '</p>');
             $('.ln-desc-subtitle').html('<p>' + video_info + '</p>');
             localStorage.setItem("indexCurrentVideo", video_id_list[video_id_index + 1])
+
+            $('.ln-btn-note .note-count').text(data.count_note)
         })
     })
 
@@ -403,6 +409,8 @@ $(document).ready(function () {
             $('.ln-desc-title').html('<p>' + $('#listItem'+ video_id_list[video_id_index - 1]).attr('data-name') + '</p>');
             $('.ln-desc-subtitle').html('<p>' + video_info + '</p>');
             localStorage.setItem("indexCurrentVideo", video_id_list[video_id_index - 1])
+
+            $('.ln-btn-note .note-count').text(data.count_note)
         })
     })
 
@@ -451,6 +459,8 @@ $(document).ready(function () {
             $('.ln-desc-title').html('<p>' + $('#listItem'+ video_id_list[video_id_index + 1]).attr('data-name') + '</p>');
             $('.ln-desc-subtitle').html('<p>' + video_info + '</p>');
             localStorage.setItem("indexCurrentVideo", video_id_list[video_id_index + 1])
+
+            $('.ln-btn-note .note-count').text(data.count_note)
         })
     })
 

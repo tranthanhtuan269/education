@@ -72,16 +72,16 @@ foreach ($notes as $key => $note) {
                     <span>&nbsp;Máy chủ video</span>
                 </div> --}}
                 <div class="btn ln-btn-note" data-toggle='tooltip' data-placement='top' title='Ghi chú'>
-                <i class="fas fa-sticky-note"></i><span class="note-count">{{$notes->count()}}</span>
+                <i class="fas fa-sticky-note"></i><span class="note-count"></span>
                     <span class="note">&nbsp;Ghi chú</span>
                 </div>
                 <div class="btn ln-btn-discuss" data-toggle='tooltip' data-placement='top' title='Thảo luận'>
-                    <i class="fas fa-comments"></i>
-                    <span>&nbsp;Thảo luận</span>
+                    <i class="fas fa-comments"></i><span class="comment-count"></span>
+                    <span class="comment">&nbsp;Thảo luận</span>
                 </div>
                 <div class="btn ln-btn-file" data-toggle='tooltip' data-placement='top' title='Tài liệu'>
-                    <i class="fas fa-file-alt"></i>
-                    <span>&nbsp;Tài liệu</span>
+                    <i class="fas fa-file-alt"></i><span class="document-count"></span>
+                    <span class="document">&nbsp;Tài liệu</span>
                 </div>
             </div>
             <div class="ln-desc-group-btn-utilities-2" data-toggle='tooltip' data-placement='top' title='Tự động chạy'>
@@ -97,18 +97,22 @@ foreach ($notes as $key => $note) {
     </div>
 </div>
 <style>
-    .ln-btn-note .note-count{
+    .ln-btn-note .note-count, .ln-btn-file .document-count ,.ln-btn-discuss .comment-count{
         background-color: #FF8F00;
         border-radius: 50%;
         font-size: 10px;
         position: absolute;
         top: -2px;
+        left: 20px;
         font-weight: bold;
         width: 15px;
         height: 15px;
     }
-    .ln-btn-note .note{
-        margin-left: 10px;
+    .ln-btn-note .note, .ln-btn-file .document .ln-btn-discuss .comment{
+        padding-left: 5px;
+    }
+    .ln-btn-note, .ln-btn-discuss, .ln-btn-file{
+        position: relative;
     }
 </style>
 <script>

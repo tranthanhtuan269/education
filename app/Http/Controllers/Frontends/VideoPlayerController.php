@@ -222,7 +222,9 @@ class VideoPlayerController extends Controller
                 }    
                 $video_list = json_encode($video_urls);
 
-                return \Response::json(array('status' => '200', 'message' => 'Cập nhật thông tin thành công!', 'update_viewed' => $update_viewed, 'video_url' => $video_list));
+                $count_note = Note::where('video_id', $request->videoId)->get()->count();
+
+                return \Response::json(array('status' => '200', 'message' => 'Cập nhật thông tin thành công!', 'update_viewed' => $update_viewed, 'video_url' => $video_list, 'count_note' => $count_note));
             }
         }
 

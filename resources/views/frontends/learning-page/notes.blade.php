@@ -122,6 +122,7 @@
                 html += '</div>'
                 noteEditor.setData("")
                 $(".ln-notes-list").prepend(html)
+                $('.ln-btn-note .note-count').text(response.count_note)
             })
         }
     }

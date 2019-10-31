@@ -130,7 +130,7 @@
 
         }else{
             var request = $.ajax({
-                url: "{{ url('comments/store') }}",
+                url: "{{ url('') }}",
                 method: "POST",
                 data: {
                     videoId: localStorage.getItem("indexCurrentVideo"),
