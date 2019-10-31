@@ -230,6 +230,34 @@ class VideoPlayerController extends Controller
     }
 
     // DuongNT // đổi 0 thành 1 ở vị trí video vừa click trong array video đã xem
+    public function getInfoCourse(Request $request){
+        $video = Video::whereIn('state', [1,2,4])->find($request->video_id);
+        // dd($video);
+        if($video){
+            $unit = $video->unit;
+            $course = $video->unit->course;
+            $user_course = Helper::getUserRoleOfCourse($course->id);
+            // dd($user_course);
+            if($user_course){
+                $videos = $user_course->videos;
+                if($videos == null){
+                    return \Response::json(array('status' => '200', 'message' => 'Cập nhật thông tin thành công!'));
+                }
+
+                $video_urls = json_decode($video->url_video, true);
+                foreach ($video_urls as $key => $video_url) {
+                    $video_urls[$key] = \App\Helper::createSecurityTokenForVideoLink(\Auth::id(), $video->id, $video_url);
+                }    
+                $video_list = json_encode($video_urls);
+
+                return \Response::json(array('status' => '200', 'message' => 'Cập nhật thông tin thành công!', 'update_viewed' => 1, 'video_url' => $video_list));
+            }
+        }
+
+        return \Response::json(array('status' => '404', 'message' => 'Video không tồn tại!'));
+    }
+
+    // DuongNT // đổi 0 thành 1 ở vị trí video vừa click trong array video đã xem
     public function updateNotWatched(Request $request){
         $video = Video::whereIn('state', [1,2,4])->find($request->video_id);
         // dd($video);

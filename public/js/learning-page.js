@@ -329,7 +329,25 @@ $(document).ready(function () {
                 $('.ln-desc-subtitle').html('<p>' + video_info + '</p>');
             })
         }else{
-            window.location.href = ("/learning-page/"+ course_id +"/lecture/"+ video_id)
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            var request = $.ajax({
+                method: 'POST',
+                url: "/user-course/get-info-course",
+                data: {
+                    'video_id' : video_id
+                },
+                dataType: "json"
+            });
+            request.done(function(data){
+                window.videoSource = JSON.parse(data.video_url);
+                updateLink();
+                $('.ln-desc-title').html('<p>' + video_name + '</p>');
+                $('.ln-desc-subtitle').html('<p>' + video_info + '</p>');
+            })
         }
     })
 
