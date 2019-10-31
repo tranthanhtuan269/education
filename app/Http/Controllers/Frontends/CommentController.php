@@ -68,7 +68,10 @@ class CommentController extends Controller
                 }
             }
             $commentVideo->save();
-            return \Response::json(array('status' => '200', 'message' => 'Cập nhật thông tin thành công!', 'commentVideo' => fractal($commentVideo, new CommentVideoTransformer())->toArray()));
+
+            $comment_count = CommentVideo::where('video_id', $request->videoId)->get()->count();
+
+            return \Response::json(array('status' => '200', 'message' => 'Cập nhật thông tin thành công!', 'commentVideo' => fractal($commentVideo, new CommentVideoTransformer())->toArray(), 'comment_count'=>$comment_count));
         }
         return \Response::json(array('status' => '404', 'message' => 'Khóa học không tồn tại!'));
     }

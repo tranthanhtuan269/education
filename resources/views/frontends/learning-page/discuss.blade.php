@@ -130,7 +130,7 @@
 
         }else{
             var request = $.ajax({
-                url: "{{ url('') }}",
+                url: "{{ url('comments/store') }}",
                 method: "POST",
                 data: {
                     videoId: localStorage.getItem("indexCurrentVideo"),
@@ -199,6 +199,8 @@
 
                     $('.ln-disc-post-list').prepend(html);
                     discussEditor.setData("")
+
+                    $('.ln-btn-discuss .comment-count').text(response.comment_count)
                 }
             });
         }
@@ -281,6 +283,8 @@
                     // $("input[data-child="+response.commentVideo.data.parentId+"]").before(html)
                     $('.ln-disc-comment-input[data-parent="'+parentId+'"]').before(html);
                     $('input[data-child="'+parentId+'"]').val("")
+
+                    $('.ln-btn-discuss .comment-count').text(response.comment_count)
                 }
             });
 
