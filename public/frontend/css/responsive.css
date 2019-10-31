@@ -4275,12 +4275,6 @@
     }
 }
 
-@media (min-width:375px) and (max-width:414px) {
-    .number-big-rate {
-        left: 80px;
-    }
-}
-
 @media (min-width:320px) and (max-width:375px) {
     .number-big-rate {
         left: 77px;
@@ -4659,20 +4653,19 @@
 }
 
 @media all and (max-width: 768px) {
-    .img-ubc-course{
+    .img-ubc-course {
         width: 30%;
-
     }
-    .des-ubc-course{
+    .des-ubc-course {
         width: 66%;
     }
-    .lp-bc-price{
+    .lp-bc-price {
         width: 40%;
     }
     .detail-teacher .background {
         left: 0;
     }
-    .detail-teacher .frame .network-teacher{
+    .detail-teacher .frame .network-teacher {
         padding-top: 0;
     }
     .member-card-offer .img .offer-dollar .dollar {
@@ -4804,34 +4797,43 @@
     .network .btn {
         padding: 5px 0px;
     }
-
-    .detail-teacher .frame{
+    .detail-teacher .frame {
         top: 0;
     }
-    .detail-teacher .frame .avatar{
+    .detail-teacher .frame .avatar {
         width: 100%;
+    }
+    #min-height .top-box-course-detail a {
+        color: #0386f6;
+    }
+    #min-height .top-box-course-detail .n-rate {
+        color: #333333;
+    }
+    #min-height .top-box-course-detail .student-of-course {
+        color: #333333;
     }
 }
 
 @media all and (max-width: 767px) {
-
+    .detail-course .background {
+        left: 0;
+    }
     .des-ubc-course p {
         margin: 10px 0 15px 0;
     }
-    .ubc-course{
+    .ubc-course {
         margin-top: 10px;
     }
-    .img-ubc-course a .img-responsive{
+    .img-ubc-course a .img-responsive {
         height: auto;
     }
-    .img-ubc-course{
-        width: 100%;
-
-    }
-    .des-ubc-course{
+    .img-ubc-course {
         width: 100%;
     }
-    .lp-bc-price{
+    .des-ubc-course {
+        width: 100%;
+    }
+    .lp-bc-price {
         width: auto;
     }
     .member-card-info .padding-form {
@@ -5242,5 +5244,47 @@
     }
     .top-course .nav.nav-tabs li a {
         padding: 10px 10px;
+    }
+}
+
+@media (min-width:375px) and (max-width:414px) {
+    .number-big-rate {
+        left: 80px;
+    }
+    .detail-course .item {
+        margin-top: 0;
+    }
+    .detail-course .frame .info .name {
+        font-size: 20px;
+    }
+    .detail-course .frame {
+        padding-bottom: 0;
+    }
+    .mb-25px {
+        margin-bottom: 0;
+    }
+    .detail-course .frame .info .name {
+        width: 100%;
+    }
+    .detail-course .frame .info .expert {
+        width: 100%;
+    }
+    .detail-course .top-box-course-detail {
+        padding-bottom: 92px;
+    }
+    .detail-course .frame .info {
+        min-height: 115px;
+    }
+    #min-height .detail-course .teacher-of-course a {
+        color: #fff;
+    }
+    #min-height .detail-course .vote-of-course .n-rate {
+        color: #fff;
+    }
+    #min-height .detail-course .student-of-course {
+        color: #fff;
+    }
+    #min-height .clearfix .col-sm-12 {
+        top: 5px;
     }
 }
