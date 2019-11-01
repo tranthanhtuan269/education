@@ -47,7 +47,7 @@
                             <div class="col">
                                 <div class="container-fluid">
                                     <div class="row">
-                                        <div class="col-xs-5 col-md-8">
+                                        <div class="col-xs-8">
                                             <div class="title">
                                                 @if(App\Helper\Helper::getUserRoleOfCourse($info_course->id))
                                                 <a href="javascript:void(0)" class="click-link-video" data-course="{{$info_course->id}}" data-video="{{$value_video->id}}">
@@ -62,7 +62,7 @@
                                                 @endif
                                             </div>
                                         </div>
-                                        <div class="col-xs-4 col-md-2 text-center">
+                                        <div class="col-xs-2 text-center">
                                             @if(App\Helper\Helper::getUserRoleOfCourse($info_course->id))
                                             <a class="btn-preview btn-success" id="view-from-course-detail{{$value_video->id}}" style="cursor:pointer" >Xem</a>
                                             <script>
@@ -118,7 +118,7 @@
                                             @else
                                             @endif --}}
                                         </div>
-                                        <div class="col-xs-3 col-md-2">
+                                        <div class="col-xs-2">
                                             <div class="time">{{ App\Helper::convertSecondToTimeFormat($value_video->duration) }}</div>
                                         </div>
                                     </div>
@@ -130,16 +130,16 @@
                                 <div class="col">
                                     <div class="container-fluid">
                                         <div class="row">
-                                            <div class="col-xs-5 col-md-8">
+                                            <div class="col-xs-8">
                                                 <div class="title">
                                                     <i class="fa fa-play-circle" aria-hidden="true"></i>
                                                     <span>{{ $value_video->name }}</span>
                                                 </div>
                                             </div>
-                                            <div class="col-xs-4 col-md-2 text-center">
+                                            <div class="col-xs-2 text-center">
                                                 <div>Đang xét duyệt</div>
                                             </div>
-                                            <div class="col-xs-3 col-md-2">
+                                            <div class="col-xs-2">
                                                 <div class="time">{{ App\Helper::convertSecondToTimeFormat($value_video->duration) }}</div>
                                             </div>
                                         </div>

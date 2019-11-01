@@ -3,202 +3,57 @@
 <div class="container">
 	<div class="bill-info">
 		<div class="row">
-			<div class="col-xs-12 clearfix title-bill-info">
-				<div class="pull-left">
-					<h2>Thông tin đơn hàng</h2><br>
-					<p style="font-size: 20px">Tài khoản: <b>{{ number_format($user_balance, 0, '.', '.') }} ₫</b></p>
-				</div>
-				<div class="pull-right">
-					<ul class="nav nav-tabs" id="fullpageTab">
-						{{-- <li class="active"><a data-toggle="tab" href="#payTab">Pay</a></li> --}}
-						{{-- <li><a data-toggle="tab" href="#addFundTab">Top up</a></li> --}}
-						{{-- <li><a data-toggle="tab" href="#purchaseHistoryTab">Purchase History</a></li> --}}
-						{{-- <li><a data-toggle="tab" href="#redeemCodeTab">Redeem Code</a></li> --}}
-					</ul>
+			<div class="col-xs-12 clearfix">
+				<div class="title-bill-info">
+					<div class="pull-left">
+						<h2>Thông tin đơn hàng</h2><br>
+						<p style="font-size: 20px">Tài khoản: <b>{{ number_format($user_balance, 0, '.', '.') }} ₫</b></p>
+					</div>
+					<div class="pull-right">
+						<ul class="nav nav-tabs" id="fullpageTab">
+							{{-- <li class="active"><a data-toggle="tab" href="#payTab">Pay</a></li> --}}
+							{{-- <li><a data-toggle="tab" href="#addFundTab">Top up</a></li> --}}
+							{{-- <li><a data-toggle="tab" href="#purchaseHistoryTab">Purchase History</a></li> --}}
+							{{-- <li><a data-toggle="tab" href="#redeemCodeTab">Redeem Code</a></li> --}}
+						</ul>
+					</div>
 				</div>
 			</div>
 			
 			<div class="tab-content">
-				{{-- <div id="payTab" class="col-xs-12 tab-pane payment-method check-out-page fade in active">
-					<div class="row">
-						<div class="col-xs-12 balance">
-							<div class="row">
-								<div class="col-sm-4">
-									<p>TOTAL :</p>
-									<p class="amount"></p>
-									<div class="applied-coupon">COUPON : COUPON16</div>
-								</div>
-								<div class="col-sm-4">
-									<div>
-										<span>Payment Method: </span><span class="text-primary">My Courdemy Wallet</span>
-									</div>
-									<div>
-										<span>Name: </span><span class="text-primary">{{Auth::user()->name}}</span>						
-									</div>
-									<div class="checkbox">
-										<label>
-										<input id="checkoutCheckBox" type="checkbox"> I agree to these <a href="#">Terms of Service</a>.
-										</label>
-									</div>
-								</div>
-								<div class="col-sm-3">
-									<div>
-										<button id="btnPurchase" class="btn btn-success btn-lg btn-block">Complete Payment</button>										
-									</div>
-									<div>
-										<a href="/cart">Edit your cart</a>
-									</div>
+				<div id="payTab" class="col-xs-12">
+					<div class="tab-pane payment-method check-out-page fade in active">
+						<div class="row">
+							<div class="col-sm-4 left-column">
+								<div class="cart-info">
+									<p>Khóa học (<span></span>)</p>
 								</div>
 							</div>
-						</div>
-					</div>
-					<div class="info-box">
-						<div class="items col-md-12">
-							<div class="col-md-2 item-image">
-								<img src="/frontend/images/course_2.jpg" width="100%" alt="">
-							</div>
-							<div class="col-md-8">
-								<div class="title">
-									Forex Robots: Automate Your Trading
+							<div class="col-sm-8">
+								<div class="final-price">
+									<span class="price-text"></span>
 								</div>
-								<div class="author">
-									Arjen Robben
+								<div class="">
+									<a href="/cart">Chỉnh sửa đơn hàng</a>
 								</div>
-							</div>
-							<div class="col-md-2">
-								<span class="price" style="color: #0097e3;">800.000 ₫</span>
-							</div>
-						</div>
-					</div>
-					<div class="row payment-methods">
-						<div class="col-sm-4">
-							<div class="payment-card">
-								<a href="javascript:void(0)" title="Internet Banking">
-									<img src="{{asset('frontend/images/payment-method-1.png')}}" alt="Payment Methods 1">
-								</a>
-							</div>
-						</div>
-						<div class="col-sm-4">
-							<div class="payment-card">
-								<a href="javascript:void(0)" title="Visa">
-									<img src="{{asset('frontend/images/payment-method-2.png')}}" alt="Payment Methods 2">
-								</a>
-							</div>
-						</div>
-						<div class="col-sm-4">
-							<div class="payment-card">
-								<a href="javascript:void(0)" title="NganLuongVN">
-									<img src="{{asset('frontend/images/payment-method-3.png')}}" alt="Payment Methods 3">
-								</a>
-							</div>
-						</div>
-					</div>
-					<div class="row payment-methods">
-						<div class="col-sm-4 col-sm-offset-2">
-							<div class="payment-card">
-								<a href="javascript:void(0)" title="Paypal">
-									<img src="{{asset('frontend/images/payment-method-4.png')}}" alt="Payment Methods 4">
-								</a>
-							</div>
-						</div>
-						<div class="col-sm-4">
-							<div class="payment-card">
-								<a href="javascript:void(0)" title="Bank Transfer">
-									<img src="{{asset('frontend/images/payment-method-5.png')}}" alt="Payment Methods 5">
-								</a>
-							</div>
-						</div>
-					</div>
-					
-				</div> --}}
-
-				<div id="payTab" class="col-xs-12 tab-pane payment-method check-out-page fade in active">
-					<div class="col-sm-4 left-column">
-						<div class="cart-info">
-							<p>Khóa học (<span></span>)</p>
-						</div>
-					</div>
-					<div class="col-sm-8">
-						<div class="final-price">
-							<span class="price-text"></span>
-						</div>
-						<div class="">
-							<a href="/cart">Chỉnh sửa đơn hàng</a>
-						</div>
-						{{-- <div class="pay-field">
-							<ul id="payTabTabs" class="nav nav-pills nav-justified">
-								<li role="presentation" class="active"><a data-toggle="tab" href="#payWithBalance">Pay with your balance</a></li>
-								<li role="presentation"><a data-toggle="tab" href="#payByCard">Pay directly by card</a></li>
-							</ul>
-							<div class="tab-content">
-								<div id="payWithBalance" class="tab-pane fade in active">
-									<div class="total">
-										Total price to pay: <b><span class="price"></span></b>
-									</div>
-									<div class="user-balance">
-										Your balance: <b><span>{{ number_format($user_balance, 0, '.', '.') }} ₫</span></b>
-									</div>
-									
-									
-									
-								</div>
-								<div id="payByCard" class="tab-pane fade">
-									<div class="row">
-										<div class="col-sm-4">
-											<div class="payment-card">
-												<a href="javascript:void(0)" title="Internet Banking">
-													<img src="{{asset('frontend/images/payment-method-1.png')}}" alt="Payment Methods 1">
-												</a>
+								<div class="pay-field" >
+									<div class="row payment" style="display:flex; align-items: center;">
+										<div class="col-sm-5 col-xs-12">
+											<button id="btnPurchaseWBalance" class="btn btn-success btn-lg btn-block">Thanh toán</button>
+										</div>
+										<div class="col-sm-4 col-xs-12">
+											<div class="accept-terms">
+												<span>Bằng việc tiến hành thanh toán, bạn đồng ý với các</span><a href="/terms-of-service"> Điều khoản và điều kiện</a> của Courdemy.
 											</div>
 										</div>
-										<div class="col-sm-4">
-											<div class="payment-card">
-												<a href="javascript:void(0)" title="Visa">
-													<img src="{{asset('frontend/images/payment-method-2.png')}}" alt="Payment Methods 2">
-												</a>
+										<div class="col-sm-3 col-xs-12 text-right" style="display:flex; align-items: center;">
+											<div class="col-sm-5 text-right" style="display:flex; align-items: center; justify-content: flex-end; padding-right:0;">
+												<i class="fas fa-lock" style="font-size: xx-large"></i>
+											</div>
+											<div class="col-sm-7 text-left">
+												Kết nối bảo mật
 											</div>
 										</div>
-										<div class="col-sm-4">
-											<div class="payment-card">
-												<a href="javascript:void(0)" title="NganLuongVN">
-													<img src="{{asset('frontend/images/payment-method-3.png')}}" alt="Payment Methods 3">
-												</a>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-sm-4 col-sm-offset-2">
-											<div class="payment-card">
-												<a href="javascript:void(0)" title="Paypal">
-													<img src="{{asset('frontend/images/payment-method-4.png')}}" alt="Payment Methods 4">
-												</a>
-											</div>
-										</div>
-										<div class="col-sm-4">
-											<div class="payment-card">
-												<a href="javascript:void(0)" title="Bank Transfer">
-													<img src="{{asset('frontend/images/payment-method-5.png')}}" alt="Payment Methods 5">
-												</a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div> --}}
-						<div class="pay-field" >
-							<div class="row payment" style="display:flex; align-items: center;">
-								<div class="col-sm-5">
-									<button id="btnPurchaseWBalance" class="btn btn-success btn-lg btn-block">Thanh toán</button>
-								</div>
-								<div class="col-sm-4 accept-terms">
-									<span>Bằng việc tiến hành thanh toán, bạn đồng ý với các</span><a href="/terms-of-service"> Điều khoản và điều kiện</a> của Courdemy.
-								</div>
-								<div class="col-sm-3 text-right" style="display:flex; align-items: center;">
-									<div class="col-sm-5 text-right" style="display:flex; align-items: center; justify-content: flex-end; padding-right:0;">
-										<i class="fas fa-lock" style="font-size: xx-large"></i>
-									</div>
-									<div class="col-sm-7 text-left">
-										Kết nối bảo mật
 									</div>
 								</div>
 							</div>

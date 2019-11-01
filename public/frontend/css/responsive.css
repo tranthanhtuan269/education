@@ -4809,10 +4809,31 @@
     #min-height .top-box-course-detail .student-of-course {
         color: #333333;
     }
-
+    .cart-page-content .checkout-column{
+        margin-top: 15px;
+    }
 }
 
 @media all and (max-width: 767px) {
+    .u-all-course h1{
+        font-size: 24px;
+    }
+    .bill-info .title-bill-info {
+        padding: 20px 0;
+    }
+    .bill-info {
+        padding-bottom: 30px;
+    }
+    #payTab .item-box .info {
+        padding-top:10px;
+        padding-bottom: 10px;
+    }
+    .pay-field .payment .accept-terms{
+        padding: 10px 0;
+    }
+    #payTab .payment{
+        display: initial !important;
+    }
     .detail-course .background {
         left: 0;
     }
@@ -5079,14 +5100,55 @@
         padding: 0px 5px;
         font-size: 13px;
     }
-    .detail-course .frame {
+    .detail-course .frame.mb-25px {
         padding-bottom: 0;
         min-height: 200px;
     }
     .detail-course .bg-course-detail {
         height: 187px;
     }
+    .detail-course .lessons .u-list-course .title, .u-list-course .link, .u-list-course .time {
+        padding-left: 8px;
+    }
+    .u-list-course .panel-body i.fa-lock{
+        padding-top: 6px;
+    }
+    div.dataTables_wrapper div.dataTables_filter{
+        padding:5px 0;
+    }
+    .image-cropit-editor .box-avatar-preview, .preview-profile, .sample-avatar{
+        height: auto !important;
+        width: 100% !important;
+    }
+    .sample-avatar{
+        padding: 10px;
+    }
+    .image-cropit-editor .box-avatar-preview{
+        border: none;
+    }
+    .box-course .img-course img.img-responsive{
+        height: auto;
+    }
+    .cart-single-item {
+        display: inline-block;
+    }
 
+    .cart-single-item .course-info {
+        padding: 10px 0;
+    }
+    .cart-single-item .course-info .lecturer-info{
+        padding: 5px 0;
+    }
+    .cart-single-item .image a img{
+        width: 100% !important;
+    }
+    .cart-single-item .single-price {
+        display: block;
+        width: auto;
+    }
+    .cart-single-item .course-info{
+        margin-left: 0;
+    }
 }
 
 @media all and (max-width: 600px) {
