@@ -1,4 +1,5 @@
 <?php
+    $course->vote_count = $course->five_stars+$course->four_stars+$course->three_stars+$course->two_stars+$course->one_stars;
     $initial_vote_count = $course->vote_count;
     // if($course->vote_count == 0) {
     //     $course->vote_count = 1;

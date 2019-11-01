@@ -1,4 +1,5 @@
 <?php
+    $course->vote_count = $course->five_stars+$course->four_stars+$course->three_stars+$course->two_stars+$course->one_stars;
     $lecturers = $course->author;
     $main_lecturer = 0;
     if( isset($course->teacherId) ){

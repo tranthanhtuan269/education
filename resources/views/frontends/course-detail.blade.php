@@ -31,6 +31,7 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
 @section('content')
 <?php
     $percent_temp = 100;
+    $info_course->vote_count = $info_course->five_stars+$info_course->four_stars+$info_course->three_stars+$info_course->two_stars+$info_course->one_stars;
     $initial_vote_count = $info_course->vote_count;
     if($info_course->vote_count == 0) {
         $info_course->vote_count = 1;

@@ -52,6 +52,7 @@
                                         //     dd($course);
                                         // }
                                         // print_r($course->id);die;
+                                    $course->vote_count = $course->five_stars+$course->four_stars+$course->three_stars+$course->two_stars+$course->one_stars;
                                     ?>
                                     @include(
                                         'components.purchased-course', 
