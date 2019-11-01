@@ -128,7 +128,7 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                         </div>
                         <div class="student-of-course">
                             <i class="fas fa-user-graduate fa-fw fa-lg"></i>
-                            <div class="special">{{ number_format($info_course->student_count, 0, ',' , '.') }} <span>Học viên</span></div>
+                            <span class="special">{{ number_format($info_course->student_count, 0, ',' , '.') }} <span>Học viên</span></span>
                         </div>
                     </div>
                     <div class="clearfix"></div>
