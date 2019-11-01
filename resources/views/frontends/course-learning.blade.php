@@ -75,17 +75,10 @@
 						</div>
 						&nbsp;
 						<div class="cup-progress" style="width:17%">
-							@if ($video_done_percent == 100)
-								<div class="progress" >
-									<div class="progress-bar progress-bar-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-								</div>
-								<i class="fa fa-trophy fa-2x" style="color: goldenrod"></i>	
-							@else
-								<div class="progress" >
-									<div class="progress-bar bg-success" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-								</div>
-								<i class="fa fa-trophy fa-2x"></i>
-							@endif
+							<div class="progress" >
+								<div class="progress-bar bg-success" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+							</div>
+							<i class="fa fa-trophy fa-2x"></i>
 						</div>
 					</div>
 				</div>

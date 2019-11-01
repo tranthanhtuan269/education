@@ -85,7 +85,11 @@
                                                             },
                                                             dataType: "json",
                                                             success: function () {
-                                                                window.location.href = ("/learning-page/"+ course_id +"/"+ course_slug)
+                                                                @if(Auth::user()->isAdmin() || $info_course->Lecturers()[0]->user->id == Auth::user()->id)
+                                                                    window.location.href = ("/learning-page/"+ course_id +"/lecture/"+ learning_id)
+                                                                @else
+                                                                    window.location.href = ("/learning-page/"+ course_id +"/"+ course_slug)
+                                                                @endif
                                                             },
                                                             error: function () {
 

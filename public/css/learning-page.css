@@ -906,6 +906,14 @@ body{
     margin-left: 5px;
 }
 
+.finish-course{
+    color: #ffd66d!important;
+}
+
+.bg-success{
+    background-color: #ffd66d!important;
+}
+
 /* Absolute Center Spinner */
 .loading {
     position: fixed;

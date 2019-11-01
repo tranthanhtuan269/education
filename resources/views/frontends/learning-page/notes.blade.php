@@ -75,11 +75,15 @@
             })
                    
         }else{
+            var infoVideoJson = localStorage.getItem("currentVideo");
+            var infoVideo = JSON.parse(infoVideoJson)
+            var idCurrentVideo = infoVideo.idCurrentVideo
+
             var request = $.ajax({
                 url: "{{ url('notes/store') }}",
                 method: "POST",
                 data: {
-                    videoId: localStorage.getItem("indexCurrentVideo"),
+                    videoId: idCurrentVideo,
                     content: noteEditor.getData(),
                     timeTick: currentTime
                 },
