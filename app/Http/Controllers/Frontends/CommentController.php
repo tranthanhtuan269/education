@@ -287,7 +287,9 @@ class CommentController extends Controller
             $commentCourse->state = 0;
             $commentCourse->save();
 
-            \App\Helper\Helper::addAlertCustomize($comment->userRole->user, "Khóa học " . $comment->course->name . " vừa có một đánh giá mới", "Đánh giá của bạn tại khóa học <a href='" . url('/') . "/course/" . $comment->course->id . "/" . $comment->course->slug . "'>" . $comment->course->name . "</a> vừa có một trả lời");
+            if ( $comment->user_role_id != Auth::user()->userRolesStudent()->id ){
+                \App\Helper\Helper::addAlertCustomize($comment->userRole->user, "Khóa học " . $comment->course->name . " vừa có một đánh giá mới", "Đánh giá của bạn tại khóa học <a href='" . url('/') . "/course/" . $comment->course->id . "/" . $comment->course->slug . "'>" . $comment->course->name . "</a> vừa có một trả lời");
+            }
 
             return \Response::json(array('status' => '200', 'message' => 'Cập nhật thông tin thành công!', 'commentCourse' => fractal($commentCourse, new CommentCourseTransformer())->toArray()));
         }
