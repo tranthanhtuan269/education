@@ -205,12 +205,16 @@
                                                 <span class="unica-sl-notify"><b></b></span>
                                             </a>                                    
                                             <ul class="dropdown-menu db-drop">
-                                                <li><a href="/user/student/mail-box" style="display:flex;">
+                                                <li><a href="/user/student/mail-box" class="student-mailbox">
                                                     <img src="{{ asset('frontend/images/tab_notifications.png') }}" alt="" style="width: 21px;" />
-                                                    <span style="margin-left: 10px">Học viên</span></a></li>
-                                                <li><a href="/user/teacher/mail-box" style="display:flex">
+                                                    <span style="margin-left: 12px">Học viên</span>
+                                                    <span class="sl-notify-student"><b>5</b></span>
+                                                </a></li>
+                                                <li><a href="/user/teacher/mail-box" class="teacher-mailbox">
                                                     <img src="{{ asset('frontend/images/tab_notifications.png') }}" alt="" style="width: 21px;" />
-                                                    <span style="margin-left: 10px">Giảng viên</span></a></li>
+                                                    <span style="margin-left: 12px">Giảng viên</span>
+                                                    <span class="sl-notify-teacher"><b>3</b></span>
+                                                </a></li>
                                             </ul>
                                             @else
                                             <a class="unica-cart unica-mail" href="/user/student/mail-box">
@@ -583,14 +587,21 @@
                     });
                     
                     $(".unica-sl-notify b").text(response.number_unread_emails)
-
+                    
                     if(response.number_unread_emails >= 1){
                         // $(".unica-sl-notify").remove()
                         $('.unica-sl-notify').css('display', 'block' )
                         $('.unica-sl-notify').show()
                     }
-                    // console.log(response.number_unread_emails)
 
+                    if ( response.number_of_student >= 1 ){
+                        $('.sl-notify-student').css('display', 'block' )
+                        $(".sl-notify-student b").text(response.number_of_student)
+                    }
+                    if ( response.number_of_teacher >= 1 ){
+                        $('.sl-notify-student').css('display', 'block' )
+                        $(".sl-notify-teacher b").text(response.number_of_teacher)
+                    }
                 },
                 error: function (response) {
 

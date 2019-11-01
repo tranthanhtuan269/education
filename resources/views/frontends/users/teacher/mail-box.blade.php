@@ -164,6 +164,12 @@
                             }else{
                                 $('.unica-sl-notify').css('display', 'none')
                             }
+                            var note_number_teacher = parseInt($('.sl-notify-teacher b').text())
+                            if(note_number_teacher - 1 > 0){
+                                $('.sl-notify-teacher b').text(note_number_teacher-1)
+                            }else{
+                                $('.sl-notify-teacher').css('display', 'none')
+                            }
                         }
                         self.parent().parent().attr('style','')
                     },

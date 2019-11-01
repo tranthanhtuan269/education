@@ -417,11 +417,16 @@ class UserController extends Controller
         $unread_emails = Email::whereIn('id', $unread_user_emails->pluck('email_id'))->get();
         $number_unread_emails = count($unread_user_emails);
 
+        $number_unread_student_mail = count($user->user_emails->where('teacher', null)->where('viewed', 0));
+        $number_unread_teacher_mail = count($user->user_emails->where('teacher', true)->where('viewed', 0));
+
         return response()->json([
             'status' => '200',
             'message' => 'Success',
             'unread_emails' => $unread_emails,
             'number_unread_emails' => $number_unread_emails,
+            'number_of_student' => $number_unread_student_mail,
+            'number_of_teacher' => $number_unread_teacher_mail,
         ]);
 
     }
