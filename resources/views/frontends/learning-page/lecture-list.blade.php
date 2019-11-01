@@ -64,7 +64,7 @@
                             <li class="video-list-item video-selected" id="listItem{{$video->id}}" data-parent="{{$video->id}}" data-isstudent="{{$isStudent}}" data-name="{{ $video->name }}" data-unit="{{ ($unit->index) }}" data-video="{{ ($video->index) }}">
                                 <a id="view-from-learning-page-{{$video->id}}" href="javascript:void(0)">
                                     <span class="ln-lect-list-lect-title-icon"><span><i class="fas fa-play-circle"></i></span></span>
-                                    <span class="ln-lect-list-lect-title">{{ $video->name }}</span>
+                                    <span class="ln-lect-list-lect-title has-result">{{ $video->name }}</span>
                                     <span class="ln-lect-list-lect-duration">{{ App\Helper::convertSecondToTimeFormat($video->duration) }}</span>                                
                                     @if ($isStudent)
                                         @php
@@ -103,7 +103,7 @@
                             <li class="video-list-item" id="listItem{{$video->id}}" data-parent="{{$video->id}}" data-isstudent="{{$isStudent}}" data-name="{{ $video->name }}" data-unit="{{ ($unit->index) }}" data-video="{{ ($video->index) }}">
                                 <a id="view-from-learning-page-{{$video->id}}" href="javascript:void(0)">
                                     <span class="ln-lect-list-lect-title-icon"><span><i class="fas fa-play-circle"></i></span></span>
-                                    <span class="ln-lect-list-lect-title">{{ $video->name }}</span>
+                                    <span class="ln-lect-list-lect-title has-result">{{ $video->name }}</span>
                                     <span class="ln-lect-list-lect-duration">{{ App\Helper::convertSecondToTimeFormat($video->duration) }}</span>                                
                                     @if ($isStudent)
                                         @php
@@ -154,15 +154,19 @@
             sessionStorage.setItem("searchString", string);
             if(string.length > 0){
                 $('.ln-lect-list-sect-counter').hide();
+                $(".ln-lect-list-lect-title").addClass('has-result')
                 $(".ln-lect-list-lect-title").each(function( index ) {
                     if(!$( this ).text().toLowerCase().includes(string.toLowerCase())){
+                        $(this).removeClass('has-result');
                         $(this).parent().parent().hide();
                     }
                 });
             }else{
+                $('.ln-lect-list-item').show();
                 $('.ln-lect-list-sect-counter').show();
             }
             $('.ln-lect-list-body').addClass('in')
+            removeHaveNotResult();
         });
 
         var searchString = sessionStorage.getItem("searchString");
@@ -179,15 +183,19 @@
             sessionStorage.setItem("searchString", string);
             if(string.length > 0){
                 $('.ln-lect-list-sect-counter').hide();
+                $(".ln-lect-list-lect-title").addClass('has-result')
                 $(".ln-lect-list-lect-title").each(function( index ) {
                     if(!$( this ).text().toLowerCase().includes(string.toLowerCase())){
+                        $(this).removeClass('has-result');
                         $(this).parent().parent().hide();
                     }
                 });
             }else{
+                $('.ln-lect-list-item').show();
                 $('.ln-lect-list-sect-counter').show();
             }
             $('.ln-lect-list-body').addClass('in')
+            removeHaveNotResult();
         });
 
         document.addEventListener("keydown", function(event) {
@@ -196,6 +204,11 @@
                 $('.ln-lect-list-body').addClass('in')
             }
         })
+
+        function removeHaveNotResult(){
+            $('.ln-lect-list-item').hide();
+            $(".ln-lect-list-lect-title.has-result").parent().parent().parent().parent().parent().show();
+        }
     })
 </script>
 
