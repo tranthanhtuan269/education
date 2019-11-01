@@ -227,7 +227,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                Thêm bài học
+                <h3>Thêm bài học</h3>
             </div>
             <div class="modal-body">
                 <div class="form-group row">
@@ -291,7 +291,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                Chỉnh sửa bài học: <span id="lecture-name"></span>
+                <h3>Chỉnh sửa bài học <span id="lecture-name"></span></h3>
             </div>
             <div class="modal-body">
                 <div class="form-group row">
@@ -676,6 +676,7 @@
                 success: function (response) {
                     console.log(response);
                     if(response.status == '200'){
+                        // $('#editVideoModal #lecture-name').text(response.video.name)
                         $('#editVideoModal input.edit-video-name').val(response.video.name);
                         $('#editVideoModal textarea').val(response.video.description);
                         $('#editVideoModal video').attr('src', "{{ url('uploads/videos') }}/" + response.video.link_video);
