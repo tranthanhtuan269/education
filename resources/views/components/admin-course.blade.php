@@ -1,8 +1,8 @@
 <?php
     $initial_vote_count = $course->vote_count;
-    if($course->vote_count == 0) {
-        $course->vote_count = 1;
-    }
+    // if($course->vote_count == 0) {
+    //     $course->vote_count = 1;
+    // }
     $image = url('/frontend/images/'.$course->image);
     $lecturers = count($course->Lecturers()) > 1 ? 'Nhiều tác giả' : count($course->Lecturers()) > 0 ? $course->Lecturers()[0]->user->name : "Courdemy";
     $course_status = $course->status;
