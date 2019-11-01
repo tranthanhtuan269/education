@@ -220,7 +220,32 @@ nav .pagination li a img{width:35px;position:relative;top:-6px}
 
 .unica-cart{color:#999;margin-left:15px;position:relative;top:10px}
 .unica-cart i{font-size:24px}
-.unica-sl-notify{color:#FFFFFF;font-size:11px;border-radius:25px;position:absolute;top:-17px;left:14px;padding:3px 7px;background:#FF8F00; display: none;}
+.unica-sl-notify{
+  color:#FFFFFF;
+  font-size:11px;
+  border-radius:25px;
+  position:absolute;
+  top:-17px;left:14px;
+  padding:3px 7px;
+  background:#FF8F00; 
+  display: none;
+}
+.sl-notify-student, .sl-notify-teacher{
+  color:#FFFFFF;
+  font-size:11px;
+  border-radius:25px;
+  position:absolute;
+  top:3px;
+  left:33px;
+  padding:3px 7px;
+  background:#FF8F00; 
+  display: none;
+}
+.unica-home-menutop .db-item li .student-mailbox, .unica-home-menutop .db-item li .teacher-mailbox{
+  display: flex;
+  border-bottom: 1px solid #ccc;
+  padding-top: 15px;
+}
 .unica-sl-cart{color:#FFFFFF;font-size:11px;border-radius:25px;position:absolute;top:-17px;left:14px;padding:3px 8px;background:#FF8F00; display:none;}
 .unica-acc-zone{float:right;margin-top:13px}
 .unica-acc-zone>li{
