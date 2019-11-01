@@ -520,6 +520,9 @@ $(document).ready(function () {
                 saveInfoCurrentCourse(video_id_list[current_video_index + 1])
 
                 $('.ln-btn-note .note-count').text(data.count_note)
+                
+                $('#lnDescBtnViewed').hide()
+                $('#lnDescBtnNotViewed').show()
 
                 getNoteCount()
                 checkShowHideNextPrev(video_id_list[current_video_index + 1])
