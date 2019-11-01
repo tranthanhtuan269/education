@@ -1,5 +1,5 @@
 <?php
-    // if($course->vote_count == 0) $course->vote_count = 1;
+    $course->vote_count = $course->five_stars+$course->four_stars+$course->three_stars+$course->two_stars+$course->one_stars;
     $random_name = ['Steve Rogers', 'Natasha Romanoff', 'Tony Stark', 'Peter Quill', "Bruce Banner", "Stephen Strange"];
     $lecturers = count($course->Lecturers()) > 1 ? 'Nhiều tác giả' : ((count($course->Lecturers()) > 0 && isset($course->Lecturers()->first()->user)) ? $course->Lecturers()->first()->user->name : "Courdemy");
 ?>
