@@ -18,18 +18,8 @@
 Auth::routes();
 
 Route::get('trinhnk', function( ){
-    $courses = \App\Course::get();
-    foreach ( $courses as $course ){
-        $course_duration = 0;
-        foreach ( $course->units as $value_unit ){
-            foreach ($value_unit->timeLessonActive as $value_video){
-                $course_duration += $value_video->duration;
-            }
-        }
-        $course->duration = $course_duration;
-        $course->save();
-    }
-    dd('done');
+    $check = \App\TempCourse::where('course_id', 592)->first();
+    dd(($check));
 });
 
 Route::get('delete/{course}', 'Frontends\HomeController@deleteCourse');
@@ -390,6 +380,8 @@ Route::group(['middleware' => 'auth'], function () {
             Route::put('{id}/update', 'Backends\CourseController@update');
             Route::post('stop-sell', 'Backends\CourseController@destroy');
             Route::post('continue-sell', 'Backends\CourseController@continueSell');
+            Route::post('check-request-edit', 'Backends\CourseController@checkRequestEditCourse');
+            Route::post('view-request-edit', 'Backends\CourseController@viewRequestEditCourse');
         });
 
         Route::group(['prefix' => 'units'],function () {
