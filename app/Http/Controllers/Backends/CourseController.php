@@ -461,7 +461,7 @@ class CourseController extends Controller
                 $course->category_id          = $temp_course->category_id;
                 $course->link_intro           = $temp_course->link_intro;
                 $course->updated_at           = date('Y-m-d H:i:s');
-                \App\Helper\Helper::addAlertCustomize($course->Lecturers()[0]->user, "Yêu cầu sửa khóa học " . $course->name . "đã được duyệt", "Chúc mừng bạn! Yêu cầu sửa khóa học <a href='" . url('/') . "/course/" . $course->id . "/" . $course->slug . "'>" . $course->name . "</a> đã được duyệt", true);
+                \App\Helper\Helper::addAlertCustomize($course->Lecturers()[0]->user, "Yêu cầu sửa khóa học " . $course->name . " đã được duyệt", "Chúc mừng bạn! Yêu cầu sửa khóa học <a href='" . url('/') . "/course/" . $course->id . "/" . $course->slug . "'>" . $course->name . "</a> đã được duyệt", true);
                 $course->save();
                 $temp_course->delete();
                 return response()->json(array('status' => '200', 'message' => 'Duyệt yêu cầu sửa khóa học thành công.'));
