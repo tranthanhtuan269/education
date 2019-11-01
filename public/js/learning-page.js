@@ -26,6 +26,7 @@ $(document).ready(function () {
     }
 
     var videoLatest = false;
+    var videoPlayFlag = false;
 
     // Set up the player
     var isPlayerAutoplay = false
@@ -82,6 +83,7 @@ $(document).ready(function () {
     updateLink();
 
     function updateLink(){
+        videoPlayFlag = false;
         player = videojs('my-video', options);
         prePlay(360);
         player.load();
@@ -91,7 +93,7 @@ $(document).ready(function () {
     }
 
     player.on('loadeddata', function(){
-        if(localStorage.getItem('autoplay') == "true"){
+        if(localStorage.getItem('autoplay') == "true" || videoPlayFlag == true){
             $(".learning-desc-panel").hide()
             player.play();
         }else{
@@ -547,6 +549,7 @@ $(document).ready(function () {
     function clickToPlay() {
         //btn continue
         $("#lnDescBtnPlay").click(function () {
+            videoPlayFlag = true;
             player.play()
             $(".learning-desc-panel").fadeOut()
         })
