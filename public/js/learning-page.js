@@ -216,22 +216,22 @@ $(document).ready(function () {
         })
         
     });
-    $(document).on('click',"#btnAutoplay", function(){
+    $(document).on('click',"#btnAutoplay, .ln-btn-autoplay", function(){
         if(localStorage.getItem('autoplay') == 'true'){
             localStorage.setItem('autoplay', 'false')
             isAutoplay = false;
-            $("#btnAutoplay").removeClass("fa-toggle-on")
-            $("#btnAutoplay").addClass("fa-toggle-off")
+            $("#btnAutoplay").removeClass("fa-toggle-on").addClass("fa-toggle-off")
+            $(".ln-btn-autoplay>i").removeClass("fa-toggle-on").addClass("fa-toggle-off")
         }else if(localStorage.getItem('autoplay') == 'false'){
             localStorage.setItem('autoplay', 'true')
             isAutoplay = true;
-            $("#btnAutoplay").removeClass("fa-toggle-off")
-            $("#btnAutoplay").addClass("fa-toggle-on")
+            $("#btnAutoplay").removeClass("fa-toggle-off").addClass("fa-toggle-on")
+            $(".ln-btn-autoplay>i").removeClass("fa-toggle-off").addClass("fa-toggle-on")
         }else{
             localStorage.setItem('autoplay', 'true')
             isAutoplay = true;
-            $("#btnAutoplay").removeClass("fa-toggle-off")
-            $("#btnAutoplay").addClass("fa-toggle-on")
+            $("#btnAutoplay").removeClass("fa-toggle-off").addClass("fa-toggle-on")
+            $(".ln-btn-autoplay>i").removeClass("fa-toggle-off").addClass("fa-toggle-on")
         }
     })
 
@@ -1047,5 +1047,4 @@ function checkShowHideNextPrev(current_video_id){
         $('.lnDescBtnNextLink').show();
         $('#btnContinue').show();
     }
-    alert(video_id_index);
 }
