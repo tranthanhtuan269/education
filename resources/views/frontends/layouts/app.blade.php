@@ -164,8 +164,8 @@
                 </span>
                 <div id="userPanel" class="popover user-login-panel">
                     <div class="popover-content">
-                        <a class="btn btn-block btn-white" href="/login" class="btnDangxuat"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
-                        <a class="btn btn-block btn-white" href="/register" class="btnDangxuat">Đăng ký</a>
+                        <a class="btn btn-block btn-white" href="#" data-toggle="modal" data-target="#myModalLogin">Đăng nhập</a>
+                        <a class="btn btn-block btn-white" href="#" data-toggle="modal" data-target="#myModalRegister">Đăng ký</a>
                     </div>
                 </div>
             </div>
@@ -325,137 +325,6 @@
                                             $("#myModalRegister").modal("toggle"); 
                                         })
                                     </script>
-                                    <div id="myModalLogin" class="modal fade" role="dialog" >
-                                        <div class="modal-dialog modal-login">
-                                            <div class="modal-content">
-                                                <div class="modal-header">				
-                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                    <div class="modal-title"><b>Đăng nhập vào tài khoản Courdemy của bạn</b></div>
-                                                </div>
-                                                <div class="modal-body">
-                                                    {{-- <div class="social-login">
-                                                        <a href="{{url('/redirect')}}" class="btn btn-lg btn-primary btn-block kpx_btn-facebook" data-toggle="tooltip" data-placement="top" title="Facebook">
-                                                            <span class="social-login-icon">
-                                                                <i class="fab fa-facebook-f fa-lg fa-fw"></i>
-                                                            </span>
-                                                            Đăng nhập với facebook
-                                                        </a>
-                                                        <div class="btn btn-lg btn-danger btn-block kpx_btn_google" id="btn-google-login">
-                                                            <span class="social-login-icon">
-                                                                <i class="fab fa-google fa-lg fa-fw"></i>
-                                                            </span>
-                                                            Đăng nhập với Google
-                                                        </div>
-                                                    </div> --}}
-                                                    @if($_SERVER['SERVER_NAME'] === "timtruyen.online")
-                                                        @include('components.google-login')
-                                                    @endif
-
-                                                    <br />
-                                                    {{-- <p style="margin-left:265px">OR</p>
-                                                    <br />
-                                                    <div class="form-group">
-                                                        <div class="col-md-8 col-md-offset-4">
-                                                        <a href="{{url('/redirect')}}" class="btn btn-primary">Login with Facebook</a>
-                                                        </div>
-                                                    </div> --}}
-
-                                                    <form action="/examples/actions/confirmation.php" method="post">
-                                                        <div class="form-group">
-                                                            <div class="input-group">
-                                                                <span class="input-group-addon"><i class="fas fa-envelope fa-fw fa-md"></i></span>
-                                                                <input type="t" class="form-control" name="email" placeholder="Email" required="required">
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <div class="input-group password-group">
-                                                                <span class="input-group-addon"><i class="fas fa-lock fa-fw fa-md"></i></span>
-                                                                <input type="password" class="form-control" name="pass" placeholder="Mật khẩu" required="required" id="showMyPassword">
-                                                                <div class="show-password" onclick="showPassword()">
-                                                                    <i class="fas fa-eye fa-fw fa-md" id="eye"></i>
-                                                                    <!-- <i class="fas fa-eye-slash fa-fw fa-lg" style="display:none"></i> -->
-                                                                </div>
-                                                            </div>
-                                                            <!-- <div><input type="checkbox" onclick="showPassword()"> Hiển thị mật khẩu</div> -->
-                                                        </div>
-                                                        {{-- <div class="form-group">
-                                                            <input type="checkbox" name="remember"> Keep my logged in on this computer
-                                                        </div> --}}
-                                                        <div class="form-group">
-                                                            <input type="button" class="btn btn-success btn-block btn-lg" value="Đăng nhập" onclick="loginAjax()">
-                                                        </div>
-                                                        <input id="resetFormsLogin" type="reset" value="Reset the form" style="display:none">
-                                                    </form>
-                                                    <div class="forgot-password">
-                                                        {{-- <div>
-                                                            <a href="#">Quên mật khẩu?</a>
-                                                        </div> --}}
-                                                    </div>
-                                                </div>
-
-                                                <div class="modal-footer">
-                                                    <div class="link-to-sign-up">
-                                                        <div>
-                                                            Bạn chưa có tài khoản? <a href="javascript:void(0)" data-toggle="modal" data-target="#myModalRegister" data-dismiss="modal"><b>Đăng ký</b></a>
-                                                        </div>
-                                                    </div>
-                                                    {{-- <a href="javascript:void(0)" data-toggle="modal" data-target="#myModalRegister" data-dismiss="modal">Need an account</a> --}}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div id="myModalRegister" class="modal fade" role="dialog" >
-                                        <div class="modal-dialog modal-login">
-                                            <div class="modal-content">
-                                                <div class="modal-header">				
-                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                    <div class="modal-title"><b>Tạo tài khoản mới</b></div>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form action="/examples/actions/confirmation.php" method="post">
-                                                        <div class="form-group">
-                                                            <div class="input-group">
-                                                                <span class="input-group-addon"><i class="fas fa-user fa-lock fa-fw fa-md"></i></span>
-                                                                <input type="text" class="form-control" name="name" placeholder="Tên của bạn" required="required">
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <div class="input-group">
-                                                                <span class="input-group-addon"><i class="fas fa-envelope fa-envelope fa-fw fa-md"></i></span>
-                                                                <input type="email" class="form-control" name="email" placeholder="Email" required="required">
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <div class="input-group">
-                                                                <span class="input-group-addon"><i class="fas fa-lock fa-fw fa-md"></i></span>
-                                                                <input type="password" class="form-control" name="pass" placeholder="Mật khẩu" required="required">
-                                                            </div>				
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <div class="input-group">
-                                                                <span class="input-group-addon"><i class="fas fa-lock fa-fw fa-md"></i></span>
-                                                                <input type="password" class="form-control" name="confirmpass" placeholder="Nhập lại mật khẩu" required="required">
-                                                            </div>				
-                                                        </div>
-                                                        {{-- <div class="terms-and-policy">
-                                                            <label class="checkbox-inline"><input type="checkbox">You agree to our <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>!</label>
-                                                        </div> --}}
-                                                        <div class="form-group">
-                                                            <input type="button" class="btn btn-success btn-block btn-lg" value="Đăng ký" onclick="registerAjax()">
-                                                        </div>
-                                                        <input id="resetFormsSignup" type="reset" value="Reset the form" style="display:none">
-                                                    </form>				
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <div class="link-to-sign-up">
-                                                        <div>
-                                                            Bạn đã có tài khoản? <a href="javascript:void(0)" data-toggle="modal" data-target="#myModalLogin" data-dismiss="modal"><b>Đăng nhập</b></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                     @endif
                                 </ul>
 
@@ -537,7 +406,139 @@
             </div>
         </div>
     </footer>
+    @if (!Auth::check())
+        <div id="myModalLogin" class="modal fade" role="dialog" >
+            <div class="modal-dialog modal-login">
+                <div class="modal-content">
+                    <div class="modal-header">				
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <div class="modal-title"><b>Đăng nhập vào tài khoản Courdemy của bạn</b></div>
+                    </div>
+                    <div class="modal-body">
+                        {{-- <div class="social-login">
+                            <a href="{{url('/redirect')}}" class="btn btn-lg btn-primary btn-block kpx_btn-facebook" data-toggle="tooltip" data-placement="top" title="Facebook">
+                                <span class="social-login-icon">
+                                    <i class="fab fa-facebook-f fa-lg fa-fw"></i>
+                                </span>
+                                Đăng nhập với facebook
+                            </a>
+                            <div class="btn btn-lg btn-danger btn-block kpx_btn_google" id="btn-google-login">
+                                <span class="social-login-icon">
+                                    <i class="fab fa-google fa-lg fa-fw"></i>
+                                </span>
+                                Đăng nhập với Google
+                            </div>
+                        </div> --}}
+                        @if($_SERVER['SERVER_NAME'] === "timtruyen.online")
+                            @include('components.google-login')
+                        @endif
 
+                        <br />
+                        {{-- <p style="margin-left:265px">OR</p>
+                        <br />
+                        <div class="form-group">
+                            <div class="col-md-8 col-md-offset-4">
+                            <a href="{{url('/redirect')}}" class="btn btn-primary">Login with Facebook</a>
+                            </div>
+                        </div> --}}
+
+                        <form action="/examples/actions/confirmation.php" method="post">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fas fa-envelope fa-fw fa-md"></i></span>
+                                    <input type="t" class="form-control" name="email" placeholder="Email" required="required">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group password-group">
+                                    <span class="input-group-addon"><i class="fas fa-lock fa-fw fa-md"></i></span>
+                                    <input type="password" class="form-control" name="pass" placeholder="Mật khẩu" required="required" id="showMyPassword">
+                                    <div class="show-password" onclick="showPassword()">
+                                        <i class="fas fa-eye fa-fw fa-md" id="eye"></i>
+                                        <!-- <i class="fas fa-eye-slash fa-fw fa-lg" style="display:none"></i> -->
+                                    </div>
+                                </div>
+                                <!-- <div><input type="checkbox" onclick="showPassword()"> Hiển thị mật khẩu</div> -->
+                            </div>
+                            {{-- <div class="form-group">
+                                <input type="checkbox" name="remember"> Keep my logged in on this computer
+                            </div> --}}
+                            <div class="form-group">
+                                <input type="button" class="btn btn-success btn-block btn-lg" value="Đăng nhập" onclick="loginAjax()">
+                            </div>
+                            <input id="resetFormsLogin" type="reset" value="Reset the form" style="display:none">
+                        </form>
+                        <div class="forgot-password">
+                            {{-- <div>
+                                <a href="#">Quên mật khẩu?</a>
+                            </div> --}}
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <div class="link-to-sign-up">
+                            <div>
+                                Bạn chưa có tài khoản? <a href="javascript:void(0)" data-toggle="modal" data-target="#myModalRegister" data-dismiss="modal"><b>Đăng ký</b></a>
+                            </div>
+                        </div>
+                        {{-- <a href="javascript:void(0)" data-toggle="modal" data-target="#myModalRegister" data-dismiss="modal">Need an account</a> --}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="myModalRegister" class="modal fade" role="dialog" >
+            <div class="modal-dialog modal-login">
+                <div class="modal-content">
+                    <div class="modal-header">				
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <div class="modal-title"><b>Tạo tài khoản mới</b></div>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/examples/actions/confirmation.php" method="post">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fas fa-user fa-lock fa-fw fa-md"></i></span>
+                                    <input type="text" class="form-control" name="name" placeholder="Tên của bạn" required="required">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fas fa-envelope fa-envelope fa-fw fa-md"></i></span>
+                                    <input type="email" class="form-control" name="email" placeholder="Email" required="required">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fas fa-lock fa-fw fa-md"></i></span>
+                                    <input type="password" class="form-control" name="pass" placeholder="Mật khẩu" required="required">
+                                </div>				
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fas fa-lock fa-fw fa-md"></i></span>
+                                    <input type="password" class="form-control" name="confirmpass" placeholder="Nhập lại mật khẩu" required="required">
+                                </div>				
+                            </div>
+                            {{-- <div class="terms-and-policy">
+                                <label class="checkbox-inline"><input type="checkbox">You agree to our <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>!</label>
+                            </div> --}}
+                            <div class="form-group">
+                                <input type="button" class="btn btn-success btn-block btn-lg" value="Đăng ký" onclick="registerAjax()">
+                            </div>
+                            <input id="resetFormsSignup" type="reset" value="Reset the form" style="display:none">
+                        </form>				
+                    </div>
+                    <div class="modal-footer">
+                        <div class="link-to-sign-up">
+                            <div>
+                                Bạn đã có tài khoản? <a href="javascript:void(0)" data-toggle="modal" data-target="#myModalLogin" data-dismiss="modal"><b>Đăng nhập</b></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
     <script>
         var user_id = $('button[id=cartUserId]').attr('data-user-id')
 
