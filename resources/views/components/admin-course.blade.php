@@ -164,6 +164,7 @@
                 <h3 class="modal-title" id="exampleModalLabel">Chỉnh sửa khóa học: <b>{{ $course->name }}</b></h3>
             </div>
             <div class="modal-body">
+                <div class="notify-edit-course" style="display:none">Yêu cầu chỉnh sửa đang được xem xét. <button class="btn btn-info" id="viewRequestEdit{{ $course->id }}">Xem chi tiết</button></div>
                 <div class="row">
                     <div class="image-cropit-editor">
                         <div class="box-course-preview" id="image-cropper-{{$course->id}}">
@@ -600,6 +601,51 @@
             // $('.cropit-preview-image').removeAttr('style');
             $('.cropit-preview-image').attr('src','');
             $('#editCourse-{{ $course->id }}').modal('toggle')
+
+            $('.notify-edit-course').css('display','none')
+            checkRequestEdit({{ $course->id }})
+        })
+
+        $('#viewRequestEdit{{ $course->id }}').click(function(){
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            })
+            $.ajax({
+                method: 'POST',
+                url: "{{ url('/user/courses/view-request-edit')}}",
+                data: {
+                    'course_id': {{ $course->id }}
+                },
+                dataType: 'json',
+                success: function (response) {
+                    if(response.status == 200){
+                        $('#cropitPreview{{$course->id}} img').attr('src','')
+                        $('#cropitPreview{{$course->id}} img').attr('src','frontend/images/'+response.image)
+
+                        $('#course-name-{{ $course->id }}').val(response.name)
+
+                        $('#short-description-{{ $course->id }}').val(response.short_description)
+
+                        CKEDITOR.instances['course-description-{{$course->id}}'].setData(response.description)
+
+                        $('#course-requirement-{{$course->id}}').val(response.requirement)
+
+                        $('#course-intro-{{$course->id}}').val(response.video)
+
+                        $('#courseOriginalPrice{{$course->id}}').val(response.real_price)
+
+                        $('#courseDiscountPrice{{$course->id}}').val(response.price)
+
+                        $('#course-approx-time-{{$course->id}}').val(response.approx_time)
+
+                        $('select[name=category-{{$course->id}}]').val(response.category_id)
+
+                        CKEDITOR.instances['course-will-learn-{{$course->id}}'].setData(response.will_learn)
+                    }
+                },
+            }) 
         })
 
         $('#btnStop{{ $course->id }}').click(function(){
@@ -899,4 +945,28 @@
         var teacherId = $(this).attr('data-teacher-id')
         window.location.href = `/teacher/${teacherId}`
     })
+
+    function checkRequestEdit(course_id){
+        // get note of video
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        })
+        $.ajax({
+            method: 'POST',
+            url: "{{ url('/user/courses/check-request-edit')}}",
+            data: {
+                'course_id': course_id
+            },
+            dataType: 'json',
+            success: function (response) {
+                if(response.status == 200){
+                    if ( response.result == true ){
+                        $('.notify-edit-course').css('display','block')
+                    }
+                }
+            },
+        })  
+    }
 </script>

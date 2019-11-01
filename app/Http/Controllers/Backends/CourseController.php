@@ -563,4 +563,42 @@ class CourseController extends Controller
         }
         return response()->json(array('status' => '404', 'message' => 'Thao tác không thành công.'));
     }
+
+    public function checkRequestEditCourse(Request $request)
+    {
+        $check = TempCourse::where('course_id', $request->course_id)->get();
+        if ( $check ){
+            if ( count($check) >= 1  ){
+                return response()->json(array('status' => '200', 'result' => true ));
+            }else{
+                return response()->json(array('status' => '200', 'result' => false ));
+            }
+        }else{
+            return response()->json(array('status' => '404'));
+        }
+    }
+
+    public function viewRequestEditCourse(Request $request)
+    {
+        $edit_course = TempCourse::where('course_id', $request->course_id);
+        if ( $edit_course ){
+            $edit_course = $edit_course->first();
+            return response()->json(array(
+                'status'    => '200',
+                'image'     => $edit_course->image,
+                'name'      => $edit_course->name,
+                'short_description' => $edit_course->short_description,
+                'description'   => $edit_course->description,
+                'requirement'   => $edit_course->requirement,
+                'video'         => $edit_course->link_intro,
+                'real_price'    => $edit_course->real_price,
+                'price'         => $edit_course->price,
+                'approx_time'   => $edit_course->approx_time,
+                'category_id'   => $edit_course->category_id,
+                'will_learn'    => $edit_course->will_learn,
+            ));
+        }else{
+            return response()->json(array('status' => '404'));
+        }
+    }
 }
