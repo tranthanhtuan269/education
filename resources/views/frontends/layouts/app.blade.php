@@ -599,7 +599,7 @@
                         $(".sl-notify-student b").text(response.number_of_student)
                     }
                     if ( response.number_of_teacher >= 1 ){
-                        $('.sl-notify-student').css('display', 'block' )
+                        $('.sl-notify-teacher').css('display', 'block' )
                         $(".sl-notify-teacher b").text(response.number_of_teacher)
                     }
                 },
