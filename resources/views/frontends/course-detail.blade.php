@@ -1314,10 +1314,10 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
             $('.number-in-cart').text(number_items_in_cart.length);
         }
     }
-    // $(document).ready(function() {
-    //     @if(!(\App\Helper::isMobile()))
-    //         $('.detail-course .frame .network-reponsive').css('margin-top',($('.detail-course .frame .info').height() - $('.detail-course .frame .network-reponsive').height())/2)
-    //     @endif
-    // })
+    $(document).ready(function() {
+        @if(!(\App\Helper::isMobile()))
+            $('.detail-course .frame .network-reponsive').css('margin-top',($('.detail-course .frame .info').height() - $('.detail-course .frame .network-reponsive').height())/2)
+        @endif
+    })
 </script>
 @endsection
