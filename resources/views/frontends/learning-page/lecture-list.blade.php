@@ -161,12 +161,12 @@
                         $(this).parent().parent().hide();
                     }
                 });
+                removeHaveNotResult();
             }else{
                 $('.ln-lect-list-item').show();
                 $('.ln-lect-list-sect-counter').show();
             }
             $('.ln-lect-list-body').addClass('in')
-            removeHaveNotResult();
         });
 
         var searchString = sessionStorage.getItem("searchString-" + $('body').attr('data-course-id'));
@@ -190,12 +190,12 @@
                         $(this).parent().parent().hide();
                     }
                 });
+                removeHaveNotResult();
             }else{
                 $('.ln-lect-list-item').show();
                 $('.ln-lect-list-sect-counter').show();
             }
             $('.ln-lect-list-body').addClass('in')
-            removeHaveNotResult();
         });
 
         document.addEventListener("keydown", function(event) {
