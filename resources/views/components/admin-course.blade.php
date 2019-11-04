@@ -603,7 +603,7 @@
             $('#editCourse-{{ $course->id }}').modal('toggle')
 
             $('.notify-edit-course').css('display','none')
-            $('#cropitPreview{{$course->id}} img').attr('src','')
+            $('#cropitPreview{{$course->id}} img').attr('src','{{ asset("frontend/images/".$course->image) }}')
             checkRequestEdit({{ $course->id }})
         })
 
