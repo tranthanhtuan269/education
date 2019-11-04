@@ -278,18 +278,18 @@
                                                 <li><a href="/user/student/mail-box" class="student-mailbox">
                                                     <img src="{{ asset('frontend/images/tab_notifications.png') }}" alt="" style="width: 21px;" />
                                                     <span style="margin-left: 12px">Học viên</span>
-                                                    <span class="sl-notify-student"><b>5</b></span>
+                                                    <span class="sl-notify-student"><b></b></span>
                                                 </a></li>
                                                 <li><a href="/user/teacher/mail-box" class="teacher-mailbox">
                                                     <img src="{{ asset('frontend/images/tab_notifications.png') }}" alt="" style="width: 21px;" />
                                                     <span style="margin-left: 12px">Giảng viên</span>
-                                                    <span class="sl-notify-teacher"><b>3</b></span>
+                                                    <span class="sl-notify-teacher"><b></b></span>
                                                 </a></li>
                                             </ul>
                                             @else
                                             <a class="unica-cart unica-mail" href="/user/student/mail-box">
                                                 <img src="{{ asset('frontend/images/tab_notifications.png') }}" alt="" style="width: 21px;" />
-                                                <span class="unica-sl-notify"><b></b></span>
+                                                <span class="sl-notify-student"><b></b></span>
                                             </a>
                                             @endif
                                         </li>
