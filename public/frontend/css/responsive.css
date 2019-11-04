@@ -51,6 +51,12 @@
 @media (min-width:1600px) and (max-width:1920px) {
     /* .unica-home-menutop .col-lg-3 { width: 16.66666667%; padding: 0; } */
     /* .unica-home-menutop .col-lg-4 { width: 41.66666667%; } */
+    .courdemy-teacher .banner-top {
+        height: 815px;
+    }
+    .courdemy-teacher .banner-top .container {
+        padding-top: 90px;
+    }
     .unica-blog .container {
         width: 1600px;
     }
@@ -2191,7 +2197,8 @@
 }
 
 @media all and (max-width: 767px) {
-    #myModalRegister .modal-dialog,#myModalLogin .modal-dialog {
+    #myModalRegister .modal-dialog,
+    #myModalLogin .modal-dialog {
         width: auto;
     }
     .member-card-info .padding-form {
@@ -4824,6 +4831,22 @@
 }
 
 @media all and (max-width: 767px) {
+    .courdemy-teacher .banner-top .title {
+        width: auto;
+        margin-top: 45px;
+    }
+    .courdemy-teacher .banner-top .title h1 {
+        font-size: 37px;
+    }
+    .courdemy-teacher .course-statistical {
+        height: 790px;
+    }
+    .courdemy-teacher .course-statistical .statistic {
+        height: 790px;
+    }
+    .courdemy-teacher #make-a-plan img {
+        width: 365px;
+    }
     .u-all-course h1 {
         font-size: 24px;
     }
@@ -5363,4 +5386,23 @@
     }
 }
 
-@media (min-width:375px) and (max-width:414px) {}
+@media (min-width:375px) and (max-width:414px) {
+    .courdemy-teacher #make-a-plan img {
+        width: 345px;
+    }
+    .courdemy-teacher .banner-top .title h1 {
+        font-size: 30px;
+    }
+    .courdemy-teacher .banner-top .title p {
+        font-size: 24px;
+    }
+    .courdemy-teacher .statistic .box-statistic {
+        padding-top: 50px;
+    }
+}
+
+@media (min-width:1024px) {
+    .courdemy-teacher .teacher-review .box-teacher .teacher-info {
+        min-height: 183px;
+    }
+}

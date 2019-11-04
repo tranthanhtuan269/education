@@ -28,36 +28,36 @@ Trở thành giảng viên Courdemy
             <div class="title text-center">Khám phá tiềm năng của bạn</div>
             <hr>
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-4 col-sm-4">
                     <div class="discover-box text-center">
                         <img src="{{ asset('/frontend/images/money.png') }}" alt="Earn Money">
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 col-sm-4">
                     <div class="discover-box text-center">
                         <img src="{{ asset('/frontend/images/inspiration.png') }}" alt="Inspire Students">
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 col-sm-4">
                     <div class="discover-box text-center">
                         <img src="{{ asset('/frontend/images/community.png') }}" alt="Join our commnunity">
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-4 col-sm-4">
                     <div class="discover-box text-center">
                         <p class="discover-title">Tăng thu nhập</p>
                         <p class="discover-content">Nhận được thu nhập thụ động mỗi khi học viên mua khóa học của bạn. Nhận tiền qua tài khoản ngân hàng hoặc trựa tiếp tại văn phòng của Courdemy.</p>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 col-sm-4">
                     <div class="discover-box text-center">
                         <p class="discover-title">Truyền cảm hứng cho học viên</p>
                         <p class="discover-content">Nhận được thu nhập thụ động mỗi khi học viên mua khóa học của bạn. Nhận tiền qua tài khoản ngân hàng hoặc trựa tiếp tại văn phòng của Courdemy.</p>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 col-sm-4">
                     <div class="discover-box text-center">
                         <p class="discover-title">Tham gia cộng đồng Courdemy</p>
                         <p class="discover-content">Nhận được thu nhập thụ động mỗi khi học viên mua khóa học của bạn. Nhận tiền qua tài khoản ngân hàng hoặc trựa tiếp tại văn phòng của Courdemy.</p>
@@ -66,7 +66,7 @@ Trở thành giảng viên Courdemy
             </div>
         </div>
     </div>
-    <div class="container-fluid">
+    <div class="container-fluid course-statistical">
         <div class="statistic">
             <div class="container">
                 <div class="box-statistic">
@@ -108,7 +108,7 @@ Trở thành giảng viên Courdemy
                 <div class="title text-center">Các bước trở thành giảng viên Courdemy</div>
                 <hr>
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-4 col-sm-4">
                         <div class="box-step box-step-1 text-center active">
                             <a data-toggle="tab" href="#make-a-plan">
                                 <img src="{{ asset('/frontend/images/plan_active.png') }}" alt="">
@@ -116,7 +116,7 @@ Trở thành giảng viên Courdemy
                             </a>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 col-sm-4">
                         <div class="box-step box-step-2 text-center">
                             <a data-toggle="tab" href="#record-video">
                                 <img src="{{ asset('/frontend/images/record_inactive.png') }}" alt="">
@@ -124,7 +124,7 @@ Trở thành giảng viên Courdemy
                             </a>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 col-sm-4">
                         <div class="box-step box-step-3 text-center">
                             <a data-toggle="tab" href="#build-community">
                                 <img src="{{ asset('/frontend/images/community_inactive.png') }}" alt="">
