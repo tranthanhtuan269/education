@@ -62,6 +62,7 @@
             var dataObject = [
                 {
                     data: "sender",
+                    orderable: false
                 },
                 {
                     data: "title",
