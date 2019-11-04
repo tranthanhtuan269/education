@@ -314,7 +314,7 @@ class VideoPlayerController extends Controller
     }
 
     public function getNoteCount(Request $request){
-        $note_count = \App\Note::where('video_id', $request->video_id)->get()->count();
+        $note_count = \App\Note::where('video_id', $request->video_id)->where('user_id',\Auth::id())->get()->count();
         $comment_count = \App\CommentVideo::where('video_id', $request->video_id)->get()->count();
         $document_count = \App\Document::where('video_id', $request->video_id)->get()->count();
         return \Response::json(array(
