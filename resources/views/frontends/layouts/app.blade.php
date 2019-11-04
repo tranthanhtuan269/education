@@ -318,7 +318,7 @@
                 <div class="c_header__search collapse" id="searchpanel" style="">
                     <div class="c_quick-search__form">
                         <form class="searchbox" method="GET" action="/search">
-                            <input type="text" class="form-control sm-form" name="key" placeholder="Tìm khóa học, giảng viên bạn quan tâm">
+                            <input type="text" class="form-control sm-form" name="keyword" placeholder="Tìm khóa học, giảng viên bạn quan tâm">
                             <button type="submit" class="btn sm-btn-search"><i class="fa fa-search" aria-hidden="true"></i></button>
                         </form>
                     </div>
