@@ -2191,6 +2191,9 @@
 }
 
 @media all and (max-width: 767px) {
+    .modal-dialog{
+        width: auto;
+    }
     .member-card-info .padding-form {
         padding-bottom: 0;
     }
