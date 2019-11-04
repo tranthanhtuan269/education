@@ -364,6 +364,7 @@ $(document).ready(function () {
 
                 window.videoSource = JSON.parse(data.video_url);
                 updateLink();
+                getNoteCount();
                 $('.ln-desc-title').html('<p>' + video_name + '</p>');
                 $('.ln-desc-subtitle').html('<p>' + video_info + '</p>');
 
