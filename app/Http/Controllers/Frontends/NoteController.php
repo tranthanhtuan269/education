@@ -61,7 +61,7 @@ class NoteController extends Controller
 
     public function getNote(Request $request){
         if($request->video_id){
-            $note_videos = Note::where('video_id', $request->video_id)->get();
+            $note_videos = Note::where('video_id', $request->video_id)->where('user_id', \Auth::id())->get();
             return \Response::json(array('status' => '200', 'message' => 'Lấy ghi chú thành công!', 'noteVideo' => fractal()
             ->collection($note_videos)
             ->transformWith(new NoteTransformer)
