@@ -113,26 +113,197 @@
                 </script>
             </div>
         @else
-            <nav id="mysidebarmenu" class="amazonmenu">
-                <ul>
-                    @foreach($category_fixed as $cat)
-                        @if(count($cat->childrenHavingCourse) > 0)
-                            <li>
-                                <a title="{!! $cat->name !!}" href="javascript:void(0)"><i class="fas {!! $cat->icon !!}"></i> {!! $cat->name !!}</a>
-                                <ul class="issub">
-                                        @foreach($cat->childrenHavingCourse as $children)
-                                            @if($children->has('courses'))
-                                            <li><a href="{{ url('/') }}/category/{{ $children->slug }}">{!! $children->name !!}</a></li>
-                                            @endif
+            <div class="unica-home-menutop hidden-xs fixed">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-3 col-sm-4 cate-md">
+                            <a class="unica-logo" href="{{ url('/') }}"><img class="img-responsive" src="{{ asset('frontend/images/tab_logo.png') }}" alt="" width="138" height="33" /></a>
+                            <div class="unica-menu-cate">
+                                <i class="fa fa-th" aria-hidden="true"></i> Danh mục
+    
+                                {{-- CATEGORY BAR --}}
+                                <nav id="mysidebarmenu" class="amazonmenu">
+                                    <ul>
+                                        @foreach($category_fixed as $cat)
+                                        @if(count($cat->childrenHavingCourse) > 0)
+                                            <li>
+                                                <a title="{!! $cat->name !!}" href="javascript:void(0)"><i class="fas {!! $cat->icon !!}"></i> {!! $cat->name !!}</a>
+                                                <ul class="issub">
+                                                        @foreach($cat->childrenHavingCourse as $children)
+                                                            @if($children->has('courses'))
+                                                            <li><a href="{{ url('/') }}/category/{{ $children->slug }}">{!! $children->name !!}</a></li>
+                                                            @endif
+                                                        @endforeach
+                                                    </ul>
+                                                </li>
+                                        @endif
                                         @endforeach
                                     </ul>
-                                </li>
-                        @endif
-                    @endforeach
-                </ul>
-            </nav>
+                                </nav>
+    
+                                <script>
+                                    var catPanelHeight = $("#mysidebarmenu").height()
+                                    $("#mysidebarmenu .issub").css("height", catPanelHeight)
+                                    $("#mysidebarmenu .issub").css("overflow", "auto")
+    
+                                </script>
+                            </div>
+                        </div>
+                        <div class="col-lg-5 col-sm-4 cate-sm">
+                            <form class="unica-search-boxtop navbar-form form-inline" method="GET" action="/search">
+                                <input name="keyword" type="text" class="form-control unica-form" placeholder="Tìm kiếm khoá học" value="{{ Request::get('keyword') }}">
+                                <button type="submit" class="unica-btn-search"><i class="fa fa-search" aria-hidden="true"></i></button>
+                            </form>
+                        </div>
+                        <div class="col-lg-4 col-sm-4 cate-sm">
+                            <div class="pull-right">
+                                <ul class="unica-acc-zone db-item">
+                                    @if(Auth::check())
+                                        @if(!Auth::user()->isAdmin())
+                                            <li style="float:left"><a href="{{ url('user/student/course') }}" class="unica-active-course responsive-start-learning"><p class="hidden-md hidden-xs hidden-sm">Vào học</p></a></li>
+                                        @else
+                                            <li style="float:left"><a href="{{ url('admincp') }}" class="unica-admin"><p class="hidden-md hidden-xs hidden-sm">Trang quản trị</p></a></li>
+                                        @endif
+                                    @endif
+                                    @if (Auth::check())
+                                    <li style="float:left">
+                                        @if (!Auth::user()->isAdmin())
+                                        <a href="{{route('cart.show')}}" class="unica-cart"
+                                        @if (\Request::is('cart'))
+                                        style="display:none
+                                        @endif>
+                                            <img src="{{ asset('frontend/images/tab_cart.png') }}" alt="" style="width: 21px;" />
+                                            @if (!\Request::is('cart'))
+                                            <span class="unica-sl-cart" style="display: none;"><b class="number-in-cart"></b></span>
+                                            @endif
+                                            <button id="cartUserId" style="display:none" data-user-id="{{Auth::user()->id}}"></button>
+                                        </a>
+                                        @endif
+                                    </li>
+                                    @elseif(!Auth::check())
+                                    <li style="float:left">
+                                        <a href="{{route('cart.show')}}" class="unica-cart"
+                                        @if (\Request::is('cart'))
+                                        style="display:none"
+                                        @endif
+                                        >
+                                            <img src="{{ asset('frontend/images/tab_cart.png') }}" alt="" style="width: 21px;" />
+                                            @if (!\Request::is('cart'))
+                                            <span class="unica-sl-cart" style="display: none;"><b class="number-in-cart"></b></span>
+                                            @endif
+                                            <button id="cartUserId" style="display:none" data-user-id="0"></button>
+                                        </a>                            
+                                    </li>
+                                    @endif
+    
+                                        @if(Auth::check())
+                                            @if (!Auth::user()->isAdmin())
+                                            {{-- <li style="float:left">
+                                                <div class="dropdown" id="btnMailBoxNav">
+                                                    <a class="unica-cart unica-mail" href="/user/student/mail-box">
+                                                        <img src="{{ asset('frontend/images/tab_notifications.png') }}" alt="" style="width: 21px;" />
+                                                        <span class="unica-sl-notify"><b></b></span>
+                                                    </a>
+                                                    <ul class="dropdown-menu hidden" id="mailBoxNavDropdown" style="top:3em;">
+                                                        <li class="row">
+                                                            <div class="col-xs-12 w-100">Lorem ipsum dolor sit amet conser ve</div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </li>                                         --}}
+                                            <li class="btn-group" style="float:left">
+                                                @if ( Auth::user()->registeredTeacher() )
+                                                <a class="unica-cart unica-mail dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)">
+                                                    <img src="{{ asset('frontend/images/tab_notifications.png') }}" alt="" style="width: 21px;" />
+                                                    <span class="unica-sl-notify"><b></b></span>
+                                                </a>                                    
+                                                <ul class="dropdown-menu db-drop">
+                                                    <li><a href="/user/student/mail-box" class="student-mailbox">
+                                                        <img src="{{ asset('frontend/images/tab_notifications.png') }}" alt="" style="width: 21px;" />
+                                                        <span style="margin-left: 12px">Học viên</span>
+                                                        <span class="sl-notify-student"><b>5</b></span>
+                                                    </a></li>
+                                                    <li><a href="/user/teacher/mail-box" class="teacher-mailbox">
+                                                        <img src="{{ asset('frontend/images/tab_notifications.png') }}" alt="" style="width: 21px;" />
+                                                        <span style="margin-left: 12px">Giảng viên</span>
+                                                        <span class="sl-notify-teacher"><b>3</b></span>
+                                                    </a></li>
+                                                </ul>
+                                                @else
+                                                <a class="unica-cart unica-mail" href="/user/student/mail-box">
+                                                    <img src="{{ asset('frontend/images/tab_notifications.png') }}" alt="" style="width: 21px;" />
+                                                    <span class="unica-sl-notify"><b></b></span>
+                                                </a>
+                                                @endif
+                                            </li>
+                                            @endif
+                                        <li class="btn-group" style="float:left">
+                                            <a class="db-item-circle dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)"><img class="img-responsive" src="{{ asset('frontend/'.(Auth::user()->avatar != '' ? Auth::user()->avatar : 'images/avatar.jpg')) }}" alt="avatar"><span class="caret"></span></a>                                    
+                                            <ul class="dropdown-menu db-drop">
+                                                @if ( !Auth::user()->isAdmin() )
+                                                    @if (Auth::user()->registeredTeacher())
+                                                        <li><a href="{{ url('user/teacher/course') }}"><i class="fas fa-chalkboard-teacher"></i> Giảng viên</a></li>
+                                                        <li><a href="{{ url('user/student/course') }}"><i class="fas fa-user-graduate"></i> Học viên</a></li>
+                                                    @else                                                
+                                                        <li><a href="{{ url('user/student/course') }}"><i class="fa fa-list-alt" aria-hidden="true"></i> Vào học</a></li>
+                                                        {{-- <li><a href="{{ route('coming-soon') }}"><i class="fa fa-share-alt" aria-hidden="true"></i> Affiliate</a></li> --}}
+                                                        {{-- <li><a href="{{ route('coming-soon') }}"><i class="fa fa-key" aria-hidden="true"></i> Activate course</a></li> --}}
+                                                        <li><a href="{{ url('user/student/profile') }}"><i class="fa fa-user" aria-hidden="true"></i> Hồ sơ </a></li>
+                                                        <li><a href="{{ url('/user/student/top-up') }}"><i class="fa fa-credit-card" aria-hidden="true"></i>  Nạp tiền </a></li>
+                                                    @endif
+                                                @else
+                                                    {{-- <li><a href="{{ url('admincp') }}"><i class="fas fa-user-shield"></i> Admin Page</a></li>           --}}
+    
+                                                @endif
+                                                <li class="divider"></li>
+                                                <li><a href="{{ url('user/logout') }}" class="btnDangxuat btn-google-logout btn-logout-account"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
+    
+                                                @if($_SERVER['SERVER_NAME'] === "timtruyen.online")
+                                                    <div class="g-signin2" data-onsuccess="onSignIn" style="display:none"></div>
+                                                    <script src="https://apis.google.com/js/platform.js" async></script>
+                                                    <script>
+                                                        // $('.btn-google-logout').click()
+                                                        function onSignIn(googleUser) {
+                                                            var profile = googleUser.getBasicProfile();
+    
+                                                            var auth2 = gapi.auth2.getAuthInstance();
+                                                            auth2.signOut().then(function () {
+                                                            // console.log('User signed out.');
+                                                            });
+                                                            // location.reload();
+                                                        }
+                                                    </script>
+                                                @endif
+                                            </ul>
+                                        </li>
+                                        @else
+                                        <li class="special" data-toggle="modal" data-target="#myModalLogin" data-dismiss="modal"><a class="unica-log-acc" href="">Đăng nhập</a></li>
+                                        <li class="special button-sign-up" data-toggle="modal" data-target="#myModalRegister" data-dismiss="modal"><a class="unica-reg-acc" href="">Đăng ký</a></li>
+                                        <script>
+                                            $('.unica-log-acc').click(function(e){
+                                                e.stopPropagation()
+                                                e.preventDefault()
+                                                $('#resetFormsLogin').click()
+                                                $("#myModalLogin").modal("toggle"); 
+                                            })
+                                            $('.unica-reg-acc').click(function(e){
+                                                e.stopPropagation()
+                                                e.preventDefault()
+                                                $('#resetFormsSignup').click()
+                                                $("#myModalRegister").modal("toggle"); 
+                                            })
+                                        </script>
+                                        @endif
+                                    </ul>
+    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="menutop-side"></div>
         @endif
-
         <div class="sm-mobile-menu hidden-lg hidden-md hidden-sm">
             <div class="sm-navi-btn offcanvas-toggle js-offcanvas-has-events" data-toggle="offcanvas" data-target="#js-bootstrap-offcanvas">
                 <div id="menu-wrapper">
@@ -170,196 +341,6 @@
                 </div>
             </div>
         </div>
-        <div class="unica-home-menutop hidden-xs fixed">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-3 col-sm-4 cate-md">
-                        <a class="unica-logo" href="{{ url('/') }}"><img class="img-responsive" src="{{ asset('frontend/images/tab_logo.png') }}" alt="" width="138" height="33" /></a>
-                        <div class="unica-menu-cate">
-                            <i class="fa fa-th" aria-hidden="true"></i> Danh mục
-
-                            {{-- CATEGORY BAR --}}
-                            <nav id="mysidebarmenu" class="amazonmenu">
-                                <ul>
-                                    @foreach($category_fixed as $cat)
-                                    @if(count($cat->childrenHavingCourse) > 0)
-                                        <li>
-                                            <a title="{!! $cat->name !!}" href="javascript:void(0)"><i class="fas {!! $cat->icon !!}"></i> {!! $cat->name !!}</a>
-                                            <ul class="issub">
-                                                    @foreach($cat->childrenHavingCourse as $children)
-                                                        @if($children->has('courses'))
-                                                        <li><a href="{{ url('/') }}/category/{{ $children->slug }}">{!! $children->name !!}</a></li>
-                                                        @endif
-                                                    @endforeach
-                                                </ul>
-                                            </li>
-                                    @endif
-                                    @endforeach
-                                </ul>
-                            </nav>
-
-                            <script>
-                                var catPanelHeight = $("#mysidebarmenu").height()
-                                $("#mysidebarmenu .issub").css("height", catPanelHeight)
-                                $("#mysidebarmenu .issub").css("overflow", "auto")
-
-                            </script>
-                        </div>
-                    </div>
-                    <div class="col-lg-5 col-sm-4 cate-sm">
-                        <form class="unica-search-boxtop navbar-form form-inline" method="GET" action="/search">
-                            <input name="keyword" type="text" class="form-control unica-form" placeholder="Tìm kiếm khoá học" value="{{ Request::get('keyword') }}">
-                            <button type="submit" class="unica-btn-search"><i class="fa fa-search" aria-hidden="true"></i></button>
-                        </form>
-                    </div>
-                    <div class="col-lg-4 col-sm-4 cate-sm">
-                        <div class="pull-right">
-                            <ul class="unica-acc-zone db-item">
-                                @if(Auth::check())
-                                    @if(!Auth::user()->isAdmin())
-                                        <li style="float:left"><a href="{{ url('user/student/course') }}" class="unica-active-course responsive-start-learning"><p class="hidden-md hidden-xs hidden-sm">Vào học</p></a></li>
-                                    @else
-                                        <li style="float:left"><a href="{{ url('admincp') }}" class="unica-admin"><p class="hidden-md hidden-xs hidden-sm">Trang quản trị</p></a></li>
-                                    @endif
-                                @endif
-                                @if (Auth::check())
-                                <li style="float:left">
-                                    @if (!Auth::user()->isAdmin())
-                                    <a href="{{route('cart.show')}}" class="unica-cart"
-                                    @if (\Request::is('cart'))
-                                    style="display:none
-                                    @endif>
-                                        <img src="{{ asset('frontend/images/tab_cart.png') }}" alt="" style="width: 21px;" />
-                                        @if (!\Request::is('cart'))
-                                        <span class="unica-sl-cart" style="display: none;"><b class="number-in-cart"></b></span>
-                                        @endif
-                                        <button id="cartUserId" style="display:none" data-user-id="{{Auth::user()->id}}"></button>
-                                    </a>
-                                    @endif
-                                </li>
-                                @elseif(!Auth::check())
-                                <li style="float:left">
-                                    <a href="{{route('cart.show')}}" class="unica-cart"
-                                    @if (\Request::is('cart'))
-                                    style="display:none"
-                                    @endif
-                                    >
-                                        <img src="{{ asset('frontend/images/tab_cart.png') }}" alt="" style="width: 21px;" />
-                                        @if (!\Request::is('cart'))
-                                        <span class="unica-sl-cart" style="display: none;"><b class="number-in-cart"></b></span>
-                                        @endif
-                                        <button id="cartUserId" style="display:none" data-user-id="0"></button>
-                                    </a>                            
-                                </li>
-                                @endif
-
-                                    @if(Auth::check())
-                                        @if (!Auth::user()->isAdmin())
-                                        {{-- <li style="float:left">
-                                            <div class="dropdown" id="btnMailBoxNav">
-                                                <a class="unica-cart unica-mail" href="/user/student/mail-box">
-                                                    <img src="{{ asset('frontend/images/tab_notifications.png') }}" alt="" style="width: 21px;" />
-                                                    <span class="unica-sl-notify"><b></b></span>
-                                                </a>
-                                                <ul class="dropdown-menu hidden" id="mailBoxNavDropdown" style="top:3em;">
-                                                    <li class="row">
-                                                        <div class="col-xs-12 w-100">Lorem ipsum dolor sit amet conser ve</div>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </li>                                         --}}
-                                        <li class="btn-group" style="float:left">
-                                            @if ( Auth::user()->registeredTeacher() )
-                                            <a class="unica-cart unica-mail dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)">
-                                                <img src="{{ asset('frontend/images/tab_notifications.png') }}" alt="" style="width: 21px;" />
-                                                <span class="unica-sl-notify"><b></b></span>
-                                            </a>                                    
-                                            <ul class="dropdown-menu db-drop">
-                                                <li><a href="/user/student/mail-box" class="student-mailbox">
-                                                    <img src="{{ asset('frontend/images/tab_notifications.png') }}" alt="" style="width: 21px;" />
-                                                    <span style="margin-left: 12px">Học viên</span>
-                                                    <span class="sl-notify-student"><b>5</b></span>
-                                                </a></li>
-                                                <li><a href="/user/teacher/mail-box" class="teacher-mailbox">
-                                                    <img src="{{ asset('frontend/images/tab_notifications.png') }}" alt="" style="width: 21px;" />
-                                                    <span style="margin-left: 12px">Giảng viên</span>
-                                                    <span class="sl-notify-teacher"><b>3</b></span>
-                                                </a></li>
-                                            </ul>
-                                            @else
-                                            <a class="unica-cart unica-mail" href="/user/student/mail-box">
-                                                <img src="{{ asset('frontend/images/tab_notifications.png') }}" alt="" style="width: 21px;" />
-                                                <span class="unica-sl-notify"><b></b></span>
-                                            </a>
-                                            @endif
-                                        </li>
-                                        @endif
-                                    <li class="btn-group" style="float:left">
-                                        <a class="db-item-circle dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)"><img class="img-responsive" src="{{ asset('frontend/'.(Auth::user()->avatar != '' ? Auth::user()->avatar : 'images/avatar.jpg')) }}" alt="avatar"><span class="caret"></span></a>                                    
-                                        <ul class="dropdown-menu db-drop">
-                                            @if ( !Auth::user()->isAdmin() )
-                                                @if (Auth::user()->registeredTeacher())
-                                                    <li><a href="{{ url('user/teacher/course') }}"><i class="fas fa-chalkboard-teacher"></i> Giảng viên</a></li>
-                                                    <li><a href="{{ url('user/student/course') }}"><i class="fas fa-user-graduate"></i> Học viên</a></li>
-                                                @else                                                
-                                                    <li><a href="{{ url('user/student/course') }}"><i class="fa fa-list-alt" aria-hidden="true"></i> Vào học</a></li>
-                                                    {{-- <li><a href="{{ route('coming-soon') }}"><i class="fa fa-share-alt" aria-hidden="true"></i> Affiliate</a></li> --}}
-                                                    {{-- <li><a href="{{ route('coming-soon') }}"><i class="fa fa-key" aria-hidden="true"></i> Activate course</a></li> --}}
-                                                    <li><a href="{{ url('user/student/profile') }}"><i class="fa fa-user" aria-hidden="true"></i> Hồ sơ </a></li>
-                                                    <li><a href="{{ url('/user/student/top-up') }}"><i class="fa fa-credit-card" aria-hidden="true"></i>  Nạp tiền </a></li>
-                                                @endif
-                                            @else
-                                                {{-- <li><a href="{{ url('admincp') }}"><i class="fas fa-user-shield"></i> Admin Page</a></li>           --}}
-
-                                            @endif
-                                            <li class="divider"></li>
-                                            <li><a href="{{ url('user/logout') }}" class="btnDangxuat btn-google-logout btn-logout-account"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
-
-                                            @if($_SERVER['SERVER_NAME'] === "timtruyen.online")
-                                                <div class="g-signin2" data-onsuccess="onSignIn" style="display:none"></div>
-                                                <script src="https://apis.google.com/js/platform.js" async></script>
-                                                <script>
-                                                    // $('.btn-google-logout').click()
-                                                    function onSignIn(googleUser) {
-                                                        var profile = googleUser.getBasicProfile();
-
-                                                        var auth2 = gapi.auth2.getAuthInstance();
-                                                        auth2.signOut().then(function () {
-                                                        // console.log('User signed out.');
-                                                        });
-                                                        // location.reload();
-                                                    }
-                                                </script>
-                                            @endif
-                                        </ul>
-                                    </li>
-                                    @else
-                                    <li class="special" data-toggle="modal" data-target="#myModalLogin" data-dismiss="modal"><a class="unica-log-acc" href="">Đăng nhập</a></li>
-                                    <li class="special button-sign-up" data-toggle="modal" data-target="#myModalRegister" data-dismiss="modal"><a class="unica-reg-acc" href="">Đăng ký</a></li>
-                                    <script>
-                                        $('.unica-log-acc').click(function(e){
-                                            e.stopPropagation()
-                                            e.preventDefault()
-                                            $('#resetFormsLogin').click()
-                                            $("#myModalLogin").modal("toggle"); 
-                                        })
-                                        $('.unica-reg-acc').click(function(e){
-                                            e.stopPropagation()
-                                            e.preventDefault()
-                                            $('#resetFormsSignup').click()
-                                            $("#myModalRegister").modal("toggle"); 
-                                        })
-                                    </script>
-                                    @endif
-                                </ul>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="menutop-side"></div>
     </header>
     <!-- <div class="hidden-xs" style="margin-top: 63px;"></div> -->
     <!-- <div class="hidden-md hidden-sm hidden-lg" style="margin-top: 45px;"></div> -->
