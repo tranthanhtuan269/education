@@ -26,6 +26,7 @@ $(document).ready(function () {
     }
 
     var videoLatest = false;
+    var videoPlayFlag = false;
 
     // Set up the player
     var isPlayerAutoplay = false
@@ -82,6 +83,7 @@ $(document).ready(function () {
     updateLink();
 
     function updateLink(){
+        videoPlayFlag = false;
         player = videojs('my-video', options);
         prePlay(360);
         player.load();
@@ -91,7 +93,7 @@ $(document).ready(function () {
     }
 
     player.on('loadeddata', function(){
-        if(localStorage.getItem('autoplay') == "true"){
+        if(localStorage.getItem('autoplay') == "true" || videoPlayFlag == true){
             $(".learning-desc-panel").hide()
             player.play();
         }else{
@@ -408,6 +410,9 @@ $(document).ready(function () {
 
             $('.ln-btn-note .note-count').text(data.count_note)
 
+            $('#lnDescBtnViewed').hide()
+            $('#lnDescBtnNotViewed').show()
+
             getNoteCount()
             checkShowHideNextPrev(video_id_list[current_video_index + 1])
             checkFinishCourse()
@@ -458,6 +463,9 @@ $(document).ready(function () {
             saveInfoCurrentCourse(video_id_list[current_video_index - 1])
 
             $('.ln-btn-note .note-count').text(data.count_note)
+
+            $('#lnDescBtnViewed').hide()
+            $('#lnDescBtnNotViewed').show()
 
             getNoteCount()
             checkShowHideNextPrev(video_id_list[current_video_index - 1])
@@ -514,6 +522,9 @@ $(document).ready(function () {
                 saveInfoCurrentCourse(video_id_list[current_video_index + 1])
 
                 $('.ln-btn-note .note-count').text(data.count_note)
+                
+                $('#lnDescBtnViewed').hide()
+                $('#lnDescBtnNotViewed').show()
 
                 getNoteCount()
                 checkShowHideNextPrev(video_id_list[current_video_index + 1])
@@ -538,6 +549,7 @@ $(document).ready(function () {
     function clickToPlay() {
         //btn continue
         $("#lnDescBtnPlay").click(function () {
+            videoPlayFlag = true;
             player.play()
             $(".learning-desc-panel").fadeOut()
         })

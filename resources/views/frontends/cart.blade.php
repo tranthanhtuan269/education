@@ -16,20 +16,18 @@ Giỏ hàng của tôi
         </div>
     </div>
 </div>
-<div class="cart-page-body background-page">
-    <div class="cart-page-title container">
-        {{-- <img src="http://courdemy.local/frontend/images/tab_cart.png" alt="" style="width: auto;"> --}}
-                <div>
+<div class="cart-page-body">
+    <div class="cart-page-content container">        
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="cart-page-title container">
                     <p>BẠN CÓ <span class="course-amount"></span> KHOÁ HỌC TRONG GIỎ HÀNG</p>
                 </div>
-    </div>
-    <div class="cart-page-content container">
-        
-        <div class="row">
-            <div class="cart-item-list col-md-9">
+            </div>
+            <div class="cart-item-list col-md-9 col-xs-12">
                 
             </div>
-            <div class="checkout-column col-md-3">
+            <div class="checkout-column col-md-3 col-xs-12">
                 <div>
                     <div class="price-group">
                         <div class="text-total">

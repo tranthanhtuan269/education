@@ -603,6 +603,7 @@
             $('#editCourse-{{ $course->id }}').modal('toggle')
 
             $('.notify-edit-course').css('display','none')
+            $('#cropitPreview{{$course->id}} img').attr('src','')
             checkRequestEdit({{ $course->id }})
         })
 
@@ -643,6 +644,9 @@
                         $('select[name=category-{{$course->id}}]').val(response.category_id)
 
                         CKEDITOR.instances['course-will-learn-{{$course->id}}'].setData(response.will_learn)
+
+                        // document.getElementById("editCourse-{{$course->id}}").scrollTo(0, 500);
+                        $('#editCourse-{{$course->id}}').animate({scrollTop:450}, '300')
                     }
                 },
             }) 

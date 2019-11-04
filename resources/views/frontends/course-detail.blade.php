@@ -57,13 +57,13 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
             <div class="item clearfix">
                 <div class="col-sm-12">
                     <div class="frame clearfix mb-25px" id="boxTitleCourse">
-                        <div class="col-md-9 title-reponsive">
-                            <div class="info">
+                        <div class="col-md-9 col-xs-12 title-reponsive">
+                            <div class="info col-xs-12">
                                 <h1 class="name">{{ $info_course->name }}</h1>
-                                <p class="expert" id="tomTat">{{ $info_course->short_description }}</p>
+                                <p class="expert id="tomTat">{{ $info_course->short_description }}</p>
                             </div>
                         </div>
-                        <div class="network network-reponsive col-md-3"
+                        <div class="network network-reponsive col-md-3 col-xs-12">
                         {{-- @if( strlen($info_course->short_description) >= 200 )
                             style="padding-top: 43px"
                         @endif
@@ -74,8 +74,8 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                                 style="padding-top: 63px"
                             @endif
                         @endif --}}
-                        >
-                        <div class="pull-right"">
+                        
+                        <div class="pull-right">
                             <a class="btn btn-facebook-share btn-xs" data-src="{{$info_course->image}}" href="https://www.facebook.com/sharer/sharer.php?u=
                             <?php
                             echo urlencode(url()->current());
@@ -128,7 +128,7 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                         </div>
                         <div class="student-of-course">
                             <i class="fas fa-user-graduate fa-fw fa-lg"></i>
-                            <span class="special">{{ number_format($info_course->student_count, 0, ',' , '.') }} Học viên</span>
+                            <span class="special">{{ number_format($info_course->student_count, 0, ',' , '.') }} <span>Học viên</span></span>
                         </div>
                     </div>
                     <div class="clearfix"></div>
@@ -724,7 +724,7 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                                 <span class="txt-large">Tiếng Việt</span>
                             </li>
                         </ul>
-                        <div class="info-course-sidebar hidden-md hidden-xs" style="position: relative;">
+                        <div class="info-course-sidebar hidden-md hidden-xs hidden-sm" style="position: relative;">
                             <div id="sidebar-content">
                                 <div class="u-sm-left">
                                     <div class="block-price clearfix">
@@ -1314,8 +1314,10 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
             $('.number-in-cart').text(number_items_in_cart.length);
         }
     }
-    $(document).ready(function() {
-        $('.detail-course .frame .network-reponsive').css('margin-top',($('.detail-course .frame .info').height() - $('.detail-course .frame .network-reponsive').height())/2)
-    })
+    // $(document).ready(function() {
+    //     @if(!(\App\Helper::isMobile()))
+    //         $('.detail-course .frame .network-reponsive').css('margin-top',($('.detail-course .frame .info').height() - $('.detail-course .frame .network-reponsive').height())/2)
+    //     @endif
+    // })
 </script>
 @endsection
