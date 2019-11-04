@@ -232,7 +232,7 @@
                                                 @else
                                                 <a class="unica-cart unica-mail" href="/user/student/mail-box">
                                                     <img src="{{ asset('frontend/images/tab_notifications.png') }}" alt="" style="width: 21px;" />
-                                                    <span class="unica-sl-notify"><b></b></span>
+                                                    <span class="sl-notify-student-only"><b></b></span>
                                                 </a>
                                                 @endif
                                             </li>
@@ -649,6 +649,9 @@
                     if ( response.number_of_student >= 1 ){
                         $('.sl-notify-student').css('display', 'block' )
                         $(".sl-notify-student b").text(response.number_of_student)
+                        
+                        $('.sl-notify-student-only').css('display', 'block' )
+                        $(".sl-notify-student-only b").text(response.number_of_student)
                     }
                     if ( response.number_of_teacher >= 1 ){
                         $('.sl-notify-teacher').css('display', 'block' )
