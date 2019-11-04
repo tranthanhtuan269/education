@@ -193,10 +193,6 @@ class VideoPlayerController extends Controller
             $user_course = Helper::getUserRoleOfCourse($course->id);
             // dd($user_course);
             if($user_course){
-                $videos = $user_course->videos;
-                if($videos == null){
-                    return \Response::json(array('status' => '200', 'message' => 'Cập nhật thông tin thành công!'));
-                }
                 $videoObj = \json_decode($videos);
                 $videoObj->videos = $videoObj->videos;
                 $update_viewed = 0;
@@ -222,7 +218,13 @@ class VideoPlayerController extends Controller
                 }    
                 $video_list = json_encode($video_urls);
 
-                $count_note = Note::where('video_id', $request->videoId)->get()->count();
+                $count_note = Note::where('video_id', $request->videoId)->where('user_id',\Auth::id())->get()->count();
+                $videos = $user_course->videos;
+                if($videos == null){
+                    // teacher
+                    return \Response::json(array('status' => '200', 'message' => 'Cập nhật thông tin thành công!', 'update_viewed' => $update_viewed, 'video_url' => $video_list, 'count_note' => $count_note));
+                }
+
 
                 return \Response::json(array('status' => '200', 'message' => 'Cập nhật thông tin thành công!', 'update_viewed' => $update_viewed, 'video_url' => $video_list, 'count_note' => $count_note));
             }
