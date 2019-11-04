@@ -350,7 +350,7 @@ $(document).ready(function () {
                 }
             });
             var request = $.ajax({
-                method: 'POST',
+                method: 'GET',
                 url: "/user-course/get-info-course",
                 data: {
                     'video_id' : video_id
