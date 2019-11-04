@@ -2191,7 +2191,7 @@
 }
 
 @media all and (max-width: 767px) {
-    .modal-dialog{
+    #myModalRegister .modal-dialog,#myModalLogin .modal-dialog {
         width: auto;
     }
     .member-card-info .padding-form {
