@@ -225,7 +225,8 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                                             <button type="button" id="add-cart" data-id="{{ $info_course->id }}" class="btn btn-primary btn-toh"><b>Thêm vào giỏ hàng</b></button>
                                         </div>
                                         <div class="btn-buy-now">
-                                            <button type="button" id="buy-now" data-id="{{ $info_course->id }}" class="btn btn-warning btn-toh"><b>Mua ngay</b></button>
+                                            {{-- <button type="button" id="buy-now" data-id="{{ $info_course->id }}" class="btn btn-warning btn-toh"><b>Mua ngay</b></button> --}}
+                                            <button class="btn btn-warning btn-toh" data-toggle=modal data-target=#myModalLogin data-dismiss=modal ><b>Mua ngay</b></button>
                                         </div>
                                     </div>
                                     <div class="box clearfix">
@@ -792,7 +793,8 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                                                 <button type="button" id="{{ $info_course->id }}" class="btn btn-primary button-add-to-cart"><b>Thêm vào giỏ hàng</b></button>
                                             </div>
                                             <div class="sidebar-buy-now">
-                                                <button type="button" id="buy-now2" class="btn btn-warning"><b>Mua ngay</b></button>
+                                                {{-- <button type="button" id="buy-now2" class="btn btn-warning"><b>Mua ngay</b></button> --}}
+                                                <button class="btn btn-warning" data-toggle=modal data-target=#myModalLogin data-dismiss=modal ><b>Mua ngay</b></button>
                                             </div>
                                         @endif
                                     </div>
@@ -868,36 +870,36 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
         </div>
     </div>
     @if (Auth::check())
-    @if(isset($info_course->userRoles[0]->user_id))
-        @if( (int)($info_course->userRoles[0]->user_id) != (int)(Auth::user()->id) )
-            <div class="interactive-bar" data-i="{{ $info_course->id }}">
-                <div class="row">
-                    <div class="info col-xs-12 col-md-8 col-sm-7">
-                        <div class="title">
-                            <strong><p>{{ $info_course->name }}</p></strong>
+        @if(isset($info_course->userRoles[0]->user_id))
+            @if( (int)($info_course->userRoles[0]->user_id) != (int)(Auth::user()->id) )
+                <div class="interactive-bar" data-i="{{ $info_course->id }}">
+                    <div class="row">
+                        <div class="info col-xs-12 col-md-8 col-sm-7">
+                            <div class="title">
+                                <strong><p>{{ $info_course->name }}</p></strong>
+                            </div>
+                            <div class="lecturer">
+                                @foreach ($info_course->Lecturers() as $lecturer)
+                                    @if ( $lecturer->user ) 
+                                    <p>{{$lecturer->user->name}}</p> 
+                                    @endif             
+                                @endforeach
+                            </div>
                         </div>
-                        <div class="lecturer">
-                            @foreach ($info_course->Lecturers() as $lecturer)
-                                @if ( $lecturer->user ) 
-                                <p>{{$lecturer->user->name}}</p> 
-                                @endif             
-                            @endforeach
+                        @if (!Auth::user()->isAdmin())
+                        @if (!in_array($info_course->id, $list_bought))
+                        <div class="buttons col-xs-12 col-md-4 col-sm-5">
+                            <div class="group-btn-buy-course">
+                                <button class="btn btn-primary">Thêm vào giỏ hàng</button>
+                                <button class="btn btn-warning btn-buy-now">Mua ngay</button>
+                            </div>
                         </div>
+                        @endif
+                        @endif
                     </div>
-                    @if (!Auth::user()->isAdmin())
-                    @if (!in_array($info_course->id, $list_bought))
-                    <div class="buttons col-xs-12 col-md-4 col-sm-5">
-                        <div class="group-btn-buy-course">
-                            <button class="btn btn-primary">Thêm vào giỏ hàng</button>
-                            <button class="btn btn-warning">Mua ngay</button>
-                        </div>
-                    </div>
-                    @endif
-                    @endif
                 </div>
-            </div>
+            @endif
         @endif
-    @endif
     @else
         <div class="interactive-bar" data-i="{{ $info_course->id }}">
             <div class="row">
@@ -914,7 +916,8 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                 <div class="buttons col-xs-12 col-md-4 col-sm-5">
                     <div class="group-btn-buy-course">
                         <button class="btn btn-primary">Thêm vào giỏ hàng</button>
-                        <button class="btn btn-warning">Mua ngay</button>
+                        {{-- <button class="btn btn-warning">Mua ngay</button> --}}
+                        <button class="btn btn-warning" data-toggle=modal data-target=#myModalLogin data-dismiss=modal ><b>Mua ngay</b></button>
                     </div>
                 </div>
             </div>
@@ -943,7 +946,7 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
         $(".interactive-bar .buttons button:first-child").click(function(){
             $(".btn-add-cart button").click();
         })
-        $(".interactive-bar .buttons button:last-child").click(function(){
+        $(".interactive-bar .buttons .btn-buy-now").click(function(){
             addCart();
             window.location.href = ("/cart/payment/method-selector")
         })
