@@ -127,7 +127,7 @@
                         <div class="form-group">
                             <label>Mô tả:</label>
                             <div class="form-group">
-                                <textarea class="form-control" rows="2" cols="50" name="description">{{$cat->description}}</textarea>
+                                <textarea class="form-control" rows="2" cols="50" name="descriptionEdit">{{$cat->description}}</textarea>
                             </div>
                         </div>
                         <div class="form-group">
@@ -403,6 +403,7 @@ $(document).ready(function() {
         $('select option[value="0"]').attr("selected",true);
         $('#preview_category_img').attr("src","https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-image-128.png");
         $('textarea[name=description]').val('');
+        $('textarea[name=descriptionEdit]').val('');
     }
 
     $('#edit_user_modal').on('shown.bs.modal', function() {
@@ -607,7 +608,7 @@ $(document).ready(function() {
             $("input[name='icon']").val(curr_icon);
             $("input[id=userIdUpdate]").val(id);
             $("img[id=previewEditCategoryImg]").attr("src", baseURL +'/frontend/images/' + curr_image);
-            $("textarea[name=description]").val(description)
+            $("textarea[name=descriptionEdit]").val(description)
         })
 
         $('.add-category').off('click')
@@ -681,7 +682,7 @@ $(document).ready(function() {
                 featured         : $('input[name="editFeatured"]:checked').val(),
                 icon             : $('#editIcon').val().trim(),
                 image            : image_base64,
-                description      : $('textarea[name=description]').val().trim(),
+                description      : $('textarea[name=descriptionEdit]').val().trim(),
             };
             $.ajaxSetup({
                 headers: {
