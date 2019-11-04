@@ -50,7 +50,7 @@ class NoteController extends Controller
             $note->save();
 
             $count_note = 0;
-            $count_note = Note::where('video_id', $request->videoId)->get()->count();
+            $count_note = Note::where('video_id', $request->videoId)->where('user_id', \Auth::id())->get()->count();
 
             return \Response::json(array('status' => '200', 'message' => 'Cập nhật thông tin thành công!', 'note' => fractal($note, new NoteTransformer())->toArray(), 'count_note' => $count_note ));
             
