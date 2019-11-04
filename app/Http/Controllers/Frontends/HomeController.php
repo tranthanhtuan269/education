@@ -197,7 +197,7 @@ class HomeController extends Controller
 
             //     return $courses->cate;
             // });
-            return view('frontends.category', compact('category', 'feature_course', 'best_seller_course', 'new_course', 'trending_courses', 'popular_teacher', 'tags' ));
+            return view('frontends.category', compact('category', 'best_seller_course', 'new_course', 'trending_courses', 'popular_teacher', 'tags' ));
         }
 
         return abort(404);
