@@ -358,10 +358,15 @@ $(document).ready(function () {
                 dataType: "json"
             });
             request.done(function(data){
+                
+                $('.video-list-item').removeClass('video-selected')
+                $('#listItem'+ video_id).addClass('video-selected')
+
                 window.videoSource = JSON.parse(data.video_url);
                 updateLink();
                 $('.ln-desc-title').html('<p>' + video_name + '</p>');
                 $('.ln-desc-subtitle').html('<p>' + video_info + '</p>');
+
             })
         }
     })

@@ -241,17 +241,17 @@ class VideoPlayerController extends Controller
             $user_course = Helper::getUserRoleOfCourse($course->id);
             // dd($user_course);
             if($user_course){
-                $videos = $user_course->videos;
-                if($videos == null){
-                    return \Response::json(array('status' => '200', 'message' => 'Cập nhật thông tin thành công!'));
-                }
-
                 $video_urls = json_decode($video->url_video, true);
                 foreach ($video_urls as $key => $video_url) {
                     $video_urls[$key] = \App\Helper::createSecurityTokenForVideoLink(\Auth::id(), $video->id, $video_url);
                 }    
                 $video_list = json_encode($video_urls);
 
+                $videos = $user_course->videos;
+                if($videos == null){
+                    // teacher
+                    return \Response::json(array('status' => '200', 'message' => 'Cập nhật thông tin thành công!', 'update_viewed' => 1, 'video_url' => $video_list));
+                }
                 return \Response::json(array('status' => '200', 'message' => 'Cập nhật thông tin thành công!', 'update_viewed' => 1, 'video_url' => $video_list));
             }
         }
