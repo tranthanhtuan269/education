@@ -266,6 +266,9 @@ class HomeController extends Controller
                     }
                 }
             }else{
+                if ( (\Auth::check() && !(\Auth::user()->isAdmin()) && \Auth::user()->userRolesTeacher() == null) ){
+                    return Redirect('/');
+                }
                 if( (\Auth::check() && \Auth::user()->isAdmin()) || (\Auth::check() && Auth::user()->userRolesTeacher()->userCoursesByTeacher()->where('id', $course->id)->first() != null )){
                     $ratingCourse = RatingCourse::where('course_id', $course->id)->where('user_id', \Auth::id())->first();
                     $related_course = Course::listCourseCategoryNotMe($course->category_id, $course->id)->limit(4)->get();
