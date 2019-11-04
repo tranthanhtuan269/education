@@ -1163,20 +1163,25 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                         avt = data.commentCourse.data.avatar;
                     }
                     var html = "";
-                    html += '<div class="comment-reply">';
-                        html += '<div>';
-                            html += '<img class="avatar" src="'+baseURL + '/frontend/' + avt +'" alt="" />';
-                            html += '<div class="info-account">';
-                                html += '<p class="interval">' + data.commentCourse.data.created_at +'</p>';
-                                html += '<p class="name">' + data.commentCourse.data.username +'</p>';
-                            html += '</div>';
-                        html += '</div>';
-                        html += '<div class="comment">';
-                            html += data.commentCourse.data.content;
-                        html += '</div>';
-                    html += '</div>';
+                    html += '<div class="comment-reply">'
+                        html += '<div class="row">'
+                            html += '<div class="col-md-1">'
+                                html += '<img class="avatar" src="'+baseURL + '/frontend/' + avt +'" alt="">'
+                            html += '</div>'
+                            html += '<div class="col-md-11">'
+                                    html += '<div class="info-account">'
+                                        html += '<span class="name pull-left" style="padding-left:15px;">' + data.commentCourse.data.username +'</span>'
+                                    html += '<span class="interval pull-right">' + data.commentCourse.data.created_at +'</span>'
+                                    html += '<div class="clearfix"></div>'
+                                    html += '<div class="comment">'
+                                        html += data.commentCourse.data.content;
+                                    html += '</div>'
+                                html += '</div>'
+                            html += '</div>'
+                        html += '</div>'
+                    html += '</div>'
 
-                    $('.reply-hold-' + comment_id).prepend(html);
+                    $('.reply-hold-' + comment_id).append(html);
                     $("#reply-" + comment_id).val("")
                     $('.reply-textbox').addClass('hide')
                 }

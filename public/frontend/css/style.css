@@ -4086,8 +4086,26 @@ footer .item-2 .copyright {
     margin-right: 15px
 }
 
+.reviews .comment-reply img.avatar {
+    vertical-align: middle;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    float: none;
+    margin-right: 0;
+}
+.reviews .box .comment-reply .comment {
+    padding: 0;
+    padding-left: 15px;
+}
+
 .reviews .info-account {
-    padding-top: 13px
+    padding-top: 0
+}
+
+.reviews .info-account .name{
+    color: #385898;
+    font-weight: bold;
 }
 
 .reviews .info-account .interval {
@@ -4105,13 +4123,13 @@ footer .item-2 .copyright {
 }
 
 .reviews .box .comment {
-    padding: 8px 0
+    padding: 0
 }
 
 .reviews .box .comment-reply {
     border: 1px solid #ccc;
     background: #E7E7E7;
-    padding: 20px;
+    padding: 5px 20px;
     margin: 20px 0
 }
 

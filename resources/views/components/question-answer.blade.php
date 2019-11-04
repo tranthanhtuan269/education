@@ -62,16 +62,24 @@
             @foreach($comment->children as $reply)
             @if($reply->userRole)
             <div class="comment-reply">
-                <div>
+                <div class="row">
                     @if($reply->userRole->user)
-                    @if(strlen($reply->userRole->user->avatar) > 0)
-                    <img class="avatar" src="{{ url('/') }}/frontend/{{ $reply->userRole->user->avatar }}" alt="" />
-                    @else
-                    <img class="avatar" src="{{ url('/') }}/frontend/images/avatar.jpg" alt="" />
-                    @endif
-                    <div class="info-account">
-                        <p class="interval">{{ $reply->created_at }}</p>
-                        <p class="name">{{ $reply->userRole->user->name }}</p>
+                    <div class="col-md-1">
+                        @if(strlen($reply->userRole->user->avatar) > 0)
+                        <img class="avatar" src="{{ url('/') }}/frontend/{{ $reply->userRole->user->avatar }}" alt="" />
+                        @else
+                        <img class="avatar" src="{{ url('/') }}/frontend/images/avatar.jpg" alt="" />
+                        @endif
+                    </div>
+                    <div class="col-md-11">
+                        <div class="info-account">
+                            <span class="name pull-left" style="padding-left:15px;">{{ $reply->userRole->user->name }}</span>
+                            <span class="interval pull-right">{{ $reply->created_at }}</span>
+                            <div class="clearfix"></div>
+                            <div class="comment">
+                                {!! $reply->content !!}
+                            </div>
+                        </div>
                     </div>
                     @else
                     <img class="avatar" src="{{ url('/') }}/frontend/images/avatar.jpg" alt="" />
@@ -80,9 +88,7 @@
                         <p class="name">Anonymous</p>
                     </div>
                     @endif
-                </div>
-                <div class="comment">
-                    {!! $reply->content !!}
+                    
                 </div>
                 @if(Auth::check() && false)
                 <div class="btn-action">
