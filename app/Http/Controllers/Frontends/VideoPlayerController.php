@@ -190,6 +190,8 @@ class VideoPlayerController extends Controller
         if($video){
             $unit = $video->unit;
             $course = $video->unit->course;
+            $update_viewed = 0;
+            $count_note = 0;
             $user_course = Helper::getUserRoleOfCourse($course->id);
             // dd($user_course);
             if($user_course){
@@ -204,11 +206,9 @@ class VideoPlayerController extends Controller
                 $videos = $user_course->videos;
                 if($videos == null){
                     return \Response::json(array('status' => '200', 'message' => 'Cập nhật thông tin thành công!', 'update_viewed' => $update_viewed, 'video_url' => $video_list, 'count_note' => $count_note));
-                    return \Response::json(array('status' => '200', 'message' => 'Cập nhật thông tin thành công!'));
                 }
                 $videoObj = \json_decode($videos);
                 $videoObj->videos = $videoObj->videos;
-                $update_viewed = 0;
                 if(is_array($videoObj->videos[$unit->index-1])){
                     if($videoObj->videos[$unit->index-1][$video->index-1] == 0){
                         $update_viewed = 1;
