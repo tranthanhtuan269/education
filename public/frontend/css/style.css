@@ -142,7 +142,7 @@ th {
     z-index: 2001!important;
     background-color: rgba(0, 0, 0, .4);
 }
-.modal-dialog {
+#myModalRegister .modal-dialog,#myModalLogin .modal-dialog {
   width: 450px;
 }
 .dz-size{
