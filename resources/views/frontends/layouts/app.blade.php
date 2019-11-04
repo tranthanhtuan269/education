@@ -238,7 +238,7 @@
                                             </li>
                                             @endif
                                         <li class="btn-group" style="float:left">
-                                            <a class="db-item-circle dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)"><img class="img-responsive" src="{{ asset('frontend/'.(Auth::user()->avatar != '' ? Auth::user()->avatar : 'images/avatar.jpg')) }}" alt="avatar"><span class="caret"></span></a>                                    
+                                            <a class="db-item-circle dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)"><img class="img-responsive" src="{{ asset('frontend/'.(Auth::user()->avatar != '' ? Auth::user()->avatar : 'images/avatar.jpg')) }}" alt="avatar" style="margin-top: 5px"><span class="caret"></span></a>                                    
                                             <ul class="dropdown-menu db-drop">
                                                 @if ( !Auth::user()->isAdmin() )
                                                     @if (Auth::user()->registeredTeacher())
