@@ -41,7 +41,7 @@
         
         <base href="{{ url('/') }}">
     </head>
-    <body data-video-id="{{$main_video->id}}">
+    <body data-video-id="{{$main_video->id}}" data-course-id="{{$course->id}}">
         <?php
         
             if(!isset($main_video)){

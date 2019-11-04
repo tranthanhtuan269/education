@@ -151,7 +151,7 @@
         $("#btnSearchSidebar").click(function (){
             $('.video-list-item').show();
             var string = $(".learning-lecture-list-searchbar input").val().trim();
-            sessionStorage.setItem("searchString", string);
+            sessionStorage.setItem("searchString-" + $('body').attr('data-course-id'), string);
             if(string.length > 0){
                 $('.ln-lect-list-sect-counter').hide();
                 $(".ln-lect-list-lect-title").addClass('has-result')
@@ -169,7 +169,7 @@
             removeHaveNotResult();
         });
 
-        var searchString = sessionStorage.getItem("searchString");
+        var searchString = sessionStorage.getItem("searchString-" + $('body').attr('data-course-id'));
 
         if(searchString != undefined){
             $(".learning-lecture-list-searchbar input").val(searchString);
@@ -180,7 +180,7 @@
         $(".learning-lecture-list-searchbar input").keyup(function(){
             $('.video-list-item').show();
             var string = $(".learning-lecture-list-searchbar input").val().trim();
-            sessionStorage.setItem("searchString", string);
+            sessionStorage.setItem("searchString-" + $('body').attr('data-course-id'), string);
             if(string.length > 0){
                 $('.ln-lect-list-sect-counter').hide();
                 $(".ln-lect-list-lect-title").addClass('has-result')
