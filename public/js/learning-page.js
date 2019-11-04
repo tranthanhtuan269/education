@@ -739,7 +739,7 @@ $(document).ready(function () {
                                         html += '<p>'+ username +' - ';
                                         html += userType;
                                         html += '</p>';
-                                        html += '<span style="font-size: 0.9em;"><em>Vừa xong</em></span>';
+                                        html += '<span style="font-size: 0.9em;"><em>'+createdAt+'</em></span>';
                                         html += '</div>';
                                         html += '<div class="ln-disc-post-short-content" id="discComment'+ id +'">';
                                             html += '<p>'+ content +'</p>';
@@ -763,7 +763,7 @@ $(document).ready(function () {
                                             html += '<div class="ln-disc-comment-right">';
                                                 html += '<div class="ln-disc-comment-username">';
                                                     html += '<p>'+ usernameChild +' - '+ userTypeChild +'</p>';
-                                                    html += '<span style="font-size: 0.75em;"><em>Vừa xong</em></span>';
+                                                    html += '<span style="font-size: 0.75em;"><em>'+createdAtChild+'</em></span>';
                                                 html += '</div>';
                                                 html += '<div class="ln-disc-comment-content">';
                                                     html += '<p>'+ contentChild +'</p>';
