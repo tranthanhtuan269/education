@@ -3,7 +3,7 @@
 Danh mục: {{ $category->name }}
 @stop
 @section('content')
-<div class="background-page">
+<div class="background-page category-page">
 	<div class="container-fuild bg-category">
 		<div class="container fixed-title">
 			<div class="highlight">

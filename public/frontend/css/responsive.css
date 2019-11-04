@@ -2651,6 +2651,12 @@
 }
 
 @media (min-width:768px) and (max-width:991px) {
+    .top-course .responsive-topcourse ul li #ban-chay {
+        left: -25px;
+    }
+    .top-course .responsive-topcourse ul li #moi-nhat {
+        left: -12px;
+    }
     .unica-main-banner {
         height: 390px !important;
         background-size: cover;
@@ -4812,13 +4818,13 @@
     #min-height .top-box-course-detail .student-of-course {
         color: #333333;
     }
-    .cart-page-content .checkout-column{
+    .cart-page-content .checkout-column {
         margin-top: 15px;
     }
 }
 
 @media all and (max-width: 767px) {
-    .u-all-course h1{
+    .u-all-course h1 {
         font-size: 24px;
     }
     .bill-info .title-bill-info {
@@ -4828,13 +4834,13 @@
         padding-bottom: 30px;
     }
     #payTab .item-box .info {
-        padding-top:10px;
+        padding-top: 10px;
         padding-bottom: 10px;
     }
-    .pay-field .payment .accept-terms{
+    .pay-field .payment .accept-terms {
         padding: 10px 0;
     }
-    #payTab .payment{
+    #payTab .payment {
         display: initial !important;
     }
     .detail-course .background {
@@ -5110,46 +5116,49 @@
     .detail-course .bg-course-detail {
         height: 187px;
     }
-    .detail-course .lessons .u-list-course .title, .u-list-course .link, .u-list-course .time {
+    .detail-course .lessons .u-list-course .title,
+    .u-list-course .link,
+    .u-list-course .time {
         padding-left: 8px;
     }
-    .u-list-course .panel-body i.fa-lock{
+    .u-list-course .panel-body i.fa-lock {
         padding-top: 6px;
     }
-    div.dataTables_wrapper div.dataTables_filter{
-        padding:5px 0;
+    div.dataTables_wrapper div.dataTables_filter {
+        padding: 5px 0;
     }
-    .image-cropit-editor .box-avatar-preview, .preview-profile, .sample-avatar{
+    .image-cropit-editor .box-avatar-preview,
+    .preview-profile,
+    .sample-avatar {
         height: auto !important;
         width: 100% !important;
     }
-    .sample-avatar{
+    .sample-avatar {
         padding: 10px;
     }
-    .image-cropit-editor .box-avatar-preview{
+    .image-cropit-editor .box-avatar-preview {
         border: none;
     }
-    .box-course .img-course img.img-responsive{
+    .box-course .img-course img.img-responsive {
         height: auto;
     }
     .cart-single-item {
         display: inline-block;
     }
-
     .cart-single-item .course-info {
         padding: 10px 0;
     }
-    .cart-single-item .course-info .lecturer-info{
+    .cart-single-item .course-info .lecturer-info {
         padding: 5px 0;
     }
-    .cart-single-item .image a img{
+    .cart-single-item .image a img {
         width: 100% !important;
     }
     .cart-single-item .single-price {
         display: block;
         width: auto;
     }
-    .cart-single-item .course-info{
+    .cart-single-item .course-info {
         margin-left: 0;
     }
 }
@@ -5310,7 +5319,7 @@
 }
 
 @media all and (max-width: 380px) {
-    .top-box-course-detail span.special span{
+    .top-box-course-detail span.special span {
         display: none;
     }
     .detail-course .frame_2 .box span.price-off {
@@ -5354,6 +5363,4 @@
     }
 }
 
-@media (min-width:375px) and (max-width:414px) {
-
-}
+@media (min-width:375px) and (max-width:414px) {}
