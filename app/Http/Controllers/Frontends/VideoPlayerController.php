@@ -193,6 +193,19 @@ class VideoPlayerController extends Controller
             $user_course = Helper::getUserRoleOfCourse($course->id);
             // dd($user_course);
             if($user_course){
+                $video_urls = json_decode($video->url_video, true);
+                foreach ($video_urls as $key => $video_url) {
+                    $video_urls[$key] = \App\Helper::createSecurityTokenForVideoLink(\Auth::id(), $video->id, $video_url);
+                }    
+                $video_list = json_encode($video_urls);
+
+                $count_note = Note::where('video_id', $request->videoId)->where('user_id',\Auth::id())->get()->count();
+
+                $videos = $user_course->videos;
+                if($videos == null){
+                    return \Response::json(array('status' => '200', 'message' => 'Cập nhật thông tin thành công!', 'update_viewed' => $update_viewed, 'video_url' => $video_list, 'count_note' => $count_note));
+                    return \Response::json(array('status' => '200', 'message' => 'Cập nhật thông tin thành công!'));
+                }
                 $videoObj = \json_decode($videos);
                 $videoObj->videos = $videoObj->videos;
                 $update_viewed = 0;
@@ -211,20 +224,6 @@ class VideoPlayerController extends Controller
                 $videoData = \json_encode($videoObj);
                 $user_course->videos = $videoData;
                 $user_course->save();
-
-                $video_urls = json_decode($video->url_video, true);
-                foreach ($video_urls as $key => $video_url) {
-                    $video_urls[$key] = \App\Helper::createSecurityTokenForVideoLink(\Auth::id(), $video->id, $video_url);
-                }    
-                $video_list = json_encode($video_urls);
-
-                $count_note = Note::where('video_id', $request->videoId)->where('user_id',\Auth::id())->get()->count();
-                $videos = $user_course->videos;
-                if($videos == null){
-                    // teacher
-                    return \Response::json(array('status' => '200', 'message' => 'Cập nhật thông tin thành công!', 'update_viewed' => $update_viewed, 'video_url' => $video_list, 'count_note' => $count_note));
-                }
-
 
                 return \Response::json(array('status' => '200', 'message' => 'Cập nhật thông tin thành công!', 'update_viewed' => $update_viewed, 'video_url' => $video_list, 'count_note' => $count_note));
             }
