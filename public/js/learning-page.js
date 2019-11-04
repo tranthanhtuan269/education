@@ -454,9 +454,9 @@ $(document).ready(function () {
 
             // $video_urls = json_decode($main_video->url_video, true);
             if(data.update_viewed == 1){
-                $("#viewed_count").html(parseInt($("#viewed_count").html()) - 1)
+                $("#viewed_count").html(parseInt($("#viewed_count").html()) + 1)
                 $(".progress-bar-success").css('width', parseInt($("#viewed_count").html() / $("#videos_count").html() * 100) + "%");
-                $('#videoDoneOneSect' + $('#listItem' + video_id_list[current_video_index + 1]).attr('data-unit')).html(parseInt($('#videoDoneOneSect' + $('#listItem' + video_id_list[current_video_index + 1]).attr('data-unit')).html()) + 1);
+                $('#videoDoneOneSect' + $('#listItem' + video_id_list[current_video_index - 1]).attr('data-unit')).html(parseInt($('#videoDoneOneSect' + $('#listItem' + video_id_list[current_video_index - 1]).attr('data-unit')).html()) + 1);
             }
             $('.video-list-item').removeClass('video-selected')
             $('#listItem'+ video_id_list[current_video_index - 1]).addClass('video-selected')
