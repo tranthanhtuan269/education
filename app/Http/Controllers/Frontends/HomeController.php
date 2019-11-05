@@ -84,10 +84,10 @@ class HomeController extends Controller
         $feature_course = $feature_course->take($feature_course_limit);
         //end finding feature courses
 
-        // $best_seller_course = Course::where('status', '!=', -100)->where('status', 1)->orderBy('sale_count', 'desc')->limit(8)->get();listCourseHome
-        $best_seller_course = Course::where('status', '!=', -100)->listCourseHome()->orderBy('sale_count', 'desc')->limit(\Config::get('app.pagging_item_number'))->get();
+        // $best_seller_course = Course::where('status', '!=', -100)->where('status', 1)->orderBy('sale_count', 'desc')->limit(8)->get();
+        $best_seller_course = Course::listCourseHome()->orderBy('sale_count', 'desc')->limit(\Config::get('app.pagging_item_number'))->get();
 
-        $new_course = Course::where('status', '!=', -100)->listCourseHome()->orderBy('id', 'desc')->limit(\Config::get('app.pagging_item_number'))->get();
+        $new_course = Course::listCourseHome()->orderBy('id', 'desc')->limit(\Config::get('app.pagging_item_number'))->get();
 
         $limitDate = \Carbon\Carbon::now()->subDays(15);
         $sql = "SELECT course_id, count(course_id) FROM orders
