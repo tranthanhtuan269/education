@@ -337,6 +337,7 @@
 
         // DuongNT - Chuyển thành giảng viên
         $("#btnSwitchToTeacher").click(function(){
+            $('#btnSwitchToTeacher').hide()
             $('#toggle_tab_edit_student').fadeOut()
             $('#toggle_tab_edit_student').removeClass('active')
             $('#tab_edit_student').fadeOut()
