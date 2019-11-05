@@ -186,7 +186,7 @@ class HomeController extends Controller
             foreach ($results as $key => $result) {
                 $course_id_arr[] = $result->course_id;
             }
-            $trending_courses = \App\Course::whereIn('id', $course_id_arr)->where('category_id', $cat_id)->get();
+            $trending_courses = \App\Course::whereIn('id', $course_id_arr)->where('category_id', $cat_id)->where('status', 1)->get();
 
             // $popular_teacher = Teacher::getTeacherBestVote();
 
