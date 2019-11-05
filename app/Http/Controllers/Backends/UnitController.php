@@ -31,7 +31,7 @@ class UnitController extends Controller
     }
 
     public function store(StoreUnitRequest $request){
-        $course = Course::withCount('units')->find($request->course_id);
+        $course = Course::where('status', '!=', -100)->withCount('units')->find($request->course_id);
         if($course){
             $unit = new Unit;
             $unit->name = $request->name;

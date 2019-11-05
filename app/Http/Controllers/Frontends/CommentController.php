@@ -78,7 +78,7 @@ class CommentController extends Controller
 
     public function storeCommentCourse(Request $request)
     {
-        $course = Course::find($request->course_id);
+        $course = Course::where('status', '!=', -100)->find($request->course_id);
         if ($course) {
             // Kiểm tra user đã rating từ trước chưa?
             // Nếu chưa thì add thêm vào bảng RatingCourse.
@@ -140,7 +140,7 @@ class CommentController extends Controller
     public function updateStar(Request $request)
     {
         // dd($request->all());
-        $course = Course::find($request->course_id);
+        $course = Course::where('status', '!=', -100)->find($request->course_id);
         if ($course) {
             $currentRating = RatingCourse::where('user_id', Auth::id())->where('course_id', $request->course_id)->first();
             if (!isset($currentRating)) {

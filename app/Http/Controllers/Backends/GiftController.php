@@ -18,7 +18,7 @@ class GiftController extends Controller
 {
     public function getGiveGift()
     {
-        $courses = Course::listCourseSpecial(2)->get();
+        $courses = Course::where('status', '!=', -100)->listCourseSpecial(2)->get();
         return view('backends.gift.givegift', compact('courses'));
     }
 
@@ -82,7 +82,7 @@ class GiftController extends Controller
                                 'updated_at'   => $updated_at,
                             ];
 
-                            $course = Course::find($course_id);
+                            $course = Course::where('status', '!=', -100)->find($course_id);
 
                             //Không tặng khóa học cho chính tác giả
                             $products = [];
@@ -166,7 +166,7 @@ class GiftController extends Controller
                 } else {
                         $user_id = UserRole::find($student)->user_id;
                         $course_id = $arr_new_gift_course_id[$random_keys];
-                        $course = Course::find($course_id);
+                        $course = Course::where('status', '!=', -100)->find($course_id);
 
                         //Không tặng khóa học cho chính tác giả
                         $products = [];
@@ -258,7 +258,7 @@ class GiftController extends Controller
         
         Gift::insert($data);
         UserCourse::insert($data_user_courses);
-        // Course::insert($data_student_count);
+        // Course::where('status', '!=', -100)->insert($data_student_count);
         return \Response::json(array('status' => '200', 'message' => 'Tặng khóa học thành công!'));
     }
 }

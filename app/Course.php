@@ -183,17 +183,17 @@ class Course extends Model
     }
 
     public static function acceptMulti($id_list, $status){
-        $checkCourse = Course::whereIn('id', $id_list);
+        $checkCourse = Course::where('status', '!=', -100)->whereIn('id', $id_list);
         return ($checkCourse->update(['status' => $status]) > 0);
     }
 
     public static function delMulti($id_list){
-        $checkCourse = Course::whereIn('id', $id_list);
+        $checkCourse = Course::where('status', '!=', -100)->whereIn('id', $id_list);
         return ($checkCourse->delete() > 0);
     }
 
     public static function listCourseSpecial($order_by){
-        // $order_by = (1 Ban chay) (2 Moi nhat) (3 Ban chay)
+        // $order_by = (1 Ban chay) (2 Moi nhat) (3 Thinh hanh)
         if($order_by == 1){
             return \DB::table('courses')
             ->join('user_courses', 'user_courses.course_id', '=', 'courses.id')
@@ -219,7 +219,7 @@ class Course extends Model
             foreach ($results as $key => $result) {
                 $course_id_arr[] = $result->course_id;
             }
-            return Course::whereIn('id', $course_id_arr)->where('status', 1);
+            return Course::where('status', '!=', -100)->whereIn('id', $course_id_arr)->where('status', 1);
         }
     }
 
@@ -260,7 +260,7 @@ class Course extends Model
     }
 
     public static function getCourseOfTeacher($user_id, $user_name){
-        return \DB::table('courses')
+        return \DB::table('courses')->where('courses.status', '!=', -100)
         ->join('user_courses', 'user_courses.course_id', '=', 'courses.id')
         ->join('user_roles', 'user_roles.id', '=', 'user_courses.user_role_id')
         ->join('teachers', 'teachers.user_role_id', '=', 'user_roles.id')

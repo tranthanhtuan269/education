@@ -37,12 +37,12 @@ class HomeController extends Controller
         $type = trim($request->get('type'));
         if ($type == 'best-seller') {
             $title = 'Các khóa học bán chạy';
-            $list_course = Course::listCourseSpecial(1)->paginate(\Config::get('app.pagging_item_number'));
+            $list_course = Course::where('status', '!=', -100)->listCourseSpecial(1)->paginate(\Config::get('app.pagging_item_number'));
         } elseif ($type == 'new') {
-            $list_course = Course::listCourseSpecial(2)->paginate(\Config::get('app.pagging_item_number'));
+            $list_course = Course::where('status', '!=', -100)->listCourseSpecial(2)->paginate(\Config::get('app.pagging_item_number'));
             $title = 'Các khóa học mới nhất';
         } elseif ($type == 'trendding') {
-            $list_course = Course::listCourseSpecial(3)->paginate(\Config::get('app.pagging_item_number'));
+            $list_course = Course::where('status', '!=', -100)->listCourseSpecial(3)->paginate(\Config::get('app.pagging_item_number'));
             $title = 'Các khóa học thịnh hành';
         }
 
@@ -57,7 +57,7 @@ class HomeController extends Controller
 
         // Duong NT// feature courses
         $percent_feature_course = Setting::where('name', 'percent_feature_course')->first()->value;
-        $feature_course = Course::where('status', 1)
+        $feature_course = Course::where('status', '!=', -100)->where('status', 1)
                                 ->orderBy('featured', 'desc')
                                 ->orderBy('featured_index', 'asc')
                                 ->get(['id', 'name', 'slug', 'image', 'price', 'real_price', 'featured_index', 'featured']);
@@ -84,10 +84,10 @@ class HomeController extends Controller
         $feature_course = $feature_course->take($feature_course_limit);
         //end finding feature courses
 
-        // $best_seller_course = Course::where('status', 1)->orderBy('sale_count', 'desc')->limit(8)->get();listCourseHome
-        $best_seller_course = Course::listCourseHome()->orderBy('sale_count', 'desc')->limit(\Config::get('app.pagging_item_number'))->get();
+        // $best_seller_course = Course::where('status', '!=', -100)->where('status', 1)->orderBy('sale_count', 'desc')->limit(8)->get();listCourseHome
+        $best_seller_course = Course::where('status', '!=', -100)->listCourseHome()->orderBy('sale_count', 'desc')->limit(\Config::get('app.pagging_item_number'))->get();
 
-        $new_course = Course::listCourseHome()->orderBy('id', 'desc')->limit(\Config::get('app.pagging_item_number'))->get();
+        $new_course = Course::where('status', '!=', -100)->listCourseHome()->orderBy('id', 'desc')->limit(\Config::get('app.pagging_item_number'))->get();
 
         $limitDate = \Carbon\Carbon::now()->subDays(15);
         $sql = "SELECT course_id, count(course_id) FROM orders
@@ -132,7 +132,7 @@ class HomeController extends Controller
                     $query->orwhere('courses.name', 'LIKE', "%$keyword%");
                 })
                 ->pluck('course_id');
-            $results = Course::whereIn('id', $arr_course_id)->paginate(\Config::get('app.pagging_item_number'));
+            $results = Course::where('status', '!=', -100)->whereIn('id', $arr_course_id)->paginate(\Config::get('app.pagging_item_number'));
         }
 
         return view('frontends.search', compact('results'));
@@ -149,9 +149,9 @@ class HomeController extends Controller
         $course_id_arr = [];
         if ($type == 'best-seller') {
             $title = 'Các khóa học bán chạy';
-            $list_course = Course::listCourseCategory($cat_id)->orderBy('sale_count', 'desc')->paginate(\Config::get('app.pagging_item_number'));
+            $list_course = Course::where('status', '!=', -100)->listCourseCategory($cat_id)->orderBy('sale_count', 'desc')->paginate(\Config::get('app.pagging_item_number'));
         } elseif ($type == 'new') {
-            $list_course = Course::listCourseCategory($cat_id)->orderBy('id', 'desc')->paginate(\Config::get('app.pagging_item_number'));
+            $list_course = Course::where('status', '!=', -100)->listCourseCategory($cat_id)->orderBy('id', 'desc')->paginate(\Config::get('app.pagging_item_number'));
             $title = 'Các khóa học mới nhất';
         } elseif ($type == 'trendding') {
             $limitDate = \Carbon\Carbon::now()->subDays(15);
@@ -161,7 +161,7 @@ class HomeController extends Controller
                 $course_id_arr[] = $result->course_id;
             }
             $list_course = \App\Course::whereIn('id', $course_id_arr)->where('category_id', $cat_id)->get();
-            // $list_course = Course::listCourseSpecial(3)->paginate(16);
+            // $list_course = Course::where('status', '!=', -100)->listCourseSpecial(3)->paginate(16);
             $title = 'Các khóa học thịnh hành';
         }
 
@@ -177,8 +177,8 @@ class HomeController extends Controller
             $category = Category::where('slug', $cat)->first();
 
             $tags = Tag::where('category_id', $cat_id)->get();
-            $best_seller_course = Course::listCourseCategory($cat_id)->orderBy('sale_count', 'desc')->limit(\Config::get('app.pagging_item_number'))->get();
-            $new_course = Course::listCourseCategory($cat_id)->orderBy('id', 'desc')->limit(\Config::get('app.pagging_item_number'))->get();
+            $best_seller_course = Course::where('status', '!=', -100)->listCourseCategory($cat_id)->orderBy('sale_count', 'desc')->limit(\Config::get('app.pagging_item_number'))->get();
+            $new_course = Course::where('status', '!=', -100)->listCourseCategory($cat_id)->orderBy('id', 'desc')->limit(\Config::get('app.pagging_item_number'))->get();
 
             $limitDate = \Carbon\Carbon::now()->subDays(15);
             $sql = "SELECT course_id, count(course_id) FROM orders JOIN order_details ON orders.id = order_details.order_id WHERE created_at > '" . $limitDate->toDateTimeString() ."' group by course_id ORDER BY count(course_id) desc LIMIT ".\Config::get('app.pagging_item_number').";";
@@ -215,7 +215,7 @@ class HomeController extends Controller
 
     public function showCourse($id,$slug)
     {
-        $course = Course::where('id', $id)->first();
+        $course = Course::where('status', '!=', -100)->where('id', $id)->first();
         // dd($course);
         if($course){
             if($course->status == 1){
@@ -227,8 +227,8 @@ class HomeController extends Controller
                 if (\Auth::check()) {
                     if ($course) {
                         $ratingCourse = RatingCourse::where('course_id', $course->id)->where('user_id', \Auth::id())->first();
-                        $related_course = Course::listCourseCategoryNotMe($course->category_id, $course->id)->limit(4)->get();
-                        $info_course = Course::find($course->id);
+                        $related_course = Course::where('status', '!=', -100)->listCourseCategoryNotMe($course->category_id, $course->id)->limit(4)->get();
+                        $info_course = Course::where('status', '!=', -100)->find($course->id);
 
                         $units = Unit::where('course_id', $course->id)->get();
                         $document_count = 0;
@@ -247,8 +247,8 @@ class HomeController extends Controller
                     }
                 } else {
                     if ($course) {
-                        $related_course = Course::listCourseCategoryNotMe($course->category_id, $course->id)->limit(4)->get();
-                        $info_course = Course::find($course->id);
+                        $related_course = Course::where('status', '!=', -100)->listCourseCategoryNotMe($course->category_id, $course->id)->limit(4)->get();
+                        $info_course = Course::where('status', '!=', -100)->find($course->id);
 
                         $units = Unit::where('course_id', $course->id)->get();
                         $document_count = 0;
@@ -272,8 +272,8 @@ class HomeController extends Controller
                 }
                 if( (\Auth::check() && \Auth::user()->isAdmin()) || (\Auth::check() && Auth::user()->userRolesTeacher()->userCoursesByTeacher()->where('id', $course->id)->first() != null )){
                     $ratingCourse = RatingCourse::where('course_id', $course->id)->where('user_id', \Auth::id())->first();
-                    $related_course = Course::listCourseCategoryNotMe($course->category_id, $course->id)->limit(4)->get();
-                    $info_course = Course::find($course->id);
+                    $related_course = Course::where('status', '!=', -100)->listCourseCategoryNotMe($course->category_id, $course->id)->limit(4)->get();
+                    $info_course = Course::where('status', '!=', -100)->find($course->id);
 
                     $units = Unit::where('course_id', $course->id)->get();
                     $document_count = 0;
@@ -315,7 +315,7 @@ class HomeController extends Controller
             // $new_course = $teacher->userRole()->first()->userCoursesByNew();
             $courses_of_teacher = $teacher->userRole()->first()->userCoursesByTeacher()->where('status', 1);
             // $category_first_course = $courses_of_teacher->first()->category_id;
-            // $course_of_category = Course::where('category_id', $courses_of_teacher->first()->category_id)->get();
+            // $course_of_category = Course::where('status', '!=', -100)->where('category_id', $courses_of_teacher->first()->category_id)->get();
             return view('frontends.detail-teacher', compact('info_teacher', 'feature_category', 'ratingTeacher', 'courses_of_teacher'));
         }
         return abort(404);
@@ -333,13 +333,13 @@ class HomeController extends Controller
 
     public function courseLearning($course)
     {
-        $course = Course::where('status', 1)->where('slug', $course)->first();
+        $course = Course::where('status', '!=', -100)->where('status', 1)->where('slug', $course)->first();
         if (\Auth::check()) {
             if ($course) {
                 $ratingCourse = RatingCourse::where('course_id', $course->id)->where('user_id', \Auth::id())->first();
-                // $related_courses = Course::where('status', 1)->where('category_id', $course->category_id)->limit(4)->get();
-                $related_courses = Course::where('status', 1)->where('category_id', $course->category_id)->where('id','!=',$course->id)->limit(4)->get();
-                $info_course = Course::where('status', 1)->find($course->id);
+                // $related_courses = Course::where('status', '!=', -100)->where('status', 1)->where('category_id', $course->category_id)->limit(4)->get();
+                $related_courses = Course::where('status', '!=', -100)->where('status', 1)->where('category_id', $course->category_id)->where('id','!=',$course->id)->limit(4)->get();
+                $info_course = Course::where('status', '!=', -100)->where('status', 1)->find($course->id);
                 $user_role_course_instance = Helper::getUserRoleOfCourse($course->id);
 
                 $lecturer_array = $info_course->Lecturers();
@@ -352,8 +352,8 @@ class HomeController extends Controller
             }
         } else {
             if ($course) {
-                $related_courses = Course::where('status', 1)->where('category_id', $course->category_id)->where('id','!=',$course->id)->limit(4)->get();
-                $info_course = Course::where('status', 1)->find($course->id);
+                $related_courses = Course::where('status', '!=', -100)->where('status', 1)->where('category_id', $course->category_id)->where('id','!=',$course->id)->limit(4)->get();
+                $info_course = Course::where('status', '!=', -100)->where('status', 1)->find($course->id);
                 return view('frontends.course-learning', compact('related_courses', 'info_course', 'unit'));
             }
         }
@@ -434,7 +434,7 @@ class HomeController extends Controller
     //             foreach ($items as $key => $item) {
     //                 if ($item['id']) {
     //                     $coupon = Coupon::where('name', $item["coupon_code"])->where('course_id', $item["id"])->first();
-    //                     $course = Course::find($item['id']);
+    //                     $course = Course::where('status', '!=', -100)->find($item['id']);
     //                     if ($course) {
     //                         if($coupon){
     //                             $total_price =  $total_price + $course->price * (100 - $coupon->value) / 100;
@@ -519,7 +519,7 @@ class HomeController extends Controller
                 foreach ($items as $item) {
                     if ($item['id']) {
                         $coupon = Coupon::where('name', $item["coupon_code"])->first();
-                        $course = Course::find($item['id']);
+                        $course = Course::where('status', '!=', -100)->find($item['id']);
                         if ($course) {
                             if($coupon){
                                 $expired = strtotime($coupon->expired);
@@ -581,7 +581,7 @@ class HomeController extends Controller
                     foreach ($items as $key => $item) {
                         if ($item['id']) {
                             $coupon = Coupon::where('name', $item["coupon_code"])->first();
-                            $course = Course::find($item['id']);
+                            $course = Course::where('status', '!=', -100)->find($item['id']);
                             $coupon_value = 0;
                             if ($course) {
                                 if($coupon){
@@ -609,7 +609,7 @@ class HomeController extends Controller
                                 $teacher->save();
                             }
 
-                            $course2 = Course::find($item['id']);
+                            $course2 = Course::where('status', '!=', -100)->find($item['id']);
                             $course2->student_count += 1;
                             $course2->sale_count += 1;
                             $course2->save();
@@ -706,7 +706,7 @@ class HomeController extends Controller
 
         foreach ($items as $key => $item) {
             $item_id = $item['id'];
-            $course = Course::find($item_id);
+            $course = Course::where('status', '!=', -100)->find($item_id);
             if (!isset($course)) {
                 return response()->json([
                     'status' => '404',
@@ -897,7 +897,7 @@ class HomeController extends Controller
     }
 
     public function fixDurationCourse(){
-        $courses = Course::get();
+        $courses = Course::where('status', '!=', -100)->get();
         foreach($courses as $course){
             $course->duration = intval($course->video_count) * 376;
             $course->save();
@@ -906,7 +906,7 @@ class HomeController extends Controller
     }
 
     public function fixWillLearn(){
-        $courses = Course::get();
+        $courses = Course::where('status', '!=', -100)->get();
         foreach($courses as $course){
             $course->will_learn = str_replace("&nbsp","", $course->will_learn);
             $course->will_learn = str_replace(";","", $course->will_learn);
@@ -923,7 +923,7 @@ class HomeController extends Controller
 
     public function test(){
 
-        // $courses = Course::get();
+        // $courses = Course::where('status', '!=', -100)->get();
         // foreach($courses as $course){
         //     if(count($course->userRoles) != 0){
         //         echo(count($course->userRoles)-1).'<br>';
@@ -934,7 +934,7 @@ class HomeController extends Controller
         //         $course->save();
         //     }
         // }
-        // // $course = Course::find(1);
+        // // $course = Course::where('status', '!=', -100)->find(1);
         // // dd($course->userRoles);
 
         // $teachers = Teacher::get();
@@ -970,7 +970,7 @@ class HomeController extends Controller
     {
         $end = false;
         if ($request->course_id != null && $request->take != null && $request->skip != null) {
-            $course = Course::find($request->course_id);
+            $course = Course::where('status', '!=', -100)->find($request->course_id);
             if ($course) {
                 if($course->comments()->count() == $request->skip + $request->take){
                     $end = true;

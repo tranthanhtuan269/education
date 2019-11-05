@@ -97,7 +97,7 @@ class HomeController extends Controller{
     }
 
     public function createCoupon(){
-        $courses = Course::where('status', 1)->get();
+        $courses = Course::where('status', '!=', -100)->where('status', 1)->get();
         return view('backends.coupon.coupon', compact('courses'));
     }
 

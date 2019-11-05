@@ -185,7 +185,7 @@ class Helper
     }
 
     public static function getVideoFirst($course_id){
-        $course = Course::find($course_id);
+        $course = Course::where('status', '!=', -100)->find($course_id);
         if($course){
             $units = $course->units;
             if(count($units) > 0){
@@ -202,7 +202,7 @@ class Helper
 
     public static function buildJsonForCheckout($course_id){
         // when checkout
-        $course = Course::find($course_id);
+        $course = Course::where('status', '!=', -100)->find($course_id);
         if($course){
             $videoJson = new VideoJson;
             $videoJson->videos = Helper::getJSONVideoOfCourse($course->id);
@@ -213,7 +213,7 @@ class Helper
     }
 
     public static function reSortIndexVideoOfCourse($course_id){
-        $course = Course::find($course_id);
+        $course = Course::where('status', '!=', -100)->find($course_id);
         if($course){
             $units = $course->units;
             if(count($units) > 0){

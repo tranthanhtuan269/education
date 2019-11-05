@@ -102,7 +102,7 @@ class CourseController extends Controller
     // public function update(UpdateCourseRequest $request, $id)
     // {
     //     if($id){
-    //         $item = Course::find($id);
+    //         $item = Course::where('status', '!=', -100)->find($id);
 
     //         if($item){
     //             $img_link = $item->image;
@@ -149,7 +149,7 @@ class CourseController extends Controller
             if( !isset($temp_course->id) ){
                 $temp_course = new TempCourse;
             }
-            $item = Course::find($id);
+            $item = Course::where('status', '!=', -100)->find($id);
 
             if($item){
                 $img_link = $item->image;
@@ -196,7 +196,7 @@ class CourseController extends Controller
     public function destroy(Request $request)
     {
         if($request->id){
-            $course = Course::find($request->id);
+            $course = Course::where('status', '!=', -100)->find($request->id);
             $teacher_course = $course->userRoles()->first()->user->id;
             if( $course && $teacher_course ){
                 if( $teacher_course == $request->user_id ){
@@ -212,7 +212,7 @@ class CourseController extends Controller
     public function continueSell(Request $request)
     {
         if($request->id){
-            $course = Course::find($request->id);
+            $course = Course::where('status', '!=', -100)->find($request->id);
             $teacher_course = $course->userRoles()->first()->user->id;
             if( $course && $teacher_course ){
                 if( $teacher_course == $request->user_id ){
@@ -252,7 +252,7 @@ class CourseController extends Controller
     {   
 
         if($request->course_id){
-            $course = Course::find($request->course_id);
+            $course = Course::where('status', '!=', -100)->find($request->course_id);
             
             if($course){
                 if( $request->status == 1 ){
@@ -275,25 +275,25 @@ class CourseController extends Controller
                 
                 if($request->status == 1){
                     // BaTV - Ktra xem tất cả các bài giảng trong khóa học đó đã được duyệt hết chưa
-                    $count_course_active = Course::join('units', 'units.course_id', '=', 'courses.id')
+                    $count_course_active = Course::where('status', '!=', -100)->join('units', 'units.course_id', '=', 'courses.id')
                                                 ->join('videos', 'videos.unit_id', '=', 'units.id')
                                                 ->select('units.id')
                                                 ->where('courses.id', $request->course_id)
                                                 ->whereIn('videos.state', [1,2,4])
                                                 ->count();
-                    $count_course_pending = Course::join('units', 'units.course_id', '=', 'courses.id')
+                    $count_course_pending = Course::where('status', '!=', -100)->join('units', 'units.course_id', '=', 'courses.id')
                                                 ->join('videos', 'videos.unit_id', '=', 'units.id')
                                                 ->select('units.id')
                                                 ->where('courses.id', $request->course_id)
                                                 ->whereIn('videos.state', [0,1,2,3,4])
                                                 ->count();
-                    $count_course_convert = Course::join('units', 'units.course_id', '=', 'courses.id')
+                    $count_course_convert = Course::where('status', '!=', -100)->join('units', 'units.course_id', '=', 'courses.id')
                                                 ->join('videos', 'videos.unit_id', '=', 'units.id')
                                                 ->select('units.id')
                                                 ->where('courses.id', $request->course_id)
                                                 ->where('videos.state', 3)
                                                 ->count();
-                    $count_course_request = Course::join('units', 'units.course_id', '=', 'courses.id')
+                    $count_course_request = Course::where('status', '!=', -100)->join('units', 'units.course_id', '=', 'courses.id')
                                                 ->join('videos', 'videos.unit_id', '=', 'units.id')
                                                 ->select('units.id')
                                                 ->where('courses.id', $request->course_id)
@@ -331,7 +331,7 @@ class CourseController extends Controller
 
     public function deleteCourse(Request $request)
     {   
-        $course = Course::find($request->course_id);
+        $course = Course::where('status', '!=', -100)->find($request->course_id);
         if ( $course ){
             if ( $course->status == 0 ){
                 $units = $course->units;
@@ -384,25 +384,25 @@ class CourseController extends Controller
     }
 
     public function getFeatureCourse(){
-        $courses = Course::listCourseSpecial(2)->get();
+        $courses = Course::where('status', '!=', -100)->listCourseSpecial(2)->get();
         $percent = Setting::where('name', 'percent_feature_course')->first()->value;
         return view('backends.course.feature-course', compact('courses', 'percent'));
     }
 
     public function handlingFeatureCourseAjax(UpdateFeatureCourseRequest $request){
-        $course = Course::where('featured', '>', 0)->update(['featured_index' => 0,'featured' => 0]);
+        $course = Course::where('status', '!=', -100)->where('featured', '>', 0)->update(['featured_index' => 0,'featured' => 0]);
 
-        $course1 = Course::find($request->course_1);
+        $course1 = Course::where('status', '!=', -100)->find($request->course_1);
         $course1->featured       = 1;
         $course1->featured_index = 1;
         $course1->save();
 
-        $course2 = Course::find($request->course_2);
+        $course2 = Course::where('status', '!=', -100)->find($request->course_2);
         $course2->featured       = 1;
         $course2->featured_index = 2;
         $course2->save();
 
-        $course3 = Course::find($request->course_3);
+        $course3 = Course::where('status', '!=', -100)->find($request->course_3);
         $course3->featured       = 1;
         $course3->featured_index = 3;
         $course3->save();
@@ -441,7 +441,7 @@ class CourseController extends Controller
     public function acceptEditCourse(Request $request)
     {
         $temp_course = TempCourse::find($request->id);
-        $course = Course::find($request->course_id);
+        $course = Course::where('status', '!=', -100)->find($request->course_id);
         $accept = $request->accept;
 
         if( $temp_course ){
@@ -481,7 +481,7 @@ class CourseController extends Controller
 
     public function getRequestAcceptCourseAjax()
     {
-        $courses = Course::where('status', Config::get('app.course_waiting'))->get();
+        $courses = Course::where('status', '!=', -100)->where('status', Config::get('app.course_waiting'))->get();
         return datatables()->collection($courses)
             ->addColumn('action', function ($course) {
                 return $course->id;
@@ -511,7 +511,7 @@ class CourseController extends Controller
 
     public function getAcceptedCourseAjax()
     {
-        $courses = Course::whereIn('status', [Config::get('app.course_active'), Config::get('app.course_stop_selling')])->get();
+        $courses = Course::where('status', '!=', -100)->whereIn('status', [Config::get('app.course_active'), Config::get('app.course_stop_selling')])->get();
         return datatables()->collection($courses)
             ->addColumn('action', function ($course) {
                 return $course->id;
@@ -536,7 +536,7 @@ class CourseController extends Controller
 
     public function stopSellingCourse(Request $request)
     {
-        $course = Course::find($request->course_id);
+        $course = Course::where('status', '!=', -100)->find($request->course_id);
         if ( $course ){
             if ( $course->status == Config::get('app.course_active') ){
                 if ( $course->userRoles->first()->teacher ){

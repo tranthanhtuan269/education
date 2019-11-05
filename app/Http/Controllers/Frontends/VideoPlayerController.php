@@ -56,7 +56,7 @@ class VideoPlayerController extends Controller
      */
     public function show($courseId, $videoId = 0)
     {
-        $course = Course::find($courseId);
+        $course = Course::where('status', '!=', -100)->find($courseId);
         if($course){
             $user_role_course_instance = Helper::getUserRoleOfCourse($courseId);
 
