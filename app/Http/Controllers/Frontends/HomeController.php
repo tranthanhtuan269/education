@@ -160,7 +160,7 @@ class HomeController extends Controller
             foreach ($results as $key => $result) {
                 $course_id_arr[] = $result->course_id;
             }
-            $list_course = \App\Course::where('status', 1)->whereIn('id', $course_id_arr)->where('category_id', $cat_id)->get();
+            $list_course = \App\Course::whereIn('id', $course_id_arr)->where('category_id', $cat_id)->where('status', 1)->get();
             // $list_course = Course::listCourseSpecial(3)->paginate(16);
             $title = 'Các khóa học thịnh hành';
         }
@@ -186,7 +186,7 @@ class HomeController extends Controller
             foreach ($results as $key => $result) {
                 $course_id_arr[] = $result->course_id;
             }
-            $trending_courses = \App\Course::whereIn('id', $course_id_arr)->where('category_id', $cat_id)->get();
+            $trending_courses = \App\Course::whereIn('id', $course_id_arr)->where('category_id', $cat_id)->where('status', 1)->get();
 
             // $popular_teacher = Teacher::getTeacherBestVote();
 
