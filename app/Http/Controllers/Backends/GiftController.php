@@ -18,7 +18,7 @@ class GiftController extends Controller
 {
     public function getGiveGift()
     {
-        $courses = Course::where('status', '!=', -100)->listCourseSpecial(2)->get();
+        $courses = Course::listCourseSpecial(2)->get();
         return view('backends.gift.givegift', compact('courses'));
     }
 

@@ -149,9 +149,9 @@ class HomeController extends Controller
         $course_id_arr = [];
         if ($type == 'best-seller') {
             $title = 'Các khóa học bán chạy';
-            $list_course = Course::where('status', '!=', -100)->listCourseCategory($cat_id)->orderBy('sale_count', 'desc')->paginate(\Config::get('app.pagging_item_number'));
+            $list_course = Course::listCourseCategory($cat_id)->orderBy('sale_count', 'desc')->paginate(\Config::get('app.pagging_item_number'));
         } elseif ($type == 'new') {
-            $list_course = Course::where('status', '!=', -100)->listCourseCategory($cat_id)->orderBy('id', 'desc')->paginate(\Config::get('app.pagging_item_number'));
+            $list_course = Course::listCourseCategory($cat_id)->orderBy('id', 'desc')->paginate(\Config::get('app.pagging_item_number'));
             $title = 'Các khóa học mới nhất';
         } elseif ($type == 'trendding') {
             $limitDate = \Carbon\Carbon::now()->subDays(15);
@@ -177,8 +177,8 @@ class HomeController extends Controller
             $category = Category::where('slug', $cat)->first();
 
             $tags = Tag::where('category_id', $cat_id)->get();
-            $best_seller_course = Course::where('status', '!=', -100)->listCourseCategory($cat_id)->orderBy('sale_count', 'desc')->limit(\Config::get('app.pagging_item_number'))->get();
-            $new_course = Course::where('status', '!=', -100)->listCourseCategory($cat_id)->orderBy('id', 'desc')->limit(\Config::get('app.pagging_item_number'))->get();
+            $best_seller_course = Course::listCourseCategory($cat_id)->orderBy('sale_count', 'desc')->limit(\Config::get('app.pagging_item_number'))->get();
+            $new_course = Course::listCourseCategory($cat_id)->orderBy('id', 'desc')->limit(\Config::get('app.pagging_item_number'))->get();
 
             $limitDate = \Carbon\Carbon::now()->subDays(15);
             $sql = "SELECT course_id, count(course_id) FROM orders JOIN order_details ON orders.id = order_details.order_id WHERE created_at > '" . $limitDate->toDateTimeString() ."' group by course_id ORDER BY count(course_id) desc LIMIT ".\Config::get('app.pagging_item_number').";";
