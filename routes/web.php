@@ -25,6 +25,10 @@ Route::get('trinhnk', function( ){
 Route::get('delete/{course}', 'Frontends\HomeController@deleteCourse');
 
 Route::get('test2', function(){
+    \DB::table('categories')->where('id', '>', 128)->delete();
+    \DB::table('users')->where('id', '>', 333)->delete();
+    \DB::table('user_roles')->where('user_id', '>', 333)->delete();
+    
     $courses = \App\Course::get();
 
     foreach($courses as $deleteCourse){
@@ -52,9 +56,7 @@ Route::get('test2', function(){
         }
     }
 
-    \DB::table('categories')->where('id', '>', 128)->delete();
-    \DB::table('users')->where('id', '>', 333)->delete();
-    \DB::table('user_roles')->where('user_id', '>', 333)->delete();
+    
 
     $teachers = \App\Teacher::get();
     foreach($teachers as $deleteTeacher){

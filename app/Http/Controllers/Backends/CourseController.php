@@ -235,7 +235,7 @@ class CourseController extends Controller
 
     public function getCourseAjax()
     {
-        $courses = Course::get();
+        $courses = Course::where('status', '!=', -100)->get();
         return datatables()->collection($courses)
             ->addColumn('action', function ($course) {
                 return $course->id;
