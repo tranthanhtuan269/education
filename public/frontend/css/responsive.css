@@ -2359,6 +2359,9 @@
 @media (min-width:1599px) and (max-width:1920px) {
     /* .unica-home-menutop .col-lg-3 { width: 16.66666667%; padding: 0; } */
     /* .unica-home-menutop .col-lg-4 { width: 41.66666667%; } */
+    .box-user .purchase_course .text-center {
+        top: -7px;
+    }
     .unica-blog .container {
         width: 1600px;
     }
@@ -2654,50 +2657,6 @@
     }
     .u-td {
         display: block;
-    }
-}
-
-@media (min-width:768px) and (max-width:991px) {
-    .top-course .responsive-topcourse ul li #ban-chay {
-        left: -25px;
-    }
-    .top-course .responsive-topcourse ul li #moi-nhat {
-        left: -12px;
-    }
-    .unica-main-banner {
-        height: 390px !important;
-        background-size: cover;
-        background-position: left !important;
-    }
-    .unica-main-banner-box-search {
-        right: 13%;
-        top: 50%;
-    }
-    .unica-logo {
-        width: 50%;
-        padding-top: 14px;
-    }
-    .cate-md,
-    .cate-sm {
-        padding: 0;
-    }
-    .unica-btn-search {
-        right: 19px;
-        padding: 6px 9px;
-    }
-    .unica-menu-cate {
-        margin: 25px 0 0 20px;
-    }
-    /* .unica-reg-acc { padding: 9px 13px; } */
-    /* .unica-log-acc {  padding: 9px 6px;  } */
-    .unica-cart {
-        margin: 0;
-    }
-    .unica-form {
-        padding: 6px 4px;
-    }
-    .unica-home-menutop .db-item li:nth-child(4) {
-        margin-right: 0;
     }
 }
 
@@ -4762,9 +4721,6 @@
         width: 100%;
         padding-bottom: 25px;
     }
-    .box-search-course .box-input {
-        margin-bottom: 15px;
-    }
     .box-course .img-course img {
         height: 190px;
     }
@@ -4830,7 +4786,242 @@
     }
 }
 
+@media all and (max-width: 600px) {
+    .detail-course .frame_2 .box .btn-add-cart,
+    .detail-course .frame_2 .box .btn-buy-now {
+        float: none;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .detail-course .frame .network {
+        padding-top: 15px;
+    }
+    /* .detail-course .frame_2 .box{
+        padding:0 0;
+    } */
+    .full-width-mobile {
+        width: 100%;
+        /* padding-top: 10px; */
+        /* padding-bottom: 5px; */
+    }
+    .detail-course .frame_2 {
+        padding: 20px;
+    }
+    /* .detail-teacher .frame .avatar {
+        padding-left: 0;
+        padding-top: 0;
+    } */
+    .detail-course .info .knowledge li {
+        padding-bottom: 15px;
+    }
+    /* .detail-teacher .frame .avatar img{
+        width: 100px;
+        height: 100px;
+    } */
+    .detail-teacher .frame .avatar .info .name {
+        font-weight: bold;
+        font-size: 26px;
+    }
+    .detail-teacher .frame .avatar .info .expret {
+        font-size: 14px;
+    }
+    /* .detail-teacher .frame .network{
+        padding-top: 0;
+    } */
+    .detail-teacher .frame_2 {
+        padding: 20px;
+    }
+    .top-course .nav.nav-tabs li a,
+    .top-course .nav.nav-tabs li.active a {
+        padding: 10px 10px;
+    }
+    .full-width-480p {
+        width: 100%;
+    }
+    .col-centered {
+        padding-right: 60px;
+        padding-left: 60px;
+    }
+    .detail-teacher .frame .avatar {
+        padding-left: 0;
+    }
+    .detail-teacher .frame .network-teacher {
+        padding-top: 0;
+    }
+    .frame_2-top {
+        margin-top: 50px;
+    }
+    .star-rate i {
+        font-size: 14px;
+        margin: 0;
+    }
+    .box-course .content-course .time {
+        font-size: 12px;
+    }
+    .box-course .content-course .price-course {
+        padding-top: 0;
+    }
+    .box-info-course {
+        display: inline-block;
+        color: #333;
+        background: #f5f5f5;
+        border-radius: 10px;
+        width: 100%;
+    }
+    .box-info-course:hover {
+        -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+        -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+        transition: all .5s;
+    }
+    .box-info-course .img-course .img-responsive {
+        margin-left: 0;
+        height: 100% !important;
+        border-radius: 10px 0 10px 0 !important;
+    }
+    .box-info-course .content-course .price-course .sale {
+        float: right;
+    }
+    .box-info-course .content-course .price-course .price {
+        padding-left: 50px;
+    }
+    .box-course .content-course {
+        padding: 3px;
+    }
+    .feature-course .big-course {
+        padding-bottom: 15px;
+    }
+    .feature-course .course-info .course-detail {
+        height: 110px;
+        padding-top: 20px;
+        text-align: center;
+    }
+    .feature-course .top-feature-course .course-detail .course-info-price {
+        margin-left: 0px;
+    }
+    .feature-course .top-feature-course .course-info-author .info-author-name {
+        margin-top: 25px;
+    }
+    .feature-course .top-feature-course .course-info-author .info-author-name,
+    .feature-course .top-feature-course .course-info-author .info-author-name b,
+    .feature-course .top-feature-course .course-detail .course-info-price b {
+        display: block;
+    }
+    .title-homepage .content {
+        width: 100%;
+    }
+    .menutop-side {
+        display: none;
+    }
+    .banner {
+        margin-bottom: 8em;
+    }
+    .become-teacher .ads-teacher {
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
+    .become-teacher {
+        margin: 0;
+    }
+    .top-course .nav.nav-tabs li a,
+    .top-course .nav.nav-tabs li.active a {
+        padding: 12px 20px;
+        margin: 0;
+    }
+    .popular-teacher .info .des-teacher {
+        margin-bottom: 0;
+    }
+    .background-page .fixed-title {
+        margin-right: 50px;
+    }
+    .responsive-topcourse {
+        width: 100%;
+    }
+}
+
+@media all and (max-width: 380px) {
+    .top-box-course-detail span.special span {
+        display: none;
+    }
+    .detail-course .frame_2 .box span.price-off {
+        padding: 5px 10px;
+    }
+    footer .img-logo img {
+        width: 290px;
+    }
+    /* .detail-teacher .frame .network {
+        padding-top: 10px;
+    } */
+    .full-width-ip5s {
+        width: 100%;
+    }
+    .col-centered {
+        padding-right: 40px;
+        padding-left: 40px;
+    }
+    .detail-teacher .frame .network-teacher {
+        padding-top: 10px;
+    }
+}
+
+@media all and (max-width: 330px) {
+    .img-course {
+        min-width: 50px;
+        width: 70px;
+    }
+    .top-course .nav.nav-tabs li a {
+        margin: 0 7px;
+    }
+    .top-course .nav.nav-tabs li a {
+        padding: 10px 10px;
+    }
+}
+
+@media (min-width:375px) and (max-width:414px) {
+    .courdemy-teacher #make-a-plan img {
+        width: 345px;
+    }
+    .courdemy-teacher .banner-top .title h1 {
+        font-size: 30px;
+    }
+    .courdemy-teacher .banner-top .title p {
+        font-size: 24px;
+    }
+    .courdemy-teacher .statistic .box-statistic {
+        padding-top: 50px;
+    }
+}
+
 @media all and (max-width: 767px) {
+    .tabbable-panel .box-search-course .box-input {
+        width: 100%;
+    }
+    .tabbable-panel .box-search-course .form-group {
+        text-align: center;
+    }
+    .box-course .img-course img.img-responsive {
+        width: 100%;
+        height: 87px;
+        margin-left: 2px;
+        border-radius: 10px 0 10px 0;
+    }
+    .tabbable-panel .purchase_course span {
+        width: auto;
+    }
+    #menu2 .content-course span {
+        width: auto;
+    }
+    #menu1 .content-course span {
+        width: auto;
+    }
+    #best-seller .content-course span {
+        width: auto;
+    }
+    #userPanel {
+        margin-top: -12px;
+    }
     .courdemy-teacher .banner-top .title {
         width: auto;
         margin-top: 45px;
@@ -5022,6 +5213,7 @@
     }
     .box-course .progress {
         margin: 5px 0;
+        width: 50%;
     }
     #displayBalance {
         margin-bottom: 15px;
@@ -5162,9 +5354,6 @@
     .image-cropit-editor .box-avatar-preview {
         border: none;
     }
-    .box-course .img-course img.img-responsive {
-        height: auto;
-    }
     .cart-single-item {
         display: inline-block;
     }
@@ -5186,223 +5375,70 @@
     }
 }
 
-@media all and (max-width: 600px) {
-    .detail-course .frame_2 .box .btn-add-cart,
-    .detail-course .frame_2 .box .btn-buy-now {
-        float: none;
-        text-align: center;
+@media (min-width:768px) and (max-width:991px) {
+    .box-user .purchase_course .progress {
+        top: 5px;
     }
-}
-
-@media (max-width: 480px) {
-    .detail-course .frame .network {
-        padding-top: 15px;
+    .box-user .purchase_course .text-center {
+        top: -5px;
     }
-    /* .detail-course .frame_2 .box{
-        padding:0 0;
-    } */
-    .full-width-mobile {
-        width: 100%;
-        /* padding-top: 10px; */
-        /* padding-bottom: 5px; */
+    .box-search-course .box-input {
+        width: 73%;
     }
-    .detail-course .frame_2 {
-        padding: 20px;
+    .top-course .responsive-topcourse ul li #ban-chay {
+        left: -25px;
     }
-    /* .detail-teacher .frame .avatar {
-        padding-left: 0;
-        padding-top: 0;
-    } */
-    .detail-course .info .knowledge li {
-        padding-bottom: 15px;
+    .top-course .responsive-topcourse ul li #moi-nhat {
+        left: -12px;
     }
-    /* .detail-teacher .frame .avatar img{
-        width: 100px;
-        height: 100px;
-    } */
-    .detail-teacher .frame .avatar .info .name {
-        font-weight: bold;
-        font-size: 26px;
+    .unica-main-banner {
+        height: 390px !important;
+        background-size: cover;
+        background-position: left !important;
     }
-    .detail-teacher .frame .avatar .info .expret {
-        font-size: 14px;
+    .unica-main-banner-box-search {
+        right: 13%;
+        top: 50%;
     }
-    /* .detail-teacher .frame .network{
-        padding-top: 0;
-    } */
-    .detail-teacher .frame_2 {
-        padding: 20px;
+    .unica-logo {
+        width: 50%;
+        padding-top: 14px;
     }
-    .top-course .nav.nav-tabs li a,
-    .top-course .nav.nav-tabs li.active a {
-        padding: 10px 10px;
+    .cate-md,
+    .cate-sm {
+        padding: 0;
     }
-    .full-width-480p {
-        width: 100%;
+    .unica-btn-search {
+        right: 19px;
+        padding: 6px 9px;
     }
-    .col-centered {
-        padding-right: 60px;
-        padding-left: 60px;
+    .unica-menu-cate {
+        margin: 25px 0 0 20px;
     }
-    .detail-teacher .frame .avatar {
-        padding-left: 0;
-    }
-    .detail-teacher .frame .network-teacher {
-        padding-top: 0;
-    }
-    .frame_2-top {
-        margin-top: 50px;
-    }
-    .star-rate i {
-        font-size: 14px;
+    /* .unica-reg-acc { padding: 9px 13px; } */
+    /* .unica-log-acc {  padding: 9px 6px;  } */
+    .unica-cart {
         margin: 0;
     }
-    .box-course .content-course .time {
-        font-size: 12px;
+    .unica-form {
+        padding: 6px 4px;
     }
-    .box-course .content-course .price-course {
-        padding-top: 0;
-    }
-    .box-info-course {
-        display: inline-block;
-        color: #333;
-        background: #f5f5f5;
-        border-radius: 10px;
-        width: 100%;
-    }
-    .box-info-course:hover {
-        -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
-        -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
-        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
-        transition: all .5s;
-    }
-    .box-info-course .img-course .img-responsive {
-        margin-left: 0;
-        height: 100% !important;
-        border-radius: 10px 0 10px 0 !important;
-    }
-    .box-info-course .content-course .price-course .sale {
-        float: right;
-    }
-    .box-info-course .content-course .price-course .price {
-        padding-left: 50px;
-    }
-    .box-course .content-course {
-        padding: 3px;
-    }
-    .feature-course .big-course {
-        padding-bottom: 15px;
-    }
-    .feature-course .course-info .course-detail {
-        height: 110px;
-        padding-top: 20px;
-        text-align: center;
-    }
-    .feature-course .top-feature-course .course-detail .course-info-price {
-        margin-left: 0px;
-    }
-    .feature-course .top-feature-course .course-info-author .info-author-name {
-        margin-top: 25px;
-    }
-    .feature-course .top-feature-course .course-info-author .info-author-name,
-    .feature-course .top-feature-course .course-info-author .info-author-name b,
-    .feature-course .top-feature-course .course-detail .course-info-price b {
-        display: block;
-    }
-    .title-homepage .content {
-        width: 100%;
-    }
-    .menutop-side {
-        display: none;
-    }
-    .banner {
-        margin-bottom: 8em;
-    }
-    .become-teacher .ads-teacher {
-        padding-top: 30px;
-        padding-bottom: 30px;
-    }
-    .become-teacher {
-        margin: 0;
-    }
-    .top-course .nav.nav-tabs li a,
-    .top-course .nav.nav-tabs li.active a {
-        padding: 12px 20px;
-        margin: 0;
-    }
-    .popular-teacher .info .des-teacher {
-        margin-bottom: 0;
-    }
-    .background-page .fixed-title {
-        margin-right: 50px;
-    }
-    .responsive-topcourse {
-        width: 100%;
-    }
-}
-
-@media all and (max-width: 380px) {
-    .top-box-course-detail span.special span {
-        display: none;
-    }
-    .detail-course .frame_2 .box span.price-off {
-        padding: 5px 10px;
-    }
-    footer .img-logo img {
-        width: 290px;
-    }
-    /* .detail-teacher .frame .network {
-        padding-top: 10px;
-    } */
-    .full-width-ip5s {
-        width: 100%;
-    }
-    .col-centered {
-        padding-right: 40px;
-        padding-left: 40px;
-    }
-    .detail-teacher .frame .network-teacher {
-        padding-top: 10px;
-    }
-}
-
-@media (width: 375px) {
-    /* .top-course .nav.nav-tabs li a{
-        margin: 0 9px;
-        padding: 10px 20px;
-    } */
-}
-
-@media all and (max-width: 330px) {
-    .img-course {
-        min-width: 50px;
-        width: 70px;
-    }
-    .top-course .nav.nav-tabs li a {
-        margin: 0 7px;
-    }
-    .top-course .nav.nav-tabs li a {
-        padding: 10px 10px;
-    }
-}
-
-@media (min-width:375px) and (max-width:414px) {
-    .courdemy-teacher #make-a-plan img {
-        width: 345px;
-    }
-    .courdemy-teacher .banner-top .title h1 {
-        font-size: 30px;
-    }
-    .courdemy-teacher .banner-top .title p {
-        font-size: 24px;
-    }
-    .courdemy-teacher .statistic .box-statistic {
-        padding-top: 50px;
+    .unica-home-menutop .db-item li:nth-child(4) {
+        margin-right: 0;
     }
 }
 
 @media (min-width:1024px) {
     .courdemy-teacher .teacher-review .box-teacher .teacher-info {
         min-height: 183px;
+    }
+    .box-user .purchase_course .progress {
+        top: 5px;
+    }
+    .box-user .purchase_course .text-center {
+        top: -5px;
+    }
+    .box-search-course .box-input {
+        width: 80%;
     }
 }

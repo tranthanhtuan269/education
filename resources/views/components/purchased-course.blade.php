@@ -70,13 +70,13 @@
                     </span>
                     <br>
                 </div>
-                <div class="progress">
+                <div class="progress col-xs-6">
                     <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{$video_done_percent}}" aria-valuemin="0" aria-valuemax="100" style="width: {{$video_done_percent}}%;">
                             {{$video_done_percent}}%
                     </div>
                 </div>
                 @if (isset($btn_start_learning))
-                <div class="text-center">
+                <div class="text-center col-xs-6 col-md-12 col-sm-12">
                     <div data-courseid="{{$courseId}}" data-courseslug="{{$course->slug}}" data-learningid="{{$learningId}}" class="btn btn-primary btn-sm btn-start-learning">Tiếp tục học</div>
                     <script>
                         $(document).ready(function () {
