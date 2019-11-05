@@ -384,7 +384,7 @@ class CourseController extends Controller
     }
 
     public function getFeatureCourse(){
-        $courses = Course::where('status', '!=', -100)->listCourseSpecial(2)->get();
+        $courses = Course::listCourseSpecial(2)->get();
         $percent = Setting::where('name', 'percent_feature_course')->first()->value;
         return view('backends.course.feature-course', compact('courses', 'percent'));
     }

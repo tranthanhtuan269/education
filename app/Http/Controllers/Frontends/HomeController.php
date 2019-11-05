@@ -37,12 +37,12 @@ class HomeController extends Controller
         $type = trim($request->get('type'));
         if ($type == 'best-seller') {
             $title = 'Các khóa học bán chạy';
-            $list_course = Course::where('status', '!=', -100)->listCourseSpecial(1)->paginate(\Config::get('app.pagging_item_number'));
+            $list_course = Course::listCourseSpecial(1)->paginate(\Config::get('app.pagging_item_number'));
         } elseif ($type == 'new') {
-            $list_course = Course::where('status', '!=', -100)->listCourseSpecial(2)->paginate(\Config::get('app.pagging_item_number'));
+            $list_course = Course::listCourseSpecial(2)->paginate(\Config::get('app.pagging_item_number'));
             $title = 'Các khóa học mới nhất';
         } elseif ($type == 'trendding') {
-            $list_course = Course::where('status', '!=', -100)->listCourseSpecial(3)->paginate(\Config::get('app.pagging_item_number'));
+            $list_course = Course::listCourseSpecial(3)->paginate(\Config::get('app.pagging_item_number'));
             $title = 'Các khóa học thịnh hành';
         }
 
@@ -161,7 +161,7 @@ class HomeController extends Controller
                 $course_id_arr[] = $result->course_id;
             }
             $list_course = \App\Course::whereIn('id', $course_id_arr)->where('category_id', $cat_id)->get();
-            // $list_course = Course::where('status', '!=', -100)->listCourseSpecial(3)->paginate(16);
+            // $list_course = Course::listCourseSpecial(3)->paginate(16);
             $title = 'Các khóa học thịnh hành';
         }
 
