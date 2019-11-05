@@ -65,7 +65,7 @@
                             </div>
                             @endif
                         @endif
-                        @if (Request::is('/') || Request::is('home'))
+                        @if ((Request::is('/') || Request::is('home')) && $key+1 == \Config::get('app.pagging_item_number'))
                             <div class="col-sm-12 text-center">
                                 <a href="{{ url('list-course?type=best-seller') }}" class="btn btn-default btn-seeall">Tất cả</a>
                             </div>
@@ -100,7 +100,7 @@
                             </div>
                             @endif
                         @endif
-                        @if (Request::is('/') || Request::is('home'))
+                        @if (Request::is('/') || Request::is('home') && $key+1 == \Config::get('app.pagging_item_number'))
                         <div class="col-sm-12 text-center">
                             <a href="{{ url('list-course?type=new') }}" class="btn btn-default btn-seeall">Tất cả</a>
                         </div>
@@ -138,7 +138,7 @@
                             @if($key%4 < 3)
                             </div>
                             @endif
-                            @if (Request::is('/') || Request::is('home'))
+                            @if (Request::is('/') || Request::is('home') && $key+1 == \Config::get('app.pagging_item_number'))
                             <div class="col-sm-12 text-center">
                                 <a href="{{ url('list-course?type=trendding') }}" class="btn btn-default btn-seeall">Tất cả</a>
                             </div>
