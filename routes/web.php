@@ -25,8 +25,43 @@ Route::get('trinhnk', function( ){
 Route::get('delete/{course}', 'Frontends\HomeController@deleteCourse');
 
 Route::get('test2', function(){
-    $course = \App\Course::find(758);
-    \App\Helper\Helper::addAlert($course->Lecturers()[0]->user, "app.email_reply_comment");
+    $courses = \App\Course::get();
+
+    foreach($courses as $deleteCourse){
+        if($deleteCourse){
+            echo $deleteCourse->name . '<br/>';
+            flush();
+            if(!isset($deleteCourse->Lecturers()[0]->user)){
+                if($deleteCourse->units){
+                    foreach($deleteCourse->units as $unit){
+                        if($unit->videos){
+                            foreach($unit->videos as $video){
+                                $video->delete();
+                                \App\TempVideo::where("video_id", $video->id)->delete();
+                                \App\TempDocument::where("video_id", $video->id)->delete();
+                                \App\Document::where("video_id", $video->id)->delete();
+                            }
+                        }
+                        $unit->delete();
+                    }
+                }
+                \App\TempCourse::where("course_id", $deleteCourse->id)->delete();
+                \App\UserCourse::where("course_id", $deleteCourse)->delete();
+                $deleteCourse->delete();
+            }
+        }
+    }
+
+    \DB::table('categories')->where('id', '>', 128)->delete();
+    \DB::table('users')->where('id', '>', 333)->delete();
+    \DB::table('user_roles')->where('user_id', '>', 333)->delete();
+
+    $teachers = \App\Teacher::get();
+    foreach($teachers as $deleteTeacher){
+        if(!isset($deleteTeacher->userRole)){
+            $deleteTeacher->delete();
+        }
+    }
 });
 
 Route::get('thay-state-video', function(){
