@@ -146,6 +146,7 @@ class HomeController extends Controller
         $cat_name   = $category->name;
         $cat_icon   = $category->icon;
         $cat_des    = $category->description;
+        $course_id_arr = [];
         if ($type == 'best-seller') {
             $title = 'Các khóa học bán chạy';
             $list_course = Course::listCourseCategory($cat_id)->orderBy('sale_count', 'desc')->paginate(\Config::get('app.pagging_item_number'));

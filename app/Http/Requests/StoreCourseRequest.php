@@ -71,7 +71,7 @@ class StoreCourseRequest extends FormRequest
             'approx_time.numeric'       => 'Thời gian dự kiến hoàn thành quá lớn.',
 
             'will_learn.required'       => 'Bạn chưa nhập Học viên sẽ học được gì.',
-            'will_learn.mãx'            => 'Phần Học viên sẽ học được quá dài. Yêu cầu < 1000 ký tự.',
+            'will_learn.max'            => 'Phần Học viên sẽ học được quá dài. Yêu cầu < 1000 ký tự.',
         ];
     }
 }
