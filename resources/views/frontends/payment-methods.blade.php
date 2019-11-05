@@ -282,7 +282,7 @@
 				if(cart_items.length < 1){
 					Swal.fire({
 						type:"warning",
-						text:"Cart can't be empty!"
+						text:"Không có sản phẩm cần thanh toán!"
 					}).then((result) => {
 						window.location.href = ('/')
 					})

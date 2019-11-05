@@ -555,6 +555,11 @@
         //         $('.unica-home-menutop').removeClass('fixed');
         //     }
         // });
+        @if (Auth::check())
+            @if (Auth::user()->isAdmin())
+            localStorage.setItem('cart'+user_id, '[]')
+            @endif
+        @endif
 
         if( user_id == 0 ){
             if(localStorage.getItem('cart'+0) == null){

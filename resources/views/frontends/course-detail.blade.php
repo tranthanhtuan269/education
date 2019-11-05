@@ -226,7 +226,7 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                                         </div>
                                         <div class="btn-buy-now">
                                             {{-- <button type="button" id="buy-now" data-id="{{ $info_course->id }}" class="btn btn-warning btn-toh"><b>Mua ngay</b></button> --}}
-                                            <button class="btn btn-warning btn-toh" data-toggle=modal data-target=#myModalLogin data-dismiss=modal ><b>Mua ngay</b></button>
+                                            <button class="btn btn-warning btn-toh course-detail-buy-now" data-toggle=modal data-target=#modalLoginCourseDetail data-dismiss=modal ><b>Mua ngay</b></button>
                                         </div>
                                     </div>
                                     <div class="box clearfix">
@@ -794,7 +794,7 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                                             </div>
                                             <div class="sidebar-buy-now">
                                                 {{-- <button type="button" id="buy-now2" class="btn btn-warning"><b>Mua ngay</b></button> --}}
-                                                <button class="btn btn-warning" data-toggle=modal data-target=#myModalLogin data-dismiss=modal ><b>Mua ngay</b></button>
+                                                <button class="btn btn-warning course-detail-buy-now" data-toggle=modal data-target=#modalLoginCourseDetail data-dismiss=modal ><b>Mua ngay</b></button>
                                             </div>
                                         @endif
                                     </div>
@@ -917,13 +917,20 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                     <div class="group-btn-buy-course">
                         <button class="btn btn-primary">Thêm vào giỏ hàng</button>
                         {{-- <button class="btn btn-warning">Mua ngay</button> --}}
-                        <button class="btn btn-warning" data-toggle=modal data-target=#myModalLogin data-dismiss=modal ><b>Mua ngay</b></button>
+                        <button class="btn btn-warning course-detail-buy-now" data-toggle=modal data-target=#modalLoginCourseDetail data-dismiss=modal ><b>Mua ngay</b></button>
                     </div>
                 </div>
             </div>
         </div>
     @endif
     <script>
+        $('.course-detail-buy-now').click(function(e){
+            e.stopPropagation()
+            e.preventDefault()
+            $('#resetCourseDetailFormsLogin').click()
+            $('#resetCourseDetailFormsSignup').click()
+            $("#modalLoginCourseDetail").modal("toggle"); 
+        })
         $(window).scroll(function() {
             var barHeight = $(".interactive-bar").outerHeight()
                 if ($(window).scrollTop() > 300) {
@@ -939,6 +946,105 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
         });
     </script>
 </div>
+@if ( !Auth::check() )
+<div id="modalLoginCourseDetail" class="modal fade" role="dialog" >
+    <div class="modal-dialog modal-login">
+        <div class="modal-content">
+            <div class="modal-header">				
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <div class="modal-title"><b>Đăng nhập vào tài khoản Courdemy của bạn</b></div>
+            </div>
+            <div class="modal-body">
+                @if($_SERVER['SERVER_NAME'] === "timtruyen.online")
+                    @include('components.google-login')
+                @endif
+                <br/>
+                <form action="/examples/actions/confirmation.php" method="post">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fas fa-envelope fa-fw fa-md"></i></span>
+                            <input type="t" class="form-control" name="email" placeholder="Email" required="required">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group password-group">
+                            <span class="input-group-addon"><i class="fas fa-lock fa-fw fa-md"></i></span>
+                            <input type="password" class="form-control" name="pass" placeholder="Mật khẩu" required="required" id="showMyPassword">
+                            <div class="show-password" onclick="showPassword()">
+                                <i class="fas fa-eye fa-fw fa-md" id="eye"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="button" class="btn btn-success btn-block btn-lg" value="Đăng nhập" onclick="loginCourseDetailAjax()">
+                    </div>
+                    <input id="resetCourseDetailFormsLogin" type="reset" value="Reset the form" style="display:none">
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <div class="link-to-sign-up">
+                    <div>
+                        Bạn chưa có tài khoản? <a href="javascript:void(0)" data-toggle="modal" data-target="#modalRegisterCourseDetail" data-dismiss="modal"><b>Đăng ký</b></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="modalRegisterCourseDetail" class="modal fade" role="dialog" >
+    <div class="modal-dialog modal-login">
+        <div class="modal-content">
+            <div class="modal-header">				
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <div class="modal-title"><b>Tạo tài khoản mới</b></div>
+            </div>
+            <div class="modal-body">
+                <form action="/examples/actions/confirmation.php" method="post">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fas fa-user fa-lock fa-fw fa-md"></i></span>
+                            <input type="text" class="form-control" name="name" placeholder="Tên của bạn" required="required">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fas fa-envelope fa-envelope fa-fw fa-md"></i></span>
+                            <input type="email" class="form-control" name="email" placeholder="Email" required="required">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fas fa-lock fa-fw fa-md"></i></span>
+                            <input type="password" class="form-control" name="pass" placeholder="Mật khẩu" required="required">
+                        </div>				
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fas fa-lock fa-fw fa-md"></i></span>
+                            <input type="password" class="form-control" name="confirmpass" placeholder="Nhập lại mật khẩu" required="required">
+                        </div>				
+                    </div>
+                    {{-- <div class="terms-and-policy">
+                        <label class="checkbox-inline"><input type="checkbox">You agree to our <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>!</label>
+                    </div> --}}
+                    <div class="form-group">
+                        <input type="button" class="btn btn-success btn-block btn-lg" value="Đăng ký" onclick="registerCourseDetailAjax()">
+                    </div>
+                    <input id="resetCourseDetailFormsSignup" type="reset" value="Reset the form" style="display:none">
+                </form>				
+            </div>
+            <div class="modal-footer">
+                <div class="link-to-sign-up">
+                    <div>
+                        Bạn đã có tài khoản? <a href="javascript:void(0)" data-toggle="modal" data-target="#modalLoginCourseDetail" data-dismiss="modal"><b>Đăng nhập</b></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
 <script type="text/javascript">
     var user_id = $('button[id=cartUserId]').attr('data-user-id')
     $(document).ready(function() { 
@@ -1327,5 +1433,117 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
             $('.detail-course .frame .network-reponsive').css('margin-top',($('.detail-course .frame .info').height() - $('.detail-course .frame .network-reponsive').height())/2)
         @endif
     })
+
+    $('#modalLoginCourseDetail input[name=email],#modalLoginCourseDetail input[name=pass],#modalLoginCourseDetail input[name=remember]').keypress(function(event){
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        if(keycode == '13'){
+            loginCourseDetailAjax();
+            return false;
+        }
+    });
+
+    function loginCourseDetailAjax(){
+        var email = $('#modalLoginCourseDetail input[name=email]').val();
+        email = email.trim();
+        var password = $('#modalLoginCourseDetail input[name=pass]').val();
+        var remember = $('#modalLoginCourseDetail input[name=remember]').prop('checked');
+        var data = {
+            email:email,
+            password: password,
+            remember: remember,
+        };
+        $.ajaxSetup(
+        {
+            headers:
+            {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            method: "POST",
+            url: '{{ url("loginAjax") }}',
+            data: data,
+            dataType: 'json',
+            success: function (response) {
+                if(response.status == 200){
+                    window.location.href = ("/cart/payment/method-selector")
+                }else{
+                    Swal.fire({
+                        type: 'warning',
+                        html: response.message,
+                    })
+                }
+            },
+            error: function (error) {
+                var obj_errors = error.responseJSON.errors;
+                var txt_errors = '';
+                for (k of Object.keys(obj_errors)) {
+                    txt_errors += obj_errors[k][0] + '</br>';
+                }
+                Swal.fire({
+                    type: 'warning',
+                    html: txt_errors,
+                })
+            }
+        });
+        return false;
+    }
+    
+    function registerCourseDetailAjax(){
+        var name = $('#modalRegisterCourseDetail input[name=name]').val();
+        name = name.trim();
+        var email = $('#modalRegisterCourseDetail input[name=email]').val();
+        email = email.trim();
+        var password = $('#modalRegisterCourseDetail input[name=pass]').val();
+        var confirmpassword = $('#modalRegisterCourseDetail input[name=confirmpass]').val();
+        var data = {
+            name : name,
+            email:email,
+            password: password,
+            confirmpassword: confirmpassword,
+        };
+        $.ajaxSetup(
+        {
+            headers:
+            {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            method: "POST",
+            url: '{{ url("registerAjax") }}',
+            data: data,
+            dataType: 'json',
+            success: function (response) {
+                if(response.status == 200){
+                    Swal.fire({
+                        type: 'success',
+                        html: response.message,
+                    }).then((result) => {
+                        if (result.value) {
+                            window.location.href = ("/cart/payment/method-selector")
+                        }
+                    });
+                }else{
+                    Swal.fire({
+                        type: 'warning',
+                        html: 'Error',
+                    })
+                }
+            },
+            error: function (error) {             
+                var obj_errors = error.responseJSON.errors;
+                var txt_errors = '';
+                for (k of Object.keys(obj_errors)) {
+                    txt_errors += obj_errors[k][0] + '</br>';
+                }
+                Swal.fire({
+                    type: 'warning',
+                    html: txt_errors,
+                })
+            }
+        });
+        return false;
+    }
 </script>
 @endsection

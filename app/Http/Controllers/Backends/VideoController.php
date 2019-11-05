@@ -744,7 +744,7 @@ class VideoController extends Controller
                 $video->state       = Config::get('app.video_active');
                 $video->updated_at  = date('Y-m-d H:i:s');
                 $video->save();
-                \App\Helper\Helper::addAlertCustomize($video->unit->course->Lecturers()[0]->user, "Bài giảng " . $video->name . "đã bị hủy yêu cầu xóa", "Xin lỗi bạn! Bài giảng <a href='" . url('/') . "/learning-page/" . $course->id . "/lecture/" . $video->id . "'>" . $video->name . "</a> đã bị hủy yêu cầu xóa", true);
+                \App\Helper\Helper::addAlertCustomize($video->unit->course->Lecturers()[0]->user, "Bài giảng " . $video->name . "đã bị hủy yêu cầu xóa", "Xin lỗi bạn! Bài giảng <a href='" . url('/') . "/learning-page/" . $video->unit->course->id . "/lecture/" . $video->id . "'>" . $video->name . "</a> đã bị hủy yêu cầu xóa", true);
     
                 return response()->json([
                     'status' => 200,
