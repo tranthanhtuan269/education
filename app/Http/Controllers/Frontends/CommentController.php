@@ -61,7 +61,7 @@ class CommentController extends Controller
             $commentVideo->state = 1;
             if (isset($request->parentId)) {
                 $commentVideo->parent_id = $request->parentId;
-                \App\Helper\Helper::addAlertCustomize($commentVideo->parent()->userRole->user, "Thảo luận của bạn có một trả lời", "Thảo luận của bạn ở bài giảng <a href='" . url('/') . "/learning-page/" . $video->unit->course->id . "/lecture/" . $video->id . "'>" . $video->name . "</a> vừa có một trả lời.", true);
+                \App\Helper\Helper::addAlertCustomize($commentVideo->parent()->userRole()->user, "Thảo luận của bạn có một trả lời", "Thảo luận của bạn ở bài giảng <a href='" . url('/') . "/learning-page/" . $video->unit->course->id . "/lecture/" . $video->id . "'>" . $video->name . "</a> vừa có một trả lời.", true);
             }else{
                 \App\Helper\Helper::addAlertCustomize($video->unit->course->Lecturers()[0]->user, "Bài giảng " . $video->name . " có một thảo luận mới", "Bài giảng <a href='" . url('/') . "/learning-page/" . $video->unit->course->id . "/lecture/" . $video->id . "'>" . $video->name . "</a> vừa có một thảo luận mới.", true);
             }
