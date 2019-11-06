@@ -172,8 +172,10 @@
                             var note_number_student = parseInt($('.sl-notify-student b').text())
                             if(note_number_student - 1 > 0){
                                 $('.sl-notify-student b').text(note_number_student-1)
+                                $('.sl-notify-student-only b').text(note_number_student-1)
                             }else{
                                 $('.sl-notify-student').css('display', 'none')
+                                $('.sl-notify-student-only').css('display', 'none')
                             }
                         }
                         self.parent().parent().attr('style','')
