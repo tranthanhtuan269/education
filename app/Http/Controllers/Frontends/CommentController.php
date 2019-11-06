@@ -274,7 +274,7 @@ class CommentController extends Controller
                 $commentCourse->score = 0;
                 $commentCourse->state = 0;
                 $commentCourse->save();
-                \App\Helper\Helper::addAlertCustomize($comment->userRole->user, "Khóa học " . $comment->course->name . " vừa có một đánh giá mới", "Đánh giá của bạn tại khóa học <a href='" . url('/') . "/course/" . $comment->course->id . "/" . $comment->course->slug . "'>" . $comment->course->name . "</a> vừa có một trả lời");
+                \App\Helper\Helper::addAlertCustomize($comment->userRole->user, "Đánh giá khóa học của bạn vừa có một trả lời", "Đánh giá của bạn tại khóa học <a href='" . url('/') . "/course/" . $comment->course->id . "/" . $comment->course->slug . "'>" . $comment->course->name . "</a> vừa có một trả lời");
 
                 return \Response::json(array('status' => '200', 'message' => 'Cập nhật thông tin thành công!', 'commentCourse' => fractal($commentCourse, new CommentCourseTransformer())->toArray()));
             }
@@ -288,7 +288,7 @@ class CommentController extends Controller
             $commentCourse->save();
 
             if ( $comment->user_role_id != Auth::user()->userRolesStudent()->id ){
-                \App\Helper\Helper::addAlertCustomize($comment->userRole->user, "Khóa học " . $comment->course->name . " vừa có một đánh giá mới", "Đánh giá của bạn tại khóa học <a href='" . url('/') . "/course/" . $comment->course->id . "/" . $comment->course->slug . "'>" . $comment->course->name . "</a> vừa có một trả lời");
+                \App\Helper\Helper::addAlertCustomize($comment->userRole->user, "Đánh giá khóa học của bạn vừa có một trả lời", "Đánh giá của bạn tại khóa học <a href='" . url('/') . "/course/" . $comment->course->id . "/" . $comment->course->slug . "'>" . $comment->course->name . "</a> vừa có một trả lời");
             }
 
             return \Response::json(array('status' => '200', 'message' => 'Cập nhật thông tin thành công!', 'commentCourse' => fractal($commentCourse, new CommentCourseTransformer())->toArray()));
