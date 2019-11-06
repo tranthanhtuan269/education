@@ -151,7 +151,8 @@ class Helper
 
     public static function getYouTubeVideoId($url)
     {
-        preg_match('/(http(s|):|)\/\/(www\.|)yout(.*?)\/(embed\/|watch.*?v=|)([a-z_A-Z0-9\-]{11})/i', $url, $results);
+        // preg_match('/(http(s|):|)\/\/(www\.|)yout(.*?)\/(embed\/|watch.*?v=|)([a-z_A-Z0-9\-]{11})/i', $url, $results);
+        preg_match('/^(?:http(?:s)?:\/\/)?(www\.|)yout(.*?)\/(embed\/|watch.*?v=|)([a-z_A-Z0-9\-]{11})/i', $url, $results);
         // dd($results[6]);
         if(isset($results[6])) return $results[6];
         if(isset($results[5])) return $results[5];

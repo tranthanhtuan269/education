@@ -194,7 +194,6 @@ class UserController extends Controller
             $teacher->expert = $request->expert;
             $teacher->cv = $request->cv;
             $teacher->video_intro = "https://www.youtube.com/embed/" . Helper::getYouTubeVideoId($request->video_intro);
-            dd($teacher->video_intro);
             $teacher->save();
 
             return \Response::json(['message' => 'Sửa thông tin thành công!', 'status' => 200]);
