@@ -188,7 +188,7 @@ class UserController extends Controller
             $user->save();
 
             // update course info
-            Course::where('status', '!=', -100)->getCourseOfTeacher(Auth::user()->id, $request->name);
+            Course::getCourseOfTeacher(Auth::user()->id, $request->name);
 
             $teacher = Auth::user()->userRolesTeacher()->teacher;
             $teacher->expert = $request->expert;
