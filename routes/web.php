@@ -18,8 +18,8 @@
 Auth::routes();
 
 Route::get('trinhnk', function( ){
-    $check = \App\TempCourse::where('course_id', 592)->first();
-    dd(($check));
+    $comment = \App\CommentVideo::find(209);
+    dd($comment->parent->userRole->user);
 });
 
 Route::get('delete/{course}', 'Frontends\HomeController@deleteCourse');
