@@ -130,6 +130,7 @@ class AppServiceProvider extends ServiceProvider
                             $user_email->sender_user_id = 333;
                             $user_email->content = $alertEmail->content;
                             $user_email->title = $alertEmail->title;
+                            $user_email->teacher = true;
                             $user_email->save();
                         }
                     }
@@ -211,6 +212,7 @@ class AppServiceProvider extends ServiceProvider
                             $user_email->sender_user_id = 333;
                             $user_email->content = $alertEmail->content;
                             $user_email->title = $alertEmail->title;
+                            $user_email->teacher = true;
                             $user_email->save();
                         }
                     }

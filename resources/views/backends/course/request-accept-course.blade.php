@@ -198,7 +198,7 @@
                             addEventListener();
                         },
                         createdRow: function( row, data, dataIndex){
-                            $(row).addClass('btn-danger');
+                            $(row).addClass('btn-warning');
                         }
                     });
         

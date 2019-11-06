@@ -18,8 +18,8 @@
     <h1 class="text-center font-weight-600">Danh sách khóa học</h1>
     <div class="comment">
         <div class=""><button class="btn btn-success"></button> Khoá học đang được bán</div>
-        <div class=""><button class="btn btn-warning"></button> Khóa học đã ngừng bán </div>
-        <div class=""><button class="btn btn-danger"></button> Khoá học chưa được duyệt</div>
+        <div class=""><button class="btn btn-warning"></button> Khoá học chưa được duyệt</div>
+        <div class=""><button class="btn btn-danger"></button> Khóa học đã ngừng bán</div>
     </div>
     <div class="row">
         <div class="col-md-12">
@@ -304,10 +304,10 @@
                                 $(row).addClass('btn-success');
                             }
                             if(data['status'] == 0){
-                                $(row).addClass('btn-danger');
+                                $(row).addClass('btn-warning');
                             }
                             if(data['status'] == -1){
-                                $(row).addClass('btn-warning');
+                                $(row).addClass('btn-danger');
                             }
                             
                             $(row).attr('data-description', data['description']);

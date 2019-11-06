@@ -12,7 +12,7 @@
     <h1 class="text-center font-weight-600">Các khóa học đã duyệt</h1>
     <div class="comment">
         <div class="stop-sell"><button class="btn btn-success"></button> Khoá học đang được bán</div>
-        <div class="stop-sell"><button class="btn btn-warning"></button> Khóa học đã ngừng bán </div>
+        <div class="stop-sell"><button class="btn btn-danger"></button> Khóa học đã ngừng bán </div>
     </div>
     <div class="row">
         <div class="col-md-12">
@@ -200,7 +200,7 @@
                             if ( data.status == 1 ){
                                 $(row).addClass('btn-success');
                             }else{
-                                $(row).addClass('btn-warning');                                
+                                $(row).addClass('btn-danger');                                
                             }
                         }
                     });
