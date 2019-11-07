@@ -7,7 +7,7 @@ let isAutoplay;
 if(localStorage.getItem('autoplay') != null){
     isAutoplay = localStorage.getItem('autoplay')
 }else{
-    localStorage.setItem('autoplay', 'false')
+    localStorage.setItem('autoplay', 'true')
     isAutoplay = localStorage.getItem('autoplay')
 }
 
@@ -18,7 +18,7 @@ $(document).ready(function () {
     var options = {
         controls: true,
         preload: 'auto',
-        autoplay : false,
+        autoplay : true,
         controlBar: {
             volumePanel: { inline: false }
         },
@@ -29,7 +29,7 @@ $(document).ready(function () {
     var videoPlayFlag = false;
 
     // Set up the player
-    var isPlayerAutoplay = false
+    var isPlayerAutoplay = true
     if(isAutoplay == null){
         $(".ln-btn-autoplay").prepend("<i class='fas fa-toggle-off'></i>")
     }else if(isAutoplay == "true"){
