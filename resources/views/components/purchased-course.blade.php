@@ -42,6 +42,7 @@
     <div class="box-course">
         <div class="purchase_course">
             <div class="img-course">
+                <a href="{{ url('/') }}/course/{{ $course->id }}/{{ $course->slug }}">
                 @if (strpos($rawImage, 'unica') !== false)
                     <img class="img-responsive img-full-width"
                         src="{{ $rawImage }}"
@@ -58,6 +59,7 @@
                 @if (isset($setup))
                 <i class="fa fa-cog fa-lg setting-icon" aria-hidden="true"></i>
                 @endif
+                </a>
              </div>
 
             <div class="content-course">

@@ -31,6 +31,7 @@
             @endif
         @endif
         <div class="img-course">
+            <a href="{{ url('/') }}/course/{{ $course->id }}/{{ $course->slug }}" title="{{ $course->name }}" class="teacher-course">
             <img class="img-responsive"
                 src="{{ $image }}"
                 alt="{{ $course->name }}">
@@ -41,6 +42,7 @@
             @if (isset($course->setup))  
             <i class="fa fa-cog fa-lg setting-icon" aria-hidden="true"></i>
             @endif
+            </a>
         </div>
         {{-- <a href="{{ url('/') }}/course/{{ $course->id }}/{{ $course->slug }}" title="{{ $course->name }}" class="pop">            
             <div class="content-course">

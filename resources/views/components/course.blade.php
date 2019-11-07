@@ -23,7 +23,7 @@
 <div class="col-md-3 col-sm-6">
     <div class="box-course">
         <div class="box-info-course">
-            <a title="{{ $course->name }}">
+            <a href="{{ url('/') }}/course/{{ $course->id }}/{{ $course->slug }}" title="{{ $course->name }}">
                 <div class="img-course">
                     @if (strpos($course->image, 'unica') !== false)
                         <img class="img-responsive"
@@ -78,9 +78,7 @@
                             @endif
                         </div>                        
                     </div>               
-                 </div>
-            </a>
-            <a href="{{ url('/') }}/course/{{ $course->id }}/{{ $course->slug }}" title="{{ $course->name }}">
+                </div>
                 <div class="content-course">
                     <h3 class="title-course">{{ \Helper::smartStr($course->name) }}</h3>
                     <div class="clearfix" style="line-height:1.7">
