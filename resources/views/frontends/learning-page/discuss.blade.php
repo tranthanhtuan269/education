@@ -1,4 +1,6 @@
 <div class="learning-discussion">
+    <div class="btn-showhide btn-show btn-discuss"><i class="fa fa-angle-double-left" aria-hidden="true"></i></div>
+    <div class="btn-showhide btn-hide btn-discuss"><i class="fa fa-angle-double-right" aria-hidden="true"></i></div>
     <div class="ln-disc-header">
         <div id="btnCloseDiscussion"><i class="fas fa-times-circle"></i></div>
         <p>Thảo luận</p>

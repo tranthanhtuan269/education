@@ -257,22 +257,55 @@ $(document).ready(function () {
         seekTime(-5)
     })
     $(".ln-btn-discuss").click(function () {
+        alert("discuss")
         toggleDiscussion()
+        showHideButtonAction("btn-discuss", "hide");
+        $('.learning-lecture-list').css('left', '-350px');
+        $('.learning-notes').css('left', '-350px');
+        $('.learning-discussion').css('left', '0');
+        $('.learning-files').css('left', '-350px');
     })
     $("#btnCloseDiscussion").click(function (){
         toggleDiscussion()
+        showHideButtonAction("btn-discuss", "show");
+        $('.learning-lecture-list').css('left', '-350px');
+        $('.learning-notes').css('left', '-350px');
+        $('.learning-discussion').css('left', '-350px');
+        $('.learning-files').css('left', '-350px');
     })
     $(".ln-btn-file").click(function (){
+        alert("file")
         toggleFiles()
+        showHideButtonAction("btn-files", "hide");
+        $('.learning-lecture-list').css('left', '-350px');
+        $('.learning-notes').css('left', '-350px');
+        $('.learning-discussion').css('left', '-350px');
+        $('.learning-files').css('left', '0');
     })
     $("#btnCloseFiles").click(function (){
         toggleFiles()
+        showHideButtonAction("btn-files", "show");
+        $('.learning-lecture-list').css('left', '-350px');
+        $('.learning-notes').css('left', '-350px');
+        $('.learning-discussion').css('left', '-350px');
+        $('.learning-files').css('left', '-350px');
     })
     $(".ln-btn-note").click(function (){
+        alert("note")
         toggleNotes()
+        showHideButtonAction("btn-note", "hide");
+        $('.learning-notes').css('left', '0');
+        $('.learning-lecture-list').css('left', '-350px');
+        $('.learning-discussion').css('left', '-350px');
+        $('.learning-files').css('left', '-350px');
     })
     $("#btnCloseNotes").click(function (){
         toggleNotes()
+        showHideButtonAction("btn-notes", "show");
+        $('.learning-lecture-list').css('left', '-350px');
+        $('.learning-notes').css('left', '-350px');
+        $('.learning-discussion').css('left', '-350px');
+        $('.learning-files').css('left', '-350px');
     })
 
     $('.ln-lect-list-header').click(function(){
@@ -1055,6 +1088,121 @@ $(document).ready(function () {
 
         alert("This Function is still in development!!")
     }
+
+    $('.btn-showhide.btn-show').click(function(){
+        if($(this).hasClass('btn-lecturelist')){
+            showHideButtonAction("btn-lecturelist", "show");
+            $('.learning-lecture-list').css('left', '-350px');
+            $('.learning-notes').css('left', '-350px');
+            $('.learning-discussion').css('left', '-350px');
+            $('.learning-files').css('left', '-350px');
+        }else if($(this).hasClass('btn-note')){
+            showHideButtonAction("btn-note", "show");
+            $('.learning-lecture-list').css('left', '-350px');
+            $('.learning-notes').css('left', '-350px');
+            $('.learning-discussion').css('left', '-350px');
+            $('.learning-files').css('left', '-350px');
+        }else if($(this).hasClass('btn-discuss')){
+            showHideButtonAction("btn-discuss", "show");
+            $('.learning-lecture-list').css('left', '-350px');
+            $('.learning-notes').css('left', '-350px');
+            $('.learning-discussion').css('left', '-350px');
+            $('.learning-files').css('left', '-350px');
+        }else if($(this).hasClass('btn-files')){
+            showHideButtonAction("btn-files", "show");
+            $('.learning-lecture-list').css('left', '-350px');
+            $('.learning-notes').css('left', '-350px');
+            $('.learning-discussion').css('left', '-350px');
+            $('.learning-files').css('left', '-350px');
+        }
+        // showHideButtonAction("btn-lecturelist", "show");
+        // $('.learning-lecture-list').css('left', '-350px');
+        $('.learning-video').css('width', '100vw');
+        $('#my-video.leftbarActive').css('width', '100vw');
+        $('#my-video.leftbarActive').css('left', '0');
+    })
+
+    $('.btn-showhide.btn-hide').click(function(){
+        if($(this).hasClass('btn-lecturelist')){
+            showHideButtonAction("btn-lecturelist", "hide");
+            $('.learning-lecture-list').css('left', '0');
+            $('.learning-notes').css('left', '-350px');
+            $('.learning-discussion').css('left', '-350px');
+            $('.learning-files').css('left', '-350px');
+        }else if($(this).hasClass('btn-note')){
+            showHideButtonAction("btn-note", "hide");
+            $('.learning-lecture-list').css('left', '-350px');
+            $('.learning-notes').css('left', '0');
+            $('.learning-discussion').css('left', '-350px');
+            $('.learning-files').css('left', '-350px');
+        }else if($(this).hasClass('btn-discuss')){
+            showHideButtonAction("btn-discuss", "hide");
+            $('.learning-lecture-list').css('left', '-350px');
+            $('.learning-notes').css('left', '-350px');
+            $('.learning-discussion').css('left', '0');
+            $('.learning-files').css('left', '-350px');
+        }else if($(this).hasClass('btn-files')){
+            showHideButtonAction("btn-files", "hide");
+            $('.learning-lecture-list').css('left', '-350px');
+            $('.learning-notes').css('left', '-350px');
+            $('.learning-discussion').css('left', '-350px');
+            $('.learning-files').css('left', '0');
+        }
+        // showHideButtonAction("btn-lecturelist", "hide");
+        // $('.learning-lecture-list').css('left', '0');
+        $('.learning-video').css('width', 'calc(100vw - 350px)');
+        $('.learning-video').css('left', '350px');
+        $('.learning-video').css('overflow', 'visible');
+        $('#my-video.leftbarActive').css('width', 'calc(100vw - 350px)');
+        $('#my-video.leftbarActive').css('left', '350px');
+    })
+
+    function showHideButtonAction($class, $status){
+        if($class == "btn-lecturelist"){
+            if($status == "hide"){
+                $('.btn-showhide.btn-hide').hide();
+                $('.btn-showhide.btn-show').hide();
+                $('.btn-showhide.btn-show.btn-lecturelist').show();    
+            }else{
+                $('.btn-showhide.btn-hide').hide();
+                $('.btn-showhide.btn-show').hide();
+                $('.btn-showhide.btn-hide.btn-lecturelist').show();
+            }
+        }else if($class == "btn-note"){
+            if($status == "hide"){
+                $('.btn-showhide.btn-hide').hide();
+                $('.btn-showhide.btn-show').hide();
+                $('.btn-showhide.btn-show.btn-note').show();    
+            }else{
+                $('.btn-showhide.btn-hide').hide();
+                $('.btn-showhide.btn-show').hide();
+                $('.btn-showhide.btn-hide.btn-note').show();
+            }
+        }else if($class == "btn-discuss"){
+            if($status == "hide"){
+                $('.btn-showhide.btn-hide').hide();
+                $('.btn-showhide.btn-show').hide();
+                $('.btn-showhide.btn-show.btn-discuss').show();    
+            }else{
+                $('.btn-showhide.btn-hide').hide();
+                $('.btn-showhide.btn-show').hide();
+                $('.btn-showhide.btn-hide.btn-discuss').show();
+            }
+        }else if($class == "btn-files"){
+            if($status == "hide"){
+                $('.btn-showhide.btn-hide').hide();
+                $('.btn-showhide.btn-show').hide();
+                $('.btn-showhide.btn-show.btn-files').show();    
+            }else{
+                $('.btn-showhide.btn-hide').hide();
+                $('.btn-showhide.btn-show').hide();
+                $('.btn-showhide.btn-hide.btn-files').show();
+            }
+        }
+    }
+
+    showHideButtonAction("btn-lecturelist", "hide");
+
 
     //Tắt autoplay tên firefox
     var isFirefox = typeof InstallTrigger !== 'undefined';

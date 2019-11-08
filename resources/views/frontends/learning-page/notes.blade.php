@@ -1,5 +1,6 @@
-
 <div class="learning-notes">
+    <div class="btn-showhide btn-show btn-note"><i class="fa fa-angle-double-left" aria-hidden="true"></i></div>
+    <div class="btn-showhide btn-hide btn-note"><i class="fa fa-angle-double-right" aria-hidden="true"></i></div>
     <div class="ln-notes-header">
         <div id="btnCloseNotes"><i class="fas fa-times-circle"></i></div>
         <p>Ghi chú</p>

@@ -1,5 +1,6 @@
 <div class="learning-lecture-list active">
-    
+    <div class="btn-showhide btn-show btn-lecturelist"><i class="fa fa-angle-double-left" aria-hidden="true"></i></div>
+    <div class="btn-showhide btn-hide btn-lecturelist"><i class="fa fa-angle-double-right" aria-hidden="true"></i></div>
     <div class="learning-lecture-list-searchbar">
         <div class="input-group">
             <input type="text" class="form-control" id="sidebarInput" placeholder="Tìm kiếm bài giảng" value="{{ isset($_GET['search']) == true ? $_GET['search'] : '' }}">

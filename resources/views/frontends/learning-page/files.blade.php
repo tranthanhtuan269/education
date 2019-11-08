@@ -1,4 +1,6 @@
 <div class="learning-files">
+    <div class="btn-showhide btn-show btn-files"><i class="fa fa-angle-double-left" aria-hidden="true"></i></div>
+    <div class="btn-showhide btn-hide btn-files"><i class="fa fa-angle-double-right" aria-hidden="true"></i></div>
     <div class="ln-files-header">
         <div id="btnCloseFiles"><i class="fas fa-times-circle"></i></div>
         <p>Tài liệu</p>
