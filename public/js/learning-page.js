@@ -4,21 +4,21 @@ const baseURL = $('base').attr('href');
 
 
 let isAutoplay;
-if(localStorage.getItem('autoplay') != null){
+if (localStorage.getItem('autoplay') != null) {
     isAutoplay = localStorage.getItem('autoplay')
-}else{
+} else {
     localStorage.setItem('autoplay', 'true')
     isAutoplay = localStorage.getItem('autoplay')
 }
 
-$(document).ready(function () {
+$(document).ready(function() {
     //Check browser có phải là firefox hay không để hiện thông báo
-    
+
 
     var options = {
         controls: true,
         preload: 'auto',
-        autoplay : true,
+        autoplay: true,
         controlBar: {
             volumePanel: { inline: false }
         },
@@ -30,34 +30,34 @@ $(document).ready(function () {
 
     // Set up the player
     var isPlayerAutoplay = true
-    if(isAutoplay == null){
+    if (isAutoplay == null) {
         $(".ln-btn-autoplay").prepend("<i class='fas fa-toggle-off'></i>")
-    }else if(isAutoplay == "true"){
+    } else if (isAutoplay == "true") {
         isPlayerAutoplay = true
         $(".ln-btn-autoplay").prepend("<i class='fas fa-toggle-on'></i>")
         $(".learning-desc-panel").hide()
 
-    }else if(isAutoplay == "false"){
+    } else if (isAutoplay == "false") {
         isPlayerAutoplay = false
         $(".ln-btn-autoplay").prepend("<i class='fas fa-toggle-off'></i>")
     }
 
-    $(".ln-btn-autoplay").click(function () {
-        if(localStorage.getItem('autoplay') == "true"){
+    $(".ln-btn-autoplay").click(function() {
+        if (localStorage.getItem('autoplay') == "true") {
             localStorage.setItem('autoplay', false)
             options.autoplay = false;
             $(".ln-btn-autoplay .fa-toggle-on").remove()
             $(".vjs-subtitle-control.btn.vjs-control.vjs-button button .fa-toggle-on").remove()
             $(".vjs-subtitle-control.btn.vjs-control.vjs-button button").prepend("<i class='fas fa-toggle-off' id='btnAutoplay'></i>")
             $(".ln-btn-autoplay").prepend("<i class='fas fa-toggle-off'></i>")
-        }else if(localStorage.getItem('autoplay') == "false"){
+        } else if (localStorage.getItem('autoplay') == "false") {
             localStorage.setItem('autoplay', true)
             options.autoplay = true;
             $(".ln-btn-autoplay .fa-toggle-off").remove()
             $(".vjs-subtitle-control.btn.vjs-control.vjs-button button .fa-toggle-off").remove()
             $(".vjs-subtitle-control.btn.vjs-control.vjs-button button").prepend("<i class='fas fa-toggle-on' id='btnAutoplay'></i>")
             $(".ln-btn-autoplay").prepend("<i class='fas fa-toggle-on'></i>")
-        }else{
+        } else {
             localStorage.setItem('autoplay', true)
             options.autoplay = true;
             $(".ln-btn-autoplay .fa-toggle-off").remove()
@@ -69,7 +69,8 @@ $(document).ready(function () {
     var player = videojs('my-video', options)
 
     initPlay();
-    function initPlay(){
+
+    function initPlay() {
         prePlay(360);
         initializePlayerControlBar()
         toggleBigPlayButton()
@@ -82,7 +83,7 @@ $(document).ready(function () {
 
     updateLink();
 
-    function updateLink(){
+    function updateLink() {
         videoPlayFlag = false;
         player = videojs('my-video', options);
         prePlay(360);
@@ -92,36 +93,36 @@ $(document).ready(function () {
         changeCurrentVideo()
     }
 
-    player.on('loadeddata', function(){
-        if(localStorage.getItem('autoplay') == "true" || videoPlayFlag == true){
+    player.on('loadeddata', function() {
+        if (localStorage.getItem('autoplay') == "true" || videoPlayFlag == true) {
             $(".learning-desc-panel").hide()
             player.play();
-        }else{
+        } else {
             player.pause();
         }
     })
 
-    player.on('ended', function(){
-        if(localStorage.getItem('autoplay') == "true" || localStorage.getItem('autoplay') == true){
-            if(!videoLatest){
-                $("#btnContinue").click()
+    player.on('ended', function() {
+            if (localStorage.getItem('autoplay') == "true" || localStorage.getItem('autoplay') == true) {
+                if (!videoLatest) {
+                    $("#btnContinue").click()
+                }
             }
-        }
-    })
-    // $('.vjs-fullscreen-control.vjs-control.vjs-button').on('click', function () {
-    //     var isFullscreen = player.isFullscreen()
-    //     if(isFullscreen){
-    //         $('.group-btn-utilities div').hide()
-    //     }else{
-    //         $('.group-btn-utilities div').show()
-    //     }
-    // })
+        })
+        // $('.vjs-fullscreen-control.vjs-control.vjs-button').on('click', function () {
+        //     var isFullscreen = player.isFullscreen()
+        //     if(isFullscreen){
+        //         $('.group-btn-utilities div').hide()
+        //     }else{
+        //         $('.group-btn-utilities div').show()
+        //     }
+        // })
 
-    player.on('fullscreenchange', function(){
+    player.on('fullscreenchange', function() {
         var isFullscreen = player.isFullscreen()
-        if(isFullscreen){
+        if (isFullscreen) {
             $('.group-btn-utilities div').hide()
-        }else{
+        } else {
             $('.group-btn-utilities div').show()
         }
     })
@@ -131,28 +132,28 @@ $(document).ready(function () {
     // var imageAddr = "http://www.kenrockwell.com/contax/images/g2/examples/31120037-5mb.jpg";
     var downloadSize = 40128; //bytes
 
-	function InitiateSpeedDetection() {
+    function InitiateSpeedDetection() {
         window.setTimeout(MeasureConnectionSpeed, 1);
-	};
+    };
 
-	if (window.addEventListener) {
-	    window.addEventListener('load', InitiateSpeedDetection, false);
-	} else if (window.attachEvent) {
-	    window.attachEvent('onload', InitiateSpeedDetection);
+    if (window.addEventListener) {
+        window.addEventListener('load', InitiateSpeedDetection, false);
+    } else if (window.attachEvent) {
+        window.attachEvent('onload', InitiateSpeedDetection);
     }
 
-    function prePlay(autoSelected){
+    function prePlay(autoSelected) {
         var source = []
 
-        for(var key in window.videoSource){
-            if(key == autoSelected){
+        for (var key in window.videoSource) {
+            if (key == autoSelected) {
                 source.push({
                     src: window.videoSource[key],
                     type: 'application/x-mpegURL',
                     label: key,
                     selected: true,
                 })
-            }else{
+            } else {
                 source.push({
                     src: window.videoSource[key],
                     type: 'application/x-mpegURL',
@@ -163,41 +164,41 @@ $(document).ready(function () {
         player.src(source)
     }
 
-	function MeasureConnectionSpeed() {
-	    var startTime, endTime;
-	    var download = new Image();
-	    download.onload = function () {
-	        endTime = (new Date()).getTime();
-	        showResults();
-	    }
+    function MeasureConnectionSpeed() {
+        var startTime, endTime;
+        var download = new Image();
+        download.onload = function() {
+            endTime = (new Date()).getTime();
+            showResults();
+        }
 
-	    download.onerror = function (err, msg) {
-	        // ShowProgressMessage("Invalid image, or error downloading");
-	    }
+        download.onerror = function(err, msg) {
+            // ShowProgressMessage("Invalid image, or error downloading");
+        }
 
-	    startTime = (new Date()).getTime();
-	    var cacheBuster = "?nnn=" + startTime;
-	    download.src = imageAddr + cacheBuster;
+        startTime = (new Date()).getTime();
+        var cacheBuster = "?nnn=" + startTime;
+        download.src = imageAddr + cacheBuster;
 
-	    function showResults() {
-	        var duration = (endTime - startTime) / 1000;
-	        var bitsLoaded = downloadSize * 8;
-	        var speedBps = (bitsLoaded / duration).toFixed(2);
-	        var speedKbps = (speedBps / 1024).toFixed(2);
+        function showResults() {
+            var duration = (endTime - startTime) / 1000;
+            var bitsLoaded = downloadSize * 8;
+            var speedBps = (bitsLoaded / duration).toFixed(2);
+            var speedKbps = (speedBps / 1024).toFixed(2);
             var speedMbps = (speedKbps / 1024).toFixed(2);
-            if(speedMbps < 2){
+            if (speedMbps < 2) {
                 prePlay(360)
-            }else if(speedMbps < 3){
+            } else if (speedMbps < 3) {
                 prePlay(480)
-            }else if(speedMbps < 4){
+            } else if (speedMbps < 4) {
                 prePlay(720)
-            }else{
+            } else {
                 prePlay(1080)
             }
-	    }
-	}
+        }
+    }
 
-    function checkIfVideoIsPlaying(){
+    function checkIfVideoIsPlaying() {
         console.log(player.paused());
     }
     // player.on('error', function(e){
@@ -208,31 +209,31 @@ $(document).ready(function () {
     //             text: 'Video bài giảng chưa được duyệt!'
     //         })
     //     }
-         
+
     // })
 
-    videojs('my-video').ready(function () {
-        
-        this.on('timeupdate', function () {
-            if(this.bufferedPercent() > 0){                
+    videojs('my-video').ready(function() {
+
+        this.on('timeupdate', function() {
+            if (this.bufferedPercent() > 0) {
                 $(".player-current-time").text(convertSecondToTimeFormat(this.currentTime()) + ' / ')
                 $(".player-end-time").text(convertSecondToTimeFormat(player.duration()))
             }
         })
-        
+
     });
-    $(document).on('click',"#btnAutoplay, .ln-btn-autoplay", function(){
-        if(localStorage.getItem('autoplay') == 'true'){
+    $(document).on('click', "#btnAutoplay, .ln-btn-autoplay", function() {
+        if (localStorage.getItem('autoplay') == 'true') {
             localStorage.setItem('autoplay', 'false')
             isAutoplay = false;
             $("#btnAutoplay").removeClass("fa-toggle-on").addClass("fa-toggle-off")
             $(".ln-btn-autoplay>i").removeClass("fa-toggle-on").addClass("fa-toggle-off")
-        }else if(localStorage.getItem('autoplay') == 'false'){
+        } else if (localStorage.getItem('autoplay') == 'false') {
             localStorage.setItem('autoplay', 'true')
             isAutoplay = true;
             $("#btnAutoplay").removeClass("fa-toggle-off").addClass("fa-toggle-on")
             $(".ln-btn-autoplay>i").removeClass("fa-toggle-off").addClass("fa-toggle-on")
-        }else{
+        } else {
             localStorage.setItem('autoplay', 'true')
             isAutoplay = true;
             $("#btnAutoplay").removeClass("fa-toggle-off").addClass("fa-toggle-on")
@@ -240,46 +241,49 @@ $(document).ready(function () {
         }
     })
 
-    $(".lecture-title").click(function () {
+    $(".lecture-title").click(function() {
         // toggleLectureList()
     })
-    $("#btnCloseSidebar").click(function () {
+    $("#btnCloseSidebar").click(function() {
         // toggleLectureList()
     })
-    $(".ln-btn-complete").click(function (event) {
+    $(".ln-btn-complete").click(function(event) {
         event.stopPropagation()
-        // tickCompleteLecture()
+            // tickCompleteLecture()
     })
-    $("#btnForward").click(function () {
+    $("#btnForward").click(function() {
         seekTime(5)
     })
-    $("#btnRewind").click(function () {
+    $("#btnRewind").click(function() {
         seekTime(-5)
     })
-    $(".ln-btn-discuss").click(function () {
+    $(".ln-btn-discuss").click(function() {
+        $('.btn-showhide.btn-hide').click()
         toggleDiscussion()
     })
-    $("#btnCloseDiscussion").click(function (){
+    $("#btnCloseDiscussion").click(function() {
         toggleDiscussion()
     })
-    $(".ln-btn-file").click(function (){
+    $(".ln-btn-file").click(function() {
+        $('.btn-showhide.btn-hide').click()
         toggleFiles()
     })
-    $("#btnCloseFiles").click(function (){
+    $("#btnCloseFiles").click(function() {
         toggleFiles()
     })
-    $(".ln-btn-note").click(function (){
+    $(".ln-btn-note").click(function() {
+        $('.btn-showhide.btn-hide').click()
         toggleNotes()
     })
-    $("#btnCloseNotes").click(function (){
+    $("#btnCloseNotes").click(function() {
         toggleNotes()
     })
 
-    $('.ln-lect-list-header').click(function(){
+    $('.ln-lect-list-header').click(function() {
         $('.ln-lect-list-body').removeClass('in')
     })
 
-    $(".video-list-item, .fa-stack-1x").click(function (e) {
+    $(".video-list-item, .fa-stack-1x").click(function(e) {
         e.stopImmediatePropagation()
         e.stopPropagation()
         e.preventDefault()
@@ -293,10 +297,10 @@ $(document).ready(function () {
         var video_name = $(this).attr("data-name")
         var video_info = "Phần " + $(this).attr("data-unit") + ", Bài " + $(this).attr("data-video")
 
-        section_dom.each(function (index, value){
+        section_dom.each(function(index, value) {
             // alert(index)
         })
-        if(isStudent){
+        if (isStudent) {
             // alert(isStudent)
             $.ajaxSetup({
                 headers: {
@@ -307,30 +311,30 @@ $(document).ready(function () {
                 method: 'POST',
                 url: "/user-course/update-watched",
                 data: {
-                    'video_id' : video_id
+                    'video_id': video_id
                 },
                 dataType: "json"
             });
-            request.done(function(data){
+            request.done(function(data) {
                 window.videoSource = JSON.parse(data.video_url);
                 updateLink();
 
                 // $video_urls = json_decode($main_video->url_video, true);
-                if(data.update_viewed == 1){
+                if (data.update_viewed == 1) {
                     $("#viewed_count").html(parseInt($("#viewed_count").html()) + 1)
                     $(".progress-bar-success").css('width', parseInt($("#viewed_count").html() / $("#videos_count").html() * 100) + "%");
                 }
                 $('.video-list-item').removeClass('video-selected')
-                $('#listItem'+ video_id).addClass('video-selected')
+                $('#listItem' + video_id).addClass('video-selected')
 
-                if($('#listItem'+ video_id + ' .fa-stack-2x').hasClass('video_viewed')){
+                if ($('#listItem' + video_id + ' .fa-stack-2x').hasClass('video_viewed')) {
                     $('#lnDescBtnViewed').hide()
                     $('#lnDescBtnNotViewed').show()
-                }else{
-                    $('#listItem'+ video_id + ' .fa-stack-2x').addClass('video_viewed').removeClass('video_not_viewed');
-                    $('#listItem'+ video_id + ' .fa-stack-1x').addClass('video_viewed').removeClass('video_not_viewed');
+                } else {
+                    $('#listItem' + video_id + ' .fa-stack-2x').addClass('video_viewed').removeClass('video_not_viewed');
+                    $('#listItem' + video_id + ' .fa-stack-1x').addClass('video_viewed').removeClass('video_not_viewed');
                     $('#videoDoneOneSect' + $('#listItem' + video_id).attr('data-unit')).html(parseInt($('#videoDoneOneSect' + $('#listItem' + video_id).attr('data-unit')).html()) + 1);
-                    
+
                     $('#lnDescBtnViewed').hide()
                     $('#lnDescBtnNotViewed').show()
                 }
@@ -343,7 +347,7 @@ $(document).ready(function () {
                 checkShowHideNextPrev(video_id)
                 checkFinishCourse()
             })
-        }else{
+        } else {
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -353,14 +357,14 @@ $(document).ready(function () {
                 method: 'GET',
                 url: "/user-course/get-info-course",
                 data: {
-                    'video_id' : video_id
+                    'video_id': video_id
                 },
                 dataType: "json"
             });
-            request.done(function(data){
-                
+            request.done(function(data) {
+
                 $('.video-list-item').removeClass('video-selected')
-                $('#listItem'+ video_id).addClass('video-selected')
+                $('#listItem' + video_id).addClass('video-selected')
 
                 window.videoSource = JSON.parse(data.video_url);
                 updateLink();
@@ -372,7 +376,7 @@ $(document).ready(function () {
         }
     })
 
-    $('#lnDescBtnNext').on('click', function(e){
+    $('#lnDescBtnNext').on('click', function(e) {
         e.preventDefault()
         e.stopPropagation()
         var infoVideoJson = localStorage.getItem("currentVideo");
@@ -389,28 +393,28 @@ $(document).ready(function () {
             method: 'POST',
             url: "/user-course/update-watched",
             data: {
-                'video_id' : video_id_list[current_video_index + 1]
+                'video_id': video_id_list[current_video_index + 1]
             },
             dataType: "json",
         });
-        request.done(function(data){
+        request.done(function(data) {
             window.videoSource = JSON.parse(data.video_url);
             updateLink();
 
-            var video_info = "Phần " + $('#listItem'+ video_id_list[current_video_index + 1]).attr("data-unit") + ", Bài " + $('#listItem'+ video_id_list[current_video_index + 1]).attr("data-video")
+            var video_info = "Phần " + $('#listItem' + video_id_list[current_video_index + 1]).attr("data-unit") + ", Bài " + $('#listItem' + video_id_list[current_video_index + 1]).attr("data-video")
 
             // $video_urls = json_decode($main_video->url_video, true);
-            if(data.update_viewed == 1){
+            if (data.update_viewed == 1) {
                 $("#viewed_count").html(parseInt($("#viewed_count").html()) + 1)
                 $(".progress-bar-success").css('width', parseInt($("#viewed_count").html() / $("#videos_count").html() * 100) + "%");
                 $('#videoDoneOneSect' + $('#listItem' + video_id_list[current_video_index + 1]).attr('data-unit')).html(parseInt($('#videoDoneOneSect' + $('#listItem' + video_id_list[current_video_index + 1]).attr('data-unit')).html()) + 1);
             }
             $('.video-list-item').removeClass('video-selected')
-            $('#listItem'+ video_id_list[current_video_index + 1]).addClass('video-selected')
-            $('#listItem'+ video_id_list[current_video_index + 1] + ' .fa-stack-2x').addClass('video_viewed').removeClass('video_not_viewed');
-            $('#listItem'+ video_id_list[current_video_index + 1] + ' .fa-stack-1x').addClass('video_viewed').removeClass('video_not_viewed');
+            $('#listItem' + video_id_list[current_video_index + 1]).addClass('video-selected')
+            $('#listItem' + video_id_list[current_video_index + 1] + ' .fa-stack-2x').addClass('video_viewed').removeClass('video_not_viewed');
+            $('#listItem' + video_id_list[current_video_index + 1] + ' .fa-stack-1x').addClass('video_viewed').removeClass('video_not_viewed');
 
-            $('.ln-desc-title').html('<p>' + $('#listItem'+ video_id_list[current_video_index + 1]).attr('data-name') + '</p>');
+            $('.ln-desc-title').html('<p>' + $('#listItem' + video_id_list[current_video_index + 1]).attr('data-name') + '</p>');
             $('.ln-desc-subtitle').html('<p>' + video_info + '</p>');
             saveInfoCurrentCourse(video_id_list[current_video_index + 1]);
 
@@ -425,7 +429,7 @@ $(document).ready(function () {
         })
     })
 
-    $('#lnDescBtnPrevious').on('click', function(e){
+    $('#lnDescBtnPrevious').on('click', function(e) {
         e.preventDefault()
         e.stopPropagation()
 
@@ -443,28 +447,28 @@ $(document).ready(function () {
             method: 'POST',
             url: "/user-course/update-watched",
             data: {
-                'video_id' : video_id_list[current_video_index - 1]
+                'video_id': video_id_list[current_video_index - 1]
             },
             dataType: "json",
         });
-        request.done(function(data){
+        request.done(function(data) {
             window.videoSource = JSON.parse(data.video_url);
             updateLink();
 
-            var video_info = "Phần " + $('#listItem'+ video_id_list[current_video_index - 1]).attr("data-unit") + ", Bài " + $('#listItem'+ video_id_list[current_video_index - 1]).attr("data-video")
+            var video_info = "Phần " + $('#listItem' + video_id_list[current_video_index - 1]).attr("data-unit") + ", Bài " + $('#listItem' + video_id_list[current_video_index - 1]).attr("data-video")
 
             // $video_urls = json_decode($main_video->url_video, true);
-            if(data.update_viewed == 1){
+            if (data.update_viewed == 1) {
                 $("#viewed_count").html(parseInt($("#viewed_count").html()) + 1)
                 $(".progress-bar-success").css('width', parseInt($("#viewed_count").html() / $("#videos_count").html() * 100) + "%");
                 $('#videoDoneOneSect' + $('#listItem' + video_id_list[current_video_index - 1]).attr('data-unit')).html(parseInt($('#videoDoneOneSect' + $('#listItem' + video_id_list[current_video_index - 1]).attr('data-unit')).html()) + 1);
             }
             $('.video-list-item').removeClass('video-selected')
-            $('#listItem'+ video_id_list[current_video_index - 1]).addClass('video-selected')
-            $('#listItem'+ video_id_list[current_video_index - 1] + ' .fa-stack-2x').addClass('video_viewed').removeClass('video_not_viewed');
-            $('#listItem'+ video_id_list[current_video_index - 1] + ' .fa-stack-1x').addClass('video_viewed').removeClass('video_not_viewed');
+            $('#listItem' + video_id_list[current_video_index - 1]).addClass('video-selected')
+            $('#listItem' + video_id_list[current_video_index - 1] + ' .fa-stack-2x').addClass('video_viewed').removeClass('video_not_viewed');
+            $('#listItem' + video_id_list[current_video_index - 1] + ' .fa-stack-1x').addClass('video_viewed').removeClass('video_not_viewed');
 
-            $('.ln-desc-title').html('<p>' + $('#listItem'+ video_id_list[current_video_index - 1]).attr('data-name') + '</p>');
+            $('.ln-desc-title').html('<p>' + $('#listItem' + video_id_list[current_video_index - 1]).attr('data-name') + '</p>');
             $('.ln-desc-subtitle').html('<p>' + video_info + '</p>');
             saveInfoCurrentCourse(video_id_list[current_video_index - 1])
 
@@ -479,17 +483,17 @@ $(document).ready(function () {
         })
     })
 
-    $('#btnContinue').click(function (e) {
+    $('#btnContinue').click(function(e) {
         e.preventDefault()
         e.stopPropagation()
         $(".vjs-custom-big-play-button").fadeOut()
-        
+
         var infoVideoJson = localStorage.getItem("currentVideo");
         var infoVideo = JSON.parse(infoVideoJson)
         var current_video_id = infoVideo.idCurrentVideo
         var current_video_index = infoVideo.indexCurrentVideo
-        
-        if(current_video_index < video_id_list.length - 1){ 
+
+        if (current_video_index < video_id_list.length - 1) {
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -499,18 +503,18 @@ $(document).ready(function () {
                 method: 'POST',
                 url: "/user-course/update-watched",
                 data: {
-                    'video_id' : video_id_list[current_video_index + 1]
+                    'video_id': video_id_list[current_video_index + 1]
                 },
                 dataType: "json",
             });
-            request.done(function(data){
+            request.done(function(data) {
                 window.videoSource = JSON.parse(data.video_url);
                 updateLink();
 
-                var video_info = "Phần " + $('#listItem'+ video_id_list[current_video_index + 1]).attr("data-unit") + ", Bài " + $('#listItem'+ video_id_list[current_video_index + 1]).attr("data-video")
+                var video_info = "Phần " + $('#listItem' + video_id_list[current_video_index + 1]).attr("data-unit") + ", Bài " + $('#listItem' + video_id_list[current_video_index + 1]).attr("data-video")
 
                 // $video_urls = json_decode($main_video->url_video, true);
-                if(data.update_viewed == 1){
+                if (data.update_viewed == 1) {
                     $("#viewed_count").html(parseInt($("#viewed_count").html()) + 1)
                     $(".progress-bar-success").css('width', parseInt($("#viewed_count").html() / $("#videos_count").html() * 100) + "%");
                     $('#videoDoneOneSect' + $('#listItem' + video_id_list[current_video_index + 1]).attr('data-unit')).html(parseInt($('#videoDoneOneSect' + $('#listItem' + video_id_list[current_video_index + 1]).attr('data-unit')).html()) + 1);
@@ -519,16 +523,16 @@ $(document).ready(function () {
                 // #videoDoneOneSect1
                 console.log('#videoDoneOneSect' + $('#listItem' + video_id_list[current_video_index + 1]).attr('data-unit'))
                 $('.video-list-item').removeClass('video-selected')
-                $('#listItem'+ video_id_list[current_video_index + 1]).addClass('video-selected')
-                $('#listItem'+ video_id_list[current_video_index + 1] + ' .fa-stack-2x').addClass('video_viewed').removeClass('video_not_viewed');
-                $('#listItem'+ video_id_list[current_video_index + 1] + ' .fa-stack-1x').addClass('video_viewed').removeClass('video_not_viewed');
+                $('#listItem' + video_id_list[current_video_index + 1]).addClass('video-selected')
+                $('#listItem' + video_id_list[current_video_index + 1] + ' .fa-stack-2x').addClass('video_viewed').removeClass('video_not_viewed');
+                $('#listItem' + video_id_list[current_video_index + 1] + ' .fa-stack-1x').addClass('video_viewed').removeClass('video_not_viewed');
 
-                $('.ln-desc-title').html('<p>' + $('#listItem'+ video_id_list[current_video_index + 1]).attr('data-name') + '</p>');
+                $('.ln-desc-title').html('<p>' + $('#listItem' + video_id_list[current_video_index + 1]).attr('data-name') + '</p>');
                 $('.ln-desc-subtitle').html('<p>' + video_info + '</p>');
                 saveInfoCurrentCourse(video_id_list[current_video_index + 1])
 
                 $('.ln-btn-note .note-count').text(data.count_note)
-                
+
                 $('#lnDescBtnViewed').hide()
                 $('#lnDescBtnNotViewed').show()
 
@@ -540,7 +544,7 @@ $(document).ready(function () {
     })
 
     function seekTime(secs) {
-        var seekingTime   = player.currentTime() + secs
+        var seekingTime = player.currentTime() + secs
         var videoDuration = player.duration()
 
         if (seekingTime < 0) {
@@ -554,14 +558,14 @@ $(document).ready(function () {
 
     function clickToPlay() {
         //btn continue
-        $("#lnDescBtnPlay").click(function () {
+        $("#lnDescBtnPlay").click(function() {
             videoPlayFlag = true;
             player.play()
             $(".learning-desc-panel").fadeOut()
         })
 
         //big play button
-        $(".vjs-custom-big-play-button").click(function () {
+        $(".vjs-custom-big-play-button").click(function() {
             player.play()
             $(".vjs-custom-big-play-button").fadeOut()
         })
@@ -570,7 +574,7 @@ $(document).ready(function () {
 
     function toggleBigPlayButton() {
         $(".vjs-custom-big-play-button").hide()
-        $(".vjs-play-control").bind("click", function () {
+        $(".vjs-play-control").bind("click", function() {
             if ($(".vjs-play-control").hasClass("vjs-paused")) {
                 $(".vjs-custom-big-play-button").fadeOut()
             } else {
@@ -578,7 +582,7 @@ $(document).ready(function () {
             }
         })
 
-        $("video").bind("click", function () {
+        $("video").bind("click", function() {
             if ($(".vjs-play-control").hasClass("vjs-paused")) {
                 $(".vjs-custom-big-play-button").fadeOut()
             } else {
@@ -632,7 +636,7 @@ $(document).ready(function () {
     }
 
 
-    $('#lnDescBtnNotViewed').on('click', function(e){
+    $('#lnDescBtnNotViewed').on('click', function(e) {
         e.preventDefault()
         e.stopPropagation()
 
@@ -651,11 +655,11 @@ $(document).ready(function () {
             method: 'POST',
             url: "/user-course/update-not-watched",
             data: {
-                'video_id' : idCurrentVideo
+                'video_id': idCurrentVideo
             },
             dataType: "json",
         });
-        request.done(function(){
+        request.done(function() {
             $("#viewed_count").html(parseInt($("#viewed_count").html()) - 1)
             $(".progress-bar-success").css('width', parseInt($("#viewed_count").html() / $("#videos_count").html() * 100) + "%");
             $('#lnDescBtnViewed').show()
@@ -667,7 +671,7 @@ $(document).ready(function () {
         })
     })
 
-    $('#lnDescBtnViewed').on('click', function(e){
+    $('#lnDescBtnViewed').on('click', function(e) {
         e.preventDefault()
         e.stopPropagation()
         var sefl = this;
@@ -685,11 +689,11 @@ $(document).ready(function () {
             method: 'POST',
             url: "/user-course/update-watched",
             data: {
-                'video_id' : idCurrentVideo
+                'video_id': idCurrentVideo
             },
             dataType: "json",
         });
-        request.done(function(){
+        request.done(function() {
             $("#viewed_count").html(parseInt($("#viewed_count").html()) + 1)
             $(".progress-bar-success").css('width', parseInt($("#viewed_count").html() / $("#videos_count").html() * 100) + "%");
             $('#lnDescBtnViewed').hide()
@@ -701,8 +705,8 @@ $(document).ready(function () {
         })
     })
 
-    function toggleDiscussion(){
-        if(!$(".learning-discussion").hasClass('active')){
+    function toggleDiscussion() {
+        if (!$(".learning-discussion").hasClass('active')) {
             // activeRightBar()
 
             var infoVideoJson = localStorage.getItem("currentVideo");
@@ -721,12 +725,12 @@ $(document).ready(function () {
                     'video_id': video_id
                 },
                 dataType: "json",
-                success: function (response) {
-                    if(response.status == 200){
+                success: function(response) {
+                    if (response.status == 200) {
                         console.log(response.commentVideo.data)
 
                         var html = '';
-                        $.each(response.commentVideo.data, function( index, value ) {
+                        $.each(response.commentVideo.data, function(index, value) {
                             var id = value.id
                             var avatar = (value.avatar == null) ? 'images/avatar.jpg' : value.avatar;
                             var username = value.username
@@ -736,55 +740,55 @@ $(document).ready(function () {
                             var content = value.content
 
                             html += '<div class="ln-disc-post-wrapper">';
-                                html += '<div data-toggle="collapse" data-target="#discWrapper'+ id +'">';
-                                    html += '<div class="ln-disc-post-left">';
-                                        html += '<img src="frontend/'+ avatar +'" width="60px" alt="">';
-                                    html += '</div>';
-                                    html += '<div class="ln-disc-post-right">';
-                                        html += '<div class="ln-disc-post-username">';
-                                        html += '<p>'+ username +' - ';
-                                        html += userType;
-                                        html += '</p>';
-                                        html += '<span style="font-size: 0.9em;"><em>'+createdAt+'</em></span>';
-                                        html += '</div>';
-                                        html += '<div class="ln-disc-post-short-content" id="discComment'+ id +'">';
-                                            html += '<p>'+ content +'</p>';
-                                        html += '</div>';
-                                    html += '</div>';
+                            html += '<div data-toggle="collapse" data-target="#discWrapper' + id + '">';
+                            html += '<div class="ln-disc-post-left">';
+                            html += '<img src="frontend/' + avatar + '" width="60px" alt="">';
+                            html += '</div>';
+                            html += '<div class="ln-disc-post-right">';
+                            html += '<div class="ln-disc-post-username">';
+                            html += '<p>' + username + ' - ';
+                            html += userType;
+                            html += '</p>';
+                            html += '<span style="font-size: 0.9em;"><em>' + createdAt + '</em></span>';
+                            html += '</div>';
+                            html += '<div class="ln-disc-post-short-content" id="discComment' + id + '">';
+                            html += '<p>' + content + '</p>';
+                            html += '</div>';
+                            html += '</div>';
+                            html += '</div>';
+
+                            html += '<div id="discWrapper' + id + '" data-parent="' + id + '" class="ln-disc-comment-wrapper collapse">';
+
+                            $.each(children.data, function(indexChild, valueChild) {
+                                var avatarChild = (valueChild.avatar == null) ? 'images/avatar.jpg' : valueChild.avatar;
+                                var usernameChild = valueChild.username
+                                var userTypeChild = valueChild.userType
+                                var createdAtChild = valueChild.created_at
+                                var contentChild = valueChild.content
+
+                                html += '<div class="ln-disc-comment">';
+                                html += '<div class="ln-disc-comment-left">';
+                                html += '<img src="frontend/' + avatarChild + '" width="40px" alt="">';
                                 html += '</div>';
-
-                                html += '<div id="discWrapper'+ id +'" data-parent="'+ id +'" class="ln-disc-comment-wrapper collapse">';
-                                    
-                                    $.each(children.data, function( indexChild, valueChild ) {
-                                        var avatarChild = (valueChild.avatar == null) ? 'images/avatar.jpg' : valueChild.avatar;
-                                        var usernameChild = valueChild.username
-                                        var userTypeChild = valueChild.userType
-                                        var createdAtChild = valueChild.created_at
-                                        var contentChild = valueChild.content
-
-                                        html += '<div class="ln-disc-comment">';
-                                            html += '<div class="ln-disc-comment-left">';
-                                                html += '<img src="frontend/'+ avatarChild +'" width="40px" alt="">';
-                                            html += '</div>';
-                                            html += '<div class="ln-disc-comment-right">';
-                                                html += '<div class="ln-disc-comment-username">';
-                                                    html += '<p>'+ usernameChild +' - '+ userTypeChild +'</p>';
-                                                    html += '<span style="font-size: 0.75em;"><em>'+createdAtChild+'</em></span>';
-                                                html += '</div>';
-                                                html += '<div class="ln-disc-comment-content">';
-                                                    html += '<p>'+ contentChild +'</p>';
-                                                html += '</div>';
-                                            html += '</div>';
-                                        html += '</div>';
-                                    });
-
-                                    html += '<div class="ln-disc-comment-input input-group" id="#discSubCommentInput'+ id +'" data-parent="'+id+'">';
-                                        html += '<input id="input-'+ id +'" data-child="'+ id +'" type="text" class="form-control" placeholder="Bình luận...">';
-                                        html += '<span class="input-group-btn">';
-                                            html += '<button data-child="'+ id +'" class="btn btn-default" type="button">Gửi</button>';
-                                        html += '</span>';
-                                    html += '</div>';
+                                html += '<div class="ln-disc-comment-right">';
+                                html += '<div class="ln-disc-comment-username">';
+                                html += '<p>' + usernameChild + ' - ' + userTypeChild + '</p>';
+                                html += '<span style="font-size: 0.75em;"><em>' + createdAtChild + '</em></span>';
                                 html += '</div>';
+                                html += '<div class="ln-disc-comment-content">';
+                                html += '<p>' + contentChild + '</p>';
+                                html += '</div>';
+                                html += '</div>';
+                                html += '</div>';
+                            });
+
+                            html += '<div class="ln-disc-comment-input input-group" id="#discSubCommentInput' + id + '" data-parent="' + id + '">';
+                            html += '<input id="input-' + id + '" data-child="' + id + '" type="text" class="form-control" placeholder="Bình luận...">';
+                            html += '<span class="input-group-btn">';
+                            html += '<button data-child="' + id + '" class="btn btn-default" type="button">Gửi</button>';
+                            html += '</span>';
+                            html += '</div>';
+                            html += '</div>';
                             html += '</div>';
                         });
 
@@ -792,7 +796,7 @@ $(document).ready(function () {
                         discussEditor.setData("")
                     }
                 },
-                error: function () {
+                error: function() {
 
                 }
             });
@@ -808,7 +812,7 @@ $(document).ready(function () {
     }
 
     function toggleFiles() {
-        if(!$(".learning-files").hasClass('active')){
+        if (!$(".learning-files").hasClass('active')) {
             // activeRightBar()
             $(".learning-files").addClass("active")
             $(".learning-notes").removeClass("active")
@@ -823,10 +827,10 @@ $(document).ready(function () {
     }
 
     function toggleNotes() {
-        if(!$(".learning-notes").hasClass('active')){
+        if (!$(".learning-notes").hasClass('active')) {
             loadNoteOfCurrentVideo()
             player.pause()
-            // activeRightBar()
+                // activeRightBar()
             $(".learning-notes").addClass("active")
             $(".learning-files").removeClass("active")
             $(".learning-discussion").removeClass("active")
@@ -837,7 +841,7 @@ $(document).ready(function () {
         }
     }
 
-    function loadDocumentOfCurrentVideo(){
+    function loadDocumentOfCurrentVideo() {
         var infoVideoJson = localStorage.getItem("currentVideo");
         var infoVideo = JSON.parse(infoVideoJson)
         var currentVideo = infoVideo.idCurrentVideo
@@ -855,16 +859,16 @@ $(document).ready(function () {
                 'video_id': currentVideo
             },
             dataType: "json",
-            success: function (response) {
-                if(response.status == 200){
+            success: function(response) {
+                if (response.status == 200) {
                     var html = '';
-                    if(response.documentVideos.length > 0){
-                        $.each(response.documentVideos, function( index, value ) {
+                    if (response.documentVideos.length > 0) {
+                        $.each(response.documentVideos, function(index, value) {
                             var title = value.title
                             var url_document = value.url_document
                             html += '<div class="ln-files-wrapper">';
                             html += '<div>';
-                            html += '<a href="/uploads/files/'+url_document+'" target="_blank">';
+                            html += '<a href="/uploads/files/' + url_document + '" target="_blank">';
                             html += '<p>';
                             html += '<i class="fas fa-link"></i>&nbsp;';
                             html += title;
@@ -873,21 +877,21 @@ $(document).ready(function () {
                             html += '</div>';
                             html += '</div>';
                         });
-                    }else{
-                        html = '<div class="text-center">Bài giảng này không có tài liệu nào!</div>';              
+                    } else {
+                        html = '<div class="text-center">Bài giảng này không có tài liệu nào!</div>';
                     }
 
                     $('.ln-files-list').html(html);
                 }
             },
-            error: function () {
+            error: function() {
 
             }
         });
     }
 
 
-    function loadNoteOfCurrentVideo(){
+    function loadNoteOfCurrentVideo() {
         var infoVideoJson = localStorage.getItem("currentVideo");
         var infoVideo = JSON.parse(infoVideoJson)
         var currentVideo = infoVideo.idCurrentVideo
@@ -905,21 +909,21 @@ $(document).ready(function () {
                 'video_id': currentVideo
             },
             dataType: "json",
-            success: function (response) {
-                if(response.status == 200){
+            success: function(response) {
+                if (response.status == 200) {
                     var html = '';
-                    $.each(response.noteVideo.data, function( index, value ) {
+                    $.each(response.noteVideo.data, function(index, value) {
                         var content = value.content
                         var created_at = value.created_at
                         var time_tick = value.timeTick
 
                         html += '<div class="ln-notes-wrapper">';
                         html += '<div>';
-                        html += '<p></p><p>'+content+'</p>';
+                        html += '<p></p><p>' + content + '</p>';
                         html += '<p></p>';
                         html += '<div>';
-                        html += '<span style="font-size: smaller;"><strong>'+time_tick+'</strong></span>';
-                        html += '<span style="font-size: smaller;"><i>'+created_at+'</i></span>';
+                        html += '<span style="font-size: smaller;"><strong>' + time_tick + '</strong></span>';
+                        html += '<span style="font-size: smaller;"><i>' + created_at + '</i></span>';
                         html += '</div>';
                         html += '</div>';
                         html += '</div>';
@@ -928,15 +932,15 @@ $(document).ready(function () {
                     $('.ln-notes-list').html(html);
                 }
             },
-            error: function () {
+            error: function() {
 
             }
         });
     }
 
-    function activeRightBar(){
+    function activeRightBar() {
         $(".learning-lecture-list").removeClass('active')
-        // $("#my-video").removeClass('leftbarActive')
+            // $("#my-video").removeClass('leftbarActive')
         $("#my-video").addClass('rightbarActive')
 
         // $(".learning-desc-panel-body").removeClass('leftbarActive')
@@ -947,7 +951,7 @@ $(document).ready(function () {
 
         // $(".vjs-custom-big-play-button").removeClass('leftbarActive')
         $(".vjs-custom-big-play-button").addClass('rightbarActive')
-        // $(".vjs-custom-big-play-button").fadeIn()
+            // $(".vjs-custom-big-play-button").fadeIn()
 
         $(".ln-btn-note span").fadeOut()
         $(".ln-btn-discuss span").fadeOut()
@@ -958,7 +962,8 @@ $(document).ready(function () {
 
         checkIfVideoIsPlaying()
     }
-    function unActiveRightBar(){
+
+    function unActiveRightBar() {
 
         $("#my-video").removeClass('rightbarActive')
         $(".learning-desc-panel-body").removeClass('rightbarActive')
@@ -1027,10 +1032,10 @@ $(document).ready(function () {
 
         //Button Autoplay
         var btnAutoplay
-        if(localStorage.getItem('autoplay') == "true"){
+        if (localStorage.getItem('autoplay') == "true") {
             btnAutoplay = "<div class='vjs-subtitle-control btn vjs-control vjs-button' data-toggle='tooltip' data-placement='top' title='Tự động chạy'><button class='btn'><i class='fas fa-toggle-on' id='btnAutoplay'></i></button></div>"
             $(".vjs-quality-selector").after(btnAutoplay)
-        }else{
+        } else {
             btnAutoplay = "<div class='vjs-subtitle-control btn vjs-control vjs-button' data-toggle='tooltip' data-placement='top' title='Tự động chạy'><button class='btn'><i class='fas fa-toggle-off' id='btnAutoplay'></i></button></div>"
             $(".vjs-quality-selector").after(btnAutoplay)
         }
@@ -1056,7 +1061,7 @@ $(document).ready(function () {
         alert("This Function is still in development!!")
     }
 
-    $('.btn-showhide.btn-show').click(function(){
+    $('.btn-showhide.btn-show').click(function() {
         $('.left-content').hide();
         $('.btn-showhide.btn-show').hide();
         $('.btn-showhide.btn-hide').show();
@@ -1071,10 +1076,10 @@ $(document).ready(function () {
         $('.ln-desc-bottom leftBarActive').hide();
     })
 
-    $('.btn-showhide.btn-hide').click(function(){
-        $('.left-content').show(); 
+    $('.btn-showhide.btn-hide').click(function() {
+        $('.left-content').show();
         $('.btn-showhide.btn-show').show();
-        $('.btn-showhide.btn-hide').hide();       
+        $('.btn-showhide.btn-hide').hide();
 
         $('.learning-video').css('width', 'calc(100vw)');
         $('#my-video.leftbarActive').css('width', 'calc(100vw - 350px)');
@@ -1087,12 +1092,12 @@ $(document).ready(function () {
 
     //Tắt autoplay tên firefox
     var isFirefox = typeof InstallTrigger !== 'undefined';
-    if(isFirefox){
+    if (isFirefox) {
         $('#btnAutoplay').parent().parent().remove()
         $('.btn.ln-btn-autoplay').remove()
     }
 
-    if($('.video-selected .fa-stack-1x').hasClass('video_not_viewed')){
+    if ($('.video-selected .fa-stack-1x').hasClass('video_not_viewed')) {
         $('#lnDescBtnNotViewed').hide();
         $('#lnDescBtnViewed').show();
     }
@@ -1105,14 +1110,14 @@ function convertSecondToTimeFormat(time) {
     var sec = time % 60;
     var sec_min = "";
     if (hr > 0) {
-       sec_min += "" + hr + ":" + (min < 10 ? "0" : "");
+        sec_min += "" + hr + ":" + (min < 10 ? "0" : "");
     }
     sec_min += "" + min + ":" + (sec < 10 ? "0" : "");
     sec_min += "" + Math.floor(sec);
     return sec_min;
 }
 
-function getNoteCount(){
+function getNoteCount() {
     var infoVideoJson = localStorage.getItem("currentVideo");
     var infoVideo = JSON.parse(infoVideoJson)
     var currentVideo = infoVideo.idCurrentVideo
@@ -1130,22 +1135,22 @@ function getNoteCount(){
             'video_id': currentVideo
         },
         dataType: 'json',
-        success: function (response) {
-            if(response.status == 200){
+        success: function(response) {
+            if (response.status == 200) {
                 $('.ln-btn-note .note-count').text(response.note_count)
-                $('.ln-btn-file .document-count').text(response.document_count)                
+                $('.ln-btn-file .document-count').text(response.document_count)
                 $('.ln-btn-discuss .comment-count').text(response.comment_count)
             }
         },
-    })  
+    })
 }
 
-function saveInfoCurrentCourse(current_video_id){
+function saveInfoCurrentCourse(current_video_id) {
     var video_id_index = null
     video_id_list.forEach(video_id => {
-        if(video_id == current_video_id){
+        if (video_id == current_video_id) {
             video_id_index = video_id_list.indexOf(video_id)
-            return 
+            return
         }
     });
     video_id = current_video_id;
@@ -1153,25 +1158,25 @@ function saveInfoCurrentCourse(current_video_id){
     localStorage.setItem("currentVideo", JSON.stringify(currentVideo));
 }
 
-function checkShowHideNextPrev(current_video_id){
+function checkShowHideNextPrev(current_video_id) {
     var video_id_index = null
     video_id_list.forEach(video_id => {
-        if(video_id == current_video_id){
+        if (video_id == current_video_id) {
             video_id_index = video_id_list.indexOf(video_id)
-            return 
+            return
         }
     });
-    if(video_id_index == 0){
+    if (video_id_index == 0) {
         videoLatest = false;
         $('.lnDescBtnPreviousLink').hide();
         $('.lnDescBtnNextLink').show();
         $('#btnContinue').show();
-    }else if(video_id_index == video_id_list.length - 1){
+    } else if (video_id_index == video_id_list.length - 1) {
         videoLatest = true;
         $('.lnDescBtnPreviousLink').show();
         $('.lnDescBtnNextLink').hide();
         $('#btnContinue').hide();
-    }else{
+    } else {
         videoLatest = false;
         $('.lnDescBtnPreviousLink').show();
         $('.lnDescBtnNextLink').show();
@@ -1179,17 +1184,17 @@ function checkShowHideNextPrev(current_video_id){
     }
 }
 
-function checkFinishCourse(){
-    if(parseInt($("#viewed_count").html()) - parseInt($("#videos_count").html()) == 0){
+function checkFinishCourse() {
+    if (parseInt($("#viewed_count").html()) - parseInt($("#videos_count").html()) == 0) {
         $('.fa-trophy').addClass('finish-course');
         $(".bg-success").css('width', parseInt($("#viewed_count").html() / $("#videos_count").html() * 100) + "%");
-    }else{
+    } else {
         $('.fa-trophy').removeClass('finish-course');
         $(".bg-success").css('width', "0%");
     }
 }
 
-function changeCurrentVideo(){
+function changeCurrentVideo() {
     $(".learning-discussion").removeClass("active")
     $(".learning-notes").removeClass("active")
     $(".learning-files").removeClass("active")
