@@ -105,18 +105,19 @@
         {{-- VIDEO PLAYER --}}
         @include('frontends.learning-page.player')
         
-        {{-- LECTURE LIST aka LEFT SIDEBAR --}}
-        @include('frontends.learning-page.lecture-list')
+        <div class="left-content">
+            {{-- LECTURE LIST aka LEFT SIDEBAR --}}
+            @include('frontends.learning-page.lecture-list')
 
-        {{-- DISCUSSION PANEL --}}
-        @include('frontends.learning-page.discuss')
-        
-        {{-- SUPPORT FILES --}}
-        @include('frontends.learning-page.files')
+            {{-- DISCUSSION PANEL --}}
+            @include('frontends.learning-page.discuss')
+            
+            {{-- SUPPORT FILES --}}
+            @include('frontends.learning-page.files')
 
-        {{-- NOTE --}}
-        @include('frontends.learning-page.notes')
-
+            {{-- NOTE --}}
+            @include('frontends.learning-page.notes')
+        </div>
         {{-- REPORT MODAL --}}
         @include('frontends.learning-page.report')
 
