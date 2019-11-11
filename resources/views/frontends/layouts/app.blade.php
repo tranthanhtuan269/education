@@ -3,7 +3,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- Google API login -->
-    <meta name="google-signin-client_id" content="658704434303-kgbsdp88qh3avffl16blio0s3kkd7gfa.apps.googleusercontent.com">
+    <meta name="google-signin-client_id" content="232402009754-4mmg5vs8r0cebmjmp1fsk15db8j23337.apps.googleusercontent.com">
 
     <!-- Required meta tags -->
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -258,7 +258,7 @@
                                                 <li class="divider"></li>
                                                 <li><a href="{{ url('user/logout') }}" class="btnDangxuat btn-google-logout btn-logout-account"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
     
-                                                @if($_SERVER['SERVER_NAME'] === "timtruyen.online")
+                                                @if($_SERVER['SERVER_NAME'] === "courdemy.vn")
                                                     <div class="g-signin2" data-onsuccess="onSignIn" style="display:none"></div>
                                                     <script src="https://apis.google.com/js/platform.js" async></script>
                                                     <script>
@@ -435,7 +435,7 @@
                                 Đăng nhập với Google
                             </div>
                         </div> --}}
-                        @if($_SERVER['SERVER_NAME'] === "timtruyen.online")
+                        @if($_SERVER['SERVER_NAME'] === "courdemy.vn")
                             @include('components.google-login')
                         @endif
 
