@@ -3,7 +3,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- Google API login -->
-    <meta name="google-signin-client_id" content="232402009754-4mmg5vs8r0cebmjmp1fsk15db8j23337.apps.googleusercontent.com">
+    <meta name="google-signin-client_id" content="232402009754-cu6aq2katum6anelr9g94mfnbu6lld15.apps.googleusercontent.com">
 
     <!-- Required meta tags -->
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
