@@ -257,23 +257,72 @@ $(document).ready(function() {
     $("#btnRewind").click(function() {
         seekTime(-5)
     })
+    var checkDiscussion = false;
     $(".ln-btn-discuss").click(function() {
-        $('.btn-showhide.btn-hide').click()
-        toggleDiscussion()
+        if (flag == true) {
+            if (checkDiscussion == false) {
+                checkDiscussion = true;
+                toggleDiscussion();
+            } else {
+                checkDiscussion = false;
+                toggleDiscussion();
+            }
+        } else {
+            if (checkDiscussion == true) {
+                $('.btn-showhide.btn-hide').click();
+            } else {
+                $('.btn-showhide.btn-hide').click();
+                checkDiscussion = true;
+                toggleDiscussion();
+            }
+        }
     })
     $("#btnCloseDiscussion").click(function() {
         toggleDiscussion()
     })
+    var checkFile = false;
     $(".ln-btn-file").click(function() {
-        $('.btn-showhide.btn-hide').click()
-        toggleFiles()
+        if (flag == true) {
+            if (checkFile == false) {
+                checkFile = true;
+                toggleFiles();
+            } else {
+                checkFile = false;
+                toggleFiles();
+            }
+        } else {
+            if (checkFile == true) {
+                $('.btn-showhide.btn-hide').click();
+            } else {
+                $('.btn-showhide.btn-hide').click();
+                checkFile = true;
+                toggleFiles();
+            }
+        }
     })
     $("#btnCloseFiles").click(function() {
         toggleFiles()
     })
+    var checkNote = false;
+    var flag = true;
     $(".ln-btn-note").click(function() {
-        $('.btn-showhide.btn-hide').click()
-        toggleNotes()
+        if (flag == true) {
+            if (checkNote == false) {
+                checkNote = true;
+                toggleNotes();
+            } else {
+                checkNote = false;
+                toggleNotes();
+            }
+        } else {
+            if (checkNote == true) {
+                $('.btn-showhide.btn-hide').click();
+            } else {
+                $('.btn-showhide.btn-hide').click();
+                checkNote = true;
+                toggleNotes();
+            }
+        }
     })
     $("#btnCloseNotes").click(function() {
         toggleNotes()
@@ -1062,6 +1111,7 @@ $(document).ready(function() {
     }
 
     $('.btn-showhide.btn-show').click(function() {
+        flag = false;
         $('.left-content').hide();
         $('.btn-showhide.btn-show').hide();
         $('.btn-showhide.btn-hide').show();
@@ -1077,6 +1127,7 @@ $(document).ready(function() {
     })
 
     $('.btn-showhide.btn-hide').click(function() {
+        flag = true;
         $('.left-content').show();
         $('.btn-showhide.btn-show').show();
         $('.btn-showhide.btn-hide').hide();
