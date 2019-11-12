@@ -13,9 +13,9 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 <section class="content-header">
-    <h1 class="text-center font-weight-600">Thống kê đơn hàng</h1>
 </section>
 <section class="content page">
+    <h1 class="text-center font-weight-600">Thống kê đơn hàng</h1>
     <div class="row">
         <div class="col-sm-offset-2 col-sm-10">
             <table class="table">
@@ -282,7 +282,10 @@
                             var $field_total_price = $(row).find('td.field_total_price'); 
                             var field_total_price = $field_total_price.text(); 
                             $field_total_price.data('order', field_total_price).text(formatNumber(field_total_price, '.', '.'));
-                            
+
+                            var $field_created_at = $(row).find('td.field_total_price'); 
+                            var field_created_at = $field_created_at.text(); 
+                            $field_created_at.data('order', field_created_at).text(moment(dateOrder).format('DD/MM/Y'));
                         },
                         fnServerParams: function ( aoData ) {
                             aoData.name_course = $('#name_course').val();
