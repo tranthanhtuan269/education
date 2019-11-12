@@ -449,9 +449,7 @@
                                 Đăng nhập với Google
                             </div>
                         </div> --}}
-                        @if($_SERVER['SERVER_NAME'] === "courdemy.vn")
-                            @include('components.google-login')
-                        @endif
+                        
 
                         <br />
                         {{-- <p style="margin-left:265px">OR</p>
@@ -493,6 +491,10 @@
                                 <a href="#">Quên mật khẩu?</a>
                             </div> --}}
                         </div>
+                        {{-- @if($_SERVER['SERVER_NAME'] === "courdemy.vn") --}}
+                        @include('components.google-login')
+                        @include('components.facebook-login')
+                        {{-- @endif --}}
                     </div>
 
                     <div class="modal-footer">

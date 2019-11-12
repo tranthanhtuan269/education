@@ -695,7 +695,7 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                             @endif
                             <div class="facebook-comment">
                                 <h3>Thảo luận</h3>
-                                <div class="fb-comments" data-href="http://timtruyen.online/course/{{ $info_course->id }}/{{$info_course->slug}}" data-width="700" data-numposts="5"></div>
+                                <div class="fb-comments" data-href="https://courdemy.vn/course/{{ $info_course->id }}/{{$info_course->slug}}" data-width="700" data-numposts="5"></div>
                             </div>
                         </div>
 
@@ -955,7 +955,7 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                 <div class="modal-title"><b>Đăng nhập vào tài khoản Courdemy của bạn</b></div>
             </div>
             <div class="modal-body">
-                @if($_SERVER['SERVER_NAME'] === "timtruyen.online")
+                @if($_SERVER['SERVER_NAME'] === "courdemy.vn")
                     @include('components.google-login')
                 @endif
                 <br/>
