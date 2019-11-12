@@ -335,8 +335,22 @@
                 </span>
                 <div id="userPanel" class="popover user-login-panel">
                     <div class="popover-content">
-                        <a class="btn btn-block btn-white" href="#" data-toggle="modal" data-target="#myModalLogin">Đăng nhập</a>
-                        <a class="btn btn-block btn-white" href="#" data-toggle="modal" data-target="#myModalRegister">Đăng ký</a>
+                        @if(Auth::check())
+                            @if (Auth::user()->isAdmin())
+                                <a href="{{ url('admincp') }}" class="btn btn-block btn-white">Trang quản trị</a>
+                            @elseif(Auth::user()->registeredTeacher())
+                                <a href="{{ url('user/teacher/course') }}" class="btn btn-block btn-white">Giảng viên</a>
+                                <a href="{{ url('user/student/course') }}" class="btn btn-block btn-white">Học viên</a>
+                                <a href="{{ url('/user/student/top-up') }}" class="btn btn-block btn-white">Nạp tiền </a>
+                            @else
+                                <a href="{{ url('user/student/course') }}" class="btn btn-block btn-white">Vào học</a>
+                                <a href="{{ url('/user/student/top-up') }}" class="btn btn-block btn-white">Nạp tiền </a>
+                            @endif
+                                <a href="{{ url('user/logout') }}" class="btn btn-block btn-white">Đăng xuất</a>
+                        @else
+                            <a class="btn btn-block btn-white" href="#" data-toggle="modal" data-target="#myModalLogin">Đăng nhập</a>
+                            <a class="btn btn-block btn-white" href="#" data-toggle="modal" data-target="#myModalRegister">Đăng ký</a>
+                        @endif
                     </div>
                 </div>
             </div>

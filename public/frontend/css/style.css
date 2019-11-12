@@ -142,11 +142,14 @@ th {
     z-index: 2001!important;
     background-color: rgba(0, 0, 0, .4);
 }
-#myModalRegister .modal-dialog,#myModalLogin .modal-dialog {
-  width: 450px;
+
+#myModalRegister .modal-dialog,
+#myModalLogin .modal-dialog {
+    width: 450px;
 }
-.dz-size{
-  display: none;
+
+.dz-size {
+    display: none;
 }
 
 /* .modal-open {
@@ -2580,7 +2583,7 @@ ul.unica-acc-zone li.special:hover a {
 
 .courdemy-teacher .statistic {
     width: 100%;
-    height: 410px;
+    height: 465px;
     background: url(/frontend/images/banner_oppotunity.png) no-repeat;
     background-repeat: no-repeat;
     background-position: center;
