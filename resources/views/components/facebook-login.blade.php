@@ -1,26 +1,18 @@
-<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+<fb:login-button scope="public_profile,email" onlogin=checkLoginState()>
 </fb:login-button>
 
 <div id="status"></div>
 
 <script>
 
-    function checkLoginState() {
-        FB.getLoginStatus(function(response) {
-            statusChangeCallback(response);
-        });
-    }
-
     window.fbAsyncInit = function() {
       FB.init({
-        appId      : '{your-app-id}',
+        appId      : '2474435149283816',
         cookie     : true,
         xfbml      : true,
-        version    : '{api-version}'
+        version    : '5.0'
       });
-        
       FB.AppEvents.logPageView();   
-        
     };
   
     (function(d, s, id){
@@ -36,7 +28,6 @@
         statusChangeCallback(response);
     });
 
-
     {
         status: 'connected',
         authResponse: {
@@ -46,5 +37,11 @@
             signedRequest:'{signed-parameter}',
             userID:'{user-id}'
         }
+    }
+
+    function checkLoginState() {
+        FB.getLoginStatus(function(response) {
+            statusChangeCallback(response);
+        });
     }
 </script>
