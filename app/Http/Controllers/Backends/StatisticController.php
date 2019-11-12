@@ -75,9 +75,15 @@ class StatisticController extends Controller {
 
     public function detailOrder(Request $request)
     {
-        $query = \DB::table('orders')
+        $data = \DB::table('orders')
                     ->leftJoin('order_details', 'order_details.order_id', '=', 'orders.id')
-                    ->leftJoin('payments', 'payments.id', '=', 'orders.payment_id');
-        return response()->json(['message' => 'Lưu thông tin thành công!', 'status' => 200]);
+                    ->leftJoin('payments', 'payments.id', '=', 'orders.payment_id')
+                    ->leftJoin('user_roles', 'user_roles.id', '=', 'orders.user_id')
+                    ->leftJoin('users', 'users.id', '=', 'user_roles.user_id')
+                    ->selectRaw('orders.*, DATE_FORMAT(orders.created_at, "%d-%m-%Y %H:%i:%s") as created_at, payments.name as payment_name, users.name, users.address, users.phone, users.email')
+                    ->where('orders.id', $request->order_id)
+                    ->first();
+        // dd($data);
+        return response()->json(['data' => $data, 'status' => 200]);
     }
 }

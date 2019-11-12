@@ -68,6 +68,18 @@
             </div>
         </div>
     </div>
+    <div id="show-detail-order" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" style="color: #00B7F1">Chi tiết đơn hàng</h4>
+                </div>
+                <div class="modal-body">
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 
 <script type="text/javascript">
@@ -104,15 +116,14 @@
 
     function detailOrder(order_id) {
         var data = {
-            order_id:$order_id,
+            order_id : order_id,
         };
         
         $.ajax({
             type: "POST",
-            url: "{{ url('/') }}/admincp/events/delMulti",
+            url: "{{ url('/') }}/admincp/statistic/detailOrder",
             data: data,
             beforeSend: function(r, a){
-                current_page = dataTable.page.info().page;
                 $(".ajax_waiting").addClass("loading");
             },
             complete: function() {
@@ -120,8 +131,75 @@
             },
             success: function (response) {
                 if(response.status == 200){
-                    dataTable.page(checkEmptyTable()).draw(false);
-                    $().toastmessage('showSuccessToast', response.message);
+                    var data = response.data;
+                    var real_price = data.real_price;
+                    var courses              = JSON.parse(data.content);
+
+                    $('#show-detail-order .modal-title').html('Chi tiết đơn hàng #DH_' + order_id)
+                    var html_data = '<table class="table"><thead><tr><th scope="col">Thông tin chung</th><th scope="col">Thông tin thanh toán</th></tr></thead><tbody>';
+
+                    html_data += '<tr>';
+                    html_data += '<td style="width:38%;">';
+                        html_data += '<table><tbody><tr><td style="width:45%;">Họ tên: </td><td>' + data.name +'</td></tr><tr><td style="width:45%;">Ngày tạo:</td><td>' + data.created_at + '</td></tr><tr><td>Trạng thái: </td><td style="width:45%;">' + statusOrder(data.status) + '</td></tr></tbody></table>';
+                    html_data += '<td style="width:62%;">';
+                        html_data += '<table><tbody>';
+                        
+                        html_data += `<tr>`
+                            html_data += `<td style="width:45%;">Địa chỉ: </td>`
+                            html_data += `<td>`
+                                html_data += data.address
+                            html_data += `</td>`
+                        html_data += `</tr>`
+
+                        html_data += '<tr><td style="width:45%;">Email: </td><td>' + data.email + '</td></tr>';
+                        html_data += '<tr><td style="width:45%;">Số điện thoại: </td><td>' + data.phone + '</td></tr>';
+                        html_data += '<tr><td style="width:45%;">Thanh toán: </td><td>' + data.payment_name + '</td></tr>';
+                        html_data += '</tbody></table>';
+                    html_data += '</td>';
+                    html_data += '</tr>';
+
+                    html_data += '</tbody></table>';
+
+                    html_data += '<table class="table table-bordered"><thead><tr><th scope="col">Tên khóa học</th><th scope="col">Giá gốc</th><th scope="col">Chiết khấu</th><th scope="col">Giá thanh toán</th></tr></thead><tbody>';
+                    var totalValue = 0;
+                    var total_payment = 0;
+                    var total_discount = 0;
+    
+                    for(var i = 0; i < courses.length; i++){
+                        
+                        html_data += '<tr>';
+                        html_data += '<td>';
+                        html_data += courses[i].name;
+                        html_data += '</td>';
+
+                        html_data += '<td style="font-size:15px; text-align:right;">';
+                        html_data += numberFormat(courses[i].real_price, 0, '.', '.') + ' đ';
+                        html_data += '</td>';
+
+                        discount = courses[i].real_price - courses[i].sale;
+                        html_data += '<td style="font-size:15px; text-align:right;">- ';
+                        html_data += numberFormat(discount, 0, '.', '.') + ' đ';
+                        html_data += '</td>';
+
+                        html_data += '<td style="font-size:15px; text-align:right;"><b>';
+                        html_data += numberFormat(courses[i].sale, 0, '.', '.') + ' đ';
+                        html_data += '</b></td>';
+                        html_data += '</tr>';
+
+                        totalValue += courses[i].real_price > 0 ? 1 * courses[i].real_price : 1 * courses[i].price;
+                        total_discount += discount;
+                        total_payment += courses[i].sale;
+                    }
+                    html_data += '<tr><th><b>Tổng</b></th><th style="font-size:15px; text-align:right;">'+ numberFormat(totalValue, 0, '.', '.') +' đ</th><th style="font-size:15px; text-align:right;">- '+ numberFormat(total_discount, 0, '.', '.') +' đ</th><th style="color:red; font-size:18px; text-align:right;"><b>'+ numberFormat(total_payment, 0, '.', '.') +' đ</b></th></tr>';
+
+                    if (data.coupon != '') {
+                        html_data += '<tr><td><b>Tổng giảm giá</b></td><td style="font-size:15px; text-align:right;">'+ numberFormat(totalValue - real_price, 0, '.', '.') +' đ</td></tr>';
+                        html_data += '<tr><td><b>Tổng cộng</b></td><td style="color:red; font-size:18px; text-align:right;">'+ numberFormat(real_price, 0, '.', '.') +' đ</td><td style="color:red; font-size:18px; text-align:right;">'+ numberFormat(real_price, 0, '.', '.') +' đ</td><td style="color:red; font-size:18px; text-align:right;">'+ numberFormat(real_price, 0, '.', '.') +' đ</td></tr>';
+                    }
+                    html_data += '</tbody></table>';
+                    
+                    $('#show-detail-order .modal-body').html(html_data);
+                    $('#show-detail-order').modal('toggle');
                 }
             },
             error: function (data) {
@@ -203,7 +281,7 @@
 
                             var $field_total_price = $(row).find('td.field_total_price'); 
                             var field_total_price = $field_total_price.text(); 
-                            $field_total_price.data('order', field_total_price).text(formatNumber(field_total_price, '.', ','));
+                            $field_total_price.data('order', field_total_price).text(formatNumber(field_total_price, '.', '.'));
                             
                         },
                         fnServerParams: function ( aoData ) {

@@ -368,6 +368,7 @@
         <script src="{{ asset('backend/js/ajsr-jq-confirm.min.js') }}"></script>
         <script src="{{ asset('backend/js/jquery.toastmessage.js') }}"></script>
         <script src="{{ asset('backend/js/script.js') }}"></script>
+        <script src="{{ asset('frontend/js/function.js') }}"></script>
         <script type="text/javascript">
             var baseURL="<?php echo URL::to('/'); ?>";
             $(document).ready(function(){
