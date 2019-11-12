@@ -39,7 +39,7 @@
         <script src="{{ asset('backend/js/priority.js') }}"></script>
         <script src="{{ asset('frontend/js/sweetalert2.min.js') }}"></script>
         <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/sweetalert2.min.css') }}">
-
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
         {{-- CKEditor 4 --}}
         <script src="{{asset("backend/template/bower_components/ckeditor/ckeditor.js")}}"></script>
 

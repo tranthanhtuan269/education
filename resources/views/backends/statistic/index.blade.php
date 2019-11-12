@@ -4,13 +4,9 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.16/datatables.min.css"/>
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.16/datatables.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.16/api/fnReloadAjax.js"></script>
-<!-- Include the plugin's CSS and JS: -->
-<script type="text/javascript" src="{{ url('/') }}/backend/js/bootstrap-multiselect.js"></script>
-
-<link rel="stylesheet" href="{{ url('/') }}/backend/css/bootstrap-multiselect.css" type="text/css"/>
-
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
 
 <section class="content-header">
 </section>
@@ -283,9 +279,9 @@
                             var field_total_price = $field_total_price.text(); 
                             $field_total_price.data('order', field_total_price).text(formatNumber(field_total_price, '.', '.'));
 
-                            var $field_created_at = $(row).find('td.field_total_price'); 
+                            var $field_created_at = $(row).find('td.field_created_at'); 
                             var field_created_at = $field_created_at.text(); 
-                            $field_created_at.data('order', field_created_at).text(moment(dateOrder).format('DD/MM/Y'));
+                            $field_created_at.data('order', field_created_at).text(moment(field_created_at).format('DD-MM-Y H:mm:ss'));
                         },
                         fnServerParams: function ( aoData ) {
                             aoData.name_course = $('#name_course').val();
