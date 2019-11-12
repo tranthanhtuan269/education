@@ -328,6 +328,12 @@
                                 @endif
                             </ul>
                         </li>
+                        <li class="@if ( Request::is('admincp/statistic*') ) active @endif">
+                            <a href="{{ url('/') }}/admincp/statistic"><i class="fa fa-pie-chart"></i>
+                                <span>Thống kê</span>
+                                <span class="pull-right-container">
+                            </a>
+                        </li>
                     </ul>
                 </section>
                 <!-- /.sidebar -->

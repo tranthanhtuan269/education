@@ -290,6 +290,10 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::get('list', ['as' => 'getUserList', 'uses' => 'Backends\UserController@getUserList']);
 
+        Route::get('statistic/getDataAjax', 'Backends\StatisticController@getDataAjax');
+        Route::delete('statistic/delMulti', 'Backends\StatisticController@delMulti');
+        Route::resource('statistic', 'Backends\StatisticController');
+        Route::delete('statistic/detailOrder', 'Backends\StatisticController@detailOrder');
     });
 });
 
