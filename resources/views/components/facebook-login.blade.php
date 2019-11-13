@@ -5,7 +5,7 @@
 
 <br><br>
 
-<fb:login-button scope="public_profile,email,user_likes" login_text="Đăng nhập với Facebook" onlogin=checkLoginState()>
+<fb:login-button scope="public_profile,email" login_text="Đăng nhập với Facebook" onlogin=checkLoginState() data-width="400">
 </fb:login-button>
 
 <div id="status"></div>
@@ -39,13 +39,6 @@
         FB.getLoginStatus(function(response) {   // Called after the JS SDK has been initialized.
             statusChangeCallback(response);        // Returns the login status.
         });
-
-        FB.login(function(response) {
-            console.log(response);
-        }, {
-            scope: 'email', 
-            return_scopes: true
-        });
     }
 
     (function(d, s, id) {                      // Load the SDK asynchronously
@@ -57,12 +50,12 @@
     }(document, 'script', 'facebook-jssdk'));
 
     function testAPI() {                      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
-        console.log('Welcome!  Fetching your information.... ');
+        // console.log('Welcome!  Fetching your information.... ');
         FB.api('/me', function(response) {
-        console.log('Successful login for: ' + response.name);
-        console.log(response)
-        document.getElementById('status').innerHTML =
-            'Cảm ơn bạn đã đăng nhập, ' + response.name + '!' + response.email;
+            // console.log('Successful login for: ' + response.name);
+            console.log(response)
+            // document.getElementById('status').innerHTML =
+            //     'Cảm ơn bạn đã đăng nhập, ' + response.name + '!' + response.email;
         });
     }
 
