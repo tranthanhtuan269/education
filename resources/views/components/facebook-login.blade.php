@@ -5,7 +5,7 @@
 
 <br><br>
 
-<fb:login-button scope="public_profile,email" login_text="Đăng nhập với Facebook" onlogin=checkLoginState()>
+<fb:login-button scope="public_profile,email,user_likes" login_text="Đăng nhập với Facebook" onlogin=checkLoginState()>
 </fb:login-button>
 
 <div id="status"></div>
@@ -38,6 +38,13 @@
 
         FB.getLoginStatus(function(response) {   // Called after the JS SDK has been initialized.
             statusChangeCallback(response);        // Returns the login status.
+        });
+
+        FB.login(function(response) {
+            console.log(response);
+        }, {
+            scope: 'email', 
+            return_scopes: true
         });
     }
 
