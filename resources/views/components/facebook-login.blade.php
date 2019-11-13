@@ -5,17 +5,69 @@
 
 <br><br>
 
-<fb:login-button scope="public_profile,email" login_text="Đăng nhập với Facebook" onlogin=checkLoginState() data-width="400">
+<fb:login-button scope="public_profile,email" login_text="Đăng nhập với Facebook" onlogin=checkLoginState()>
 </fb:login-button>
 
 <div id="status"></div>
 
 <script>
     function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
-        console.log('statusChangeCallback');
-        console.log(response);                   // The current login status of the person.
+        // console.log('statusChangeCallback');
+        // console.log(response);                   // The current login status of the person.
+        var name        = response.name
+        var facebook_id = response."2477834385664882"
         if (response.status === 'connected') {   // Logged into your webpage and Facebook.
-            testAPI();  
+            // testAPI();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: "/facebookLogin",
+                data: {
+                    name        : name,
+                    facebook_id : facebook_id,
+                },
+                method: "POST",
+                dataType:'json',
+                beforeSend: function(r, a){
+                    $('.alert-errors').addClass('d-none');
+                },
+                success: function (response) {
+                    if(response.status == 200){
+                        Swal.fire({
+                            type: 'success',
+                            text: 'Đăng nhập thành công!'
+                        }).then(result => {
+                            location.reload()
+                        })
+                    } else {
+                        if(response.status == 201){
+                            Swal.fire({
+                                type: 'success',
+                                text: 'Đăng ký tài khoản thành công!'
+                            }).then(result => {
+                                location.reload()
+                            })
+                        }else{
+                            Swal.fire({
+                                type: 'warning',
+                                text: 'Đăng nhập thất bại'
+                            })
+                        }
+                    }
+                },
+                error: function (error) {
+                    var obj_errors = error;
+                    console.log(obj_errors)
+                    var txt_errors = 'Lỗi';
+                    Swal.fire({
+                        type: 'warning',
+                        html: txt_errors,
+                    })
+                }
+            });
         } else {                                 // Not logged into your webpage or we are unable to tell.
             document.getElementById('status').innerHTML = 'Please log ' +
             'into this webpage.';
@@ -49,15 +101,15 @@
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
 
-    function testAPI() {                      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
-        // console.log('Welcome!  Fetching your information.... ');
-        FB.api('/me', function(response) {
-            // console.log('Successful login for: ' + response.name);
-            console.log(response)
-            // document.getElementById('status').innerHTML =
-            //     'Cảm ơn bạn đã đăng nhập, ' + response.name + '!' + response.email;
-        });
-    }
+    // function testAPI() {                      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
+    //     console.log('Welcome!  Fetching your information.... ');
+    //     FB.api('/me', function(response) {
+    //     console.log('Successful login for: ' + response.name);
+    //     console.log(response)
+    //     document.getElementById('status').innerHTML =
+    //         'Cảm ơn bạn đã đăng nhập, ' + response.name + '!' + response.email;
+    //     });
+    // }
 
     // window.fbAsyncInit = function() {
     //   FB.init({

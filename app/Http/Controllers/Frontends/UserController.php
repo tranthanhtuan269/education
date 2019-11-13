@@ -532,4 +532,34 @@ class UserController extends Controller
 
     }
 
+    public function facebookLogin(Request $request)
+    {
+        if(User::where('facebook_id', $request->facebook_id)->first()){
+            $user = User::where('email', $request->email)->first();
+            if ($user->status == 0) {
+                return response()->json(['message' => 'Tài khoản của bạn đang bị khóa.', 'status' => 404]);
+            } elseif ($user->status == 1){
+                Auth::login($user, $request->get('remember'));
+                return response()->json(['message' => 'Ok', 'status' => 200]);
+            }
+        }else{
+            $user = new User;
+            $user->name         = $request->name;
+            $user->email        = 'your_name@example.com';
+            $user->facebook_id  = $request->facebook_id;
+            $user->password     = bcrypt(trim($request->facebook_id));
+            $user->status       = 1;
+            $user->save();
+
+            $user_role = new UserRole();
+            $user_role->user_id = $user->id;
+            $user_role->role_id = \Config::get('app.student');
+            $user_role->save();
+
+            Auth::login($user);
+
+            $user_role->save();
+            return \Response::json(array('status' => '201'));
+        }
+    }
 }

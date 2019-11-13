@@ -340,6 +340,7 @@ Route::get('search', 'Frontends\HomeController@search');
 Route::get('nap-tien', 'Frontends\HomeController@naptien');
 
 Route::post('googleLogin', 'Frontends\UserController@googleLogin');
+Route::post('facebookLogin', 'Frontends\UserController@facebookLogin');
 
 Route::get('become-teacher', 'Frontends\HomeController@becomeTeacher');
 
