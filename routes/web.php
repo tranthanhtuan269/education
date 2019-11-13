@@ -206,6 +206,8 @@ Route::group(['middleware' => 'auth'], function () {
         // Title Homepage
         Route::get('title-homepage', 'Backends\HomeController@getTitleHomepage');
         Route::post('set-title-homepage', 'Backends\HomeController@setTitleHomepage');
+        Route::get('menu-setting', 'Backends\CategoryController@getMenuSetting');
+        Route::post('menu-setting/sort-category', 'Backends\CategoryController@sortCategoryMenu');
 
         // Trinhnk Tạo Coupon
         Route::get('create-coupon', 'Backends\HomeController@createCoupon');

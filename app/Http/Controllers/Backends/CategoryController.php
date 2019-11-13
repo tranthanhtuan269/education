@@ -145,4 +145,33 @@ class CategoryController extends Controller
         }
         return \Response::json(array('status' => '404'));
     }
+
+    public function getMenuSetting()
+    {
+        $categories = Category::where('parent_id',0)->get();
+        $arr_id = [];
+        foreach ($categories as $key=>$category){
+            if (count($category->childrenHavingCourse) > 0){
+                array_push($arr_id, $category->id);
+            }
+        }
+        $categories = Category::whereIn('id',$arr_id)->orderBy('menu_index', 'asc')->get();
+        return view('backends.category.menu-index',['categories'=>$categories]);
+    }
+
+    public function sortCategoryMenu(Request $request){
+        if($request->data){
+            $list_cat = json_decode($request->data);
+            foreach($list_cat as $obj){
+                $category = Category::find($obj->id);
+                if($category){
+                    $category->menu_index = $obj->index+1;
+                    $category->save();
+                }
+            }
+
+            return \Response::json(array('status' => '200'));
+        }
+        return \Response::json(array('status' => '404'));
+    }
 }

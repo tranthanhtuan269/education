@@ -19,7 +19,7 @@ class Controller extends BaseController
 
         $this->middleware(['clearance-frontend']);
         
-        $this->category_fixed = Category::where('parent_id', 0)->get();
+        $this->category_fixed = Category::where('parent_id', 0)->orderBy('menu_index', 'asc')->get();
         \View::share('category_fixed', $this->category_fixed);
     }
 }

@@ -122,7 +122,7 @@
                                 <i class="fa fa-home"></i> <span>Trở lại trang chính</span>
                             </a>
                         </li>
-                        <li class="treeview @if ( Request::is('admincp/feature*') || Request::is('admincp/title-homepage') ) active @endif">
+                        <li class="treeview @if ( Request::is('admincp/feature*') || Request::is('admincp/title-homepage') || Request::is('admincp/menu-setting')) active @endif">
                             <a href="javascript:void(0)">
                                 <i class="fa fa-star"></i>
                                 <span>Cài đặt trang chủ</span>
@@ -143,6 +143,9 @@
                                     </li>
                                     <li class="@if ( Request::is('admincp/featured-category*') ) active @endif">
                                         <a href="{{ url('/') }}/admincp/featured-category"><i class="fa fa-minus"></i>Danh mục tiêu biểu</a>
+                                    </li>
+                                    <li class="@if ( Request::is('admincp/menu-setting*') ) active @endif">
+                                        <a href="{{ url('/') }}/admincp/menu-setting"><i class="fa fa-minus"></i>Menu</a>
                                     </li>
                                 @endif
                             </ul>

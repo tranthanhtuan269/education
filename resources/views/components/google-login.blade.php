@@ -3,12 +3,12 @@
 
 {{-- <meta name="google-signin-client_id" content="658704434303-kgbsdp88qh3avffl16blio0s3kkd7gfa.apps.googleusercontent.com"> --}}
 
-<div class="btn btn-lg btn-danger btn-block kpx_btn_google" id="btn-google-login" >
+{{-- <div class="btn btn-lg btn-danger btn-block kpx_btn_google" id="btn-google-login" >
     <span class="social-login-icon">
         <i class="fab fa-google fa-lg fa-fw"></i>
     </span>
     Đăng nhập với Google
-</div>
+</div> --}}
 
 <div class="g-signin2" data-onsuccess="onSignIn" id="button-signin-gg" data-width="398" data-height="50"
 data-longtitle="true">
