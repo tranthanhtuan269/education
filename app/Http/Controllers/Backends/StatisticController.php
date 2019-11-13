@@ -57,8 +57,15 @@ class StatisticController extends Controller {
             });
         }
 
-        $query->selectRaw('orders.*, payments.name as payment_name')->groupBy('orders.id');
-    
+        $query->selectRaw('orders.total_price, orders.id, orders.created_at, payments.name as payment_name')->groupBy('orders.id');
+        
+        $data = $query->get();
+        $total = 0;
+
+        foreach($data as  $value) {
+            $total += $value->total_price;
+        }
+
         return datatables()->of($query)
                 ->addColumn('action', function ($order) {
                     return $order->id;
@@ -67,7 +74,10 @@ class StatisticController extends Controller {
                     return $order->id;
                 })
                 ->addColumn('code', function ($order) {
-                    return $order->id;
+                    return  $order->id;
+                })
+                ->addColumn('total', function ($order) use ($total) {
+                    return  $total;
                 })
                 // ->removeColumn('id')
                 ->make(true);

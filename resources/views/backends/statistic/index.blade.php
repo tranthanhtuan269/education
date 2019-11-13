@@ -5,6 +5,7 @@
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.16/datatables.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.16/api/fnReloadAjax.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://cdn.datatables.net/plug-ins/1.10.20/api/sum().js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 
@@ -13,7 +14,7 @@
 <section class="content page">
     <h1 class="text-center font-weight-600">Thống kê đơn hàng</h1>
     <div class="row">
-        <div class="col-sm-offset-2 col-sm-10">
+        <div class="col-sm-12">
             <table class="table">
                 <tbody>
                     <tr>
@@ -46,14 +47,21 @@
                                 <input type="checkbox" id="select-all-btn" data-check="false">
                             </th> --}}
                             <th scope="col">Mã đơn hàng</th>
-                            <th scope="col">Tổng giá trị đơn hàng</th>
                             <th scope="col">Hình thức thanh toán</th>
                             <th scope="col">Ngày tạo</th>
+                            <th scope="col">Tổng giá trị đơn hàng</th>
                         </tr>
                     </thead>
-                    <tbody>
-
-                    </tbody>
+                    <tbody></tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="3" style="text-align:right">Tổng:</th>
+                            <th >
+                                <span id="total_page"></span>
+                                (Tổng: <span id="total_all" style="color:red; font-size:20px"></span>)
+                            </th>
+                        </tr>
+                    </tfoot>
                 </table>
                 {{-- @if (Helper::checkPermissions('statistic.delete', $list_roles))
                     <p class="action-selected-rows">
@@ -224,10 +232,6 @@
                 orderable: false
             },
             {
-                data: "total_price",
-                class: "field_total_price text-center"
-            },
-            {
                 data: "payment_name",
                 class: "text-center",
                 orderable: false
@@ -235,6 +239,10 @@
             {
                 data: "created_at",
                 class: "field_created_at text-center"
+            },
+            {
+                data: "total_price",
+                class: "field_total_price text-center"
             },
         ];
 
@@ -252,7 +260,7 @@
                         columns: dataObject,
                         // bLengthChange: false,
                         // pageLength: 10,
-                        order: [[ 3, "desc" ]],
+                        order: [[ 1, "desc" ]],
                         colReorder: {
                             fixedColumnsRight: 1,
                             fixedColumnsLeft: 1
@@ -271,6 +279,9 @@
                             },
                         },
                         createdRow: function(row, data, dataIndex) {
+
+                            $('#total').html(formatNumber(data.total, '.', '.'));
+                            
                             var $field_code = $(row).find('td.field_code'); 
                             var field_code = $field_code.text(); 
                             $field_code.data('order', field_code).html('<a href="javascript:void(0)" onclick=detailOrder('+ data.code +')>ĐH_' + field_code + '</a>');
@@ -293,7 +304,30 @@
                             addEventListener();
                             // checkCheckboxChecked();
                         },
-                        // "searching": false,
+                        footerCallback: function ( row, data, start, end, display ) {
+                            var api = this.api(), data;
+                
+                            // Remove the formatting to get integer data for summation
+                            var intVal = function ( i ) {
+                                return typeof i === 'string' ?
+                                    i.replace(/[\$,]/g, '')*1 :
+                                    typeof i === 'number' ?
+                                        i : 0;
+                            };
+                
+                            pageTotal = api
+                                .column( 3, { page: 'current'} )
+                                .data()
+                                .reduce( function (a, b) {
+                                    return intVal(a) + intVal(b);
+                                }, 0 );
+                
+
+                            $('#total_page').html(formatNumber(pageTotal, '.', '.'))
+                        },
+                        rowCallback: function( row, data, index ) {
+                            $('#total_all').html(formatNumber(data.total, '.', '.'))
+                        }
                     });
 
         $('#statistic-table').css('width', '100%');
