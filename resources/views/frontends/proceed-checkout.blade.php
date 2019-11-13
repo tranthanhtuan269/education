@@ -1,4 +1,5 @@
 @extends('frontends.layouts.app')
+@section('title','PROCEED CHECKOUT')
 @section('content')
 
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.css">
@@ -142,10 +143,10 @@
                                         <img class="red-dot" src="/frontend/images/banks/red_dot_1.png" alt=""><span>Số thẻ</span>
                                     </div>
                                     <div class="col-xs-6 flex">
-                                        <img class="red-dot" src="/frontend/images/banks/red_dot_2.png" alt=""><span>Tên in trên thẻ</span>
+                                        <img class="red-dot" src="/frontend/images/banks/red_dot_2.png" alt=""><span>Ngày hết hạn</span>
                                     </div>
                                     <div class="col-xs-6 flex">
-                                        <img class="red-dot" src="/frontend/images/banks/red_dot_3.png" alt=""><span>Ngày hết hạn</span>
+                                        <img class="red-dot" src="/frontend/images/banks/red_dot_3.png" alt=""><span>Tên in trên thẻ</span>
                                     </div>
                                 </div>
                                 <hr>
