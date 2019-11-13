@@ -15,7 +15,7 @@
         // console.log('statusChangeCallback');
         // console.log(response);                   // The current login status of the person.
         var name        = response.name
-        var facebook_id = response."2477834385664882"
+        var facebook_id = response.id
         if (response.status === 'connected') {   // Logged into your webpage and Facebook.
             // testAPI();
             $.ajaxSetup({
