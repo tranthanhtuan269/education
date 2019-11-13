@@ -184,10 +184,10 @@ window.fbAsyncInit = function() {
 }(document, 'script', 'facebook-jssdk'));
 
 function testAPI() {                      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
-    console.log('Welcome!  Fetching your information.... ');
+    // console.log('Welcome!  Fetching your information.... ');
     FB.api('/me', function(response) {
         // console.log('Successful login for: ' + response.name);
-        // console.log(response)
+        console.log(response)
         // document.getElementById('status').innerHTML =
             // 'Cảm ơn bạn đã đăng nhập, ' + response.name + '!' + response.email;
         facebook_name   = response.name
