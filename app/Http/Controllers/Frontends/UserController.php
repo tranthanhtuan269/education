@@ -534,8 +534,9 @@ class UserController extends Controller
 
     public function facebookLogin(Request $request)
     {
-        if(User::where('facebook_id', $request->facebook_id)->first()){
-            $user = User::where('email', $request->email)->first();
+        $user = User::where('email', $request->email)->first();
+        
+        if($user){
             if ($user->status == 0) {
                 return response()->json(['message' => 'Tài khoản của bạn đang bị khóa.', 'status' => 404]);
             } elseif ($user->status == 1){
