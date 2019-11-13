@@ -535,6 +535,7 @@ class UserController extends Controller
     public function facebookLogin(Request $request)
     {
         $user = User::where('facebook_id', $request->facebook_id)->first();
+        dd($user);
 
         if($user){
             if ($user->status == 0) {
