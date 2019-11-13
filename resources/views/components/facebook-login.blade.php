@@ -53,6 +53,7 @@
         console.log('Welcome!  Fetching your information.... ');
         FB.api('/me', function(response) {
         console.log('Successful login for: ' + response.name);
+        console.log(response)
         document.getElementById('status').innerHTML =
             'Cảm ơn bạn đã đăng nhập, ' + response.name + '!' + response.email;
         });
