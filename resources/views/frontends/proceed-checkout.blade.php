@@ -3,7 +3,6 @@
 
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-
 <div class="top-checkout">
     <div class='row'>
         <img class="bg-checkout" src="{{ asset('frontend/images/banner_checkout.png') }}" width="100%">
@@ -79,7 +78,7 @@
                                     {{-- <input type="radio" name="otpradio" id="">
                                     <span class="label-title">Thanh toán bằng thẻ quốc tế VISA, MASTERCARD, JCB</span> --}}
                                 </div>
-                                <div class="block">
+                                <!-- <div class="block">
                                     <ul class="card-type">
                                         <li>
                                             <span class="label-card">Nhập số thẻ:</span>
@@ -94,42 +93,90 @@
                                             <img class="" src="/frontend/images/banks/ic_jcb.png" alt="JCB" title="JCB">
                                         </li>
                                     </ul>
-                                </div>
-                                <div class="block">
-                                    <div class="label-text">Số thẻ:</div>
-                                    <input type="text" class="form-control" id="card-number" placeholder="VD: 1234 5678 9101 1221">
-                                </div>
-                                <div class="block">
-                                    <div class="label-text">Tên in trên thẻ:</div>
-                                    <input type="text" class="form-control" id="name" placeholder="VD: NGUYEN TUNG DUONG">
-                                </div>
-                                <div class="block">
-                                    <div class="row">
-                                        <div class="col-xs-4 exp">
-                                            <div class="label-text">Ngày hết hạn:</div>
-                                            <input type="text" id="datepicker" class="form-control">
-                                            <script>
-                                                $(function() {
-                                                    $( "#datepicker" ).datepicker({
-                                                            changeMonth: true,
-                                                            changeYear: true,
-                                                            yearRange: "2019:2050",
-                                                            dateFormat: 'dd/mm/yy',
-                                                            minDate: new Date(),
-                                                        }	
-                                                    );
-                                                });
-                                            </script>
-                                        </div>
-                                        <div class="col-xs-8">
-                                            <div class="label-text">Mã bảo mật:</div>
-                                            <div class="secure-code">
-                                                <input type="text" class="form-control">
-                                                <img src="/frontend/images/banks/ic_ccv.png" alt="ic_ccv" title="ic_ccv">
+                                </div> -->
+                                <div class="row">
+                                    <div class="col-md-11">
+                                        <div class="panel panel-default credit-card-box">
+                                            <div class="panel-heading display-table" >
+                                                <div class="row display-tr" >
+                                                    <h3 class="panel-title display-td" >Nhập số thẻ:</h3>
+                                                    <div class="display-td" >                            
+                                                        <img class="img-responsive pull-right" src="http://i76.imgup.net/accepted_c22e0.png">
+                                                    </div>
+                                                </div>                    
                                             </div>
-                                        </div>
+                                            <div class="panel-body">
+                            
+                                                @if (Session::has('success'))
+                                                    <script>
+                                                        Swal.fire({
+                                                        type: 'success',
+                                                        text: "Mua khóa học thành công!"
+                                                        }).then( result => {
+                                                            document.location.href = '/';
+                                                        })
+                                                    </script>
+                                                @endif
+                            
+                                                <form role="form" action="{{ route('stripe.post') }}" method="post" class="require-validation"
+                                                                                data-cc-on-file="false"
+                                                                                data-stripe-publishable-key="{{ env('STRIPE_KEY') }}"
+                                                                                id="payment-form">
+                                                    @csrf
+                            
+                                                    <div class='form-row row'>
+                                                        <div class='col-xs-12 form-group required'>
+                                                            <label class='control-label'>Tên in trên thẻ:</label> <input
+                                                                class='form-control' size='4' type='text' value='test'>
+                                                        </div>
+                                                    </div>
+                            
+                                                    <div class='form-row row'>
+                                                        <div class='col-xs-12 form-group card required'>
+                                                            <label class='control-label'>Số thẻ:</label> <input
+                                                                autocomplete='off' class='form-control card-number' size='20'
+                                                                type='text' value='4242 4242 4242 4242'>
+                                                        </div>
+                                                    </div>
+                            
+                                                    <div class='form-row row'>
+                                                        <div class='col-xs-12 col-md-4 form-group cvc required'>
+                                                            <label class='control-label'>CVC:</label> <input autocomplete='off'
+                                                                class='form-control card-cvc' placeholder='ex. 311' size='4'
+                                                                type='text' value='123'>
+                                                        </div>
+                                                        <div class='col-xs-12 col-md-4 form-group expiration required'>
+                                                            <label class='control-label'>Tháng hết hạn:</label> <input
+                                                                class='form-control card-expiry-month' placeholder='MM' size='2'
+                                                                type='text' value='12'>
+                                                        </div>
+                                                        <div class='col-xs-12 col-md-4 form-group expiration required'>
+                                                            <label class='control-label'>Năm hết hạn:</label> <input
+                                                                class='form-control card-expiry-year' placeholder='YYYY' size='4'
+                                                                type='text' value='2020'>
+                                                        </div>
+                                                    </div>
+                            
+                                                    <div class='form-row row'>
+                                                        <div class='col-md-12 error form-group hide'>
+                                                            <div class='alert-danger alert'>Please correct the errors and try
+                                                                again.</div>
+                                                        </div>
+                                                    </div>
+                            
+                                                    <div class="row">
+                                                        <div class="col-xs-12">
+                                                            <button class="btn btn-primary btn-lg btn-block" type="submit">Thanh toán (<span id='price-pay-now'></span>)</button>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </form>
+                                            </div>
+                                        </div>        
                                     </div>
                                 </div>
+
                                 <div class="blockform-check">
                                     <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
                                     <label class="form-check-label" for="defaultCheck1">Lưu và bảo mật cho lần thanh toán sau</label>
@@ -180,6 +227,81 @@
         </div>
     </div>
 </div>
+
+<style type="text/css">
+    .panel-title {
+    display: inline;
+    font-weight: bold;
+    }
+    .display-table {
+        display: table;
+    }
+    .display-tr {
+        display: table-row;
+    }
+    .display-td {
+        display: table-cell;
+        vertical-align: middle;
+        width: 61%;
+    }
+</style>
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+  
+<script type="text/javascript">
+    $(function() {
+        var $form         = $(".require-validation");
+        $('form.require-validation').bind('submit', function(e) {
+        var $form         = $(".require-validation"),
+            inputSelector = ['input[type=email]', 'input[type=password]',
+                            'input[type=text]', 'input[type=file]',
+                            'textarea'].join(', '),
+            $inputs       = $form.find('.required').find(inputSelector),
+            $errorMessage = $form.find('div.error'),
+            valid         = true;
+            $errorMessage.addClass('hide');
+
+            $('.has-error').removeClass('has-error');
+        $inputs.each(function(i, el) {
+            var $input = $(el);
+            if ($input.val() === '') {
+            $input.parent().addClass('has-error');
+            $errorMessage.removeClass('hide');
+            e.preventDefault();
+            }
+        });
+        
+        if (!$form.data('cc-on-file')) {
+            e.preventDefault();
+            Stripe.setPublishableKey($form.data('stripe-publishable-key'));
+            Stripe.createToken({
+            number: $('.card-number').val(),
+            cvc: $('.card-cvc').val(),
+            exp_month: $('.card-expiry-month').val(),
+            exp_year: $('.card-expiry-year').val()
+            }, stripeResponseHandler);
+        }
+        
+        });
+        
+        function stripeResponseHandler(status, response) {
+            if (response.error) {
+                $('.error')
+                    .removeClass('hide')
+                    .find('.alert')
+                    .text(response.error.message);
+            } else {
+                // token contains id, last4, and card type
+                var token = response['id'];
+                // insert the token into the form so it gets submitted to the server
+                $form.find('input[type=text]').empty();
+                $form.append("<input type='hidden' name='stripeToken' value='" + token + "'/>");
+                $form.get(0).submit();
+            }
+        }
+        
+    });
+</script>
+
 <script>
     var user_id = $('button[id=cartUserId]').attr('data-user-id')
     var cart_items = JSON.parse(localStorage.getItem('cart'+user_id))
@@ -216,6 +338,7 @@
                 total_price += element.coupon_price
             })
             $(".total-price").append(number_format(total_price, 0, '.', '.')+' ₫')
+            $("#price-pay-now").append(number_format(total_price, 0, '.', '.')+' ₫')
         }
 
         $('.img-bank').on('click', function(e){
