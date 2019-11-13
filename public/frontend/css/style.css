@@ -1896,6 +1896,8 @@ ul.unica-acc-zone li.special:hover a {
     text-align: left;
     align-items: center;
     margin-bottom: 8px;
+    padding-top: 12px;
+    padding-bottom: 13px;
 }
 
 .modal-dialog .modal-body .kpx_btn-facebook:hover {
@@ -1909,6 +1911,8 @@ ul.unica-acc-zone li.special:hover a {
     font-weight: 600;
     text-align: left;
     align-items: center;
+    padding-top: 12px;
+    padding-bottom: 13px;
 }
 
 .modal-dialog .modal-body .input-group-addon {

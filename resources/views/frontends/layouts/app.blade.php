@@ -492,9 +492,9 @@
                             </div> --}}
                         </div>
                         {{-- @if($_SERVER['SERVER_NAME'] === "courdemy.vn") --}}
-                        @include('components.google-login')
-                        <br>
+                        <hr>
                         @include('components.facebook-login')
+                        @include('components.google-login')
                         {{-- @endif --}}
                     </div>
 
