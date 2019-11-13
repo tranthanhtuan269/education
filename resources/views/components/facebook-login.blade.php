@@ -14,8 +14,6 @@
     function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
         // console.log('statusChangeCallback');
         // console.log(response);                   // The current login status of the person.
-        var name        = response.name
-        var facebook_id = response.id
         if (response.status === 'connected') {   // Logged into your webpage and Facebook.
             // testAPI();
             $.ajaxSetup({
@@ -26,8 +24,8 @@
             $.ajax({
                 url: "/facebookLogin",
                 data: {
-                    name        : name,
-                    facebook_id : facebook_id,
+                    name        : response.name,
+                    facebook_id : response.id,
                 },
                 method: "POST",
                 dataType:'json',
