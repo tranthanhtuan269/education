@@ -18,7 +18,7 @@
 Auth::routes();
 
 Route::get('trinhnk', function( ){
-    $abc = \App\User::where('facebook_id', '1')->first();
+    $abc = \App\User::where('facebook_id', null)->first();
     dd($abc);
 });
 
