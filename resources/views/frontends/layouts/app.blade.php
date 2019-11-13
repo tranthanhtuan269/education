@@ -118,7 +118,7 @@
                     <div class="row">
                         <div class="col-lg-3 col-sm-4 cate-md">
                             <a class="unica-logo" href="{{ url('/') }}"><img class="img-responsive" src="{{ asset('frontend/images/tab_logo.png') }}" alt="" width="138" height="33" /></a>
-                            <div class="unica-menu-cate">
+                            <!-- <div class="unica-menu-cate">
                                 <i class="fa fa-th" aria-hidden="true"></i> Danh mục
     
                                 {{-- CATEGORY BAR --}}
@@ -147,7 +147,7 @@
                                     $("#mysidebarmenu .issub").css("overflow", "auto")
     
                                 </script>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="col-lg-5 col-sm-4 cate-sm">
                             <form class="unica-search-boxtop navbar-form form-inline" method="GET" action="/search">
@@ -299,6 +299,94 @@
                                 </div>
                             </div>
                         </div>
+                        <div>
+                            <ul class="nav">
+                                @foreach($category_fixed as $key=>$cat)
+                                    @if(count($cat->childrenHavingCourse) > 0)
+                                        @if($key<7)
+                                            <li ><a title="{!! $cat->name !!}" href="javascript:void(0)"><i class="fas {!! $cat->icon !!}"></i> {!! $cat->name !!}</a>
+                                                <ul class="sub-menu">
+                                                    @foreach($cat->childrenHavingCourse as $children)
+                                                        @if($children->has('courses'))
+                                                            <li><a href="{{ url('/') }}/category/{{ $children->slug }}">{!! $children->name !!}</a></li>
+                                                        @endif
+                                                    @endforeach
+                                                </ul>
+                                            </li>
+                                        @endif
+                                    @endif
+                                @endforeach
+                                <li>
+                                    <a href="javascript:void(0)"><i class="fas fa-ellipsis-h"></i> Thêm</a>
+                                    <ul class="sub-menu menu-them">
+                                        @foreach($category_fixed as $key=>$cat)
+                                            @if(count($cat->childrenHavingCourse) > 0)
+                                                @if($key>=7)
+                                                    <li ><a title="{!! $cat->name !!}" href="javascript:void(0)"><i class="fas {!! $cat->icon !!}"></i> {!! $cat->name !!}</a>
+                                                        <ul class="sub-menu menu-them-1">
+                                                        @foreach($cat->childrenHavingCourse as $children)
+                                                            @if($children->has('courses'))
+                                                                <li><a href="{{ url('/') }}/category/{{ $children->slug }}">{!! $children->name !!}</a></li>
+                                                            @endif
+                                                        @endforeach
+                                                        </ul>
+                                                    </li>
+                                                @endif
+                                            @endif
+                                        @endforeach
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <style>
+                            .nav>li{
+                                float: left;
+                                margin-right: 0px;
+                            }
+                                
+                            .nav>li>a{
+                                text-transform: uppercase;
+                                color: black;
+                            }
+                                
+                            .nav li{
+                                position: relative;
+                                list-style:none;
+                            }
+                                
+                            .nav li a{
+                                padding: 10px;
+                                line-height: 20px;
+                                display: inline-block;
+                                color: black;
+                            }
+                                
+                            .nav .sub-menu{
+                                display: none;
+                                position: absolute;
+                                top: -5px;
+                                right: 100%;
+                                width: 250px;
+                                background-color: #eee;
+                                padding: 5px 20px;
+                                z-index: 1;
+                                }
+                                
+                            .nav li:hover>.sub-menu{
+                                display: block;
+                                }
+                                
+                            .nav>li>.sub-menu{
+                                top: 40px;
+                                left: 0;
+                            }
+                            .nav>li>.menu-them{
+                                left: -173px !important;
+                            }
+                            .nav a:hover {
+                                color: #428bca;
+                            }
+                        </style>
                     </div>
                 </div>
             </div>
