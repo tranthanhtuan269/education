@@ -39,7 +39,7 @@
         <script src="{{ asset('backend/js/priority.js') }}"></script>
         <script src="{{ asset('frontend/js/sweetalert2.min.js') }}"></script>
         <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/sweetalert2.min.css') }}">
-
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
         {{-- CKEditor 4 --}}
         <script src="{{asset("backend/template/bower_components/ckeditor/ckeditor.js")}}"></script>
 
@@ -331,6 +331,12 @@
                                 @endif
                             </ul>
                         </li>
+                        <li class="@if ( Request::is('admincp/statistic*') ) active @endif">
+                            <a href="{{ url('/') }}/admincp/statistic"><i class="fa fa-pie-chart"></i>
+                                <span>Thống kê</span>
+                                <span class="pull-right-container">
+                            </a>
+                        </li>
                     </ul>
                 </section>
                 <!-- /.sidebar -->
@@ -365,6 +371,7 @@
         <script src="{{ asset('backend/js/ajsr-jq-confirm.min.js') }}"></script>
         <script src="{{ asset('backend/js/jquery.toastmessage.js') }}"></script>
         <script src="{{ asset('backend/js/script.js') }}"></script>
+        <script src="{{ asset('frontend/js/function.js') }}"></script>
         <script type="text/javascript">
             var baseURL="<?php echo URL::to('/'); ?>";
             $(document).ready(function(){

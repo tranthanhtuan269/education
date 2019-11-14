@@ -1,6 +1,10 @@
 th {
     text-align: center;
 }
+#show-detail-order .table td, #show-detail-order .table th {
+    padding: 5px;
+    border-top: none;
+}
 .filter-cat {
     padding: 0 15px 10px 0;
 }
