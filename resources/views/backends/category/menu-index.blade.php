@@ -13,20 +13,18 @@
         <div class="col-md-6 col-md-offset-3">
             <ul id="sortable">
                 @foreach ($categories as $key=>$category)
-                    {{-- @if (count($category->childrenHavingCourse) > 0) --}}
                     <li class="ui-state-default" data-category-id="{{ $category->id }}" data-category-key="{{ $key }}">
                         <b>{{$key+1}}</b>
                         <span class="ui-icon ui-icon-arrowthick-2-n-s">
                         </span>{{$category->name}}
                     </li>
-                    {{-- @endif --}}
                 @endforeach
             </ul>
         </div>
     </div>
 </section>
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="/backend/js/jquery-1.12.4.js"></script>
+<script src="/backend/js/ui/1.12.1/jquery-ui.js"></script>
 <script>
     $( function() {
         $( "#sortable" ).sortable({

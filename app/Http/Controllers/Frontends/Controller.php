@@ -18,8 +18,15 @@ class Controller extends BaseController
     {
 
         $this->middleware(['clearance-frontend']);
-        
-        $this->category_fixed = Category::where('parent_id', 0)->orderBy('menu_index', 'asc')->get();
+
+        $categories = Category::where('parent_id',0)->get();
+        $arr_id = [];
+        foreach ($categories as $key=>$category){
+            if (count($category->childrenHavingCourse) > 0){
+                array_push($arr_id, $category->id);
+            }
+        }
+        $this->category_fixed = Category::whereIn('id',$arr_id)->orderBy('menu_index', 'asc')->get();
         \View::share('category_fixed', $this->category_fixed);
     }
 }
