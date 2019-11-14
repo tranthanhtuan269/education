@@ -300,11 +300,11 @@
                             </div>
                         </div>
                         <div>
-                            <ul class="nav">
+                            <ul class="nav main-menu-group">
                                 @foreach($category_fixed as $key=>$cat)
                                     @if(count($cat->childrenHavingCourse) > 0)
                                         @if($key<7)
-                                            <li ><a title="{!! $cat->name !!}" href="javascript:void(0)"><i class="fas {!! $cat->icon !!}"></i> {!! $cat->name !!}</a>
+                                            <li class="main-menu-item"><a title="{!! $cat->name !!}" href="javascript:void(0)"><i class="fas {!! $cat->icon !!}"></i> {!! $cat->name !!}</a>
                                                 <ul class="sub-menu">
                                                     @foreach($cat->childrenHavingCourse as $children)
                                                         @if($children->has('courses'))
@@ -316,7 +316,7 @@
                                         @endif
                                     @endif
                                 @endforeach
-                                <li>
+                                <li class="main-menu-item">
                                     <a href="javascript:void(0)"><i class="fas fa-ellipsis-h"></i> Thêm</a>
                                     <ul class="sub-menu menu-them">
                                         @foreach($category_fixed as $key=>$cat)
@@ -338,14 +338,26 @@
                                 </li>
                             </ul>
                         </div>
+                        <script>
+                            $(document).ready(function(){
+                                var mainmenugroupWidth = $('.main-menu-group').width();
+                                var count = 0;
+                                $.each($('.main-menu-item'), function( index, value ) {
+                                    count++;
+                                    mainmenugroupWidth -= $(value).width();
+                                });
+
+                                mainmenugroupMargin = mainmenugroupWidth / (count - 1);
+                                $('.main-menu-item').css('margin-right', mainmenugroupMargin);
+                                $('.main-menu-item:last-child').css('margin-right', -1);
+                            })
+                        </script>
                         <style>
                             .nav>li{
                                 float: left;
-                                margin-right: 0px;
                             }
                                 
                             .nav>li>a{
-                                text-transform: uppercase;
                                 color: black;
                             }
                                 
@@ -381,7 +393,7 @@
                                 left: 0;
                             }
                             .nav>li>.menu-them{
-                                left: -173px !important;
+                                left: -66px !important;
                             }
                             .nav a:hover {
                                 color: #428bca;
