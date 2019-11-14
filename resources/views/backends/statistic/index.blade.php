@@ -260,7 +260,7 @@
                         columns: dataObject,
                         // bLengthChange: false,
                         // pageLength: 10,
-                        order: [[ 1, "desc" ]],
+                        order: [[ 2, "desc" ]],
                         colReorder: {
                             fixedColumnsRight: 1,
                             fixedColumnsLeft: 1
