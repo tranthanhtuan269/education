@@ -304,7 +304,7 @@
                                 @foreach($category_fixed as $key=>$cat)
                                     @if(count($cat->childrenHavingCourse) > 0)
                                         @if($key<7)
-                                            <li class="main-menu-item"><a title="{!! $cat->name !!}" href="javascript:void(0)"><i class="fas {!! $cat->icon !!}"></i> {!! $cat->name !!}</a>
+                                            <li class="main-menu-item"><a title="{!! $cat->name !!}" href="javascript:void(0)"><i class="fas {!! $cat->icon !!} fa-fw"></i> {!! $cat->name !!}</a>
                                                 <ul class="sub-menu">
                                                     @foreach($cat->childrenHavingCourse as $children)
                                                         @if($children->has('courses'))
@@ -316,13 +316,13 @@
                                         @endif
                                     @endif
                                 @endforeach
-                                <li class="main-menu-item">
+                                <li class="main-menu-item" id="addMenu">
                                     <a href="javascript:void(0)"><i class="fas fa-ellipsis-h"></i> Thêm</a>
-                                    <ul class="sub-menu menu-them">
+                                    <ul class="sub-menu menu-them" id='menuThem'>
                                         @foreach($category_fixed as $key=>$cat)
                                             @if(count($cat->childrenHavingCourse) > 0)
                                                 @if($key>=7)
-                                                    <li ><a title="{!! $cat->name !!}" href="javascript:void(0)"><i class="fas {!! $cat->icon !!}"></i> {!! $cat->name !!}</a>
+                                                    <li ><a title="{!! $cat->name !!}" href="javascript:void(0)"><i class="fas {!! $cat->icon !!} fa-fw"></i> {!! $cat->name !!}</a>
                                                         <ul class="sub-menu menu-them-1">
                                                         @foreach($cat->childrenHavingCourse as $children)
                                                             @if($children->has('courses'))
@@ -350,6 +350,9 @@
                                 mainmenugroupMargin = mainmenugroupWidth / (count - 1);
                                 $('.main-menu-item').css('margin-right', mainmenugroupMargin);
                                 $('.main-menu-item:last-child').css('margin-right', -1);
+
+                                var menuthem = $('#addMenu').width() - 250;
+                                $('#menuThem').css('left', menuthem);
                             })
                         </script>
                         <style>
@@ -391,9 +394,6 @@
                             .nav>li>.sub-menu{
                                 top: 40px;
                                 left: 0;
-                            }
-                            .nav>li>.menu-them{
-                                left: -66px !important;
                             }
                             .nav a:hover {
                                 color: #428bca;
