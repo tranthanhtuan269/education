@@ -92,12 +92,14 @@
                                                 <input type="text" class="form-control" name="name" value="{{ Auth::user()->name }}">
                                             </div>
                                         </div>
+                                        @if(Auth::user()->facebook_id == null)
                                         <div class="form-group">
                                             <label> Email </label>
                                             <div class="form-group">
                                                 <input type="email" class="form-control" name="email" value="{{ Auth::user()->email }}" disabled>
                                             </div>
                                         </div>
+                                        @endif
                                         <div class="form-group">
                                             <label>Số điện thoại</label>
                                             <div class="form-group">
