@@ -1,7 +1,7 @@
 @extends('frontends.layouts.app') 
 @section('content')
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 <script src="{{ url('/') }}/frontend/js/jquery.cropit.js"></script>
 
 <div class="u-dashboard-top" style="background-image:  url({{ url('frontend/images/bg-db-user.jpg') }});">
