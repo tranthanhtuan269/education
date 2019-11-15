@@ -22,15 +22,19 @@ class StripePaymentController extends Controller
     public function stripePost(Request $request)
     {
         Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
-        Stripe\Charge::create ([
-                "amount" => 100 * 100,
-                "currency" => "usd",
-                "source" => $request->stripeToken,
-                "description" => "Test payment from itsolutionstuff.com." 
+        $charge=Stripe\Charge::create ([
+            "amount" => 100 * 100,
+            "currency" => "usd",
+            "source" => $request->stripeToken
         ]);
-  
-        Session::flash('success', 'Payment successful!');
-          
-        return back();
+       
+        if($charge->getLastResponse()->code == 200){
+            Session::flash('success', 'Payment successful!');
+            return back();
+        }
+        else{
+            Session::flash('fail');
+            return back();
+        }
     }
 }
