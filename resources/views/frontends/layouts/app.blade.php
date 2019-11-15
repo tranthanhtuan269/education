@@ -661,7 +661,12 @@
                             </div>
                             @if($_SERVER['SERVER_NAME'] === "courdemy.vn")
                             <hr>
-                            @include('components.facebook-login')
+                            <div class="btn btn-lg btn-primary btn-block kpx_btn-facebook" data-toggle="tooltip" data-placement="top" title="Facebook" id="buttonFacebookSignin">
+                                <span class="social-login-icon">
+                                    <i class="fab fa-facebook-f fa-lg fa-fw"></i>
+                                </span>
+                                Đăng nhập với facebook
+                            </div>
                             @include('components.google-login')
                             @endif
                             <input id="resetFormsSignup" type="reset" value="Reset the form" style="display:none">

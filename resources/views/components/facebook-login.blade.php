@@ -16,6 +16,9 @@
 </div>
 
 <script>
+    $('#buttonFacebookSignin').click(function(){
+        checkLoginState()
+    })
     $('#buttonFacebookLogin').click(function(){
         checkLoginState()
     })
