@@ -602,11 +602,11 @@
                                 <a href="#">Quên mật khẩu?</a>
                             </div> --}}
                         </div>
-                        {{-- @if($_SERVER['SERVER_NAME'] === "courdemy.vn") --}}
+                        @if($_SERVER['SERVER_NAME'] === "courdemy.vn")
                         <hr>
                         @include('components.facebook-login')
                         @include('components.google-login')
-                        {{-- @endif --}}
+                        @endif
                     </div>
 
                     <div class="modal-footer">
@@ -659,11 +659,11 @@
                             <div class="form-group">
                                 <input type="button" class="btn btn-success btn-block btn-lg" value="Đăng ký" onclick="registerAjax()">
                             </div>
-                            {{-- @if($_SERVER['SERVER_NAME'] === "courdemy.vn") --}}
+                            @if($_SERVER['SERVER_NAME'] === "courdemy.vn")
                             <hr>
                             @include('components.facebook-login')
                             @include('components.google-login')
-                            {{-- @endif --}}
+                            @endif
                             <input id="resetFormsSignup" type="reset" value="Reset the form" style="display:none">
                         </form>				
                     </div>
