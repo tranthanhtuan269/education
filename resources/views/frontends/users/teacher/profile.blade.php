@@ -92,7 +92,7 @@
                                                     <input type="text" id="muser-fullname" class="form-control" name="name" value="{{ Auth::user()->name }}">
                                                 </div>
                                             </div>
-                                            @if(!(Auth::user()->email == 'your_name@example.com'))
+                                            @if(Auth::user()->facebook_id == null)
                                             <div class="form-group">
                                                 <label>Email</label>
                                                 <div class="form-group">
