@@ -261,6 +261,7 @@
                                                 @if($_SERVER['SERVER_NAME'] === "courdemy.vn")
                                                     <div class="g-signin2" data-onsuccess="onSignIn" style="display:none"></div>
                                                     <script src="https://apis.google.com/js/platform.js" async></script>
+                                                    <fb:login-button scope="public_profile,email" login_text="Đăng nhập với Facebook" onlogin=checkLoginState() style="display:none"></fb:login-button>
                                                     <script>
                                                         // $('.btn-google-logout').click()
                                                         function onSignIn(googleUser) {
@@ -274,10 +275,14 @@
                                                         }
 
                                                         $('.btn-logout-account').click(function(){
+                                                            checkLoginState()
+                                                        })
+
+                                                        function checkLoginState() {               // Called when a person is finished with the Login Button.
                                                             FB.logout(function(response) {
                                                                 // Person is now logged out
                                                             });
-                                                        })
+                                                        }
                                                     </script>
                                                 @endif
                                             </ul>

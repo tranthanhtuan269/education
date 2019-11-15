@@ -11,7 +11,7 @@
 </div> --}}
 
 <div class="g-signin2" data-onsuccess="onSignIn" id="button-signin-gg" data-width="398" data-height="45"
-data-longtitle="true">
+data-longtitle="true" data-title="Đăng nhập với Google">
     Đăng nhập với Google
 </div>
 <style>
