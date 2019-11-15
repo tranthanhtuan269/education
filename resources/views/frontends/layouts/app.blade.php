@@ -659,6 +659,11 @@
                             <div class="form-group">
                                 <input type="button" class="btn btn-success btn-block btn-lg" value="Đăng ký" onclick="registerAjax()">
                             </div>
+                            @if($_SERVER['SERVER_NAME'] === "courdemy.vn")
+                            <hr>
+                            @include('components.facebook-login')
+                            @include('components.google-login')
+                            @endif
                             <input id="resetFormsSignup" type="reset" value="Reset the form" style="display:none">
                         </form>				
                     </div>
