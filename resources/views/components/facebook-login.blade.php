@@ -25,7 +25,10 @@
         if (response.status === 'connected') {   // Logged into your webpage and Facebook.
             testAPI();
         } else {                                 // Not logged into your webpage or we are unable to tell.
-            document.getElementById('status').innerHTML = 'Bạn chưa đăng nhập Facebook!';
+            // document.getElementById('status').innerHTML = 'Bạn chưa đăng nhập Facebook!';
+            FB.login(function(response){
+                // handle the response 
+            });
         }
     }
 
