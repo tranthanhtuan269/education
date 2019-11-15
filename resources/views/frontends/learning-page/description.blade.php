@@ -45,7 +45,7 @@ foreach ($notes as $key => $note) {
         </div>
     </div>
 
-    <div class="ln-desc-bottom leftBarActive" >
+    <!-- <div class="ln-desc-bottom leftBarActive" >
         <div class="ln-desc-btm-center">
             <div class="ln-desc-btm-group-track">
                 <a class="lnDescBtnPreviousLink">
@@ -83,5 +83,5 @@ foreach ($notes as $key => $note) {
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 </div>
