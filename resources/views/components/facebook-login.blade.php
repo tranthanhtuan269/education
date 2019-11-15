@@ -1,7 +1,3 @@
-{{-- <div id="fb-root"></div> --}}
-{{-- <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v5.0&appId=2474435149283816&autoLogAppEvents=1"></script> --}}
-
-{{-- <div class="fb-login-button" data-width="400" data-size="large" data-button-type="login_with" data-auto-logout-link="false" data-use-continue-as="true"></div> --}}
 
 <fb:login-button scope="public_profile,email" login_text="Đăng nhập với Facebook" onlogin=checkLoginState() style="display:none">
 </fb:login-button>
@@ -15,18 +11,23 @@
     Đăng nhập với facebook
 </div>
 
+<div id="fb-root" style="display:none"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v5.0&appId=2474435149283816&autoLogAppEvents=1"></script>
+<div class="fb-login-button" data-width="" data-size="large" data-button-type="continue_with" data-auto-logout-link="false" data-use-continue-as="false" style="display:none"></div>
+
 <script>
     $('#buttonFacebookLogin').click(function(){
         checkLoginState()
     })
     function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
-        console.log('statusChangeCallback');
-        console.log(response);                   // The current login status of the person.
+        // console.log('statusChangeCallback');
+        // console.log(response);                   // The current login status of the person.
         if (response.status === 'connected') {   // Logged into your webpage and Facebook.
             testAPI();
-        } else {                                 // Not logged into your webpage or we are unable to tell.
-            document.getElementById('status').innerHTML = 'Please log ' +
-            'into this webpage.';
+        }else if( response.status === 'unknown' ) {                                 // Not logged into your webpage or we are unable to tell.
+            $('fb-login-button').click()
+        }else{
+            document.getElementById('status').innerHTML = 'Please log ' + 'into this webpage.';
         }
     }
 
@@ -58,10 +59,10 @@
     }(document, 'script', 'facebook-jssdk'));
 
     function testAPI() {                      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
-        console.log('Welcome!  Fetching your information.... ');
+        // console.log('Welcome!  Fetching your information.... ');
         FB.api('/me', function(response) {
             // console.log('Successful login for: ' + response.name);
-            console.log(response)
+            // console.log(response)
             // document.getElementById('status').innerHTML =
                 // 'Cảm ơn bạn đã đăng nhập, ' + response.name + '!' + response.email;
             var facebook_id = response.name;

@@ -10,7 +10,7 @@
     Đăng nhập với Google
 </div> --}}
 
-<div class="g-signin2" data-onsuccess="onSignIn" id="button-signin-gg" data-width="398" data-height="50"
+<div class="g-signin2" data-onsuccess="onSignIn" id="button-signin-gg" data-width="398" data-height="45"
 data-longtitle="true">
     Đăng nhập với Google
 </div>

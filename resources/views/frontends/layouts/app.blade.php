@@ -272,6 +272,12 @@
                                                             });
                                                             // location.reload();
                                                         }
+
+                                                        $('.btn-logout-account').click(function(){
+                                                            FB.logout(function(response) {
+                                                                // Person is now logged out
+                                                            });
+                                                        })
                                                     </script>
                                                 @endif
                                             </ul>
@@ -591,11 +597,11 @@
                                 <a href="#">Quên mật khẩu?</a>
                             </div> --}}
                         </div>
-                        {{-- @if($_SERVER['SERVER_NAME'] === "courdemy.vn") --}}
+                        @if($_SERVER['SERVER_NAME'] === "courdemy.vn")
                         <hr>
                         @include('components.facebook-login')
                         @include('components.google-login')
-                        {{-- @endif --}}
+                        @endif
                     </div>
 
                     <div class="modal-footer">
