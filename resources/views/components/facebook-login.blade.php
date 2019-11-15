@@ -28,6 +28,7 @@
             // document.getElementById('status').innerHTML = 'Bạn chưa đăng nhập Facebook!';
             FB.login(function(response){
                 // handle the response 
+                checkLoginState()
             });
         }
     }
