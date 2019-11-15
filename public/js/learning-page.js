@@ -1056,6 +1056,35 @@ $(document).ready(function () {
         alert("This Function is still in development!!")
     }
 
+    $('.btn-showhide.btn-show').click(function(){
+        $('.left-content').hide();
+        $('.btn-showhide.btn-show').hide();
+        $('.btn-showhide.btn-hide').show();
+
+        $('.learning-video').css('width', '100vw');
+        $('#my-video.leftbarActive').css('width', '100vw');
+        $('#my-video.leftbarActive').css('left', '0');
+        $('.btn-showhide.btn-show').css('left', '0');
+        $('.btn-showhide.btn-hide').css('left', '0');
+        $('.ln-desc-bottom.leftbarActive').css('width', '100vw');
+        $('.learning-desc-panel-body.leftbarActive').css('padding-left', '20px')
+        $('.ln-desc-bottom leftBarActive').hide();
+    })
+
+    $('.btn-showhide.btn-hide').click(function(){
+        $('.left-content').show(); 
+        $('.btn-showhide.btn-show').show();
+        $('.btn-showhide.btn-hide').hide();       
+
+        $('.learning-video').css('width', 'calc(100vw)');
+        $('#my-video.leftbarActive').css('width', 'calc(100vw - 350px)');
+        $('#my-video.leftbarActive').css('left', '0');
+        $('.btn-showhide.btn-show').css('left', '350px');
+        $('.btn-showhide.btn-hide').css('left', '350px');
+        $('.ln-desc-bottom.leftbarActive').css('width', 'calc(100vw - 350px)');
+        $('.learning-desc-panel-body.leftbarActive').css('padding-left', '450px')
+    })
+
     //Tắt autoplay tên firefox
     var isFirefox = typeof InstallTrigger !== 'undefined';
     if(isFirefox){
