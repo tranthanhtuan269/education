@@ -367,27 +367,27 @@
                             })
                         </script>
                         <style>
-                            .nav>li{
+                            .unica-home-menutop .nav>li{
                                 float: left;
                             }
                                 
-                            .nav>li>a{
+                            .unica-home-menutop .nav>li>a{
                                 color: black;
                             }
                                 
-                            .nav li{
+                            .unica-home-menutop .nav li{
                                 position: relative;
                                 list-style:none;
                             }
                                 
-                            .nav li a{
+                            .unica-home-menutop .nav li a{
                                 padding: 10px;
                                 line-height: 20px;
                                 display: inline-block;
                                 color: black;
                             }
                                 
-                            .nav .sub-menu{
+                            .unica-home-menutop .nav .sub-menu{
                                 display: none;
                                 position: absolute;
                                 top: -5px;
@@ -398,15 +398,15 @@
                                 z-index: 1;
                                 }
                                 
-                            .nav li:hover>.sub-menu{
+                            .unica-home-menutop .nav li:hover>.sub-menu{
                                 display: block;
                                 }
                                 
-                            .nav>li>.sub-menu{
+                            .unica-home-menutop .nav>li>.sub-menu{
                                 top: 40px;
                                 left: 0;
                             }
-                            .nav a:hover {
+                            .unica-home-menutop .nav a:hover {
                                 color: #428bca;
                             }
                         </style>
