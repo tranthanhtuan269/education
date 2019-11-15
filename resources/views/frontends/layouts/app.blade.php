@@ -667,8 +667,8 @@
                                 </span>
                                 Đăng nhập với facebook
                             </div>
-                            {{-- @include('components.google-login') --}}
-                            @endif
+                            @include('components.google-login')
+                            {{-- @endif --}}
                             <input id="resetFormsSignup" type="reset" value="Reset the form" style="display:none">
                         </form>				
                     </div>
