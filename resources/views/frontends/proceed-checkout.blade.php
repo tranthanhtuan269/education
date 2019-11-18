@@ -125,13 +125,13 @@
                                                                                 id="payment-form">
                                                     @csrf
                             
-                                                    <div class='form-row row'>
+                                                    <!-- <div class='form-row row'>
                                                         <div class='col-xs-12 form-group required'>
                                                             <label class='control-label'>Tên in trên thẻ:</label> <input
                                                                 class='form-control' size='4' type='text' disabled>
                                                         </div>
                                                     </div>
-                            
+ -->                            
                                                     <div class='form-row row'>
                                                         <div class='col-xs-12 form-group card required'>
                                                             <label class='control-label'>Số thẻ:</label> <input
@@ -163,11 +163,11 @@
                                                             <div class='alert-danger alert'>Please correct the errors and try
                                                                 again.</div>
                                                         </div>
-                                                    </div> -->
-                            
+                                                    </div>
+ -->                            
                                                     <div class="row">
                                                         <div class="col-xs-12">
-                                                            <button class="btn btn-primary btn-lg btn-block" type="submit" disabled>Thanh toán (<span id='price-pay-now'></span>)</button>
+                                                            <button class="btn btn-primary btn-lg btn-block" type="submit" id="stripeSubmit" disabled>Thanh toán (<span id='price-pay-now'></span>)</button>
                                                             <input type="hidden" name="product_stripe">
                                                         </div>
                                                     </div>
@@ -282,19 +282,33 @@
                     exp_year: $('.card-expiry-year').val()
                 }, stripeResponseHandler);
             }
-
+            $("#stripeSubmit").attr("disabled", true);
         });
 
         function stripeResponseHandler(status, response) {
             if (response.error) {
                 $('.error')
+                    
                     // .removeClass('hide')
                     // .find('.alert')
                     // .text(response.error.message);
-                    Swal.fire({
+                    if(status == 400){
+                        Swal.fire({
                         type:"warning",
-                        text:response.error.message
-                    });
+                        text:"Không thể tìm thấy thông tin thanh toán!"
+                        }).then((result) => {
+                            $('button[type=submit]').removeAttr('disabled');
+                        });    
+                    }
+                    if(status == 402){
+                        Swal.fire({
+                        type:"warning",
+                        text:"Tháng hoặc năm hết hạn thẻ của bạn không hợp lệ!"
+                        }).then((result) => {
+                            $('button[type=submit]').removeAttr('disabled');
+                        });    
+                    }
+                    
 
             } else {
                 // token contains id, last4, and card type
