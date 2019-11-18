@@ -158,12 +158,12 @@
                                                         </div>
                                                     </div>
                             
-                                                    <div class='form-row row'>
+                                                    <!-- <div class='form-row row'>
                                                         <div class='col-md-12 error form-group hide'>
                                                             <div class='alert-danger alert'>Please correct the errors and try
                                                                 again.</div>
                                                         </div>
-                                                    </div>
+                                                    </div> -->
                             
                                                     <div class="row">
                                                         <div class="col-xs-12">
@@ -289,9 +289,14 @@
         function stripeResponseHandler(status, response) {
             if (response.error) {
                 $('.error')
-                    .removeClass('hide')
-                    .find('.alert')
-                    .text(response.error.message);
+                    // .removeClass('hide')
+                    // .find('.alert')
+                    // .text(response.error.message);
+                    Swal.fire({
+                        type:"warning",
+                        text:response.error.message
+                    });
+
             } else {
                 // token contains id, last4, and card type
                 var token = response['id'];
