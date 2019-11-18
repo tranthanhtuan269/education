@@ -281,6 +281,8 @@
                     exp_month: $('.card-expiry-month').val(),
                     exp_year: $('.card-expiry-year').val()
                 }, stripeResponseHandler);
+
+                $(".ajax_waiting").addClass("loading");
             }
 
         });
@@ -296,6 +298,7 @@
                         text:response.error.message
                     });
 
+                    $(".ajax_waiting").removeClass("loading");
             } else {
                 // token contains id, last4, and card type
                 var token = response['id'];
