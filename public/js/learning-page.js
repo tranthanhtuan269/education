@@ -13,9 +13,6 @@ if(localStorage.getItem('autoplay') != null){
 
 $(document).ready(function () {
     //Check browser có phải là firefox hay không để hiện thông báo
-    var nc = new NetConnection();
-    nc.proxyType = "best";
-    nc.connect("rtmps://5dd0f175e72a1.streamlock.net/hieu");
 
     var options = {
         controls: true,
