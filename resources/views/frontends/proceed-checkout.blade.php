@@ -141,11 +141,11 @@
                                                     </div>
                             
                                                     <div class='form-row row'>
-                                                        <div class='col-xs-12 col-md-4 form-group cvc required'>
+                                                        <!-- <div class='col-xs-12 col-md-4 form-group cvc required'>
                                                             <label class='control-label'>CVC:</label> <input autocomplete='off'
                                                                 class='form-control card-cvc' placeholder='ex. 311' size='4'
                                                                 type='text' value='123'>
-                                                        </div>
+                                                        </div> -->
                                                         <div class='col-xs-12 col-md-4 form-group expiration required'>
                                                             <label class='control-label'>Tháng hết hạn:</label> <input
                                                                 class='form-control card-expiry-month' placeholder='MM' size='2'
@@ -168,7 +168,7 @@
                                                     <div class="row">
                                                         <div class="col-xs-12">
                                                             <button class="btn btn-primary btn-lg btn-block" type="submit">Thanh toán (<span id='price-pay-now'></span>)</button>
-                                                            
+                                                            <input type="hidden" name="product_stripe">
                                                         </div>
                                                     </div>
                                                     
@@ -249,41 +249,43 @@
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
   
 <script type="text/javascript">
+    console.log();
     $(function() {
-        var $form         = $(".require-validation");
+        var $form = $(".require-validation");
         $('form.require-validation').bind('submit', function(e) {
-        var $form         = $(".require-validation"),
-            inputSelector = ['input[type=email]', 'input[type=password]',
-                            'input[type=text]', 'input[type=file]',
-                            'textarea'].join(', '),
-            $inputs       = $form.find('.required').find(inputSelector),
-            $errorMessage = $form.find('div.error'),
-            valid         = true;
+            var $form = $(".require-validation"),
+                inputSelector = ['input[type=email]', 'input[type=password]',
+                    'input[type=text]', 'input[type=file]',
+                    'textarea'
+                ].join(', '),
+                $inputs = $form.find('.required').find(inputSelector),
+                $errorMessage = $form.find('div.error'),
+                valid = true;
             $errorMessage.addClass('hide');
 
             $('.has-error').removeClass('has-error');
-        $inputs.each(function(i, el) {
-            var $input = $(el);
-            if ($input.val() === '') {
-            $input.parent().addClass('has-error');
-            $errorMessage.removeClass('hide');
-            e.preventDefault();
+            $inputs.each(function(i, el) {
+                var $input = $(el);
+                if ($input.val() === '') {
+                    $input.parent().addClass('has-error');
+                    $errorMessage.removeClass('hide');
+                    e.preventDefault();
+                }
+            });
+
+            if (!$form.data('cc-on-file')) {
+                e.preventDefault();
+                Stripe.setPublishableKey($form.data('stripe-publishable-key'));
+                Stripe.createToken({
+                    number: $('.card-number').val(),
+                    cvc: $('.card-cvc').val(),
+                    exp_month: $('.card-expiry-month').val(),
+                    exp_year: $('.card-expiry-year').val()
+                }, stripeResponseHandler);
             }
+
         });
-        
-        if (!$form.data('cc-on-file')) {
-            e.preventDefault();
-            Stripe.setPublishableKey($form.data('stripe-publishable-key'));
-            Stripe.createToken({
-            number: $('.card-number').val(),
-            cvc: $('.card-cvc').val(),
-            exp_month: $('.card-expiry-month').val(),
-            exp_year: $('.card-expiry-year').val()
-            }, stripeResponseHandler);
-        }
-        
-        });
-        
+
         function stripeResponseHandler(status, response) {
             if (response.error) {
                 $('.error')
@@ -299,13 +301,12 @@
                 $form.get(0).submit();
             }
         }
-        
-    });
-</script>
 
-<script>
+    });
+
     var user_id = $('button[id=cartUserId]').attr('data-user-id')
     var cart_items = JSON.parse(localStorage.getItem('cart'+user_id))
+    $('input[name=product_stripe]').val(localStorage.getItem('cart'+user_id));
     var total_price = 0
     $(document).ready( function () {
         showItems()
@@ -339,7 +340,7 @@
                 total_price += element.coupon_price
             })
             $(".total-price").append(number_format(total_price, 0, '.', '.')+' ₫')
-            $("#price-pay-now").append(number_format(total_price, 0, '.', '.')+' ₫')
+            $("#price-pay-now").append(total_price/20000 +' usd')
         }
 
         $('.img-bank').on('click', function(e){
