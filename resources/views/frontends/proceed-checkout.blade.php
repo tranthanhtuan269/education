@@ -141,11 +141,11 @@
                                                     </div>
                             
                                                     <div class='form-row row'>
-                                                        <!-- <div class='col-xs-12 col-md-4 form-group cvc required'>
+                                                        <div class='col-xs-12 col-md-4 form-group cvc required'>
                                                             <label class='control-label'>CVC:</label> <input autocomplete='off'
                                                                 class='form-control card-cvc' placeholder='ex. 311' size='4'
-                                                                type='text' value='123'>
-                                                        </div> -->
+                                                                type='text' disabled>
+                                                        </div>
                                                         <div class='col-xs-12 col-md-4 form-group expiration required'>
                                                             <label class='control-label'>Tháng hết hạn:</label> <input
                                                                 class='form-control card-expiry-month' placeholder='MM' size='2'
