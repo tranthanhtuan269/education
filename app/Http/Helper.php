@@ -26,7 +26,7 @@ class Helper {
 	}
 
 	public static function createSecurityTokenForVideoLink($user_id, $video_id, $video_url){
-		$wowza_serverip = "https://courdemy.vn"; //  ip/host
+		$wowza_serverip = "https://5dd0f175e72a1.streamlock.net:443"; //  ip/host
         $courdemysecure = 'courdemysecure'; 
 		$courdemysecurestarttime = 0;
 		$validity = 1800;
@@ -43,7 +43,8 @@ class Helper {
 		$hashstr = hash('sha256', $content_path.'?courdemysecureCustomHash='.$courdemysecureCustomHash.'&courdemysecureendtime='.$courdemysecureendtime.'&courdemysecurestarttime='.$courdemysecurestarttime.'&'.$secret, true);
 		$usableHash = strtr(base64_encode($hashstr), '+/', '-_'); 
 		
-		return $wowza_serverip.':1935/'.$content_path.'/playlist.m3u8?courdemysecureCustomHash='.$courdemysecureCustomHash.'&courdemysecureendtime='.$courdemysecureendtime.'&courdemysecurestarttime=0&courdemysecurehash='.$usableHash."";
+		return $wowza_serverip.'/'.$content_path.'/playlist.m3u8?courdemysecureCustomHash='.$courdemysecureCustomHash.'&courdemysecureendtime='.$courdemysecureendtime.'&courdemysecurestarttime=0&courdemysecurehash='.$usableHash."";
+		// return $wowza_serverip.':1935/'.$content_path.'/playlist.m3u8?courdemysecureCustomHash='.$courdemysecureCustomHash.'&courdemysecureendtime='.$courdemysecureendtime.'&courdemysecurestarttime=0&courdemysecurehash='.$usableHash."";
 	}
 
 	public static function replace_key($arr, $oldkey, $newkey) {
