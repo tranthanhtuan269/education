@@ -37,7 +37,6 @@ class Helper {
 		
 		$content_path = $video_url;
 		$content_path = "vod/_definst_/dung-yeu-nua-em-met-roi-1080.mp4";
-		return $content_path;
 		$secret = "zz725f4728cca67282";
 
 
