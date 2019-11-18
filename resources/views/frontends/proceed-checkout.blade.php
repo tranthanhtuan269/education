@@ -95,7 +95,7 @@
                                         </li>
                                     </ul>
                                 </div> -->
-                                <div class="row">
+                                <div class="row" id="pay-stripe" >
                                     <div class="col-md-11">
                                         <div class="panel panel-default credit-card-box">
                                             <div class="panel-heading display-table" >
@@ -128,7 +128,7 @@
                                                     <div class='form-row row'>
                                                         <div class='col-xs-12 form-group required'>
                                                             <label class='control-label'>Tên in trên thẻ:</label> <input
-                                                                class='form-control' size='4' type='text' value='test'>
+                                                                class='form-control' size='4' type='text' disabled>
                                                         </div>
                                                     </div>
                             
@@ -136,7 +136,7 @@
                                                         <div class='col-xs-12 form-group card required'>
                                                             <label class='control-label'>Số thẻ:</label> <input
                                                                 autocomplete='off' class='form-control card-number' size='20'
-                                                                type='text' value='4242 4242 4242 4242'>
+                                                                type='text' disabled>
                                                         </div>
                                                     </div>
                             
@@ -149,12 +149,12 @@
                                                         <div class='col-xs-12 col-md-4 form-group expiration required'>
                                                             <label class='control-label'>Tháng hết hạn:</label> <input
                                                                 class='form-control card-expiry-month' placeholder='MM' size='2'
-                                                                type='text' value='12'>
+                                                                type='text' disabled>
                                                         </div>
                                                         <div class='col-xs-12 col-md-4 form-group expiration required'>
                                                             <label class='control-label'>Năm hết hạn:</label> <input
                                                                 class='form-control card-expiry-year' placeholder='YYYY' size='4'
-                                                                type='text' value='2020'>
+                                                                type='text' disabled>
                                                         </div>
                                                     </div>
                             
@@ -167,7 +167,7 @@
                             
                                                     <div class="row">
                                                         <div class="col-xs-12">
-                                                            <button class="btn btn-primary btn-lg btn-block" type="submit">Thanh toán (<span id='price-pay-now'></span>)</button>
+                                                            <button class="btn btn-primary btn-lg btn-block" type="submit" disabled>Thanh toán (<span id='price-pay-now'></span>)</button>
                                                             <input type="hidden" name="product_stripe">
                                                         </div>
                                                     </div>
@@ -178,10 +178,10 @@
                                     </div>
                                 </div>
 
-                                <div class="blockform-check">
+                                <!-- <div class="blockform-check">
                                     <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                                    <label class="form-check-label" for="defaultCheck1">Lưu và bảo mật cho lần thanh toán sau</label>
-                                </div>
+                                    <label class="form-check-label" for="defaultCheck1" disabled>Lưu và bảo mật cho lần thanh toán sau</label>
+                                </div> -->
                             </div>
                             <div class="img-card">
                                 <img src="/frontend/images/banks/ic_card_demo.png" alt="ATM card" title="ATM card" id="atm-card">
@@ -249,7 +249,6 @@
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
   
 <script type="text/javascript">
-    console.log();
     $(function() {
         var $form = $(".require-validation");
         $('form.require-validation').bind('submit', function(e) {
@@ -307,6 +306,19 @@
             }
         }
 
+    });
+
+    $('#exampleRadios3').click(function(){
+        $("input[type=text]").removeAttr('disabled');
+        $('button[type=submit]').removeAttr('disabled');
+    });
+    $('#exampleRadios2').click(function(){
+        $("input[type=text]").prop('disabled', true);
+        $('button[type=submit]').prop('disabled', true);
+    });
+    $('#exampleRadios1').click(function(){
+        $("input[type=text]").prop('disabled', true);
+        $('button[type=submit]').prop('disabled', true);
     });
 
     var user_id = $('button[id=cartUserId]').attr('data-user-id')
