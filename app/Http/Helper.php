@@ -36,7 +36,8 @@ class Helper {
 		$courdemysecureCustomHash = strtr(base64_encode($courdemysecureCustomHash), '+/', '-_'); 
 		
 		$content_path = $video_url;
-		//content_path example = vod/_definst_/dung-yeu-nua-em-met-roi-1080.mp4
+		$content_path = vod/_definst_/dung-yeu-nua-em-met-roi-1080.mp4;
+		return $content_path;
 		$secret = "zz725f4728cca67282";
 
 
