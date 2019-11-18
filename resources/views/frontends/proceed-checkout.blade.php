@@ -219,9 +219,9 @@
                             </div>
                             <p>(Đã bao gồm VAT)</p>
                         </div>
-                        <div class="checkout text-center">
+                        {{-- <div class="checkout text-center">
                             <button class="btn btn-warning"><b>THANH TOÁN</b></button>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
