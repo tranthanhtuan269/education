@@ -442,60 +442,60 @@
     
         $('#apply-all-btn').click(function (){
             Swal.fire({
-                    type: 'warning',
-                    text: 'Bạn có chắc chắn muốn xóa ?',
-                    showCancelButton: true,
-                }).then(result => {
-                    if(result.value){
-                        var $id_list = '';
+                type: 'warning',
+                text: 'Bạn có chắc chắn muốn xóa ?',
+                showCancelButton: true,
+            }).then(result => {
+                if(result.value){
+                    var $id_list = '';
+                $.each($('.check-role'), function (key, value){
+                    if($(this).prop('checked') == true) {
+                        $id_list += $(this).attr("data-column") + ',';
+                    }
+                });
+
+                if ($id_list.length > 0) {
+                    var $id_list = '';
                     $.each($('.check-role'), function (key, value){
                         if($(this).prop('checked') == true) {
                             $id_list += $(this).attr("data-column") + ',';
                         }
                     });
-    
-                    if ($id_list.length > 0) {
-                        var $id_list = '';
-                        $.each($('.check-role'), function (key, value){
-                            if($(this).prop('checked') == true) {
-                                $id_list += $(this).attr("data-column") + ',';
+
+                    if($id_list.length > 0){
+                        var data = {
+                            id_list:$id_list,
+                            _method:'delete'
+                        };
+
+                        $.ajax({
+                            type: "POST",
+                            url: "{{ url('/') }}/admincp/orders/delMulti",
+                            data: data,
+                            success: function (response) {
+                                var obj = $.parseJSON(response);
+                                if(obj.status == 200){
+                                    $.each($('.check-role'), function (key, value){
+                                        if($(this).prop('checked') == true) {
+                                            $(this).parent().parent().hide("slow");
+                                        }
+                                    });
+                                    $().toastmessage('showSuccessToast', obj.Message);
+                                    dataTable.ajax.reload(); 
+                                }
+                            },
+                            error: function (data) {
+                                if(data.status == 401){
+                                    window.location.replace(baseURL);
+                                }else{
+                                    $().toastmessage('showErrorToast', errorConnect);
+                                }
                             }
                         });
-    
-                        if($id_list.length > 0){
-                            var data = {
-                                id_list:$id_list,
-                                _method:'delete'
-                            };
-    
-                            $.ajax({
-                                type: "POST",
-                                url: "{{ url('/') }}/admincp/orders/delMulti",
-                                data: data,
-                                success: function (response) {
-                                    var obj = $.parseJSON(response);
-                                    if(obj.status == 200){
-                                        $.each($('.check-role'), function (key, value){
-                                            if($(this).prop('checked') == true) {
-                                                $(this).parent().parent().hide("slow");
-                                            }
-                                        });
-                                        $().toastmessage('showSuccessToast', obj.Message);
-                                        dataTable.ajax.reload(); 
-                                    }
-                                },
-                                error: function (data) {
-                                    if(data.status == 401){
-                                      window.location.replace(baseURL);
-                                    }else{
-                                     $().toastmessage('showErrorToast', errorConnect);
-                                    }
-                                }
-                            });
-                        }
                     }
-                    }
-                })
+                }
+                }
+            })
         });
         
         $("#datepicker_from").datepicker({

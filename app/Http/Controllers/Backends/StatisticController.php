@@ -61,7 +61,7 @@ class StatisticController extends Controller {
         
         $data = $query->get();
         $total = 0;
-
+        // var_dump($data);
         foreach($data as  $value) {
             $total += $value->total_price;
         }

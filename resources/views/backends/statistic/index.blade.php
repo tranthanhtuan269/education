@@ -34,6 +34,10 @@
                             <label>Tên giảng viên:</label>
                             <input class="form-control" id="name_teacher" type="text" autocomplete="off"/>
                         </td>
+                        <td>
+                            <label>&nbsp;</label>
+                            <div type="button" class="btn btn-primary" id="search" style="width:100%">Tìm kiếm</div>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -49,16 +53,21 @@
                             <th scope="col">Mã đơn hàng</th>
                             <th scope="col">Hình thức thanh toán</th>
                             <th scope="col">Ngày tạo</th>
-                            <th scope="col">Tổng giá trị đơn hàng</th>
+                            <th scope="col">Tổng giá trị đơn hàng (VNĐ)</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
                     <tfoot>
                         <tr>
-                            <th colspan="3" style="text-align:right">Tổng:</th>
-                            <th >
+                            <th colspan="3" style="text-align:right">Tổng tiền/1 trang:</th>
+                            <th>
                                 <span id="total_page"></span>
-                                (Tổng: <span id="total_all" style="color:red; font-size:20px"></span>)
+                            </th>
+                        </tr>
+                        <tr>
+                            <th colspan="3" style="text-align:right">Tổng tiền/tất cả:</th>
+                            <th>
+                                <span id="total_all" style="color:red; font-size:20px"></span>
                             </th>
                         </tr>
                     </tfoot>
@@ -302,12 +311,18 @@
                         },
                         fnDrawCallback: function( oSettings ) {
                             addEventListener();
-                            // checkCheckboxChecked();
+                            var api = this.api();
+                            var data = api.rows( {page:'current'} ).data();
+
+                            if (data.length > 0) {
+                                $('#total_all').html(formatNumber(data[0].total, '.', '.'))
+                            } else {
+                                $('#total_all').html(0)
+                            }
                         },
                         footerCallback: function ( row, data, start, end, display ) {
                             var api = this.api(), data;
-                
-                            // Remove the formatting to get integer data for summation
+                            
                             var intVal = function ( i ) {
                                 return typeof i === 'string' ?
                                     i.replace(/[\$,]/g, '')*1 :
@@ -325,18 +340,64 @@
 
                             $('#total_page').html(formatNumber(pageTotal, '.', '.'))
                         },
-                        rowCallback: function( row, data, index ) {
-                            $('#total_all').html(formatNumber(data.total, '.', '.'))
-                        }
+                        // rowCallback: function( row, data, index ) {
+                        //     alert(1)
+                        //     $('#total_all').html(formatNumber(data.total, '.', '.'))
+                        // }
                     });
 
         $('#statistic-table').css('width', '100%');
 
-        $('#name_course, #name_teacher').keyup(delay(function (e) {
-            dataTable.draw();
-        }, 800));
+        // $('#name_course, #name_teacher').keyup(delay(function (e) {
+        //     dataTable.draw();
+        // }, 800));
 
-        $('#datepicker_from, #datepicker_to').on("change", function(event){
+        // $('#datepicker_from, #datepicker_to').on("change", function(event){
+        //     dataTable.draw();
+        // });
+
+        $("#search").click(function(){
+            var datepicker_from = $('#datepicker_from').val();
+            var datepicker_to = $('#datepicker_to').val();
+
+            if (datepicker_from != '') {
+                if (!validationDate(datepicker_from)) {
+                    Swal.fire({
+                        type: 'warning',
+                        text: 'Xin vui lòng nhập thời gian hợp lệ! ?',
+                    });
+                    return;
+                }
+            }
+
+            if (datepicker_to != '') {
+                if (!validationDate(datepicker_to)) {
+                    Swal.fire({
+                        type: 'warning',
+                        text: 'Xin vui lòng nhập thời gian hợp lệ! ?',
+                    });
+                    return;
+                } else {
+                    if (datepicker_from != '') {
+                        job_start_date = datepicker_from.split('/');
+                        job_end_date = datepicker_to.split('/');
+
+                        var new_start_date = new Date(job_start_date[2],job_start_date[1],job_start_date[0]);
+                        var new_end_date = new Date(job_end_date[2],job_end_date[1],job_end_date[0]);
+
+                        if(new Date(new_start_date) > new Date(new_end_date))
+                        {
+                            Swal.fire({
+                                type: 'warning',
+                                text: 'Khoảng thời gian nhập từ ngày - đến ngày không hợp lệ!',
+                            });
+
+                            return;
+                        }
+                    }
+                }
+            }
+
             dataTable.draw();
         });
 
