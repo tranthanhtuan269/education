@@ -26,7 +26,7 @@ class Helper {
 	}
 
 	public static function createSecurityTokenForVideoLink($user_id, $video_id, $video_url){
-		$wowza_serverip = "rtmps://5dd0f175e72a1.streamlock.net"; //  ip/host
+		$wowza_serverip = "rtmp://5dd0f175e72a1.streamlock.net"; //  ip/host
         $courdemysecure = 'courdemysecure'; 
 		$courdemysecurestarttime = 0;
 		$validity = 1800;
