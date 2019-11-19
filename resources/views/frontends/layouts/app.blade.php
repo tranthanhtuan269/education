@@ -1226,7 +1226,7 @@
                 appId      : '2474435149283816',
                 cookie     : true,                     // Enable cookies to allow the server to access the session.
                 xfbml      : true,                     // Parse social plugins on this webpage.
-                version    : '5.0'           // Use this Graph API version for this call.
+                version    : '4.0'           // Use this Graph API version for this call.
             });
 
             FB.getLoginStatus(function(response) {   // Called after the JS SDK has been initialized.
@@ -1246,7 +1246,7 @@
             // console.log('Welcome!  Fetching your information.... ');
             FB.api('/me', function(response) {
                 // console.log('Successful login for: ' + response.name);
-                // console.log(response)
+                console.log(response)
                 // document.getElementById('status').innerHTML =
                     // 'Cảm ơn bạn đã đăng nhập, ' + response.name + '!' + response.email;
                 var facebook_id = response.name;
