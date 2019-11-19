@@ -77,7 +77,7 @@ class StripePaymentController extends Controller
                                     'course_id' => $course_id,
                                     'coupon_value' => $coupon_value,
                                     'coupon_code' => $coupon_code,
-                                    'total_price' => $price
+                                    'total_price' => $total
                                 ];
                     }
 
