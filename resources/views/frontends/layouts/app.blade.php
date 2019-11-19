@@ -1227,10 +1227,10 @@
 
         window.fbAsyncInit = function() {
             FB.init({
-                appId      : '426138308059078',
+                appId      : '2474435149283816',
                 cookie     : true,
                 xfbml      : true,
-                version    : '5.0'
+                version    : '4.0'
             });
             
             FB.AppEvents.logPageView();   
@@ -1268,7 +1268,10 @@
 
         function testAPI() {                      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
             // console.log('Welcome!  Fetching your information.... ');
-            FB.api('/me', function(response) {
+            FB.api('/me',
+                'GET',
+                {"fields":"id,name,email"},
+                function(response) {
                 // console.log('Successful login for: ' + response.name);
                 console.log(response)
                 // document.getElementById('status').innerHTML =
