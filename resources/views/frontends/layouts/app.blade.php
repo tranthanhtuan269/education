@@ -194,7 +194,6 @@
                                             @endif
                                             <button id="cartUserId" style="display:none" data-user-id="0"></button>
                                         </a>                            
-                                        @endif
                                     </li>
                                     @endif
     
