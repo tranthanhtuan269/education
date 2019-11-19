@@ -168,32 +168,36 @@
                                     @if (Auth::check())
                                     <li style="float:left">
                                         @if (!Auth::user()->isAdmin())
+                                            <a class="unica-cart"
                                             @if (\Request::is('cart'))
-                                            <div style="width:46px;height:1px"></div>
+                                                style="opacity:0;cursor:auto" disabled
                                             @else
-                                            <a href="{{route('cart.show')}}" class="unica-cart">
+                                                href="{{route('cart.show')}}"
+                                            @endif
+                                            >
                                                 <img src="{{ asset('frontend/images/tab_cart.png') }}" alt="" style="width: 21px;" />
                                                 @if (!\Request::is('cart'))
                                                 <span class="unica-sl-cart" style="display: none;"><b class="number-in-cart"></b></span>
                                                 @endif
                                                 <button id="cartUserId" style="display:none" data-user-id="{{Auth::user()->id}}"></button>
                                             </a>
-                                            @endif
                                         @endif
                                     </li>
                                     @elseif(!Auth::check())
                                     <li style="float:left">
+                                        <a href="{{route('cart.show')}}" class="unica-cart"
                                         @if (\Request::is('cart'))
-                                        <div style="width:46px;height:1px"></div>
+                                            style="opacity:0;cursor:auto" disabled
                                         @else
-                                        <a href="{{route('cart.show')}}" class="unica-cart">
+                                            href="{{route('cart.show')}}"
+                                        @endif
+                                        >
                                             <img src="{{ asset('frontend/images/tab_cart.png') }}" alt="" style="width: 21px;" />
                                             @if (!\Request::is('cart'))
                                             <span class="unica-sl-cart" style="display: none;"><b class="number-in-cart"></b></span>
                                             @endif
                                             <button id="cartUserId" style="display:none" data-user-id="0"></button>
                                         </a>                            
-                                        @endif
                                     </li>
                                     @endif
     

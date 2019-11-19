@@ -3,9 +3,9 @@ ul { list-style: inside; }
 button {box-shadow: none !important; outline: none !important;}
 li { margin: 0px; padding: 0px }
 .learning-lecture-list-body li {list-style: none; }
-body{
+/* body{
     font-family: 'Open Sans', sans-serif !important;
-}
+} */
 .swal2-popup{
     font-size: 1.5rem !important;
 }

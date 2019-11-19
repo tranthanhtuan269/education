@@ -24,8 +24,8 @@ Giỏ hàng của tôi
                     <p>BẠN CÓ <span class="course-amount"></span> KHOÁ HỌC TRONG GIỎ HÀNG</p>
                 </div>
             </div>
-            <div class="cart-item-list col-md-9 col-xs-12">
-                
+            <div class="col-md-9 col-xs-12">
+                <div class="cart-item-list"></div>
             </div>
             <div class="checkout-column col-md-3 col-xs-12">
                 <div>
