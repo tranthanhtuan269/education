@@ -327,7 +327,7 @@
                                         @endif
                                     @endif
                                 @endforeach
-                                <li class="main-menu-item" id="addMenu">
+                                <li class="main-menu-item-1" id="addMenu">
                                     <a href="javascript:void(0)"><i class="fas fa-ellipsis-h"></i> Thêm</a>
                                     <ul class="sub-menu menu-them" id='menuThem'>
                                         @foreach($category_fixed as $key=>$cat)
@@ -351,13 +351,13 @@
                         </div>
                         <script>
                             $(document).ready(function(){
-                                var mainmenugroupWidth = $('.main-menu-group').width();
+                                var mainmenugroupWidth = $('.container').width();
                                 var count = 0;
                                 $.each($('.main-menu-item'), function( index, value ) {
                                     count++;
                                     mainmenugroupWidth -= $(value).width();
                                 });
-
+                                mainmenugroupWidth -= mainmenugroupWidth - 74.86;
                                 mainmenugroupMargin = mainmenugroupWidth / (count - 1);
                                 $('.main-menu-item').css('margin-right', mainmenugroupMargin);
                                 $('.main-menu-item:last-child').css('margin-right', -1);
@@ -393,7 +393,7 @@
                                 top: -5px;
                                 right: 100%;
                                 width: 250px;
-                                background-color: #eee;
+                                background-color: #ffffff;
                                 padding: 5px 20px;
                                 z-index: 1;
                                 }
@@ -401,13 +401,16 @@
                             .unica-home-menutop .nav li:hover>.sub-menu{
                                 display: block;
                                 }
-                                
                             .unica-home-menutop .nav>li>.sub-menu{
                                 top: 40px;
                                 left: 0;
                             }
-                            .unica-home-menutop .nav a:hover {
+                            .unica-home-menutop .nav li:hover > a {
+                                background-color: #ffffff;
                                 color: #428bca;
+                            }
+                            .unica-home-menutop .nav > li > a:focus{
+                                background-color: #ffffff;
                             }
                         </style>
                     </div>
