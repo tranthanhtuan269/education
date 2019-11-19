@@ -168,9 +168,11 @@
                                     @if (Auth::check())
                                     <li style="float:left">
                                         @if (!Auth::user()->isAdmin())
-                                            <a href="{{route('cart.show')}}" class="unica-cart"
+                                            <a class="unica-cart"
                                             @if (\Request::is('cart'))
-                                            style="display:none"
+                                                style="opacity:0;cursor:auto" disabled
+                                            @else
+                                                href="{{route('cart.show')}}"
                                             @endif
                                             >
                                                 <img src="{{ asset('frontend/images/tab_cart.png') }}" alt="" style="width: 21px;" />
@@ -185,7 +187,9 @@
                                     <li style="float:left">
                                         <a href="{{route('cart.show')}}" class="unica-cart"
                                         @if (\Request::is('cart'))
-                                            style="display:none"
+                                            style="opacity:0;cursor:auto" disabled
+                                        @else
+                                            href="{{route('cart.show')}}"
                                         @endif
                                         >
                                             <img src="{{ asset('frontend/images/tab_cart.png') }}" alt="" style="width: 21px;" />
