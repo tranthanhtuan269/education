@@ -125,13 +125,13 @@
                                                                                 id="payment-form">
                                                     @csrf
                             
-                                                    <!-- <div class='form-row row'>
+                                                    <div class='form-row row'>
                                                         <div class='col-xs-12 form-group required'>
                                                             <label class='control-label'>Tên in trên thẻ:</label> <input
                                                                 class='form-control' size='4' type='text' disabled>
                                                         </div>
                                                     </div>
- -->                            
+                          
                                                     <div class='form-row row'>
                                                         <div class='col-xs-12 form-group card required'>
                                                             <label class='control-label'>Số thẻ:</label> <input
@@ -294,7 +294,7 @@
                     // .removeClass('hide')
                     // .find('.alert')
                     // .text(response.error.message);
-                    if(status == 400){
+                    if(status == 400 && response.error.code == "missing_payment_information"){
                         Swal.fire({
                         type:"warning",
                         text:"Không thể tìm thấy thông tin thanh toán!"
@@ -302,10 +302,29 @@
                             $('button[type=submit]').removeAttr('disabled');
                         });    
                     }
-                    if(status == 402){
+
+                    if(response.error.code == "incorrect_number" || response.error.code == "invalid_number"){
                         Swal.fire({
                         type:"warning",
-                        text:"Tháng hoặc năm hết hạn thẻ của bạn không hợp lệ!"
+                        text:"Số tài khoản không đúng!"
+                        }).then((result) => {
+                            $('button[type=submit]').removeAttr('disabled');
+                        });    
+                    }
+
+                    if(status == 402 && response.error.code == "invalid_expiry_year"){
+                        Swal.fire({
+                        type:"warning",
+                        text:"Năm hết hạn thẻ của bạn không hợp lệ!"
+                        }).then((result) => {
+                            $('button[type=submit]').removeAttr('disabled');
+                        });    
+                    }
+
+                    if(status == 402 && response.error.code == "invalid_expiry_month"){
+                        Swal.fire({
+                        type:"warning",
+                        text:"Tháng hết hạn thẻ của bạn không hợp lệ!"
                         }).then((result) => {
                             $('button[type=submit]').removeAttr('disabled');
                         });    
