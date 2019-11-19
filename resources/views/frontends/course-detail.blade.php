@@ -840,8 +840,8 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                                 $(window).scroll(function() {
                                     var block_on = $('#benefit-course').position().top + $('#benifit-first').height() + 62 //Padding
                                     var block_below = $('.related-course').position().top - $('#sidebar-content').height() - 30 - 62 //Padding
-                                    if ($(window).scrollTop() >= block_on - 40) {
-                                        if($(window).scrollTop() <= block_below - 40){
+                                    if ($(window).scrollTop() >= block_on - 40 - 60) {
+                                        if($(window).scrollTop() <= block_below - 40 - 60){
                                             document.getElementById("sidebar-content").classList.add("sidebar-fixed");
                                             $("#sidebar-content").removeClass('sidebar-unfix').css('top', '');
                                         }else{
