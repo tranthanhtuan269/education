@@ -534,14 +534,22 @@ class UserController extends Controller
 
     public function facebookLogin(Request $request)
     {
-        $user = User::where('facebook_id', $request->facebook_id)->first();
+        $user = User::where('email', $request->email)->first();
 
         if($user){
-            if ($user->status == 0) {
-                return response()->json(['message' => 'Tài khoản của bạn đang bị khóa.', 'status' => 404]);
-            } elseif ($user->status == 1){
-                Auth::login($user, $request->get('remember'));
-                return response()->json(['message' => 'Ok', 'status' => 200]);
+            if($user->google_id == $request->facebook_id){
+                if ($user->status == 0) {
+                    return response()->json(['message' => 'Tài khoản của bạn đang bị khóa.', 'status' => 404]);
+                } else {
+                    Auth::login($user, $request->get('remember'));
+                    return response()->json(['message' => 'Ok', 'status' => 200]);
+                }
+            }else{
+                $user->facebook_id = $request->facebook_id;
+                $user->save();
+
+                Auth::login($user);
+                return \Response::json(array('status' => '200'));
             }
         }else{
             $user = new User;
