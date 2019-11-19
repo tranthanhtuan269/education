@@ -603,11 +603,6 @@
                                 <a href="#">Quên mật khẩu?</a>
                             </div> --}}
                         </div>
-                        @if($_SERVER['SERVER_NAME'] === "courdemy.vn")
-                        <hr>
-                        @include('components.facebook-login')
-                        @include('components.google-login')
-                        @endif
                     </div>
 
                     <div class="modal-footer">
