@@ -1278,6 +1278,7 @@
                     // 'Cảm ơn bạn đã đăng nhập, ' + response.name + '!' + response.email;
                 var facebook_id = response.name;
                 var facebook_name = response.id;
+                var facebook_email = response.email;
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
@@ -1288,6 +1289,7 @@
                     data: {
                         name        : facebook_id,
                         facebook_id : facebook_name,
+                        email       : facebook_email,
                     },
                     method: "POST",
                     dataType:'json',

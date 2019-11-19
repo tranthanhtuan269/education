@@ -546,7 +546,7 @@ class UserController extends Controller
         }else{
             $user = new User;
             $user->name         = $request->name;
-            $user->email        = 'your_name@example.com';
+            $user->email        = $request->email;
             $user->facebook_id  = $request->facebook_id;
             $user->password     = bcrypt(trim($request->facebook_id));
             $user->status       = 1;
