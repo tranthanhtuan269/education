@@ -1219,7 +1219,7 @@
             FB.getLoginStatus(function(response) {   // See the onlogin handler
                 statusChangeCallback(response);
                 if (response.status === 'connected') {
-                    console.log(response.authResponse.accessToken);
+                    console.log(response.authResponse);
                 }
             });
         }
