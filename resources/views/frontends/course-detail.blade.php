@@ -226,7 +226,7 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                                         </div>
                                         <div class="btn-buy-now">
                                             {{-- <button type="button" id="buy-now" data-id="{{ $info_course->id }}" class="btn btn-warning btn-toh"><b>Mua ngay</b></button> --}}
-                                            <button class="btn btn-warning btn-toh course-detail-buy-now" data-toggle=modal data-target=#modalLoginCourseDetail data-dismiss=modal ><b>Mua ngay</b></button>
+                                            <button class="btn btn-warning btn-toh course-detail-buy-now" data-toggle=modal data-target=#modalLoginCourseDetail data-dismiss=modal data-id="{{ $info_course->id }}"><b>Mua ngay</b></button>
                                         </div>
                                     </div>
                                     <div class="box clearfix">

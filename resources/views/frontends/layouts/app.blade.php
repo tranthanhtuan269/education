@@ -670,7 +670,10 @@
                     <div class="modal-footer">
                         <div class="link-to-sign-up">
                             <div>
-                                Bạn đã có tài khoản? <a href="javascript:void(0)" data-toggle="modal" data-target="#myModalLogin" data-dismiss="modal"><b>Đăng nhập</b></a>
+                                Bạn đã có tài khoản? 
+                                <span data-toggle="modal" data-target="#myModalLogin" data-dismiss="modal">
+                                    <a href=""><b>Đăng nhập</b></a>
+                                </span>
                             </div>
                         </div>
                     </div>
