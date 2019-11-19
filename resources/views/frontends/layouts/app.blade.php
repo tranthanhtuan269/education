@@ -1218,29 +1218,53 @@
         function checkLoginState() {               // Called when a person is finished with the Login Button.
             FB.getLoginStatus(function(response) {   // See the onlogin handler
                 statusChangeCallback(response);
+                if (response.status === 'connected') {
+                    console.log(response.authResponse.accessToken);
+                }
             });
         }
+
 
         window.fbAsyncInit = function() {
             FB.init({
-                appId      : '2474435149283816',
-                cookie     : true,                     // Enable cookies to allow the server to access the session.
-                xfbml      : true,                     // Parse social plugins on this webpage.
-                version    : '4.0'           // Use this Graph API version for this call.
+                appId      : '426138308059078',
+                cookie     : true,
+                xfbml      : true,
+                version    : '5.0'
             });
+            
+            FB.AppEvents.logPageView();   
+            
+        };
 
-            FB.getLoginStatus(function(response) {   // Called after the JS SDK has been initialized.
-                statusChangeCallback(response);        // Returns the login status.
-            });
-        }
-
-        (function(d, s, id) {                      // Load the SDK asynchronously
+        (function(d, s, id){
             var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
+            if (d.getElementById(id)) {return;}
             js = d.createElement(s); js.id = id;
             js.src = "https://connect.facebook.net/en_US/sdk.js";
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
+
+        // window.fbAsyncInit = function() {
+        //     FB.init({
+        //         appId      : '2474435149283816',
+        //         cookie     : true,                     // Enable cookies to allow the server to access the session.
+        //         xfbml      : true,                     // Parse social plugins on this webpage.
+        //         version    : '4.0'           // Use this Graph API version for this call.
+        //     });
+
+        //     FB.getLoginStatus(function(response) {   // Called after the JS SDK has been initialized.
+        //         statusChangeCallback(response);        // Returns the login status.
+        //     });
+        // }
+
+        // (function(d, s, id) {                      // Load the SDK asynchronously
+        //     var js, fjs = d.getElementsByTagName(s)[0];
+        //     if (d.getElementById(id)) return;
+        //     js = d.createElement(s); js.id = id;
+        //     js.src = "https://connect.facebook.net/en_US/sdk.js";
+        //     fjs.parentNode.insertBefore(js, fjs);
+        // }(document, 'script', 'facebook-jssdk'));
 
         function testAPI() {                      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
             // console.log('Welcome!  Fetching your information.... ');
