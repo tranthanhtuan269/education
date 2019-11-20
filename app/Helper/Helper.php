@@ -137,7 +137,7 @@ class Helper
         $t=time();
         $input = public_path('/uploads/videos/').$video;
         // $output = public_path('/uploads/videos_output/').$resolution.'/'.$video;
-        $output = "/usr/local/WowzaStreamingEngine-4.7.8/content/".$resolution.'/'.$video;
+        $output = "/usr/local/WowzaStreamingEngine/content/".$resolution.'/'.$video;
         $block_txt = public_path('/uploads/block_'.$t.'.txt');
 
         $format = 'mp4';
