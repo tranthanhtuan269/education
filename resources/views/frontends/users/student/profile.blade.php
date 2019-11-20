@@ -39,18 +39,21 @@
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="fas fa-lock fa-fw fa-md"></i></span>
                                                     <input type="password" class="form-control" placeholder="Mật khẩu hiện tại" name="pass-old">
+                                                    <div class="alert-validate password_old"></div>
                                                 </div>				
                                             </div>
                                             <div class="form-group">
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="fas fa-lock fa-fw fa-md"></i></span>
                                                     <input type="password" class="form-control" placeholder="Mật khẩu mới" name="pass-new">
+                                                    <div class="alert-validate password"></div>
                                                 </div>				
                                             </div>
                                             <div class="form-group">
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="fas fa-lock fa-fw fa-md"></i></span>
                                                     <input type="password" class="form-control" placeholder="Xác nhận mật khẩu mới" name="confirm-pass">
+                                                    <div class="alert-validate confirmpassword"></div>
                                                 </div>			
                                             </div>
                                             <div class="form-group">
@@ -154,6 +157,38 @@
     </div>
 </div>
 </div>
+
+<style>
+    .alert-validate .fa-exclamation{
+        color: #c80000;
+        font-size: 18px;
+        top: 50%;
+        transform: translateY(-50%);
+        top: 26px !important;
+        left: 510px !important;
+        z-index: 4;
+    }
+    .alert-validate .hover-alert{
+        display: none;
+        position: absolute;
+        max-width: 70%;
+        background-color: #fff;
+        border: 1px solid #c80000;
+        border-radius: 2px;
+        padding: 4px 25px 5px 10px;
+        top: 10px;
+        right: 12px;
+        color: #c80000;
+        font-size: 14px;
+        line-height: 1.4;
+        text-align: left;
+        z-index: 3;
+    }
+    .alert-validate:hover .hover-alert{
+        display: block;
+    }
+</style>
+
 <script src="{{ asset('frontend/js/dropzone.js') }}"></script>
 <script>
 $(document).ready(function() {
@@ -331,18 +366,11 @@ function changePassAjax() {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-    // console.log(data);
     $.ajax({
         method: "POST",
         url: '{{ url("user/change-pass-ajax") }}',
         data: data,
         dataType: 'json',
-        // beforeSend: function() {
-        //     $("#pre_ajax_loading").show();
-        // },
-        // complete: function() {
-        //     $("#pre_ajax_loading").hide();
-        // },
         success: function(response) {
             if (response.status == 200) {
                 Swal.fire({
@@ -363,14 +391,10 @@ function changePassAjax() {
         },
         error: function(error) {
             var obj_errors = error.responseJSON.errors;
-            // console.log(obj_errors)
-            var txt_errors = '';
-            for (k of Object.keys(obj_errors)) {
-                txt_errors += obj_errors[k][0] + '</br>';
-            }
-            Swal.fire({
-                type: 'warning',
-                html: txt_errors,
+            $('.alert-validate').html('')
+            $.each(obj_errors, function( index, value ) {
+                var content = '<i class="fas fa-exclamation fa-fw"></i><div class="hover-alert">'+ value +'</div>'
+                $('.alert-validate.' + index).html(content);
             })
         }
     });
