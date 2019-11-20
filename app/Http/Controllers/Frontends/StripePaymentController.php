@@ -45,8 +45,9 @@ class StripePaymentController extends Controller
     {
         try {
             $product_stripe = json_decode($request->product_stripe);
+            $checkSave = $request->default_check;
             $arr = [];
-            // dd($product_stripe);
+
             if (count($product_stripe) > 0) {
                 $total = 0;
                 foreach ($product_stripe as $key => $value) {
@@ -184,7 +185,26 @@ class StripePaymentController extends Controller
                 $current_user->coins = $current_user->coins - $total_price;
                 $current_user->save();
 
-            
+                if($checkSave != null){
+                    $info_payment = [
+                        'card_name' => $request->card_name,
+                        'card_number'=> $request->card_number,
+                        'card_cvc' => $request->card_cvc,
+                        'card_expiry_month' => $request->card_expiry_month,
+                        'card_expiry_year' => $request->card_expiry_year
+        
+                    ];
+
+                    $user = User::find(Auth::user()->id);
+                    $user->pay_stripe = json_encode($info_payment);
+                    $user->save();
+                }
+                else{
+                    $user = User::find(Auth::user()->id);
+                    $user->pay_stripe = null;
+                    $user->save();
+                }
+
                 Session::flash('success', 'Payment successful!');
                 return back();
             } else {
