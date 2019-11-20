@@ -884,7 +884,16 @@ class HomeController extends Controller
 
     public function proceedCheckout()
     {
-        return view('frontends.proceed-checkout');
+        if (\Auth::check()) {
+            $info_payment = Auth::user()->pay_stripe;
+            if ($info_payment != null) {
+                $info_payment = json_decode($info_payment);
+            }
+            // echo "<pre>";
+            // print_r($info_payment);die;
+            // dd($info_payment);
+            return view('frontends.proceed-checkout', compact('info_payment'));
+        }
     }
 
     public function fixDurationVideo(){
