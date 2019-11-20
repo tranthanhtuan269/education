@@ -1985,7 +1985,7 @@ ul.unica-acc-zone li.special:hover a {
 
 .show-password {
     position: absolute;
-    right: 45px;
+    right: 60px;
     z-index: 3;
 }
 
@@ -6239,4 +6239,34 @@ div[data-u="slides"] div div {
 
 #min-height .category-page {
     height: 250px;
+}
+
+/* Trinhnk: Alert modal */
+.alert-validate .fa-exclamation{
+    color: #c80000;
+    font-size: 18px;
+    transform: translateY(-50%);
+    top: 26px !important;
+    right: 12px !important;
+    left: auto !important;
+    z-index: 4;
+}
+.alert-validate .hover-alert{
+    display: none;
+    position: absolute;
+    max-width: 70%;
+    background-color: #fff;
+    border: 1px solid #c80000;
+    border-radius: 2px;
+    padding: 4px 25px 5px 10px;
+    top: 10px;
+    right: 12px;
+    color: #c80000;
+    font-size: 14px;
+    line-height: 1.4;
+    text-align: left;
+    z-index: 3;
+}
+.alert-validate:hover .hover-alert{
+    display: block;
 }

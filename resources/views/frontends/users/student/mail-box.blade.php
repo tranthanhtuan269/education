@@ -170,11 +170,15 @@
                                 $('.unica-sl-notify').css('display', 'none')
                             }
                             var note_number_student = parseInt($('.sl-notify-student b').text())
-                            if(note_number_student - 1 > 0){
+                            if( note_number_student - 1 > 0 ){
                                 $('.sl-notify-student b').text(note_number_student-1)
-                                $('.sl-notify-student-only b').text(note_number_student-1)
                             }else{
                                 $('.sl-notify-student').css('display', 'none')
+                            }
+                            var note_number_student_only = parseInt($('.sl-notify-student-only b').text())
+                            if ( note_number_student_only - 1 > 0 ){
+                                $('.sl-notify-student-only b').text(note_number_student_only-1)
+                            }else{
                                 $('.sl-notify-student-only').css('display', 'none')
                             }
                         }

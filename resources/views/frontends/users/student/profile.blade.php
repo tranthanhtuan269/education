@@ -39,18 +39,21 @@
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="fas fa-lock fa-fw fa-md"></i></span>
                                                     <input type="password" class="form-control" placeholder="Mật khẩu hiện tại" name="pass-old">
+                                                    <div class="alert-validate password_old"></div>
                                                 </div>				
                                             </div>
                                             <div class="form-group">
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="fas fa-lock fa-fw fa-md"></i></span>
                                                     <input type="password" class="form-control" placeholder="Mật khẩu mới" name="pass-new">
+                                                    <div class="alert-validate password"></div>
                                                 </div>				
                                             </div>
                                             <div class="form-group">
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="fas fa-lock fa-fw fa-md"></i></span>
                                                     <input type="password" class="form-control" placeholder="Xác nhận mật khẩu mới" name="confirm-pass">
+                                                    <div class="alert-validate confirmpassword"></div>
                                                 </div>			
                                             </div>
                                             <div class="form-group">
@@ -154,6 +157,7 @@
     </div>
 </div>
 </div>
+
 <script src="{{ asset('frontend/js/dropzone.js') }}"></script>
 <script>
 $(document).ready(function() {
@@ -164,6 +168,7 @@ $(document).ready(function() {
         e.preventDefault()
         $('#resetStudentChangePass').click()
         $('#myModalChangePass').modal("toggle")
+        $('.alert-validate').html('')
     })
 
     // p('#myModalChangePass').on('shown.bs.modal', function () {
@@ -314,7 +319,9 @@ $(document).ready(function() {
         }
     });
 });
-
+$('input[type=password]').click(function(){
+    $(this).css('z-index', 5)
+})
 function changePassAjax() {
     var data = {
         password_old: $('#myModalChangePass input[name=pass-old]').val(),
@@ -331,18 +338,11 @@ function changePassAjax() {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-    // console.log(data);
     $.ajax({
         method: "POST",
         url: '{{ url("user/change-pass-ajax") }}',
         data: data,
         dataType: 'json',
-        // beforeSend: function() {
-        //     $("#pre_ajax_loading").show();
-        // },
-        // complete: function() {
-        //     $("#pre_ajax_loading").hide();
-        // },
         success: function(response) {
             if (response.status == 200) {
                 Swal.fire({
@@ -363,14 +363,11 @@ function changePassAjax() {
         },
         error: function(error) {
             var obj_errors = error.responseJSON.errors;
-            // console.log(obj_errors)
-            var txt_errors = '';
-            for (k of Object.keys(obj_errors)) {
-                txt_errors += obj_errors[k][0] + '</br>';
-            }
-            Swal.fire({
-                type: 'warning',
-                html: txt_errors,
+            $('input[type=password]').css('z-index', 0)
+            $('.alert-validate').html('')
+            $.each(obj_errors, function( index, value ) {
+                var content = '<i class="fas fa-exclamation fa-fw"></i><div class="hover-alert">'+ value +'</div>'
+                $('.alert-validate.' + index).html(content);
             })
         }
     });

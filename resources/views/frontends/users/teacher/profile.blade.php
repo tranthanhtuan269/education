@@ -39,18 +39,21 @@
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="fas fa-lock fa-fw fa-md"></i></span>
                                                     <input type="password" class="form-control" placeholder="Mật khẩu hiện tại" name="pass-old">
+                                                    <div class="alert-validate password_old"></div>
                                                 </div>				
                                             </div>
                                             <div class="form-group">
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="fas fa-lock fa-fw fa-md"></i></span>
                                                     <input type="password" class="form-control" placeholder="Mật khẩu mới" name="pass-new">
+                                                    <div class="alert-validate password"></div>
                                                 </div>				
                                             </div>
                                             <div class="form-group">
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="fas fa-lock fa-fw fa-md"></i></span>
                                                     <input type="password" class="form-control" placeholder="Nhập lại mật khẩu mới" name="confirm-pass">
+                                                    <div class="alert-validate confirmpassword"></div>
                                                 </div>			
                                             </div>
                                             <div class="form-group">
@@ -199,6 +202,7 @@
             e.preventDefault()
             $('#resetTeacherChangePass').click()
             $('#myModalChangePass').modal("toggle")
+            $('.alert-validate').html('')
         })
         // alert(12345)
         ClassicEditor
@@ -434,6 +438,9 @@
         });
 
     });
+    $('input[type=password]').click(function(){
+        $(this).css('z-index', 5)
+    })
     function changePassAjax(){
         var data = {
             password_old        : $('#myModalChangePass input[name=pass-old]').val(),
@@ -479,16 +486,12 @@
                 }
             },
             error: function (error) {
-            
                 var obj_errors = error.responseJSON.errors;
-                // console.log(obj_errors)
-                var txt_errors = '';
-                for (k of Object.keys(obj_errors)) {
-                    txt_errors += obj_errors[k][0] + '</br>';
-                }
-                Swal.fire({
-                    type: 'warning',
-                    html: txt_errors,
+                $('input[type=password]').css('z-index', 0)
+                $('.alert-validate').html('')
+                $.each(obj_errors, function( index, value ) {
+                    var content = '<i class="fas fa-exclamation fa-fw"></i><div class="hover-alert">'+ value +'</div>'
+                    $('.alert-validate.' + index).html(content);
                 })
             }
         });
