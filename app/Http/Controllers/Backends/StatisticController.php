@@ -42,20 +42,22 @@ class StatisticController extends Controller {
             $query->whereIn('order_details.course_id', $course_id);
         }
 
-
         if( $datepicker_from != '') {
-            $datepicker_from = Helper::formatDate('d/m/Y', $datepicker_from, 'Y-m-d') . ' 00:00:00';;
-
-            if ($datepicker_to != '') {
-                $datepicker_to = Helper::formatDate('d/m/Y', $datepicker_to, 'Y-m-d') . ' 23:59:59';;
-            } else {
-                $datepicker_to = date('Y-m-d') . ' 23:59:59';
-            }
-            
-            $query->where(function($query_detail) use ($datepicker_from, $datepicker_to){
-                $query_detail->whereBetween('orders.created_at', [$datepicker_from, $datepicker_to]);
-            });
+            $datepicker_from = Helper::formatDate('d/m/Y', $datepicker_from, 'Y-m-d') . ' 00:00:00';
+        } else {
+            $datepicker_from = '1900-01-01 00:00:00';
         }
+
+        if ($datepicker_to != '') {
+            $datepicker_to = Helper::formatDate('d/m/Y', $datepicker_to, 'Y-m-d') . ' 23:59:59';
+        } else {
+            $datepicker_to = date('Y-m-d') . ' 23:59:59';
+        }
+        
+        $query->where(function($query_detail) use ($datepicker_from, $datepicker_to){
+            $query_detail->whereBetween('orders.created_at', [$datepicker_from, $datepicker_to]);
+        });
+      
 
         $query->selectRaw('orders.total_price, orders.id, orders.created_at, payments.name as payment_name')->groupBy('orders.id');
         

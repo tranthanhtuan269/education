@@ -23,7 +23,7 @@
                             <input class="form-control" type="text" id="datepicker_from" autocomplete="off"/>
                         </td>
                         <td>
-                            <label>đên ngày:</label>
+                            <label>Đến ngày:</label>
                             <input class="form-control" type="text" id="datepicker_to" autocomplete="off"/>
                         </td>
                         <td>
