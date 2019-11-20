@@ -24,43 +24,12 @@ Route::get('trinhnk', function( ){
 
 Route::get('delete/{course}', 'Frontends\HomeController@deleteCourse');
 
-Route::get('test2', function(){
-    \DB::table('categories')->where('id', '>', 128)->delete();
-    \DB::table('users')->where('id', '>', 333)->delete();
-    \DB::table('user_roles')->where('user_id', '>', 333)->delete();
+Route::get('test', function(){
+    dd(\Helper::putFilesToServerVideo(\App\Video::find(1)));
+    $connection = ssh2_connect('45.79.103.103', 22);
+    ssh2_auth_password($connection, 'root', 'TOHlinode@123');
 
-    $courses = \App\Course::get();
-
-    foreach($courses as $deleteCourse){
-        if($deleteCourse){
-            echo $deleteCourse->name . '<br/>';
-            flush();
-            if(!isset($deleteCourse->Lecturers()[0]->user)){
-                if($deleteCourse->units){
-                    foreach($deleteCourse->units as $unit){
-                        if($unit->videos){
-                            foreach($unit->videos as $video){
-                                $video->delete();
-                                \App\TempVideo::where("video_id", $video->id)->delete();
-                                \App\TempDocument::where("video_id", $video->id)->delete();
-                                \App\Document::where("video_id", $video->id)->delete();
-                            }
-                        }
-                        $unit->delete();
-                    }
-                }
-                \App\TempCourse::where("course_id", $deleteCourse->id)->delete();
-                \App\UserCourse::where("course_id", $deleteCourse)->delete();
-                $deleteCourse->delete();
-            }
-        }
-    }
-    $teachers = \App\Teacher::get();
-    foreach($teachers as $deleteTeacher){
-        if(!isset($deleteTeacher->userRole)){
-            $deleteTeacher->delete();
-        }
-    }
+    ssh2_scp_send($connection, '/var/www/html/unica/public/images/avatar.jpg', '/var/www/html/avatar.jpg', 0644);
 });
 
 Route::get('thay-state-video', function(){
@@ -336,7 +305,7 @@ Route::post('reviews/info', 'Backends\UserController@infoRoleUser');
 Route::post('/saveFileAjax', 'Frontends\HomeController@saveFileAjax');
 Route::get('duration', 'Frontends\HomeController@duration');
 Route::get('logout', 'Frontends\HomeController@logout');
-Route::get('test', 'Frontends\HomeController@test');
+// Route::get('test', 'Frontends\HomeController@test');
 Route::get('coming-soon', 'Frontends\HomeController@comingSoon')->name('coming-soon');
 Route::get('comments/see-more', 'Frontends\HomeController@seeMore')->name('see-more');
 

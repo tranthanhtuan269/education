@@ -137,7 +137,7 @@ class Helper
         $t=time();
         $input = public_path('/uploads/videos/').$video;
         // $output = public_path('/uploads/videos_output/').$resolution.'/'.$video;
-        $output = "/usr/local/WowzaStreamingEngine-4.7.7/content/".$resolution.'/'.$video;
+        $output = "/usr/local/WowzaStreamingEngine-4.7.8/content/".$resolution.'/'.$video;
         $block_txt = public_path('/uploads/block_'.$t.'.txt');
 
         $format = 'mp4';
@@ -228,6 +228,18 @@ class Helper
                     }
                 }
             }
+        }
+    }
+
+    public static function putFilesToServerVideo($video){
+        if($video){
+            $video_urls = json_decode($video->url_video, true);
+            foreach ($video_urls as $key => $video_url) {
+                $url = str_replace ( 'vod/_definst_', '/usr/local/WowzaStreamingEngine/content', $video_url);
+                $connection = ssh2_connect('45.79.103.103', 22);
+                ssh2_auth_password($connection, 'root', 'TOHlinode@123');
+                ssh2_scp_send($connection, $url, $url, 0644);
+            }  
         }
     }
 
