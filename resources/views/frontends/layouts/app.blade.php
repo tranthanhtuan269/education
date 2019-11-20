@@ -300,13 +300,15 @@
                                                 e.stopPropagation()
                                                 e.preventDefault()
                                                 $('#resetFormsLogin').click()
-                                                $("#myModalLogin").modal("toggle"); 
+                                                $("#myModalLogin").modal("toggle")
+                                                $('.alert-validate').html('')
                                             })
                                             $('.unica-reg-acc').click(function(e){
                                                 e.stopPropagation()
                                                 e.preventDefault()
                                                 $('#resetFormsSignup').click()
-                                                $("#myModalRegister").modal("toggle"); 
+                                                $("#myModalRegister").modal("toggle")
+                                                $('.alert-validate').html('')
                                             })
                                         </script>
                                         @endif
@@ -583,7 +585,7 @@
                             <div class="form-group">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fas fa-envelope fa-fw fa-md"></i></span>
-                                    <input type="t" class="form-control" name="email" placeholder="Email" required="required">
+                                    <input type="email" class="form-control" name="email" placeholder="Email" required="required" id="loginEmail">
                                     <div class="alert-validate login_email"></div>
                                 </div>
                             </div>
@@ -591,7 +593,7 @@
                                 <div class="input-group password-group">
                                     <span class="input-group-addon"><i class="fas fa-lock fa-fw fa-md"></i></span>
                                     <input type="password" class="form-control" name="pass" placeholder="Mật khẩu" required="required" id="showMyPassword">
-                                    <div class="show-password" onclick="showPassword()">
+                                    <div class="show-password" onclick="showPassword()"  style="z-index:6">
                                         <i class="fas fa-eye fa-fw fa-md" id="eye"></i>
                                         <!-- <i class="fas fa-eye-slash fa-fw fa-lg" style="display:none"></i> -->
                                     </div>
@@ -1021,6 +1023,13 @@
             }
         });
 
+        $('input[id=loginEmail]').click(function(){
+            $(this).css('z-index', 5)
+        })
+        $('input[id=showMyPassword]').click(function(){
+            $(this).css('z-index', 5)
+            $('.show-password').css('z-index', 6)
+        })
         function loginAjax(){
             var email = $('#myModalLogin input[name=email]').val();
             email = email.trim();
@@ -1062,6 +1071,9 @@
                 },
                 error: function (error) {
                     var obj_errors = error.responseJSON.errors;
+                    $('input[id=loginEmail]').css('z-index', 0)
+                    $('input[id=showMyPassword]').css('z-index', 0)
+                    $('.show-password').css('z-index', 1)
                     $('.alert-validate').html('')
                     $.each(obj_errors, function( index, value ) {
                         var content = '<i class="fas fa-exclamation fa-fw"></i><div class="hover-alert">'+ value +'</div>'
@@ -1073,6 +1085,9 @@
             return false;
         } 
 
+        $('#myModalRegister input').click(function(){
+            $(this).css('z-index', 5)
+        })
         function registerAjax(){
             var name = $('#myModalRegister input[name=name]').val();
             name = name.trim();
@@ -1130,6 +1145,7 @@
                 },
                 error: function (error) {             
                     var obj_errors = error.responseJSON.errors;
+                    $('#myModalRegister input').css('z-index', 0)
                     $('.alert-validate').html('')
                     $.each(obj_errors, function( index, value ) {
                         var content = '<i class="fas fa-exclamation fa-fw"></i><div class="hover-alert">'+ value +'</div>'

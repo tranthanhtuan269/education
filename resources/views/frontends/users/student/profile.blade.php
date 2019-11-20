@@ -168,6 +168,7 @@ $(document).ready(function() {
         e.preventDefault()
         $('#resetStudentChangePass').click()
         $('#myModalChangePass').modal("toggle")
+        $('.alert-validate').html('')
     })
 
     // p('#myModalChangePass').on('shown.bs.modal', function () {
