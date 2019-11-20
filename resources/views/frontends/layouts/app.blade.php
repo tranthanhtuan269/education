@@ -170,7 +170,7 @@
                                         @if (!Auth::user()->isAdmin())
                                             <a class="unica-cart"
                                             @if (\Request::is('cart'))
-                                                style="opacity:0;cursor:auto" disabled
+                                                style="opacity:0;cursor:auto;margin-left: -30px" disabled
                                             @else
                                                 href="{{route('cart.show')}}"
                                             @endif
