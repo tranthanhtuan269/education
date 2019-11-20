@@ -144,7 +144,7 @@ th {
 }
 
 #myModalRegister .modal-dialog,
-#myModalLogin .modal-dialog {
+#myModalLogin .modal-dialog,#modalLoginCourseDetail .modal-dialog{
     width: 450px;
 }
 
