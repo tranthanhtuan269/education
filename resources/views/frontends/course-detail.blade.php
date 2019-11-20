@@ -12,7 +12,7 @@
     @stop
 @else
     @section('fb_og_image')
-    http://45.56.82.249/frontend/images/{{ $info_course->image }}
+    https://courdemy.vn/frontend/images/{{ $info_course->image }}
     @stop
 @endif
 @section('fb_og_description')
@@ -25,7 +25,7 @@
 website
 @stop
 @section('fb_og_url')
-http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
+https://courdemy.vn/course/{{ $info_course->id }}/{{ $info_course->slug }}
 @stop
 
 @section('content')
