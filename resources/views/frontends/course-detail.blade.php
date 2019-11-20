@@ -929,7 +929,8 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
             e.preventDefault()
             $('#resetCourseDetailFormsLogin').click()
             $('#resetCourseDetailFormsSignup').click()
-            $("#modalLoginCourseDetail").modal("toggle"); 
+            $("#modalLoginCourseDetail").modal("toggle")
+            $('.alert-validate').html('')
         })
         $(window).scroll(function() {
             var barHeight = $(".interactive-bar").outerHeight()
@@ -955,24 +956,23 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                 <div class="modal-title"><b>Đăng nhập vào tài khoản Courdemy của bạn</b></div>
             </div>
             <div class="modal-body">
-                @if($_SERVER['SERVER_NAME'] === "courdemy.vn")
-                    @include('components.google-login')
-                @endif
                 <br/>
                 <form action="/examples/actions/confirmation.php" method="post">
                     <div class="form-group">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fas fa-envelope fa-fw fa-md"></i></span>
                             <input type="t" class="form-control" name="email" placeholder="Email" required="required">
+                            <div class="alert-validate login_email"></div>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="input-group password-group">
                             <span class="input-group-addon"><i class="fas fa-lock fa-fw fa-md"></i></span>
-                            <input type="password" class="form-control" name="pass" placeholder="Mật khẩu" required="required" id="showMyPassword">
-                            <div class="show-password" onclick="showPassword()">
+                            <input type="password" class="form-control" name="pass" placeholder="Mật khẩu" required="required" id="courseShowMyPassword">
+                            <div class="show-password" onclick="courseShowPassword()">
                                 <i class="fas fa-eye fa-fw fa-md" id="eye"></i>
                             </div>
+                            <div class="alert-validate login_password"></div>
                         </div>
                     </div>
                     <div class="form-group">
@@ -980,6 +980,11 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                     </div>
                     <input id="resetCourseDetailFormsLogin" type="reset" value="Reset the form" style="display:none">
                 </form>
+                @if($_SERVER['SERVER_NAME'] === "courdemy.vn")
+                    <hr>
+                    @include('components.facebook-login')
+                    @include('components.google-login')
+                @endif
             </div>
 
             <div class="modal-footer">
@@ -1005,24 +1010,28 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fas fa-user fa-lock fa-fw fa-md"></i></span>
                             <input type="text" class="form-control" name="name" placeholder="Tên của bạn" required="required">
+                            <div class="alert-validate name"></div>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fas fa-envelope fa-envelope fa-fw fa-md"></i></span>
                             <input type="email" class="form-control" name="email" placeholder="Email" required="required">
+                            <div class="alert-validate email"></div>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fas fa-lock fa-fw fa-md"></i></span>
                             <input type="password" class="form-control" name="pass" placeholder="Mật khẩu" required="required">
+                            <div class="alert-validate password"></div>
                         </div>				
                     </div>
                     <div class="form-group">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fas fa-lock fa-fw fa-md"></i></span>
                             <input type="password" class="form-control" name="confirmpass" placeholder="Nhập lại mật khẩu" required="required">
+                            <div class="alert-validate confirmpassword"></div>
                         </div>				
                     </div>
                     {{-- <div class="terms-and-policy">
@@ -1442,14 +1451,35 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
         }
     });
 
+    // Show Password
+    var flag = 1;
+    function courseShowPassword() {
+        var x = document.getElementById("courseShowMyPassword");
+        if (x.type === "password") {
+            x.type = "text";
+            flag = 1;
+            $('#eye').removeClass('fa-eye')
+            $('#eye').addClass('fa-eye-slash')
+        } else {
+            x.type = "password";
+            flag = 0;
+            $('#eye').removeClass('fa-eye-slash')
+            $('#eye').addClass('fa-eye')
+        }
+    }
+
+    $('#modalLoginCourseDetail input').click(function(){
+        $(this).css('z-index', 5)
+        $('.show-password').css('z-index', 6)
+    })
     function loginCourseDetailAjax(){
         var email = $('#modalLoginCourseDetail input[name=email]').val();
         email = email.trim();
         var password = $('#modalLoginCourseDetail input[name=pass]').val();
         var remember = $('#modalLoginCourseDetail input[name=remember]').prop('checked');
         var data = {
-            email:email,
-            password: password,
+            login_email     : email,
+            login_password  : password,
             remember: remember,
         };
         $.ajaxSetup(
@@ -1476,19 +1506,21 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
             },
             error: function (error) {
                 var obj_errors = error.responseJSON.errors;
-                var txt_errors = '';
-                for (k of Object.keys(obj_errors)) {
-                    txt_errors += obj_errors[k][0] + '</br>';
-                }
-                Swal.fire({
-                    type: 'warning',
-                    html: txt_errors,
+                $('#modalLoginCourseDetail input').css('z-index', 0)
+                $('.show-password').css('z-index', 1)
+                $('.alert-validate').html('')
+                $.each(obj_errors, function( index, value ) {
+                    var content = '<i class="fas fa-exclamation fa-fw"></i><div class="hover-alert">'+ value +'</div>'
+                    $('.alert-validate.' + index).html(content);
                 })
             }
         });
         return false;
     }
-    
+
+    $('#modalRegisterCourseDetail input').click(function(){
+        $(this).css('z-index', 5)
+    })
     function registerCourseDetailAjax(){
         var name = $('#modalRegisterCourseDetail input[name=name]').val();
         name = name.trim();
@@ -1533,13 +1565,11 @@ http://45.56.82.249/course/{{ $info_course->id }}/{{ $info_course->slug }}
             },
             error: function (error) {             
                 var obj_errors = error.responseJSON.errors;
-                var txt_errors = '';
-                for (k of Object.keys(obj_errors)) {
-                    txt_errors += obj_errors[k][0] + '</br>';
-                }
-                Swal.fire({
-                    type: 'warning',
-                    html: txt_errors,
+                $('#modalRegisterCourseDetail input').css('z-index', 0)
+                $('.alert-validate').html('')
+                $.each(obj_errors, function( index, value ) {
+                    var content = '<i class="fas fa-exclamation fa-fw"></i><div class="hover-alert">'+ value +'</div>'
+                    $('.alert-validate.' + index).html(content);
                 })
             }
         });

@@ -10,13 +10,13 @@
     Đăng nhập với Google
 </div> --}}
 
-<div class="g-signin2" data-onsuccess="onSignIn" id="button-signin-gg" data-width="398" data-height="45"
+<div class="g-signin2" data-onsuccess="onSignIn" id="button-signin-gg" data-height="45"
 data-longtitle="true" data-title="Đăng nhập với Google">
     Đăng nhập với Google
 </div>
 <style>
-    .g-signin2{
-        width: 100%;
+    .g-signin2 .abcRioButtonLightBlue{
+        width: auto !important;
     }
 </style>
 <script>

@@ -1023,10 +1023,7 @@
             }
         });
 
-        $('input[id=loginEmail]').click(function(){
-            $(this).css('z-index', 5)
-        })
-        $('input[id=showMyPassword]').click(function(){
+        $('#myModalLogin input').click(function(){
             $(this).css('z-index', 5)
             $('.show-password').css('z-index', 6)
         })
@@ -1072,7 +1069,7 @@
                 error: function (error) {
                     var obj_errors = error.responseJSON.errors;
                     $('input[id=loginEmail]').css('z-index', 0)
-                    $('input[id=showMyPassword]').css('z-index', 0)
+                    $('#myModalLogin input').css('z-index', 0)
                     $('.show-password').css('z-index', 1)
                     $('.alert-validate').html('')
                     $.each(obj_errors, function( index, value ) {
