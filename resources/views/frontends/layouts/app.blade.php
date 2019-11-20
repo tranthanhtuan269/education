@@ -584,6 +584,7 @@
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fas fa-envelope fa-fw fa-md"></i></span>
                                     <input type="t" class="form-control" name="email" placeholder="Email" required="required">
+                                    <div class="alert-validate login_email"></div>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -594,6 +595,7 @@
                                         <i class="fas fa-eye fa-fw fa-md" id="eye"></i>
                                         <!-- <i class="fas fa-eye-slash fa-fw fa-lg" style="display:none"></i> -->
                                     </div>
+                                    <div class="alert-validate login_password"></div>
                                 </div>
                                 <!-- <div><input type="checkbox" onclick="showPassword()"> Hiển thị mật khẩu</div> -->
                             </div>
@@ -641,24 +643,28 @@
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fas fa-user fa-lock fa-fw fa-md"></i></span>
                                     <input type="text" class="form-control" name="name" placeholder="Tên của bạn" required="required">
+                                    <div class="alert-validate name"></div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fas fa-envelope fa-envelope fa-fw fa-md"></i></span>
                                     <input type="email" class="form-control" name="email" placeholder="Email" required="required">
+                                    <div class="alert-validate email"></div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fas fa-lock fa-fw fa-md"></i></span>
                                     <input type="password" class="form-control" name="pass" placeholder="Mật khẩu" required="required">
+                                    <div class="alert-validate password"></div>
                                 </div>				
                             </div>
                             <div class="form-group">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fas fa-lock fa-fw fa-md"></i></span>
                                     <input type="password" class="form-control" name="confirmpass" placeholder="Nhập lại mật khẩu" required="required">
+                                    <div class="alert-validate confirmpassword"></div>
                                 </div>				
                             </div>
                             {{-- <div class="terms-and-policy">
@@ -1021,8 +1027,8 @@
             var password = $('#myModalLogin input[name=pass]').val();
             var remember = $('#myModalLogin input[name=remember]').prop('checked');
             var data = {
-                email:email,
-                password: password,
+                login_email:email,
+                login_password: password,
                 remember: remember,
             };
             $.ajaxSetup(
@@ -1055,16 +1061,11 @@
                     }
                 },
                 error: function (error) {
-
                     var obj_errors = error.responseJSON.errors;
-                    // console.log(obj_errors)
-                    var txt_errors = '';
-                    for (k of Object.keys(obj_errors)) {
-                        txt_errors += obj_errors[k][0] + '</br>';
-                    }
-                    Swal.fire({
-                        type: 'warning',
-                        html: txt_errors,
+                    $('.alert-validate').html('')
+                    $.each(obj_errors, function( index, value ) {
+                        var content = '<i class="fas fa-exclamation fa-fw"></i><div class="hover-alert">'+ value +'</div>'
+                        $('.alert-validate.' + index).html(content);
                     })
                 }
             });
@@ -1129,14 +1130,10 @@
                 },
                 error: function (error) {             
                     var obj_errors = error.responseJSON.errors;
-                    // console.log(obj_errors)
-                    var txt_errors = '';
-                    for (k of Object.keys(obj_errors)) {
-                        txt_errors += obj_errors[k][0] + '</br>';
-                    }
-                    Swal.fire({
-                        type: 'warning',
-                        html: txt_errors,
+                    $('.alert-validate').html('')
+                    $.each(obj_errors, function( index, value ) {
+                        var content = '<i class="fas fa-exclamation fa-fw"></i><div class="hover-alert">'+ value +'</div>'
+                        $('.alert-validate.' + index).html(content);
                     })
                 }
             });

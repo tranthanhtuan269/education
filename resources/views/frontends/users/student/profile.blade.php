@@ -158,37 +158,6 @@
 </div>
 </div>
 
-<style>
-    .alert-validate .fa-exclamation{
-        color: #c80000;
-        font-size: 18px;
-        top: 50%;
-        transform: translateY(-50%);
-        top: 26px !important;
-        left: 510px !important;
-        z-index: 4;
-    }
-    .alert-validate .hover-alert{
-        display: none;
-        position: absolute;
-        max-width: 70%;
-        background-color: #fff;
-        border: 1px solid #c80000;
-        border-radius: 2px;
-        padding: 4px 25px 5px 10px;
-        top: 10px;
-        right: 12px;
-        color: #c80000;
-        font-size: 14px;
-        line-height: 1.4;
-        text-align: left;
-        z-index: 3;
-    }
-    .alert-validate:hover .hover-alert{
-        display: block;
-    }
-</style>
-
 <script src="{{ asset('frontend/js/dropzone.js') }}"></script>
 <script>
 $(document).ready(function() {
@@ -349,7 +318,9 @@ $(document).ready(function() {
         }
     });
 });
-
+$('input[type=password]').click(function(){
+    $(this).css('z-index', 5)
+})
 function changePassAjax() {
     var data = {
         password_old: $('#myModalChangePass input[name=pass-old]').val(),
@@ -391,6 +362,7 @@ function changePassAjax() {
         },
         error: function(error) {
             var obj_errors = error.responseJSON.errors;
+            $('input[type=password]').css('z-index', 0)
             $('.alert-validate').html('')
             $.each(obj_errors, function( index, value ) {
                 var content = '<i class="fas fa-exclamation fa-fw"></i><div class="hover-alert">'+ value +'</div>'

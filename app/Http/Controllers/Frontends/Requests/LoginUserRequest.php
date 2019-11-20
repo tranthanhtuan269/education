@@ -22,18 +22,18 @@ class LoginUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'email'             => 'required|regex_email:"/^[_a-zA-Z0-9-]{2,}+(\.[_a-zA-Z0-9-]{2,}+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,3})$/"',
-            'password'          => 'required',
+            'login_email'             => 'required|regex_email:"/^[_a-zA-Z0-9-]{2,}+(\.[_a-zA-Z0-9-]{2,}+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,3})$/"',
+            'login_password'          => 'required',
         ];
     }
 
     public function messages()
     {
         return [
-            'email.required'            => 'Bạn chưa nhập địa chỉ Email.',
-            'email.regex_email'         => 'Địa chỉ Email không tồn tại.',
+            'login_email.required'            => 'Bạn chưa nhập địa chỉ Email.',
+            'login_email.regex_email'         => 'Địa chỉ Email không tồn tại.',
 
-            'password.required'         => 'Bạn chưa nhập Mật khẩu.',
+            'login_password.required'         => 'Bạn chưa nhập Mật khẩu.',
         ];
     }
 }
