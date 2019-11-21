@@ -215,7 +215,8 @@
                 var curr_video_intro = $(this).parent().parent().attr('data-video')
 
                 $('#showVideoIntroModal').modal('show');
-                $("#video-view").attr('src', `http://45.56.82.249/uploads/videos/${curr_video_intro}`)
+                // $("#video-view").attr('src', `http://45.56.82.249/uploads/videos/${curr_video_intro}`)
+                $("#video-view").attr('src', `https://courdemy.vn/uploads/videos/${curr_video_intro}`)
             })
 
             $('.accept-video').off('click')

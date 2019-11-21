@@ -170,7 +170,7 @@
                                         @if (!Auth::user()->isAdmin())
                                             <a class="unica-cart"
                                             @if (\Request::is('cart'))
-                                                style="opacity:0;cursor:auto" disabled
+                                                style="opacity:0;cursor:auto;margin-left: -30px" disabled
                                             @else
                                                 href="{{route('cart.show')}}"
                                             @endif
@@ -334,7 +334,7 @@
                                         @endif
                                     @endif
                                 @endforeach
-                                <li class="main-menu-item-1" id="addMenu">
+                                <li class="main-menu-item" id="addMenu" style="float:right">
                                     <a href="javascript:void(0)"><i class="fas fa-ellipsis-h"></i> Thêm</a>
                                     <ul class="sub-menu menu-them" id='menuThem'>
                                         @foreach($category_fixed as $key=>$cat)
@@ -356,23 +356,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <script>
-                            $(document).ready(function(){
-                                var mainmenugroupWidth = $('.container').width();
-                                var count = 0;
-                                $.each($('.main-menu-item'), function( index, value ) {
-                                    count++;
-                                    mainmenugroupWidth -= $(value).width();
-                                });
-                                mainmenugroupWidth -= mainmenugroupWidth - 74.86;
-                                mainmenugroupMargin = mainmenugroupWidth / (count - 1);
-                                $('.main-menu-item').css('margin-right', mainmenugroupMargin);
-                                $('.main-menu-item:last-child').css('margin-right', -1);
 
-                                var menuthem = $('#addMenu').width() - 250;
-                                $('#menuThem').css('left', menuthem);
-                            })
-                        </script>
                         <style>
                             .unica-home-menutop .nav>li{
                                 float: left;
@@ -640,7 +624,7 @@
                         <div class="modal-title"><b>Tạo tài khoản mới</b></div>
                     </div>
                     <div class="modal-body">
-                        <form action="/examples/actions/confirmation.php" method="post">
+                        <form action="/examples/actions/confirmation.php" method="post" autocomplete="off">
                             <div class="form-group">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fas fa-user fa-lock fa-fw fa-md"></i></span>
@@ -651,7 +635,7 @@
                             <div class="form-group">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fas fa-envelope fa-envelope fa-fw fa-md"></i></span>
-                                    <input type="email" class="form-control" name="email" placeholder="Email" required="required">
+                                    <input type="email" class="form-control" name="email" autocomplete="none" placeholder="Email" required="required">
                                     <div class="alert-validate email"></div>
                                 </div>
                             </div>
@@ -1081,7 +1065,10 @@
 
             return false;
         } 
-
+        $('#myModalRegister').on('shown.bs.modal', function (e) {
+            $("input[type=email]").val('');
+            $("input[type=password]").val('')
+        })
         $('#myModalRegister input').click(function(){
             $(this).css('z-index', 5)
         })
@@ -1396,5 +1383,30 @@
     </style>
     @endif
 @endif
+
+    <script>
+        $(document).ready(function(){
+            var mainmenugroupWidth = $('.main-menu-group').width();
+            var count = 0;
+            
+            $.each($('.main-menu-item'), function( index, value ) {
+                count++;
+                mainmenugroupWidth -= $(value).width();
+                if(index == 7 && $(value).width() < 70){
+                    mainmenugroupWidth -= 5;
+                }
+            });
+
+
+            mainmenugroupMargin = mainmenugroupWidth / (count - 1);
+        
+            $('.main-menu-item').css('margin-right', mainmenugroupMargin - 2);
+            $("ul.main-menu-group li:nth-child("+ (count - 1) +")").css('margin-right', '0');
+            $('.main-menu-item:last-child').css('margin-right', -1);
+
+            var menuthem = $('#addMenu').width() - 250;
+            $('#menuThem').css('left', menuthem);
+        })
+    </script>
 </body>
 </html>

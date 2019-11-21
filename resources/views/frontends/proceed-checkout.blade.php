@@ -23,9 +23,11 @@
     <div class="row">
         <div class="container">
             <h2>Chọn hình thức thanh toán</h2>
+            
             <div class="row">
                 <div class="col-md-9">
                     <div class="payment-method">
+                        @if(false)
                         <div class="momo">
                             {{-- <div class="form-check">
                                 <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
@@ -71,10 +73,11 @@
                             </div>
                         </div>
                         <hr>
+                        @endif
                         <div class="international-card">
                             <div class="card-info">
                                 <div class="header form-check">
-                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
+                                    @if(false)<input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">@endif
                                     <label class="form-check-label" for="exampleRadios3">Thanh toán bằng thẻ quốc tế VISA, MASTERCARD, JCB</label>
                                     {{-- <input type="radio" name="otpradio" id="">
                                     <span class="label-title">Thanh toán bằng thẻ quốc tế VISA, MASTERCARD, JCB</span> --}}
@@ -95,6 +98,8 @@
                                         </li>
                                     </ul>
                                 </div> -->
+
+                             
                                 <div class="row" id="pay-stripe" >
                                     <div class="col-md-11">
                                         <div class="panel panel-default credit-card-box">
@@ -118,7 +123,7 @@
                                                         })
                                                     </script>
                                                 @endif
-                            
+                                               
                                                 <form role="form" action="{{ route('stripe.post') }}" method="post" class="require-validation"
                                                                                 data-cc-on-file="false"
                                                                                 data-stripe-publishable-key="{{ env('STRIPE_KEY') }}"
@@ -128,33 +133,37 @@
                                                     <div class='form-row row'>
                                                         <div class='col-xs-12 form-group required'>
                                                             <label class='control-label'>Tên in trên thẻ:</label> <input
-                                                                class='form-control' size='4' type='text' disabled>
+                                                                class='form-control' name='card_name' size='4' type='text' 
+                                                                value='{{  is_object($info_payment) ? $info_payment->card_name : "" }}' disabled>
                                                         </div>
                                                     </div>
                           
                                                     <div class='form-row row'>
                                                         <div class='col-xs-12 form-group card required'>
                                                             <label class='control-label'>Số thẻ:</label> <input
-                                                                autocomplete='off' class='form-control card-number' size='20'
-                                                                type='text' disabled>
+                                                                autocomplete='off' name='card_number' class='form-control card-number' size='20'
+                                                                type='text' value='{{ is_object($info_payment) ? $info_payment->card_number : "" }}' disabled>
                                                         </div>
                                                     </div>
                             
                                                     <div class='form-row row'>
                                                         <div class='col-xs-12 col-md-4 form-group cvc required'>
                                                             <label class='control-label'>CVC:</label> <input autocomplete='off'
-                                                                class='form-control card-cvc' placeholder='ex. 311' size='4'
-                                                                type='text' disabled>
+                                                                name='card_cvc' class='form-control card-cvc' placeholder='ex. 311' size='4'
+                                                                type='text' 
+                                                                value='{{ is_object($info_payment) ? $info_payment->card_cvc : "" }}' disabled>
                                                         </div>
                                                         <div class='col-xs-12 col-md-4 form-group expiration required'>
                                                             <label class='control-label'>Tháng hết hạn:</label> <input
                                                                 class='form-control card-expiry-month' placeholder='MM' size='2'
-                                                                type='text' disabled>
+                                                                name='card_expiry_month' type='text' 
+                                                                value='{{ is_object($info_payment) ? $info_payment->card_expiry_month : "" }}' disabled>
                                                         </div>
                                                         <div class='col-xs-12 col-md-4 form-group expiration required'>
                                                             <label class='control-label'>Năm hết hạn:</label> <input
                                                                 class='form-control card-expiry-year' placeholder='YYYY' size='4'
-                                                                type='text' disabled>
+                                                                name='card_expiry_year' type='text' 
+                                                                value='{{ is_object($info_payment) ? $info_payment->card_expiry_year : ""}}' disabled>
                                                         </div>
                                                     </div>
                             
@@ -163,25 +172,23 @@
                                                             <div class='alert-danger alert'>Please correct the errors and try
                                                                 again.</div>
                                                         </div>
-                                                    </div>
- -->                            
+                                                    </div> -->
                                                     <div class="row">
                                                         <div class="col-xs-12">
                                                             <button class="btn btn-primary btn-lg btn-block" type="submit" id="stripeSubmit" disabled>Thanh toán (<span id='price-pay-now'></span>)</button>
                                                             <input type="hidden" name="product_stripe">
                                                         </div>
                                                     </div>
-                                                    
+                                                    <br>
+                                                    <div class="blockform-check">
+                                                        <input class="form-check-input" type="checkbox" value="1" name="default_check" @if (is_object($info_payment)) checked @endif disabled>
+                                                        <label class="form-check-label" for="defaultCheck1" >Lưu và bảo mật cho lần thanh toán sau</label>
+                                                    </div>
                                                 </form>
                                             </div>
                                         </div>        
                                     </div>
                                 </div>
-
-                                <!-- <div class="blockform-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                                    <label class="form-check-label" for="defaultCheck1" disabled>Lưu và bảo mật cho lần thanh toán sau</label>
-                                </div> -->
                             </div>
                             <div class="img-card">
                                 <img src="/frontend/images/banks/ic_card_demo.png" alt="ATM card" title="ATM card" id="atm-card">
@@ -261,7 +268,7 @@
                 $errorMessage = $form.find('div.error'),
                 valid = true;
             $errorMessage.addClass('hide');
-
+            console.log($form);
             $('.has-error').removeClass('has-error');
             $inputs.each(function(i, el) {
                 var $input = $(el);
@@ -329,6 +336,14 @@
                             $('button[type=submit]').removeAttr('disabled');
                         });    
                     }
+                    if( response.error.code == "invalid_cvc"){
+                        Swal.fire({
+                        type:"warning",
+                        text:"Mã bảo mật của thẻ của bạn không hợp lệ!"
+                        }).then((result) => {
+                            $('button[type=submit]').removeAttr('disabled');
+                        });    
+                    }
                     
 
                     $(".ajax_waiting").removeClass("loading");
@@ -347,14 +362,17 @@
     $('#exampleRadios3').click(function(){
         $("input[type=text]").removeAttr('disabled');
         $('button[type=submit]').removeAttr('disabled');
+        $('input[type=checkbox]').removeAttr('disabled');        
     });
     $('#exampleRadios2').click(function(){
         $("input[type=text]").prop('disabled', true);
         $('button[type=submit]').prop('disabled', true);
+        $('input[type=checkbox]').prop('disabled', true);  
     });
     $('#exampleRadios1').click(function(){
         $("input[type=text]").prop('disabled', true);
         $('button[type=submit]').prop('disabled', true);
+        $('input[type=checkbox]').prop('disabled', true);  
     });
 
     var user_id = $('button[id=cartUserId]').attr('data-user-id')

@@ -113,9 +113,7 @@ class AppServiceProvider extends ServiceProvider
                     $video->state = \Config::get('app.video_active');
                     $video->save();
                 }
-
-                Helper::reSortIndexVideoOfCourse($video->unit->course->id);
-
+                
                 $course = $video->unit->course;
                 if ( $course ){
                     if ($course->userRoles->first()){
@@ -135,6 +133,10 @@ class AppServiceProvider extends ServiceProvider
                         }
                     }
                 }      
+
+                Helper::reSortIndexVideoOfCourse($video->unit->course->id);
+                Helper::putFilesToServerVideo($video);
+
             }
 
             if($event->job->resolveName() == "App\Jobs\ProcessLectureEdit1080"){
@@ -217,6 +219,8 @@ class AppServiceProvider extends ServiceProvider
                         }
                     }
                 }  
+                
+                Helper::putFilesToServerVideo($video);
             }
         });
     }
