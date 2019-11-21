@@ -72,7 +72,7 @@
                     </span>
                     <br>
                 </div>
-                <div class="progress col-xs-6">
+                <div class="progress col-xs-6" style="padding:0">
                     <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{$video_done_percent}}" aria-valuemin="0" aria-valuemax="100" style="width: {{$video_done_percent}}%;">
                             {{$video_done_percent}}%
                     </div>
