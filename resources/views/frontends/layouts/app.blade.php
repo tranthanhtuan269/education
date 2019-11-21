@@ -624,7 +624,7 @@
                         <div class="modal-title"><b>Tạo tài khoản mới</b></div>
                     </div>
                     <div class="modal-body">
-                        <form action="/examples/actions/confirmation.php" method="post">
+                        <form action="/examples/actions/confirmation.php" method="post" autocomplete="off">
                             <div class="form-group">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fas fa-user fa-lock fa-fw fa-md"></i></span>
@@ -635,7 +635,7 @@
                             <div class="form-group">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fas fa-envelope fa-envelope fa-fw fa-md"></i></span>
-                                    <input type="email" class="form-control" name="email" placeholder="Email" required="required">
+                                    <input type="email" class="form-control" name="email" autocomplete="none" placeholder="Email" required="required">
                                     <div class="alert-validate email"></div>
                                 </div>
                             </div>
@@ -1065,7 +1065,10 @@
 
             return false;
         } 
-
+        $('#myModalRegister').on('shown.bs.modal', function (e) {
+            $("input[type=email]").val('');
+            $("input[type=password]").val('')
+        })
         $('#myModalRegister input').click(function(){
             $(this).css('z-index', 5)
         })
