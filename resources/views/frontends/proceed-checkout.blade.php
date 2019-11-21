@@ -175,7 +175,7 @@
                                                     </div> -->
                                                     <div class="row">
                                                         <div class="col-xs-12">
-                                                            <button class="btn btn-primary btn-lg btn-block" type="submit" id="stripeSubmit" disabled>Thanh toán (<span id='price-pay-now'></span>)</button>
+                                                            <button class="btn btn-primary btn-lg btn-block" type="submit" id="stripeSubmit">Thanh toán (<span id='price-pay-now'></span>)</button>
                                                             <input type="hidden" name="product_stripe">
                                                         </div>
                                                     </div>
