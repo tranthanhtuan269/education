@@ -47,44 +47,12 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-sm-6">
-                                            <div class="form-group">
-                                                <label>Tên đầy đủ</label>
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control" name="name" value="{{ Auth::check() ? Auth::user()->name : '' }}">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Email</label>
-                                                <div class="form-group">
-                                                    <input type="email" class="form-control" name="email" value="{{ Auth::check() ? Auth::user()->email : '' }}" {{ Auth::check() ? 'disabled' : '' }}>
-
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Số điện thoại</label>
-                                                <div class="form-group">
-                                                    <input type="number" class="form-control" name="phone" value="{{ Auth::check() ? Auth::user()->phone : '' }}">
-
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Ngày sinh</label>
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control"  id="datepicker" name="birthday"  pattern="\d{1,2}/\d{1,2}/\d{4}" value="{{ Auth::check() ?  (Auth::user()->birthday != '') ? Helper::formatDate('Y-m-d', Auth::user()->birthday, 'd/m/Y') : '' :'' }}" autocomplete="off">
-                                                    <script>
-                                                        $(function() {
-                                                        $( "#datepicker" ).datepicker({
-                                                                changeMonth: true,
-                                                                changeYear: true,
-                                                                yearRange: "1950:2020",
-                                                                dateFormat: 'dd/mm/yy',
-                                                                maxDate: new Date(),
-                                                            }	
-                                                        );
-                                                        });
-                                                    </script>
-                                                </div>
-                                            </div>
+                                            {!! \App\Helper\Helper::insertInputForm('text', 'name', 'Tên đầy đủ', Auth::user()->name, 'name') !!}
+                                            <?php $user_email = Auth::check() ? Auth::user()->email : ''; ?>
+                                            {!! \App\Helper\Helper::insertInputForm('email', 'email', 'Email', $user_email, 'email', 'disabled') !!}
+                                            {!! \App\Helper\Helper::insertInputForm('number', 'phone', 'Số điện thoại', Auth::user()->phone, 'phone') !!}
+                                            <?php $birthday=Auth::check() ?  (Auth::user()->birthday != '') ? Helper::formatDate('Y-m-d', Auth::user()->birthday, 'd/m/Y') : '' :'' ; ?>
+                                            {!! \App\Helper\Helper::insertInputForm('text', 'birthday', 'Ngày sinh', $birthday, 'birthday', 'id="datepicker" pattern="\d{1,2}/\d{1,2}/\d{4}" autocomplete="off"') !!}
                                             <div class="form-group">
                                                 <label>Giới tính</label>
                                                 <div class="form-group">
@@ -95,44 +63,28 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label>Địa chỉ</label>
-                                                <div class="form-group">
-                                                    <textarea class="form-control" rows="2" cols="50" name="address">{{ Auth::check() ? Auth::user()->address : '' }}</textarea>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Facebook</label>
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control" name="facebook" id="FacebookUrl" value="@if(Auth::user()){{Auth::user()->facebook}}@endif">
-                                                    <br><p id="warningFacebookIntro"></p>
-                                                </div>
-                                            </div>
+                                            {!! \App\Helper\Helper::insertTextareaForm('Địa chỉ', '2', '50', 'address', Auth::user()->address, 'address') !!}
+                                            {!! \App\Helper\Helper::insertInputForm('text', 'facebook', 'Facebook', Auth::user()->facebook, 'facebook') !!}
                                         </div>
                                         <div class="col-md-6 col-sm-6">
-                                            <div class="form-group">
+                                            <div class="form-group form-html">
                                                 <label>Chuyên môn</label>
                                                 <div class="form-group">
                                                     <input type="text" class="form-control" name="expert" value="">
                                                     <p id="boxCharacterCount">Số ký tự: <b><span id="count-character">0</span>/55</b>. (Tối đa 55 ký tự)</p>
                                                 </div>
+                                                <div class="form-html-validate expert"></div>
                                             </div>
-                                            <div class="form-group">
+                                            <script src="https://cdn.ckeditor.com/ckeditor5/12.1.0/classic/ckeditor.js"></script>
+                                            <div class="form-group form-html">
                                                 <label>CV</label>
                                                 <div class="form-group">
-                                                    <script src="https://cdn.ckeditor.com/ckeditor5/12.1.0/classic/ckeditor.js"></script>
                                                     <textarea id="editor-cv" class="form-control textarea-cv" rows="6" cols="50" name="cv"></textarea>
                                                     <p>Số từ: <b><span id="wordCount">0</span>/700</b> từ. (Tối thiểu 30 từ, tối đa 700 từ)</p>
                                                 </div>
+                                                <div class="form-html-validate cv"></div>
                                             </div>
-                                            <div class="form-group">
-                                                <label>Video giới thiệu</label>
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control" name="video-intro" placeholder="Yêu cầu link Youtube" value="" id="YoutubeUrl">
-                                                    <br><p id="warningVideoIntro"></p>
-                                                    <!-- <iframe id="videoObject" type="text/html" width="500" height="265" frameborder="0" allowfullscreen></iframe> -->
-                                                </div>
-                                            </div>
+                                            {!! \App\Helper\Helper::insertInputForm('text', 'video-intro', 'Video giới thiệu', '', 'video_intro', 'id="YoutubeUrl" placeholder="Yêu cầu link Youtube"') !!}
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group text-center" style="padding-top: 5px;">
@@ -196,32 +148,20 @@
             link_base64 = $('#image-cropper').cropit('export');
             // Validate Birthday
             if (!validationDate($('#datepicker').val())) {
-                Swal.fire({
-                    type: 'warning',
-                    html: 'Ngày sinh không hợp lệ!',
-                })
+                alertValidate('Ngày sinh không hợp lệ!', 'birthday')
                 return false;
             }
             if (wordCount < 30) {
-                Swal.fire({
-                    type: 'warning',
-                    html: 'CV của bạn quá ngắn!',
-                })
+                alertValidate('CV của bạn quá ngắn!', 'cv')
                 return false;
             } else {
                 if(wordCount > 700){
-                    Swal.fire({
-                        type: 'warning',
-                        html: 'CV của bạn quá dài!',
-                    })
+                    alertValidate('CV của bạn quá dài!', 'cv')
                     return false;
                 }
             }
             if($("input[name=expert]").val().length > 55){
-                Swal.fire({
-                    type: 'warning',
-                    html: 'Số ký tự của "Chuyên môn" quá dài!',
-                })
+                alertValidate('Số ký tự của "Chuyên môn" quá dài!', 'expert')
                 return false;
             }
             var url = $('#YoutubeUrl').val().trim();
@@ -231,10 +171,7 @@
                     var match = url.match(regExp);
                     if (match && match[2].length == 11) {
                     }else{
-                        Swal.fire({
-                            type: 'warning',
-                            html: 'Link Video không hợp lệ!',
-                        })
+                        alertValidate('Link Video không hợp lệ!', 'video_intro')
                         return false;
                     }
                 }
@@ -249,10 +186,7 @@
             if ( facebook_url != '' ){
                 validate_url(facebook_url)
                 if( !validate_url(facebook_url) ){
-                    Swal.fire({
-                        type: 'warning',
-                        html: 'Link Facebook không hợp lệ!',
-                    })
+                    alertValidate('Link Facebook không hợp lệ!', 'facebook')
                     return false;
                 }
             }
@@ -322,14 +256,11 @@
                 },
                 error: function(error) {
                     var obj_errors = error.responseJSON.errors;
-                    // console.log(obj_errors)
-                    var txt_errors = '';
-                    for (k of Object.keys(obj_errors)) {
-                        txt_errors += obj_errors[k][0] + '</br>';
-                    }
-                    Swal.fire({
-                        type: 'warning',
-                        html: txt_errors,
+                    $('.form-html-validate').css('display', 'block')
+                    $('.form-html-validate').html('')
+                    $.each(obj_errors, function( index, value ) {
+                        var content = '<i class="fas fa-exclamation fa-fw"></i><div class="hover-alert">'+ value +'</div>'
+                        $('.form-html-validate.' + index).html(content);
                     })
                 }
             });
@@ -437,21 +368,30 @@
     }
 </script>
 <script>
+    // Date Picker
+    $(function() {
+        $( "#datepicker" ).datepicker({
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "1950:2020",
+                dateFormat: 'dd/mm/yy',
+                maxDate: new Date(),
+            }	
+        );
+    })
+
     $("input[name=video-intro]").keyup(function(){
-        var url = $('#YoutubeUrl').val();
+        var url = $('#YoutubeUrl').val().trim();
         if ( url == '' ){
-            document.getElementById("warningVideoIntro").innerHTML = ""
+            $('.form-html-validate.video_intro').css('display', 'none')
         }else{
             if (url != undefined ) {       
                 var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
                 var match = url.match(regExp);
                 if (match && match[2].length == 11) {
-                    $('#warningVideoIntro').css("color","green");
-                    document.getElementById("warningVideoIntro").innerHTML = "Link video được chấp nhận.";
-                    // $('#videoObject').attr('src', 'https://www.youtube.com/embed/' + match[2] + '?autoplay=1&enablejsapi=1');
+                    $('.form-html-validate.video_intro').css('display', 'none')
                 }else{
-                    $('#warningVideoIntro').css("color","red");
-                    document.getElementById("warningVideoIntro").innerHTML = "Link video sai. Yêu cầu nhập lại!";
+                    alertValidate('Link video sai. Yêu cầu nhập lại!', 'video_intro')
                 }
             }
         }

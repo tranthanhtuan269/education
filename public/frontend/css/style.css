@@ -6270,3 +6270,44 @@ div[data-u="slides"] div div {
 .alert-validate:hover .hover-alert{
     display: block;
 }
+.position-relative{
+    position: relative !important;
+}
+
+.form-html{
+    position: relative;
+}
+.form-html-validate i{
+    position: absolute;
+    color: #c80000;
+    font-size: 18px;
+    transform: translateY(-50%);
+    top: 42px !important;
+    right: 7px !important;
+    left: auto !important;
+    z-index: 4;
+}
+.form-html-validate .hover-alert {
+    display: none;
+    position: absolute;
+    max-width: 70%;
+    background-color: #fff;
+    border: 1px solid #c80000;
+    border-radius: 2px;
+    padding: 4px 25px 5px 10px;
+    top: 27px;
+    right: 7px;
+    color: #c80000;
+    font-size: 14px;
+    line-height: 1.4;
+    text-align: left;
+    z-index: 3;
+}
+.form-html-validate:hover .hover-alert{
+    display: block;
+}
+.form-html input[type=number]::-webkit-inner-spin-button, 
+.form-html input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}

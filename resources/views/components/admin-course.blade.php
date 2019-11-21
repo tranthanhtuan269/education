@@ -175,24 +175,27 @@
                             </div>
                             <input type="range" class="cropit-image-zoom-input" id="cropit-zoom-input-{{$course->id}}" style="display: none"/>
                             <input type="file" class="cropit-image-input" style="display:none" value="" id="image-file-input-{{$course->id}}"/>
-                            <div class="text-center">
+                            <div class="text-center form-html">
                                 <div class="note">(Kích thước nhỏ nhất: 640x360)</div>
                                 <div class="btn btn-primary select-image-btn" id="btn-cropit-upload-{{$course->id}}"><i class="fas fa-image fa-fw"></i> Tải lên ảnh khóa học</div>
+                                <div class="form-html-validate image"></div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <form class="row form-edit-course" autocomplete="off">
                         <div class="col-md-8">
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label for="name" class="control-label">Tên khóa học:</label>
                                 <input type="text" class="form-control" id="course-name-{{ $course->id }}" name="name" value="{{ $course->name }}">
-                            </div>
-                            <div class="form-group">
+                            </div> --}}
+                            {!! \App\Helper\Helper::insertInputForm('text', 'name', 'Tên khóa học:', $course->name, 'name', 'id="course-name-'.$course->id.'"') !!}
+                            {{-- <div class="form-group">
                                 <label for="short_description" class="control-label">Tóm tắt:</label>
                                 <input type="text" class="form-control" id="short-description-{{ $course->id }}" name="short-description-{{ $course->id }}" value="{{ $course->short_description }}">
-                            </div>
-                            <div class="form-group">
+                            </div> --}}
+                            {!! \App\Helper\Helper::insertInputForm('text', 'short-description-'.$course->id, 'Tóm tắt:', $course->short_description, 'name', 'id="short-description-'.$course->id.'"') !!}
+                            <div class="form-group form-html">
                                 <label for="description" class="control-label">Mô tả:</label>
                                 <textarea id="course-description-{{$course->id}}" class="form-control" rows="6" cols="50" name="description-course-{{ $course->id }}">{!! $course->description !!}</textarea>
                                 <script>
@@ -201,6 +204,7 @@
                                             },
                                         )
                                 </script>
+                                <div class="form-html-validate description"></div>
                             </div>
                             
                             @if (is_array($course->requirement))                            
@@ -213,27 +217,31 @@
                                     $requirement_string .= $course->requirement;    
                                 }
                                 @endphp
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <label for="requirement" class="control-label">Yêu cầu:</label> 
                                     <input type="text" class="form-control" id="course-requirement-{{$course->id}}" name="requirement-{{$course->id}}" value="{{ $requirement_string }}">
-                                </div>
+                                </div> --}}
+                                {!! \App\Helper\Helper::insertInputForm('text', 'requirement-'.$course->id, 'Yêu cầu:', $requirement_string, 'requirement', 'id="course-requirement-'.$course->id.'"') !!}
                             @else
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <label for="requirement" class="control-label">Yêu cầu:</label> 
                                     <input type="text" class="form-control" id="course-requirement-{{$course->id}}" name="requirement-{{$course->id}}" value="{{$course->requirement}}">
-                                </div>
+                                </div> --}}
+                                {!! \App\Helper\Helper::insertInputForm('text', 'requirement-'.$course->id, 'Yêu cầu:', $course->requirement, 'requirement', 'id="course-requirement-'.$course->id.'"') !!}
                             @endif
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label for="link_video" class="control-label">Video giới thiệu:</label>
                                 <input type="text" class="form-control" id="course-intro-{{$course->id}}" name="course-intro-{{$course->id}}" value="{{$course->link_intro}}" placeholder="Link Youtube">
-                            </div>
+                            </div> --}}
+                            {!! \App\Helper\Helper::insertInputForm('text', 'course-intro-'.$course->id, 'Video giới thiệu:', $course->link_intro, 'link_intro', 'id="course-intro-'.$course->id.'"') !!}
                         </div>
                     <div class="col-md-4">
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="price" class="control-label">Giá gốc khóa học: (₫)</label>
                             <input type="text" class="form-control" id="courseOriginalPrice{{$course->id}}" name="price-{{$course->id}}" value="{{$course->real_price}}" onpaste="return false">
-                        </div>
-                        <div class="form-group">
+                        </div> --}}
+                        {!! \App\Helper\Helper::insertInputForm('text', 'price-'.$course->id, 'Giá gốc khóa học: (₫)', $course->real_price, 'original_price', 'id="courseOriginalPrice'.$course->id.'" onpaste="return false"') !!}
+                        {{-- <div class="form-group">
                             <label for="price" class="control-label">Giá sau khi giảm: (₫)</label>
                             <input type="text" class="form-control" id="courseDiscountPrice{{$course->id}}" name="price-{{$course->id}}"
                             @if ( $course->real_price == $course->price )
@@ -242,16 +250,16 @@
                                 value="{{$course->price}}"
                             @endif
                             onpaste="return false">
-                        </div>
-                        <div class="form-group">
+                        </div> --}}
+                        <?php $course_price = $course->real_price == $course->price ? '' : $course->price ; ?>
+                        {!! \App\Helper\Helper::insertInputForm('text', 'price-'.$course->id, 'Giá sau khi giảm: (₫)', '', 'discount_price', 'id="courseDiscountPrice'.$course->id.'" onpaste="return false"') !!}
+                        {{-- <div class="form-group">
                             <label for="approx_time" class="control-label">Thời gian dự kiến hoàn thành: (giờ)</label>
                             <input type="number" class="form-control" id="course-approx-time-{{$course->id}}" name="approx-time-{{$course->id}}" value="{{$course->approx_time}}" min="0" onpaste="return false">
-                        </div>
+                        </div> --}}
+                        {!! \App\Helper\Helper::insertInputForm('number', 'approx-time-'.$course->id, 'Thời gian dự kiến hoàn thành: (giờ)', '', 'approx_time', 'id="course-approx-time-'.$course->id.'" min="0" onpaste="return false"') !!}
                         <div class="form-group">
                             <label for="category" class="control-label">Danh mục:</label>
-                            {{-- <script type="text/javascript">
-                                $('#course-category').multiselect();
-                            </script> --}}
                             <select class="form-control" id="course-category{{$course->id}}" name="category-{{$course->id}}">
                                 @foreach($categories as $category)
                                 <optgroup label="{{$category->name}}">
@@ -266,7 +274,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group form-html">
                             <label for="will-learn" class="control-label">Học viên sẽ học được:</label>
                             <div class="form-group will-learn-class">
                                 <textarea id="course-will-learn-{{$course->id}}" class="form-control" rows="6" cols="50" name="will-learn{{ $course->id }}">{!! $course->will_learn !!}</textarea>
@@ -281,6 +289,7 @@
                                     },
                                 );
                             </script>
+                            <div class="form-html-validate will_learn"></div>
                         </div>
                     </div>
                     <input id="resetForms{{$course->id}}" type="reset" value="Reset the form" style="display:none">
@@ -654,125 +663,125 @@
             }) 
         })
 
-        $('#btnStop{{ $course->id }}').click(function(){
-            var data = {
-                id: {{ $course->id }},
-                user_id: {{ Auth::user()->id }}
-            };
-            Swal.fire({
-                    type: 'warning',
-                    text: 'Bạn có chắc chắn muốn ngừng bán khóa học này không?',
-                    showCancelButton: true,
-                })
-            .then(function (result) {
-                if(result.value){
-                    $.ajax({
-                        method: "POST",
-                        url: "{{ url('user/courses/stop-sell') }}",
-                        data: data,
-                        dataType: 'json',
-                        beforeSend: function() {
-                            $("#pre_ajax_loading").show();
-                        },
-                        complete: function() {
-                            $("#pre_ajax_loading").hide();
-                        },
-                        success: function (response) {
-                            if(response.status == 200){
-                                Swal.fire({
-                                    type: 'success',
-                                    html: response.message,
-                                    allowOutsideClick: false,
-                                }).then((result) => {
-                                    if (result.value) {
-                                        location.reload();
-                                    }
-                                });
-                            }else{
-                                Swal.fire({
-                                    type: 'warning',
-                                    html: 'Lỗi',
-                                    allowOutsideClick: false,
-                                })
-                            }
-                        },
-                        error: function (error) {
-                            var obj_errors = error.responseJSON.errors;
-                            // console.log(obj_errors)
-                            var txt_errors = '';
-                            for (k of Object.keys(obj_errors)) {
-                                txt_errors += obj_errors[k][0] + '</br>';
-                            }
-                            Swal.fire({
-                                type: 'warning',
-                                html: txt_errors,
-                                allowOutsideClick: false,
-                            })
-                        }
-                    })
-                }
-            })
-        })
+        // $('#btnStop{{ $course->id }}').click(function(){
+        //     var data = {
+        //         id: {{ $course->id }},
+        //         user_id: {{ Auth::user()->id }}
+        //     };
+        //     Swal.fire({
+        //             type: 'warning',
+        //             text: 'Bạn có chắc chắn muốn ngừng bán khóa học này không?',
+        //             showCancelButton: true,
+        //         })
+        //     .then(function (result) {
+        //         if(result.value){
+        //             $.ajax({
+        //                 method: "POST",
+        //                 url: "{{ url('user/courses/stop-sell') }}",
+        //                 data: data,
+        //                 dataType: 'json',
+        //                 beforeSend: function() {
+        //                     $("#pre_ajax_loading").show();
+        //                 },
+        //                 complete: function() {
+        //                     $("#pre_ajax_loading").hide();
+        //                 },
+        //                 success: function (response) {
+        //                     if(response.status == 200){
+        //                         Swal.fire({
+        //                             type: 'success',
+        //                             html: response.message,
+        //                             allowOutsideClick: false,
+        //                         }).then((result) => {
+        //                             if (result.value) {
+        //                                 location.reload();
+        //                             }
+        //                         });
+        //                     }else{
+        //                         Swal.fire({
+        //                             type: 'warning',
+        //                             html: 'Lỗi',
+        //                             allowOutsideClick: false,
+        //                         })
+        //                     }
+        //                 },
+        //                 error: function (error) {
+        //                     var obj_errors = error.responseJSON.errors;
+        //                     // console.log(obj_errors)
+        //                     var txt_errors = '';
+        //                     for (k of Object.keys(obj_errors)) {
+        //                         txt_errors += obj_errors[k][0] + '</br>';
+        //                     }
+        //                     Swal.fire({
+        //                         type: 'warning',
+        //                         html: txt_errors,
+        //                         allowOutsideClick: false,
+        //                     })
+        //                 }
+        //             })
+        //         }
+        //     })
+        // })
 
-        $('#btnContinue{{ $course->id }}').click(function(){
-            var data = {
-                id: {{ $course->id }},
-                user_id: {{ Auth::user()->id }}
-            };
-            Swal.fire({
-                type: 'warning',
-                text: 'Bạn có chắc chắn muốn tiếp tục bán khóa học này không?',
-                showCancelButton: true,
-            })
-            .then(function (result) {
-                if(result.value){
-                    $.ajax({
-                        method: "POST",
-                        url: "{{ url('user/courses/continue-sell') }}",
-                        data: data,
-                        dataType: 'json',
-                        beforeSend: function() {
-                            $("#pre_ajax_loading").show();
-                        },
-                        complete: function() {
-                            $("#pre_ajax_loading").hide();
-                        },
-                        success: function (response) {
-                            if(response.status == 200){
-                                Swal.fire({
-                                    type: 'success',
-                                    html: response.message,
-                                    allowOutsideClick: false,
-                                }).then((result) => {
-                                    if (result.value) {
-                                        location.reload();
-                                    }
-                                });
-                            }else{
-                                Swal.fire({
-                                    type: 'warning',
-                                    html: 'Lỗi',
-                                    allowOutsideClick: false,
-                                })
-                            }
-                        },
-                        error: function (error) {
-                            var obj_errors = error.responseJSON.errors;
-                            // console.log(obj_errors)
-                            var txt_errors = '';
-                            for (k of Object.keys(obj_errors)) {
-                                txt_errors += obj_errors[k][0] + '</br>';
-                            }
-                            Swal.fire({
-                                type: 'warning',
-                                html: txt_errors,
-                                allowOutsideClick: false,
-                            })
-                        }
-                    })
-                }
-            })
-        })
+        // $('#btnContinue{{ $course->id }}').click(function(){
+        //     var data = {
+        //         id: {{ $course->id }},
+        //         user_id: {{ Auth::user()->id }}
+        //     };
+        //     Swal.fire({
+        //         type: 'warning',
+        //         text: 'Bạn có chắc chắn muốn tiếp tục bán khóa học này không?',
+        //         showCancelButton: true,
+        //     })
+        //     .then(function (result) {
+        //         if(result.value){
+        //             $.ajax({
+        //                 method: "POST",
+        //                 url: "{{ url('user/courses/continue-sell') }}",
+        //                 data: data,
+        //                 dataType: 'json',
+        //                 beforeSend: function() {
+        //                     $("#pre_ajax_loading").show();
+        //                 },
+        //                 complete: function() {
+        //                     $("#pre_ajax_loading").hide();
+        //                 },
+        //                 success: function (response) {
+        //                     if(response.status == 200){
+        //                         Swal.fire({
+        //                             type: 'success',
+        //                             html: response.message,
+        //                             allowOutsideClick: false,
+        //                         }).then((result) => {
+        //                             if (result.value) {
+        //                                 location.reload();
+        //                             }
+        //                         });
+        //                     }else{
+        //                         Swal.fire({
+        //                             type: 'warning',
+        //                             html: 'Lỗi',
+        //                             allowOutsideClick: false,
+        //                         })
+        //                     }
+        //                 },
+        //                 error: function (error) {
+        //                     var obj_errors = error.responseJSON.errors;
+        //                     // console.log(obj_errors)
+        //                     var txt_errors = '';
+        //                     for (k of Object.keys(obj_errors)) {
+        //                         txt_errors += obj_errors[k][0] + '</br>';
+        //                     }
+        //                     Swal.fire({
+        //                         type: 'warning',
+        //                         html: txt_errors,
+        //                         allowOutsideClick: false,
+        //                     })
+        //                 }
+        //             })
+        //         }
+        //     })
+        // })
 
         $('#btn-unit-{{ $course->id }}').click(function(){
             // $('#listUnit{{ $course->id }}').modal('toggle')
@@ -854,12 +863,8 @@
                 if( discount_price != '' ){
                     discount_price = Number(discount_price)
                     if( discount_price > original_price ){
-                        Swal.fire({
-                                type: 'warning',
-                                html: 'Giá giảm không thể lớn hơn giá gốc.',
-                                allowOutsideClick: false,
-                            })
-                            return false;
+                        alertValidate('Giá sau khi giảm không thể lớn hơn giá gốc.', 'discount_price')
+                        return false;
                     }
                 }else{
                     discount_price = original_price
@@ -873,11 +878,7 @@
                     var match = url.match(regExp);
                     if (match && match[2].length == 11) {
                     }else{
-                        Swal.fire({
-                            type: 'warning',
-                            html: 'Link Video không hợp lệ.',
-                            allowOutsideClick: false,
-                        })
+                        alertValidate('Link Video không hợp lệ!', 'link_intro')
                         return false;
                     }
                 }
@@ -928,15 +929,13 @@
                     }
                 },
                 error: function (error) {
+                    $(".ajax_waiting").removeClass("loading");
                     var obj_errors = error.responseJSON.errors;
-                    var txt_errors = '';
-                    for (k of Object.keys(obj_errors)) {
-                        txt_errors += obj_errors[k][0] + '</br>';
-                    }
-                    Swal.fire({
-                        type: 'warning',
-                        html: txt_errors,
-                        allowOutsideClick: false,
+                    $('.form-html-validate').css('display', 'block')
+                    $('.form-html-validate').html('')
+                    $.each(obj_errors, function( index, value ) {
+                        var content = '<i class="fas fa-exclamation fa-fw"></i><div class="hover-alert">'+ value +'</div>'
+                        $('.form-html-validate.' + index).html(content);
                     })
                 }
             });

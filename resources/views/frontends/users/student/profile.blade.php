@@ -89,66 +89,31 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-sm-6">
+                                        {!! \App\Helper\Helper::insertInputForm('text', 'name', 'Họ tên', Auth::user()->name, 'name') !!}
+                                        <?php $user_email = Auth::check() ? Auth::user()->email : ''; ?>
+                                        {!! \App\Helper\Helper::insertInputForm('email', 'email', 'Email', $user_email, 'email', 'disabled') !!}
+                                        {!! \App\Helper\Helper::insertInputForm('number', 'phone', 'Số điện thoại', Auth::user()->phone, 'phone') !!}
+                                        <?php $birthday=Auth::check() ?  (Auth::user()->birthday != '') ? Helper::formatDate('Y-m-d', Auth::user()->birthday, 'd/m/Y') : '' :'' ; ?>
+                                        {!! \App\Helper\Helper::insertInputForm('text', 'birthday', 'Ngày sinh', $birthday, 'birthday', 'id="datepicker" pattern="\d{1,2}/\d{1,2}/\d{4}" autocomplete="off"') !!}
                                         <div class="form-group">
-                                            <label>Họ tên</label>
+                                            <label>Giới tính</label>
                                             <div class="form-group">
-                                                <input type="text" class="form-control" name="name" value="{{ Auth::user()->name }}">
+                                                <select class="form-control" name="gender">
+                                                    <option value="1" @if(Auth::user()->gender == 1) selected @endif>Nam</option>
+                                                    <option value="2" @if(Auth::user()->gender == 2) selected @endif>Nữ</option>
+                                                    <option value="3" @if(Auth::user()->gender == 3) selected @endif>Khác</option>
+                                                </select>
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label> Email </label>
-                                            <div class="form-group">
-                                                <input type="email" class="form-control" name="email" value="{{ Auth::user()->email }}" disabled>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Số điện thoại</label>
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" name="phone" value="{{ Auth::user()->phone }}">
-
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Ngày sinh</label>
-                                            <div class="form-group">
-                                                <input type="text" class="form-control"  id="datepicker" name="birthday"  pattern="\d{1,2}/\d{1,2}/\d{4}" value="{{ (Auth::user()->birthday != '') ? Helper::formatDate('Y-m-d', Auth::user()->birthday, 'd/m/Y') : '' }}" autocomplete="off">
-                                                <script>
-                                                  $(function() {
-                                                    $( "#datepicker" ).datepicker({
-                                                        changeMonth: true,
-                                                        changeYear: true,
-                                                        yearRange: "1950:2020",
-                                                        dateFormat: 'dd/mm/yy',
-                                                        maxDate: new Date(),
-                                                    }	
-                                                    );
-                                                });
-                                            </script>
+                                        {!! \App\Helper\Helper::insertTextareaForm('Địa chỉ', '2', '50', 'address', Auth::user()->address, 'address') !!}
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group text-center" style="padding-top: 5px;">
+                                            <button class="btn btn-success" id="save-profile" type="button"><i class="fa fa-save"></i> Lưu</button>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label>Giới tính</label>
-                                        <div class="form-group">
-                                            <select class="form-control" name="gender">
-                                                <option value="1" @if(Auth::user()->gender == 1) selected @endif>Nam</option>
-                                                <option value="2" @if(Auth::user()->gender == 2) selected @endif>Nữ</option>
-                                                <option value="3" @if(Auth::user()->gender == 3) selected @endif>Khác</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Địa chỉ</label>
-                                        <div class="form-group">
-                                            <textarea class="form-control" rows="4" cols="50" name="address">{{ Auth::user()->address }}</textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="form-group text-center" style="padding-top: 5px;">
-                                        <button class="btn btn-success" id="save-profile" type="button"><i class="fa fa-save"></i> Lưu</button>
-                                    </div>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -156,10 +121,21 @@
         </div>
     </div>
 </div>
-</div>
 
 <script src="{{ asset('frontend/js/dropzone.js') }}"></script>
 <script>
+
+// DatePicker
+$(function() {
+    $( "#datepicker" ).datepicker({
+        changeMonth: true,
+        changeYear: true,
+        yearRange: "1950:2020",
+        dateFormat: 'dd/mm/yy',
+        maxDate: new Date(),
+    })
+})
+
 $(document).ready(function() {
     var student = jQuery.noConflict();
 
@@ -170,12 +146,6 @@ $(document).ready(function() {
         $('#myModalChangePass').modal("toggle")
         $('.alert-validate').html('')
     })
-
-    // p('#myModalChangePass').on('shown.bs.modal', function () {
-    //         // var id      = $('#userID_upd').val();
-    //         alert(1)
-    //     })
-
 
     $('.reorder').on('click', function() {
         $("ul.nav").sortable({
@@ -189,16 +159,12 @@ $(document).ready(function() {
     });
 
     var link_base64;
-
     $("#save-profile").click(function() {
         link_base64 = student('#image-cropper').cropit('export');
 
         // Validate Birthday
         if (!validationDate($('#datepicker').val())) {
-            Swal.fire({
-                type: 'warning',
-                html: 'Ngày sinh phải có định dạng Ngày/Tháng/Năm (Ví dụ: 31/12/1993)',
-            })
+            alertValidate('Ngày sinh phải có định dạng Ngày/Tháng/Năm (Ví dụ: 31/12/1993)', 'birthday')
             return false;
         }
 
@@ -232,12 +198,6 @@ $(document).ready(function() {
             url: "{{ url('user/student/profile') }}",
             data: data,
             dataType: 'json',
-            // beforeSend: function() {
-            //     $("#pre_ajax_loading").show();
-            // },
-            // complete: function() {
-            //     $("#pre_ajax_loading").hide();
-            // },
             success: function(response) {
                 if (response.status == 200) {
                     Swal.fire({
@@ -258,14 +218,11 @@ $(document).ready(function() {
             },
             error: function(error) {
                 var obj_errors = error.responseJSON.errors;
-                // console.log(obj_errors)
-                var txt_errors = '';
-                for (k of Object.keys(obj_errors)) {
-                    txt_errors += obj_errors[k][0] + '</br>';
-                }
-                Swal.fire({
-                    type: 'warning',
-                    html: txt_errors,
+                $('.form-html-validate').css('display', 'block')
+                $('.form-html-validate').html('')
+                $.each(obj_errors, function( index, value ) {
+                    var content = '<i class="fas fa-exclamation fa-fw"></i><div class="hover-alert">'+ value +'</div>'
+                    $('.form-html-validate.' + index).html(content);
                 })
             }
         });

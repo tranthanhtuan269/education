@@ -336,4 +336,37 @@ class Helper
         $user_email->teacher = $of_teacher;
         $user_email->save();
     }
+
+    // Insert Form
+    public static function insertInputForm($ip_type, $ip_name, $lb_text, $ip_value, $alert_class, $ip_feature = '')
+    {
+        $html = '';
+        $html .= '<div class="form-group form-html">';
+        $html .= '<label>'. $lb_text .'</label>';
+        $html .= '<div class="form-group">';
+        $html .= '<input type="'. $ip_type .'" class="form-control" name="'. $ip_name .'" value="'. $ip_value .'" '. $ip_feature .'>';
+        $html .= '</div>';
+        $html .= '<div class="form-html-validate '. $alert_class .'"></div>';
+        $html .= '</div>';
+        // echo \Form::submit('Click Me!');
+        // die;
+        return $html;
+    }
+
+    public static function insertTextareaForm($lb_text, $row, $col, $name, $value, $alert_class, $feature='')
+    {
+        $html = '';
+        $html .= '<div class="form-group form-html">';
+            $html .= '<label>'. $lb_text .'</label>';
+            $html .= '<div class="form-group">';
+                $html .= '<textarea class="form-control" rows="'. $row .'" cols="'. $col.'" name="'. $name .'">'. $value .'</textarea>';
+            $html .= '</div>';
+            $html .= '<div class="form-html-validate '. $alert_class .'"></div>';
+        $html .= '</div>';
+
+        return $html;
+    }
+
+    public static function insertInputCourse()
+    {}
 }

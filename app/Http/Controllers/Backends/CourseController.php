@@ -149,7 +149,7 @@ class CourseController extends Controller
             if( !isset($temp_course->id) ){
                 $temp_course = new TempCourse;
             }
-            $item = Course::where('status', '!=', -100)->find($id);
+            $item = Course::find($id);
 
             if($item){
                 $img_link = $item->image;

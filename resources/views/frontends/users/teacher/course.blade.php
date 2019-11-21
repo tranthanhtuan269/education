@@ -104,59 +104,74 @@
                             </div>
                             <input type="range" class="cropit-image-zoom-input" id="cropit-zoom-input" style="display: none"/>
                             <input type="file" class="cropit-image-input" style="display:none" value="" id="image-file-input"/>
-                            <div class="text-center">
+                            <div class="text-center form-html">
                                 <div class="note">(Kích thước nhỏ nhất: 640x360)</div>
                                 <div class="btn btn-primary select-image-btn" id="btn-cropit-upload"><i class="fas fa-image fa-fw"></i> Tải lên ảnh khóa học</div>
+                                <div class="form-html-validate image"></div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <form class="row" autocomplete="off">
+                <form class="row" autocomplete="off" id="formCreateCourse">
                     <div class="col-md-8">
-                        <div class="form-group">
-                            <label for="name" class="control-label">Tên khóa học:</label>
-                            <input type="text" class="form-control" id="course-name" name="name">
-                        </div>
-                        <div class="form-group">
-                            <label for="short_description" class="control-label">Tóm tắt:</label>
-                            <input type="text" class="form-control" id="short-description" name="short-description">
-                        </div>
-                        <div class="form-group">
+                        {!! \App\Helper\Helper::insertInputForm('text', 'name', 'Tên khóa học:', '', 'name', 'id="course-name"') !!}
+                        {!! \App\Helper\Helper::insertInputForm('text', 'short-description', 'Tóm tắt:', '', 'short_description', 'id="short-description"') !!}
+                        <div class="form-group form-html">
                             <label for="description" class="control-label">Mô tả:</label>
-                            <textarea id="course-description" class="form-control" rows="6" cols="50" name="description-course"></textarea>
+                            <div class="form-group">
+                                <textarea id="course-description" class="form-control" rows="6" cols="50" name="description-course"></textarea>
+                            </div>
                             <script>
                                     CKEDITOR.replace( 'description-course',{
                                         height: '300px',
                                     } )
                             </script>
+                            <div class="form-html-validate description"></div>
                         </div>
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="requirement" class="control-label">Yêu cầu:</label>
-                            <input type="text" class="form-control" id="course-requirement" name="requirement" placeholder="Ví dụ 1, ví dụ 2, ví dụ 3">
-                        </div>
-                        <div class="form-group">
+                            <div class="position-relative">
+                                <input type="text" class="form-control" id="course-requirement" name="requirement" placeholder="Ví dụ 1, ví dụ 2, ví dụ 3">
+                                <div class="alert-validate requirement"></div>
+                            </div>
+                        </div> --}}
+                        {!! \App\Helper\Helper::insertInputForm('text', 'requirement', 'Yêu cầu:', '', 'requirement', 'id="course-requirement" placeholder="Ví dụ 1, ví dụ 2, ví dụ 3"') !!}
+                        {!! \App\Helper\Helper::insertInputForm('text', 'course-intro', 'Video giới thiệu:', '', 'link_intro', 'id="course-intro" placeholder="Link Youtube"') !!}
+                        {{-- <div class="form-group">
                             <label for="link_video" class="control-label">Video giới thiệu:</label>
-                            <input type="text" class="form-control" id="course-intro" name="course-intro" value="" placeholder="Link Youtube">
-                        </div>
+                            <div class="position-relative">
+                                <input type="text" class="form-control" id="course-intro" name="course-intro" value="" placeholder="Link Youtube">
+                                <div class="alert-validate link_intro"></div>
+                            </div>
+                        </div> --}}
                     </div>
                     <div class="col-md-4">
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="price" class="control-label">Giá gốc khóa học: (₫)</label>
-                            <input type="text" class="form-control" id="courseOriginalPrice" name="price" onpaste="return false">
-                        </div>
-                        <div class="form-group">
+                            <div class="position-relative">
+                                <input type="text" class="form-control" id="courseOriginalPrice" name="price" onpaste="return false">
+                                <div class="alert-validate original_price"></div>
+                            </div>
+                        </div> --}}
+                        {!! \App\Helper\Helper::insertInputForm('text', 'price', 'Giá gốc khóa học: (₫)', '', 'original_price', 'id="courseOriginalPrice" onpaste="return false"') !!}
+                        {!! \App\Helper\Helper::insertInputForm('text', 'price', 'Giá sau khi giảm: (₫)', '', 'discount_price', 'id="courseDiscountPrice" onpaste="return false"') !!}
+                        {{-- <div class="form-group">
                             <label for="price" class="control-label">Giá sau khi giảm: (₫)</label>
-                            <input type="text" class="form-control" id="courseDiscountPrice" name="price" onpaste="return false">
-                        </div>
-                        <div class="form-group">
+                            <div class="position-relative">
+                                <input type="text" class="form-control" id="courseDiscountPrice" name="price" onpaste="return false">
+                                <div class="alert-validate discount_price"></div>
+                            </div>
+                        </div> --}}
+                        {{-- <div class="form-group">
                             <label for="approx_time" class="control-label">Thời gian dự kiến hoàn thành: (giờ)</label>
-                            <input type="number" class="form-control" id="course-approx-time" name="approx-time" min="0" onpaste="return false">
-                        </div>
+                            <div class="position-relative">
+                                <input type="number" class="form-control" id="course-approx-time" name="approx-time" min="0" onpaste="return false">
+                                <div class="alert-validate approx_time"></div>
+                            </div>
+                        </div> --}}
+                        {!! \App\Helper\Helper::insertInputForm('number', 'approx-time', 'Thời gian dự kiến hoàn thành: (giờ)', '', 'approx_time', 'id="course-approx-time" min="0" onpaste="return false"') !!}
                         <div class="form-group">
                             <label for="category" class="control-label">Danh mục:</label>
-                            {{-- <script type="text/javascript">
-                                $('#course-category').multiselect();
-                            </script> --}}
                             <select class="form-control" id="course-category" name="category">
                                 @foreach($categories as $category)
                                 <optgroup label="{{ $category->name }}">
@@ -167,7 +182,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group form-html">
                             <label for="will-learn" class="control-label">Học viên sẽ học được:</label>
                             <div class="form-group will-learn-class">
                                 <textarea id="course-will-learn" class="form-control" rows="6" cols="50" style="height:243px" name="will-learn"></textarea>
@@ -180,6 +195,7 @@
                                     height: '299px',
                                 });
                             </script>
+                            <div class="form-html-validate will_learn"></div>
                         </div>
                     </div>
                     <input id="resetForm" type="reset" value="Reset the form" style="display:none">
@@ -1429,7 +1445,6 @@
         })
 
         var link_base64;
-
         S2('#save-btn').click(function(){
 
             link_base64 = S2('#image-cropper').cropit('export');
@@ -1452,12 +1467,8 @@
                 if( discount_price != '' ){
                     discount_price = Number(discount_price)
                     if( discount_price > original_price ){
-                        Swal.fire({
-                                type: 'warning',
-                                html: 'Giá sau khi giảm không thể lớn hơn giá gốc.',
-                                allowOutsideClick: false,
-                            })
-                            return false;
+                        alertValidate('Giá sau khi giảm không thể lớn hơn giá gốc.', 'discount_price')
+                        return false;
                     }
                 }else{
                     discount_price = original_price
@@ -1471,11 +1482,7 @@
                     var match = url.match(regExp);
                     if (match && match[2].length == 11) {
                     }else{
-                        Swal.fire({
-                            type: 'warning',
-                            html: 'Link Video không hợp lệ!',
-                            allowOutsideClick: false,
-                        })
+                        alertValidate('Link Video không hợp lệ!', 'link_intro')
                         $(this).attr('disabled', false)
                         return false;
                     }
@@ -1527,14 +1534,11 @@
                 error: function(error) {
                     $(".ajax_waiting").removeClass("loading");
                     var obj_errors = error.responseJSON.errors;
-                    var txt_errors = '';
-                    for (k of Object.keys(obj_errors)) {
-                        txt_errors += obj_errors[k][0] + '</br>';
-                    }
-                    Swal.fire({
-                        type: 'warning',
-                        html: txt_errors,
-                        allowOutsideClick: false,
+                    $('.form-html-validate').css('display', 'block')
+                    $('.form-html-validate').html('')
+                    $.each(obj_errors, function( index, value ) {
+                        var content = '<i class="fas fa-exclamation fa-fw"></i><div class="hover-alert">'+ value +'</div>'
+                        $('.form-html-validate.' + index).html(content);
                     })
                 }
             });
