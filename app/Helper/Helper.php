@@ -337,6 +337,7 @@ class Helper
         $user_email->save();
     }
 
+    // Insert Form
     public static function insertInputForm($ip_type, $ip_name, $lb_text, $ip_value, $alert_class, $ip_feature = '')
     {
         $html = '';
@@ -365,4 +366,7 @@ class Helper
 
         return $html;
     }
+
+    public static function insertInputCourse()
+    {}
 }
