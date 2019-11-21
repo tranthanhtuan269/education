@@ -1203,12 +1203,17 @@
             $('#min-height').css('minHeight',x);
         }
     });
+
+    /* Alert Validate Trinhnk */
     function alertValidate(message, element){
         $('.form-html-validate').css('display', 'block')
         $('.form-html-validate').html('')
         var content = '<i class="fas fa-exclamation fa-fw"></i><div class="hover-alert">'+ message +'</div>'
         $('.form-html-validate.' + element).html(content);
     }
+    $('.form-html').click(function(){
+        $(this).children('.form-html-validate').css('display', 'none')
+    })
 </script>
 
 @if (!Auth::check())

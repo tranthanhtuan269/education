@@ -141,11 +141,12 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group form-html">
                                         <label>Địa chỉ</label>
                                         <div class="form-group">
                                             <textarea class="form-control" rows="4" cols="50" name="address">{{ Auth::user()->address }}</textarea>
                                         </div>
+                                        <div class="form-html-validate address"></div>
                                     </div>
                                 </div>
                                 <div class="col-sm-12">
@@ -194,10 +195,6 @@ $(document).ready(function() {
     });
 
     var link_base64;
-
-    $('.form-html input').click(function(){
-        $(this).parent().parent().children('.form-html-validate').css('display', 'none')
-    })
     $("#save-profile").click(function() {
         link_base64 = student('#image-cropper').cropit('export');
 

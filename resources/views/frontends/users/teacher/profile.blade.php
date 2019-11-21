@@ -262,9 +262,6 @@
         });
             
         var link_base64;
-        $('.form-html input').click(function(){
-            $(this).parent().parent().children('.form-html-validate').css('display', 'none')
-        })
         $("#save-profile").click(function(){
             link_base64 = teacher('#image-cropper').cropit('export');
 			// Validate Birthday
