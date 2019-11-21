@@ -227,7 +227,7 @@
 
                 $('#showVideoIntroModal').modal('show');
                 // $("#video-view").attr('src', `http://45.56.82.249/uploads/videos/${curr_video_intro}`)
-                $("#video-view").attr('src', `https://5dcbc0ff59ad6.streamlock.net/vod/_definst_/360/${curr_video_intro}`)
+                $("#video-view").attr('src', `https://courdemy.vn/vod/_definst_/360/${curr_video_intro}`)
             })
 
             $('.accept-video').off('click')
