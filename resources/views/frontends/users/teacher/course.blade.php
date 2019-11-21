@@ -1467,12 +1467,8 @@
                 if( discount_price != '' ){
                     discount_price = Number(discount_price)
                     if( discount_price > original_price ){
-                        Swal.fire({
-                                type: 'warning',
-                                html: 'Giá sau khi giảm không thể lớn hơn giá gốc.',
-                                allowOutsideClick: false,
-                            })
-                            return false;
+                        alertValidate('Giá sau khi giảm không thể lớn hơn giá gốc.', 'discount_price')
+                        return false;
                     }
                 }else{
                     discount_price = original_price
