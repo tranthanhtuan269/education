@@ -23,9 +23,11 @@
     <div class="row">
         <div class="container">
             <h2>Chọn hình thức thanh toán</h2>
+            
             <div class="row">
                 <div class="col-md-9">
                     <div class="payment-method">
+                        @if(false)
                         <div class="momo">
                             {{-- <div class="form-check">
                                 <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
@@ -71,10 +73,11 @@
                             </div>
                         </div>
                         <hr>
+                        @endif
                         <div class="international-card">
                             <div class="card-info">
                                 <div class="header form-check">
-                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
+                                    @if(false)<input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">@endif
                                     <label class="form-check-label" for="exampleRadios3">Thanh toán bằng thẻ quốc tế VISA, MASTERCARD, JCB</label>
                                     {{-- <input type="radio" name="otpradio" id="">
                                     <span class="label-title">Thanh toán bằng thẻ quốc tế VISA, MASTERCARD, JCB</span> --}}
