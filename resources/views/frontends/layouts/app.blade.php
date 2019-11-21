@@ -1203,6 +1203,12 @@
             $('#min-height').css('minHeight',x);
         }
     });
+    function alertValidate(message, element){
+        $('.form-html-validate').css('display', 'block')
+        $('.form-html-validate').html('')
+        var content = '<i class="fas fa-exclamation fa-fw"></i><div class="hover-alert">'+ message +'</div>'
+        $('.form-html-validate.' + element).html(content);
+    }
 </script>
 
 @if (!Auth::check())

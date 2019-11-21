@@ -324,4 +324,19 @@ class Helper
         $user_email->teacher = $of_teacher;
         $user_email->save();
     }
+
+    public static function insertInputForm($ip_type, $ip_name, $lb_text, $ip_value, $alert_class, $ip_class = 'form-control')
+    {
+        $html = '';
+        $html .= '<div class="form-group form-html">';
+        $html .= '<label>'. $lb_text .'</label>';
+        $html .= '<div class="form-group">';
+        $html .= '<input type="'. $ip_type .'" class="'. $ip_class .'" name="'. $ip_name .'" value="'. $ip_value .'">';
+        $html .= '</div>';
+        $html .= '<div class="form-html-validate '. $alert_class .'"></div>';
+        $html .= '</div>';
+        // echo \Form::submit('Click Me!');
+        // die;
+        return $html;
+    }
 }

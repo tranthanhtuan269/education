@@ -111,15 +111,21 @@
                         </div>
                     </div>
                 </div>
-                <form class="row" autocomplete="off">
+                <form class="row" autocomplete="off" id="formCreateCourse">
                     <div class="col-md-8">
                         <div class="form-group">
                             <label for="name" class="control-label">Tên khóa học:</label>
-                            <input type="text" class="form-control" id="course-name" name="name">
+                            <div class="position-relative">
+                                <input type="text" class="form-control" id="course-name" name="name">
+                                <div class="alert-validate name"></div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="short_description" class="control-label">Tóm tắt:</label>
-                            <input type="text" class="form-control" id="short-description" name="short-description">
+                            <div class="position-relative">
+                                <input type="text" class="form-control" id="short-description" name="short-description">
+                                <div class="alert-validate short_description"></div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="description" class="control-label">Mô tả:</label>
@@ -132,25 +138,40 @@
                         </div>
                         <div class="form-group">
                             <label for="requirement" class="control-label">Yêu cầu:</label>
-                            <input type="text" class="form-control" id="course-requirement" name="requirement" placeholder="Ví dụ 1, ví dụ 2, ví dụ 3">
+                            <div class="position-relative">
+                                <input type="text" class="form-control" id="course-requirement" name="requirement" placeholder="Ví dụ 1, ví dụ 2, ví dụ 3">
+                                <div class="alert-validate requirement"></div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="link_video" class="control-label">Video giới thiệu:</label>
-                            <input type="text" class="form-control" id="course-intro" name="course-intro" value="" placeholder="Link Youtube">
+                            <div class="position-relative">
+                                <input type="text" class="form-control" id="course-intro" name="course-intro" value="" placeholder="Link Youtube">
+                                <div class="alert-validate link_intro"></div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="price" class="control-label">Giá gốc khóa học: (₫)</label>
-                            <input type="text" class="form-control" id="courseOriginalPrice" name="price" onpaste="return false">
+                            <div class="position-relative">
+                                <input type="text" class="form-control" id="courseOriginalPrice" name="price" onpaste="return false">
+                                <div class="alert-validate original_price"></div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="price" class="control-label">Giá sau khi giảm: (₫)</label>
-                            <input type="text" class="form-control" id="courseDiscountPrice" name="price" onpaste="return false">
+                            <div class="position-relative">
+                                <input type="text" class="form-control" id="courseDiscountPrice" name="price" onpaste="return false">
+                                <div class="alert-validate discount_price"></div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="approx_time" class="control-label">Thời gian dự kiến hoàn thành: (giờ)</label>
-                            <input type="number" class="form-control" id="course-approx-time" name="approx-time" min="0" onpaste="return false">
+                            <div class="position-relative">
+                                <input type="number" class="form-control" id="course-approx-time" name="approx-time" min="0" onpaste="return false">
+                                <div class="alert-validate approx_time"></div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="category" class="control-label">Danh mục:</label>
@@ -1430,6 +1451,9 @@
 
         var link_base64;
 
+        $('#formCreateCourse input').click(function(){
+            $(this).css('z-index', 5)
+        })
         S2('#save-btn').click(function(){
 
             link_base64 = S2('#image-cropper').cropit('export');
@@ -1526,15 +1550,22 @@
                 },
                 error: function(error) {
                     $(".ajax_waiting").removeClass("loading");
+                    // var obj_errors = error.responseJSON.errors;
+                    // var txt_errors = '';
+                    // for (k of Object.keys(obj_errors)) {
+                    //     txt_errors += obj_errors[k][0] + '</br>';
+                    // }
+                    // Swal.fire({
+                    //     type: 'warning',
+                    //     html: txt_errors,
+                    //     allowOutsideClick: false,
+                    // })
                     var obj_errors = error.responseJSON.errors;
-                    var txt_errors = '';
-                    for (k of Object.keys(obj_errors)) {
-                        txt_errors += obj_errors[k][0] + '</br>';
-                    }
-                    Swal.fire({
-                        type: 'warning',
-                        html: txt_errors,
-                        allowOutsideClick: false,
+                    $('#formCreateCourse input').css('z-index', 0)
+                    $('.alert-validate').html('')
+                    $.each(obj_errors, function( index, value ) {
+                        var content = '<i class="fas fa-exclamation fa-fw"></i><div class="hover-alert">'+ value +'</div>'
+                        $('.alert-validate.' + index).html(content);
                     })
                 }
             });
