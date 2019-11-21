@@ -334,7 +334,7 @@
                                         @endif
                                     @endif
                                 @endforeach
-                                <li class="main-menu-item" id="addMenu">
+                                <li class="main-menu-item" id="addMenu" style="float:right">
                                     <a href="javascript:void(0)"><i class="fas fa-ellipsis-h"></i> Thêm</a>
                                     <ul class="sub-menu menu-them" id='menuThem'>
                                         @foreach($category_fixed as $key=>$cat)
@@ -356,26 +356,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <script>
-                            $(document).ready(function(){
-                                var mainmenugroupWidth = $('.main-menu-group').width();
-                                var count = 0;
-                                
-                                $.each($('.main-menu-item'), function( index, value ) {
-                                    count++;
-                                    mainmenugroupWidth -= $(value).width();
-                                    if(index == 7 && $(value).width() < 70){
-                                        mainmenugroupWidth -= 5;
-                                    }
-                                });
-                                mainmenugroupMargin = mainmenugroupWidth / (count - 1);
-                                $('.main-menu-item').css('margin-right', mainmenugroupMargin);
-                                $('.main-menu-item:last-child').css('margin-right', -1);
 
-                                var menuthem = $('#addMenu').width() - 250;
-                                $('#menuThem').css('left', menuthem);
-                            })
-                        </script>
                         <style>
                             .unica-home-menutop .nav>li{
                                 float: left;
@@ -1388,5 +1369,30 @@
     </style>
     @endif
 @endif
+
+    <script>
+        $(document).ready(function(){
+            var mainmenugroupWidth = $('.main-menu-group').width();
+            var count = 0;
+            
+            $.each($('.main-menu-item'), function( index, value ) {
+                count++;
+                mainmenugroupWidth -= $(value).width();
+                if(index == 7 && $(value).width() < 70){
+                    mainmenugroupWidth -= 5;
+                }
+            });
+
+
+            mainmenugroupMargin = mainmenugroupWidth / (count - 1);
+        
+            $('.main-menu-item').css('margin-right', mainmenugroupMargin - 2);
+            // $("ul.main-menu-group li:nth-child("+ (count - 1) +")").css('margin-right', '0');
+            $('.main-menu-item:last-child').css('margin-right', -1);
+
+            var menuthem = $('#addMenu').width() - 250;
+            $('#menuThem').css('left', menuthem);
+        })
+    </script>
 </body>
 </html>
