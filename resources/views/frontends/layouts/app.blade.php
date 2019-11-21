@@ -1387,7 +1387,7 @@
             mainmenugroupMargin = mainmenugroupWidth / (count - 1);
         
             $('.main-menu-item').css('margin-right', mainmenugroupMargin - 2);
-            // $("ul.main-menu-group li:nth-child("+ (count - 1) +")").css('margin-right', '0');
+            $("ul.main-menu-group li:nth-child("+ (count - 1) +")").css('margin-right', '0');
             $('.main-menu-item:last-child').css('margin-right', -1);
 
             var menuthem = $('#addMenu').width() - 250;
