@@ -819,6 +819,12 @@ class VideoController extends Controller
             ->addColumn('course_name', function ($video) {
                 return $video->Unit->course->name;
             })
+            ->addColumn('link_video', function ($video) {
+                if($video->link_video){
+                    return $video->link_video;
+                }
+                return $video->video->link_video;
+            })
             ->addColumn('teacherName', function ($video) {
                 if(isset($video->unit->course->Lecturers()->first()->user)){
                     return $video->unit->course->Lecturers()->first()->user->name;

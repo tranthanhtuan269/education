@@ -18,4 +18,8 @@ class TempVideo extends Model
     public function documents(){
         return $this->hasMany('App\Document');
     }
+
+    public function video(){
+        return $this->belongsTo('App\Video');
+    }
 }
