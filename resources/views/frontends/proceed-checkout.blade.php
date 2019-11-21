@@ -211,7 +211,7 @@
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="order">
+                    <div class="order" id="sidebar-content">
                         <div class="title text-center">
                             <h3>ĐƠN HÀNG</h3>
                         </div>
@@ -231,6 +231,36 @@
                         </div> --}}
                     </div>
                 </div>
+                @if (!\App\Helper::isMobile())
+                    <script>
+                        $(window).scroll(function() {
+                            var block_on = $('.body-checkout .container .row').position().top - 10 //Padding
+                            var block_below = $('footer').position().top - $('#sidebar-content').height() - 30 - 62 //Padding
+                            if ($(window).scrollTop() >= block_on) {
+                                if($(window).scrollTop() <= block_below - 80){
+                                    document.getElementById("sidebar-content").classList.add("sidebar-fixed");
+                                    $("#sidebar-content").removeClass('sidebar-unfix').css('top', '');
+                                }else{
+                                    document.getElementById("sidebar-content").classList.remove("sidebar-fixed");
+                                    $("#sidebar-content").addClass('sidebar-unfix').css('top', block_below - block_on + 20);
+                                }
+                            } else {
+                                document.getElementById("sidebar-content").classList.remove("sidebar-fixed");
+                            }
+                        });
+                    </script>
+                    <style>
+                    .body-checkout  .sidebar-fixed {
+                        position: fixed;
+                        top: 115px;
+                        width: 277.5px;
+                    }
+                    .body-checkout .sidebar-unfix {
+                        position: absolute;
+                        width: 277.5px;
+                    }
+                    </style>
+                @endif
             </div>
         </div>
     </div>
