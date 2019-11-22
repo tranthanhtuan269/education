@@ -41,7 +41,7 @@
 @if ( $check == true )
 <div class="col-md-3 col-sm-6">
     <div class="box-course">
-        <div class="purchase_course">
+        <div class="purchase_course" id="paidCourse">
             <div class="img-course">
                 <a href="{{ url('/') }}/course/{{ $course->id }}/{{ $course->slug }}">
                 @if (strpos($rawImage, 'unica') !== false)
