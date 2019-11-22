@@ -252,7 +252,7 @@
                             onpaste="return false">
                         </div> --}}
                         <?php $course_price = $course->real_price == $course->price ? '' : $course->price ; ?>
-                        {!! \App\Helper\Helper::insertInputForm('text', 'price-'.$course->id, 'Giá sau khi giảm: (₫)', '', 'discount_price', 'id="courseDiscountPrice'.$course->id.'" onpaste="return false"') !!}
+                        {!! \App\Helper\Helper::insertInputForm('text', 'price-'.$course->id, 'Giá sau khi giảm: (₫)', $course_price, 'discount_price', 'id="courseDiscountPrice'.$course->id.'" onpaste="return false"') !!}
                         {{-- <div class="form-group">
                             <label for="approx_time" class="control-label">Thời gian dự kiến hoàn thành: (giờ)</label>
                             <input type="number" class="form-control" id="course-approx-time-{{$course->id}}" name="approx-time-{{$course->id}}" value="{{$course->approx_time}}" min="0" onpaste="return false">
