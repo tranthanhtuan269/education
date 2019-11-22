@@ -21,7 +21,7 @@
     <h1 class="text-center font-weight-600">Danh sách vai trò</h1>
     @if (Helper::checkPermissions('users.add_roles', $list_roles))
         <div class="add-item text-center">
-            <a id="create_role" data-toggle="modal" data-target="#add_role_modal" class="btn btn-success btn-sm" title="Thêm vai trò"> <i class="fa fa-plus"></i> Thêm vai trò</a>
+            <a id="create_role" data-toggle="modal" data-target="#add_role_modal" class="btn btn-primary" title="Thêm vai trò"> <i class="fa fa-plus fa-fw"></i><b>THÊM VAI TRÒ</b></a>
         </div>
     @endif
 </section>

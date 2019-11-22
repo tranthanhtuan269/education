@@ -257,7 +257,7 @@
                             <label for="approx_time" class="control-label">Thời gian dự kiến hoàn thành: (giờ)</label>
                             <input type="number" class="form-control" id="course-approx-time-{{$course->id}}" name="approx-time-{{$course->id}}" value="{{$course->approx_time}}" min="0" onpaste="return false">
                         </div> --}}
-                        {!! \App\Helper\Helper::insertInputForm('number', 'approx-time-'.$course->id, 'Thời gian dự kiến hoàn thành: (giờ)', '', 'approx_time', 'id="course-approx-time-'.$course->id.'" min="0" onpaste="return false"') !!}
+                        {!! \App\Helper\Helper::insertInputForm('number', 'approx-time-'.$course->id, 'Thời gian dự kiến hoàn thành: (giờ)', $course->approx_time, 'approx_time', 'id="course-approx-time-'.$course->id.'" min="0" onpaste="return false"') !!}
                         <div class="form-group">
                             <label for="category" class="control-label">Danh mục:</label>
                             <select class="form-control" id="course-category{{$course->id}}" name="category-{{$course->id}}">
@@ -616,6 +616,7 @@
             $('.notify-edit-course').css('display','none')
             $('#cropitPreview{{$course->id}} img').attr('src','{{ asset("frontend/images/".$course->image) }}')
             checkRequestEdit({{ $course->id }})
+            $('.form-html-validate').css('display', 'none')
         })
 
         $('#viewRequestEdit{{ $course->id }}').click(function(){

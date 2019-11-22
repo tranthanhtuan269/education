@@ -832,3 +832,6 @@ ul.alert li {
 
 #edit_user_modal .form-html-validate .fa-exclamation{top:17px;right:25px}
 #edit_user_modal .form-html-validate .hover-alert{top:2px;right: 25px;}
+
+#add_permission_modal .form-html-validate .fa-exclamation, #edit_permission_modal .form-html-validate .fa-exclamation{top:17px;right:25px}
+#add_permission_modal .form-html-validate .hover-alert, #edit_permission_modal .form-html-validate .hover-alert{top:2px;right: 25px;}

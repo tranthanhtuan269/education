@@ -17,7 +17,7 @@
 <section class="content page">
     <h1 class="text-center font-weight-600">Danh sách Mã giảm giá</h1>
     <div class="text-center">
-        <button class="btn btn-success" id="addCouponModal"><b>THÊM COUPON</b></button>
+        <button class="btn btn-primary" id="addCouponModal"><i class="fa fa-plus fa-fw"></i><b>THÊM COUPON</b></button>
     </div>
 
     <div class="modal fade" id="showAddCouponModal" tabindex="-1">
