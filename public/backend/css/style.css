@@ -797,9 +797,9 @@ ul.alert li {
     color: #c80000;
     font-size: 18px;
     transform: translateY(-50%);
-    top: 42px !important;
-    right: 7px !important;
-    left: auto !important;
+    top: 42px;
+    right: 7px;
+    left: auto;
     z-index: 4;
 }
 .form-html-validate .hover-alert {
@@ -821,3 +821,5 @@ ul.alert li {
 .form-html-validate:hover .hover-alert{
     display: block;
 }
+.form-html-validate.course_id .fa-exclamation{top:15px;right:20px}
+.form-html-validate.course_id .hover-alert{top:0;right:20px}
