@@ -292,7 +292,7 @@ $(document).ready(function () {
         var isStudent = $(this).attr("data-isstudent")
         var video_name = $(this).attr("data-name")
         var video_info = "Phần " + $(this).attr("data-unit") + ", Bài " + $(this).attr("data-video")
-
+        unit =  $(this).attr("data-unit");
         section_dom.each(function (index, value){
             // alert(index)
         })
@@ -490,6 +490,7 @@ $(document).ready(function () {
         var current_video_index = infoVideo.indexCurrentVideo
         
         if(current_video_index < video_id_list.length - 1){ 
+
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -506,7 +507,7 @@ $(document).ready(function () {
             request.done(function(data){
                 window.videoSource = JSON.parse(data.video_url);
                 updateLink();
-                var unit = $('#listItem' + video_id_list[current_video_index]).attr("data-unit");
+                unit = $('#listItem' + video_id_list[current_video_index]).attr("data-unit");
                 unit = parseInt(unit);
                 var video_info = "Phần " + unit + ", Bài " + $('#listItem'+ video_id_list[current_video_index + 1]).attr("data-video")
 
@@ -521,6 +522,7 @@ $(document).ready(function () {
                     $("#sectionBody" + unit_next).addClass('in');
                 }
 
+                
                 // $video_urls = json_decode($main_video->url_video, true);
                 if(data.update_viewed == 1){
                     $("#viewed_count").html(parseInt($("#viewed_count").html()) + 1)

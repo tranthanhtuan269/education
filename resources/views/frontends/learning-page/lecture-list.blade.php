@@ -151,7 +151,9 @@
         var infoVideoJson = localStorage.getItem("currentVideo");
         var infoVideo = JSON.parse(infoVideoJson)
         var current_video_index = infoVideo.indexCurrentVideo
-        var unit = $('#listItem'+ video_id_list[current_video_index]).attr("data-unit");
+
+        unit = $('#listItem'+ video_id_list[current_video_index]).attr("data-unit");
+        // alert(unit)
         $("#sectionBody" + unit).addClass('in')
 
         var initialLectureList = $(".ln-lect-list-item").get()
@@ -180,11 +182,11 @@
 
         var searchString = sessionStorage.getItem("searchString-" + $('body').attr('data-course-id'));
 
-        if(searchString != undefined){
-            $(".learning-lecture-list-searchbar input").val(searchString);
-            $("#btnSearchSidebar").click(); 
-            // $('.ln-lect-list-body').addClass('in')   
-        }
+        // if(searchString != undefined){
+        //     $(".learning-lecture-list-searchbar input").val(searchString);
+        //     $("#btnSearchSidebar").click(); 
+        //     // $('.ln-lect-list-body').addClass('in')   
+        // }
 
         $(".learning-lecture-list-searchbar input").keyup(function(){
             $('.ln-lect-list-body').addClass('in')
