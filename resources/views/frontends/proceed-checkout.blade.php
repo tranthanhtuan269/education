@@ -77,7 +77,7 @@
                         <div class="international-card">
                             <div class="card-info">
                                 <div class="header form-check">
-                                    @if(false)<input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">@endif
+                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
                                     <label class="form-check-label" for="exampleRadios3">Thanh toán bằng thẻ quốc tế VISA, MASTERCARD, JCB</label>
                                     {{-- <input type="radio" name="otpradio" id="">
                                     <span class="label-title">Thanh toán bằng thẻ quốc tế VISA, MASTERCARD, JCB</span> --}}
@@ -175,7 +175,7 @@
                                                     </div> -->
                                                     <div class="row">
                                                         <div class="col-xs-12">
-                                                            <button class="btn btn-primary btn-lg btn-block" type="submit" id="stripeSubmit" disabled>Thanh toán (<span id='price-pay-now'></span>)</button>
+                                                            <button class="btn btn-primary btn-lg btn-block" type="submit" id="stripeSubmit">Thanh toán (<span id='price-pay-now'></span>)</button>
                                                             <input type="hidden" name="product_stripe">
                                                         </div>
                                                     </div>
@@ -211,7 +211,7 @@
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="order">
+                    <div class="order" id="sidebar-content">
                         <div class="title text-center">
                             <h3>ĐƠN HÀNG</h3>
                         </div>
@@ -231,6 +231,36 @@
                         </div> --}}
                     </div>
                 </div>
+                @if (!\App\Helper::isMobile())
+                    <script>
+                        $(window).scroll(function() {
+                            var block_on = $('.body-checkout .container .row').position().top - 10 //Padding
+                            var block_below = $('footer').position().top - $('#sidebar-content').height() - 30 - 62 //Padding
+                            if ($(window).scrollTop() >= block_on) {
+                                if($(window).scrollTop() <= block_below - 80){
+                                    document.getElementById("sidebar-content").classList.add("sidebar-fixed");
+                                    $("#sidebar-content").removeClass('sidebar-unfix').css('top', '');
+                                }else{
+                                    document.getElementById("sidebar-content").classList.remove("sidebar-fixed");
+                                    $("#sidebar-content").addClass('sidebar-unfix').css('top', block_below - block_on + 20);
+                                }
+                            } else {
+                                document.getElementById("sidebar-content").classList.remove("sidebar-fixed");
+                            }
+                        });
+                    </script>
+                    <style>
+                    .body-checkout  .sidebar-fixed {
+                        position: fixed;
+                        top: 115px;
+                        width: 277.5px;
+                    }
+                    .body-checkout .sidebar-unfix {
+                        position: absolute;
+                        width: 277.5px;
+                    }
+                    </style>
+                @endif
             </div>
         </div>
     </div>
@@ -374,6 +404,8 @@
         $('button[type=submit]').prop('disabled', true);
         $('input[type=checkbox]').prop('disabled', true);  
     });
+
+    $('#exampleRadios3').click();
 
     var user_id = $('button[id=cartUserId]').attr('data-user-id')
     var cart_items = JSON.parse(localStorage.getItem('cart'+user_id))
