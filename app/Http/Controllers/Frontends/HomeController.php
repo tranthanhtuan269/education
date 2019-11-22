@@ -11,6 +11,7 @@ use App\RatingTeacher;
 use App\Tag;
 use App\Teacher;
 use App\User;
+use App\StripeCard;
 use App\Unit;
 use App\Email;
 use App\Video;
@@ -885,10 +886,12 @@ class HomeController extends Controller
     public function proceedCheckout()
     {
         if (\Auth::check()) {
-            $info_payment = Auth::user()->pay_stripe;
-            if ($info_payment != null) {
-                $info_payment = json_decode($info_payment);
-            }
+            $info_payment = StripeCard::where('user_id', Auth::user()->id)->get();
+            // dd($info_payment);
+            // $info_payment = Auth::user()->pay_stripe;
+            // if ($info_payment != null) {
+            //     $info_payment = json_decode($info_payment);
+            // }
             // echo "<pre>";
             // print_r($info_payment);die;
             // dd($info_payment);

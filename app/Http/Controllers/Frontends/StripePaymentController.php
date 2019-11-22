@@ -42,6 +42,15 @@ class StripePaymentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function idCardAjax(Request $request){
+        if (Auth::check()) {
+            $id = $request->id;
+            $info = StripeCard::where('id', $id)->get();
+            dd($info);
+        }
+    }
+
     public function stripePost(Request $request)
     {
         try {
@@ -74,8 +83,6 @@ class StripePaymentController extends Controller
                 $item->year_card = $card_expiry_year;
                 $item->save();
             }
-            $number_new = StripeCard::where('number_card', $card_number)->first();
-            dd($number_new);
                     
 
             if (count($product_stripe) > 0) {

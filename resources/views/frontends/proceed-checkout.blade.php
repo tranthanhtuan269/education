@@ -116,8 +116,8 @@
                                                 @if (Session::has('success'))
                                                     <script>
                                                         Swal.fire({
-                                                        type: 'success',
-                                                        text: "Mua khóa học thành công!"
+                                                            type: 'success',
+                                                            text: "Mua khóa học thành công!"
                                                         }).then( result => {
                                                             document.location.href = '/';
                                                         })
@@ -134,7 +134,13 @@
                                                         <div class='col-xs-12 form-group required'>
                                                             <label class='control-label'>Tên in trên thẻ:</label> <input
                                                                 class='form-control' name='card_name' size='4' type='text' 
-                                                                value='{{  is_object($info_payment) ? $info_payment->card_name : "" }}' disabled>
+                                                                disabled>
+                                                            <select name="carlist" id="selectCard">
+                                                                <option value="">-- Chọn tên thẻ --</option>
+                                                                @foreach($info_payment as $name)
+                                                                    <option value="{{$name->id}}">{{$name->name_card}}</option>
+                                                                @endforeach
+                                                            </select>
                                                         </div>
                                                     </div>
                           
@@ -142,7 +148,7 @@
                                                         <div class='col-xs-12 form-group card required'>
                                                             <label class='control-label'>Số thẻ:</label> <input
                                                                 autocomplete='off' name='card_number' class='form-control card-number' size='20'
-                                                                type='text' value='{{ is_object($info_payment) ? $info_payment->card_number : "" }}' disabled>
+                                                                type='text' disabled>
                                                         </div>
                                                     </div>
                             
@@ -151,19 +157,19 @@
                                                             <label class='control-label'>CVC:</label> <input autocomplete='off'
                                                                 name='card_cvc' class='form-control card-cvc' placeholder='ex. 311' size='4'
                                                                 type='text' 
-                                                                value='{{ is_object($info_payment) ? $info_payment->card_cvc : "" }}' disabled>
+                                                                disabled>
                                                         </div>
                                                         <div class='col-xs-12 col-md-4 form-group expiration required'>
                                                             <label class='control-label'>Tháng hết hạn:</label> <input
                                                                 class='form-control card-expiry-month' placeholder='MM' size='2'
                                                                 name='card_expiry_month' type='text' 
-                                                                value='{{ is_object($info_payment) ? $info_payment->card_expiry_month : "" }}' disabled>
+                                                                disabled>
                                                         </div>
                                                         <div class='col-xs-12 col-md-4 form-group expiration required'>
                                                             <label class='control-label'>Năm hết hạn:</label> <input
                                                                 class='form-control card-expiry-year' placeholder='YYYY' size='4'
                                                                 name='card_expiry_year' type='text' 
-                                                                value='{{ is_object($info_payment) ? $info_payment->card_expiry_year : ""}}' disabled>
+                                                                disabled>
                                                         </div>
                                                     </div>
                             
@@ -181,7 +187,7 @@
                                                     </div>
                                                     <br>
                                                     <div class="blockform-check">
-                                                        <input class="form-check-input" type="checkbox" value="1" name="default_check" @if (is_object($info_payment)) checked @endif disabled>
+                                                        <input class="form-check-input" type="checkbox" value="1" name="default_check" disabled>
                                                         <label class="form-check-label" for="defaultCheck1" >Lưu và bảo mật cho lần thanh toán sau</label>
                                                     </div>
                                                 </form>
@@ -286,6 +292,25 @@
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
   
 <script type="text/javascript">
+
+    $('select').on('change', function (e){
+        
+        var id_card = $('#selectCard').find(":selected").val();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        var request = $.ajax({
+            url:  '{{ url('/stripe/id-card') }}',
+            method: "POST",
+            data: {
+                id : id_card,
+            },
+            dataType: "json"
+        });
+    })
+
     $(function() {
         var $form = $(".require-validation");
         $('form.require-validation').bind('submit', function(e) {

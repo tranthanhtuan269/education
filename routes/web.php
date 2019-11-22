@@ -271,6 +271,7 @@ Route::group(['middleware' => 'auth'], function () {
 // FRONTEND
 
 Route::post('stripe', 'Frontends\StripePaymentController@stripePost')->name('stripe.post');
+Route::post('stripe/id-card', 'Frontends\StripePaymentController@idCardAjax');
 
 Route::post('/loginAjax', 'Frontends\UserController@loginAjax');
 Route::post('/registerAjax', 'Frontends\UserController@registerAjax');
