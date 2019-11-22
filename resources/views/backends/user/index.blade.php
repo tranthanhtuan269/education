@@ -838,6 +838,7 @@
                 // $('#userPassword_upd').val("not_change");
                 // $('#passConfirm_upd').val("not_change");
                 $(".alert-errors").addClass("d-none");
+                $('.form-html-validate').css('display', 'none')
             });
 
             // Begin Block User
@@ -1135,14 +1136,11 @@
                 },
                 error: function (error) {
                     var obj_errors = error.responseJSON.errors;
-                    var txt_errors = '';
-                    for (k of Object.keys(obj_errors)) {
-                        txt_errors += obj_errors[k][0] + '</br>';
-                    }
-                    Swal.fire({
-                        type: 'warning',
-                        html: txt_errors,
-                        allowOutsideClick: false,
+                    $('.form-html-validate').css('display', 'block')
+                    $('.form-html-validate').html('')
+                    $.each(obj_errors, function( index, value ) {
+                        var content = '<i class="fa fa-exclamation fa-fw"></i><div class="hover-alert">'+ value +'</div>'
+                        $('.form-html-validate.' + index).html(content);
                     })
                 }
             });
@@ -1287,7 +1285,7 @@
             $('#confirmpassword_Ins').val('')
             $('select[name=role_id]').val(1)
             $('.alert-errors').addClass("d-none")
-
+            $('.form-html-validate').css('display', 'none')
         }
 
         // $('#search_txt').keyup(function() {
@@ -1334,9 +1332,9 @@
     $('#add_user_modal .nav-tabs-custom ul>li>a').click(function(){
         $('.form-html-validate').css('display', 'none')
     })
-    $('.add-item a#create_user').click(function(){
-        $('.form-html-validate').css('display', 'none')
-    })
+    // $('#edit_user_modal .nav-tabs-custom ul>li>a#create_user').click(function(){
+    //     $('.form-html-validate').css('display', 'none')
+    // })
 </script>
 
 @endsection

@@ -30,7 +30,7 @@ class UpdateTeacherRequest extends FormRequest
             'cv'            => 'required',
             'expert'        => 'required|max:55',
             'address'       => 'required|max:255',
-            'dob'           => 'date_format:"d/m/Y"|regex:/[0-9]{2}\/[0-9]{2}\/[0-9]{4}/|validate_dob',
+            'dob'           => 'date_format:"d/m/Y"', //|regex:/[0-9]{2}\/[0-9]{2}\/[0-9]{4}/|validate_dob
             'password'          => 'min:8|max:101',
             'confirm_password'   => 'same:password',
             'youtube'           => 'required',

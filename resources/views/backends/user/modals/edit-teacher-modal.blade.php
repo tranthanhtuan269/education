@@ -12,8 +12,9 @@
 </div>
 <div class="form-group row">
     <label  class="col-sm-3 col-form-label">Tên <span class="text-danger">*</span></label>
-    <div class="col-sm-8">
+    <div class="col-sm-8 form-html">
         <input type="text" class="form-control" id="editTchName" name="name">                                       
+        <div class="form-html-validate name"></div>
     </div>
 </div>
 <div class="form-group row">
@@ -24,22 +25,21 @@
 </div>
 <div class="form-group row">
     <label  class="col-sm-3 col-form-label">Sô điện thoại <span class="text-danger">*</span></label>
-    <div class="col-sm-8">
+    <div class="col-sm-8 form-html">
         <input type="text" class="form-control" id="editTchPhone" name="phone">                                       
+        <div class="form-html-validate phone"></div>
     </div>
-    <script>
-        
-    </script>
 </div>
 <div class="form-group row">
     <label  class="col-sm-3 col-form-label">Ngày sinh <span class="text-danger">*</span></label>
-    <div class="col-sm-8">
+    <div class="col-sm-8 form-html">
         <div class="input-group date">
             <div class="input-group-addon">
                 <i class="fa fa-calendar"></i>
             </div>
             <input type="text" class="form-control pull-right" id="editTchDob"  name="dob">
         </div>                                   
+        <div class="form-html-validate dob"></div>
     </div>
 </div>
 <div class="form-group row">
@@ -54,32 +54,37 @@
 </div>
 <div class="form-group row">
     <label  class="col-sm-3 col-form-label">Địa chỉ <span class="text-danger">*</span></label>
-    <div class="col-sm-8">
+    <div class="col-sm-8 form-html">
         <input type="text" class="form-control" id="editTchAddress" name="address">                                       
+        <div class="form-html-validate address"></div>
     </div>
 </div>
 <div class="form-group row">
     <label  class="col-sm-3 col-form-label">Chuyên môn <span class="text-danger">*</span></label>
-    <div class="col-sm-8">
+    <div class="col-sm-8 form-html">
         <input type="text" class="form-control" id="editTchExpert" name="expert">                                       
+        <div class="form-html-validate expert"></div>
     </div>
 </div>
 <div class="form-group row">
     <label  class="col-sm-3 col-form-label">Link youtube <span class="text-danger">*</span></label>
-    <div class="col-sm-8">
+    <div class="col-sm-8 form-html">
         <input type="text" class="form-control" id="editTchYoutube" name="youtube">                                       
+        <div class="form-html-validate youtube"></div>
     </div>
 </div>
 <div class="form-group row">
     <label  class="col-sm-3 col-form-label">Facebook </label>
-    <div class="col-sm-8">
-        <input type="text" class="form-control" id="editTchFacebook" name="youtube">                                       
+    <div class="col-sm-8 form-html">
+        <input type="text" class="form-control" id="editTchFacebook" name="facebook">                                       
+        <div class="form-html-validate facebook"></div>
     </div>
 </div>
 <div class="form-group row">
     <label  class="col-sm-3 col-form-label">CV <span class="text-danger">*</span></label>
-    <div class="col-sm-8">
+    <div class="col-sm-8 form-html">
         <textarea type="text" class="form-control" id="editTchCv" name="editTchCv"></textarea>                                    
+        <div class="form-html-validate cv"></div>
     </div>
     <script>
             CKEDITOR.replace( 'editTchCv', {
@@ -99,14 +104,16 @@
 </div>
 <div class="form-group row">
     <label  class="col-sm-3 col-form-label">Mật khẩu </label>
-    <div class="col-sm-8">
+    <div class="col-sm-8 form-html">
         <input type="password" class="form-control" id="editTchPassword" name="password">                                       
+        <div class="form-html-validate password"></div>
     </div>
 </div>
 <div class="form-group row">
     <label  class="col-sm-3 col-form-label">Nhập lại mật khẩu </label>
-    <div class="col-sm-8">
+    <div class="col-sm-8 form-html">
         <input type="password" class="form-control" id="editTchCfPassword" name="confirm-password" >                                       
+        <div class="form-html-validate confirm_password"></div>
     </div>
 </div>
 <div class="modal-footer">
@@ -189,10 +196,7 @@ $(document).ready(function(){
             var match = youtube.match(regExp);
             if (match && match[2].length == 11) {
             }else{
-                Swal.fire({
-                    type: 'warning',
-                    html: 'Link Youtube không hợp lệ!',
-                })
+                alertValidate('Link Youtube không hợp lệ!', 'youtube')
                 return false;
             }
         }
@@ -206,10 +210,7 @@ $(document).ready(function(){
         if ( facebook_url != '' ){
             validate_url(facebook_url)
             if( !validate_url(facebook_url) ){
-                Swal.fire({
-                    type: 'warning',
-                    html: 'Link Facebook không hợp lệ!',
-                })
+                alertValidate('Link Facebook không hợp lệ!', 'facebook')
                 return false;
             }
         }
@@ -217,10 +218,8 @@ $(document).ready(function(){
         var wordCount = editTchCvEditor.wordCount.wordCount
         if ( wordCount > 0 ){
             if(wordCount < 30){
-                return Swal.fire({
-                    type : 'warning',
-                    text : 'CV phải có ít nhất 30 từ',                
-                })
+                alertValidate('CV phải có ít nhất 30 từ.', 'cv')
+                return false
             }
         }
         
@@ -281,14 +280,11 @@ $(document).ready(function(){
             },
             error: error => {
                 var obj_errors = error.responseJSON.errors;
-                var txt_errors = '';
-                for (k of Object.keys(obj_errors)) {
-                    txt_errors += obj_errors[k][0] + '</br>';
-                }
-                Swal.fire({
-                    type: 'warning',
-                    html: txt_errors,
-                    allowOutsideClick: false,
+                $('.form-html-validate').css('display', 'block')
+                $('.form-html-validate').html('')
+                $.each(obj_errors, function( index, value ) {
+                    var content = '<i class="fa fa-exclamation fa-fw"></i><div class="hover-alert">'+ value +'</div>'
+                    $('.form-html-validate.' + index).html(content);
                 })
             }
         })
