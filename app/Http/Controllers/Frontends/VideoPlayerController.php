@@ -66,7 +66,7 @@ class VideoPlayerController extends Controller
                 $videoId = json_decode($user_role_course_instance->videos)->learning_id;
             }
             $main_video = Video::where('id', $videoId)->first();
-            $units = Unit::where('course_id', $courseId)->get();
+            $units = Unit::where('course_id', $courseId)->orderBy('index', 'asc')->get();
             $notes = Note::where('video_id', $videoId)->where('user_id', Auth::id())->orderBy('created_at', 'desc')->get();
             $files = Document::where('video_id', $videoId)->orderBy('created_at', 'desc')->get();
 
@@ -132,6 +132,7 @@ class VideoPlayerController extends Controller
 
             // $main_video_id = $main_video->unit->course->id;
             $video_id_list = [];
+            // dd($units);
             foreach ($units as $unit) {
                 foreach ($unit->videos as $key => $video) {
                     array_push($video_id_list, $video->id);
