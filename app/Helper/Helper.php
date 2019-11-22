@@ -359,7 +359,7 @@ class Helper
         $html .= '<div class="form-group form-html">';
             $html .= '<label>'. $lb_text .'</label>';
             $html .= '<div class="form-group">';
-                $html .= '<textarea class="form-control" rows="'. $row .'" cols="'. $col.'" name="'. $name .'">'. $value .'</textarea>';
+                $html .= '<textarea class="form-control" rows="'. $row .'" cols="'. $col.'" name="'. $name .'" '.$feature.'>'. $value .'</textarea>';
             $html .= '</div>';
             $html .= '<div class="form-html-validate '. $alert_class .'"></div>';
         $html .= '</div>';

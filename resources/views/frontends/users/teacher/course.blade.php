@@ -222,8 +222,8 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <div class="btn btn-primary pull-right btn-add-video" id="addVideoBtn" ><i class="fas fa-plus fa-fw"></i>Thêm bài học</div>
-                <h3 class="modal-title">Danh sách bài học</h3>
+                <div class="btn btn-primary pull-right btn-add-video" id="addVideoBtn" ><i class="fas fa-plus fa-fw"></i>Thêm bài giảng</div>
+                <h3 class="modal-title">Danh sách bài giảng</h3>
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -243,16 +243,18 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>Thêm bài học</h3>
+                <h3>Thêm bài giảng</h3>
             </div>
             <div class="modal-body">
-                <div class="form-group row">
-                    <label class="col-sm-3" for="name">Tên bài học:</label>
+                <div class="form-group row form-html">
+                    <label class="col-sm-3" for="name">Tên bài giảng:</label>
                     <input class="col-sm-9 form-control add-video-name" type="text" >
+                    <div class="form-html-validate name"></div>
                 </div>
-                <div class="form-group row">
+                <div class="form-group row form-html">
                     <label class="col-sm-3" for="name">Mô tả:</label>
                     <textarea class="col-sm-9 form-control add-video-description" rows="5"></textarea>
+                    <div class="form-html-validate description"></div>
                 </div>
                 <div class="form-group row">
                     <label for="file" class="col-sm-3">Tài liệu:</label>
@@ -270,8 +272,8 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <div class="clearfix">
-                        <label class="col-sm-3" for="name">Video bài học:</label>
+                    <div class="clearfix form-html">
+                        <label class="col-sm-3" for="name">Video bài giảng:</label>
                         <div class="btn-upload clearfix">
                             <span class="file-wrapper">
                               <input type="file" name="file-mp4-upload-off" id="file-mp4-upload-off">
@@ -279,8 +281,8 @@
                               <span class="button text-lowercase uploading-new-video" style="display: none;">Đang tải lên</span>
                             </span>
                         </div>
+                        <div class="form-html-validate link_video"></div>
                     </div>
-
                     {{-- <input type="file" name="file-mp4-upload-off" id="file-mp4-upload-off"> --}}
                     <div class="progress">
                         <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:0%">
@@ -307,16 +309,18 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>Chỉnh sửa bài học <span id="lecture-name"></span></h3>
+                <h3>Chỉnh sửa bài giảng <span id="lecture-name"></span></h3>
             </div>
             <div class="modal-body">
-                <div class="form-group row">
+                <div class="form-group row form-html">
                     <label class="col-sm-3" for="name">Tên:</label>
                     <input class="col-sm-9 form-control edit-video-name" type="text">
+                    <div class="form-html-validate name"></div>
                 </div>
-                <div class="form-group row">
+                <div class="form-group row form-html">
                     <label class="col-sm-3" for="name">Mô tả:</label>
                     <textarea class="col-sm-9 form-control edit-video-description" rows="5"></textarea>
+                    <div class="form-html-validate description"></div>
                 </div>
                 <div class="form-group row">
                     <label for="file" class="col-sm-3">Tài liệu:</label>
@@ -335,7 +339,7 @@
                 </div>
                 <div class="form-group row">
                     <div class="clearfix">
-                        <label class="col-sm-3" for="name">Video bài học:</label>
+                        <label class="col-sm-3" for="name">Video bài giảng:</label>
                         <div class="btn-upload clearfix">
                             <span class="file-wrapper">
                               <input type="file" name="file-mp4-upload-off" id="file-mp4-upload-off-updated">
@@ -810,13 +814,11 @@
                     error: function (error) {
                         $(".ajax_waiting").removeClass("loading");
                         var obj_errors = error.responseJSON.errors;
-                        var txt_errors = '';
-                        for (k of Object.keys(obj_errors)) {
-                            txt_errors += obj_errors[k][0] + '</br>';
-                        }
-                        Swal.fire({
-                            type: 'warning',
-                            html: txt_errors,
+                        $('.form-html-validate').css('display', 'block')
+                        $('.form-html-validate').html('')
+                        $.each(obj_errors, function( index, value ) {
+                            var content = '<i class="fas fa-exclamation fa-fw"></i><div class="hover-alert">'+ value +'</div>'
+                            $('.form-html-validate.' + index).html(content);
                         })
                     }
                 })
@@ -926,14 +928,11 @@
                     error: function (error) {
                         $(".ajax_waiting").removeClass("loading");
                         var obj_errors = error.responseJSON.errors;
-                        var txt_errors = '';
-                        for (k of Object.keys(obj_errors)) {
-                            txt_errors += obj_errors[k][0] + '</br>';
-                        }
-                        Swal.fire({
-                            type: 'warning',
-                            html: txt_errors,
-                            allowOutsideClick: false,
+                        $('.form-html-validate').css('display', 'block')
+                        $('.form-html-validate').html('')
+                        $.each(obj_errors, function( index, value ) {
+                            var content = '<i class="fas fa-exclamation fa-fw"></i><div class="hover-alert">'+ value +'</div>'
+                            $('.form-html-validate.' + index).html(content);
                         })
                         $("#videoInEdit")[0].pause()
                     }

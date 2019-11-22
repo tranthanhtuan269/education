@@ -35,8 +35,8 @@ class StoreVideoRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'Bạn chưa nhập tên bài học.',
-            'name.max'      => 'Tên bài học quá dài. (Yêu cầu <100 ký tự)',
+            'name.required' => 'Bạn chưa nhập tên bài giảng.',
+            'name.max'      => 'Tên bài giảng quá dài. (Yêu cầu <100 ký tự)',
             'description.required' => 'Bạn chưa nhập mô tả bài giảng.',
             'link_video.required' => 'Bạn chưa chọn video bài giảng.',
         ];

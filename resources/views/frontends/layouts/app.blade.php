@@ -1189,6 +1189,12 @@
             // document.getElementById("min-height").style.minHeight = x;
             $('#min-height').css('minHeight',x);
         }
+
+        $('input[type=password]').keydown(function(e) {
+            if( e.keyCode == 32 ){
+                return false;
+            }
+        })
     });
 
     /* Alert Validate Trinhnk */
