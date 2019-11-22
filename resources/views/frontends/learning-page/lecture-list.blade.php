@@ -19,7 +19,6 @@
 
         @php
         $units = $units->sortBy('index');
-        $arr_unit_watched = [];
         $count = 0;
         @endphp
         @foreach ($units as $key => $unit)
@@ -79,7 +78,6 @@
                                             @endphp
                                             @if(isset($list_video_done_in_unit[$video->index-1]))
                                                 @if ($list_video_done_in_unit[$video->index-1] == 1)
-                                                <?php  $arr_unit_watched[] = $key+1; ?>
                                                 <span class="ln-btn-complete" id="lnBtnComplete{{$video->id}}" data-child="{{$key2+1}}">
                                                     <button >
                                                         <span class="fa-stack">
@@ -151,15 +149,16 @@
             @endif
             <?php $count++; ?>
             @endforeach
-
-             <?php $arr_unit_watched = array_unique($arr_unit_watched); //dd($arr_unit_watched); ?>
         
     </div>
 </div>
 <script>
     $(document).ready( function (){
+        arr_unit_watched = [];
+        var unit;
+
         var initialLectureList = $(".ln-lect-list-item").get()
-        var arr_unit_watched = <?php echo  json_encode($arr_unit_watched) ?>;
+        // var arr_unit_watched = <?php echo  json_encode($arr_unit_watched) ?>;
   
         // Search Lecture List
         $("#btnSearchSidebar").click(function (){
@@ -211,8 +210,13 @@
             }else{
                 $('.ln-lect-list-body').removeClass('in')
 
-                $.each(arr_unit_watched, function(key, value) {
-                    $("#sectionBody" + value).addClass('in')
+                $('.video_viewed').each(function(key, value) {
+                    unit = $(value).data('unit');
+                    unit = parseInt(unit);
+
+                    if (unit > 0 && jQuery.inArray(unit, arr_unit_watched) === -1) {
+                        $("#sectionBody" + unit).addClass('in')
+                    }
                 });
 
                 $('.ln-lect-list-item').show();
