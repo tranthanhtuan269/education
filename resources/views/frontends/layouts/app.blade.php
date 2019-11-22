@@ -918,6 +918,8 @@
                 
                 // alert(1)
                 var id_to_remove = []
+                var list_course_bought = "";
+                var count_course_bought = 0;
                 
                 $.each( number_items_in_cart, function(i, obj) {                
                     
@@ -933,10 +935,24 @@
                         if(element == obj.id){
                             id_to_remove.push(obj.id)
                             $('.cart-single-item[data-parent='+obj.id+']').remove()
+                            // list_course_bought += '<li><b>' + obj.name + '</b></li>'
+                            if(count_course_bought == 0)
+                            list_course_bought += '"' + obj.name + '"'
+                            else
+                            list_course_bought += ', "' + obj.name + '"'
+                            count_course_bought++;
                         }else{
                            
                         }
                     });
+
+                    if(list_course_bought.length > 0){
+                        list_course_bought.trimEnd(",");
+                        Swal.fire({
+                            type: 'warning',
+                            html: 'Khóa học <b>' + list_course_bought + '</b> đã được bạn mua rồi!'
+                        })
+                    }
                 });
                 
                 id_to_remove.forEach(element => {
