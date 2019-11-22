@@ -30,15 +30,20 @@
                     <form>
                         <div class="row">
                             <div class="col-md-4">
-                                <h3><b>Nhập mã Coupon</b></h3><br>
-                                <label>Mã Coupon</label>
-                                <input type="text" class="form-control" id="coupon_code" name="name">
-                                <br>
-                                <label>Nhập số % của Coupon</label>
-                                <input type="number" class="form-control" id="coupon_value" min="1" max="100" name="value">
-                                <br>
-                                <label>Nhập ngày hết hạn của Coupon</label>
-                                <input type="text" class="form-control" id="coupon_expired" pattern="\d{1,2}/\d{1,2}/\d{4}" value="" autocomplete="off" onkeydown="return false">
+                                <h3><b>Nhập mã Coupon</b></h3>
+                                {{-- <label>Mã Coupon</label>
+                                <input type="text" class="form-control" id="coupon_code" name="name"> --}}
+                                {!! \App\Helper\Helper::insertInputForm('text', 'name', 'Mã Coupon', '', 'coupon_code', 'id="coupon_code"') !!}
+                                {{-- <label>Nhập số % của Coupon</label>
+                                <input type="number" class="form-control" id="coupon_value" min="1" max="100" name="value"> --}}
+                                {!! \App\Helper\Helper::insertInputForm('number', 'value', 'Nhập số % của Coupon', '', 'coupon_value', 'id="coupon_value" min="1" max="100"') !!}
+                                <div class="form-group form-html">
+                                    <label>Nhập ngày hết hạn của Coupon</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="coupon_expired" pattern="\d{1,2}/\d{1,2}/\d{4}" value="" autocomplete="off" onkeydown="return false">
+                                    </div>
+                                    <div class="form-html-validate coupon_expired"></div>
+                                </div>
                                 <script src="{{asset('backend/template/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}"></script>
                                 <script>
                                 $('#coupon_expired').datepicker({
@@ -61,12 +66,13 @@
                             </div>
                             <div class="col-md-8">
                                 <h3><b>Chọn khóa học được hưởng COUPON</b></h3><br>
-                                <div>
+                                <div class="form-html">
                                     <p><select id="demonstration" name="course[]" style="width: 570px" multiple="multiple">
                                         @foreach ($courses as $course)
                                         <option value="{{ $course->id }}">{{ $course->name }}</option>
                                         @endforeach
                                     </select></p>
+                                    <div class="form-html-validate course_id"></div>
                                 </div>
                             </div>
                         </div>
@@ -92,15 +98,16 @@
                     <form>
                         <div class="row">
                             <div class="col-md-4">
-                                <h3><b>Nhập mã Coupon</b></h3><br>
-                                <label>Mã Coupon</label>
-                                <input type="text" class="form-control" id="editCouponCode" name="name">
-                                <br>
-                                <label>Nhập số % của Coupon</label>
-                                <input type="number" class="form-control" id="editCouponValue" min="1" max="100" name="value">
-                                <br>
-                                <label>Nhập ngày hết hạn của Coupon</label>
-                                <input type="text" class="form-control" id="editCouponExpired" name="expired" pattern="\d{1,2}/\d{1,2}/\d{4}" value="" autocomplete="off" onkeydown="return false">
+                                <h3><b>Nhập mã Coupon</b></h3>
+                                {!! \App\Helper\Helper::insertInputForm('text', 'name', 'Mã Coupon', '', 'coupon_code', 'id="editCouponCode"') !!}
+                                {!! \App\Helper\Helper::insertInputForm('number', 'value', 'Nhập số % của Coupon', '', 'coupon_value', 'id="editCouponValue" min="1" max="100"') !!}
+                                <div class="form-group form-html">
+                                    <label>Nhập ngày hết hạn của Coupon</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="editCouponExpired" name="expired" pattern="\d{1,2}/\d{1,2}/\d{4}" value="" autocomplete="off" onkeydown="return false">
+                                    </div>
+                                    <div class="form-html-validate coupon_expired"></div>
+                                </div>
                                 <script src="{{asset('backend/template/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}"></script>
                                 <script>
                                     $('#editCouponExpired').datepicker({
@@ -116,12 +123,13 @@
                                 <label>Các khóa học đang được hưởng COUPON <span  id="addLabel"></span>:</label>
                                 {{-- <div id="edit_course_id_view"></div>--}}
                                 <br>
-                                <div>
+                                <div class="form-html">
                                     <select id="demonstrationEdit" name="course[]" style="width: 570px" multiple="multiple">
                                         @foreach ($courses as $course)
                                         <option value="{{ $course->id }}">{{ $course->name }}</option>
                                         @endforeach
                                     </select>
+                                    <div class="form-html-validate course_id"></div>
                                 </div>
                             </div>
                         </div>
@@ -262,65 +270,36 @@ $(document).ready(function(){
             var coupon_expired = $('#editCouponExpired').val()
 
             if(coupon_code == ''){
-                Swal.fire({
-                    type: 'warning',
-                    text: 'Bạn chưa nhập mã Coupon!'
-                })
+                alertValidate('Bạn chưa nhập mã Coupon!', 'coupon_code')
                 return;
             }
-
             if( coupon_code.length >=15 ){
-                Swal.fire({
-                    type: 'warning',
-                    text: 'Mã COUPON quá dài (Yêu cầu <15 ký tự)!'
-                })
+                alertValidate('Mã COUPON quá dài (Yêu cầu <15 ký tự)!', 'coupon_code')
                 return;
             }
-
             if(coupon_value == ''){
-                Swal.fire({
-                    type: 'warning',
-                    text: 'Bạn chưa nhập số % được giảm!'
-                })
+                alertValidate('Bạn chưa nhập số % được giảm!', 'coupon_value')
                 return;
             }
-
             if( Number(coupon_value) <= 0 ){
-                Swal.fire({
-                    type: 'warning',
-                    text: '% giá giảm không thể <= 0!'
-                })
+                alertValidate('% giá giảm không thể <= 0!', 'coupon_value')
                 return;
             }
-
             if( Number(coupon_value) > 100 ){
-                Swal.fire({
-                    type: 'warning',
-                    text: '% giá giảm không thể >100!'
-                })
+                alertValidate('% giá giảm không thể >100!', 'coupon_value')
                 return;
             }
-
             if( !coupon_expired ){
-                Swal.fire({
-                    type: 'warning',
-                    text: 'Bạn chưa chọn ngày hết hạn COUPON!'
-                })
+                alertValidate('Bạn chưa chọn ngày hết hạn COUPON!', 'coupon_expired')
                 return;
             }
-
             for (var i = 0; i < asInputs.length; i++) {
                 course_id[i] = $(asInputs[i]).data('sol-item').value;
             }
-
             if (course_id.length == 0) {
-                Swal.fire({
-                    type: 'warning',
-                    text: 'Chưa có khóa học nào được chọn!'
-                })
+                alertValidate('Chưa có khóa học nào được chọn!', 'course_id')
                 return;
             }
-
             $.ajaxSetup({
                 headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -469,50 +448,32 @@ $(document).ready(function(){
         var coupon_expired = $('#coupon_expired').val()
 
         if(coupon_code == ''){
-            Swal.fire({
-                type: 'warning',
-                text: 'Bạn chưa nhập mã Coupon!'
-            })
+            alertValidate('Bạn chưa nhập mã Coupon!', 'coupon_code')
             return;
         }
 
         if( coupon_code.length >=15 ){
-            Swal.fire({
-                type: 'warning',
-                text: 'Mã COUPON quá dài (Yêu cầu <15 ký tự)!'
-            })
+            alertValidate('Mã COUPON quá dài (Yêu cầu <15 ký tự)!', 'coupon_code')
             return;
         }
 
         if(coupon_value == ''){
-            Swal.fire({
-                type: 'warning',
-                text: 'Bạn chưa nhập số % được giảm!'
-            })
+            alertValidate('Bạn chưa nhập số % được giảm!', 'coupon_value')
             return;
         }
 
         if( Number(coupon_value) <= 0 ){
-            Swal.fire({
-                type: 'warning',
-                text: '% giá giảm không thể <= 0!'
-            })
+            alertValidate('% giá giảm không thể <= 0!', 'coupon_value')
             return;
         }
 
         if( Number(coupon_value) > 100 ){
-            Swal.fire({
-                type: 'warning',
-                text: '% giá giảm không thể >100!'
-            })
+            alertValidate('% giá giảm không thể >100!', 'coupon_value')
             return;
         }
 
         if( !coupon_expired ){
-            Swal.fire({
-                type: 'warning',
-                text: 'Bạn chưa chọn ngày hết hạn COUPON!'
-            })
+            alertValidate('Bạn chưa chọn ngày hết hạn COUPON!', 'coupon_expired')
             return;
         }
 
@@ -521,10 +482,7 @@ $(document).ready(function(){
         }
 
         if (course_id.length == 0) {
-            Swal.fire({
-                type: 'warning',
-                text: 'Chưa có khóa học nào được chọn!'
-            })
+            alertValidate('Chưa có khóa học nào được chọn!', 'course_id')
             return;
         }
 

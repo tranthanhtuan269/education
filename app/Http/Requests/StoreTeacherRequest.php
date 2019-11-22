@@ -32,7 +32,7 @@ class StoreTeacherRequest extends FormRequest
             'cv'                => 'required',
             'expert'            => 'required|max:55',
             'address'           => 'required|max:255',
-            'dob'               => 'date_format:"d/m/Y"|regex:/[0-9]{2}\/[0-9]{2}\/[0-9]{4}/|validate_dob',
+            'dob'               => 'date_format:"d/m/Y"', //|regex:/[0-9]{2}\/[0-9]{2}\/[0-9]{4}/|validate_dob
             'password'          => 'required|min:8|max:101',
             'confirm_password'  => 'required|same:password',
             'youtube'           => 'required',

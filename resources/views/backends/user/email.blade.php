@@ -79,7 +79,7 @@
             </div>
             @if (Helper::checkPermissions('users.email', $list_roles))
             <div class="modal-body">
-                    <div class="form-group row">
+                    <div class="form-group row form-html">
                         <label  class="col-sm-1 col-form-label">Chủ đề <span class="text-danger">*</span></label>
                         <div class="col-sm-11">
                             <input type="text" class="form-control" id="subject_Ins" name="subject"  value="{{ Request::old('subject') }}">
@@ -87,8 +87,9 @@
 
                             </div>
                         </div>
+                        <div class="form-html-validate title"></div>
                     </div>
-                    <div class="form-group row">
+                    <div class="form-group row form-html">
                         <label  class="col-sm-1 col-form-label">Nội dung <span class="text-danger">*</span></label>
                         <div class="col-sm-11">
                             <textarea id="content_Ins" class="form-control" name="content">{{ Request::old('content') }}</textarea>
@@ -120,6 +121,7 @@
                                     var content_Ins = CKEDITOR.instances.content_Ins;
                             </script>
                         </div>
+                        <div class="form-html-validate content"></div>
                     </div>
 
                 </div>
@@ -142,7 +144,7 @@
             </div>
             @if (Helper::checkPermissions('users.email', $list_roles))
             <div class="modal-body">
-                    <div class="form-group row">
+                    <div class="form-group row form-html">
                         <label  class="col-sm-1 col-form-label">Chủ đề <span class="text-danger">*</span></label>
                         <div class="col-sm-11">
                             <input type="text" class="form-control" id="edit_subject_Ins" name="subject"  value="{{ Request::old('subject') }}">
@@ -150,8 +152,9 @@
 
                             </div>
                         </div>
+                        <div class="form-html-validate title"></div>
                     </div>
-                    <div class="form-group row">
+                    <div class="form-group row form-html">
                         <label  class="col-sm-1 col-form-label">Nội dung <span class="text-danger">*</span></label>
                         <div class="col-sm-11">
                             <textarea id="edit_content_Ins" class="form-control" name="content">{{ Request::old('content') }}</textarea>
@@ -183,6 +186,7 @@
                                 var edit_content_Ins = CKEDITOR.instances.edit_content_Ins;
                             </script>
                         </div>
+                        <div class="form-html-validate content"></div>
                     </div>
 
                 </div>
@@ -614,14 +618,11 @@
                 },
                 error: function (error) {
                     var obj_errors = error.responseJSON.errors;
-                    var txt_errors = '';
-                    for (k of Object.keys(obj_errors)) {
-                        txt_errors += obj_errors[k][0] + '</br>';
-                    }
-                    Swal.fire({
-                        type: 'warning',
-                        html: txt_errors,
-                        allowOutsideClick: false,
+                    $('.form-html-validate').css('display', 'block')
+                    $('.form-html-validate').html('')
+                    $.each(obj_errors, function( index, value ) {
+                        var content = '<i class="fa fa-exclamation fa-fw"></i><div class="hover-alert">'+ value +'</div>'
+                        $('.form-html-validate.' + index).html(content);
                     })
                 }
             })
@@ -670,14 +671,11 @@
                 },
                 error: function (error) {
                     var obj_errors = error.responseJSON.errors;
-                    var txt_errors = '';
-                    for (k of Object.keys(obj_errors)) {
-                        txt_errors += obj_errors[k][0] + '</br>';
-                    }
-                    Swal.fire({
-                        type: 'warning',
-                        html: txt_errors,
-                        allowOutsideClick: false,
+                    $('.form-html-validate').css('display', 'block')
+                    $('.form-html-validate').html('')
+                    $.each(obj_errors, function( index, value ) {
+                        var content = '<i class="fa fa-exclamation fa-fw"></i><div class="hover-alert">'+ value +'</div>'
+                        $('.form-html-validate.' + index).html(content);
                     })
                 }
             })

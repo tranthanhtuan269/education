@@ -787,3 +787,48 @@ ul.alert li {
 .btn-inaccept{
     color: #000;
 }
+
+/* Trinhnk: Alert Form */
+.form-html{
+    position: relative;
+}
+.form-html-validate i{
+    position: absolute;
+    color: #c80000;
+    font-size: 18px;
+    transform: translateY(-50%);
+    top: 42px;
+    right: 7px;
+    left: auto;
+    z-index: 4;
+}
+.form-html-validate .hover-alert {
+    display: none;
+    position: absolute;
+    max-width: 70%;
+    background-color: #fff;
+    border: 1px solid #c80000;
+    border-radius: 2px;
+    padding: 4px 25px 5px 10px;
+    top: 27px;
+    right: 7px;
+    color: #c80000;
+    font-size: 14px;
+    line-height: 1.4;
+    text-align: left;
+    z-index: 3;
+}
+.form-html-validate:hover .hover-alert{
+    display: block;
+}
+.form-html-validate.course_id .fa-exclamation{top:15px;right:20px}
+.form-html-validate.course_id .hover-alert{top:0;right:20px}
+
+#createEmailModal .fa-exclamation, #editEmailModal .fa-exclamation{top:17px;right:25px}
+#createEmailModal .hover-alert, #editEmailModal .hover-alert{top:2px;right:25px}
+
+#add_user_modal .form-html-validate .fa-exclamation{top:17px;right:25px}
+#add_user_modal .form-html-validate .hover-alert{top:2px;right: 25px;}
+
+#edit_user_modal .form-html-validate .fa-exclamation{top:17px;right:25px}
+#edit_user_modal .form-html-validate .hover-alert{top:2px;right: 25px;}

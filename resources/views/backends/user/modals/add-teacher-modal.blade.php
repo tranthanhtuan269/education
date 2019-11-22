@@ -6,38 +6,43 @@
                 <img id="imageTch" style="height:0px;" src="">
                 <input type="file" id="addTchImgInput" style="display:none;">
             </div>
-            <div style="margin-top: 0.5em">
+            <div style="margin-top: 0.5em" class="form-html">
                 <button id="btnSelectImage" class="btn btn-primary">Chọn ảnh</button>
+                <div class="form-html-validate teacherImage"></div>
             </div>
         </div>
     </div>
     <div class="form-group row">
         <label  class="col-sm-3 col-form-label">Tên <span class="text-danger">*</span></label>
-        <div class="col-sm-8">
-            <input type="text" class="form-control" id="addTchName" name="name" autocomplete="addTchName">                                       
+        <div class="col-sm-8 form-html">
+            <input type="text" class="form-control" id="addTchName" name="name" autocomplete="addTchName">
+            <div class="form-html-validate name"></div>
         </div>
     </div>
     <div class="form-group row">
         <label  class="col-sm-3 col-form-label">Email <span class="text-danger">*</span></label>
-        <div class="col-sm-8">
-            <input type="text" class="form-control" id="addTchEmail" name="email" autocomplete="addTchEmail">                                       
+        <div class="col-sm-8 form-html">
+            <input type="text" class="form-control" id="addTchEmail" name="email" autocomplete="addTchEmail">
+            <div class="form-html-validate email"></div>
         </div>
     </div>
     <div class="form-group row">
-        <label  class="col-sm-3 col-form-label">Sô điện thoại <span class="text-danger">*</span></label>
-        <div class="col-sm-8">
-            <input type="text" class="form-control" id="addTchPhone" name="phone" autocomplete="addTchPhone">                                       
+        <label  class="col-sm-3 col-form-label">Số điện thoại <span class="text-danger">*</span></label>
+        <div class="col-sm-8 form-html">
+            <input type="text" class="form-control" id="addTchPhone" name="phone" autocomplete="addTchPhone">
+            <div class="form-html-validate phone"></div>
         </div>
     </div>
     <div class="form-group row">
         <label  class="col-sm-3 col-form-label">Ngày sinh <span class="text-danger">*</span></label>
-        <div class="col-sm-8">
+        <div class="col-sm-8 form-html">
             <div class="input-group date">
                 <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                 </div>
                 <input type="text" class="form-control pull-right" id="addTchDob"  name="dob" autocomplete="addTchDob">
-            </div>                                   
+            </div>
+            <div class="form-html-validate dob"></div>
         </div>
     </div>
     <div class="form-group row">
@@ -52,32 +57,37 @@
     </div>
     <div class="form-group row">
         <label  class="col-sm-3 col-form-label">Địa chỉ <span class="text-danger">*</span></label>
-        <div class="col-sm-8">
-            <input type="text" class="form-control" id="addTchAddress" name="address" autocomplete="addTchAddress">                                       
+        <div class="col-sm-8 form-html">
+            <input type="text" class="form-control" id="addTchAddress" name="address" autocomplete="addTchAddress">
+            <div class="form-html-validate address"></div>
         </div>
     </div>
     <div class="form-group row">
         <label  class="col-sm-3 col-form-label">Chuyên môn <span class="text-danger">*</span></label>
-        <div class="col-sm-8">
-            <input type="text" class="form-control" id="addTchExpert" name="expert" autocomplete="addTchExpert">                                       
+        <div class="col-sm-8 form-html">
+            <input type="text" class="form-control" id="addTchExpert" name="expert" autocomplete="addTchExpert">
+            <div class="form-html-validate expert"></div>
         </div>
     </div>
     <div class="form-group row">
         <label  class="col-sm-3 col-form-label">Link youtube <span class="text-danger">*</span></label>
-        <div class="col-sm-8">
-            <input type="text" class="form-control" id="addTchYoutube" name="youtube" autocomplete="addTchYoutube">                                       
+        <div class="col-sm-8 form-html">
+            <input type="text" class="form-control" id="addTchYoutube" name="youtube" autocomplete="addTchYoutube">
+            <div class="form-html-validate youtube"></div>
         </div>
     </div>
     <div class="form-group row">
         <label  class="col-sm-3 col-form-label">Facebook </label>
-        <div class="col-sm-8">
-            <input type="text" class="form-control" id="addTchFacebook" name="youtube" autocomplete="addTchFacebook">                                       
+        <div class="col-sm-8 form-html">
+            <input type="text" class="form-control" id="addTchFacebook" name="facebook" autocomplete="addTchFacebook">
+            <div class="form-html-validate facebook"></div>
         </div>
     </div>
     <div class="form-group row">
         <label  class="col-sm-3 col-form-label">CV <span class="text-danger">*</span></label>
-        <div class="col-sm-8">
-            <textarea type="text" class="form-control" id="addTchCv" name="addTchCv"></textarea>                                    
+        <div class="col-sm-8 form-html">
+            <textarea type="text" class="form-control" id="addTchCv" name="addTchCv"></textarea>
+            <div class="form-html-validate cv"></div>
         </div>
         <script>
                 CKEDITOR.replace( 'addTchCv', {
@@ -97,14 +107,16 @@
     </div>
     <div class="form-group row">
         <label  class="col-sm-3 col-form-label">Mật khẩu <span class="text-danger">*</span></label>
-        <div class="col-sm-8">
-            <input type="password" class="form-control" id="addTchPassword" name="password" autocomplete="off">                                       
+        <div class="col-sm-8 form-html">
+            <input type="password" class="form-control" id="addTchPassword" name="password" autocomplete="off">
+            <div class="form-html-validate password"></div>
         </div>
     </div>
     <div class="form-group row">
         <label  class="col-sm-3 col-form-label">Nhập lại mật khẩu <span class="text-danger">*</span></label>
-        <div class="col-sm-8">
-            <input type="password" class="form-control" id="addTchCfPassword" name="confirm-password" autocomplete="addTchCfPassword">                                       
+        <div class="col-sm-8 form-html">
+            <input type="password" class="form-control" id="addTchCfPassword" name="confirm-password" autocomplete="addTchCfPassword">
+            <div class="form-html-validate confirm_password"></div>
         </div>
     </div>
     <div class="modal-footer">
@@ -197,10 +209,7 @@ $(document).ready(function() {
             var match = youtube.match(regExp);
             if (match && match[2].length == 11) {
             }else{
-                Swal.fire({
-                    type: 'warning',
-                    html: 'Link Youtube không hợp lệ!',
-                })
+                alertValidate('Link Youtube không hợp lệ!', 'youtube')
                 return false;
             }
         }
@@ -214,10 +223,7 @@ $(document).ready(function() {
         if ( facebook_url != '' ){
             validate_url(facebook_url)
             if( !validate_url(facebook_url) ){
-                Swal.fire({
-                    type: 'warning',
-                    html: 'Link Facebook không hợp lệ!',
-                })
+                alertValidate('Link Facebook không hợp lệ!', 'facebook')
                 return false;
             }
         }
@@ -225,10 +231,7 @@ $(document).ready(function() {
         var wordCount = addTchCvEditor.wordCount.wordCount
         if ( wordCount > 0 ){
             if(wordCount < 30){
-                return Swal.fire({
-                    type : 'warning',
-                    text : 'CV phải có ít nhất 30 từ',                
-                })
+                alertValidate('CV phải có ít nhất 30 từ.', 'cv')
             }
         }
 
@@ -278,14 +281,11 @@ $(document).ready(function() {
             },
             error: error => {
                 var obj_errors = error.responseJSON.errors;
-                var txt_errors = '';
-                for (k of Object.keys(obj_errors)) {
-                    txt_errors += obj_errors[k][0] + '</br>';
-                }
-                Swal.fire({
-                    type: 'warning',
-                    html: txt_errors,
-                    allowOutsideClick: false,
+                $('.form-html-validate').css('display', 'block')
+                $('.form-html-validate').html('')
+                $.each(obj_errors, function( index, value ) {
+                    var content = '<i class="fa fa-exclamation fa-fw"></i><div class="hover-alert">'+ value +'</div>'
+                    $('.form-html-validate.' + index).html(content);
                 })
             }
         })
