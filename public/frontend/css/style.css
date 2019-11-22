@@ -6336,3 +6336,6 @@ div[data-u="slides"] div div {
     border-radius: 0 !important;
     padding: 15px
 }
+
+#myModalLogin .form-html-validate .fa-exclamation, #myModalRegister .form-html-validate .fa-exclamation{top: 25px !important}
+#myModalLogin .form-html-validate .hover-alert, #myModalRegister .form-html-validate .hover-alert{top: 10px !important}

@@ -1505,13 +1505,13 @@ https://courdemy.vn/course/{{ $info_course->id }}/{{ $info_course->slug }}
                 }
             },
             error: function (error) {
+                $(".ajax_waiting").removeClass("loading");
                 var obj_errors = error.responseJSON.errors;
-                $('#modalLoginCourseDetail input').css('z-index', 0)
-                $('.show-password').css('z-index', 1)
-                $('.alert-validate').html('')
+                $('.form-html-validate').css('display', 'block')
+                $('.form-html-validate').html('')
                 $.each(obj_errors, function( index, value ) {
                     var content = '<i class="fas fa-exclamation fa-fw"></i><div class="hover-alert">'+ value +'</div>'
-                    $('.alert-validate.' + index).html(content);
+                    $('.form-html-validate.' + index).html(content);
                 })
             }
         });

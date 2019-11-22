@@ -17,6 +17,7 @@ use Cache;
 use App\Course;
 use App\Coupon;
 use App\Setting;
+use App\Http\Controllers\Backends\Requests\StoreCouponRequest;
 
 class HomeController extends Controller{
 
@@ -101,7 +102,7 @@ class HomeController extends Controller{
         return view('backends.coupon.coupon', compact('courses'));
     }
 
-    public function addCoupon(Request $request){
+    public function addCoupon(StoreCouponRequest $request){
         $arr_course_id = json_encode($request->course_id);
         $arr_course_id = str_replace('"','',$arr_course_id);
         $arr_course_id = str_replace('[','',$arr_course_id);
@@ -145,7 +146,7 @@ class HomeController extends Controller{
         }
     }
 
-    public function updateCoupon(Request $request){
+    public function updateCoupon(StoreCouponRequest $request){
         $arr_course_id = json_encode($request->course_id);
         $arr_course_id = str_replace('"','',$arr_course_id);
         $arr_course_id = str_replace('[','',$arr_course_id);

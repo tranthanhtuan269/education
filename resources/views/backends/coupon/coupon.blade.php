@@ -269,36 +269,8 @@ $(document).ready(function(){
             var coupon_value = $('#editCouponValue').val()
             var coupon_expired = $('#editCouponExpired').val()
 
-            if(coupon_code == ''){
-                alertValidate('Bạn chưa nhập mã Coupon!', 'coupon_code')
-                return;
-            }
-            if( coupon_code.length >=15 ){
-                alertValidate('Mã COUPON quá dài (Yêu cầu <15 ký tự)!', 'coupon_code')
-                return;
-            }
-            if(coupon_value == ''){
-                alertValidate('Bạn chưa nhập số % được giảm!', 'coupon_value')
-                return;
-            }
-            if( Number(coupon_value) <= 0 ){
-                alertValidate('% giá giảm không thể <= 0!', 'coupon_value')
-                return;
-            }
-            if( Number(coupon_value) > 100 ){
-                alertValidate('% giá giảm không thể >100!', 'coupon_value')
-                return;
-            }
-            if( !coupon_expired ){
-                alertValidate('Bạn chưa chọn ngày hết hạn COUPON!', 'coupon_expired')
-                return;
-            }
             for (var i = 0; i < asInputs.length; i++) {
                 course_id[i] = $(asInputs[i]).data('sol-item').value;
-            }
-            if (course_id.length == 0) {
-                alertValidate('Chưa có khóa học nào được chọn!', 'course_id')
-                return;
             }
             $.ajaxSetup({
                 headers: {
@@ -331,14 +303,18 @@ $(document).ready(function(){
                         })
                     }
                     if(response.status == 403){
-                        Swal.fire({
-                            type: 'warning',
-                            text: 'Mã giảm giá đã tồn tại!'
-                        })
+                        alertValidate('Mã giảm giá đã tồn tại!', 'coupon_code')
                         return;
                     }
                 },
                 error: function (response) {
+                    var obj_errors = response.responseJSON.errors;
+                    $('.form-html-validate').css('display', 'block')
+                    $('.form-html-validate').html('')
+                    $.each(obj_errors, function( index, value ) {
+                        var content = '<i class="fa fa-exclamation fa-fw"></i><div class="hover-alert">'+ value +'</div>'
+                        $('.form-html-validate.' + index).html(content);
+                    })
                 }
             })
         })
@@ -444,47 +420,37 @@ $(document).ready(function(){
     $("#btnConfirm").click(function(){
         var asInputs = sol.getSelection(), course_id = []
         var coupon_code = ($('#coupon_code').val()).trim()
-        var coupon_value = $('#coupon_value').val()
-        var coupon_expired = $('#coupon_expired').val()
+        var coupon_value = $('#coupon_value').val().trim()
+        var coupon_expired = $('#coupon_expired').val().trim()
 
-        if(coupon_code == ''){
-            alertValidate('Bạn chưa nhập mã Coupon!', 'coupon_code')
-            return;
-        }
-
-        if( coupon_code.length >=15 ){
-            alertValidate('Mã COUPON quá dài (Yêu cầu <15 ký tự)!', 'coupon_code')
-            return;
-        }
-
-        if(coupon_value == ''){
-            alertValidate('Bạn chưa nhập số % được giảm!', 'coupon_value')
-            return;
-        }
-
-        if( Number(coupon_value) <= 0 ){
-            alertValidate('% giá giảm không thể <= 0!', 'coupon_value')
-            return;
-        }
-
-        if( Number(coupon_value) > 100 ){
-            alertValidate('% giá giảm không thể >100!', 'coupon_value')
-            return;
-        }
-
-        if( !coupon_expired ){
-            alertValidate('Bạn chưa chọn ngày hết hạn COUPON!', 'coupon_expired')
-            return;
-        }
-
+        // var flag = 7;
+        // if(coupon_code == ''){
+        //     alertValidate2('Bạn chưa nhập mã Coupon!', 'coupon_code')
+        // }else{ flag-- }
+        // if( coupon_code.length >=15 ){
+        //     alertValidate2('Mã COUPON quá dài (Yêu cầu <15 ký tự)!', 'coupon_code')
+        // }else{ flag-- }
+        // if(coupon_value == ''){
+        //     alertValidate2('Bạn chưa nhập số % được giảm!', 'coupon_value')
+        // }else{ flag-- }
+        // if( Number(coupon_value) <= 0 ){
+        //     alertValidate2('% giá giảm không thể <= 0!', 'coupon_value')
+        // }else{ flag-- }
+        // if( Number(coupon_value) > 100 ){
+        //     alertValidate2('% giá giảm không thể >100!', 'coupon_value')
+        // }else{ flag-- }
+        // if( !coupon_expired ){
+        //     alertValidate2('Bạn chưa chọn ngày hết hạn COUPON!', 'coupon_expired')
+        // }else{ flag-- }
         for (var i = 0; i < asInputs.length; i++) {
             course_id[i] = $(asInputs[i]).data('sol-item').value;
         }
-
-        if (course_id.length == 0) {
-            alertValidate('Chưa có khóa học nào được chọn!', 'course_id')
-            return;
-        }
+        // if (course_id.length == 0) {
+        //     alertValidate2('Chưa có khóa học nào được chọn!', 'course_id')
+        // }else{ flag-- }
+        // if ( flag != 0 ){
+        //     return
+        // }
 
         $.ajaxSetup({
             headers: {
@@ -515,13 +481,17 @@ $(document).ready(function(){
                     dataTable.ajax.reload();
                 }
                 if(response.status == 403){
-                    Swal.fire({
-                        type: 'warning',
-                        text: 'Mã giảm giá đã tồn tại!'
-                    })
+                    alertValidate('Mã giảm giá đã tồn tại!', 'coupon_code')
                 }
             },
             error: function (response) {
+                var obj_errors = response.responseJSON.errors;
+                $('.form-html-validate').css('display', 'block')
+                $('.form-html-validate').html('')
+                $.each(obj_errors, function( index, value ) {
+                    var content = '<i class="fa fa-exclamation fa-fw"></i><div class="hover-alert">'+ value +'</div>'
+                    $('.form-html-validate.' + index).html(content);
+                })
             }
         });
     });
