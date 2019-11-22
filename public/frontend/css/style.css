@@ -6311,3 +6311,5 @@ div[data-u="slides"] div div {
   -webkit-appearance: none; 
   margin: 0; 
 }
+#addVideoModal .form-html-validate.link_video .fa-exclamation{top: 15px !important}
+#addVideoModal .form-html-validate.link_video .hover-alert{top: 0 !important}

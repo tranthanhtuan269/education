@@ -31,7 +31,7 @@ class StoreCourseRequest extends FormRequest
             'will_learn'        => 'required|max:1000',
             'requirement'       => 'required|max:150',
             'original_price'    => 'required|numeric|min:0|max:10000000',
-            'discount_price'    => 'numeric|min:0',
+            'discount_price'    => 'min:0',
             'approx_time'       => 'required|numeric|min:0|max:999',
             'link_intro'        => 'required',
         ];
@@ -62,7 +62,7 @@ class StoreCourseRequest extends FormRequest
             'original_price.min'        => 'Giá khóa học không thể <0.',
             'original_price.max'        => 'Giá khóa học quá lớn.',
             // 'discount_price.required'   => 'Bạn chưa nhập giá giảm khóa học.',
-            'discount_price.numeric'    => 'Giá khóa học phải là số.',
+            // 'discount_price.numeric'    => 'Giá khóa học phải là số.',
             'discount_price.min'        => 'Giá khóa học không thể <0.',
             
             'approx_time.required'      => 'Bạn chưa nhập Thời gian dự kiến hoàn thành.',
