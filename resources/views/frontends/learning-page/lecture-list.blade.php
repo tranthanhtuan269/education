@@ -100,12 +100,6 @@
                                         @endif
                                     </a>
                                 </li>
-                                <script>
-                                    $(document).ready(function(){
-                                        $("#sectionBody"+{{ $key+1 }}).addClass('in')
-                                    })
-                                    
-                                </script>
                                 @else
                                 <li class="video-list-item" id="listItem{{$video->id}}" data-parent="{{$video->id}}" data-isstudent="{{$isStudent}}" data-name="{{ $video->name }}" data-unit="{{ ($unit->index) }}" data-video="{{ ($video->index) }}">
                                     <a id="view-from-learning-page-{{$video->id}}" href="javascript:void(0)">
@@ -118,7 +112,7 @@
                                             @endphp
                                             @if(isset($list_video_done_in_unit[$video->index-1]))
                                                 @if ($list_video_done_in_unit[$video->index-1] == 1)
-                                                <?php  $arr_unit_watched[] = $key+1; ?>
+
                                                 <span class="ln-btn-complete" id="lnBtnComplete{{$video->id}}" data-child="{{$key2+1}}">
                                                     <button >
                                                         <span class="fa-stack">
@@ -154,11 +148,13 @@
 </div>
 <script>
     $(document).ready( function (){
-        arr_unit_watched = [];
-        var unit;
+        var infoVideoJson = localStorage.getItem("currentVideo");
+        var infoVideo = JSON.parse(infoVideoJson)
+        var current_video_index = infoVideo.indexCurrentVideo
+        var unit = $('#listItem'+ video_id_list[current_video_index]).attr("data-unit");
+        $("#sectionBody" + unit).addClass('in')
 
         var initialLectureList = $(".ln-lect-list-item").get()
-        // var arr_unit_watched = <?php echo  json_encode($arr_unit_watched) ?>;
   
         // Search Lecture List
         $("#btnSearchSidebar").click(function (){
@@ -187,7 +183,7 @@
         if(searchString != undefined){
             $(".learning-lecture-list-searchbar input").val(searchString);
             $("#btnSearchSidebar").click(); 
-            $('.ln-lect-list-body').addClass('in')   
+            // $('.ln-lect-list-body').addClass('in')   
         }
 
         $(".learning-lecture-list-searchbar input").keyup(function(){
@@ -210,14 +206,15 @@
             }else{
                 $('.ln-lect-list-body').removeClass('in')
 
-                $('.video_viewed').each(function(key, value) {
-                    unit = $(value).data('unit');
-                    unit = parseInt(unit);
+                // $('.video_viewed').each(function(key, value) {
+                //     unit = $(value).data('unit');
+                //     unit = parseInt(unit);
 
-                    if (unit > 0 && jQuery.inArray(unit, arr_unit_watched) === -1) {
-                        $("#sectionBody" + unit).addClass('in')
-                    }
-                });
+                //     if (unit > 0 && jQuery.inArray(unit, arr_unit_watched) === -1) {
+                //         $("#sectionBody" + unit).addClass('in')
+                //     }
+                // });
+                $("#sectionBody" + unit).addClass('in')
 
                 $('.ln-lect-list-item').show();
                 $('.ln-lect-list-sect-counter').show();
@@ -236,6 +233,8 @@
             $('.ln-lect-list-item').hide();
             $(".ln-lect-list-lect-title.has-result").parent().parent().parent().parent().parent().show();
         }
+
+
     })
 </script>
 

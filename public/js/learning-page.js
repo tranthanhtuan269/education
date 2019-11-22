@@ -12,6 +12,7 @@ if(localStorage.getItem('autoplay') != null){
 }
 
 $(document).ready(function () {
+
     //Check browser có phải là firefox hay không để hiện thông báo
 
     var options = {
