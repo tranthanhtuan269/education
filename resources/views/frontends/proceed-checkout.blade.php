@@ -77,7 +77,7 @@
                         <div class="international-card">
                             <div class="card-info">
                                 <div class="header form-check">
-                                    @if(false)<input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">@endif
+                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
                                     <label class="form-check-label" for="exampleRadios3">Thanh toán bằng thẻ quốc tế VISA, MASTERCARD, JCB</label>
                                     {{-- <input type="radio" name="otpradio" id="">
                                     <span class="label-title">Thanh toán bằng thẻ quốc tế VISA, MASTERCARD, JCB</span> --}}
@@ -404,6 +404,8 @@
         $('button[type=submit]').prop('disabled', true);
         $('input[type=checkbox]').prop('disabled', true);  
     });
+
+    $('#exampleRadios3').click();
 
     var user_id = $('button[id=cartUserId]').attr('data-user-id')
     var cart_items = JSON.parse(localStorage.getItem('cart'+user_id))
