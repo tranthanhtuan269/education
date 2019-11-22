@@ -59,9 +59,9 @@
         @endif
 
         <div class="reply-hold-{{ $comment->id }}">
-            @foreach($comment->children as $reply)
+            @foreach($comment->children as $key=>$reply)
             @if($reply->userRole)
-            <div class="comment-reply">
+            <div class="comment-reply comment-reply{{ $reply->id }} @if($key > 2) hide @endif" data-reply-index="{{ $key }}">
                 <div class="row">
                     @if($reply->userRole->user)
                     <div class="col-md-1">
@@ -109,6 +109,9 @@
             </div>
             @endif
             @endforeach
+            <div class="text-center btn-see-more-reply btn-see-more-reply{{ $comment->id }}" data-comment-id="{{ $comment->id }}" data-current-show="3" data-current-get="16">
+                <button type="button" class="btn">Xem thêm</button>
+            </div>
         </div>
     </div>
     <div class="col-sm-12"><hr></div>

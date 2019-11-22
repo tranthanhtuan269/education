@@ -49,3 +49,22 @@ function statusOrder($param) {
     }
     return $txt;
 }
+
+$(document).ready(function(){
+    $('.btn-see-more-reply').click(function(){
+        var data_current_show = parseInt($(this).attr('data-current-show'));
+        var data_current_get = parseInt($(this).attr('data-current-get'));
+        var data_current_id = parseInt($(this).attr('data-current-id'));
+        // alert(data_current_show<data_current_get)
+        // alert(data_current_get)
+        if(data_current_show < data_current_get){
+            console.log('.comment-reply'+data_current_id);
+            $.each($('.comment-reply'+data_current_id), function( index, value ) {
+                if($('comment-reply'+data_current_id).attr('data-reply-index') >= data_current_show && $('comment-reply'+data_current_id).attr('data-reply-index') < data_current_show + 3){
+                    $(value).removeClass('hide')
+                    console.log(value)
+                }
+            });
+        }
+    });
+})

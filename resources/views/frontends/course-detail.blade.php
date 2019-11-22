@@ -683,9 +683,6 @@ https://courdemy.vn/course/{{ $info_course->id }}/{{ $info_course->slug }}
                                     @foreach($info_course->takeComment(0, 3) as $comment)
                                         @include('components.question-answer', ['comment' => $comment])
                                     @endforeach
-                                    <?php 
-                                    // dd($info_course->takeComment()->first());
-                                    ?>
                                 </div>
                             </div>
                             @if( $info_course->commentOfStudentBought()->count() > 3)
