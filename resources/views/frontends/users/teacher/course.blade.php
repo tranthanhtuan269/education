@@ -405,6 +405,8 @@
             CKEDITOR.instances['course-will-learn'].setData("")
             $('#cropitPreview').css('display', 'none')
             $('#cropit-zoom-input').css('display', 'none')
+
+            $('.form-html-validate').css('display', 'none')
         })
 
         $('.upload-new-video').click(function(){
@@ -434,6 +436,7 @@
                 backdrop: 'static',
                 keyboard: false
             });
+            $('.form-html-validate').css('display', 'none')
         });
 
         $("#btnEditVideoDocument").click(function(){

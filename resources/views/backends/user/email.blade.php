@@ -21,7 +21,7 @@
             <button class="btn btn-primary">Create Email</button>
         </a> --}}
         <a data-toggle="modal" data-target="#createEmailModal">
-            <button class="btn btn-primary">Tạo Email thông báo</button>
+            <button class="btn btn-primary"><i class="fa fa-plus fa-fw" aria-hidden="true"></i><b>THÊM THÔNG BÁO</b></button>
         </a>
     </div>
     <div class="row">

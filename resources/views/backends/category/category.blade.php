@@ -15,7 +15,7 @@
     <h1 class="text-center font-weight-600">Danh mục</h1>
     <div class="add-item text-center">
             <!-- <button id="create_user" data-toggle="modal" data-target="#add_user_modal" class="btn btn-success add-category" title="Thêm danh mục"><i class="fa fa-plus fa-fw"></i> Danh mục</button> -->
-            <a class="btn btn-success mr-2 add-category" data-id="' + data + '" data-title="' + row.title + '" data-content="' + row.content + '" title="Sửa"> <i class="fa fa-plus fa-fw"></i><b>Danh mục</b></a>
+            <a class="btn btn-primary mr-2 add-category" data-id="' + data + '" data-title="' + row.title + '" data-content="' + row.content + '" title="Sửa"> <i class="fa fa-plus fa-fw"></i><b>THÊM DANH MỤC</b></a>
         </div>
     <div class="row">
         <div class="col-md-12">

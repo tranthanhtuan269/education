@@ -21,7 +21,7 @@
     <h1 class="text-center font-weight-600">Danh sách vai trò</h1>
     @if (Helper::checkPermissions('users.add_roles', $list_roles))
         <div class="add-item text-center">
-            <a id="create_role" data-toggle="modal" data-target="#add_role_modal" class="btn btn-success btn-sm" title="Thêm vai trò"> <i class="fa fa-plus"></i> Thêm vai trò</a>
+            <a id="create_role" data-toggle="modal" data-target="#add_role_modal" class="btn btn-primary" title="Thêm vai trò"> <i class="fa fa-plus fa-fw"></i><b>THÊM VAI TRÒ</b></a>
         </div>
     @endif
 </section>
@@ -97,18 +97,20 @@
           <div class="modal-body">
             <div class="form-group row">
                 <label for="roleName_upd" class="col-sm-4 col-form-label">Tên vai trò <span class="text-danger">*</span></label>
-                <div class="col-sm-8">
+                <div class="col-sm-8 form-html">
                     <input type="hidden" id="roleID_upd" value="">
                     <input type="text" class="form-control" id="roleName_upd">
                     <div class="alert-errors" role="alert" id="nameErrorUpd"></div>
+                    <div class="form-html-validate name"></div>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="roleName_upd" class="col-sm-4 col-form-label">Danh sách quyền <span class="text-danger">*</span></label>
-                <div class="col-sm-8" id="permistion-group">
+                <div class="col-sm-8 form-html" id="permistion-group">
                     <select id="permission-list" multiple="multiple">
                     </select>
                     <div class="alert-errors" role="alert" id="permissionErrorUpd"></div>
+                    <div class="form-html-validate permission"></div>
                 </div>
                 <div class="col-sm-4"></div>
                 <div class="col-sm-8 alert-errors" role="alert" id="permissionErrorUpd"></div>
@@ -135,16 +137,17 @@
           <div class="modal-body">
             <div class="form-group row">
                 <label for="roleName_ins" class="col-sm-4 col-form-label">Tên vai trò <span class="text-danger">*</span></label>
-                <div class="col-sm-8">
+                <div class="col-sm-8 form-html">
                     <input type="text" class="form-control" id="roleName_ins" >
                     <div class="alert-errors" role="alert" id="nameErrorIns">
 
                     </div>
+                    <div class="form-html-validate name"></div>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label">Danh sách quyền <span class="text-danger">*</span></label>
-                <div class="col-sm-8" id="permistion-group">
+                <div class="col-sm-8 form-html" id="permistion-group">
                     <select id="permission-list-ins" multiple="multiple">
                     <?php
                         $permissions = App\Permission::select('id', 'name', 'group')->orderby('group', 'asc')->get();
@@ -166,6 +169,7 @@
                     <div class="alert-errors" role="alert" id="permissionErrorIns">
 
                     </div>
+                    <div class="form-html-validate permission"></div>
                 </div>
             </div>
           </div>
@@ -266,9 +270,13 @@
                 },
                 error: function (data) {
                     if(data.status == 422){
+                        $('.form-html-validate').css('display', 'block')
+                        $('.form-html-validate').html('')
                         $.each(data.responseJSON.errors, function( index, value ) {
-                            $('#'+index+'ErrorIns').html(value);
-                            $('#'+index+'ErrorIns').show();
+                            // $('#'+index+'ErrorIns').html(value);
+                            // $('#'+index+'ErrorIns').show();
+                            var content = '<i class="fa fa-exclamation fa-fw"></i><div class="hover-alert">'+ value +'</div>'
+                            $('.form-html-validate.' + index).html(content);
                         });
                     }else{
                         if(data.status == 401){
@@ -673,12 +681,16 @@
                 },
                 error: function (data) {
                     if(data.status == 422){
+                        $('.form-html-validate').css('display', 'block')
+                        $('.form-html-validate').html('')
                         $.each(data.responseJSON.errors, function( index, value ) {
-                            console.log(`#${index}ErrorUpd`);
-                            console.log(value);
+                            // console.log(`#${index}ErrorUpd`);
+                            // console.log(value);
 
-                            $(`#${index}ErrorUpd`).html(value);
-                            $(`#${index}ErrorUpd`).show();
+                            // $(`#${index}ErrorUpd`).html(value);
+                            // $(`#${index}ErrorUpd`).show();
+                            var content = '<i class="fa fa-exclamation fa-fw"></i><div class="hover-alert">'+ value +'</div>'
+                            $('.form-html-validate.' + index).html(content);
                         });
                     }else{
                         if(data.status == 401){
@@ -781,16 +793,20 @@
         $('#cancelAdd').click(function(){
             $('#roleName_ins').val('');
             $('#nameErrorIns').hide();
+            $('.form-html-validate').css('display', 'none')
         });
         $('#cancelEdit').click(function(){
             $('#roleNameErrorUpd').hide();
+            $('.form-html-validate').css('display', 'none')
         });
         $('#closeAddX').click(function(){
             $('#roleName_ins').val('');
             $('#nameErrorIns').hide();
+            $('.form-html-validate').css('display', 'none')
         });
         $('#closeExitX').click(function(){
             $('#roleNameErrorUpd').hide();
+            $('.form-html-validate').css('display', 'none')
         });
         $('.close-create-role-btn').click(function(){
             $('option', $('#permission-list-ins')).each(function(element) {

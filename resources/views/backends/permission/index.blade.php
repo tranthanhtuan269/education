@@ -12,7 +12,7 @@
     <h1 class="text-center font-weight-600">Danh sách quyền</h1>
     @if (Helper::checkPermissions('users.add_permissions', $list_roles)) 
         <div class="add-item text-center">
-            <a id="create_permission" data-toggle="modal" data-target="#add_permission_modal" class="btn btn-success btn-sm" title="Thêm quyền"><i class="fa fa-plus"></i> Thêm quyền</a>
+            <a id="create_permission" data-toggle="modal" data-target="#add_permission_modal" class="btn btn-primary" title="Thêm quyền"><i class="fa fa-plus fa-fw"></i><b>THÊM QUYỀN</b></a>
         </div>
     @endif
 </section>
@@ -57,15 +57,16 @@
                   <div class="modal-body">
                     <div class="form-group row">
                         <label for="permissionName_upd" class="col-sm-5 col-form-label">Tên quyền <span class="text-danger">*</span></label>
-                        <div class="col-sm-7">
+                        <div class="col-sm-7 form-html">
                             <input type="hidden" id="permissionID_upd" value="">
                             <input type="text" class="form-control" id="permissionName_upd">
                             <div class="alert-errors" role="alert" id="permission_nameErrorUpd"></div>
+                            <div class="form-html-validate name"></div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="permissionRoute_upd" class="col-sm-5 col-form-label">Nhóm quyền <span class="text-danger">*</span></label>
-                        <div class="col-sm-7">
+                        <div class="col-sm-7 form-html">
 <!--                         {{ Form::select('permissionGroup', ['1' => 'Giao diện người dùng', '2' => 'Sản phẩm', '8' => 'Đơn hàng', '3' => 'Khách hàng', '4' => 'Tin tức', '5' => 'Tài khoản quản trị', '6' => 'Page', '7' => 'Liên hệ'], null, ['id' => 'permissionGroup_upd', 'class' => 'form-control', 'placeholder' => '--Chọn nhóm--']) }} -->
 
                         <select name="permissionGroup" class="form-control" id="permissionGroup_upd">
@@ -80,6 +81,7 @@
 
 
                         <div class="alert-errors" role="alert" id="permission_groupErrorUpd"></div>
+                        <div class="form-html-validate group"></div>
                         </div>
                     </div>
                   </div>
@@ -103,21 +105,23 @@
                     {!! Form::open(['id' => 'create_permission_form']) !!}
                     <div class="form-group row">
                         <label class="col-sm-5 col-form-label">Tên quyền <span class="text-danger">*</span></label>
-                        <div class="col-sm-7">
+                        <div class="col-sm-7 form-html">
                             <input type="text" class="form-control permissionNameIns" placeholder="Eg: Create Permission">
                             <div class="alert-errors" role="alert" id="nameErrorIns"></div>
+                            <div class="form-html-validate name"></div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-5 col-form-label">Tên vai trò <span class="text-danger">*</span></label>
-                        <div class="col-sm-7">
+                        <div class="col-sm-7 form-html">
                             <input type="text" class="form-control routeNameIns" placeholder="Eg: user.create" autocomplete="off">
                             <div class="alert-errors" role="alert" id="routeErrorIns"></div>
+                            <div class="form-html-validate route"></div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-5 col-form-label">Nhóm quyền <span class="text-danger">*</span></label>
-                        <div class="col-sm-7">
+                        <div class="col-sm-7 form-html">
                             <select name="group" class="form-control">
                                 <option value="">Chọn nhóm</option>
                                 <option value="0">--</option>
@@ -128,6 +132,7 @@
                                 @endforeach
                             </select>
                             <div class="alert-errors" role="alert" id="groupErrorIns"></div>
+                            <div class="form-html-validate group"></div>
                         </div>
                     </div>
                   </div>
@@ -371,7 +376,7 @@
                 $("#permissionGroup_upd option[value='"+curr_permission_group+"']").prop('selected', true);
                 // $('#permissionGroup_upd').val(1);
 
-
+                $('.form-html-validate').css('display', 'none')
             });
 
             $('.btn-delete').off('click');
@@ -475,9 +480,13 @@
                 },
                 error: function (data) {
                     if(data.status == 422){
+                        $('.form-html-validate').css('display', 'block')
+                        $('.form-html-validate').html('')
                         $.each(data.responseJSON.errors, function( index, value ) {
-                            $('#permission_'+index+'ErrorUpd').html(value);
-                            $('#permission_'+index+'ErrorUpd').show();
+                            // $('#permission_'+index+'ErrorUpd').html(value);
+                            // $('#permission_'+index+'ErrorUpd').show();
+                            var content = '<i class="fa fa-exclamation fa-fw"></i><div class="hover-alert">'+ value +'</div>'
+                            $('.form-html-validate.' + index).html(content);
                         });
                     }else{
                         if(data.status == 401){
@@ -612,9 +621,13 @@
                 },
                 error: function (data) {
                     if(data.status == 422){
+                        $('.form-html-validate').css('display', 'block')
+                        $('.form-html-validate').html('')
                         $.each(data.responseJSON.errors, function( index, value ) {
-                            $('#'+index+'ErrorIns').html(value);
-                            $('#'+index+'ErrorIns').show();
+                            // $('#'+index+'ErrorIns').html(value);
+                            // $('#'+index+'ErrorIns').show();
+                            var content = '<i class="fa fa-exclamation fa-fw"></i><div class="hover-alert">'+ value +'</div>'
+                            $('.form-html-validate.' + index).html(content);
                         });
                     }else{
                         if(data.status == 401){
@@ -635,6 +648,8 @@
             $('.routeNameIns').val('')
             $('select[name=group]').val('')
             $('.alert-danger').hide();
+
+            $('.form-html-validate').css('display', 'none')
         }
 
 
@@ -646,6 +661,8 @@
             $('#nameErrorIns').hide();
             $('#routeErrorIns').hide(); 
             $('#groupErrorIns').hide();
+
+            $('.form-html-validate').css('display', 'none')
         }
 
         $('#cancelAdd').click(function(){
@@ -657,6 +674,8 @@
         function clearErrorEdit(){
             $('#permission_nameErrorUpd').hide();
             $('#permission_groupErrorUpd').hide();
+            
+            $('.form-html-validate').css('display', 'none')
         }
         $('#cancelEdit').click(function(){
             clearErrorEdit();

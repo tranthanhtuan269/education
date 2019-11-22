@@ -16,7 +16,7 @@
     <h1 class="text-center font-weight-600">Danh sách tài khoản</h1>
     @if (Helper::checkPermissions('users.add', $list_roles))
         <div class="add-item text-center">
-            <a id="create_user" data-toggle="modal" data-target="#add_user_modal" class="btn btn-success btn-sm" title="Thêm tài khoản"><i class="fa fa-plus"></i> Thêm tài khoản</a>
+            <a id="create_user" data-toggle="modal" data-target="#add_user_modal" class="btn btn-primary" title="Thêm tài khoản"><i class="fa fa-plus fa-fw"></i><b>THÊM TÀI KHOẢN</b></a>
         </div>
     @endif
 </section>
