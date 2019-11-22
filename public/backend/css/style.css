@@ -823,3 +823,7 @@ ul.alert li {
 }
 .form-html-validate.course_id .fa-exclamation{top:15px;right:20px}
 .form-html-validate.course_id .hover-alert{top:0;right:20px}
+
+
+#createEmailModal .fa-exclamation, #editEmailModal .fa-exclamation{top:17px;right:25px}
+#createEmailModal .hover-alert, #editEmailModal .hover-alert{top:2px;right:25px}
