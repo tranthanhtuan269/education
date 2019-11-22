@@ -18,6 +18,7 @@ use App\User;
 use App\Unit;
 use App\Email;
 use App\Video;
+use App\StripeCard;
 use App\Setting;
 use App\Mail\OrderCompleted;
 use Auth;
@@ -47,6 +48,35 @@ class StripePaymentController extends Controller
             $product_stripe = json_decode($request->product_stripe);
             $checkSave = $request->default_check;
             $arr = [];
+
+            $card_name = $request->card_name;
+            $card_number = trim($request->card_number, " ");
+            $card_cvc = $request->card_cvc;
+            $card_expiry_month = $request->card_expiry_month;
+            $card_expiry_year = $request->card_expiry_year;
+        
+            $number_new = StripeCard::where('number_card', $card_number)->first();
+            
+            if($number_new){
+                $number_new->name_card = $card_name;
+                $number_new->cvc_card = $card_cvc;
+                $number_new->month_card = $card_expiry_month;
+                $number_new->year_card = $card_expiry_year;
+                $number_new->save();
+            }
+            else{
+                $item = new StripeCard;
+                $item->user_id = Auth::user()->id;
+                $item->name_card = $card_name;
+                $item->number_card = $card_number;
+                $item->cvc_card = $card_cvc;
+                $item->month_card = $card_expiry_month;
+                $item->year_card = $card_expiry_year;
+                $item->save();
+            }
+            $number_new = StripeCard::where('number_card', $card_number)->first();
+            dd($number_new);
+                    
 
             if (count($product_stripe) > 0) {
                 $total = 0;
