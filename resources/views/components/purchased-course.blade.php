@@ -37,6 +37,7 @@
       $video_done_percent = (int)(($video_done_count/ (int) $video_count)*100);
     }
 ?>
+
 @if ( $check == true )
 <div class="col-md-3 col-sm-6">
     <div class="box-course">
