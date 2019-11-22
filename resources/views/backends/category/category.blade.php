@@ -23,6 +23,7 @@
                 <table class="table table-bordered" id="category-table">
                     <thead class="thead-custom">
                         <tr>
+                            <th>ID</th>
                             <th scope="col">Tên danh mục</th>
                             <th scope="col">Danh mục cha</th>
                             <th scope="col">Nổi bật</th>
@@ -51,10 +52,11 @@
                 </div>
                 <div class="modal-body">
                     <form autocomplete="off">
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label>Tên Danh mục: (Tối đa 25 ký tự)</label>
                             <input type="text" class="form-control" name="name" id="categoryName_id">
-                        </div>
+                        </div> --}}
+                        {!! \App\Helper\Helper::insertInputForm('text', 'name', 'Tên Danh mục: (Tối đa 25 ký tự)', '', 'name', 'id="categoryName_id"') !!}
                         <div class="form-group">
                             <label>Danh mục cha:</label>
                             <!-- <input type="text" class="form-control" name="categoryParent"> -->
@@ -65,22 +67,24 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label>Mô tả:</label>
                             <div class="form-group">
                                 <textarea class="form-control" rows="2" cols="50" name="description"></textarea>
                             </div>
-                        </div>
+                        </div> --}}
+                        {!! \App\Helper\Helper::insertTextareaForm('Mô tả:', 2, 50, 'description', '', 'description') !!}
                         <div class="form-group">
                             <label>Nổi bật:</label><br>
                             <label class="radio-inline"><input type="radio" name="featured" value="0">Không</label>
                             <label class="radio-inline"><input type="radio" name="featured" value="1">Có</label>
                         </div>
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label>Icon:</label>
                             <input type="text" class="form-control" name="icon" id="categoryIcon_id">
-                        </div>
-                        <div class="form-group">
+                        </div> --}}
+                        {!! \App\Helper\Helper::insertInputForm('text', 'icon', 'Icon:', '', 'icon', 'id="categoryIcon_id"') !!}
+                        <div class="form-group form-html">
                             <label>Ảnh đại diện Danh mục: (Kích thước chuẩn: 440x190)</label>
                             <input type="file" class="form-control" name="image" id="files" onchange="preview_image(event)" style="display:none"><br>
                             <div class="text-center">
@@ -89,6 +93,7 @@
                             <div class="text-center">
                                 <img id="preview_category_img" style="width:300px;height:auto" src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-image-128.png"/>
                             </div>
+                            <div class="form-html-validate image"></div>
                         </div>
                     </form>
                 </div>
@@ -111,10 +116,11 @@
                 </div>
                 <div class="modal-body">
                     <form>
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label>Tên Danh mục: (Tối đa 25 ký tự)</label>
                             <input type="text" class="form-control" name="name" id="editName" value="">
-                        </div>
+                        </div> --}}
+                        {!! \App\Helper\Helper::insertInputForm('text', 'name', 'Tên Danh mục: (Tối đa 25 ký tự)', '', 'name', 'id="editName"') !!}
                         <div class="form-group">
                             <label>Danh mục cha:</label>
                             <!-- <input type="text" class="form-control" name="categoryParent"> -->
@@ -124,22 +130,24 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label>Mô tả:</label>
                             <div class="form-group">
                                 <textarea class="form-control" rows="2" cols="50" name="descriptionEdit">{{$cat->description}}</textarea>
                             </div>
-                        </div>
+                        </div> --}}
+                        {!! \App\Helper\Helper::insertTextareaForm('Mô tả:', 2, 50, 'descriptionEdit', $cat->description, 'description') !!}
                         <div class="form-group">
                             <label>Nổi bật:</label><br>
                             <label class="radio-inline"><input type="radio" name="editFeatured" value="0" checked>Không</label>
                             <label class="radio-inline"><input type="radio" name="editFeatured" value="1">Có</label>
                         </div>
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label class="label-icon-category">Icon:</label>
                             <input type="text" class="form-control" name="icon" id="editIcon">
-                        </div>
-                        <div class="form-group">
+                        </div> --}}
+                        {!! \App\Helper\Helper::insertInputForm('text', 'icon', 'Icon:', '', 'icon', 'id="editIcon"') !!}
+                        <div class="form-group form-html">
                             <label style="display:block">Ảnh đại diện Danh mục: (Kích thước chuẩn: 440x190)</label>
                             <input type="file" class="form-control" name="image" id="editImage" onchange="preview_edit_image(event)" style="display:none">
                             <div class="text-center">
@@ -149,6 +157,7 @@
                             <div class="text-center box-preview-edit">
                                 <img id="previewEditCategoryImg" src="" style="width:300px;height:auto"/>
                             </div>
+                            <div class="form-html-validate image"></div>
                         </div>
                         {{-- <input type="reset" id="resetEditCategory" style="display:none"> --}}
                     </form>
@@ -323,17 +332,14 @@ $(document).ready(function() {
                 }
             },
             error: function (error) {
-                    var obj_errors = error.responseJSON.errors;
-                    var txt_errors = '';
-                    for (k of Object.keys(obj_errors)) {
-                        txt_errors += obj_errors[k][0] + '</br>';
-                    }
-                    Swal.fire({
-                        type: 'warning',
-                        html: txt_errors,
-                        allowOutsideClick: false,
-                    })
-                }
+                var obj_errors = error.responseJSON.errors;
+                $('.form-html-validate').css('display', 'block')
+                $('.form-html-validate').html('')
+                $.each(obj_errors, function( index, value ) {
+                    var content = '<i class="fa fa-exclamation fa-fw"></i><div class="hover-alert">'+ value +'</div>'
+                    $('.form-html-validate.' + index).html(content);
+                })
+            }
         });
     });
 
@@ -411,6 +417,9 @@ $(document).ready(function() {
     })
 
     var dataObject = [
+        {
+            data: "action",
+        },
         {
             data: "name",
             class: "name-field"
@@ -718,13 +727,11 @@ $(document).ready(function() {
                 },
                 error: function (error) {
                     var obj_errors = error.responseJSON.errors;
-                    var txt_errors = '';
-                    for (k of Object.keys(obj_errors)) {
-                        txt_errors += obj_errors[k][0] + '</br>';
-                    }
-                    Swal.fire({
-                        type: 'warning',
-                        html: txt_errors,
+                    $('.form-html-validate').css('display', 'block')
+                    $('.form-html-validate').html('')
+                    $.each(obj_errors, function( index, value ) {
+                        var content = '<i class="fa fa-exclamation fa-fw"></i><div class="hover-alert">'+ value +'</div>'
+                        $('.form-html-validate.' + index).html(content);
                     })
                 }
             })
