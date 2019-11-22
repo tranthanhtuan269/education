@@ -30,7 +30,7 @@ class StoreStudentRequest extends FormRequest
             'email'         => 'required|unique:users,email|regex_email:"/^[_a-zA-Z0-9-]{2,}+(\.[_a-zA-Z0-9-]{2,}+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,3})$/"',
             'phone'         => 'required|min:10|max:11|regex_phone:"/^[\+]?[(]?[0-9]{1,3}[)]?[-\s]?[0-9]{1,3}[-\s]?[0-9]{4,9}$/"',
             'address'       => 'required|max:255',
-            'dob'           => 'date_format:"d/m/Y"|regex:/[0-9]{2}\/[0-9]{2}\/[0-9]{4}/|validate_dob',
+            'dob'           => 'date_format:"d/m/Y"', //|regex:/[0-9]{2}\/[0-9]{2}\/[0-9]{4}/|validate_dob
             'password'          => 'required|min:8|max:101',
             'confirm_password'   => 'required|same:password',
         ];

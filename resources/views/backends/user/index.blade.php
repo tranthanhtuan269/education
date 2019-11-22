@@ -106,41 +106,45 @@
                             <div class="tab-pane active" id="tab_add_admin">
                                     <div class="form-group row">
                                         <label  class="col-sm-4 col-form-label">Tên <span class="text-danger">*</span></label>
-                                        <div class="col-sm-8">
+                                        <div class="col-sm-8 form-html">
                                             <input type="text" class="form-control" id="userName_Ins" name="name" autocomplete="userName_Ins" value="{{ Request::old('name') }}">
                                             <div class="alert-errors d-none" role="alert" id="nameErrorIns">
 
                                             </div>
+                                            <div class="form-html-validate name"></div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="userEmail_upd" class="col-sm-4 col-form-label">Email <span class="text-danger">*</span></label>
-                                        <div class="col-sm-8">
+                                        <div class="col-sm-8 form-html">
                                             <input type="text" class="form-control" id="email_Ins" name="email" autocomplete="email_Ins"  value="{{ Request::old('email') }}">
                                             <div class="alert-errors d-none" role="alert" id="emailErrorIns">
 
                                             </div>
+                                            <div class="form-html-validate email"></div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="userPassword" class="col-sm-4 col-form-label">Mật khẩu <span class="text-danger">*</span></label>
-                                        <div class="col-sm-8">
+                                        <div class="col-sm-8 form-html">
                                             <input type="password" class="form-control" id="password_Ins" name="password" autocomplete="password_Ins" value="{{ Request::old('password') }}">
                                             <div class="alert-errors d-none" role="alert" id="passwordErrorIns">
 
                                             </div>
+                                            <div class="form-html-validate password"></div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="passConfirm" class="col-sm-4 col-form-label">Nhập lại mật khẩu <span class="text-danger">*</span></label>
-                                        <div class="col-sm-8">
+                                        <div class="col-sm-8 form-html">
                                             <input type="password" class="form-control" id="confirmpassword_Ins" name="confirmpassword" autocomplete="confirmpassword_Ins" value="{{ Request::old('confirmpassword') }}">
                                             <div class="alert-errors d-none" role="alert" id="confirmpasswordErrorIns"></div>
+                                            <div class="form-html-validate confirmpassword"></div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="userEmail_upd" class="col-sm-4 col-form-label">Vai trò <span class="text-danger">*</span></label>
-                                        <div class="col-sm-8">
+                                        <div class="col-sm-8 form-html">
                                             <select id="role-list-ins" multiple="multiple">
                                                 @foreach ($roles as $role)
                                                     @if ($role->id != 2 && $role->id != 3)
@@ -149,6 +153,7 @@
                                                 @endforeach
                                             </select>
                                             <div class="alert-errors d-none" role="alert" id="role_idErrorIns"></div>
+                                            <div class="form-html-validate role_id"></div>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -1265,14 +1270,11 @@
                 },
                 error: error => {
                     var obj_errors = error.responseJSON.errors;
-                    var txt_errors = '';
-                    for (k of Object.keys(obj_errors)) {
-                        txt_errors += obj_errors[k][0] + '</br>';
-                    }
-                    Swal.fire({
-                        type: 'warning',
-                        html: txt_errors,
-                        allowOutsideClick: false,
+                    $('.form-html-validate').css('display', 'block')
+                    $('.form-html-validate').html('')
+                    $.each(obj_errors, function( index, value ) {
+                        var content = '<i class="fa fa-exclamation fa-fw"></i><div class="hover-alert">'+ value +'</div>'
+                        $('.form-html-validate.' + index).html(content);
                     })
                 }
             });
@@ -1328,6 +1330,13 @@
             $('#mulSelectedTemplate').prop('selected', false).find('option:first').prop('selected', true);
         })
     });
+
+    $('#add_user_modal .nav-tabs-custom ul>li>a').click(function(){
+        $('.form-html-validate').css('display', 'none')
+    })
+    $('.add-item a#create_user').click(function(){
+        $('.form-html-validate').css('display', 'none')
+    })
 </script>
 
 @endsection
