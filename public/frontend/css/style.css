@@ -6340,3 +6340,14 @@ div[data-u="slides"] div div {
 
 #myModalLogin .form-html-validate .fa-exclamation, #myModalRegister .form-html-validate .fa-exclamation{top: 25px !important}
 #myModalLogin .form-html-validate .hover-alert, #myModalRegister .form-html-validate .hover-alert{top: 10px !important}
+
+.box-unit #sortable .fa-exclamation{
+    top: 25px !important;
+    right: 64px !important;
+}
+.box-unit #sortable .hover-alert{
+    font-size: 14px!important;
+    line-height: 1.4 !important;
+    top: 10px;
+    right: 64px;
+}

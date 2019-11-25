@@ -332,7 +332,7 @@
                     <ul id="sortable" class="unit-holder-{{ $course->id }}">
                         <?php //dd($course->units); ?>
                         @foreach($course->units as $key => $unit)
-                        <li class="ui-state-default" data-unit-id="{{ $unit->id }}" data-unit-key="{{ $key }}">
+                        <li class="ui-state-default form-html" data-unit-id="{{ $unit->id }}" data-unit-key="{{ $key }}">
                             <i class="fas fa-sort"></i> 
                             <span class="unit-content">{{ $unit->name }}</span> 
                             <i class="far fa-trash-alt remove-unit" id="remove-unit-{{ $unit->id }}" data-unit-id="{{ $unit->id }}" data-course-id="{{ $course->id }}"></i>
@@ -495,7 +495,11 @@
                     url: "{{ url('/') }}/user/units/"+unit_id+"/update",
                     data: data,
                     dataType: 'json',
+                    beforeSend: function() {
+                        $(".ajax_waiting").addClass("loading");
+                    },
                     success: function (response) {
+                        $(".ajax_waiting").removeClass("loading");
                         if(response.status == 200){
                             parent.find('input').remove()
                             parent.find('i.save-unit').remove()
@@ -512,16 +516,24 @@
                         }
                     },
                     error: function (error) {
+                        // var obj_errors = error.responseJSON.errors;
+                        // // console.log(obj_errors)
+                        // var txt_errors = '';
+                        // for (k of Object.keys(obj_errors)) {
+                        //     txt_errors += obj_errors[k][0] + '</br>';
+                        // }
+                        // Swal.fire({
+                        //     type: 'warning',
+                        //     html: 'txt_errors',
+                        //     allowOutsideClick: false,
+                        // })
+                        $(".ajax_waiting").removeClass("loading");
                         var obj_errors = error.responseJSON.errors;
-                        // console.log(obj_errors)
-                        var txt_errors = '';
-                        for (k of Object.keys(obj_errors)) {
-                            txt_errors += obj_errors[k][0] + '</br>';
-                        }
-                        Swal.fire({
-                            type: 'warning',
-                            html: txt_errors,
-                            allowOutsideClick: false,
+                        $('.form-html-validate').css('display', 'block')
+                        $('.form-html-validate').html('')
+                        $.each(obj_errors, function( index, value ) {
+                            var content = '<i class="fas fa-exclamation fa-fw"></i><div class="hover-alert">'+ value +'</div>'
+                            $('.form-html-validate.' + index).html(content);
                         })
                     }
                 });
@@ -532,7 +544,7 @@
             $("#listUnit{{ $course->id }} .edit-unit").click(function(){
                 var unit_id = $(this).attr('data-unit-id');
                 var content = $(this).parent().find('span.unit-content').html()
-                var html = "<input class='form-control' id='unit-input' value='" + content +"'><i class='fas fa-check save-unit' id='btn-save-unit' data-unit-id='"+unit_id+"'></i>"
+                var html = "<input class='form-control' id='unit-input' value='" + content +"'><i class='fas fa-check save-unit' id='btn-save-unit' data-unit-id='"+unit_id+"'></i><div class='form-html-validate name'></div>"
                 $(this).parent().html(html);
                 addEvent()
             })
