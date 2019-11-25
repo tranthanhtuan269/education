@@ -162,12 +162,6 @@ $(document).ready(function() {
     $("#save-profile").click(function() {
         link_base64 = student('#image-cropper').cropit('export');
 
-        // Validate Birthday
-        if (!validationDate($('#datepicker').val())) {
-            alertValidate('Ngày sinh phải có định dạng Ngày/Tháng/Năm (Ví dụ: 31/12/1993)', 'birthday')
-            return false;
-        }
-
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

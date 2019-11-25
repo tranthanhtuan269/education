@@ -27,7 +27,7 @@ class UpdateProfileTeacherRequest extends FormRequest
             'cv'            => 'required',
             'address'       => 'max:255',
             'phone'         => 'required|min:10|max:11|regex_phone:"/^[\+]?[(]?[0-9]{1,3}[)]?[-\s]?[0-9]{1,3}[-\s]?[0-9]{4,9}$/"',
-            'birthday'      => 'date_format:"d/m/Y"|regex:/[0-9]{2}\/[0-9]{2}\/[0-9]{4}/|validate_birthday',
+            'birthday'      => 'date_format:"d/m/Y"',//|regex:/[0-9]{2}\/[0-9]{2}\/[0-9]{4}/|validate_birthday
             'video_intro'   => 'required',
         ];
     }

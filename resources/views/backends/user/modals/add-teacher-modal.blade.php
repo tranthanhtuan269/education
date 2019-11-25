@@ -239,7 +239,7 @@ $(document).ready(function() {
                 flag = false
             }
         }else{
-            alertValidate('Bạn chưa nhập Link Youtube', 'youtube')
+            alertValidate('Bạn chưa nhập Link Youtube.', 'youtube')
             flag = false
         }
 
