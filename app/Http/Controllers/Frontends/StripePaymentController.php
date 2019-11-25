@@ -84,8 +84,8 @@ class StripePaymentController extends Controller
 
                 }
             }
-
-            Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+            $STRIPE_SECRET = Setting::where('name','STRIPE_SECRET')->value('value');
+            Stripe\Stripe::setApiKey($STRIPE_SECRET);
             $charge=Stripe\Charge::create ([
                 "amount" => $total/20,
                 "currency" => "usd",

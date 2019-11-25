@@ -265,6 +265,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('statistic/delMulti', 'Backends\StatisticController@delMulti');
         Route::resource('statistic', 'Backends\StatisticController');
         Route::post('statistic/detailOrder', 'Backends\StatisticController@detailOrder');
+
+        Route::resource('stripe', 'Backends\StripeController');
+        Route::post('stripe/update', 'Backends\StripeController@updateAccount');
     });
 });
 

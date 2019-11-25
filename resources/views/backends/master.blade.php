@@ -337,6 +337,12 @@
                                 <span class="pull-right-container">
                             </a>
                         </li>
+                        <li class="@if ( Request::is('admincp/stripe*') ) active @endif">
+                            <a href="{{ url('/') }}/admincp/stripe"><i class="fa fa-pie-chart"></i>
+                                <span>Thanh toán Stripe</span>
+                                <span class="pull-right-container">
+                            </a>
+                        </li>
                     </ul>
                 </section>
                 <!-- /.sidebar -->
