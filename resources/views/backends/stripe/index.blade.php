@@ -13,14 +13,16 @@
 </section>
 <section class="content page">
     <h1 class="text-center font-weight-600">Tài khoản thanh toán Stripe</h1>
-    <div class="row col-xs-12">
-        <div class="form-group col-xs-6">
+    <div class="row col-xs-12" id="stripeAccount">
+        <div class="form-group col-xs-6 form-html">
             <label class="control-label">STRIPE_KEY:</label>
             <input type="text" class="form-control" id="STRIPE_KEY" placeholder="STRIPE_KEY">
+            <div class="form-html-validate STRIPE_KEY"></div>
         </div>
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-6 form-html">
             <label class="control-label">STRIPE_SECRET:</label>
             <input type="text" class="form-control" id="STRIPE_SECRET" placeholder="STRIPE_SECRET">
+            <div class="form-html-validate STRIPE_SECRET"></div>
         </div>
         <div class="text-center">
             <button type="submit" class="btn btn-primary" id="submit">Xác nhận</button>  
@@ -31,8 +33,18 @@
 <script>
     $(document).ready(function(){
         $('#submit').click(function(){
+            var flag = true;
             var STRIPE_KEY = $('#STRIPE_KEY').val();
             var STRIPE_SECRET = $('#STRIPE_SECRET').val();
+            if (STRIPE_KEY == "") {
+                alertValidate('Bạn chưa nhập STRIPE_KEY!', 'STRIPE_KEY')
+                flag = false
+            }
+            if (STRIPE_SECRET == "") {
+                alertValidate('Bạn chưa nhập STRIPE_SECRET!', 'STRIPE_SECRET')
+                flag = false
+            }
+            if(flag == false) return
             var data = {
                 STRIPE_KEY : STRIPE_KEY,
                 STRIPE_SECRET : STRIPE_SECRET
