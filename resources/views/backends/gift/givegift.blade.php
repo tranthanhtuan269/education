@@ -26,9 +26,9 @@
         <div class="col-md-6">
             <h3><b>Số học viên được tặng khóa học</b></h3>
             <br>
-            <div class="gift-student-number text-center">
+            <div class="gift-student-number text-center form-html">
                 <span>Nhập số học viên: </span> &nbsp;
-                <input type="number" min="0" step="1" name="student-number" class="form-html"> &nbsp;
+                <input type="number" min="0" step="1" name="student-number"> &nbsp;
                 <button class="btn btn-success btn-student-number">Xác nhận</button>
                 <div class="form-html-validate student_id"></div>
             </div>
@@ -90,17 +90,19 @@
             for (var i = 0; i < asInputs.length; i++) {
                 course_id[i] = $(asInputs[i]).data('sol-item').value;
             }
-
+            
+            var flag = true
+            $('.form-html-validate').html('')
             if (student_id.length == 0) {
                 alertValidate('Chưa có học viên nào được chọn!', 'student_id')
-                return;
+                flag = false
             }
-
             if (course_id.length == 0) {
-                alertValidate('Chưa có khóa học nào được chọn!', 'course_id')
-                return;
+                alertValidate('Chưa có khóa học nào được chọn312321!', 'course_id')
+                flag = false
             }
-
+            if ( flag == false ) return
+            
             $.ajaxSetup({
                 headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
