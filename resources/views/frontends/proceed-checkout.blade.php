@@ -127,10 +127,9 @@
                                                
                                                 <form role="form" action="{{ route('stripe.post') }}" method="post" class="require-validation"
                                                                                 data-cc-on-file="false"
-                                                                                data-stripe-publishable-key="{{ env('STRIPE_KEY') }}"
+                                                                                data-stripe-publishable-key="{{$STRIPE_KEY->value}}"
                                                                                 id="payment-form">
                                                     @csrf
-                            
                                                     <div class='form-row row'>
                                                         <div class='col-xs-12 form-group required'>
                                                             <label class='control-label'>Tên in trên thẻ:</label> <input
