@@ -146,23 +146,55 @@
         $("#save-profile").off('click')
         $("#save-profile").on('click',function() {
             link_base64 = $('#image-cropper').cropit('export');
-            // Validate Birthday
-            if (!validationDate($('#datepicker').val())) {
-                alertValidate('Ngày sinh không hợp lệ!', 'birthday')
-                return false;
+            var flag = true
+            $('.form-html-validate').html('')
+            if ( $('input[name=name]').val().trim() == '' ){
+                alertValidate('Bạn chưa nhập Tên.', 'name')
+                flag = false
             }
-            if (wordCount < 30) {
-                alertValidate('CV của bạn quá ngắn!', 'cv')
-                return false;
-            } else {
-                if(wordCount > 700){
-                    alertValidate('CV của bạn quá dài!', 'cv')
-                    return false;
+            if ( $('input[name=phone]').val().trim() == '' ){
+                alertValidate('Bạn chưa nhập Số điện thoại.', 'phone')
+                flag = false
+            }
+            if ( $('input[name=birthday]').val().trim() == '' ){
+                alertValidate('Bạn chưa chọn Ngày sinh.', 'birthday')
+                flag = false
+            }else{
+                if (!validationDate($('#datepicker').val())) {
+                    alertValidate('Ngày sinh không hợp lệ.', 'birthday')
+                    flag = false
                 }
             }
-            if($("input[name=expert]").val().length > 55){
-                alertValidate('Số ký tự của "Chuyên môn" quá dài!', 'expert')
-                return false;
+            if ( $('textarea[name=address]').val().trim() == '' ){
+                alertValidate('Bạn chưa nhập Địa chỉ.', 'address')
+                flag = false
+            }
+            if ( $('input[name=expert]').val().trim() == '' ){
+                alertValidate('Bạn chưa nhập Chuyên môn.', 'expert')
+                flag = false
+            }
+            if ( wordCount > 0 ){
+                if (wordCount < 30) {
+                    alertValidate('CV phải có ít nhất 30 từ.', 'cv')
+                    flag = false
+                } else {
+                    if(wordCount > 700){
+                        alertValidate('CV của bạn quá dài.', 'cv')
+                        flag = false
+                    }
+                }
+            }else{
+                alertValidate('CV phải có ít nhất 30 từ.', 'cv')
+                flag = false
+            }
+            if ($("input[name=expert]").val().length > 0){
+                if($("input[name=expert]").val().length > 55){
+                    alertValidate('Số ký tự của Chuyên môn quá dài.', 'expert')
+                    flag = false
+                }
+            }else{
+                alertValidate('Bạn chưa nhập Chuyên môn.', 'expert')
+                flag = false
             }
             var url = $('#YoutubeUrl').val().trim();
             if ( url != '' ){
@@ -171,25 +203,27 @@
                     var match = url.match(regExp);
                     if (match && match[2].length == 11) {
                     }else{
-                        alertValidate('Link Video không hợp lệ!', 'video_intro')
-                        return false;
+                        alertValidate('Link Video không hợp lệ.', 'video_intro')
+                        flag = false
                     }
                 }
+            }else{
+                alertValidate('Bạn chưa nhập Video giới thiệu.', 'video_intro')
+                flag = false
             }
 
             facebook_url = $('input[name=facebook]').val().trim()
-            function validate_url(url){
-                if (/^(https?:\/\/)?((w{3}\.)?)facebook.com\/.*/i.test(url)){
-                    return true;
-                }else{ return false }
-            }
             if ( facebook_url != '' ){
                 validate_url(facebook_url)
                 if( !validate_url(facebook_url) ){
-                    alertValidate('Link Facebook không hợp lệ!', 'facebook')
-                    return false;
+                    alertValidate('Link Facebook không hợp lệ.', 'facebook')
+                    flag = false
                 }
+            }else{
+                alertValidate('Bạn chưa nhập Facebook.', 'facebook')
+                flag = false
             }
+            if ( flag == false ) return
 
             $.ajaxSetup({
                 headers: {
@@ -395,7 +429,22 @@
                 }
             }
         }
-    });
+    })
+    $("input[name=facebook]").keyup(function(){
+        facebook_url = $('input[name=facebook]').val().trim()
+        if ( facebook_url != '' ){
+            validate_url(facebook_url)
+            if( !validate_url(facebook_url) ){
+                alertValidate('Link Facebook không hợp lệ!', 'facebook')
+                return false;
+            }
+        }
+    })
+    function validate_url(url){
+        if (/^(https?:\/\/)?((w{3}\.)?)facebook.com\/.*/i.test(url)){
+            return true;
+        }else{ return false }
+    }
     function characterCount(){
         var characterCount = $("input[name=expert]").val().length;
         $('#count-character').html(characterCount);

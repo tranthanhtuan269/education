@@ -293,7 +293,7 @@
                     flag = false
                 } else {
                     if(wordCount > 700){
-                        alertValidate('CV của bạn quá dài!', 'cv')
+                        alertValidate('CV của bạn quá dài.', 'cv')
                         flag = false
                     }
                 }
