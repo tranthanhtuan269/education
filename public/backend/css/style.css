@@ -1,10 +1,13 @@
 th {
     text-align: center;
 }
-#show-detail-order .table td, #show-detail-order .table th {
+
+#show-detail-order .table td,
+#show-detail-order .table th {
     padding: 5px;
     border-top: none;
 }
+
 .filter-cat {
     padding: 0 15px 10px 0;
 }
@@ -590,7 +593,7 @@ ul.alert li {
     overflow: auto;
 }
 
-#showEditCouponModal .sol-selection-container{
+#showEditCouponModal .sol-selection-container {
     top: 205px !important;
     left: 314px !important;
     width: 570px !important;
@@ -602,41 +605,48 @@ ul.alert li {
     width: 570px !important;
 }
 
-#student-table_wrapper .col-md-5{
+#student-table_wrapper .col-md-5 {
     width: 100%;
 }
 
-#student-table_wrapper .col-md-7{
-    text-align:center;
+#student-table_wrapper .col-md-7 {
+    text-align: center;
     width: 100%;
 }
-#student-table_wrapper #student-table_paginate{
+
+#student-table_wrapper #student-table_paginate {
     text-align: center;
 }
+
+
 /* .sol-selection{
     position: absolute;
     z-index: 1;
     top: 35px;
     background: #fff;
 } */
+
 #giftPage .sol-inner-container {
-   position: absolute;
-   width: 100%;
-   top: 0px;
-}
-#giftPage .sol-container{
-   position: relative;
-}  
-#giftPage .sol-current-selection{
-   top:35px;
-   position: relative;
-   z-index: 0;
-   padding-bottom: 50px;
+    position: absolute;
+    width: 100%;
+    top: 0px;
 }
 
-.color-white{
+#giftPage .sol-container {
+    position: relative;
+}
+
+#giftPage .sol-current-selection {
+    top: 35px;
+    position: relative;
+    z-index: 0;
+    padding-bottom: 50px;
+}
+
+.color-white {
     color: #FFF;
 }
+
 
 /* Absolute Center Spinner */
 
@@ -768,6 +778,7 @@ ul.alert li {
     }
 }
 
+
 /* .sol-container.sol-active .sol-selection-container {
     position: initial;
 } */
@@ -775,6 +786,7 @@ ul.alert li {
 #showEditCouponModal .sol-selection-container {
     top: 210px;
 }
+
 
 /* .sol-selection-container{
     border-top-right-radius: initial; 
@@ -784,15 +796,18 @@ ul.alert li {
 } */
 
 .inaccept-video,
-.btn-inaccept{
+.btn-inaccept {
     color: #000;
 }
 
+
 /* Trinhnk: Alert Form */
-.form-html{
+
+.form-html {
     position: relative;
 }
-.form-html-validate i{
+
+.form-html-validate i {
     position: absolute;
     color: #c80000;
     font-size: 18px;
@@ -803,6 +818,7 @@ ul.alert li {
     z-index: 4;
     /* background-color: #ffffff; */
 }
+
 .form-html-validate .hover-alert {
     display: none;
     position: absolute;
@@ -819,32 +835,99 @@ ul.alert li {
     text-align: left;
     z-index: 3;
 }
-.form-html-validate:hover .hover-alert{
+
+.form-html-validate:hover .hover-alert {
     display: block;
 }
-.form-html-validate.course_id .fa-exclamation{top:15px;right:20px}
-.form-html-validate.course_id .hover-alert{top:0;right:20px}
 
-#createEmailModal .fa-exclamation, #editEmailModal .fa-exclamation{top:17px;right:25px}
-#createEmailModal .hover-alert, #editEmailModal .hover-alert{top:2px;right:25px}
+.form-html-validate.course_id .fa-exclamation {
+    top: 15px;
+    right: 20px
+}
 
-#add_user_modal .form-html-validate .fa-exclamation{top:17px;right:25px}
-#add_user_modal .form-html-validate .hover-alert{top:2px;right: 25px;}
+.form-html-validate.course_id .hover-alert {
+    top: 0;
+    right: 20px
+}
 
-#edit_user_modal .form-html-validate .fa-exclamation{top:17px;right:25px}
-#edit_user_modal .form-html-validate .hover-alert{top:2px;right: 25px;}
+#createEmailModal .fa-exclamation,
+#editEmailModal .fa-exclamation {
+    top: 17px;
+    right: 25px
+}
 
-#add_permission_modal .form-html-validate .fa-exclamation, #edit_permission_modal .form-html-validate .fa-exclamation, #add_role_modal .form-html-validate .fa-exclamation, #edit_role_modal .form-html-validate .fa-exclamation{top:17px;right:25px}
-#add_permission_modal .form-html-validate .hover-alert, #edit_permission_modal .form-html-validate .hover-alert, #add_role_modal .form-html-validate .hover-alert, #edit_role_modal .form-html-validate .hover-alert{top:2px;right: 25px;}
+#createEmailModal .hover-alert,
+#editEmailModal .hover-alert {
+    top: 2px;
+    right: 25px
+}
 
-.gift-student-number .form-html-validate .fa-exclamation{top:17px;right:160px}
-.gift-student-number .form-html-validate .hover-alert{top:2px;right:160px;}
+#add_user_modal .form-html-validate .fa-exclamation {
+    top: 17px;
+    right: 25px
+}
 
-.arr-courses .form-html-validate .fa-exclamation{top:15px;right:145px}
-.arr-courses .form-html-validate .hover-alert{top:0;right:145px;}
+#add_user_modal .form-html-validate .hover-alert {
+    top: 2px;
+    right: 25px;
+}
 
-#giftPage input[type=number]::-webkit-inner-spin-button, 
-#giftPage input[type=number]::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
-  margin: 0; 
+#edit_user_modal .form-html-validate .fa-exclamation {
+    top: 17px;
+    right: 25px
+}
+
+#edit_user_modal .form-html-validate .hover-alert {
+    top: 2px;
+    right: 25px;
+}
+
+#add_permission_modal .form-html-validate .fa-exclamation,
+#edit_permission_modal .form-html-validate .fa-exclamation,
+#add_role_modal .form-html-validate .fa-exclamation,
+#edit_role_modal .form-html-validate .fa-exclamation {
+    top: 17px;
+    right: 25px
+}
+
+#add_permission_modal .form-html-validate .hover-alert,
+#edit_permission_modal .form-html-validate .hover-alert,
+#add_role_modal .form-html-validate .hover-alert,
+#edit_role_modal .form-html-validate .hover-alert {
+    top: 2px;
+    right: 25px;
+}
+
+.gift-student-number .form-html-validate .fa-exclamation {
+    top: 17px;
+    right: 160px
+}
+
+.gift-student-number .form-html-validate .hover-alert {
+    top: 2px;
+    right: 160px;
+}
+
+.arr-courses .form-html-validate .fa-exclamation {
+    top: 15px;
+    right: 145px
+}
+
+.arr-courses .form-html-validate .hover-alert {
+    top: 0;
+    right: 145px;
+}
+
+#giftPage input[type=number]::-webkit-inner-spin-button,
+#giftPage input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+#stripeAccount .form-html-validate i {
+    right: 19px;
+}
+
+#stripeAccount .form-html-validate .hover-alert {
+    right: 19px;
 }
