@@ -1451,30 +1451,62 @@
 
             link_base64 = S2('#image-cropper').cropit('export');
 
-            var course_name = $('#course-name').val()
-            var short_description = $('#short-description').val()
-            var course_description = CKEDITOR.instances['course-description'].getData()
-            var course_will_learn = CKEDITOR.instances['course-will-learn'].getData()
-            var course_requirement = $('#course-requirement').val()
-            var original_price = $('#courseOriginalPrice').val()
-            var discount_price = $('#courseDiscountPrice').val()
-            var course_approx_time = $('#course-approx-time').val()
+            var course_name = $('#course-name').val().trim()
+            var short_description = $('#short-description').val().trim()
+            var course_description = CKEDITOR.instances['course-description'].getData().trim()
+            var course_will_learn = CKEDITOR.instances['course-will-learn'].getData().trim()
+            var course_requirement = $('#course-requirement').val().trim()
+            var original_price = $('#courseOriginalPrice').val().trim()
+            var discount_price = $('#courseDiscountPrice').val().trim()
+            var course_approx_time = $('#course-approx-time').val().trim()
             var selector = document.getElementById('course-category')
             var course_category = selector[selector.selectedIndex].value
             var link_intro = $('#course-intro').val().trim()
-
-            // $('#editCourse').modal('toggle')
+            
+            var flag = true
+            $('.form-html-validate').html('')
+            if ( link_base64 == null ){
+                alertValidate('Bạn chưa chọn Ảnh khóa học.', 'image')
+                flag = false
+            }
+            if ( course_name == '' ){
+                alertValidate('Bạn chưa nhập Tên khóa học.', 'name')
+                flag = false
+            }
+            if ( short_description == '' ){
+                alertValidate('Bạn chưa nhập Tóm tắt.', 'short_description')
+                flag = false
+            }
+            if ( course_description == '' ){
+                alertValidate('Bạn chưa nhập Mô tả.', 'description')
+                flag = false
+            }
+            if ( course_will_learn == '' ){
+                alertValidate('Bạn chưa nhập Học viên sẽ học được gì.', 'will_learn')
+                flag = false
+            }
+            if ( course_requirement == '' ){
+                alertValidate('Bạn chưa nhập Yêu cầu.', 'requirement')
+                flag = false
+            }
+            if ( course_approx_time == '' ){
+                alertValidate('Bạn chưa nhập Thời gian dự kiến hoàn thành.', 'approx_time')
+                flag = false
+            }
             if( original_price != '' ){
                 original_price = Number(original_price)
                 if( discount_price != '' ){
                     discount_price = Number(discount_price)
                     if( discount_price > original_price ){
                         alertValidate('Giá sau khi giảm không thể lớn hơn giá gốc.', 'discount_price')
-                        return false;
+                        flag = false
                     }
                 }else{
                     discount_price = original_price
                 }
+            }else{
+                alertValidate('Bạn chưa nhập Giá khóa học.', 'original_price')
+                flag = false 
             }
 
             var url = link_intro;
@@ -1486,10 +1518,14 @@
                     }else{
                         alertValidate('Link Video không hợp lệ!', 'link_intro')
                         $(this).attr('disabled', false)
-                        return false;
+                        flag = false
                     }
                 }
+            }else{
+                alertValidate('Bạn chưa nhập Video giới thiệu.', 'link_intro')
+                flag = false 
             }
+            if ( flag == false ) return
 
             var data = {
                 image:link_base64,

@@ -98,7 +98,7 @@
                 flag = false
             }
             if (course_id.length == 0) {
-                alertValidate('Chưa có khóa học nào được chọn312321!', 'course_id')
+                alertValidate('Chưa có khóa học nào được chọn!', 'course_id')
                 flag = false
             }
             if ( flag == false ) return
