@@ -191,6 +191,69 @@ $(document).ready(function(){
         var password         = $('#editTchPassword').val()
         var confirmPassword  = $('#editTchCfPassword').val()
 
+        var flag = true
+        $('.form-html-validate').html('')
+        if ( name == '' ){
+            alertValidate('Bạn chưa nhập Tên.', 'name')
+            flag = false
+        }
+        if ( phone == '' ){
+            alertValidate('Bạn chưa nhập Số điện thoại.', 'phone')
+            flag = false
+        }
+        if ( dob == '' ){
+            alertValidate('Bạn chưa chọn ngày sinh.', 'dob')
+            flag = false
+        }
+        if ( address == '' ){
+            alertValidate('Bạn chưa nhập địa chỉ.', 'address')
+            flag = false
+        }
+        if ( expert == '' ){
+            alertValidate('Bạn chưa nhập chuyên môn.', 'expert')
+            flag = false
+        }
+        if ( youtube != '') {
+            var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
+            var match = youtube.match(regExp);
+            if (match && match[2].length == 11) {
+            }else{
+                alertValidate('Link Youtube không hợp lệ.', 'youtube')
+                flag = false
+            }
+        }else{
+            alertValidate('Bạn chưa nhập Link Youtube', 'youtube')
+            flag = false
+        }
+
+        function validate_url(url){
+            if (/^(https?:\/\/)?((w{3}\.)?)facebook.com\/.*/i.test(url)){
+                return true;
+            }else{ return false }
+        }
+        if ( facebook != '' ){
+            validate_url(facebook)
+            if( !validate_url(facebook) ){
+                alertValidate('Link Facebook không hợp lệ.', 'facebook')
+                flag = false
+            }
+        }else{
+            alertValidate('Bạn chưa nhập Facebook.', 'facebook')
+            flag = false
+        }
+        
+        var wordCount = editTchCvEditor.wordCount.wordCount
+        if ( wordCount > 0 ){
+            if(wordCount < 30){
+                alertValidate('CV phải có ít nhất 30 từ.', 'cv')
+                flag = false
+            }
+        }else{
+            alertValidate('CV phải có ít nhất 30 từ.', 'cv')
+            flag = false
+        }
+        if ( flag == false ) return
+
         if ( youtube != '') {
             var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
             var match = youtube.match(regExp);

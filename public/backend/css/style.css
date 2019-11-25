@@ -801,6 +801,7 @@ ul.alert li {
     right: 7px;
     left: auto;
     z-index: 4;
+    /* background-color: #ffffff; */
 }
 .form-html-validate .hover-alert {
     display: none;
@@ -836,8 +837,14 @@ ul.alert li {
 #add_permission_modal .form-html-validate .fa-exclamation, #edit_permission_modal .form-html-validate .fa-exclamation, #add_role_modal .form-html-validate .fa-exclamation, #edit_role_modal .form-html-validate .fa-exclamation{top:17px;right:25px}
 #add_permission_modal .form-html-validate .hover-alert, #edit_permission_modal .form-html-validate .hover-alert, #add_role_modal .form-html-validate .hover-alert, #edit_role_modal .form-html-validate .hover-alert{top:2px;right: 25px;}
 
-.gift-student-number .form-html-validate .fa-exclamation{top:93px;right:174px}
-.gift-student-number .form-html-validate .hover-alert{top:78px;right:174px;}
+.gift-student-number .form-html-validate .fa-exclamation{top:17px;right:160px}
+.gift-student-number .form-html-validate .hover-alert{top:2px;right:160px;}
 
 .arr-courses .form-html-validate .fa-exclamation{top:15px;right:145px}
 .arr-courses .form-html-validate .hover-alert{top:0;right:145px;}
+
+#giftPage input[type=number]::-webkit-inner-spin-button, 
+#giftPage input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
