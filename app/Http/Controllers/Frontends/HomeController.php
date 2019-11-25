@@ -889,10 +889,13 @@ class HomeController extends Controller
             if ($info_payment != null) {
                 $info_payment = json_decode($info_payment);
             }
+            $STRIPE_KEY = Setting::where('name','STRIPE_KEY')->first();
+            
+            // dd($STRIPE_SECRET);
             // echo "<pre>";
             // print_r($info_payment);die;
             // dd($info_payment);
-            return view('frontends.proceed-checkout', compact('info_payment'));
+            return view('frontends.proceed-checkout', compact('info_payment','STRIPE_KEY'));
         }
     }
 
