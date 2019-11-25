@@ -1233,19 +1233,6 @@
         }
         prevScrollpos = currentScrollPos;
     }
-    // $(window).scroll(function() {
-    //     if ($(window).scrollTop() >= block_on - 40 - 60) {
-    //         if($(window).scrollTop() <= block_below - 40 - 60){
-    //             document.getElementById("sidebar-content").classList.add("sidebar-fixed");
-    //             $("#sidebar-content").removeClass('sidebar-unfix').css('top', '');
-    //         }else{
-    //             document.getElementById("sidebar-content").classList.remove("sidebar-fixed");
-    //             $("#sidebar-content").addClass('sidebar-unfix').css('top', block_below - block_on + 20);
-    //         }
-    //     } else {
-    //         document.getElementById("sidebar-content").classList.remove("sidebar-fixed");
-    //     }
-    // });
 </script>
 
 @if (!Auth::check())
