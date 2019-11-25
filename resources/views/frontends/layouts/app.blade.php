@@ -113,7 +113,7 @@
                 </script>
             </div>
         @else
-            <div class="unica-home-menutop hidden-xs fixed">
+            <div class="unica-home-menutop hidden-xs fixed" id="showHideHeader">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-3 col-sm-4 cate-md">
@@ -1220,6 +1220,18 @@
         $('.alert-validate').html('')
         var content = '<i class="fas fa-exclamation fa-fw"></i><div class="hover-alert">'+ message +'</div>'
         $('.alert-validate.' + element).html(content);
+    }
+
+    // Show/Hide Header when scroll 
+    var prevScrollpos = window.pageYOffset;
+    window.onscroll = function() {
+        var currentScrollPos = window.pageYOffset;
+        if (prevScrollpos > currentScrollPos) {
+            document.getElementById("showHideHeader").style.top = "0";
+        } else {
+            document.getElementById("showHideHeader").style.top = "-101px";
+        }
+        prevScrollpos = currentScrollPos;
     }
 </script>
 

@@ -454,28 +454,29 @@
 								}
 							});
 						}else if(response.status == 204){
-							var htmlNot = ""
-							htmlNot += '<div class="options">'
-								htmlNot += '<div class="payment-options">'
-									// htmlNot += '<button id="openTopUpModal" class="btn btn-warning">Nạp tiền vào tài khoản</button>'
-									htmlNot += '<a href="/proceed-checkout">'
-										htmlNot += '<button class="btn btn-danger"><b>Chọn hình thức thanh toán</b></button>'
-									htmlNot += '</a>'
-								htmlNot += '</div>'
-							htmlNot += '</div>'
+							// var htmlNot = ""
+							// htmlNot += '<div class="options">'
+							// 	htmlNot += '<div class="payment-options">'
+							// 		// htmlNot += '<button id="openTopUpModal" class="btn btn-warning">Nạp tiền vào tài khoản</button>'
+							// 		htmlNot += '<a href="/proceed-checkout">'
+							// 			htmlNot += '<button class="btn btn-danger"><b>Chọn hình thức thanh toán</b></button>'
+							// 		htmlNot += '</a>'
+							// 	htmlNot += '</div>'
+							// htmlNot += '</div>'
 
-							return Swal.fire({
-								type: "warning",
-								text: `Tài khoản của bạn không đủ để thực hiện giao dịch!`,
-								footer: htmlNot,
-								allowOutsideClick: false,
-								showConfirmButton: false,
-							}).then((result) => {
-								if (result.value) {
-									// window.location.href = "/member-card";
-									$("#switchPayment").modal('show')
-								}
-							});
+							// return Swal.fire({
+							// 	type: "warning",
+							// 	text: `Tài khoản của bạn không đủ để thực hiện giao dịch!`,
+							// 	footer: htmlNot,
+							// 	allowOutsideClick: false,
+							// 	showConfirmButton: false,
+							// }).then((result) => {
+							// 	if (result.value) {
+							// 		// window.location.href = "/member-card";
+							// 		$("#switchPayment").modal('show')
+							// 	}
+							// });
+							window.location.href = "/proceed-checkout"
 						}else{
 							return Swal.fire({
 								type:"warning",
