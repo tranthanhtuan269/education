@@ -12,6 +12,7 @@ if(localStorage.getItem('autoplay') != null){
 }
 
 $(document).ready(function () {
+
     //Check browser có phải là firefox hay không để hiện thông báo
 
     var options = {
@@ -291,7 +292,7 @@ $(document).ready(function () {
         var isStudent = $(this).attr("data-isstudent")
         var video_name = $(this).attr("data-name")
         var video_info = "Phần " + $(this).attr("data-unit") + ", Bài " + $(this).attr("data-video")
-
+        unit =  $(this).attr("data-unit");
         section_dom.each(function (index, value){
             // alert(index)
         })
@@ -489,6 +490,7 @@ $(document).ready(function () {
         var current_video_index = infoVideo.indexCurrentVideo
         
         if(current_video_index < video_id_list.length - 1){ 
+
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -505,9 +507,22 @@ $(document).ready(function () {
             request.done(function(data){
                 window.videoSource = JSON.parse(data.video_url);
                 updateLink();
+                unit = $('#listItem' + video_id_list[current_video_index]).attr("data-unit");
+                unit = parseInt(unit);
+                var video_info = "Phần " + unit + ", Bài " + $('#listItem'+ video_id_list[current_video_index + 1]).attr("data-video")
 
-                var video_info = "Phần " + $('#listItem'+ video_id_list[current_video_index + 1]).attr("data-unit") + ", Bài " + $('#listItem'+ video_id_list[current_video_index + 1]).attr("data-video")
+                var lesson = $('#listItem' + video_id_list[current_video_index]).attr("data-video");
+                lesson = parseInt(lesson);
+                var total_course_unit = $('div[data-target="#sectionBody' + unit + '"] span.total_course_unit').html();
+                total_course_unit = parseInt(total_course_unit);
 
+                if (lesson == total_course_unit) {
+                    $("#sectionBody" + unit).removeClass('in');
+                    var unit_next = unit + 1;
+                    $("#sectionBody" + unit_next).addClass('in');
+                }
+
+                
                 // $video_urls = json_decode($main_video->url_video, true);
                 if(data.update_viewed == 1){
                     $("#viewed_count").html(parseInt($("#viewed_count").html()) + 1)

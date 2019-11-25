@@ -28,8 +28,9 @@
             <br>
             <div class="gift-student-number text-center">
                 <span>Nhập số học viên: </span> &nbsp;
-                <input type="number" min="0" step="1" name="student-number"> &nbsp;
+                <input type="number" min="0" step="1" name="student-number" class="form-html"> &nbsp;
                 <button class="btn btn-success btn-student-number">Xác nhận</button>
+                <div class="form-html-validate student_id"></div>
             </div>
             <br>
             <div class="table-responsive" style="display:none">
@@ -48,15 +49,16 @@
             </div><br>
             <div class="text-center"><button class="btn btn-primary" id="btn-gift"><b>Xác nhận tặng</b></button></div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 arr-courses">
             <h3><b>Chọn khóa học miễn phí</b></h3>
             <br>
-            <div>
+            <div class="form-html">
                 <select id="demonstration" name="course[]" style="width: 400px" multiple="multiple">
                     @foreach ($courses as $course)
                     <option value="{{ $course->id }}">{{ $course->name }}</option>
                     @endforeach
                 </select>
+                <div class="form-html-validate course_id"></div>
             </div>
         </div>
     </div>
@@ -90,18 +92,12 @@
             }
 
             if (student_id.length == 0) {
-                Swal.fire({
-                    type: 'warning',
-                    text: 'Chưa có học viên nào được chọn!'
-                })
+                alertValidate('Chưa có học viên nào được chọn!', 'student_id')
                 return;
             }
 
             if (course_id.length == 0) {
-                Swal.fire({
-                    type: 'warning',
-                    text: 'Chưa có khóa học nào được chọn!'
-                })
+                alertValidate('Chưa có khóa học nào được chọn!', 'course_id')
                 return;
             }
 
@@ -173,18 +169,12 @@
         $(".btn-student-number").click(function(){
             var student_numb = $('input[name=student-number]').val()
             if( student_numb == '' ){
-                Swal.fire({
-                    type: 'warning',
-                    text: 'Bạn chưa nhập số học viên.'
-                })
+                alertValidate('Bạn chưa nhập số học viên.', 'student_id')
                 return
             }
 
             if( Number(student_numb) <= 0 ){
-                Swal.fire({
-                    type: 'warning',
-                    text: 'Số học viên không thể <= 0.'
-                })
+                alertValidate('Số học viên không thể < 1.', 'student_id')
                 return
             }
 

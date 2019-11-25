@@ -567,21 +567,21 @@
 
                         <form action="/examples/actions/confirmation.php" method="post">
                             <div class="form-group">
-                                <div class="input-group">
+                                <div class="input-group form-html">
                                     <span class="input-group-addon"><i class="fas fa-envelope fa-fw fa-md"></i></span>
                                     <input type="email" class="form-control" name="email" placeholder="Email" required="required" id="loginEmail">
-                                    <div class="alert-validate login_email"></div>
+                                    <div class="form-html-validate login_email"></div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="input-group password-group">
+                                <div class="input-group password-group form-html">
                                     <span class="input-group-addon"><i class="fas fa-lock fa-fw fa-md"></i></span>
                                     <input type="password" class="form-control" name="pass" placeholder="Mật khẩu" required="required" id="showMyPassword">
-                                    <div class="show-password" onclick="showPassword()"  style="z-index:6">
+                                    <div class="show-password" onclick="showPassword()">
                                         <i class="fas fa-eye fa-fw fa-md" id="eye"></i>
                                         <!-- <i class="fas fa-eye-slash fa-fw fa-lg" style="display:none"></i> -->
                                     </div>
-                                    <div class="alert-validate login_password"></div>
+                                    <div class="form-html-validate login_password"></div>
                                 </div>
                                 <!-- <div><input type="checkbox" onclick="showPassword()"> Hiển thị mật khẩu</div> -->
                             </div>
@@ -625,32 +625,32 @@
                     </div>
                     <div class="modal-body">
                         <form action="/examples/actions/confirmation.php" method="post" autocomplete="off">
-                            <div class="form-group">
-                                <div class="input-group">
+                            <div class="form-group"> 
+                                <div class="input-group form-html">
                                     <span class="input-group-addon"><i class="fas fa-user fa-lock fa-fw fa-md"></i></span>
                                     <input type="text" class="form-control" name="name" placeholder="Tên của bạn" required="required">
-                                    <div class="alert-validate name"></div>
+                                    <div class="form-html-validate name"></div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="input-group">
+                                <div class="input-group form-html">
                                     <span class="input-group-addon"><i class="fas fa-envelope fa-envelope fa-fw fa-md"></i></span>
                                     <input type="email" class="form-control" name="email" autocomplete="none" placeholder="Email" required="required">
-                                    <div class="alert-validate email"></div>
+                                    <div class="form-html-validate email"></div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="input-group">
+                                <div class="input-group form-html">
                                     <span class="input-group-addon"><i class="fas fa-lock fa-fw fa-md"></i></span>
                                     <input type="password" class="form-control" name="pass" placeholder="Mật khẩu" required="required">
-                                    <div class="alert-validate password"></div>
+                                    <div class="form-html-validate password"></div>
                                 </div>				
                             </div>
                             <div class="form-group">
-                                <div class="input-group">
+                                <div class="input-group form-html">
                                     <span class="input-group-addon"><i class="fas fa-lock fa-fw fa-md"></i></span>
                                     <input type="password" class="form-control" name="confirmpass" placeholder="Nhập lại mật khẩu" required="required">
-                                    <div class="alert-validate confirmpassword"></div>
+                                    <div class="form-html-validate confirmpassword"></div>
                                 </div>				
                             </div>
                             {{-- <div class="terms-and-policy">
@@ -1023,10 +1023,10 @@
             }
         });
 
-        $('#myModalLogin input').click(function(){
-            $(this).css('z-index', 5)
-            $('.show-password').css('z-index', 6)
-        })
+        // $('#myModalLogin input').click(function(){
+        //     $(this).css('z-index', 5)
+        //     $('.show-password').css('z-index', 6)
+        // })
         function loginAjax(){
             var email = $('#myModalLogin input[name=email]').val();
             email = email.trim();
@@ -1060,21 +1060,16 @@
                     if(response.status == 200){
                         location.reload()
                     }else{
-                        Swal.fire({
-                            type: 'warning',
-                            html: response.message,
-                        })
+                        alertValidate(response.message, 'login_password')
                     }
                 },
                 error: function (error) {
                     var obj_errors = error.responseJSON.errors;
-                    $('input[id=loginEmail]').css('z-index', 0)
-                    $('#myModalLogin input').css('z-index', 0)
-                    $('.show-password').css('z-index', 1)
-                    $('.alert-validate').html('')
+                    $('.form-html-validate').css('display', 'block')
+                    $('.form-html-validate').html('')
                     $.each(obj_errors, function( index, value ) {
                         var content = '<i class="fas fa-exclamation fa-fw"></i><div class="hover-alert">'+ value +'</div>'
-                        $('.alert-validate.' + index).html(content);
+                        $('.form-html-validate.' + index).html(content);
                     })
                 }
             });
@@ -1084,9 +1079,6 @@
         $('#myModalRegister').on('shown.bs.modal', function (e) {
             $("input[type=email]").val('');
             $("input[type=password]").val('')
-        })
-        $('#myModalRegister input').click(function(){
-            $(this).css('z-index', 5)
         })
         function registerAjax(){
             var name = $('#myModalRegister input[name=name]').val();
@@ -1145,11 +1137,11 @@
                 },
                 error: function (error) {             
                     var obj_errors = error.responseJSON.errors;
-                    $('#myModalRegister input').css('z-index', 0)
-                    $('.alert-validate').html('')
+                    $('.form-html-validate').css('display', 'block')
+                    $('.form-html-validate').html('')
                     $.each(obj_errors, function( index, value ) {
                         var content = '<i class="fas fa-exclamation fa-fw"></i><div class="hover-alert">'+ value +'</div>'
-                        $('.alert-validate.' + index).html(content);
+                        $('.form-html-validate.' + index).html(content);
                     })
                 }
             });
@@ -1223,6 +1215,12 @@
     $('.form-html').click(function(){
         $(this).children('.form-html-validate').css('display', 'none')
     })
+    function alertValidate1(message, element){
+        $('.alert-validate').css('display', 'block')
+        $('.alert-validate').html('')
+        var content = '<i class="fas fa-exclamation fa-fw"></i><div class="hover-alert">'+ message +'</div>'
+        $('.alert-validate.' + element).html(content);
+    }
 </script>
 
 @if (!Auth::check())

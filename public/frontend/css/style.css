@@ -144,7 +144,9 @@ th {
 }
 
 #myModalRegister .modal-dialog,
-#myModalLogin .modal-dialog,#modalLoginCourseDetail .modal-dialog,#modalRegisterCourseDetail .modal-dialog{
+#myModalLogin .modal-dialog,
+#modalLoginCourseDetail .modal-dialog,
+#modalRegisterCourseDetail .modal-dialog {
     width: 450px;
 }
 
@@ -6241,8 +6243,10 @@ div[data-u="slides"] div div {
     height: 250px;
 }
 
+
 /* Trinhnk: Alert Form */
-.alert-validate .fa-exclamation{
+
+.alert-validate .fa-exclamation {
     color: #c80000;
     font-size: 18px;
     transform: translateY(-50%);
@@ -6251,7 +6255,8 @@ div[data-u="slides"] div div {
     left: auto !important;
     z-index: 4;
 }
-.alert-validate .hover-alert{
+
+.alert-validate .hover-alert {
     display: none;
     position: absolute;
     max-width: 70%;
@@ -6267,17 +6272,20 @@ div[data-u="slides"] div div {
     text-align: left;
     z-index: 3;
 }
-.alert-validate:hover .hover-alert{
+
+.alert-validate:hover .hover-alert {
     display: block;
 }
-.position-relative{
+
+.position-relative {
     position: relative !important;
 }
 
-.form-html{
+.form-html {
     position: relative;
 }
-.form-html-validate i{
+
+.form-html-validate i {
     position: absolute;
     color: #c80000;
     font-size: 18px;
@@ -6287,6 +6295,7 @@ div[data-u="slides"] div div {
     left: auto !important;
     z-index: 4;
 }
+
 .form-html-validate .hover-alert {
     display: none;
     position: absolute;
@@ -6303,13 +6312,30 @@ div[data-u="slides"] div div {
     text-align: left;
     z-index: 3;
 }
-.form-html-validate:hover .hover-alert{
+
+.form-html-validate:hover .hover-alert {
     display: block;
 }
-.form-html input[type=number]::-webkit-inner-spin-button, 
-.form-html input[type=number]::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
-  margin: 0; 
+
+.form-html input[type=number]::-webkit-inner-spin-button,
+.form-html input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
-#addVideoModal .form-html-validate.link_video .fa-exclamation{top: 15px !important}
-#addVideoModal .form-html-validate.link_video .hover-alert{top: 0 !important}
+
+#addVideoModal .form-html-validate.link_video .fa-exclamation {
+    top: 15px !important
+}
+
+#addVideoModal .form-html-validate.link_video .hover-alert {
+    top: 0 !important
+}
+
+#paidCourse .content-course {
+    border: 0 !important;
+    border-radius: 0 !important;
+    padding: 15px
+}
+
+#myModalLogin .form-html-validate .fa-exclamation, #myModalRegister .form-html-validate .fa-exclamation{top: 25px !important}
+#myModalLogin .form-html-validate .hover-alert, #myModalRegister .form-html-validate .hover-alert{top: 10px !important}

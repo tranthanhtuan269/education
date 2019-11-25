@@ -115,9 +115,10 @@
                             
                                                 @if (Session::has('success'))
                                                     <script>
+                                                        localStorage.clear();
                                                         Swal.fire({
-                                                        type: 'success',
-                                                        text: "Mua khóa học thành công!"
+                                                            type: 'success',
+                                                            text: "Mua khóa học thành công!"
                                                         }).then( result => {
                                                             document.location.href = '/';
                                                         })

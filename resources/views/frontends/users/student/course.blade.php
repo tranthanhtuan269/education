@@ -107,5 +107,36 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        $('.btn.btn-primary.btn-sm.btn-start-learning').click(function (e) {
+            e.stopPropagation()
+            e.preventDefault()
 
+            const course_id = $(this).attr('data-courseid')
+            const course_slug = $(this).attr('data-courseslug')
+            const learning_id = $(this).attr('data-learningid')
+            
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            const request = $.ajax({
+                method: 'POST',
+                url: "/user-course/update-watched",
+                data: {
+                    'video_id': learning_id
+                },
+                dataType: "json",
+                success: function () {
+                    window.location.href = ("/learning-page/"+ course_id +"/"+ course_slug)
+                },
+                error: function () {
+
+                }
+            });
+        })
+    })
+</script>
 @endsection

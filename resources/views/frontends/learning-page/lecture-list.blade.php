@@ -1,10 +1,14 @@
+<style>
+    #sidebarInput{
+        width: 95%;
+    }
+</style>
 <div class="learning-lecture-list active">
-    
     <div class="learning-lecture-list-searchbar">
         <div class="input-group">
             <input type="text" class="form-control" id="sidebarInput" placeholder="Tìm kiếm bài giảng" value="{{ isset($_GET['search']) == true ? $_GET['search'] : '' }}">
             
-            <span class="input-group-addon" id="btnSearchSidebar" ><i class="fas fa-search"></i></span>
+            {{-- <span class="input-group-addon" id="btnSearchSidebar" ><i class="fas fa-search"></i></span> --}}
             
         </div>
         {{-- <button class="btn" id="btnCloseSidebar"><i class="fas fa-times-circle"></i></button> --}}
@@ -15,7 +19,6 @@
 
         @php
         $units = $units->sortBy('index');
-        // dd($units);
         $count = 0;
         @endphp
         @foreach ($units as $key => $unit)
@@ -49,7 +52,7 @@
                                             @endphp                       
                                         @endforeach
                                         <span id="videoDoneOneSect{{$key+1}}">{{$video_done_in_this_units/count($videos)}}</span>
-                                        / {{count($videos)}}
+                                        / <span class="total_course_unit">{{count($videos)}}</span>
                                 @php
                                     }
                                 @endphp
@@ -97,11 +100,6 @@
                                         @endif
                                     </a>
                                 </li>
-                                <script>
-                                    $(document).ready(function(){
-                                        $("#sectionBody"+{{ $key+1 }}).addClass('in')
-                                    })
-                                </script>
                                 @else
                                 <li class="video-list-item" id="listItem{{$video->id}}" data-parent="{{$video->id}}" data-isstudent="{{$isStudent}}" data-name="{{ $video->name }}" data-unit="{{ ($unit->index) }}" data-video="{{ ($video->index) }}">
                                     <a id="view-from-learning-page-{{$video->id}}" href="javascript:void(0)">
@@ -114,6 +112,7 @@
                                             @endphp
                                             @if(isset($list_video_done_in_unit[$video->index-1]))
                                                 @if ($list_video_done_in_unit[$video->index-1] == 1)
+
                                                 <span class="ln-btn-complete" id="lnBtnComplete{{$video->id}}" data-child="{{$key2+1}}">
                                                     <button >
                                                         <span class="fa-stack">
@@ -142,16 +141,23 @@
                     </div>
                 </div>
             @endif
-            
             <?php $count++; ?>
-        @endforeach
+            @endforeach
         
     </div>
 </div>
 <script>
     $(document).ready( function (){
+        var infoVideoJson = localStorage.getItem("currentVideo");
+        var infoVideo = JSON.parse(infoVideoJson)
+        var current_video_index = infoVideo.indexCurrentVideo
+
+        unit = $('#listItem'+ video_id_list[current_video_index]).attr("data-unit");
+        // alert(unit)
+        $("#sectionBody" + unit).addClass('in')
+
         var initialLectureList = $(".ln-lect-list-item").get()
-        
+  
         // Search Lecture List
         $("#btnSearchSidebar").click(function (){
             $('.video-list-item').show();
@@ -176,16 +182,19 @@
 
         var searchString = sessionStorage.getItem("searchString-" + $('body').attr('data-course-id'));
 
-        if(searchString != undefined){
-            $(".learning-lecture-list-searchbar input").val(searchString);
-            $("#btnSearchSidebar").click(); 
-            $('.ln-lect-list-body').addClass('in')   
-        }
+        // if(searchString != undefined){
+        //     $(".learning-lecture-list-searchbar input").val(searchString);
+        //     $("#btnSearchSidebar").click(); 
+        //     // $('.ln-lect-list-body').addClass('in')   
+        // }
 
         $(".learning-lecture-list-searchbar input").keyup(function(){
+            $('.ln-lect-list-body').addClass('in')
+
             $('.video-list-item').show();
             var string = $(".learning-lecture-list-searchbar input").val().trim();
             sessionStorage.setItem("searchString-" + $('body').attr('data-course-id'), string);
+
             if(string.length > 0){
                 $('.ln-lect-list-sect-counter').hide();
                 $(".ln-lect-list-lect-title").addClass('has-result')
@@ -197,10 +206,22 @@
                 });
                 removeHaveNotResult();
             }else{
+                $('.ln-lect-list-body').removeClass('in')
+
+                // $('.video_viewed').each(function(key, value) {
+                //     unit = $(value).data('unit');
+                //     unit = parseInt(unit);
+
+                //     if (unit > 0 && jQuery.inArray(unit, arr_unit_watched) === -1) {
+                //         $("#sectionBody" + unit).addClass('in')
+                //     }
+                // });
+                $("#sectionBody" + unit).addClass('in')
+
                 $('.ln-lect-list-item').show();
                 $('.ln-lect-list-sect-counter').show();
             }
-            $('.ln-lect-list-body').addClass('in')
+
         });
 
         document.addEventListener("keydown", function(event) {
@@ -214,6 +235,8 @@
             $('.ln-lect-list-item').hide();
             $(".ln-lect-list-lect-title.has-result").parent().parent().parent().parent().parent().show();
         }
+
+
     })
 </script>
 

@@ -65,32 +65,46 @@
         <div class="reply-hold-{{ $comment->id }}">
             @foreach($comment->children as $reply)
             <div class="comment-reply">
-                <div>
+                <div class="row">
                     @if($reply->userRole && $reply->userRole->user)
-                        @if($comment->userRole->user)
-                            <img class="avatar" src="{{ url('/') }}/frontend/{{ $reply->userRole->user->avatar }}" alt="" />
-                        @else
-                            <img class="avatar" src="{{ url('/') }}/frontend/images/avatar.jpg" alt="" />
-                        @endif
-                        <div class="info-account">
-                            <p class="interval">{{ $reply->created_at }}</p>
-                            @if ($comment->userRole->user)
-                            <p class="name">{{ $reply->userRole->user->name }}</p>
+                        <div class="col-md-1">
+                            @if($comment->userRole->user)
+                                <img class="avatar" src="{{ url('/') }}/frontend/{{ $reply->userRole->user->avatar }}" alt="" />
                             @else
-                            <p class="name">Học viên Courdemy</p>
+                                <img class="avatar" src="{{ url('/') }}/frontend/images/avatar.jpg" alt="" />
                             @endif
                         </div>
-                        @else
-                        <img class="avatar" src="{{ url('/') }}/frontend/images/avatar.jpg" alt="" />
-                        <div class="info-account">
-                            <p class="interval">{{ $reply->created_at }}</p>
-                            <p class="name">Học viên Courdemy</p>
+                        <div class="col-md-11">
+                            <div class="info-account">
+                                <span class="interval pull-right">{{ $reply->created_at }}</span>
+                                @if ($comment->userRole->user)
+                                <span class="name pull-left" style="padding-left:15px;">{{ $reply->userRole->user->name }}</span>
+                                @else
+                                <span class="name pull-left" style="padding-left:15px;">Học viên Courdemy</span>
+                                @endif
+                                <div class="clearfix"></div>
+                                <div class="comment">
+                                    {!! $reply->content !!}
+                                </div>
+                            </div>
+                        </div>
+                    @else
+                        <div class="col-md-1">
+                            <img class="avatar" src="{{ url('/') }}/frontend/images/avatar.jpg" alt="" />
+                        </div>
+                        <div class="col-md-11">
+                            <div class="info-account">
+                                <span class="interval pull-right">{{ $reply->created_at }}</span>
+                                <span class="name pull-left" style="padding-left:15px;">Học viên Courdemy</span>
+                                <div class="clearfix"></div>
+                                <div class="comment">
+                                    {!! $reply->content !!}
+                                </div>
+                            </div>
                         </div>
                     @endif
                 </div>
-                <div class="comment">
-                    {!! $reply->content !!}
-                </div>
+                
                 @if(Auth::check() && false)
                 <div class="btn-action">
                     <button type="button" class="btn btn-default btn-reply" data-comment-id="{{ $comment->id }}">
