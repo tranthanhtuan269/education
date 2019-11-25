@@ -194,7 +194,7 @@
                                 <label for="short_description" class="control-label">Tóm tắt:</label>
                                 <input type="text" class="form-control" id="short-description-{{ $course->id }}" name="short-description-{{ $course->id }}" value="{{ $course->short_description }}">
                             </div> --}}
-                            {!! \App\Helper\Helper::insertInputForm('text', 'short-description-'.$course->id, 'Tóm tắt:', $course->short_description, 'name', 'id="short-description-'.$course->id.'"') !!}
+                            {!! \App\Helper\Helper::insertInputForm('text', 'short-description-'.$course->id, 'Tóm tắt:', $course->short_description, 'short_description', 'id="short-description-'.$course->id.'"') !!}
                             <div class="form-group form-html">
                                 <label for="description" class="control-label">Mô tả:</label>
                                 <textarea id="course-description-{{$course->id}}" class="form-control" rows="6" cols="50" name="description-course-{{ $course->id }}">{!! $course->description !!}</textarea>
@@ -870,18 +870,46 @@
             var course_category = selector[selector.selectedIndex].value
             var link_intro = $('#course-intro-{{$course->id}}').val().trim()
 
-            // $('#editCourse-{{$course->id}}').modal('toggle')
+            var flag = true
+            $('.form-html-validate').html('')
+            if ( course_name == '' ){
+                alertValidate('Bạn chưa nhập Tên khóa học.', 'name')
+                flag = false
+            }
+            if ( short_description == '' ){
+                alertValidate('Bạn chưa nhập Tóm tắt.', 'short_description')
+                flag = false
+            }
+            if ( course_description == '' ){
+                alertValidate('Bạn chưa nhập Mô tả.', 'description')
+                flag = false
+            }
+            if ( course_will_learn == '' ){
+                alertValidate('Bạn chưa nhập Học viên sẽ học được gì.', 'will_learn')
+                flag = false
+            }
+            if ( course_requirement == '' ){
+                alertValidate('Bạn chưa nhập Yêu cầu.', 'requirement')
+                flag = false
+            }
+            if ( course_approx_time == '' ){
+                alertValidate('Bạn chưa nhập Thời gian dự kiến hoàn thành.', 'approx_time')
+                flag = false
+            }
             if( original_price != '' ){
                 original_price = Number(original_price)
                 if( discount_price != '' ){
                     discount_price = Number(discount_price)
                     if( discount_price > original_price ){
                         alertValidate('Giá sau khi giảm không thể lớn hơn giá gốc.', 'discount_price')
-                        return false;
+                        flag = false
                     }
                 }else{
                     discount_price = original_price
                 }
+            }else{
+                alertValidate('Bạn chưa nhập Giá khóa học.', 'original_price')
+                flag = false
             }
 
             var url = link_intro;
@@ -895,7 +923,11 @@
                         return false;
                     }
                 }
+            }else{
+                alertValidate('Bạn chưa nhập Video giới thiệu.', 'link_intro')
+                flag = false 
             }
+            if ( flag == false ) return
 
             var data = {
                 image:link_base64,
