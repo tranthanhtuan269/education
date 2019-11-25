@@ -420,6 +420,7 @@ nav .pagination li a img {
     z-index: 2000;
     width: 100%;
     background: #fff;
+    transition: top 0.4s;
 }
 
 .unica-home-menutop.fixed {
