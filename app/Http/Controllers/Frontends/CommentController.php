@@ -309,7 +309,22 @@ class CommentController extends Controller
             $commentCourse->save();
 
             if ( $comment->user_role_id != Auth::user()->userRolesStudent()->id ){
-                \App\Helper\Helper::addAlertCustomize($comment->userRole->user, "Đánh giá khóa học của bạn vừa có một trả lời", "Đánh giá của bạn tại khóa học <a href='" . url('/') . "/course/" . $comment->course->id . "/" . $comment->course->slug . "'>" . $comment->course->name . "</a> vừa có một trả lời");
+                \App\Helper\Helper::addAlertCustomize($comment->userRole->user, $commentCourse->userRole->user->name." đã bình luận về đánh giá của bạn", $commentCourse->userRole->user->name." đã bình luận về đánh giá của bạn tại khóa học <a href='" . url('/') . "/course/" . $comment->course->id . "/" . $comment->course->slug . "'>" . $comment->course->name . "</a>");
+            }
+
+            $arr_user_role_id = \App\CommentCourse::where('parent_id', 56)->DISTINCT('user_role_id')->pluck('user_role_id');
+            if ( $arr_user_role_id ){
+                foreach ( $arr_user_role_id as $key=>$user_role_id ){
+                    if ( $user_role_id != $comment->user_role_id ){
+                        if ( $user_role_id != Auth::user()->userRolesStudent()->id ){
+                            if ( $comment->course->Lecturers()[0]->user->id != \App\UserRole::find($user_role_id)->user->id ){
+                                \App\Helper\Helper::addAlertCustomize($comment->userRole->user, $commentCourse->userRole->user->name." đã trả lời bình luận của bạn của bạn", $commentCourse->userRole->user->name." đã trả lời bình luận của bạn tại khóa học <a href='" . url('/') . "/course/" . $comment->course->id . "/" . $comment->course->slug . "'>" . $comment->course->name . "</a>");
+                            }else{
+                                \App\Helper\Helper::addAlertCustomize($comment->userRole->user, $commentCourse->userRole->user->name." đã trả lời bình luận của bạn của bạn", $commentCourse->userRole->user->name." đã trả lời bình luận của bạn tại khóa học <a href='" . url('/') . "/course/" . $comment->course->id . "/" . $comment->course->slug . "'>" . $comment->course->name . "</a>", true);
+                            }
+                        }
+                    }
+                }
             }
 
             return \Response::json(array('status' => '200', 'message' => 'Cập nhật thông tin thành công!', 'commentCourse' => fractal($commentCourse, new CommentCourseTransformer())->toArray()));
