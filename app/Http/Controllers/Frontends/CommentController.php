@@ -312,7 +312,7 @@ class CommentController extends Controller
                 \App\Helper\Helper::addAlertCustomize($comment->userRole->user, $commentCourse->userRole->user->name." đã bình luận về đánh giá của bạn", $commentCourse->userRole->user->name." đã bình luận về đánh giá của bạn tại khóa học <a href='" . url('/') . "/course/" . $comment->course->id . "/" . $comment->course->slug . "'>" . $comment->course->name . "</a>");
             }
 
-            $arr_user_role_id = \App\CommentCourse::where('parent_id', 56)->DISTINCT('user_role_id')->pluck('user_role_id');
+            $arr_user_role_id = \App\CommentCourse::where('parent_id', $request->parent_id)->DISTINCT('user_role_id')->pluck('user_role_id');
             if ( $arr_user_role_id ){
                 foreach ( $arr_user_role_id as $key=>$user_role_id ){
                     if ( $user_role_id != $comment->user_role_id ){
