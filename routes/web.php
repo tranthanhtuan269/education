@@ -18,8 +18,8 @@
 Auth::routes();
 
 Route::get('trinhnk', function( ){
-    $abc = \App\User::where('facebook_id', null)->first();
-    dd($abc);
+    $abc = \App\CommentVideo::where('parent_id', 211)->DISTINCT('user_role_id')->pluck('user_role_id');
+    dd(\App\UserRole::find(1083)->user);
 });
 
 Route::get('delete/{course}', 'Frontends\HomeController@deleteCourse');
