@@ -18,8 +18,8 @@
 Auth::routes();
 
 Route::get('trinhnk', function( ){
-    $abc = \App\CommentCourse::find(2)->course->Lecturers()[0]->user->id;
-    dd(\App\UserRole::find(700)->user->id);
+    $abc = \App\CommentCourse::find(2)->course->Lecturers()[0]->id;
+    dd($abc);
 });
 
 Route::get('delete/{course}', 'Frontends\HomeController@deleteCourse');

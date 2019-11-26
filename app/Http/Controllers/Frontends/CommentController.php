@@ -70,7 +70,7 @@ class CommentController extends Controller
                     \App\Helper\Helper::addAlertCustomize(\App\UserRole::find($parent_comment->user_role_id)->user, "Thảo luận của bạn có một trả lời", "Thảo luận của bạn ở bài giảng <a href='" . url('/') . "/learning-page/" . $video->unit->course->id . "/lecture/" . $video->id . "'>" . $video->name . "</a> vừa có một trả lời.", true);
                 }
 
-                if ($arr_user_role_id){
+                if ( $arr_user_role_id->count() > 0 ){
                     foreach ( $arr_user_role_id as $key=>$user_role_id ){
                         if ( $user_role_id != $parent_comment->user_role_id ){
                             if ( \App\UserRole::find($user_role_id)->user->id != Auth::user()->id ){
@@ -313,15 +313,13 @@ class CommentController extends Controller
             }
 
             $arr_user_role_id = \App\CommentCourse::where('parent_id', $request->parent_id)->DISTINCT('user_role_id')->pluck('user_role_id');
-            if ( $arr_user_role_id ){
-                foreach ( $arr_user_role_id as $key=>$user_role_id ){
-                    if ( $user_role_id != $comment->user_role_id ){
-                        if ( $user_role_id != Auth::user()->userRolesStudent()->id ){
-                            if ( $comment->course->Lecturers()[0]->user->id != \App\UserRole::find($user_role_id)->user->id ){
-                                \App\Helper\Helper::addAlertCustomize($comment->userRole->user, $commentCourse->userRole->user->name." đã trả lời bình luận của bạn của bạn", $commentCourse->userRole->user->name." đã trả lời bình luận của bạn tại khóa học <a href='" . url('/') . "/course/" . $comment->course->id . "/" . $comment->course->slug . "'>" . $comment->course->name . "</a>");
-                            }else{
-                                \App\Helper\Helper::addAlertCustomize($comment->userRole->user, $commentCourse->userRole->user->name." đã trả lời bình luận của bạn của bạn", $commentCourse->userRole->user->name." đã trả lời bình luận của bạn tại khóa học <a href='" . url('/') . "/course/" . $comment->course->id . "/" . $comment->course->slug . "'>" . $comment->course->name . "</a>", true);
-                            }
+            if ( $arr_user_role_id->count() > 0 ){
+                foreach ( $arr_user_role_id as $user_role_id ){
+                    if ( $user_role_id != $comment->user_role_id && $user_role_id != Auth::user()->userRolesStudent()->id ){
+                        if ( $comment->course->Lecturers()[0]->id != \App\UserRole::find($user_role_id)->id ){
+                            \App\Helper\Helper::addAlertCustomize(\App\UserRole::find($user_role_id)->user, $commentCourse->userRole->user->name." đã trả lời bình luận của bạn của bạn", $commentCourse->userRole->user->name." đã trả lời bình luận của bạn tại khóa học <a href='" . url('/') . "/course/" . $comment->course->id . "/" . $comment->course->slug . "'>" . $comment->course->name . "</a>");
+                        }else{
+                            \App\Helper\Helper::addAlertCustomize(\App\UserRole::find($user_role_id)->user, $commentCourse->userRole->user->name." đã trả lời bình luận của bạn của bạn", $commentCourse->userRole->user->name." đã trả lời bình luận của bạn tại khóa học <a href='" . url('/') . "/course/" . $comment->course->id . "/" . $comment->course->slug . "'>" . $comment->course->name . "</a>", true);
                         }
                     }
                 }
