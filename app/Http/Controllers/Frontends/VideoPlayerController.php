@@ -139,9 +139,6 @@ class VideoPlayerController extends Controller
                 }
             }
 
-            $countVideoUnit = Unit::where('course_id', $courseId)->get();
-            // dd($countVideoUnit);
-
             $main_video_id_key = null;
             foreach ($video_id_list as $key => $value) {
                 if($value == $videoId){
@@ -160,7 +157,6 @@ class VideoPlayerController extends Controller
                 'main_video'         => $main_video,
                 'main_video_id_key'  => $main_video_id_key,
                 'user_role_course_instance' => $user_role_course_instance,
-                'count_video_unit' => $countVideoUnit,
             ]);
         }
     }
@@ -191,7 +187,6 @@ class VideoPlayerController extends Controller
     // DuongNT // đổi 0 thành 1 ở vị trí video vừa click trong array video đã xem
     public function updateWatched(Request $request){
         $video = Video::whereIn('state', [1,2,4])->find($request->video_id);
-        // dd($video);
         if($video){
             $unit = $video->unit;
             $course = $video->unit->course;

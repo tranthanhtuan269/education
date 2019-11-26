@@ -56,13 +56,7 @@
                                 @php
                                     }
                                 @endphp
-                            </p>                
-                        @else
-                        <span class="ln-lect-list-sect-counter">
-                            @foreach ($count_video_unit as $video)
-                            <span class="total_course_unit">{{$video->video_count}}</span>
-                            @endforeach
-                            </p>
+                            </p>   
                         @endif
                         </div>
                         <div class="ln-lect-list-header-row-2">

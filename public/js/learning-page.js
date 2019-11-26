@@ -366,6 +366,8 @@ $(document).ready(function() {
                 window.videoSource = JSON.parse(data.video_url);
                 updateLink();
                 getNoteCount();
+                checkShowHideNextPrev(video_id);
+                checkFinishCourse();
                 $('.ln-desc-title').html('<p>' + video_name + '</p>');
                 $('.ln-desc-subtitle').html('<p>' + video_info + '</p>');
 
@@ -521,11 +523,17 @@ $(document).ready(function() {
                 var total_course_unit = $('div[data-target="#sectionBody' + unit + '"] span.total_course_unit').html();
                 total_course_unit = parseInt(total_course_unit);
 
-                if (lesson == total_course_unit) {
+                if (countUnit > unit) {
                     $("#sectionBody" + unit).removeClass('in');
                     var unit_next = unit + 1;
                     $("#sectionBody" + unit_next).addClass('in');
                 }
+
+                // if (lesson == total_course_unit) {
+                //     $("#sectionBody" + unit).removeClass('in');
+                //     var unit_next = unit + 1;
+                //     $("#sectionBody" + unit_next).addClass('in');
+                // }
 
 
                 // $video_urls = json_decode($main_video->url_video, true);
