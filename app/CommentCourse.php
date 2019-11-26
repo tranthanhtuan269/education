@@ -32,7 +32,7 @@ class CommentCourse extends Model
                         ->join('users', 'users.id', '=', 'user_roles.user_id')
                         ->where('users.status', 1)
                         ->pluck('comment_courses.id');
-    	return $this->hasMany('App\CommentCourse', 'parent_id')->whereIn('id', $arr_comment_id);
+    	return $this->hasMany('App\CommentCourse', 'parent_id')->whereIn('id', $arr_comment_id)->orderBy('comment_courses.created_at', 'desc');
     }
 
     public function like(){

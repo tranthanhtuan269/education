@@ -1003,7 +1003,9 @@ class HomeController extends Controller
                                 ->join('users', 'users.id', '=', 'user_roles.user_id')
                                 ->select('users.name', 'users.avatar', 'comment_courses.content', 'comment_courses.created_at')
                                 ->where('users.status', 1)
-                                ->where('comment_courses.parent_id', $request->comment_id); 
+                                ->where('comment_courses.parent_id', $request->comment_id)
+                                ->orderBy('comment_courses.created_at', 'desc');
+
             $total_comment_child = $data->count();
             $data = $data->skip($request->skip)->take($request->take)->get();
 
