@@ -51,7 +51,7 @@
                     <div class="form-group row">
                         <div class="col-sm-1"></div>
                         <div class="col-sm-11">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                            <button type="button" class="btn btn-secondary close-modal" data-dismiss="modal">Đóng</button>
                         </div>
                     </div>
                 </div>
@@ -335,6 +335,11 @@
             return current_page;
         }
     });
+
+    // Pause Video when close modal 
+    $('.close-modal').click(function(){
+        document.getElementById('video-view').pause()
+    })
 </script>
 
 @endsection
