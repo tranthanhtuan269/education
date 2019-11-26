@@ -98,42 +98,55 @@
     jQuery(function () {
 
         $("#buyNow{{ $course->id }}").click(function(){
-            var item = {
-                'id' : {{ $course->id }},
-                'image' : '{!! $course->image !!}',
-                'slug' : '{!! $course->slug !!}',                
-                @if(count($course->Lecturers()) > 0 && isset($course->Lecturers()[0]->user))
-                'lecturer' : "{!! $course->Lecturers()[0]->user->name !!}",
-                @else
-                'lecturer' : 'Nhiều giảng viên',
-                @endif
-                'name' : "{!! $course->name !!}",
-                'price' : {!! $course->price !!},
-                'real_price' : {!! $course->real_price !!},
-                'coupon_price' : {!! $course->price !!},
-                'coupon_code' : '',
+            var check = true
+            
+            if(localStorage.getItem('cart'+user_id) != null){
+                var number_items_in_cart = JSON.parse(localStorage.getItem('cart'+user_id))
+
+                $.each( number_items_in_cart, function(i, obj) {
+                    if( course_id == Number(obj.id) ){
+                        check = false
+                    }
+                });
             }
+            if(check){
+                var item = {
+                    'id' : {{ $course->id }},
+                    'image' : '{!! $course->image !!}',
+                    'slug' : '{!! $course->slug !!}',                
+                    @if(count($course->Lecturers()) > 0 && isset($course->Lecturers()[0]->user))
+                    'lecturer' : "{!! $course->Lecturers()[0]->user->name !!}",
+                    @else
+                    'lecturer' : 'Nhiều giảng viên',
+                    @endif
+                    'name' : "{!! $course->name !!}",
+                    'price' : {!! $course->price !!},
+                    'real_price' : {!! $course->real_price !!},
+                    'coupon_price' : {!! $course->price !!},
+                    'coupon_code' : '',
+                }
 
-            if (localStorage.getItem('cart'+user_id) != null) {
-                var list_item = JSON.parse(localStorage.getItem('cart'+user_id));
-                addItem(list_item, item);
-                localStorage.setItem('cart'+user_id, JSON.stringify(list_item));
-            }else{
-                var list_item = [];
-                addItem(list_item, item);
-                localStorage.setItem('cart'+user_id, JSON.stringify(list_item));
+                if (localStorage.getItem('cart'+user_id) != null) {
+                    var list_item = JSON.parse(localStorage.getItem('cart'+user_id));
+                    addItem(list_item, item);
+                    localStorage.setItem('cart'+user_id, JSON.stringify(list_item));
+                }else{
+                    var list_item = [];
+                    addItem(list_item, item);
+                    localStorage.setItem('cart'+user_id, JSON.stringify(list_item));
+                }
+
+                // var number_items_in_cart = JSON.parse(localStorage.getItem('cart'+user_id))
+                // $('.number-in-cart').text(number_items_in_cart.length);
+
+                // Swal.fire({
+                //     type: 'success',
+                //     text: 'Đã thêm vào giỏ hàng!'
+                // })
+                var number_items_in_cart = JSON.parse(localStorage.getItem('cart'+user_id));
+                $('.number-in-cart').text(number_items_in_cart.length);
+                $('.unica-sl-cart').css('display', 'block')
             }
-
-            // var number_items_in_cart = JSON.parse(localStorage.getItem('cart'+user_id))
-            // $('.number-in-cart').text(number_items_in_cart.length);
-
-            // Swal.fire({
-            //     type: 'success',
-            //     text: 'Đã thêm vào giỏ hàng!'
-            // })
-            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'+user_id));
-            $('.number-in-cart').text(number_items_in_cart.length);
-            $('.unica-sl-cart').css('display', 'block')
             window.location.href =("/cart/payment/method-selector")
         })
 
