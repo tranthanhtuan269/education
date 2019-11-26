@@ -16,7 +16,9 @@ class StripeController extends Controller
 {
     public function index()
     {
-        return view('backends.stripe.index');
+        $STRIPE_KEY = Setting::where('name','STRIPE_KEY')->first();
+        $STRIPE_SECRET = Setting::where('name','STRIPE_SECRET')->first();
+        return view('backends.stripe.index',compact('STRIPE_KEY', 'STRIPE_SECRET'));
     }
     public function updateAccount(Request $request)
     {
@@ -30,7 +32,7 @@ class StripeController extends Controller
         $STRIPE_SECRET->value = $SECRET;$STRIPE_SECRET->save();
 
         // $STRIPE_KEY = Setting::where('name','STRIPE_KEY')->first();
-        // $STRIPE_SECRET = Setting::where('name','STRIPE_KEY')->first();
+        // $STRIPE_SECRET = Setting::where('name','STRIPE_SECRET')->first();
         // dd($STRIPE_KEY, $STRIPE_SECRET);
         return \Response::json(array('status' => '200', 'message' => 'Đã đổi tài khoản thành công!'));
     }
