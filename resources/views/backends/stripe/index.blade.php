@@ -16,12 +16,12 @@
     <div class="row col-xs-12" id="stripeAccount">
         <div class="form-group col-xs-6 form-html">
             <label class="control-label">Publishable key:</label>
-            <input type="text" class="form-control" id="STRIPE_KEY" placeholder="Publishable key">
+            <input type="text" class="form-control" id="STRIPE_KEY" placeholder="Publishable key" value="{{$STRIPE_KEY->value}}">
             <div class="form-html-validate STRIPE_KEY"></div>
         </div>
         <div class="form-group col-xs-6 form-html">
             <label class="control-label">Secret key:</label>
-            <input type="text" class="form-control" id="STRIPE_SECRET" placeholder="Secret key">
+            <input type="text" class="form-control" id="STRIPE_SECRET" placeholder="Secret key" value="{{$STRIPE_SECRET->value}}">
             <div class="form-html-validate STRIPE_SECRET"></div>
         </div>
         <div class="text-center">
