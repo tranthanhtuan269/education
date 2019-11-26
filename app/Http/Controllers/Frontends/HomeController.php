@@ -15,6 +15,7 @@ use App\Unit;
 use App\Email;
 use App\Video;
 use App\Setting;
+use App\CommentCourse;
 use App\Mail\OrderCompleted;
 use Auth;
 use Illuminate\Support\Facades\Mail;
@@ -993,6 +994,21 @@ class HomeController extends Controller
             return '';
         }
         return '';
+    }
+
+    public function seeMoreChild(Request $request)
+    {
+        if ($request->comment_id != null && $request->take != null && $request->skip != null) {
+            $data = CommentCourse::join('user_roles', 'user_roles.id', '=', 'comment_courses.user_role_id')
+                                ->join('users', 'users.id', '=', 'user_roles.user_id')
+                                ->select('users.name', 'users.avatar', 'comment_courses.content', 'comment_courses.created_at')
+                                ->where('users.status', 1)
+                                ->where('comment_courses.parent_id', $request->comment_id); 
+            $total_comment_child = $data->count();
+            $data = $data->skip($request->skip)->take($request->take)->get();
+
+            return response()->json(['status' => 200, 'total_comment_child' => $total_comment_child, 'data' => $data]);
+        }
     }
 
     public function aboutPage(){

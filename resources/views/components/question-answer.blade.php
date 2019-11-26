@@ -59,7 +59,7 @@
         @endif
 
         <div class="reply-hold-{{ $comment->id }}">
-            @foreach($comment->children as $reply)
+            @foreach($comment->children->take(3) as $reply)
             @if($reply->userRole)
             <div class="comment-reply">
                 <div class="row">
@@ -110,6 +110,13 @@
             @endif
             @endforeach
         </div>
+
+        @if ($comment->children->count() > 3)
+            <div class="col-sm-12 btn-see-more-level-2 text-center" data-skip="3" data-take="3" data-comment-id="{{ $comment->id }}">
+                <button type="button" class="btn btn-sm">Xem thêm</button>
+            </div>
+        @endif
+
     </div>
     <div class="col-sm-12"><hr></div>
 </div>

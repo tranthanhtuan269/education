@@ -311,7 +311,7 @@ Route::get('logout', 'Frontends\HomeController@logout');
 // Route::get('test', 'Frontends\HomeController@test');
 Route::get('coming-soon', 'Frontends\HomeController@comingSoon')->name('coming-soon');
 Route::get('comments/see-more', 'Frontends\HomeController@seeMore')->name('see-more');
-
+Route::post('comments-child/see-more', 'Frontends\HomeController@seeMoreChild')->name('see-more-child');
 
 Route::get('search', 'Frontends\HomeController@search');
 

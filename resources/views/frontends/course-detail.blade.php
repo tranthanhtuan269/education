@@ -1131,6 +1131,69 @@ https://courdemy.vn/course/{{ $info_course->id }}/{{ $info_course->slug }}
             });
         })
 
+
+
+        $(document).on('click', '.btn-see-more-level-2', function(){ 
+            var comment_id = Number($(this).attr('data-comment-id'));
+            // alert(comment_id)
+            var baseURL = $('base').attr('href');
+            var current_skip = Number($(this).attr('data-skip'));
+            var current_take = Number($(this).attr('data-take'));
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            var request = $.ajax({
+                url: baseURL + '/comments-child/see-more?comment_id=' + comment_id + '&skip=' + current_skip + '&take=' + current_take,
+                method: "POST",
+                dataType:'json',
+            });
+            // console.log({{ $info_course->comments()->count() }})
+            // console.log(current_skip)
+            // console.log(current_take)
+            request.done(function( response ) {
+                if(response.total_comment_child <= current_skip + current_take){
+                   $('.btn-see-more-level-2[data-comment-id="'+ comment_id +'"]').hide();
+                }
+                
+                $('.btn-see-more-level-2[data-comment-id="'+ comment_id +'"]').attr('data-skip', current_skip + current_take);
+
+                var html = '';
+                var data = response.data;
+
+                $.each(data, function(key, value) {
+                    html +='<div class="comment-reply">'
+                        html +='<div class="row">'
+                            html +='<div class="col-md-1">'
+                                if(value.avatar != '') {
+                                    html +='<img class="avatar" src="{{ url('/') }}/frontend/'+ value.avatar +'" alt="" />'
+                                } else {
+                                    html +='<img class="avatar" src="{{ url('/') }}/frontend/images/avatar.jpg" alt="" />'
+                                }
+                            html +='</div>'
+                            html +='<div class="col-md-11">'
+                                html +='<div class="info-account">'
+                                    html +='<span class="name pull-left" style="padding-left:15px;">' + value.name + '</span>'
+                                    html +='<span class="interval pull-right">' + value.created_at + '</span>'
+                                    html +='<div class="clearfix"></div>'
+                                    html +='<div class="comment">'
+                                        html += value.content
+                                    html +='</div>'
+                                html +='</div>'
+                            html +='</div>'
+                        html +='</div>'
+                    html +='</div>';
+                });
+
+                $('.reply-hold-' + comment_id).append(html);
+                addEventToButton();
+            });
+        });
+
+
         $('.go-box').click(function() {
             var box = $(this).attr('data-box');
             if($('#' + box).length) {
