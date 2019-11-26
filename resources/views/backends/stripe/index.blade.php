@@ -15,13 +15,13 @@
     <h1 class="text-center font-weight-600">Tài khoản thanh toán Stripe</h1>
     <div class="row col-xs-12" id="stripeAccount">
         <div class="form-group col-xs-6 form-html">
-            <label class="control-label">STRIPE_KEY:</label>
-            <input type="text" class="form-control" id="STRIPE_KEY" placeholder="STRIPE_KEY">
+            <label class="control-label">Publishable key:</label>
+            <input type="text" class="form-control" id="STRIPE_KEY" placeholder="Publishable key">
             <div class="form-html-validate STRIPE_KEY"></div>
         </div>
         <div class="form-group col-xs-6 form-html">
-            <label class="control-label">STRIPE_SECRET:</label>
-            <input type="text" class="form-control" id="STRIPE_SECRET" placeholder="STRIPE_SECRET">
+            <label class="control-label">Secret key:</label>
+            <input type="text" class="form-control" id="STRIPE_SECRET" placeholder="Secret key">
             <div class="form-html-validate STRIPE_SECRET"></div>
         </div>
         <div class="text-center">
