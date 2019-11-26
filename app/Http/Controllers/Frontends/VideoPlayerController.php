@@ -139,6 +139,9 @@ class VideoPlayerController extends Controller
                 }
             }
 
+            $countVideoUnit = Unit::where('course_id', $courseId)->get();
+            // dd($countVideoUnit);
+
             $main_video_id_key = null;
             foreach ($video_id_list as $key => $value) {
                 if($value == $videoId){
@@ -157,6 +160,7 @@ class VideoPlayerController extends Controller
                 'main_video'         => $main_video,
                 'main_video_id_key'  => $main_video_id_key,
                 'user_role_course_instance' => $user_role_course_instance,
+                'count_video_unit' => $countVideoUnit,
             ]);
         }
     }
