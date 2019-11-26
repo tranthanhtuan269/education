@@ -25,10 +25,12 @@ class StripeController extends Controller
         
         $STRIPE_KEY = Setting::where('name','STRIPE_KEY')->first();
         $STRIPE_KEY->value = $KEY;$STRIPE_KEY->save();
-        $STRIPE_SECRET = Setting::where('name','STRIPE_KEY')->first();
-        $STRIPE_KEY->value = $SECRET;$STRIPE_KEY->save();
-        $STRIPE_KEY = Setting::where('name','STRIPE_KEY')->first();
-        $STRIPE_SECRET = Setting::where('name','STRIPE_KEY')->first();
+
+        $STRIPE_SECRET = Setting::where('name','STRIPE_SECRET')->first();
+        $STRIPE_SECRET->value = $SECRET;$STRIPE_SECRET->save();
+
+        // $STRIPE_KEY = Setting::where('name','STRIPE_KEY')->first();
+        // $STRIPE_SECRET = Setting::where('name','STRIPE_KEY')->first();
         // dd($STRIPE_KEY, $STRIPE_SECRET);
         return \Response::json(array('status' => '200', 'message' => 'Đã đổi tài khoản thành công!'));
     }
