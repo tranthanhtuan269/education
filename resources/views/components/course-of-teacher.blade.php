@@ -86,7 +86,7 @@
                 @endif
             @else
                 <button id="addCart{{ $course->id }}" data-id="{{ $course->id }}" class="btn btn-primary add-to-cart"><b>THÊM VÀO GIỎ HÀNG</b></button>
-                <button id="buyNow{{ $course->id }}" data-id="{{ $course->id }}" class="btn btn-warning"><b>MUA NGAY</b></button>
+                <button data-toggle="modal" data-target="#myModalLogin" data-dismiss="modal" class="btn btn-warning"><b>MUA NGAY</b></button>
             @endif
         </div>
     </div>
@@ -98,6 +98,27 @@
     jQuery(function () {
 
         $("#buyNow{{ $course->id }}").click(function(){
+            addCart();
+            window.location.href =("/cart/payment/method-selector")
+        })
+
+        $("#addCart{{ $course->id }}").click( function(){
+
+            $(this).html('<b>ĐÃ THÊM VÀO GIỎ HÀNG</b>').attr('disabled', true)
+            addCart()
+
+            Swal.fire({
+                type: 'success',
+                text: 'Đã thêm vào giỏ hàng!'
+            })
+            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'+user_id));
+            $('.number-in-cart').text(number_items_in_cart.length);
+            $('.unica-sl-cart').css('display', 'block')
+        })
+
+        function addCart(){
+            var course_id = {!! $course->id !!}
+            course_id = Number(course_id)
             var check = true
             
             if(localStorage.getItem('cart'+user_id) != null){
@@ -111,11 +132,11 @@
             }
             if(check){
                 var item = {
-                    'id' : {{ $course->id }},
+                    'id' : {!! $course->id !!},
                     'image' : '{!! $course->image !!}',
                     'slug' : '{!! $course->slug !!}',                
-                    @if(count($course->Lecturers()) > 0 && isset($course->Lecturers()[0]->user))
-                    'lecturer' : "{!! $course->Lecturers()[0]->user->name !!}",
+                    @if(count($course->Lecturers()) > 0)
+                    'lecturer' : "@if($course->Lecturers()[0]->user){!! $course->Lecturers()[0]->user->name !!}@else Courdemy @endif",
                     @else
                     'lecturer' : 'Nhiều giảng viên',
                     @endif
@@ -125,7 +146,7 @@
                     'coupon_price' : {!! $course->price !!},
                     'coupon_code' : '',
                 }
-
+        
                 if (localStorage.getItem('cart'+user_id) != null) {
                     var list_item = JSON.parse(localStorage.getItem('cart'+user_id));
                     addItem(list_item, item);
@@ -135,63 +156,11 @@
                     addItem(list_item, item);
                     localStorage.setItem('cart'+user_id, JSON.stringify(list_item));
                 }
-
-                // var number_items_in_cart = JSON.parse(localStorage.getItem('cart'+user_id))
-                // $('.number-in-cart').text(number_items_in_cart.length);
-
-                // Swal.fire({
-                //     type: 'success',
-                //     text: 'Đã thêm vào giỏ hàng!'
-                // })
-                var number_items_in_cart = JSON.parse(localStorage.getItem('cart'+user_id));
+        
+                var number_items_in_cart = JSON.parse(localStorage.getItem('cart'+user_id))
                 $('.number-in-cart').text(number_items_in_cart.length);
-                $('.unica-sl-cart').css('display', 'block')
             }
-            window.location.href =("/cart/payment/method-selector")
-        })
-
-        $("#addCart{{ $course->id }}").click( function(){
-
-            $(this).html('<b>ĐÃ THÊM VÀO GIỎ HÀNG</b>').attr('disabled', true)
-            
-            // addCart();
-            var item = {
-                'id' : {{ $course->id }},
-                'image' : '{!! $course->image !!}',
-                'slug' : '{!! $course->slug !!}',                
-                @if(count($course->Lecturers()) > 0 && isset($course->Lecturers()[0]->user))
-                'lecturer' : "{!! $course->Lecturers()[0]->user->name !!}",
-                @else
-                'lecturer' : 'Nhiều giảng viên',
-                @endif
-                'name' : "{!! $course->name !!}",
-                'price' : {!! $course->price !!},
-                'real_price' : {!! $course->real_price !!},
-                'coupon_price' : {!! $course->price !!},
-                'coupon_code' : '',
-            }
-
-            if (localStorage.getItem('cart'+user_id) != null) {
-                var list_item = JSON.parse(localStorage.getItem('cart'+user_id));
-                addItem(list_item, item);
-                localStorage.setItem('cart'+user_id, JSON.stringify(list_item));
-            }else{
-                var list_item = [];
-                addItem(list_item, item);
-                localStorage.setItem('cart'+user_id, JSON.stringify(list_item));
-            }
-
-            // var number_items_in_cart = JSON.parse(localStorage.getItem('cart'+user_id))
-            // $('.number-in-cart').text(number_items_in_cart.length);
-
-            Swal.fire({
-                type: 'success',
-                text: 'Đã thêm vào giỏ hàng!'
-            })
-            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'+user_id));
-            $('.number-in-cart').text(number_items_in_cart.length);
-            $('.unica-sl-cart').css('display', 'block')
-        })
+        }
 
         if(localStorage.getItem('cart'+user_id) != null){
             var number_items_in_cart = JSON.parse(localStorage.getItem('cart'+user_id))

@@ -1075,36 +1075,6 @@ https://courdemy.vn/course/{{ $info_course->id }}/{{ $info_course->slug }}
             addCart();
             window.location.href = ("/cart/payment/method-selector")
         })
-        // $('#add-cart').click(function(){
-        // function addCart(){
-        //     var item = {
-        //         'id' : {!! $info_course->id !!},
-        //         'image' : '{!! $info_course->image !!}',
-        //         'slug' : '{!! $info_course->slug !!}',                
-        //         @if(count($info_course->Lecturers()) > 0)
-                // 'lecturer' : " $info_course->Lecturers()[0]->user->name ",
-        //         @else
-        //         'lecturer' : 'Nhiều giảng viên',
-        //         @endif
-        //         'name' : "{!! $info_course->name !!}",
-        //         'price' : {!! $info_course->price !!},
-        //         'real_price' : {!! $info_course->real_price !!},
-        //     }
-
-        //     if (localStorage.getItem('cart'+user_id) != null) {
-        //         var list_item = JSON.parse(localStorage.getItem('cart'+user_id));
-        //         addItem(list_item, item);
-        //         localStorage.setItem('cart'+user_id, JSON.stringify(list_item));
-        //     }else{
-        //         var list_item = [];
-        //         addItem(list_item, item);
-        //         localStorage.setItem('cart'+user_id, JSON.stringify(list_item));
-        //     }
-
-        //     var number_items_in_cart = JSON.parse(localStorage.getItem('cart'+user_id))
-        //         // alert(number_items_in_cart.length)
-        //     $('.number-in-cart').text(number_items_in_cart.length);
-        // }
 
         $('.btn-see-more').click(function(){
             var baseURL = $('base').attr('href');
