@@ -133,9 +133,9 @@
                                                     <div class='form-row row'>
                                                         <div class='col-xs-12 form-group required'>
                                                             <label class='control-label'>Tên in trên thẻ:</label> <input
-                                                                class='form-control' name='card_name' size='4' type='text' 
+                                                                class='form-control' name='card_name' size='4' type='text' id='cardName'
                                                                 disabled>
-                                                            <select name="carlist" id="selectCard">
+                                                            <select class="form-control" name="carlist" id="selectCard">
                                                                 <option value="">-- Chọn tên thẻ --</option>
                                                                 @foreach($info_payment as $name)
                                                                     <option value="{{$name->id}}">{{$name->name_card}}</option>
@@ -143,12 +143,21 @@
                                                             </select>
                                                         </div>
                                                     </div>
-                          
+                        <style>
+                            #cardName{
+                                width:50%
+                            }
+                            #selectCard{
+                                width: 48%;
+                                margin-top: -34px;
+                                margin-left: 52%;
+                            }
+                        </style>
                                                     <div class='form-row row'>
                                                         <div class='col-xs-12 form-group card required'>
                                                             <label class='control-label'>Số thẻ:</label> <input
                                                                 autocomplete='off' name='card_number' class='form-control card-number' size='20'
-                                                                type='text' disabled>
+                                                                type='text' id='cardNumber' disabled>
                                                         </div>
                                                     </div>
                             
@@ -156,19 +165,19 @@
                                                         <div class='col-xs-12 col-md-4 form-group cvc required'>
                                                             <label class='control-label'>CVC:</label> <input autocomplete='off'
                                                                 name='card_cvc' class='form-control card-cvc' placeholder='ex. 311' size='4'
-                                                                type='text' 
+                                                                type='text' id='cardCvc'
                                                                 disabled>
                                                         </div>
                                                         <div class='col-xs-12 col-md-4 form-group expiration required'>
                                                             <label class='control-label'>Tháng hết hạn:</label> <input
                                                                 class='form-control card-expiry-month' placeholder='MM' size='2'
-                                                                name='card_expiry_month' type='text' 
+                                                                name='card_expiry_month' type='text' id='cardExpiryMonth'
                                                                 disabled>
                                                         </div>
                                                         <div class='col-xs-12 col-md-4 form-group expiration required'>
                                                             <label class='control-label'>Năm hết hạn:</label> <input
                                                                 class='form-control card-expiry-year' placeholder='YYYY' size='4'
-                                                                name='card_expiry_year' type='text' 
+                                                                name='card_expiry_year' type='text' id='cardExpiryYear'
                                                                 disabled>
                                                         </div>
                                                     </div>
@@ -187,7 +196,7 @@
                                                     </div>
                                                     <br>
                                                     <div class="blockform-check">
-                                                        <input class="form-check-input" type="checkbox" value="1" name="default_check" disabled>
+                                                        <input class="form-check-input" type="checkbox" value="1" name="default_check" id="checkCard" disabled>
                                                         <label class="form-check-label" for="defaultCheck1" >Lưu và bảo mật cho lần thanh toán sau</label>
                                                     </div>
                                                 </form>
@@ -296,19 +305,40 @@
     $('select').on('change', function (e){
         
         var id_card = $('#selectCard').find(":selected").val();
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        var request = $.ajax({
-            url:  '{{ url('/stripe/id-card') }}',
-            method: "POST",
-            data: {
-                id : id_card,
-            },
-            dataType: "json"
-        });
+        if(id_card == ""){
+            $("#cardName").val("")
+            $("#cardNumber").val("")
+            $("#cardCvc").val("")
+            $("#cardExpiryMonth").val("")
+            $("#cardExpiryYear").val("")
+            $("#checkCard").attr('checked',false) 
+        }
+        else{
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            var request = $.ajax({
+                url:  '{{ url('/stripe/id-card') }}',
+                method: "POST",
+                data: {
+                    id : id_card,
+                },
+                dataType: "json"
+            })
+            request.done(function (response){
+                if(response.status == 200){
+                    var info= response.info[0];
+                    $("#cardName").val(info.name_card)
+                    $("#cardNumber").val(info.number_card)
+                    $("#cardCvc").val(info.cvc_card)
+                    $("#cardExpiryMonth").val(info.month_card)
+                    $("#cardExpiryYear").val(info.year_card)
+                    $("#checkCard").attr('checked',true) 
+                }
+            })
+        }
     })
 
     $(function() {
