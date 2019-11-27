@@ -7,7 +7,7 @@ foreach ($notes as $key => $note) {
 // dd($i);
 ?>
 <div class="learning-desc-panel ">
-    <div class="learning-desc-panel-body align-items-center leftbarActive">
+    <div class="learning-desc-panel-body align-items-center leftbarActive" id="alignItemsCenter">
         <div class="ln-desc-title">
             <p>{{$main_video->name}}</p>
         </div>
