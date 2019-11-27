@@ -6338,8 +6338,8 @@ div[data-u="slides"] div div {
     padding: 15px
 }
 
-#myModalLogin .form-html-validate .fa-exclamation, #myModalRegister .form-html-validate .fa-exclamation{top: 25px !important}
-#myModalLogin .form-html-validate .hover-alert, #myModalRegister .form-html-validate .hover-alert{top: 10px !important}
+#myModalLogin .form-html-validate .fa-exclamation, #myModalRegister .form-html-validate .fa-exclamation, #modalLoginCourseDetail .form-html-validate .fa-exclamation, #modalRegisterCourseDetail .form-html-validate .fa-exclamation{top: 25px !important}
+#myModalLogin .form-html-validate .hover-alert, #myModalRegister .form-html-validate .hover-alert, #modalLoginCourseDetail .form-html-validate .hover-alert, #modalRegisterCourseDetail .form-html-validate .hover-alert{top: 10px !important}
 
 .box-unit #sortable .fa-exclamation{
     top: 25px !important;

@@ -293,22 +293,24 @@
                                             </ul>
                                         </li>
                                         @else
-                                        <li class="special" data-toggle="modal" data-target="#myModalLogin" data-dismiss="modal"><a class="unica-log-acc" href="">Đăng nhập</a></li>
-                                        <li class="special button-sign-up" data-toggle="modal" data-target="#myModalRegister" data-dismiss="modal"><a class="unica-reg-acc" href="">Đăng ký</a></li>
+                                        <li class="special button-sign-in" data-toggle="modal" data-target="#myModalLogin" data-dismiss="modal"><a href="">Đăng nhập</a></li>
+                                        <li class="special button-sign-up" data-toggle="modal" data-target="#myModalRegister" data-dismiss="modal"><a href="">Đăng ký</a></li>
                                         <script>
-                                            $('.unica-log-acc').click(function(e){
+                                            $('.button-sign-in').click(function(e){
                                                 e.stopPropagation()
                                                 e.preventDefault()
                                                 $('#resetFormsLogin').click()
                                                 $("#myModalLogin").modal("toggle")
-                                                $('.alert-validate').html('')
+                                                // $('.alert-validate').html('')
+                                                $('.form-html-validate').css('display', 'none')
                                             })
-                                            $('.unica-reg-acc').click(function(e){
+                                            $('.button-sign-up').click(function(e){
                                                 e.stopPropagation()
                                                 e.preventDefault()
                                                 $('#resetFormsSignup').click()
                                                 $("#myModalRegister").modal("toggle")
-                                                $('.alert-validate').html('')
+                                                // $('.alert-validate').html('')
+                                                $('.form-html-validate').css('display', 'none')
                                             })
                                         </script>
                                         @endif

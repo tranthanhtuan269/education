@@ -927,10 +927,12 @@ https://courdemy.vn/course/{{ $info_course->id }}/{{ $info_course->slug }}
         $('.course-detail-buy-now').click(function(e){
             e.stopPropagation()
             e.preventDefault()
+            addCart()
             $('#resetCourseDetailFormsLogin').click()
             $('#resetCourseDetailFormsSignup').click()
             $("#modalLoginCourseDetail").modal("toggle")
-            $('.alert-validate').html('')
+            // $('.alert-validate').html('')
+            $('.form-html-validate').css('display', 'none')
         })
         $(window).scroll(function() {
             var barHeight = $(".interactive-bar").outerHeight()
@@ -959,20 +961,20 @@ https://courdemy.vn/course/{{ $info_course->id }}/{{ $info_course->slug }}
                 <br/>
                 <form action="/examples/actions/confirmation.php" method="post">
                     <div class="form-group">
-                        <div class="input-group">
+                        <div class="input-group form-html">
                             <span class="input-group-addon"><i class="fas fa-envelope fa-fw fa-md"></i></span>
                             <input type="t" class="form-control" name="email" placeholder="Email" required="required">
-                            <div class="alert-validate login_email"></div>
+                            <div class="form-html-validate login_email"></div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="input-group password-group">
+                        <div class="input-group form-html">
                             <span class="input-group-addon"><i class="fas fa-lock fa-fw fa-md"></i></span>
                             <input type="password" class="form-control" name="pass" placeholder="Mật khẩu" required="required" id="courseShowMyPassword">
                             <div class="show-password" onclick="courseShowPassword()">
                                 <i class="fas fa-eye fa-fw fa-md" id="eye"></i>
                             </div>
-                            <div class="alert-validate login_password"></div>
+                            <div class="form-html-validate login_password"></div>
                         </div>
                     </div>
                     <div class="form-group">
@@ -1007,31 +1009,31 @@ https://courdemy.vn/course/{{ $info_course->id }}/{{ $info_course->slug }}
             <div class="modal-body">
                 <form action="/examples/actions/confirmation.php" method="post">
                     <div class="form-group">
-                        <div class="input-group">
+                        <div class="input-group form-html">
                             <span class="input-group-addon"><i class="fas fa-user fa-lock fa-fw fa-md"></i></span>
                             <input type="text" class="form-control" name="name" placeholder="Tên của bạn" required="required">
-                            <div class="alert-validate name"></div>
+                            <div class="form-html-validate name"></div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="input-group">
+                        <div class="input-group form-html">
                             <span class="input-group-addon"><i class="fas fa-envelope fa-envelope fa-fw fa-md"></i></span>
                             <input type="email" class="form-control" name="email" placeholder="Email" required="required">
-                            <div class="alert-validate email"></div>
+                            <div class="form-html-validate email"></div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="input-group">
+                        <div class="input-group form-html">
                             <span class="input-group-addon"><i class="fas fa-lock fa-fw fa-md"></i></span>
                             <input type="password" class="form-control" name="pass" placeholder="Mật khẩu" required="required">
-                            <div class="alert-validate password"></div>
+                            <div class="form-html-validate password"></div>
                         </div>				
                     </div>
                     <div class="form-group">
-                        <div class="input-group">
+                        <div class="input-group form-html">
                             <span class="input-group-addon"><i class="fas fa-lock fa-fw fa-md"></i></span>
                             <input type="password" class="form-control" name="confirmpass" placeholder="Nhập lại mật khẩu" required="required">
-                            <div class="alert-validate confirmpassword"></div>
+                            <div class="form-html-validate confirmpassword"></div>
                         </div>				
                     </div>
                     {{-- <div class="terms-and-policy">
@@ -1073,36 +1075,6 @@ https://courdemy.vn/course/{{ $info_course->id }}/{{ $info_course->slug }}
             addCart();
             window.location.href = ("/cart/payment/method-selector")
         })
-        // $('#add-cart').click(function(){
-        // function addCart(){
-        //     var item = {
-        //         'id' : {!! $info_course->id !!},
-        //         'image' : '{!! $info_course->image !!}',
-        //         'slug' : '{!! $info_course->slug !!}',                
-        //         @if(count($info_course->Lecturers()) > 0)
-                // 'lecturer' : " $info_course->Lecturers()[0]->user->name ",
-        //         @else
-        //         'lecturer' : 'Nhiều giảng viên',
-        //         @endif
-        //         'name' : "{!! $info_course->name !!}",
-        //         'price' : {!! $info_course->price !!},
-        //         'real_price' : {!! $info_course->real_price !!},
-        //     }
-
-        //     if (localStorage.getItem('cart'+user_id) != null) {
-        //         var list_item = JSON.parse(localStorage.getItem('cart'+user_id));
-        //         addItem(list_item, item);
-        //         localStorage.setItem('cart'+user_id, JSON.stringify(list_item));
-        //     }else{
-        //         var list_item = [];
-        //         addItem(list_item, item);
-        //         localStorage.setItem('cart'+user_id, JSON.stringify(list_item));
-        //     }
-
-        //     var number_items_in_cart = JSON.parse(localStorage.getItem('cart'+user_id))
-        //         // alert(number_items_in_cart.length)
-        //     $('.number-in-cart').text(number_items_in_cart.length);
-        // }
 
         $('.btn-see-more').click(function(){
             var baseURL = $('base').attr('href');
@@ -1531,10 +1503,6 @@ https://courdemy.vn/course/{{ $info_course->id }}/{{ $info_course->slug }}
         }
     }
 
-    $('#modalLoginCourseDetail input').click(function(){
-        $(this).css('z-index', 5)
-        $('.show-password').css('z-index', 6)
-    })
     function loginCourseDetailAjax(){
         var email = $('#modalLoginCourseDetail input[name=email]').val();
         email = email.trim();
@@ -1581,9 +1549,6 @@ https://courdemy.vn/course/{{ $info_course->id }}/{{ $info_course->slug }}
         return false;
     }
 
-    $('#modalRegisterCourseDetail input').click(function(){
-        $(this).css('z-index', 5)
-    })
     function registerCourseDetailAjax(){
         var name = $('#modalRegisterCourseDetail input[name=name]').val();
         name = name.trim();
@@ -1627,12 +1592,13 @@ https://courdemy.vn/course/{{ $info_course->id }}/{{ $info_course->slug }}
                 }
             },
             error: function (error) {             
+                $(".ajax_waiting").removeClass("loading");
                 var obj_errors = error.responseJSON.errors;
-                $('#modalRegisterCourseDetail input').css('z-index', 0)
-                $('.alert-validate').html('')
+                $('.form-html-validate').css('display', 'block')
+                $('.form-html-validate').html('')
                 $.each(obj_errors, function( index, value ) {
                     var content = '<i class="fas fa-exclamation fa-fw"></i><div class="hover-alert">'+ value +'</div>'
-                    $('.alert-validate.' + index).html(content);
+                    $('.form-html-validate.' + index).html(content);
                 })
             }
         });
