@@ -1227,13 +1227,15 @@
     // Show/Hide Header when scroll 
     var prevScrollpos = window.pageYOffset;
     window.onscroll = function() {
-        var currentScrollPos = window.pageYOffset;
-        if (prevScrollpos > currentScrollPos) {
-            document.getElementById("showHideHeader").style.top = "0";
-        } else {
-            document.getElementById("showHideHeader").style.top = "-101px";
+        if ($(window).scrollTop() > 150) {
+            var currentScrollPos = window.pageYOffset;
+            if (prevScrollpos > currentScrollPos) {
+                document.getElementById("showHideHeader").style.top = "0";
+            } else {
+                document.getElementById("showHideHeader").style.top = "-101px";
+            }
+            prevScrollpos = currentScrollPos
         }
-        prevScrollpos = currentScrollPos;
     }
 </script>
 
