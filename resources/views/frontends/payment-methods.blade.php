@@ -254,6 +254,32 @@
 
 	<script>
 		var user_id = $('button[id=cartUserId]').attr('data-user-id')
+
+		if( user_id != 0 ){
+			var loginCart = JSON.parse(localStorage.getItem('cart'+user_id))
+			if( localStorage.getItem('cart'+0) != null ){
+				var noLoginCart = JSON.parse(localStorage.getItem('cart'+0))
+				noLoginCart.forEach(function(element) {
+					var check = true
+					loginCart.forEach(function(obj) {
+						if(element.id == obj.id){
+							check = false
+						}
+					})
+					if(check == true){
+						loginCart = loginCart.concat(element)
+					}
+				})
+				localStorage.setItem('cart'+0, '[]')
+				localStorage.setItem('cart'+user_id, JSON.stringify(loginCart))
+			}
+			if(loginCart.length >= 1){
+				$('.unica-sl-cart').css('display', 'block')
+			}else{
+				$('.unica-sl-cart').css('display', 'none')
+			}
+		}
+
 		var cart_items = JSON.parse(localStorage.getItem('cart'+user_id))
 		var coupon_code = localStorage.getItem('coupon')
     	var final_price = 0
@@ -273,7 +299,7 @@
 			// $("#payTab .final-price .price-text").append(number_format(pay_price, 0, '.', '.') +" ₫")
 			// $('#payWithBalance .price').append(number_format(pay_price, 0, '.', '.') +" ₫")
 
-			function getFinalPrice() {				
+			function getFinalPrice() {
 				$.ajaxSetup({
 					headers: {
 						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
