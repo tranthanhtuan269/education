@@ -206,7 +206,6 @@
                 var curr_video_intro = $(this).parent().parent().attr('data-video')
 
                 $('#showVideoIntroModal').modal('show');
-                // $("#video-view").attr('src', `http://education.local/uploads/videos/${curr_video_intro}`)
                 $("#video-view").attr('src', `/uploads/videos/${curr_video_intro}`)
             })
 

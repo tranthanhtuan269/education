@@ -317,9 +317,9 @@ class CommentController extends Controller
                 foreach ( $arr_user_role_id as $user_role_id ){
                     if ( $user_role_id != $comment->user_role_id && $user_role_id != Auth::user()->userRolesStudent()->id ){
                         if ( $comment->course->Lecturers()[0]->user->id != \App\UserRole::find($user_role_id)->user->id ){
-                            \App\Helper\Helper::addAlertCustomize(\App\UserRole::find($user_role_id)->user, $commentCourse->userRole->user->name." đã trả lời bình luận của bạn", $commentCourse->userRole->user->name." đã trả lời bình luận của bạn tại khóa học <a href='" . url('/') . "/course/" . $comment->course->id . "/" . $comment->course->slug . "'>" . $comment->course->name . "</a>");
+                            \App\Helper\Helper::addAlertCustomize(\App\UserRole::find($user_role_id)->user, $commentCourse->userRole->user->name." đã trả lời một đánh giá cho khóa học ". $comment->course->name, $commentCourse->userRole->user->name." đã trả lời một đánh giá cho khóa học <a href='" . url('/') . "/course/" . $comment->course->id . "/" . $comment->course->slug . "'>" . $comment->course->name . "</a>");
                         }else{
-                            \App\Helper\Helper::addAlertCustomize(\App\UserRole::find($user_role_id)->user, $commentCourse->userRole->user->name." đã trả lời bình luận của bạn", $commentCourse->userRole->user->name." đã trả lời bình luận của bạn tại khóa học <a href='" . url('/') . "/course/" . $comment->course->id . "/" . $comment->course->slug . "'>" . $comment->course->name . "</a>", true);
+                            \App\Helper\Helper::addAlertCustomize(\App\UserRole::find($user_role_id)->user, $commentCourse->userRole->user->name." đã trả lời một đánh giá cho khóa học " . $comment->course->name, $commentCourse->userRole->user->name." đã trả lời một đánh giá cho khóa học <a href='" . url('/') . "/course/" . $comment->course->id . "/" . $comment->course->slug . "'>" . $comment->course->name . "</a>", true);
                         }
                     }
                 }
