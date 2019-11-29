@@ -435,6 +435,8 @@
         j( "#listUnit{{ $course->id }} #sortable" ).disableSelection();
 
         $("#listUnit{{ $course->id }} #add-unit-btn").click(function(){
+            
+
             var data = {
                 name: "Item",
                 course_id: {{ $course->id }}
@@ -447,7 +449,7 @@
                 dataType: 'json',
                 success: function (response) {
                     if(response.status == 200){
-                        var html = '<li class="ui-state-default" data-unit-id="'+response.unit.data.id+'" data-unit-key="'+(response.unit.data.index-1)+'"><i class="fas fa-sort"></i> <span class="unit-content">Item</span> <i class="far fa-trash-alt remove-unit" id="remove-unit-'+response.unit.data.id+'" data-unit-id="'+response.unit.data.id+'" data-course-id="{{ $course->id }}"></i><i class="far fa-edit edit-unit" id="edit-unit-'+response.unit.data.id+'" data-unit-id="'+response.unit.data.id+'" data-course-id="{{ $course->id }}"></i><i class="fas fa-bars list-vid-unit" id="list-vid-unit-'+response.unit.data.id+'" data-unit-id="'+response.unit.data.id+'" data-course-id="'+response.unit.data.id+'"></i></li>';
+                        var html = '<li class="ui-state-default form-html" data-unit-id="'+response.unit.data.id+'" data-unit-key="'+(response.unit.data.index-1)+'"><i class="fas fa-sort"></i> <span class="unit-content">Item</span> <i class="far fa-trash-alt remove-unit" id="remove-unit-'+response.unit.data.id+'" data-unit-id="'+response.unit.data.id+'" data-course-id="{{ $course->id }}"></i><i class="far fa-edit edit-unit" id="edit-unit-'+response.unit.data.id+'" data-unit-id="'+response.unit.data.id+'" data-course-id="{{ $course->id }}"></i><i class="fas fa-bars list-vid-unit" id="list-vid-unit-'+response.unit.data.id+'" data-unit-id="'+response.unit.data.id+'" data-course-id="'+response.unit.data.id+'"></i></li>';
                         $("#listUnit{{ $course->id }} #sortable").append(html);
                         j("#listUnit{{ $course->id }} #sortable").sortable('refresh');
                         addEvent();
