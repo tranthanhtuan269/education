@@ -5542,6 +5542,13 @@ div[data-u="slides"] div div {
     z-index: 2;
 }
 
+.view-edit-course {
+    position: absolute;
+    top: 5px;
+    right: 170px;
+    z-index: 2;
+}
+
 .ui-sortable-handle {
     margin: 8px;
     padding: 8px;

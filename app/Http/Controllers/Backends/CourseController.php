@@ -568,7 +568,7 @@ class CourseController extends Controller
     {
         $check = TempCourse::where('course_id', $request->course_id)->get();
         if ( $check ){
-            if ( count($check) >= 1  ){
+            if ( $check->count() > 0 ){
                 return response()->json(array('status' => '200', 'result' => true ));
             }else{
                 return response()->json(array('status' => '200', 'result' => false ));
