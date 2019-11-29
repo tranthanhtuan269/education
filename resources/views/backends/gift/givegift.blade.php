@@ -173,18 +173,24 @@
             // },
         ];
         $(".btn-student-number").click(function(){
-            var student_numb = $('input[name=student-number]').val()
-            if( student_numb == '' ){
-                alertValidate('Bạn chưa nhập số học viên.', 'student_id')
-                return
+            var student_numb = 0
+            if ($('input[name=student-number]').val() != ''){
+                student_numb = $('input[name=student-number]').val()
             }
-
-            if( Number(student_numb) <= 0 ){
-                alertValidate('Số học viên không thể < 1.', 'student_id')
-                return
-            }
-
             $('.table-responsive').css('display', 'block')
+
+            if( $('input[name=student-number]').val() == '' ){
+                alertValidate('Bạn chưa nhập số học viên.', 'student_id')
+                student_numb = 0
+                $('.table-responsive').css('display', 'none')
+            }else{
+                if( Number(student_numb) == 0 ){
+                    alertValidate('Số học viên không thể  <1.', 'student_id')
+                    student_numb = 0
+                    $('.table-responsive').css('display', 'none')
+                }
+            }
+
             if (dataTable) {
                 dataTable.destroy();  
             }
@@ -199,7 +205,7 @@
                                 smart: false
                             },
                             ajax:{
-                                url: "{{ url('/') }}/admincp/gifts/getGiftStudentAjax?number="  + $('input[name="student-number"]').val(),
+                                url: "{{ url('/') }}/admincp/gifts/getGiftStudentAjax?number="  + student_numb,
                                 beforeSend: function() {
                                     $(".ajax_waiting").addClass("loading");
                                 }
