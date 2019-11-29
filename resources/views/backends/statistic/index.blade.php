@@ -205,10 +205,10 @@
                     }
                     html_data += '<tr><th><b>Tổng</b></th><th style="font-size:15px; text-align:right;">'+ numberFormat(totalValue, 0, '.', '.') +' đ</th><th style="font-size:15px; text-align:right;">- '+ numberFormat(total_discount, 0, '.', '.') +' đ</th><th style="color:red; font-size:18px; text-align:right;"><b>'+ numberFormat(total_payment, 0, '.', '.') +' đ</b></th></tr>';
 
-                    if (data.coupon != '') {
-                        html_data += '<tr><td><b>Tổng giảm giá</b></td><td style="font-size:15px; text-align:right;">'+ numberFormat(totalValue - real_price, 0, '.', '.') +' đ</td></tr>';
-                        html_data += '<tr><td><b>Tổng cộng</b></td><td style="color:red; font-size:18px; text-align:right;">'+ numberFormat(real_price, 0, '.', '.') +' đ</td><td style="color:red; font-size:18px; text-align:right;">'+ numberFormat(real_price, 0, '.', '.') +' đ</td><td style="color:red; font-size:18px; text-align:right;">'+ numberFormat(real_price, 0, '.', '.') +' đ</td></tr>';
-                    }
+                    // if (data.coupon != '') {
+                    //     html_data += '<tr><td><b>Tổng giảm giá</b></td><td style="font-size:15px; text-align:right;">'+ numberFormat(totalValue - real_price, 0, '.', '.') +' đ</td></tr>';
+                    //     html_data += '<tr><td><b>Tổng cộng</b></td><td style="color:red; font-size:18px; text-align:right;">'+ numberFormat(real_price, 0, '.', '.') +' đ</td><td style="color:red; font-size:18px; text-align:right;">'+ numberFormat(real_price, 0, '.', '.') +' đ</td><td style="color:red; font-size:18px; text-align:right;">'+ numberFormat(real_price, 0, '.', '.') +' đ</td></tr>';
+                    // }
                     html_data += '</tbody></table>';
                     
                     $('#show-detail-order .modal-body').html(html_data);
