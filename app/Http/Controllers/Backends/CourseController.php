@@ -179,13 +179,19 @@ class CourseController extends Controller
                 return response()->json(array('status' => '200', 'message' => 'Sửa khóa học thành công.'));
             }
             $temp_course = TempCourse::where('course_id', $id)->first();
+            $flag = 1;
             if( !isset($temp_course->id) ){
                 $temp_course = new TempCourse;
+                $flag = 0;
             }
             $item = Course::find($id);
 
             if($item){
-                $img_link = $item->image;
+                if ( $flag ){
+                    $img_link = $temp_course->image;
+                }else{
+                    $img_link = $item->image;
+                }
 
                 if ($request->image != '') {
                     $img_file = $request->image;

@@ -171,7 +171,7 @@
                 <div class="row">
                     <div class="image-cropit-editor">
                         <div class="box-course-preview" id="image-cropper-{{$course->id}}">
-                            <div class="cropit-preview text-center preview-image-course" id="cropitPreview{{$course->id}}">
+                            <div class="cropit-preview text-center preview-image-course" id="cropitPreview{{$course->id}}" data-name="{{$course->image}}">
                                 <img class="" src="{{ asset('frontend/images/'.$course->image) }}" alt="Course Image">
                             </div>
                             <input type="range" class="cropit-image-zoom-input" id="cropit-zoom-input-{{$course->id}}" style="display: none"/>
@@ -870,6 +870,11 @@
             var selector = document.getElementById('course-category{{$course->id}}')
             var course_category = selector[selector.selectedIndex].value
             var link_intro = $('#course-intro-{{$course->id}}').val().trim()
+
+            if ( link_base64 == '' ){
+                link_base64 = $('#cropitPreview{{$course->id}}').attr("data-name")
+                
+            }
 
             var flag = true
             $('.form-html-validate').html('')
