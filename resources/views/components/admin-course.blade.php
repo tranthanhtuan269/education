@@ -27,9 +27,10 @@
                 <button class="btn btn-warning btn-status-course active" title="Khóa học đang được xét duyệt"><i class="fas fa-dollar-sign fa-fw"></i></button>
             @endif
             @if ( $course_status == -1 )
-                <button class="btn btn-danger btn-status-course active" title="Khóa học bị đã ngừng bán"><i class="fas fa-dollar-sign fa-fw"></i></button>
+                <button class="btn btn-danger btn-status-course active" title="Khóa học đã bị ngừng bán"><i class="fas fa-dollar-sign fa-fw"></i></button>
             @endif
         @endif
+        <button class="btn btn-warning view-edit-course" id="view-edit-{{ $course->id }}" data-id="{{ $course->id }}" title="Xem chỉnh sửa khóa học" style="display:none;opacity:0"><i class="far fa-eye fa-fw"></i></i></button>
         <div class="img-course">
             <a href="{{ url('/') }}/course/{{ $course->id }}/{{ $course->slug }}" title="{{ $course->name }}" class="teacher-course">
             <img class="img-responsive"
@@ -352,6 +353,7 @@
 
 <script>
     $(document).ready(function(){
+        checkRequestEdit({{ $course->id }})
 
         document.getElementById('courseOriginalPrice{{$course->id}}').onkeydown = function(e) {
             if(!((e.keyCode > 95 && e.keyCode < 106)
@@ -400,8 +402,6 @@
                     $(value).attr('data-unit-key', index)
 
                 });
-                // console.log(`old_pos: ${old_pos}`)
-                // console.log(`new_pos: ${new_pos}`)
                 // end check key 
                 $.ajax({
                     method: "PUT",
@@ -417,7 +417,6 @@
                     },
                     error: function (error) {
                         var obj_errors = error.responseJSON.errors;
-                        // console.log(obj_errors)
                         var txt_errors = '';
                         for (k of Object.keys(obj_errors)) {
                             txt_errors += obj_errors[k][0] + '</br>';
@@ -448,7 +447,6 @@
                 dataType: 'json',
                 success: function (response) {
                     if(response.status == 200){
-                        // console.log(response.unit.data.id);
                         var html = '<li class="ui-state-default" data-unit-id="'+response.unit.data.id+'" data-unit-key="'+(response.unit.data.index-1)+'"><i class="fas fa-sort"></i> <span class="unit-content">Item</span> <i class="far fa-trash-alt remove-unit" id="remove-unit-'+response.unit.data.id+'" data-unit-id="'+response.unit.data.id+'" data-course-id="{{ $course->id }}"></i><i class="far fa-edit edit-unit" id="edit-unit-'+response.unit.data.id+'" data-unit-id="'+response.unit.data.id+'" data-course-id="{{ $course->id }}"></i><i class="fas fa-bars list-vid-unit" id="list-vid-unit-'+response.unit.data.id+'" data-unit-id="'+response.unit.data.id+'" data-course-id="'+response.unit.data.id+'"></i></li>';
                         $("#listUnit{{ $course->id }} #sortable").append(html);
                         j("#listUnit{{ $course->id }} #sortable").sortable('refresh');
@@ -457,7 +455,6 @@
                 },
                 error: function (error) {
                     var obj_errors = error.responseJSON.errors;
-                    // console.log(obj_errors)
                     var txt_errors = '';
                     for (k of Object.keys(obj_errors)) {
                         txt_errors += obj_errors[k][0] + '</br>';
@@ -517,7 +514,6 @@
                     },
                     error: function (error) {
                         // var obj_errors = error.responseJSON.errors;
-                        // // console.log(obj_errors)
                         // var txt_errors = '';
                         // for (k of Object.keys(obj_errors)) {
                         //     txt_errors += obj_errors[k][0] + '</br>';
@@ -584,7 +580,6 @@
                     },
                     error: function (error) {
                         var obj_errors = error.responseJSON.errors;
-                        // console.log(obj_errors)
                         var txt_errors = '';
                         for (k of Object.keys(obj_errors)) {
                             txt_errors += obj_errors[k][0] + '</br>';
@@ -622,14 +617,20 @@
 
             $('input.cropit-image-input').val('');
             $('.cropit-preview').removeClass('cropit-image-loaded');
-            // $('.cropit-preview-image').removeAttr('style');
+            // $('.cropit-preview-image').removeAttr('style');1
             $('.cropit-preview-image').attr('src','');
             $('#editCourse-{{ $course->id }}').modal('toggle')
 
             $('.notify-edit-course').css('display','none')
             $('#cropitPreview{{$course->id}} img').attr('src','{{ asset("frontend/images/".$course->image) }}')
-            checkRequestEdit({{ $course->id }})
+            // checkRequestEdit({{ $course->id }})
             $('.form-html-validate').css('display', 'none')
+        })
+
+
+        $('#view-edit-{{ $course->id }}').click(function(){
+            $('#btn-edit-{{ $course->id }}').click()
+            $('#viewRequestEdit{{ $course->id }}').click()
         })
 
         $('#viewRequestEdit{{ $course->id }}').click(function(){
@@ -721,7 +722,6 @@
         //                 },
         //                 error: function (error) {
         //                     var obj_errors = error.responseJSON.errors;
-        //                     // console.log(obj_errors)
         //                     var txt_errors = '';
         //                     for (k of Object.keys(obj_errors)) {
         //                         txt_errors += obj_errors[k][0] + '</br>';
@@ -781,7 +781,6 @@
         //                 },
         //                 error: function (error) {
         //                     var obj_errors = error.responseJSON.errors;
-        //                     // console.log(obj_errors)
         //                     var txt_errors = '';
         //                     for (k of Object.keys(obj_errors)) {
         //                         txt_errors += obj_errors[k][0] + '</br>';
@@ -999,7 +998,6 @@
     })
 
     function checkRequestEdit(course_id){
-        // get note of video
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -1015,7 +1013,7 @@
             success: function (response) {
                 if(response.status == 200){
                     if ( response.result == true ){
-                        $('.notify-edit-course').css('display','block')
+                        $('#view-edit-'+course_id).css('display','block')
                     }
                 }
             },
