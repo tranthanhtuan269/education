@@ -257,16 +257,21 @@
 		var loginCart = []
 
 		if( user_id != 0 ){
+			if(localStorage.getItem('cart'+user_id) == null){
+                localStorage.setItem('cart'+user_id, '[]')
+            }
 			loginCart = JSON.parse(localStorage.getItem('cart'+user_id))
 			if( localStorage.getItem('cart'+0) != null ){
 				var noLoginCart = JSON.parse(localStorage.getItem('cart'+0))
 				noLoginCart.forEach(function(element) {
 					var check = true
-					loginCart.forEach(function(obj) {
-						if(element.id == obj.id){
-							check = false
-						}
-					})
+					if ( loginCart.length > 0 ){
+						loginCart.forEach(function(obj) {
+							if(element.id == obj.id){
+								check = false
+							}
+						})
+					}
 					if(check == true){
 						loginCart = loginCart.concat(element)
 					}
