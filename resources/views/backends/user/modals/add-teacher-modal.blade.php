@@ -210,12 +210,38 @@ $(document).ready(function() {
             alertValidate('Bạn chưa nhập Tên.', 'name')
             flag = false
         }
-        if ( email == '' ){
-            alertValidate('Bạn chưa nhập Email.', 'email')
+        // if ( email == '' ){
+        //     alertValidate('Bạn chưa nhập Email.', 'email')
+        //     flag = false
+        // }
+
+        var email_number =/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if(email !==''){
+            if (email_number.test(email) == false) 
+            {
+                alertValidate('Email sai định dạng!', 'email');
+                flag = false
+            }
+        }else{
+            alertValidate('Bạn chưa nhập Email.', 'email');
             flag = false
         }
-        if ( phone == '' ){
-            alertValidate('Bạn chưa nhập Số điện thoại.', 'phone')
+        // if ( phone == '' ){
+        //     alertValidate('Bạn chưa nhập Số điện thoại.', 'phone')
+        //     flag = false
+        // }
+        var phone_number =/^[\+]?[(]?[0-9]{1,3}[)]?[-\s]?[0-9]{1,3}[-\s]?[0-9]{4,9}$/;
+        if(phone !==''){
+            if (phone_number.test(phone) == false) 
+            {
+                alertValidate('Số điện thoại của bạn không đúng định dạng!', 'phone');
+                flag = false
+            }if(10> phone.length || phone.length>11){
+                alertValidate('Số điện thoại không tồn tại!', 'phone');
+                flag = false
+            }
+        }else{
+            alertValidate('Bạn chưa điền số điện thoại!', 'phone');
             flag = false
         }
         if ( dob == '' ){
@@ -274,9 +300,25 @@ $(document).ready(function() {
             alertValidate('Bạn chưa nhập Mật khẩu.', 'password')
             flag = false
         }
+        else{
+            if(8> password.length){
+                alertValidate('Mật khẩu cần có 8 ký tự trở lên.', 'password')
+                flag = false
+            }
+            if(password.length>101){
+                alertValidate('Mật khẩu cần có ít hơn 100 ký tự.', 'password')
+                flag = false
+            }
+        }
         if ( confirmPassword == '' ){
             alertValidate('Vui lòng nhập lại mật khẩu.', 'confirm_password')
             flag = false
+        }
+        else{
+            if(confirmPassword !== password){
+                alertValidate('Mật khẩu chưa khớp.', 'confirm_password')
+                flag = false
+            }
         }
         if ( flag == false ) return
 
