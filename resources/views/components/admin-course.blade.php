@@ -30,7 +30,7 @@
                 <button class="btn btn-danger btn-status-course active" title="Khóa học đã bị ngừng bán"><i class="fas fa-dollar-sign fa-fw"></i></button>
             @endif
         @endif
-        <button class="btn btn-warning view-edit-course" id="view-edit-{{ $course->id }}" data-id="{{ $course->id }}" title="Xem chỉnh sửa khóa học" style="display:none;opacity:0"><i class="far fa-eye fa-fw"></i></i></button>
+        <button class="btn btn-warning view-edit-course" id="view-edit-{{ $course->id }}" data-id="{{ $course->id }}" title="Xem chỉnh sửa khóa học" style="display:none"><i class="far fa-eye fa-fw"></i></i></button>
         <div class="img-course">
             <a href="{{ url('/') }}/course/{{ $course->id }}/{{ $course->slug }}" title="{{ $course->name }}" class="teacher-course">
             <img class="img-responsive"
