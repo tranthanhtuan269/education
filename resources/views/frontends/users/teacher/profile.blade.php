@@ -279,6 +279,10 @@
             //     alertValidate('Bạn chưa chọn Ngày sinh.', 'birthday')
             //     flag = false
             // }
+            if (!validationDate($('#datepicker').val())) {
+                alertValidate('Ngày sinh không hợp lệ.', 'birthday')
+                flag = false
+            }
             // if ( $('textarea[name=address]').val().trim() == '' ){
             //     alertValidate('Bạn chưa nhập Địa chỉ.', 'address')
             //     flag = false
