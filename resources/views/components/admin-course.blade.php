@@ -629,7 +629,8 @@
 
 
         $('#view-edit-{{ $course->id }}').click(function(){
-            $('#btn-edit-{{ $course->id }}').click()
+            // $('#btn-edit-{{ $course->id }}').click()
+            $('#editCourse-{{ $course->id }}').modal('toggle')
             $('#viewRequestEdit{{ $course->id }}').click()
         })
 
@@ -672,7 +673,7 @@
                         CKEDITOR.instances['course-will-learn-{{$course->id}}'].setData(response.will_learn)
 
                         // document.getElementById("editCourse-{{$course->id}}").scrollTo(0, 500);
-                        $('#editCourse-{{$course->id}}').animate({scrollTop:450}, '300')
+                        // $('#editCourse-{{$course->id}}').animate({scrollTop:450}, '300')
                     }
                 },
             }) 
