@@ -260,6 +260,20 @@
 			if(localStorage.getItem('cart'+user_id) == null){
                 localStorage.setItem('cart'+user_id, '[]')
             }
+			var number_items_in_cart = JSON.parse(localStorage.getItem('cart'+user_id))
+			var product_bought = [];
+			@if(\Auth::check())
+				@php
+					$bought = [];
+					$products = [];
+					if(\Auth::user()->bought) $bought = \json_decode(\Auth::user()->bought);
+					if(\Auth::user()->products) $products = \json_decode(\Auth::user()->products);
+					$product_bought = array_merge($bought,$products);
+					foreach($product_bought as $b){
+						echo "product_bought.push(".$b.");";
+					}
+				@endphp
+			@endif
 			loginCart = JSON.parse(localStorage.getItem('cart'+user_id))
 			if( localStorage.getItem('cart'+0) != null ){
 				var noLoginCart = JSON.parse(localStorage.getItem('cart'+0))

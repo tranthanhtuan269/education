@@ -954,6 +954,8 @@
                         Swal.fire({
                             type: 'warning',
                             html: 'Khóa học <b>' + list_course_bought + '</b> đã được bạn mua rồi!'
+                        }).then(result => {
+                            window.location.reload()
                         })
                     }
                     @endif
