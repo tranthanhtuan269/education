@@ -1073,6 +1073,7 @@
                         var content = '<i class="fas fa-exclamation fa-fw"></i><div class="hover-alert">'+ value +'</div>'
                         $('.form-html-validate.' + index).html(content);
                     })
+                    $('.form-html .form-html-validate i').on('click',function(e){ e.stopPropagation() })
                 }
             });
 
@@ -1145,6 +1146,7 @@
                         var content = '<i class="fas fa-exclamation fa-fw"></i><div class="hover-alert">'+ value +'</div>'
                         $('.form-html-validate.' + index).html(content);
                     })
+                    $('.form-html .form-html-validate i').on('click',function(e){ e.stopPropagation() })
                 }
             });
 
@@ -1213,16 +1215,11 @@
         var content = '<i class="fas fa-exclamation fa-fw"></i><div class="hover-alert">'+ message +'</div>'
         $('.form-html-validate.' + element).html('');
         $('.form-html-validate.' + element).html(content);
+        $('.form-html .form-html-validate i').on('click',function(e){ e.stopPropagation() })
     }
     $('.form-html').click(function(){
         $(this).children('.form-html-validate').css('display', 'none')
     })
-    function alertValidate1(message, element){
-        $('.alert-validate').css('display', 'block')
-        $('.alert-validate').html('')
-        var content = '<i class="fas fa-exclamation fa-fw"></i><div class="hover-alert">'+ message +'</div>'
-        $('.alert-validate.' + element).html(content);
-    }
 
     // Show/Hide Header when scroll 
     var prevScrollpos = window.pageYOffset;

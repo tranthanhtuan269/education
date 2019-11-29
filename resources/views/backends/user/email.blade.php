@@ -20,7 +20,7 @@
         {{-- <a href="javascript:;" class="go-box" data-box="box_content">
             <button class="btn btn-primary">Create Email</button>
         </a> --}}
-        <a data-toggle="modal" data-target="#createEmailModal">
+        <a data-toggle="modal" data-target="#createEmailModal" id="btnAddNotify">
             <button class="btn btn-primary"><i class="fa fa-plus fa-fw" aria-hidden="true"></i><b>THÊM THÔNG BÁO</b></button>
         </a>
     </div>
@@ -214,6 +214,10 @@
     var errorConnect        = "Please check your internet connection and try again.";
 
     $(document).ready(function(){
+
+        $('#btnAddNotify').click(function(){
+            $('.form-html-validate').css('display', 'none')
+        })
 
         window.onbeforeunload = function() {
             if($('#edit_user_modal').hasClass('show') && (
@@ -433,6 +437,8 @@
                 $("#edit_subject_Ins").val(curr_title)
                 edit_content_Ins.setData(curr_content)
                 $(".alert-errors").addClass("d-none");
+
+                $('.form-html-validate').css('display', 'none')
             })
 
             $('.btn-delete').off('click')
@@ -624,6 +630,7 @@
                         var content = '<i class="fa fa-exclamation fa-fw"></i><div class="hover-alert">'+ value +'</div>'
                         $('.form-html-validate.' + index).html(content);
                     })
+                    $('.form-html .form-html-validate i').on('click',function(e){ e.stopPropagation() })
                 }
             })
         })
@@ -677,6 +684,7 @@
                         var content = '<i class="fa fa-exclamation fa-fw"></i><div class="hover-alert">'+ value +'</div>'
                         $('.form-html-validate.' + index).html(content);
                     })
+                    $('.form-html .form-html-validate i').on('click',function(e){ e.stopPropagation() })
                 }
             })
         })

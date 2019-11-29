@@ -535,6 +535,7 @@
                             var content = '<i class="fas fa-exclamation fa-fw"></i><div class="hover-alert">'+ value +'</div>'
                             $('.form-html-validate.' + index).html(content);
                         })
+                        $('.form-html .form-html-validate i').on('click',function(e){ e.stopPropagation() })
                     }
                 });
                 // end send data to server
@@ -982,6 +983,7 @@
                         var content = '<i class="fas fa-exclamation fa-fw"></i><div class="hover-alert">'+ value +'</div>'
                         $('.form-html-validate.' + index).html(content);
                     })
+                    $('.form-html .form-html-validate i').on('click',function(e){ e.stopPropagation() })
                 }
             });
 

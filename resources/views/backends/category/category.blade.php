@@ -339,6 +339,7 @@ $(document).ready(function() {
                     var content = '<i class="fa fa-exclamation fa-fw"></i><div class="hover-alert">'+ value +'</div>'
                     $('.form-html-validate.' + index).html(content);
                 })
+                $('.form-html .form-html-validate i').on('click',function(e){ e.stopPropagation() })
             }
         });
     });
@@ -587,6 +588,7 @@ $(document).ready(function() {
         $('.edit-category').click(function() {
             $('#showEditModal').modal('show');
             clearFormCreate();
+            $('.form-html-validate').css('display', 'none')
             var curr_name       = $(this).parent().parent().attr('data-name');
             var curr_parent_id  = $(this).parent().parent().attr('data-parent-id');
             var curr_featured   = $(this).parent().parent().attr('data-featured');
@@ -624,6 +626,7 @@ $(document).ready(function() {
         $('.add-category').click(function() {
             $('#showAddModal').modal('show');
             clearFormCreate();
+            $('.form-html-validate').css('display', 'none')
         })
 
         $('.delete-category').off('click')
@@ -733,6 +736,7 @@ $(document).ready(function() {
                         var content = '<i class="fa fa-exclamation fa-fw"></i><div class="hover-alert">'+ value +'</div>'
                         $('.form-html-validate.' + index).html(content);
                     })
+                    $('.form-html .form-html-validate i').on('click',function(e){ e.stopPropagation() })
                 }
             })
         })

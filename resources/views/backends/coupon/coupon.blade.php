@@ -224,6 +224,8 @@ $(document).ready(function(){
             })
 
             solTemp = solEdit;
+
+            $('.form-html-validate').css('display', 'none')
         })
 
         $('#showEditCouponModal').on('hidden.bs.modal', function () {
@@ -314,6 +316,7 @@ $(document).ready(function(){
                         var content = '<i class="fa fa-exclamation fa-fw"></i><div class="hover-alert">'+ value +'</div>'
                         $('.form-html-validate.' + index).html(content);
                     })
+                    $('.form-html .form-html-validate i').on('click',function(e){ e.stopPropagation() })
                 }
             })
         })
@@ -322,6 +325,7 @@ $(document).ready(function(){
     $('#addCouponModal').click(function(){
         $('#showAddCouponModal').modal('toggle')
         $('#resetFormCoupon').click()
+        $('.form-html-validate').css('display', 'none')
     })
 
     // Begin Datatable
@@ -465,6 +469,7 @@ $(document).ready(function(){
                     var content = '<i class="fa fa-exclamation fa-fw"></i><div class="hover-alert">'+ value +'</div>'
                     $('.form-html-validate.' + index).html(content);
                 })
+                $('.form-html .form-html-validate i').on('click',function(e){ e.stopPropagation() })
             }
         });
     });

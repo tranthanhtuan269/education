@@ -199,6 +199,7 @@ $(document).ready(function() {
                     var content = '<i class="fa fa-exclamation fa-fw"></i><div class="hover-alert">'+ value +'</div>'
                     $('.form-html-validate.' + index).html(content);
                 })
+                $('.form-html .form-html-validate i').on('click',function(e){ e.stopPropagation() })
             }
         })
 

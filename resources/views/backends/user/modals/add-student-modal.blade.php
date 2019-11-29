@@ -25,7 +25,7 @@
         </div>
     </div>
     <div class="form-group row">
-        <label  class="col-sm-3 col-form-label">Sô điện thoại <span class="text-danger">*</span></label>
+        <label  class="col-sm-3 col-form-label">Số điện thoại <span class="text-danger">*</span></label>
         <div class="col-sm-8 form-html">
             <input type="text" class="form-control" id="addStuPhone" name="phone">                                       
             <div class="form-html-validate phone"></div>
@@ -205,6 +205,7 @@ $(document).ready(function() {
                     var content = '<i class="fa fa-exclamation fa-fw"></i><div class="hover-alert">'+ value +'</div>'
                     $('.form-html-validate.' + index).html(content);
                 })
+                $('.form-html .form-html-validate i').on('click',function(e){ e.stopPropagation() })
             }
         })
 
