@@ -275,14 +275,14 @@
                 alertValidate('Bạn chưa nhập Số điện thoại.', 'phone')
                 flag = false
             }
-            if ( $('input[name=birthday]').val().trim() == '' ){
-                alertValidate('Bạn chưa chọn Ngày sinh.', 'birthday')
-                flag = false
-            }
-            if ( $('textarea[name=address]').val().trim() == '' ){
-                alertValidate('Bạn chưa nhập Địa chỉ.', 'address')
-                flag = false
-            }
+            // if ( $('input[name=birthday]').val().trim() == '' ){
+            //     alertValidate('Bạn chưa chọn Ngày sinh.', 'birthday')
+            //     flag = false
+            // }
+            // if ( $('textarea[name=address]').val().trim() == '' ){
+            //     alertValidate('Bạn chưa nhập Địa chỉ.', 'address')
+            //     flag = false
+            // }
             if ( $('input[name=expert]').val().trim() == '' ){
                 alertValidate('Bạn chưa nhập Chuyên môn.', 'expert')
                 flag = false
@@ -334,10 +334,11 @@
                     alertValidate('Link Facebook không hợp lệ.', 'facebook')
                     flag = false
                 }
-            }else{
-                alertValidate('Bạn chưa nhập Facebook.', 'facebook')
-                flag = false
             }
+            // else{
+            //     alertValidate('Bạn chưa nhập Facebook.', 'facebook')
+            //     flag = false
+            // }
             if ( flag == false ) return
 
             $.ajaxSetup(
