@@ -285,6 +285,8 @@ $(document).ready(function() {
         e.stopPropagation()
         e.preventDefault()
 
+        $("#alignItemsCenter").css("display", "block");
+
         $(".vjs-custom-big-play-button").fadeOut()
         var video_id = $(this).attr("data-parent")
         saveInfoCurrentCourse(video_id);
@@ -590,6 +592,7 @@ $(document).ready(function() {
 
         //big play button
         $(".vjs-custom-big-play-button").click(function() {
+            $(".learning-desc-panel").css("display", "none");
             $("#alignItemsCenter").css("display", "none");
             player.play()
             $(".vjs-custom-big-play-button").fadeOut()
@@ -602,14 +605,17 @@ $(document).ready(function() {
         $(".vjs-play-control").bind("click", function() {
             if ($(".vjs-play-control").hasClass("vjs-paused")) {
                 $("#alignItemsCenter").css("display", "none");
+                $(".learning-desc-panel").css("display", "none");
                 $(".vjs-custom-big-play-button").fadeOut()
             } else {
+                $(".learning-desc-panel").css("display", "block");
                 $("#alignItemsCenter").css("display", "block");
                 $(".vjs-custom-big-play-button").fadeIn()
             }
         })
 
         $("video").bind("click", function() {
+            
             if ($(".vjs-play-control").hasClass("vjs-paused")) {
                 $(".vjs-custom-big-play-button").fadeOut()
             } else {
