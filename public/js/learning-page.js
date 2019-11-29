@@ -585,7 +585,7 @@ $(document).ready(function() {
         //btn continue
         $("#lnDescBtnPlay").click(function() {
             videoPlayFlag = true;
-            // $("#alignItemsCenter").css("display", "none");
+            $(".vjs-custom-big-play-button").css("display", "none");
             player.play()
             $(".learning-desc-panel").fadeOut()
         })
