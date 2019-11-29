@@ -145,6 +145,39 @@ class CourseController extends Controller
     {
 
         if($id){
+            $course = Course::find($id);
+            if ( $course->status == 0 ){
+                $img_link = $course->image;
+
+                if ($request->image != '') {
+                    $img_file = $request->image;
+                    list($type, $img_file) = explode(';', $img_file);
+                    list(, $img_file) = explode(',', $img_file);
+                    $img_file = base64_decode($img_file);
+                    $file_name = time() . '.png';
+                    file_put_contents(public_path('/frontend/images/') . $file_name, $img_file);
+                    $img_link = $file_name;
+                }
+
+                $link_intro = "https://www.youtube.com/embed/" . Helper::getYouTubeVideoId($request->link_intro);
+
+                $course->author               = \Auth::user()->name;
+                $course->name                 = $request->name;
+                $course->image                = $img_link;
+                $course->short_description    = $request->short_description;
+                $course->description          = $request->description;
+                $course->will_learn           = $request->will_learn;
+                $course->requirement          = $request->requirement;
+                $course->price                = $request->discount_price;
+                $course->real_price           = $request->original_price;
+                $course->approx_time          = $request->approx_time;
+                $course->category_id          = $request->category;
+                $course->link_intro           = $link_intro;
+                $course->updated_at           = date('Y-m-d H:i:s');
+                $course->save();
+
+                return response()->json(array('status' => '200', 'message' => 'Sửa khóa học thành công.'));
+            }
             $temp_course = TempCourse::where('course_id', $id)->first();
             if( !isset($temp_course->id) ){
                 $temp_course = new TempCourse;
