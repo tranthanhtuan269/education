@@ -280,6 +280,9 @@ Route::post('stripe', 'Frontends\StripePaymentController@stripePost')->name('str
 
 Route::post('/loginAjax', 'Frontends\UserController@loginAjax');
 Route::post('/registerAjax', 'Frontends\UserController@registerAjax');
+
+Route::post('/loginAjax-course-detail', 'Frontends\UserController@loginAjaxCourseDetail');
+
 Route::get('/', 'Frontends\HomeController@home')->name('home');
 Route::get('/home', 'Frontends\HomeController@home')->name('home');
 Route::get('/member-card', 'Frontends\HomeController@memberCard')->name('member-card');

@@ -254,9 +254,10 @@
 
 	<script>
 		var user_id = $('button[id=cartUserId]').attr('data-user-id')
+		var loginCart = []
 
 		if( user_id != 0 ){
-			var loginCart = JSON.parse(localStorage.getItem('cart'+user_id))
+			loginCart = JSON.parse(localStorage.getItem('cart'+user_id))
 			if( localStorage.getItem('cart'+0) != null ){
 				var noLoginCart = JSON.parse(localStorage.getItem('cart'+0))
 				noLoginCart.forEach(function(element) {
@@ -279,8 +280,8 @@
 				$('.unica-sl-cart').css('display', 'none')
 			}
 		}
-
-		var cart_items = JSON.parse(localStorage.getItem('cart'+user_id))
+		console.log(loginCart)
+		var cart_items = loginCart
 		var coupon_code = localStorage.getItem('coupon')
     	var final_price = 0
     	var totalInitialPrice = 0
@@ -288,7 +289,7 @@
 		var pay_price = 0;
 		var coupon_code_array = new Array()
 		var course_id_array = new Array()
-
+		
 		$(document).ready( function () {
 			showItems()
 			getFinalPrice()

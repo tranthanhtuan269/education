@@ -58,6 +58,47 @@ class UserController extends Controller
 
     }
 
+    public function loginAjaxCourseDetail(LoginUserRequest $request)
+    {
+        $email = trim($request->login_email);
+        $password = trim($request->login_password);
+
+        $user = User::where('email', $email)->first();
+
+        $course = Course::find($request->course_id);
+
+        if( !isset($user) ) {
+            return response()->json(['message' => 'Địa chỉ Email hoặc Mật khẩu không chính xác.', 'status' => 404]);
+        } else {
+            if ( \Hash::check($password, $user->password) ) {
+                if ($user->status == 0) {
+                    return response()->json(['message' => 'Tài khoản của bạn đang bị khóa.', 'status' => 404]);
+                } else {
+                    Auth::login($user, $request->get('remember'));
+                    
+                    $role = 0;
+                    if ( Auth::user()->isAdmin() ){
+                        $role = 1; // Admin
+                    }
+                    if ( Auth::user()->id == $course->userRoles[0]->user_id ){
+                        $role = 2; // Khoa hoc cua chinh user
+                    }
+                    $bought = Auth::user()->bought;
+                    $bought = str_replace("[", "", $bought);
+                    $bought = str_replace("]", "", $bought);
+                    $bought = str_replace('"', "", $bought);
+                    $bought = explode(",", $bought);
+                    if ( in_array($request->course_id, $bought)){
+                        $role = 3; // Khoa hoc user da mua
+                    }
+                    return response()->json(['message' => 'Ok', 'status' => 200, 'role' => $role]);
+                }
+            } else {
+                return response()->json(['message' => 'Địa chỉ Email hoặc Mật khẩu không chính xác.', 'status' => 404]);
+            }
+        }
+    }
+
     public function logout()
     {
         Auth::logout();

@@ -1511,7 +1511,7 @@ https://courdemy.vn/course/{{ $info_course->id }}/{{ $info_course->slug }}
         var data = {
             login_email     : email,
             login_password  : password,
-            remember: remember,
+            course_id: {{$info_course->id}},
         };
         $.ajaxSetup(
         {
@@ -1522,12 +1522,36 @@ https://courdemy.vn/course/{{ $info_course->id }}/{{ $info_course->slug }}
         });
         $.ajax({
             method: "POST",
-            url: '{{ url("loginAjax") }}',
+            url: '{{ url("loginAjax-course-detail") }}',
             data: data,
             dataType: 'json',
             success: function (response) {
                 if(response.status == 200){
-                    window.location.href = ("/cart/payment/method-selector")
+                    $('#modalLoginCourseDetail').modal('toggle');
+                    if ( response.role == 1 ){
+                        Swal.fire({
+                            type: 'warning',
+                            html: 'Chú là admin nên không thể mua khóa học. Hiểu chứ?',
+                        }).then((result)=>{
+                            window.location.reload()
+                        })
+                    }else if ( response.role == 2 ){
+                        Swal.fire({
+                            type: 'warning',
+                            html: 'Khóa học này là của bạn.',
+                        }).then((result)=>{
+                            window.location.reload()
+                        })
+                    }else if ( response.role ==3 ){
+                        Swal.fire({
+                            type: 'warning',
+                            html: 'Bạn đã mua khóa học này.',
+                        }).then((result)=>{
+                            window.location.reload()
+                        })
+                    }else{
+                        window.location.href = ("/cart/payment/method-selector")
+                    }
                 }else{
                     Swal.fire({
                         type: 'warning',

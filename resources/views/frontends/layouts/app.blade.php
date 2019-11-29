@@ -948,6 +948,7 @@
                         }
                     });
 
+                    @if ( \Request::is('cart/payment/method-selector') )
                     if(list_course_bought.length > 0){
                         list_course_bought.trimEnd(",");
                         Swal.fire({
@@ -955,6 +956,7 @@
                             html: 'Khóa học <b>' + list_course_bought + '</b> đã được bạn mua rồi!'
                         })
                     }
+                    @endif
                 });
                 
                 id_to_remove.forEach(element => {
