@@ -610,6 +610,14 @@
         $('#btn-edit-{{ $course->id }}').click(function(){
             $('#resetForms{{$course->id}}').click()
 
+            if ( {{$course_status}} == -1 ){
+                Swal.fire({
+                    type: 'warning',
+                    html: 'Không thể sửa khóa học đã ngừng bán.',
+                })
+                return
+            }
+
             var t_des = '{!! $course->description !!}'
             var t_wl = '{!! $course->will_learn !!}'
             CKEDITOR.instances['course-description-{{$course->id}}'].setData(t_des)
@@ -632,6 +640,13 @@
 
         $('#view-edit-{{ $course->id }}').click(function(){
             // $('#btn-edit-{{ $course->id }}').click()
+            if ( {{$course_status}} == -1 ){
+                Swal.fire({
+                    type: 'warning',
+                    html: 'Không thể sửa khóa học đã ngừng bán.',
+                })
+                return
+            }
             $('#editCourse-{{ $course->id }}').modal('toggle')
             $('#viewRequestEdit{{ $course->id }}').click()
         })
