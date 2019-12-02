@@ -931,6 +931,7 @@ https://courdemy.vn/course/{{ $info_course->id }}/{{ $info_course->slug }}
             $('#resetCourseDetailFormsLogin').click()
             $('#resetCourseDetailFormsSignup').click()
             $("#modalLoginCourseDetail").modal("toggle")
+            $('#modalLoginCourseDetail').attr('data-modal-login', 'course')
             // $('.alert-validate').html('')
             $('.form-html-validate').css('display', 'none')
         })
@@ -950,7 +951,7 @@ https://courdemy.vn/course/{{ $info_course->id }}/{{ $info_course->slug }}
     </script>
 </div>
 @if ( !Auth::check() )
-<div id="modalLoginCourseDetail" class="modal fade" role="dialog" >
+<div id="modalLoginCourseDetail" class="modal fade" role="dialog" data-modal-login=''>
     <div class="modal-dialog modal-login">
         <div class="modal-content">
             <div class="modal-header">				

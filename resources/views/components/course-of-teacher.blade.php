@@ -92,7 +92,7 @@
     </div>
 </div>
 @if ( !Auth::check() )
-<div id="modalLoginCourseDetail" class="modal fade" role="dialog" >
+<div id="modalLoginCourseDetail" class="modal fade" role="dialog" data-modal-login=''>
     <div class="modal-dialog modal-login">
         <div class="modal-content">
             <div class="modal-header">				
@@ -211,6 +211,7 @@
 
         $("#buyNowLogin{{ $course->id }}").click(function(){
             addCart();
+            $('#modalLoginCourseDetail').attr('data-modal-login', 'teacher')
         })
 
         $("#addCart{{ $course->id }}").click( function(){

@@ -1330,12 +1330,14 @@
                 var facebook_id = response.id;
                 var facebook_name = response.name;
                 var facebook_email = response.email;
-                @if (Request::is('teacher*'))
-                    course_id = course_of_teacher_id;
-                @endif
-                @if (Request::is('course*'))
-                    course_id = course_detail_id
-                @endif
+
+                var check = $('#modalLoginCourseDetail').attr('data-modal-login')
+                if ( check == 'teacher' ){
+                    var course_id = course_of_teacher_id;
+                }
+                if ( check == 'course' ){
+                    var course_id = course_detail_id
+                }
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
@@ -1347,9 +1349,9 @@
                         name        : facebook_name,
                         facebook_id : facebook_id,
                         email       : facebook_email,
-                        @if (Request::is('teacher*')||Request::is('course*'))
-                        course_id   : course_id,
-                        @endif
+                        if ( check != '' ){
+                            course_id   : course_id,
+                        }
                     },
                     method: "POST",
                     dataType:'json',
@@ -1388,7 +1390,11 @@
                                     type: 'success',
                                     text: 'Đăng nhập thành công!'
                                 }).then(result => {
-                                    location.reload()
+                                    @if (Request::is('teacher*')||Request::is('course*'))
+                                        window.location.href = ("/cart/payment/method-selector")
+                                    @else 
+                                        location.reload()
+                                    @endif
                                 })
                             }
                         } else {
