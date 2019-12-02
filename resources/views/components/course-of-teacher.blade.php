@@ -126,7 +126,7 @@
                 </form>
                 @if($_SERVER['SERVER_NAME'] === "courdemy.vn")
                     <hr>
-                    @include('components.facebook-login')
+                    @include('components.fb-login-buy-now',['course_fb_login' => $course])
                     @include('components.google-login')
                 @endif
             </div>
