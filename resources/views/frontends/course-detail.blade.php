@@ -984,7 +984,7 @@ https://courdemy.vn/course/{{ $info_course->id }}/{{ $info_course->slug }}
                 </form>
                 @if($_SERVER['SERVER_NAME'] === "courdemy.vn")
                     <hr>
-                    @include('components.facebook-login')
+                    @include('components.fb-login-buy-now',['course_fb_login' => $info_course])
                     @include('components.google-login')
                 @endif
             </div>
