@@ -1360,7 +1360,9 @@
                     success: function (response) {
                         if(response.status == 200){
                             console.log(response)
-                            $('#modalLoginCourseDetail').modal('toggle');
+                            if ( course_id != 0 ){
+                                $('#modalLoginCourseDetail').modal('toggle');
+                            }
                             if ( response.role == 1 ){
                                 Swal.fire({
                                     type: 'warning',

@@ -19,11 +19,11 @@ data-longtitle="true" data-title="Đăng nhập với Google">
     }
 </style>
 <script>
-    $('#btn-google-login').click(function(){
-        // $('#button-signin-gg').click();
-        onSignIn();
-    });
-    //Google Login
+$('#btn-google-login').click(function(){
+    // $('#button-signin-gg').click();
+    onSignIn();
+});
+//Google Login
 function onSignIn(googleUser) {
     // alert(1)
     var profile = googleUser.getBasicProfile();
@@ -37,12 +37,14 @@ function onSignIn(googleUser) {
     var    email            = profile.getEmail();
     var    google_id        = profile.getId();
 
-    @if (Request::is('teacher*'))
+    var check = $('#modalLoginCourseDetail').attr('data-modal-login')
+    var course_id = 0
+    if ( check == 'teacher' ){
         course_id = course_of_teacher_id;
-    @endif
-    @if (Request::is('course*'))
+    }
+    if ( check == 'course' ){
         course_id = course_detail_id
-    @endif
+    }
     // console.log(gapi.auth2);
 
     $.ajaxSetup({
@@ -57,9 +59,7 @@ function onSignIn(googleUser) {
             name        : name,
             email       : email,
             google_id   : google_id,
-            @if (Request::is('teacher*')||Request::is('course*'))
             course_id   : course_id,
-            @endif
         },
         method: "POST",
         dataType:'json',
@@ -68,19 +68,55 @@ function onSignIn(googleUser) {
         },
         success: function (response) {
             if(response.status == 200){
-                Swal.fire({
-                    type: 'success',
-                    text: 'Đăng nhập thành công!'
-                }).then(result => {
-                    location.reload()
-                })
+                if ( course_id != 0 ){
+                    $('#modalLoginCourseDetail').modal('toggle');
+                }
+                if ( response.role == 1 ){
+                    Swal.fire({
+                        type: 'warning',
+                        html: 'Chú là admin nên không thể mua khóa học. Chú hiểu chứ?',
+                    }).then((result)=>{
+                        window.location.reload()
+                    })
+                }else if ( response.role == 2 ){
+                    Swal.fire({
+                        type: 'warning',
+                        html: 'Khóa học này là của bạn.',
+                    }).then((result)=>{
+                        window.location.reload()
+                    })
+                }else if ( response.role == 3 ){
+                    Swal.fire({
+                        type: 'warning',
+                        html: 'Bạn đã mua khóa học này.',
+                    }).then((result)=>{
+                        window.location.reload()
+                    })
+                }else if ( response.role == 0 ){
+                    window.location.href = ("/cart/payment/method-selector")
+                }else{
+                    Swal.fire({
+                        type: 'success',
+                        text: 'Đăng nhập thành công!'
+                    }).then(result => {
+                        if (course_id != 0)
+                            window.location.href = ("/cart/payment/method-selector")
+                        else{
+                            location.reload()
+                        }
+                    })
+                }
             } else {
                 if(response.status == 201){
                     Swal.fire({
                         type: 'success',
                         text: 'Đăng ký tài khoản thành công!'
                     }).then(result => {
-                        location.reload()
+                        if (course_id != 0)
+                            window.location.href = ("/cart/payment/method-selector")
+                        else{
+                            location.reload()
+                        }
                     })
                 }else{
                     Swal.fire({
@@ -88,13 +124,6 @@ function onSignIn(googleUser) {
                         text: 'Đăng nhập thất bại'
                     })
                 }
-                // if(response.status){
-                //     Swal.fire({
-                //         type: 'warning',
-                //         text: 'Email đã có tài khoản, yêu cầu đăng nhập!'
-                //     })
-                //     // location.reload();
-                // }
             }
         },
         error: function (error) {
