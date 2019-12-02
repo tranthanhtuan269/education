@@ -95,8 +95,18 @@ $(document).ready(function() {
 
     player.on('loadeddata', function() {
         if (localStorage.getItem('autoplay') == "true" || videoPlayFlag == true) {
-            $(".learning-desc-panel").hide()
-            player.play();
+            var promise = document.querySelector('video').play();
+
+            if (promise !== undefined) {
+                promise.then(_ => {
+                    $(".learning-desc-panel").hide()
+                    player.play();
+                }).catch(error => {
+                    // $(".learning-desc-panel").show()
+                    // $(".learning-desc-panel").css('background', 'black')
+                });
+            }
+
         } else {
             player.pause();
         }
@@ -1073,7 +1083,8 @@ $(document).ready(function() {
             $(".vjs-quality-selector").after(btnAutoplay)
         }
 
-        // $('.vjs-mute-control.vjs-control.vjs-button .vjs-control-text').text('Tắt âm')
+        // $('.vjs-mute-control.vjs-control.vjs-button .vjs-control-text').html('Tắt âm')
+        $("#my-video").attr("muted", false);
         $('.vjs-mute-control.vjs-control.vjs-button').attr('title', 'Âm lượng')
         $('.vjs-fullscreen-control.vjs-control.vjs-button').attr('title', 'Toàn màn hình')
         $('.vjs-menu-button.vjs-menu-button-popup.vjs-button').attr('title', 'Chât lượng video')
