@@ -1353,7 +1353,7 @@
                     },
                     success: function (response) {
                         if(response.status == 200){
-                            @if (Request::is'/teacher/*')
+                            @if (Request::is('/teacher/*'))
                                 $('#modalLoginCourseDetail').modal('toggle');
                                 if ( response.role == 1 ){
                                     Swal.fire({
