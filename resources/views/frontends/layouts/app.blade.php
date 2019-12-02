@@ -1344,7 +1344,9 @@
                         name        : facebook_name,
                         facebook_id : facebook_id,
                         email       : facebook_email,
+                        @if (Request::is('/teacher/*'))
                         course_id   : course_id,
+                        @endif
                     },
                     method: "POST",
                     dataType:'json',
@@ -1353,8 +1355,10 @@
                     },
                     success: function (response) {
                         if(response.status == 200){
+                            console.log(1)
                             if (response.role){
                                 $('#modalLoginCourseDetail').modal('toggle');
+                                console.log(response)
                                 if ( response.role == 1 ){
                                     Swal.fire({
                                         type: 'warning',
