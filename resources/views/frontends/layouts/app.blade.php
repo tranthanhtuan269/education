@@ -1330,7 +1330,6 @@
                 var facebook_id = response.id;
                 var facebook_name = response.name;
                 var facebook_email = response.email;
-                var course_id = 0
                 @if (Request::is('/teacher/*'))
                 course_id = course_of_teacher_id;
                 @endif
