@@ -3,7 +3,7 @@
 
 <div id="status"></div>
 
-<div class="btn btn-lg btn-primary btn-block kpx_btn-facebook buttonFacebookLogin" data-toggle="tooltip" data-placement="top" title="Facebook">
+<div class="btn btn-lg btn-primary btn-block kpx_btn-facebook fb-login-buy-now" data-toggle="tooltip" data-placement="top" title="Facebook">
     <span class="social-login-icon">
         <i class="fab fa-facebook-f fa-lg fa-fw"></i>
     </span>
@@ -13,7 +13,7 @@
 <script>
     // var course_id = {{$course_fb_login->id}};
     var course_id = 1;
-    $('.buttonFacebookLogin').click(function(){
+    $('.fb-login-buy-now').click(function(){
         checkLoginState()
     })
     function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
