@@ -126,7 +126,7 @@
                 </form>
                 @if($_SERVER['SERVER_NAME'] === "courdemy.vn")
                     <hr>
-                    @include('components.fb-login-buy-now',['course_fb_login' => $course])
+                    @include('components.facebook-login')
                     @include('components.google-login')
                 @endif
             </div>
@@ -201,6 +201,7 @@
 <script>
     var user_id = $('button[id=cartUserId]').attr('data-user-id')
     var course_id = Number( {{ $course->id }} )
+    var course_of_teacher_id = course_id
     jQuery(function () {
 
         $("#buyNow{{ $course->id }}").click(function(){

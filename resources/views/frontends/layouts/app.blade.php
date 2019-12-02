@@ -1326,13 +1326,13 @@
                 'GET',
                 {"fields":"id,name,email"},
                 function(response) {
-                // console.log('Successful login for: ' + response.name);
                 console.log(response)
-                // document.getElementById('status').innerHTML =
-                    // 'Cảm ơn bạn đã đăng nhập, ' + response.name + '!' + response.email;
                 var facebook_id = response.id;
                 var facebook_name = response.name;
                 var facebook_email = response.email;
+                @if (Request::is'/teacher/*')
+                var course_id = course_of_teacher_id;
+                @endif
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
@@ -1344,6 +1344,7 @@
                         name        : facebook_name,
                         facebook_id : facebook_id,
                         email       : facebook_email,
+                        course_id   : course_id,
                     },
                     method: "POST",
                     dataType:'json',
@@ -1352,12 +1353,40 @@
                     },
                     success: function (response) {
                         if(response.status == 200){
-                            Swal.fire({
-                                type: 'success',
-                                text: 'Đăng nhập thành công!'
-                            }).then(result => {
-                                location.reload()
-                            })
+                            @if (Request::is'/teacher/*')
+                                $('#modalLoginCourseDetail').modal('toggle');
+                                if ( response.role == 1 ){
+                                    Swal.fire({
+                                        type: 'warning',
+                                        html: 'Chú là admin nên không thể mua khóa học. Chú hiểu chứ?',
+                                    }).then((result)=>{
+                                        window.location.reload()
+                                    })
+                                }else if ( response.role == 2 ){
+                                    Swal.fire({
+                                        type: 'warning',
+                                        html: 'Khóa học này là của bạn.',
+                                    }).then((result)=>{
+                                        window.location.reload()
+                                    })
+                                }else if ( response.role ==3 ){
+                                    Swal.fire({
+                                        type: 'warning',
+                                        html: 'Bạn đã mua khóa học này.',
+                                    }).then((result)=>{
+                                        window.location.reload()
+                                    })
+                                }else{
+                                    window.location.href = ("/cart/payment/method-selector")
+                                }
+                            @else
+                                Swal.fire({
+                                    type: 'success',
+                                    text: 'Đăng nhập thành công!'
+                                }).then(result => {
+                                    location.reload()
+                                })
+                            @endif
                         } else {
                             if(response.status == 201){
                                 Swal.fire({

@@ -505,9 +505,6 @@ class UserController extends Controller
 
     public function googleLogin(Request $request)
     {
-        // $check = '';
-
-        // $check = User::where('google_id', $request->google_id)->first()->google_id;
         if(User::where('email', $request->email)->first()){
             $user = User::where('email', $request->email)->first();
 
@@ -545,32 +542,6 @@ class UserController extends Controller
             $user_role->save();
             return \Response::json(array('status' => '201'));
         }
-
-
-        // if($check != ''){
-        //     $email = $request->email;
-        //     $google_id = $request->google_id;
-
-        //     $user = User::where('email', $email)->first();
-
-        //     if( !isset($user) ) {
-        //         return response()->json(['message' => 'Email is incorrect.', 'status' => 404]);
-        //     } else {
-        //         if ( \Hash::check($google_id, $user->google_id) ) {
-        //             if ($user->status == 0) {
-        //                 return response()->json(['message' => 'This account has been locked.', 'status' => 404]);
-        //             } else {
-        //                 Auth::login($user, $request->get('remember'));
-        //                 return response()->json(['message' => 'Ok', 'status' => 200]);
-        //             }
-        //         } else {
-        //             return response()->json(['message' => 'Password is incorrect.', 'status' => 404]);
-        //         }
-        //     }
-        //     return \Response::json(array('status' => '200'));
-        // }else{
-        // }
-
     }
 
     public function facebookLogin(Request $request)
