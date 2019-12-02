@@ -1265,7 +1265,7 @@
                 FB.login(function(response){
                     // handle the response 
                     checkLoginState()
-                });
+                }), {scope: 'email'});
             }
         }
 
