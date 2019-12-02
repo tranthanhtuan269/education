@@ -477,13 +477,13 @@
             $("#listUnit{{ $course->id }} .save-unit").off('click')
           
             $("#listUnit{{ $course->id }} .save-unit").click(function(){
-                var content = $('#unit-input').val()
                 // var html = '<i class="fas fa-sort"></i> <span class="unit-content">'+content+'</span> <i class="far fa-trash-alt remove-unit" id="remove-unit" data-id="{{ $course->id }}"></i><i class="far fa-edit edit-unit" id="edit-unit" data-id="{{ $course->id }}"></i>'
                 var parent = $(this).parent()
                 var name = parent.find('input').val()
-
+                
                 // send data to server
                 var unit_id = $(this).attr('data-unit-id')
+                var content = $('#unit-input-'+unit_id).val()
                 var course_id = $(this).attr('data-course-id')
                 var data = {
                     name: name
@@ -531,7 +531,7 @@
                         $('.form-html-validate').html('')
                         $.each(obj_errors, function( index, value ) {
                             var content = '<i class="fas fa-exclamation fa-fw"></i><div class="hover-alert">'+ value +'</div>'
-                            $('.form-html-validate.' + index).html(content);
+                            $('li[data-unit-id='+unit_id+'] .form-html-validate.' + index).html(content);
                         })
                         $('.form-html .form-html-validate i').on('click',function(e){ e.stopPropagation() })
                     }
@@ -543,7 +543,7 @@
             $("#listUnit{{ $course->id }} .edit-unit").click(function(){
                 var unit_id = $(this).attr('data-unit-id');
                 var content = $(this).parent().find('span.unit-content').html()
-                var html = "<input class='form-control' id='unit-input' value='" + content +"'><i class='fas fa-check save-unit' id='btn-save-unit' data-unit-id='"+unit_id+"'></i><div class='form-html-validate name'></div>"
+                var html = "<input class='form-control' id='unit-input-"+unit_id+"' value='" + content +"'><i class='fas fa-check save-unit' id='btn-save-unit' data-unit-id='"+unit_id+"'></i><div class='form-html-validate name'></div>"
                 $(this).parent().html(html);
                 addEvent()
             })

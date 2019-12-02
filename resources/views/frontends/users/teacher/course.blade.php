@@ -654,6 +654,7 @@
         })
 
         $('#addVideoBtn').on('click', function () {
+            $('.form-html-validate').html('')
             // $('#listVideo').modal({
             //     backdrop: 'static',
             //     keyboard: false
@@ -681,6 +682,7 @@
 
             $(".edit-video").off('click')
             $(".edit-video").click(function(){
+                $('.form-html-validate').html('')
                 editFiles = []
                 var video_id = $(this).attr('data-video-id');
                 activeFileToDelete = []
@@ -1301,13 +1303,13 @@
             $("#listUnit{{ $course->id }} .save-unit").off('click')
 
             $("#listUnit{{ $course->id }} .save-unit").click(function(){
-                var content = $('#unit-input').val()
                 // var html = '<i class="fas fa-sort"></i> <span class="unit-content">'+content+'</span> <i class="far fa-trash-alt remove-unit" id="remove-unit" data-id="{{ $course->id }}"></i><i class="far fa-edit edit-unit" id="edit-unit" data-id="{{ $course->id }}"></i>'
                 var parent = $(this).parent()
                 var name = parent.find('input').val()
-
+                
                 // send data to server
                 var unit_id = $(this).attr('data-unit-id')
+                var content = $('#unit-input-'+unit_id).val()
                 var course_id = $(this).attr('data-course-id')
                 var data = {
                     name: name
@@ -1355,7 +1357,7 @@
             $("#listUnit{{ $course->id }} .edit-unit").click(function(){
                 var unit_id = $(this).attr('data-unit-id');
                 var content = $(this).parent().find('span.unit-content').html()
-                var html = "<input class='form-control' id='unit-input' value='" + content +"'><i class='fas fa-check save-unit' id='btn-save-unit' data-unit-id='"+unit_id+"'></i>"
+                var html = "<input class='form-control' id='unit-input-"+unit_id+"' value='" + content +"'><i class='fas fa-check save-unit' id='btn-save-unit' data-unit-id='"+unit_id+"'></i>"
                 $(this).parent().html(html);
                 addEvent()
             })
