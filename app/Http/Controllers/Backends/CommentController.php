@@ -25,7 +25,6 @@ class CommentController extends Controller
 
     public function getAllCommentCourseAjax(Request $request)
     {
-        // $comments = CommentCourse::get();
         $comments = \DB::table('comment_courses')
         ->join('user_roles', 'comment_courses.user_role_id', '=', 'user_roles.id')
         ->join('users', 'user_roles.user_id', '=', 'users.id')
@@ -34,7 +33,6 @@ class CommentController extends Controller
         ->select('comment_courses.content', 'comment_courses.created_at', 'comment_courses.id', 'users.name as user_name', 'courses.name as course_name', 'courses.slug as course_slug', 'courses.id as course_id')
         ->get();
 
-        // dd($comments);
         return datatables()->collection($comments)
             ->addColumn('action', function ($comment) {
                 return $comment->id;
@@ -44,7 +42,6 @@ class CommentController extends Controller
 
     public function getAllCommentVideoAjax(Request $request)
     {
-        // $comments = CommentCourse::get();
         $comments = \DB::table('comment_videos')
         ->join('user_roles', 'comment_videos.user_role_id', '=', 'user_roles.id')
         ->join('users', 'user_roles.user_id', '=', 'users.id')
@@ -52,9 +49,8 @@ class CommentController extends Controller
         ->join('units', 'units.id', '=', 'videos.unit_id')
         ->join('courses', 'courses.id', '=', 'units.course_id')
         ->where('users.status', 1)
-        ->select('comment_videos.content', 'comment_videos.created_at', 'comment_videos.id', 'users.name as user_name', 'videos.name as video_name', 'courses.id as course_id', 'comment_videos.id')
+        ->select('comment_videos.content', 'comment_videos.created_at', 'users.name as user_name', 'videos.name as video_name', 'courses.id as course_id', 'comment_videos.id')
         ->get();
-        // dd($comments);
         return datatables()->collection($comments)
             ->addColumn('action', function ($comment) {
                 return $comment->id;
@@ -73,13 +69,10 @@ class CommentController extends Controller
             }else{
                 $child_comments = CommentCourse::where('parent_id', $comment->id)->get();
                 
-                if( $child_comments ){
-                    foreach( $child_comments as $child_comment ){
-                        $child_comment->delete();
-                    }
-                    $comment->delete();
-                    return \Response::json(['message' => 'Xóa phản hồi khóa học thành công.', 'status' => 200]);
+                foreach( $child_comments as $child_comment ){
+                    $child_comment->delete();
                 }
+                $comment->delete();
                 return \Response::json(['message' => 'Xóa phản hồi khóa học thành công.', 'status' => 200]);
             }
         }
@@ -89,7 +82,6 @@ class CommentController extends Controller
     public function getAllCommentReport()
     {
         return view('backends.comments.comment-report.all');
-
     }
 
     public function getAllCommentReportAjax(Request $request)
@@ -119,13 +111,10 @@ class CommentController extends Controller
             }else{
                 $child_comments = CommentCourse::where('parent_id', $comment->id)->get();
                 
-                if( $child_comments ){
-                    foreach( $child_comments as $child_comment ){
-                        $child_comment->delete();
-                    }
-                    $comment->delete();
-                    return \Response::json(['message' => 'Xóa phản hồi comment thành công.', 'status' => 200]);
+                foreach( $child_comments as $child_comment ){
+                    $child_comment->delete();
                 }
+                $comment->delete();
                 return \Response::json(['message' => 'Xóa phản hồi comment thành công.', 'status' => 200]);
             }
         }
@@ -154,14 +143,11 @@ class CommentController extends Controller
            }else{
                $child_comments = CommentVideo::where('parent_id', $comment->id)->get();
                
-               if( $child_comments ){
-                   foreach( $child_comments as $child_comment ){
-                       $child_comment->delete();
-                   }
-                   $comment->delete();
-                   return \Response::json(['message' => 'Xóa phản hồi bài giảng thành công.', 'status' => 200]);
-               }
-               return \Response::json(['message' => 'Xóa phản hồi bài giảng thành công.', 'status' => 200]);
+                foreach( $child_comments as $child_comment ){
+                    $child_comment->delete();
+                }
+                $comment->delete();
+                return \Response::json(['message' => 'Xóa phản hồi bài giảng thành công.', 'status' => 200]);
            }
        }
        return \Response::json(['message' => 'Không tìm thấy.', 'status' => 404]);

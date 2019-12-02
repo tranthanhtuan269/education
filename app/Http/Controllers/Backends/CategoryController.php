@@ -65,13 +65,6 @@ class CategoryController extends Controller
     {
         $category = Category::find($request->id);
         if( $category ){
-            // if( $category->name != $request->name ){
-            //     $check = Category::where('name', $request->name)->where('id', '!=',$request->id)->first();
-            //     if( isset($check->id) ){
-            //         return \Response::json(array('status' => '403', 'Message' => 'Tên Danh mục đã tồn tại.'));
-            //     }
-            // }
-
             $file_name = $category->image;
 
             if ($request->image != '') {
@@ -99,14 +92,13 @@ class CategoryController extends Controller
         if( isset($course->id) ){
             return \Response::json(array('status' => '403', 'message' => 'Bạn không thể xóa danh mục đang có khóa học.'));
         }
-        $category = Category::where('parent_id', '=', $request->category_id)->first();
-        if( isset($category->id) ){
-            return \Response::json(array('status' => '403', 'message' => 'Bạn không thể xóa danh mục chứa danh mục con.'));
-        }
 
-        $category1 = Category::find($request->category_id);
-        if( isset($category1->id) ){
-            $category1->delete();
+        $category = Category::find($request->category_id);
+        if($category){
+            if($category->children()->count() > 0){
+                return \Response::json(array('status' => '403', 'message' => 'Bạn không thể xóa danh mục chứa danh mục con.'));
+            }
+            $category->delete();
             $res = array('status' => "200", "message" => "Xóa Danh mục thành công!");
             echo json_encode($res);die;
         }
@@ -114,8 +106,7 @@ class CategoryController extends Controller
 
     public function getFeaturedCategory()
     {
-        $categories = Category::where('parent_id',0)->get();
-        return view('backends.category.featured-category',['categories'=>$categories]);
+        return view('backends.category.featured-category');
     }
 
     public function getFeaturedCategoryAjax()
@@ -137,7 +128,6 @@ class CategoryController extends Controller
     public function setFeaturedCategoryAjax(Request $request)
     {
         $category = Category::find($request->category_id);
-        // dd($category);
         if( isset($category->id) ){
             $category->featured = $request->featured;
             $category->save();
@@ -148,6 +138,7 @@ class CategoryController extends Controller
 
     public function getMenuSetting()
     {
+        // viet lai
         $categories = Category::where('parent_id',0)->get();
         $arr_id = [];
         foreach ($categories as $key=>$category){
@@ -156,6 +147,7 @@ class CategoryController extends Controller
             }
         }
         $categories = Category::whereIn('id',$arr_id)->orderBy('menu_index', 'asc')->get();
+
         return view('backends.category.menu-index',['categories'=>$categories]);
     }
 
