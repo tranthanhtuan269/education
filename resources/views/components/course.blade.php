@@ -9,7 +9,7 @@
         $main_lecturer = 1;
         if($lecs){
             if($lecs->user){
-                $main_lecturer = $course->Lecturers()->first()->user->id;
+                $main_lecturer = $course->Lecturers()->first()->teacher->id;
             }
         }
     }

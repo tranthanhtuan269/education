@@ -151,8 +151,10 @@
                 var course_id = $(this).attr('data-course-id')
                 var accept  = $(this).attr('data-accept')
 
-                var message = "Bạn có chắc chắn chấp nhận yêu cầu sửa khóa học?";
-                if( accept ){
+                var message = '';
+                if( accept == 1 ){
+                    message = "Bạn có chắc chắn chấp nhận yêu cầu sửa khóa học?"
+                }else{
                     message = "Bạn có chắc chắn xóa yêu cầu sửa khóa học?";
                 }
                 Swal.fire({

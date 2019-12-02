@@ -5,6 +5,7 @@
     if(Auth::check() && strlen(Auth::user()->bought) > 0){
         $list_bought = \json_decode(Auth::user()->bought);
     }
+    // dd($results);
 ?>
 <div class="box-search">
   <div class="container">
