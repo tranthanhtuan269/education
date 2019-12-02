@@ -1389,11 +1389,11 @@
                                     type: 'success',
                                     text: 'Đăng nhập thành công!'
                                 }).then(result => {
-                                    @if (Request::is('teacher*')||Request::is('course*'))
+                                    if (course_id != 0)
                                         window.location.href = ("/cart/payment/method-selector")
-                                    @else 
+                                    else{
                                         location.reload()
-                                    @endif
+                                    }
                                 })
                             }
                         } else {
@@ -1402,7 +1402,11 @@
                                     type: 'success',
                                     text: 'Đăng ký tài khoản thành công!'
                                 }).then(result => {
-                                    location.reload()
+                                    if (course_id != 0)
+                                        window.location.href = ("/cart/payment/method-selector")
+                                    else{
+                                        location.reload()
+                                    }
                                 })
                             }else{
                                 Swal.fire({
