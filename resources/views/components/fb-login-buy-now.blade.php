@@ -11,7 +11,8 @@
 </div>
 @if (!Auth::check())
 <script>
-    var course_id = {{$course_fb_login->id}};
+    // var course_id = {{$course_fb_login->id}};
+    var course_id = 1;
     $('.buttonFacebookLogin').click(function(){
         checkLoginState()
     })
@@ -59,82 +60,83 @@
             'GET',
             {"fields":"id,name,email"},
             function(response) {
-            console.log(response)
-            var facebook_id = response.name;
-            var facebook_name = response.id;
-            var facebook_email = response.email;
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-                url: "/facebookLogin",
-                data: {
-                    name        : facebook_id,
-                    facebook_id : facebook_name,
-                    email       : facebook_email,
-                    course_id      : course_id,
-                },
-                method: "POST",
-                dataType:'json',
-                beforeSend: function(r, a){
-                    $('.alert-errors').addClass('d-none');
-                },
-                success: function (response) {
-                    if(response.status == 200){
-                        $('#modalLoginCourseDetail').modal('toggle');
-                        if ( response.role == 1 ){
-                            Swal.fire({
-                                type: 'warning',
-                                html: 'Chú là admin nên không thể mua khóa học. Chú hiểu chứ?',
-                            }).then((result)=>{
-                                window.location.reload()
-                            })
-                        }else if ( response.role == 2 ){
-                            Swal.fire({
-                                type: 'warning',
-                                html: 'Khóa học này là của bạn.',
-                            }).then((result)=>{
-                                window.location.reload()
-                            })
-                        }else if ( response.role ==3 ){
-                            Swal.fire({
-                                type: 'warning',
-                                html: 'Bạn đã mua khóa học này.',
-                            }).then((result)=>{
-                                window.location.reload()
-                            })
-                        }else{
-                            window.location.href = ("/cart/payment/method-selector")
-                        }
-                    } else {
-                        if(response.status == 201){
-                            Swal.fire({
-                                type: 'success',
-                                text: 'Đăng ký tài khoản thành công!'
-                            }).then(result => {
-                                location.reload()
-                            })
-                        }else{
-                            Swal.fire({
-                                type: 'warning',
-                                text: 'Đăng nhập thất bại'
-                            })
-                        }
+                // console.log(response)
+                var facebook_id = response.name;
+                var facebook_name = response.id;
+                var facebook_email = response.email;
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
                     }
-                },
-                error: function (error) {
-                    var obj_errors = error;
-                    console.log(obj_errors)
-                    var txt_errors = 'Lỗi';
-                    Swal.fire({
-                        type: 'warning',
-                        html: txt_errors,
-                    })
-                }
-            });
-        });
+                })
+                $.ajax({
+                    url: "/facebookLogin",
+                    data: {
+                        name        : facebook_id,
+                        facebook_id : facebook_name,
+                        email       : facebook_email,
+                        course_id      : course_id,
+                    },
+                    method: "POST",
+                    dataType:'json',
+                    beforeSend: function(r, a){
+                        $('.alert-errors').addClass('d-none');
+                    },
+                    success: function (response) {
+                        if(response.status == 200){
+                            $('#modalLoginCourseDetail').modal('toggle');
+                            if ( response.role == 1 ){
+                                Swal.fire({
+                                    type: 'warning',
+                                    html: 'Chú là admin nên không thể mua khóa học. Chú hiểu chứ?',
+                                }).then((result)=>{
+                                    window.location.reload()
+                                })
+                            }else if ( response.role == 2 ){
+                                Swal.fire({
+                                    type: 'warning',
+                                    html: 'Khóa học này là của bạn.',
+                                }).then((result)=>{
+                                    window.location.reload()
+                                })
+                            }else if ( response.role ==3 ){
+                                Swal.fire({
+                                    type: 'warning',
+                                    html: 'Bạn đã mua khóa học này.',
+                                }).then((result)=>{
+                                    window.location.reload()
+                                })
+                            }else{
+                                window.location.href = ("/cart/payment/method-selector")
+                            }
+                        } else {
+                            if(response.status == 201){
+                                Swal.fire({
+                                    type: 'success',
+                                    text: 'Đăng ký tài khoản thành công!'
+                                }).then(result => {
+                                    location.reload()
+                                })
+                            }else{
+                                Swal.fire({
+                                    type: 'warning',
+                                    text: 'Đăng nhập thất bại'
+                                })
+                            }
+                        }
+                    },
+                    error: function (error) {
+                        var obj_errors = error;
+                        console.log(obj_errors)
+                        var txt_errors = 'Lỗi';
+                        Swal.fire({
+                            type: 'warning',
+                            html: txt_errors,
+                        })
+                    }
+                })
+            }
+        )
     }
 </script>
 @endif
