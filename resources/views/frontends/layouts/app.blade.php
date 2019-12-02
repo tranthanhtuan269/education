@@ -1330,7 +1330,7 @@
                 var facebook_id = response.id;
                 var facebook_name = response.name;
                 var facebook_email = response.email;
-                @if (Request::is('/teacher/*'))
+                @if (Request::is('teacher*'))
                 course_id = course_of_teacher_id;
                 @endif
                 $.ajaxSetup({
@@ -1344,7 +1344,7 @@
                         name        : facebook_name,
                         facebook_id : facebook_id,
                         email       : facebook_email,
-                        @if (Request::is('/teacher/*'))
+                        @if (Request::is('teacher*'))
                         course_id   : course_id,
                         @endif
                     },
