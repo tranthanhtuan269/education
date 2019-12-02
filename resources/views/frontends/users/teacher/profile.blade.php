@@ -218,7 +218,9 @@
         })
         // alert(12345)
         ClassicEditor
-            .create( document.querySelector( '#editor-cv' ) )
+            .create( document.querySelector( '#editor-cv' ),{
+                toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ]
+            } )
             .then(editor => {
                 cv = editor;
                 wordCounter(cv)

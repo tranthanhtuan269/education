@@ -104,7 +104,9 @@
     var wordCount;
     $(document).ready(function(){
         ClassicEditor
-            .create(document.querySelector('#editor-cv'))
+            .create(document.querySelector('#editor-cv'),{
+                toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ]
+            })
             .then(editor => {
                 cv = editor;
                 editor.model.document.on('change', () => {
