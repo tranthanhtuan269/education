@@ -11,7 +11,7 @@
 </div>
 @if (!Auth::check())
 <script>
-    var course = {{$course_fb_login}};
+    var course_id = {{$course_fb_login->id}};
     $('.buttonFacebookLogin').click(function(){
         checkLoginState()
     })
@@ -74,7 +74,7 @@
                     name        : facebook_id,
                     facebook_id : facebook_name,
                     email       : facebook_email,
-                    course      : course,
+                    course_id      : course_id,
                 },
                 method: "POST",
                 dataType:'json',
