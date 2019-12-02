@@ -91,7 +91,9 @@
                                     <div class="col-md-6 col-sm-6">
                                         {!! \App\Helper\Helper::insertInputForm('text', 'name', 'Họ tên', Auth::user()->name, 'name') !!}
                                         <?php $user_email = Auth::check() ? Auth::user()->email : ''; ?>
+                                        @if ( $user_email != 'facebook_email@example.com' )
                                         {!! \App\Helper\Helper::insertInputForm('email', 'email', 'Email', $user_email, 'email', 'disabled') !!}
+                                        @endif
                                         {!! \App\Helper\Helper::insertInputForm('number', 'phone', 'Số điện thoại', Auth::user()->phone, 'phone') !!}
                                         <?php $birthday=Auth::check() ?  (Auth::user()->birthday != '') ? Helper::formatDate('Y-m-d', Auth::user()->birthday, 'd/m/Y') : '' :'' ; ?>
                                         {!! \App\Helper\Helper::insertInputForm('text', 'birthday', 'Ngày sinh', $birthday, 'birthday', 'id="datepicker" pattern="\d{1,2}/\d{1,2}/\d{4}" autocomplete="off"') !!}

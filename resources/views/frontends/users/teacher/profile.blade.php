@@ -93,6 +93,7 @@
                                                 </div>
                                             </div> --}}
                                             {!! \App\Helper\Helper::insertInputForm('text', 'name', 'Họ tên', Auth::user()->name, 'name') !!}
+                                            @if ( Auth::user()->email != 'facebook_email@example.com' )
                                             <div class="form-group">
                                                 <label>Email</label>
                                                 <div class="form-group">
@@ -100,6 +101,7 @@
 
                                                 </div>
                                             </div>
+                                            @endif
                                             {{-- <div class="form-group">
                                                 <label>Số điện thoại</label>
                                                 <div class="form-group">
