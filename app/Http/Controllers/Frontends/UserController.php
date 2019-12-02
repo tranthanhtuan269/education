@@ -575,42 +575,34 @@ class UserController extends Controller
 
     public function facebookLogin(Request $request)
     {
-        $user = User::where('email', $request->email)->first();
+        $user = User::where('facebook_id', $request->facebook_id)->first();
 
         if($user){
-            if($user->google_id == $request->facebook_id){
-                if ($user->status == 0) {
-                    return response()->json(['message' => 'Tài khoản của bạn đang bị khóa.', 'status' => 404]);
-                } else {
-                    Auth::login($user, $request->get('remember'));
-
-                    // Facebook Login on button Buy Now 
-                    if ( $request->course ){
-                        $role = 0;
-                        if ( Auth::user()->isAdmin() ){
-                            $role = 1; // Admin
-                        }
-                        if ( Auth::user()->id == $course->userRoles[0]->user_id ){
-                            $role = 2; // Khoa hoc cua chinh user
-                        }
-                        $bought = Auth::user()->bought;
-                        $bought = str_replace("[", "", $bought);
-                        $bought = str_replace("]", "", $bought);
-                        $bought = str_replace('"', "", $bought);
-                        $bought = explode(",", $bought);
-                        if ( in_array($request->course_id, $bought)){
-                            $role = 3; // Khoa hoc user da mua
-                        }
-                        return response()->json(['message' => 'Ok', 'status' => 200, 'role' => $role]);
-                    }
-                    return response()->json(['message' => 'Ok', 'status' => 200]);
-                }
-            }else{
-                $user->facebook_id = $request->facebook_id;
-                $user->save();
-
+            if ($user->status == 0) {
+                return response()->json(['message' => 'Tài khoản của bạn đang bị khóa.', 'status' => 404]);
+            } else {
                 Auth::login($user);
-                return \Response::json(array('status' => '200'));
+
+                // Facebook Login on button Buy Now 
+                if ( $request->course ){
+                    $role = 0;
+                    if ( Auth::user()->isAdmin() ){
+                        $role = 1; // Admin
+                    }
+                    if ( Auth::user()->id == $course->userRoles[0]->user_id ){
+                        $role = 2; // Khoa hoc cua chinh user
+                    }
+                    $bought = Auth::user()->bought;
+                    $bought = str_replace("[", "", $bought);
+                    $bought = str_replace("]", "", $bought);
+                    $bought = str_replace('"', "", $bought);
+                    $bought = explode(",", $bought);
+                    if ( in_array($request->course_id, $bought)){
+                        $role = 3; // Khoa hoc user da mua
+                    }
+                    return response()->json(['message' => 'Ok', 'status' => 200, 'role' => $role]);
+                }
+                return response()->json(['message' => 'Ok', 'status' => 200]);
             }
         }else{
             $user = new User;

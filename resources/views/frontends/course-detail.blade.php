@@ -1531,7 +1531,7 @@ https://courdemy.vn/course/{{ $info_course->id }}/{{ $info_course->slug }}
                     if ( response.role == 1 ){
                         Swal.fire({
                             type: 'warning',
-                            html: 'Chú là admin nên không thể mua khóa học. Hiểu chứ?',
+                            html: 'Chú là admin nên không thể mua khóa học. Chú hiểu chứ?',
                         }).then((result)=>{
                             window.location.reload()
                         })

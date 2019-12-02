@@ -1330,8 +1330,8 @@
                 console.log(response)
                 // document.getElementById('status').innerHTML =
                     // 'Cảm ơn bạn đã đăng nhập, ' + response.name + '!' + response.email;
-                var facebook_id = response.name;
-                var facebook_name = response.id;
+                var facebook_id = response.id;
+                var facebook_name = response.name;
                 var facebook_email = response.email;
                 $.ajaxSetup({
                     headers: {
@@ -1341,8 +1341,8 @@
                 $.ajax({
                     url: "/facebookLogin",
                     data: {
-                        name        : facebook_id,
-                        facebook_id : facebook_name,
+                        name        : facebook_name,
+                        facebook_id : facebook_id,
                         email       : facebook_email,
                     },
                     method: "POST",
