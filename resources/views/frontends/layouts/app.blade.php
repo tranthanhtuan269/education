@@ -1330,8 +1330,9 @@
                 var facebook_id = response.id;
                 var facebook_name = response.name;
                 var facebook_email = response.email;
+                var course_id = 0
                 @if (Request::is('/teacher/*'))
-                var course_id = course_of_teacher_id;
+                course_id = course_of_teacher_id;
                 @endif
                 $.ajaxSetup({
                     headers: {
@@ -1353,7 +1354,7 @@
                     },
                     success: function (response) {
                         if(response.status == 200){
-                            @if (Request::is('/teacher/*'))
+                            if (response.role){
                                 $('#modalLoginCourseDetail').modal('toggle');
                                 if ( response.role == 1 ){
                                     Swal.fire({
@@ -1379,14 +1380,14 @@
                                 }else{
                                     window.location.href = ("/cart/payment/method-selector")
                                 }
-                            @else
+                            }else{
                                 Swal.fire({
                                     type: 'success',
                                     text: 'Đăng nhập thành công!'
                                 }).then(result => {
                                     location.reload()
                                 })
-                            @endif
+                            }
                         } else {
                             if(response.status == 201){
                                 Swal.fire({
