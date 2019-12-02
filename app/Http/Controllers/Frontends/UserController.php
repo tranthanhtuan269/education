@@ -515,7 +515,7 @@ class UserController extends Controller
                     Auth::login(User::where('email', $request->email)->first(), $request->get('remember'));
 
                     // Facebook Login on button Buy Now 
-                    if ( $request->course_id ){
+                    if ( $request->course_id != 0 ){
                         $course = Course::find($request->course_id);
                         $role = 0;
                         if ( Auth::user()->isAdmin() ){

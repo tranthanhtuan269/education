@@ -1332,11 +1332,12 @@
                 var facebook_email = response.email;
 
                 var check = $('#modalLoginCourseDetail').attr('data-modal-login')
+                var course_id = 0
                 if ( check == 'teacher' ){
-                    var course_id = course_of_teacher_id;
+                    course_id = course_of_teacher_id;
                 }
                 if ( check == 'course' ){
-                    var course_id = course_detail_id
+                    course_id = course_detail_id
                 }
                 $.ajaxSetup({
                     headers: {
@@ -1349,9 +1350,7 @@
                         name        : facebook_name,
                         facebook_id : facebook_id,
                         email       : facebook_email,
-                        if ( check != '' ){
-                            course_id   : course_id,
-                        }
+                        course_id   : course_id,
                     },
                     method: "POST",
                     dataType:'json',
