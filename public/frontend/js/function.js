@@ -38,13 +38,13 @@ function statusOrder($param) {
             $txt = '<span class="btn btn-sm text-center btn-warning active" >Không thành công</span>';
             break;
         case 1:
-            $txt = '<span class="btn btn-sm text-center btn-success active" >Thành công</span>';
+            $txt = '<span class="btn btn-sm text-center btn-success active" style="cursor: auto;">Thành công</span>';
             break;
         case 2:
             $txt = '<span class="btn btn-sm text-center btn-danger active" >Đã hủy</span>';
             break;
         default:
-            $txt = '<span class="btn btn-sm text-center btn-success active" >Thành công</span>';
+            $txt = '<span class="btn btn-sm text-center btn-success active" style="cursor: auto;">Thành công</span>';
             break;
     }
     return $txt;
