@@ -1355,34 +1355,31 @@
                     },
                     success: function (response) {
                         if(response.status == 200){
-                            console.log(1)
-                            if (response.role){
-                                $('#modalLoginCourseDetail').modal('toggle');
-                                console.log(response)
-                                if ( response.role == 1 ){
-                                    Swal.fire({
-                                        type: 'warning',
-                                        html: 'Chú là admin nên không thể mua khóa học. Chú hiểu chứ?',
-                                    }).then((result)=>{
-                                        window.location.reload()
-                                    })
-                                }else if ( response.role == 2 ){
-                                    Swal.fire({
-                                        type: 'warning',
-                                        html: 'Khóa học này là của bạn.',
-                                    }).then((result)=>{
-                                        window.location.reload()
-                                    })
-                                }else if ( response.role ==3 ){
-                                    Swal.fire({
-                                        type: 'warning',
-                                        html: 'Bạn đã mua khóa học này.',
-                                    }).then((result)=>{
-                                        window.location.reload()
-                                    })
-                                }else{
-                                    window.location.href = ("/cart/payment/method-selector")
-                                }
+                            console.log(response)
+                            $('#modalLoginCourseDetail').modal('toggle');
+                            if ( response.role == 1 ){
+                                Swal.fire({
+                                    type: 'warning',
+                                    html: 'Chú là admin nên không thể mua khóa học. Chú hiểu chứ?',
+                                }).then((result)=>{
+                                    window.location.reload()
+                                })
+                            }else if ( response.role == 2 ){
+                                Swal.fire({
+                                    type: 'warning',
+                                    html: 'Khóa học này là của bạn.',
+                                }).then((result)=>{
+                                    window.location.reload()
+                                })
+                            }else if ( response.role == 3 ){
+                                Swal.fire({
+                                    type: 'warning',
+                                    html: 'Bạn đã mua khóa học này.',
+                                }).then((result)=>{
+                                    window.location.reload()
+                                })
+                            }else if ( response.role == 0 ){
+                                window.location.href = ("/cart/payment/method-selector")
                             }else{
                                 Swal.fire({
                                     type: 'success',
