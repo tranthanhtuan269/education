@@ -984,7 +984,7 @@ https://courdemy.vn/course/{{ $info_course->id }}/{{ $info_course->slug }}
                 </form>
                 @if($_SERVER['SERVER_NAME'] === "courdemy.vn")
                     <hr>
-                    @include('components.fb-login-buy-now',['course_fb_login' => $info_course])
+                    @include('components.facebook-login')
                     @include('components.google-login')
                 @endif
             </div>
@@ -1058,6 +1058,7 @@ https://courdemy.vn/course/{{ $info_course->id }}/{{ $info_course->slug }}
 @endif
 <script type="text/javascript">
     var user_id = $('button[id=cartUserId]').attr('data-user-id')
+    var course_detail_id = {{$info_course->id}}
     $(document).ready(function() { 
 
         $(".interactive-bar .buttons button:first-child").click(function(){
