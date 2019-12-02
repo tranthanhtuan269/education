@@ -1008,6 +1008,15 @@
                 $('.number-in-cart').text("0");
                 $('.unica-sl-cart').css('display', 'none')      
             }
+
+            // Check Course of Teacher 
+            if(localStorage.getItem('cart'+user_id) != null){
+            var number_items_in_cart = JSON.parse(localStorage.getItem('cart'+user_id))
+
+            $.each( number_items_in_cart, function(i, obj) {
+                $('.teacher-course button[id=addCart'+obj.id+']').html('<b>ĐÃ THÊM VÀO GIỎ HÀNG</b>').attr('disabled', true)
+            });
+        }
         })
 
         @if (Request::is('home') && !Auth::check())
