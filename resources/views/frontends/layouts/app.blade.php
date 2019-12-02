@@ -50,7 +50,7 @@
 <body>
     <div class="ajax_waiting"></div>
         <div id="fb-root"></div>
-        <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v4.0&appId=2474435149283816&autoLogAppEvents=1"></script>
+        <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v5.0&appId=426138308059078&autoLogAppEvents=1"></script>
     {{-- <div class="notifications alert alert-danger fade in alert-dismissible">
         <div class="container">
             <div class="row">
@@ -1281,10 +1281,10 @@
 
         window.fbAsyncInit = function() {
             FB.init({
-                appId      : '2474435149283816',
+                appId      : '426138308059078',
                 cookie     : true,
                 xfbml      : true,
-                version    : '4.0'
+                version    : '5.0'
             });
             
             FB.AppEvents.logPageView();   
