@@ -353,7 +353,7 @@ class CourseController extends Controller
                     }
                 }
                 // add alert
-                \App\Helper\Helper::addAlertCustomize($course->Lecturers()[0]->user, "Khóa học <strong>" . $course->name . "</strong> đã bị xóa", "Khóa học <strong>" . $course->name . "</strong> của bạn đã bị xóa khỏi hệ thống của chúng tôi. Do nó đã không tuân thủ một só quy định hoặc không đáp ứng được tiêu chí mà chúng tôi đề ra.", true);
+                \App\Helper\Helper::addAlertCustomize($course->Lecturers()[0]->user, "Khóa học " . $course->name . " đã bị xóa khỏi hệ thống", "Khóa học <strong>" . $course->name . "</strong> của bạn đã bị xóa khỏi hệ thống của chúng tôi. Do nó đã không tuân thủ một số quy định hoặc không đáp ứng được tiêu chí mà chúng tôi đề ra.", true);
 
                 $user_course = \App\UserCourse::where('course_id', $course->id)->delete();
                 $course->delete();
