@@ -296,7 +296,7 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-primary save-add-video">Lưu</button>
-                <button type="button" class="btn btn-default cancel-add-video" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-default cancel-add-video" data-dismiss="modal" id="batv">Đóng</button>
             </div>
         </div>
     </div>
@@ -768,13 +768,20 @@
                     })
                     reader.readAsDataURL(file)
             })
+            $('#batv').click(function(){
+                $('#fileName').val('')
+            })
             $('.save-add-video').off('click');
             $('.save-add-video').click(function(){
 
                 var unit_id = $(this).attr('data-unit-id');
                 var video_name = $('.add-video-name').val()
                 var video_description = $('.add-video-description').val()
-                var link_video = $('#fileName').val()
+                var link_video = '';
+                
+                if($('#fileName').val() != ''){
+                    var link_video = $('#fileName').val()
+                }
                 var documents =  JSON.stringify(files)
                 // alert(link_video);return
 
