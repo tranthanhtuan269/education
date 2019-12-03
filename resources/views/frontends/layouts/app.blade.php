@@ -1043,6 +1043,7 @@
         //     $('.show-password').css('z-index', 6)
         // })
         function loginAjax(){
+            $('.form-html-validate').html('')
             var email = $('#myModalLogin input[name=email]').val();
             email = email.trim();
             var password = $('#myModalLogin input[name=pass]').val();
@@ -1081,7 +1082,7 @@
                 error: function (error) {
                     var obj_errors = error.responseJSON.errors;
                     $('.form-html-validate').css('display', 'block')
-                    $('.form-html-validate').html('')
+                    // $('.form-html-validate').html('')
                     $.each(obj_errors, function( index, value ) {
                         var content = '<i class="fas fa-exclamation fa-fw"></i><div class="hover-alert">'+ value +'</div>'
                         $('.form-html-validate.' + index).html(content);

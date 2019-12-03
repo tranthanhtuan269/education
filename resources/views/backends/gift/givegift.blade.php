@@ -173,6 +173,7 @@
             // },
         ];
         $(".btn-student-number").click(function(){
+            $('.form-html-validate').html('')
             var student_numb = 0
             if ($('input[name=student-number]').val() != ''){
                 student_numb = $('input[name=student-number]').val()

@@ -18,6 +18,7 @@ use App\Course;
 use App\Coupon;
 use App\Setting;
 use App\Http\Controllers\Backends\Requests\StoreCouponRequest;
+use App\Http\Controllers\Backends\Requests\UpdateCouponRequest;
 
 class HomeController extends Controller{
 
@@ -108,20 +109,10 @@ class HomeController extends Controller{
         $arr_course_id = str_replace('[','',$arr_course_id);
         $arr_course_id = str_replace(']','',$arr_course_id);
 
-        $coupon_code   = $request->coupon_code;
-        $coupon_value  = $request->coupon_value;
-        $coupon_expired= $request->coupon_expired;
-
-        $check = Coupon::where('name', $coupon_code)->first();
-        if(isset($check->id)){
-            return \Response::json(array('status' => '403'));
-        }
-
         $coupon = new Coupon;
-
-        $coupon->name           = $coupon_code;
-        $coupon->value          = $coupon_value;
-        $coupon->expired        = $coupon_expired;
+        $coupon->name           = $request->coupon_code;
+        $coupon->value          = $request->coupon_value;
+        $coupon->expired        = $request->coupon_expired;
         $coupon->course_id      = $arr_course_id;
         $coupon->status         = 1;   
         $coupon->save();
@@ -146,7 +137,7 @@ class HomeController extends Controller{
         }
     }
 
-    public function updateCoupon(StoreCouponRequest $request){
+    public function updateCoupon(UpdateCouponRequest $request){
         $arr_course_id = json_encode($request->course_id);
         $arr_course_id = str_replace('"','',$arr_course_id);
         $arr_course_id = str_replace('[','',$arr_course_id);
