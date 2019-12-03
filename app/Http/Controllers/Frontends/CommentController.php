@@ -17,6 +17,7 @@ use Illuminate\Http\Request;
 use App\Transformers\CommentVideoTransformer;
 use App\Http\Requests\StoreDiscussionRequest;
 use App\Transformers\CommentCourseTransformer;
+use App\UserRole;
 
 class CommentController extends Controller
 {
@@ -63,21 +64,24 @@ class CommentController extends Controller
                 $commentVideo->parent_id = $request->parentId;
                 $arr_user_role_id = CommentVideo::where('parent_id', $request->parentId)->DISTINCT('user_role_id')->pluck('user_role_id');
                 $parent_comment = CommentVideo::find($request->parentId);
+                $user_parent_comment = UserRole::find($parent_comment->user_role_id)->user;
 
-                if ( $video->unit->course->Lecturers()[0]->user->id != \App\UserRole::find($parent_comment->user_role_id)->user->id ){
-                    \App\Helper\Helper::addAlertCustomize(\App\UserRole::find($parent_comment->user_role_id)->user, "Thảo luận của bạn có một trả lời", "Thảo luận của bạn ở bài giảng <a href='" . url('/') . "/learning-page/" . $video->unit->course->id . "/lecture/" . $video->id . "'>" . $video->name . "</a> vừa có một trả lời.");
-                }else{
-                    \App\Helper\Helper::addAlertCustomize(\App\UserRole::find($parent_comment->user_role_id)->user, "Thảo luận của bạn có một trả lời", "Thảo luận của bạn ở bài giảng <a href='" . url('/') . "/learning-page/" . $video->unit->course->id . "/lecture/" . $video->id . "'>" . $video->name . "</a> vừa có một trả lời.", true);
+                if ( Auth::user()->id != $user_parent_comment->id ){
+                    if ( $video->unit->course->Lecturers()[0]->user->id != $user_parent_comment->id ){
+                        Helper::addAlertCustomize($user_parent_comment, "Thảo luận của bạn có một trả lời", "Thảo luận của bạn ở bài giảng <a href='" . url('/') . "/learning-page/" . $video->unit->course->id . "/lecture/" . $video->id . "'>" . $video->name . "</a> có một trả lời 1.");
+                    }else{
+                        Helper::addAlertCustomize($user_parent_comment, "Thảo luận của bạn có một trả lời", "Thảo luận của bạn ở bài giảng <a href='" . url('/') . "/learning-page/" . $video->unit->course->id . "/lecture/" . $video->id . "'>" . $video->name . "</a> có một trả lời.", true);
+                    }
                 }
 
                 if ( $arr_user_role_id->count() > 0 ){
                     foreach ( $arr_user_role_id as $key=>$user_role_id ){
                         if ( $user_role_id != $parent_comment->user_role_id ){
-                            if ( \App\UserRole::find($user_role_id)->user->id != Auth::user()->id ){
-                                if ( $video->unit->course->Lecturers()[0]->user->id != \App\UserRole::find($user_role_id)->user->id ){
-                                    \App\Helper\Helper::addAlertCustomize(\App\UserRole::find($user_role_id)->user, "Thảo luận của bạn có một trả lời", "Thảo luận của bạn ở bài giảng <a href='" . url('/') . "/learning-page/" . $video->unit->course->id . "/lecture/" . $video->id . "'>" . $video->name . "</a> vừa có một trả lời.");
+                            if ( UserRole::find($user_role_id)->user->id != Auth::user()->id ){
+                                if ( $video->unit->course->Lecturers()[0]->user->id != UserRole::find($user_role_id)->user->id ){
+                                    Helper::addAlertCustomize(UserRole::find($user_role_id)->user, "Thảo luận của bạn có một trả lời", "Thảo luận của bạn ở bài giảng <a href='" . url('/') . "/learning-page/" . $video->unit->course->id . "/lecture/" . $video->id . "'>" . $video->name . "</a> có một trả lời.");
                                 }else{
-                                    \App\Helper\Helper::addAlertCustomize(\App\UserRole::find($user_role_id)->user, "Thảo luận của bạn có một trả lời", "Thảo luận của bạn ở bài giảng <a href='" . url('/') . "/learning-page/" . $video->unit->course->id . "/lecture/" . $video->id . "'>" . $video->name . "</a> vừa có một trả lời.", true);
+                                    Helper::addAlertCustomize(UserRole::find($user_role_id)->user, "Thảo luận của bạn có một trả lời", "Thảo luận của bạn ở bài giảng <a href='" . url('/') . "/learning-page/" . $video->unit->course->id . "/lecture/" . $video->id . "'>" . $video->name . "</a> có một trả lời.", true);
                                 }
                             }
                         }
@@ -86,7 +90,7 @@ class CommentController extends Controller
                 // if ( $commentVideo->parent->user_role_id != $commentVideo->user_role_id ){
                 // }
             }else{
-                \App\Helper\Helper::addAlertCustomize($video->unit->course->Lecturers()[0]->user, "Bài giảng " . $video->name . " có một thảo luận mới", "Bài giảng <a href='" . url('/') . "/learning-page/" . $video->unit->course->id . "/lecture/" . $video->id . "'>" . $video->name . "</a> vừa có một thảo luận mới.", true);
+                Helper::addAlertCustomize($video->unit->course->Lecturers()[0]->user, "Bài giảng " . $video->name . " có một thảo luận mới", "Bài giảng <a href='" . url('/') . "/learning-page/" . $video->unit->course->id . "/lecture/" . $video->id . "'>" . $video->name . "</a> có một thảo luận mới.", true);
             }
             $commentVideo->save();
 
