@@ -771,7 +771,7 @@ class VideoController extends Controller
                     if ( $course ){
                         $user_courses = $course->userCourses;
                         Helper::reBuildJsonWhenCreateOrDeleteLecture($course->id, $video->id, 0);
-                        \App\Helper\Helper::addAlertCustomize($course->Lecturers()[0]->user, "Bài giảng " . $video->name . "đã được duyệt yêu cầu xóa", "Chúc mừng bạn! Bài giảng <strong>" . $video->name . "</strong> đã được duyệt yêu cầu xóa", true);
+                        \App\Helper\Helper::addAlertCustomize($course->Lecturers()[0]->user, "Bài giảng của bạn đã được duyệt yêu cầu xóa", "Chúc mừng bạn! Bài giảng <strong>" . $video->name . "</strong> của bạn đã được duyệt yêu cầu xóa", true);
                     }
                 }
                 $video->state       = Config::get('app.video_in_trash');
@@ -1136,7 +1136,7 @@ class VideoController extends Controller
 
                 if($video->unit->course){
                     $course = $video->unit->course;
-                    \App\Helper\Helper::addAlertCustomize($course->Lecturers()[0]->user, "Bài giảng " . $video->name . "đã được duyệt yêu cầu xóa", "Chúc mừng bạn! Bài giảng <strong>" . $video->name . "</strong> đã được duyệt yêu cầu xóa", true);
+                    \App\Helper\Helper::addAlertCustomize($course->Lecturers()[0]->user, "Bài giảng " . $video->name . " đã bị xóa khỏi hệ thống", "Bài giảng <strong>" . $video->name . "</strong> thuộc khóa học <strong>".$course->name."</strong> của bạn đã bị xóa khỏi hệ thống của chúng tôi. Do nó đã không tuân thủ một số quy định hoặc không đáp ứng được tiêu chí mà chúng tôi đề ra.", true);
                 }
 
                 $res = array('status' => "200", "message" => "Xóa bài giảng thành công.");
