@@ -1450,10 +1450,18 @@
             }
         })
 
+        $('#createCourse').on('shown.bs.modal', function (e) {
+            $('#image-file-input').val('')
+        })
+
         var link_base64;
         S2('#save-btn').click(function(){
+            link_base64 = null;
 
-            link_base64 = S2('#image-cropper').cropit('export');
+            if ($('#image-file-input').val() != '') {
+                link_base64 = S2('#image-cropper').cropit('export');
+            }
+
 
             var course_name = $('#course-name').val().trim()
             var short_description = $('#short-description').val().trim()
