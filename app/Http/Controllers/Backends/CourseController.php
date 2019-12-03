@@ -92,60 +92,10 @@ class CourseController extends Controller
         return \Response::json(array('status' => '200', 'message' => 'Tạo khóa học thành công!'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    // public function update(UpdateCourseRequest $request, $id)
-    // {
-    //     if($id){
-    //         $item = Course::where('status', '!=', -100)->find($id);
-
-    //         if($item){
-    //             $img_link = $item->image;
-
-    //             if ($request->image != '') {
-    //                 $img_file = $request->image;
-    //                 list($type, $img_file) = explode(';', $img_file);
-    //                 list(, $img_file) = explode(',', $img_file);
-    //                 $img_file = base64_decode($img_file);
-    //                 $file_name = time() . '.png';
-    //                 file_put_contents(public_path('/frontend/images/') . $file_name, $img_file);
-    //                 $img_link = $file_name;
-    //             }
-
-    //             $link_intro = "https://www.youtube.com/embed/" . Helper::getYouTubeVideoId($request->link_intro);
-
-    //             $item->author               = \Auth::user()->name;
-    //             $item->name                 = $request->name;
-    //             $item->image                = $img_link;
-    //             $item->short_description    = $request->short_description;
-    //             $item->description          = $request->description;
-    //             $item->will_learn           = $request->will_learn;
-    //             $item->requirement          = $request->requirement;
-    //             $item->price                = $request->discount_price;
-    //             $item->real_price           = $request->original_price;
-    //             $item->approx_time          = $request->approx_time;
-    //             $item->category_id          = $request->category;
-    //             $item->link_intro           = $link_intro;
-    //             $item->created_at           = date('Y-m-d H:i:s');
-    //             $item->updated_at           = date('Y-m-d H:i:s');
-    //             $item->save();
-
-    //             return response()->json(array('status' => '200', 'message' => 'Gửi thành công yêu cầu sửa khóa học.'));
-    //         }     
-    //     }
-    //     return response()->json(array('status'=> '404', 'message' => 'Không tìm thấy khóa học!'));
-    // }
-
     public function update(UpdateCourseRequest $request, $id)
     {
-
-        if($id){
-            $course = Course::find($id);
+        $course = Course::find($id);
+        if($course){
             if ( $course->status == 0 ){
                 $img_link = $course->image;
 
@@ -180,49 +130,46 @@ class CourseController extends Controller
             }
             $temp_course = TempCourse::where('course_id', $id)->first();
             $flag = 1;
-            if( !isset($temp_course->id) ){
+            if( !isset($temp_course) ){
                 $temp_course = new TempCourse;
                 $flag = 0;
             }
-            $item = Course::find($id);
+            
+            if ( $flag ){
+                $img_link = $temp_course->image;
+            }else{
+                $img_link = $course->image;
+            }
 
-            if($item){
-                if ( $flag ){
-                    $img_link = $temp_course->image;
-                }else{
-                    $img_link = $item->image;
-                }
+            if ($request->image != '') {
+                $img_file = $request->image;
+                list($type, $img_file) = explode(';', $img_file);
+                list(, $img_file) = explode(',', $img_file);
+                $img_file = base64_decode($img_file);
+                $file_name = time() . '.png';
+                file_put_contents(public_path('/frontend/images/') . $file_name, $img_file);
+                $img_link = $file_name;
+            }
 
-                if ($request->image != '') {
-                    $img_file = $request->image;
-                    list($type, $img_file) = explode(';', $img_file);
-                    list(, $img_file) = explode(',', $img_file);
-                    $img_file = base64_decode($img_file);
-                    $file_name = time() . '.png';
-                    file_put_contents(public_path('/frontend/images/') . $file_name, $img_file);
-                    $img_link = $file_name;
-                }
+            $link_intro = "https://www.youtube.com/embed/" . Helper::getYouTubeVideoId($request->link_intro);
 
-                $link_intro = "https://www.youtube.com/embed/" . Helper::getYouTubeVideoId($request->link_intro);
+            $temp_course->course_id            = $id;
+            $temp_course->author               = \Auth::user()->name;
+            $temp_course->name                 = $request->name;
+            $temp_course->image                = $img_link;
+            $temp_course->short_description    = $request->short_description;
+            $temp_course->description          = $request->description;
+            $temp_course->will_learn           = $request->will_learn;
+            $temp_course->requirement          = $request->requirement;
+            $temp_course->price                = $request->discount_price;
+            $temp_course->real_price           = $request->original_price;
+            $temp_course->approx_time          = $request->approx_time;
+            $temp_course->category_id          = $request->category;
+            $temp_course->link_intro           = $link_intro;
+            $temp_course->created_at           = date('Y-m-d H:i:s');
+            $temp_course->save();
 
-                $temp_course->course_id            = $id;
-                $temp_course->author               = \Auth::user()->name;
-                $temp_course->name                 = $request->name;
-                $temp_course->image                = $img_link;
-                $temp_course->short_description    = $request->short_description;
-                $temp_course->description          = $request->description;
-                $temp_course->will_learn           = $request->will_learn;
-                $temp_course->requirement          = $request->requirement;
-                $temp_course->price                = $request->discount_price;
-                $temp_course->real_price           = $request->original_price;
-                $temp_course->approx_time          = $request->approx_time;
-                $temp_course->category_id          = $request->category;
-                $temp_course->link_intro           = $link_intro;
-                $temp_course->created_at           = date('Y-m-d H:i:s');
-                $temp_course->save();
-
-                return response()->json(array('status' => '200', 'message' => 'Gửi yêu cầu sửa khóa học thành công. Hãy chờ Admin xét duyệt.'));
-            }     
+            return response()->json(array('status' => '200', 'message' => 'Gửi yêu cầu sửa khóa học thành công. Hãy chờ Admin xét duyệt.'));
         }
         return response()->json(array('status'=> '404', 'message' => 'Không tìm thấy khóa học!'));
     }
