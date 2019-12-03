@@ -76,7 +76,7 @@ https://courdemy.vn/course/{{ $info_course->id }}/{{ $info_course->slug }}
                         @endif --}}
                         
                         <div class="pull-right">
-                            <a class="btn btn-facebook-share btn-xs" data-src="{{$info_course->image}}" href="https://www.facebook.com/sharer/sharer.php?u=
+                            <a class="btn btn-facebook-share btn-xs" style="color: #4267b2;" data-src="{{$info_course->image}}" href="https://www.facebook.com/sharer/sharer.php?u=
                             <?php
                             echo urlencode(url()->current());
                             ?>
@@ -1057,6 +1057,11 @@ https://courdemy.vn/course/{{ $info_course->id }}/{{ $info_course->slug }}
     </div>
 </div>
 @endif
+<style>
+    .hover-like-dislike{
+        cursor: auto;
+    }
+</style>
 <script type="text/javascript">
     var user_id = $('button[id=cartUserId]').attr('data-user-id')
     var course_detail_id = {{$info_course->id}}
@@ -1219,12 +1224,16 @@ https://courdemy.vn/course/{{ $info_course->id }}/{{ $info_course->slug }}
         });
 
         $('.btn-default.btn-like').on('click', function (e) {
+            $(".btn-like").addClass("hover-like-dislike");
+            $(".btn-dislike").removeClass("hover-like-dislike");
             vote($(this).attr('data-comment-id'), 'up');
             $(this).removeClass('btn-default').addClass('btn-primary');
             $(this).parent().find('.btn-dislike').addClass('btn-default').removeClass('btn-primary');
         });
 
         $('.btn-default.btn-dislike').on('click', function (e) {
+            $(".btn-dislike").addClass("hover-like-dislike");
+            $(".btn-like").removeClass("hover-like-dislike");
             vote($(this).attr('data-comment-id'), 'down');
             $(this).removeClass('btn-default').addClass('btn-primary');
             $(this).parent().find('.btn-like').addClass('btn-default').removeClass('btn-primary');
