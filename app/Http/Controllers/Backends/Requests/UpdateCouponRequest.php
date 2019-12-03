@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Backends\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreCouponRequest extends FormRequest
+class UpdateCouponRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,7 +23,7 @@ class StoreCouponRequest extends FormRequest
     public function rules()
     {
         return [
-            'coupon_code'   => 'required|unique:coupons,name|max:15',
+            'coupon_code'   => 'required|max:15',
             'coupon_value'  => 'required|numeric|min:1|max:100',
             'coupon_expired'=> 'required',
             'course_id'     => 'required',

@@ -265,6 +265,7 @@ $(document).ready(function(){
 
         $('.confirm-edit-coupon').off('click')
         $('.confirm-edit-coupon').click(function(){
+            $('#showEditCouponModal').modal('show')
             var asInputs = solTemp.getSelection(), course_id = [];
             var coupon_id = $('#couponIdUpdate').val()
             var coupon_code = ($('#editCouponCode').val()).trim()
@@ -311,7 +312,6 @@ $(document).ready(function(){
                 error: function (response) {
                     var obj_errors = response.responseJSON.errors;
                     $('.form-html-validate').css('display', 'block')
-                    $('.form-html-validate').html('')
                     $.each(obj_errors, function( index, value ) {
                         var content = '<i class="fa fa-exclamation fa-fw"></i><div class="hover-alert">'+ value +'</div>'
                         $('.form-html-validate.' + index).html(content);
@@ -421,6 +421,7 @@ $(document).ready(function(){
     // End Datatable
 
     $("#btnConfirm").click(function(){
+        $('.form-html-validate').html('')
         var asInputs = sol.getSelection(), course_id = []
         var coupon_code = ($('#coupon_code').val()).trim()
         var coupon_value = $('#coupon_value').val().trim()
@@ -457,14 +458,10 @@ $(document).ready(function(){
                     })
                     dataTable.ajax.reload();
                 }
-                if(response.status == 403){
-                    alertValidate('Mã giảm giá đã tồn tại!', 'coupon_code')
-                }
             },
             error: function (response) {
                 var obj_errors = response.responseJSON.errors;
                 $('.form-html-validate').css('display', 'block')
-                $('.form-html-validate').html('')
                 $.each(obj_errors, function( index, value ) {
                     var content = '<i class="fa fa-exclamation fa-fw"></i><div class="hover-alert">'+ value +'</div>'
                     $('.form-html-validate.' + index).html(content);
