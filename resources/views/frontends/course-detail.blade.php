@@ -1059,8 +1059,7 @@ https://courdemy.vn/course/{{ $info_course->id }}/{{ $info_course->slug }}
 @endif
 <style>
     .hover-like-dislike{
-        background-color: #428bca !important;
-        pointer-events: none;
+        cursor: auto;
     }
 </style>
 <script type="text/javascript">
