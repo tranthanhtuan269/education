@@ -931,3 +931,40 @@ ul.alert li {
 #stripeAccount .form-html-validate .hover-alert {
     right: 19px;
 }
+
+
+/* Recharge CSS  */
+.content.page #bankTransfer{
+    font-size: 16px
+}
+#bankTransfer input[type=checkbox], input[type=radio] {
+    border: 1px solid #b4b9be;
+    background: #fff;
+    color: #555;
+    clear: none;
+    cursor: pointer;
+    display: inline-block;
+    line-height: 0;
+    height: 16px;
+    margin: -4px 4px 0 0;
+    outline: 0;
+    padding: 0!important;
+    text-align: center;
+    vertical-align: middle;
+    width: 16px;
+    min-width: 16px;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
+    transition: .05s border-color ease-in-out;
+}
+#bankTransfer .turn-on-off span{
+    cursor: pointer;
+}
+#bankTransfer .title-desc input{
+    width: 50%;
+}
+#bankTransfer .form-control{
+    font-size: 16px;
+}
+#bankTransfer .add-bank-account{
+    margin: 20px;
+}

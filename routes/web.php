@@ -184,6 +184,14 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('coupon/delete', 'Backends\HomeController@deleteCoupon');
         Route::post('coupon/update', 'Backends\HomeController@updateCoupon');
 
+        // Trinhnk Quan ly nap the 
+        // Route::get('recharge', 'Backends\HomeController@createCoupon');
+        Route::get('recharge-bank-transfer', 'Backends\RechargeController@bankTransfer');
+        Route::get('recharge-bank-transfer/get-bank-account', 'Backends\RechargeController@getBankTransferAccountAjax');
+        Route::post('recharge-bank-transfer/add-bank-account', 'Backends\RechargeController@addBankTransferAccount');
+        Route::post('recharge-bank-transfer/delete-bank-account', 'Backends\RechargeController@deleteBankTransferAccount');
+        Route::post('recharge-bank-transfer/save-bank-transfer', 'Backends\RechargeController@saveBankTransferSetting');
+
         Route::group(['prefix' => 'comment'],function () {
             Route::get('comment-course', 'Backends\CommentController@getAllCommentCourse');
             Route::get('get-comment-course-ajax', 'Backends\CommentController@getAllCommentCourseAjax');
