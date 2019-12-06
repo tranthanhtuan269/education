@@ -274,9 +274,10 @@ $(document).ready(function() {
     })
 
     $('#addBankAccount').click(function(){
-        var account_name  = $('#addBankAccount input[name=name]').val()
-        var account_number = $('#addBankAccount input[name=account_number]').val()
-        var bank_name  = $('#addBankAccount input[name=bank_name]').val()
+        var account_name  = $('#addAccountModal input[name=name]').val()
+        var account_number = $('#addAccountModal input[name=account_number]').val()
+        var bank_name  = $('#addAccountModal input[name=bank_name]').val()
+        console.log(account_name)
 
         $.ajaxSetup({
             headers: {
