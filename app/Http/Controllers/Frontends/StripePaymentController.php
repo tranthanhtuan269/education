@@ -84,17 +84,28 @@ class StripePaymentController extends Controller
 
                 }
             }
+            $userStripe = Auth::user()->email;
             $STRIPE_SECRET = Setting::where('name','STRIPE_SECRET')->value('value');
             Stripe\Stripe::setApiKey($STRIPE_SECRET);
             $price_vnd = Setting::where('name','ti_gia')->value('value');
             $totalFinal = round($total/$price_vnd ,  2, PHP_ROUND_HALF_EVEN)*100;
-            // dd($totalFinal);
+            // $customers = $customer->getLastResponse()->json["id"];
+            $customer = \Stripe\Customer::create([
+                "email" => $userStripe,
+                "card" => $request->stripeToken,
+                ]);
+            // 
+            // dd($request->stripeToken);
             $charge=Stripe\Charge::create ([
                 "amount" => $totalFinal,
                 "currency" => "usd",
-                "source" => $request->stripeToken
+                "description" => 'Order',
+                // "receipt_email" => "thanch3t9x@gmail.com",
+                "customer"=> $customer->id,
+                // "source" => $request->stripeToken
             ]);
-        
+            
+        // dd($request->stripeToken);
             if($charge->getLastResponse()->code == 200){
                 $current_user = Auth::user();
                 $coins_user = Auth::user()->coins;
