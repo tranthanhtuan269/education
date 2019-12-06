@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Payment;
 use App\BankAccount;
 use App\Http\Controllers\Backends\Requests\StoreBankAccountRequest;
+use App\User;
 
 class RechargeController extends Controller
 {
@@ -83,6 +84,31 @@ class RechargeController extends Controller
             }
     
             return \Response::json(array('status' => '200', 'message' => 'Sửa thông tin chuyển khoản ngân hàng thành công'));
+        }
+    }
+
+    public function userAmount(Request $request)
+    {
+        return view('backends.recharge.user-amount');
+    }
+
+    public function getUserAmountAjax(Request $request)
+    {
+        $user_amounts  = User::get();
+        return datatables()->collection($user_amounts)
+            ->addColumn('action', function ($user_amount) {
+                return $user_amount->id;
+            })
+            ->make(true);
+    }
+
+    public function editUserAmountAjax(Request $request)
+    {
+        $user_amount  = User::find($request->id);
+        if ( $user_amount ){
+            $user_amount->coins = $request->coins;
+            $user_amount->save();
+            return \Response::json(array('status' => '200', 'message' => 'Sửa số tiền của người dùng thành công'));
         }
     }
 }

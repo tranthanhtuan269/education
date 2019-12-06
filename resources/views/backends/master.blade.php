@@ -356,7 +356,9 @@
                                     <li class="@if ( Request::is('admincp/recharge-bank-transfer*') ) active @endif">
                                         <a href="{{ url('/') }}/admincp/recharge-bank-transfer"><i class="fa fa-minus"></i>Chuyển khoản ngân hàng</a>
                                     </li>
-                                    
+                                    <li class="@if ( Request::is('admincp/user-amount*') ) active @endif">
+                                        <a href="{{ url('/') }}/admincp/user-amount"><i class="fa fa-minus"></i>Tài khoản người dùng</a>
+                                    </li>
                                 @endif
                             </ul>
                         </li>
