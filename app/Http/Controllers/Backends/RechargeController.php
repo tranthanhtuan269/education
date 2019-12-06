@@ -26,7 +26,7 @@ class RechargeController extends Controller
 
     }
 
-    public function addBankTransferAccountAjax(StoreBankAccountRequest $request)
+    public function addBankTransferAccount(StoreBankAccountRequest $request)
     {
         $bank_account  = new BankAccount;
 
