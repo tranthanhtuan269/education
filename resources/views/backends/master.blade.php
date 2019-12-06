@@ -343,6 +343,23 @@
                                 <span class="pull-right-container">
                             </a>
                         </li>
+                        <li class="treeview @if ( Request::is('admincp/recharge*')) active @endif">
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-star"></i>
+                                <span>Nạp thẻ</span>
+                                <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                @if (Helper::checkPermissions('users.list', $list_roles))
+                                    <li class="@if ( Request::is('admincp/recharge-bank-transfer*') ) active @endif">
+                                        <a href="{{ url('/') }}/admincp/recharge-bank-transfer"><i class="fa fa-minus"></i>Chuyển khoản ngân hàng</a>
+                                    </li>
+                                    
+                                @endif
+                            </ul>
+                        </li>
                     </ul>
                 </section>
                 <!-- /.sidebar -->

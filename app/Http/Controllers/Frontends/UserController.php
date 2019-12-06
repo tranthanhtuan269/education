@@ -19,6 +19,8 @@ use App\UserEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Mail\CustomMail;
+use App\Payment;
+use App\BankAccount;
 
 
 class UserController extends Controller
@@ -128,7 +130,9 @@ class UserController extends Controller
     }
 
     public function showTopup(){
-        return view('frontends.users.student.top-up');
+        $payments = Payment::get();
+        $bank_account = BankAccount::where('status', 1)->first();
+        return view('frontends.users.student.top-up', ['payments' => $payments, 'bank_account' => $bank_account]);
     }
 
     public function courseStudent(Request $request)
