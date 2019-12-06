@@ -24,11 +24,31 @@
             <input type="text" class="form-control" id="STRIPE_SECRET" placeholder="Secret key" value="{{$STRIPE_SECRET->value}}">
             <div class="form-html-validate STRIPE_SECRET"></div>
         </div>
-        <div class="text-center">
-            <button type="submit" class="btn btn-primary" id="submit">Xác nhận</button>  
-        </div>     
+            
     </div>
-    
+    <h3 class="text-center font-weight-600">Cấu hình tỉ giá</h3>
+    <div class="row col-xs-12" id="tiGia">
+        <div class="form-group col-xs-12 form-html">
+            <div class="col-md-6 col-md-offset-4">
+                <label for=""> 1 Đô la Mỹ (USD) = </label>        
+                <input type="text" id="vietNamDong" value="{{$ti_gia->value}}" style="width: 20%;">
+               
+                <label for=""> Việt Nam Đồng (VND)</label> <div class="form-html-validate dong"></div>
+            </div>
+        </div>
+        
+    </div>
+    <div class="text-center">
+        <button type="submit" class="btn btn-primary" id="submit">Xác nhận</button>  
+    </div> 
+    <style>
+        #tiGia .form-html-validate i {
+            top: 15px !important;
+        }
+        #tiGia .form-html-validate .hover-alert {
+            top: 0px !important;
+        }
+    </style>
 </section>
 <script>
     $(document).ready(function(){
@@ -36,6 +56,7 @@
             var flag = true;
             var STRIPE_KEY = $('#STRIPE_KEY').val();
             var STRIPE_SECRET = $('#STRIPE_SECRET').val();
+            var dong = $('#vietNamDong').val();
             if (STRIPE_KEY == "") {
                 alertValidate('Bạn chưa nhập STRIPE_KEY!', 'STRIPE_KEY')
                 flag = false
@@ -44,10 +65,23 @@
                 alertValidate('Bạn chưa nhập STRIPE_SECRET!', 'STRIPE_SECRET')
                 flag = false
             }
+            var checkPrice = /^[0-9]+$/;
+            if (dong != "") {
+                if (checkPrice.test(dong) == false) 
+                {
+                    alertValidate('Chỉ được nhập số!', 'dong');
+                    flag = false
+                }
+            }
+            else{
+                alertValidate('Bạn chưa nhập giá tiền!', 'dong')
+                flag = false
+            }
             if(flag == false) return
             var data = {
                 STRIPE_KEY : STRIPE_KEY,
-                STRIPE_SECRET : STRIPE_SECRET
+                STRIPE_SECRET : STRIPE_SECRET,
+                dong : dong
                 };
             $.ajaxSetup({
                 headers: {

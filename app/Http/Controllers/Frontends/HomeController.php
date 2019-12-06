@@ -891,12 +891,12 @@ class HomeController extends Controller
                 $info_payment = json_decode($info_payment);
             }
             $STRIPE_KEY = Setting::where('name','STRIPE_KEY')->first();
-            
+            $price_vnd = Setting::where('name','ti_gia')->value('value');
             // dd($STRIPE_SECRET);
             // echo "<pre>";
             // print_r($info_payment);die;
             // dd($info_payment);
-            return view('frontends.proceed-checkout', compact('info_payment','STRIPE_KEY'));
+            return view('frontends.proceed-checkout', compact('info_payment','STRIPE_KEY', 'price_vnd'));
         }
     }
 
