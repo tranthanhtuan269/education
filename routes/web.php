@@ -193,6 +193,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('recharge-bank-transfer/delete-bank-account', 'Backends\RechargeController@deleteBankTransferAccount');
         Route::post('recharge-bank-transfer/save-bank-transfer', 'Backends\RechargeController@saveBankTransferSetting');
 
+        Route::get('user-amount', 'Backends\RechargeController@userAmount');
+        Route::get('user-amount/get-user-amount', 'Backends\RechargeController@getUserAmountAjax');
+        Route::post('user-amount/edit-user-amount', 'Backends\RechargeController@editUserAmountAjax');
+
         Route::group(['prefix' => 'comment'],function () {
             Route::get('comment-course', 'Backends\CommentController@getAllCommentCourse');
             Route::get('get-comment-course-ajax', 'Backends\CommentController@getAllCommentCourseAjax');
