@@ -443,7 +443,7 @@
                 total_price += element.coupon_price
             })
             $(".total-price").append(number_format(total_price, 0, '.', '.')+' ₫')
-            $("#price-pay-now").append(total_price/20000 +' usd')
+            $("#price-pay-now").append( Math.round(total_price/20000 * 100) / 100 +' usd')
         }
 
         $('.img-bank').on('click', function(e){
