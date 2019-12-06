@@ -86,8 +86,11 @@ class StripePaymentController extends Controller
             }
             $STRIPE_SECRET = Setting::where('name','STRIPE_SECRET')->value('value');
             Stripe\Stripe::setApiKey($STRIPE_SECRET);
+            $price_vnd = Setting::where('name','ti_gia')->value('value');
+            $totalFinal = round($total/$price_vnd ,  2, PHP_ROUND_HALF_EVEN)*100;
+            // dd($totalFinal);
             $charge=Stripe\Charge::create ([
-                "amount" => $total/20,
+                "amount" => $totalFinal,
                 "currency" => "usd",
                 "source" => $request->stripeToken
             ]);

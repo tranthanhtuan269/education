@@ -89,8 +89,12 @@
                             <div class="col-md-6">
                                 <div class="desc">
                                     <h4>{{ $bank_transfer->title }}</h4>
-                                    {!! $bank_transfer->description !!}
-                                    {!! $bank_transfer->instruction !!}
+                                    <p>
+                                        {!! $bank_transfer->description !!}
+                                    </p>
+                                    <p>
+                                        {!! $bank_transfer->instruction !!}
+                                    </p>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -111,29 +115,6 @@
         </div>    
     </div>
 </div>
-<style>
-    .recharge-content .account-info, .recharge-content .desc{
-        border: 1px solid #cccccc;
-        padding: 20px;
-        color: #666666;
-        margin-top: 20px;
-        margin-bottom: 20px;
-    }
-    .recharge-content .account-info h4, .recharge-content .desc h4{
-        font-weight: bold;
-        color: #333333;
-        padding-bottom: 15px;
-    }
-    .recharge-content .account-info .name, .recharge-content .account-info .bank-name, .recharge-content .account-info .account-number{
-        text-transform: uppercase;
-        font-size: 16px;
-        font-weight: bold;
-    }
-    .recharge-content .account-info .tit{
-        padding-top: 15px;
-        padding-bottom: 5px;
-    }
-</style>
 <script>
     $('#paymentBankTransfer').click(function(){
         $('#paymentBankTransfer img').css('border-color', '#44B900')

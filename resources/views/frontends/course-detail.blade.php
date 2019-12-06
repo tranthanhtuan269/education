@@ -1059,7 +1059,15 @@ https://courdemy.vn/course/{{ $info_course->id }}/{{ $info_course->slug }}
 @endif
 <style>
     .hover-like-dislike{
+        pointer-events: none;
+        background-color: #3071a9 !important;
+        border-color: #3071a9 !important;
+    }
+    .active{
         cursor: auto;
+    }
+    .default-active{
+        background-color: #ffffff !important;
     }
 </style>
 <script type="text/javascript">
@@ -1224,19 +1232,21 @@ https://courdemy.vn/course/{{ $info_course->id }}/{{ $info_course->slug }}
         });
 
         $('.btn-default.btn-like').on('click', function (e) {
-            $(".btn-like").addClass("hover-like-dislike");
-            $(".btn-dislike").removeClass("hover-like-dislike");
             vote($(this).attr('data-comment-id'), 'up');
-            $(this).removeClass('btn-default').addClass('btn-primary');
+            $(this).addClass('hover-like-dislike');
+            $(this).removeClass('default-active');
+            $(this).removeClass('btn-default').addClass('btn-primary','hover-like-dislike');
             $(this).parent().find('.btn-dislike').addClass('btn-default').removeClass('btn-primary');
+            $(this).parent().find('.btn-dislike').addClass('default-active').removeClass('hover-like-dislike');
         });
 
         $('.btn-default.btn-dislike').on('click', function (e) {
-            $(".btn-dislike").addClass("hover-like-dislike");
-            $(".btn-like").removeClass("hover-like-dislike");
             vote($(this).attr('data-comment-id'), 'down');
+            $(this).addClass('hover-like-dislike');
+            $(this).removeClass('default-active');
             $(this).removeClass('btn-default').addClass('btn-primary');
             $(this).parent().find('.btn-like').addClass('btn-default').removeClass('btn-primary');
+            $(this).parent().find('.btn-like').addClass('default-active').removeClass('hover-like-dislike');
         });
 
         $('.btn-default.btn-reportcomment').off('click');
