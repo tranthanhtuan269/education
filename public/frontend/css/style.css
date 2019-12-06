@@ -1571,7 +1571,7 @@ ul.unica-acc-zone li.special:hover a {
     padding: 20px 10px
 }
 
-.bill-info .payment-method .payment-card img:hover {
+.bill-info .payment-method .payment-card img:hover, .bill-info .active .payment-method .payment-card img{
     border-color: #44B900;
     border-radius: 20px
 }
