@@ -189,6 +189,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('recharge-bank-transfer', 'Backends\RechargeController@bankTransfer');
         Route::get('recharge-bank-transfer/get-bank-account', 'Backends\RechargeController@getBankTransferAccountAjax');
         Route::post('recharge-bank-transfer/add-bank-account', 'Backends\RechargeController@addBankTransferAccount');
+        Route::post('recharge-bank-transfer/edit-bank-account', 'Backends\RechargeController@editBankTransferAccount');
         Route::post('recharge-bank-transfer/delete-bank-account', 'Backends\RechargeController@deleteBankTransferAccount');
         Route::post('recharge-bank-transfer/save-bank-transfer', 'Backends\RechargeController@saveBankTransferSetting');
 
