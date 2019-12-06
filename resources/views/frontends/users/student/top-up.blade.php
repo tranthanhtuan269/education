@@ -107,7 +107,7 @@
                                     <div class="tit">Số tài khoản:</div>
                                     <div class="account-number">{{ $bank_account->account_number }}</div>
                                     <div class="tit">Lời nhắn:</div>
-                                    <div class="amount">TK: {{Auth::user()->id}}</div>
+                                    <div class="amount">NapTienTK: {{Auth::user()->id}}</div>
                                 </div>
                             </div>
                         </div>
