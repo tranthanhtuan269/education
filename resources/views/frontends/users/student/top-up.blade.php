@@ -95,6 +95,8 @@
                                     <p>
                                         {!! $bank_transfer->instruction !!}
                                     </p>
+                                    <div class="tit">Nội dung chuyển khoản của bạn:</div>
+                                    <div class="mess" style="color:brown">NapTienTK: {{Auth::user()->id}}</div>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -106,8 +108,8 @@
                                     <div class="bank-name">{{ $bank_account->bank_name }}</div>
                                     <div class="tit">Số tài khoản:</div>
                                     <div class="account-number">{{ $bank_account->account_number }}</div>
-                                    <div class="tit">Lời nhắn:</div>
-                                    <div class="amount">NapTienTK: {{Auth::user()->id}}</div>
+                                    <div class="tit">Nội dung chuyển khoản:</div>
+                                    <div class="mess" style="color:brown">NapTienTK: {{Auth::user()->id}}</div>
                                 </div>
                             </div>
                         </div>

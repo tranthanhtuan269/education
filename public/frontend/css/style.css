@@ -6371,12 +6371,12 @@ div[data-u="slides"] div div {
     color: #333333;
     padding-bottom: 15px;
 }
-.recharge-content .account-info .name, .recharge-content .account-info .bank-name, .recharge-content .account-info .account-number, .recharge-content .account-info .amount{
+.recharge-content .account-info .name, .recharge-content .account-info .bank-name, .recharge-content .account-info .account-number, .recharge-content .account-info .mess, .recharge-content .desc .mess{
     text-transform: uppercase;
     font-size: 16px;
     font-weight: bold;
 }
-.recharge-content .account-info .tit{
+.recharge-content .account-info .tit, .recharge-content .desc .tit{
     padding-top: 15px;
     padding-bottom: 5px;
 }
