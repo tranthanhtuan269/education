@@ -188,9 +188,10 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-xs-12">
+                                        <div class="col-xs-8">
                                             <button class="btn btn-primary btn-lg btn-block" type="submit" id="stripeSubmit">Thanh toán</button>
                                         </div>
+                                        
                                     </div>
                                     <br>
                                     <!-- <div class="blockform-check">
@@ -198,6 +199,9 @@
                                         <label class="form-check-label" for="defaultCheck1" >Lưu và bảo mật cho lần thanh toán sau</label>
                                     </div> -->
                                 </form>
+                                <div class="col-xs-4">
+                                    <button class="btn btn-default btn-lg btn-block" id="cancel" style="margin-top: -39%;margin-left: 230%;">Hủy</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -216,6 +220,14 @@
         $('#paymentVisaStripe img').css('border-color', '#44B900')
         $('#paymentVisaStripe img').css('border-radius', '20px')
         $('#paymentBankTransfer img').css('border-color', '#ffffff')
+    })
+    $('#cancel').click(function(){
+        $('input[name=card_name]').val('');
+        $('input[name=card_number]').val('');
+        $('input[name=price_number]').val('');
+        $('input[name=card_cvc]').val('');
+        $('input[name=card_expiry_month]').val('');
+        $('input[name=card_expiry_year]').val('');
     })
 </script>
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
