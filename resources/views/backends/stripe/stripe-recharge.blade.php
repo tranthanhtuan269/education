@@ -83,7 +83,7 @@ $(document).ready(function() {
             sInfoFiltered: "",
             sInfoEmpty: "",
             sZeroRecords: "Không tìm thấy kết quả tìm kiếm",
-            sEmptyTable: "Chưa có phản hồi",
+            sEmptyTable: "Chưa có lịch sử nào",
             oPaginate: {
                 sPrevious: "Trang trước",
                 sNext: "Trang sau",
