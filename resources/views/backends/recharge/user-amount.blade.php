@@ -144,6 +144,11 @@ $(document).ready(function(){
         }
     });
     $('#userAmountTable').css('width', '100%');
+    $('.dataTables_filter input').unbind().bind('keyup', function() {
+       var searchTerm = this.value.toLowerCase(),
+           regex = '\\b' + searchTerm + '\\b';
+       dataTable.rows().search(regex, true, false).draw();
+    })
 
     function addEventListener(){
         $('.add-amount-user').off('click')
