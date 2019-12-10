@@ -18,7 +18,7 @@
 Auth::routes();
 
 Route::get('trinhnk', function( ){
-
+    dd(\Auth::id());
 });
 
 Route::get('delete/{course}', 'Frontends\HomeController@deleteCourse');
@@ -280,6 +280,8 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::resource('stripe', 'Backends\StripeController');
         Route::post('stripe/update', 'Backends\StripeController@updateAccount');
+        Route::get('history', 'Backends\StripeController@recharge');
+        Route::get('history/getDataAjax', 'Backends\StripeController@getDataAjax');
     });
 });
 

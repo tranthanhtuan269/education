@@ -50,7 +50,13 @@
                     <div class="form-group row">
                         <label class="col-sm-3">Số tiền</label>
                         <div class="col-sm-9">
-                            <input class="form-control user-amount" type="text" name="user_amount" placeholder="">
+                            <input class="form-control user-amount" type="number" name="user_amount" placeholder="" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3">Số tiền nạp</label>
+                        <div class="col-sm-9">
+                            <input class="form-control recharge-amount" type="number" min=0 name="recharge_amount" placeholder="" id="rechargeCoin">
                         </div>
                     </div>
                 </div>
@@ -63,6 +69,13 @@
     </div>
 </section>
 <script>
+document.getElementById('rechargeCoin').onkeydown = function(e) {
+        if(!((e.keyCode > 95 && e.keyCode < 106)
+        || (e.keyCode > 47 && e.keyCode < 58)
+        || e.keyCode == 8)) {
+            return false;
+        }
+    }
 var dataTable = null;
 var userCheckList = [];
 var current_page = 0;
@@ -158,7 +171,7 @@ $(document).ready(function(){
         $('.btn-add-user-amount').off('click')
         $('.btn-add-user-amount').click(function(){
             var user_id = $(this).attr('data-id')
-            var coins  =$('input[name=user_amount]').val()
+            var recharge_coins  =$('input[name=recharge_amount]').val()
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN'    : $('meta[name="csrf-token"]').attr('content')
@@ -168,7 +181,7 @@ $(document).ready(function(){
                 url: baseURL+"/admincp/user-amount/edit-user-amount",
                 data: {
                     id : user_id,
-                    coins : coins
+                    recharge_coins : recharge_coins
                 },
                 method: "POST",
                 dataType:'json',

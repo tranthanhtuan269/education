@@ -7,6 +7,7 @@ use App\Payment;
 use App\BankAccount;
 use App\Http\Controllers\Backends\Requests\StoreBankAccountRequest;
 use App\User;
+use App\RechargeLog;
 
 class RechargeController extends Controller
 {
@@ -106,9 +107,15 @@ class RechargeController extends Controller
     {
         $user_amount  = User::find($request->id);
         if ( $user_amount ){
-            $user_amount->coins = $request->coins;
+            $user_amount->coins += $request->recharge_coins;
             $user_amount->save();
-            return \Response::json(array('status' => '200', 'message' => 'Sửa số tiền của người dùng thành công'));
+            $userRecharge = new RechargeLog;
+            $userRecharge->amount = $request->recharge_coins;
+            $userRecharge->message = 'VND';
+            $userRecharge->payment_id= 5;
+            $userRecharge->user_id = $request->id;
+            $userRecharge->save();
+            return \Response::json(array('status' => '200', 'message' => 'Nạp tiền thành công'));
         }
     }
 }

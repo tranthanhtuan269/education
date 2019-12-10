@@ -11,6 +11,7 @@ use Cache;
 use App\Helper\Helper;
 use App\User;
 use App\Setting;
+use App\RechargeLog;
 
 class StripeController extends Controller
 {
@@ -40,5 +41,23 @@ class StripeController extends Controller
         // $STRIPE_SECRET = Setting::where('name','STRIPE_SECRET')->first();
         // dd($STRIPE_KEY, $STRIPE_SECRET);
         return \Response::json(array('status' => '200', 'message' => 'Đã đổi tài khoản và tỉ giá thành công!'));
+    }
+    public function recharge()
+    {
+        
+        return view('backends.stripe.stripe-recharge');
+    }
+    public function getDataAjax()
+    {
+        
+        
+        
+        $user_amounts = RechargeLog::leftJoin('users', 'users.id', '=', 'recharge_logs.user_id' )
+        ->join('payments', 'payments.id', '=', 'recharge_logs.payment_id' )
+        ->select('amount', 'user_id', 'users.name as user_name', 'payments.name as payments_name')
+        ->get();
+        return datatables()->collection($user_amounts)
+            
+            ->make(true);
     }
 }

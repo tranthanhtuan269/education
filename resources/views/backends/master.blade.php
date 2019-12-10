@@ -343,7 +343,7 @@
                                 <span class="pull-right-container">
                             </a>
                         </li>
-                        <li class="treeview @if ( Request::is('admincp/recharge*')) active @endif">
+                        <li class="treeview @if ( Request::is('admincp/recharge*') || Request::is('admincp/recharge-bank-transfer*') || Request::is('admincp/user-amount*') || Request::is('admincp/history*')) active @endif">
                             <a href="javascript:void(0)">
                                 <i class="fa fa-star"></i>
                                 <span>Nạp thẻ</span>
@@ -358,6 +358,9 @@
                                     </li>
                                     <li class="@if ( Request::is('admincp/user-amount*') ) active @endif">
                                         <a href="{{ url('/') }}/admincp/user-amount"><i class="fa fa-minus"></i>Tài khoản người dùng</a>
+                                    </li>
+                                    <li class="@if ( Request::is('admincp/history*') ) active @endif">
+                                        <a href="{{ url('/') }}/admincp/history"><i class="fa fa-minus"></i>Lịch sử nạp tiền</a>
                                     </li>
                                 @endif
                             </ul>

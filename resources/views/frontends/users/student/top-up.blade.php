@@ -166,7 +166,7 @@
                                         <div class='col-xs-12 form-group card required'>
                                             <label class='control-label'>Số tiền muốn nạp (USD):</label> <input
                                                 autocomplete='off' name='price_number' class='form-control price-number' size='20'
-                                                type='text' >
+                                                type='number' placeholder='Nhập số nguyên dương' min="0" id='priceNumber'>
                                         </div>
                                     </div>
             
@@ -220,6 +220,13 @@
 </script>
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 <script type="text/javascript">
+    document.getElementById('priceNumber').onkeydown = function(e) {
+        if(!((e.keyCode > 95 && e.keyCode < 106)
+        || (e.keyCode > 47 && e.keyCode < 58)
+        || e.keyCode == 8)) {
+            return false;
+        }
+    }
     $(function() {
 
         var $form = $(".require-validation");
