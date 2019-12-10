@@ -27,6 +27,7 @@ use DB;
 use App\Document;
 use Config;
 use App\VideoJson;
+use App\RechargeLog;
 
 class StripeRechargeController extends Controller
 {
@@ -45,8 +46,7 @@ class StripeRechargeController extends Controller
     {
         try {
             $total = $request->price_number;
-            // dd($request);
-            if(is_int($total)){
+            
                 $userStripe = Auth::user()->name;
                 $STRIPE_SECRET = Setting::where('name','STRIPE_SECRET')->value('value');
                 Stripe\Stripe::setApiKey($STRIPE_SECRET);
@@ -66,17 +66,20 @@ class StripeRechargeController extends Controller
                     $user = Auth::user();
                     $user->coins = $user->coins + $total * $price_vnd;
                     $user->save();
+                    $userRecharge = new RechargeLog;
+                    $userRecharge->amount = $total;
+                    $userRecharge->message = 'USD';
+                    $userRecharge->payment_id= 2;
+                    $userRecharge->user_id = Auth::id();
+                    $userRecharge->save();
                     Session::flash('success', 'Payment successful!');
                     return back();
                 } else {
                     Session::flash('fail');
                     return back();
                 }
-            }
-            else{
-                Session::flash('fail');
-                    return back();
-            }
+            
+            
         } catch (\Exception $ex) {
             return $ex->getMessage();
         }
