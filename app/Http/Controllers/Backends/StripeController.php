@@ -54,8 +54,9 @@ class StripeController extends Controller
         
         $user_amounts = RechargeLog::leftJoin('users', 'users.id', '=', 'recharge_logs.user_id' )
         ->join('payments', 'payments.id', '=', 'recharge_logs.payment_id' )
-        ->select('amount', 'user_id', 'users.name as user_name', 'payments.name as payments_name')
+        ->select('recharge_logs.created_at as created_at', 'amount', 'user_id', 'users.name as user_name', 'payments.name as payments_name')
         ->get();
+        
         return datatables()->collection($user_amounts)
             
             ->make(true);
