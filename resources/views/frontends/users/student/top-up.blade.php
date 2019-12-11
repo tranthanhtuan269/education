@@ -286,9 +286,15 @@
     var current_page = 0;
     var old_search = '';
     var errorConnect = "Please check your internet connection and try again.";
-
+    var clickCount = 0;
     $('#historyRecharge').click(function(){
-        $('#showRecharge').css('display', 'block')
+        clickCount++;
+        if(clickCount % 2 == 1){
+            $('#showRecharge').css('display', 'block')
+        }
+        else{
+            $('#showRecharge').css('display', 'none')
+        }
     })
 
     $('#paymentBankTransfer').click(function(){
