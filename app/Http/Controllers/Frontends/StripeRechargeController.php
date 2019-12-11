@@ -68,6 +68,7 @@ class StripeRechargeController extends Controller
                     $user->save();
                     $userRecharge = new RechargeLog;
                     $userRecharge->amount = $total;
+                    $userRecharge->balance = $user->coins;
                     $userRecharge->message = 'USD';
                     $userRecharge->payment_id= 2;
                     $userRecharge->user_id = Auth::id();
