@@ -6438,3 +6438,6 @@ div[data-u="slides"] div div {
 .bill-info .account-info table tr td {
     border-bottom: 1px solid #e1e1e1;
 }
+.bill-info .bank-instruction{
+    margin-top: 15px;
+}

@@ -90,14 +90,14 @@
                             <div class="col-md-4">
                                 <div class="desc">
                                     <h4>{{ $bank_transfer->title }}</h4>
-                                    <p>
+                                    <p class="bank-description">
                                         {!! $bank_transfer->description !!}
                                     </p>
                                     <div class="tit">Số tiền:</div>
                                     <div class="mess amount-money"></div>
                                     <div class="tit">Nội dung chuyển khoản:</div>
                                     <div class="mess">NapTienTK: {{Auth::user()->id}}</div>
-                                    <p>
+                                    <p class="bank-instruction">
                                         {!! $bank_transfer->instruction !!}
                                     </p>
                                 </div>
