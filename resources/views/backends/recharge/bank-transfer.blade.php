@@ -42,7 +42,7 @@
             <table class="table table-bordered" id="bankTransferTable">
                 <thead class="thead-custom">
                     <tr>
-                        <th></th>
+                        {{-- <th></th> --}}
                         <th scope="col">Tên tài khoản</th>
                         <th scope="col">Số tài khoản</th>
                         <th scope="col">Ngân hàng</th>
@@ -159,11 +159,11 @@ $(document).ready(function() {
     })
 
     var dataObject = [
-        {
-            data: "action",
-            class: "text-center",
-            orderable: false
-        },
+        // {
+        //     data: "action",
+        //     class: "text-center",
+        //     orderable: false
+        // },
         {
             data: "name",
         },
@@ -214,24 +214,24 @@ $(document).ready(function() {
         columns: dataObject,
         bLengthChange: true,
         pageLength: 10,
-        columnDefs:[
-            { 
-                targets: 0,
-                searchable: false,
-                orderable: false,
-                render: function(data, type, row) {
-                    var html = '';
-                    if(type === 'display'){
-                        if ( row.status == 1 ){
-                            html = '<input type="radio" name="id" value="' + data + '" checked="checked">';
-                        }else{
-                            html = '<input type="radio" name="id" value="' + data + '">';
-                        }
-                    }
-                    return html;
-                },
-            }
-        ],
+        // columnDefs:[
+        //     { 
+        //         targets: 0,
+        //         searchable: false,
+        //         orderable: false,
+        //         render: function(data, type, row) {
+        //             var html = '';
+        //             if(type === 'display'){
+        //                 if ( row.status == 1 ){
+        //                     html = '<input type="radio" name="id" value="' + data + '" checked="checked">';
+        //                 }else{
+        //                     html = '<input type="radio" name="id" value="' + data + '">';
+        //                 }
+        //             }
+        //             return html;
+        //         },
+        //     }
+        // ],
         order: [[ 0, "DESC" ]],
         colReorder: {
             fixedColumnsRight: 1,
@@ -451,7 +451,7 @@ $(document).ready(function() {
         var title_desc = $('.title-desc input').val()
         var description  = $('.description textarea').val()
         var instruction = $('.instruction textarea').val()
-        var account_id = $('#bankTransferTable input[name=id]:checked').val()
+        // var account_id = $('#bankTransferTable input[name=id]:checked').val()
         // console.log(account_id);return
         $.ajaxSetup({
             headers: {
@@ -465,7 +465,7 @@ $(document).ready(function() {
                 title_desc : title_desc,
                 description : description,
                 instruction : instruction,
-                account_id : account_id,
+                // account_id : account_id,
             },
             method: "POST",
             dataType:'json',

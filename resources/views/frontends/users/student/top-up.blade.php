@@ -6,7 +6,6 @@
     $nganluong = $payments[2];
     $paypal = $payments[3];
     $bank_transfer = $payments[4];
-    // dd($visa_mastercard->status,$bank_transfer->status);
 ?>
 
 <div class="u-dashboard-top" style="background-image:  url({{ url('frontend/images/bg-db-user.jpg') }});">
@@ -21,7 +20,20 @@
 
 <div class="container">
     <div class="bill-info">
-        <div id="addFundTab" class="col-xs-12 payment-method tab-pane fade in">
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3 col-xs-12 balance">
+                <h4 class="text-center">Nhập số tiền (VND)</h4>
+                <form>
+                    <div class="form-row">
+                        <div class="form-group col-sm-8">
+                            <input type="number" class="form-control" id="amountMoney" min="1000" placeholder="Số tiền bạn muốn nạp">
+                        </div>
+                        <div class="btn btn-warning col-sm-4 btn-confirm-money">Xác nhận</div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div id="addFundTab" class="col-xs-12 payment-method tab-pane fade in" style="display:none">
             <div class="row">
                 <ul>
                     @if ( $internet_banking->status == 1 )
@@ -71,46 +83,46 @@
                     @endif
                 </ul>
             </div>
-            {{-- <div class="row">
-                <div class="col-sm-6 col-sm-offset-3 col-xs-12 balance">
-                    <form>
-                        <div class="form-row">
-                            <div class="form-group col-sm-8">
-                                <input type="text" class="form-control" id="amount-money" placeholder="Số tiền bạn muốn nạp">
-                            </div>
-                            <button type="submit" class="col-sm-4 btn-confirm">Xác nhận</button>
-                        </div>
-                    </form>
-                </div>
-            </div> --}}
             <div class="recharge-content">
                 <div class="tab-content">
                     <div id="bank_transfer" class="tab-pane fade in tab-steps-register">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="desc">
                                     <h4>{{ $bank_transfer->title }}</h4>
                                     <p>
                                         {!! $bank_transfer->description !!}
                                     </p>
+                                    <div class="tit">Số tiền:</div>
+                                    <div class="mess amount-money"></div>
+                                    <div class="tit">Nội dung chuyển khoản:</div>
+                                    <div class="mess">NapTienTK: {{Auth::user()->id}}</div>
                                     <p>
                                         {!! $bank_transfer->instruction !!}
                                     </p>
-                                    <div class="tit">Nội dung chuyển khoản của bạn:</div>
-                                    <div class="mess" style="color:brown">NapTienTK: {{Auth::user()->id}}</div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-8">
                                 <div class="account-info">
                                     <h4>Thông tin chuyển khoản ngân hàng</h4>
-                                    <div class="tit">Tên tài khoản:</div>
-                                    <div class="name">{{ $bank_account->name }}</div>
-                                    <div class="tit">Ngân hàng:</div>
-                                    <div class="bank-name">{{ $bank_account->bank_name }}</div>
-                                    <div class="tit">Số tài khoản:</div>
-                                    <div class="account-number">{{ $bank_account->account_number }}</div>
-                                    <div class="tit">Nội dung chuyển khoản:</div>
-                                    <div class="mess" style="color:brown">NapTienTK: {{Auth::user()->id}}</div>
+                                    <table id="tablepress-5" class="tablepress tablepress-id-5">
+                                        <thead>
+                                            <tr class="row-1 odd">
+                                                <th class="column-1">Số tài khoản</th>
+                                                <th class="column-2">Tên tài khoản</th>
+                                                <th class="column-2">Ngân hàng</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($bank_account as $account)
+                                            <tr class="row-2">
+                                                <td class="column-1">{{$account->account_number}}</td>
+                                                <td class="column-2">{{$account->name}}</td>
+                                                <td class="column-3">{{$account->bank_name}}</td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -330,6 +342,11 @@
         }
 
     });
+    $('.btn-confirm-money').click(function(){
+        var amount = $('#amountMoney').val();
+        $('.amount-money').html(numberFormat(amount, 0, '.', '.') + ' VND')
+        $('.payment-method').css('display', 'block')
+    })
 </script>
 
 @endsection

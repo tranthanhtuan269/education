@@ -1537,7 +1537,7 @@ ul.unica-acc-zone li.special:hover a {
 
 .bill-info .balance {
     margin-top: 30px;
-    margin-bottom: 30px
+    /* margin-bottom: 30px */
 }
 
 .bill-info .balance p {
@@ -6376,7 +6376,65 @@ div[data-u="slides"] div div {
     font-size: 16px;
     font-weight: bold;
 }
+.recharge-content .mess{
+    color: brown;
+}
 .recharge-content .account-info .tit, .recharge-content .desc .tit{
     padding-top: 15px;
     padding-bottom: 5px;
+}
+.bill-info .balance h4{
+    margin-bottom: 20px;
+}
+.bill-info .account-info .tablepress {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    margin-bottom: 1em;
+    border: none;
+}
+.bill-info .account-info .tablepress tfoot th, .bill-info .account-info .tablepress thead th {
+    background-color: #d9edf7;
+    font-weight: 700;
+    vertical-align: middle;
+}
+.bill-info .account-info .tablepress thead th {
+    border-bottom: 1px solid #ddd;
+}
+.bill-info .account-info .tablepress td, .bill-info .account-info .tablepress th {
+    padding: 8px;
+    border: none;
+    background: 0 0;
+    text-align: left;
+    float: none!important;
+}
+.bill-info .account-info .tablepress tbody tr:first-child td {
+    border-top: 0;
+}
+.bill-info .account-info .tablepress .even td {
+    background-color: #fff;
+}
+.bill-info .account-info .tablepress tbody td, .bill-info .account-info .tablepress tfoot th {
+    border-top: 1px solid #ddd;
+}
+.bill-info .account-info .tablepress tbody td {
+    vertical-align: top;
+}
+.bill-info .account-info .tablepress td, .bill-info .account-info .tablepress th {
+    padding: 8px;
+    border: none;
+    background: 0 0;
+    text-align: left;
+    float: none!important;
+}
+.bill-info .account-info table tr td {
+    font-weight: 400;
+}
+.bill-info .account-info table tr th, table tr td {
+    padding: 20px;
+    text-align: left;
+    border-bottom: 1px solid #e1e1e1;
+}
+.bill-info .account-info table tr td {
+    border-bottom: 1px solid #e1e1e1;
 }

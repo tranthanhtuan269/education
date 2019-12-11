@@ -132,7 +132,7 @@ class UserController extends Controller
     public function showTopup(){
         $payments = Payment::get();
         $STRIPE_KEY = Setting::where('name','STRIPE_KEY')->value('value');
-        $bank_account = BankAccount::where('status', 1)->first();
+        $bank_account = BankAccount::get();
         return view('frontends.users.student.top-up', ['payments' => $payments, 'bank_account' => $bank_account, 'STRIPE_KEY'=>$STRIPE_KEY]);
     }
 
