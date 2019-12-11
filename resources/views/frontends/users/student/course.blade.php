@@ -130,7 +130,7 @@
                 },
                 dataType: "json",
                 success: function () {
-                    window.location.href = ("/learning-page/"+ course_id +"/"+ course_slug)
+                    window.location.href = ("/learning-page/"+ course_id +"/course-"+ course_slug)
                 },
                 error: function () {
 
