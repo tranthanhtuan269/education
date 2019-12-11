@@ -1355,7 +1355,7 @@ https://courdemy.vn/course/{{ $info_course->id }}/{{ $info_course->slug }}
                         html += '</div>'
                     html += '</div>'
 
-                    $('.reply-hold-' + comment_id + ' .comment-reply:first-child').before(html);
+                    $('.reply-hold-' + comment_id ).prepend(html);
                     $("#reply-" + comment_id).val("")
                     $('.reply-textbox').addClass('hide')
                 }
