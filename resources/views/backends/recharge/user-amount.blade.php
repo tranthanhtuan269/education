@@ -29,7 +29,7 @@
         <div class="modal-dialog">
             <div class="modal-content" >
                 <div class="modal-header">
-                    <h5 class="modal-title font-weight-600">Thêm tài khoản ngân hàng</h5>
+                    <h5 class="modal-title font-weight-600">Nạp tiền qua tài khoản ngân hàng</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -48,13 +48,13 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-3">Số tiền</label>
+                        <label class="col-sm-3">Số tiền (VND)</label>
                         <div class="col-sm-9">
                             <input class="form-control user-amount" type="number" name="user_amount" placeholder="" disabled>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-3">Số tiền nạp</label>
+                        <label class="col-sm-3">Số tiền nạp (VND)</label>
                         <div class="col-sm-9">
                             <input class="form-control recharge-amount" type="number" min=0 name="recharge_amount" placeholder="" id="rechargeCoin">
                         </div>
@@ -92,6 +92,15 @@ $(document).ready(function(){
         },
         {
             data: "coins",
+            render: function(data, type, row){
+                if(type == "display"){
+                    var html = '<div style="text-align: right">';
+                        html += numberFormat(data, 0, '.', '.') + ' đ';
+                        html += '</div>'
+                    return html;
+                }
+                return data;
+            },
         },
         {
             data: "action",
