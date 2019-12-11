@@ -17,9 +17,10 @@
                     <thead class="thead-custom">
                         <tr>
                             <th scope="col">Id</th>
-                            <th scope="col">Tên</th>
+                            <th scope="col">Mã giao dịch</th>
+                            <th scope="col">Tên khách hàng</th>
                             <th scope="col">Kiểu nạp tiền</th>
-                            <th scope="col">Số tiền đã nạp</th>
+                            <th scope="col">Số tiền nạp</th>
                             <th scope="col">Ngày nạp</th>
                         </tr>
                     </thead>
@@ -42,6 +43,14 @@ $(document).ready(function() {
             class: "text-center",
         },
         {
+            data: "id",
+            class: "text-center",
+            render: function(data, type, row) {
+                return '#GD'+data;
+            },
+            orderable: false
+        },
+        {
             data: "user_name",
             class: "text-center",
         },
@@ -52,10 +61,28 @@ $(document).ready(function() {
         {
             data: "amount",
             class: "text-center",
+            render: function(data, type, row){
+                    if(type == "display"){
+                        var html = '<div style="text-align: right">';
+                            html += numberFormat(data, 0, '.', '.') + ' đ';
+                            html += '</div>'
+                        return html;
+                    }
+                    return data;
+                },
+            orderable: false
         },
         {
             data: "created_at",
-            class: "text-center",
+            render: function(data, type, row){
+                    if(type == "display"){
+                        var html = '<div style="text-align: right">';
+                            html += row.created_at;
+                            html += '</div>';
+                        return html;
+                    }
+                    return data;
+                },
         },
         
     ];

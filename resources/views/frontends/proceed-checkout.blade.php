@@ -442,8 +442,8 @@
                 $(".list-course-order").append(html)
                 total_price += element.coupon_price
             })
-            $(".total-price").append(number_format(total_price, 0, '.', '.')+' ₫')
             var a = {{$price_vnd}}
+            $(".total-price").append(Math.round(total_price/a * 100) / 100 +' usd')
             $("#price-pay-now").append( Math.round(total_price/a * 100) / 100 +' usd')
         }
 
