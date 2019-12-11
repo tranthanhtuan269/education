@@ -17,8 +17,12 @@
 
 Auth::routes();
 
-Route::get('trinhnk', function( ){
-    dd(\Auth::id());
+Route::get('trinhnk/{$d}', function($d){
+});
+Route::get('het-tien', function(){
+    \Auth::user()->coins = 0;
+    \Auth::user()->save();
+    dd('Số tiền của bạn là: '.\Auth::user()->coins.' VND');
 });
 
 Route::get('delete/{course}', 'Frontends\HomeController@deleteCourse');
