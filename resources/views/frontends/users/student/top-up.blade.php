@@ -196,7 +196,7 @@
                                     @csrf
                                     <div class='form-row row'>
                                         <div class='col-xs-12 form-group required'>
-                                            <label class='control-label'>Tên in trên thẻ:</label> <input
+                                            <label class='control-label'>Tên in trên thẻ:</label> <input 
                                                 class='form-control' name='card_name' size='4' type='text' 
                                                 >
                                         </div>
@@ -308,48 +308,8 @@
         $('#paymentBankTransfer img').css('border-color', '#ffffff')
     })
 
-    $('input[name=card_name]').keyup(function(){
-        if($('input[name=card_name]').val()){
-            $('#cancel').prop('disabled', false);
-        }
-        else{
-            $('#cancel').prop('disabled', true);
-        }
-    })
-    $('input[name=card_number]').keyup(function(){
-        if($('input[name=card_number]').val()){
-            $('#cancel').prop('disabled', false);
-        }
-        else{
-            $('#cancel').prop('disabled', true);
-        }
-    })
-    $('input[name=price_number]').keyup(function(){
-        if($('input[name=price_number]').val()){
-            $('#cancel').prop('disabled', false);
-        }
-        else{
-            $('#cancel').prop('disabled', true);
-        }
-    })
-    $('input[name=card_cvc]').keyup(function(){
-        if($('input[name=card_cvc]').val()){
-            $('#cancel').prop('disabled', false);
-        }
-        else{
-            $('#cancel').prop('disabled', true);
-        }
-    })
-    $('input[name=card_expiry_month]').keyup(function(){
-        if($('input[name=card_expiry_month]').val()){
-            $('#cancel').prop('disabled', false);
-        }
-        else{
-            $('#cancel').prop('disabled', true);
-        }
-    })
-    $('input[name=card_expiry_year]').keyup(function(){
-        if($('input[name=card_expiry_year]').val()){
+    $('.form-control').keyup(function(){
+        if($('input[name=card_name]').val() || $('input[name=card_number]').val() || $('input[name=price_number]').val() || $('input[name=card_cvc]').val() || $('input[name=card_expiry_month]').val() || $('input[name=card_expiry_year]').val()){
             $('#cancel').prop('disabled', false);
         }
         else{
