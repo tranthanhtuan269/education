@@ -1,5 +1,9 @@
 @extends('frontends.layouts.app') 
 @section('content')
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.16/datatables.min.css"/>
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.16/datatables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.16/api/fnReloadAjax.js"></script>
+
 <?php
     $internet_banking = $payments[0];
     $visa_mastercard = $payments[1];
@@ -221,8 +225,34 @@
             </div>
         </div>    
     </div>
+    <div>
+        <h4 class="text-center">Lịch sử nạp tiền</h4>
+        <br>
+        <table class="table table-bordered" id="rechargeLogs">
+            <thead class="thead-custom">
+                <tr>
+                    <th scope="col">Mã giao dịch</th>
+                    <th scope="col">Tên khách hàng</th>
+                    <th scope="col">Số tiền nạp</th>
+                    <th scope="col">Số dư</th>
+                    <th scope="col">Loại giao dịch</th>
+                    <th scope="col">Ngày nạp</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+            </tbody>
+        </table>
+    </div>
 </div>
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 <script>
+    var dataTable = null;
+    var userCheckList = [];
+    var current_page = 0;
+    var old_search = '';
+    var errorConnect = "Please check your internet connection and try again.";
+
     $('#paymentBankTransfer').click(function(){
         $('#paymentBankTransfer img').css('border-color', '#44B900')
         $('#paymentBankTransfer img').css('border-radius', '20px')
@@ -241,9 +271,6 @@
         $('input[name=card_expiry_month]').val('');
         $('input[name=card_expiry_year]').val('');
     })
-</script>
-<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
-<script type="text/javascript">
     document.getElementById('priceNumber').onkeydown = function(e) {
         if(!((e.keyCode > 95 && e.keyCode < 106)
         || (e.keyCode > 47 && e.keyCode < 58)
@@ -365,6 +392,115 @@
         var amount = $('#amountMoney').val();
         $('.amount-money').html(numberFormat(amount, 0, '.', '.') + ' VND')
         $('.payment-method').css('display', 'block')
+    })
+
+    $(document).ready(function() {
+        var dataObject = [
+            {
+                data: "id",
+                class: "text-center",
+                render: function(data, type, row) {
+                    return '#GD'+data;
+                },
+            },
+            {
+                data: "customer_name",
+                orderable: false
+            },
+            {
+                data: "amount",
+                render: function(data, type, row){
+                    if(type == "display"){
+                        var html = '<div style="text-align: right">';
+                            html += numberFormat(data, 0, '.', '.') + ' đ';
+                            html += '</div>'
+                        return html;
+                    }
+                    return data;
+                },
+                orderable: false
+            },
+            {
+                data: "balance",
+                render: function(data, type, row){
+                    if(type == "display"){
+                        var html = '<div style="text-align: right">';
+                            html += numberFormat(data, 0, '.', '.') + ' đ';
+                            html += '</div>'
+                        return html;
+                    }
+                    return data;
+                },
+                orderable: false
+            },
+            {
+                data: "payment_type",
+                class: "text-center",
+            },
+            {
+                data: "id",
+                render: function(data, type, row){
+                    if(type == "display"){
+                        var html = '<div style="text-align: right">';
+                            html += row.created_at;
+                            html += '</div>';
+                        return html;
+                    }
+                    return data;
+                },
+            },
+        ];
+
+        dataTable = $('#rechargeLogs').DataTable({
+            serverSide: false,
+            search: {
+                smart: false
+            },
+            aaSorting: [],
+            stateSave: true,
+            search: {
+                smart: false
+            },
+            ajax:{
+                url: "/user/student/get-recharge-logs",
+            }, 
+            columns: dataObject,
+            bLengthChange: true,
+            pageLength: 10,
+            order: [[ 5, "DESC" ]],
+            colReorder: {
+                fixedColumnsRight: 1,
+                fixedColumnsLeft: 1
+            },
+            oLanguage: {
+                sSearch: "Tìm kiếm",
+                sLengthMenu: "Hiển thị _MENU_ bản ghi",
+                // zeroRecords: "Không tìm thấy bản ghi",
+                sInfo: "Hiển thị  _START_ - _END_ /_TOTAL_ bản ghi",
+                sInfoFiltered: "",
+                sInfoEmpty: "",
+                sZeroRecords: "Không tìm thấy kết quả tìm kiếm",
+                sEmptyTable: "Chưa có giao dịch nạp thẻ",
+                oPaginate: {
+                    sPrevious: "Trang trước",
+                    sNext: "Trang sau",
+
+                },
+            },
+            fnServerParams: function(aoData) {
+
+            },
+            fnDrawCallback: function(oSettings) {
+                // addEventListener();
+            },
+            createdRow: function( row, data, dataIndex){
+                // $(row).attr('data-name', data['name']);
+                // $(row).attr('data-account-number', data['account_number']);
+                // $(row).attr('data-bank-name', data['bank_name']);
+            }
+        });
+
+        $('#rechargeLogs').css('width', '100%');
     })
 </script>
 

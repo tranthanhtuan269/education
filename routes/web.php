@@ -399,6 +399,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('order/{id}','Frontends\UserController@detailOrder')->where('id','[0-9]+');
             Route::get('order-logs', 'Frontends\UserController@orderLogs');
             Route::get('top-up', 'Frontends\UserController@showTopup');
+            Route::get('get-recharge-logs', 'Backends\RechargeController@getRechargeLogs');
         });
 
         Route::group(['prefix' => 'teacher'],function () {

@@ -8,6 +8,7 @@ use App\BankAccount;
 use App\Http\Controllers\Backends\Requests\StoreBankAccountRequest;
 use App\User;
 use App\RechargeLog;
+use Auth;
 
 class RechargeController extends Controller
 {
@@ -111,11 +112,25 @@ class RechargeController extends Controller
             $user_amount->save();
             $userRecharge = new RechargeLog;
             $userRecharge->amount = $request->recharge_coins;
+            $userRecharge->balance = $user_amount->coins;
             $userRecharge->message = 'VND';
             $userRecharge->payment_id= 5;
             $userRecharge->user_id = $request->id;
             $userRecharge->save();
             return \Response::json(array('status' => '200', 'message' => 'Nạp tiền thành công'));
         }
+    }
+
+    public function getRechargeLogs()
+    {
+        $recharge_history = RechargeLog::where('user_id', Auth::id())->get();
+        return datatables()->collection($recharge_history)
+            ->addColumn('customer_name', function ($recharge) {
+                return Auth::user()->name;
+            })
+            ->addColumn('payment_type', function ($recharge) {
+                return $recharge->payment->name;
+            })
+            ->make(true);
     }
 }
