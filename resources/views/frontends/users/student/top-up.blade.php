@@ -247,7 +247,7 @@
                                     </div> -->
                                 </form>
                                 <div class="col-xs-6">
-                                    <button class="btn btn-primary btn-lg btn-block" id="cancel" style="margin-top: -25%;margin-left: 111%;">Hủy</button>
+                                    <button class="btn btn-primary btn-lg btn-block" id="cancel" style="margin-top: -25%;margin-left: 111%;" disabled>Hủy</button>
                                 </div>
                             </div>
                         </div>
@@ -308,6 +308,55 @@
         $('#paymentBankTransfer img').css('border-color', '#ffffff')
     })
 
+    $('input[name=card_name]').keyup(function(){
+        if($('input[name=card_name]').val()){
+            $('#cancel').prop('disabled', false);
+        }
+        else{
+            $('#cancel').prop('disabled', true);
+        }
+    })
+    $('input[name=card_number]').keyup(function(){
+        if($('input[name=card_number]').val()){
+            $('#cancel').prop('disabled', false);
+        }
+        else{
+            $('#cancel').prop('disabled', true);
+        }
+    })
+    $('input[name=price_number]').keyup(function(){
+        if($('input[name=price_number]').val()){
+            $('#cancel').prop('disabled', false);
+        }
+        else{
+            $('#cancel').prop('disabled', true);
+        }
+    })
+    $('input[name=card_cvc]').keyup(function(){
+        if($('input[name=card_cvc]').val()){
+            $('#cancel').prop('disabled', false);
+        }
+        else{
+            $('#cancel').prop('disabled', true);
+        }
+    })
+    $('input[name=card_expiry_month]').keyup(function(){
+        if($('input[name=card_expiry_month]').val()){
+            $('#cancel').prop('disabled', false);
+        }
+        else{
+            $('#cancel').prop('disabled', true);
+        }
+    })
+    $('input[name=card_expiry_year]').keyup(function(){
+        if($('input[name=card_expiry_year]').val()){
+            $('#cancel').prop('disabled', false);
+        }
+        else{
+            $('#cancel').prop('disabled', true);
+        }
+    })
+
     $('#cancel').click(function(){
         $('input[name=card_name]').val('');
         $('input[name=card_number]').val('');
@@ -315,6 +364,7 @@
         $('input[name=card_cvc]').val('');
         $('input[name=card_expiry_month]').val('');
         $('input[name=card_expiry_year]').val('');
+        $('#cancel').prop('disabled', true);
     })
     document.getElementById('priceNumber').onkeydown = function(e) {
         if(!((e.keyCode > 95 && e.keyCode < 106)
