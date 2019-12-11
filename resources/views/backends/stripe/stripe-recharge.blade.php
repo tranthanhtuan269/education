@@ -20,6 +20,7 @@
                             <th scope="col">Tên</th>
                             <th scope="col">Kiểu nạp tiền</th>
                             <th scope="col">Số tiền đã nạp</th>
+                            <th scope="col">Ngày nạp</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -50,6 +51,10 @@ $(document).ready(function() {
         },
         {
             data: "amount",
+            class: "text-center",
+        },
+        {
+            data: "created_at",
             class: "text-center",
         },
         

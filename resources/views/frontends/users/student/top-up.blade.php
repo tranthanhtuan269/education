@@ -24,7 +24,7 @@
 
 <div class="container">
     <div class="bill-info">
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-sm-6 col-sm-offset-3 col-xs-12 balance">
                 <h4 class="text-center">Nhập số tiền (VND)</h4>
                 <form>
@@ -36,8 +36,8 @@
                     </div>
                 </form>
             </div>
-        </div>
-        <div id="addFundTab" class="col-xs-12 payment-method tab-pane fade in" style="display:none">
+        </div> -->
+        <div id="addFundTab" class="col-xs-12 payment-method tab-pane fade in" style="display:block">
             <div class="row">
                 <ul>
                     @if ( $internet_banking->status == 1 )
@@ -97,8 +97,8 @@
                                     <p class="bank-description">
                                         {!! $bank_transfer->description !!}
                                     </p>
-                                    <div class="tit">Số tiền:</div>
-                                    <div class="mess amount-money"></div>
+                                    <!-- <div class="tit">Số tiền:</div> -->
+                                    <!-- <div class="mess amount-money"></div> -->
                                     <div class="tit">Nội dung chuyển khoản:</div>
                                     <div class="mess">NapTienTK: {{Auth::user()->id}}</div>
                                     <p class="bank-instruction">
@@ -204,7 +204,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-xs-8">
+                                        <div class="col-xs-6">
                                             <button class="btn btn-primary btn-lg btn-block" type="submit" id="stripeSubmit">Thanh toán</button>
                                         </div>
                                         
@@ -215,8 +215,8 @@
                                         <label class="form-check-label" for="defaultCheck1" >Lưu và bảo mật cho lần thanh toán sau</label>
                                     </div> -->
                                 </form>
-                                <div class="col-xs-4">
-                                    <button class="btn btn-default btn-lg btn-block" id="cancel" style="margin-top: -39%;margin-left: 230%;">Hủy</button>
+                                <div class="col-xs-6">
+                                    <button class="btn btn-primary btn-lg btn-block" id="cancel" style="margin-top: -25%;margin-left: 111%;">Hủy</button>
                                 </div>
                             </div>
                         </div>
@@ -278,13 +278,13 @@
             return false;
         }
     }
-    document.getElementById('amountMoney').onkeydown = function(e) {
-        if(!((e.keyCode > 95 && e.keyCode < 106)
-        || (e.keyCode > 47 && e.keyCode < 58)
-        || e.keyCode == 8)) {
-            return false;
-        }
-    }
+    // document.getElementById('amountMoney').onkeydown = function(e) {
+    //     if(!((e.keyCode > 95 && e.keyCode < 106)
+    //     || (e.keyCode > 47 && e.keyCode < 58)
+    //     || e.keyCode == 8)) {
+    //         return false;
+    //     }
+    // }
     $(function() {
 
         var $form = $(".require-validation");
@@ -388,11 +388,11 @@
         }
 
     });
-    $('.btn-confirm-money').click(function(){
-        var amount = $('#amountMoney').val();
-        $('.amount-money').html(numberFormat(amount, 0, '.', '.') + ' VND')
-        $('.payment-method').css('display', 'block')
-    })
+    // $('.btn-confirm-money').click(function(){
+    //     var amount = $('#amountMoney').val();
+    //     $('.amount-money').html(numberFormat(amount, 0, '.', '.') + ' VND')
+    //     $('.payment-method').css('display', 'block')
+    // })
 
     $(document).ready(function() {
         var dataObject = [
