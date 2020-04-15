@@ -265,7 +265,7 @@ class CourseController extends Controller
                                                 ->join('videos', 'videos.unit_id', '=', 'units.id')
                                                 ->select('units.id')
                                                 ->where('courses.id', $request->course_id)
-                                                ->whereIn('videos.state', [1,2,4])
+                                                ->whereIn('videos.state', [1,2,3,4])
                                                 ->count();
                     $count_course_pending = Course::where('status', '!=', -100)->join('units', 'units.course_id', '=', 'courses.id')
                                                 ->join('videos', 'videos.unit_id', '=', 'units.id')

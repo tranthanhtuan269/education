@@ -18,7 +18,7 @@ class Unit extends Model
 
     public function videos()
     {
-        return $this->hasMany('App\Video')->whereIn('state', [1,2,4])->orderBy('index', 'asc');
+        return $this->hasMany('App\Video')->whereIn('state', [1,2,3,4])->orderBy('index', 'asc');
     }
 
     public function videosNoState()
@@ -33,6 +33,6 @@ class Unit extends Model
 
     public function timeLessonActive()
     {
-        return $this->hasMany('App\Video')->whereIn('state', [1,2,4])->orderBy('index', 'asc');
+        return $this->hasMany('App\Video')->whereIn('state', [1,2,3,4])->orderBy('index', 'asc');
     }
 }

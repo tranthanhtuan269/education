@@ -74,10 +74,21 @@
             }
             $video_urls = json_decode($main_video->url_video, true);
             // $urls = [];
-            foreach ($video_urls as $key => $video_url) {
-                $video_urls[$key] = \App\Helper::createSecurityTokenForVideoLink(\Auth::id(), $main_video->id, $video_url);
-            }    
+            
+            // Nếu video chưa convert
+            if ($main_video->state == 3) {
+                //echo public_path('uploads/videos/'. $main_video->link_video);die;
+                foreach ($video_urls as $key => $video_url) {
+                    $video_urls[$key] = \App\Helper::createSecurityTokenForVideoLink(\Auth::id(), $main_video->id, public_path('uploads/videos/'. $main_video->link_video));
+                }   
+            } else {
+                foreach ($video_urls as $key => $video_url) {
+                    $video_urls[$key] = \App\Helper::createSecurityTokenForVideoLink(\Auth::id(), $main_video->id, $video_url);
+                }    
+            }
+
             $video_urls = json_encode($video_urls);
+            dd($video_urls);
 
             $check_course_of_user = false;
             if( $course->userRoles[0]->user_id == Auth::user()->id ){
@@ -178,7 +189,7 @@
                 })
                 
                 if( check_course_of_user == 1 ){
-                    if( main_video_state != 1 && main_video_state != 2 && main_video_state != 4 ) { //1 nghĩa là video active, 2 la 
+                    if( main_video_state != 1 && main_video_state != 2 && main_video_state != 4  && main_video_state != 3) { //1 nghĩa là video active, 2 la 
                         $('#lnDescBtnPlay').remove()
                         Swal.fire({
                             type: 'warning',

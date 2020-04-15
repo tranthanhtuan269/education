@@ -43,7 +43,7 @@
                 <div id="collapse{{ $key_unit }}" class="panel-collapse collapse  @if ($key_unit == 0) in @endif" aria-expanded="true">
                     <div class="panel-body">
                         @foreach ($value_unit->videosLessonList->sortBy('index') as $key_video => $value_video)
-                            @if ( $value_video->state == 1 || $value_video->state == 2 || $value_video->state == 4 )
+                            @if ( $value_video->state == 1 || $value_video->state == 2 || $value_video->state == 4  || $value_video->state == 3 )
                             <div class="col">
                                 <div class="container-fluid">
                                     <div class="row">
@@ -129,7 +129,8 @@
                                 </div>
                             </div>
                             @endif
-                            @if ( $value_video->state == 0 || $value_video->state == 3 )
+                            {{-- @if ( $value_video->state == 0 || $value_video->state == 3 ) --}}
+                            @if ( $value_video->state == 0 )
                                 @if(App\Helper\Helper::getUserRoleOfCourse($info_course->id))
                                 <div class="col">
                                     <div class="container-fluid">
