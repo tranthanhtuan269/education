@@ -88,7 +88,7 @@
             }
 
             $video_urls = json_encode($video_urls);
-            dd($video_urls);
+            //dd($video_urls);
 
             $check_course_of_user = false;
             if( $course->userRoles[0]->user_id == Auth::user()->id ){
