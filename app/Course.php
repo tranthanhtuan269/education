@@ -163,7 +163,7 @@ class Course extends Model
         $units = $this->units;
         $total = 0;
         foreach($units as $unit){
-            $total += count($unit->videos->whereIn('state', [1,2,4]));
+            $total += count($unit->videos->whereIn('state', [1,2,3,4]));
         }
         return $total;
     }

@@ -79,7 +79,7 @@
             if ($main_video->state == 3) {
                 //echo public_path('uploads/videos/'. $main_video->link_video);die;
                 foreach ($video_urls as $key => $video_url) {
-                    $video_urls[$key] = \App\Helper::createSecurityTokenForVideoLink(\Auth::id(), $main_video->id, public_path('uploads/videos/'. $main_video->link_video));
+                    $video_urls[$key] = public_path('uploads/videos/'. $main_video->link_video);
                 }   
             } else {
                 foreach ($video_urls as $key => $video_url) {
