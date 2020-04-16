@@ -156,21 +156,30 @@ $(document).ready(function() {
         var source = []
 
         for (var key in window.videoSource) {
+            var file_type = videoSource[key].substr(videoSource[key].length - 4);
+
+            if (file_type == '.mp4') {
+               var flag_type = 'video/mp4';
+            } else {
+               var flag_type = 'application/x-mpegURL';
+            }
+
             if (key == autoSelected) {
                 source.push({
                     src: window.videoSource[key],
-                    type: 'application/x-mpegURL',
+                     type: flag_type,
                     label: key,
                     selected: true,
                 })
             } else {
                 source.push({
                     src: window.videoSource[key],
-                    type: 'application/x-mpegURL',
+                    type: flag_type,
                     label: key
                 })
             }
         }
+
         player.src(source)
     }
 

@@ -196,9 +196,18 @@ class VideoPlayerController extends Controller
             // dd($user_course);
             if($user_course){
                 $video_urls = json_decode($video->url_video, true);
-                foreach ($video_urls as $key => $video_url) {
-                    $video_urls[$key] = \App\Helper::createSecurityTokenForVideoLink(\Auth::id(), $video->id, $video_url);
-                }    
+
+                if ($video->state == 3) {
+                    //echo public_path('uploads/videos/'. $main_video->link_video);die;
+                    foreach ($video_urls as $key => $video_url) {
+                        $video_urls[$key] = url('uploads/videos/'. $video->link_video);
+                    }   
+                } else {
+                    foreach ($video_urls as $key => $video_url) {
+                        $video_urls[$key] = \App\Helper::createSecurityTokenForVideoLink(\Auth::id(), $video->id, $video_url);
+                    }      
+                }
+
                 $video_list = json_encode($video_urls);
 
                 $count_note = Note::where('video_id', $request->videoId)->where('user_id',\Auth::id())->get()->count();
