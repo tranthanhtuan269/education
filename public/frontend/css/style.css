@@ -869,7 +869,9 @@ nav .pagination li a img {
     border-bottom: 1px solid #ccc;
     padding-top: 15px;
 }
-
+.unica-home-menutop .db-item li .student-mailbox img{
+    height: 21px;
+}
 .unica-sl-cart {
     color: #FFFFFF;
     font-size: 11px;

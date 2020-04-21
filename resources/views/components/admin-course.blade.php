@@ -202,8 +202,7 @@
                                 <script>
                                         CKEDITOR.replace( 'description-course-{{ $course->id }}', {
                                                 height: '300px',
-                                            },
-                                        )
+                                         });
                                 </script>
                                 <div class="form-html-validate description"></div>
                             </div>
@@ -287,8 +286,7 @@
                                         ],
                                         // removeButtons : 'Anchor,About,Link,Unlink,Outdent,Indent,Strike,Underline,Undo,Redo,Cut,Copy,Paste,Subscript,Superscript'
                                         height: '299px',
-                                    },
-                                );
+                                });
                             </script>
                             <div class="form-html-validate will_learn"></div>
                         </div>
