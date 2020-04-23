@@ -260,7 +260,7 @@ class CourseController extends Controller
                 $course->status = $request->status;
                 
                 if($request->status == 1){
-                    // BaTV - Ktra xem tất cả các bài giảng trong khóa học đó đã được duyệt hết chưa
+                    // BaTV - Ktra xem tất cả các bài giảng trong khóa học đó  đã được duyệt hết chưa
                     $count_course_active = Course::where('status', '!=', -100)->join('units', 'units.course_id', '=', 'courses.id')
                                                 ->join('videos', 'videos.unit_id', '=', 'units.id')
                                                 ->select('units.id')
@@ -288,7 +288,7 @@ class CourseController extends Controller
                     if ($count_course_active == $count_course_pending) {
                         $course->save();
                         if (count($course->Lecturers()) > 0){
-                            \App\Helper\Helper::addAlertCustomize($course->Lecturers()[0]->user, "Khóa học " . $course->name . "đã được duyệt", "Chúc mừng bạn! Khóa học <a href='" . url('/') . "/course/" . $course->id . "/" . $course->slug . "'>" . $course->name . "</a> đã được duyệt", true);
+                            \App\Helper\Helper::addAlertCustomize($course->Lecturers()[0]->user, "Khóa học " . $course->name . " đã được duyệt", "Chúc mừng bạn! Khóa học <a href='" . url('/') . "/course/" . $course->id . "/" . $course->slug . "'>" . $course->name . "</a>  đã được duyệt", true);
                         }
                         $res = array('status' => "200", "message" => "Duyệt thành công");
                     } else if($count_course_request > 0){
@@ -447,7 +447,7 @@ class CourseController extends Controller
                 $course->category_id          = $temp_course->category_id;
                 $course->link_intro           = $temp_course->link_intro;
                 $course->updated_at           = date('Y-m-d H:i:s');
-                \App\Helper\Helper::addAlertCustomize($course->Lecturers()[0]->user, "Yêu cầu sửa khóa học " . $course->name . " đã được duyệt", "Chúc mừng bạn! Yêu cầu sửa khóa học <a href='" . url('/') . "/course/" . $course->id . "/" . $course->slug . "'>" . $course->name . "</a> đã được duyệt", true);
+                \App\Helper\Helper::addAlertCustomize($course->Lecturers()[0]->user, "Yêu cầu sửa khóa học " . $course->name . "  đã được duyệt", "Chúc mừng bạn! Yêu cầu sửa khóa học <a href='" . url('/') . "/course/" . $course->id . "/" . $course->slug . "'>" . $course->name . "</a>  đã được duyệt", true);
                 $course->save();
                 $temp_course->delete();
                 return response()->json(array('status' => '200', 'message' => 'Duyệt yêu cầu sửa khóa học thành công.'));
@@ -535,14 +535,14 @@ class CourseController extends Controller
                 }else{
                     $course->status = Config::get('app.course_stop_selling');
                     $course->save();
-                    \App\Helper\Helper::addAlertCustomize($course->Lecturers()[0]->user, "Yêu cầu ngừng bán khóa học " . $course->name . "đã được duyệt", "Chúc mừng bạn! Yêu cầu ngừng bán khóa học <a href='" . url('/') . "/course/" . $course->id . "/" . $course->slug . "'>" . $course->name . "</a> đã được duyệt", true);
+                    \App\Helper\Helper::addAlertCustomize($course->Lecturers()[0]->user, "Yêu cầu ngừng bán khóa học " . $course->name . " đã được duyệt", "Chúc mừng bạn! Yêu cầu ngừng bán khóa học <a href='" . url('/') . "/course/" . $course->id . "/" . $course->slug . "'>" . $course->name . "</a>  đã được duyệt", true);
                     return response()->json(array('status' => '200', 'message' => 'Khóa học của bạn đã được ngừng bán.'));
                 }
             }
             if ( $course->status == Config::get('app.course_stop_selling') ){
                 $course->status = Config::get('app.course_active');
                 $course->save();
-                \App\Helper\Helper::addAlertCustomize($course->Lecturers()[0]->user, "Yêu cầu bán khóa học " . $course->name . "đã được duyệt", "Chúc mừng bạn! Yêu cầu bán khóa học <a href='" . url('/') . "/course/" . $course->id . "/" . $course->slug . "'>" . $course->name . "</a> đã được duyệt", true);
+                \App\Helper\Helper::addAlertCustomize($course->Lecturers()[0]->user, "Yêu cầu bán khóa học " . $course->name . " đã được duyệt", "Chúc mừng bạn! Yêu cầu bán khóa học <a href='" . url('/') . "/course/" . $course->id . "/" . $course->slug . "'>" . $course->name . "</a>  đã được duyệt", true);
                 return response()->json(array('status' => '200', 'message' => 'Khóa học của bạn đã được tiếp tục bán.'));
             }
             return response()->json(array('status' => '404', 'message' => 'Thao tác không thành công.'));
