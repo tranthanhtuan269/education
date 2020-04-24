@@ -141,6 +141,8 @@ $(function() {
 $(document).ready(function() {
     var student = jQuery.noConflict();
 
+
+
     student('#studentChangePassword').click(function(e){
         e.stopPropagation()
         e.preventDefault()
@@ -266,6 +268,9 @@ $(document).ready(function() {
                 }else{
                     $('.cropit-image-zoom-input').show().css('padding-top', '15px');
                     // $('.rotate-btn-group').show();
+                    if ($('cropit-preview-image').data('src') != '') {
+                        $('.sample-avatar').css('display', 'none')
+                    }
                 }
             };
             img.src = _URL.createObjectURL(file);

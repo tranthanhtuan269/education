@@ -464,6 +464,9 @@
                     }else{
                         $('.cropit-image-zoom-input').show().css('padding-top', '15px');
                         // $('.rotate-btn-group').show();
+                        if ($('cropit-preview-image').data('src') != '') {
+                            $('.sample-avatar').css('display', 'none')
+                        }
                     }
                 };
                 img.src = _URL.createObjectURL(file);
