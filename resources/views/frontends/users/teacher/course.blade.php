@@ -523,7 +523,7 @@
                     $('.edit-document-field').append(html)
                 }
             }
-            $('#editVideoDocument').val("");
+            $('#editVideoDocument').val(" ");
         })
 
         var activeFileToDelete = []
@@ -537,20 +537,22 @@
                 if(result.value){
                     var indexToRemove = $(this).attr("data-index")
                     var name = $(this).parent().parent().find('.pull-left').text()
-                    console.log(name)
+                    // console.log(name)
                     var fileId = $(this).attr('data-file-id')
                     var isActive = $(this).attr('data-active') //kiểm tra tài liệu có trong database hay không
                     // console.log(fileNameListEdit);
-                    if(editFiles[indexToRemove] != undefined){
-                        fileNameListEdit = fileNameListEdit.replace("; " + 
-                            editFiles[indexToRemove].name, "");
-                    }else{
-                        fileNameListEdit = fileNameListEdit.replace("; " + 
-                            name, "");
+                    if (!isActive) {
+                        if(editFiles[indexToRemove] != undefined){
+                            fileNameListEdit = fileNameListEdit.replace("; " + 
+                                editFiles[indexToRemove].name, "");
+                        }else{
+                            fileNameListEdit = fileNameListEdit.replace("; " + 
+                                name, "");
 
+                        }
+                        editFiles.splice(indexToRemove,1)
+                        // console.log(editFiles);
                     }
-                    editFiles.splice(indexToRemove,1)
-                    // console.log(fileNameListEdit);
 
                     $(this).parent().parent().remove()
                     if (isActive) {
@@ -561,7 +563,7 @@
                         $(value).attr('data-index', index)
                         $(value).children('span.btn-delete-edit-document').children('button').attr('data-index', index)
                     })
-                    $('#editVideoDocument').val("");
+                    $('#editVideoDocument').val(" ");
                 }
             })
 
@@ -928,7 +930,7 @@
                             $('#editVideoModal').modal('hide')
                             // $('#listVideo').modal('toggle')
                             editFiles = []
-                            $("#editVideoDocument").val("")
+                            $("#editVideoDocument").val(" ")
                             $("#videoInEdit")[0].pause()
                             Swal.fire({
                                 type: 'success',
