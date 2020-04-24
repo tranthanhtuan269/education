@@ -541,7 +541,9 @@
                     var fileId = $(this).attr('data-file-id')
                     var isActive = $(this).attr('data-active') //kiểm tra tài liệu có trong database hay không
                     // console.log(fileNameListEdit);
-                    if (!isActive) {
+              
+                    if (isActive == 'false') {
+                        // alert(1)
                         if(editFiles[indexToRemove] != undefined){
                             fileNameListEdit = fileNameListEdit.replace("; " + 
                                 editFiles[indexToRemove].name, "");
