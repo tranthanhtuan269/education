@@ -280,10 +280,11 @@ $(document).ready(function() {
                 alertValidate('Link Facebook không hợp lệ.', 'facebook')
                 flag = false
             }
-        }else{
-            alertValidate('Bạn chưa nhập Facebook.', 'facebook')
-            flag = false
         }
+        // else{
+        //     alertValidate('Bạn chưa nhập Facebook.', 'facebook')
+        //     flag = false
+        // }
         
         var wordCount = addTchCvEditor.wordCount.wordCount
         if ( wordCount > 0 ){
