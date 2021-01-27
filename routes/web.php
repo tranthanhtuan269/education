@@ -1,4 +1,10 @@
 <?php
+// ======START PHỤC VỤ CHO SITE TỔNG HỢP THỐNG KÊ CÁC WEB CỦA TOH TRUE MILK======
+Route::get('save-cache-visited-website', 'StatisticalController@saveVisitedWebsite');
+Route::get('get-data-ajax-highchart','StatisticalController@getDataAjaxHighchart')->name('client.highchart');
+Route::get('get-statistical-7-day-nearest','StatisticalController@getStatistical7DayNearest');
+Route::get('get-info-git-pull-nearest','StatisticalController@getInfoGitPullNearest')->name('client.get-info-git-pull-nearest');
+// ==============END============
 
 Auth::routes();
 
